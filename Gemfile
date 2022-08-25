@@ -65,3 +65,4 @@ end
 
 gem "govuk-components"
 gem "govuk_design_system_formbuilder"
+gem "wicked"

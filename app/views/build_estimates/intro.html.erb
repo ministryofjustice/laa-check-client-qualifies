@@ -1,0 +1,28 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl">Intro Page Template</h1>
+    <%= form_for(@estimate,
+                 url: wizard_path,
+                 method: :put) do |form| %>
+
+      <%= form.govuk_error_summary %>
+
+      <%= form.govuk_collection_radio_buttons :over_60, yes_no_options, :value, :name,
+                                              legend: { text: 'Is your client over 60 years old?' },
+                                              hint: { text: 'Clients over 60 may have some of their capital excluded from a financial eligibility assessment.'
+                                              } %>
+      <%= form.govuk_collection_radio_buttons :dependants, yes_no_options, :value, :name,
+                                              legend: { text: 'Does your client have any dependants?' } %>
+      <%= form.govuk_collection_radio_buttons :employed, employment_options, :value, :name,
+                                              legend: { text: 'What is your clients employment status?' } %>
+      <%= form.govuk_collection_radio_buttons :partner, yes_no_options, :value, :name,
+                                              legend: { text: 'Does your client have a partner?' } %>
+      <%= form.govuk_collection_radio_buttons :passporting, yes_no_options, :value, :name,
+                                              legend: { text: 'Does your client receive a passporting benefit?' } %>
+
+      <%= form.submit t('form.submit'), role: "button", draggable: "false", class: "govuk-button" %>
+    <% end %>
+  </div>
+</div>
+
+
