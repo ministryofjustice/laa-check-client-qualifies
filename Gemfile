@@ -72,3 +72,8 @@ end
 gem "govuk-components"
 gem "govuk_design_system_formbuilder"
 gem "wicked"
+
+group :test do
+  gem "rspec"
+  gem "rspec-rails"
+end
