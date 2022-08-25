@@ -2,3 +2,9 @@ en:
   service:
     name: Estimate financial eligibility for legal aid
     email: eligibility@digital.justice.gov.uk
+  errors:
+    mandatory_yes_no_question: Please answer Yes or No
+    employment_status: Please indicate whether client is employed or not
+    at_least_one_income: Please select at least one option
+  form:
+    submit: Save and continue
