@@ -1,0 +1,38 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl">Monthly Income Page Template</h1>
+    <%= link_to 'Back', previous_wizard_path %>
+    <%= form_for(@estimate,
+                 url: wizard_path,
+                 method: :put) do |form| %>
+      <%= form.govuk_error_summary %>
+
+      <%= form.govuk_check_boxes_fieldset :monthly_incomes,
+                                          legend: { text: "What income does your client receive?" },
+                                          hint: { text: "Select all that apply." } do %>
+        <%= form.govuk_check_box :monthly_incomes, 'employment_income',
+                                 label: { text: "Employment Income" },
+                                 link_errors: true do %>
+          <%= form.govuk_text_field :employment_income,
+                                    width: 5,
+                                    label: { text: "Enter gross monthly income" },
+                                    prefix_text: '&pound;'.html_safe %>
+        <% end %>
+
+        <%= form.govuk_check_box :monthly_incomes, 'friends_or_family',
+                                 label: { text: "Financial help from friends or family " },
+                                 hint: { text: "For example, money from a family member for rent or bills."} do %>
+          <%= form.govuk_text_field :friends_or_family,
+                                    width: 5,
+                                    label: { text: "Enter monthly amount" },
+                                    prefix_text: '&pound;'.html_safe %>
+        <% end %>
+
+        <%= form.govuk_check_box_divider %>
+
+        <%= form.govuk_check_box :monthly_incomes, :none, multiple: false, exclusive: true, label: { text: "My client has no monthly income" } %>
+      <% end %>
+    <%= form.submit t('form.submit'), role: "button", draggable: "false", class: "govuk-button" %>
+  <% end %>
+  </div>
+</div>
