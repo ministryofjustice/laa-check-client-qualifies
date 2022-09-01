@@ -52,6 +52,9 @@ RUN rm -rf node_modules log/* tmp/* /tmp && \
     find /usr/local/bundle/gems -name "*.o" -delete && \
     find /usr/local/bundle/gems -name "*.html" -delete
 
+# Ensure everything is executable
+RUN chmod +x /usr/local/bin/*
+
 # Build runtime image
 FROM ruby:3.1.1-alpine as production
 
