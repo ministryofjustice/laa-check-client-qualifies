@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: laa-estimate-eligibility-service
+  labels:
+    app: laa-estimate-eligibility-service
+spec:
+  ports:
+  - port: 4567
+    name: http
+    targetPort: 4567
+  selector:
+    app: laa-estimate-eligibility

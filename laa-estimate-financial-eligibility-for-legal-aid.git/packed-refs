@@ -1,0 +1,24 @@
+# pack-refs with: peeled fully-peeled sorted 
+709e43f6c89c26e20b86bc2f9c51284b83d75d93 refs/heads/axe-core-spike
+3c0fcf37585ac402728ca98887b9c51120940dff refs/heads/cfe-api-storage
+fed0b9ebd6e81049e0334d40bef1d071b4de6523 refs/heads/cfe-integration-spike
+393037afcf54260c1971146ac2efdddf9f9bc0d1 refs/heads/dependabot/npm_and_yarn/sass-1.54.8
+f12b7af46f1519de3c2d6852cdfe8dec0c2fe37c refs/heads/deploy-with-helm-and-circle
+91927dad68c39df4da8f52793281f0a9492f694c refs/heads/i18n-conversion
+f422323669e1aefcc7a1cf00842e7992a5388dfc refs/heads/main
+2f1d49d0463d6533e99dff178543edce0baeee4e refs/heads/spike-wizard-gem
+0391c6692a81e99a196be6bd6783096faf8ec3a1 refs/pull/1/head
+709e43f6c89c26e20b86bc2f9c51284b83d75d93 refs/pull/10/head
+86aa9f1a501de046a58047560618286c15c78b75 refs/pull/10/merge
+2f1d49d0463d6533e99dff178543edce0baeee4e refs/pull/2/head
+64c5ffdab201d048c7672e438ec1d8e87106bd02 refs/pull/2/merge
+40f1afc6c558f9f4b7bc36d5edc0949353461e3a refs/pull/3/head
+d0a377685fdc2343ed9f223f1cd5ea8194b64230 refs/pull/4/head
+393037afcf54260c1971146ac2efdddf9f9bc0d1 refs/pull/5/head
+acdc9294a8a067c9f00d52543181c3cb42d16366 refs/pull/5/merge
+91927dad68c39df4da8f52793281f0a9492f694c refs/pull/6/head
+658b54c55616d372a52ca361348891ff38926e6c refs/pull/6/merge
+fed0b9ebd6e81049e0334d40bef1d071b4de6523 refs/pull/7/head
+d15b93ed160c1fd2d0eb39b1e6419075baa537ff refs/pull/7/merge
+35fc28612dcb21b11ac49d0ec85ccfcb96b55401 refs/pull/8/head
+2efd180da9e0313a28356494dbf2ca2b7b2146cb refs/pull/9/head
