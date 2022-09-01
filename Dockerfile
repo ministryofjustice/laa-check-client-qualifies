@@ -3,7 +3,7 @@
 # production: runs the actual app
 
 # Build builder image
-FROM ruby:3.1.1-alpine as builder
+FROM ruby:3.1.2-alpine as builder
 
 # RUN apk -U upgrade && \
 #     apk add --update --no-cache gcc git libc6-compat libc-dev make nodejs \
@@ -25,12 +25,18 @@ RUN apk add --no-cache build-base yarn postgresql13-dev
 COPY .ruby-version Gemfile Gemfile.lock ./
 
 # Install gems and remove gem cache
-RUN bundler -v && \
-    bundle config set no-cache 'true' && \
-    bundle config set no-binstubs 'true' && \
-    bundle config set without 'development test' && \
-    bundle install --retry=5 --jobs=4 && \
-    rm -rf /usr/local/bundle/cache
+#RUN bundler -v && \
+#    bundle config set no-cache 'true' && \
+#    bundle config set no-binstubs 'true' && \
+#    bundle config set without 'development test' && \
+#    bundle install --retry=5 --jobs=4 && \
+#    rm -rf /usr/local/bundle/cache \
+
+RUN gem update --system \
+&& bundle config --local without 'test development' \
+&& bundle config build.nokogiri --use-system-libraries \
+&& bundle install
+
 
 # Install node packages defined in package.json
 COPY package.json yarn.lock ./
@@ -43,6 +49,8 @@ COPY . .
 RUN RAILS_ENV=production SECRET_KEY_BASE=required-to-run-but-not-used \
     bundle exec rails assets:precompile
 
+RUN chmod +x ./bin/uat_deploy
+
 # Cleanup to save space in the production image
 RUN rm -rf node_modules log/* tmp/* /tmp && \
     rm -rf /usr/local/bundle/cache && \
@@ -52,11 +60,8 @@ RUN rm -rf node_modules log/* tmp/* /tmp && \
     find /usr/local/bundle/gems -name "*.o" -delete && \
     find /usr/local/bundle/gems -name "*.html" -delete
 
-# Ensure everything is executable
-RUN chmod +x /usr/local/bin/*
-
 # Build runtime image
-FROM ruby:3.1.1-alpine as production
+FROM ruby:3.1.2-alpine as production
 
 # The application runs from /app
 WORKDIR /app

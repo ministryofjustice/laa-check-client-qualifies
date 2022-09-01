@@ -18,6 +18,7 @@ references:
       command: |
         echo "${GIT_CRYPT_KEY}" | base64 -d > git-crypt.key
         git-crypt unlock git-crypt.key
+
   authenticate_k8s_live: &authenticate_k8s_live
     run:
       name: Authenticate with cluster
@@ -25,10 +26,44 @@ references:
         echo -n ${K8S_CLUSTER_CERT} | base64 -d > ./ca.crt
         kubectl config set-cluster ${K8S_CLUSTER_NAME} --certificate-authority=./ca.crt --server=https://${K8S_CLUSTER_NAME}
         kubectl config set-credentials circleci --token=${K8S_TOKEN}
-        kubectl config set-context ${K8S_CLUSTER_NAME} --cluster=${K8S_CLUSTER_NAME_LIVE} --user=circleci --namespace=${K8S_NAMESPACE}
+        kubectl config set-context ${K8S_CLUSTER_NAME} --cluster=${K8S_CLUSTER_NAME} --user=circleci --namespace=${K8S_NAMESPACE}
         kubectl config use-context ${K8S_CLUSTER_NAME}
+        echo ${K8S_CLUSTER_NAME}
+
+  build_docker_image: &build_docker_image
+    run:
+      name: Build docker image
+      command: |
+        $(aws ecr get-login --no-include-email)
+        docker build \
+        --build-arg BUILD_DATE=$(date +%Y-%m-%dT%H:%M:%S%z) \
+        --build-arg BUILD_TAG="app-${CIRCLE_SHA1}" \
+        --build-arg APP_BRANCH=${CIRCLE_BRANCH} \
+        -t app .
+
+  push_to_ecr: &push_to_ecr
+    run:
+      name: Push image to ecr repo
+      command: |
+        docker tag app "${ECR_ENDPOINT}:${CIRCLE_SHA1}"
+        docker push "${ECR_ENDPOINT}:${CIRCLE_SHA1}"
+
+        if [ "${CIRCLE_BRANCH}" == "main" ]; then
+          docker tag app "${ECR_ENDPOINT}:latest"
+          docker push "${ECR_ENDPOINT}:latest"
+        fi
 
 jobs:
+  build_and_push_to_ecr:
+    executor: cloud-platform-executor
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 20.10.7
+      - *decrypt_secrets
+      - *build_docker_image
+      - *push_to_ecr
+
   deploy_uat:
     executor: cloud-platform-executor
     steps:
@@ -38,29 +73,43 @@ jobs:
       - *decrypt_secrets
       - *authenticate_k8s_live
       - deploy:
-          name: Deploy LAA Estimate Eligibility Service UAT
-          command: -sh ./bin/uat_deploy
+          name: Deploy LAA Estimate Financial Eligibility Service UAT
+          command: |
+            echo "Installing LEFEFLA helm chart"
+            helm upgrade uat-estimate-eligibility ./deploy/laa-estimate-eligibility/. \
+                                      --install --wait \
+                                      --namespace=${K8S_NAMESPACE} \
+                                      --values ./deploy/laa-estimate-eligibility/values-uat.yaml \
+                                      --debug
+#                                      --set image.repository="$ECR_ENDPOINT" \
+#                                      --set image.tag="${CIRCLE_SHA1}"
+#            ./bin/uat_deploy
+
   deploy_staging:
     executor: cloud-platform-executor
     steps:
       - checkout
       - setup_remote_docker:
           docker_layer_caching: true
-#      - *decrypt_secrets
+      - *decrypt_secrets
       - *authenticate_k8s_live
       - deploy:
           name: Deploy LAA Estimate Eligibility Service to Staging
           command: |
-            helm upgrade laa-hmrc-interface ./deploy/helm/. \
-                          --install --wait \
-                          --namespace=${K8S_NAMESPACE} \
-                          --values ./deploy/helm/values-staging.yaml \
-                          --set image.repository="$ECR_ENDPOINT/laa-apply-for-legal-aid/laa-hmrc-interface-uat-ecr" \
-                          --set image.tag="${CIRCLE_SHA1}"
+            helm upgrade estimate-financial-eligibility ./deploy/laa-estimate-eligibility/. --install --namespace=${K8S_NAMESPACE}
+#            helm upgrade estimate-financial-eligibility ./deploy/laa-estimate-eligibility/. \
+#                          --install --wait \
+#                          --namespace=${K8S_NAMESPACE} \
+#                          --values ./deploy/laa-estimate-eligibility/values-staging.yaml \
+#                          --set image.repository="$ECR_ENDPOINT" \
+#                          --set image.tag="${CIRCLE_SHA1}"
 
 workflows:
   version: 2
   open_pr:
     jobs:
+      - build_and_push_to_ecr
       - deploy_uat:
           context: laa-estimate-eligibility-uat
+#      - deploy_staging:
+#          context: laa-estimate-eligibility-staging
