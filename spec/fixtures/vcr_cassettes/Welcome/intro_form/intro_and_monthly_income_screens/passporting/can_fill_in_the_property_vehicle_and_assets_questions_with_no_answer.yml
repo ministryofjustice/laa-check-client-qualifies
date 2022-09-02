@@ -1,0 +1,211 @@
+---
+http_interactions:
+  - request:
+      method: post
+      uri: https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/assessments
+      body:
+        encoding: UTF-8
+        string: '{"client_reference_id":"LA-FOO-BAR","submission_date":"2022-09-05"}'
+      headers:
+        Accept:
+          - application/json;version=5
+        User-Agent:
+          - Faraday v2.5.2
+    response:
+      status:
+        code: 200
+        message: OK
+      headers:
+        date:
+          - Tue, 06 Sep 2022 13:13:08 GMT
+        content-type:
+          - application/json; charset=utf-8
+        transfer-encoding:
+          - chunked
+        connection:
+          - keep-alive
+        x-frame-options:
+          - SAMEORIGIN
+        x-xss-protection:
+          - "0"
+        x-content-type-options:
+          - nosniff
+        x-download-options:
+          - noopen
+        x-permitted-cross-domain-policies:
+          - none
+        referrer-policy:
+          - strict-origin-when-cross-origin
+        vary:
+          - Accept
+        etag:
+          - W/"c4b8a1cc9580915c37389ae29472afa4"
+        cache-control:
+          - max-age=0, private, must-revalidate
+        x-request-id:
+          - dd6958e50c77915a3d7b9d773990e240
+        x-runtime:
+          - "0.045719"
+        strict-transport-security:
+          - max-age=15724800; includeSubDomains
+      body:
+        encoding: UTF-8
+        string: '{"success":true,"assessment_id":"42db3dbc-e5d3-43e0-aec5-7f7f021d1d20","errors":[]}'
+    recorded_at: Mon, 05 Sep 2022 09:00:00 GMT
+  - request:
+      method: post
+      uri: https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/assessments/42db3dbc-e5d3-43e0-aec5-7f7f021d1d20/proceeding_types
+      body:
+        encoding: UTF-8
+        string: '{"proceeding_types":[{"ccms_code":"DA001","client_involvement_type":"A"},{"ccms_code":"SE013","client_involvement_type":"I"}]}'
+      headers:
+        Accept:
+          - application/json;version=5
+        User-Agent:
+          - Faraday v2.5.2
+    response:
+      status:
+        code: 200
+        message: OK
+      headers:
+        date:
+          - Tue, 06 Sep 2022 13:13:08 GMT
+        content-type:
+          - application/json; charset=utf-8
+        transfer-encoding:
+          - chunked
+        connection:
+          - keep-alive
+        x-frame-options:
+          - SAMEORIGIN
+        x-xss-protection:
+          - "0"
+        x-content-type-options:
+          - nosniff
+        x-download-options:
+          - noopen
+        x-permitted-cross-domain-policies:
+          - none
+        referrer-policy:
+          - strict-origin-when-cross-origin
+        vary:
+          - Accept
+        etag:
+          - W/"e156c1de751f0fc41f3ce5edefd256d2"
+        cache-control:
+          - max-age=0, private, must-revalidate
+        x-request-id:
+          - 811dcf1a86883b7aa141efd3d1df7f58
+        x-runtime:
+          - "0.035272"
+        strict-transport-security:
+          - max-age=15724800; includeSubDomains
+      body:
+        encoding: UTF-8
+        string: '{"success":true,"errors":[]}'
+    recorded_at: Mon, 05 Sep 2022 09:00:00 GMT
+  - request:
+      method: post
+      uri: https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/assessments/42db3dbc-e5d3-43e0-aec5-7f7f021d1d20/applicant
+      body:
+        encoding: UTF-8
+        string: '{"applicant":{"date_of_birth":"1961-09-05","has_partner_opponent":false,"receives_qualifying_benefit":true}}'
+      headers:
+        Accept:
+          - application/json;version=5
+        User-Agent:
+          - Faraday v2.5.2
+    response:
+      status:
+        code: 200
+        message: OK
+      headers:
+        date:
+          - Tue, 06 Sep 2022 13:13:08 GMT
+        content-type:
+          - application/json; charset=utf-8
+        transfer-encoding:
+          - chunked
+        connection:
+          - keep-alive
+        x-frame-options:
+          - SAMEORIGIN
+        x-xss-protection:
+          - "0"
+        x-content-type-options:
+          - nosniff
+        x-download-options:
+          - noopen
+        x-permitted-cross-domain-policies:
+          - none
+        referrer-policy:
+          - strict-origin-when-cross-origin
+        vary:
+          - Accept
+        etag:
+          - W/"e156c1de751f0fc41f3ce5edefd256d2"
+        cache-control:
+          - max-age=0, private, must-revalidate
+        x-request-id:
+          - b4a473b594ca1c7184905be4be1e4c02
+        x-runtime:
+          - "0.031529"
+        strict-transport-security:
+          - max-age=15724800; includeSubDomains
+      body:
+        encoding: UTF-8
+        string: '{"success":true,"errors":[]}'
+    recorded_at: Mon, 05 Sep 2022 09:00:00 GMT
+  - request:
+      method: get
+      uri: https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/assessments/42db3dbc-e5d3-43e0-aec5-7f7f021d1d20
+      body:
+        encoding: US-ASCII
+        string: ""
+      headers:
+        Accept:
+          - application/json;version=5
+        User-Agent:
+          - Faraday v2.5.2
+    response:
+      status:
+        code: 200
+        message: OK
+      headers:
+        date:
+          - Tue, 06 Sep 2022 13:13:08 GMT
+        content-type:
+          - application/json; charset=utf-8
+        transfer-encoding:
+          - chunked
+        connection:
+          - keep-alive
+        x-frame-options:
+          - SAMEORIGIN
+        x-xss-protection:
+          - "0"
+        x-content-type-options:
+          - nosniff
+        x-download-options:
+          - noopen
+        x-permitted-cross-domain-policies:
+          - none
+        referrer-policy:
+          - strict-origin-when-cross-origin
+        vary:
+          - Accept
+        etag:
+          - W/"6e528518ad3d6d965ae4f994cb02f62e"
+        cache-control:
+          - max-age=0, private, must-revalidate
+        x-request-id:
+          - 474ae00eb7d149686409247118e7ae2f
+        x-runtime:
+          - "0.330162"
+        strict-transport-security:
+          - max-age=15724800; includeSubDomains
+      body:
+        encoding: UTF-8
+        string: '{"version":"5","timestamp":"2022-09-06T13:13:08.742Z","success":true,"result_summary":{"overall_result":{"result":"eligible","capital_contribution":0.0,"income_contribution":0.0,"proceeding_types":[{"ccms_code":"DA001","client_involvement_type":"A","upper_threshold":0.0,"lower_threshold":0.0,"result":"eligible"},{"ccms_code":"SE013","client_involvement_type":"I","upper_threshold":0.0,"lower_threshold":0.0,"result":"eligible"}]},"gross_income":{"total_gross_income":0.0,"proceeding_types":[{"ccms_code":"DA001","client_involvement_type":"A","upper_threshold":999999999999.0,"lower_threshold":0.0,"result":"pending"},{"ccms_code":"SE013","client_involvement_type":"I","upper_threshold":2657.0,"lower_threshold":0.0,"result":"pending"}]},"disposable_income":{"dependant_allowance":0.0,"gross_housing_costs":0.0,"housing_benefit":0.0,"net_housing_costs":0.0,"maintenance_allowance":0.0,"total_outgoings_and_allowances":0.0,"total_disposable_income":0.0,"employment_income":{"gross_income":0.0,"benefits_in_kind":0.0,"tax":0.0,"national_insurance":0.0,"fixed_employment_deduction":0.0,"net_employment_income":0.0},"income_contribution":0.0,"proceeding_types":[{"ccms_code":"DA001","client_involvement_type":"A","upper_threshold":999999999999.0,"lower_threshold":315.0,"result":"pending"},{"ccms_code":"SE013","client_involvement_type":"I","upper_threshold":733.0,"lower_threshold":315.0,"result":"pending"}]},"capital":{"total_liquid":0.0,"total_non_liquid":0.0,"total_vehicle":0.0,"total_property":0.0,"total_mortgage_allowance":999999999999.0,"total_capital":0.0,"pensioner_capital_disregard":100000.0,"capital_contribution":0.0,"assessed_capital":-100000.0,"proceeding_types":[{"ccms_code":"DA001","client_involvement_type":"A","upper_threshold":999999999999.0,"lower_threshold":3000.0,"result":"eligible"},{"ccms_code":"SE013","client_involvement_type":"I","upper_threshold":8000.0,"lower_threshold":3000.0,"result":"eligible"}]}},"assessment":{"id":"42db3dbc-e5d3-43e0-aec5-7f7f021d1d20","client_reference_id":"LA-FOO-BAR","submission_date":"2022-09-05","applicant":{"date_of_birth":"1961-09-05","involvement_type":null,"has_partner_opponent":false,"receives_qualifying_benefit":true,"self_employed":false},"gross_income":{"employment_income":[],"irregular_income":{"monthly_equivalents":{"student_loan":0.0}},"state_benefits":{"monthly_equivalents":{"all_sources":0.0,"cash_transactions":0.0,"bank_transactions":[]}},"other_income":{"monthly_equivalents":{"all_sources":{"friends_or_family":0.0,"maintenance_in":0.0,"property_or_lodger":0.0,"pension":0.0},"bank_transactions":{"friends_or_family":0.0,"maintenance_in":0.0,"property_or_lodger":0.0,"pension":0.0},"cash_transactions":{"friends_or_family":0.0,"maintenance_in":0.0,"property_or_lodger":0.0,"pension":0.0}}}},"disposable_income":{"monthly_equivalents":{"all_sources":{"child_care":0.0,"rent_or_mortgage":0.0,"maintenance_out":0.0,"legal_aid":0.0},"bank_transactions":{"child_care":0.0,"rent_or_mortgage":0.0,"maintenance_out":0.0,"legal_aid":0.0},"cash_transactions":{"child_care":0.0,"rent_or_mortgage":0.0,"maintenance_out":0.0,"legal_aid":0.0}},"childcare_allowance":0.0,"deductions":{"dependants_allowance":0.0,"disregarded_state_benefits":0.0}},"capital":{"capital_items":{"liquid":[],"non_liquid":[],"vehicles":[],"properties":{"main_home":null,"additional_properties":[]}}},"remarks":{}}}'
+    recorded_at: Mon, 05 Sep 2022 09:00:00 GMT
+recorded_with: VCR 6.1.0

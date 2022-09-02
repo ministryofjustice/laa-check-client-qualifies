@@ -8,22 +8,22 @@
       <%= form.govuk_error_summary %>
 
       <%= form.govuk_collection_radio_buttons :over_60,
-                                              yes_no_options, :last, :first,
+                                              yes_no_options, :first, :last,
                                               legend: { text: t('.over_60.legend') },
                                               hint: { text: t('.over_60.hint') } %>
       <%= form.govuk_collection_radio_buttons :dependants,
-                                              yes_no_options, :last, :first,
+                                              yes_no_options, :first, :last,
                                               legend: { text: t('.dependants.legend') },
                                               hint: { text: t('.dependants.hint') } %>
-      <%= form.govuk_collection_radio_buttons :employed, employment_options, :last, :first,
+      <%= form.govuk_collection_radio_buttons :employed, employment_options, :first, :last,
                                               legend: { text: t('.employed.legend') },
                                               hint: { text: t('.employed.hint') }
       %>
-      <%= form.govuk_collection_radio_buttons :partner, yes_no_options, :last, :first,
+      <%= form.govuk_collection_radio_buttons :partner, yes_no_options, :first, :last,
                                               legend: { text: t('.partner.legend') },
                                               hint: { text: t('.partner.hint') }
       %>
-      <%= form.govuk_collection_radio_buttons :passporting, yes_no_options, :last, :first,
+      <%= form.govuk_collection_radio_buttons :passporting, yes_no_options, :first, :last,
                                               legend: { text: t('.passporting.legend') },
                                               hint: { text: t('.passporting.hint') }
       %>

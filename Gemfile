@@ -61,8 +61,11 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
+  gem "vcr"
+  gem "webmock"
 end
 
 gem "govuk-components"
 gem "govuk_design_system_formbuilder"
 gem "wicked"
+gem "faraday"

@@ -1,0 +1,31 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl"><%= t('.heading') %></h1>
+    <%= link_to t('generic.back'), previous_wizard_path, class: 'govuk-back-link' %>
+
+    <%= form_for(@estimate,
+                 url: wizard_path,
+                 method: :put) do |form| %>
+
+      <%= form.govuk_check_boxes_fieldset :assets,
+                                          legend: { text: t('.assets.legend') },
+                                          hint: { text: t('.assets.hint') } do %>
+        <%= form.govuk_check_box :assets, 'savings',
+                                 label: { text: t('.savings.label') },
+                                 hint: { text: t('.savings.hint') },
+                                 link_errors: true do %>
+          <%= form.govuk_text_field :savings,
+                                    width: 5,
+                                    label: { text: t('.savings.input') },
+                                    prefix_text: '&pound;'.html_safe %>
+        <% end %>
+
+        <%= form.govuk_check_box_divider %>
+
+        <%= form.govuk_check_box :assets, 'none', exclusive: true,
+                                   label: { text: t(".none.label") } %>
+      <% end %>
+      <%= form.submit t('generic.submit'), role: "button", draggable: "false", class: "govuk-button" %>
+    <% end %>
+  </div>
+</div>

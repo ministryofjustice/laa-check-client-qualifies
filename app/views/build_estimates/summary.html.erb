@@ -2,5 +2,12 @@
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-xl"><%= t('.heading') %></h1>
     <%= link_to t('generic.back'), previous_wizard_path, class: 'govuk-back-link' %>
+
+    <%= form_for(@estimate,
+                 url: wizard_path,
+                 method: :put) do |form| %>
+
+      <%= form.submit t('generic.submit'), role: "button", draggable: "false", class: "govuk-button" %>
+    <% end %>
   </div>
 </div>

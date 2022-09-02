@@ -5,7 +5,7 @@ en:
   errors:
     mandatory_yes_no_question: Please answer Yes or No
     employment_status: Please indicate whether client is employed or not
-    at_least_one_income: Please select at least one option
+    at_least_one_checkbox: Please select at least one option
   generic:
     submit: Save and continue
     yes_choice: "Yes"
@@ -46,7 +46,37 @@ en:
         input: y
       none:
         label: My client has no monthly income
-    property:
-      heading: Property Page Template
     outgoings:
       heading: Outgoings Page Template
+    client_property:
+      heading: Property Page Template
+      property_owned:
+        legend: Does your client own the home they live in?
+        outright: Yes, owned outright
+        with_mortgage: Yes, with a mortgage or loan
+        none: "No"
+    client_vehicle:
+      heading: Vehicle Page Template
+      vehicle_owned:
+        legend: Does your client own a vehicle?
+    assets:
+      heading: Assets Page Template
+      assets:
+        legend: Which assets does your client have?
+        hint: Select all that apply
+      savings:
+        label: Savings
+        hint: For example, money in current or savings accounts, ISAs, or child accounts your client is a signatory on.
+        input: Enter the total amount
+      none:
+        label: My client has none of these assets
+    summary:
+      heading: Summary Page
+    results:
+      heading: Results Page
+      provided_client_information: You have provided your clients information
+      client-has-to-pay: Based on what you've told us, your client may need to pay towards controlled legal aid work
+      client-may-have-to-pay: "We calculated that your client may have to pay:"
+      income-contribution: per month from their disposable income
+      capital-contribution: from their disposable capital
+      client-still-has-to-apply: You still need to apply for legal aid and provide case details before legal aid can be granted

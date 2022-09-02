@@ -1,0 +1,24 @@
+<h1 class="govuk-heading-xl"><%= t('.heading') %></h1>
+<%= link_to t('generic.back'), previous_wizard_path, class: 'govuk-back-link' %>
+<div class="flash-card">
+  <div class="govuk-panel govuk-panel--confirmation">
+    <h1><%= t('.provided_client_information') %></h1>
+    <h2 class="govuk-heading-m">
+      <strong><%= t('.client-has-to-pay') %></strong>
+      <p><%= t('.client-may-have-to-pay') %></p>
+      <ul>
+        <li>
+          <strong>&pound;<%= number_with_precision(@estimate.dig(:result_summary, :overall_result, :income_contribution), precision: 2) %></strong>
+          <%= t('.income-contribution') %>
+        </li>
+        <li>
+          <strong>&pound;<%= number_with_precision(@estimate.dig(:result_summary, :overall_result, :capital_contribution), precision: 2) %></strong>
+          <%= t('.capital-contribution') %>
+        </li>
+      </ul>
+      <p>
+        <strong><%= t('.client-still-has-to-apply') %></strong>
+      </p>
+    </h2>
+  </div>
+</div>

@@ -61,4 +61,48 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  WebMock.disable_net_connect!(allow_localhost: true)
+  config.around(:each, :vcr) do |example|
+    WebMock.allow_net_connect!
+    example.run
+    WebMock.disable_net_connect!(allow_localhost: true)
+  end
+
+  config.include ActiveSupport::Testing::TimeHelpers
+end
+
+# require 'vcr'
+
+# the default is :once, which seems to mess-up our cassette re-use
+# set VCR=1 when you wish to record new interactions with T3 (hopefully never)
+# set VCR=2 when the world changes dramatically e.g. new host, change API
+RECORD_MODES = {0 => :none, 1 => :new_episodes, 2 => :all}.freeze
+ACCEPT_HEADERS = ["Accept"].freeze
+
+VCR.configure do |config|
+  config.cassette_library_dir = "spec/fixtures/vcr_cassettes"
+  # using this higher-level hook allows WebMock to write-out stub calls when not in VCR-mode
+  config.hook_into :faraday
+  config.configure_rspec_metadata!
+  config.allow_http_connections_when_no_cassette = false
+  # weirdly this assignment is implemented as a merge in VCR, so it only
+  # overwrites the specified configuration options
+  config.default_cassette_options = {
+    record: RECORD_MODES.fetch(ENV.fetch("VCR", "0").to_i),
+    match_requests_on: [
+      :method,
+      :uri,
+      :body,
+      :accept_headers_with_version
+    ]
+  }
+
+  # CFE version info is in the accept header - so if the accept header is different, it is a different request
+  config.register_request_matcher :accept_headers_with_version do |r1, r2|
+    r1_headers = r1.headers.select { |k, _| ACCEPT_HEADERS.include?(k) }
+    r2_headers = r2.headers.select { |k, _| ACCEPT_HEADERS.include?(k) }
+
+    r1_headers == r2_headers
+  end
 end
