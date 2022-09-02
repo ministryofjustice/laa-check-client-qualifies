@@ -2,11 +2,15 @@ module BuildEstimatesHelper
   ALL_ESTIMATE_STEPS = [:intro, :monthly_income, :outgoings, :property].freeze
   PASSPORTED_STEPS = [:intro, :property].freeze
 
-  YES_NO_OPTIONS = [OpenStruct.new(name: "Yes", value: true),
-    OpenStruct.new(name: "No", value: false)].freeze
+  YES_NO_OPTIONS = [
+    [I18n.t("generic.yes_choice"), true],
+    [I18n.t("generic.no_choice"), false]
+  ].freeze
 
-  EMPLOYMENT_OPTIONS = [OpenStruct.new(name: "Employed", value: true),
-    OpenStruct.new(name: "Unemployed", value: false)].freeze
+  EMPLOYMENT_OPTIONS = [
+    [I18n.t("generic.employed"), true],
+    [I18n.t("generic.unemployed"), false]
+  ].freeze
 
   def next_step_for(estimate, step)
     next_estimate_step(steps_list_for(estimate), step)
