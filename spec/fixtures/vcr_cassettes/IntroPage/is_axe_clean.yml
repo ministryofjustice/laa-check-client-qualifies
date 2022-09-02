@@ -1,0 +1,107 @@
+---
+http_interactions:
+  - request:
+      method: post
+      uri: https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/assessments
+      body:
+        encoding: UTF-8
+        string: '{"client_reference_id":"LA-FOO-BAR","submission_date":"2022-09-06"}'
+      headers:
+        Accept:
+          - application/json;version=5
+        User-Agent:
+          - Faraday v2.5.2
+    response:
+      status:
+        code: 200
+        message: OK
+      headers:
+        date:
+          - Tue, 06 Sep 2022 14:51:25 GMT
+        content-type:
+          - application/json; charset=utf-8
+        transfer-encoding:
+          - chunked
+        connection:
+          - keep-alive
+        x-frame-options:
+          - SAMEORIGIN
+        x-xss-protection:
+          - "0"
+        x-content-type-options:
+          - nosniff
+        x-download-options:
+          - noopen
+        x-permitted-cross-domain-policies:
+          - none
+        referrer-policy:
+          - strict-origin-when-cross-origin
+        vary:
+          - Accept
+        etag:
+          - W/"979e74b0313e12c7774284510c39efdb"
+        cache-control:
+          - max-age=0, private, must-revalidate
+        x-request-id:
+          - aa74b576084707d9e531d4d1692d1abf
+        x-runtime:
+          - "0.075722"
+        strict-transport-security:
+          - max-age=15724800; includeSubDomains
+      body:
+        encoding: UTF-8
+        string: '{"success":true,"assessment_id":"47c1d7bf-e495-41fd-ad03-4919e866a2ac","errors":[]}'
+    recorded_at: Tue, 06 Sep 2022 09:00:00 GMT
+  - request:
+      method: post
+      uri: https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/assessments/47c1d7bf-e495-41fd-ad03-4919e866a2ac/proceeding_types
+      body:
+        encoding: UTF-8
+        string: '{"proceeding_types":[{"ccms_code":"DA001","client_involvement_type":"A"},{"ccms_code":"SE013","client_involvement_type":"I"}]}'
+      headers:
+        Accept:
+          - application/json;version=5
+        User-Agent:
+          - Faraday v2.5.2
+    response:
+      status:
+        code: 200
+        message: OK
+      headers:
+        date:
+          - Tue, 06 Sep 2022 14:51:25 GMT
+        content-type:
+          - application/json; charset=utf-8
+        transfer-encoding:
+          - chunked
+        connection:
+          - keep-alive
+        x-frame-options:
+          - SAMEORIGIN
+        x-xss-protection:
+          - "0"
+        x-content-type-options:
+          - nosniff
+        x-download-options:
+          - noopen
+        x-permitted-cross-domain-policies:
+          - none
+        referrer-policy:
+          - strict-origin-when-cross-origin
+        vary:
+          - Accept
+        etag:
+          - W/"e156c1de751f0fc41f3ce5edefd256d2"
+        cache-control:
+          - max-age=0, private, must-revalidate
+        x-request-id:
+          - c2ae81abc5fe7c73a3aaf42dd58f4373
+        x-runtime:
+          - "0.032477"
+        strict-transport-security:
+          - max-age=15724800; includeSubDomains
+      body:
+        encoding: UTF-8
+        string: '{"success":true,"errors":[]}'
+    recorded_at: Tue, 06 Sep 2022 09:00:00 GMT
+recorded_with: VCR 6.1.0

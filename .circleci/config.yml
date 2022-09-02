@@ -17,6 +17,9 @@ executors:
           POSTGRES_USER: ubuntu
           POSTGRES_PASSWORD: ""
 
+orbs:
+  browser-tools: circleci/browser-tools@1.4.0
+
 jobs:
   install_dependencies:
     executor: basic-executor
@@ -63,6 +66,7 @@ jobs:
   run_specs:
     executor: test-executor
     steps:
+      - browser-tools/install-browser-tools
       - checkout
       - attach_workspace:
           at: ./

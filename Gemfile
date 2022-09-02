@@ -63,6 +63,7 @@ group :test do
   gem "webdrivers"
   gem "vcr"
   gem "webmock"
+  gem "axe-core-rspec"
 end
 
 gem "govuk-components"
