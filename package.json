@@ -1,0 +1,13 @@
+{
+  "name": "laa-estimate-financial-eligibility-for-legal-aid",
+  "private": "true",
+  "dependencies": {
+    "esbuild": "^0.15.5",
+    "govuk-frontend": "^4.3.1",
+    "sass": "^1.54.5"
+  },
+  "scripts": {
+    "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets",
+    "build:css": "sass ./app/assets/stylesheets/application.sass.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules"
+  }
+}
