@@ -1,6 +1,6 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-xl">Property Page Template</h1>
-    <%= link_to 'Back', wizard_path(previous_step_for(@intro_form, :property)) %>
+    <h1 class="govuk-heading-xl"><%= t('.heading') %></h1>
+    <%= link_to t('generic.back'), wizard_path(previous_step_for(@intro_form, :property)) %>
   </div>
 </div>
