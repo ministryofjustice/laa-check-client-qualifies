@@ -1,6 +1,18 @@
+<%= link_to t("generic.back"), wizard_path(previous_step_for(@estimate, :property)), class: "govuk-back-link" %>
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-xl"><%= t(".heading") %></h1>
-    <%= link_to t("generic.back"), wizard_path(previous_step_for(@intro_form, :property)) %>
+
+    <%= form_for(@form,
+                 url: wizard_path,
+                 method: :put) do |form| %>
+
+      <%= form.govuk_error_summary %>
+
+      <%= form.govuk_collection_radio_buttons :property_owned, property_options, :first, :last,
+                                              legend: { text: t(".property_owned.legend") } %>
+
+      <%= form.govuk_submit %>
+    <% end %>
   </div>
 </div>

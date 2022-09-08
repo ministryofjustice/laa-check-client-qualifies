@@ -67,8 +67,12 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
+  gem "vcr", require: false
+  gem "webmock", require: false
+  gem "axe-core-rspec"
 end
 
 gem "govuk-components"
 gem "govuk_design_system_formbuilder"
 gem "wicked"
+gem "faraday"

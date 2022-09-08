@@ -18,11 +18,22 @@ en:
           attributes:
             monthly_incomes:
               at_least_one_item: Please select at least one option
+        assets_form:
+          attributes:
+            assets:
+              at_least_one_item: Please select at least one option
+        property_form:
+          attributes:
+            property_owned:
+              inclusion: Please select the option that best decribes your clients property ownership
+        vehicle_form:
+          attributes:
+            vehicle_owned:
+              inclusion: Select yes if the client owns a vehicle
   service:
     name: Estimate financial eligibility for legal aid
     email: eligibility@digital.justice.gov.uk
   generic:
-    submit: Save and continue
     yes_choice: "Yes"
     no_choice: "No"
     employed: Employed
@@ -30,7 +41,8 @@ en:
     back: Back
   build_estimates:
     intro:
-      heading: Intro Page Template
+      heading: Your client's details
+      caption: About your client
       over_60:
         legend: Is your client over 60 years old?
         hint: Clients over 60 may have some of their capital excluded from a financial eligibility assessment.
@@ -46,8 +58,11 @@ en:
       passporting:
         legend: Does your client receive a passporting benefit?
         hint: Includes Universal Credit, Income Support, income-based Jobseeker's Allowance (JSA), income-related Employment and Support Allowance (ESA), and Guarantee Credit element of Pension Credit.
+      dependant_count:
+        label: Enter the number of dependants
     monthly_income:
-      heading: Monthly Income Page Template
+      heading: ''
+      caption: Your client's finances
       monthly_incomes:
         legend: What income does your client receive?
         hint: Select all that apply.
@@ -55,13 +70,85 @@ en:
         label: Employment Income
         hint: ""
         input: Enter gross monthly income
+        input_hint: ""
       friends_or_family:
         label: Financial help from friends or family
         hint: For example, money from a family member for rent or bills.
-        input: y
+        input: Enter monthly amount
+        input_hint: ""
       none:
         label: My client has no monthly income
+      student_finance:
+        label: Student Finance
+        hint: This includes any type of student loan, grant or bursary.
+        input: Enter amount received this academic year
+        input_hint: ""
+      maintenance:
+        label: Maintenance payments from a former partner
+        hint: This includes child maintenance
+        input: Enter monthly amount
+        input_hint: ""
+    outgoings:
+      heading: ""
+      caption: Your client's finances
+      outgoings:
+        legend: What are your client's monthly outgoings and deductions?
+        hint: Select all that apply
+      housing_payments:
+        label: Housing payments
+        hint: "For example: rent, mortgage or board and lodgings"
+        input: Enter monthly amount
+        input_hint: ""
+      none:
+        label: My client has no monthly outgoings or deductions
     property:
       heading: Property Page Template
-    outgoings:
-      heading: Outgoings Page Template
+      property_owned:
+        legend: Does your client own the home they live in?
+        outright: Yes, owned outright
+        with_mortgage: Yes, with a mortgage or loan
+        none: "No"
+    vehicle:
+      caption: Your client's finances
+      heading: ''
+      vehicle_owned:
+        legend: Does your client own a vehicle?
+    assets:
+      heading: Assets Page Template
+      assets:
+        legend: Which assets does your client have?
+        hint: Select all that apply
+      savings:
+        label: Savings
+        hint: For example, money in current or savings accounts, ISAs, or child accounts your client is a signatory on.
+        input: Enter the total amount
+        input_hint: ""
+      none:
+        label: My client has none of these assets
+      investments:
+        label: Investments
+        hint: For example, shares in a public limited company, unit trusts or capital bonds.
+        input: Enter the total value
+        input_hint: ""
+    summary:
+      heading: Summary Page
+    results:
+      heading: Results Page
+      provided_client_information: You have provided your clients information
+      client-has-to-pay: Based on what you've told us, your client may need to pay towards controlled legal aid work
+      client-may-have-to-pay: "We calculated that your client may have to pay:"
+      income-contribution: per month from their disposable income
+      capital-contribution: from their disposable capital
+      client-still-has-to-apply: You still need to apply for legal aid and provide case details before legal aid can be granted
+    property_entry:
+      heading: Your client's property
+      caption: Your client's finances
+      house_value:
+        input: How much is your client's home worth?
+        input_hint: You can use property websites to find the estimated value.
+      mortgage:
+        input: What is the outstanding mortgage on your client's home?
+        input_hint: Check the statement from your client's mortgage provider or lender.
+      percentage_owned:
+        input: What percentage share of their home does your client legally own?
+        input_hint: Your client's name must be on the property deeds, lease or freehold.

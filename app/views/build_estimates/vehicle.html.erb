@@ -1,0 +1,18 @@
+<%= link_to t("generic.back"), wizard_path(previous_step_for(@estimate, :vehicle)), class: "govuk-back-link" %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <span class="govuk-caption-l"><%= t(".caption") %></span>
+
+    <%= form_for(@form,
+                 url: wizard_path,
+                 method: :put) do |form| %>
+
+      <%= form.govuk_error_summary %>
+
+      <%= form.govuk_collection_radio_buttons :vehicle_owned, yes_no_options, :first, :last,
+                                              legend: { text: t(".vehicle_owned.legend"), size: "l" } %>
+
+      <%= form.govuk_submit %>
+    <% end %>
+  </div>
+</div>

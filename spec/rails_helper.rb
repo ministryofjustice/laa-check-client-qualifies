@@ -6,6 +6,7 @@ require_relative "../config/environment"
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 # Add additional requires below this line. Rails is not loaded until this point!
 require "rspec/rails"
+require "axe-rspec"
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -30,6 +31,8 @@ require "rspec/rails"
 #   puts e.to_s.strip
 #   exit 1
 # end
+
+ALLOWED_HOSTS = ["https://chromedriver.storage.googleapis.com"].freeze
 
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
@@ -62,4 +65,13 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  WebMock.disable_net_connect!(allow_localhost: true, allow: ALLOWED_HOSTS)
+  config.around(:each, :vcr) do |example|
+    WebMock.allow_net_connect!
+    example.run
+    WebMock.disable_net_connect!(allow_localhost: true, allow: ALLOWED_HOSTS)
+  end
+
+  config.include ActiveSupport::Testing::TimeHelpers
 end

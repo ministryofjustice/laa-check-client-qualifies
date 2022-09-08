@@ -1,0 +1,111 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/assessments
+    body:
+      encoding: UTF-8
+      string: '{"client_reference_id":"EFE-REFERENCE-ID","submission_date":"2022-09-05"}'
+    headers:
+      Accept:
+      - application/json;version=5
+      User-Agent:
+      - Faraday v2.5.2
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      date:
+      - Fri, 16 Sep 2022 10:41:21 GMT
+      content-type:
+      - application/json; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      x-frame-options:
+      - SAMEORIGIN
+      x-xss-protection:
+      - '0'
+      x-content-type-options:
+      - nosniff
+      x-download-options:
+      - noopen
+      x-permitted-cross-domain-policies:
+      - none
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      vary:
+      - Accept
+      etag:
+      - W/"fb128c9374344ac1eb7cbb08137624f9"
+      cache-control:
+      - max-age=0, private, must-revalidate
+      x-request-id:
+      - c6aa2d66f1082b1606346a991e87e2c9
+      x-runtime:
+      - '0.037581'
+      strict-transport-security:
+      - max-age=15724800; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"assessment_id":"7037ee44-d55e-4556-b27b-b918677681cd","errors":[]}'
+  recorded_at: Mon, 05 Sep 2022 09:00:00 GMT
+- request:
+    method: post
+    uri: https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/assessments/7037ee44-d55e-4556-b27b-b918677681cd/proceeding_types
+    body:
+      encoding: UTF-8
+      string: '{"proceeding_types":[{"ccms_code":"DA001","client_involvement_type":"A"},{"ccms_code":"SE013","client_involvement_type":"I"}]}'
+    headers:
+      Accept:
+      - application/json;version=5
+      User-Agent:
+      - Faraday v2.5.2
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      date:
+      - Fri, 16 Sep 2022 10:41:22 GMT
+      content-type:
+      - application/json; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      x-frame-options:
+      - SAMEORIGIN
+      x-xss-protection:
+      - '0'
+      x-content-type-options:
+      - nosniff
+      x-download-options:
+      - noopen
+      x-permitted-cross-domain-policies:
+      - none
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      vary:
+      - Accept
+      etag:
+      - W/"e156c1de751f0fc41f3ce5edefd256d2"
+      cache-control:
+      - max-age=0, private, must-revalidate
+      x-request-id:
+      - 16c2f9b2362df4ec4713a2d40f8848d8
+      x-runtime:
+      - '0.085093'
+      strict-transport-security:
+      - max-age=15724800; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"errors":[]}'
+  recorded_at: Mon, 05 Sep 2022 09:00:00 GMT
+recorded_with: VCR 6.1.0

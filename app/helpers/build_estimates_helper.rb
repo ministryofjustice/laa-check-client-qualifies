@@ -4,21 +4,23 @@ module BuildEstimatesHelper
   POUND = "&pound;".html_safe
 
   YES_NO_OPTIONS = [
-    [I18n.t("generic.yes_choice"), true],
-    [I18n.t("generic.no_choice"), false],
+    [true, I18n.t("generic.yes_choice")],
+    [false, I18n.t("generic.no_choice")],
   ].freeze
 
   EMPLOYMENT_OPTIONS = [
-    [I18n.t("generic.employed"), true],
-    [I18n.t("generic.unemployed"), false],
+    [true, I18n.t("generic.employed")],
+    [false, I18n.t("generic.unemployed")],
   ].freeze
 
-  def next_step_for(estimate, step)
-    next_estimate_step(steps_list_for(estimate), step)
-  end
+  PROPERTY_OPTIONS = [
+    [:outright, I18n.t("build_estimates.property.property_owned.outright")],
+    [:with_mortgage, I18n.t("build_estimates.property.property_owned.with_mortgage")],
+    [:none, I18n.t("build_estimates.property.property_owned.none")],
+  ].freeze
 
-  def previous_step_for(estimate, step)
-    next_estimate_step(steps_list_for(estimate).reverse, step)
+  def property_options
+    PROPERTY_OPTIONS
   end
 
   def yes_no_options
@@ -27,19 +29,5 @@ module BuildEstimatesHelper
 
   def employment_options
     EMPLOYMENT_OPTIONS
-  end
-
-private
-
-  def steps_list_for(estimate)
-    if estimate.passporting
-      PASSPORTED_STEPS
-    else
-      ALL_ESTIMATE_STEPS
-    end
-  end
-
-  def next_estimate_step(steps, step)
-    steps.each_cons(2).detect { |old, _new| old == step }.last
   end
 end

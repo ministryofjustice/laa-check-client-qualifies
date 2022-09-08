@@ -1,0 +1,165 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/assessments
+    body:
+      encoding: UTF-8
+      string: '{"client_reference_id":"EFE-REFERENCE-ID","submission_date":"2022-09-05"}'
+    headers:
+      Accept:
+      - application/json;version=5
+      User-Agent:
+      - Faraday v2.5.2
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      date:
+      - Fri, 16 Sep 2022 10:41:22 GMT
+      content-type:
+      - application/json; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      x-frame-options:
+      - SAMEORIGIN
+      x-xss-protection:
+      - '0'
+      x-content-type-options:
+      - nosniff
+      x-download-options:
+      - noopen
+      x-permitted-cross-domain-policies:
+      - none
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      vary:
+      - Accept
+      etag:
+      - W/"219c9a3cbfcf2c964789728dbbc08439"
+      cache-control:
+      - max-age=0, private, must-revalidate
+      x-request-id:
+      - 2aee13ad0e127e14a06cfcae8a2fe968
+      x-runtime:
+      - '0.047995'
+      strict-transport-security:
+      - max-age=15724800; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"assessment_id":"7f0a3fbc-280e-4f1b-9b6a-6073347c9784","errors":[]}'
+  recorded_at: Mon, 05 Sep 2022 09:00:00 GMT
+- request:
+    method: post
+    uri: https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/assessments/7f0a3fbc-280e-4f1b-9b6a-6073347c9784/proceeding_types
+    body:
+      encoding: UTF-8
+      string: '{"proceeding_types":[{"ccms_code":"DA001","client_involvement_type":"A"},{"ccms_code":"SE013","client_involvement_type":"I"}]}'
+    headers:
+      Accept:
+      - application/json;version=5
+      User-Agent:
+      - Faraday v2.5.2
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      date:
+      - Fri, 16 Sep 2022 10:41:22 GMT
+      content-type:
+      - application/json; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      x-frame-options:
+      - SAMEORIGIN
+      x-xss-protection:
+      - '0'
+      x-content-type-options:
+      - nosniff
+      x-download-options:
+      - noopen
+      x-permitted-cross-domain-policies:
+      - none
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      vary:
+      - Accept
+      etag:
+      - W/"e156c1de751f0fc41f3ce5edefd256d2"
+      cache-control:
+      - max-age=0, private, must-revalidate
+      x-request-id:
+      - 59b1b4341e7813bbbee8cea150c74f4e
+      x-runtime:
+      - '0.040450'
+      strict-transport-security:
+      - max-age=15724800; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"errors":[]}'
+  recorded_at: Mon, 05 Sep 2022 09:00:00 GMT
+- request:
+    method: post
+    uri: https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/assessments/7f0a3fbc-280e-4f1b-9b6a-6073347c9784/regular_transactions
+    body:
+      encoding: UTF-8
+      string: '{"regular_transactions":[{"operation":"debit","category":"rent_or_mortgage","frequency":"monthly","amount":"300.0"}]}'
+    headers:
+      Accept:
+      - application/json;version=5
+      User-Agent:
+      - Faraday v2.5.2
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      date:
+      - Fri, 16 Sep 2022 10:41:22 GMT
+      content-type:
+      - application/json; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      x-frame-options:
+      - SAMEORIGIN
+      x-xss-protection:
+      - '0'
+      x-content-type-options:
+      - nosniff
+      x-download-options:
+      - noopen
+      x-permitted-cross-domain-policies:
+      - none
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      vary:
+      - Accept
+      etag:
+      - W/"e156c1de751f0fc41f3ce5edefd256d2"
+      cache-control:
+      - max-age=0, private, must-revalidate
+      x-request-id:
+      - 898dea22b54535bd968fc8e3860123bb
+      x-runtime:
+      - '0.029507'
+      strict-transport-security:
+      - max-age=15724800; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"errors":[]}'
+  recorded_at: Mon, 05 Sep 2022 09:00:00 GMT
+recorded_with: VCR 6.1.0
