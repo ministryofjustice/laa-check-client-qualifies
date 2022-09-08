@@ -1,0 +1,86 @@
+version: 2.1
+
+executors:
+  basic-executor:
+    resource_class: small
+    docker:
+      - image: cimg/ruby:3.1.2-browsers
+  test-executor:
+    resource_class: small
+    docker:
+      - image: cimg/ruby:3.1.2-browsers
+        environment:
+          PGHOST: localhost
+          PGUSER: ubuntu
+      - image: cimg/postgres:14.4
+        environment:
+          POSTGRES_USER: ubuntu
+          POSTGRES_PASSWORD: ""
+
+jobs:
+  install_dependencies:
+    executor: basic-executor
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/
+      - restore_cache:
+          key: laa-estimate-eligibility-{{ checksum "Gemfile.lock" }}-v1-{{ checksum "yarn.lock" }}
+      - run:
+          name: Which bundler?
+          command: bundle -v
+      - run:
+          name: Install yarn modules
+          command: yarn install
+      - run:
+          name: Compile frontend JS modules
+          command: yarn build
+      - run:
+          name: Compile frontend SCSS files
+          command: yarn build:css
+      - run:
+          name: Install ruby gems
+          command: |
+            bundle config set path 'vendor/bundle'
+            bundle check || {
+              # Install CMake - required to install undercover gem
+              sudo apt update && sudo apt install cmake
+              # Install missing gems
+              bundle install
+            }
+      - save_cache:
+          key: laa-estimate-eligibility-{{ checksum "Gemfile.lock" }}-v1-{{ checksum "yarn.lock" }}
+          paths:
+            - vendor/bundle
+            - node_modules
+      - persist_to_workspace:
+          root: ./
+          paths:
+            - vendor/bundle
+            - node_modules
+            - app/assets/builds
+            - .bundle/config
+  run_specs:
+    executor: test-executor
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ./
+      - run:
+          name: Setup database
+          environment:
+            RAILS_ENV: test
+          command: |
+            bundle exec rake db:create
+      - run:
+          name: Run tests
+          command: |
+            bundle exec rake spec
+
+workflows:
+  build_and_run_specs:
+    jobs:
+      - install_dependencies
+      - run_specs:
+          requires:
+            - install_dependencies
