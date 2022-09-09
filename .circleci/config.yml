@@ -156,16 +156,7 @@ jobs:
           name: Deploy LAA Estimate Financial Eligibility Service UAT
           command: |
             echo "Installing LEFEFLA helm chart"
-            helm upgrade uat-estimate-eligibility ./deploy/laa-estimate-eligibility/. --install --debug --namespace=${K8S_NAMESPACE} --values ./deploy/laa-estimate-eligibility/values-uat.yaml --set image.repository="$ECR_ENDPOINT" --set image.tag="${CIRCLE_SHA1}"
-#            helm upgrade uat-two-estimate-eligibility ./deploy/laa-estimate-eligibility/. \
-#                                      --install --wait \
-#                                      --namespace=${K8S_NAMESPACE} \
-#                                      --values ./deploy/laa-estimate-eligibility/values-uat.yaml \
-#                                      --debug
-#                                      --set image.repository="$ECR_ENDPOINT" \
-#                                      --set image.tag="${CIRCLE_SHA1}"
-#            ./bin/uat_deploy
-#                     helm upgrade uat-estimate-eligibility ./deploy/laa-estimate-eligibility/. --install --debug --namespace=${K8S_NAMESPACE} --values ./deploy/laa-estimate-eligibility/values-uat.yaml --set image.repository="$ECR_ENDPOINT" --set image.tag="${CIRCLE_SHA1}"
+            ./bin/uat_deploy
 
   deploy_staging:
     executor: cloud-platform-executor
