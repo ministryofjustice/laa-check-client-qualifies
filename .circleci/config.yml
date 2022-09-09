@@ -12,6 +12,7 @@ executors:
         environment:
           PGHOST: localhost
           PGUSER: ubuntu
+          COVERAGE: true
       - image: cimg/postgres:14.4
         environment:
           POSTGRES_USER: ubuntu
@@ -76,6 +77,8 @@ jobs:
           name: Run tests
           command: |
             bundle exec rake spec
+      - store_artifacts:
+          path: coverage
 
 workflows:
   build_and_run_specs:
