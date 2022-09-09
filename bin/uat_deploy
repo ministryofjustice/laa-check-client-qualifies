@@ -2,23 +2,24 @@
 
 deploy() {
   IMG_REPO="$ECR_ENDPOINT"
-  #   below sets RELEASE_BRANCH to be something that can be used as a url
-  RELEASE_BRANCH=$(echo $CIRCLE_BRANCH | tr '[:upper:]' '[:lower:]' | sed 's:^\w*\/::' | tr -s ' _/[]().' '-' | cut -c1-30 | sed 's/-$//')
-  RELEASE_NAME="$RELEASE_BRANCH-estimate-eligibility"
-  RELEASE_HOST="$RELEASE_BRANCH-estimate-eligibility-uat.cloud-platform.service.justice.gov.uk"
-  INGRESS_NAME=$(echo "$RELEASE_NAME-estimate-eligibility-for-legal-aid" | cut -c1-53 | sed 's/-$//')
-  IDENTIFIER="$INGRESS_NAME-${K8S_NAMESPACE}-green"
+  RELEASE_NAME=$(echo $CIRCLE_BRANCH | tr '[:upper:]' '[:lower:]' | sed 's:^\w*\/::' | tr -s ' _/[]().' '-' | cut -c1-30 | sed 's/-$//')
+  echo "this is the release name"
+  echo $RELEASE_NAME
+  RELEASE_HOST="$RELEASE_NAME-estimate-eligibility-uat.cloud-platform.service.justice.gov.uk"
+  IDENTIFIER="$RELEASE_NAME-laa-estimate-eligibility-laa-estimate-financial-eligibility-for-legal-aid-uat-green"
+  echo "release identifier/ingress is"
+  echo $IDENTIFIER
 
-  echo "Deploying CIRCLE_SHA1: $CIRCLE_SHA1 under release name: $RELEASE_NAME"
+  echo "Deploying CIRCLE_SHA1: $CIRCLE_SHA1 under release name: '$RELEASE_NAME'..."
 
   helm upgrade $RELEASE_NAME ./helm_deploy/laa-estimate-eligibility/. \
-                --debug \
+                --debug  \
                 --install --wait \
                 --namespace=${K8S_NAMESPACE} \
                 --values ./helm_deploy/laa-estimate-eligibility/values-uat.yaml \
                 --set deploy.host="$RELEASE_HOST" \
                 --set image.repository="$IMG_REPO" \
-                --set image.tag="${CIRCLE_SHA1}" \
+                --set image.tag="$CIRCLE_SHA1" \
                 --set ingress.hosts="{$RELEASE_HOST}" \
                 --set ingress.annotations."external-dns\.alpha\.kubernetes\.io/set-identifier"="$IDENTIFIER"
 }

@@ -1,57 +1,42 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "laa-estimate-eligibility.fullname" . }}
+  name: {{ template "app.fullname" . }}
   labels:
-{{ include "laa-estimate-eligibility.labels" . | indent 4 }}
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "laa-estimate-eligibility.name" . }}
-      app.kubernetes.io/instance: {{ .Release.Name }}
+      app: {{ template "app.name" . }}
+      release: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ include "laa-estimate-eligibility.name" . }}
-        app.kubernetes.io/instance: {{ .Release.Name }}
+        app: {{ template "app.name" . }}
+        release: {{ .Release.Name }}
     spec:
-    {{- with .Values.imagePullSecrets }}
-      imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
-    {{- end }}
-      serviceAccountName: {{ template "laa-estimate-eligibility.serviceAccountName" . }}
-      securityContext:
-        {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{ .Chart.Name }}
-          securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+        - name: api
+          image: '{{ .Values.image.repository }}:{{ .Values.image.tag }}'
+          imagePullPolicy: IfNotPresent
+{{ include "app.envs" . | nindent 10 }}
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 3000
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /
+              path: /ping.json
               port: http
+            initialDelaySeconds: 30
           readinessProbe:
             httpGet:
-              path: /
+              path: /ping.json
               port: http
+            initialDelaySeconds: 30
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
-      {{- with .Values.nodeSelector }}
-      nodeSelector:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-    {{- with .Values.affinity }}
-      affinity:
-        {{- toYaml . | nindent 8 }}
-    {{- end }}
-    {{- with .Values.tolerations }}
-      tolerations:
-        {{- toYaml . | nindent 8 }}
-    {{- end }}
+{{ toYaml .Values.resources | indent 12 }}

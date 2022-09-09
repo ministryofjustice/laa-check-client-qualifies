@@ -3,13 +3,16 @@
 # production: runs the actual app
 
 # Build builder image
-FROM ruby:3.1.2-alpine3.15 as builder
+FROM ruby:3.1.2-alpine as builder
 
 # RUN apk -U upgrade && \
 #     apk add --update --no-cache gcc git libc6-compat libc-dev make nodejs \
 #     postgresql13-dev yarn
 
 WORKDIR /app
+
+RUN addgroup -g 1000 -S appgroup \
+  && adduser -u 1000 -S appuser -G appgroup
 
 # Add the timezone (builder image) as it's not configured by default in Alpine
 RUN apk add --update --no-cache tzdata && \
@@ -52,11 +55,17 @@ RUN rm -rf node_modules log/* tmp/* /tmp && \
     find /usr/local/bundle/gems -name "*.o" -delete && \
     find /usr/local/bundle/gems -name "*.html" -delete
 
+RUN chown -R appuser:appgroup /app
+
+USER 1000
+
 # Build runtime image
-FROM ruby:3.1.2-alpine3.15 as production
+FROM ruby:3.1.2-alpine as production
 
 # The application runs from /app
 WORKDIR /app
+RUN addgroup -g 1000 -S appgroup \
+  && adduser -u 1000 -S appuser -G appgroup
 
 # Add the timezone (prod image) as it's not configured by default in Alpine
 RUN apk add --update --no-cache tzdata && \
@@ -70,5 +79,9 @@ RUN apk add --no-cache libpq
 COPY --from=builder /app /app
 COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
 
+RUN chown -R appuser:appgroup /app
+USER 1000
+
 CMD bundle exec rails db:migrate && \
     bundle exec rails server -b 0.0.0.0
+

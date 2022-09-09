@@ -15,12 +15,12 @@ executors:
         environment:
           POSTGRES_USER: ubuntu
           POSTGRES_PASSWORD: ""
-    cloud-platform-executor:
-      docker:
-        - image: ministryofjustice/cloud-platform-tools:2.1
-          environment:
-            GITHUB_TEAM_NAME_SLUG: laa-estimate-eligibility
-            TZ: Europe/London
+  cloud-platform-executor:
+    docker:
+      - image: ministryofjustice/cloud-platform-tools:2.1
+        environment:
+          GITHUB_TEAM_NAME_SLUG: laa-estimate-eligibility
+          TZ: Europe/London
 
 references:
   decrypt_secrets: &decrypt_secrets
@@ -164,13 +164,14 @@ jobs:
       - checkout
       - setup_remote_docker:
           docker_layer_caching: true
-      #      - *decrypt_secrets
+      - *decrypt_secrets
       - *authenticate_k8s
       - deploy:
           name: Deploy LAA Estimate Eligibility Service to Staging
           command: |
             helm upgrade estimate-financial-eligibility ./helm_deploy/laa-estimate-eligibility/. \
                           --install --wait \
+                          --debug \
                           --namespace=${K8S_NAMESPACE} \
                           --values ./helm_deploy/laa-estimate-eligibility/values-staging.yaml \
                           --set image.repository="$ECR_ENDPOINT" \
@@ -185,6 +186,10 @@ workflows:
           context: laa-estimate-eligibility-uat
           requires:
             - build_and_push_to_ecr
+      - deploy_staging:
+          context: laa-estimate-eligibility-staging
+          requires:
+            - build_and_push_to_ecr
   build_and_run_specs:
     jobs:
       - install_dependencies
@@ -194,6 +199,5 @@ workflows:
       - run_specs:
           requires:
             - install_dependencies
-#      - deploy_staging:
-#          context: laa-estimate-eligibility-staging
+
 

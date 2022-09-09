@@ -1,16 +1,19 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "laa-estimate-eligibility.fullname" . }}
+  name: {{ template "app.fullname" . }}
   labels:
-{{ include "laa-estimate-eligibility.labels" . | indent 4 }}
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
 spec:
-  type: {{ .Values.service.type }}
+  type: ClusterIP
   ports:
-    - port: {{ .Values.service.port }}
+    - port: 80
       targetPort: http
       protocol: TCP
       name: http
   selector:
-    app.kubernetes.io/name: {{ include "laa-estimate-eligibility.name" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
+    app: {{ template "app.name" . }}
+    release: {{ .Release.Name }}
