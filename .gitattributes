@@ -1,2 +1,1 @@
-deploy/laa-estimate-eligibility/values-*.yaml filter=git-crypt diff=git-crypt
-deploy/laa-estimate-eligibility/templates/ingress.yaml filter=git-crypt diff=git-crypt
+helm_deploy/laa-estimate-eligibility/values-*.yaml filter=git-crypt diff=git-crypt
