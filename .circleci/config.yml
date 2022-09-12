@@ -79,11 +79,28 @@ jobs:
             bundle exec rake spec
       - store_artifacts:
           path: coverage
+  linters:
+    executor: basic-executor
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ./
+      - run:
+          name: Rubocop checks
+          command: |
+            bundle exec rubocop
+      - run:
+          name: erb-lint checks
+          command: |
+            bundle exec erblint --lint-all
 
 workflows:
   build_and_run_specs:
     jobs:
       - install_dependencies
+      - linters:
+          requires:
+            - install_dependencies
       - run_specs:
           requires:
             - install_dependencies
