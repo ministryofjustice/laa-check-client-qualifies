@@ -74,13 +74,9 @@ jobs:
       - attach_workspace:
           at: ./
       - run:
-          name: Rubocop checks
+          name: slim-lint checks
           command: |
-            bundle exec rubocop
-      - run:
-          name: erb-lint checks
-          command: |
-            bundle exec erblint --lint-all
+            bundle exec slim-lint app/**/*.slim
 
 workflows:
   build_and_run_specs:

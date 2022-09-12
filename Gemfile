@@ -52,6 +52,7 @@ group :development, :test do
 end
 
 group :development do
+  gem "slim_lint"
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 
@@ -72,3 +73,4 @@ end
 gem "govuk-components"
 gem "govuk_design_system_formbuilder"
 gem "wicked"
+gem "slim-rails"
