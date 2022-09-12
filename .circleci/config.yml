@@ -67,6 +67,16 @@ jobs:
             bundle exec rake spec
       - store_artifacts:
           path: coverage
+  security_check:
+    executor: basic-executor
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ./
+      - run:
+          name: Run Bundler Audit
+          command: |
+            bundle exec rake bundle:audit:check
   linters:
     executor: basic-executor
     steps:
@@ -86,6 +96,9 @@ workflows:
   build_and_run_specs:
     jobs:
       - install_dependencies
+      - security_check:
+          requires:
+            - install_dependencies
       - linters:
           requires:
             - install_dependencies
