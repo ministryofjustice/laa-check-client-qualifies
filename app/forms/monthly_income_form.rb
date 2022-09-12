@@ -6,9 +6,7 @@ class MonthlyIncomeForm
 
   # If the 'exclusive' option is picked, then no items are sent
   # otherwise we should get at least 2 (a blank plus at least one selected)
-  validates_each :monthly_incomes do |record, attr, value|
-    record.errors.add(attr, I18n.t("errors.at_least_one_income")) if value.size == 1
-  end
+  validates :monthly_incomes, at_least_one_item: true
 
   INCOME_ATTRIBUTES = [:employment_income, :friends_or_family].freeze
 

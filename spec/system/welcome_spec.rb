@@ -8,14 +8,67 @@ RSpec.describe "Welcome", type: :system do
 
   let(:estimate_id) { SecureRandom.uuid }
 
-  it "displays errors when nothing filled in" do
-    click_on "Save and continue"
-    expect(page).to have_css(".govuk-error-summary__list")
+  describe "errors" do
+    before do
+      [:over_60, :dependants, :partner, :passporting, :employed].reject { |f| f == field }.each do |f|
+        select_boolean_value("intro-form", f, true)
+      end
+      click_on "Save and continue"
+      expect(page).to have_css(".govuk-error-summary__list")
+    end
+
+    describe "over_60" do
+      let(:field) { :over_60 }
+
+      it "displays the correct error message" do
+        within ".govuk-error-summary__list" do
+          expect(page).to have_content("Select yes if the client is over 60 years old")
+        end
+      end
+    end
+
+    describe "employed" do
+      let(:field) { :employed }
+
+      it "displays the correct error message" do
+        within ".govuk-error-summary__list" do
+          expect(page).to have_content("Select employed if the client is currently employed")
+        end
+      end
+    end
+
+    describe "dependants" do
+      let(:field) { :dependants }
+
+      it "displays the correct error message" do
+        within ".govuk-error-summary__list" do
+          expect(page).to have_content("Select yes if the client has any dependants")
+        end
+      end
+    end
+
+    describe "partner" do
+      let(:field) { :partner }
+
+      it "displays the correct error message" do
+        within ".govuk-error-summary__list" do
+          expect(page).to have_content("Select yes if the client has a partner")
+        end
+      end
+    end
+
+    describe "passporting" do
+      let(:field) { :passporting }
+
+      it "displays the correct error message" do
+        within ".govuk-error-summary__list" do
+          expect(page).to have_content("Select yes if the client is currently in receipt of a passporting benefit")
+        end
+      end
+    end
   end
 
   describe "intro and monthly_income screens" do
-    let(:estimate_id) { SecureRandom.uuid }
-
     before do
       expect(page).to have_content "Intro Page Template"
       select_boolean_value("intro-form", :over_60, true)
@@ -58,6 +111,9 @@ RSpec.describe "Welcome", type: :system do
       it "validates that at least one field is checked" do
         click_on "Save and continue"
         expect(page).to have_css(".govuk-error-summary__list")
+        within ".govuk-error-summary__list" do
+          expect(page).to have_content("Please select at least one option")
+        end
       end
 
       it "allows no income to be selected" do

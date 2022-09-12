@@ -1,11 +1,26 @@
 en:
+  activemodel:
+    errors:
+      models:
+        intro_form:
+          attributes:
+            employed:
+              inclusion: Select employed if the client is currently employed
+            passporting:
+              inclusion: Select yes if the client is currently in receipt of a passporting benefit
+            over_60:
+              inclusion: Select yes if the client is over 60 years old
+            dependants:
+              inclusion: Select yes if the client has any dependants
+            partner:
+              inclusion: Select yes if the client has a partner
+        monthly_income_form:
+          attributes:
+            monthly_incomes:
+              at_least_one_item: Please select at least one option
   service:
     name: Estimate financial eligibility for legal aid
     email: eligibility@digital.justice.gov.uk
-  errors:
-    mandatory_yes_no_question: Please answer Yes or No
-    employment_status: Please indicate whether client is employed or not
-    at_least_one_income: Please select at least one option
   generic:
     submit: Save and continue
     yes_choice: "Yes"
