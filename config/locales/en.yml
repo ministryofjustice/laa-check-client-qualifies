@@ -1,4 +1,67 @@
 en:
+  activemodel:
+    errors:
+      models:
+        intro_form:
+          attributes:
+            employed:
+              inclusion: Select employed if the client is currently employed
+            passporting:
+              inclusion: Select yes if the client is currently in receipt of a passporting benefit
+            over_60:
+              inclusion: Select yes if the client is over 60 years old
+            dependants:
+              inclusion: Select yes if the client has any dependants
+            partner:
+              inclusion: Select yes if the client has a partner
+        monthly_income_form:
+          attributes:
+            monthly_incomes:
+              at_least_one_item: Please select at least one option
   service:
     name: Estimate financial eligibility for legal aid
     email: eligibility@digital.justice.gov.uk
+  generic:
+    submit: Save and continue
+    yes_choice: "Yes"
+    no_choice: "No"
+    employed: Employed
+    unemployed: Unemployed
+    back: Back
+  build_estimates:
+    intro:
+      heading: Intro Page Template
+      over_60:
+        legend: Is your client over 60 years old?
+        hint: Clients over 60 may have some of their capital excluded from a financial eligibility assessment.
+      dependants:
+        legend: Does your client have any dependants?
+        hint: By dependant we mean a child or adult who lives with your client and depends on them for financial support. Do not include your client's partner (if they have one).
+      employed:
+        legend: What is your clients employment status?
+        hint: ""
+      partner:
+        legend: Does your client have a partner?
+        hint: By partner we mean someone your client is married to, in a civil relationship with, cohabits with or otherwise shares finances with. They cannot be the opponent in any legal proceedings.
+      passporting:
+        legend: Does your client receive a passporting benefit?
+        hint: Includes Universal Credit, Income Support, income-based Jobseeker's Allowance (JSA), income-related Employment and Support Allowance (ESA), and Guarantee Credit element of Pension Credit.
+    monthly_income:
+      heading: Monthly Income Page Template
+      monthly_incomes:
+        legend: What income does your client receive?
+        hint: Select all that apply.
+      employment_income:
+        label: Employment Income
+        hint: ""
+        input: Enter gross monthly income
+      friends_or_family:
+        label: Financial help from friends or family
+        hint: For example, money from a family member for rent or bills.
+        input: y
+      none:
+        label: My client has no monthly income
+    property:
+      heading: Property Page Template
+    outgoings:
+      heading: Outgoings Page Template
