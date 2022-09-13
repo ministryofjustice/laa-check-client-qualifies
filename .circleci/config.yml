@@ -77,12 +77,6 @@ jobs:
           name: Install yarn modules
           command: yarn install
       - run:
-          name: Compile frontend JS modules
-          command: yarn build
-      - run:
-          name: Compile frontend SCSS files
-          command: yarn build:css
-      - run:
           name: Install ruby gems
           command: |
             bundle config set path 'vendor/bundle'
@@ -92,6 +86,9 @@ jobs:
               # Install missing gems
               bundle install
             }
+      - run:
+          name: Compile assets for test run
+          command: bundle exec rake test:prepare
       - save_cache:
           key: laa-estimate-eligibility-{{ checksum "Gemfile.lock" }}-v1-{{ checksum "yarn.lock" }}
           paths:
