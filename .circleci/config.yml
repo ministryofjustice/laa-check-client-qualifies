@@ -144,20 +144,6 @@ jobs:
       - *build_docker_image
       - *push_to_ecr
 
-  deploy_uat:
-    executor: cloud-platform-executor
-    steps:
-      - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
-      - *decrypt_secrets
-      - *authenticate_k8s
-      - deploy:
-          name: Deploy LAA Estimate Financial Eligibility Service UAT
-          command: |
-            echo "Installing LEFEFLA helm chart"
-            ./bin/uat_deploy
-
   deploy_staging:
     executor: cloud-platform-executor
     steps:
@@ -182,10 +168,6 @@ workflows:
   open_pr:
     jobs:
       - build_and_push_to_ecr
-#      - deploy_uat:
-#          context: laa-estimate-eligibility-uat
-#          requires:
-#            - build_and_push_to_ecr
       - deploy_staging:
           context: laa-estimate-eligibility-staging
           requires:
