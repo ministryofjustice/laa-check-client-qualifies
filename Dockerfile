@@ -37,7 +37,7 @@ RUN bundler -v && \
 
 # Install node packages defined in package.json
 COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile --check-files
+RUN yarn install --frozen-lockfile --check-files --prod
 
 # Copy all files to /app (except what is defined in .dockerignore)
 COPY . .
@@ -76,7 +76,6 @@ RUN apk add --update --no-cache tzdata && \
 RUN apk add --no-cache libpq yarn
 
 COPY package.json yarn.lock ./
-RUN yarn --prod
 
 # Copy files generated in the builder image
 COPY --from=builder /app /app
@@ -85,6 +84,5 @@ COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
 RUN chown -R appuser:appgroup /app
 USER 1000
 
-
-CMD bundle exec rails server -b 0.0.0.0
+CMD RAILS_ENV=production bundle exec rails server -b 0.0.0.0
 
