@@ -1,15 +1,16 @@
 module BuildEstimatesHelper
-  ALL_ESTIMATE_STEPS = [:intro, :monthly_income, :outgoings, :property].freeze
-  PASSPORTED_STEPS = [:intro, :property].freeze
+  ALL_ESTIMATE_STEPS = %i[intro monthly_income outgoings property].freeze
+  PASSPORTED_STEPS = %i[intro property].freeze
+  POUND = "&pound;".html_safe
 
   YES_NO_OPTIONS = [
     [I18n.t("generic.yes_choice"), true],
-    [I18n.t("generic.no_choice"), false]
+    [I18n.t("generic.no_choice"), false],
   ].freeze
 
   EMPLOYMENT_OPTIONS = [
     [I18n.t("generic.employed"), true],
-    [I18n.t("generic.unemployed"), false]
+    [I18n.t("generic.unemployed"), false],
   ].freeze
 
   def next_step_for(estimate, step)
@@ -28,7 +29,9 @@ module BuildEstimatesHelper
     EMPLOYMENT_OPTIONS
   end
 
-  private def steps_list_for(estimate)
+private
+
+  def steps_list_for(estimate)
     if estimate.passporting
       PASSPORTED_STEPS
     else
@@ -36,7 +39,7 @@ module BuildEstimatesHelper
     end
   end
 
-  private def next_estimate_step(steps, step)
+  def next_estimate_step(steps, step)
     steps.each_cons(2).detect { |old, _new| old == step }.last
   end
 end

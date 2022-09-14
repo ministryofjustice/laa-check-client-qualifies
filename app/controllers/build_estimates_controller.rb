@@ -44,7 +44,7 @@ class BuildEstimatesController < ApplicationController
     end
   end
 
-  private
+private
 
   def session_key
     "estimate_#{params[:estimate_id]}"

@@ -1,6 +1,6 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-xl"><%= t('.heading') %></h1>
+    <h1 class="govuk-heading-xl"><%= t(".heading") %></h1>
     <%= form_for(@estimate,
                  url: wizard_path,
                  method: :put) do |form| %>
@@ -9,28 +9,23 @@
 
       <%= form.govuk_collection_radio_buttons :over_60,
                                               yes_no_options, :last, :first,
-                                              legend: { text: t('.over_60.legend') },
-                                              hint: { text: t('.over_60.hint') } %>
+                                              legend: { text: t(".over_60.legend") },
+                                              hint: { text: t(".over_60.hint") } %>
       <%= form.govuk_collection_radio_buttons :dependants,
                                               yes_no_options, :last, :first,
-                                              legend: { text: t('.dependants.legend') },
-                                              hint: { text: t('.dependants.hint') } %>
+                                              legend: { text: t(".dependants.legend") },
+                                              hint: { text: t(".dependants.hint") } %>
       <%= form.govuk_collection_radio_buttons :employed, employment_options, :last, :first,
-                                              legend: { text: t('.employed.legend') },
-                                              hint: { text: t('.employed.hint') }
-      %>
+                                              legend: { text: t(".employed.legend") },
+                                              hint: { text: t(".employed.hint") } %>
       <%= form.govuk_collection_radio_buttons :partner, yes_no_options, :last, :first,
-                                              legend: { text: t('.partner.legend') },
-                                              hint: { text: t('.partner.hint') }
-      %>
+                                              legend: { text: t(".partner.legend") },
+                                              hint: { text: t(".partner.hint") } %>
       <%= form.govuk_collection_radio_buttons :passporting, yes_no_options, :last, :first,
-                                              legend: { text: t('.passporting.legend') },
-                                              hint: { text: t('.passporting.hint') }
-      %>
+                                              legend: { text: t(".passporting.legend") },
+                                              hint: { text: t(".passporting.hint") } %>
 
-      <%= form.submit t('generic.submit'), role: "button", draggable: "false", class: "govuk-button" %>
+      <%= form.submit t("generic.submit"), role: "button", draggable: "false", class: "govuk-button" %>
     <% end %>
   </div>
 </div>
-
-

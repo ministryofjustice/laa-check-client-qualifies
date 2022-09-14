@@ -1,0 +1,21 @@
+require:
+  - rubocop-performance
+
+inherit_gem:
+  rubocop-govuk:
+    - config/default.yml
+    - config/rails.yml
+    - config/rspec.yml
+
+inherit_mode:
+  merge:
+    - Exclude
+
+AllCops:
+  Exclude:
+    - 'config/initializers/filter_parameter_logging.rb'
+    - 'config/environments/development.rb'
+    - 'config/environments/test.rb'
+
+Bundler/OrderedGems:
+  Enabled: false

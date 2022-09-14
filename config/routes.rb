@@ -5,6 +5,6 @@ Rails.application.routes.draw do
   # root "pages#home"
 
   resources :estimates, only: [] do
-    resources :build_estimates, only: [:new, :show, :update]
+    resources :build_estimates, only: %i[new show update]
   end
 end

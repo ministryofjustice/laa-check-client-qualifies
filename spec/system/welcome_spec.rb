@@ -8,17 +8,24 @@ RSpec.describe "Welcome", type: :system do
 
   let(:estimate_id) { SecureRandom.uuid }
 
+  it "shows the intro page heading" do
+    expect(page).to have_content "Intro Page Template"
+  end
+
   describe "errors" do
     before do
-      [:over_60, :dependants, :partner, :passporting, :employed].reject { |f| f == field }.each do |f|
+      %i[over_60 dependants partner passporting employed].reject { |f| f == field }.each do |f|
         select_boolean_value("intro-form", f, true)
       end
       click_on "Save and continue"
-      expect(page).to have_css(".govuk-error-summary__list")
     end
 
     describe "over_60" do
       let(:field) { :over_60 }
+
+      it "has an error section" do
+        expect(page).to have_css(".govuk-error-summary__list")
+      end
 
       it "displays the correct error message" do
         within ".govuk-error-summary__list" do
@@ -70,7 +77,6 @@ RSpec.describe "Welcome", type: :system do
 
   describe "intro and monthly_income screens" do
     before do
-      expect(page).to have_content "Intro Page Template"
       select_boolean_value("intro-form", :over_60, true)
       select_boolean_value("intro-form", :dependants, true)
       select_boolean_value("intro-form", :partner, true)
@@ -78,7 +84,7 @@ RSpec.describe "Welcome", type: :system do
       select_boolean_value("intro-form", :passporting, passporting)
     end
 
-    context "passporting" do
+    context "with passporting" do
       let(:passporting) { true }
 
       it "skips income when passporting set true" do
@@ -89,7 +95,7 @@ RSpec.describe "Welcome", type: :system do
       end
     end
 
-    context "not passporting" do
+    context "without passporting" do
       let(:passporting) { false }
 
       before do
