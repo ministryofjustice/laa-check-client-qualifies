@@ -10,13 +10,7 @@ executors:
     docker:
       - image: cimg/ruby:3.1.2-browsers
         environment:
-          PGHOST: localhost
-          PGUSER: ubuntu
           COVERAGE: true
-      - image: cimg/postgres:14.4
-        environment:
-          POSTGRES_USER: ubuntu
-          POSTGRES_PASSWORD: ""
 
 jobs:
   install_dependencies:
@@ -67,12 +61,6 @@ jobs:
       - checkout
       - attach_workspace:
           at: ./
-      - run:
-          name: Setup database
-          environment:
-            RAILS_ENV: test
-          command: |
-            bundle exec rake db:create
       - run:
           name: Run tests
           command: |
