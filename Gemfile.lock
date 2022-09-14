@@ -100,6 +100,10 @@ GEM
     diff-lcs (1.5.0)
     digest (3.1.0)
     docile (1.4.0)
+    dotenv (2.8.1)
+    dotenv-rails (2.8.1)
+      dotenv (= 2.8.1)
+      railties (>= 3.2)
     erb_lint (0.2.0)
       activesupport
       better_html (>= 2.0.1)
@@ -270,6 +274,11 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    sentry-rails (5.4.2)
+      railties (>= 5.0)
+      sentry-ruby (~> 5.4.2)
+    sentry-ruby (5.4.2)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
     simplecov (0.21.2)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
@@ -316,6 +325,7 @@ DEPENDENCIES
   capybara
   cssbundling-rails
   debug
+  dotenv-rails
   erb_lint
   govuk-components
   govuk_design_system_formbuilder
@@ -328,6 +338,8 @@ DEPENDENCIES
   rubocop-govuk
   rubocop-performance
   selenium-webdriver
+  sentry-rails
+  sentry-ruby
   simplecov
   tzinfo-data
   web-console

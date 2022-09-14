@@ -1,4 +1,3 @@
-.env
 .terraform/
 coverage/
 venv/
@@ -21,3 +20,9 @@ terraform.tfstate
 tmp/
 log/
 .ruby-gemset
+
+# dotenv
+# Ignore environment variables
+.env.*
+.env
+!.env.sample
