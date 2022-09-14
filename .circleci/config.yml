@@ -182,10 +182,10 @@ workflows:
   open_pr:
     jobs:
       - build_and_push_to_ecr
-      - deploy_uat:
-          context: laa-estimate-eligibility-uat
-          requires:
-            - build_and_push_to_ecr
+#      - deploy_uat:
+#          context: laa-estimate-eligibility-uat
+#          requires:
+#            - build_and_push_to_ecr
       - deploy_staging:
           context: laa-estimate-eligibility-staging
           requires:

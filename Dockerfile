@@ -73,7 +73,10 @@ RUN apk add --update --no-cache tzdata && \
     echo "Europe/London" > /etc/timezone
 
 # libpq: required to run postgres
-RUN apk add --no-cache libpq
+RUN apk add --no-cache libpq yarn
+
+COPY package.json yarn.lock ./
+RUN yarn --prod
 
 # Copy files generated in the builder image
 COPY --from=builder /app /app
@@ -82,6 +85,6 @@ COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
 RUN chown -R appuser:appgroup /app
 USER 1000
 
-CMD bundle exec rails db:migrate && \
-    bundle exec rails server -b 0.0.0.0
+
+CMD bundle exec rails server -b 0.0.0.0
 
