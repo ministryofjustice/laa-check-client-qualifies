@@ -2,7 +2,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: "laa-estimate-eligibility"
+  name: {{ $fullName }}
   labels:
     app: {{ template "app.name" . }}
     chart: {{ template "app.chart" . }}
