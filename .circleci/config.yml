@@ -155,6 +155,7 @@ jobs:
 # in the merge_pr_to_main workflow
   deploy_main_uat:
     <<: *deploy_uat
+            ./bin/uat_deployment
 
   deploy_staging:
     executor: cloud-platform-executor
@@ -219,7 +220,3 @@ workflows:
           context: laa-estimate-eligibility-staging
           requires:
             - build_and_push_to_ecr
-          filters:
-            branches:
-              only:
-                - main
