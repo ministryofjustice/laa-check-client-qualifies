@@ -65,6 +65,7 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
+  gem "rspec"
   gem "selenium-webdriver"
   gem "webdrivers"
 end
@@ -72,8 +73,3 @@ end
 gem "govuk-components"
 gem "govuk_design_system_formbuilder"
 gem "wicked"
-
-group :test do
-  gem "rspec"
-  gem "rspec-rails"
-end

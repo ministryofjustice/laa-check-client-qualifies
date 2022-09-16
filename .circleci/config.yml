@@ -11,10 +11,6 @@ executors:
       - image: cimg/ruby:3.1.2-browsers
         environment:
           COVERAGE: true
-      - image: cimg/postgres:14.4
-        environment:
-          POSTGRES_USER: ubuntu
-          POSTGRES_PASSWORD: ""
   cloud-platform-executor:
     docker:
       - image: ministryofjustice/cloud-platform-tools:2.1
@@ -23,13 +19,6 @@ executors:
           TZ: Europe/London
 
 references:
-  decrypt_secrets: &decrypt_secrets
-    run:
-      name: Decrypt secrets file
-      command: |
-        echo "${GIT_CRYPT_KEY}" | base64 -d > git-crypt.key
-        git-crypt unlock git-crypt.key
-
   authenticate_k8s: &authenticate_k8s
     run:
       name: Authenticate with cluster
@@ -63,6 +52,14 @@ references:
           docker tag app "${ECR_ENDPOINT}:latest"
           docker push "${ECR_ENDPOINT}:latest"
         fi
+
+  decrypt_secrets: &decrypt_secrets
+    run:
+      name: Decrypt secrets file
+      command: |
+        echo "${GIT_CRYPT_KEY}" | base64 -d > git-crypt.key
+        git-crypt unlock git-crypt.key
+
 
 jobs:
   install_dependencies:
@@ -161,18 +158,11 @@ jobs:
                           --namespace=${K8S_NAMESPACE} \
                           --values ./helm_deploy/laa-estimate-eligibility/values-staging.yaml \
                           --set image.repository="$ECR_ENDPOINT" \
-                          --set image.tag="${CIRCLE_SHA1}"
+                          --set image.tag="${CIRCLE_SHA1}"          
+            
 
 workflows:
-  version: 2
   open_pr:
-    jobs:
-      - build_and_push_to_ecr
-      - deploy_staging:
-          context: laa-estimate-eligibility-staging
-          requires:
-            - build_and_push_to_ecr
-  build_and_run_specs:
     jobs:
       - install_dependencies
       - linters:
@@ -181,5 +171,11 @@ workflows:
       - run_specs:
           requires:
             - install_dependencies
-
-
+      - build_and_push_to_ecr:
+          requires:
+            - run_specs
+            - linters
+      - deploy_staging:
+          context: laa-estimate-eligibility-staging
+          requires:
+            - build_and_push_to_ecr

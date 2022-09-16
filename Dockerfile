@@ -84,5 +84,5 @@ COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
 RUN chown -R appuser:appgroup /app
 USER 1000
 
-CMD RAILS_ENV=production bundle exec rails server -b 0.0.0.0
+CMD bundle exec rails server -b 0.0.0.0
 
