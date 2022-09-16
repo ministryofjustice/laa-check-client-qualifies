@@ -1,0 +1,21 @@
+#!/bin/sh
+
+deploy() {
+  IMG_REPO="$ECR_ENDPOINT"
+  RELEASE_NAME=$(echo $CIRCLE_BRANCH | tr '[:upper:]' '[:lower:]' | sed 's:^\w*\/::' | tr -s ' _/[]().' '-' | cut -c1-30 | sed 's/-$//')
+  RELEASE_HOST="$RELEASE_NAME-estimate-financial-eligibility-staging.cloud-platform.service.justice.gov.uk"
+  IDENTIFIER="$RELEASE_NAME-laa-estimate-eligibility-laa-estimate-financial-eligibility-for-legal-aid-staging-green"
+  echo "Deploying CIRCLE_SHA1: $CIRCLE_SHA1 under release name: '$RELEASE_NAME'..."
+
+  helm upgrade $RELEASE_NAME ./helm_deploy/laa-estimate-eligibility/. \
+                --install --wait \
+                --namespace=${K8S_NAMESPACE} \
+                --values ./helm_deploy/laa-estimate-eligibility/values-uat.yaml \
+                --set deploy.host="$RELEASE_HOST" \
+                --set image.repository="$IMG_REPO" \
+                --set image.tag="$CIRCLE_SHA1" \
+                --set ingress.hosts="{$RELEASE_HOST}" \
+                --set ingress.annotations."external-dns\.alpha\.kubernetes\.io/set-identifier"="$IDENTIFIER"
+}
+
+deploy
