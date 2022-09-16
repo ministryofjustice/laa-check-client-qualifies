@@ -150,15 +150,9 @@ jobs:
       - *decrypt_secrets
       - *authenticate_k8s
       - deploy:
-          name: Deploy LAA Estimate Eligibility Service to Staging
+          name: Deploy LAA Estimate Eligibility Service to UAT
           command: |
-            helm upgrade estimate-financial-eligibility ./helm_deploy/laa-estimate-eligibility/. \
-                          --install --wait \
-                          --debug \
-                          --namespace=${K8S_NAMESPACE} \
-                          --values ./helm_deploy/laa-estimate-eligibility/values-staging.yaml \
-                          --set image.repository="$ECR_ENDPOINT" \
-                          --set image.tag="${CIRCLE_SHA1}"          
+            ./bin/uat_deployment         
 
   deploy_staging:
     executor: cloud-platform-executor
@@ -183,13 +177,13 @@ jobs:
 workflows:
   open_pr:
     jobs:
-      - install_dependencies
-      - linters:
-          requires:
-            - install_dependencies
-      - run_specs:
-          requires:
-            - install_dependencies
+#      - install_dependencies
+#      - linters:
+#          requires:
+#            - install_dependencies
+#      - run_specs:
+#          requires:
+#            - install_dependencies
       - build_and_push_to_ecr
 #          requires:
 #            - run_specs
@@ -198,7 +192,7 @@ workflows:
           context: laa-estimate-eligibility-uat
           requires:
             - build_and_push_to_ecr
-      - deploy_staging:
-          context: laa-estimate-eligibility-staging
-          requires:
-            - build_and_push_to_ecr
+#      - deploy_staging:
+#          context: laa-estimate-eligibility-staging
+#          requires:
+#            - build_and_push_to_ecr
