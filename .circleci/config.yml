@@ -138,6 +138,25 @@ jobs:
       - *build_docker_image
       - *push_to_ecr
 
+  deploy_uat:
+    executor: cloud-platform-executor
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - *decrypt_secrets
+      - *authenticate_k8s
+      - deploy:
+          name: Deploy LAA Estimate Eligibility Service to Staging
+          command: |
+            helm upgrade estimate-financial-eligibility ./helm_deploy/laa-estimate-eligibility/. \
+                          --install --wait \
+                          --debug \
+                          --namespace=${K8S_NAMESPACE} \
+                          --values ./helm_deploy/laa-estimate-eligibility/values-staging.yaml \
+                          --set image.repository="$ECR_ENDPOINT" \
+                          --set image.tag="${CIRCLE_SHA1}"          
+
   deploy_staging:
     executor: cloud-platform-executor
     steps:
@@ -168,10 +187,14 @@ workflows:
       - run_specs:
           requires:
             - install_dependencies
-      - build_and_push_to_ecr:
+      - build_and_push_to_ecr
+#          requires:
+#            - run_specs
+#            - linters
+      - deploy_uat:
+          context: laa-estimate-eligibility-uat
           requires:
-            - run_specs
-            - linters
+            - build_and_push_to_ecr
       - deploy_staging:
           context: laa-estimate-eligibility-staging
           requires:
