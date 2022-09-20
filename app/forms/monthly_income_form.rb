@@ -2,6 +2,7 @@ class MonthlyIncomeForm
   include ActiveModel::Model
   include ActiveModel::Attributes
 
+  # list of checkbox values ticked on the form
   attribute :monthly_incomes, array: true, default: []
 
   # If the 'exclusive' option is picked, then no items are sent
@@ -10,8 +11,11 @@ class MonthlyIncomeForm
 
   INCOME_ATTRIBUTES = %i[employment_income friends_or_family].freeze
 
-  INCOME_ATTRIBUTES.each do |income_type|
-    attribute income_type, :decimal
-    validates income_type, numericality: { greater_than: 0 }, if: -> { monthly_incomes.include?(income_type.to_s) }
+  INCOME_ATTRIBUTES.each do |attribute|
+    attribute attribute, :decimal
+    validates attribute,
+              numericality: { greater_than: 0, allow_nil: true },
+              presence: true,
+              if: -> { monthly_incomes.include?(attribute.to_s) }
   end
 end

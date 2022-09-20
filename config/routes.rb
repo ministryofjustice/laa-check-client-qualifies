@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   resources :status, only: [:index]
 
-  resources :estimates, only: [] do
-    resources :build_estimates, only: %i[new show update]
+  resources :estimates, only: [:new] do
+    resources :build_estimates, only: %i[index show update]
   end
 end

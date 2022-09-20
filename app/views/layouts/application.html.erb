@@ -27,10 +27,10 @@
 
     <%= govuk_skip_link %>
 
-    <%= govuk_header(service_name: "GOV.UK Rails Boilerplate") do |header| %>
-      <%= header.navigation_item(text: "Navigation item 1", href: "#", active: true) %>
-      <%= header.navigation_item(text: "Navigation item 2", href: "#") %>
-      <%= header.navigation_item(text: "Navigation item 3", href: "#") %>
+    <%= govuk_header(service_name: t("service.name")) do |header| %>
+      <%#= header.navigation_item(text: "Navigation item 1", href: "#", active: true) %>
+      <%#= header.navigation_item(text: "Navigation item 2", href: "#") %>
+      <%#= header.navigation_item(text: "Navigation item 3", href: "#") %>
     <% end %>
 
     <div class="govuk-width-container">

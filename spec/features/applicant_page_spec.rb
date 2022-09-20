@@ -1,0 +1,173 @@
+require "rails_helper"
+
+RSpec.describe "Applicant Page" do
+  let(:income_header) { "What income does your client receive?" }
+  let(:property_header) { "Does your client own the home they live in?" }
+  let(:applicant_header) { "About your client" }
+  let(:estimate_id) { SecureRandom.uuid }
+  let(:mock_connection) { instance_double(CfeConnection, create_assessment_id: estimate_id) }
+
+  describe "errors" do
+    before do
+      allow(CfeConnection).to receive(:connection).and_return(mock_connection)
+      visit "/estimates/new"
+
+      %i[over_60 dependants partner passporting employed].reject { |f| f == field }.each do |f|
+        select_applicant_boolean(f, true)
+      end
+      click_on "Save and continue"
+    end
+
+    context "with over_60" do
+      let(:field) { :over_60 }
+
+      it "has an error section" do
+        expect(page).to have_css(".govuk-error-summary__list")
+      end
+
+      it "displays the correct error message" do
+        within ".govuk-error-summary__list" do
+          expect(page).to have_content("Select yes if the client is over 60 years old")
+        end
+      end
+    end
+
+    context "with employed" do
+      let(:field) { :employed }
+
+      it "displays the correct error message" do
+        within ".govuk-error-summary__list" do
+          expect(page).to have_content("Select employed if the client is currently employed")
+        end
+      end
+    end
+
+    context "with dependants" do
+      let(:field) { :dependants }
+
+      it "displays the correct error message" do
+        within ".govuk-error-summary__list" do
+          expect(page).to have_content("Select yes if the client has any dependants")
+        end
+      end
+    end
+
+    context "with partner" do
+      let(:field) { :partner }
+
+      it "displays the correct error message" do
+        within ".govuk-error-summary__list" do
+          expect(page).to have_content("Select yes if the client has a partner")
+        end
+      end
+    end
+
+    context "with passporting" do
+      let(:field) { :passporting }
+
+      it "displays the correct error message" do
+        within ".govuk-error-summary__list" do
+          expect(page).to have_content("Select yes if the client is currently in receipt of a passporting benefit")
+        end
+      end
+    end
+  end
+
+  describe "submitting over_60 field" do
+    before do
+      allow(CfeConnection).to receive(:connection).and_return(mock_connection)
+      visit "/estimates/new"
+
+      select_applicant_boolean(:over_60, over_60)
+      select_applicant_boolean(:dependants, false)
+      select_applicant_boolean(:partner, false)
+      select_applicant_boolean(:employed, false)
+      select_applicant_boolean(:passporting, true)
+      click_on "Save and continue"
+
+      click_checkbox("property-form-property-owned", "none")
+      click_on "Save and continue"
+      select_boolean_value("vehicle-form", :vehicle_owned, false)
+      click_on "Save and continue"
+      click_checkbox("assets-form-assets", "none")
+      click_on "Save and continue"
+
+      allow(mock_connection).to receive(:api_result).and_return(result_summary: { overall_result: { income_contribution: 0 } })
+    end
+
+    context "when over 60" do
+      let(:over_60) { true }
+      let(:date_of_birth) { (Time.zone.today - 61.years).to_date }
+
+      it "sets age to 61" do
+        expect(mock_connection).to receive(:create_applicant)
+                                     .with(estimate_id, date_of_birth:,
+                                                        receives_qualifying_benefit: true)
+
+        expect(page).to have_content "Summary Page"
+        click_on "Save and continue"
+      end
+    end
+
+    context "when under 60" do
+      let(:over_60) { false }
+      let(:date_of_birth) { (Time.zone.today - 59.years).to_date }
+
+      it "sets age to 59" do
+        expect(mock_connection).to receive(:create_applicant)
+                                     .with(estimate_id, date_of_birth:,
+                                                        receives_qualifying_benefit: true)
+        expect(page).to have_content "Summary Page"
+        click_on "Save and continue"
+      end
+    end
+  end
+
+  describe "applicant page flow", :vcr do
+    let(:arbitrary_fixed_time) { Time.zone.local(2022, 9, 5, 9, 0, 0) }
+
+    before do
+      travel_to arbitrary_fixed_time
+      visit "/estimates/new"
+      select_applicant_boolean(:over_60, false)
+      select_applicant_boolean(:dependants, false)
+      select_applicant_boolean(:partner, false)
+      select_applicant_boolean(:employed, false)
+      select_applicant_boolean(:passporting, passporting)
+    end
+
+    context "when passporting" do
+      let(:passporting) { true }
+
+      before do
+        click_on "Save and continue"
+      end
+
+      it "skips income and outgoings" do
+        expect(page).to have_content property_header
+      end
+
+      it "has a back pointer to the applicant page" do
+        click_on "Back"
+        expect(page).to have_content applicant_header
+      end
+    end
+
+    context "without passporting" do
+      let(:passporting) { false }
+
+      before do
+        click_on "Save and continue"
+      end
+
+      it "shows income" do
+        expect(page).to have_content income_header
+      end
+
+      it "has a back pointer to the applicant page" do
+        click_on "Back"
+        expect(page).to have_content applicant_header
+      end
+    end
+  end
+end

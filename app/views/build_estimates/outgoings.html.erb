@@ -1,6 +1,35 @@
+<%= link_to t("generic.back"), previous_wizard_path, class: "govuk-back-link" %>
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-xl"><%= t(".heading") %></h1>
-    <%= link_to t("generic.back"), previous_wizard_path %>
+    <span class="govuk-caption-l"><%= t(".caption") %></span>
+    <h1 class="govuk-heading-l"><%= t(".heading") %></h1>
+    <%= form_for(@form,
+                 url: wizard_path,
+                 method: :put) do |form| %>
+      <%= form.govuk_error_summary %>
+
+      <%= form.govuk_check_boxes_fieldset :outgoings,
+                                          legend: { text: t(".outgoings.legend"), size: "l" },
+                                          hint: { text: t(".outgoings.hint") } do %>
+        <%= form.govuk_check_box :outgoings, "housing_payments",
+                                 label: { text: t(".housing_payments.label") },
+                                 hint: { text: t(".housing_payments.hint") },
+                                 link_errors: true do %>
+          <%= render "money_input",
+                     form:,
+                     field: :housing_payments,
+                     width: 5,
+                     label_text: t(".housing_payments.input"),
+                     hint_text: t(".housing_payments.input_hint") %>
+        <% end %>
+
+        <%= form.govuk_check_box_divider %>
+
+        <%= form.govuk_check_box :outgoings, "none",
+                                 exclusive: true,
+                                 label: { text: t(".none.label") } %>
+    <% end %>
+    <%= form.govuk_submit %>
+  <% end %>
   </div>
 </div>
