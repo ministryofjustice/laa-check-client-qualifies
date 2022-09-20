@@ -156,7 +156,6 @@ jobs:
 # in the merge_pr_to_main workflow
   deploy_main_uat:
     <<: *deploy_uat
-            ./bin/uat_deployment
 
   deploy_staging:
     executor: cloud-platform-executor
@@ -226,9 +225,6 @@ workflows:
           requires:
             - install_dependencies
       - run_specs:
-          filters:
-            branches:
-              only: main
           requires:
             - install_dependencies
       - build_and_push_to_ecr:
