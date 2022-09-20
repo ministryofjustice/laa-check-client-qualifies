@@ -160,6 +160,8 @@ GEM
     nio4r (2.5.8)
     nokogiri (1.13.8-arm64-darwin)
       racc (~> 1.4)
+    nokogiri (1.13.8-x86_64-darwin)
+      racc (~> 1.4)
     nokogiri (1.13.8-x86_64-linux)
       racc (~> 1.4)
     pagy (5.10.1)
@@ -211,6 +213,10 @@ GEM
     reline (0.3.1)
       io-console (~> 0.5)
     rexml (3.2.5)
+    rspec (3.11.0)
+      rspec-core (~> 3.11.0)
+      rspec-expectations (~> 3.11.0)
+      rspec-mocks (~> 3.11.0)
     rspec-core (3.11.0)
       rspec-support (~> 3.11.0)
     rspec-expectations (3.11.0)
@@ -302,6 +308,7 @@ GEM
 
 PLATFORMS
   arm64-darwin-21
+  x86_64-darwin-19
   x86_64-linux
 
 DEPENDENCIES
@@ -316,6 +323,7 @@ DEPENDENCIES
   propshaft
   puma (~> 5.0)
   rails (~> 7.0.4)
+  rspec
   rspec-rails
   rubocop-govuk
   rubocop-performance
@@ -330,4 +338,4 @@ RUBY VERSION
    ruby 3.1.2p20
 
 BUNDLED WITH
-   2.3.21
+   2.3.22

@@ -1,0 +1,34 @@
+{{- $fullName := include "app.fullname" . -}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: "laa-estimate-eligibility"
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+{{- with .Values.ingress.annotations }}
+  annotations:
+{{ toYaml . | indent 4 }}
+{{- end }}
+spec:
+  ingressClassName: default
+  tls:
+  {{- range .Values.ingress.hosts }}
+    - hosts:
+        - {{ . }}
+  {{- end }}
+  rules:
+  {{- range .Values.ingress.hosts }}
+    - host: {{ . }}
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: {{ $fullName }}
+                port:
+                  name: http
+  {{- end }}
