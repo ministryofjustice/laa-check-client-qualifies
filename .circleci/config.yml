@@ -208,7 +208,6 @@ workflows:
       - run_specs:
       - install_dependencies
       - linters:
-#          filters limit this activity to changes to main, which will be after a feature branch is merged to main
           filters:
             branches:
               only: main
