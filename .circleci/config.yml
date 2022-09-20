@@ -197,18 +197,14 @@ workflows:
 
   merge_pr_to_main:
     jobs:
-      - install_dependencies
-      - linters:
-#          filters limit this activity to changes to main, which will be after a feature branch is merged to main
+      - install_dependencies:
           filters:
             branches:
               only: main
+      - linters:
           requires:
             - install_dependencies
       - run_specs:
-          filters:
-            branches:
-              only: main
           requires:
             - install_dependencies
       - build_and_push_to_ecr:
