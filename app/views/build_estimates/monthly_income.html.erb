@@ -34,6 +34,28 @@
                      hint_text: t(".friends_or_family.input_hint") %>
         <% end %>
 
+        <%= form.govuk_check_box :monthly_incomes, "maintenance",
+                                 label: { text: t(".maintenance.label") },
+                                 hint: { text: t(".maintenance.hint") } do %>
+          <%= render "money_input",
+                     form:,
+                     field: :maintenance,
+                     width: 5,
+                     label_text: t(".maintenance.input"),
+                     hint_text: t(".maintenance.input_hint") %>
+        <% end %>
+
+        <%= form.govuk_check_box :monthly_incomes, "student_finance",
+                                 label: { text: t(".student_finance.label") },
+                                 hint: { text: t(".student_finance.hint") } do %>
+          <%= render "money_input",
+                     form:,
+                     field: :student_finance,
+                     width: 5,
+                     label_text: t(".student_finance.input"),
+                     hint_text: t(".student_finance.input_hint") %>
+        <% end %>
+
         <%= form.govuk_check_box_divider t("generic.check_box_divider") %>
 
         <%= form.govuk_check_box :monthly_incomes, "none",

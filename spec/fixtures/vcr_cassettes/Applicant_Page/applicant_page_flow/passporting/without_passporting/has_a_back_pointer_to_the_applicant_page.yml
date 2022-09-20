@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       date:
-      - Fri, 23 Sep 2022 08:51:16 GMT
+      - Fri, 23 Sep 2022 09:00:21 GMT
       content-type:
       - application/json; charset=utf-8
       transfer-encoding:
@@ -41,22 +41,22 @@ http_interactions:
       vary:
       - Accept
       etag:
-      - W/"80a0e75a2f0cae7dc2eca10be261cc20"
+      - W/"8ac8d04284bbd1fadbf73611e6650938"
       cache-control:
       - max-age=0, private, must-revalidate
       x-request-id:
-      - 350cd72531c649c9af70517d78fcfb7f
+      - d25a3138081528e4bbead7ce336dcc39
       x-runtime:
-      - '0.042760'
+      - '0.133445'
       strict-transport-security:
       - max-age=15724800; includeSubDomains
     body:
       encoding: UTF-8
-      string: '{"success":true,"assessment_id":"3f541f52-c48e-42f4-b9ed-d4ec97e14195","errors":[]}'
+      string: '{"success":true,"assessment_id":"88022554-8e78-4b8b-8805-25ec78028b3e","errors":[]}'
   recorded_at: Mon, 05 Sep 2022 09:00:00 GMT
 - request:
     method: post
-    uri: https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/assessments/3f541f52-c48e-42f4-b9ed-d4ec97e14195/proceeding_types
+    uri: https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/assessments/88022554-8e78-4b8b-8805-25ec78028b3e/proceeding_types
     body:
       encoding: UTF-8
       string: '{"proceeding_types":[{"ccms_code":"DA001","client_involvement_type":"A"},{"ccms_code":"SE013","client_involvement_type":"I"}]}'
@@ -73,7 +73,7 @@ http_interactions:
       message: OK
     headers:
       date:
-      - Fri, 23 Sep 2022 08:51:16 GMT
+      - Fri, 23 Sep 2022 09:00:21 GMT
       content-type:
       - application/json; charset=utf-8
       transfer-encoding:
@@ -99,9 +99,9 @@ http_interactions:
       cache-control:
       - max-age=0, private, must-revalidate
       x-request-id:
-      - 5dd2e84b98518db34e94729ad3618394
+      - bcb6cef3df2f29442c3df8980ade83ed
       x-runtime:
-      - '0.038100'
+      - '0.029230'
       strict-transport-security:
       - max-age=15724800; includeSubDomains
     body:

@@ -1,6 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Property Page" do
+  let(:property_entry_header) { "How much is your client's home worth?" }
   let(:property_header) { "Does your client own the home they live in?" }
   let(:vehicle_header) { "Does your client own a vehicle?" }
   let(:estimate_id) { SecureRandom.uuid }
@@ -28,5 +29,18 @@ RSpec.describe "Property Page" do
     within ".govuk-error-summary__list" do
       expect(page).to have_content("Please select the option that best decribes your clients property ownership")
     end
+  end
+
+  it "can set property to mortage owned" do
+    allow(mock_connection).to receive(:create_main_property)
+
+    click_checkbox("property-form-property-owned", "with_mortgage")
+    click_on "Save and continue"
+    expect(page).to have_content property_entry_header
+    fill_in "property-entry-form-house-value-field", with: 100_000
+    fill_in "property-entry-form-mortgage-field", with: 50_000
+    fill_in "property-entry-form-percentage-owned-field", with: 100
+    click_on "Save and continue"
+    expect(page).to have_content vehicle_header
   end
 end
