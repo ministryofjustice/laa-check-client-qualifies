@@ -4,8 +4,11 @@ ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
+
 # Add additional requires below this line. Rails is not loaded until this point!
 require "rspec/rails"
+
+Capybara.javascript_driver = :selenium_chrome
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -32,15 +35,13 @@ require "rspec/rails"
 # end
 
 RSpec.configure do |config|
-  # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  # config.fixture_path = "#{::Rails.root}/spec/fixtures"
-
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
   # config.use_transactional_fixtures = true
 
   # You can uncomment this line to turn off ActiveRecord support entirely.
+  # We're not using ActiveRecord (yet?)
   config.use_active_record = false
 
   # RSpec Rails can automatically mix in different behaviours to your tests
