@@ -28,3 +28,29 @@ bundle install
 yarn build
 yarn build:css
 ```
+
+### Initial setup
+
+Git-crypt is used for encryption. It uses either your personal public key or a symmetric key.
+
+To obtain the symmetric key you will need to get access to LastPass. Liase with a team member for this. Once you have the the key you can unlock:
+
+    git-crypt unlock path-to-symmetric-key
+
+### Sentry
+
+Sentry is a realtime application monitoring and error tracking service. The service has separate monitoring for UAT/dev, Staging and Production.
+
+New error messages can be added using the ```Sentry.capture_exception()``` or ```Sentry.capture_message()``` methods:
+```
+def test_sentry 
+  begin 
+    1 / 0 
+  rescue ZeroDivisionError => exception 
+    Sentry.capture_exception(exception) 
+   end
+end
+```
+or
+
+```Sentry.capture_message("This is the error message that is sent to Sentry")```

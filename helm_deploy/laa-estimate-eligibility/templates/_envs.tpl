@@ -20,4 +20,9 @@ env:
       secretKeyRef:
         name: {{ template "app.fullname" . }}
         key: deployHost
+  - name: SENTRY_DSN
+    valueFrom:
+      secretKeyRef:
+        name: {{ template "app.fullname" . }}
+        key: sentryDsn
 {{- end }}
