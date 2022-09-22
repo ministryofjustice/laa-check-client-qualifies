@@ -32,5 +32,7 @@ module LaaEstimateFinancialEligibilityForLegalAid
     # config.eager_load_paths << Rails.root.join("extras")
 
     config.assets.paths << Rails.root.join("node_modules/govuk-frontend/govuk/assets")
+
+    config.sentry_dsn = ENV['SENTRY_DSN']&.strip
   end
 end
