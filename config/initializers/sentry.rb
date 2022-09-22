@@ -13,4 +13,3 @@ if %w[production].include?(Rails.env) && ENV["SENTRY_DSN"].present?
     config.traces_sample_rate = 0.2
   end
 end
-

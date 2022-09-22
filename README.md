@@ -33,12 +33,6 @@ To obtain the symmetric key you will need to get access to LastPass. Liase with 
 
     git-crypt unlock path-to-symmetric-key
 
-To add your personal public gpg key to git-crypt liaise with another developer to action the steps in git-crypt.md. Once the pull request has been merged, re-pull main branch and then run:
-
-    git-crypt unlock
-
-Copy the .env.sample file and name the new file .env
-
 ### Sentry
 
 Sentry is a realtime application monitoring and error tracking service. The service has separate monitoring for UAT/dev, Staging and Production.
