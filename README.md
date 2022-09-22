@@ -6,6 +6,10 @@ This is a calculator for providers to obtain a quick estimate to decide if a cli
 
 ## Documentation for developers.
 
+The new 'propshaft' asset pipeline (specifically jsbundling-rails and cssbundling-rails gems) has a 'test:prepare'
+task that gets invoked in lots of useful places -
+see https://stackoverflow.com/questions/71262775/how-do-i-ensure-assets-are-present-with-rail-7-cssbundling-rails-jsbundling-ra
+
 ## Dependencies
 
 - Ruby version
