@@ -3,7 +3,9 @@ Rails.application.routes.draw do
 
   # Currently there is no root path in the application
   # root "pages#home"
+  root to: "start#index"
 
+  resources :start, only: [:index]
   resources :status, only: [:index]
 
   resources :estimates, only: [] do
