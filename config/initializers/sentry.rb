@@ -1,4 +1,5 @@
-if %w[production].include?(Rails.env) && ENV["SENTRY_DSN"].present?
+sentry_dsn = Rails.configuration.sentry_dsn
+if %w[production].include?(Rails.env) && sentry_dsn.present?
   Sentry.init do |config|
     config.dsn = sentry_dsn
     config.breadcrumbs_logger = %i[active_support_logger http_logger]
