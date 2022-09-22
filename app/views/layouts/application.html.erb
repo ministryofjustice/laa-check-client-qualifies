@@ -24,7 +24,7 @@
     <script>
       document.body.className = ((document.body.className) ? document.body.className + " js-enabled" : "js-enabled");
     </script>
-
+    
     <%= govuk_skip_link %>
 
     <%= govuk_header(service_name: t("service.name")) do |header| %>
@@ -32,6 +32,7 @@
       <%#= header.navigation_item(text: "Navigation item 2", href: "#") %>
       <%#= header.navigation_item(text: "Navigation item 3", href: "#") %>
     <% end %>
+    <%= govuk_header(service_name: t("service.name")) %>
 
     <div class="govuk-width-container">
       <main class="govuk-main-wrapper" id="main-content" role="main">
@@ -39,6 +40,6 @@
       </main>
     </div>
 
-    <%= govuk_footer %>
+    <%= render partial: 'layouts/footer' %>
   </body>
 </html>
