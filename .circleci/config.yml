@@ -172,7 +172,15 @@ workflows:
           requires:
             - run_specs
             - linters
+          filters:
+            branches:
+              only:
+                - main
       - deploy_staging:
           context: laa-estimate-eligibility-staging
           requires:
             - build_and_push_to_ecr
+          filters:
+            branches:
+              only:
+                - main
