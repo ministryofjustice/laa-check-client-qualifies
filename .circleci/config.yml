@@ -60,7 +60,6 @@ references:
         echo "${GIT_CRYPT_KEY}" | base64 -d > git-crypt.key
         git-crypt unlock git-crypt.key
 
-
 jobs:
   install_dependencies:
     executor: basic-executor
@@ -77,12 +76,6 @@ jobs:
           name: Install yarn modules
           command: yarn install
       - run:
-          name: Compile frontend JS modules
-          command: yarn build
-      - run:
-          name: Compile frontend SCSS files
-          command: yarn build:css
-      - run:
           name: Install ruby gems
           command: |
             bundle config set path 'vendor/bundle'
@@ -92,6 +85,9 @@ jobs:
               # Install missing gems
               bundle install
             }
+      - run:
+          name: Compile assets for test run
+          command: bundle exec rake test:prepare
       - save_cache:
           key: laa-estimate-eligibility-{{ checksum "Gemfile.lock" }}-v1-{{ checksum "yarn.lock" }}
           paths:
@@ -141,19 +137,6 @@ jobs:
       - *build_docker_image
       - *push_to_ecr
 
-  deploy_uat:
-    executor: cloud-platform-executor
-    steps:
-      - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
-      - *decrypt_secrets
-      - *authenticate_k8s
-      - deploy:
-          name: Deploy LAA Estimate Eligibility Service to UAT
-          command: |
-            ./bin/uat_deployment         
-
   deploy_staging:
     executor: cloud-platform-executor
     steps:
@@ -172,27 +155,31 @@ jobs:
                           --values ./helm_deploy/laa-estimate-eligibility/values-staging.yaml \
                           --set image.repository="$ECR_ENDPOINT" \
                           --set image.tag="${CIRCLE_SHA1}"          
-            
+
 
 workflows:
   open_pr:
     jobs:
-#      - install_dependencies
-#      - linters:
-#          requires:
-#            - install_dependencies
-#      - run_specs:
-#          requires:
-#            - install_dependencies
-      - build_and_push_to_ecr
-#          requires:
-#            - run_specs
-#            - linters
-      - deploy_uat:
-          context: laa-estimate-eligibility-uat
+      - install_dependencies
+      - linters:
+          requires:
+            - install_dependencies
+      - run_specs:
+          requires:
+            - install_dependencies
+      - build_and_push_to_ecr:
+          requires:
+            - run_specs
+            - linters
+          filters:
+            branches:
+              only:
+                - main
+      - deploy_staging:
+          context: laa-estimate-eligibility-staging
           requires:
             - build_and_push_to_ecr
-#      - deploy_staging:
-#          context: laa-estimate-eligibility-staging
-#          requires:
-#            - build_and_push_to_ecr
+          filters:
+            branches:
+              only:
+                - main
