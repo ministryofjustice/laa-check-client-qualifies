@@ -189,14 +189,6 @@ workflows:
           context: laa-estimate-eligibility-uat
           requires:
             - build_and_push_to_ecr
-      - deploy_main_uat:
-          context: laa-estimate-eligibility-uat
-          requires:
-            - build_and_push_to_ecr
-          filters:
-            branches:
-              only:
-                - main
       - deploy_staging:
           context: laa-estimate-eligibility-staging
           requires:
@@ -222,10 +214,6 @@ workflows:
           requires:
             - run_specs
             - linters
-      - deploy_main_uat:
-          context: laa-estimate-eligibility-uat
-          requires:
-            - build_and_push_to_ecr
       - deploy_staging:
           context: laa-estimate-eligibility-staging
           requires:
