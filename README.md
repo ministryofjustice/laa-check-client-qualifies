@@ -54,3 +54,23 @@ end
 or
 
 ```Sentry.capture_message("This is the error message that is sent to Sentry")```
+
+### Deploying to UAT/Staging/Production
+
+The service uses `helm` to deploy to Cloud Platform Environments via CircleCI. This can be installed using:
+
+`brew install helm`
+
+To view helm deployments in a namespace the command is:
+
+`helm -n <namespace> ls -all`
+
+e.g. `helm -n la-estimate-financial-eligibility-for-legal-aid-uat ls -all`
+
+Deployments can be deleted by running:
+
+`helm delete <name-of-deployment>`
+
+e.g. `helm delete estimate-financial-eligibility`
+
+It is also possible to manually deploy to an environment from the command line, the structure of the command can be found in `bin/uat_deployment`
