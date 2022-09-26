@@ -14,8 +14,15 @@ RSpec.describe "Assets Page", :vcr do
     select_applicant_boolean(:employed, false)
     select_applicant_boolean(:passporting, true)
     click_on "Save and continue"
-    click_checkbox("property-form-property-owned", "none")
+
+    click_checkbox("property-form-property-owned", "with_mortgage")
     click_on "Save and continue"
+
+    fill_in "property-entry-form-house-value-field", with: 100_000
+    fill_in "property-entry-form-mortgage-field", with: 50_000
+    fill_in "property-entry-form-percentage-owned-field", with: 100
+    click_on "Save and continue"
+
     select_boolean_value("vehicle-form", :vehicle_owned, false)
     click_on "Save and continue"
   end
@@ -30,6 +37,16 @@ RSpec.describe "Assets Page", :vcr do
     within ".govuk-error-summary__list" do
       expect(page).to have_content("Please select at least one option")
     end
+  end
+
+  it "can submit second property" do
+    click_checkbox("assets-form-assets", "property")
+    fill_in "assets-form-property-value-field", with: "100_000"
+    fill_in "assets-form-property-mortgage-field", with: "50_000"
+    fill_in "assets-form-property-percentage-owned-field", with: "50"
+    click_on "Save and continue"
+
+    expect(page).to have_content "Summary Page"
   end
 
   it "can submit non-zero savings and investments" do

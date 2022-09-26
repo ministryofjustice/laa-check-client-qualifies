@@ -14,9 +14,4 @@ RSpec.describe "Applicant Page" do
     visit "/estimates/new"
     expect(page).to be_axe_clean.skipping("aria-allowed-attr")
   end
-
-  it "shows the intro page heading" do
-    visit "/estimates/new"
-    expect(page).to have_content applicant_header
-  end
 end

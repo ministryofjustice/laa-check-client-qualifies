@@ -36,4 +36,35 @@ RSpec.describe "Income Page" do
       expect(page).to have_content("Please select at least one option")
     end
   end
+
+  it "moves onto outgoings with no income" do
+    expect(mock_connection).to receive(:create_student_loan).with(estimate_id, nil)
+    expect(mock_connection)
+      .to receive(:create_regular_payments)
+
+    click_checkbox("monthly-income-form-monthly-incomes", "none")
+    click_on "Save and continue"
+    expect(page).to have_content("What are your client's monthly outgoings and deductions?")
+  end
+
+  it "handles student finance" do
+    expect(mock_connection).to receive(:create_student_loan).with(estimate_id, 100)
+    expect(mock_connection)
+      .to receive(:create_regular_payments)
+
+    click_checkbox("monthly-income-form-monthly-incomes", "student_finance")
+    fill_in "monthly-income-form-student-finance-field", with: "100"
+    click_on "Save and continue"
+  end
+
+  it "handles friends or family and maintenance" do
+    expect(mock_connection).to receive(:create_student_loan).with(estimate_id, nil)
+    expect(mock_connection).to receive(:create_regular_payments)
+
+    click_checkbox("monthly-income-form-monthly-incomes", "friends_or_family")
+    fill_in "monthly-income-form-friends-or-family-field", with: "200"
+    click_checkbox("monthly-income-form-monthly-incomes", "maintenance")
+    fill_in "monthly-income-form-maintenance-field", with: "300"
+    click_on "Save and continue"
+  end
 end

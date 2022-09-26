@@ -39,6 +39,79 @@ class CfeConnection
     create_record(assessment_id, "applicant", applicant:)
   end
 
+  def create_dependants(assessment_id, count)
+    dependants = (1..count).map do
+      {
+        date_of_birth: 11.years.ago.to_date,
+        in_full_time_education: true,
+        relationship: "child_relative",
+        monthly_income: 0,
+        assets_value: 0,
+      }
+    end
+    create_record(assessment_id, "dependants", dependants:)
+  end
+
+  def create_student_loan(assessment_id, amount)
+    if amount.present?
+      payments = [
+        {
+          "income_type": "student_loan",
+          "frequency": "annual",
+          "amount": amount,
+        },
+      ]
+      create_record(assessment_id, "irregular_incomes", payments:)
+    end
+  end
+
+  def create_regular_payments(assessment_id, income_form, outgoings_form)
+    income = {
+      friends_or_family: income_form.friends_or_family,
+      maintenance_in: income_form.maintenance,
+    }.select { |_k, v| v.present? }.map do |category, amount|
+      { operation: :credit,
+        category:,
+        frequency: :monthly,
+        amount: }
+    end
+
+    outgoings = {
+      rent_or_mortgage: outgoings_form&.housing_payments,
+    }.select { |_k, v| v.present? }.map do |category, amount|
+      { operation: :debit,
+        category:,
+        frequency: :monthly,
+        amount: }
+    end
+
+    regular_transactions = income + outgoings
+
+    create_record(assessment_id, "regular_transactions", regular_transactions:) if regular_transactions.any?
+  end
+
+  def create_properties(assessment_id, main_home, second_property)
+    properties = { main_home: main_home.merge(shared_with_housing_assoc: false) }
+    properties[:additional_properties] = [second_property.merge(shared_with_housing_assoc: false)] if second_property
+    create_record(assessment_id, "properties", properties:)
+  end
+
+  def create_capitals(assessment_id, savings, investments)
+    bank_accounts = savings.map do |amount|
+      {
+        value: amount,
+        description: "Liquid Asset",
+      }
+    end
+    non_liquid_capital = investments.map do |amount|
+      {
+        value: amount,
+        description: "Investment",
+      }
+    end
+    create_record(assessment_id, "capitals", bank_accounts:, non_liquid_capital:) if savings.any? || investments.any?
+  end
+
   def api_result(assessment_id)
     response = cfe_connection.get "/assessments/#{assessment_id}"
     response.body.deep_symbolize_keys

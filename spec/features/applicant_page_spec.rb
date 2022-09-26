@@ -73,6 +73,34 @@ RSpec.describe "Applicant Page" do
     end
   end
 
+  describe "dependants field" do
+    before do
+      allow(CfeConnection).to receive(:connection).and_return(mock_connection)
+      visit "/estimates/new"
+
+      select_applicant_boolean(:over_60, false)
+      select_applicant_boolean(:dependants, true)
+      select_applicant_boolean(:partner, false)
+      select_applicant_boolean(:employed, false)
+      select_applicant_boolean(:passporting, false)
+    end
+
+    it "errors when not typed" do
+      click_on "Save and continue"
+      expect(page).to have_css(".govuk-error-summary__list")
+      within ".govuk-error-summary__list" do
+        expect(page).to have_content("can't be blank")
+      end
+    end
+
+    it "submits 1 dependant" do
+      expect(mock_connection).to receive(:create_dependants).with(estimate_id, 1)
+      fill_in "applicant-form-dependant-count-field", with: "1"
+      click_on "Save and continue"
+      expect(page).to have_content income_header
+    end
+  end
+
   describe "submitting over_60 field" do
     before do
       allow(CfeConnection).to receive(:connection).and_return(mock_connection)
@@ -89,6 +117,7 @@ RSpec.describe "Applicant Page" do
       click_on "Save and continue"
       select_boolean_value("vehicle-form", :vehicle_owned, false)
       click_on "Save and continue"
+      allow(mock_connection).to receive(:create_capitals)
       click_checkbox("assets-form-assets", "none")
       click_on "Save and continue"
 
@@ -130,43 +159,61 @@ RSpec.describe "Applicant Page" do
       travel_to arbitrary_fixed_time
       visit "/estimates/new"
       select_applicant_boolean(:over_60, false)
-      select_applicant_boolean(:dependants, false)
       select_applicant_boolean(:partner, false)
       select_applicant_boolean(:employed, false)
-      select_applicant_boolean(:passporting, passporting)
     end
 
-    context "when passporting" do
-      let(:passporting) { true }
-
+    describe "passporting" do
       before do
-        click_on "Save and continue"
+        select_applicant_boolean(:dependants, false)
+        select_applicant_boolean(:passporting, passporting)
       end
 
-      it "skips income and outgoings" do
-        expect(page).to have_content property_header
+      context "when passporting" do
+        let(:passporting) { true }
+
+        before do
+          click_on "Save and continue"
+        end
+
+        it "skips income and outgoings" do
+          expect(page).to have_content property_header
+        end
+
+        it "has a back pointer to the applicant page" do
+          click_on "Back"
+          expect(page).to have_content applicant_header
+        end
       end
 
-      it "has a back pointer to the applicant page" do
-        click_on "Back"
-        expect(page).to have_content applicant_header
+      context "without passporting" do
+        let(:passporting) { false }
+
+        before do
+          click_on "Save and continue"
+        end
+
+        it "shows income" do
+          expect(page).to have_content income_header
+        end
+
+        it "has a back pointer to the applicant page" do
+          click_on "Back"
+          expect(page).to have_content applicant_header
+        end
       end
     end
 
-    context "without passporting" do
-      let(:passporting) { false }
-
+    describe "dependants field" do
       before do
-        click_on "Save and continue"
+        select_applicant_boolean(:dependants, true)
+        select_applicant_boolean(:passporting, false)
       end
 
-      it "shows income" do
+      it "submits dependants" do
+        fill_in "applicant-form-dependant-count-field", with: "2"
+        click_on "Save and continue"
         expect(page).to have_content income_header
-      end
-
-      it "has a back pointer to the applicant page" do
-        click_on "Back"
-        expect(page).to have_content applicant_header
       end
     end
   end
