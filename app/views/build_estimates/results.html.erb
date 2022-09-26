@@ -11,7 +11,7 @@
         <strong>
           &pound;<%= number_with_precision(@form.dig(:result_summary, :overall_result, :income_contribution),
                                            precision: 2,
-                                           separator: ",") %>
+                                           delimiter: ",") %>
         </strong>
         <%= t(".income-contribution") %>
       </li>
@@ -19,7 +19,7 @@
         <strong>
           &pound;<%= number_with_precision(@form.dig(:result_summary, :overall_result, :capital_contribution),
                                            precision: 2,
-                                           separator: ",") %>
+                                           delimiter: ",") %>
         </strong>
         <%= t(".capital-contribution") %>
       </li>
