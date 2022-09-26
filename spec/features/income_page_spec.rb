@@ -59,17 +59,7 @@ RSpec.describe "Income Page" do
 
   it "handles friends or family and maintenance" do
     expect(mock_connection).to receive(:create_student_loan).with(estimate_id, nil)
-    expect(mock_connection)
-      .to receive(:create_regular_payments)
-    # .with(estimate_id,
-    #       [{ amount: 200,
-    #          category: :friends_or_family,
-    #          frequency: :monthly,
-    #          operation: :credit },
-    #        { amount: 300,
-    #          category: :maintenance_in,
-    #          frequency: :monthly,
-    #          operation: :credit }])
+    expect(mock_connection).to receive(:create_regular_payments)
 
     click_checkbox("monthly-income-form-monthly-incomes", "friends_or_family")
     fill_in "monthly-income-form-friends-or-family-field", with: "200"
