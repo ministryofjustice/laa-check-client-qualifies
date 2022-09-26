@@ -31,19 +31,10 @@ class BuildEstimatesController < ApplicationController
     @form = handler.form(params)
 
     if @form.valid?
-      if step == :summary
-        estimate = load_estimate
-        cfe_connection.create_applicant estimate_id,
-                                        date_of_birth: estimate.over_60 ? 61.years.ago.to_date : 59.years.ago.to_date,
-                                        receives_qualifying_benefit: estimate.passporting
-        session.delete(session_key)
-        redirect_to next_wizard_path
-      else
-        handler.save_data(cfe_connection, estimate_id, @form, session_data)
-        session_data.merge!(@form.attributes)
+      handler.save_data(cfe_connection, estimate_id, @form, session_data)
+      session_data.merge!(@form.attributes)
 
-        redirect_to wizard_path next_step_for(load_estimate, step)
-      end
+      redirect_to wizard_path next_step_for(load_estimate, step)
     else
       @estimate = load_estimate
       render_wizard

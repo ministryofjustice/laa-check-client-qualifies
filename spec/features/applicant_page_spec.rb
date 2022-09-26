@@ -18,7 +18,7 @@ RSpec.describe "Applicant Page" do
       click_on "Save and continue"
     end
 
-    context "with over_60" do
+    context "when over_60 is omitted" do
       let(:field) { :over_60 }
 
       it "has an error section" do
@@ -32,7 +32,7 @@ RSpec.describe "Applicant Page" do
       end
     end
 
-    context "with employed" do
+    context "when employed is omitted" do
       let(:field) { :employed }
 
       it "displays the correct error message" do
@@ -42,7 +42,7 @@ RSpec.describe "Applicant Page" do
       end
     end
 
-    context "with dependants" do
+    context "when dependants is omitted" do
       let(:field) { :dependants }
 
       it "displays the correct error message" do
@@ -52,7 +52,7 @@ RSpec.describe "Applicant Page" do
       end
     end
 
-    context "with partner" do
+    context "when partner is omitted" do
       let(:field) { :partner }
 
       it "displays the correct error message" do
@@ -62,7 +62,7 @@ RSpec.describe "Applicant Page" do
       end
     end
 
-    context "with passporting" do
+    context "when passporting is omitted" do
       let(:field) { :passporting }
 
       it "displays the correct error message" do
@@ -97,9 +97,9 @@ RSpec.describe "Applicant Page" do
 
     context "when over 60" do
       let(:over_60) { true }
-      let(:date_of_birth) { (Time.zone.today - 61.years).to_date }
+      let(:date_of_birth) { (Time.zone.today - 70.years).to_date }
 
-      it "sets age to 61" do
+      it "sets age to 70" do
         expect(mock_connection).to receive(:create_applicant)
                                      .with(estimate_id, date_of_birth:,
                                                         receives_qualifying_benefit: true)
@@ -111,9 +111,9 @@ RSpec.describe "Applicant Page" do
 
     context "when under 60" do
       let(:over_60) { false }
-      let(:date_of_birth) { (Time.zone.today - 59.years).to_date }
+      let(:date_of_birth) { (Time.zone.today - 50.years).to_date }
 
-      it "sets age to 59" do
+      it "sets age to 50" do
         expect(mock_connection).to receive(:create_applicant)
                                      .with(estimate_id, date_of_birth:,
                                                         receives_qualifying_benefit: true)
