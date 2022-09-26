@@ -8,12 +8,12 @@
                  url: wizard_path,
                  method: :put) do |form| %>
 
-      <%= form.govuk_error_summary %>
+      <%= form.govuk_error_summary t("generic.error_summary_title") %>
 
       <%= form.govuk_collection_radio_buttons :property_owned, property_options, :first, :last,
                                               legend: { text: t(".property_owned.legend") } %>
 
-      <%= form.govuk_submit %>
+      <%= form.govuk_submit t("generic.save_and_continue") %>
     <% end %>
   </div>
 </div>

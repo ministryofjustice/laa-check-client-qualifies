@@ -105,7 +105,7 @@ RSpec.describe "Applicant Page" do
                                                         receives_qualifying_benefit: true)
 
         expect(page).to have_content "Summary Page"
-        click_on "Save and continue"
+        click_on "Submit"
       end
     end
 
@@ -118,7 +118,7 @@ RSpec.describe "Applicant Page" do
                                      .with(estimate_id, date_of_birth:,
                                                         receives_qualifying_benefit: true)
         expect(page).to have_content "Summary Page"
-        click_on "Save and continue"
+        click_on "Submit"
       end
     end
   end

@@ -39,6 +39,10 @@ en:
     employed: Employed
     unemployed: Unemployed
     back: Back
+    error_summary_title: There is a problem
+    save_and_continue: Save and continue
+    submit: Submit
+    check_box_divider: or
   build_estimates:
     applicant:
       heading: Your client's details

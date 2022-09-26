@@ -1,9 +1,6 @@
 require "rails_helper"
 
 RSpec.describe "Income Page" do
-  let(:arbitrary_fixed_time) { Time.zone.local(2022, 9, 5, 9, 0, 0) }
-  let(:property_header) { "Your client's property" }
-  let(:vehicle_header) { "Does your client own a vehicle?" }
   let(:income_header) { "What income does your client receive?" }
   let(:estimate_id) { SecureRandom.uuid }
   let(:mock_connection) { instance_double(CfeConnection, create_assessment_id: estimate_id) }

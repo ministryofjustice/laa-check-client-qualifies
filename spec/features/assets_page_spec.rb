@@ -49,7 +49,7 @@ RSpec.describe "Assets Page", :vcr do
     click_on "Save and continue"
 
     expect(page).to have_content "Summary Page"
-    click_on "Save and continue"
+    click_on "Submit"
 
     expect(page).to have_content "Results Page"
   end

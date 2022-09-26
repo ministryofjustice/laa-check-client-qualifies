@@ -6,7 +6,7 @@
     <%= form_for(@form,
                  url: wizard_path,
                  method: :put) do |form| %>
-      <%= form.govuk_error_summary %>
+      <%= form.govuk_error_summary t("generic.error_summary_title") %>
 
       <%= form.govuk_check_boxes_fieldset :outgoings,
                                           legend: { text: t(".outgoings.legend"), size: "l" },
@@ -23,13 +23,13 @@
                      hint_text: t(".housing_payments.input_hint") %>
         <% end %>
 
-        <%= form.govuk_check_box_divider %>
+        <%= form.govuk_check_box_divider t("generic.check_box_divider") %>
 
         <%= form.govuk_check_box :outgoings, "none",
                                  exclusive: true,
                                  label: { text: t(".none.label") } %>
     <% end %>
-    <%= form.govuk_submit %>
+      <%= form.govuk_submit t("generic.save_and_continue") %>
   <% end %>
   </div>
 </div>

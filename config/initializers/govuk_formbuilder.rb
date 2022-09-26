@@ -8,7 +8,7 @@ GOVUKDesignSystemFormBuilder.configure do |config|
   # config.default_legend_size: 'm'
   # config.default_legend_tag: nil
   # config.default_caption_size: 'm'
-  config.default_submit_button_text = "Save and continue"
+  # config.default_submit_button_text: 'Continue'
   # config.default_radio_divider_text: 'or'
   # config.default_check_box_divider_text: 'or'
   # config.default_error_summary_title: 'There is a problem'

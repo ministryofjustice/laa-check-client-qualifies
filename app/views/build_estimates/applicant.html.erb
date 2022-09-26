@@ -6,7 +6,7 @@
                  url: wizard_path,
                  method: :put) do |form| %>
 
-      <%= form.govuk_error_summary %>
+      <%= form.govuk_error_summary t("generic.error_summary_title") %>
 
       <%= form.govuk_collection_radio_buttons :over_60,
                                               yes_no_options, :first, :last,
@@ -26,7 +26,7 @@
                                               legend: { text: t(".passporting.legend") },
                                               hint: { text: t(".passporting.hint") } %>
 
-      <%= form.govuk_submit %>
+      <%= form.govuk_submit t("generic.save_and_continue") %>
     <% end %>
   </div>
 </div>

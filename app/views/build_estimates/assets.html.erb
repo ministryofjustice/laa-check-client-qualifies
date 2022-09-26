@@ -8,7 +8,7 @@
                  url: wizard_path,
                  method: :put) do |form| %>
 
-      <%= form.govuk_error_summary %>
+      <%= form.govuk_error_summary t("generic.error_summary_title") %>
 
       <%= form.govuk_check_boxes_fieldset :assets,
                                           legend: { text: t(".assets.legend") },
@@ -36,13 +36,13 @@
                      hint_text: t(".investments.input_hint") %>
         <% end %>
 
-        <%= form.govuk_check_box_divider %>
+        <%= form.govuk_check_box_divider t("generic.check_box_divider") %>
 
         <%= form.govuk_check_box :assets, "none",
                                  exclusive: true,
                                  label: { text: t(".none.label") } %>
       <% end %>
-      <%= form.govuk_submit %>
+      <%= form.govuk_submit t("generic.save_and_continue") %>
     <% end %>
   </div>
 </div>
