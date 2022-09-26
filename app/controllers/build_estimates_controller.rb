@@ -1,61 +1,61 @@
 class BuildEstimatesController < ApplicationController
   include Wicked::Wizard
-  include BuildEstimatesHelper
+  include StepsHelper
 
-  steps(*ALL_ESTIMATE_STEPS)
+  steps(*STEPS_WITH_PROPERTY)
 
-  MONTHLY_INCOME_ATTRIBUTES = MonthlyIncomeForm::INCOME_ATTRIBUTES + [:monthly_incomes]
-
-  def new
-    session[session_key] = {}
-    redirect_to wizard_path(steps.first)
-  end
+  HANDLER_CLASSES = {
+    applicant: Flow::ApplicantHandler,
+    monthly_income: Flow::IncomeHandler,
+    property: Flow::PropertyHandler,
+    vehicle: Flow::VehicleHandler,
+    assets: Flow::AssetHandler,
+    summary: Flow::SummaryHandler,
+    outgoings: Flow::OutgoingsHandler,
+    property_entry: Flow::PropertyEntryHandler,
+  }.freeze
 
   def show
-    case step
-    when :intro
-      @estimate = IntroForm.new session[session_key]
-    when :monthly_income
-      @estimate = MonthlyIncomeForm.new session[session_key].slice(*MONTHLY_INCOME_ATTRIBUTES)
-    when :property
-      @intro_form = IntroForm.new session[session_key]
-    end
+    handler = HANDLER_CLASSES[step]
+    @form = if handler
+              handler.model(session_data)
+            else
+              cfe_connection.api_result(estimate_id)
+            end
+    @estimate = load_estimate
     render_wizard
   end
 
   def update
-    case step
-    when :intro
-      @estimate = IntroForm.new(intro_params)
-      if @estimate.valid?
-        session[session_key] = @estimate.attributes
-        redirect_to wizard_path next_step_for(@estimate, step)
-      else
-        render_wizard
-      end
-    when :monthly_income
-      @estimate = MonthlyIncomeForm.new(monthly_income_params)
-      if @estimate.valid?
-        session[session_key].merge(@estimate.attributes)
-        redirect_to next_wizard_path
-      else
-        render_wizard
-      end
+    handler = HANDLER_CLASSES.fetch(step)
+    @form = handler.form(params)
+
+    if @form.valid?
+      handler.save_data(cfe_connection, estimate_id, @form, session_data)
+      session_data.merge!(@form.attributes)
+
+      redirect_to wizard_path next_step_for(load_estimate, step)
+    else
+      @estimate = load_estimate
+      render_wizard
     end
   end
 
 private
 
+  def load_estimate
+    EstimateData.new session_data.slice(*EstimateData::ESTIMATE_ATTRIBUTES.map(&:to_s))
+  end
+
+  def estimate_id
+    params[:estimate_id]
+  end
+
+  def session_data
+    session[session_key] ||= {}
+  end
+
   def session_key
-    "estimate_#{params[:estimate_id]}"
-  end
-
-  def intro_params
-    params.require(:intro_form).permit(*IntroForm::INTRO_ATTRIBUTES)
-  end
-
-  def monthly_income_params
-    # params.require(:monthly_income_form).permit(*MonthlyIncomeForm::INCOME_ATTRIBUTES, monthly_incomes: [])
-    params.require(:monthly_income_form).permit(:employment_income, :friends_or_family, monthly_incomes: [])
+    "estimate_#{estimate_id}"
   end
 end

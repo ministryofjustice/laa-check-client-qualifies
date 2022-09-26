@@ -1,4 +1,4 @@
-class IntroForm
+class ApplicantForm
   include ActiveModel::Model
   include ActiveModel::Attributes
 

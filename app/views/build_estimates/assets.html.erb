@@ -1,0 +1,48 @@
+<%= link_to t("generic.back"), previous_wizard_path, class: "govuk-back-link" %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <span class="govuk-caption-l"><%= t(".caption") %></span>
+    <h1 class="govuk-heading-l"><%= t(".heading") %></h1>
+
+    <%= form_for(@form,
+                 url: wizard_path,
+                 method: :put) do |form| %>
+
+      <%= form.govuk_error_summary t("generic.error_summary_title") %>
+
+      <%= form.govuk_check_boxes_fieldset :assets,
+                                          legend: { text: t(".assets.legend") },
+                                          hint: { text: t(".assets.hint") } do %>
+        <%= form.govuk_check_box :assets,
+                                 "savings",
+                                 label: { text: t(".savings.label") },
+                                 hint: { text: t(".savings.hint") },
+                                 link_errors: true do %>
+          <%= render "money_input",
+                     form:,
+                     field: :savings,
+                     width: 5,
+                     label_text: t(".savings.input"),
+                     hint_text: t(".savings.input_hint") %>
+        <% end %>
+        <%= form.govuk_check_box :assets, "investments",
+                                 label: { text: t(".investments.label") },
+                                 hint: { text: t(".investments.hint") } do %>
+          <%= render "money_input",
+                     form:,
+                     field: :investments,
+                     width: 5,
+                     label_text: t(".investments.input"),
+                     hint_text: t(".investments.input_hint") %>
+        <% end %>
+
+        <%= form.govuk_check_box_divider t("generic.check_box_divider") %>
+
+        <%= form.govuk_check_box :assets, "none",
+                                 exclusive: true,
+                                 label: { text: t(".none.label") } %>
+      <% end %>
+      <%= form.govuk_submit t("generic.save_and_continue") %>
+    <% end %>
+  </div>
+</div>
