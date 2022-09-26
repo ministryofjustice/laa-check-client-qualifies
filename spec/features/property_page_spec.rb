@@ -32,7 +32,7 @@ RSpec.describe "Property Page" do
   end
 
   it "can set property to mortage owned" do
-    allow(mock_connection).to receive(:create_main_property)
+    allow(mock_connection).to receive(:create_properties)
 
     click_checkbox("property-form-property-owned", "with_mortgage")
     click_on "Save and continue"

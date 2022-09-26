@@ -136,6 +136,18 @@ en:
         hint: For example, shares in a public limited company, unit trusts or capital bonds.
         input: Enter the total value
         input_hint: ""
+      property:
+        label: Second property or holiday home
+        hint: ""
+        value:
+          label: Enter the estimated value
+          input_hint: ""
+        mortgage:
+          label: Enter the outstanding mortgage
+          input_hint: ""
+        percentage_owned:
+          input: Enter the share your client owns
+          input_hint: ""
     summary:
       heading: Summary Page
     results:

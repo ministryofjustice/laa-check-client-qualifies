@@ -90,32 +90,26 @@ class CfeConnection
     create_record(assessment_id, "regular_transactions", regular_transactions:) if regular_transactions.any?
   end
 
-  def create_main_property(assessment_id, percentage_owned:, mortgage:, house_value:)
-    properties = {
-      main_home: {
-        value: house_value,
-        outstanding_mortgage: mortgage,
-        percentage_owned:,
-        shared_with_housing_assoc: false,
-      },
-    }
+  def create_properties(assessment_id, main_home, second_property)
+    properties = { main_home: main_home.merge(shared_with_housing_assoc: false) }
+    properties[:additional_properties] = [second_property.merge(shared_with_housing_assoc: false)] if second_property
     create_record(assessment_id, "properties", properties:)
   end
 
-  def create_capitals(assessment_id, capitals)
-    bank_accounts = capitals.select(&:liquid?).map(&:amount).map do |amount|
+  def create_capitals(assessment_id, savings, investments)
+    bank_accounts = savings.map do |amount|
       {
         value: amount,
         description: "Liquid Asset",
       }
     end
-    non_liquid_capital = capitals.reject(&:liquid?).map(&:amount).map do |amount|
+    non_liquid_capital = investments.map do |amount|
       {
         value: amount,
         description: "Investment",
       }
     end
-    create_record(assessment_id, "capitals", bank_accounts:, non_liquid_capital:)
+    create_record(assessment_id, "capitals", bank_accounts:, non_liquid_capital:) if savings.any? || investments.any?
   end
 
   def api_result(assessment_id)

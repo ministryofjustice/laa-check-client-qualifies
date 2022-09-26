@@ -117,6 +117,7 @@ RSpec.describe "Applicant Page" do
       click_on "Save and continue"
       select_boolean_value("vehicle-form", :vehicle_owned, false)
       click_on "Save and continue"
+      allow(mock_connection).to receive(:create_capitals)
       click_checkbox("assets-form-assets", "none")
       click_on "Save and continue"
 

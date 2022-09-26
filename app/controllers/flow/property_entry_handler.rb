@@ -2,7 +2,7 @@ module Flow
   class PropertyEntryHandler
     class << self
       def model(session_data)
-        PropertyEntryForm.new session_data.slice(*PropertyEntryForm::ENTRY_ATTRIBUTES)
+        PropertyEntryForm.new session_data.slice(*PropertyEntryForm::ENTRY_ATTRIBUTES.map(&:to_s))
       end
 
       def form(params)
@@ -10,10 +10,12 @@ module Flow
       end
 
       def save_data(cfe_connection, estimate_id, estimate, _session_data)
-        cfe_connection.create_main_property estimate_id,
-                                            house_value: estimate.house_value,
-                                            mortgage: estimate.mortgage,
-                                            percentage_owned: estimate.percentage_owned
+        main_home = {
+          value: estimate.house_value,
+          outstanding_mortgage: estimate.mortgage,
+          percentage_owned: estimate.percentage_owned,
+        }
+        cfe_connection.create_properties(estimate_id, main_home, nil)
       end
     end
   end

@@ -14,6 +14,28 @@
                                           legend: { text: t(".assets.legend") },
                                           hint: { text: t(".assets.hint") } do %>
         <%= form.govuk_check_box :assets,
+                                 "property",
+                                 label: { text: t(".property.label") },
+                                 hint: { text: t(".property.hint") } do %>
+          <%= render "money_input",
+                     form:,
+                     field: :property_value,
+                     width: 10,
+                     label_text: t(".property.value.label"),
+                     hint_text: t(".property.value.input_hint") %>
+          <%= render "money_input",
+                     form:,
+                     field: :property_mortgage,
+                     width: 10,
+                     label_text: t(".property.mortgage.label"),
+                     hint_text: t(".property.mortgage.input_hint") %>
+          <%= form.govuk_number_field :property_percentage_owned,
+                                      width: 3,
+                                      suffix_text: "%",
+                                      label: { text: t(".property.percentage_owned.input"), size: "m" },
+                                      hint: { text: t(".property.percentage_owned.input_hint") } %>
+        <% end %>
+        <%= form.govuk_check_box :assets,
                                  "savings",
                                  label: { text: t(".savings.label") },
                                  hint: { text: t(".savings.hint") },
