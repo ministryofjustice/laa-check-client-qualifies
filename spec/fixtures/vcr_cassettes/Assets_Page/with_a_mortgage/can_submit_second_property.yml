@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       date:
-      - Mon, 26 Sep 2022 11:06:18 GMT
+      - Mon, 26 Sep 2022 12:46:32 GMT
       content-type:
       - application/json; charset=utf-8
       transfer-encoding:
@@ -41,22 +41,22 @@ http_interactions:
       vary:
       - Accept
       etag:
-      - W/"833b2c65f7398b9d50e34551ac973c79"
+      - W/"71590ed0885be52bc92dc33d1947e16c"
       cache-control:
       - max-age=0, private, must-revalidate
       x-request-id:
-      - 804674b4226dcf066db9b9f25aa487a5
+      - '079b720fff1a341d4c74c725a5663a23'
       x-runtime:
-      - '0.042362'
+      - '0.037434'
       strict-transport-security:
       - max-age=15724800; includeSubDomains
     body:
       encoding: UTF-8
-      string: '{"success":true,"assessment_id":"1fc744e5-0156-4a1c-9f84-14231368b244","errors":[]}'
+      string: '{"success":true,"assessment_id":"64615a89-dab5-4c9f-91c6-5936fc91b688","errors":[]}'
   recorded_at: Mon, 05 Sep 2022 09:00:00 GMT
 - request:
     method: post
-    uri: https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/assessments/1fc744e5-0156-4a1c-9f84-14231368b244/proceeding_types
+    uri: https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/assessments/64615a89-dab5-4c9f-91c6-5936fc91b688/proceeding_types
     body:
       encoding: UTF-8
       string: '{"proceeding_types":[{"ccms_code":"DA001","client_involvement_type":"A"},{"ccms_code":"SE013","client_involvement_type":"I"}]}'
@@ -73,7 +73,7 @@ http_interactions:
       message: OK
     headers:
       date:
-      - Mon, 26 Sep 2022 11:06:28 GMT
+      - Mon, 26 Sep 2022 12:46:32 GMT
       content-type:
       - application/json; charset=utf-8
       transfer-encoding:
@@ -99,9 +99,9 @@ http_interactions:
       cache-control:
       - max-age=0, private, must-revalidate
       x-request-id:
-      - 3d8212a17b1aad7e48d10cb1287420f8
+      - 789a6a347416475b942ea670f46f2ebf
       x-runtime:
-      - '0.034967'
+      - '0.036373'
       strict-transport-security:
       - max-age=15724800; includeSubDomains
     body:
@@ -110,7 +110,7 @@ http_interactions:
   recorded_at: Mon, 05 Sep 2022 09:00:00 GMT
 - request:
     method: post
-    uri: https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/assessments/1fc744e5-0156-4a1c-9f84-14231368b244/properties
+    uri: https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/assessments/64615a89-dab5-4c9f-91c6-5936fc91b688/properties
     body:
       encoding: UTF-8
       string: '{"properties":{"main_home":{"value":100000,"outstanding_mortgage":50000,"percentage_owned":100,"shared_with_housing_assoc":false}}}'
@@ -127,7 +127,7 @@ http_interactions:
       message: OK
     headers:
       date:
-      - Mon, 26 Sep 2022 11:06:28 GMT
+      - Mon, 26 Sep 2022 12:46:33 GMT
       content-type:
       - application/json; charset=utf-8
       transfer-encoding:
@@ -153,9 +153,63 @@ http_interactions:
       cache-control:
       - max-age=0, private, must-revalidate
       x-request-id:
-      - 814dce6b5de570f292d530f1cab4ac54
+      - 2e4d6f302140e6d723317c4b6002727a
       x-runtime:
-      - '0.028484'
+      - '0.033701'
+      strict-transport-security:
+      - max-age=15724800; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"errors":[]}'
+  recorded_at: Mon, 05 Sep 2022 09:00:00 GMT
+- request:
+    method: post
+    uri: https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/assessments/64615a89-dab5-4c9f-91c6-5936fc91b688/properties
+    body:
+      encoding: UTF-8
+      string: '{"properties":{"main_home":{"value":100000,"outstanding_mortgage":50000,"percentage_owned":100,"shared_with_housing_assoc":false},"additional_properties":[{"value":"100000.0","outstanding_mortgage":"50000.0","percentage_owned":50,"shared_with_housing_assoc":false}]}}'
+    headers:
+      Accept:
+      - application/json;version=5
+      User-Agent:
+      - Faraday v2.5.2
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      date:
+      - Mon, 26 Sep 2022 12:46:33 GMT
+      content-type:
+      - application/json; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - keep-alive
+      x-frame-options:
+      - SAMEORIGIN
+      x-xss-protection:
+      - '0'
+      x-content-type-options:
+      - nosniff
+      x-download-options:
+      - noopen
+      x-permitted-cross-domain-policies:
+      - none
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      vary:
+      - Accept
+      etag:
+      - W/"e156c1de751f0fc41f3ce5edefd256d2"
+      cache-control:
+      - max-age=0, private, must-revalidate
+      x-request-id:
+      - efb0539bb8dd484a8e9c45749ded2128
+      x-runtime:
+      - '0.035314'
       strict-transport-security:
       - max-age=15724800; includeSubDomains
     body:
