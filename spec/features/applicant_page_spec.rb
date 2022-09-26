@@ -92,7 +92,7 @@ RSpec.describe "Applicant Page" do
       click_checkbox("assets-form-assets", "none")
       click_on "Save and continue"
 
-      allow(mock_connection).to receive(:api_result).and_return(result_summary: { overall_result: { income_contribution: 0 } })
+      allow(mock_connection).to receive(:api_result).and_return(result_summary: { overall_result: { income_contribution: 12_345.78 } })
     end
 
     context "when over 60" do
@@ -106,6 +106,7 @@ RSpec.describe "Applicant Page" do
 
         expect(page).to have_content "Summary Page"
         click_on "Submit"
+        expect(page).to have_content "£12,345.78 per month"
       end
     end
 
