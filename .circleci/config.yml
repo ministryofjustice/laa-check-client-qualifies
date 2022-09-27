@@ -144,7 +144,7 @@ jobs:
       - *build_docker_image
       - *push_to_ecr
 
-  deploy_uat: &deploy_uat
+  deploy_uat:
     executor: cloud-platform-executor
     steps:
       - checkout
@@ -156,12 +156,6 @@ jobs:
           name: Deploy LAA Estimate Eligibility Service to UAT
           command: |
             ./bin/uat_deployment 
-
-# this job does the same as deploy_uat however it will be
-# deploying to the main uat branch as it is only called
-# in the merge_pr_to_main workflow
-  deploy_main_uat:
-    <<: *deploy_uat
 
   deploy_staging:
     executor: cloud-platform-executor
@@ -201,22 +195,6 @@ workflows:
           context: laa-estimate-eligibility-uat
           requires:
             - build_and_push_to_ecr
-      - deploy_main_uat:
-          context: laa-estimate-eligibility-uat
-          requires:
-            - build_and_push_to_ecr
-          filters:
-            branches:
-              only:
-                - main
-      - deploy_staging:
-          context: laa-estimate-eligibility-staging
-          requires:
-            - build_and_push_to_ecr
-          filters:
-            branches:
-              only:
-                - main
 
   merge_pr_to_main:
     jobs:
@@ -234,7 +212,8 @@ workflows:
           requires:
             - run_specs
             - linters
-      - deploy_main_uat:
+      - deploy_uat:
+          name: deploy_main_uat
           context: laa-estimate-eligibility-uat
           requires:
             - build_and_push_to_ecr
