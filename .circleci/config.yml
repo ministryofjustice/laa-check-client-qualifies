@@ -184,21 +184,12 @@ workflows:
             branches:
               ignore: main
       - linters:
-          filters:
-            branches:
-              ignore: main
           requires:
             - install_dependencies
       - run_specs:
-          filters:
-            branches:
-              ignore: main
           requires:
             - install_dependencies
       - build_and_push_to_ecr:
-          filters:
-            branches:
-              ignore: main
           requires:
             - run_specs
             - linters

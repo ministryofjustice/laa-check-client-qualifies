@@ -50,7 +50,7 @@ group :development, :test do
   gem "dotenv-rails"
 
   gem "simplecov", require: false
-
+  gem "slim_lint"
   gem "rubocop-govuk", require: false
   gem "rubocop-performance"
   gem "erb_lint"
