@@ -13,7 +13,6 @@ deploy() {
 
   helm upgrade $RELEASE_NAME ./helm_deploy/laa-estimate-eligibility/. \
                 --install --wait \
-                --debug \
                 --namespace=${K8S_NAMESPACE} \
                 --values ./helm_deploy/laa-estimate-eligibility/values-uat.yaml \
                 --set image.repository="$IMG_REPO" \

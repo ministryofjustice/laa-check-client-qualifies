@@ -170,7 +170,6 @@ jobs:
           command: |
             helm upgrade estimate-financial-eligibility ./helm_deploy/laa-estimate-eligibility/. \
                           --install --wait \
-                          --debug \
                           --namespace=${K8S_NAMESPACE} \
                           --values ./helm_deploy/laa-estimate-eligibility/values-staging.yaml \
                           --set image.repository="$ECR_ENDPOINT" \
