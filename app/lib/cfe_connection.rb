@@ -69,6 +69,9 @@ class CfeConnection
     income = {
       friends_or_family: income_form.friends_or_family,
       maintenance_in: income_form.maintenance,
+      property_or_lodger: income_form.property_or_lodger,
+      pension: income_form.pension,
+      other: income_form.other,
     }.select { |_k, v| v.present? }.map do |category, amount|
       { operation: :credit,
         category:,

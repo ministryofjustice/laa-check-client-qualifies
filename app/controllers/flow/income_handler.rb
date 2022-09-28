@@ -4,7 +4,7 @@ module Flow
 
     class << self
       def model(session_data)
-        MonthlyIncomeForm.new session_data.slice(*MONTHLY_INCOME_ATTRIBUTES)
+        MonthlyIncomeForm.new session_data.slice(*MONTHLY_INCOME_ATTRIBUTES.map(&:to_s))
       end
 
       def form(params)
