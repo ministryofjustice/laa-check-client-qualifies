@@ -170,3 +170,18 @@ en:
       percentage_owned:
         input: What percentage share of their home does your client legally own?
         input_hint: Your client's name must be on the property deeds, lease or freehold.
+  start:
+    index:
+      efe_heading: Estimate financial eligibility for legal aid
+      legal_aid_provider: Legal aid providers can use this service to find out if a client might be financially eligible for legal aid.
+      non_provider_check_link_html:
+        <a href="https://www.gov.uk/check-legal-aid/">Check if you can get legal aid</a> if you're not a legal aid provider.
+      before_start_heading: Before you start
+      required_information: "You'll need information about your client's:"
+      item_1: income
+      item_2: outgoings
+      item_3: savings, investments and other assets
+      related_content_title: Related content
+      related_content_item_1: Legal aid overview
+      related_content_item_2: Civil legal aid
+      start_button: Start now
