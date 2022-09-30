@@ -24,6 +24,8 @@ if ENV["COVERAGE"] == "true"
     # no database (yet) so this file is never loaded
     add_filter "app/models/application_record.rb"
 
+    add_filter "app/controllers/start_controller.rb"
+
     enable_coverage :branch
   end
 end

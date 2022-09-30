@@ -69,11 +69,26 @@ en:
             percentage_owned:
               blank: Please specify what percentage of your client's house they own
               within_range: Please enter an ownership percentage between 1 and 100
-
         vehicle_form:
           attributes:
             vehicle_owned:
               inclusion: Select yes if the client owns a vehicle
+        vehicle_value_form:
+          attributes:
+            vehicle_in_regular_use:
+              inclusion: Select yes if the vehicle is in regular use
+            vehicle_value:
+              blank: Please enter the estimated value
+        vehicle_age_form:
+          attributes:
+            vehicle_over_3_years_ago:
+              inclusion: Select yes if the vehicle was purchased more than 3 years ago
+        vehicle_finance_form:
+          attributes:
+            vehicle_pcp:
+              inclusion: Select yes if the vehicle has outstanding finance
+            vehicle_finance:
+              blank: Please enter the outstanding finance amount
   service:
     name: Estimate financial eligibility for legal aid
     email: eligibility@digital.justice.gov.uk
@@ -100,7 +115,7 @@ en:
         legend: Does your client have any dependants?
         hint: By dependant we mean a child or adult who lives with your client and depends on them for financial support. Do not include your client's partner (if they have one).
       employed:
-        legend: What is your clients employment status?
+        legend: What is your client's employment status?
         hint: ""
       partner:
         legend: Does your client have a partner?
@@ -186,9 +201,12 @@ en:
       link_to_guidance_on_properties: '#'
     vehicle:
       caption: Your client's finances
-      heading: ''
       vehicle_owned:
         legend: Does your client own a vehicle?
+        hint: ""
+      guidance:
+        text: Guidance on vehicles (TBS)
+        link: http://www.gov.uk/
     assets:
       caption: Your client's finances
       assets:
@@ -218,7 +236,7 @@ en:
       heading: Summary Page
     results:
       heading: Results Page
-      provided_client_information: You have provided your clients information
+      provided_client_information: You have provided your client's information
       client-has-to-pay: Based on what you've told us, your client may need to pay towards controlled legal aid work
       client-may-have-to-pay: "We calculated that your client may have to pay:"
       income-contribution: per month from their disposable income
@@ -236,6 +254,28 @@ en:
       percentage_owned:
         input: What percentage share of their home does your client legally own?
         input_hint: Your client's name must be on the property deeds, lease or freehold.
+    vehicle_value:
+      caption: Your client's finances
+      heading: Tell us about your client's vehicle
+      vehicle_value:
+        input: What is the estimated value of the vehicle?
+        input_hint: You can use car valuation websites to find this out. Please use the upper valuation.
+      vehicle_in_regular_use:
+        legend: Is the vehicle in regular use?
+        hint: This means the vehicle is used at least once every 2 weeks for things like work, shopping or driving children to school.
+    vehicle_age:
+      caption: Your client's finances
+      heading: ''
+      vehicle_three_years_old:
+        legend: Did your client buy the vehicle over 3 years ago?
+        hint: ""
+    vehicle_finance:
+      caption: Your client's finances
+      vehicle_pcp:
+        legend: Are there any payments left on the vehicle?
+        hint: Include any outstanding payments on loans, hire purchase (HP) or personal contract purchase (PCP) agreements.
+      vehicle_finance:
+        input: Enter the value of payments left
   provider_users:
     show:
       provider_question: Are you a civil or family legal aid provider?
