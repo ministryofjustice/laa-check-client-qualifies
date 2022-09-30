@@ -175,7 +175,9 @@ en:
         input_hint: Your client's name must be on the property deeds, lease or freehold.
   provider_users:
     show:
-      provider_question: Are you a service provider?
+      provider_question: Are you a civil or family legal aid provider?
+      hints:
+        provider_user_radio_buttons: This includes people who provide civil or family legal aid and advice in England and Wales to help people deal with their legal problems.
   referrals:
     show:
       referral_heading: This service is for Legal Aid professionals
