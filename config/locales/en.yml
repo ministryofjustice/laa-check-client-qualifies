@@ -125,9 +125,10 @@ en:
     save_and_continue: Save and continue
     submit: Submit
     check_box_divider: or
+    change: Change
     date: Date
     related_content_title: Related content
-  build_estimates:
+  estimate_flow:
     applicant:
       heading: Your client's details
       caption: About your client
@@ -228,8 +229,8 @@ en:
         legend: Does your client own a vehicle?
         hint: ""
       guidance:
-        text: Guidance on vehicles (TBS)
-        link: http://www.gov.uk/
+        text: Guidance on vehicles (To Be Supplied)
+        link: "#"
     assets:
       caption: Your client's finances
       assets:
@@ -264,6 +265,17 @@ en:
         link: "#"
     summary:
       heading: Summary Page
+    check_answers:
+      heading: Check your client and partner answers
+      assets: Your client's assets
+      vehicles: Client's vehicles
+      vehicle:
+        ownership: Owns a vehicle
+        value: Estimated value
+        regular_use: In regular use
+        vehicle_over_3_years_ago: Bought over 3 years ago
+        vehicle_pcp: Outstanding finance on vehicle?
+        vehicle_finance: Payments left on vehicle
     property_entry:
       heading: Tell us about your client's property
       caption: Your client's finances

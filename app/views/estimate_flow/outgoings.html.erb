@@ -3,6 +3,7 @@
 <% end %>
 <div class="govuk-grid-column-two-thirds">
   <span class="govuk-caption-l"><%= t(".caption") %></span>
+
   <%= form_for(@form,
                url: wizard_path,
                method: :put) do |form| %>
@@ -31,4 +32,4 @@
   <%= form.govuk_submit t("generic.save_and_continue") %>
 <% end %>
 </div>
-<%= render "shared/sidebar_with_date", links: { t("build_estimates.outgoings.guidance_on_housing_payments") => t("build_estimates.outgoings.link_to_guidance_on_housing_payments") } %>
+<%= render "shared/sidebar_with_date", links: { t("estimate_flow.outgoings.guidance_on_housing_payments") => t("estimate_flow.outgoings.link_to_guidance_on_housing_payments") } %>

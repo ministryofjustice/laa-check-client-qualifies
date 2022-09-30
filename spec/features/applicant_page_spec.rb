@@ -139,7 +139,6 @@ RSpec.describe "Applicant Page" do
                                      .with(estimate_id, date_of_birth:,
                                                         receives_qualifying_benefit: true)
 
-        expect(page).to have_content "Summary Page"
         click_on "Submit"
         expect(page).to have_content "£12,345.78 per month"
       end
@@ -153,8 +152,8 @@ RSpec.describe "Applicant Page" do
         expect(mock_connection).to receive(:create_applicant)
                                      .with(estimate_id, date_of_birth:,
                                                         receives_qualifying_benefit: true)
-        expect(page).to have_content "Summary Page"
         click_on "Submit"
+        expect(page).to have_content "£12,345.78 per month"
       end
     end
   end

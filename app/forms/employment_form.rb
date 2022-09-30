@@ -19,7 +19,7 @@ class EmploymentForm
 
   def frequency_options
     FREQUENCY_OPTIONS.map do |key|
-      OpenStruct.new(value: key, label: I18n.t("build_estimates.employment.frequency.#{key}"))
+      OpenStruct.new(value: key, label: I18n.t("estimate_flow.employment.frequency.#{key}"))
     end
   end
 

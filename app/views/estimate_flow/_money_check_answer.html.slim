@@ -1,0 +1,9 @@
+.govuk-summary-list__row
+  dt.govuk-summary-list__key
+    = label_text
+
+  dd.govuk-summary-list__value
+    = '&pound;'.html_safe + format_money(value_text)
+
+  dd.govuk-summary-list__actions
+    = link_to t("generic.change"), estimate_check_answer_path(@estimate_id, link), class: "govuk-link"

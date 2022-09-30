@@ -1,5 +1,5 @@
 - content_for :back do
-  = link_to t("generic.back"), wizard_path(previous_step_for(@estimate, :vehicle)), class: "govuk-back-link"
+  = link_to t("generic.back"), "javascript:history.back()" , class: "govuk-back-link"
 .govuk-grid-column-two-thirds
   span.govuk-caption-l
     = t(".caption")
@@ -15,4 +15,4 @@
                                             hint: { text: t(".vehicle_owned.hint") }
 
     = form.govuk_submit t("generic.save_and_continue")
-= render 'shared/sidebar_with_date', links: {t("build_estimates.vehicle.guidance.text") => t("build_estimates.vehicle.guidance.link")}
+= render 'shared/sidebar_with_date', links: {t("estimate_flow.vehicle.guidance.text") => t("estimate_flow.vehicle.guidance.link")}

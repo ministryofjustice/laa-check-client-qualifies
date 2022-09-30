@@ -69,7 +69,7 @@ RSpec.describe "Accessibility" do
     before do
       travel_to arbitrary_fixed_time
       allow(CfeConnection).to receive(:connection).and_return(mock_connection)
-      visit "/estimates/#{estimate_id}/build_estimates/summary"
+      visit "/estimates/#{estimate_id}/build_estimates/check_answers"
       click_on "Submit"
     end
 
