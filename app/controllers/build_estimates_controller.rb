@@ -2,10 +2,11 @@ class BuildEstimatesController < ApplicationController
   include Wicked::Wizard
   include StepsHelper
 
-  steps(*STEPS_WITH_PROPERTY)
+  steps(*ALL_STEPS)
 
   HANDLER_CLASSES = {
     applicant: Flow::ApplicantHandler,
+    employment: Flow::EmploymentHandler,
     monthly_income: Flow::MonthlyIncomeHandler,
     property: Flow::PropertyHandler,
     vehicle: Flow::VehicleHandler,

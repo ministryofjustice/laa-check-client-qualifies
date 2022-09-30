@@ -2,10 +2,11 @@ module StepsHelper
   TAIL_STEPS = %i[vehicle assets summary results].freeze
   ONLY_PROPERTY_STEPS = %i[property property_entry].freeze
 
-  STEPS_NO_PROPERTY = (%i[applicant monthly_income outgoings property] + TAIL_STEPS).freeze
-  STEPS_WITH_PROPERTY = (%i[applicant monthly_income outgoings] + ONLY_PROPERTY_STEPS + TAIL_STEPS).freeze
-  PASSPORTED_STEPS = (%i[applicant property] + TAIL_STEPS).freeze
-  PASSPORTED_STEPS_WITH_PROPERTY = ([:applicant] + ONLY_PROPERTY_STEPS + TAIL_STEPS).freeze
+  STEPS_NO_PROPERTY = (%i[monthly_income outgoings property] + TAIL_STEPS).freeze
+  STEPS_WITH_PROPERTY = (%i[monthly_income outgoings] + ONLY_PROPERTY_STEPS + TAIL_STEPS).freeze
+  PASSPORTED_STEPS = (%i[property] + TAIL_STEPS).freeze
+  PASSPORTED_STEPS_WITH_PROPERTY = (ONLY_PROPERTY_STEPS + TAIL_STEPS).freeze
+  ALL_STEPS = (%i[applicant employment] + STEPS_WITH_PROPERTY).freeze
 
   # codify steps into a readable rule-set table rather than in code
   RULES = {
@@ -32,8 +33,8 @@ private
   def steps_list_for(estimate)
     pass_key = estimate.passporting ? :passporting : :other
     property_key = estimate.owned? ? :owned : :other
-
-    RULES.fetch(pass_key).fetch(property_key)
+    employment_step = estimate.employed && !estimate.passporting ? [:employment] : []
+    [:applicant] + employment_step + RULES.fetch(pass_key).fetch(property_key)
   end
 
   def next_estimate_step(steps, step)
