@@ -1,0 +1,17 @@
+= link_to t("generic.back"), previous_wizard_path, class: "govuk-back-link"
+.govuk-grid-row
+  .govuk-grid-column-two-thirds
+    h1.govuk-caption-l
+      = t(".caption")
+
+    = form_for(@form,
+                 url: wizard_path,
+                 method: :put) do |form|
+
+      = form.govuk_error_summary t("generic.error_summary_title")
+
+      = form.govuk_collection_radio_buttons :vehicle_over_3_years_ago, yes_no_options, :first, :last,
+                                              legend: { text: t(".vehicle_three_years_old.legend") },
+                                              hint: { text: t(".vehicle_three_years_old.hint") }
+
+      = form.govuk_submit t("generic.save_and_continue")

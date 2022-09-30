@@ -2,13 +2,16 @@ class BuildEstimatesController < ApplicationController
   include Wicked::Wizard
   include StepsHelper
 
-  steps(*STEPS_WITH_PROPERTY)
+  steps(*ALL_POSSIBLE_STEPS)
 
   HANDLER_CLASSES = {
     applicant: Flow::ApplicantHandler,
     monthly_income: Flow::IncomeHandler,
     property: Flow::PropertyHandler,
-    vehicle: Flow::VehicleHandler,
+    vehicle: Flow::Vehicle::OwnedHandler,
+    vehicle_value: Flow::Vehicle::ValueHandler,
+    vehicle_age: Flow::Vehicle::AgeHandler,
+    vehicle_finance: Flow::Vehicle::FinanceHandler,
     assets: Flow::AssetHandler,
     summary: Flow::SummaryHandler,
     outgoings: Flow::OutgoingsHandler,
@@ -31,10 +34,11 @@ class BuildEstimatesController < ApplicationController
     @form = handler.form(params)
 
     if @form.valid?
-      handler.save_data(cfe_connection, estimate_id, @form, session_data)
       session_data.merge!(@form.attributes)
+      estimate = load_estimate
+      handler.save_data(cfe_connection, estimate_id, @form, session_data) if last_step_in_group?(estimate, step)
 
-      redirect_to wizard_path next_step_for(load_estimate, step)
+      redirect_to wizard_path next_step_for(estimate, step)
     else
       @estimate = load_estimate
       render_wizard

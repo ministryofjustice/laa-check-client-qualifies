@@ -27,7 +27,7 @@ RSpec.describe "Property Page" do
     click_on "Save and continue"
     expect(page).to have_css(".govuk-error-summary__list")
     within ".govuk-error-summary__list" do
-      expect(page).to have_content("Please select the option that best decribes your clients property ownership")
+      expect(page).to have_content("Please select the option that best decribes your client's property ownership")
     end
   end
 

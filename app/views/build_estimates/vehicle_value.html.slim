@@ -1,0 +1,26 @@
+= link_to t("generic.back"), previous_wizard_path, class: "govuk-back-link"
+.govuk-grid-row
+  .govuk-grid-column-two-thirds
+    span.govuk-caption-l
+      = t(".caption")
+    h1.govuk-heading-l
+      = t(".heading")
+
+    = form_for(@form,
+                 url: wizard_path,
+                 method: :put) do |form|
+
+      = form.govuk_error_summary t("generic.error_summary_title")
+
+      = render "money_input",
+                 form:,
+                 field: :vehicle_value,
+                 width: 10,
+                 label_text: t(".vehicle_value.input"),
+                 hint_text: t(".vehicle_value.input_hint")
+
+      = form.govuk_collection_radio_buttons :vehicle_in_regular_use, yes_no_options, :first, :last,
+                                              legend: { text: t(".vehicle_in_regular_use.legend") },
+                                              hint: { text: t(".vehicle_in_regular_use.hint") }
+
+      = form.govuk_submit t("generic.save_and_continue")
