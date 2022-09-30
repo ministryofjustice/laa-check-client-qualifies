@@ -44,7 +44,10 @@ en:
         property_form:
           attributes:
             property_owned:
-              inclusion: Please select the option that best decribes your clients property ownership
+              inclusion: Please select the option that best describes your clients property ownership
+        provider_user:
+          attributes:
+            blank: Select yes if you are a Legal Aid service provider
         vehicle_form:
           attributes:
             vehicle_owned:
@@ -192,6 +195,19 @@ en:
       percentage_owned:
         input: What percentage share of their home does your client legally own?
         input_hint: Your client's name must be on the property deeds, lease or freehold.
+  provider_users:
+    show:
+      provider_question: Are you a service provider?
+  referrals:
+    show:
+      referral_heading: This service is for Legal Aid professionals
+      legal_aid_provider: If you are a legal aid service provider please use the main check eligibility service, for everyone else the following links may useeful
+      sub_heading: A list of resources for non-professional users of the service
+      item_1: Civil Legal Advice
+      item_2: Check eligibility for Civil Legal Advice
+      related_content_title: Related content
+      related_content_item_1: Legal aid overview
+      related_content_item_2: Civil legal aid means testing
   start:
     index:
       efe_heading: Estimate financial eligibility for legal aid

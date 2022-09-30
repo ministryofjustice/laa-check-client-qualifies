@@ -1,0 +1,18 @@
+= link_to t("generic.back"), "/start", class: "govuk-back-link"
+
+div class="govuk-!-padding-bottom-4"
+
+.govuk-grid-row
+  .govuk-grid-column-two-thirds
+    h1 class="govuk-heading-xl" = t(".provider_question")
+
+    = form_for(@provider_user,
+        url: provider_users_path,
+        method: :put) do |form|
+
+      = form.govuk_error_summary t("generic.error_summary_title")
+
+      = form.govuk_collection_radio_buttons :provider_user_valid, yes_no_options, :first, :last,
+            legend: nil
+
+      = form.govuk_submit t("generic.save_and_continue")
