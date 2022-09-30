@@ -8,7 +8,7 @@ module Flow
       end
 
       def save_data(cfe_connection, estimate_id, _form, session_data)
-        estimate = EstimateData.new session_data.slice(*EstimateData::ESTIMATE_ATTRIBUTES.map(&:to_s))
+        estimate = ApplicantHandler.model(session_data)
         cfe_connection.create_applicant estimate_id,
                                         date_of_birth: estimate.over_60 ? 70.years.ago.to_date : 50.years.ago.to_date,
                                         receives_qualifying_benefit: estimate.passporting
