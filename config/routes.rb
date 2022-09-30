@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   resources :start, only: [:index]
   resources :status, only: [:index]
-  resource :provider_users, only: %i[show update]
+  resource :provider_users, only: %i[show create]
   resource :referrals, only: [:show]
 
   resources :estimates, only: [:new] do

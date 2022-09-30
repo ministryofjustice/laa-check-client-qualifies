@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "referrals page for non valid users", type: :request do
   describe "GET /referrals" do
-    subject(:request) { get root_path }
+    subject(:request) { get referrals_path }
 
     before do
       request

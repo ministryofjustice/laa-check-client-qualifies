@@ -8,11 +8,15 @@ div class="govuk-!-padding-bottom-4"
 
     = form_for(@provider_user,
         url: provider_users_path,
-        method: :put) do |form|
+        method: :post) do |form|
 
       = form.govuk_error_summary t("generic.error_summary_title")
 
-      = form.govuk_collection_radio_buttons :provider_user_valid, yes_no_options, :first, :last,
-            legend: nil
+      = form.govuk_collection_radio_buttons(:provider_user_valid,
+              yes_no_options,
+              :first, :last,
+              legend: nil,
+              inline: true,
+              hint: { text: t(".hints.provider_user_radio_buttons") })
 
       = form.govuk_submit t("generic.save_and_continue")

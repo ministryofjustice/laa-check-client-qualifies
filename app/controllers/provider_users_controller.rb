@@ -3,7 +3,7 @@ class ProviderUsersController < ApplicationController
     provider_user
   end
 
-  def update
+  def create
     case params[:provider_user][:provider_user_valid]
     when "true"
       redirect_to new_estimate_path
