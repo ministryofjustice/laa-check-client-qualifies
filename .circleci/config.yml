@@ -133,6 +133,10 @@ jobs:
           name: erb-lint checks
           command: |
             bundle exec erblint --lint-all
+      - run:
+          name: Slim Lint
+          command: |
+            bundle exec slim-lint **/*.slim
 
   build_and_push_to_ecr:
     executor: cloud-platform-executor

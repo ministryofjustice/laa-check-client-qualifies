@@ -1,5 +1,5 @@
 - content_for :back do
-  = link_to t("generic.back"), "javascript:history.back()" , class: "govuk-back-link"
+  = link_to t("generic.back"), "javascript:history.back()", class: "govuk-back-link"
 .govuk-grid-column-two-thirds
   span.govuk-caption-l = t(".caption")
 
@@ -10,7 +10,7 @@
     = form.govuk_error_summary t("generic.error_summary_title")
 
     = form.govuk_radio_buttons_fieldset :vehicle_pcp,
-                                          legend: { text: t(".vehicle_pcp.legend"), size: 'xl', tag: 'h1' },
+                                          legend: { text: t(".vehicle_pcp.legend"), size: "xl", tag: "h1" },
                                           hint: { text: t(".vehicle_pcp.hint") } do
       = form.govuk_radio_button :vehicle_pcp, true, label: { text: t("generic.yes_choice") } do
         = render "shared/money_input",
@@ -21,4 +21,4 @@
       = form.govuk_radio_button :vehicle_pcp, false, label: { text: t("generic.no_choice") }
 
     = form.govuk_submit t("generic.save_and_continue")
-= render 'shared/sidebar_with_date', links: {t("estimate_flow.vehicle.guidance.text") => t("estimate_flow.vehicle.guidance.link")}
+= render "vehicle_sidebar"

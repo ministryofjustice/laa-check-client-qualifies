@@ -1,0 +1,9 @@
+exclude:
+  - 'vendor/bundle/**/*.slim'
+
+linters:
+  LineLength:
+    max: 140
+    exclude:
+      - 'app/views/estimates/show.html.slim'
+      - 'app/views/layouts/_footer.html.slim'

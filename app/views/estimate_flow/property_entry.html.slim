@@ -1,6 +1,6 @@
 - content_for :back
   = link_to t("generic.back"), previous_wizard_path, class: "govuk-back-link"
-  
+
 .govuk-grid-column-two-thirds
   span.govuk-caption-l = t(".caption")
   h1.govuk-heading-xl = t(".heading")
@@ -14,7 +14,7 @@
              width: 10,
              label_text: t(".house_value.input"),
              hint_text: t(".house_value.input_hint")
-    - if @estimate.property_owned == 'with_mortgage'
+    - if @estimate.property_owned == "with_mortgage"
       = render "shared/money_input_with_hint",
                form:,
                field: :mortgage,
@@ -30,4 +30,4 @@
 
     = form.govuk_submit t("generic.save_and_continue")
 
-= render 'shared/sidebar_with_date', links: {t("estimate_flow.property.guidance_on_properties") => t("estimate_flow.property.link_to_guidance_on_properties")}
+= render "property_sidebar"
