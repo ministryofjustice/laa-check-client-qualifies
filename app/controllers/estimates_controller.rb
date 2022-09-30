@@ -14,7 +14,7 @@ class EstimatesController < ApplicationController
   end
 
   def create_applicant
-    estimate = Flow::ApplicantHandler.model(session_data(params[:cfe_id]))
+    estimate = Flow::ApplicantHandler.show_form(session_data(params[:cfe_id]))
     cfe_connection.create_applicant params[:cfe_id],
                                     date_of_birth: estimate.over_60 ? 70.years.ago.to_date : 50.years.ago.to_date,
                                     receives_qualifying_benefit: estimate.passporting

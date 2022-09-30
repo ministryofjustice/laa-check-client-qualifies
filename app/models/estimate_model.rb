@@ -6,26 +6,14 @@ class EstimateModel
                          passporting
                          vehicle_owned
                          vehicle_in_regular_use
-                         dependants
-                         partner
-                         employed
-                         assets
-                         savings
-                         investments
                          vehicle_over_3_years_ago
-                         vehicle_pcp].freeze
+                         vehicle_pcp
+                         employed
+                         dependants
+                         partner].freeze
 
   # This is the set of attributes which affect the page flow
-  ESTIMATE_ATTRIBUTES = (ESTIMATE_BOOLEANS + %i[property_owned
-                                                dependant_count
-                                                vehicle_value
-                                                vehicle_finance
-                                                house_value
-                                                mortgage
-                                                percentage_owned
-                                                property_value
-                                                property_mortgage
-                                                property_percentage_owned]).freeze
+  ESTIMATE_ATTRIBUTES = (ESTIMATE_BOOLEANS + [:property_owned]).freeze
 
   ESTIMATE_BOOLEANS.each do |attr|
     attribute attr, :boolean
@@ -41,8 +29,14 @@ class EstimateModel
   attribute :percentage_owned, :integer
 
   attribute :property_value, :decimal
+  attribute :savings, :decimal
+  attribute :investments, :decimal
+  attribute :valuables, :decimal
   attribute :property_mortgage, :decimal
   attribute :property_percentage_owned, :integer
+  attribute :proceeding_type, :string
+
+  attribute :assets, array: true, default: []
 
   def owned?
     %i[with_mortgage outright].map(&:to_s).include? property_owned

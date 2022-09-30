@@ -138,11 +138,6 @@ RSpec.describe "Vehicle Page" do
             expect(page).to have_content check_answers_header
             expect(page).to have_content vehicle_value.to_s
           end
-
-          it "has a working Back button" do
-            click_on "Back"
-            expect(page).to have_content "Is the vehicle in regular use?"
-          end
         end
 
         context "when in regular use" do

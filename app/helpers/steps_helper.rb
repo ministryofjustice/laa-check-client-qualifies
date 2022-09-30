@@ -35,13 +35,13 @@ module StepsHelper
     next_estimate_step(steps_list_for(intro).flatten, step)
   end
 
-  def previous_step_for(estimate, step)
-    next_estimate_step(steps_list_for(estimate).flatten.reverse, step)
+  # pick the first step in the next section
+  def next_section_for(model, step)
+    next_section_step(steps_list_for(model), step).first
   end
 
-  def last_step_in_group?(model, step)
-    steps_list = steps_list_for(model).detect { |list| list.include?(step) }
-    step == steps_list.last
+  def previous_step_for(estimate, step)
+    next_estimate_step(steps_list_for(estimate).flatten.reverse, step)
   end
 
 private
@@ -52,22 +52,30 @@ private
     employment_step = estimate.employed && !estimate.passporting ? [:employment] : []
     non_tail_steps = RULES.fetch(pass_key).fetch(property_key)
 
-    tail_steps_key = if estimate.vehicle_owned
-                       if estimate.vehicle_in_regular_use
-                         :vehicle_regular
-                       else
-                         :vehicle_owned
-                       end
-                     else
-                       :vehicle_not_owned
-                     end
+    # tail_steps_key = if estimate.vehicle_owned
+    #                    if estimate.vehicle_in_regular_use
+    #                      :vehicle_regular
+    #                    else
+    #                      :vehicle_owned
+    #                    end
+    #                  else
+    #                    :vehicle_not_owned
+    #                  end
 
-    vehicle_steps = VEHICLE_RULES.fetch(tail_steps_key)
+    # vehicle_steps = VEHICLE_RULES.fetch(tail_steps_key)
 
-    (%i[case_details applicant].map { |step| [step] } + [employment_step] + non_tail_steps.map { |step| [step] } + [vehicle_steps] + TAIL_STEPS.map { |step| [step] }).freeze
+    if employment_step.empty?
+      (%i[case_details applicant].map { |step| [step] } + non_tail_steps.map { |step| [step] } + [ALL_VEHICLE_STEPS] + TAIL_STEPS.map { |step| [step] }).freeze
+    else
+      (%i[case_details applicant].map { |step| [step] } + [employment_step] + non_tail_steps.map { |step| [step] } + [ALL_VEHICLE_STEPS] + TAIL_STEPS.map { |step| [step] }).freeze
+    end
   end
 
   def next_estimate_step(steps, step)
     steps.each_cons(2).detect { |old, _new| old == step }.last
+  end
+
+  def next_section_step(steps, step)
+    steps.each_cons(2).detect { |old_list, _new_list| old_list.include?(step) }.last
   end
 end

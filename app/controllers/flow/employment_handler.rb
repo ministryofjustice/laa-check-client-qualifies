@@ -1,13 +1,17 @@
 module Flow
   class EmploymentHandler
     class << self
-      def model(session_data)
+      def show_form(session_data)
         EmploymentForm.new session_data.slice(*EmploymentForm::EMPLOYMENT_ATTRIBUTES.map(&:to_s))
       end
 
       def form(params, _session_data)
         EmploymentForm.new(params.require(:employment_form)
           .permit(*EmploymentForm::EMPLOYMENT_ATTRIBUTES))
+      end
+
+      def model(_session_data)
+        ValidModel.new(valid?: true)
       end
 
       def save_data(cfe_connection, estimate_id, form, _session_data)

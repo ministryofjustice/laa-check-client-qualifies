@@ -3,8 +3,12 @@ module Flow
     MONTHLY_INCOME_ATTRIBUTES = (MonthlyIncomeForm::INCOME_ATTRIBUTES + [:monthly_incomes]).freeze
 
     class << self
-      def model(session_data)
+      def show_form(session_data)
         MonthlyIncomeForm.new session_data.slice(*MONTHLY_INCOME_ATTRIBUTES.map(&:to_s))
+      end
+
+      def model(_session_data)
+        ValidModel.new(valid?: true)
       end
 
       def form(params, _session_data)

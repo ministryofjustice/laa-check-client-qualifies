@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       date:
-      - Thu, 13 Oct 2022 07:53:57 GMT
+      - Tue, 18 Oct 2022 11:11:09 GMT
       content-type:
       - application/json; charset=utf-8
       transfer-encoding:
@@ -41,22 +41,22 @@ http_interactions:
       vary:
       - Accept
       etag:
-      - W/"aa8d4c74426e9019ff16f986dcd35180"
+      - W/"d8e6cd3c0cf9259eaf7cc55e1f26dbb4"
       cache-control:
       - max-age=0, private, must-revalidate
       x-request-id:
-      - 4d4d234b4d5556828a649107b89758e3
+      - c7ebbe60ab953609b6aa39dcebd958fb
       x-runtime:
-      - '0.075864'
+      - '0.082815'
       strict-transport-security:
       - max-age=15724800; includeSubDomains
     body:
       encoding: UTF-8
-      string: '{"success":true,"assessment_id":"9040a681-3580-4666-a697-2ce7ce0857cd","errors":[]}'
+      string: '{"success":true,"assessment_id":"976ec3f4-5884-414a-a860-014ae6197f17","errors":[]}'
   recorded_at: Mon, 05 Sep 2022 09:00:00 GMT
 - request:
     method: post
-    uri: https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/assessments/9040a681-3580-4666-a697-2ce7ce0857cd/proceeding_types
+    uri: https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/assessments/976ec3f4-5884-414a-a860-014ae6197f17/proceeding_types
     body:
       encoding: UTF-8
       string: '{"proceeding_types":[{"ccms_code":"SE003","client_involvement_type":"A"}]}'
@@ -73,7 +73,7 @@ http_interactions:
       message: OK
     headers:
       date:
-      - Thu, 13 Oct 2022 07:53:58 GMT
+      - Tue, 18 Oct 2022 11:11:09 GMT
       content-type:
       - application/json; charset=utf-8
       transfer-encoding:
@@ -99,9 +99,9 @@ http_interactions:
       cache-control:
       - max-age=0, private, must-revalidate
       x-request-id:
-      - 950815f0e1636892dba0ca3436d6cf22
+      - fb2522374c5ba234ed5063b0ea2562ff
       x-runtime:
-      - '0.074923'
+      - '0.025400'
       strict-transport-security:
       - max-age=15724800; includeSubDomains
     body:

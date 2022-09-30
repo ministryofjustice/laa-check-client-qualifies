@@ -19,7 +19,11 @@ http_interactions:
       message: OK
     headers:
       date:
+<<<<<<< HEAD:spec/fixtures/vcr_cassettes/Vehicle_Page/when_selecting_no_property/when_vehicle_is_in_scope/without_regular_usage/asks_no_more_questions.yml
       - Wed, 28 Sep 2022 15:42:13 GMT
+=======
+      - Fri, 30 Sep 2022 13:16:16 GMT
+>>>>>>> 5db8fdd (EL-361 Complete Vehicle Screens):spec/fixtures/vcr_cassettes/Vehicle_Page/accessibility/vehicle_finance_form/passes_accessibility_in_error_state_errors.yml
       content-type:
       - application/json; charset=utf-8
       transfer-encoding:
@@ -41,6 +45,7 @@ http_interactions:
       vary:
       - Accept
       etag:
+<<<<<<< HEAD:spec/fixtures/vcr_cassettes/Vehicle_Page/when_selecting_no_property/when_vehicle_is_in_scope/without_regular_usage/asks_no_more_questions.yml
       - W/"87af5deac5370db6dc5cdf4c9e5c9fee"
       cache-control:
       - max-age=0, private, must-revalidate
@@ -48,15 +53,32 @@ http_interactions:
       - ed67121d504757828f70a6e91e02482c
       x-runtime:
       - '0.046392'
+=======
+      - W/"b7ee43ce783ea3522d1689f7e63ad62d"
+      cache-control:
+      - max-age=0, private, must-revalidate
+      x-request-id:
+      - bb53f391da357e5297bed23b3c367120
+      x-runtime:
+      - '0.051165'
+>>>>>>> 5db8fdd (EL-361 Complete Vehicle Screens):spec/fixtures/vcr_cassettes/Vehicle_Page/accessibility/vehicle_finance_form/passes_accessibility_in_error_state_errors.yml
       strict-transport-security:
       - max-age=15724800; includeSubDomains
     body:
       encoding: UTF-8
+<<<<<<< HEAD:spec/fixtures/vcr_cassettes/Vehicle_Page/when_selecting_no_property/when_vehicle_is_in_scope/without_regular_usage/asks_no_more_questions.yml
       string: '{"success":true,"assessment_id":"16421a8a-aa70-47d0-a305-e7581a8d08aa","errors":[]}'
   recorded_at: Mon, 05 Sep 2022 09:00:00 GMT
 - request:
     method: post
     uri: https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/assessments/16421a8a-aa70-47d0-a305-e7581a8d08aa/proceeding_types
+=======
+      string: '{"success":true,"assessment_id":"d0172709-5557-4a1e-a945-9c08a2327da6","errors":[]}'
+  recorded_at: Mon, 05 Sep 2022 09:00:00 GMT
+- request:
+    method: post
+    uri: https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/assessments/d0172709-5557-4a1e-a945-9c08a2327da6/proceeding_types
+>>>>>>> 5db8fdd (EL-361 Complete Vehicle Screens):spec/fixtures/vcr_cassettes/Vehicle_Page/accessibility/vehicle_finance_form/passes_accessibility_in_error_state_errors.yml
     body:
       encoding: UTF-8
       string: '{"proceeding_types":[{"ccms_code":"DA001","client_involvement_type":"A"},{"ccms_code":"SE013","client_involvement_type":"I"}]}'
@@ -73,7 +95,11 @@ http_interactions:
       message: OK
     headers:
       date:
+<<<<<<< HEAD:spec/fixtures/vcr_cassettes/Vehicle_Page/when_selecting_no_property/when_vehicle_is_in_scope/without_regular_usage/asks_no_more_questions.yml
       - Wed, 28 Sep 2022 15:42:13 GMT
+=======
+      - Fri, 30 Sep 2022 13:16:16 GMT
+>>>>>>> 5db8fdd (EL-361 Complete Vehicle Screens):spec/fixtures/vcr_cassettes/Vehicle_Page/accessibility/vehicle_finance_form/passes_accessibility_in_error_state_errors.yml
       content-type:
       - application/json; charset=utf-8
       transfer-encoding:
@@ -99,9 +125,15 @@ http_interactions:
       cache-control:
       - max-age=0, private, must-revalidate
       x-request-id:
+<<<<<<< HEAD:spec/fixtures/vcr_cassettes/Vehicle_Page/when_selecting_no_property/when_vehicle_is_in_scope/without_regular_usage/asks_no_more_questions.yml
       - bbe170d4c1421a5b272a2cb45aa9172a
       x-runtime:
       - '0.062020'
+=======
+      - a5e2468801ae64a5fcc4a92e48b73e1e
+      x-runtime:
+      - '0.027411'
+>>>>>>> 5db8fdd (EL-361 Complete Vehicle Screens):spec/fixtures/vcr_cassettes/Vehicle_Page/accessibility/vehicle_finance_form/passes_accessibility_in_error_state_errors.yml
       strict-transport-security:
       - max-age=15724800; includeSubDomains
     body:

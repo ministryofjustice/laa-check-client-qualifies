@@ -1,12 +1,16 @@
 module Flow
   class ApplicantHandler
     class << self
-      def model(session_data)
+      def show_form(session_data)
         ApplicantForm.new session_data.slice(*ApplicantForm::INTRO_ATTRIBUTES.map(&:to_s))
       end
 
       def form(params, _session_data)
         ApplicantForm.new(params.require(:applicant_form).permit(*ApplicantForm::INTRO_ATTRIBUTES))
+      end
+
+      def model(_session_data)
+        ValidModel.new(valid?: true)
       end
 
       def save_data(cfe_connection, estimate_id, estimate, _session_data)

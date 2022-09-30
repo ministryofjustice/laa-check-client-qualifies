@@ -3,12 +3,16 @@ module Flow
     ASSETS_ATTRIBUTES = (AssetsForm::ASSETS_ATTRIBUTES + [:assets]).freeze
 
     class << self
-      def model(session_data)
+      def show_form(session_data)
         AssetsForm.new session_data.slice(*ASSETS_ATTRIBUTES.map(&:to_s))
       end
 
       def form(params, _session_data)
         AssetsForm.new(params.require(:assets_form).permit(*AssetsForm::ASSETS_ATTRIBUTES, assets: []))
+      end
+
+      def model(_session_data)
+        ValidModel.new(valid?: true)
       end
 
       def save_data(cfe_connection, estimate_id, form, session_data)
@@ -26,9 +30,9 @@ module Flow
             percentage_owned: form.property_percentage_owned,
           }
         end
-        property_form = PropertyHandler.model(session_data)
+        property_form = PropertyHandler.show_form(session_data)
         if property_form.owned?
-          property_entry_form = PropertyEntryHandler.model(session_data)
+          property_entry_form = PropertyEntryHandler.show_form(session_data)
           main_home = {
             value: property_entry_form.house_value,
             outstanding_mortgage: (property_entry_form.mortgage if property_form.owned_with_mortgage?) || 0,

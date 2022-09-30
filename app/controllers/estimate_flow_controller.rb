@@ -22,7 +22,7 @@ class EstimateFlowController < ApplicationController
 
   def show
     handler = HANDLER_CLASSES.fetch(step)
-    @form = handler.model(session_data)
+    @form = handler.show_form(session_data)
     @estimate = load_estimate
     render_wizard
   end
