@@ -1,20 +1,17 @@
 .govuk-grid-row
   .govuk-grid-column-two-thirds
-    h1 class="govuk-heading-xl" = t(".referral_heading")
+    .govuk-panel.govuk-panel--confirmation.panel-grey
 
-    p class="govuk-body" = t(".legal_aid_provider")
+      h1.govuk-panel__title.govuk--font-size-36
+        = t(".page_heading")
 
-    h2 class="govuk-heading-m"= t(".sub_heading")
+    h2.govuk-heading-m = t(".sub_heading")
 
     .govuk-list
       ul class="govuk-list govuk-list--bullet"
-        li = link_to t(".item_1"), "https://www.gov.uk/civil-legal-advice", class: "govuk-link govuk-body govuk-!-font-size-16"
-        li = link_to t(".item_2"), "https://www.gov.uk/check-legal-aid", class: "govuk-link govuk-body govuk-!-font-size-16"
+        li = link_to t(".item_1"), "https://www.gov.uk/civil-legal-advice"
+        li = link_to t(".item_2"), "https://www.gov.uk/check-legal-aid"
+        li = link_to t(".item_3"), "https://www.gov.uk/legal-aid"
+        li = link_to t(".item_4"), "https://www.gov.uk/guidance/civil-legal-aid-means-testing"
 
-  .govuk-grid-column-one-third
-    .govuk-header__container.govuk-width-container
-    div class="govuk-!-padding-bottom-4"
-    h3.govuk-heading-m = t(".related_content_title")
-    ul.govuk-list
-      li = link_to t(".related_content_item_1"), "https://www.gov.uk/legal-aid", class: "govuk-link govuk-body govuk-!-font-size-16"
-      li = link_to t(".related_content_item_2"), "https://www.gov.uk/guidance/civil-legal-aid-means-testing", class: "govuk-link govuk-body govuk-!-font-size-16"
+    a.govuk-button href="https://www.gov.uk/" = t(".return_button")
