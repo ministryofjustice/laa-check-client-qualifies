@@ -4,7 +4,7 @@ RSpec.describe "Income Page", :vcr do
   let(:arbitrary_fixed_time) { Time.zone.local(2022, 9, 5, 9, 0, 0) }
   let(:property_header) { "Your client's property" }
   let(:vehicle_header) { "Does your client own a vehicle?" }
-  let(:income_header) { "What income does your client receive?" }
+  let(:income_header) { "What other income does your client receive?" }
 
   before do
     driven_by(:rack_test)

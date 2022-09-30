@@ -29,7 +29,12 @@
                                  exclusive: true,
                                  label: { text: t(".none.label") } %>
     <% end %>
-      <%= form.govuk_submit t("generic.save_and_continue") %>
+    <%= form.govuk_submit t("generic.save_and_continue") %>
   <% end %>
   </div>
+  <%= render "sidebar_with_date" do %>
+    <li>
+      <%= link_to t("build_estimates.outgoings.guidance_on_housing_payments"), t("build_estimates.outgoings.link_to_guidance_on_housing_payments"), class: "govuk-link govuk-body-m" %>
+    </li>
+  <% end %>
 </div>

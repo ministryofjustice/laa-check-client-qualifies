@@ -1,4 +1,6 @@
-= link_to t("generic.back"), previous_wizard_path, class: "govuk-back-link"
+- content_for :back do
+  = link_to t("generic.back"), previous_wizard_path, class: "govuk-back-link"
+
 .govuk-grid-row
   .govuk-grid-column-two-thirds
     span.govuk-caption-l = t(".caption")
@@ -26,3 +28,4 @@
                                exclusive: true,
                                label: { text: t(".none.label") }
       = form.govuk_submit t("generic.save_and_continue")
+  = render 'sidebar_with_date'

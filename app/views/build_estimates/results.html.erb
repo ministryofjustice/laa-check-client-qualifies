@@ -1,5 +1,7 @@
+<% content_for :back do %>
+  <%= link_to t("generic.back"), previous_wizard_path, class: "govuk-back-link" %>
+<% end %>
 <h1 class="govuk-heading-xl"><%= t(".heading") %></h1>
-<%= link_to t("generic.back"), previous_wizard_path, class: "govuk-back-link" %>
 <div class="govuk-panel govuk-panel--confirmation">
   <div class="govuk-panel__body">
     <strong><%= t(".client-has-to-pay") %></strong>

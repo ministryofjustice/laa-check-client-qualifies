@@ -62,6 +62,8 @@ en:
     save_and_continue: Save and continue
     submit: Submit
     check_box_divider: or
+    date: Date
+    related_content_title: Related content
   build_estimates:
     applicant:
       heading: Your client's details
@@ -87,7 +89,7 @@ en:
       heading: ''
       caption: Your client's finances
       monthly_incomes:
-        legend: What income does your client receive?
+        legend: What other income does your client receive?
         hint: Select all that apply.
       friends_or_family:
         label: Financial help from friends or family
@@ -134,6 +136,8 @@ en:
         input_hint: ""
       none:
         label: My client has no monthly outgoings or deductions
+      guidance_on_housing_payments: Guidance on housing payments (need link)
+      link_to_guidance_on_housing_payments: "#TODO: To be defined"
     property:
       caption: Your client's finances
       heading: ""
@@ -210,7 +214,6 @@ en:
       item_1: income
       item_2: outgoings
       item_3: savings, investments and other assets
-      related_content_title: Related content
       related_content_item_1: Legal aid overview
       related_content_item_2: Civil legal aid
       start_button: Start now

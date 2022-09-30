@@ -27,6 +27,10 @@ html lang="en" class="govuk-template"
     = govuk_header(service_name: t("service.name")) 
 
     div class="govuk-width-container"
+
+      - if content_for?(:back)
+        = yield :back
+
       main#main-content.govuk-main-wrapper role="main"
         = yield
 

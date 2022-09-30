@@ -22,10 +22,8 @@
         role: "button",
         id: "start"
 
-  .govuk-grid-column-one-third
-    .govuk-header__container.govuk-width-container
-    div class="govuk-!-padding-bottom-4"
-    h3.govuk-heading-m = t(".related_content_title")
+  = render 'layouts/sidebar'
+    h3.govuk-heading-m = t("start.index.related_content_title")
     ul.govuk-list
-      li = link_to t(".related_content_item_1"), "https://www.gov.uk/legal-aid", class: "govuk-link govuk-body govuk-!-font-size-16"
-      li = link_to t(".related_content_item_2"), "https://www.gov.uk/guidance/civil-legal-aid-means-testing", class: "govuk-link govuk-body govuk-!-font-size-16"
+      li = link_to t("start.index.related_content_item_1"), "https://www.gov.uk/legal-aid", class: "govuk-link govuk-body govuk-!-font-size-16"
+      li = link_to t("start.index.related_content_item_2"), "https://www.gov.uk/guidance/civil-legal-aid-means-testing", class: "govuk-link govuk-body govuk-!-font-size-16"
