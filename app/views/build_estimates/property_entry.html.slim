@@ -1,0 +1,37 @@
+- content_for :back
+  = link_to t("generic.back"), previous_wizard_path, class: "govuk-back-link"
+  
+.govuk-grid-row
+  .govuk-grid-column-two-thirds
+    span.govuk-caption-l = t(".caption")
+    h1.govuk-heading-xl = t(".heading")
+    = form_for(@form, url: wizard_path, method: :put) do |form|
+
+      = form.govuk_error_summary t("generic.error_summary_title")
+
+      = render "money_input",
+               form:,
+               field: :house_value,
+               width: 10,
+               label_text: t(".house_value.input"),
+               hint_text: t(".house_value.input_hint")
+      - if @estimate.property_owned == 'with_mortgage'
+        = render "money_input",
+                 form:,
+                 field: :mortgage,
+                 width: 10,
+                 label_text: t(".mortgage.input"),
+                 hint_text: t(".mortgage.input_hint")
+
+      = form.govuk_number_field :percentage_owned,
+                                width: 3,
+                                suffix_text: "%",
+                                label: { text: t(".percentage_owned.input"), size: "m" },
+                                hint: { text: t(".percentage_owned.input_hint") }
+
+      = form.govuk_submit t("generic.save_and_continue")
+
+  = render 'sidebar_with_date'
+    li
+      = link_to t("build_estimates.property.guidance_on_properties"), t("build_estimates.outgoings.link_to_guidance_on_properties"), class: "govuk-link govuk-body-m"
+

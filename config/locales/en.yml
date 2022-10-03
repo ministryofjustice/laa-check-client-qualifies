@@ -48,6 +48,18 @@ en:
         provider_user:
           attributes:
             blank: Select yes if you are a Legal Aid service provider
+        property_entry_form:
+          attributes:
+            house_value:
+              blank: Please enter the value of your client's house
+              zero: Please enter a house value that is greater than zero
+            mortgage:
+              blank: Please enter the the outstanding mortgage amount your client has
+              zero: Please enter a mortgage amount that is greater than zero
+            percentage_owned:
+              blank: Please specify what percentage of your client's house they own
+              within_range: Please enter an ownership percentage between 1 and 100
+
         vehicle_form:
           attributes:
             vehicle_owned:
@@ -136,12 +148,13 @@ en:
       link_to_guidance_on_housing_payments: "#TODO: To be defined"
     property:
       caption: Your client's finances
-      heading: ""
       property_owned:
         legend: Does your client own the home they live in?
         outright: Yes, owned outright
         with_mortgage: Yes, with a mortgage or loan
         none: "No"
+      guidance_on_properties: Guidance on properties (link needed)
+      link_to_guidance_on_properties: '#'
     vehicle:
       caption: Your client's finances
       heading: ''
@@ -184,7 +197,7 @@ en:
       capital-contribution: from their disposable capital
       client-still-has-to-apply: You still need to apply for legal aid and provide case details before legal aid can be granted
     property_entry:
-      heading: Your client's property
+      heading: Tell us about your client's property
       caption: Your client's finances
       house_value:
         input: How much is your client's home worth?

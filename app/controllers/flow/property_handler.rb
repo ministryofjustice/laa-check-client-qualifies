@@ -4,7 +4,7 @@ module Flow
 
     class << self
       def model(session_data)
-        PropertyForm.new session_data.slice(*PROPERTY_ATTRIBUTES)
+        PropertyForm.new session_data.slice(*PROPERTY_ATTRIBUTES.map(&:to_s))
       end
 
       def form(params)

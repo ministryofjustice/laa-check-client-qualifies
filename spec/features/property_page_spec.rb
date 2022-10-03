@@ -9,7 +9,8 @@ RSpec.describe "Property Page" do
 
   before do
     allow(CfeConnection).to receive(:connection).and_return(mock_connection)
-    visit "/estimates/new"
+    visit root_path
+    click_on "Start now"
 
     select_applicant_boolean(:over_60, false)
     select_applicant_boolean(:dependants, false)
