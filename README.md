@@ -63,14 +63,14 @@ The service uses `helm` to deploy to Cloud Platform Environments via CircleCI. T
 
 To view helm deployments in a namespace the command is:
 
-`helm -n <namespace> ls -all`
+`helm -n <namespace> ls --all`
 
-e.g. `helm -n la-estimate-financial-eligibility-for-legal-aid-uat ls -all`
+e.g. `helm -n laa-estimate-financial-eligibility-for-legal-aid-uat ls --all`
 
 Deployments can be deleted by running:
 
 `helm delete <name-of-deployment>`
 
-e.g. `helm delete estimate-financial-eligibility`
+e.g. `helm -n laa-estimate-financial-eligibility-for-legal-aid-uat delete el-351-employment-questions-pa`
 
 It is also possible to manually deploy to an environment from the command line, the structure of the command can be found in `bin/uat_deployment`
