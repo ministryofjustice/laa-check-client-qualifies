@@ -15,7 +15,7 @@
                                  label: { text: t(".housing_payments.label") },
                                  hint: { text: t(".housing_payments.hint") },
                                  link_errors: true do %>
-          <%= render "money_input",
+          <%= render "shared/money_input",
                      form:,
                      field: :housing_payments,
                      width: 5,

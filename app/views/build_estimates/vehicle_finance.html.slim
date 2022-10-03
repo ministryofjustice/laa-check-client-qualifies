@@ -14,7 +14,7 @@
                                             legend: { text: t(".vehicle_pcp.legend") },
                                             hint: { text: t(".vehicle_pcp.hint") } do
         = form.govuk_radio_button :vehicle_pcp, true, label: { text: t("generic.yes_choice") } do
-          = render "money_input",
+          = render "shared/money_input",
                      form:,
                      field: :vehicle_finance,
                      width: 5,

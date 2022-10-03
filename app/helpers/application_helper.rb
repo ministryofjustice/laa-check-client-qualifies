@@ -9,4 +9,8 @@ module ApplicationHelper
                                                          role: "presentation",
                                                          focusable: "false")
   end
+
+  def yes_no_boolean(boolean)
+    boolean ? I18n.t("generic.yes_choice") : I18n.t("generic.no_choice")
+  end
 end

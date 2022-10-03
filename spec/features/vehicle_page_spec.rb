@@ -5,6 +5,7 @@ RSpec.describe "Vehicle Page" do
   let(:vehicle_header) { "Does your client own a vehicle?" }
   let(:property_entry_header) { "How much is your client's home worth?" }
   let(:assets_header) { "Which assets does your client have?" }
+  let(:check_answers_header) { "Check your client and partner answers" }
 
   context "without property" do
     let(:estimate_id) { SecureRandom.uuid }
@@ -38,10 +39,60 @@ RSpec.describe "Vehicle Page" do
       end
     end
 
-    it "skips questions when no selected" do
-      select_vehicle_value(:vehicle_owned, false)
-      click_on "Save and continue"
-      expect(page).to have_content(assets_header)
+    context "with no vehicle" do
+      before do
+        select_vehicle_value(:vehicle_owned, false)
+        click_on "Save and continue"
+      end
+
+      it "skips vehicle questions" do
+        expect(page).to have_content(assets_header)
+      end
+
+      context "when checking answers" do
+        let(:vehicle_value) { 20_000 }
+
+        before do
+          allow(mock_connection).to receive(:create_capitals)
+          click_checkbox("assets-form-assets", "none")
+          click_on "Save and continue"
+        end
+
+        it "has expected content" do
+          expect(page).to have_content check_answers_header
+          expect(page).to have_content "No"
+        end
+
+        it "can do a simple loop back to check answers" do
+          click_on "Change"
+          click_on "Save and continue"
+          expect(page).to have_content check_answers_header
+        end
+
+        it "errors correctly" do
+          click_on "Change"
+          select_vehicle_value(:vehicle_owned, true)
+          click_on "Save and continue"
+
+          fill_in "vehicle-value-form-vehicle-value-field", with: vehicle_value
+          click_on "Save and continue"
+
+          within ".govuk-error-summary__list" do
+            expect(page).to have_content("Select yes if the vehicle is in regular use")
+          end
+        end
+
+        it "can do a loop changing the vehicle answer" do
+          click_on "Change"
+          select_vehicle_value(:vehicle_owned, true)
+          click_on "Save and continue"
+          fill_in "vehicle-value-form-vehicle-value-field", with: vehicle_value
+          select_boolean_value("vehicle-value-form", :vehicle_in_regular_use, false)
+          expect(mock_connection).to receive(:create_vehicle)
+          click_on "Save and continue"
+          expect(page).to have_content check_answers_header
+        end
+      end
     end
 
     context "with a vehicle" do
@@ -70,6 +121,38 @@ RSpec.describe "Vehicle Page" do
 
         before do
           fill_in "vehicle-value-form-vehicle-value-field", with: vehicle_value
+        end
+
+        context "without regular usage" do
+          before do
+            allow(mock_connection)
+              .to receive(:create_vehicle)
+                    .with(estimate_id,
+                          date_of_purchase: Time.zone.today.to_date,
+                          value: vehicle_value,
+                          loan_amount_outstanding: 0,
+                          in_regular_use: false)
+            select_boolean_value("vehicle-value-form", :vehicle_in_regular_use, false)
+            click_on "Save and continue"
+          end
+
+          it "creates the vehicle immediately" do
+            expect(page).to have_content assets_header
+          end
+
+          it "has expected check_answers content" do
+            allow(mock_connection).to receive(:create_capitals)
+            click_checkbox("assets-form-assets", "none")
+            click_on "Save and continue"
+
+            expect(page).to have_content check_answers_header
+            expect(page).to have_content vehicle_value.to_s
+          end
+
+          it "has a working Back button" do
+            click_on "Back"
+            expect(page).to have_content "Is the vehicle in regular use?"
+          end
         end
 
         context "when in regular use" do
@@ -154,32 +237,6 @@ RSpec.describe "Vehicle Page" do
                 expect(page).to have_content assets_header
               end
             end
-          end
-        end
-
-        context "without regular usage" do
-          it "creates the vehicle immediately" do
-            expect(mock_connection)
-              .to receive(:create_vehicle)
-                    .with(estimate_id,
-                          date_of_purchase: Time.zone.today.to_date,
-                          value: vehicle_value,
-                          loan_amount_outstanding: 0,
-                          in_regular_use: false)
-            select_boolean_value("vehicle-value-form", :vehicle_in_regular_use, false)
-            click_on "Save and continue"
-
-            expect(page).to have_content assets_header
-          end
-
-          it "has a working Back button" do
-            expect(mock_connection)
-              .to receive(:create_vehicle)
-            select_boolean_value("vehicle-value-form", :vehicle_in_regular_use, false)
-            click_on "Save and continue"
-            expect(page).to have_content assets_header
-            click_on "Back"
-            expect(page).to have_content "Is the vehicle in regular use?"
           end
         end
       end

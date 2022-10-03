@@ -15,7 +15,7 @@
                                  label: { text: t(".employment_income.label") },
                                  hint: { text: t(".employment_income.hint") },
                                  link_errors: true do %>
-          <%= render "money_input",
+          <%= render "shared/money_input",
                      form:,
                      field: :employment_income,
                      width: 5,
@@ -26,7 +26,7 @@
         <%= form.govuk_check_box :monthly_incomes, "friends_or_family",
                                  label: { text: t(".friends_or_family.label") },
                                  hint: { text: t(".friends_or_family.hint") } do %>
-          <%= render "money_input",
+          <%= render "shared/money_input",
                      form:,
                      field: :friends_or_family,
                      width: 5,
@@ -37,7 +37,7 @@
         <%= form.govuk_check_box :monthly_incomes, "maintenance",
                                  label: { text: t(".maintenance.label") },
                                  hint: { text: t(".maintenance.hint") } do %>
-          <%= render "money_input",
+          <%= render "shared/money_input",
                      form:,
                      field: :maintenance,
                      width: 5,
@@ -48,7 +48,7 @@
         <%= form.govuk_check_box :monthly_incomes, "student_finance",
                                  label: { text: t(".student_finance.label") },
                                  hint: { text: t(".student_finance.hint") } do %>
-          <%= render "money_input",
+          <%= render "shared/money_input",
                      form:,
                      field: :student_finance,
                      width: 5,

@@ -2,6 +2,8 @@ class BuildEstimatesController < ApplicationController
   include Wicked::Wizard
   include StepsHelper
 
+  before_action :load_estimate_id
+
   steps(*ALL_POSSIBLE_STEPS)
 
   HANDLER_CLASSES = {
@@ -13,7 +15,7 @@ class BuildEstimatesController < ApplicationController
     vehicle_age: Flow::Vehicle::AgeHandler,
     vehicle_finance: Flow::Vehicle::FinanceHandler,
     assets: Flow::AssetHandler,
-    summary: Flow::SummaryHandler,
+    check_answers: Flow::CheckAnswersHandler,
     outgoings: Flow::OutgoingsHandler,
     property_entry: Flow::PropertyEntryHandler,
   }.freeze
@@ -48,7 +50,7 @@ class BuildEstimatesController < ApplicationController
 private
 
   def load_estimate
-    EstimateData.new session_data.slice(*EstimateData::ESTIMATE_ATTRIBUTES.map(&:to_s))
+    EstimateModel.new session_data.slice(*EstimateModel::ESTIMATE_ATTRIBUTES.map(&:to_s))
   end
 
   def estimate_id
@@ -61,5 +63,9 @@ private
 
   def session_key
     "estimate_#{estimate_id}"
+  end
+
+  def load_estimate_id
+    @estimate_id = params[:estimate_id]
   end
 end

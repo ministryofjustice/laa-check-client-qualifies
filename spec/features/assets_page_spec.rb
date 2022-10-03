@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe "Assets Page", :vcr do
   let(:arbitrary_fixed_time) { Time.zone.local(2022, 9, 5, 9, 0, 0) }
   let(:assets_header) { "Which assets does your client have?" }
+  let(:check_answers_header) { "Check your client and partner answers" }
 
   before do
     travel_to arbitrary_fixed_time
@@ -67,7 +68,7 @@ RSpec.describe "Assets Page", :vcr do
       fill_in "assets-form-property-percentage-owned-field", with: "50"
       click_on "Save and continue"
 
-      expect(page).to have_content "Summary Page"
+      expect(page).to have_content check_answers_header
     end
 
     it "can submit non-zero savings and investments" do
@@ -79,14 +80,14 @@ RSpec.describe "Assets Page", :vcr do
 
       click_on "Save and continue"
 
-      expect(page).to have_content "Summary Page"
+      expect(page).to have_content check_answers_header
     end
 
     it "can fill in the assets questions and get to results" do
       click_checkbox("assets-form-assets", "none")
       click_on "Save and continue"
 
-      expect(page).to have_content "Summary Page"
+      expect(page).to have_content check_answers_header
       click_on "Submit"
 
       expect(page).to have_content "Results Page"

@@ -20,13 +20,13 @@
                                    "property",
                                    label: { text: t(".property.label") },
                                    hint: { text: t(".property.hint") } do
-            = render "money_input",
+            = render "shared/money_input",
                        form:,
                        field: :property_value,
                        width: 10,
                        label_text: t(".property.value.label"),
                        hint_text: t(".property.value.input_hint")
-            = render "money_input",
+            = render "shared/money_input",
                        form:,
                        field: :property_mortgage,
                        width: 10,
@@ -42,7 +42,7 @@
                                  label: { text: t(".savings.label") },
                                  hint: { text: t(".savings.hint") },
                                  link_errors: true do
-          = render "money_input",
+          = render "shared/money_input",
                      form:,
                      field: :savings,
                      width: 5,
@@ -51,7 +51,7 @@
         = form.govuk_check_box :assets, "investments",
                                  label: { text: t(".investments.label") },
                                  hint: { text: t(".investments.hint") } do
-          = render "money_input",
+          = render "shared/money_input",
                      form:,
                      field: :investments,
                      width: 5,

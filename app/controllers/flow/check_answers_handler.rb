@@ -1,7 +1,9 @@
 module Flow
-  class SummaryHandler
+  class CheckAnswersHandler
     class << self
-      def model(session_data); end
+      def model(session_data)
+        EstimateModel.new(session_data)
+      end
 
       def form(_params)
         OpenStruct.new(valid?: true, attributes: {})

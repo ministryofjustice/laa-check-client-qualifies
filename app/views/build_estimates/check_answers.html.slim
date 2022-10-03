@@ -1,0 +1,36 @@
+.govuk-grid-row
+  .govuk-grid-column-two-thirds
+    h1.govuk-heading-xl
+      = t(".heading")
+    = link_to t("generic.back"), previous_wizard_path, class: "govuk-back-link"
+
+    h2.govuk-heading-l
+      = t(".assets")
+
+      h2.govuk-heading-m
+        = t(".vehicles")
+
+      dl class="govuk-summary-list govuk-!-margin-bottom-9"
+        = render "check_answer", label_text: t(".vehicle.ownership"),
+                value_text: yes_no_boolean(@form.vehicle_owned), link: :vehicle
+
+        - if @form.vehicle_owned
+          = render "check_answer", label_text: t(".vehicle.value"),
+                  value_text: @form.vehicle_value, link: :vehicle_value
+          = render "check_answer", label_text: t(".vehicle.regular_use"),
+                  value_text: yes_no_boolean(@form.vehicle_in_regular_use), link: :vehicle_value
+
+          - if @form.vehicle_in_regular_use
+            = render "check_answer", label_text: t(".vehicle.vehicle_over_3_years_ago"),
+                    value_text: yes_no_boolean(@form.vehicle_over_3_years_ago), link: :vehicle_age
+            = render "check_answer", label_text: t(".vehicle.vehicle_pcp"),
+                    value_text: yes_no_boolean(@form.vehicle_pcp), link: :vehicle_finance
+            - if @form.vehicle_pcp
+              = render "check_answer", label_text: t(".vehicle.vehicle_finance"),
+                      value_text: @form.vehicle_finance, link: :vehicle_finance
+
+    = form_for(@estimate,
+                 url: wizard_path,
+                 method: :put) do |form|
+
+      = form.govuk_submit t("generic.submit")

@@ -8,5 +8,6 @@ Rails.application.routes.draw do
 
   resources :estimates, only: [:new] do
     resources :build_estimates, only: %i[index show update]
+    resources :check_answers, only: %i[show update]
   end
 end
