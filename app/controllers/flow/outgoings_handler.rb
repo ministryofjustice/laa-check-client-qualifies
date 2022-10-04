@@ -12,8 +12,8 @@ module Flow
       end
 
       def save_data(cfe_connection, estimate_id, outgoings_form, session_data)
-        income_form = IncomeHandler.model(session_data)
-        cfe_connection.create_student_loan estimate_id, income_form.student_finance
+        income_form = MonthlyIncomeHandler.model(session_data)
+
         cfe_connection.create_regular_payments(estimate_id, income_form, outgoings_form)
       end
     end
