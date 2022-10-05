@@ -52,10 +52,10 @@ en:
           attributes:
             house_value:
               blank: Please enter the value of your client's house
-              zero: Please enter a house value that is greater than zero
+              greater_than: Please enter a house value that is greater than zero
             mortgage:
               blank: Please enter the the outstanding mortgage amount your client has
-              zero: Please enter a mortgage amount that is greater than zero
+              greater_than: Please enter a mortgage amount that is greater than zero
             percentage_owned:
               blank: Please specify what percentage of your client's house they own
               within_range: Please enter an ownership percentage between 1 and 100

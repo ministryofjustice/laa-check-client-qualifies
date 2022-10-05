@@ -7,11 +7,11 @@ class PropertyEntryForm
   attr_accessor :property_owned
 
   attribute :house_value, :integer
-  validates :house_value, numericality: { greater_than: 0, only_integer: true, allow_nil: true, message: :zero }, presence: true
+  validates :house_value, numericality: { greater_than: 0, only_integer: true, allow_nil: true }, presence: true
 
   attribute :mortgage, :integer
   validates :mortgage,
-            numericality: { greater_than: 0, only_integer: true, allow_nil: true, message: :zero },
+            numericality: { greater_than: 0, only_integer: true, allow_nil: true },
             presence: { if: -> { property_owned == "with_mortgage" } }
 
   attribute :percentage_owned, :integer
