@@ -20,22 +20,22 @@ en:
               at_least_one_item: Please select at least one option
             friends_or_family:
               blank: Financial help from friends and family cannot be blank
-              zero: Financial help from friends and family must be greater than £0
+              greater_than: Financial help from friends and family must be greater than £0
             maintenance:
               blank: Maintenance payments cannot be blank
-              zero: Maintenance payments must be greater than £0
+              greater_than: Maintenance payments must be greater than £0
             property_or_lodger:
               blank: Income from a property or lodger cannot be blank
-              zero: Income from a property or lodger must be greater than £0
+              greater_than: Income from a property or lodger must be greater than £0
             pension:
               blank: Pension cannot be blank
-              zero: Pension must be greater than £0
+              greater_than: Pension must be greater than £0
             student_finance:
               blank: Student finance cannot be blank
-              zero: Student finance must be greater than £0
+              greater_than: Student finance must be greater than £0
             other:
               blank: Other income cannot be blank
-              zero: Other income must be greater than £0
+              greater_than: Other income must be greater than £0
 
         assets_form:
           attributes:
