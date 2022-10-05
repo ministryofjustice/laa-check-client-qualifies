@@ -16,10 +16,8 @@ class EmploymentForm
   FREQUENCY_OPTIONS = %i[total week two_weeks four_weeks monthly annually].freeze
 
   def frequency_options
-    valid_options = FREQUENCY_OPTIONS.map do |key|
+    FREQUENCY_OPTIONS.map do |key|
       OpenStruct.new(value: key, label: I18n.t("build_estimates.employment.frequency.#{key}"))
     end
-
-    [OpenStruct.new(value: nil, label: I18n.t("build_estimates.employment.frequency.blank"))] + valid_options
   end
 end
