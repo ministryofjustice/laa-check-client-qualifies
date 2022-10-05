@@ -1,13 +1,6 @@
 - hint_text ||= nil
-- if hint_text.present?
-  = form.govuk_number_field field,
-                              width:,
-                              hint: { text: hint_text },
-                              label: { text: label_text, size: "m" },
-                              prefix_text: BuildEstimatesHelper::POUND
-- else
-  = form.govuk_number_field field,
-                              width:,
-                              hint: { text: hint_text },
-                              label: { text: label_text },
-                              prefix_text: BuildEstimatesHelper::POUND
+= form.govuk_number_field field,
+                          width:,
+                          hint: { text: hint_text },
+                          label: { text: label_text, size: "m" },
+                          prefix_text: BuildEstimatesHelper::POUND
