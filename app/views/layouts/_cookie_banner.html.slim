@@ -1,0 +1,43 @@
+- if cookies[:optional_cookie_choice].blank? || params[:cookie_choice].present?
+  = form_tag(cookies_path, method: 'PATCH', id: 'cookie-choice-submission-form', class: 'govuk-!-margin-0')
+    input type='hidden' name='return_to' value=request.env['PATH_INFO']
+    .govuk-cookie-banner data-nosnippet=true role="region" aria-label=t('cookie_banner.title')
+      .govuk-cookie-banner__message.govuk-width-container hidden=params[:cookie_choice].present?
+
+        .govuk-grid-row
+          .govuk-grid-column-two-thirds
+            h2.govuk-cookie-banner__heading.govuk-heading-m =t('cookie_banner.title')
+
+            .govuk-cookie-banner__content
+              p.govuk-body = t('cookie_banner.essential_cookies')
+              p.govuk-body = t('cookie_banner.additional_cookie_rationale')
+
+        .govuk-button-group
+          button value="accept" type="submit" name="cookies" class="govuk-button" data-module="govuk-button"
+            = t('cookie_banner.accept')
+          button value="reject" type="submit" name="cookies" class="govuk-button" data-module="govuk-button"
+            = t('cookie_banner.reject')
+          = link_to t('cookie_banner.view'), cookies_path, class: 'govuk-link'
+
+      .govuk-cookie-banner__message.govuk-width-container hidden=(params[:cookie_choice] != 'accepted')
+        .govuk-grid-row
+          .govuk-grid-column-two-thirds
+            .govuk-cookie-banner__content
+              p.govuk-body
+                == t('cookie_banner.accepted', change_link: link_to(t('cookie_banner.change'), cookies_path, class: 'govuk-link'))
+
+        .govuk-button-group
+          a href=request.env['PATH_INFO'] role="button" draggable="false" class="govuk-button" data-module="govuk-button"
+            = t('cookie_banner.hide')
+
+      .govuk-cookie-banner__message.govuk-width-container hidden=(params[:cookie_choice] != 'rejected')
+
+        .govuk-grid-row
+          .govuk-grid-column-two-thirds
+            .govuk-cookie-banner__content
+              p.govuk-body
+                == t('cookie_banner.rejected', change_link: link_to(t('cookie_banner.change'), cookies_path, class: 'govuk-link'))
+
+        .govuk-button-group
+          a href=request.env['PATH_INFO'] role="button" draggable="false" class="govuk-button" data-module="govuk-button"
+            = t('cookie_banner.hide')
