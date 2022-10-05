@@ -66,9 +66,13 @@ class CfeConnection
   end
 
   def create_regular_payments(assessment_id, income_form, outgoings_form)
+    # TODO: CFE does not currently support 'other' income, and errors if we try to send it other income,
+    # so for the time being we do _not_ tell CFE about other income.
     income = {
-      friends_or_family: income_form.friends_or_family,
-      maintenance_in: income_form.maintenance,
+      friends_or_family: (income_form.friends_or_family if income_form.monthly_incomes.include?("friends_or_family")),
+      maintenance_in: (income_form.maintenance if income_form.monthly_incomes.include?("maintenance")),
+      property_or_lodger: (income_form.property_or_lodger if income_form.monthly_incomes.include?("property_or_lodger")),
+      pension: (income_form.pension if income_form.monthly_incomes.include?("pension")),
     }.select { |_k, v| v.present? }.map do |category, amount|
       { operation: :credit,
         category:,

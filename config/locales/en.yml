@@ -18,6 +18,25 @@ en:
           attributes:
             monthly_incomes:
               at_least_one_item: Please select at least one option
+            friends_or_family:
+              blank: Financial help from friends and family cannot be blank
+              greater_than: Financial help from friends and family must be greater than £0
+            maintenance:
+              blank: Maintenance payments cannot be blank
+              greater_than: Maintenance payments must be greater than £0
+            property_or_lodger:
+              blank: Income from a property or lodger cannot be blank
+              greater_than: Income from a property or lodger must be greater than £0
+            pension:
+              blank: Pension cannot be blank
+              greater_than: Pension must be greater than £0
+            student_finance:
+              blank: Student finance cannot be blank
+              greater_than: Student finance must be greater than £0
+            other:
+              blank: Other income cannot be blank
+              greater_than: Other income must be greater than £0
+
         assets_form:
           attributes:
             assets:
@@ -43,6 +62,8 @@ en:
     save_and_continue: Save and continue
     submit: Submit
     check_box_divider: or
+    date: Date
+    related_content_title: Related content
   build_estimates:
     applicant:
       heading: Your client's details
@@ -68,30 +89,40 @@ en:
       heading: ''
       caption: Your client's finances
       monthly_incomes:
-        legend: What income does your client receive?
+        legend: What other income does your client receive?
         hint: Select all that apply.
-      employment_income:
-        label: Employment Income
-        hint: ""
-        input: Enter gross monthly income
-        input_hint: ""
       friends_or_family:
         label: Financial help from friends or family
         hint: For example, money from a family member for rent or bills.
         input: Enter monthly amount
-        input_hint: ""
-      none:
-        label: My client has no monthly income
-      student_finance:
-        label: Student Finance
-        hint: This includes any type of student loan, grant or bursary.
-        input: Enter amount received this academic year
         input_hint: ""
       maintenance:
         label: Maintenance payments from a former partner
         hint: This includes child maintenance
         input: Enter monthly amount
         input_hint: ""
+      property_or_lodger:
+        label: Income from a property or lodger
+        hint: ""
+        input: Enter monthly amount
+        input_hint: ""
+      pension:
+        label: Pension
+        hint: Include State, workplace and personal pensions
+        input: Enter monthly amount
+        input_hint: ""
+      student_finance:
+        label: Student finance
+        hint: This includes any type of student loan, grant or bursary.
+        input: Enter amount received this academic year
+        input_hint: ""
+      other:
+        label: Income from other sources
+        hint: Include any other income your client received in the last 3 months.
+        input: Enter amount
+        input_hint: ""
+      none:
+        label: My client has no monthly income
     outgoings:
       heading: ""
       caption: Your client's finances
@@ -105,6 +136,8 @@ en:
         input_hint: ""
       none:
         label: My client has no monthly outgoings or deductions
+      guidance_on_housing_payments: Guidance on housing payments (need link)
+      link_to_guidance_on_housing_payments: "#TODO: To be defined"
     property:
       caption: Your client's finances
       heading: ""
@@ -181,7 +214,6 @@ en:
       item_1: income
       item_2: outgoings
       item_3: savings, investments and other assets
-      related_content_title: Related content
       related_content_item_1: Legal aid overview
       related_content_item_2: Civil legal aid
       start_button: Start now

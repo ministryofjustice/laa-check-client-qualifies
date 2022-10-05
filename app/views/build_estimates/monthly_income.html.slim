@@ -1,0 +1,30 @@
+- content_for :back do
+  = link_to t("generic.back"), previous_wizard_path, class: "govuk-back-link"
+
+.govuk-grid-row
+  .govuk-grid-column-two-thirds
+    span.govuk-caption-l = t(".caption")
+    = form_for(@form, url: wizard_path, method: :put) do |form|
+      = form.govuk_error_summary t("generic.error_summary_title")
+
+      = form.govuk_check_boxes_fieldset :monthly_incomes,
+                                        legend: { text: t(".monthly_incomes.legend"), size: "l" },
+                                        hint: { text: t(".monthly_incomes.hint") }
+        - MonthlyIncomeForm::INCOME_ATTRIBUTES.each do |income_type|
+          = form.govuk_check_box :monthly_incomes, income_type.to_s,
+                                 label: { text: t(".#{income_type}.label") },
+                                 hint: { text: t(".#{income_type}.hint") }
+            = render "money_input",
+                     form:,
+                     field: income_type,
+                     width: 5,
+                     label_text: t(".#{income_type}.input"),
+                     hint_text: t(".#{income_type}.input_hint")
+
+        = form.govuk_check_box_divider t("generic.check_box_divider")
+
+        = form.govuk_check_box :monthly_incomes, "none",
+                               exclusive: true,
+                               label: { text: t(".none.label") }
+      = form.govuk_submit t("generic.save_and_continue")
+  = render 'sidebar_with_date'

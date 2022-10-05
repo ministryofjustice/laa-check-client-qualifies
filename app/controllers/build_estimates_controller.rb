@@ -6,7 +6,7 @@ class BuildEstimatesController < ApplicationController
 
   HANDLER_CLASSES = {
     applicant: Flow::ApplicantHandler,
-    monthly_income: Flow::IncomeHandler,
+    monthly_income: Flow::MonthlyIncomeHandler,
     property: Flow::PropertyHandler,
     vehicle: Flow::VehicleHandler,
     assets: Flow::AssetHandler,
@@ -32,6 +32,9 @@ class BuildEstimatesController < ApplicationController
 
     if @form.valid?
       handler.save_data(cfe_connection, estimate_id, @form, session_data)
+      # TODO: having multiple estimates stored in the same session will
+      # eventually cause a CookieOverflow error as more and more data is added
+      # to each estimate
       session_data.merge!(@form.attributes)
 
       redirect_to wizard_path next_step_for(load_estimate, step)

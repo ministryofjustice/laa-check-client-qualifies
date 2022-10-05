@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Applicant Page" do
-  let(:income_header) { "What income does your client receive?" }
+  let(:income_header) { "What other income does your client receive?" }
   let(:property_header) { "Does your client own the home they live in?" }
   let(:applicant_header) { "About your client" }
   let(:estimate_id) { SecureRandom.uuid }
