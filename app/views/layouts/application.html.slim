@@ -18,6 +18,8 @@ html lang="en" class="govuk-template"
     = stylesheet_link_tag "application", "data-turbo-track": "reload" 
     = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
 
+    = render 'layouts/analytics'
+
   body class="govuk-template__body"
     javascript:
       document.body.className = ((document.body.className) ? document.body.className + " js-enabled" : "js-enabled");
