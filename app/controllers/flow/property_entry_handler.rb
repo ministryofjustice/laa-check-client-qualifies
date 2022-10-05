@@ -11,11 +11,11 @@ module Flow
         PropertyEntryForm.new(params.require(:property_entry_form).permit(*PropertyEntryForm::ENTRY_ATTRIBUTES))
       end
 
-      def save_data(cfe_connection, estimate_id, estimate, _session_data)
+      def save_data(cfe_connection, estimate_id, model, session_data)
         main_home = {
-          value: estimate.house_value,
-          outstanding_mortgage: estimate.mortgage.presence || 0,
-          percentage_owned: estimate.percentage_owned,
+          value: model.house_value,
+          outstanding_mortgage: (model.mortgage.presence if session_data["property_owned"] == "with_mortgage") || 0,
+          percentage_owned: model.percentage_owned,
         }
         cfe_connection.create_properties(estimate_id, main_home, nil)
       end
