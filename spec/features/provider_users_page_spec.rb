@@ -1,8 +1,8 @@
 require "rails_helper"
 
 RSpec.describe "Provider User Page" do
-  let(:client_details_header) { "Your client's details" }
-  let(:referral_header) { "You cannot use this service to get a financial eligibility estimate for legal aid" }
+  let(:client_details_header) { I18n.t("build_estimates.applicant.heading") }
+  let(:referral_header) { I18n.t("referrals.show.page_heading") }
   let(:estimate_id) { SecureRandom.uuid }
   let(:mock_connection) { instance_double(CfeConnection, create_assessment_id: estimate_id) }
 
