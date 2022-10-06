@@ -10,7 +10,7 @@
       = form.govuk_error_summary t("generic.error_summary_title")
 
       - EmploymentForm::DECIMAL_ATTRIBUTES.each do |field|
-        = render "money_input",
+        = render "shared/money_input",
                   form:,
                   field:,
                   width: 5,
