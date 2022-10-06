@@ -14,12 +14,11 @@
           = form.govuk_check_box :monthly_incomes, income_type.to_s,
                                  label: { text: t(".#{income_type}.label") },
                                  hint: { text: t(".#{income_type}.hint") }
-            = render "money_input",
+            = render "shared/money_input",
                      form:,
                      field: income_type,
                      width: 5,
-                     label_text: t(".#{income_type}.input"),
-                     hint_text: t(".#{income_type}.input_hint")
+                     label_text: t(".#{income_type}.input")
 
         = form.govuk_check_box_divider t("generic.check_box_divider")
 
