@@ -143,6 +143,16 @@ jobs:
       - *build_docker_image
       - *push_to_ecr
 
+  clean_up_ecr:
+    executor: cloud-platform-executor
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Delete old images from ECR repo
+          command: |
+            ./bin/delete_ecr_images
+
   deploy_uat:
     executor: cloud-platform-executor
     steps:
@@ -226,3 +236,12 @@ workflows:
             branches:
               only:
                 - main
+  nightly:
+    triggers:
+      - schedule:
+          cron: "0 4 * * *"
+          filters:
+            branches:
+              only: main
+    jobs:
+      - clean_up_ecr
