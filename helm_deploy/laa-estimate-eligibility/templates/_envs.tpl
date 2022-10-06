@@ -25,4 +25,9 @@ env:
       secretKeyRef:
         name: {{ template "app.fullname" . }}
         key: sentryDsn
+  - name: GOOGLE_ANALYTICS_ID
+    valueFrom:
+      secretKeyRef:
+        name: {{ template "app.fullname" . }}
+        key: googleAnalyticsId
 {{- end }}
