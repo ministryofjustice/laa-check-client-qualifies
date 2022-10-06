@@ -11,13 +11,11 @@ class CookiesController < ApplicationController
 private
 
   def build_return_to_url(choice)
-    return root_path(cookie_choice: choice) if params[:return_to].blank?
-    return cookies_path if params[:return_to] == cookies_path
-
-    uri = URI.parse(params[:return_to])
+    uri = URI.parse(params[:return_to].presence || cookies_path)
     original_query_parts = uri.query.present? ? URI.decode_www_form(uri.query) : []
-    new_query_parts = [["cookie_choice", choice]]
-    uri.query = URI.encode_www_form(original_query_parts + new_query_parts)
+    new_query_parts = params[:add_choice_to_query_string] ? [["cookie_choice", choice]] : []
+    combined = original_query_parts + new_query_parts
+    uri.query = URI.encode_www_form(combined) if combined.present?
     uri.to_s
   end
 end
