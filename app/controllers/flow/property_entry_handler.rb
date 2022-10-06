@@ -7,7 +7,7 @@ module Flow
         end
       end
 
-      def form(params)
+      def form(params, session_data)
         PropertyEntryForm.new(params.require(:property_entry_form).permit(*PropertyEntryForm::ENTRY_ATTRIBUTES)).tap do |model|
           model.property_owned = session_data["property_owned"]
         end
