@@ -125,6 +125,8 @@ private
 
   def create_record(assessment_id, record_type, record_data)
     cfe_connection.post "/assessments/#{assessment_id}/#{record_type}", record_data
+  rescue Faraday::UnprocessableEntityError => e
+    raise e, "CFE returned the following message: #{e.response_body}", e.backtrace
   end
 
   def cfe_connection
