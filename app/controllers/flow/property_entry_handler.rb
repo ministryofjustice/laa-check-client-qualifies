@@ -8,7 +8,9 @@ module Flow
       end
 
       def form(params)
-        PropertyEntryForm.new(params.require(:property_entry_form).permit(*PropertyEntryForm::ENTRY_ATTRIBUTES))
+        PropertyEntryForm.new(params.require(:property_entry_form).permit(*PropertyEntryForm::ENTRY_ATTRIBUTES)).tap do |model|
+          model.property_owned = session_data["property_owned"]
+        end
       end
 
       def save_data(cfe_connection, estimate_id, model, session_data)

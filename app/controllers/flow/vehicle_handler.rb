@@ -7,7 +7,7 @@ module Flow
         VehicleForm.new session_data.slice(*VEHICLE_ATTRIBUTES)
       end
 
-      def form(params)
+      def form(params, _session_data)
         VehicleForm.new(params.require(:vehicle_form).permit(:vehicle_owned))
       end
 

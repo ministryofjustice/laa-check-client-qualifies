@@ -28,7 +28,7 @@ class BuildEstimatesController < ApplicationController
 
   def update
     handler = HANDLER_CLASSES.fetch(step)
-    @form = handler.form(params)
+    @form = handler.form(params, session_data)
 
     if @form.valid?
       handler.save_data(cfe_connection, estimate_id, @form, session_data)

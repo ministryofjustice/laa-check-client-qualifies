@@ -7,7 +7,7 @@ module Flow
         AssetsForm.new session_data.slice(*ASSETS_ATTRIBUTES)
       end
 
-      def form(params)
+      def form(params, _session_data)
         AssetsForm.new(params.require(:assets_form).permit(*AssetsForm::ASSETS_ATTRIBUTES, assets: []))
       end
 
