@@ -124,15 +124,16 @@ class CfeConnection
 private
 
   def create_record(assessment_id, record_type, record_data)
-    cfe_connection.post "/assessments/#{assessment_id}/#{record_type}", record_data
-  rescue Faraday::UnprocessableEntityError => e
-    raise e, "CFE returned the following message: #{e.response_body}", e.backtrace
+    url = "/assessments/#{assessment_id}/#{record_type}"
+    response = cfe_connection.post url, record_data
+    return if response.status == 200
+
+    raise "Call to CFE url #{url} returned status #{response.status} and message:\n#{response.body}"
   end
 
   def cfe_connection
     @cfe_connection ||= Faraday.new(url: CFE_HOST, headers: { "Accept" => "application/json;version=5" }) do |faraday|
       faraday.request :json
-      faraday.response :raise_error
       faraday.response :json
     end
   end
