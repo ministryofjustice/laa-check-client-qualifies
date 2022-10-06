@@ -44,4 +44,18 @@ RSpec.describe "Property Page" do
     click_on "Save and continue"
     expect(page).to have_content vehicle_header
   end
+
+  it "applies validation on the property entry form" do
+    allow(mock_connection).to receive(:create_properties)
+
+    click_checkbox("property-form-property-owned", "with_mortgage")
+    click_on "Save and continue"
+    expect(page).to have_content property_entry_header
+    click_on "Save and continue"
+    within ".govuk-error-summary__list" do
+      expect(page).to have_content I18n.t("activemodel.errors.models.property_entry_form.attributes.house_value.blank")
+      expect(page).to have_content I18n.t("activemodel.errors.models.property_entry_form.attributes.mortgage.blank")
+      expect(page).to have_content I18n.t("activemodel.errors.models.property_entry_form.attributes.percentage_owned.blank")
+    end
+  end
 end
