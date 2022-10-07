@@ -8,7 +8,7 @@
       = form.govuk_error_summary t("generic.error_summary_title")
 
       = form.govuk_check_boxes_fieldset :monthly_incomes,
-                                        legend: { text: t(".monthly_incomes.legend"), size: "l" },
+                                        legend: { text: t(".monthly_incomes.legend"), size: "xl", tag: "h1" },
                                         hint: { text: t(".monthly_incomes.hint") }
         - MonthlyIncomeForm::INCOME_ATTRIBUTES.each do |income_type|
           = form.govuk_check_box :monthly_incomes, income_type.to_s,
