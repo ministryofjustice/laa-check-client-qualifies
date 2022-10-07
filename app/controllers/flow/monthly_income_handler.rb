@@ -7,7 +7,7 @@ module Flow
         MonthlyIncomeForm.new session_data.slice(*MONTHLY_INCOME_ATTRIBUTES.map(&:to_s))
       end
 
-      def form(params)
+      def form(params, _session_data)
         MonthlyIncomeForm.new(params.require(:monthly_income_form)
           .permit(*MonthlyIncomeForm::INCOME_ATTRIBUTES, monthly_incomes: []))
       end

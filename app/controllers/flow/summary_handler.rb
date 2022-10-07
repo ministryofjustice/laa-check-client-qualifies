@@ -3,7 +3,7 @@ module Flow
     class << self
       def model(session_data); end
 
-      def form(_params)
+      def form(_params, _session_data)
         OpenStruct.new(valid?: true, attributes: {})
       end
 

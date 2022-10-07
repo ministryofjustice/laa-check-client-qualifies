@@ -7,7 +7,7 @@ module Flow
         OutgoingsForm.new session_data.slice(*OUTGOINGS_ATTRIBUTES)
       end
 
-      def form(params)
+      def form(params, _session_data)
         OutgoingsForm.new(params.require(:outgoings_form).permit(*OutgoingsForm::OUTGOING_ATTRIBUTES, outgoings: []))
       end
 
