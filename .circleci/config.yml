@@ -172,7 +172,19 @@ jobs:
                           --namespace=${K8S_NAMESPACE} \
                           --values ./helm_deploy/laa-estimate-eligibility/values-staging.yaml \
                           --set image.repository="$ECR_ENDPOINT" \
-                          --set image.tag="${CIRCLE_SHA1}"          
+                          --set image.tag="${CIRCLE_SHA1}"
+
+  delete_uat_branch:
+    executor: cloud-platform-executor
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - *authenticate_k8s
+      - run:
+          name: Delete UAT deployment
+          command: |
+            ./bin/delete_uat_deployment
             
 
 workflows:
@@ -218,6 +230,10 @@ workflows:
           context: laa-estimate-eligibility-uat
           requires:
             - build_and_push_to_ecr
+      - delete_uat_branch:
+          context: laa-estimate-eligibility-uat
+          requires:
+            - deploy_main_uat
       - deploy_staging:
           context: laa-estimate-eligibility-staging
           requires:
