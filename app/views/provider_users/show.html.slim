@@ -1,6 +1,5 @@
-= link_to t("generic.back"), "/start", class: "govuk-back-link"
-
-div class="govuk-!-padding-bottom-4"
+- content_for :back do
+  = link_to t("generic.back"), "/start", class: "govuk-back-link"
 
 .govuk-grid-row
   .govuk-grid-column-two-thirds
