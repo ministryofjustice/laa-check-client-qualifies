@@ -9,14 +9,14 @@
 
       = form.govuk_error_summary t("generic.error_summary_title")
 
-      = render "money_input",
+      = render "shared/money_input_with_hint",
                form:,
                field: :house_value,
                width: 10,
                label_text: t(".house_value.input"),
                hint_text: t(".house_value.input_hint")
       - if @estimate.property_owned == 'with_mortgage'
-        = render "money_input",
+        = render "shared/money_input_with_hint",
                  form:,
                  field: :mortgage,
                  width: 10,
