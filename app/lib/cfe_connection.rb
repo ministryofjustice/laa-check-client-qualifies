@@ -117,7 +117,9 @@ class CfeConnection
   end
 
   def api_result(assessment_id)
-    response = cfe_connection.get "/assessments/#{assessment_id}"
+    url = "/assessments/#{assessment_id}"
+    response = cfe_connection.get url
+    validate_api_response(response, url)
     response.body.deep_symbolize_keys
   end
 
@@ -126,7 +128,11 @@ private
   def create_record(assessment_id, record_type, record_data)
     url = "/assessments/#{assessment_id}/#{record_type}"
     response = cfe_connection.post url, record_data
-    return if response.status == 200
+    validate_api_response(response, url)
+  end
+
+  def validate_api_response(response, url)
+    return if response.success?
 
     raise "Call to CFE url #{url} returned status #{response.status} and message:\n#{response.body}"
   end
