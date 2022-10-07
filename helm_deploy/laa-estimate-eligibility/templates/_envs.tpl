@@ -33,6 +33,6 @@ env:
   - name: CFE_HOST
     valueFrom:
       secretKeyRef:
-        name: {{ template "apply-for-legal-aid.fullname" . }}
+        name: {{ template "app.fullname" . }}
         key: checkFinancialEligibilityHost
 {{- end }}
