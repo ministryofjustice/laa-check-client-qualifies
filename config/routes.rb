@@ -11,4 +11,6 @@ Rails.application.routes.draw do
   resources :estimates, only: [:new] do
     resources :build_estimates, only: %i[index show update]
   end
+
+  resource :cookies, only: %i[show update]
 end

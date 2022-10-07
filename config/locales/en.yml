@@ -206,3 +206,49 @@ en:
       related_content_item_1: Legal aid overview
       related_content_item_2: Civil legal aid
       start_button: Start now
+  cookie_banner:
+    title: Cookies on Estimate Eligibility For Financial Aid
+    essential_cookies: We use some essential cookies to make this service work.
+    additional_cookie_rationale: We’d like to set additional cookies so we can remember your settings, understand how people use the service and make improvements.
+    accept: Accept additional cookies
+    reject: Reject additional cookies
+    view: View cookies
+    change: change your cookie settings
+    accepted: You’ve accepted additional cookies. You can %{change_link} at any time.
+    rejected: You’ve rejected additional cookies. You can %{change_link} at any time.
+    hide: Hide cookie message
+  cookies:
+    show:
+      title: Cookies
+      paragraph_1: "%{service_name} puts small files (known as ‘cookies’) on your computer."
+      service_name: Estimate Financial Eligibility for Legal Aid
+      paragraph_2: These cookies are used across the %{service_name} website.
+      paragraph_3: Find out %{how_to_manage} from the Information Commissioner's Office.
+      how_to_manage: how to manage cookies
+      essential_cookies: Essential cookies (strictly necessary)
+      essential_cookie_explainer: We use an essential cookie to remember when you accept or reject cookies on our website, and another to remember your answers as you complete the eligibility form.
+      essential_cookies_used: Essential cookies we use
+      saves_settings: Saves your cookie consent settings
+      one_year: 1 year
+      stores_user_provided_data: Stores user-provided form data
+      until_browser_closed: Until the browser is closed
+      name: Name
+      purpose: Purpose
+      expires: Expires
+      analytics_cookies: Analytics cookies (optional)
+      analytics_explainer_1: We use Google Analytics software to understand how people use the %{service_name} service. We do this to help make sure the site is meeting the needs of its users and to help us make improvements.
+      analytics_explainer_2: We do not collect or store your personal information (for example your name or address) so this information cannot be used to identify who you are.
+      analytics_explainer_3: We do not allow Google to use or share our analytics data.
+      analytics_explainer_4: Google Analytics stores information about
+      subject_1: the pages you visit
+      subject_2: how long you spend on each page
+      subject_3: how you arrived at the site
+      subject_4: what you click on while you visit the site
+      subject_5: the device and browser you use
+      analytics_cookies_used: Analytics cookies we use
+      random_number: random number
+      two_years: 2 years
+      analytics_purpose: Helps us count how many people visit %{service_name} by telling us if you’ve visited before.
+      reduce_requests: Used to reduce the number of requests.
+      save: Save cookie settings
+      accept_cookies: Do you want to accept analytics cookies?
