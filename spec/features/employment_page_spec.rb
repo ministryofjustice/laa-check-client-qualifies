@@ -9,8 +9,7 @@ RSpec.describe "Employment page" do
   before do
     allow(CfeConnection).to receive(:connection).and_return(mock_connection)
     travel_to arbitrary_fixed_time
-    visit root_path
-    click_on "Start now"
+    visit new_estimate_path
   end
 
   context "when I have indicated that I am not employed" do
