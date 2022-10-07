@@ -44,7 +44,10 @@ en:
         property_form:
           attributes:
             property_owned:
-              inclusion: Please select the option that best decribes your clients property ownership
+              inclusion: Please select the option that best describes your client's property ownership
+        provider_user:
+          attributes:
+            blank: Select yes if you are a Legal Aid service provider
         vehicle_form:
           attributes:
             vehicle_owned:
@@ -192,6 +195,20 @@ en:
       percentage_owned:
         input: What percentage share of their home does your client legally own?
         input_hint: Your client's name must be on the property deeds, lease or freehold.
+  provider_users:
+    show:
+      provider_question: Are you a civil or family legal aid provider?
+      hints:
+        provider_user_radio_buttons: This includes people who provide civil or family legal aid and advice in England and Wales to help people deal with their legal problems.
+  referrals:
+    show:
+      page_heading: You cannot use this service to get a financial eligibility estimate for legal aid
+      sub_heading: What to do next
+      item_1: Civil Legal Advice
+      item_2: Check eligibility for Civil Legal Advice
+      item_3: Legal aid overview
+      item_4: Civil legal aid means testing
+      return_button: Return to GOV.UK
   start:
     index:
       efe_heading: Estimate financial eligibility for legal aid
