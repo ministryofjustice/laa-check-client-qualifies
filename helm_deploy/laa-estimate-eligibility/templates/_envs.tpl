@@ -30,4 +30,9 @@ env:
       secretKeyRef:
         name: {{ template "app.fullname" . }}
         key: googleAnalyticsId
+  - name: CFE_HOST
+    valueFrom:
+      secretKeyRef:
+        name: {{ template "apply-for-legal-aid.fullname" . }}
+        key: checkFinancialEligibilityHost
 {{- end }}

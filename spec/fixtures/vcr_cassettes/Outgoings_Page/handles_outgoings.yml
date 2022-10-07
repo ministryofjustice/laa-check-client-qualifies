@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       date:
-      - Fri, 23 Sep 2022 09:29:32 GMT
+      - Fri, 07 Oct 2022 13:36:03 GMT
       content-type:
       - application/json; charset=utf-8
       transfer-encoding:
@@ -41,22 +41,22 @@ http_interactions:
       vary:
       - Accept
       etag:
-      - W/"da108971f0397920038331fe37fbb0b2"
+      - W/"04259e85ccd03196cfc2de1a0bc9a4d0"
       cache-control:
       - max-age=0, private, must-revalidate
       x-request-id:
-      - 9d43e5a7f99f6c1370a49d3e24139fad
+      - f53773975c6e308daf290421258ecef1
       x-runtime:
-      - '0.045837'
+      - '0.098458'
       strict-transport-security:
       - max-age=15724800; includeSubDomains
     body:
       encoding: UTF-8
-      string: '{"success":true,"assessment_id":"0ec60e33-8c8b-4cc4-911c-d91bb199ad02","errors":[]}'
+      string: '{"success":true,"assessment_id":"d52158b9-225f-444c-8c61-3ceca4cc28c9","errors":[]}'
   recorded_at: Mon, 05 Sep 2022 09:00:00 GMT
 - request:
     method: post
-    uri: https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/assessments/0ec60e33-8c8b-4cc4-911c-d91bb199ad02/proceeding_types
+    uri: https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/assessments/d52158b9-225f-444c-8c61-3ceca4cc28c9/proceeding_types
     body:
       encoding: UTF-8
       string: '{"proceeding_types":[{"ccms_code":"DA001","client_involvement_type":"A"},{"ccms_code":"SE013","client_involvement_type":"I"}]}'
@@ -73,7 +73,7 @@ http_interactions:
       message: OK
     headers:
       date:
-      - Fri, 23 Sep 2022 09:29:32 GMT
+      - Fri, 07 Oct 2022 13:36:04 GMT
       content-type:
       - application/json; charset=utf-8
       transfer-encoding:
@@ -99,9 +99,9 @@ http_interactions:
       cache-control:
       - max-age=0, private, must-revalidate
       x-request-id:
-      - cfb31cdc211e37dfe926e50000924f2d
+      - 25dd558866a5fc62487b54d2a429e70b
       x-runtime:
-      - '0.036965'
+      - '0.077531'
       strict-transport-security:
       - max-age=15724800; includeSubDomains
     body:
@@ -110,7 +110,7 @@ http_interactions:
   recorded_at: Mon, 05 Sep 2022 09:00:00 GMT
 - request:
     method: post
-    uri: https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/assessments/0ec60e33-8c8b-4cc4-911c-d91bb199ad02/regular_transactions
+    uri: https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/assessments/d52158b9-225f-444c-8c61-3ceca4cc28c9/regular_transactions
     body:
       encoding: UTF-8
       string: '{"regular_transactions":[{"operation":"debit","category":"rent_or_mortgage","frequency":"monthly","amount":"300.0"}]}'
@@ -127,7 +127,7 @@ http_interactions:
       message: OK
     headers:
       date:
-      - Fri, 23 Sep 2022 09:29:32 GMT
+      - Fri, 07 Oct 2022 13:36:04 GMT
       content-type:
       - application/json; charset=utf-8
       transfer-encoding:
@@ -153,9 +153,9 @@ http_interactions:
       cache-control:
       - max-age=0, private, must-revalidate
       x-request-id:
-      - a91887fdc23999acd797db461f1f3405
+      - f1d65e2c80728e3ae8992bd5f5f42822
       x-runtime:
-      - '0.022796'
+      - '0.030904'
       strict-transport-security:
       - max-age=15724800; includeSubDomains
     body:
