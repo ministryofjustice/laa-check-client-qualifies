@@ -26,14 +26,14 @@ table.govuk-table
   tbody.govuk-table__body
     tr.govuk-table__row
       th.govuk-table__header[scope="row"]
-        | optional_cookie_choice
+        = CookiesController::COOKIE_CHOICE_NAME
       td.govuk-table__cell
         = t('.saves_settings')
       td.govuk-table__cell
         = t('.one_year')
     tr.govuk-table__row
       th.govuk-table__header[scope="row"]
-        = request.env['rack.session.options'].instance_variable_get('@by').key
+        = LaaEstimateFinancialEligibilityForLegalAid::SESSION_COOKIE_NAME
       td.govuk-table__cell
         = t('.stores_user_provided_data')
       td.govuk-table__cell
@@ -75,14 +75,14 @@ table.govuk-table
   tbody.govuk-table__body
     tr.govuk-table__row
       th.govuk-table__header[scope="row"]
-        | _ga
+        | GoogleAnalytics_ga
       td.govuk-table__cell
         = t('.analytics_purpose', service_name: t('.service_name'))
       td.govuk-table__cell
         = t('.two_years')
     tr.govuk-table__row
       th.govuk-table__header[scope="row"]
-        | _ga_[#{t(".random_number")}]
+        | GoogleAnalytics_ga_[#{t(".random_number")}]
       td.govuk-table__cell
         = t('.reduce_requests')
       td.govuk-table__cell
@@ -91,6 +91,6 @@ table.govuk-table
 = form_with(url: cookies_path, method: 'PATCH') do |form|
   input type='hidden' name='return_to' value=cookies_path
   = form.govuk_radio_buttons_fieldset :cookies, legend: { text: t(".accept_cookies")} do
-    = form.govuk_radio_button :cookies, 'accept', label: { text: t("generic.yes_choice") }, checked: (cookies[:optional_cookie_choice] == 'accepted')
-    = form.govuk_radio_button :cookies, 'reject', label: { text: t("generic.no_choice") }, checked: (cookies[:optional_cookie_choice] == 'rejected')
+    = form.govuk_radio_button :cookies, 'accept', label: { text: t("generic.yes_choice") }, checked: (cookies[CookiesController::COOKIE_CHOICE_NAME] == 'accepted')
+    = form.govuk_radio_button :cookies, 'reject', label: { text: t("generic.no_choice") }, checked: (cookies[CookiesController::COOKIE_CHOICE_NAME] == 'rejected')
   = form.govuk_submit t(".save")

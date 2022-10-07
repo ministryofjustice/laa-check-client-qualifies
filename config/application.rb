@@ -19,6 +19,8 @@ require "rails/test_unit/railtie"
 Bundler.require(*Rails.groups)
 
 module LaaEstimateFinancialEligibilityForLegalAid
+  SESSION_COOKIE_NAME = "SessionData".freeze
+
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
@@ -34,5 +36,7 @@ module LaaEstimateFinancialEligibilityForLegalAid
     config.assets.paths << Rails.root.join("node_modules/govuk-frontend/govuk/assets")
 
     config.sentry_dsn = ENV["SENTRY_DSN"]&.strip
+
+    config.session_store :cookie_store, key: SESSION_COOKIE_NAME
   end
 end

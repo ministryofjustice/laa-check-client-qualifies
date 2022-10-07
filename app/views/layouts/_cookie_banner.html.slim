@@ -1,4 +1,4 @@
-- if cookies[:optional_cookie_choice].blank? || params[:cookie_choice].present?
+- if cookies[CookiesController::COOKIE_CHOICE_NAME].blank? || params[:cookie_choice].present?
   = form_tag(cookies_path, method: 'PATCH', id: 'cookie-choice-submission-form', class: 'govuk-!-margin-0')
     input type='hidden' name='return_to' value=request.env['PATH_INFO']
     input type='hidden' name='add_choice_to_query_string' value=1
