@@ -14,7 +14,7 @@ class MonthlyIncomeForm
   INCOME_ATTRIBUTES.each do |attribute|
     attribute attribute, :decimal
     validates attribute,
-              numericality: { greater_than: 0, allow_nil: true, message: :zero },
+              numericality: { greater_than: 0, allow_nil: true },
               presence: true,
               if: -> { monthly_incomes.include?(attribute.to_s) }
   end
