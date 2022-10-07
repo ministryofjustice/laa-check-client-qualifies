@@ -13,14 +13,9 @@ module Flow
         end
       end
 
-      def save_data(cfe_connection, estimate_id, model, session_data)
-        main_home = {
-          value: model.house_value,
-          outstanding_mortgage: (model.mortgage.presence if session_data["property_owned"] == "with_mortgage") || 0,
-          percentage_owned: model.percentage_owned,
-        }
-        cfe_connection.create_properties(estimate_id, main_home, nil)
-      end
+      # we can't call CFE here, as we're going to call it later after
+      # the assets screen has been filled in
+      def save_data(cfe_connection, estimate_id, estimate, _session_data); end
     end
   end
 end
