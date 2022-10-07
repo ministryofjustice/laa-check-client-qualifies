@@ -98,26 +98,33 @@ class CfeConnection
     create_record(assessment_id, "regular_transactions", regular_transactions:) if regular_transactions.any?
   end
 
-  def create_properties(assessment_id, main_home, second_property)
+  def create_properties(assessment_id, main_property, second_property)
+    main_home = main_property ||
+      {
+        value: 0,
+        outstanding_mortgage: 0,
+        percentage_owned: 0,
+      }
     properties = { main_home: main_home.merge(shared_with_housing_assoc: false) }
     properties[:additional_properties] = [second_property.merge(shared_with_housing_assoc: false)] if second_property
     create_record(assessment_id, "properties", properties:)
   end
 
-  def create_capitals(assessment_id, savings, investments)
-    bank_accounts = savings.map do |amount|
+  def create_capitals(assessment_id, liquid_assets, illiquid_assets)
+    # descriptions are mandatory in CFE
+    bank_accounts = liquid_assets.map do |amount|
       {
         value: amount,
         description: "Liquid Asset",
       }
     end
-    non_liquid_capital = investments.map do |amount|
+    non_liquid_capital = illiquid_assets.map do |amount|
       {
         value: amount,
-        description: "Investment",
+        description: "Non Liquid Asset",
       }
     end
-    create_record(assessment_id, "capitals", bank_accounts:, non_liquid_capital:) if savings.any? || investments.any?
+    create_record(assessment_id, "capitals", bank_accounts:, non_liquid_capital:)
   end
 
   def create_vehicle(assessment_id, value:, loan_amount_outstanding:, date_of_purchase:, in_regular_use:)

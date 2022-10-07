@@ -46,11 +46,27 @@ en:
             other:
               blank: Other income cannot be blank
               greater_than: Other income must be greater than £0
-
         assets_form:
           attributes:
             assets:
               at_least_one_item: Please select at least one option
+            valuables:
+              blank: Please enter the total of your client's valuables
+              greater_than_or_equal_to: Valuables amount must be at least £500
+            investments:
+              blank: Please enter the total of your client's investments
+              greater_than: Investments amount must be greater than £0
+            savings:
+              blank: Please enter the total of your client's savings
+              greater_than: Savings amount must be greater than £0
+            property_value:
+              blank: Please enter the value of the property
+              greater_than: Property value must be greater than £0
+            property_mortgage:
+              blank: Please enter the amount of the outstanding mortgage
+              greater_than: Mortage amount must be greater than £0
+            property_percentage_owned:
+              blank: Please enter the percentage of the property owned by your client
         property_form:
           attributes:
             property_owned:
@@ -222,9 +238,13 @@ en:
         label: Investments
         hint: For example, shares in a public limited company, unit trusts or capital bonds.
         input: Enter the total value
+      valuables:
+        label: Valuable items worth £500 or more
+        hint: For example, jewellery, art, antiques or caravan or similar.
+        input: Enter the value
       property:
-        label: Second property or holiday home
-        hint: ""
+        label: Second property, holiday home or land
+        hint: This can be the sole property owned if not their main dwelling even if the property is abroad or not providing an income.
         value:
           label: Enter the estimated value
         mortgage:
@@ -232,6 +252,9 @@ en:
         percentage_owned:
           input: Enter the share your client owns
           input_hint: ""
+      guidance:
+        text: Guidance on assets
+        link: "#"
     summary:
       heading: Summary Page
     results:

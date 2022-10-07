@@ -32,7 +32,7 @@ RSpec.describe "Property Page" do
   end
 
   it "can set property to mortage owned" do
-    allow(mock_connection).to receive(:create_properties)
+    expect(mock_connection).to receive(:create_properties)
 
     click_checkbox("property-form-property-owned", "with_mortgage")
     click_on "Save and continue"
@@ -42,6 +42,13 @@ RSpec.describe "Property Page" do
     fill_in "property-entry-form-percentage-owned-field", with: 100
     click_on "Save and continue"
     expect(page).to have_content vehicle_header
+
+    select_boolean_value("vehicle-form", :vehicle_owned, false)
+    click_on "Save and continue"
+    click_checkbox("assets-form-assets", "none")
+    click_on "Save and continue"
+
+    expect(page).to have_content "Summary Page"
   end
 
   it "applies validation on the property entry form" do
