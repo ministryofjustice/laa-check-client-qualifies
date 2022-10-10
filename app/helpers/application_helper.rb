@@ -33,4 +33,8 @@ module ApplicationHelper
            end
     link_to t("generic.back"), link, class: "govuk-back-link"
   end
+
+  def number_to_money(number)
+    number_to_currency(number, unit: "£", separator: ".", delimiter: ",", precision: 2)
+  end
 end

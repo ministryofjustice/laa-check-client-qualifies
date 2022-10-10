@@ -99,9 +99,7 @@ RSpec.describe "Applicant Page" do
   describe "submitting over_60 field" do
     let(:estimate_id) { SecureRandom.uuid }
     let(:mock_connection) { instance_double(CfeConnection, create_assessment_id: estimate_id) }
-    let(:calculation_result) do
-      CalculationResult.new(result_summary: { overall_result: { result: "contribution_required", income_contribution: 12_345.78 } })
-    end
+    let(:calculation_result) { CalculationResult.new FactoryBot.build(:api_result) }
 
     before do
       allow(CfeConnection).to receive(:connection).and_return(mock_connection)
@@ -136,7 +134,6 @@ RSpec.describe "Applicant Page" do
                                                         receives_qualifying_benefit: true)
 
         click_on "Submit"
-        expect(page).to have_content "£12,345.78 per month"
       end
     end
 
@@ -149,7 +146,6 @@ RSpec.describe "Applicant Page" do
                                      .with(estimate_id, date_of_birth:,
                                                         receives_qualifying_benefit: true)
         click_on "Submit"
-        expect(page).to have_content "£12,345.78 per month"
       end
     end
   end

@@ -64,7 +64,10 @@ RSpec.describe "Accessibility" do
 
   describe "Results page" do
     let(:estimate_id) { SecureRandom.uuid }
-    let(:mock_connection) { instance_double(CfeConnection, create_applicant: nil, api_result: CalculationResult.new({})) }
+    let(:mock_connection) do
+      instance_double(CfeConnection, create_applicant: nil,
+                                     api_result: CalculationResult.new(build(:api_result)))
+    end
 
     before do
       travel_to arbitrary_fixed_time

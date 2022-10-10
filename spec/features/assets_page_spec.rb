@@ -50,7 +50,7 @@ RSpec.describe "Assets Page" do
 
   context "with a mortgage on main property" do
     let(:calculation_result) do
-      CalculationResult.new(result_summary: { overall_result: { result: "contribution_required", income_contribution: 12_345.78 } })
+      CalculationResult.new(FactoryBot.build(:api_result))
     end
 
     before do
@@ -124,7 +124,8 @@ RSpec.describe "Assets Page" do
       click_on "Save and continue"
       expect(page).to have_content check_answers_header
       click_on "Submit"
-      expect(page).to have_content "Your client appears provisionally eligible"
+
+      expect(page).to have_content "provisional declaration"
     end
   end
 
