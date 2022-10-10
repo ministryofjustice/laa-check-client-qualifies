@@ -24,7 +24,7 @@ class BuildEstimatesController < ApplicationController
     handler = HANDLER_CLASSES[step]
     @form = if handler
               handler.model(session_data)
-            else
+            elsif step == :results
               cfe_connection.api_result(estimate_id)
             end
     @estimate = load_estimate

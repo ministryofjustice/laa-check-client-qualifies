@@ -117,7 +117,7 @@ RSpec.describe "Assets Page" do
       expect(page).to have_content "Summary Page"
       click_on "Submit"
 
-      expect(page).to have_content "Results Page"
+      expect(page).to have_content "Your client appears provisionally eligible"
     end
   end
 end

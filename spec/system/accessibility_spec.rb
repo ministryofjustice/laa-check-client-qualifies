@@ -46,7 +46,7 @@ RSpec.describe "Accessibility" do
 
   describe "Estimate steps" do
     let(:estimate_id) { SecureRandom.uuid }
-    let(:mock_connection) { instance_double(CfeConnection, create_assessment_id: estimate_id, api_result: {}) }
+    let(:mock_connection) { instance_double(CfeConnection, create_assessment_id: estimate_id, api_result: CalculationResult.new({})) }
 
     before do
       travel_to arbitrary_fixed_time
