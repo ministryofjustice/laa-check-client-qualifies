@@ -102,6 +102,10 @@ RSpec.describe "Applicant Page" do
   end
 
   describe "submitting over_60 field" do
+    let(:calculation_result) do
+      CalculationResult.new(result_summary: { overall_result: { result: "partially_eligible", income_contribution: 12_345.78 } })
+    end
+
     before do
       allow(CfeConnection).to receive(:connection).and_return(mock_connection)
       visit "/estimates/new"
@@ -121,7 +125,7 @@ RSpec.describe "Applicant Page" do
       click_checkbox("assets-form-assets", "none")
       click_on "Save and continue"
 
-      allow(mock_connection).to receive(:api_result).and_return(result_summary: { overall_result: { income_contribution: 12_345.78 } })
+      allow(mock_connection).to receive(:api_result).and_return(calculation_result)
     end
 
     context "when over 60" do

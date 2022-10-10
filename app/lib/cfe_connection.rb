@@ -136,7 +136,7 @@ class CfeConnection
     url = "/assessments/#{assessment_id}"
     response = cfe_connection.get url
     validate_api_response(response, url)
-    response.body.deep_symbolize_keys
+    CalculationResult.new(response.body.deep_symbolize_keys)
   end
 
 private
