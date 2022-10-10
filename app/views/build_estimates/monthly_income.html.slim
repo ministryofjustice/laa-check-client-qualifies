@@ -1,5 +1,5 @@
 - content_for :back do
-  = link_to t("generic.back"), previous_wizard_path, class: "govuk-back-link"
+  = link_to t("generic.back"), wizard_path(previous_step_for(@estimate, :monthly_income)), class: "govuk-back-link"
 
 .govuk-grid-row
   .govuk-grid-column-two-thirds

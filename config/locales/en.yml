@@ -14,6 +14,16 @@ en:
               inclusion: Select yes if the client has any dependants
             partner:
               inclusion: Select yes if the client has a partner
+        employment_form:
+          attributes:
+            gross_income:
+              blank: Income cannot be blank
+            income_tax:
+              blank: Income tax cannot be blank
+            national_insurance:
+              blank: National Insurance cannot be blank
+            frequency:
+              blank: Please select how frequently you receive employment income
         monthly_income_form:
           attributes:
             monthly_incomes:
@@ -100,6 +110,25 @@ en:
         hint: Includes Universal Credit, Income Support, income-based Jobseeker's Allowance (JSA), income-related Employment and Support Allowance (ESA), and Guarantee Credit element of Pension Credit.
       dependant_count:
         label: Enter the number of dependants
+    employment:
+      caption: Your client's finances
+      heading: Add your client's salary breakdown
+      second_caption: You can find this on your client's payslips.
+      gross_income:
+        input: Employment income
+      income_tax:
+        input: Income tax
+      national_insurance:
+        input: National insurance
+      frequency:
+        input: Select frequency
+        blank: "--"
+        total: Total in last 3 months
+        week: Every week
+        two_weeks: Every two weeks
+        four_weeks: Every four weeks
+        monthly: Monthly
+        annually: Annually
     monthly_income:
       heading: ''
       caption: Your client's finances

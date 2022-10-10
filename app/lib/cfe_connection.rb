@@ -65,6 +65,10 @@ class CfeConnection
     end
   end
 
+  def create_employment(assessment_id, employment_income)
+    create_record(assessment_id, "employments", employment_income:)
+  end
+
   def create_regular_payments(assessment_id, income_form, outgoings_form)
     # TODO: CFE does not currently support 'other' income, and errors if we try to send it other income,
     # so for the time being we do _not_ tell CFE about other income.
