@@ -10,6 +10,7 @@ RSpec.describe "Applicant Page" do
   end
 
   # have to skip aria-allowed-attr for govuk conditional radio buttons.
+  # C.F. https://github.com/alphagov/govuk-frontend/issues/979
   it "has no AXE-detectable accessibility issues" do
     visit "/estimates/new"
     expect(page).to be_axe_clean.skipping("aria-allowed-attr")

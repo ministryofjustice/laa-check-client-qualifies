@@ -2,14 +2,13 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <span class="govuk-caption-l"><%= t(".caption") %></span>
-    <h1 class="govuk-heading-l"><%= t(".heading") %></h1>
     <%= form_for(@form,
                  url: wizard_path,
                  method: :put) do |form| %>
       <%= form.govuk_error_summary t("generic.error_summary_title") %>
 
       <%= form.govuk_check_boxes_fieldset :outgoings,
-                                          legend: { text: t(".outgoings.legend"), size: "l" },
+                                          legend: { text: t(".outgoings.legend"), size: "l", tag: "h1" },
                                           hint: { text: t(".outgoings.hint") } do %>
         <%= form.govuk_check_box :outgoings, "housing_payments",
                                  label: { text: t(".housing_payments.label") },

@@ -12,7 +12,7 @@
       <%= form.govuk_error_summary t("generic.error_summary_title") %>
 
       <%= form.govuk_collection_radio_buttons :vehicle_owned, yes_no_options, :first, :last,
-                                              legend: { text: t(".vehicle_owned.legend"), size: "l" } %>
+                                              legend: { text: t(".vehicle_owned.legend"), size: "l", tag: "h1" } %>
 
       <%= form.govuk_submit t("generic.save_and_continue") %>
     <% end %>

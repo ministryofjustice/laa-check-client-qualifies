@@ -191,7 +191,6 @@ en:
         legend: Does your client own a vehicle?
     assets:
       caption: Your client's finances
-      heading: ""
       assets:
         legend: Which assets does your client have?
         hint: Select all that apply
