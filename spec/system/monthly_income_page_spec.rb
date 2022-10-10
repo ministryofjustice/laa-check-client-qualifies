@@ -10,7 +10,7 @@ RSpec.describe "Income Page", :vcr do
     driven_by(:rack_test)
     travel_to arbitrary_fixed_time
 
-    visit "/estimates/new"
+    visit_applicant_page
     select_applicant_boolean(:over_60, false)
     select_applicant_boolean(:dependants, false)
     select_applicant_boolean(:partner, false)

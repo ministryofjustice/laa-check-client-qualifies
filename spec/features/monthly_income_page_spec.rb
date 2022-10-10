@@ -8,7 +8,9 @@ RSpec.describe "Monthly income Page" do
 
   before do
     allow(CfeConnection).to receive(:connection).and_return(mock_connection)
-    visit "/estimates/new"
+    allow(mock_connection).to receive(:create_proceeding_type)
+    visit_applicant_page
+
     select_applicant_boolean(:over_60, false)
     select_applicant_boolean(:dependants, false)
     select_applicant_boolean(:partner, false)

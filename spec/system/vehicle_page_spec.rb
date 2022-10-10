@@ -101,7 +101,7 @@ RSpec.describe "Vehicle Page", :vcr do
   end
 
   def visit_vehicle_form
-    visit "/estimates/new"
+    visit_applicant_page
     select_applicant_boolean(:over_60, false)
     select_applicant_boolean(:dependants, false)
     select_applicant_boolean(:partner, false)

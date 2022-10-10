@@ -10,7 +10,7 @@ http_interactions:
       Accept:
       - application/json;version=5
       User-Agent:
-      - Faraday v2.5.2
+      - Faraday v2.6.0
       Content-Type:
       - application/json
   response:
@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       date:
-      - Thu, 29 Sep 2022 15:07:25 GMT
+      - Mon, 10 Oct 2022 15:07:29 GMT
       content-type:
       - application/json; charset=utf-8
       transfer-encoding:
@@ -41,30 +41,30 @@ http_interactions:
       vary:
       - Accept
       etag:
-      - W/"4e77d78692b073ceef51420ac5ef092c"
+      - W/"ca15181a0dbde7975567e1c60f0f3dde"
       cache-control:
       - max-age=0, private, must-revalidate
       x-request-id:
-      - 89595e00ae201db0f906b3d44874fc79
+      - d46cc5ba8c3a507c426fbdfc21010f3d
       x-runtime:
-      - '0.036786'
+      - '0.033214'
       strict-transport-security:
       - max-age=15724800; includeSubDomains
     body:
       encoding: UTF-8
-      string: '{"success":true,"assessment_id":"6aeffbfc-ac8b-4194-b301-10cfce5b584f","errors":[]}'
+      string: '{"success":true,"assessment_id":"fd98a72f-56a6-40dc-b4ae-2ac6ad26696a","errors":[]}'
   recorded_at: Mon, 05 Sep 2022 09:00:00 GMT
 - request:
     method: post
-    uri: https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/assessments/6aeffbfc-ac8b-4194-b301-10cfce5b584f/proceeding_types
+    uri: https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/assessments/fd98a72f-56a6-40dc-b4ae-2ac6ad26696a/proceeding_types
     body:
       encoding: UTF-8
-      string: '{"proceeding_types":[{"ccms_code":"DA001","client_involvement_type":"A"},{"ccms_code":"SE013","client_involvement_type":"I"}]}'
+      string: '{"proceeding_types":[{"ccms_code":"SE003","client_involvement_type":"A"}]}'
     headers:
       Accept:
       - application/json;version=5
       User-Agent:
-      - Faraday v2.5.2
+      - Faraday v2.6.0
       Content-Type:
       - application/json
   response:
@@ -73,7 +73,7 @@ http_interactions:
       message: OK
     headers:
       date:
-      - Thu, 29 Sep 2022 15:07:25 GMT
+      - Mon, 10 Oct 2022 15:07:30 GMT
       content-type:
       - application/json; charset=utf-8
       transfer-encoding:
@@ -99,9 +99,9 @@ http_interactions:
       cache-control:
       - max-age=0, private, must-revalidate
       x-request-id:
-      - 7cb2fdd33d82d7a7d8652b4b86f1a281
+      - e4c3d4c9d01c2f41cd50ca4fbc720943
       x-runtime:
-      - '0.024346'
+      - '0.073107'
       strict-transport-security:
       - max-age=15724800; includeSubDomains
     body:
@@ -110,15 +110,15 @@ http_interactions:
   recorded_at: Mon, 05 Sep 2022 09:00:00 GMT
 - request:
     method: post
-    uri: https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/assessments/6aeffbfc-ac8b-4194-b301-10cfce5b584f/vehicles
+    uri: https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/assessments/fd98a72f-56a6-40dc-b4ae-2ac6ad26696a/properties
     body:
       encoding: UTF-8
-      string: '{"vehicles":[{"value":"20000.0","loan_amount_outstanding":0,"date_of_purchase":"2022-09-05","in_regular_use":true}]}'
+      string: '{"properties":{"main_home":{"value":100000,"outstanding_mortgage":50000,"percentage_owned":100,"shared_with_housing_assoc":false}}}'
     headers:
       Accept:
       - application/json;version=5
       User-Agent:
-      - Faraday v2.5.2
+      - Faraday v2.6.0
       Content-Type:
       - application/json
   response:
@@ -127,7 +127,7 @@ http_interactions:
       message: OK
     headers:
       date:
-      - Thu, 29 Sep 2022 15:07:26 GMT
+      - Mon, 10 Oct 2022 15:07:30 GMT
       content-type:
       - application/json; charset=utf-8
       transfer-encoding:
@@ -153,9 +153,9 @@ http_interactions:
       cache-control:
       - max-age=0, private, must-revalidate
       x-request-id:
-      - 550e8c2d78d7f818a4d864b4da048e55
+      - 7e37a4b65fb6f08d0bcb0d6d2f90e69b
       x-runtime:
-      - '0.027956'
+      - '0.029795'
       strict-transport-security:
       - max-age=15724800; includeSubDomains
     body:

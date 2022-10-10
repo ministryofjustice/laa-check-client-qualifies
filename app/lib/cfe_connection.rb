@@ -12,22 +12,17 @@ class CfeConnection
       submission_date: Time.zone.today,
     }
     response = cfe_connection.post("assessments", create_request)
-    response.body.symbolize_keys.fetch(:assessment_id).tap do |assessment_id|
-      proceeding_types = {
-        proceeding_types: [
-          {
-            ccms_code: "DA001",
-            client_involvement_type: "A",
-          },
-          {
-            ccms_code: "SE013",
-            client_involvement_type: "I",
-          },
-        ],
-      }
+    response.body.symbolize_keys.fetch(:assessment_id)
+  end
 
-      create_record(assessment_id, "proceeding_types", proceeding_types)
-    end
+  def create_proceeding_type(assessment_id, proceeding_type)
+    proceeding_types = [
+      {
+        ccms_code: proceeding_type,
+        client_involvement_type: "A",
+      },
+    ]
+    create_record(assessment_id, "proceeding_types", proceeding_types:)
   end
 
   def create_applicant(assessment_id, date_of_birth:, receives_qualifying_benefit:)

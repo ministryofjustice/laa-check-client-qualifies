@@ -1,0 +1,24 @@
+- content_for :back
+  = link_to t("generic.back"), previous_wizard_path, class: "govuk-back-link"
+
+.govuk-grid-row
+  .govuk-grid-column-two-thirds
+    span.govuk-caption-l = t(".caption")
+
+    = form_for(@form, url: wizard_path, method: :put) do |form|
+
+      = form.govuk_error_summary t("generic.error_summary_title")
+
+      = form.govuk_radio_buttons_fieldset :proceeding_type,
+        legend: { text: t(".proceeding_type.legend"), size: 'xl', tag: 'h1' } do
+        - ProceedingTypeForm::PROCEEDING_TYPES.each do |proceeding_type, value|
+          = form.govuk_radio_button :proceeding_type, value,
+                  label: { text: t(".proceeding_type.#{proceeding_type}.label") },
+                  hint: { text: t(".proceeding_type.#{proceeding_type}.hint") }
+
+      = form.govuk_submit t("generic.save_and_continue")
+
+  = render 'sidebar_with_date' do
+    li = link_to t('.immigration_guidance.text'), t(".immigration_guidance.link")
+    li = link_to t('.asylum_guidance.text'), t(".asylum_guidance.link")
+    li = link_to t('.domestic_abuse_guidance.text'), t(".domestic_abuse_guidance.link")

@@ -6,6 +6,7 @@ class BuildEstimatesController < ApplicationController
 
   HANDLER_CLASSES = {
     applicant: Flow::ApplicantHandler,
+    case_details: Flow::CaseDetailsHandler,
     employment: Flow::EmploymentHandler,
     monthly_income: Flow::MonthlyIncomeHandler,
     property: Flow::PropertyHandler,

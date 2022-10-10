@@ -10,7 +10,8 @@ RSpec.describe "Applicant Page" do
   describe "errors" do
     before do
       allow(CfeConnection).to receive(:connection).and_return(mock_connection)
-      visit "/estimates/new"
+      allow(mock_connection).to receive(:create_proceeding_type)
+      visit_applicant_page
 
       %i[over_60 dependants partner passporting employed].reject { |f| f == field }.each do |f|
         select_applicant_boolean(f, true)
@@ -76,7 +77,8 @@ RSpec.describe "Applicant Page" do
   describe "dependants field" do
     before do
       allow(CfeConnection).to receive(:connection).and_return(mock_connection)
-      visit "/estimates/new"
+      allow(mock_connection).to receive(:create_proceeding_type)
+      visit_applicant_page
 
       select_applicant_boolean(:over_60, false)
       select_applicant_boolean(:dependants, true)
@@ -104,7 +106,8 @@ RSpec.describe "Applicant Page" do
   describe "submitting over_60 field" do
     before do
       allow(CfeConnection).to receive(:connection).and_return(mock_connection)
-      visit "/estimates/new"
+      allow(mock_connection).to receive(:create_proceeding_type)
+      visit_applicant_page
 
       select_applicant_boolean(:over_60, over_60)
       select_applicant_boolean(:dependants, false)
@@ -157,7 +160,7 @@ RSpec.describe "Applicant Page" do
 
     before do
       travel_to arbitrary_fixed_time
-      visit "/estimates/new"
+      visit_applicant_page
       select_applicant_boolean(:over_60, false)
       select_applicant_boolean(:partner, false)
       select_applicant_boolean(:employed, false)

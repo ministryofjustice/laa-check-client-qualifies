@@ -15,3 +15,10 @@ def click_checkbox(form_name, field)
   fieldname = field.to_s.tr("_", "-")
   find("label[for=#{form_name}-#{fieldname}-field]").click
 end
+
+def visit_applicant_page
+  visit new_estimate_path
+  click_on "Reject additional cookies"
+  click_checkbox("proceeding-type-form-proceeding-type", "se003")
+  click_on "Save and continue"
+end

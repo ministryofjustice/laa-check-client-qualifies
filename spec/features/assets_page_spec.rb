@@ -3,11 +3,11 @@ require "rails_helper"
 RSpec.describe "Assets Page" do
   let(:assets_header) { "Which assets does your client have?" }
   let(:estimate_id) { SecureRandom.uuid }
-  let(:mock_connection) { instance_double(CfeConnection, create_assessment_id: estimate_id) }
+  let(:mock_connection) { instance_double(CfeConnection, create_assessment_id: estimate_id, create_proceeding_type: nil) }
 
   before do
     allow(CfeConnection).to receive(:connection).and_return(mock_connection)
-    visit "/estimates/new"
+    visit_applicant_page
 
     select_applicant_boolean(:over_60, false)
     select_applicant_boolean(:dependants, false)
