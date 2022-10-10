@@ -121,20 +121,29 @@ class CfeConnection
   end
 
   def api_result(assessment_id)
-    response = cfe_connection.get "/assessments/#{assessment_id}"
+    url = "/assessments/#{assessment_id}"
+    response = cfe_connection.get url
+    validate_api_response(response, url)
     response.body.deep_symbolize_keys
   end
 
 private
 
   def create_record(assessment_id, record_type, record_data)
-    cfe_connection.post "/assessments/#{assessment_id}/#{record_type}", record_data
+    url = "/assessments/#{assessment_id}/#{record_type}"
+    response = cfe_connection.post url, record_data
+    validate_api_response(response, url)
+  end
+
+  def validate_api_response(response, url)
+    return if response.success?
+
+    raise "Call to CFE url #{url} returned status #{response.status} and message:\n#{response.body}"
   end
 
   def cfe_connection
     @cfe_connection ||= Faraday.new(url: CFE_HOST, headers: { "Accept" => "application/json;version=5" }) do |faraday|
       faraday.request :json
-      faraday.response :raise_error
       faraday.response :json
     end
   end
