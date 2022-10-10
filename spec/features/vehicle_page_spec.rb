@@ -8,12 +8,12 @@ RSpec.describe "Vehicle Page" do
 
   context "without property" do
     let(:estimate_id) { SecureRandom.uuid }
-    let(:mock_connection) { instance_double(CfeConnection, create_assessment_id: estimate_id) }
+    let(:mock_connection) { instance_double(CfeConnection, create_assessment_id: estimate_id, create_proceeding_type: nil) }
 
     before do
       allow(CfeConnection).to receive(:connection).and_return(mock_connection)
 
-      visit "/estimates/new"
+      visit_applicant_page
       select_applicant_boolean(:over_60, false)
       select_applicant_boolean(:dependants, false)
       select_applicant_boolean(:partner, false)
@@ -208,35 +208,6 @@ RSpec.describe "Vehicle Page" do
           end
         end
       end
-    end
-  end
-
-  context "when selecting property", :vcr do
-    let(:arbitrary_fixed_time) { Time.zone.local(2022, 9, 5, 9, 0, 0) }
-
-    before do
-      travel_to arbitrary_fixed_time
-
-      visit "/estimates/new"
-      select_applicant_boolean(:over_60, false)
-      select_applicant_boolean(:dependants, false)
-      select_applicant_boolean(:partner, false)
-      select_applicant_boolean(:employed, false)
-      select_applicant_boolean(:passporting, true)
-      click_on "Save and continue"
-
-      click_checkbox("property-form-property-owned", "with_mortgage")
-      click_on "Save and continue"
-
-      fill_in "property-entry-form-house-value-field", with: 100_000
-      fill_in "property-entry-form-mortgage-field", with: 50_000
-      fill_in "property-entry-form-percentage-owned-field", with: 100
-      click_on "Save and continue"
-    end
-
-    it "has a back link to the property input form" do
-      click_link "Back"
-      expect(page).to have_content property_entry_header
     end
   end
 

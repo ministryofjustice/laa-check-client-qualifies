@@ -10,7 +10,7 @@ RSpec.describe "Assets Page", :vcr do
 
   # have to skip aria-allowed-attr for govuk conditional radio buttons.
   it "has no AXE-detectable accessibility issues" do
-    visit "/estimates/new"
+    visit_applicant_page
     select_applicant_boolean(:over_60, false)
     select_applicant_boolean(:dependants, false)
     select_applicant_boolean(:partner, false)

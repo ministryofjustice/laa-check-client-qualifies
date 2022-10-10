@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Provider User Page" do
-  let(:client_details_header) { I18n.t("build_estimates.applicant.heading") }
+  let(:first_page_header) { "About the case" }
   let(:referral_header) { I18n.t("referrals.show.page_heading") }
   let(:estimate_id) { SecureRandom.uuid }
   let(:mock_connection) { instance_double(CfeConnection, create_assessment_id: estimate_id) }
@@ -24,7 +24,7 @@ RSpec.describe "Provider User Page" do
       it "redirects to the build estimates page" do
         select_boolean_value("provider-user", :provider_user_valid, true)
         click_on "Save and continue"
-        expect(page).to have_content client_details_header
+        expect(page).to have_content first_page_header
       end
     end
 

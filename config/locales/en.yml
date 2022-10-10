@@ -2,6 +2,10 @@ en:
   activemodel:
     errors:
       models:
+        proceeding_type_form:
+          attributes:
+            proceeding_type:
+              blank: Please select a case type
         applicant_form:
           attributes:
             employed:
@@ -299,6 +303,25 @@ en:
         hint: Include any outstanding payments on loans, hire purchase (HP) or personal contract purchase (PCP) agreements.
       vehicle_finance:
         input: Enter the value of payments left
+    case_details:
+      caption: About the case
+      proceeding_type:
+        legend: What does the case concern?
+        domestic_abuse:
+          label: Domestic abuse
+          hint: Is your client likely to be an applicant in a domestic abuse matter?
+        other:
+          label: Something else
+          hint: ''
+      immigration_guidance:
+        text: Guidance on immigration
+        link: "#"
+      asylum_guidance:
+        text: Guidance on asylum
+        link: "#"
+      domestic_abuse_guidance:
+        text: Guidance on domestic abuse or violence
+        link: "#"
   provider_users:
     show:
       provider_question: Are you a civil or family legal aid provider?

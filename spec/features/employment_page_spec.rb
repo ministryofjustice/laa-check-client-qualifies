@@ -1,15 +1,14 @@
 require "rails_helper"
 
 RSpec.describe "Employment page" do
-  let(:arbitrary_fixed_time) { Time.zone.local(2022, 9, 5, 9, 0, 0) }
   let(:employment_page_header) { "Add your client's salary breakdown" }
   let(:estimate_id) { SecureRandom.uuid }
   let(:mock_connection) { instance_double(CfeConnection, create_assessment_id: estimate_id) }
 
   before do
     allow(CfeConnection).to receive(:connection).and_return(mock_connection)
-    travel_to arbitrary_fixed_time
-    visit new_estimate_path
+    allow(mock_connection).to receive(:create_proceeding_type)
+    visit_applicant_page
   end
 
   context "when I have indicated that I am not employed" do

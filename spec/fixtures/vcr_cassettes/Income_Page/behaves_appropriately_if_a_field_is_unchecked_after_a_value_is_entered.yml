@@ -10,7 +10,7 @@ http_interactions:
       Accept:
       - application/json;version=5
       User-Agent:
-      - Faraday v2.5.2
+      - Faraday v2.6.0
       Content-Type:
       - application/json
   response:
@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       date:
-      - Tue, 04 Oct 2022 08:52:31 GMT
+      - Mon, 10 Oct 2022 15:14:39 GMT
       content-type:
       - application/json; charset=utf-8
       transfer-encoding:
@@ -41,30 +41,30 @@ http_interactions:
       vary:
       - Accept
       etag:
-      - W/"782aef67fb9b7d6167b3937ef8645e3e"
+      - W/"0122bff68221b55c858c0dc07d170336"
       cache-control:
       - max-age=0, private, must-revalidate
       x-request-id:
-      - 174f42b81057856e86e3b204fc36aed5
+      - 453f8e0f7b72dc2fad85bad88c8de607
       x-runtime:
-      - '0.090394'
+      - '0.071856'
       strict-transport-security:
       - max-age=15724800; includeSubDomains
     body:
       encoding: UTF-8
-      string: '{"success":true,"assessment_id":"04a73fca-e752-4b4b-9198-4e9152741786","errors":[]}'
+      string: '{"success":true,"assessment_id":"f4d1bf24-85bc-4685-9ca2-ba2213cd341e","errors":[]}'
   recorded_at: Mon, 05 Sep 2022 09:00:00 GMT
 - request:
     method: post
-    uri: https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/assessments/04a73fca-e752-4b4b-9198-4e9152741786/proceeding_types
+    uri: https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/assessments/f4d1bf24-85bc-4685-9ca2-ba2213cd341e/proceeding_types
     body:
       encoding: UTF-8
-      string: '{"proceeding_types":[{"ccms_code":"DA001","client_involvement_type":"A"},{"ccms_code":"SE013","client_involvement_type":"I"}]}'
+      string: '{"proceeding_types":[{"ccms_code":"SE003","client_involvement_type":"A"}]}'
     headers:
       Accept:
       - application/json;version=5
       User-Agent:
-      - Faraday v2.5.2
+      - Faraday v2.6.0
       Content-Type:
       - application/json
   response:
@@ -73,7 +73,7 @@ http_interactions:
       message: OK
     headers:
       date:
-      - Tue, 04 Oct 2022 08:52:31 GMT
+      - Mon, 10 Oct 2022 15:14:39 GMT
       content-type:
       - application/json; charset=utf-8
       transfer-encoding:
@@ -99,9 +99,9 @@ http_interactions:
       cache-control:
       - max-age=0, private, must-revalidate
       x-request-id:
-      - 45492d52eafef9b8c67746484896f53e
+      - be0f62a2f38cc84564b0ba7e9b94fddd
       x-runtime:
-      - '0.046659'
+      - '0.031772'
       strict-transport-security:
       - max-age=15724800; includeSubDomains
     body:
@@ -110,7 +110,7 @@ http_interactions:
   recorded_at: Mon, 05 Sep 2022 09:00:00 GMT
 - request:
     method: post
-    uri: https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/assessments/04a73fca-e752-4b4b-9198-4e9152741786/regular_transactions
+    uri: https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/assessments/f4d1bf24-85bc-4685-9ca2-ba2213cd341e/regular_transactions
     body:
       encoding: UTF-8
       string: '{"regular_transactions":[{"operation":"credit","category":"maintenance_in","frequency":"monthly","amount":"300.0"}]}'
@@ -118,7 +118,7 @@ http_interactions:
       Accept:
       - application/json;version=5
       User-Agent:
-      - Faraday v2.5.2
+      - Faraday v2.6.0
       Content-Type:
       - application/json
   response:
@@ -127,7 +127,7 @@ http_interactions:
       message: OK
     headers:
       date:
-      - Tue, 04 Oct 2022 08:52:31 GMT
+      - Mon, 10 Oct 2022 15:14:39 GMT
       content-type:
       - application/json; charset=utf-8
       transfer-encoding:
@@ -153,9 +153,9 @@ http_interactions:
       cache-control:
       - max-age=0, private, must-revalidate
       x-request-id:
-      - dccc5e9b491f7af76c16ccd7ae3f9d66
+      - e0004eca9e6a69e5911ad32899f7a5f5
       x-runtime:
-      - '0.074861'
+      - '0.030240'
       strict-transport-security:
       - max-age=15724800; includeSubDomains
     body:

@@ -10,7 +10,7 @@ http_interactions:
       Accept:
       - application/json;version=5
       User-Agent:
-      - Faraday v2.5.2
+      - Faraday v2.6.0
       Content-Type:
       - application/json
   response:
@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       date:
-      - Fri, 23 Sep 2022 09:27:54 GMT
+      - Mon, 10 Oct 2022 15:14:38 GMT
       content-type:
       - application/json; charset=utf-8
       transfer-encoding:
@@ -41,30 +41,30 @@ http_interactions:
       vary:
       - Accept
       etag:
-      - W/"47a2bb56b2e504c84586080a69ac66c3"
+      - W/"02a9c80a69e3dc3b8352f418dbb9d062"
       cache-control:
       - max-age=0, private, must-revalidate
       x-request-id:
-      - 3be134d68fdcacebc74de3151e43d646
+      - 6b99fdfa4857d6d9178fd6034f8ce07b
       x-runtime:
-      - '0.034845'
+      - '0.027965'
       strict-transport-security:
       - max-age=15724800; includeSubDomains
     body:
       encoding: UTF-8
-      string: '{"success":true,"assessment_id":"76de5261-669a-48c1-a0ab-c8c5ddc42052","errors":[]}'
+      string: '{"success":true,"assessment_id":"45916054-4300-41d5-bfec-ea9b9247c5ad","errors":[]}'
   recorded_at: Mon, 05 Sep 2022 09:00:00 GMT
 - request:
     method: post
-    uri: https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/assessments/76de5261-669a-48c1-a0ab-c8c5ddc42052/proceeding_types
+    uri: https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/assessments/45916054-4300-41d5-bfec-ea9b9247c5ad/proceeding_types
     body:
       encoding: UTF-8
-      string: '{"proceeding_types":[{"ccms_code":"DA001","client_involvement_type":"A"},{"ccms_code":"SE013","client_involvement_type":"I"}]}'
+      string: '{"proceeding_types":[{"ccms_code":"SE003","client_involvement_type":"A"}]}'
     headers:
       Accept:
       - application/json;version=5
       User-Agent:
-      - Faraday v2.5.2
+      - Faraday v2.6.0
       Content-Type:
       - application/json
   response:
@@ -73,7 +73,7 @@ http_interactions:
       message: OK
     headers:
       date:
-      - Fri, 23 Sep 2022 09:27:54 GMT
+      - Mon, 10 Oct 2022 15:14:38 GMT
       content-type:
       - application/json; charset=utf-8
       transfer-encoding:
@@ -99,9 +99,9 @@ http_interactions:
       cache-control:
       - max-age=0, private, must-revalidate
       x-request-id:
-      - 4d8d602db0cf187035d246d38174b368
+      - 4e7b9f9ee3fb1464b545759acacff803
       x-runtime:
-      - '0.025732'
+      - '0.021760'
       strict-transport-security:
       - max-age=15724800; includeSubDomains
     body:

@@ -10,7 +10,7 @@ RSpec.describe "Employment Page", :vcr do
       driven_by(:rack_test)
       travel_to arbitrary_fixed_time
 
-      visit new_estimate_path
+      visit_applicant_page
       select_applicant_boolean(:over_60, false)
       select_applicant_boolean(:dependants, false)
       select_applicant_boolean(:partner, false)
@@ -37,7 +37,7 @@ RSpec.describe "Employment Page", :vcr do
     before do
       travel_to arbitrary_fixed_time
 
-      visit new_estimate_path
+      visit_applicant_page
       select_applicant_boolean(:over_60, false)
       select_applicant_boolean(:dependants, false)
       select_applicant_boolean(:partner, false)
