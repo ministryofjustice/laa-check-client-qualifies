@@ -12,7 +12,7 @@ class OutgoingsForm
   OUTGOING_ATTRIBUTES = %i[housing_payments].freeze
 
   OUTGOING_ATTRIBUTES.each do |attribute|
-    attribute attribute, :decimal
+    attribute attribute, :gbp
     validates attribute,
               numericality: { greater_than: 0, allow_nil: true },
               presence: true,

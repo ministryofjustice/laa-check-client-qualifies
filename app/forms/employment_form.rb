@@ -6,7 +6,7 @@ class EmploymentForm
   EMPLOYMENT_ATTRIBUTES = (DECIMAL_ATTRIBUTES + %i[frequency]).freeze
 
   DECIMAL_ATTRIBUTES.each do |attribute|
-    attribute attribute, :decimal
+    attribute attribute, :gbp
     validates attribute, presence: true
   end
 
