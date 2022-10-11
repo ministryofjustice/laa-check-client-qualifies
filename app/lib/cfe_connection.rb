@@ -1,5 +1,5 @@
 class CfeConnection
-  CFE_HOST = "https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/".freeze
+  CFE_HOST = Rails.configuration.check_financial_eligibility_host
 
   class << self
     def connection

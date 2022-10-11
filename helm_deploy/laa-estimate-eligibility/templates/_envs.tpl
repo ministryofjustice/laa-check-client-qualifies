@@ -30,4 +30,9 @@ env:
       secretKeyRef:
         name: {{ template "app.fullname" . }}
         key: googleAnalyticsId
+  - name: CFE_HOST
+    valueFrom:
+      secretKeyRef:
+        name: {{ template "app.fullname" . }}
+        key: checkFinancialEligibilityHost
 {{- end }}
