@@ -1,21 +1,21 @@
 - content_for :back do
-  = link_to t("generic.back"), previous_wizard_path, class: "govuk-back-link"
+  = link_to t("generic.back"), "javascript:history.back()", class: "govuk-back-link"
 
 .govuk-panel.govuk-panel--confirmation class="govuk-!-text-align-left govuk-!-padding-left-9 govuk-!-padding-right-9 govuk-!-padding-top-5 govuk-!-padding-bottom-9 govuk-!-margin-bottom-9"
   .govuk-grid-row
     header
-      h1 =t(".#{@form.decision}")
-      h2 =t(".summary", eligibility: t(".#{@form.decision}").downcase)
+      h1 =t(".#{@model.decision}")
+      h2 =t(".summary", eligibility: t(".#{@model.decision}").downcase)
 
-      - if @form.partially_eligible?
+      - if @model.partially_eligible?
         div = t(".we_calculated")
 
         ul class="govuk-list--bullet"
           li
-            strong> = @form.income_contribution
+            strong> = @model.income_contribution
             = t(".per_month")
           li
-            strong> = @form.capital_contribution
+            strong> = @model.capital_contribution
             = t(".from_capital")
 
       div = t(".per_guidance")
@@ -40,7 +40,7 @@ h2.govuk-heading-m = t(".how_calculated")
       - table.caption(size: 'm', text: t(".client_income"))
 
       - table.body do |body|
-        - @form.client_income_rows.each do |income_type, money_amount|
+        - @model.client_income_rows.each do |income_type, money_amount|
           - body.row do |row|
             - row.cell(header: true, text: t(".client_income_types.#{income_type}"))
             - row.cell(text: money_amount)

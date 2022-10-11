@@ -234,7 +234,54 @@ en:
           input_hint: ""
     summary:
       heading: Summary Page
-    results:
+    property_entry:
+      heading: Tell us about your client's property
+      caption: Your client's finances
+      house_value:
+        input: How much is your client's home worth?
+        input_hint: You can use property websites to find the estimated value.
+      mortgage:
+        input: What is the outstanding mortgage on your client's home?
+        input_hint: Check the statement from your client's mortgage provider or lender.
+      percentage_owned:
+        input: What percentage share of their home does your client legally own?
+        input_hint: Your client's name must be on the property deeds, lease or freehold.
+    property_entry:
+      heading: Tell us about your client's property
+      caption: Your client's finances
+      house_value:
+        input: How much is your client's home worth?
+        input_hint: You can use property websites to find the estimated value.
+      mortgage:
+        input: What is the outstanding mortgage on your client's home?
+        input_hint: Check the statement from your client's mortgage provider or lender.
+      percentage_owned:
+        input: What percentage share of their home does your client legally own?
+        input_hint: Your client's name must be on the property deeds, lease or freehold.
+    vehicle_value:
+      caption: Your client's finances
+      heading: Tell us about your client's vehicle
+      vehicle_value:
+        input: What is the estimated value of the vehicle?
+        input_hint: You can use car valuation websites to find this out. Please use the upper valuation.
+      vehicle_in_regular_use:
+        legend: Is the vehicle in regular use?
+        hint: This means the vehicle is used at least once every 2 weeks for things like work, shopping or driving children to school.
+    vehicle_age:
+      caption: Your client's finances
+      heading: ''
+      vehicle_three_years_old:
+        legend: Did your client buy the vehicle over 3 years ago?
+        hint: ""
+    vehicle_finance:
+      caption: Your client's finances
+      vehicle_pcp:
+        legend: Are there any payments left on the vehicle?
+        hint: Include any outstanding payments on loans, hire purchase (HP) or personal contract purchase (PCP) agreements.
+      vehicle_finance:
+        input: Enter the value of payments left
+  estimates:
+    show:
       eligible: Provisionally eligible
       partially_eligible: Provisionally eligible
       ineligible: Ineligible
@@ -270,40 +317,6 @@ en:
         pension: Pension
         student_finance: Student finance
         other: Other sources
-    property_entry:
-      heading: Tell us about your client's property
-      caption: Your client's finances
-      house_value:
-        input: How much is your client's home worth?
-        input_hint: You can use property websites to find the estimated value.
-      mortgage:
-        input: What is the outstanding mortgage on your client's home?
-        input_hint: Check the statement from your client's mortgage provider or lender.
-      percentage_owned:
-        input: What percentage share of their home does your client legally own?
-        input_hint: Your client's name must be on the property deeds, lease or freehold.
-    vehicle_value:
-      caption: Your client's finances
-      heading: Tell us about your client's vehicle
-      vehicle_value:
-        input: What is the estimated value of the vehicle?
-        input_hint: You can use car valuation websites to find this out. Please use the upper valuation.
-      vehicle_in_regular_use:
-        legend: Is the vehicle in regular use?
-        hint: This means the vehicle is used at least once every 2 weeks for things like work, shopping or driving children to school.
-    vehicle_age:
-      caption: Your client's finances
-      heading: ''
-      vehicle_three_years_old:
-        legend: Did your client buy the vehicle over 3 years ago?
-        hint: ""
-    vehicle_finance:
-      caption: Your client's finances
-      vehicle_pcp:
-        legend: Are there any payments left on the vehicle?
-        hint: Include any outstanding payments on loans, hire purchase (HP) or personal contract purchase (PCP) agreements.
-      vehicle_finance:
-        input: Enter the value of payments left
   provider_users:
     show:
       provider_question: Are you a civil or family legal aid provider?

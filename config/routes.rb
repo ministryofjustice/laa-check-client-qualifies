@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resource :provider_users, only: %i[show create]
   resource :referrals, only: [:show]
 
-  resources :estimates, only: [:new] do
+  resources :estimates, only: %i[new create] do
     resources :build_estimates, only: %i[index show update]
   end
 
