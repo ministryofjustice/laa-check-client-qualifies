@@ -58,9 +58,9 @@ RSpec.describe "Employment page" do
 
     context "when I provide all required information" do
       before do
-        fill_in "employment-form-gross-income-field", with: 1000
-        fill_in "employment-form-income-tax-field", with: 100
-        fill_in "employment-form-national-insurance-field", with: 50
+        fill_in "employment-form-gross-income-field", with: "5,000"
+        fill_in "employment-form-income-tax-field", with: "1000"
+        fill_in "employment-form-national-insurance-field", with: 50.5
         select "Monthly", from: "employment-form-frequency-field"
       end
 
@@ -68,14 +68,23 @@ RSpec.describe "Employment page" do
         expect(mock_connection).to receive(:create_employment) do |id, params|
           expect(id).to eq estimate_id
           payment = params.dig(0, :payments, 1)
-          expect(payment[:gross]).to eq 1_000
-          expect(payment[:tax]).to eq(-100)
-          expect(payment[:national_insurance]).to eq(-50)
+          expect(payment[:gross]).to eq 5_000
+          expect(payment[:tax]).to eq(-1_000)
+          expect(payment[:national_insurance]).to eq(-50.5)
           expect(payment[:date]).to eq 1.month.ago.to_date
         end
 
         click_on "Save and continue"
         expect(page).not_to have_content employment_page_header
+      end
+
+      it "formats my answers appropriately if I return to the screen" do
+        allow(mock_connection).to receive(:create_employment)
+        click_on "Save and continue"
+        click_on "Back"
+        expect(find("#employment-form-gross-income-field").value).to eq "5,000"
+        expect(find("#employment-form-income-tax-field").value).to eq "1,000"
+        expect(find("#employment-form-national-insurance-field").value).to eq "50.50"
       end
     end
 
