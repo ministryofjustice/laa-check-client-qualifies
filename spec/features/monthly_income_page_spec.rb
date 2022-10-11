@@ -39,7 +39,7 @@ RSpec.describe "Monthly income Page" do
   end
 
   it "moves onto outgoings with no income" do
-    expect(mock_connection).to receive(:create_student_loan).with(estimate_id, nil)
+    expect(mock_connection).not_to receive(:create_student_loan)
     expect(mock_connection)
       .to receive(:create_regular_payments)
 
@@ -60,7 +60,7 @@ RSpec.describe "Monthly income Page" do
   end
 
   it "handles non-student finance values and moves to the next screen" do
-    expect(mock_connection).to receive(:create_student_loan).with(estimate_id, nil)
+    expect(mock_connection).not_to receive(:create_student_loan)
     expect(mock_connection).to receive(:create_regular_payments) do |_estimate_id, model|
       expect(model.friends_or_family).to eq 100
       expect(model.maintenance).to eq 200

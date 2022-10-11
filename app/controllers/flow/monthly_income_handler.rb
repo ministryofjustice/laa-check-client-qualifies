@@ -16,7 +16,9 @@ module Flow
         # TODO: CFE will raise an error the second time `create_student_loan` is called
         # for a given estimate_id, meaning that submitting the monthly income page
         # twice by using the back button can raise an error
-        cfe_connection.create_student_loan estimate_id, income_form.student_finance
+        if income_form.monthly_incomes.include?("student_finance")
+          cfe_connection.create_student_loan estimate_id, income_form.student_finance
+        end
 
         # TODO: CFE does not understand about _modifying_ previously described
         # regular payments, meaning that submitting the monthly income page
