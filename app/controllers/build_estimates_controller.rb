@@ -22,11 +22,7 @@ class BuildEstimatesController < ApplicationController
 
   def show
     handler = HANDLER_CLASSES[step]
-    @form = if handler
-              handler.model(session_data)
-            elsif step == :results
-              cfe_connection.api_result(estimate_id)
-            end
+    @form = handler.model(session_data)
     @estimate = load_estimate
     render_wizard
   end
@@ -55,13 +51,5 @@ private
 
   def estimate_id
     params[:estimate_id]
-  end
-
-  def session_data
-    session[session_key] ||= {}
-  end
-
-  def session_key
-    "estimate_#{estimate_id}"
   end
 end
