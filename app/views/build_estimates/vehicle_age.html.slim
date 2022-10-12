@@ -14,6 +14,4 @@
                                             hint: { text: t(".vehicle_three_years_old.hint") }
 
     = form.govuk_submit t("generic.save_and_continue")
-= render "sidebar_with_date" do
-  li
-    = link_to t("build_estimates.vehicle.guidance.text"), t("build_estimates.vehicle.guidance.link")
+= render 'shared/sidebar_with_date', links: {t("build_estimates.vehicle.guidance.text") => t("build_estimates.vehicle.guidance.link")}

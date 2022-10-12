@@ -13,6 +13,5 @@
 
     = form.govuk_submit t("generic.save_and_continue")
 
-= render 'sidebar_with_date'
-  li
-    = link_to t("build_estimates.property.guidance_on_properties"), t("build_estimates.property.link_to_guidance_on_properties"), class: "govuk-link govuk-body-m"
+= render 'shared/sidebar_with_date', \
+  links: {t("build_estimates.property.guidance_on_properties") => t("build_estimates.property.link_to_guidance_on_properties") }

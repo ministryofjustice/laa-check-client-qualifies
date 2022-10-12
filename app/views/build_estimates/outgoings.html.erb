@@ -1,4 +1,3 @@
-
 <% content_for :back do %>
   <%= link_to t("generic.back"), previous_wizard_path, class: "govuk-back-link" %>
 <% end %>
@@ -32,8 +31,4 @@
   <%= form.govuk_submit t("generic.save_and_continue") %>
 <% end %>
 </div>
-<%= render "sidebar_with_date" do %>
-  <li>
-    <%= link_to t("build_estimates.outgoings.guidance_on_housing_payments"), t("build_estimates.outgoings.link_to_guidance_on_housing_payments"), class: "govuk-link govuk-body-m" %>
-  </li>
-<% end %>
+<%= render "shared/sidebar_with_date", links: { t("build_estimates.outgoings.guidance_on_housing_payments") => t("build_estimates.outgoings.link_to_guidance_on_housing_payments") } %>
