@@ -1,4 +1,7 @@
-<%= link_to t("generic.back"), previous_wizard_path, class: "govuk-back-link" %>
+
+<% content_for :back do %>
+  <%= link_to t("generic.back"), previous_wizard_path, class: "govuk-back-link" %>
+<% end %>
 <div class="govuk-grid-column-two-thirds">
   <span class="govuk-caption-l"><%= t(".caption") %></span>
   <%= form_for(@form,
