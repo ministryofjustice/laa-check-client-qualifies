@@ -11,7 +11,7 @@ module Flow
         end
 
         # called when 'no vehicle' selected - nothing to do
-        def save_data(cfe_connection, estimate_id, estimate, _session_data); end
+        # def save_data(cfe_connection, estimate_id, estimate, _session_data); end
       end
     end
   end

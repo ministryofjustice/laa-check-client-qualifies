@@ -9,9 +9,9 @@ module Flow
         ApplicantForm.new(params.require(:applicant_form).permit(*ApplicantForm::INTRO_ATTRIBUTES))
       end
 
-      def save_data(cfe_connection, estimate_id, estimate, _session_data)
-        cfe_connection.create_dependants(estimate_id, estimate.dependant_count) if estimate.dependants
-      end
+      # def save_data(cfe_connection, estimate_id, estimate, _session_data)
+      #   cfe_connection.create_dependants(estimate_id, estimate.dependant_count) if estimate.dependants
+      # end
     end
   end
 end

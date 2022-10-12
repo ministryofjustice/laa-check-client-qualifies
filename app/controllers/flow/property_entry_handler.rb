@@ -13,14 +13,14 @@ module Flow
         end
       end
 
-      def save_data(cfe_connection, estimate_id, model, session_data)
-        main_home = {
-          value: model.house_value,
-          outstanding_mortgage: (model.mortgage.presence if session_data["property_owned"] == "with_mortgage") || 0,
-          percentage_owned: model.percentage_owned,
-        }
-        cfe_connection.create_properties(estimate_id, main_home, nil)
-      end
+      # def save_data(cfe_connection, estimate_id, model, session_data)
+      #   main_home = {
+      #     value: model.house_value,
+      #     outstanding_mortgage: (model.mortgage.presence if session_data["property_owned"] == "with_mortgage") || 0,
+      #     percentage_owned: model.percentage_owned,
+      #   }
+      #   cfe_connection.create_properties(estimate_id, main_home, nil)
+      # end
     end
   end
 end

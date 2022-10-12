@@ -12,7 +12,7 @@ module Flow
       end
 
       # Will be called when no property owned
-      def save_data(cfe_connection, estimate_id, estimate, _session_data); end
+      # def save_data(cfe_connection, estimate_id, estimate, _session_data); end
     end
   end
 end
