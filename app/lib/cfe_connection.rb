@@ -120,6 +120,18 @@ class CfeConnection
     create_record(assessment_id, "capitals", bank_accounts:, non_liquid_capital:) if savings.any? || investments.any?
   end
 
+  def create_vehicle(assessment_id, value:, loan_amount_outstanding:, date_of_purchase:, in_regular_use:)
+    vehicles = [
+      {
+        value:,
+        loan_amount_outstanding:,
+        date_of_purchase:,
+        in_regular_use:,
+      },
+    ]
+    create_record(assessment_id, "vehicles", vehicles:)
+  end
+
   def api_result(assessment_id)
     url = "/assessments/#{assessment_id}"
     response = cfe_connection.get url

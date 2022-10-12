@@ -2,14 +2,17 @@ class BuildEstimatesController < ApplicationController
   include Wicked::Wizard
   include StepsHelper
 
-  steps(*ALL_STEPS)
+  steps(*ALL_POSSIBLE_STEPS)
 
   HANDLER_CLASSES = {
     applicant: Flow::ApplicantHandler,
     employment: Flow::EmploymentHandler,
     monthly_income: Flow::MonthlyIncomeHandler,
     property: Flow::PropertyHandler,
-    vehicle: Flow::VehicleHandler,
+    vehicle: Flow::Vehicle::OwnedHandler,
+    vehicle_value: Flow::Vehicle::ValueHandler,
+    vehicle_age: Flow::Vehicle::AgeHandler,
+    vehicle_finance: Flow::Vehicle::FinanceHandler,
     assets: Flow::AssetHandler,
     summary: Flow::SummaryHandler,
     outgoings: Flow::OutgoingsHandler,
@@ -32,13 +35,11 @@ class BuildEstimatesController < ApplicationController
     @form = handler.form(params, session_data)
 
     if @form.valid?
-      handler.save_data(cfe_connection, estimate_id, @form, session_data)
-      # TODO: having multiple estimates stored in the same session will
-      # eventually cause a CookieOverflow error as more and more data is added
-      # to each estimate
       session_data.merge!(@form.attributes)
+      estimate = load_estimate
+      handler.save_data(cfe_connection, estimate_id, @form, session_data) if last_step_in_group?(estimate, step)
 
-      redirect_to wizard_path next_step_for(load_estimate, step)
+      redirect_to wizard_path next_step_for(estimate, step)
     else
       @estimate = load_estimate
       render_wizard

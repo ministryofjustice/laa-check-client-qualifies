@@ -11,6 +11,7 @@ module Flow
         PropertyForm.new(params.require(:property_form).permit(:property_owned))
       end
 
+      # Will be called when no property owned
       def save_data(cfe_connection, estimate_id, estimate, _session_data); end
     end
   end

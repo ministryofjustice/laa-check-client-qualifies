@@ -37,6 +37,7 @@ html lang="en" class="govuk-template"
           = yield :back
 
       main#main-content.govuk-main-wrapper role="main"
-        = yield
+        div class="govuk-grid-row govuk-!-padding-top-7"
+          = yield
 
     = render partial: "layouts/footer"

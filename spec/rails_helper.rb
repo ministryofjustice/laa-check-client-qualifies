@@ -10,6 +10,7 @@ require "rspec/rails"
 require "axe-rspec"
 
 Capybara.javascript_driver = :selenium_chrome
+Webdrivers::Chromedriver.required_version = "106.0.5249.21"
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are

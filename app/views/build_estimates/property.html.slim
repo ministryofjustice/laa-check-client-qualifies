@@ -1,19 +1,18 @@
 - content_for :back
   = link_to t("generic.back"), wizard_path(previous_step_for(@estimate, :property)), class: "govuk-back-link"
 
-.govuk-grid-row
-  .govuk-grid-column-two-thirds
-    span.govuk-caption-l = t(".caption")
+.govuk-grid-column-two-thirds
+  span.govuk-caption-l = t(".caption")
 
-    = form_for(@form, url: wizard_path, method: :put) do |form|
+  = form_for(@form, url: wizard_path, method: :put) do |form|
 
-      = form.govuk_error_summary t("generic.error_summary_title")
+    = form.govuk_error_summary t("generic.error_summary_title")
 
-      = form.govuk_collection_radio_buttons :property_owned, property_options, :first, :last,
-                                            legend: { text: t(".property_owned.legend"), size: 'xl', tag: 'h1' }
+    = form.govuk_collection_radio_buttons :property_owned, property_options, :first, :last,
+                                          legend: { text: t(".property_owned.legend"), size: 'xl', tag: 'h1' }
 
-      = form.govuk_submit t("generic.save_and_continue")
+    = form.govuk_submit t("generic.save_and_continue")
 
-  = render 'sidebar_with_date'
-    li
-      = link_to t("build_estimates.property.guidance_on_properties"), t("build_estimates.outgoings.link_to_guidance_on_properties"), class: "govuk-link govuk-body-m"
+= render 'sidebar_with_date'
+  li
+    = link_to t("build_estimates.property.guidance_on_properties"), t("build_estimates.property.link_to_guidance_on_properties"), class: "govuk-link govuk-body-m"

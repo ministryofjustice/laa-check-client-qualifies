@@ -1,38 +1,36 @@
 <%= link_to t("generic.back"), previous_wizard_path, class: "govuk-back-link" %>
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-    <span class="govuk-caption-l"><%= t(".caption") %></span>
-    <%= form_for(@form,
-                 url: wizard_path,
-                 method: :put) do |form| %>
-      <%= form.govuk_error_summary t("generic.error_summary_title") %>
+<div class="govuk-grid-column-two-thirds">
+  <span class="govuk-caption-l"><%= t(".caption") %></span>
+  <%= form_for(@form,
+               url: wizard_path,
+               method: :put) do |form| %>
+    <%= form.govuk_error_summary t("generic.error_summary_title") %>
 
-      <%= form.govuk_check_boxes_fieldset :outgoings,
-                                          legend: { text: t(".outgoings.legend"), size: "l", tag: "h1" },
-                                          hint: { text: t(".outgoings.hint") } do %>
-        <%= form.govuk_check_box :outgoings, "housing_payments",
-                                 label: { text: t(".housing_payments.label") },
-                                 hint: { text: t(".housing_payments.hint") },
-                                 link_errors: true do %>
-          <%= render "shared/money_input",
-                     form:,
-                     field: :housing_payments,
-                     width: 5,
-                     label_text: t(".housing_payments.input") %>
-        <% end %>
+    <%= form.govuk_check_boxes_fieldset :outgoings,
+                                        legend: { text: t(".outgoings.legend"), size: "l", tag: "h1" },
+                                        hint: { text: t(".outgoings.hint") } do %>
+      <%= form.govuk_check_box :outgoings, "housing_payments",
+                               label: { text: t(".housing_payments.label") },
+                               hint: { text: t(".housing_payments.hint") },
+                               link_errors: true do %>
+        <%= render "shared/money_input",
+                   form:,
+                   field: :housing_payments,
+                   width: 5,
+                   label_text: t(".housing_payments.input") %>
+      <% end %>
 
-        <%= form.govuk_check_box_divider t("generic.check_box_divider") %>
+      <%= form.govuk_check_box_divider t("generic.check_box_divider") %>
 
-        <%= form.govuk_check_box :outgoings, "none",
-                                 exclusive: true,
-                                 label: { text: t(".none.label") } %>
-    <% end %>
-    <%= form.govuk_submit t("generic.save_and_continue") %>
+      <%= form.govuk_check_box :outgoings, "none",
+                               exclusive: true,
+                               label: { text: t(".none.label") } %>
   <% end %>
-  </div>
-  <%= render "sidebar_with_date" do %>
-    <li>
-      <%= link_to t("build_estimates.outgoings.guidance_on_housing_payments"), t("build_estimates.outgoings.link_to_guidance_on_housing_payments"), class: "govuk-link govuk-body-m" %>
-    </li>
-  <% end %>
+  <%= form.govuk_submit t("generic.save_and_continue") %>
+<% end %>
 </div>
+<%= render "sidebar_with_date" do %>
+  <li>
+    <%= link_to t("build_estimates.outgoings.guidance_on_housing_payments"), t("build_estimates.outgoings.link_to_guidance_on_housing_payments"), class: "govuk-link govuk-body-m" %>
+  </li>
+<% end %>
