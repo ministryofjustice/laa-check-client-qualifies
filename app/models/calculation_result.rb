@@ -9,7 +9,7 @@ class CalculationResult
   end
 
   def contribution_required?
-    decision == "contribution_required"
+    %w[contribution_required partially_eligible].include?(decision)
   end
 
   def capital_contribution

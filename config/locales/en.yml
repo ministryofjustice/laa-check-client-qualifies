@@ -321,6 +321,7 @@ en:
     show:
       eligible: Provisionally eligible
       contribution_required: Provisionally eligible
+      partially_eligible: Provisionally eligible
       ineligible: Ineligible
       summary: Your client appears %{eligibility} for legal aid based on the information provided.
       we_calculated: "We calculated that your client may have to pay:"
