@@ -22,6 +22,7 @@ en:
           attributes:
             gross_income:
               blank: Income cannot be blank
+              net_income_must_be_positive: Net income must be positive, please check
             income_tax:
               blank: Income tax cannot be blank
             national_insurance:

@@ -45,6 +45,22 @@ RSpec.describe "Employment page" do
       expect(page).to have_content "Your client's details"
     end
 
+    context "when I enter negative income by mistake" do
+      before do
+        fill_in "employment-form-gross-income-field", with: 100
+        fill_in "employment-form-income-tax-field", with: 100
+        fill_in "employment-form-national-insurance-field", with: 50
+        select "Monthly", from: "employment-form-frequency-field"
+        click_on "Save and continue"
+      end
+
+      it "shows a friendly error message" do
+        within ".govuk-error-summary__list" do
+          expect(page).to have_content("Net income must be positive, please check")
+        end
+      end
+    end
+
     context "when I omit some required information" do
       before do
         click_on "Save and continue"

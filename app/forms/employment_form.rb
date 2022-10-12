@@ -10,6 +10,8 @@ class EmploymentForm
     validates attribute, presence: true
   end
 
+  validate :net_income_must_be_positive
+
   attribute :frequency, :string
   validates :frequency, presence: true
 
@@ -18,6 +20,14 @@ class EmploymentForm
   def frequency_options
     FREQUENCY_OPTIONS.map do |key|
       OpenStruct.new(value: key, label: I18n.t("build_estimates.employment.frequency.#{key}"))
+    end
+  end
+
+private
+
+  def net_income_must_be_positive
+    if gross_income.to_i - income_tax.to_i - national_insurance.to_i <= 0
+      errors.add(:gross_income, :net_income_must_be_positive)
     end
   end
 end
