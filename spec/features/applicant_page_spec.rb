@@ -105,7 +105,7 @@ RSpec.describe "Applicant Page" do
 
   describe "submitting over_60 field" do
     let(:calculation_result) do
-      CalculationResult.new(result_summary: { overall_result: { result: "partially_eligible", income_contribution: 12_345.78 } })
+      CalculationResult.new(result_summary: { overall_result: { result: "contribution_required", income_contribution: 12_345.78 } })
     end
 
     before do
