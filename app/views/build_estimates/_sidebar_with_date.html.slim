@@ -1,8 +1,10 @@
 = render 'layouts/sidebar'
-  h2.govuk-heading-s  = t("generic.date")
-  p.govuk-body-m = Date.current.strftime('%d %B %Y')
+  h2.govuk-body-m
+    strong = t("generic.date")
+    p.govuk-body-m = Date.current.strftime('%d %B %Y')
 
   - if (block = yield).present?
-    h2.govuk-heading-s = t("generic.related_content_title")
-    ul.govuk-list
-      = block
+    h2.govuk-body-m
+      strong = t("generic.related_content_title")
+      ul.govuk-list
+        = block
