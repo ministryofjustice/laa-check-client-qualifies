@@ -18,7 +18,7 @@ RSpec.describe "Results Page" do
         "success": true,
         "result_summary": {
           "overall_result": {
-            "result": "partially_eligible",
+            "result": "contribution_required",
             "capital_contribution": 2000,
             "income_contribution": 1219.95,
           },

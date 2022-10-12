@@ -8,8 +8,8 @@ class CalculationResult
     api_response.dig(:result_summary, :overall_result, :result) || "ineligible"
   end
 
-  def partially_eligible?
-    decision == "partially_eligible"
+  def contribution_required?
+    decision == "contribution_required"
   end
 
   def capital_contribution

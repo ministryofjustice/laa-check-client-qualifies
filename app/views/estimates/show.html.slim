@@ -7,7 +7,7 @@
       h1 =t(".#{@model.decision}")
       h2 =t(".summary", eligibility: t(".#{@model.decision}").downcase)
 
-      - if @model.partially_eligible?
+      - if @model.contribution_required?
         div = t(".we_calculated")
 
         ul class="govuk-list--bullet"
