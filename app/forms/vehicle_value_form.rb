@@ -4,7 +4,7 @@ class VehicleValueForm
 
   VEHICLE_VALUE_ATTRIBUTES = %i[vehicle_value vehicle_in_regular_use].freeze
 
-  attribute :vehicle_value, :decimal
+  attribute :vehicle_value, :gbp
   validates :vehicle_value,
             numericality: { greater_than: 0, allow_nil: true },
             presence: true
