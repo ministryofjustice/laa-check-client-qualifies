@@ -310,7 +310,7 @@ en:
       income_calculation: Income calculation
       client_income: Client's income
       client_income_types:
-        employment_income: Employment income
+        employment_income: Gross income
         benefits: Benefits received
         friends_and_family: Financial help from friends and family
         maintenance: Maintenance payments from a former partner

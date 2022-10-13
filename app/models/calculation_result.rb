@@ -22,7 +22,7 @@ class CalculationResult
 
   def client_income_rows
     {
-      employment_income: extract_money(:result_summary, :disposable_income, :employment_income, :net_employment_income),
+      employment_income: extract_money(:result_summary, :disposable_income, :employment_income, :gross_income),
       benefits: extract_money(:assessment, :gross_income, :state_benefits, :monthly_equivalents, :all_sources),
       friends_and_family: extract_other_money(:friends_or_family),
       maintenance: extract_other_money(:maintenance_in),
