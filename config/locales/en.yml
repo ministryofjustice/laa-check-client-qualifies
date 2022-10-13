@@ -112,6 +112,8 @@ en:
   service:
     name: Estimate financial eligibility for legal aid
     email: eligibility@digital.justice.gov.uk
+    beta: Beta
+    beta_message: This is a new service - your feedback will help us improve it
   generic:
     yes_choice: "Yes"
     no_choice: "No"
