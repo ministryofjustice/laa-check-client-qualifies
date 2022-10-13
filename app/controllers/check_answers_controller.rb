@@ -6,7 +6,7 @@ class CheckAnswersController < EstimateFlowController
     if @form.valid?
       session_data.merge!(@form.attributes)
       estimate = load_estimate
-      if last_step_in_group?(estimate, step)
+      if end_of_check_answer_loop?(estimate, step)
         handler.save_data(cfe_connection, estimate_id, @form, session_data)
         redirect_to estimate_build_estimate_path(estimate_id, :check_answers)
       else
