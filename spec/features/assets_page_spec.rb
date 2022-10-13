@@ -53,7 +53,6 @@ RSpec.describe "Assets Page" do
       fill_in "property-entry-form-mortgage-field", with: 50_000
       fill_in "property-entry-form-percentage-owned-field", with: 100
       click_on "Save and continue"
-
       select_boolean_value("vehicle-form", :vehicle_owned, false)
       click_on "Save and continue"
     end

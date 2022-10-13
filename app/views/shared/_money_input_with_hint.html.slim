@@ -1,5 +1,9 @@
 / when the field has a hint, the label needs to be a larger (more bold) font
-= form.govuk_number_field field, width:,
-        hint: { text: hint_text },
-        label: { text: label_text, size: "m" },
-        prefix_text: BuildEstimatesHelper::POUND
+= form.govuk_text_field field,
+                        width:,
+                        hint: { text: hint_text },
+                        label: { text: label_text, size: "m" },
+                        prefix_text: BuildEstimatesHelper::POUND,
+                        value: decimal_as_money_string(form, field),
+                        pattern: "[0-9]*",
+                        inputmode: "numeric"

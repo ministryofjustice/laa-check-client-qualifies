@@ -12,7 +12,7 @@ class MonthlyIncomeForm
   INCOME_ATTRIBUTES = %i[friends_or_family maintenance property_or_lodger pension student_finance other].freeze
 
   INCOME_ATTRIBUTES.each do |attribute|
-    attribute attribute, :decimal
+    attribute attribute, :gbp
     validates attribute,
               numericality: { greater_than: 0, allow_nil: true },
               presence: true,

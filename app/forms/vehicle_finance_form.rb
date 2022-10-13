@@ -7,7 +7,7 @@ class VehicleFinanceForm
   attribute :vehicle_pcp, :boolean
   validates :vehicle_pcp, inclusion: { in: [true, false], allow_nil: false }
 
-  attribute :vehicle_finance, :decimal
+  attribute :vehicle_finance, :gbp
   validates :vehicle_finance,
             numericality: { greater_than: 0, allow_nil: true },
             presence: true, if: -> { vehicle_pcp }

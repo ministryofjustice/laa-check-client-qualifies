@@ -9,4 +9,11 @@ module ApplicationHelper
                                                          role: "presentation",
                                                          focusable: "false")
   end
+
+  def decimal_as_money_string(form, field)
+    current_value = form.object.attributes[field.to_s]
+    precision = current_value&.round == current_value ? 0 : 2
+
+    number_with_precision(current_value, precision:, delimiter: ",")
+  end
 end
