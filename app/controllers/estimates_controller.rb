@@ -5,23 +5,15 @@ class EstimatesController < ApplicationController
 
   def create
     cfe_estimate_id = cfe_connection.create_assessment_id
-
     applicant_screen_create cfe_estimate_id, Flow::ApplicantHandler.model(cfe_session_data)
-
-    # dont call below if employment question is no
     save_employment_data cfe_estimate_id, Flow::EmploymentHandler.model(cfe_session_data)
     save_monthly_income_data cfe_estimate_id, Flow::MonthlyIncomeHandler.model(cfe_session_data)
-
-    # dont call below if vehicle owned question is no
     save_vehicle_value_data cfe_estimate_id, Flow::Vehicle::ValueHandler.model(cfe_session_data)
     save_vehicle_finance_data cfe_estimate_id, Flow::Vehicle::FinanceHandler.model(cfe_session_data)
     save_assets_data cfe_estimate_id, Flow::AssetHandler.model(cfe_session_data)
     save_outgoings_data cfe_estimate_id, Flow::OutgoingsHandler.model(cfe_session_data)
-
-    # dont call below if property owned question is no
-    save_property_entry_data cfe_estimate_id, Flow::OutgoingsHandler.model(cfe_session_data)
-
-    create_applicant cfe_estimate_id
+    save_property_entry_data cfe_estimate_id, Flow::PropertyEntryHandler.model(cfe_session_data)
+    create_applicant cfe_estimate_id, Flow::ApplicantHandler.model(cfe_session_data)
     @model = cfe_connection.api_result(cfe_estimate_id)
 
     render :show
@@ -29,14 +21,12 @@ class EstimatesController < ApplicationController
 
   private
 
-  def applicant_screen_create(estimate_id, estimate)
-    cfe_connection.create_dependants(estimate_id, estimate.dependant_count) if estimate.dependants
+  def applicant_screen_create(cfe_estimate_id, form)
+    cfe_connection.create_dependants(cfe_estimate_id, form.dependant_count) if form.dependants
   end
 
-  def save_employment_data(estimate_id, form)
-    puts "--------1--------"
+  def save_employment_data(cfe_estimate_id, form)
     return unless form.gross_income.present?
-    puts "--------after return should not see--------"
 
     # CFE wants to infer frequency of payment from gaps between payments.
     # So we use our knowledge of frequency to generate three appropriately-spaced,
@@ -59,49 +49,44 @@ class EstimatesController < ApplicationController
       },
     ]
 
-    cfe_connection.create_employment(estimate_id, employment_data)
+    cfe_connection.create_employment(cfe_estimate_id, employment_data)
   end
 
 
-  def save_monthly_income_data(estimate_id, income_form)
-    if income_form.monthly_incomes.include?("student_finance")
-      cfe_connection.create_student_loan estimate_id, income_form.student_finance
+  def save_monthly_income_data(cfe_estimate_id, form)
+    if form.monthly_incomes.include?("student_finance")
+      cfe_connection.create_student_loan cfe_estimate_id, form.student_finance
     end
 
-    cfe_connection.create_regular_payments(estimate_id, income_form, nil)
+    cfe_connection.create_regular_payments(cfe_estimate_id, form, nil)
   end
 
-  def save_vehicle_value_data (estimate_id, value_form)
-    puts "--------2--------"
-    return unless value_form.vehicle_value.present?
-    puts "--------after return should not see--------"
+  def save_vehicle_value_data (cfe_estimate_id, form)
+    return unless form.vehicle_value.present?
 
-    cfe_connection.create_vehicle estimate_id, date_of_purchase: Time.zone.today.to_date,
-                                  value: value_form.vehicle_value,
+    cfe_connection.create_vehicle cfe_estimate_id, date_of_purchase: Time.zone.today.to_date,
+                                  value: form.vehicle_value,
                                   loan_amount_outstanding: 0,
-                                  in_regular_use: value_form.vehicle_in_regular_use
+                                  in_regular_use: form.vehicle_in_regular_use
   end
 
-  def save_vehicle_finance_data(estimate_id, form)
-    puts "--------3--------"
+  def save_vehicle_finance_data(cfe_estimate_id, form)
     value_form = Flow::Vehicle::ValueHandler.model(cfe_session_data)
-
     return unless value_form.vehicle_value.present?
-    puts "--------after return should not see--------"
 
     age_form = Flow::Vehicle::AgeHandler.model(cfe_session_data)
     date_of_purchase = age_form.vehicle_over_3_years_ago ? 4.years.ago.to_date : 2.years.ago.to_date
-    cfe_connection.create_vehicle estimate_id,
+    cfe_connection.create_vehicle cfe_estimate_id,
                                   date_of_purchase:,
                                   value: value_form.vehicle_value,
                                   loan_amount_outstanding: form.vehicle_finance.presence,
                                   in_regular_use: value_form.vehicle_in_regular_use
   end
 
-  def save_assets_data(estimate_id, form)
+  def save_assets_data(cfe_estimate_id, form)
     savings = [form.savings].compact
     investments = [form.investments].compact
-    cfe_connection.create_capitals estimate_id, savings, investments
+    cfe_connection.create_capitals cfe_estimate_id, savings, investments
 
     if form.assets.include?("property")
       property_entry_form = Flow::PropertyEntryHandler.model(cfe_session_data)
@@ -115,35 +100,35 @@ class EstimatesController < ApplicationController
         outstanding_mortgage: form.property_mortgage,
         percentage_owned: form.property_percentage_owned,
       }
-      cfe_connection.create_properties(estimate_id, main_home, second_property)
+      cfe_connection.create_properties(cfe_estimate_id, main_home, second_property)
     end
   end
 
-  def save_outgoings_data(estimate_id, outgoings_form)
+  def save_outgoings_data(cfe_estimate_id, form)
     income_form = Flow::MonthlyIncomeHandler.model(cfe_session_data)
 
-    cfe_connection.create_regular_payments(estimate_id, income_form, outgoings_form)
+    cfe_connection.create_regular_payments(cfe_estimate_id, income_form, form)
   end
 
-  def save_property_entry_data(estimate_id, _model)
-    puts "--------4--------"
-    property_model = Flow::PropertyEntryHandler.model(cfe_session_data)
+  def save_property_entry_data(cfe_estimate_id, model)
+    return unless model.house_value.present?
 
-    return unless property_model.house_value.present?
-    puts "--------after return should not see--------"
     main_home = {
-      value: property_model.house_value,
-      outstanding_mortgage: (property_model.mortgage.presence if cfe_session_data["property_owned"] == "with_mortgage") || 0,
-      percentage_owned: property_model.percentage_owned
+      value: model.house_value,
+      outstanding_mortgage: (model.mortgage.presence if cfe_session_data["property_owned"] == "with_mortgage") || 0,
+      percentage_owned: model.percentage_owned
     }
-    cfe_connection.create_properties(estimate_id, main_home, nil)
+    cfe_connection.create_properties(cfe_estimate_id, main_home, nil)
   end
 
-  def create_applicant cfe_estimate_id
-    estimate = Flow::ApplicantHandler.model(cfe_session_data)
+  def create_applicant(cfe_estimate_id, model)
     cfe_connection.create_applicant cfe_estimate_id,
-                                    date_of_birth: estimate.over_60 ? 70.years.ago.to_date : 50.years.ago.to_date,
-                                    receives_qualifying_benefit: estimate.passporting
+                                    date_of_birth: model.over_60 ? 70.years.ago.to_date : 50.years.ago.to_date,
+                                    receives_qualifying_benefit: model.passporting
+  end
+
+  def cfe_session_data
+    session_data params[:cfe_id]
   end
 
   # CFE doesn't understand about annual salary or 'total income in the last 3 months',
@@ -171,9 +156,5 @@ class EstimatesController < ApplicationController
     when "four_weeks"
       (index * 4).weeks
     end
-  end
-
-  def cfe_session_data
-    session_data params[:cfe_id]
   end
 end
