@@ -59,7 +59,7 @@ RSpec.describe "Results Page" do
       expect(page).to have_content "Your client appears provisionally eligible for legal aid based on the information provided."
       expect(page).to have_content "£1,219.95 per month from their disposable income"
       expect(page).to have_content "£2,000.00 from their disposable capital"
-      expect(page).to have_content "Gross income £123.56"
+      expect(page).to have_content "Employment income £123.56"
       expect(page).to have_content "Benefits received £123.67"
       expect(page).to have_content "Financial help from friends and family £123.78"
       expect(page).to have_content "Maintenance payments from a former partner £123.79"
