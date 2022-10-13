@@ -66,7 +66,5 @@
                                exclusive: true,
                                label: { text: t(".none.label") }
     = form.govuk_submit t("generic.save_and_continue")
-= render "sidebar_with_date" do
-  li
-    = link_to t("build_estimates.assets.guidance.text"),
-            t("build_estimates.assets.guidance.link"), class: "govuk-link govuk-body-m"
+= render "shared/sidebar_with_date", \
+  links: { t("build_estimates.assets.guidance.text") => t("build_estimates.assets.guidance.link") }

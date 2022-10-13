@@ -21,6 +21,4 @@
       = form.govuk_radio_button :vehicle_pcp, false, label: { text: t("generic.no_choice") }
 
     = form.govuk_submit t("generic.save_and_continue")
-= render "sidebar_with_date" do
-  li
-    = link_to t("build_estimates.vehicle.guidance.text"), t("build_estimates.vehicle.guidance.link")
+= render 'shared/sidebar_with_date', links: {t("build_estimates.vehicle.guidance.text") => t("build_estimates.vehicle.guidance.link")}

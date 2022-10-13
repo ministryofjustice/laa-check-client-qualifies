@@ -1,0 +1,13 @@
+= render 'layouts/sidebar'
+  h2.govuk-body-m
+    strong = t("generic.date")
+    p.govuk-body-m = Date.current.strftime('%d %B %Y')
+
+  - if links.any?
+    h2.govuk-body-m
+      strong = t("generic.related_content_title")
+      ul class="govuk-list govuk-!-font-size-16"
+        - links.each do |text, dest|
+          li
+            p
+              = link_to text, dest, target: "_blank", class: "govuk-link govuk-body-m"

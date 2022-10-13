@@ -350,8 +350,12 @@ en:
       item_1: income
       item_2: outgoings
       item_3: savings, investments and other assets
-      related_content_item_1: Legal aid overview
-      related_content_item_2: Civil legal aid
+      related_content_item_1:
+        text: Legal aid overview
+        link: https://www.gov.uk/legal-aid
+      related_content_item_2:
+        text: Civil legal aid
+        link: https://www.gov.uk/guidance/civil-legal-aid-means-testing
       start_button: Start now
   cookie_banner:
     title: Cookies on Estimate Eligibility For Financial Aid

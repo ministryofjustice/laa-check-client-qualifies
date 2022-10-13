@@ -18,7 +18,7 @@
 
       = form.govuk_submit t("generic.save_and_continue")
 
-  = render 'sidebar_with_date' do
-    li = link_to t('.immigration_guidance.text'), t(".immigration_guidance.link")
-    li = link_to t('.asylum_guidance.text'), t(".asylum_guidance.link")
-    li = link_to t('.domestic_abuse_guidance.text'), t(".domestic_abuse_guidance.link")
+  = render 'shared/sidebar_with_date', \
+  links: { t('.immigration_guidance.text') => t(".immigration_guidance.link"),
+    t('.asylum_guidance.text') => t(".asylum_guidance.link"),
+    t('.domestic_abuse_guidance.text') => t(".domestic_abuse_guidance.link") }
