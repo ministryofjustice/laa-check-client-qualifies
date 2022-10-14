@@ -4,11 +4,8 @@ RSpec.describe "Monthly income Page" do
   let(:income_header) { "What other income does your client receive?" }
   let(:outgoings_header) { "What are your client's monthly outgoings and deductions?" }
   let(:estimate_id) { SecureRandom.uuid }
-  let(:mock_connection) { instance_double(CfeConnection, create_assessment_id: estimate_id) }
 
   before do
-    allow(CfeConnection).to receive(:connection).and_return(mock_connection)
-    allow(mock_connection).to receive(:create_proceeding_type)
     visit_applicant_page
 
     select_applicant_boolean(:over_60, false)
@@ -41,9 +38,9 @@ RSpec.describe "Monthly income Page" do
   end
 
   it "moves onto outgoings with no income" do
-    expect(mock_connection).not_to receive(:create_student_loan)
-    expect(mock_connection)
-      .to receive(:create_regular_payments)
+    # expect(mock_connection).not_to receive(:create_student_loan)
+    # expect(mock_connection)
+    #   .to receive(:create_regular_payments)
 
     click_checkbox("monthly-income-form-monthly-incomes", "none")
     click_on "Save and continue"
@@ -51,9 +48,9 @@ RSpec.describe "Monthly income Page" do
   end
 
   it "handles student finance" do
-    expect(mock_connection).to receive(:create_student_loan).with(estimate_id, 100)
-    expect(mock_connection)
-      .to receive(:create_regular_payments)
+    # expect(mock_connection).to receive(:create_student_loan).with(estimate_id, 100)
+    # expect(mock_connection)
+    #   .to receive(:create_regular_payments)
 
     click_checkbox("monthly-income-form-monthly-incomes", "student_finance")
     fill_in "monthly-income-form-student-finance-field", with: "100"
@@ -62,14 +59,14 @@ RSpec.describe "Monthly income Page" do
   end
 
   it "handles non-student finance values and moves to the next screen" do
-    expect(mock_connection).not_to receive(:create_student_loan)
-    expect(mock_connection).to receive(:create_regular_payments) do |_estimate_id, model|
-      expect(model.friends_or_family).to eq 100
-      expect(model.maintenance).to eq 200
-      expect(model.property_or_lodger).to eq 300
-      expect(model.pension).to eq 400
-      expect(model.other).to eq 500
-    end
+    # expect(mock_connection).not_to receive(:create_student_loan)
+    # expect(mock_connection).to receive(:create_regular_payments) do |_estimate_id, model|
+    #   expect(model.friends_or_family).to eq 100
+    #   expect(model.maintenance).to eq 200
+    #   expect(model.property_or_lodger).to eq 300
+    #   expect(model.pension).to eq 400
+    #   expect(model.other).to eq 500
+    # end
 
     click_checkbox("monthly-income-form-monthly-incomes", "friends_or_family")
     fill_in "monthly-income-form-friends-or-family-field", with: "100"

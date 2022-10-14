@@ -64,11 +64,11 @@ RSpec.describe "Accessibility" do
 
   describe "Results page" do
     let(:estimate_id) { SecureRandom.uuid }
-    let(:mock_connection) { instance_double(CfeConnection, create_applicant: nil, api_result: CalculationResult.new({})) }
+    # let(:mock_connection) { instance_double(CfeConnection, create_applicant: nil, api_result: CalculationResult.new({})) }
 
     before do
       travel_to arbitrary_fixed_time
-      allow(CfeConnection).to receive(:connection).and_return(mock_connection)
+      # allow(CfeConnection).to receive(:connection).and_return(mock_connection)
       visit "/estimates/#{estimate_id}/build_estimates/summary"
       click_on "Submit"
     end

@@ -79,7 +79,7 @@ class EstimatesController < ApplicationController
     cfe_connection.create_vehicle cfe_estimate_id,
                                   date_of_purchase:,
                                   value: value_form.vehicle_value,
-                                  loan_amount_outstanding: form.vehicle_finance.presence,
+                                  loan_amount_outstanding: form.vehicle_pcp ? form.vehicle_finance.presence : 0,
                                   in_regular_use: value_form.vehicle_in_regular_use
   end
 
