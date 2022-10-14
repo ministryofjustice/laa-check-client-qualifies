@@ -3,7 +3,7 @@ module StepsHelper
   REGULAR_USE_VEHICLE_STEPS = %i[vehicle_age vehicle_finance].freeze
   ALL_VEHICLE_STEPS = (FIRST_VEHICLE_STEPS + REGULAR_USE_VEHICLE_STEPS).freeze
 
-  TAIL_STEPS = %i[assets summary results].freeze
+  TAIL_STEPS = %i[assets summary].freeze
 
   PASSPORTED_STEPS = %i[property].freeze
   ONLY_PROPERTY_STEPS = %i[property property_entry].freeze

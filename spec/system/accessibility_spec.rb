@@ -46,11 +46,9 @@ RSpec.describe "Accessibility" do
 
   describe "Estimate steps" do
     let(:estimate_id) { SecureRandom.uuid }
-    let(:mock_connection) { instance_double(CfeConnection, create_assessment_id: estimate_id, api_result: {}) }
 
     before do
       travel_to arbitrary_fixed_time
-      allow(CfeConnection).to receive(:connection).and_return(mock_connection)
     end
 
     StepsHelper::STEPS_WITH_PROPERTY.each do |step|
@@ -61,6 +59,22 @@ RSpec.describe "Accessibility" do
         # C.F. https://github.com/alphagov/govuk-frontend/issues/979
         expect(page).to be_axe_clean.skipping("aria-allowed-attr")
       end
+    end
+  end
+
+  describe "Results page" do
+    let(:estimate_id) { SecureRandom.uuid }
+    let(:mock_connection) { instance_double(CfeConnection, create_applicant: nil, api_result: CalculationResult.new({})) }
+
+    before do
+      travel_to arbitrary_fixed_time
+      allow(CfeConnection).to receive(:connection).and_return(mock_connection)
+      visit "/estimates/#{estimate_id}/build_estimates/summary"
+      click_on "Submit"
+    end
+
+    it "has no AXE-detectable accessibility issues" do
+      expect(page).to be_axe_clean
     end
   end
 end
