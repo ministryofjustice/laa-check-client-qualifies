@@ -20,10 +20,8 @@ module Flow
           cfe_connection.create_student_loan estimate_id, income_form.student_finance
         end
 
-        # TODO: CFE does not understand about _modifying_ previously described
-        # regular payments, meaning that submitting the monthly income page
-        # twice using the back button can cause inaccurate eligibility assessments
-        cfe_connection.create_regular_payments(estimate_id, income_form, nil)
+        # We don't submit any of the other income here, because it gets
+        # included with the payload after user submits their monthly outgoings
       end
     end
   end
