@@ -7,7 +7,6 @@ RSpec.describe "Employment page" do
   let(:mock_connection) { instance_double(CfeConnection, create_assessment_id: estimate_id) }
 
   before do
-    allow(CfeConnection).to receive(:connection).and_return(mock_connection)
     travel_to arbitrary_fixed_time
     visit new_estimate_path
   end
@@ -65,16 +64,7 @@ RSpec.describe "Employment page" do
         select "Monthly", from: "employment-form-frequency-field"
       end
 
-      it "persists my answers to CFE and moves me on to the next question" do
-        expect(mock_connection).to receive(:create_employment) do |id, params|
-          expect(id).to eq estimate_id
-          payment = params.dig(0, :payments, 1)
-          expect(payment[:gross]).to eq 1_000
-          expect(payment[:tax]).to eq(-100)
-          expect(payment[:national_insurance]).to eq(-50)
-          expect(payment[:date]).to eq 1.month.ago.to_date
-        end
-
+      it "moves me on to the next question" do
         click_on "Save and continue"
         expect(page).not_to have_content employment_page_header
       end
@@ -88,51 +78,26 @@ RSpec.describe "Employment page" do
       end
 
       it "handles 3-month total" do
-        expect(mock_connection).to receive(:create_employment) do |_id, params|
-          payment = params.dig(0, :payments, 1)
-          expect(payment[:gross]).to eq (1_000 / 3.0).round(2)
-          expect(payment[:date]).to eq 1.month.ago.to_date
-        end
         select "Total in last 3 months", from: "employment-form-frequency-field"
         click_on "Save and continue"
       end
 
       it "handles 1 week" do
-        expect(mock_connection).to receive(:create_employment) do |_id, params|
-          payment = params.dig(0, :payments, 1)
-          expect(payment[:gross]).to eq 1_000
-          expect(payment[:date]).to eq 1.week.ago.to_date
-        end
         select "Every week", from: "employment-form-frequency-field"
         click_on "Save and continue"
       end
 
       it "handles two weeks" do
-        expect(mock_connection).to receive(:create_employment) do |_id, params|
-          payment = params.dig(0, :payments, 1)
-          expect(payment[:gross]).to eq 1_000
-          expect(payment[:date]).to eq 2.weeks.ago.to_date
-        end
         select "Every two weeks", from: "employment-form-frequency-field"
         click_on "Save and continue"
       end
 
       it "handles four weeks" do
-        expect(mock_connection).to receive(:create_employment) do |_id, params|
-          payment = params.dig(0, :payments, 1)
-          expect(payment[:gross]).to eq 1_000
-          expect(payment[:date]).to eq 4.weeks.ago.to_date
-        end
         select "Every four weeks", from: "employment-form-frequency-field"
         click_on "Save and continue"
       end
 
       it "handles annually" do
-        expect(mock_connection).to receive(:create_employment) do |_id, params|
-          payment = params.dig(0, :payments, 1)
-          expect(payment[:gross]).to eq (1_000 / 12.0).round(2)
-          expect(payment[:date]).to eq 1.month.ago.to_date
-        end
         select "Annually", from: "employment-form-frequency-field"
         click_on "Save and continue"
       end
