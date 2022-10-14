@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       date:
-      - Mon, 10 Oct 2022 15:13:04 GMT
+      - Fri, 14 Oct 2022 10:57:55 GMT
       content-type:
       - application/json; charset=utf-8
       transfer-encoding:
@@ -41,22 +41,22 @@ http_interactions:
       vary:
       - Accept
       etag:
-      - W/"aaff1a16c6be688ff4529e31b6fba9b0"
+      - W/"ef3b8be57e94dfbfcbdc37dff81186a5"
       cache-control:
       - max-age=0, private, must-revalidate
       x-request-id:
-      - 737a71d0d277d2efbb87406c097b09fc
+      - eeac94144e2a70353706d87d97547986
       x-runtime:
-      - '0.028498'
+      - '0.089299'
       strict-transport-security:
       - max-age=15724800; includeSubDomains
     body:
       encoding: UTF-8
-      string: '{"success":true,"assessment_id":"53a334b1-1b1e-4a92-afbc-c3b4d1c45e15","errors":[]}'
+      string: '{"success":true,"assessment_id":"3602a409-1001-4592-bd63-b49e6852e21f","errors":[]}'
   recorded_at: Mon, 05 Sep 2022 09:00:00 GMT
 - request:
     method: post
-    uri: https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/assessments/53a334b1-1b1e-4a92-afbc-c3b4d1c45e15/proceeding_types
+    uri: https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/assessments/3602a409-1001-4592-bd63-b49e6852e21f/proceeding_types
     body:
       encoding: UTF-8
       string: '{"proceeding_types":[{"ccms_code":"SE003","client_involvement_type":"A"}]}'
@@ -73,7 +73,7 @@ http_interactions:
       message: OK
     headers:
       date:
-      - Mon, 10 Oct 2022 15:13:04 GMT
+      - Fri, 14 Oct 2022 10:57:55 GMT
       content-type:
       - application/json; charset=utf-8
       transfer-encoding:
@@ -99,9 +99,9 @@ http_interactions:
       cache-control:
       - max-age=0, private, must-revalidate
       x-request-id:
-      - 725b0fe2c1c36ed82fa3a67f1dd7aebd
+      - 1fada17cb6e5e11ecfc41375c5df7615
       x-runtime:
-      - '0.019679'
+      - '0.032607'
       strict-transport-security:
       - max-age=15724800; includeSubDomains
     body:
@@ -110,10 +110,10 @@ http_interactions:
   recorded_at: Mon, 05 Sep 2022 09:00:00 GMT
 - request:
     method: post
-    uri: https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/assessments/53a334b1-1b1e-4a92-afbc-c3b4d1c45e15/employments
+    uri: https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/assessments/3602a409-1001-4592-bd63-b49e6852e21f/employments
     body:
       encoding: UTF-8
-      string: '{"employment_income":[{"name":"Job","client_id":"ID","payments":[{"gross":"1000.0","tax":"-100.0","national_insurance":"-50.0","client_id":"id-0","date":"2022-09-05","benefits_in_kind":0,"net_employment_income":"850.0"},{"gross":"1000.0","tax":"-100.0","national_insurance":"-50.0","client_id":"id-1","date":"2022-08-29","benefits_in_kind":0,"net_employment_income":"850.0"},{"gross":"1000.0","tax":"-100.0","national_insurance":"-50.0","client_id":"id-2","date":"2022-08-22","benefits_in_kind":0,"net_employment_income":"850.0"}]}]}'
+      string: '{"employment_income":[{"name":"Job","client_id":"ID","payments":[{"gross":"1000.0","tax":"-100.0","national_insurance":"-50.0","client_id":"id-0","date":"2022-09-05","benefits_in_kind":0,"net_employment_income":"850.0"},{"gross":"1000.0","tax":"-100.0","national_insurance":"-50.0","client_id":"id-1","date":"2022-08-29","benefits_in_kind":0,"net_employment_income":"850.0"},{"gross":"1000.0","tax":"-100.0","national_insurance":"-50.0","client_id":"id-2","date":"2022-08-22","benefits_in_kind":0,"net_employment_income":"850.0"},{"gross":"1000.0","tax":"-100.0","national_insurance":"-50.0","client_id":"id-3","date":"2022-08-15","benefits_in_kind":0,"net_employment_income":"850.0"},{"gross":"1000.0","tax":"-100.0","national_insurance":"-50.0","client_id":"id-4","date":"2022-08-08","benefits_in_kind":0,"net_employment_income":"850.0"},{"gross":"1000.0","tax":"-100.0","national_insurance":"-50.0","client_id":"id-5","date":"2022-08-01","benefits_in_kind":0,"net_employment_income":"850.0"},{"gross":"1000.0","tax":"-100.0","national_insurance":"-50.0","client_id":"id-6","date":"2022-07-25","benefits_in_kind":0,"net_employment_income":"850.0"},{"gross":"1000.0","tax":"-100.0","national_insurance":"-50.0","client_id":"id-7","date":"2022-07-18","benefits_in_kind":0,"net_employment_income":"850.0"},{"gross":"1000.0","tax":"-100.0","national_insurance":"-50.0","client_id":"id-8","date":"2022-07-11","benefits_in_kind":0,"net_employment_income":"850.0"},{"gross":"1000.0","tax":"-100.0","national_insurance":"-50.0","client_id":"id-9","date":"2022-07-04","benefits_in_kind":0,"net_employment_income":"850.0"},{"gross":"1000.0","tax":"-100.0","national_insurance":"-50.0","client_id":"id-10","date":"2022-06-27","benefits_in_kind":0,"net_employment_income":"850.0"},{"gross":"1000.0","tax":"-100.0","national_insurance":"-50.0","client_id":"id-11","date":"2022-06-20","benefits_in_kind":0,"net_employment_income":"850.0"}]}]}'
     headers:
       Accept:
       - application/json;version=5
@@ -127,7 +127,7 @@ http_interactions:
       message: OK
     headers:
       date:
-      - Mon, 10 Oct 2022 15:13:05 GMT
+      - Fri, 14 Oct 2022 10:57:55 GMT
       content-type:
       - application/json; charset=utf-8
       transfer-encoding:
@@ -153,9 +153,9 @@ http_interactions:
       cache-control:
       - max-age=0, private, must-revalidate
       x-request-id:
-      - 5a7dc702e0697d996aaaa685975f62e8
+      - 93b22e91d9aa351adcf3e1609497e3d0
       x-runtime:
-      - '0.131714'
+      - '0.136105'
       strict-transport-security:
       - max-age=15724800; includeSubDomains
     body:
