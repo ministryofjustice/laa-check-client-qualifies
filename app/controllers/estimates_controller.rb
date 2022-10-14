@@ -19,25 +19,25 @@ class EstimatesController < ApplicationController
     render :show
   end
 
-  private
+private
 
   def applicant_screen_create(cfe_estimate_id, form)
     cfe_connection.create_dependants(cfe_estimate_id, form.dependant_count) if form.dependants
   end
 
   def save_employment_data(cfe_estimate_id, form)
-    return unless form.gross_income.present?
+    return if form.gross_income.blank?
 
     # CFE wants to infer frequency of payment from gaps between payments.
-    # So we use our knowledge of frequency to generate three appropriately-spaced,
+    # So we use our knowledge of frequency to generate several appropriately-spaced,
     # representative payments, to allow CFE to make that inference
     employment_data = [
       {
         name: "Job",
         client_id: "ID",
-        payments: Array.new(3) do |index|
+        payments: Array.new(number_of_payments(form)) do |index|
           {
-            gross:(form.gross_income * multiplier(form)).round(2),
+            gross: (form.gross_income * multiplier(form)).round(2),
             tax: (-1 * form.income_tax * multiplier(form)).round(2),
             national_insurance: (-1 * form.national_insurance * multiplier(form)).round(2),
             client_id: "id-#{index}",
@@ -52,7 +52,6 @@ class EstimatesController < ApplicationController
     cfe_connection.create_employment(cfe_estimate_id, employment_data)
   end
 
-
   def save_monthly_income_data(cfe_estimate_id, form)
     if form.monthly_incomes.include?("student_finance")
       cfe_connection.create_student_loan cfe_estimate_id, form.student_finance
@@ -61,18 +60,18 @@ class EstimatesController < ApplicationController
     cfe_connection.create_regular_payments(cfe_estimate_id, form, nil)
   end
 
-  def save_vehicle_value_data (cfe_estimate_id, form)
-    return unless form.vehicle_value.present?
+  def save_vehicle_value_data(cfe_estimate_id, form)
+    return if form.vehicle_value.blank?
 
     cfe_connection.create_vehicle cfe_estimate_id, date_of_purchase: Time.zone.today.to_date,
-                                  value: form.vehicle_value,
-                                  loan_amount_outstanding: 0,
-                                  in_regular_use: form.vehicle_in_regular_use
+                                                   value: form.vehicle_value,
+                                                   loan_amount_outstanding: 0,
+                                                   in_regular_use: form.vehicle_in_regular_use
   end
 
   def save_vehicle_finance_data(cfe_estimate_id, form)
     value_form = Flow::Vehicle::ValueHandler.model(cfe_session_data)
-    return unless value_form.vehicle_value.present?
+    return if value_form.vehicle_value.blank?
 
     age_form = Flow::Vehicle::AgeHandler.model(cfe_session_data)
     date_of_purchase = age_form.vehicle_over_3_years_ago ? 4.years.ago.to_date : 2.years.ago.to_date
@@ -111,12 +110,12 @@ class EstimatesController < ApplicationController
   end
 
   def save_property_entry_data(cfe_estimate_id, model)
-    return unless model.house_value.present?
+    return if model.house_value.blank?
 
     main_home = {
       value: model.house_value,
       outstanding_mortgage: (model.mortgage.presence if cfe_session_data["property_owned"] == "with_mortgage") || 0,
-      percentage_owned: model.percentage_owned
+      percentage_owned: model.percentage_owned,
     }
     cfe_connection.create_properties(cfe_estimate_id, main_home, nil)
   end
@@ -129,6 +128,20 @@ class EstimatesController < ApplicationController
 
   def cfe_session_data
     session_data params[:cfe_id]
+  end
+
+  # CFE expects to receive 12 payment instances if the payment frequency is weekly,
+  # and 6 if it is fortnightly. If it does not receive that number it will not recognise
+  # those frequencies. For 4-weekly or monthly it will accept 3 payments
+  def number_of_payments(form)
+    case form.frequency
+    when "week"
+      12
+    when "two_weeks"
+      6
+    else
+      3
+    end
   end
 
   # CFE doesn't understand about annual salary or 'total income in the last 3 months',

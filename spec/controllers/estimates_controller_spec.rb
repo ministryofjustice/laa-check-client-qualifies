@@ -23,7 +23,3 @@
 #   #   expect(page).not_to have_content employment_page_header
 #   # end
 # end
-
-
-
-

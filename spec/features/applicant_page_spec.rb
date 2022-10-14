@@ -5,12 +5,12 @@ RSpec.describe "Applicant Page" do
   let(:property_header) { "Does your client own the home they live in?" }
   let(:applicant_header) { "About your client" }
   let(:estimate_id) { SecureRandom.uuid }
-  let(:mock_connection) { instance_double(CfeConnection, create_assessment_id: estimate_id) }
+  # let(:mock_connection) { instance_double(CfeConnection, create_assessment_id: estimate_id) }
 
   describe "errors" do
     before do
-      allow(CfeConnection).to receive(:connection).and_return(mock_connection)
-      allow(mock_connection).to receive(:create_proceeding_type)
+      # allow(CfeConnection).to receive(:connection).and_return(mock_connection)
+      # allow(mock_connection).to receive(:create_proceeding_type)
       visit_applicant_page
 
       %i[over_60 dependants partner passporting employed].reject { |f| f == field }.each do |f|
@@ -76,8 +76,8 @@ RSpec.describe "Applicant Page" do
 
   describe "dependants field" do
     before do
-      allow(CfeConnection).to receive(:connection).and_return(mock_connection)
-      allow(mock_connection).to receive(:create_proceeding_type)
+      # allow(CfeConnection).to receive(:connection).and_return(mock_connection)
+      # allow(mock_connection).to receive(:create_proceeding_type)
       visit_applicant_page
 
       select_applicant_boolean(:over_60, false)
@@ -110,9 +110,9 @@ RSpec.describe "Applicant Page" do
 
     before do
       # allow(CfeConnection).to receive(:connection).and_return(mock_connection)
-      allow(mock_connection).to receive(:create_proceeding_type)
+      # allow(mock_connection).to receive(:create_proceeding_type)
       visit_applicant_page
-      visit "/estimates/new"
+      # visit "/estimates/new"
 
       select_applicant_boolean(:over_60, over_60)
       select_applicant_boolean(:dependants, false)
@@ -128,7 +128,7 @@ RSpec.describe "Applicant Page" do
       click_checkbox("assets-form-assets", "none")
       click_on "Save and continue"
 
-      allow(mock_connection).to receive(:api_result).and_return(calculation_result)
+      # allow(mock_connection).to receive(:api_result).and_return(calculation_result)
     end
 
     context "when over 60" do

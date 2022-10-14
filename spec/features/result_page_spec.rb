@@ -2,12 +2,12 @@ require "rails_helper"
 
 RSpec.describe "Results Page" do
   let(:estimate_id) { "123" }
-  let(:mock_connection) do
-    instance_double(CfeConnection, api_result: CalculationResult.new(payload), create_applicant: nil)
-  end
+  # let(:mock_connection) do
+  #   instance_double(CfeConnection, api_result: CalculationResult.new(payload), create_applicant: nil)
+  # end
 
   before do
-    allow(CfeConnection).to receive(:connection).and_return(mock_connection)
+    # allow(CfeConnection).to receive(:connection).and_return(mock_connection)
     visit "/estimates/#{estimate_id}/build_estimates/summary"
     click_on "Submit"
   end
