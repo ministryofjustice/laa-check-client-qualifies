@@ -41,6 +41,6 @@ RSpec.describe "Assets Page", :vcr do
 
     expect(page).to have_content "Summary Page"
     click_on "Submit"
-    expect(page).to have_content "Results Page"
+    expect(page).to have_content "Your client appears ineligible for legal aid"
   end
 end

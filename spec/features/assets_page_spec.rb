@@ -45,6 +45,10 @@ RSpec.describe "Assets Page" do
   end
 
   context "with a mortgage" do
+    let(:calculation_result) do
+      CalculationResult.new(result_summary: { overall_result: { result: "contribution_required", income_contribution: 12_345.78 } })
+    end
+
     before do
       click_checkbox("property-form-property-owned", "with_mortgage")
       click_on "Save and continue"
@@ -109,7 +113,7 @@ RSpec.describe "Assets Page" do
     it "can fill in the assets questions and get to results" do
       allow(mock_connection).to receive(:create_properties)
       allow(mock_connection).to receive(:create_applicant)
-      allow(mock_connection).to receive(:api_result).and_return(result_summary: { overall_result: { income_contribution: 12_345.78 } })
+      allow(mock_connection).to receive(:api_result).and_return(calculation_result)
 
       click_checkbox("assets-form-assets", "none")
       click_on "Save and continue"
