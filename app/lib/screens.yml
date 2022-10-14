@@ -1,8 +1,8 @@
 # This details a list of screens divided into sections.
 # Both screens and sections can detail conditions (skip_if, skip_unless) that
-# cause them and any children they have to be skipped, with those conditions
+# cause them and any sub-elements they have to be skipped, with those conditions
 # corresponding to attributes on the Estimate model.
-# Sections can have children, comprising sections and/or screens
+# Sections can have sub_elements, comprising sections and/or screens
 # Sections can also have a check_answer_group boolean which, if set,
 # means that in the check answer flow, all child screens of that section
 # should form a mini-loop.
@@ -14,7 +14,7 @@ sections:
   income:
     type: section
     skip_if: passporting
-    children:
+    sub_elements:
       employment:
         type: screen
         skip_unless: employed
@@ -24,11 +24,11 @@ sections:
         type: screen
   capital:
     type: section
-    children:
+    sub_elements:
       property_info:
         type: section
         check_answer_group: true
-        children:
+        sub_elements:
           property:
             type: screen
           property_entry:
@@ -37,19 +37,19 @@ sections:
       vehicle_info:
         type: section
         check_answer_group: true
-        children:
+        sub_elements:
           vehicle:
             type: screen
           owned_vehicle_details:
             type: section
             skip_unless: vehicle_owned
-            children:
+            sub_elements:
               vehicle_value:
                 type: screen
               regular_use_details:
                 type: section
                 skip_unless: vehicle_in_regular_use
-                children:
+                sub_elements:
                   vehicle_age:
                     type: screen
                   vehicle_finance:

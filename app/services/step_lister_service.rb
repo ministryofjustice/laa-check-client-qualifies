@@ -28,7 +28,7 @@ class StepListerService
 
   def build_section(section_name, section_content, estimate, check_answer_group)
     mini_loop = (section_name if section_content[:check_answer_group]) || check_answer_group
-    section_content[:children].map do |name, content|
+    section_content[:sub_elements].map do |name, content|
       interpret(name, content, estimate, check_answer_group: mini_loop)
     end
   end
