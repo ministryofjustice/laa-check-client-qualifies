@@ -146,7 +146,7 @@ en:
         hint: By partner we mean someone your client is married to, in a civil relationship with, cohabits with or otherwise shares finances with. They cannot be the opponent in any legal proceedings.
       passporting:
         legend: Does your client receive a passporting benefit?
-        hint: Includes Universal Credit, Income Support, income-based Jobseeker's Allowance (JSA), income-related Employment and Support Allowance (ESA), and Guarantee Credit element of Pension Credit.
+        hint: Universal Credit, Income Support, income-based Jobseeker's Allowance (JSA), income-related Employment and Support Allowance (ESA), and Guarantee Credit element of Pension Credit.
       dependant_count:
         label: Enter the number of dependants
     employment:
