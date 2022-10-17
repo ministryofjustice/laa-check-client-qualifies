@@ -51,7 +51,7 @@ RSpec.describe "Accessibility" do
       travel_to arbitrary_fixed_time
     end
 
-    StepListerService.call.map(&:name).each do |step|
+    Screens::NameListerService.call.each do |step|
       it "has no AXE-detectable accessibility issues on #{step} step" do
         visit estimate_build_estimate_path(estimate_id, step)
 
