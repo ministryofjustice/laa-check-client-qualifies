@@ -1,0 +1,32 @@
+.govuk-grid-column-two-thirds
+  span.govuk-caption-l = t(".caption")
+  h1.govuk-heading-l = t(".heading")
+  = form_for(@form, url: wizard_path, method: :put) do |form|
+
+    = form.govuk_error_summary t("generic.error_summary_title")
+
+    = form.govuk_collection_radio_buttons :over_60,
+                                          yes_no_options, :first, :last,
+                                          legend: { text: t(".over_60.legend") },
+                                          hint: { text: t(".over_60.hint") }
+    = form.govuk_radio_buttons_fieldset :dependants,
+                                        legend: { text: t(".dependants.legend") },
+                                        hint: { text: t(".dependants.hint") }
+      = form.govuk_radio_button :dependants, true, label: { text: t("generic.yes_choice") }
+        = form.govuk_number_field :dependant_count,
+                                  width: 5,
+                                  label: { text: t(".dependant_count.label") }
+      = form.govuk_radio_button :dependants, false, label: { text: t("generic.no_choice") }
+
+    = form.govuk_collection_radio_buttons :employed, employment_options, :first, :last,
+                                          legend: { text: t(".employed.legend") },
+                                          hint: { text: t(".employed.hint") }
+    = form.govuk_collection_radio_buttons :partner, yes_no_options, :first, :last,
+                                          legend: { text: t(".partner.legend") },
+                                          hint: { text: t(".partner.hint") }
+    = form.govuk_collection_radio_buttons :passporting, yes_no_options, :first, :last,
+                                          legend: { text: t(".passporting.legend") },
+                                          hint: { text: t(".passporting.hint") }
+
+    = form.govuk_submit t("generic.save_and_continue")
+= render "shared/sidebar_with_date", links: {}
