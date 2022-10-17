@@ -24,4 +24,13 @@ module ApplicationHelper
 
     number_with_precision(current_value, precision:, delimiter: ",")
   end
+
+  def back_link(step, estimate, mimic_browser_back)
+    link = if mimic_browser_back
+             "javascript:history.back()"
+           else
+             wizard_path(previous_step_for(estimate, step))
+           end
+    link_to t("generic.back"), link, class: "govuk-back-link"
+  end
 end

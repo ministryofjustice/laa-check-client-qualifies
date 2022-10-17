@@ -5,13 +5,13 @@ module StepsHelper
 
   TAIL_STEPS = %i[assets check_answers].freeze
 
-  PASSPORTED_STEPS = %i[property].freeze
-  ONLY_PROPERTY_STEPS = %i[property property_entry].freeze
+  PASSPORTED_STEPS = [%i[property]].freeze
+  ONLY_PROPERTY_STEPS = [%i[property property_entry]].freeze
 
-  STEPS_NO_PROPERTY = %i[monthly_income outgoings property].freeze
-  STEPS_WITH_PROPERTY = (%i[monthly_income outgoings] + ONLY_PROPERTY_STEPS).freeze
+  STEPS_NO_PROPERTY = [%i[monthly_income], %i[outgoings], %i[property]].freeze
+  STEPS_WITH_PROPERTY = ([%i[monthly_income], %i[outgoings]] + ONLY_PROPERTY_STEPS).freeze
 
-  ALL_POSSIBLE_STEPS = (%i[case_details applicant employment] + STEPS_WITH_PROPERTY + ALL_VEHICLE_STEPS + TAIL_STEPS).freeze
+  ALL_POSSIBLE_STEPS = (%i[case_details applicant employment] + STEPS_WITH_PROPERTY.flatten + ALL_VEHICLE_STEPS + TAIL_STEPS).freeze
 
   # codify steps into a readable rule-set table rather than in code
   RULES = {
@@ -64,10 +64,10 @@ private
 
     vehicle_steps = VEHICLE_RULES.fetch(tail_steps_key)
 
-    (%i[case_details applicant].map { |step| [step] } + [employment_step] + non_tail_steps.map { |step| [step] } + [vehicle_steps] + TAIL_STEPS.map { |step| [step] }).freeze
+    (%i[case_details applicant].map { |step| [step] } + [employment_step] + non_tail_steps + [vehicle_steps] + TAIL_STEPS.map { |step| [step] }).freeze
   end
 
   def next_estimate_step(steps, step)
-    steps.each_cons(2).detect { |old, _new| old == step }.last
+    steps.each_cons(2).detect { |old, _new| old == step }&.last
   end
 end

@@ -6,4 +6,4 @@
     = value_text
 
   dd.govuk-summary-list__actions
-    = link_to t("generic.change"), estimate_check_answer_path(@estimate_id, link), class: "govuk-link"
+    = link_to(t("generic.change"), estimate_check_answer_path(@estimate_id, link), class: "govuk-link") if link
