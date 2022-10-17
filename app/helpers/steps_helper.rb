@@ -3,7 +3,7 @@ module StepsHelper
   REGULAR_USE_VEHICLE_STEPS = %i[vehicle_age vehicle_finance].freeze
   ALL_VEHICLE_STEPS = (FIRST_VEHICLE_STEPS + REGULAR_USE_VEHICLE_STEPS).freeze
 
-  TAIL_STEPS = %i[assets summary].freeze
+  TAIL_STEPS = %i[assets check_answers].freeze
 
   PASSPORTED_STEPS = %i[property].freeze
   ONLY_PROPERTY_STEPS = %i[property property_entry].freeze
@@ -35,13 +35,13 @@ module StepsHelper
     next_estimate_step(steps_list_for(intro).flatten, step)
   end
 
+  def previous_step_for(estimate, step)
+    next_estimate_step(steps_list_for(estimate).flatten.reverse, step)
+  end
+
   def last_step_in_group?(model, step)
     steps_list = steps_list_for(model).detect { |list| list.include?(step) }
     step == steps_list.last
-  end
-
-  def previous_step_for(estimate, step)
-    next_estimate_step(steps_list_for(estimate).flatten.reverse, step)
   end
 
 private

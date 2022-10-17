@@ -4,6 +4,7 @@ RSpec.describe "Assets Page" do
   let(:assets_header) { "Which assets does your client have?" }
   let(:estimate_id) { SecureRandom.uuid }
   let(:mock_connection) { instance_double(CfeConnection, create_assessment_id: estimate_id, create_proceeding_type: nil) }
+  let(:check_answers_header) { "Check your client and partner answers" }
 
   before do
     allow(CfeConnection).to receive(:connection).and_return(mock_connection)
@@ -40,7 +41,7 @@ RSpec.describe "Assets Page" do
       fill_in "assets-form-property-percentage-owned-field", with: "50"
       click_on "Save and continue"
 
-      expect(page).to have_content "Summary Page"
+      expect(page).to have_content check_answers_header
     end
   end
 
@@ -86,7 +87,7 @@ RSpec.describe "Assets Page" do
       fill_in "assets-form-property-percentage-owned-field", with: "50"
       click_on "Save and continue"
 
-      expect(page).to have_content "Summary Page"
+      expect(page).to have_content check_answers_header
     end
 
     it "can submit non-zero savings and investments" do
@@ -107,7 +108,7 @@ RSpec.describe "Assets Page" do
 
       click_on "Save and continue"
 
-      expect(page).to have_content "Summary Page"
+      expect(page).to have_content check_answers_header
     end
 
     it "can fill in the assets questions and get to results" do
@@ -118,7 +119,7 @@ RSpec.describe "Assets Page" do
       click_checkbox("assets-form-assets", "none")
       click_on "Save and continue"
 
-      expect(page).to have_content "Summary Page"
+      expect(page).to have_content check_answers_header
       click_on "Submit"
 
       expect(page).to have_content "Your client appears provisionally eligible"

@@ -1,6 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Property Page" do
+  let(:check_answers_header) { "Check your client and partner answers" }
   let(:property_entry_header) { "How much is your client's home worth?" }
   let(:property_header) { "Does your client own the home they live in?" }
   let(:vehicle_header) { "Does your client own a vehicle?" }
@@ -49,7 +50,7 @@ RSpec.describe "Property Page" do
     click_checkbox("assets-form-assets", "none")
     click_on "Save and continue"
 
-    expect(page).to have_content "Summary Page"
+    expect(page).to have_content check_answers_header
   end
 
   it "applies validation on the property entry form" do

@@ -1,31 +1,5 @@
-class BuildEstimatesController < ApplicationController
-  include Wicked::Wizard
-  include StepsHelper
-
-  steps(*ALL_POSSIBLE_STEPS)
-
-  HANDLER_CLASSES = {
-    applicant: Flow::ApplicantHandler,
-    case_details: Flow::CaseDetailsHandler,
-    employment: Flow::EmploymentHandler,
-    monthly_income: Flow::MonthlyIncomeHandler,
-    property: Flow::PropertyHandler,
-    vehicle: Flow::Vehicle::OwnedHandler,
-    vehicle_value: Flow::Vehicle::ValueHandler,
-    vehicle_age: Flow::Vehicle::AgeHandler,
-    vehicle_finance: Flow::Vehicle::FinanceHandler,
-    assets: Flow::AssetHandler,
-    summary: Flow::SummaryHandler,
-    outgoings: Flow::OutgoingsHandler,
-    property_entry: Flow::PropertyEntryHandler,
-  }.freeze
-
-  def show
-    handler = HANDLER_CLASSES[step]
-    @form = handler.model(session_data)
-    @estimate = load_estimate
-    render_wizard
-  end
+class BuildEstimatesController < EstimateFlowController
+  before_action :load_estimate_id
 
   def update
     handler = HANDLER_CLASSES.fetch(step)
@@ -45,11 +19,7 @@ class BuildEstimatesController < ApplicationController
 
 private
 
-  def load_estimate
-    EstimateData.new session_data.slice(*EstimateData::ESTIMATE_ATTRIBUTES.map(&:to_s))
-  end
-
-  def estimate_id
-    params[:estimate_id]
+  def load_estimate_id
+    @estimate_id = params[:estimate_id]
   end
 end

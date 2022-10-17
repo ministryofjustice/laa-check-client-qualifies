@@ -14,9 +14,9 @@ module BuildEstimatesHelper
   ].freeze
 
   PROPERTY_OPTIONS = [
-    [:outright, I18n.t("build_estimates.property.property_owned.outright")],
-    [:with_mortgage, I18n.t("build_estimates.property.property_owned.with_mortgage")],
-    [:none, I18n.t("build_estimates.property.property_owned.none")],
+    [:outright, I18n.t("estimate_flow.property.property_owned.outright")],
+    [:with_mortgage, I18n.t("estimate_flow.property.property_owned.with_mortgage")],
+    [:none, I18n.t("estimate_flow.property.property_owned.none")],
   ].freeze
 
   def property_options
