@@ -9,7 +9,7 @@ class CheckAnswersPresenter
   end
 
   def sections
-    data = YAML.load_file(Rails.root.join("app/presenters/check_answers_fields.yml")).with_indifferent_access
+    data = CheckAnswers::SectionListerService.call
     data[:sections].map { build_section(_1) }.select { _1.subsections.any? }
   end
 
