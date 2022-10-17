@@ -446,14 +446,3 @@ en:
       reduce_requests: Used to reduce the number of requests.
       save: Save cookie settings
       accept_cookies: Do you want to accept analytics cookies?
-  layouts:
-    application:
-      footer:
-        support: Support links
-        contact: Contact
-        feedback: Feedback
-        cookies: Cookies
-        privacy_policy: Privacy policy
-        accessibility_statement: Accessibility statement
-        terms: Terms and conditions
-        digital_services_html: Digital services

@@ -2,6 +2,7 @@ en:
   layouts:
     application:
       footer:
+        support: Support links
         accessibility_statement: Accessibility statement (need link)
         terms: Terms and conditions(need link)
         contact: Contact (need link)
