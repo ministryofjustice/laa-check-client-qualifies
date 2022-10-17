@@ -1,6 +1,10 @@
 class CheckAnswersPresenter
   include StepsHelper
 
+  Section = Struct.new(:label, :screen, :subsections, keyword_init: true)
+  Subsection = Struct.new(:label, :screen, :fields, keyword_init: true)
+  Field = Struct.new(:label, :type, :value, :screen, :alt_value, keyword_init: true)
+
   def initialize(session_data)
     @session_data = session_data
     @model = EstimateModel.new session_data.slice(*EstimateModel::ESTIMATE_ATTRIBUTES.map(&:to_s))
@@ -12,9 +16,9 @@ class CheckAnswersPresenter
   end
 
   def build_section(section_data)
-    OpenStruct.new(label: section_data[:label],
-                   screen: section_data[:screen],
-                   subsections: build_subsections(section_data))
+    Section.new(label: section_data[:label],
+                screen: section_data[:screen],
+                subsections: build_subsections(section_data))
   end
 
   def build_subsections(section_data)
@@ -24,7 +28,7 @@ class CheckAnswersPresenter
   end
 
   def build_subsection(subsection_data, section_data)
-    OpenStruct.new(label: subsection_data[:label],
+    Subsection.new(label: subsection_data[:label],
                    screen: subsection_data[:screen],
                    fields: build_fields(subsection_data[:fields],
                                         subsection_data[:screen] || section_data[:screen],
@@ -41,11 +45,11 @@ class CheckAnswersPresenter
     return if field_data[:skip_unless] && !@session_data[field_data[:skip_unless]]
     return if field_data[:skip_if] && @session_data[field_data[:skip_if]]
 
-    OpenStruct.new(label: "#{label_set}_fields.#{field_data[:attribute]}",
-                   type: field_data[:type],
-                   value: build_value(field_data),
-                   screen: field_data[:screen],
-                   alt_value: @session_data[field_data[:alt_attribute]])
+    Field.new(label: "#{label_set}_fields.#{field_data[:attribute]}",
+              type: field_data[:type],
+              value: build_value(field_data),
+              screen: field_data[:screen],
+              alt_value: @session_data[field_data[:alt_attribute]])
   end
 
   def build_value(field_data)
