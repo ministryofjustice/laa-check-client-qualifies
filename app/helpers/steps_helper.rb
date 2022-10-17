@@ -44,6 +44,10 @@ module StepsHelper
     step == steps_list.last
   end
 
+  def valid_step?(model, step)
+    steps_list_for(model).flatten.include?(step)
+  end
+
 private
 
   def steps_list_for(estimate)

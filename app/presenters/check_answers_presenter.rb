@@ -38,7 +38,9 @@ class CheckAnswersPresenter
   def build_fields(field_set, parent_screen, label_set)
     return [] if field_set.blank?
 
-    field_set.map { build_field(_1, label_set) }.compact.select { valid_step?(_1.screen || parent_screen) }
+    field_set.map { build_field(_1, label_set) }
+             .compact
+             .select { valid_step?(@model, (_1.screen || parent_screen).to_sym) }
   end
 
   def build_field(field_data, label_set)
@@ -58,9 +60,5 @@ class CheckAnswersPresenter
       return unless @session_data[field_data[:requires_inclusion_in]]&.include?(key)
     end
     @session_data[field_data[:attribute]]
-  end
-
-  def valid_step?(step_name)
-    steps_list_for(@model).flatten.include?(step_name&.to_sym)
   end
 end
