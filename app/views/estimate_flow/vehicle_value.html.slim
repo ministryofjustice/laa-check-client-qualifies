@@ -1,5 +1,5 @@
 - content_for :back do
-  = link_to t("generic.back"), "javascript:history.back()" , class: "govuk-back-link"
+  = link_to t("generic.back"), "javascript:history.back()", class: "govuk-back-link"
 .govuk-grid-column-two-thirds
   span.govuk-caption-l = t(".caption")
   h1.govuk-heading-xl = t(".heading")
@@ -22,4 +22,4 @@
                                             hint: { text: t(".vehicle_in_regular_use.hint") }
 
     = form.govuk_submit t("generic.save_and_continue")
-= render 'shared/sidebar_with_date', links: {t("estimate_flow.vehicle.guidance.text") => t("estimate_flow.vehicle.guidance.link")}
+= render "vehicle_sidebar"

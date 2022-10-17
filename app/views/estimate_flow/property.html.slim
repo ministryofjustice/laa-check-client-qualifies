@@ -9,9 +9,8 @@
     = form.govuk_error_summary t("generic.error_summary_title")
 
     = form.govuk_collection_radio_buttons :property_owned, property_options, :first, :last,
-                                          legend: { text: t(".property_owned.legend"), size: 'xl', tag: 'h1' }
+                                          legend: { text: t(".property_owned.legend"), size: "xl", tag: "h1" }
 
     = form.govuk_submit t("generic.save_and_continue")
 
-= render 'shared/sidebar_with_date', \
-  links: {t("estimate_flow.property.guidance_on_properties") => t("estimate_flow.property.link_to_guidance_on_properties") }
+= render "property_sidebar"

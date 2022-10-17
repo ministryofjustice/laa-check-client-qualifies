@@ -1,7 +1,7 @@
-= render 'layouts/sidebar'
+= render "layouts/sidebar"
 h2.govuk-body-m
   strong = t("generic.date")
-  p.govuk-body-m = Date.current.strftime('%d %B %Y')
+  p.govuk-body-m = Date.current.strftime("%d %B %Y")
 
 - if links.any?
   h2.govuk-body-m
@@ -10,4 +10,4 @@ h2.govuk-body-m
       - links.each do |text, dest|
         li
           p
-            = link_to text, dest, target: "_blank", class: "govuk-link govuk-body-m"
+            = link_to text, dest, target: "_blank", rel: "noopener", class: "govuk-link govuk-body-m"
