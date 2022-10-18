@@ -1,4 +1,6 @@
 module StepsHelper
+  ALL_POSSIBLE_STEPS = StepListerService.call.map(&:name).freeze
+
   def next_step_for(estimate, step)
     next_estimate_step(steps_list_for(estimate), step)
   end
@@ -15,6 +17,10 @@ module StepsHelper
     current_index = steps.index(current_step)
 
     steps[(current_index + 1)..].none? { _1.check_answer_group == current_step.check_answer_group }
+  end
+
+  def last_step_in_group?(estimate, current_step_name)
+    end_of_check_answer_loop?(estimate, current_step_name)
   end
 
 private

@@ -2,7 +2,7 @@ class EstimateFlowController < ApplicationController
   include Wicked::Wizard
   include StepsHelper
 
-  steps(*StepListerService.call.map(&:name))
+  steps(*ALL_POSSIBLE_STEPS)
 
   HANDLER_CLASSES = {
     case_details: Flow::CaseDetailsHandler,
