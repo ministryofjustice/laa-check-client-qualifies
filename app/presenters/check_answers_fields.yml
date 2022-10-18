@@ -108,6 +108,8 @@ sections:
             attribute: mortgage
             screen: property_entry
             screen_if_null: property
+            requires_inclusion_in: property_owned
+            requires_inclusion_of: with_mortgage
           - type: number
             attribute: percentage_owned
             screen: property_entry
