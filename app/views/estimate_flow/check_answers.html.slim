@@ -9,11 +9,13 @@
     .govuk-grid-row
       .govuk-grid-column-two-thirds
         h2.govuk-heading-l
-          = t(".#{section.label }")
+          = t(".#{section.label}")
       .govuk-grid-column-one-third
         - if section.screen.present?
           p class="govuk-!-text-align-right"
-            = link_to t("generic.change"), estimate_check_answer_path(@estimate_id, section.screen), class: "govuk-link govuk-!-font-size-19"
+            = link_to t("generic.change"),
+                      estimate_check_answer_path(@estimate_id, section.screen),
+                      class: "govuk-link govuk-!-font-size-19"
 
     - section.subsections.each do |subsection|
       - if subsection.label
@@ -24,41 +26,43 @@
           .govuk-grid-column-one-third
             - if subsection.screen.present?
               p class="govuk-!-text-align-right"
-                = link_to t("generic.change"), estimate_check_answer_path(@estimate_id, subsection.screen), class: "govuk-link govuk-!-font-size-19"
+                = link_to t("generic.change"),
+                          estimate_check_answer_path(@estimate_id, subsection.screen),
+                          class: "govuk-link govuk-!-font-size-19"
 
       dl class="govuk-summary-list govuk-!-margin-bottom-9" id="field-list-#{subsection.label || section.label}"
         - subsection.fields.each do |field|
           - case field.type
-          - when 'money'
+          - when "money"
             = render "money_check_answer",
                      label_text: t(".#{field.label}"),
                      value_text: field.value,
                      link: field.screen
-          - when 'boolean'
+          - when "boolean"
             = render "check_answer",
                      label_text: t(".#{field.label}"),
                      value_text: yes_no_boolean(field.value),
                      link: field.screen
-          - when 'number'
+          - when "number"
             = render "check_answer",
                      label_text: t(".#{field.label}"),
                      value_text: field.value || t("generic.not_applicable"),
                      link: field.screen
-          - when 'no_or_number'
+          - when "no_or_number"
             = render "check_answer",
                      label_text: t(".#{field.label}"),
                      value_text: field.value ? field.alt_value : yes_no_boolean(field.value),
                      link: field.screen
-          - when 'select'
+          - when "select"
             = render "check_answer",
                      label_text: t(".#{field.label}"),
-                     value_text: t(".#{field.label}_options.#{field.value || "not_provided" }"),
+                     value_text: t(".#{field.label}_options.#{field.value || 'not_provided'}"),
                      link: field.screen
           - else
             - raise "Unknown field_type #{field.type}"
 
   h2.govuk-heading-m = t(".submission_instructions")
-  p =t(".submission_explanation")
+  p = t(".submission_explanation")
 
   = form_with(url: estimates_path) do |form|
     = hidden_field_tag :cfe_id, params[:estimate_id]
