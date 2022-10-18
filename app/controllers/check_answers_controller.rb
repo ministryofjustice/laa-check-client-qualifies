@@ -6,13 +6,11 @@ class CheckAnswersController < EstimateFlowController
     if @form.valid?
       session_data.merge!(@form.attributes)
       estimate = load_estimate
-      next_step = Screens::NextScreenNameService.call(estimate, step, in_check_answer_flow: true)
-      if next_step == :check_answers
-        # TODO: Stop saving data here
+      if end_of_check_answer_loop?(estimate, step)
         handler.save_data(cfe_connection, estimate_id, @form, session_data)
         redirect_to estimate_build_estimate_path(estimate_id, :check_answers)
       else
-        redirect_to wizard_path next_step
+        redirect_to wizard_path next_step_for(estimate, step)
       end
     else
       @estimate = load_estimate

@@ -8,13 +8,9 @@ class BuildEstimatesController < EstimateFlowController
     if @form.valid?
       session_data.merge!(@form.attributes)
       estimate = load_estimate
+      handler.save_data(cfe_connection, estimate_id, @form, session_data) if end_of_check_answer_loop?(estimate, step)
 
-      # TODO: Stop saving data here
-      if Screens::TemporarySaveDeterminationService.call(estimate, step)
-        handler.save_data(cfe_connection, estimate_id, @form, session_data)
-      end
-
-      redirect_to wizard_path Screens::NextScreenNameService.call(estimate, step)
+      redirect_to wizard_path next_step_for(estimate, step)
     else
       @estimate = load_estimate
       render_wizard
