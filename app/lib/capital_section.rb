@@ -16,6 +16,11 @@ class CapitalSection
       (%i[property property_entry] + ALL_VEHICLE_STEPS + TAIL_STEPS).freeze
     end
 
+    def step_should_save?(model, step)
+      steps_list = steps_for(model).detect { |list| list.include?(step) }
+      step == steps_list.last
+    end
+
     def steps_for(estimate)
       property_steps = estimate.owned? ? %i[property property_entry] : %i[property]
 

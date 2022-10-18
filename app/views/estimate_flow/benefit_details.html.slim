@@ -1,0 +1,27 @@
+- content_for :back
+  = back_link(:assets, @estimate, @back_buttons_invoke_browser_back_behaviour)
+
+.govuk-grid-column-two-thirds
+  span.govuk-caption-l = t(".caption")
+  h1.govuk-heading-l = t(".heading")
+
+  = form_for(@form, url: wizard_path, method: :put) do |form|
+
+    = form.govuk_error_summary t("generic.error_summary_title")
+
+    = form.govuk_text_field :benefit_type,
+            width: 20,
+            label: { text: t(".type.label") }
+
+    = render "shared/money_input",
+            form:,
+            field: :benefit_amount,
+            width: 5,
+            label_text: t(".amount.label")
+
+    = form.govuk_collection_radio_buttons :benefit_frequency, benefits_options, :first, :last,
+            legend: { text: t(".frequency.legend", size: "m") }
+
+    = form.govuk_submit t("generic.save_and_continue")
+
+= render "shared/sidebar_with_date", links: {}

@@ -1,0 +1,33 @@
+- content_for :back
+  = back_link(:assets, @estimate, @back_buttons_invoke_browser_back_behaviour)
+
+.govuk-grid-column-two-thirds
+  span.govuk-caption-l = t(".caption")
+  h1.govuk-heading-l = t(".heading.text", count: @form.benefits.size)
+
+  = govuk_table do |table|
+    ruby:
+      table.body do |body|
+        @form.benefits.each_with_index do |item, index|
+          body.row do |row|
+            row.cell(text: item.fetch("benefit_type"))
+            row.cell(text: item.fetch("benefit_amount"))
+            row.cell(text: benefits_frequencies.fetch(item.fetch("benefit_frequency")))
+            row.cell(text: link_to("Edit", estimate_build_estimate_path(@estimate_id, :edit_benefit, index:)))
+            row.cell(text: button_to("Remove",
+                  estimate_build_estimate_path(@estimate_id, :benefit_remove),
+                  params: { index: }, method: "put"))
+          end
+        end
+      end
+
+  = form_for(@form, url: wizard_path, method: :put) do |form|
+
+    = form.govuk_error_summary t("generic.error_summary_title")
+
+    = form.govuk_collection_radio_buttons :more_benefits, yes_no_options, :first, :last,
+            legend: { text: t(".more.legend"), size: "xl", tag: "h1" }
+
+    = form.govuk_submit t("generic.save_and_continue")
+
+= render "shared/sidebar_with_date", links: {}

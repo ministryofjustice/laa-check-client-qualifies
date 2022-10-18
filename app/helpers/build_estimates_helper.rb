@@ -30,4 +30,18 @@ module BuildEstimatesHelper
   def employment_options
     EMPLOYMENT_OPTIONS
   end
+
+  BENEFITS_OPTIONS = {
+    1 => I18n.t("estimate_flow.benefit_details.frequency.weekly"),
+    2 => I18n.t("estimate_flow.benefit_details.frequency.two_weekly"),
+    4 => I18n.t("estimate_flow.benefit_details.frequency.four_weekly"),
+  }.freeze
+
+  def benefits_frequencies
+    BENEFITS_OPTIONS
+  end
+
+  def benefits_options
+    benefits_frequencies.map { |k, v| [k, v] }
+  end
 end

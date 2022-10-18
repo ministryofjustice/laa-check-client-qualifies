@@ -3,11 +3,11 @@ module Flow
     OUTGOINGS_ATTRIBUTES = (OutgoingsForm::OUTGOING_ATTRIBUTES + [:outgoings]).freeze
 
     class << self
-      def model(session_data)
+      def model(session_data, _index = 0)
         OutgoingsForm.new session_data.slice(*OUTGOINGS_ATTRIBUTES)
       end
 
-      def form(params, _session_data)
+      def form(params, _session_data, _index)
         OutgoingsForm.new(params.require(:outgoings_form).permit(*OutgoingsForm::OUTGOING_ATTRIBUTES, outgoings: []))
       end
 

@@ -15,6 +15,10 @@ RSpec.describe "Outgoings Page", :vcr do
 
     select_applicant_boolean(:passporting, false)
     click_on "Save and continue"
+
+    select_boolean_value("benefit-yesno-form", :has_benefits, false)
+    click_on "Save and continue"
+
     click_checkbox("monthly-income-form-monthly-incomes", "friends_or_family")
     fill_in "monthly-income-form-friends-or-family-field", with: "100"
     click_checkbox("monthly-income-form-monthly-incomes", "maintenance")

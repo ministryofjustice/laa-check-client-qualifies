@@ -4,6 +4,8 @@ class EstimateModel
 
   ESTIMATE_BOOLEANS = %i[over_60
                          passporting
+                         has_benefits
+                         more_benefits
                          vehicle_owned
                          vehicle_in_regular_use
                          partner

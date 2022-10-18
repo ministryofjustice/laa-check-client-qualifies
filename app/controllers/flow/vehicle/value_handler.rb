@@ -2,11 +2,11 @@ module Flow
   module Vehicle
     class ValueHandler
       class << self
-        def model(session_data)
+        def model(session_data, _index = 0)
           VehicleValueForm.new(session_data.slice(*VehicleValueForm::VEHICLE_VALUE_ATTRIBUTES.map(&:to_s)))
         end
 
-        def form(params, _session_data)
+        def form(params, _session_data, _index = 0)
           VehicleValueForm.new(params.require(:vehicle_value_form).permit(*VehicleValueForm::VEHICLE_VALUE_ATTRIBUTES))
         end
 

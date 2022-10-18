@@ -1,20 +1,28 @@
 class StepsHelper
+  ALL_SECTIONS = [ApplicantCaseDetailsSection, IncomeSection, CapitalSection].freeze
+
   class << self
     def all_possible_steps
-      all_sections.map(&:all_steps).reduce { |l, t| l + t }
+      ALL_SECTIONS.map(&:all_steps).reduce { |l, t| l + t }
     end
 
-    def next_step_for(intro, step)
-      next_estimate_step(steps_list_for(intro).flatten, step)
+    def next_step_for(model, step)
+      case step
+      when :edit_benefit
+        :benefits_more
+      when :benefit_remove
+        :benefits_more
+      else
+        next_estimate_step(steps_list_for(model).flatten, step)
+      end
     end
 
     def previous_step_for(estimate, step)
       next_estimate_step(steps_list_for(estimate).flatten.reverse, step)
     end
 
-    def last_step_in_group?(model, step)
-      steps_list = steps_list_for(model).detect { |list| list.include?(step) }
-      step == steps_list.last
+    def step_should_save?(model, step)
+      section_for(step).step_should_save?(model, step)
     end
 
     def valid_step?(model, step)
@@ -23,12 +31,12 @@ class StepsHelper
 
   private
 
-    def steps_list_for(estimate)
-      all_sections.map { |section| section.steps_for(estimate) }.reduce { |l, t| l + t }
+    def section_for(step)
+      ALL_SECTIONS.detect { |section| section.all_steps.include?(step) }
     end
 
-    def all_sections
-      [ApplicantCaseDetailsSection, IncomeSection, CapitalSection]
+    def steps_list_for(estimate)
+      ALL_SECTIONS.map { |section| section.steps_for(estimate) }.reduce { |l, t| l + t }
     end
 
     def next_estimate_step(steps, step)

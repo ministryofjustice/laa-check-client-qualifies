@@ -1,0 +1,29 @@
+- content_for :back
+= link_to t("generic.back"), previous_wizard_path, class: "govuk-back-link"
+
+.govuk-grid-column-two-thirds
+  span.govuk-caption-l = t("estimate_flow.benefit_details.caption")
+  h1.govuk-heading-l = t(".heading")
+
+  = form_for(@form, url: wizard_path, method: :put) do |form|
+
+    = form.govuk_error_summary t("generic.error_summary_title")
+
+    = form.hidden_field :index
+
+    = form.govuk_text_field :benefit_type,
+            width: 20,
+            label: { text: t("estimate_flow.benefit_details.type.label") }
+
+    = render "shared/money_input",
+            form:,
+            field: :benefit_amount,
+            width: 5,
+            label_text: t("estimate_flow.benefit_details.amount.label")
+
+    = form.govuk_collection_radio_buttons :benefit_frequency, benefits_options, :first, :last,
+            legend: { text: t("estimate_flow.benefit_details.frequency.legend", size: "m") }
+
+    = form.govuk_submit t("generic.save_and_continue")
+
+= render "shared/sidebar_with_date", links: {}

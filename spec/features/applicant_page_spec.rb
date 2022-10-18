@@ -2,6 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Applicant Page" do
   let(:income_header) { "What other income does your client receive?" }
+  let(:benefits_header) { "Does your client receive any benefits?" }
   let(:property_header) { "Does your client own the home they live in?" }
   let(:applicant_header) { "About your client" }
   let(:estimate_id) { SecureRandom.uuid }
@@ -99,7 +100,7 @@ RSpec.describe "Applicant Page" do
       expect(mock_connection).to receive(:create_dependants).with(estimate_id, 1)
       fill_in "applicant-form-dependant-count-field", with: "1"
       click_on "Save and continue"
-      expect(page).to have_content income_header
+      expect(page).to have_content benefits_header
     end
   end
 
@@ -118,6 +119,9 @@ RSpec.describe "Applicant Page" do
       select_applicant_boolean(:partner, false)
       select_applicant_boolean(:employed, false)
       select_applicant_boolean(:passporting, true)
+      click_on "Save and continue"
+
+      select_boolean_value("benefit-yesno-form", :has_benefits, false)
       click_on "Save and continue"
 
       click_checkbox("property-form-property-owned", "none")
@@ -183,12 +187,7 @@ RSpec.describe "Applicant Page" do
         end
 
         it "skips income and outgoings" do
-          expect(page).to have_content property_header
-        end
-
-        it "has a back pointer to the applicant page" do
-          click_on "Back"
-          expect(page).to have_content applicant_header
+          expect(page).to have_content benefits_header
         end
       end
 
@@ -197,15 +196,17 @@ RSpec.describe "Applicant Page" do
 
         before do
           click_on "Save and continue"
+          select_boolean_value("benefit-yesno-form", :has_benefits, false)
+          click_on "Save and continue"
         end
 
         it "shows income" do
           expect(page).to have_content income_header
         end
 
-        it "has a back pointer to the applicant page" do
+        it "has a back pointer to the benefits page" do
           click_on "Back"
-          expect(page).to have_content applicant_header
+          expect(page).to have_content benefits_header
         end
       end
     end
@@ -219,7 +220,7 @@ RSpec.describe "Applicant Page" do
       it "submits dependants" do
         fill_in "applicant-form-dependant-count-field", with: "2"
         click_on "Save and continue"
-        expect(page).to have_content income_header
+        expect(page).to have_content benefits_header
       end
     end
   end

@@ -51,7 +51,7 @@ RSpec.describe "Accessibility" do
       travel_to arbitrary_fixed_time
     end
 
-    StepsHelper.all_possible_steps.each do |step|
+    StepsHelper.all_possible_steps.reject { |s| s.in? %i[edit_benefit benefit_remove] }.each do |step|
       it "has no AXE-detectable accessibility issues on #{step} step" do
         visit estimate_build_estimate_path(estimate_id, step)
 

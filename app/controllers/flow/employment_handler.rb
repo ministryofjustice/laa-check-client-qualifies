@@ -1,11 +1,11 @@
 module Flow
   class EmploymentHandler
     class << self
-      def model(session_data)
+      def model(session_data, _index)
         EmploymentForm.new session_data.slice(*EmploymentForm::EMPLOYMENT_ATTRIBUTES.map(&:to_s))
       end
 
-      def form(params, _session_data)
+      def form(params, _session_data, _index)
         EmploymentForm.new(params.require(:employment_form)
           .permit(*EmploymentForm::EMPLOYMENT_ATTRIBUTES))
       end

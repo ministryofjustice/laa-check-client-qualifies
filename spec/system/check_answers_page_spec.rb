@@ -20,6 +20,9 @@ RSpec.describe "Check Answers Page", :vcr do
     select_applicant_boolean(:passporting, true)
     click_on "Save and continue"
 
+    select_boolean_value("benefit-yesno-form", :has_benefits, false)
+    click_on "Save and continue"
+
     click_checkbox("property-form-property-owned", "none")
     click_on "Save and continue"
 

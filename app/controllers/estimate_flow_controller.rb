@@ -7,6 +7,11 @@ class EstimateFlowController < ApplicationController
     case_details: Flow::CaseDetailsHandler,
     applicant: Flow::ApplicantHandler,
     employment: Flow::EmploymentHandler,
+    benefit_yesno: Flow::Benefits::YesnoHandler,
+    edit_benefit: Flow::Benefits::EditHandler,
+    benefit_details: Flow::Benefits::DetailsHandler,
+    benefits_more: Flow::Benefits::MoreHandler,
+    benefit_remove: Flow::Benefits::RemoveHandler,
     monthly_income: Flow::MonthlyIncomeHandler,
     property: Flow::PropertyHandler,
     vehicle: Flow::Vehicle::OwnedHandler,
@@ -21,7 +26,7 @@ class EstimateFlowController < ApplicationController
 
   def show
     handler = HANDLER_CLASSES.fetch(step)
-    @form = handler.model(session_data)
+    @form = handler.model(session_data, params[:index].to_i)
     @estimate = load_estimate
     render_wizard
   end

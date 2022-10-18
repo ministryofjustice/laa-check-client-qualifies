@@ -2,6 +2,23 @@ en:
   activemodel:
     errors:
       models:
+        benefit_yesno_form:
+          attributes:
+            has_benefits:
+              inclusion: Select yes if your client receives benefits
+        benefit_details_form:
+          attributes:
+            benefit_type:
+              blank: Please enter a benefit type
+            benefit_amount:
+              blank: Please enter a benefit amount
+              greater_than: Benefit amount must be greater than £0
+            benefit_frequency:
+              inclusion: Please select a benefit frequency
+        benefit_more_form:
+          attributes:
+            more_benefits:
+              inclusion: Select yes to add another benefit
         proceeding_type_form:
           attributes:
             proceeding_type:
@@ -134,6 +151,31 @@ en:
     related_content_title: Related content
     not_applicable: Not applicable
   estimate_flow:
+    edit_benefit:
+      heading: Change benefit details
+    benefits_more:
+      caption: Your client's finances
+      heading:
+        text: You have added %{count} benefits
+      more:
+        legend: Does your client receive any other benefits?
+    benefit_details:
+      caption: Your client's finances
+      heading: Add benefit details
+      type:
+        label: Benefit type
+      amount:
+        label: Enter amount
+      frequency:
+        legend: Select frequency
+        weekly: Every week
+        two_weekly: Every two weeks
+        four_weekly: Every four weeks
+    benefit_yesno:
+      caption: Your client's finances
+      has_benefits:
+        legend: Does your client receive any benefits?
+        hint: For example Child Benefit or tax credits.
     applicant:
       heading: Your client's details
       caption: About your client

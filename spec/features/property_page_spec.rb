@@ -19,6 +19,8 @@ RSpec.describe "Property Page" do
     select_applicant_boolean(:employed, false)
     select_applicant_boolean(:passporting, true)
     click_on "Save and continue"
+    select_boolean_value("benefit-yesno-form", :has_benefits, false)
+    click_on "Save and continue"
   end
 
   it "shows the correct form" do

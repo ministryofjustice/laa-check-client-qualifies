@@ -1,11 +1,11 @@
 module Flow
   class CaseDetailsHandler
     class << self
-      def model(session_data)
+      def model(session_data, _index)
         ProceedingTypeForm.new session_data.slice(*ProceedingTypeForm::ATTRIBUTES.map(&:to_s))
       end
 
-      def form(params, _session_data)
+      def form(params, _session_data, _index)
         ProceedingTypeForm.new(params.fetch(:proceeding_type_form, {})
                                  .permit(*ProceedingTypeForm::ATTRIBUTES))
       end

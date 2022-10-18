@@ -93,15 +93,6 @@ RSpec.describe "Employment page" do
         click_on "Save and continue"
         expect(page).not_to have_content employment_page_header
       end
-
-      it "formats my answers appropriately if I return to the screen" do
-        allow(mock_connection).to receive(:create_employment)
-        click_on "Save and continue"
-        click_on "Back"
-        expect(find("#employment-form-gross-income-field").value).to eq "5,000"
-        expect(find("#employment-form-income-tax-field").value).to eq "1,000"
-        expect(find("#employment-form-national-insurance-field").value).to eq "50.50"
-      end
     end
 
     context "when I provide different frequencies" do

@@ -93,6 +93,23 @@ class CfeConnection
     create_record(assessment_id, "regular_transactions", regular_transactions:) if regular_transactions.any?
   end
 
+  def create_benefits(assessment_id, benefits)
+    state_benefits = benefits.map do |benefit|
+      payments = [2, 1, 0].map do |v|
+        {
+          date: Time.zone.today - v * benefit.fetch(:benefit_frequency).weeks,
+          amount: benefit.fetch(:benefit_amount),
+          client_id: "",
+        }
+      end
+      {
+        name: benefit.fetch(:benefit_type),
+        payments:,
+      }
+    end
+    create_record(assessment_id, "state_benefits", state_benefits:)
+  end
+
   def create_properties(assessment_id, main_property, second_property)
     main_home = main_property ||
       {
