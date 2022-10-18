@@ -19,6 +19,8 @@ module StepsHelper
     steps[(current_index + 1)..].none? { _1.check_answer_group == current_step.check_answer_group }
   end
 
+  # TODO: Remove this as soon as we no longer need it to determine when to 'save progress' to CFE
+  # (i.e. when we *stop* incrementally saving progress to CFE)
   def last_step_in_group?(estimate, current_step_name)
     end_of_check_answer_loop?(estimate, current_step_name)
   end
