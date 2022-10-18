@@ -268,8 +268,6 @@ en:
       guidance:
         text: Guidance on assets
         link: "#"
-    summary:
-      heading: Summary Page
     check_answers:
       heading: Check your client and partner answers
       case_details: Your client's case details
@@ -331,7 +329,7 @@ en:
       other_fields:
         property_value: "Second property or holiday home: value"
         property_mortgage: "Second property or holiday home: outstanding mortgage"
-        property_percentage_owned: "Second property or holiday home: % owned"
+        property_percentage_owned_html: "Second property or holiday home: &#37; owned"
         savings: Savings
         investments: Investments
       submission_instructions: Now submit your eligibility check
