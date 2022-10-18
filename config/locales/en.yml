@@ -51,6 +51,10 @@ en:
             other:
               blank: Other income cannot be blank
               greater_than: Other income must be greater than £0
+        outgoings_form:
+          attributes:
+            outgoings:
+              at_least_one_item:  Please select at least one option
         assets_form:
           attributes:
             assets:
