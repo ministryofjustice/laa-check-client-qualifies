@@ -4,6 +4,8 @@ class EstimatesController < ApplicationController
   end
 
   def create
+    # move the creation of the cfe_id into the service
+    # need to ensure it is available for the model after the service has been called
     cfe_estimate_id
     CfeService.call(cfe_estimate_id, cfe_session_data)
     @model = cfe_connection.api_result(cfe_estimate_id)

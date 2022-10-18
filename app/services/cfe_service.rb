@@ -4,22 +4,24 @@ class CfeService
   end
 
   def call(cfe_estimate_id, cfe_session_data)
-    applicant_screen_create cfe_estimate_id, Flow::ApplicantHandler.model(cfe_session_data)
+    save_dependants_data cfe_estimate_id, Flow::ApplicantHandler.model(cfe_session_data)
     save_employment_data cfe_estimate_id, Flow::EmploymentHandler.model(cfe_session_data)
     save_monthly_income_data cfe_estimate_id, Flow::MonthlyIncomeHandler.model(cfe_session_data)
     save_vehicle_value_data cfe_estimate_id, Flow::Vehicle::ValueHandler.model(cfe_session_data)
     save_vehicle_finance_data cfe_estimate_id, cfe_session_data
     save_assets_data cfe_estimate_id, cfe_session_data
     save_outgoings_data cfe_estimate_id, cfe_session_data
-    save_property_entry_data cfe_estimate_id, Flow::PropertyEntryHandler.model(cfe_session_data)
+    save_property_entry_data cfe_estimate_id, cfe_session_data
     create_applicant cfe_estimate_id, Flow::ApplicantHandler.model(cfe_session_data)
   end
+
+  private
 
   def cfe_connection
     @cfe_connection ||= CfeConnection.connection
   end
 
-  def applicant_screen_create(cfe_estimate_id, form)
+  def save_dependants_data(cfe_estimate_id, form)
     cfe_connection.create_dependants(cfe_estimate_id, form.dependant_count) if form.dependants
   end
 
@@ -69,15 +71,16 @@ class CfeService
   end
 
   def save_vehicle_finance_data(cfe_estimate_id, cfe_session_data)
-    value_form = Flow::Vehicle::ValueHandler.model(cfe_session_data)
-    return unless value_form.vehicle_value.present?
+    finance_form = Flow::Vehicle::FinanceHandler.model(cfe_session_data)
+    return unless finance_form.vehicle_pcp.present?
 
+    value_form = Flow::Vehicle::ValueHandler.model(cfe_session_data)
     age_form = Flow::Vehicle::AgeHandler.model(cfe_session_data)
     date_of_purchase = age_form.vehicle_over_3_years_ago ? 4.years.ago.to_date : 2.years.ago.to_date
     cfe_connection.create_vehicle cfe_estimate_id,
                                   date_of_purchase:,
                                   value: value_form.vehicle_value,
-                                  loan_amount_outstanding: form.vehicle_pcp ? form.vehicle_finance.presence : 0,
+                                  loan_amount_outstanding: finance_form.vehicle_pcp ? finance_form.vehicle_finance.presence : 0,
                                   in_regular_use: value_form.vehicle_in_regular_use
   end
 
@@ -110,7 +113,8 @@ class CfeService
     cfe_connection.create_regular_payments(cfe_estimate_id, income_form, form)
   end
 
-  def save_property_entry_data(cfe_estimate_id, model)
+  def save_property_entry_data(cfe_estimate_id, cfe_session_data)
+    model = Flow::PropertyEntryHandler.model(cfe_session_data)
     return unless model.house_value.present?
 
     main_home = {
