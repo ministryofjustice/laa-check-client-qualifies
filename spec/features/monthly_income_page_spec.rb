@@ -49,8 +49,8 @@ RSpec.describe "Monthly income Page" do
   end
 
   it "handles student finance" do
-    expect(mock_connection).to receive(:create_student_loan).with(estimate_id, 100)
-    allow(mock_connection).to receive(:create_regular_payments)
+    # expect(mock_connection).to receive(:create_student_loan).with(estimate_id, 100)
+    # allow(mock_connection).to receive(:create_regular_payments)
 
     click_checkbox("monthly-income-form-monthly-incomes", "student_finance")
     fill_in "monthly-income-form-student-finance-field", with: "100"
@@ -62,16 +62,7 @@ RSpec.describe "Monthly income Page" do
     click_on "Save and continue"
   end
 
-  it "handles non-student finance values and sends to CFE when the next screen is submitted" do
-    expect(mock_connection).not_to receive(:create_student_loan)
-    expect(mock_connection).to receive(:create_regular_payments) do |_estimate_id, model|
-      expect(model.friends_or_family).to eq 100
-      expect(model.maintenance).to eq 200
-      expect(model.property_or_lodger).to eq 300
-      expect(model.pension).to eq 400
-      expect(model.other).to eq 500
-    end
-
+  it "handles non-student finance values and continues to the next screen when page is submitted" do
     click_checkbox("monthly-income-form-monthly-incomes", "friends_or_family")
     fill_in "monthly-income-form-friends-or-family-field", with: "100"
     click_checkbox("monthly-income-form-monthly-incomes", "maintenance")
@@ -84,7 +75,5 @@ RSpec.describe "Monthly income Page" do
     fill_in "monthly-income-form-other-field", with: "500"
     click_on "Save and continue"
     expect(page).to have_content(outgoings_header)
-    click_checkbox("outgoings-form-outgoings", "none")
-    click_on "Save and continue"
   end
 end

@@ -4,11 +4,11 @@ RSpec.describe "Provider User Page" do
   let(:first_page_header) { "About the case" }
   let(:referral_header) { I18n.t("referrals.show.page_heading") }
   let(:estimate_id) { SecureRandom.uuid }
-  let(:mock_connection) { instance_double(CfeConnection, create_assessment_id: estimate_id) }
+  # let(:mock_connection) { instance_double(CfeConnection, create_assessment_id: estimate_id) }
 
   describe "radio buttons" do
     before do
-      allow(CfeConnection).to receive(:connection).and_return(mock_connection)
+      # allow(CfeConnection).to receive(:connection).and_return(mock_connection)
       visit "/provider_users"
     end
 

@@ -8,6 +8,7 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 # Add additional requires below this line. Rails is not loaded until this point!
 require "rspec/rails"
 require "axe-rspec"
+require "pry-rescue/rspec" if Rails.env.development?
 
 Capybara.javascript_driver = :selenium_chrome
 Webdrivers::Chromedriver.required_version = "106.0.5249.21"

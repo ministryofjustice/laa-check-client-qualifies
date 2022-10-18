@@ -9,8 +9,6 @@ RSpec.describe "Applicant Page" do
 
   describe "errors" do
     before do
-      allow(CfeConnection).to receive(:connection).and_return(mock_connection)
-      allow(mock_connection).to receive(:create_proceeding_type)
       visit_applicant_page
 
       %i[over_60 dependants partner passporting employed].reject { |f| f == field }.each do |f|
@@ -76,8 +74,6 @@ RSpec.describe "Applicant Page" do
 
   describe "dependants field" do
     before do
-      allow(CfeConnection).to receive(:connection).and_return(mock_connection)
-      allow(mock_connection).to receive(:create_proceeding_type)
       visit_applicant_page
 
       select_applicant_boolean(:over_60, false)
@@ -96,7 +92,6 @@ RSpec.describe "Applicant Page" do
     end
 
     it "submits 1 dependant" do
-      expect(mock_connection).to receive(:create_dependants).with(estimate_id, 1)
       fill_in "applicant-form-dependant-count-field", with: "1"
       click_on "Save and continue"
       expect(page).to have_content income_header

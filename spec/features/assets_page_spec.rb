@@ -32,9 +32,6 @@ RSpec.describe "Assets Page" do
     end
 
     it "can submit second property" do
-      expect(mock_connection)
-        .to receive(:create_properties)
-             .with(estimate_id, nil, { outstanding_mortgage: 50_000, percentage_owned: 50, value: 100_000 })
       click_checkbox("assets-form-assets", "property")
       fill_in "assets-form-property-value-field", with: "100_000"
       fill_in "assets-form-property-mortgage-field", with: "50_000"
@@ -75,12 +72,6 @@ RSpec.describe "Assets Page" do
     end
 
     it "can submit second property" do
-      expect(mock_connection)
-        .to receive(:create_properties)
-          .with(estimate_id,
-                { outstanding_mortgage: 50_000, percentage_owned: 100, value: 100_000 },
-                { outstanding_mortgage: 40_000, percentage_owned: 50, value: 80_000 })
-
       click_checkbox("assets-form-assets", "property")
       fill_in "assets-form-property-value-field", with: "80_000"
       fill_in "assets-form-property-mortgage-field", with: "40_000"
@@ -91,12 +82,6 @@ RSpec.describe "Assets Page" do
     end
 
     it "can submit non-zero savings and investments" do
-      expect(mock_connection)
-        .to receive(:create_properties)
-              .with(estimate_id,
-                    { outstanding_mortgage: 50_000, percentage_owned: 100, value: 100_000 },
-                    nil)
-      expect(mock_connection).to receive(:create_capitals).with(estimate_id, [100], [500, 1000])
       click_checkbox("assets-form-assets", "savings")
       fill_in "assets-form-savings-field", with: "100"
 
@@ -121,7 +106,8 @@ RSpec.describe "Assets Page" do
 
       expect(page).to have_content check_answers_header
       click_on "Submit"
-
+      # failing because the form?
+      # received unexpected message :create_regular_payments with ("f09501ef-cfdd-4b4a-aa98-6cfbc423dbbb", #<MonthlyIncomeForm:0x00000001149975b8 @attributes=#<ActiveModel::AttributeSet:0x0000000114997310 @at...:0x0000000113149d80 @precision=nil, @scale=nil, @limit=nil>, @original_attribute=nil, @value=nil>}>>, nil)
       expect(page).to have_content "Your client appears provisionally eligible"
     end
   end
