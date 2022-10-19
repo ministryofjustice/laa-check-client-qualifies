@@ -44,7 +44,7 @@ RSpec.describe "Vehicle Page" do
         expect(page).to have_content(assets_header)
       end
 
-      xcontext "when checking answers" do
+      context "when checking answers" do
         let(:vehicle_value) { 20_000 }
 
         before do
@@ -58,13 +58,13 @@ RSpec.describe "Vehicle Page" do
           expect(page).to have_content "No"
         end
 
-        it "can do a simple loop back to check answers" do
+        xit "can do a simple loop back to check answers" do
           click_on "Change"
           click_on "Save and continue"
           expect(page).to have_content check_answers_header
         end
 
-        it "errors correctly" do
+        xit "errors correctly" do
           click_on "Change"
           select_vehicle_value(:vehicle_owned, true)
           click_on "Save and continue"
@@ -77,7 +77,7 @@ RSpec.describe "Vehicle Page" do
           end
         end
 
-        it "can do a loop changing the vehicle answer" do
+        xit "can do a loop changing the vehicle answer" do
           click_on "Change"
           select_vehicle_value(:vehicle_owned, true)
           click_on "Save and continue"

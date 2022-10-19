@@ -40,11 +40,6 @@ RSpec.describe "Employment page" do
       expect(page).to have_content(employment_page_header)
     end
 
-    xit "has a back link to the applicant info page" do
-      click_link "Back"
-      expect(page).to have_content "Your client's details"
-    end
-
     context "when I enter negative income by mistake" do
       before do
         fill_in "employment-form-gross-income-field", with: 100

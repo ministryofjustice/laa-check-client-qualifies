@@ -185,11 +185,6 @@ RSpec.describe "Applicant Page" do
         it "skips income and outgoings" do
           expect(page).to have_content property_header
         end
-
-        xit "has a back pointer to the applicant page" do
-          click_on "Back"
-          expect(page).to have_content applicant_header
-        end
       end
 
       context "without passporting" do
@@ -201,11 +196,6 @@ RSpec.describe "Applicant Page" do
 
         it "shows income" do
           expect(page).to have_content income_header
-        end
-
-        xit "has a back pointer to the applicant page" do
-          click_on "Back"
-          expect(page).to have_content applicant_header
         end
       end
     end

@@ -1,5 +1,5 @@
 - content_for :back do
-  = link_to t("generic.back"), previous_wizard_path, class: "govuk-back-link"
+  = link_to t("generic.back"), "javascript:history.back()", class: "govuk-back-link"
 
 .govuk-grid-column-two-thirds
   span.govuk-caption-l = t(".caption")
