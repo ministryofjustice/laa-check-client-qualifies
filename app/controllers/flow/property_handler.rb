@@ -8,7 +8,7 @@ module Flow
       end
 
       def form(params, _session_data)
-        PropertyForm.new(params.require(:property_form).permit(:property_owned))
+        PropertyForm.new(params.fetch(:property_form, {}).permit(:property_owned))
       end
 
       # Will be called when no property owned

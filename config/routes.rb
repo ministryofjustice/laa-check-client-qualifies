@@ -9,7 +9,14 @@ Rails.application.routes.draw do
   resource :referrals, only: [:show]
 
   resources :estimates, only: %i[new create] do
-    resources :build_estimates, only: %i[index show update]
+    resources :build_estimates, only: %i[index show update] do
+      resources :applicant_case_details, only: %i[index show update]
+      resources :incomes, only: %i[index show update]
+      resources :capitals, only: %i[index show update] do
+        resources :properties, only: %i[index show update]
+        resources :vehicles, only: %i[index show update]
+      end
+    end
     resources :check_answers, only: %i[show update]
   end
 

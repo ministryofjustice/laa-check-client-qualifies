@@ -186,7 +186,7 @@ RSpec.describe "Applicant Page" do
           expect(page).to have_content property_header
         end
 
-        it "has a back pointer to the applicant page" do
+        xit "has a back pointer to the applicant page" do
           click_on "Back"
           expect(page).to have_content applicant_header
         end
@@ -203,7 +203,7 @@ RSpec.describe "Applicant Page" do
           expect(page).to have_content income_header
         end
 
-        it "has a back pointer to the applicant page" do
+        xit "has a back pointer to the applicant page" do
           click_on "Back"
           expect(page).to have_content applicant_header
         end

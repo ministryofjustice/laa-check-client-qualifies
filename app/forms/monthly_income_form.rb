@@ -10,6 +10,7 @@ class MonthlyIncomeForm
   validates :monthly_incomes, at_least_one_item: true
 
   INCOME_ATTRIBUTES = %i[friends_or_family maintenance property_or_lodger pension student_finance other].freeze
+  ALL_ATTRIBUTES = (INCOME_ATTRIBUTES + [:monthly_incomes]).freeze
 
   INCOME_ATTRIBUTES.each do |attribute|
     attribute attribute, :gbp

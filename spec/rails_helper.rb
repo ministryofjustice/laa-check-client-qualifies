@@ -12,6 +12,14 @@ require "axe-rspec"
 Capybara.javascript_driver = :selenium_chrome
 Webdrivers::Chromedriver.required_version = "106.0.5249.21"
 
+# oh dear we have 6 redirects in one of our flows
+Capybara.register_driver :rack_test do |app|
+  Capybara::RackTest::Driver.new app,
+    redirect_limit: 6,
+    follow_redirects: true,
+    respect_data_method: true
+end
+
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end

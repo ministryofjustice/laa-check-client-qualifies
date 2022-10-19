@@ -1,5 +1,5 @@
 - content_for :back
-  = link_to t("generic.back"), previous_wizard_path, class: "govuk-back-link"
+  = link_to t("generic.back"), "javascript:history.back()", class: "govuk-back-link"
 
 .govuk-grid-column-two-thirds
   h1.govuk-heading-xl

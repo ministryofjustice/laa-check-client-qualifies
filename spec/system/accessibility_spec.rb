@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Accessibility" do
+RSpec.xdescribe "Accessibility" do
   let(:arbitrary_fixed_time) { Time.zone.local(2022, 9, 5, 9, 0, 0) }
 
   describe "Start page" do

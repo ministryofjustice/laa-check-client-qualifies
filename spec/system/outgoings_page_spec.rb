@@ -28,7 +28,7 @@ RSpec.describe "Outgoings Page", :vcr do
     click_on "Save and continue"
   end
 
-  it "handles outgoings" do
+  xit "handles outgoings" do
     click_checkbox("outgoings-form-outgoings", "housing_payments")
     fill_in "outgoings-form-housing-payments-field", with: "300"
     click_on "Save and continue"

@@ -84,7 +84,7 @@ RSpec.describe "Vehicle Page", :vcr do
       visit_finance_form
     end
 
-    it "handles a full submit to CFE" do
+    xit "handles a full submit to CFE" do
       select_boolean_value("vehicle-finance-form", :vehicle_pcp, false)
       click_on "Save and continue"
 
