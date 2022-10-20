@@ -67,14 +67,14 @@ module Flow
 
       def period(form, index)
         case form.frequency
-        when "annually", "total", "monthly"
-          index.months
         when "week"
           index.weeks
         when "two_weeks"
           (index * 2).weeks
         when "four_weeks"
           (index * 4).weeks
+        else
+          index.months
         end
       end
     end

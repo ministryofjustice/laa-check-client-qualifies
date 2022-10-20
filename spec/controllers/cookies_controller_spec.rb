@@ -30,5 +30,16 @@ RSpec.describe CookiesController, type: :controller do
       response = patch :update, params: { cookies: "reject", return_to: new_estimate_path, add_choice_to_query_string: 1 }
       expect(response).to redirect_to new_estimate_path(cookie_choice: "rejected")
     end
+
+    it "handles existing queries in return_to param" do
+      response = patch :update,
+                       params: {
+                         cookies: "reject",
+                         return_to: new_estimate_path(alpha: :beta),
+                         add_choice_to_query_string: 1,
+                       }
+
+      expect(response).to redirect_to new_estimate_path(alpha: "beta", cookie_choice: "rejected")
+    end
   end
 end

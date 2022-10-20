@@ -12,22 +12,15 @@
 # the additional setup, and require it from the spec files that actually need
 # it.
 
-if ENV["COVERAGE"] == "true"
-  require "simplecov"
+require "simplecov"
 
-  SimpleCov.start "rails" do
-    minimum_coverage 100
+SimpleCov.start "rails" do
+  # no database (yet) so this file is never loaded
+  add_filter "app/models/application_record.rb"
 
-    # we have no code, so this file is missing from coverage
-    add_filter "app/helpers/application_helper.rb"
-
-    # no database (yet) so this file is never loaded
-    add_filter "app/models/application_record.rb"
-
-    add_filter "app/controllers/start_controller.rb"
-
-    enable_coverage :branch
-  end
+  enable_coverage :branch
+  primary_coverage :branch
+  minimum_coverage branch: 100, line: 100
 end
 
 # This is needed to allow webmock to capture requests from non-VCR tests
