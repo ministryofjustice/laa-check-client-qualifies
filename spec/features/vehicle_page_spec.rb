@@ -58,13 +58,13 @@ RSpec.describe "Vehicle Page" do
           expect(page).to have_content "No"
         end
 
-        xit "can do a simple loop back to check answers" do
+        it "can do a simple loop back to check answers", :pending do
           click_on "Change"
           click_on "Save and continue"
           expect(page).to have_content check_answers_header
         end
 
-        xit "errors correctly" do
+        it "errors correctly", :pending do
           click_on "Change"
           select_vehicle_value(:vehicle_owned, true)
           click_on "Save and continue"
@@ -77,7 +77,7 @@ RSpec.describe "Vehicle Page" do
           end
         end
 
-        xit "can do a loop changing the vehicle answer" do
+        it "can do a loop changing the vehicle answer", :pending do
           click_on "Change"
           select_vehicle_value(:vehicle_owned, true)
           click_on "Save and continue"
@@ -139,7 +139,7 @@ RSpec.describe "Vehicle Page" do
             expect(page).to have_content vehicle_value.to_s
           end
 
-          xit "has a working Back button" do
+          it "has a working Back button", :pending do
             click_on "Back"
             expect(page).to have_content "Is the vehicle in regular use?"
           end
@@ -216,7 +216,7 @@ RSpec.describe "Vehicle Page" do
                 end
               end
 
-              xit "can be corrected" do
+              it "can be corrected", :pending do
                 fill_in "vehicle-finance-form-vehicle-finance-field", with: loan_amount
                 expect(mock_connection).to receive(:create_vehicle).with(estimate_id,
                                                                          date_of_purchase: 2.years.ago.to_date,

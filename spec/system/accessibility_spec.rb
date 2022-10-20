@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.xdescribe "Accessibility" do
+RSpec.describe "Accessibility" do
   let(:arbitrary_fixed_time) { Time.zone.local(2022, 9, 5, 9, 0, 0) }
 
   describe "Start page" do
@@ -44,7 +44,7 @@ RSpec.xdescribe "Accessibility" do
     end
   end
 
-  describe "Estimate steps" do
+  describe "Estimate steps", :pending do
     let(:estimate_id) { SecureRandom.uuid }
 
     before do

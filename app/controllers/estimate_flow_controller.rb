@@ -2,26 +2,6 @@ class EstimateFlowController < ApplicationController
   include Wicked::Wizard
   include StepsHelper
 
-  # steps(*ALL_POSSIBLE_STEPS)
-  # steps :applicant_case_details, :income, :capital, :check_answers
-
-  # HANDLER_CLASSES = {
-    # case_details: Flow::CaseDetailsHandler,
-    # applicant: Flow::ApplicantHandler,
-    # incomes: Flow::IncomeHandler,
-    # employment: Flow::EmploymentHandler,
-    # monthly_income: Flow::MonthlyIncomeHandler,
-    # property: Flow::PropertyHandler,
-    # vehicle: Flow::Vehicle::OwnedHandler,
-    # vehicle_value: Flow::Vehicle::ValueHandler,
-    # vehicle_age: Flow::Vehicle::AgeHandler,
-    # vehicle_finance: Flow::Vehicle::FinanceHandler,
-    # assets: Flow::AssetHandler,
-    # check_answers: Flow::CheckAnswersHandler,
-    # outgoings: Flow::OutgoingsHandler,
-    # property_entry: Flow::PropertyEntryHandler,
-  # }.freeze
-
   def show
     handler = handler_classes[step]
     if handler

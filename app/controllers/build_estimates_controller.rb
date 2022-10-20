@@ -1,6 +1,10 @@
 class BuildEstimatesController < EstimateFlowController
   steps :applicant_case_details, :incomes, :capitals, :check_answers
 
+  def index
+    redirect_to estimate_build_estimate_applicant_case_details_path estimate_id, :incomes
+  end
+
   def show
     case step
     when :applicant_case_details

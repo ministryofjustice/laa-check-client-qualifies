@@ -6,12 +6,7 @@ class VehiclesController < EstimateFlowController
     vehicle_finance: Flow::Vehicle::FinanceHandler,
   }.freeze
 
-  # prepend_before_action :all_steps, only: :index
-  # prepend_before_action :show_decide_steps, only: :show
-  # prepend_before_action :update_decide_steps, only: :update
-
   steps :vehicle, :vehicle_value, :vehicle_age, :vehicle_finance
-  # steps :vehicle
 
   def update
     handler = handler_classes.fetch(step)
