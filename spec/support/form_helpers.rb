@@ -42,8 +42,12 @@ def progress_to_submit_from_vehicle_form
 end
 
 def progress_to_submit_from_outgoings
-  click_checkbox("outgoings-form", "outgoings-none")
+  fill_in "outgoings-form-housing-payments-value-field", with: "0"
+  fill_in "outgoings-form-childcare-payments-value-field", with: "0"
+  fill_in "outgoings-form-legal-aid-payments-value-field", with: "0"
+  fill_in "outgoings-form-maintenance-payments-value-field", with: "0"
   click_on "Save and continue"
+
   click_checkbox("property-form-property-owned", "none")
   click_on "Save and continue"
   select_boolean_value("vehicle-form", :vehicle_owned, false)

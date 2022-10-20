@@ -27,8 +27,13 @@ RSpec.describe "Outgoings Page", :vcr do
   end
 
   it "handles outgoings" do
-    click_checkbox("outgoings-form-outgoings", "housing_payments")
-    fill_in "outgoings-form-housing-payments-field", with: "300"
+    fill_in "outgoings-form-housing-payments-value-field", with: "100"
+    fill_in "outgoings-form-childcare-payments-value-field", with: "200"
+    fill_in "outgoings-form-legal-aid-payments-value-field", with: "300"
+    fill_in "outgoings-form-maintenance-payments-value-field", with: "0"
+    find(:css, "#outgoings-form-housing-payments-frequency-every-week-field").click
+    find(:css, "#outgoings-form-childcare-payments-frequency-every-two-weeks-field").click
+    find(:css, "#outgoings-form-legal-aid-payments-frequency-monthly-field").click
     click_on "Save and continue"
     click_checkbox("property-form-property-owned", "none")
     click_on "Save and continue"

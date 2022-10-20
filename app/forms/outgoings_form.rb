@@ -2,20 +2,22 @@ class OutgoingsForm
   include ActiveModel::Model
   include ActiveModel::Attributes
 
-  # list of checkbox values ticked on the form
-  attribute :outgoings, array: true, default: []
+  PAYMENT_TYPES = %i[housing_payments childcare_payments maintenance_payments legal_aid_payments].freeze
+  VALUE_ATTRIBUTES = PAYMENT_TYPES.map { :"#{_1}_value" }.freeze
+  FREQUENCY_ATTRIBUTES = PAYMENT_TYPES.map { :"#{_1}_frequency" }.freeze
+  VALID_FREQUENCIES = %w[every_week every_two_weeks every_four_weeks monthly].freeze
 
-  # If the 'exclusive' option is picked, then no items are sent
-  # otherwise we should get at least 2 (a blank plus at least one selected)
-  validates :outgoings, at_least_one_item: true
+  OUTGOINGS_ATTRIBUTES = VALUE_ATTRIBUTES + FREQUENCY_ATTRIBUTES
 
-  OUTGOING_ATTRIBUTES = %i[housing_payments].freeze
+  PAYMENT_TYPES.each do |payment_type|
+    value_attribute = :"#{payment_type}_value"
+    frequency_attribute = :"#{payment_type}_frequency"
+    attribute value_attribute, :gbp
+    attribute frequency_attribute, :string
 
-  OUTGOING_ATTRIBUTES.each do |attribute|
-    attribute attribute, :gbp
-    validates attribute,
-              numericality: { greater_than: 0, allow_nil: true },
-              presence: true,
-              if: -> { outgoings.include?(attribute.to_s) }
+    validates value_attribute, presence: true
+    validates frequency_attribute, presence: true,
+                                   inclusion: { in: VALID_FREQUENCIES, allow_nil: false },
+                                   if: -> { send(value_attribute)&.positive? }
   end
 end

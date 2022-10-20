@@ -55,6 +55,13 @@ class CfeConnection
     create_record(assessment_id, "employments", employment_income:)
   end
 
+  CFE_OUTGOING_FREQUENCIES = {
+    "every_week" => :weekly,
+    "every_two_weeks" => :two_weekly,
+    "every_four_weeks" => :four_weekly,
+    "monthly" => :monthly,
+  }.freeze
+
   def create_regular_payments(assessment_id, income_form, outgoings_form)
     # TODO: CFE does not currently support 'other' income, and errors if we try to send it other income,
     # so for the time being we do _not_ tell CFE about other income.
@@ -71,12 +78,16 @@ class CfeConnection
     end
 
     outgoings = {
-      rent_or_mortgage: outgoings_form&.housing_payments,
-    }.select { |_k, v| v.present? }.map do |category, amount|
+      rent_or_mortgage: :housing_payments,
+      child_care: :childcare_payments,
+      maintenance_out: :maintenance_payments,
+      legal_aid: :legal_aid_payments,
+    }.select { |_k, type| outgoings_form&.send("#{type}_value")&.positive? }
+    .map do |category, type|
       { operation: :debit,
         category:,
-        frequency: :monthly,
-        amount: }
+        frequency: CFE_OUTGOING_FREQUENCIES[outgoings_form.send("#{type}_frequency")],
+        amount: outgoings_form.send("#{type}_value") }
     end
 
     regular_transactions = income + outgoings

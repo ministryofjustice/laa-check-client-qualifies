@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Monthly income Page" do
   let(:income_header) { "What other income does your client receive?" }
-  let(:outgoings_header) { "What are your client's monthly outgoings and deductions?" }
+  let(:outgoings_header) { "What are your client's outgoings and deductions?" }
   let(:estimate_id) { SecureRandom.uuid }
   let(:mock_connection) { instance_double(CfeConnection, api_result: CalculationResult.new({}), create_assessment_id: estimate_id) }
 

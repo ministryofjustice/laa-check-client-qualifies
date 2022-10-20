@@ -65,8 +65,22 @@ en:
               greater_than: Other income must be greater than £0
         outgoings_form:
           attributes:
-            outgoings:
-              at_least_one_item:  Please select at least one option
+            housing_payments_value:
+              blank: Please enter a 0 if your client makes no housing payments
+            childcare_payments_value:
+              blank: Please enter a 0 if your client makes no childcare payments
+            maintenance_payments_value:
+              blank: Please enter a 0 if your client makes no maintenance payments
+            legal_aid_payments_value:
+              blank: Please enter a 0 if your client makes no legal aid payments
+            housing_payments_frequency:
+              blank: Please enter the frequency of your client's housing payments
+            childcare_payments_frequency:
+              blank: Please enter the frequency of your client's childcare payments
+            maintenance_payments_frequency:
+              blank: Please enter the frequency of your client's maintenance payments
+            legal_aid_payments_frequency:
+              blank: Please enter the frequency of your client's legal aid payments
         assets_form:
           attributes:
             assets:
@@ -231,19 +245,32 @@ en:
       none:
         label: My client has no monthly income
     outgoings:
-      heading: ""
+      heading: "What are your client's outgoings and deductions?"
       caption: Your client's finances
-      outgoings:
-        legend: What are your client's monthly outgoings and deductions?
-        hint: Select all that apply
+      second_caption: Please enter zero if a question does not apply.
       housing_payments:
         label: Housing payments
         hint: "For example: rent, mortgage or board and lodgings"
-        input: Enter monthly amount
+      childcare_payments:
+        label: Childcare payments
+        hint: "For example, to a childminder, nanny or nursery"
+      maintenance_payments:
+        label: Maintenance payments to a former partner
+        hint: "This includes child maintenance"
+      legal_aid_payments:
+        label: Payments towards legal aid in a criminal case
+        hint: ""
+      enter_amount: Enter amount
+      enter_frequency: Enter frequency
+      frequencies:
+        every_week: Every week
+        every_two_weeks: Every two weeks
+        every_four_weeks: Every four weeks
+        monthly: Monthly
       none:
         label: My client has no monthly outgoings or deductions
-      guidance_on_housing_payments: Guidance on housing payments (need link)
-      link_to_guidance_on_housing_payments: "#TODO: To be defined"
+      guidance_on_outgoings: Guidance on outgoings (need link)
+      link_to_guidance_on_outgoings: "#TODO: To be defined"
     property:
       caption: Your client's finances
       property_owned:
