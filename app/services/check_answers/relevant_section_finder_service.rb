@@ -1,28 +1,30 @@
 module CheckAnswers
   class RelevantSectionFinderService
-    def self.call(step)
-      new.call(step)
+    def self.call(step, session_data)
+      new(step, session_data).call
     end
 
-    def call(step)
-      data = SectionListerService.call
-      relevant_section = data[:sections].find do |section|
-        section[:screen] == step.to_s || matching_subsection?(section, step)
-      end
-
-      relevant_section&.dig(:label)
+    def initialize(step, session_data)
+      @step = step
+      @session_data = session_data
     end
 
-    def matching_subsection?(section, step)
-      section[:subsections]&.any? do |subsection|
-        subsection[:screen] == step.to_s || matching_field?(subsection, step)
+    def call
+      sections = SectionListerService.call(@session_data)
+      nested_pairs = sections.map do |section|
+        section.subsections.map do |subsection|
+          subsection.fields.map do |field|
+            {
+              key: field.screen || subsection.screen || section.screen,
+              value: section.label,
+            }
+          end
+        end
       end
-    end
 
-    def matching_field?(subsection, step)
-      subsection[:fields]&.any? do |field|
-        field[:screen] == step.to_s
-      end
+      dictionary = nested_pairs.flatten.map { [_1[:key], _1[:value]] }.to_h
+
+      dictionary[@step]
     end
   end
 end

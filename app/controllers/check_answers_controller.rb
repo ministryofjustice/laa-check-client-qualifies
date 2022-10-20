@@ -28,6 +28,6 @@ class CheckAnswersController < EstimateFlowController
   end
 
   def relevant_check_answers_section_label
-    CheckAnswers::RelevantSectionFinderService.call(step)
+    CheckAnswers::RelevantSectionFinderService.call(step, session_data)
   end
 end
