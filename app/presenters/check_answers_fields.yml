@@ -1,0 +1,156 @@
+# This file defines the fields to show on the 'check answers' page,
+# since that page mostly comprises a bunch of very repetitive
+# line items that only vary in terms of what particular attribute is being summarised.
+
+# This file also contains some very simple rules around when _not_ to show a particular field.
+# Note that it doesn't comment on rules around which sections and subsections to skip, as
+# that is determined by the StepsHelper logic.
+
+# DATA TYPES:
+# ==========
+
+# SECTIONS
+# A section always has a label, which is used to construct the I18n key for its title.
+# It has a screen IF the section header should have a 'change' link to that screen next to it.
+# It also has zero or more subsections
+
+# SUBSECTIONS
+# A subsection has a label IF it has a visible title
+# It has a screen IF the subsection header should have a 'change' link to that screen next to it.
+# It also has zero or more fields
+
+
+# FIELDS
+# A field has a type, which is one of boolean, money, select, number, or no_or_number.
+# This determines which partial is rendered
+# It has an attribute, which determines the key used to store the relevant value in the session
+# The attribute is also used to construct the I18n key
+# It has a screen IF the field has its own 'change' link to a screen
+# 'no_or_number' fields also have an 'alt_attribute' which describes which number to display
+# It can have a 'requires_inclusion_in', which defines which array attribute in the session
+# needs to contain the inclusion string (see below) as a string if the value of the field is to be displayed
+# It can have a 'requires_inclusion_of', which defines the inclusion string. If requires_inclusion_of
+# is not defined, the inclusion string is the attribute name
+# It can have a 'screen_if_null' attribute, if the link target should vary depending on whether or
+# not there is a displayable value.
+sections:
+  - label: case_details
+    subsections:
+  - label: client_details
+    screen: applicant
+    subsections:
+      - fields:
+        - attribute: over_60
+          type: boolean
+        - attribute: partner
+          type: boolean
+        - attribute: dependants
+          type: no_or_number
+          alt_attribute: dependant_count
+        - attribute: employed
+          type: boolean
+        - attribute: passporting
+          type: boolean
+  - label: employment
+    screen: employment
+    subsections:
+      - fields:
+        - attribute: gross_income
+          type: money
+        - attribute: income_tax
+          type: money
+        - attribute: national_insurance
+          type: money
+        - attribute: frequency
+          type: select
+  - label: other_income
+    subsections:
+      - label: benefits
+      - label: monthly_income
+        screen: monthly_income
+        fields:
+          - attribute: friends_or_family
+            type: money
+            requires_inclusion_in: monthly_incomes
+          - attribute: maintenance
+            type: money
+            requires_inclusion_in: monthly_incomes
+          - attribute: property_or_lodger
+            type: money
+            requires_inclusion_in: monthly_incomes
+          - attribute: pension
+            type: money
+            requires_inclusion_in: monthly_incomes
+          - attribute: student_finance
+            type: money
+            requires_inclusion_in: monthly_incomes
+          - attribute: other
+            type: money
+            requires_inclusion_in: monthly_incomes
+  - label: outgoings
+    screen: outgoings
+    subsections:
+      - fields:
+          - attribute: housing_payments
+            type: money
+            requires_inclusion_in: outgoings
+  - label: assets
+    subsections:
+      - label: property
+        fields:
+          - type: select
+            attribute: property_owned
+            screen: property
+          - type: money
+            attribute: house_value
+            screen: property_entry
+          - type: money
+            attribute: mortgage
+            screen: property_entry
+            screen_if_null: property
+            requires_inclusion_in: property_owned
+            requires_inclusion_of: with_mortgage
+          - type: number
+            attribute: percentage_owned
+            screen: property_entry
+      - label: vehicles
+        fields:
+          - type: boolean
+            attribute: vehicle_owned
+            screen: vehicle
+          - type: money
+            attribute: vehicle_value
+            screen: vehicle_value
+          - type: boolean
+            attribute: vehicle_in_regular_use
+            screen: vehicle_value
+          - type: boolean
+            attribute: vehicle_over_3_years_ago
+            screen: vehicle_age
+          - type: boolean
+            attribute: vehicle_pcp
+            screen: vehicle_finance
+          - type: money
+            attribute: vehicle_finance
+            screen: vehicle_finance
+      - label: other
+        screen: assets
+        fields:
+          - attribute: property_value
+            type: money
+            requires_inclusion_in: assets
+            requires_inclusion_of: property
+          - attribute: property_mortgage
+            requires_inclusion_in: assets
+            requires_inclusion_of: property
+            type: money
+          - attribute: property_percentage_owned_html
+            type: number
+            requires_inclusion_in: assets
+            requires_inclusion_of: property
+          - attribute: savings
+            type: money
+            requires_inclusion_in: assets
+          - attribute: investments
+            type: money
+            requires_inclusion_in: assets

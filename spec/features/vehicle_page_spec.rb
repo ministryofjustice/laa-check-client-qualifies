@@ -59,13 +59,13 @@ RSpec.describe "Vehicle Page" do
         end
 
         it "can do a simple loop back to check answers" do
-          click_on "Change"
+          within("#field-list-vehicles") { click_on "Change" }
           click_on "Save and continue"
           expect(page).to have_content check_answers_header
         end
 
         it "errors correctly" do
-          click_on "Change"
+          within("#field-list-vehicles") { click_on "Change" }
           select_vehicle_value(:vehicle_owned, true)
           click_on "Save and continue"
 
@@ -78,7 +78,7 @@ RSpec.describe "Vehicle Page" do
         end
 
         it "can do a loop changing the vehicle answer" do
-          click_on "Change"
+          within("#field-list-vehicles") { click_on "Change" }
           select_vehicle_value(:vehicle_owned, true)
           click_on "Save and continue"
           fill_in "vehicle-value-form-vehicle-value-field", with: vehicle_value

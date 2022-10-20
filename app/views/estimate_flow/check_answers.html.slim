@@ -1,36 +1,72 @@
 - content_for :back
-  = link_to t("generic.back"), previous_wizard_path, class: "govuk-back-link"
+  = back_link(:check_answers, @estimate, @back_buttons_invoke_browser_back_behaviour)
 
 .govuk-grid-column-two-thirds
   h1.govuk-heading-xl
     = t(".heading")
 
-  h2.govuk-heading-l
-    = t(".assets")
+  - @form.sections.each do |section|
+    .govuk-grid-row
+      .govuk-grid-column-two-thirds
+        h2.govuk-heading-l
+          = t(".#{section.label}")
+      .govuk-grid-column-one-third
+        - if section.screen.present?
+          p class="govuk-!-text-align-right"
+            = link_to t("generic.change"),
+                      estimate_check_answer_path(@estimate_id, section.screen),
+                      class: "govuk-link govuk-!-font-size-19"
 
-    h2.govuk-heading-m
-      = t(".vehicles")
+    - section.subsections.each do |subsection|
+      - if subsection.label
+        .govuk-grid-row
+          .govuk-grid-column-two-thirds
+            h2.govuk-heading-m
+              = t(".#{subsection.label}")
+          .govuk-grid-column-one-third
+            - if subsection.screen.present?
+              p class="govuk-!-text-align-right"
+                = link_to t("generic.change"),
+                          estimate_check_answer_path(@estimate_id, subsection.screen),
+                          class: "govuk-link govuk-!-font-size-19"
 
-    dl class="govuk-summary-list govuk-!-margin-bottom-9"
-      = render "check_answer", label_text: t(".vehicle.ownership"),
-              value_text: yes_no_boolean(@form.vehicle_owned), link: :vehicle
+      dl class="govuk-summary-list govuk-!-margin-bottom-9" id="field-list-#{subsection.label || section.label}"
+        - subsection.fields.each do |field|
+          - case field.type
+          - when "money"
+            = render "money_check_answer",
+                     label_text: t(".#{field.label}"),
+                     value_text: field.value,
+                     link: field.screen
+          - when "boolean"
+            = render "check_answer",
+                     label_text: t(".#{field.label}"),
+                     value_text: yes_no_boolean(field.value),
+                     link: field.screen
+          - when "number"
+            = render "check_answer",
+                     label_text: t(".#{field.label}"),
+                     value_text: field.value || t("generic.not_applicable"),
+                     link: field.screen
+          - when "no_or_number"
+            = render "check_answer",
+                     label_text: t(".#{field.label}"),
+                     value_text: field.value ? field.alt_value : yes_no_boolean(field.value),
+                     link: field.screen
+          - when "select"
+            = render "check_answer",
+                     label_text: t(".#{field.label}"),
+                     value_text: t(".#{field.label}_options.#{field.value || 'not_provided'}"),
+                     link: field.screen
+          - else
+            - raise "Unknown field_type #{field.type}"
 
-      - if @form.vehicle_owned
-        = render "money_check_answer", label_text: t(".vehicle.value"),
-                value_text: @form.vehicle_value, link: :vehicle_value
-        = render "check_answer", label_text: t(".vehicle.regular_use"),
-                value_text: yes_no_boolean(@form.vehicle_in_regular_use), link: :vehicle_value
-
-        - if @form.vehicle_in_regular_use
-          = render "check_answer", label_text: t(".vehicle.vehicle_over_3_years_ago"),
-                  value_text: yes_no_boolean(@form.vehicle_over_3_years_ago), link: :vehicle_age
-          = render "check_answer", label_text: t(".vehicle.vehicle_pcp"),
-                  value_text: yes_no_boolean(@form.vehicle_pcp), link: :vehicle_finance
-          - if @form.vehicle_pcp
-            = render "money_check_answer", label_text: t(".vehicle.vehicle_finance"),
-                    value_text: @form.vehicle_finance, link: :vehicle_finance
+  h2.govuk-heading-m = t(".submission_instructions")
+  p = t(".submission_explanation")
 
   = form_with(url: estimates_path) do |form|
     = hidden_field_tag :cfe_id, params[:estimate_id]
 
-    = form.govuk_submit t("generic.submit")
+    = form.govuk_submit t(".call_to_action")
+
+= render "shared/sidebar_with_date", links: {}

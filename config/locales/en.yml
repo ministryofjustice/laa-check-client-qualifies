@@ -132,6 +132,7 @@ en:
     change: Change
     date: Date
     related_content_title: Related content
+    not_applicable: Not applicable
   estimate_flow:
     applicant:
       heading: Your client's details
@@ -267,19 +268,81 @@ en:
       guidance:
         text: Guidance on assets
         link: "#"
-    summary:
-      heading: Summary Page
     check_answers:
       heading: Check your client and partner answers
+      case_details: Your client's case details
+      client_details: Your client's details
+      client_details_fields:
+        over_60: Over 60 years old
+        partner: Has a partner
+        dependants: Has dependants
+        dependant_count: Number of dependants
+        employed: Is employed
+        passporting: Receives a passporting benefit
+      employment_fields:
+        gross_income: Gross income
+        income_tax: Income tax
+        national_insurance: National Insurance
+        frequency: Frequency
+        frequency_options:
+          total: Total in last 3 months
+          week: Every week
+          two_weeks: Every two weeks
+          four_weeks: Every four weeks
+          monthly: Monthly
+          annually: Annually
+          not_provided: Not provided
+      other_income: Your client's income
+      benefits: Client's benefits
+      monthly_income: Client's other income
+      monthly_income_fields:
+        friends_or_family: Financial help
+        maintenance: Maintenance payments from a former partner
+        property_or_lodger: Income from a property or lodger
+        pension: Pension
+        student_finance: Student finance
+        other: Other sources
+      outgoings: Your client's outgoings
+      outgoings_fields:
+        housing_payments: Housing payments
       assets: Your client's assets
       vehicles: Client's vehicles
-      vehicle:
-        ownership: Owns a vehicle
-        value: Estimated value
-        regular_use: In regular use
+      vehicles_fields:
+        vehicle_owned: Owns a vehicle
+        vehicle_value: Estimated value
+        vehicle_in_regular_use: In regular use
         vehicle_over_3_years_ago: Bought over 3 years ago
         vehicle_pcp: Outstanding finance on vehicle?
         vehicle_finance: Payments left on vehicle
+      property: Client's property
+      property_fields:
+        property_owned: Owns the home they live in
+        property_owned_options:
+          outright: "Yes"
+          with_mortgage: "Yes"
+          none: "No"
+          not_provided: Not provided
+        house_value: Estimated value
+        mortgage: Outstanding mortgage
+        percentage_owned: Percentage share owned
+      other: Client's other assets
+      other_fields:
+        property_value: "Second property or holiday home: value"
+        property_mortgage: "Second property or holiday home: outstanding mortgage"
+        property_percentage_owned_html: "Second property or holiday home: &#37; owned"
+        savings: Savings
+        investments: Investments
+      submission_instructions: Now submit your eligibility check
+      submission_explanation: We'll use your answers to give you an estimated result on your client's financial eligibility for legal aid.
+      call_to_action: Submit eligibility check
+    results:
+      heading: Results Page
+      provided_client_information: You have provided your client's information
+      client-has-to-pay: Based on what you've told us, your client may need to pay towards controlled legal aid work
+      client-may-have-to-pay: "We calculated that your client may have to pay:"
+      income-contribution: per month from their disposable income
+      capital-contribution: from their disposable capital
+      client-still-has-to-apply: You still need to apply for legal aid and provide case details before legal aid can be granted
     property_entry:
       heading: Tell us about your client's property
       caption: Your client's finances

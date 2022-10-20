@@ -1,5 +1,5 @@
 - content_for :back do
-  = link_to t("generic.back"), "javascript:history.back()", class: "govuk-back-link"
+  = back_link(:vehicle_finance, @estimate, @back_buttons_invoke_browser_back_behaviour)
 .govuk-grid-column-two-thirds
   span.govuk-caption-l = t(".caption")
 
