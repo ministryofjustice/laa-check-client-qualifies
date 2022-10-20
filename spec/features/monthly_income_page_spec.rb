@@ -13,7 +13,6 @@ RSpec.describe "Monthly income Page" do
 
     select_applicant_boolean(:over_60, false)
     select_applicant_boolean(:dependants, false)
-    select_applicant_boolean(:partner, false)
     select_applicant_boolean(:employed, false)
 
     select_applicant_boolean(:passporting, false)

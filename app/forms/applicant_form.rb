@@ -7,7 +7,9 @@ class ApplicantForm
 
   INTRO_BOOLEAN_ATTRIBUTES.each do |attr|
     attribute attr, :boolean
-    validates attr, inclusion: { in: [true, false] }
+
+    # TODO: Re-add validation for partner question when we implement partner functionality
+    validates(attr, inclusion: { in: [true, false] }) unless attr == :partner
   end
 
   attribute :dependant_count, :integer

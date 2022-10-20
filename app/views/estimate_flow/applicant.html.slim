@@ -24,7 +24,8 @@
     = form.govuk_collection_radio_buttons :employed, employment_options, :first, :last,
                                           legend: { text: t(".employed.legend") },
                                           hint: { text: t(".employed.hint") }
-    = form.govuk_collection_radio_buttons :partner, yes_no_options, :first, :last,
+    / TODO: Re-show this field when we implement partner functionality
+    / = form.govuk_collection_radio_buttons :partner, yes_no_options, :first, :last,
                                           legend: { text: t(".partner.legend") },
                                           hint: { text: t(".partner.hint") }
     = form.govuk_collection_radio_buttons :passporting, yes_no_options, :first, :last,
