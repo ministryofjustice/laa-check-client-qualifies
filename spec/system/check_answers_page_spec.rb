@@ -14,7 +14,6 @@ RSpec.describe "Check Answers Page", :vcr do
     visit_applicant_page
     select_applicant_boolean(:over_60, false)
     select_applicant_boolean(:dependants, false)
-    select_applicant_boolean(:partner, false)
     select_applicant_boolean(:employed, false)
 
     select_applicant_boolean(:passporting, true)
