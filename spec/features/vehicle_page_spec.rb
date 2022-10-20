@@ -8,11 +8,14 @@ RSpec.describe "Vehicle Page" do
   let(:check_answers_header) { "Check your client and partner answers" }
 
   context "without property" do
-    # let(:estimate_id) { SecureRandom.uuid }
-    # let(:mock_connection) { instance_double(CfeConnection, create_assessment_id: estimate_id, create_proceeding_type: nil) }
+    let(:estimate_id) { SecureRandom.uuid }
+    let(:mock_connection) { instance_double(CfeConnection, api_result: CalculationResult.new({}), create_assessment_id: estimate_id, create_proceeding_type: nil) }
 
     before do
-      # allow(CfeConnection).to receive(:connection).and_return(mock_connection)
+      allow(CfeConnection).to receive(:connection).and_return(mock_connection)
+      allow(mock_connection).to receive(:create_applicant)
+      allow(mock_connection).to receive(:create_vehicle)
+      allow(mock_connection).to receive(:create_regular_payments)
 
       visit_applicant_page
       select_applicant_boolean(:over_60, false)
@@ -48,7 +51,7 @@ RSpec.describe "Vehicle Page" do
         let(:vehicle_value) { 20_000 }
 
         before do
-          # allow(mock_connection).to receive(:create_capitals)
+          allow(mock_connection).to receive(:create_capitals)
           click_checkbox("assets-form-assets", "none")
           click_on "Save and continue"
         end
@@ -83,9 +86,10 @@ RSpec.describe "Vehicle Page" do
           click_on "Save and continue"
           fill_in "vehicle-value-form-vehicle-value-field", with: vehicle_value
           select_boolean_value("vehicle-value-form", :vehicle_in_regular_use, false)
-          # expect(mock_connection).to receive(:create_vehicle)
+          expect(mock_connection).to receive(:create_vehicle)
           click_on "Save and continue"
           expect(page).to have_content check_answers_header
+          click_on "Submit"
         end
       end
     end
@@ -115,13 +119,13 @@ RSpec.describe "Vehicle Page" do
 
         context "without regular usage" do
           before do
-            # allow(mock_connection)
-            #   .to receive(:create_vehicle)
-            #         .with(estimate_id,
-            #               date_of_purchase: Time.zone.today.to_date,
-            #               value: vehicle_value,
-            #               loan_amount_outstanding: 0,
-            #               in_regular_use: false)
+            allow(mock_connection)
+              .to receive(:create_vehicle)
+                    .with(estimate_id,
+                          date_of_purchase: Time.zone.today.to_date,
+                          value: vehicle_value,
+                          loan_amount_outstanding: 0,
+                          in_regular_use: false)
             select_boolean_value("vehicle-value-form", :vehicle_in_regular_use, false)
             click_on "Save and continue"
           end
@@ -131,7 +135,7 @@ RSpec.describe "Vehicle Page" do
           end
 
           it "has expected check_answers content" do
-            # allow(mock_connection).to receive(:create_capitals)
+            allow(mock_connection).to receive(:create_capitals)
             click_checkbox("assets-form-assets", "none")
             click_on "Save and continue"
 
@@ -162,17 +166,17 @@ RSpec.describe "Vehicle Page" do
 
           context "when purchased 3 years ago" do
             it "uses 4 years old" do
-              # expect(mock_connection).to receive(:create_vehicle).with(estimate_id,
-              #                                                          date_of_purchase: 4.years.ago.to_date,
-              #                                                          value: vehicle_value,
-              #                                                          loan_amount_outstanding: loan_amount,
-              #                                                          in_regular_use: true)
+              expect(mock_connection).to receive(:create_vehicle).with(estimate_id,
+                                                                       date_of_purchase: 4.years.ago.to_date,
+                                                                       value: vehicle_value,
+                                                                       loan_amount_outstanding: loan_amount,
+                                                                       in_regular_use: true)
 
               select_boolean_value("vehicle-age-form", :vehicle_over_3_years_ago, true)
               click_on "Save and continue"
               select_boolean_value("vehicle-finance-form", :vehicle_pcp, true)
               fill_in "vehicle-finance-form-vehicle-finance-field", with: loan_amount
-              click_on "Save and continue"
+              progress_to_submit_from_vehicle_form
             end
           end
 
@@ -183,16 +187,19 @@ RSpec.describe "Vehicle Page" do
             end
 
             it "uses 2 years old" do
-              # expect(mock_connection).to receive(:create_vehicle).with(estimate_id,
-              #                                                          date_of_purchase: 2.years.ago.to_date,
-              #                                                          value: vehicle_value,
-              #                                                          loan_amount_outstanding: loan_amount,
-              #                                                          in_regular_use: true)
+              expect(mock_connection).to receive(:create_vehicle).with(estimate_id,
+                                                                       date_of_purchase: 2.years.ago.to_date,
+                                                                       value: vehicle_value,
+                                                                       loan_amount_outstanding: loan_amount,
+                                                                       in_regular_use: true)
 
               select_boolean_value("vehicle-finance-form", :vehicle_pcp, true)
               fill_in "vehicle-finance-form-vehicle-finance-field", with: loan_amount
               click_on "Save and continue"
               expect(page).to have_content assets_header
+              click_checkbox("assets-form-assets", "none")
+              click_on "Save and continue"
+              click_on "Submit"
             end
 
             it "has a readable PCP error" do
@@ -218,12 +225,6 @@ RSpec.describe "Vehicle Page" do
 
               it "can be corrected" do
                 fill_in "vehicle-finance-form-vehicle-finance-field", with: loan_amount
-                # expect(mock_connection).to receive(:create_vehicle).with(estimate_id,
-                #                                                          date_of_purchase: 2.years.ago.to_date,
-                #                                                          value: vehicle_value,
-                #                                                          loan_amount_outstanding: loan_amount,
-                #                                                          in_regular_use: true)
-
                 click_on "Save and continue"
                 expect(page).to have_content assets_header
                 click_on "Back"
@@ -250,6 +251,7 @@ RSpec.describe "Vehicle Page" do
                 select_boolean_value("vehicle-finance-form", :vehicle_pcp, false)
                 click_on "Save and continue"
                 expect(page).to have_content assets_header
+                progress_to_submit_from_vehicle_form
               end
             end
           end

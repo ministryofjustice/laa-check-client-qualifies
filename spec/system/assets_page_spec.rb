@@ -19,7 +19,11 @@ RSpec.describe "Assets Page", :vcr do
     select_applicant_boolean(:passporting, true)
     click_on "Save and continue"
 
-    click_checkbox("property-form-property-owned", "none")
+    click_checkbox("property-form-property-owned", "with_mortgage")
+    click_on "Save and continue"
+    fill_in "property-entry-form-house-value-field", with: 100_000
+    fill_in "property-entry-form-mortgage-field", with: 50_000
+    fill_in "property-entry-form-percentage-owned-field", with: 100
     click_on "Save and continue"
 
     select_boolean_value("vehicle-form", :vehicle_owned, false)

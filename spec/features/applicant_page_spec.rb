@@ -4,8 +4,6 @@ RSpec.describe "Applicant Page" do
   let(:income_header) { "What other income does your client receive?" }
   let(:property_header) { "Does your client own the home they live in?" }
   let(:applicant_header) { "About your client" }
-  let(:estimate_id) { SecureRandom.uuid }
-  let(:mock_connection) { instance_double(CfeConnection, create_assessment_id: estimate_id) }
 
   describe "errors" do
     before do
@@ -99,6 +97,8 @@ RSpec.describe "Applicant Page" do
   end
 
   describe "submitting over_60 field" do
+    let(:estimate_id) { SecureRandom.uuid }
+    let(:mock_connection) { instance_double(CfeConnection, create_assessment_id: estimate_id) }
     let(:calculation_result) do
       CalculationResult.new(result_summary: { overall_result: { result: "contribution_required", income_contribution: 12_345.78 } })
     end
@@ -106,6 +106,7 @@ RSpec.describe "Applicant Page" do
     before do
       allow(CfeConnection).to receive(:connection).and_return(mock_connection)
       allow(mock_connection).to receive(:create_proceeding_type)
+      allow(mock_connection).to receive(:create_regular_payments)
       visit_applicant_page
 
       select_applicant_boolean(:over_60, over_60)

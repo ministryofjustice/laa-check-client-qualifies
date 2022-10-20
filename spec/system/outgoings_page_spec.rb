@@ -32,5 +32,9 @@ RSpec.describe "Outgoings Page", :vcr do
     click_checkbox("outgoings-form-outgoings", "housing_payments")
     fill_in "outgoings-form-housing-payments-field", with: "300"
     click_on "Save and continue"
+    click_checkbox("property-form-property-owned", "none")
+    click_on "Save and continue"
+    select_boolean_value("vehicle-form", :vehicle_owned, false)
+    progress_to_submit_from_vehicle_form
   end
 end

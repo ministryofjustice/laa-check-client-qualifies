@@ -30,6 +30,17 @@ RSpec.describe "Employment Page", :vcr do
       select "Every week", from: "employment-form-frequency-field"
       click_on "Save and continue"
       expect(page).to have_content(income_header)
+      click_checkbox("monthly-income-form-monthly-incomes", "none")
+      click_on "Save and continue"
+      click_checkbox("outgoings-form", "outgoings-none")
+      click_on "Save and continue"
+      click_checkbox("property-form-property-owned", "none")
+      click_on "Save and continue"
+      select_boolean_value("vehicle-form", :vehicle_owned, false)
+      click_on "Save and continue"
+      click_checkbox("assets-form-assets", "none")
+      click_on "Save and continue"
+      click_on "Submit"
     end
   end
 

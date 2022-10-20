@@ -6,11 +6,14 @@ RSpec.describe "Property Page" do
   let(:property_header) { "Does your client own the home they live in?" }
   let(:vehicle_header) { "Does your client own a vehicle?" }
   let(:estimate_id) { SecureRandom.uuid }
-  # let(:mock_connection) { instance_double(CfeConnection, create_assessment_id: estimate_id) }
+  let(:mock_connection) { instance_double(CfeConnection, api_result: CalculationResult.new({}), create_assessment_id: estimate_id) }
 
   before do
-    # allow(CfeConnection).to receive(:connection).and_return(mock_connection)
-    # allow(mock_connection).to receive(:create_proceeding_type)
+    allow(CfeConnection).to receive(:connection).and_return(mock_connection)
+    allow(mock_connection).to receive(:create_proceeding_type)
+    allow(mock_connection).to receive(:create_regular_payments)
+    allow(mock_connection).to receive(:create_properties)
+    allow(mock_connection).to receive(:create_applicant)
     visit_applicant_page
 
     select_applicant_boolean(:over_60, false)
@@ -34,7 +37,7 @@ RSpec.describe "Property Page" do
   end
 
   it "can set property to mortage owned" do
-    # expect(mock_connection).to receive(:create_properties)
+    expect(mock_connection).to receive(:create_properties)
 
     click_checkbox("property-form-property-owned", "with_mortgage")
     click_on "Save and continue"
@@ -51,10 +54,11 @@ RSpec.describe "Property Page" do
     click_on "Save and continue"
 
     expect(page).to have_content check_answers_header
+    click_on "Submit"
   end
 
   it "applies validation on the property entry form" do
-    # allow(mock_connection).to receive(:create_properties)
+    allow(mock_connection).to receive(:create_properties)
 
     click_checkbox("property-form-property-owned", "with_mortgage")
     click_on "Save and continue"

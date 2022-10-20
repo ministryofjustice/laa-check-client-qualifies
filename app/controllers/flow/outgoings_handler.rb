@@ -4,7 +4,7 @@ module Flow
 
     class << self
       def model(session_data)
-        OutgoingsForm.new session_data.slice(*OUTGOINGS_ATTRIBUTES)
+        OutgoingsForm.new session_data.slice(*OUTGOINGS_ATTRIBUTES.map(&:to_s))
       end
 
       def form(params, _session_data)

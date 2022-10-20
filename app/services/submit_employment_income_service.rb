@@ -1,4 +1,4 @@
-class SubmitEmploymentIncomeService < CfeService
+class SubmitEmploymentIncomeService < BaseCfeService
   def self.call(cfe_estimate_id, cfe_session_data)
     new.call(cfe_estimate_id, cfe_session_data)
   end
@@ -61,14 +61,14 @@ class SubmitEmploymentIncomeService < CfeService
 
   def period(form, index)
     case form.frequency
-    when "annually", "total", "monthly"
-      index.months
     when "week"
       index.weeks
     when "two_weeks"
       (index * 2).weeks
     when "four_weeks"
       (index * 4).weeks
+    else
+      index.months
     end
   end
 end

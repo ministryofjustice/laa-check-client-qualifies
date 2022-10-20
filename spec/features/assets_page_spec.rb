@@ -3,11 +3,13 @@ require "rails_helper"
 RSpec.describe "Assets Page" do
   let(:assets_header) { "Which assets does your client have?" }
   let(:estimate_id) { SecureRandom.uuid }
-  let(:mock_connection) { instance_double(CfeConnection, create_assessment_id: estimate_id, create_proceeding_type: nil) }
+  let(:mock_connection) { instance_double(CfeConnection, create_assessment_id: estimate_id, api_result: CalculationResult.new({}), create_proceeding_type: nil) }
   let(:check_answers_header) { "Check your client and partner answers" }
 
   before do
     allow(CfeConnection).to receive(:connection).and_return(mock_connection)
+    allow(mock_connection).to receive(:create_regular_payments)
+    allow(mock_connection).to receive(:create_applicant)
     visit_applicant_page
 
     select_applicant_boolean(:over_60, false)
@@ -32,6 +34,9 @@ RSpec.describe "Assets Page" do
     end
 
     it "can submit second property" do
+      expect(mock_connection)
+        .to receive(:create_properties)
+              .with(estimate_id, nil, { outstanding_mortgage: 50_000, percentage_owned: 50, value: 100_000 })
       click_checkbox("assets-form-assets", "property")
       fill_in "assets-form-property-value-field", with: "100_000"
       fill_in "assets-form-property-mortgage-field", with: "50_000"
@@ -39,6 +44,7 @@ RSpec.describe "Assets Page" do
       click_on "Save and continue"
 
       expect(page).to have_content check_answers_header
+      click_on "Submit"
     end
   end
 
@@ -72,6 +78,11 @@ RSpec.describe "Assets Page" do
     end
 
     it "can submit second property" do
+      expect(mock_connection)
+        .to receive(:create_properties)
+              .with(estimate_id,
+                    { outstanding_mortgage: 50_000, percentage_owned: 100, value: 100_000 },
+                    { outstanding_mortgage: 40_000, percentage_owned: 50, value: 80_000 })
       click_checkbox("assets-form-assets", "property")
       fill_in "assets-form-property-value-field", with: "80_000"
       fill_in "assets-form-property-mortgage-field", with: "40_000"
@@ -79,9 +90,16 @@ RSpec.describe "Assets Page" do
       click_on "Save and continue"
 
       expect(page).to have_content check_answers_header
+      click_on "Submit"
     end
 
     it "can submit non-zero savings and investments" do
+      expect(mock_connection)
+        .to receive(:create_properties)
+              .with(estimate_id,
+                    { outstanding_mortgage: 50_000, percentage_owned: 100, value: 100_000 },
+                    nil)
+      expect(mock_connection).to receive(:create_capitals).with(estimate_id, [100], [500, 1000])
       click_checkbox("assets-form-assets", "savings")
       fill_in "assets-form-savings-field", with: "100"
 
@@ -94,20 +112,18 @@ RSpec.describe "Assets Page" do
       click_on "Save and continue"
 
       expect(page).to have_content check_answers_header
+      click_on "Submit"
     end
 
     it "can fill in the assets questions and get to results" do
       allow(mock_connection).to receive(:create_properties)
       allow(mock_connection).to receive(:create_applicant)
+      allow(mock_connection).to receive(:create_regular_payments)
       allow(mock_connection).to receive(:api_result).and_return(calculation_result)
-
       click_checkbox("assets-form-assets", "none")
       click_on "Save and continue"
-
       expect(page).to have_content check_answers_header
       click_on "Submit"
-      # failing because the form?
-      # received unexpected message :create_regular_payments with ("f09501ef-cfdd-4b4a-aa98-6cfbc423dbbb", #<MonthlyIncomeForm:0x00000001149975b8 @attributes=#<ActiveModel::AttributeSet:0x0000000114997310 @at...:0x0000000113149d80 @precision=nil, @scale=nil, @limit=nil>, @original_attribute=nil, @value=nil>}>>, nil)
       expect(page).to have_content "Your client appears provisionally eligible"
     end
   end
@@ -141,6 +157,9 @@ RSpec.describe "Assets Page" do
     end
 
     it "can submit second property" do
+      allow(mock_connection).to receive(:create_regular_payments)
+      allow(mock_connection).to receive(:create_applicant)
+      allow(mock_connection).to receive(:api_result).and_return(calculation_result)
       expect(mock_connection)
         .to receive(:create_properties)
           .with(estimate_id,
@@ -154,6 +173,7 @@ RSpec.describe "Assets Page" do
       click_on "Save and continue"
 
       expect(page).to have_content check_answers_header
+      click_on "Submit"
     end
   end
 end

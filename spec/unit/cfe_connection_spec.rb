@@ -23,18 +23,20 @@ RSpec.describe CfeConnection do
   describe "create_student_loan" do
     let!(:stub) do
       stub_request(:post, "#{root_url}/assessment_id/irregular_incomes").with(
-        body: { payments: [{ income_type: :student_loan, frequency: :annual, amount: 50 }] }.to_json,
+        body: { payments: [{ income_type: :student_loan, frequency: :annual, amount: 100 }] }.to_json,
       ).to_return(status: 200, body: "", headers: {})
     end
 
     it "calls CFE with amount provided" do
-      connection.create_student_loan("assessment_id", 50)
+      payments = [
+        {
+          "income_type": "student_loan",
+          "frequency": "annual",
+          "amount": 100,
+        },
+      ]
+      connection.create_student_loan("assessment_id", payments:)
       expect(stub).to have_been_requested
-    end
-
-    it "makes no call if amount is null" do
-      connection.create_student_loan("assessment_id", nil)
-      expect(stub).not_to have_been_requested
     end
   end
 

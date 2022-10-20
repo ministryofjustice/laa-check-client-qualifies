@@ -1,10 +1,9 @@
-class SubmitAssetsService < CfeService
+class SubmitAssetsService < BaseCfeService
   def self.call(cfe_estimate_id, cfe_session_data)
     new.call(cfe_estimate_id, cfe_session_data)
   end
 
   def call(cfe_estimate_id, cfe_session_data)
-    # binding.pry
     asset_form = Flow::AssetHandler.model(cfe_session_data)
     liquid_assets = { savings: asset_form.savings }.select { |asset, _value| asset_form.assets.include? asset.to_s }.map(&:last)
     illiquid_assets = {

@@ -31,7 +31,7 @@ RSpec.describe SubmitDependantsService do
         let(:dependant_boolean) { false }
         let(:dependants) { nil }
 
-        it "makes a successful call" do
+        it "does not make a call" do
           expect(mock_connection).not_to receive(:create_dependants)
           service.call(cfe_estimate_id, session_data)
         end
