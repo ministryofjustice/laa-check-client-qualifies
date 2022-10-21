@@ -1,7 +1,5 @@
 module CheckAnswers
   class SectionListerService
-    include StepsHelper
-
     Section = Struct.new(:label, :screen, :subsections, keyword_init: true)
     Subsection = Struct.new(:label, :screen, :fields, keyword_init: true)
     Field = Struct.new(:label, :type, :value, :screen, :alt_value, keyword_init: true)
