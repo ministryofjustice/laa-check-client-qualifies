@@ -387,12 +387,6 @@ en:
         other:
           label: Something else
           hint: ''
-      immigration_guidance:
-        text: Guidance on immigration
-        link: "#"
-      asylum_guidance:
-        text: Guidance on asylum
-        link: "#"
       domestic_abuse_guidance:
         text: Guidance on domestic abuse or violence
         link: "#"
