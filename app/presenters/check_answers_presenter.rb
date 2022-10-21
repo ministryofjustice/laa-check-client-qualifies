@@ -1,6 +1,4 @@
 class CheckAnswersPresenter
-  include StepsHelper
-
   Section = Struct.new(:label, :screen, :subsections, keyword_init: true)
   Subsection = Struct.new(:label, :screen, :fields, keyword_init: true)
   Field = Struct.new(:label, :type, :value, :screen, :alt_value, keyword_init: true)
@@ -45,7 +43,7 @@ class CheckAnswersPresenter
     value = build_value(field_data)
     screen = build_screen(field_data, value)
 
-    return unless valid_step?(@model, (screen || parent_screen).to_sym)
+    return unless StepsHelper.valid_step?(@model, (screen || parent_screen).to_sym)
 
     Field.new(label: "#{label_set}_fields.#{field_data[:attribute]}",
               type: field_data[:type],

@@ -1,8 +1,7 @@
 class EstimateFlowController < ApplicationController
   include Wicked::Wizard
-  include StepsHelper
 
-  steps(*ALL_POSSIBLE_STEPS)
+  steps(*StepsHelper.all_possible_steps)
 
   HANDLER_CLASSES = {
     case_details: Flow::CaseDetailsHandler,
