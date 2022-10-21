@@ -19,10 +19,8 @@ RSpec.describe "Employment page" do
 
   context "when I have indicated that I am not employed" do
     before do
-      select_applicant_boolean(:over_60, false)
-      select_applicant_boolean(:dependants, false)
+      fill_in_applicant_screen_without_passporting_benefits
       select_applicant_boolean(:employed, false)
-      select_applicant_boolean(:passporting, false)
       click_on "Save and continue"
     end
 
@@ -33,10 +31,8 @@ RSpec.describe "Employment page" do
 
   context "when I have indicated that I am employed" do
     before do
-      select_applicant_boolean(:over_60, false)
-      select_applicant_boolean(:dependants, false)
+      fill_in_applicant_screen_without_passporting_benefits
       select_applicant_boolean(:employed, true)
-      select_applicant_boolean(:passporting, false)
       click_on "Save and continue"
     end
 
