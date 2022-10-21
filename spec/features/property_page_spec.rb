@@ -14,13 +14,7 @@ RSpec.describe "Property Page" do
     allow(mock_connection).to receive(:create_regular_payments)
     allow(mock_connection).to receive(:create_properties)
     allow(mock_connection).to receive(:create_applicant)
-    visit_applicant_page
-
-    select_applicant_boolean(:over_60, false)
-    select_applicant_boolean(:dependants, false)
-    select_applicant_boolean(:employed, false)
-    select_applicant_boolean(:passporting, true)
-    click_on "Save and continue"
+    visit estimate_build_estimate_path estimate_id, :property
   end
 
   it "shows the correct form" do

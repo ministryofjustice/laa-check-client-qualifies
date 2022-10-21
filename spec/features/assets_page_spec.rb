@@ -10,22 +10,11 @@ RSpec.describe "Assets Page" do
     allow(CfeConnection).to receive(:connection).and_return(mock_connection)
     allow(mock_connection).to receive(:create_regular_payments)
     allow(mock_connection).to receive(:create_applicant)
-    visit_applicant_page
-
-    select_applicant_boolean(:over_60, false)
-    select_applicant_boolean(:dependants, false)
-    select_applicant_boolean(:employed, false)
-    select_applicant_boolean(:passporting, true)
-    click_on "Save and continue"
   end
 
   context "without main property" do
     before do
-      click_checkbox("property-form-property-owned", "none")
-      click_on "Save and continue"
-
-      select_boolean_value("vehicle-form", :vehicle_owned, false)
-      click_on "Save and continue"
+      visit estimate_build_estimate_path estimate_id, :assets
     end
 
     it "shows the correct page" do
@@ -53,6 +42,7 @@ RSpec.describe "Assets Page" do
     end
 
     before do
+      visit estimate_build_estimate_path estimate_id, :property
       click_checkbox("property-form-property-owned", "with_mortgage")
       click_on "Save and continue"
 
@@ -133,6 +123,7 @@ RSpec.describe "Assets Page" do
     end
 
     before do
+      visit estimate_build_estimate_path estimate_id, :property
       click_checkbox("property-form-property-owned", "outright")
       click_on "Save and continue"
 

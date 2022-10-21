@@ -12,10 +12,7 @@ RSpec.describe "Assets Page", :vcr do
   # have to skip aria-allowed-attr for govuk conditional radio buttons.
   it "has no AXE-detectable accessibility issues" do
     visit_applicant_page
-    select_applicant_boolean(:over_60, false)
-    select_applicant_boolean(:dependants, false)
-    select_applicant_boolean(:employed, false)
-    select_applicant_boolean(:passporting, true)
+    fill_in_applicant_screen_with_passporting_benefits
     click_on "Save and continue"
 
     click_checkbox("property-form-property-owned", "with_mortgage")

@@ -17,15 +17,7 @@ RSpec.describe "Vehicle Page" do
       allow(mock_connection).to receive(:create_vehicle)
       allow(mock_connection).to receive(:create_regular_payments)
 
-      visit_applicant_page
-      select_applicant_boolean(:over_60, false)
-      select_applicant_boolean(:dependants, false)
-      select_applicant_boolean(:employed, false)
-      select_applicant_boolean(:passporting, true)
-      click_on "Save and continue"
-
-      click_checkbox("property-form-property-owned", "none")
-      click_on "Save and continue"
+      visit estimate_build_estimate_path estimate_id, :vehicle
     end
 
     it "sets error on vehicle form" do

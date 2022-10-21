@@ -8,11 +8,8 @@ RSpec.describe "Outgoings Page", :vcr do
     travel_to arbitrary_fixed_time
 
     visit_applicant_page
-    select_applicant_boolean(:over_60, false)
-    select_applicant_boolean(:dependants, false)
-    select_applicant_boolean(:employed, false)
+    fill_in_applicant_screen_without_passporting_benefits
 
-    select_applicant_boolean(:passporting, false)
     click_on "Save and continue"
     click_checkbox("monthly-income-form-monthly-incomes", "friends_or_family")
     fill_in "monthly-income-form-friends-or-family-field", with: "100"

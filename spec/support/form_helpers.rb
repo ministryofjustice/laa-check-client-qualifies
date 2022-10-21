@@ -2,6 +2,17 @@ def select_applicant_boolean(field, value)
   select_boolean_value("applicant-form", field, value)
 end
 
+def fill_in_applicant_screen_with_passporting_benefits
+  fill_in_applicant_screen_without_passporting_benefits
+  select_applicant_boolean(:passporting, true)
+end
+
+def fill_in_applicant_screen_without_passporting_benefits
+  %i[over_60 dependants employed passporting].each do |attribute|
+    select_applicant_boolean(attribute, false)
+  end
+end
+
 def select_boolean_value(form_name, field, value)
   fieldname = field.to_s.tr("_", "-")
   if value
