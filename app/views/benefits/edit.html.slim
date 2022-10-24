@@ -1,5 +1,8 @@
 - content_for :back
-  = link_to t("generic.back"), estimate_build_estimate_path(params[:estimate_id], :benefits), class: "govuk-back-link"
+  - if @model.return_to_check_answers
+    = link_to t("generic.back"), estimate_build_estimate_path(params[:estimate_id], :check_answers), class: "govuk-back-link"
+  - else
+    = link_to t("generic.back"), estimate_build_estimate_path(params[:estimate_id], :benefits), class: "govuk-back-link"
 
 .govuk-grid-column-two-thirds
   span.govuk-caption-l = t(".caption")

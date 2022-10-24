@@ -64,6 +64,11 @@
                      label_text: t(".#{field.label}"),
                      value_text: (field.value if field.value&.to_f&.positive?),
                      second_value_text: t(".#{field.label}_frequency_options.#{alt_value || 'not_applicable'}")
+          - when "benefit"
+            = render "money_check_answer",
+                     label_text: field.label,
+                     value_text: field.value,
+                     path: edit_estimate_benefit_path(@estimate_id, field.alt_value, check_answers: true)
           - else
             - raise "Unknown field_type #{field.type}"
 
