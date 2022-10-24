@@ -47,17 +47,8 @@ class CfeConnection
     create_record(assessment_id, "dependants", dependants:)
   end
 
-  def create_student_loan(assessment_id, amount)
-    if amount.present?
-      payments = [
-        {
-          "income_type": "student_loan",
-          "frequency": "annual",
-          "amount": amount,
-        },
-      ]
-      create_record(assessment_id, "irregular_incomes", payments:)
-    end
+  def create_student_loan(assessment_id, payments:)
+    create_record(assessment_id, "irregular_incomes", payments:)
   end
 
   def create_employment(assessment_id, employment_income)

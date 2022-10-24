@@ -4,10 +4,16 @@ RSpec.describe "Employment page" do
   let(:employment_page_header) { "Add your client's salary breakdown" }
   let(:estimate_id) { SecureRandom.uuid }
   let(:mock_connection) { instance_double(CfeConnection, create_assessment_id: estimate_id) }
+  let(:calculation_result) do
+    CalculationResult.new(result_summary: { overall_result: { result: "contribution_required", income_contribution: 12_345.78 } })
+  end
 
   before do
     allow(CfeConnection).to receive(:connection).and_return(mock_connection)
     allow(mock_connection).to receive(:create_proceeding_type)
+    allow(mock_connection).to receive(:create_regular_payments)
+    allow(mock_connection).to receive(:create_applicant)
+    allow(mock_connection).to receive(:api_result).and_return(calculation_result)
     visit_applicant_page
   end
 
@@ -92,6 +98,7 @@ RSpec.describe "Employment page" do
 
         click_on "Save and continue"
         expect(page).not_to have_content employment_page_header
+        progress_to_submit_from_incomes
       end
 
       it "formats my answers appropriately if I return to the screen" do
@@ -119,6 +126,7 @@ RSpec.describe "Employment page" do
         end
         select "Total in last 3 months", from: "employment-form-frequency-field"
         click_on "Save and continue"
+        progress_to_submit_from_incomes
       end
 
       it "handles 1 week" do
@@ -129,6 +137,7 @@ RSpec.describe "Employment page" do
         end
         select "Every week", from: "employment-form-frequency-field"
         click_on "Save and continue"
+        progress_to_submit_from_incomes
       end
 
       it "handles two weeks" do
@@ -139,6 +148,7 @@ RSpec.describe "Employment page" do
         end
         select "Every two weeks", from: "employment-form-frequency-field"
         click_on "Save and continue"
+        progress_to_submit_from_incomes
       end
 
       it "handles four weeks" do
@@ -149,6 +159,7 @@ RSpec.describe "Employment page" do
         end
         select "Every four weeks", from: "employment-form-frequency-field"
         click_on "Save and continue"
+        progress_to_submit_from_incomes
       end
 
       it "handles annually" do
@@ -159,6 +170,7 @@ RSpec.describe "Employment page" do
         end
         select "Annually", from: "employment-form-frequency-field"
         click_on "Save and continue"
+        progress_to_submit_from_incomes
       end
     end
   end

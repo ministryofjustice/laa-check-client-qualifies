@@ -33,6 +33,7 @@ RSpec.describe "Income Page", :vcr do
     fill_in "monthly-income-form-maintenance-field", with: "300"
     click_on "Save and continue"
     expect(page).to have_content("What are your client's monthly outgoings and deductions?")
+    progress_to_submit_from_outgoings
   end
 
   it "behaves appropriately if a field is unchecked after a value is entered" do

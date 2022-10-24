@@ -8,7 +8,6 @@ class BuildEstimatesController < EstimateFlowController
     if @form.valid?
       session_data.merge!(@form.attributes)
       estimate = load_estimate
-      handler.save_data(cfe_connection, estimate_id, @form, session_data) if StepsHelper.last_step_in_group?(estimate, step)
 
       redirect_to wizard_path StepsHelper.next_step_for(estimate, step)
     else

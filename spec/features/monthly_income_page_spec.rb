@@ -4,11 +4,13 @@ RSpec.describe "Monthly income Page" do
   let(:income_header) { "What other income does your client receive?" }
   let(:outgoings_header) { "What are your client's monthly outgoings and deductions?" }
   let(:estimate_id) { SecureRandom.uuid }
-  let(:mock_connection) { instance_double(CfeConnection, create_assessment_id: estimate_id) }
+  let(:mock_connection) { instance_double(CfeConnection, api_result: CalculationResult.new({}), create_assessment_id: estimate_id) }
 
   before do
     allow(CfeConnection).to receive(:connection).and_return(mock_connection)
     allow(mock_connection).to receive(:create_proceeding_type)
+    allow(mock_connection).to receive(:create_regular_payments)
+    allow(mock_connection).to receive(:create_applicant)
     visit_applicant_page
 
     select_applicant_boolean(:over_60, false)
@@ -46,23 +48,27 @@ RSpec.describe "Monthly income Page" do
     click_checkbox("monthly-income-form-monthly-incomes", "none")
     click_on "Save and continue"
     expect(page).to have_content(outgoings_header)
+    progress_to_submit_from_outgoings
   end
 
   it "handles student finance" do
-    expect(mock_connection).to receive(:create_student_loan).with(estimate_id, 100)
-    allow(mock_connection).to receive(:create_regular_payments)
+    payments = [
+      {
+        "income_type": "student_loan",
+        "frequency": "annual",
+        "amount": 100,
+      },
+    ]
+    expect(mock_connection).to receive(:create_student_loan).with(estimate_id, { payments: })
 
     click_checkbox("monthly-income-form-monthly-incomes", "student_finance")
     fill_in "monthly-income-form-student-finance-field", with: "100"
     click_on "Save and continue"
-
     expect(page).to have_content(outgoings_header)
-
-    click_checkbox("outgoings-form-outgoings", "none")
-    click_on "Save and continue"
+    progress_to_submit_from_outgoings
   end
 
-  it "handles non-student finance values and sends to CFE when the next screen is submitted" do
+  it "handles non-student finance values and continues to the next screen when page is submitted" do
     expect(mock_connection).not_to receive(:create_student_loan)
     expect(mock_connection).to receive(:create_regular_payments) do |_estimate_id, model|
       expect(model.friends_or_family).to eq 100
@@ -71,7 +77,6 @@ RSpec.describe "Monthly income Page" do
       expect(model.pension).to eq 400
       expect(model.other).to eq 500
     end
-
     click_checkbox("monthly-income-form-monthly-incomes", "friends_or_family")
     fill_in "monthly-income-form-friends-or-family-field", with: "100"
     click_checkbox("monthly-income-form-monthly-incomes", "maintenance")
@@ -84,7 +89,6 @@ RSpec.describe "Monthly income Page" do
     fill_in "monthly-income-form-other-field", with: "500"
     click_on "Save and continue"
     expect(page).to have_content(outgoings_header)
-    click_checkbox("outgoings-form-outgoings", "none")
-    click_on "Save and continue"
+    progress_to_submit_from_outgoings
   end
 end

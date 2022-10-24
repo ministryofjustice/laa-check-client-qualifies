@@ -49,6 +49,10 @@ group :development, :test do
   gem "rspec-rails"
   gem "dotenv-rails"
 
+  gem "pry-rescue"
+  gem "pry-stack_explorer"
+  gem "pry-nav"
+
   gem "simplecov", require: false
   gem "slim_lint"
   gem "rubocop-govuk", require: false
