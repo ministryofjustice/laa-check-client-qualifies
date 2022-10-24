@@ -96,7 +96,6 @@ RSpec.describe "Results Page" do
       select_applicant_boolean(:dependants, true)
       fill_in "applicant-form-dependant-count-field", with: "1"
 
-      select_applicant_boolean(:partner, false)
       select_applicant_boolean(:employed, true)
       select_applicant_boolean(:passporting, false)
       click_on "Save and continue"
