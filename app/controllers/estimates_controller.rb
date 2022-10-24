@@ -12,6 +12,6 @@ class EstimatesController < ApplicationController
 private
 
   def cfe_session_data
-    session_data params[:cfe_id]
+    session_data params[:estimate_id]
   end
 end
