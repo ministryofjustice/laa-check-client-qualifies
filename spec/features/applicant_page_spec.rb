@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Applicant Page" do
-  let(:income_header) { "What other income does your client receive?" }
+  let(:benefits_header) { "Does your client receive any benefits?" }
   let(:property_header) { "Does your client own the home they live in?" }
   let(:applicant_header) { "About your client" }
 
@@ -91,7 +91,7 @@ RSpec.describe "Applicant Page" do
     it "submits 1 dependant" do
       fill_in "applicant-form-dependant-count-field", with: "1"
       click_on "Save and continue"
-      expect(page).to have_content income_header
+      expect(page).to have_content benefits_header
     end
   end
 
@@ -189,7 +189,7 @@ RSpec.describe "Applicant Page" do
         end
 
         it "shows income" do
-          expect(page).to have_content income_header
+          expect(page).to have_content benefits_header
         end
 
         it "has a back pointer to the applicant page" do
@@ -208,7 +208,7 @@ RSpec.describe "Applicant Page" do
       it "submits dependants" do
         fill_in "applicant-form-dependant-count-field", with: "2"
         click_on "Save and continue"
-        expect(page).to have_content income_header
+        expect(page).to have_content benefits_header
       end
     end
   end

@@ -50,6 +50,18 @@ def progress_to_submit_from_outgoings
   progress_to_submit_from_vehicle_form
 end
 
+def progress_to_submit_from_benefits
+  find(:css, "#benefits-form-add-benefit-true-field").click
+  click_on "Save and continue"
+  fill_in "Benefit type", with: "Child benefit"
+  fill_in "Enter amount", with: "150"
+  choose "Every week"
+  click_on "Save and continue"
+  find(:css, "#benefits-form-add-benefit-field").click
+  click_on("Save and continue")
+  progress_to_submit_from_incomes
+end
+
 def progress_to_submit_from_incomes
   click_checkbox("monthly-income-form-monthly-incomes", "friends_or_family")
   fill_in "monthly-income-form-friends-or-family-field", with: "100"

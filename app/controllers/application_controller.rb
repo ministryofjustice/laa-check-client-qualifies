@@ -3,10 +3,6 @@ class ApplicationController < ActionController::Base
 
 private
 
-  # def cfe_connection
-  #   @cfe_connection ||= CfeConnection.connection
-  # end
-
   def session_data(id = estimate_id)
     session[session_key(id)] ||= {}
   end

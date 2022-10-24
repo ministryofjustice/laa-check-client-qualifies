@@ -29,6 +29,18 @@ en:
               blank: National Insurance cannot be blank
             frequency:
               blank: Please select how frequently you receive employment income
+        benefits_form:
+          attributes:
+            add_benefit:
+              inclusion: Select yes if you wish to add a client benefit
+        benefit_model:
+          attributes:
+            benefit_frequency:
+              inclusion: Please enter how frequently your client receives this benefit
+            benefit_amount:
+              blank: Please enter the value of this benefit
+            benefit_type:
+              blank: Please give the name of the benefit
         monthly_income_form:
           attributes:
             monthly_incomes:
@@ -173,6 +185,19 @@ en:
         four_weeks: Every four weeks
         monthly: Monthly
         annually: Annually
+    benefits:
+      caption: Your client's finances
+      legend: Does your client receive any benefits?
+      hint: For example, Child Benefit or tax credits.
+      frequencies:
+        weekly: Every week
+        two_weekly: Every two weeks
+        four_weekly: Every four weeks
+      added_heading: You have added %{count} %{benefit}
+      benefit: benefit
+      add_more_legend: Does your client receive any other benefits?
+      edit: Change
+      remove: Remove
     monthly_income:
       heading: ''
       caption: Your client's finances
@@ -391,6 +416,17 @@ en:
       domestic_abuse_guidance:
         text: Guidance on domestic abuse or violence
         link: "#"
+  benefits:
+    new:
+      caption: Your client's finances
+      heading: Add benefit details
+    edit:
+      caption: Your client's finances
+      heading: Edit benefit details
+    form:
+      type: Benefit type
+      amount: Enter amount
+      frequency: Select frequency
   estimates:
     show:
       eligible: Provisionally eligible

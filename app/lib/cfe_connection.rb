@@ -84,6 +84,10 @@ class CfeConnection
     create_record(assessment_id, "regular_transactions", regular_transactions:) if regular_transactions.any?
   end
 
+  def create_benefits(assessment_id, state_benefits)
+    create_record(assessment_id, "state_benefits", state_benefits:)
+  end
+
   def create_properties(assessment_id, main_property, second_property)
     main_home = main_property ||
       {

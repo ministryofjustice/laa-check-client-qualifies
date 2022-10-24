@@ -13,6 +13,8 @@ RSpec.describe "Income Page", :vcr do
     visit_applicant_page
     fill_in_applicant_screen_without_passporting_benefits
     click_on "Save and continue"
+    find(:css, "#benefits-form-add-benefit-field").click
+    click_on "Save and continue"
   end
 
   it "shows the correct page" do

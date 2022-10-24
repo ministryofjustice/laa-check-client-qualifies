@@ -96,7 +96,6 @@ RSpec.describe "Results Page" do
       select_applicant_boolean(:dependants, true)
       fill_in "applicant-form-dependant-count-field", with: "1"
 
-      select_applicant_boolean(:partner, false)
       select_applicant_boolean(:employed, true)
       select_applicant_boolean(:passporting, false)
       click_on "Save and continue"
@@ -106,6 +105,9 @@ RSpec.describe "Results Page" do
       fill_in "employment-form-national-insurance-field", with: 50
       select "Monthly", from: "employment-form-frequency-field"
       click_on "Save and continue"
+
+      find(:css, "#benefits-form-add-benefit-field").click
+      click_on("Save and continue")
 
       click_checkbox("monthly-income-form-monthly-incomes", "friends_or_family")
       fill_in "monthly-income-form-friends-or-family-field", with: "100"

@@ -11,6 +11,8 @@ RSpec.describe "Outgoings Page", :vcr do
     fill_in_applicant_screen_without_passporting_benefits
 
     click_on "Save and continue"
+    find(:css, "#benefits-form-add-benefit-field").click
+    click_on "Save and continue"
     click_checkbox("monthly-income-form-monthly-incomes", "friends_or_family")
     fill_in "monthly-income-form-friends-or-family-field", with: "100"
     click_checkbox("monthly-income-form-monthly-incomes", "maintenance")
