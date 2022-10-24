@@ -12,12 +12,8 @@ RSpec.describe "Check Answers Page", :vcr do
 
   def visit_check_answers
     visit_applicant_page
-    select_applicant_boolean(:over_60, false)
-    select_applicant_boolean(:dependants, false)
-    select_applicant_boolean(:partner, false)
-    select_applicant_boolean(:employed, false)
+    fill_in_applicant_screen_with_passporting_benefits
 
-    select_applicant_boolean(:passporting, true)
     click_on "Save and continue"
 
     click_checkbox("property-form-property-owned", "none")

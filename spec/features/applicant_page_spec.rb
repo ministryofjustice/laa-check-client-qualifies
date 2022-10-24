@@ -9,7 +9,7 @@ RSpec.describe "Applicant Page" do
     before do
       visit_applicant_page
 
-      %i[over_60 dependants partner passporting employed].reject { |f| f == field }.each do |f|
+      %i[over_60 dependants passporting employed].reject { |f| f == field }.each do |f|
         select_applicant_boolean(f, true)
       end
       click_on "Save and continue"
@@ -52,7 +52,7 @@ RSpec.describe "Applicant Page" do
     context "when partner is omitted" do
       let(:field) { :partner }
 
-      it "displays the correct error message" do
+      it "displays the correct error message", skip: "waiting for partner screens to be added" do
         within ".govuk-error-summary__list" do
           expect(page).to have_content("Select yes if the client has a partner")
         end
@@ -76,7 +76,6 @@ RSpec.describe "Applicant Page" do
 
       select_applicant_boolean(:over_60, false)
       select_applicant_boolean(:dependants, true)
-      select_applicant_boolean(:partner, false)
       select_applicant_boolean(:employed, false)
       select_applicant_boolean(:passporting, false)
     end
@@ -111,7 +110,6 @@ RSpec.describe "Applicant Page" do
 
       select_applicant_boolean(:over_60, over_60)
       select_applicant_boolean(:dependants, false)
-      select_applicant_boolean(:partner, false)
       select_applicant_boolean(:employed, false)
       select_applicant_boolean(:passporting, true)
       click_on "Save and continue"
@@ -161,7 +159,6 @@ RSpec.describe "Applicant Page" do
       travel_to arbitrary_fixed_time
       visit_applicant_page
       select_applicant_boolean(:over_60, false)
-      select_applicant_boolean(:partner, false)
       select_applicant_boolean(:employed, false)
     end
 

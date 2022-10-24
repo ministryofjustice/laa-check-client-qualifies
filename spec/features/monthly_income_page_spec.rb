@@ -11,15 +11,7 @@ RSpec.describe "Monthly income Page" do
     allow(mock_connection).to receive(:create_proceeding_type)
     allow(mock_connection).to receive(:create_regular_payments)
     allow(mock_connection).to receive(:create_applicant)
-    visit_applicant_page
-
-    select_applicant_boolean(:over_60, false)
-    select_applicant_boolean(:dependants, false)
-    select_applicant_boolean(:partner, false)
-    select_applicant_boolean(:employed, false)
-
-    select_applicant_boolean(:passporting, false)
-    click_on "Save and continue"
+    visit estimate_build_estimate_path estimate_id, :monthly_income
   end
 
   it "shows the correct page" do

@@ -11,11 +11,8 @@ RSpec.describe "Employment Page", :vcr do
       travel_to arbitrary_fixed_time
 
       visit_applicant_page
-      select_applicant_boolean(:over_60, false)
-      select_applicant_boolean(:dependants, false)
-      select_applicant_boolean(:partner, false)
+      fill_in_applicant_screen_without_passporting_benefits
       select_applicant_boolean(:employed, true)
-      select_applicant_boolean(:passporting, false)
       click_on "Save and continue"
     end
 
@@ -51,7 +48,6 @@ RSpec.describe "Employment Page", :vcr do
       visit_applicant_page
       select_applicant_boolean(:over_60, false)
       select_applicant_boolean(:dependants, false)
-      select_applicant_boolean(:partner, false)
       select_applicant_boolean(:employed, true)
       select_applicant_boolean(:passporting, false)
       click_on "Save and continue"
