@@ -21,12 +21,13 @@
 
 
 # FIELDS
-# A field has a type, which is one of boolean, money, select, number, or no_or_number.
+# A field has a type, which is one of boolean, money, select, number, money_with_frequency or no_or_number.
 # This determines which partial is rendered
 # It has an attribute, which determines the key used to store the relevant value in the session
 # The attribute is also used to construct the I18n key
 # It has a screen IF the field has its own 'change' link to a screen
-# 'no_or_number' fields also have an 'alt_attribute' which describes which number to display
+# 'no_or_number' and 'money_with_frequency' fields also have an 'alt_attribute' which describes 
+# which number to display.
 # It can have a 'requires_inclusion_in', which defines which array attribute in the session
 # needs to contain the inclusion string (see below) as a string if the value of the field is to be displayed
 # It can have a 'requires_inclusion_of', which defines the inclusion string. If requires_inclusion_of
@@ -91,9 +92,18 @@ sections:
     screen: outgoings
     subsections:
       - fields:
-          - attribute: housing_payments
-            type: money
-            requires_inclusion_in: outgoings
+          - attribute: housing_payments_value
+            type: money_with_frequency
+            alt_attribute: housing_payments_frequency
+          - attribute: childcare_payments_value
+            type: money_with_frequency
+            alt_attribute: childcare_payments_frequency
+          - attribute: maintenance_payments_value
+            type: money_with_frequency
+            alt_attribute: maintenance_payments_frequency
+          - attribute: legal_aid_payments_value
+            type: money_with_frequency
+            alt_attribute: legal_aid_payments_frequency
   - label: assets
     subsections:
       - label: property
