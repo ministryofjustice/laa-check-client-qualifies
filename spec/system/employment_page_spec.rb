@@ -31,15 +31,7 @@ RSpec.describe "Employment Page", :vcr do
       click_on "Save and continue"
       click_checkbox("monthly-income-form-monthly-incomes", "none")
       click_on "Save and continue"
-      click_checkbox("outgoings-form", "outgoings-none")
-      click_on "Save and continue"
-      click_checkbox("property-form-property-owned", "none")
-      click_on "Save and continue"
-      select_boolean_value("vehicle-form", :vehicle_owned, false)
-      click_on "Save and continue"
-      click_checkbox("assets-form-assets", "none")
-      click_on "Save and continue"
-      click_on "Submit"
+      progress_to_submit_from_outgoings
     end
   end
 

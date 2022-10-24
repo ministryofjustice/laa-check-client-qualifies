@@ -30,8 +30,7 @@ RSpec.describe "Income Page", :vcr do
     click_checkbox("monthly-income-form-monthly-incomes", "maintenance")
     fill_in "monthly-income-form-maintenance-field", with: "300"
     click_on "Save and continue"
-    expect(page).to have_content("What are your client's monthly outgoings and deductions?")
-    progress_to_submit_from_outgoings
+    expect(page).to have_content("What are your client's outgoings and deductions?")
   end
 
   it "behaves appropriately if a field is unchecked after a value is entered" do
@@ -45,6 +44,6 @@ RSpec.describe "Income Page", :vcr do
     click_on "Save and continue"
     # The key expectation of this spec is that the HTTP request to CFE will _not_ include
     # the 200 figure, and this is expressed in the relevant VCR cassette
-    expect(page).to have_content("What are your client's monthly outgoings and deductions?")
+    expect(page).to have_content("What are your client's outgoings and deductions?")
   end
 end

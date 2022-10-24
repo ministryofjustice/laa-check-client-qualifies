@@ -41,21 +41,15 @@ class CheckAnswersPresenter
 
   def build_field(field_data, label_set, parent_screen)
     value = build_value(field_data)
-    screen = build_screen(field_data, value)
 
-    return unless StepsHelper.valid_step?(@model, (screen || parent_screen).to_sym)
+    return if !value && field_data["skip_if_null"]
+    return unless StepsHelper.valid_step?(@model, (field_data[:screen] || parent_screen).to_sym)
 
     Field.new(label: "#{label_set}_fields.#{field_data[:attribute]}",
               type: field_data[:type],
               value:,
-              screen:,
+              screen: field_data[:screen],
               alt_value: @session_data[field_data[:alt_attribute]])
-  end
-
-  def build_screen(field_data, value)
-    return field_data[:screen_if_null] if field_data[:screen_if_null].present? && value.nil?
-
-    field_data[:screen]
   end
 
   def build_value(field_data)

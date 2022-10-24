@@ -123,8 +123,11 @@ RSpec.describe "Results Page" do
       fill_in "monthly-income-form-other-field", with: "500"
       click_on "Save and continue"
 
-      click_checkbox("outgoings-form-outgoings", "housing_payments")
-      fill_in "outgoings-form-housing-payments-field", with: "300"
+      fill_in "outgoings-form-housing-payments-value-field", with: "300"
+      find(:css, "#outgoings-form-housing-payments-frequency-monthly-field").click
+      fill_in "outgoings-form-childcare-payments-value-field", with: "0"
+      fill_in "outgoings-form-legal-aid-payments-value-field", with: "0"
+      fill_in "outgoings-form-maintenance-payments-value-field", with: "0"
       click_on "Save and continue"
 
       click_checkbox("property-form-property-owned", "with_mortgage")
