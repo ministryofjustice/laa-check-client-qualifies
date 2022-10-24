@@ -29,7 +29,8 @@ module ApplicationHelper
     link = if mimic_browser_back
              "javascript:history.back()"
            else
-             wizard_path(StepsHelper.previous_step_for(estimate, step))
+             estimate_build_estimate_path(params[:estimate_id],
+                                          StepsHelper.previous_step_for(estimate, step) || StepsHelper.all_possible_steps.first)
            end
     link_to t("generic.back"), link, class: "govuk-back-link"
   end

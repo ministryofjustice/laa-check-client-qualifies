@@ -7,6 +7,7 @@ class CfeService < BaseCfeService
     SubmitDependantsService.call(cfe_estimate_id, cfe_session_data)
     SubmitProceedingsService.call(cfe_estimate_id, cfe_session_data)
     SubmitEmploymentIncomeService.call(cfe_estimate_id, cfe_session_data)
+    SubmitBenefitsService.call(cfe_estimate_id, cfe_session_data)
     SubmitIrregularIncomeService.call(cfe_estimate_id, cfe_session_data)
     SubmitVehicleService.call(cfe_estimate_id, cfe_session_data)
     SubmitAssetsService.call(cfe_estimate_id, cfe_session_data)

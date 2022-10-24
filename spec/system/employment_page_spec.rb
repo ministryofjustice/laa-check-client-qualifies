@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "Employment Page", :vcr do
   let(:arbitrary_fixed_time) { Time.zone.local(2022, 9, 5, 9, 0, 0) }
   let(:employment_header) { "Add your client's salary breakdown" }
-  let(:income_header) { "What other income does your client receive?" }
+  let(:benefits_header) { "Does your client receive any benefits?" }
 
   describe "functionality" do
     before do
@@ -26,7 +26,9 @@ RSpec.describe "Employment Page", :vcr do
       fill_in "employment-form-national-insurance-field", with: 50
       select "Every week", from: "employment-form-frequency-field"
       click_on "Save and continue"
-      expect(page).to have_content(income_header)
+      expect(page).to have_content(benefits_header)
+      find(:css, "#benefits-form-add-benefit-field").click
+      click_on "Save and continue"
       click_checkbox("monthly-income-form-monthly-incomes", "none")
       click_on "Save and continue"
       click_checkbox("outgoings-form", "outgoings-none")
