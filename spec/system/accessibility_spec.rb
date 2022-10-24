@@ -83,4 +83,20 @@ RSpec.describe "Accessibility" do
       expect(page).to be_axe_clean
     end
   end
+
+  describe "Print results page" do
+    let(:estimate_id) { SecureRandom.uuid }
+
+    before do
+      travel_to arbitrary_fixed_time
+      allow(CfeService).to receive(:call).and_return(CalculationResult.new(build(:api_result)))
+      visit "/estimates/#{estimate_id}/build_estimates/check_answers"
+      click_on "Submit"
+      click_on "Print this page"
+    end
+
+    it "has no AXE-detectable accessibility issues" do
+      expect(page).to be_axe_clean
+    end
+  end
 end
