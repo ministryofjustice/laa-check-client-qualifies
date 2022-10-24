@@ -5,7 +5,7 @@ class EstimatesController < ApplicationController
 
   def create
     @model = CfeService.call(cfe_session_data)
-
+    @asset_model = Flow::AssetHandler.model(cfe_session_data)
     render :show
   end
 

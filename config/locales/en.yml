@@ -429,7 +429,33 @@ en:
         pension: Pension
         student_finance: Student finance
         other: Other sources
-
+      outgoings_calculation: Outgoings calculation
+      client_outgoings: Client's outgoings
+      client_outgoing_types:
+        housing_costs: Housing payments
+        childcare_payments: Childcare payments
+        maintenance_out: Maintenance payments to a former partner
+        legal_aid: Payments towards legal aid in a criminal case
+        national_insurance: National Insurance
+        employment_expenses: Employment expenses
+        income_tax: Income Tax
+        dependents_allowance: Dependants allowance
+      capital_calculation: Capital calculation
+      client_capital: Client's capital
+      client_capital_types:
+        property: Property
+        vehicles: Vehicles
+        second_property: Second property
+        savings: Savings
+        investments: Investments
+        valuables: Valuable items worth £500 or more
+      gross_monthly_income: Total gross monthly income
+      gross_income_limit: Total gross income limit
+      gross_monthly_outgoings: Total gross monthly outgoings
+      disposable_monthly_income: Assessed disposable monthly income
+      disposable_income_limit: Disposable monthly income limit
+      total_capital: Total capital
+      total_capital_limit: Disposable capital limit
   provider_users:
     show:
       provider_question: Are you a civil or family legal aid provider?

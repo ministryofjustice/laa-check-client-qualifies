@@ -134,6 +134,11 @@ GEM
       rubocop
       smart_properties
     erubi (1.11.0)
+    factory_bot (6.2.1)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.2.0)
+      factory_bot (~> 6.2.0)
+      railties (>= 5.0.0)
     faraday (2.6.0)
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
@@ -392,6 +397,7 @@ DEPENDENCIES
   debug
   dotenv-rails
   erb_lint
+  factory_bot_rails
   faraday
   govuk-components
   govuk_design_system_formbuilder
