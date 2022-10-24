@@ -55,7 +55,7 @@ class CfeConnection
     create_record(assessment_id, "employments", employment_income:)
   end
 
-  CFE_OUTGOING_FREQUENCIES = {
+  CFE_OUTGOINGS_FREQUENCIES = {
     "every_week" => :weekly,
     "every_two_weeks" => :two_weekly,
     "every_four_weeks" => :four_weekly,
@@ -86,7 +86,7 @@ class CfeConnection
     .map do |category, type|
       { operation: :debit,
         category:,
-        frequency: CFE_OUTGOING_FREQUENCIES[outgoings_form.send("#{type}_frequency")],
+        frequency: CFE_OUTGOINGS_FREQUENCIES[outgoings_form.send("#{type}_frequency")],
         amount: outgoings_form.send("#{type}_value") }
     end
 

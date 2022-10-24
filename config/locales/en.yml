@@ -66,13 +66,13 @@ en:
         outgoings_form:
           attributes:
             housing_payments_value:
-              blank: Please enter a 0 if your client makes no housing payments
+              blank: Please enter a zero if your client makes no housing payments
             childcare_payments_value:
-              blank: Please enter a 0 if your client makes no childcare payments
+              blank: Please enter a zero if your client makes no childcare payments
             maintenance_payments_value:
-              blank: Please enter a 0 if your client makes no maintenance payments
+              blank: Please enter a zero if your client makes no maintenance payments
             legal_aid_payments_value:
-              blank: Please enter a 0 if your client makes no legal aid payments
+              blank: Please enter a zero if your client makes no legal aid payments
             housing_payments_frequency:
               blank: Please enter the frequency of your client's housing payments
             childcare_payments_frequency:
