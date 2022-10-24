@@ -31,7 +31,7 @@
 # needs to contain the inclusion string (see below) as a string if the value of the field is to be displayed
 # It can have a 'requires_inclusion_of', which defines the inclusion string. If requires_inclusion_of
 # is not defined, the inclusion string is the attribute name
-# It can have a 'screen_if_null' attribute, if the link target should vary depending on whether or
+# It can have a 'skip_if_null' attribute, if the line should be hidden depending on whether or
 # not there is a displayable value.
 sections:
   - label: case_details
@@ -107,7 +107,7 @@ sections:
           - type: money
             attribute: mortgage
             screen: property_entry
-            screen_if_null: property
+            skip_if_null: true
             requires_inclusion_in: property_owned
             requires_inclusion_of: with_mortgage
           - type: number
