@@ -36,70 +36,16 @@ p.govuk-body = t(".next_steps_paragraph_2")
 h2.govuk-heading-m = t(".how_calculated")
 = govuk_accordion do |accordion|
   - accordion.section(heading_text: t(".income_calculation"))
-    = govuk_table do |table|
-      - table.caption(size: "m", text: t(".client_income"))
-
-      - table.body do |body|
-        - @model.client_income_rows.each do |income_type, money_amount|
-          - body.row do |row|
-            - row.cell(header: true, text: t(".client_income_types.#{income_type}"))
-            - row.cell(text: money_amount, numeric: true)
-    = govuk_table do |table|
-      - table.body do |body|
-        - body.row(classes: %w[solid-top-border]) do |row|
-          - row.cell(header: true, text: t(".gross_monthly_income"))
-          - row.cell(text: @model.gross_income, numeric: true)
-        - body.row(classes: %w[solid-bottom-border]) do |row|
-          - row.cell(header: true, text: t(".gross_income_limit"))
-          - row.cell(text: @model.gross_income_limit, numeric: true)
+    = render "client_income_table", caption_size: "m"
 
   - accordion.section(heading_text: t(".outgoings_calculation"))
-    = govuk_table do |table|
-      - table.caption(size: "m", text: t(".client_outgoings"))
-
-      - table.body do |body|
-        - @model.client_outgoing_rows.each do |type, amount|
-          - body.row do |row|
-            - row.cell(header: true, text: t(".client_outgoing_types.#{type}"))
-            - row.cell(text: amount, numeric: true)
-    = govuk_table do |table|
-      - table.body do |body|
-        - body.row(classes: %w[solid-top-border]) do |row|
-          - row.cell(header: true, text: t(".gross_monthly_outgoings"))
-          - row.cell(text: @model.gross_outgoings, numeric: true)
-        - body.row do |row|
-          - row.cell(header: true, text: t(".disposable_monthly_income"))
-          - row.cell(text: @model.total_disposable_income, numeric: true)
-        - body.row(classes: %w[solid-bottom-border]) do |row|
-          - row.cell(header: true, text: t(".disposable_income_limit"))
-          - row.cell(text: @model.disposable_income_limit, numeric: true)
+    = render "client_outgoings_table", caption_size: "m"
 
   - accordion.section(heading_text: t(".capital_calculation"))
-    = govuk_table do |table|
-      - table.caption(size: "m", text: t(".client_capital"))
+    = render "client_capital_table", caption_size: "m"
 
-      - table.body do |body|
-        - @model.client_capital_rows.each do |type, amount|
-          - body.row do |row|
-            - row.cell(header: true, text: t(".client_capital_types.#{type}"))
-            - row.cell(text: amount, numeric: true)
-        - body.row do |row|
-          - row.cell(header: true, text: t(".client_capital_types.investments"))
-          - if @asset_model.assets.include?("investments")
-            - row.cell(text: number_to_money(@asset_model.investments), numeric: true)
-          - else
-            - row.cell(text: number_to_money(0), numeric: true)
-        - body.row do |row|
-          - row.cell(header: true, text: t(".client_capital_types.valuables"))
-          - if @asset_model.assets.include?("valuables")
-            - row.cell(text: number_to_money(@asset_model.valuables), numeric: true)
-          - else
-            - row.cell(text: number_to_money(0), numeric: true)
-    = govuk_table do |table|
-      - table.body do |body|
-        - body.row(classes: %w[solid-top-border]) do |row|
-          - row.cell(header: true, text: t(".total_capital"))
-          - row.cell(text: @model.total_capital, numeric: true)
-        - body.row(classes: %w[solid-bottom-border]) do |row|
-          - row.cell(header: true, text: t(".total_capital_limit"))
-          - row.cell(text: @model.total_capital_limit, numeric: true)
+.govuk-button-group
+  = link_to new_estimate_path
+    .govuk-button data-module="govuk-button" = t(".start_another_check")
+  = link_to print_estimate_path(params[:estimate_id]), target: "_blank", rel: "noopener"
+    .govuk-button.govuk-button--secondary data-module="govuk-button" = t(".print_page")

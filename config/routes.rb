@@ -14,6 +14,8 @@ Rails.application.routes.draw do
     resources :benefits, except: %i[index show] do
       collection { post :add }
     end
+
+    member { get :print }
   end
 
   resource :cookies, only: %i[show update]
