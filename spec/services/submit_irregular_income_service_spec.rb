@@ -21,22 +21,6 @@ RSpec.describe SubmitIrregularIncomeService do
       allow(CfeConnection).to receive(:connection).and_return(mock_connection)
     end
 
-    # context "when it is passed valid data with monthly income" do
-    #   it "is successful" do
-    #     form = Flow::MonthlyIncomeHandler.model(session_data)
-    #
-    #     payments = [
-    #       {
-    #         "income_type": "student_loan",
-    #         "frequency": "annual",
-    #         "amount": 345,
-    #       },
-    #     ]
-    #     expect(mock_connection).to receive(:create_student_loan).with(cfe_estimate_id, { payments: })
-    #     service.call(cfe_estimate_id, session_data)
-    #   end
-    # end
-
     context "when it is passed invalid data with student loan" do
       let(:root_url) { "https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/assessments" }
       let!(:session_data1) do

@@ -14,7 +14,6 @@ RSpec.describe "Vehicle Page" do
     before do
       allow(CfeConnection).to receive(:connection).and_return(mock_connection)
       allow(mock_connection).to receive(:create_applicant)
-      allow(mock_connection).to receive(:create_vehicle)
       allow(mock_connection).to receive(:create_regular_payments)
 
       visit estimate_build_estimate_path estimate_id, :vehicle
@@ -157,11 +156,12 @@ RSpec.describe "Vehicle Page" do
 
           context "when purchased 3 years ago" do
             it "uses 4 years old" do
-              expect(mock_connection).to receive(:create_vehicle).with(estimate_id,
-                                                                       date_of_purchase: 4.years.ago.to_date,
-                                                                       value: vehicle_value,
-                                                                       loan_amount_outstanding: loan_amount,
-                                                                       in_regular_use: true)
+              expect(mock_connection).to receive(:create_vehicle)
+                .with(estimate_id,
+                      date_of_purchase: 4.years.ago.to_date,
+                      value: vehicle_value,
+                      loan_amount_outstanding: loan_amount,
+                      in_regular_use: true)
 
               select_boolean_value("vehicle-age-form", :vehicle_over_3_years_ago, true)
               click_on "Save and continue"
@@ -220,24 +220,26 @@ RSpec.describe "Vehicle Page" do
                 expect(page).to have_content assets_header
                 click_on "Back"
                 select_boolean_value("vehicle-finance-form", :vehicle_pcp, false)
-                # expect(mock_connection).to receive(:create_vehicle).with(estimate_id,
-                #                                                          date_of_purchase: 2.years.ago.to_date,
-                #                                                          value: vehicle_value,
-                #                                                          loan_amount_outstanding: 0,
-                #                                                          in_regular_use: true)
+                expect(mock_connection).to receive(:create_vehicle)
+                  .with(estimate_id,
+                        date_of_purchase: Time.zone.today,
+                        value: vehicle_value,
+                        loan_amount_outstanding: 0,
+                        in_regular_use: true)
                 click_on "Save and continue"
+                progress_to_submit_from_vehicle_form
               end
             end
 
             context "without a loan amount" do
               it "completes the journey successfully" do
-                # expect(mock_connection)
-                #   .to receive(:create_vehicle)
-                #         .with(estimate_id,
-                #               date_of_purchase: 2.years.ago.to_date,
-                #               value: vehicle_value,
-                #               loan_amount_outstanding: 0,
-                #               in_regular_use: true)
+                expect(mock_connection)
+                  .to receive(:create_vehicle)
+                        .with(estimate_id,
+                              date_of_purchase: Time.zone.today,
+                              value: vehicle_value,
+                              loan_amount_outstanding: 0,
+                              in_regular_use: true)
 
                 select_boolean_value("vehicle-finance-form", :vehicle_pcp, false)
                 click_on "Save and continue"
