@@ -24,7 +24,7 @@ module CheckAnswers
 
       dictionary = nested_pairs.flatten.map { [_1[:key], _1[:value]] }.to_h
 
-      dictionary[@step]
+      dictionary.fetch(@step.to_s)
     end
   end
 end
