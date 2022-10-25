@@ -8,84 +8,19 @@ RSpec.describe "Vehicle Page", :vcr do
     travel_to arbitrary_fixed_time
   end
 
-  describe "accessibility" do
-    describe "vehicle form" do
-      before do
-        visit_vehicle_form
-      end
-
-      it "passes accessibility including errors" do
-        expect(page).to be_axe_clean
-        click_on "Save and continue"
-        expect(page).to be_axe_clean
-      end
-    end
-
-    describe "vehicle value form" do
-      before do
-        visit_vehicle_form
-        visit_value_form
-      end
-
-      it "passes accessibility check" do
-        expect(page).to be_axe_clean
-      end
-
-      it "passes accessibility including errors" do
-        click_on "Save and continue"
-        expect(page).to be_axe_clean
-      end
-    end
-
-    describe "vehicle age form" do
-      before do
-        visit_vehicle_form
-        visit_value_form
-        visit_age_form
-      end
-
-      it "passes accessibility check" do
-        expect(page).to be_axe_clean
-      end
-
-      it "passes accessibility including errors" do
-        click_on "Save and continue"
-        expect(page).to be_axe_clean
-      end
-    end
-
-    describe "vehicle finance form" do
-      before do
-        visit_vehicle_form
-        visit_value_form
-        visit_age_form
-        visit_finance_form
-      end
-
-      it "passes accessibility check" do
-        # have to skip aria-allowed-attr for govuk conditional radio buttons.
-        expect(page).to be_axe_clean.skipping("aria-allowed-attr")
-      end
-
-      it "passes accessibility in error state errors" do
-        click_on "Save and continue"
-        # have to skip aria-allowed-attr for govuk conditional radio buttons.
-        expect(page).to be_axe_clean.skipping("aria-allowed-attr")
-      end
-    end
-  end
-
   describe "CFE submission" do
     before do
       driven_by(:rack_test)
       visit_vehicle_form
-      visit_value_form
-      visit_age_form value: 10_000
-      visit_finance_form
+      visit_details_form
     end
 
     it "handles a full submit to CFE" do
-      select_boolean_value("vehicle-finance-form", :vehicle_pcp, false)
+      fill_in "vehicle-details-form-vehicle-value-field", with: 18_000
+      select_boolean_value("vehicle-details-form", :vehicle_in_regular_use, true)
+      select_boolean_value("vehicle-details-form", :vehicle_over_3_years_ago, false)
+      select_boolean_value("vehicle-details-form", :vehicle_pcp, true)
+      fill_in "vehicle-details-form-vehicle-finance-field", with: 500
       click_on "Save and continue"
 
       expect(page).to have_content "Which assets does your client have?"
@@ -108,19 +43,8 @@ RSpec.describe "Vehicle Page", :vcr do
     click_on "Save and continue"
   end
 
-  def visit_value_form
+  def visit_details_form
     select_boolean_value("vehicle-form", :vehicle_owned, true)
-    click_on "Save and continue"
-  end
-
-  def visit_age_form(value: 20_000)
-    fill_in "vehicle-value-form-vehicle-value-field", with: value
-    select_boolean_value("vehicle-value-form", :vehicle_in_regular_use, true)
-    click_on "Save and continue"
-  end
-
-  def visit_finance_form
-    select_boolean_value("vehicle-age-form", :vehicle_over_3_years_ago, true)
     click_on "Save and continue"
   end
 end

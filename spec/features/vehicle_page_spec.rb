@@ -1,254 +1,148 @@
 require "rails_helper"
 
 RSpec.describe "Vehicle Page" do
-  let(:property_header) { "Does your client own the home they live in?" }
-  let(:vehicle_header) { "Does your client own a vehicle?" }
-  let(:property_entry_header) { "How much is your client's home worth?" }
   let(:assets_header) { "Which assets does your client have?" }
   let(:check_answers_header) { "Check your client and partner answers" }
 
-  context "without property" do
-    let(:estimate_id) { SecureRandom.uuid }
-    let(:mock_connection) { instance_double(CfeConnection, api_result: CalculationResult.new({}), create_assessment_id: estimate_id, create_proceeding_type: nil) }
+  let(:estimate_id) { SecureRandom.uuid }
+  let(:mock_connection) do
+    instance_double(
+      CfeConnection,
+      api_result: CalculationResult.new({}),
+      create_assessment_id: estimate_id,
+      create_proceeding_type: nil,
+      create_applicant: nil,
+      create_regular_payments: nil,
+    )
+  end
 
+  before do
+    allow(CfeConnection).to receive(:connection).and_return(mock_connection)
+    visit estimate_build_estimate_path estimate_id, :vehicle
+  end
+
+  it "sets error on vehicle form" do
+    click_on "Save and continue"
+    expect(page).to have_css(".govuk-error-summary__list")
+    within ".govuk-error-summary__list" do
+      expect(page).to have_content("Select yes if the client owns a vehicle")
+    end
+  end
+
+  context "with no vehicle" do
     before do
-      allow(CfeConnection).to receive(:connection).and_return(mock_connection)
-      allow(mock_connection).to receive(:create_applicant)
-      allow(mock_connection).to receive(:create_regular_payments)
-
-      visit estimate_build_estimate_path estimate_id, :vehicle
-    end
-
-    it "sets error on vehicle form" do
+      select_vehicle_value(:vehicle_owned, false)
       click_on "Save and continue"
-      expect(page).to have_css(".govuk-error-summary__list")
-      within ".govuk-error-summary__list" do
-        expect(page).to have_content("Select yes if the client owns a vehicle")
-      end
     end
 
-    context "with no vehicle" do
+    it "skips vehicle questions" do
+      expect(page).to have_content(assets_header)
+    end
+
+    context "when checking answers" do
+      let(:vehicle_value) { 20_000 }
+
       before do
-        select_vehicle_value(:vehicle_owned, false)
+        allow(mock_connection).to receive(:create_capitals)
+        click_checkbox("assets-form-assets", "none")
         click_on "Save and continue"
       end
 
-      it "skips vehicle questions" do
-        expect(page).to have_content(assets_header)
-      end
-
-      context "when checking answers" do
-        let(:vehicle_value) { 20_000 }
-
-        before do
-          allow(mock_connection).to receive(:create_capitals)
-          click_checkbox("assets-form-assets", "none")
-          click_on "Save and continue"
-        end
-
-        it "has expected content" do
-          expect(page).to have_content check_answers_header
+      it "has expected content" do
+        expect(page).to have_content check_answers_header
+        within("#field-list-vehicles") do
           expect(page).to have_content "No"
         end
+      end
 
-        it "can do a simple loop back to check answers" do
-          within("#field-list-vehicles") { click_on "Change" }
-          click_on "Save and continue"
-          expect(page).to have_content check_answers_header
+      it "can do a simple loop back to check answers" do
+        within("#field-list-vehicles") { click_on "Change" }
+        click_on "Save and continue"
+        expect(page).to have_content check_answers_header
+      end
+
+      it "errors correctly if I decline to give further details of a vehicle" do
+        within("#field-list-vehicles") { click_on "Change" }
+        select_vehicle_value(:vehicle_owned, true)
+        click_on "Save and continue"
+
+        fill_in "vehicle-details-form-vehicle-value-field", with: vehicle_value
+        click_on "Save and continue"
+
+        within ".govuk-error-summary__list" do
+          expect(page).to have_content("Select yes if the vehicle is in regular use")
         end
+      end
 
-        it "errors correctly" do
-          within("#field-list-vehicles") { click_on "Change" }
-          select_vehicle_value(:vehicle_owned, true)
-          click_on "Save and continue"
+      it "can do a loop changing the vehicle answer" do
+        within("#field-list-vehicles") { click_on "Change" }
+        select_vehicle_value(:vehicle_owned, true)
+        click_on "Save and continue"
+        fill_in "vehicle-details-form-vehicle-value-field", with: vehicle_value
+        select_boolean_value("vehicle-details-form", :vehicle_in_regular_use, false)
+        select_boolean_value("vehicle-details-form", :vehicle_pcp, false)
+        select_boolean_value("vehicle-details-form", :vehicle_over_3_years_ago, true)
+        click_on "Save and continue"
+        expect(page).to have_content check_answers_header
 
-          fill_in "vehicle-value-form-vehicle-value-field", with: vehicle_value
-          click_on "Save and continue"
+        expect(mock_connection).to receive(:create_vehicle)
+        click_on "Submit"
+      end
+    end
+  end
 
-          within ".govuk-error-summary__list" do
-            expect(page).to have_content("Select yes if the vehicle is in regular use")
-          end
-        end
+  context "with a vehicle" do
+    before do
+      select_vehicle_value(:vehicle_owned, true)
+      click_on "Save and continue"
+    end
 
-        it "can do a loop changing the vehicle answer" do
-          within("#field-list-vehicles") { click_on "Change" }
-          select_vehicle_value(:vehicle_owned, true)
-          click_on "Save and continue"
-          fill_in "vehicle-value-form-vehicle-value-field", with: vehicle_value
-          select_boolean_value("vehicle-value-form", :vehicle_in_regular_use, false)
-          expect(mock_connection).to receive(:create_vehicle)
-          click_on "Save and continue"
-          expect(page).to have_content check_answers_header
-          click_on "Submit"
-        end
+    let(:loan_amount) { 2_000 }
+    let(:vehicle_value) { 5_000 }
+
+    it "has readable errors" do
+      click_on "Save and continue"
+
+      expect(page).to have_css(".govuk-error-summary__list")
+      within ".govuk-error-summary__list" do
+        expect(page).to have_content("Select yes if the vehicle is in regular use")
+        expect(page).to have_content("Please enter the estimated value")
       end
     end
 
-    context "with a vehicle" do
-      before do
-        select_vehicle_value(:vehicle_owned, true)
-        click_on "Save and continue"
+    context "when purchased 3 years ago" do
+      it "uses 4 years old" do
+        expect(mock_connection).to receive(:create_vehicle)
+          .with(estimate_id,
+                date_of_purchase: 4.years.ago.to_date,
+                value: vehicle_value,
+                loan_amount_outstanding: loan_amount,
+                in_regular_use: true)
+
+        fill_in "vehicle-details-form-vehicle-value-field", with: vehicle_value
+        select_boolean_value("vehicle-details-form", :vehicle_in_regular_use, true)
+        select_boolean_value("vehicle-details-form", :vehicle_over_3_years_ago, true)
+        select_boolean_value("vehicle-details-form", :vehicle_pcp, true)
+        fill_in "vehicle-details-form-vehicle-finance-field", with: loan_amount
+        progress_to_submit_from_vehicle_form
       end
+    end
 
-      it "has readable errors" do
-        click_on "Save and continue"
+    context "when purchased recently" do
+      it "uses 2 years old" do
+        expect(mock_connection).to receive(:create_vehicle)
+          .with(estimate_id,
+                date_of_purchase: 2.years.ago.to_date,
+                value: vehicle_value,
+                loan_amount_outstanding: loan_amount,
+                in_regular_use: true)
 
-        expect(page).to have_css(".govuk-error-summary__list")
-        within ".govuk-error-summary__list" do
-          expect(page).to have_content("Select yes if the vehicle is in regular use")
-          expect(page).to have_content("Please enter the estimated value")
-        end
-      end
-
-      context "with a value" do
-        let(:vehicle_value) { 500 }
-
-        before do
-          fill_in "vehicle-value-form-vehicle-value-field", with: vehicle_value
-        end
-
-        context "without regular usage" do
-          before do
-            allow(mock_connection)
-              .to receive(:create_vehicle)
-                    .with(estimate_id,
-                          date_of_purchase: Time.zone.today.to_date,
-                          value: vehicle_value,
-                          loan_amount_outstanding: 0,
-                          in_regular_use: false)
-            select_boolean_value("vehicle-value-form", :vehicle_in_regular_use, false)
-            click_on "Save and continue"
-          end
-
-          it "creates the vehicle immediately" do
-            expect(page).to have_content assets_header
-          end
-
-          it "has expected check_answers content" do
-            allow(mock_connection).to receive(:create_capitals)
-            click_checkbox("assets-form-assets", "none")
-            click_on "Save and continue"
-
-            expect(page).to have_content check_answers_header
-            expect(page).to have_content vehicle_value.to_s
-          end
-
-          it "has a working Back button" do
-            click_on "Back"
-            expect(page).to have_content "Is the vehicle in regular use?"
-          end
-        end
-
-        context "when in regular use" do
-          let(:loan_amount) { 5_000 }
-
-          before do
-            select_boolean_value("vehicle-value-form", :vehicle_in_regular_use, true)
-            click_on "Save and continue"
-          end
-
-          it "has readable errors" do
-            click_on "Save and continue"
-            within ".govuk-error-summary__list" do
-              expect(page).to have_content("Select yes if the vehicle was purchased more than 3 years ago")
-            end
-          end
-
-          context "when purchased 3 years ago" do
-            it "uses 4 years old" do
-              expect(mock_connection).to receive(:create_vehicle)
-                .with(estimate_id,
-                      date_of_purchase: 4.years.ago.to_date,
-                      value: vehicle_value,
-                      loan_amount_outstanding: loan_amount,
-                      in_regular_use: true)
-
-              select_boolean_value("vehicle-age-form", :vehicle_over_3_years_ago, true)
-              click_on "Save and continue"
-              select_boolean_value("vehicle-finance-form", :vehicle_pcp, true)
-              fill_in "vehicle-finance-form-vehicle-finance-field", with: loan_amount
-              progress_to_submit_from_vehicle_form
-            end
-          end
-
-          context "when purchased recently" do
-            before do
-              select_boolean_value("vehicle-age-form", :vehicle_over_3_years_ago, false)
-              click_on "Save and continue"
-            end
-
-            it "uses 2 years old" do
-              expect(mock_connection).to receive(:create_vehicle).with(estimate_id,
-                                                                       date_of_purchase: 2.years.ago.to_date,
-                                                                       value: vehicle_value,
-                                                                       loan_amount_outstanding: loan_amount,
-                                                                       in_regular_use: true)
-
-              select_boolean_value("vehicle-finance-form", :vehicle_pcp, true)
-              fill_in "vehicle-finance-form-vehicle-finance-field", with: loan_amount
-              click_on "Save and continue"
-              expect(page).to have_content assets_header
-              click_checkbox("assets-form-assets", "none")
-              click_on "Save and continue"
-              click_on "Submit"
-            end
-
-            it "has a readable PCP error" do
-              click_on "Save and continue"
-
-              within ".govuk-error-summary__list" do
-                expect(page).to have_content("Select yes if the vehicle has outstanding finance")
-              end
-            end
-
-            context "with finance" do
-              before do
-                select_boolean_value("vehicle-finance-form", :vehicle_pcp, true)
-              end
-
-              it "has a readable error" do
-                click_on "Save and continue"
-
-                within ".govuk-error-summary__list" do
-                  expect(page).to have_content("Please enter the outstanding finance amount")
-                end
-              end
-
-              it "can be corrected" do
-                fill_in "vehicle-finance-form-vehicle-finance-field", with: loan_amount
-                click_on "Save and continue"
-                expect(page).to have_content assets_header
-                click_on "Back"
-                select_boolean_value("vehicle-finance-form", :vehicle_pcp, false)
-                expect(mock_connection).to receive(:create_vehicle)
-                  .with(estimate_id,
-                        date_of_purchase: Time.zone.today,
-                        value: vehicle_value,
-                        loan_amount_outstanding: 0,
-                        in_regular_use: true)
-                click_on "Save and continue"
-                progress_to_submit_from_vehicle_form
-              end
-            end
-
-            context "without a loan amount" do
-              it "completes the journey successfully" do
-                expect(mock_connection)
-                  .to receive(:create_vehicle)
-                        .with(estimate_id,
-                              date_of_purchase: Time.zone.today,
-                              value: vehicle_value,
-                              loan_amount_outstanding: 0,
-                              in_regular_use: true)
-
-                select_boolean_value("vehicle-finance-form", :vehicle_pcp, false)
-                click_on "Save and continue"
-                expect(page).to have_content assets_header
-                progress_to_submit_from_vehicle_form
-              end
-            end
-          end
-        end
+        fill_in "vehicle-details-form-vehicle-value-field", with: vehicle_value
+        select_boolean_value("vehicle-details-form", :vehicle_in_regular_use, true)
+        select_boolean_value("vehicle-details-form", :vehicle_over_3_years_ago, false)
+        select_boolean_value("vehicle-details-form", :vehicle_pcp, true)
+        fill_in "vehicle-details-form-vehicle-finance-field", with: loan_amount
+        progress_to_submit_from_vehicle_form
       end
     end
   end

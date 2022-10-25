@@ -130,19 +130,19 @@ sections:
             screen: vehicle
           - type: money
             attribute: vehicle_value
-            screen: vehicle_value
+            screen: vehicle_details
           - type: boolean
             attribute: vehicle_in_regular_use
-            screen: vehicle_value
+            screen: vehicle_details
           - type: boolean
             attribute: vehicle_over_3_years_ago
-            screen: vehicle_age
+            screen: vehicle_details
           - type: boolean
             attribute: vehicle_pcp
-            screen: vehicle_finance
+            screen: vehicle_details
           - type: money
             attribute: vehicle_finance
-            screen: vehicle_finance
+            screen: vehicle_details
       - label: other
         screen: assets
         fields:
