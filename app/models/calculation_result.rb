@@ -59,8 +59,7 @@ class CalculationResult
       property_or_lodger: extract_other_money(:property_or_lodger),
       pension: extract_other_money(:pension),
       student_finance: api_response.dig(:assessment, :gross_income, :irregular_income, :monthly_equivalents, :student_loan),
-      other: 0, # TODO: CFE does not currently return the 'other' figure, and we should pull this from CFE
-      # so users can verify that correct figures have been used in calculation
+      other: api_response.dig(:assessment, :gross_income, :irregular_income, :monthly_equivalents, :unspecified_source_income),
     }
     data.transform_values { |v| monetise(v) }
   end

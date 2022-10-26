@@ -47,7 +47,7 @@ class CfeConnection
     create_record(assessment_id, "dependants", dependants:)
   end
 
-  def create_student_loan(assessment_id, payments:)
+  def create_irregular_income(assessment_id, payments:)
     create_record(assessment_id, "irregular_incomes", payments:)
   end
 
@@ -63,8 +63,6 @@ class CfeConnection
   }.freeze
 
   def create_regular_payments(assessment_id, income_form, outgoings_form)
-    # TODO: CFE does not currently support 'other' income, and errors if we try to send it other income,
-    # so for the time being we do _not_ tell CFE about other income.
     income = {
       friends_or_family: (income_form.friends_or_family if income_form.monthly_incomes.include?("friends_or_family")),
       maintenance_in: (income_form.maintenance if income_form.monthly_incomes.include?("maintenance")),
