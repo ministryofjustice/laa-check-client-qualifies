@@ -38,7 +38,5 @@ module LaaEstimateFinancialEligibilityForLegalAid
     config.sentry_dsn = ENV["SENTRY_DSN"]&.strip
     config.check_financial_eligibility_host = ENV.fetch("CFE_HOST",
                                                         "https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/")
-
-    config.session_store :cookie_store, key: SESSION_COOKIE_NAME
   end
 end
