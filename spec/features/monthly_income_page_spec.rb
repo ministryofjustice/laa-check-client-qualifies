@@ -35,7 +35,7 @@ RSpec.describe "Monthly income Page" do
   end
 
   it "moves onto outgoings with no income" do
-    expect(mock_connection).not_to receive(:create_student_loan)
+    allow(mock_connection).to receive(:create_irregular_income)
 
     click_checkbox("monthly-income-form-monthly-incomes", "none")
     click_on "Save and continue"
@@ -51,7 +51,7 @@ RSpec.describe "Monthly income Page" do
         "amount": 100,
       },
     ]
-    expect(mock_connection).to receive(:create_student_loan).with(estimate_id, { payments: })
+    expect(mock_connection).to receive(:create_irregular_income).with(estimate_id, { payments: })
 
     click_checkbox("monthly-income-form-monthly-incomes", "student_finance")
     fill_in "monthly-income-form-student-finance-field", with: "100"
@@ -61,13 +61,19 @@ RSpec.describe "Monthly income Page" do
   end
 
   it "handles non-student finance values and continues to the next screen when page is submitted" do
-    expect(mock_connection).not_to receive(:create_student_loan)
+    payments = [
+      {
+        "income_type": "unspecified_source_income",
+        "frequency": "quarterly",
+        "amount": 333,
+      },
+    ]
+    expect(mock_connection).to receive(:create_irregular_income).with(estimate_id, { payments: })
     expect(mock_connection).to receive(:create_regular_payments) do |_estimate_id, model|
       expect(model.friends_or_family).to eq 100
       expect(model.maintenance).to eq 200
       expect(model.property_or_lodger).to eq 300
       expect(model.pension).to eq 400
-      expect(model.other).to eq 500
     end
     click_checkbox("monthly-income-form-monthly-incomes", "friends_or_family")
     fill_in "monthly-income-form-friends-or-family-field", with: "100"
@@ -78,7 +84,7 @@ RSpec.describe "Monthly income Page" do
     click_checkbox("monthly-income-form-monthly-incomes", "pension")
     fill_in "monthly-income-form-pension-field", with: "400"
     click_checkbox("monthly-income-form-monthly-incomes", "other")
-    fill_in "monthly-income-form-other-field", with: "500"
+    fill_in "monthly-income-form-other-field", with: "333"
     click_on "Save and continue"
     expect(page).to have_content(outgoings_header)
     progress_to_submit_from_outgoings
