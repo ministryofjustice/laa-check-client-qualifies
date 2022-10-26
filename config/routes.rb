@@ -15,6 +15,10 @@ Rails.application.routes.draw do
       collection { post :add }
     end
 
+    resources :check_benefits_answers, except: %i[index show] do
+      collection { post :add }
+    end
+
     member { get :print }
   end
 

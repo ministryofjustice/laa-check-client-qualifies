@@ -6,7 +6,7 @@
     = t(".heading")
 
   - @form.sections.each do |section|
-    .govuk-grid-row
+    .govuk-grid-row  id="section-#{section.label}-header"
       .govuk-grid-column-two-thirds
         h2.govuk-heading-l id="#{section.label}-section"
           = t(".#{section.label}")
@@ -19,7 +19,7 @@
 
     - section.subsections.each do |subsection|
       - if subsection.label
-        .govuk-grid-row
+        .govuk-grid-row id="subsection-#{subsection.label}-header"
           .govuk-grid-column-two-thirds
             h2.govuk-heading-m
               = t(".#{subsection.label}")
@@ -68,7 +68,7 @@
             = render "money_check_answer",
                      label_text: field.label,
                      value_text: field.value,
-                     path: edit_estimate_benefit_path(@estimate_id, field.alt_value, check_answers: true)
+                     path: (edit_estimate_check_benefits_answer_path(@estimate_id, field.alt_value, check_answers: true) if field.alt_value)
           - else
             - raise "Unknown field_type #{field.type}"
 

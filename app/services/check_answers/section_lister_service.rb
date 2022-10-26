@@ -74,7 +74,10 @@ module CheckAnswers
     end
 
     def benefits_fields
-      return [] if @session_data["benefits"].blank?
+      if @session_data["benefits"].blank?
+        return [Field.new(label: I18n.t("generic.not_applicable"),
+                          type: "benefit")]
+      end
 
       @session_data["benefits"].map do |benefit|
         Field.new(label: benefit["benefit_type"],
