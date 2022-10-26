@@ -5,14 +5,14 @@ class SubmitAssetsService < BaseCfeService
 
   def call(cfe_estimate_id, cfe_session_data)
     asset_form = Flow::AssetHandler.model(cfe_session_data)
-    liquid_assets = { savings: asset_form.savings }.select { |asset, _value| asset_form.assets.include? asset.to_s }.map(&:last)
+    liquid_assets = { savings: asset_form.savings }.select { |_asset, value| value.positive? }.map(&:last)
     illiquid_assets = {
       investments: asset_form.investments,
       valuables: asset_form.valuables,
-    }.select { |asset, _value| asset_form.assets.include? asset.to_s }.map(&:last)
+    }.select { |_asset, value| value.positive? }.map(&:last)
     cfe_connection.create_capitals cfe_estimate_id, liquid_assets, illiquid_assets if liquid_assets.any? || illiquid_assets.any?
 
-    if asset_form.assets.include?("property")
+    if asset_form.property_value.positive?
       second_property = {
         value: asset_form.property_value,
         outstanding_mortgage: asset_form.property_mortgage,

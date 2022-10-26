@@ -8,16 +8,10 @@
         - row.cell(text: amount, numeric: true)
     - body.row do |row|
       - row.cell(header: true, text: t("estimates.show.client_capital_types.investments"))
-      - if @asset_model.assets.include?("investments")
-        - row.cell(text: number_to_money(@asset_model.investments), numeric: true)
-      - else
-        - row.cell(text: number_to_money(0), numeric: true)
+      - row.cell(text: number_to_money(@asset_model.investments), numeric: true)
     - body.row do |row|
       - row.cell(header: true, text: t("estimates.show.client_capital_types.valuables"))
-      - if @asset_model.assets.include?("valuables")
-        - row.cell(text: number_to_money(@asset_model.valuables), numeric: true)
-      - else
-        - row.cell(text: number_to_money(0), numeric: true)
+      - row.cell(text: number_to_money(@asset_model.valuables), numeric: true)
 = govuk_table do |table|
   - table.body do |body|
     - body.row(classes: %w[solid-top-border]) do |row|

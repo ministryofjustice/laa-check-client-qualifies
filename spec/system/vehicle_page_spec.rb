@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe "Vehicle Page", :vcr do
   let(:arbitrary_fixed_time) { Time.zone.local(2022, 9, 5, 9, 0, 0) }
   let(:check_answers_header) { "Check your answers" }
+  let(:assets_header) { "Which of these assets does your client have?" }
 
   before do
     travel_to arbitrary_fixed_time
@@ -23,9 +24,8 @@ RSpec.describe "Vehicle Page", :vcr do
       fill_in "vehicle-details-form-vehicle-finance-field", with: 500
       click_on "Save and continue"
 
-      expect(page).to have_content "Which assets does your client have?"
-      click_checkbox("assets-form-assets", "none")
-      click_on "Save and continue"
+      expect(page).to have_content assets_header
+      skip_assets_form
 
       expect(page).to have_content check_answers_header
       click_on "Submit"

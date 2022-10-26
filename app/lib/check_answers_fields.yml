@@ -148,19 +148,14 @@ sections:
         fields:
           - attribute: property_value
             type: money
-            requires_inclusion_in: assets
-            requires_inclusion_of: property
           - attribute: property_mortgage
-            requires_inclusion_in: assets
-            requires_inclusion_of: property
             type: money
-          - attribute: property_percentage_owned_html
+          - attribute: property_percentage_owned
+            label: property_percentage_owned_html
             type: number
-            requires_inclusion_in: assets
-            requires_inclusion_of: property
           - attribute: savings
             type: money
-            requires_inclusion_in: assets
           - attribute: investments
             type: money
-            requires_inclusion_in: assets
+          - attribute: valuables
+            type: money

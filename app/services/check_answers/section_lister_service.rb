@@ -4,18 +4,20 @@ module CheckAnswers
     Subsection = Struct.new(:label, :screen, :fields, keyword_init: true)
     Field = Struct.new(:label, :type, :value, :screen, :alt_value, keyword_init: true)
 
-    def self.call(session_data = nil)
+    def self.call(session_data)
       new(session_data).call
-    end
-
-    def initialize(session_data)
-      @session_data = session_data
-      @model = EstimateModel.new session_data.slice(*EstimateModel::ESTIMATE_ATTRIBUTES.map(&:to_s))
     end
 
     def call
       data = YAML.load_file(Rails.root.join("app/lib/check_answers_fields.yml")).with_indifferent_access
       data[:sections].map { build_section(_1) }.select { _1.subsections.any? }
+    end
+
+  private
+
+    def initialize(session_data)
+      @session_data = session_data
+      @model = EstimateModel.new session_data.slice(*EstimateModel::ESTIMATE_ATTRIBUTES.map(&:to_s))
     end
 
     def build_section(section_data)
@@ -50,7 +52,9 @@ module CheckAnswers
       return if !value && field_data["skip_if_null"]
       return unless StepsHelper.valid_step?(@model, (field_data[:screen] || parent_screen).to_sym)
 
-      Field.new(label: "#{label_set}_fields.#{field_data[:attribute]}",
+      label = field_data.fetch(:label, field_data.fetch(:attribute))
+
+      Field.new(label: "#{label_set}_fields.#{label}",
                 type: field_data[:type],
                 value:,
                 screen: field_data[:screen],
