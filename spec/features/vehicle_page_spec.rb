@@ -5,7 +5,7 @@ RSpec.describe "Vehicle Page" do
   let(:vehicle_header) { "Does your client own a vehicle?" }
   let(:property_entry_header) { "How much is your client's home worth?" }
   let(:assets_header) { "Which assets does your client have?" }
-  let(:check_answers_header) { "Check your client and partner answers" }
+  let(:check_answers_header) { "Check your answers" }
 
   context "without property" do
     let(:estimate_id) { SecureRandom.uuid }

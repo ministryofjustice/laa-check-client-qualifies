@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Vehicle Page", :vcr do
   let(:arbitrary_fixed_time) { Time.zone.local(2022, 9, 5, 9, 0, 0) }
-  let(:check_answers_header) { "Check your client and partner answers" }
+  let(:check_answers_header) { "Check your answers" }
 
   before do
     travel_to arbitrary_fixed_time

@@ -4,7 +4,7 @@ RSpec.describe "Assets Page" do
   let(:assets_header) { "Which assets does your client have?" }
   let(:estimate_id) { SecureRandom.uuid }
   let(:mock_connection) { instance_double(CfeConnection, create_assessment_id: estimate_id, api_result: CalculationResult.new({}), create_proceeding_type: nil) }
-  let(:check_answers_header) { "Check your client and partner answers" }
+  let(:check_answers_header) { "Check your answers" }
 
   before do
     allow(CfeConnection).to receive(:connection).and_return(mock_connection)
