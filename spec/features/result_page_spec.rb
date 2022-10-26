@@ -107,7 +107,7 @@ RSpec.describe "Results Page" do
       select "Monthly", from: "employment-form-frequency-field"
       click_on "Save and continue"
 
-      find(:css, "#benefits-form-add-benefit-field").click
+      select_boolean_value("benefits-form", :add_benefit, false)
       click_on("Save and continue")
 
       click_checkbox("monthly-income-form-monthly-incomes", "friends_or_family")

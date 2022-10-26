@@ -6,7 +6,7 @@ RSpec.describe "Check answers page" do
   context "when I have entered benefits" do
     before do
       visit estimate_build_estimate_path(estimate_id, :benefits)
-      find(:css, "#benefits-form-add-benefit-true-field").click
+      select_boolean_value("benefits-form", :add_benefit, true)
       click_on "Save and continue"
       fill_in "Benefit type", with: "Child benefit"
       fill_in "Enter amount", with: "150"

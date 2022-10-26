@@ -54,13 +54,13 @@ def progress_to_submit_from_outgoings
 end
 
 def progress_to_submit_from_benefits
-  find(:css, "#benefits-form-add-benefit-true-field").click
+  select_boolean_value("benefits-form", :add_benefit, true)
   click_on "Save and continue"
   fill_in "Benefit type", with: "Child benefit"
   fill_in "Enter amount", with: "150"
   choose "Every week"
   click_on "Save and continue"
-  find(:css, "#benefits-form-add-benefit-field").click
+  select_boolean_value("benefits-form", :add_benefit, false)
   click_on("Save and continue")
   progress_to_submit_from_incomes
 end
