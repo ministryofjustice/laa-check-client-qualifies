@@ -58,6 +58,12 @@
                      label_text: t(".#{field.label}"),
                      value_text: t(".#{field.label}_options.#{field.value || 'not_provided'}"),
                      link: field.screen
+          - when "money_with_frequency"
+            - alt_value = field.alt_value if field.value&.to_f&.positive?
+            = render "two_column_check_answer",
+                     label_text: t(".#{field.label}"),
+                     value_text: (field.value if field.value&.to_f&.positive?),
+                     second_value_text: t(".#{field.label}_frequency_options.#{alt_value || 'not_applicable'}")
           - else
             - raise "Unknown field_type #{field.type}"
 

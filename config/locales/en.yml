@@ -357,7 +357,34 @@ en:
         other: Other sources
       outgoings: Your client's outgoings
       outgoings_fields:
-        housing_payments: Housing payments
+        housing_payments_value: Housing payments
+        housing_payments_value_frequency_options:
+          every_week: Every week
+          every_two_weeks: Every 2 weeks
+          every_four_weeks: Every 4 weeks
+          monthly: Monthly
+          not_applicable: Not applicable
+        childcare_payments_value: Childcare payments
+        childcare_payments_value_frequency_options:
+          every_week: Every week
+          every_two_weeks: Every 2 weeks
+          every_four_weeks: Every 4 weeks
+          monthly: Monthly
+          not_applicable: Not applicable
+        maintenance_payments_value: Maintenance payments
+        maintenance_payments_value_frequency_options:
+          every_week: Every week
+          every_two_weeks: Every 2 weeks
+          every_four_weeks: Every 4 weeks
+          monthly: Monthly
+          not_applicable: Not applicable
+        legal_aid_payments_value: Legal aid payments
+        legal_aid_payments_value_frequency_options:
+          every_week: Every week
+          every_two_weeks: Every 2 weeks
+          every_four_weeks: Every 4 weeks
+          monthly: Monthly
+          not_applicable: Not applicable
       assets: Your client's assets
       vehicles: Client's vehicles
       vehicles_fields:
