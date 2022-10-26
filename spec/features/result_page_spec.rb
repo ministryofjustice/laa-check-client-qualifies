@@ -140,13 +140,11 @@ RSpec.describe "Results Page" do
 
       select_boolean_value("vehicle-form", :vehicle_owned, true)
       click_on "Save and continue"
-      fill_in "vehicle-value-form-vehicle-value-field", with: 18_000
-      select_boolean_value("vehicle-value-form", :vehicle_in_regular_use, true)
-      click_on "Save and continue"
-      select_boolean_value("vehicle-age-form", :vehicle_over_3_years_ago, false)
-      click_on "Save and continue"
-      select_boolean_value("vehicle-finance-form", :vehicle_pcp, true)
-      fill_in "vehicle-finance-form-vehicle-finance-field", with: 500
+      fill_in "vehicle-details-form-vehicle-value-field", with: 18_000
+      select_boolean_value("vehicle-details-form", :vehicle_in_regular_use, true)
+      select_boolean_value("vehicle-details-form", :vehicle_over_3_years_ago, false)
+      select_boolean_value("vehicle-details-form", :vehicle_pcp, true)
+      fill_in "vehicle-details-form-vehicle-finance-field", with: 500
       click_on "Save and continue"
 
       click_checkbox("assets-form-assets", "property")
