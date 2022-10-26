@@ -17,7 +17,7 @@ class SubmitVehicleService < BaseCfeService
     cfe_connection.create_vehicle cfe_estimate_id,
                                   date_of_purchase:,
                                   value: model.vehicle_value,
-                                  loan_amount_outstanding: model.vehicle_finance.presence || 0,
+                                  loan_amount_outstanding: model.vehicle_pcp ? model.vehicle_finance : 0,
                                   in_regular_use: model.vehicle_in_regular_use
   end
 end
