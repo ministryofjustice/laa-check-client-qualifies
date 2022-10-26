@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Vehicle Page" do
   let(:assets_header) { "Which assets does your client have?" }
-  let(:check_answers_header) { "Check your client and partner answers" }
+  let(:check_answers_header) { "Check your answers" }
 
   let(:estimate_id) { SecureRandom.uuid }
   let(:mock_connection) do

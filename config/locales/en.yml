@@ -317,7 +317,7 @@ en:
         text: Guidance on assets
         link: "#"
     check_answers:
-      heading: Check your client and partner answers
+      heading: Check your answers
       case_details: Your client's case details
       client_details: Your client's details
       client_details_fields:
