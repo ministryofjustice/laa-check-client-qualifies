@@ -10,6 +10,6 @@ private
   end
 
   def next_step_path
-    estimate_build_estimate_path estimate_id, :check_answers, anchor: "benefits-section"
+    estimate_build_estimate_path estimate_id, :check_answers, anchor: "other_income-section"
   end
 end
