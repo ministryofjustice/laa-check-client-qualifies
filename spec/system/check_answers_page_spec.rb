@@ -22,7 +22,6 @@ RSpec.describe "Check Answers Page", :vcr do
     select_boolean_value("vehicle-form", :vehicle_owned, false)
     click_on "Save and continue"
 
-    click_checkbox("assets-form-assets", "none")
-    click_on "Save and continue"
+    skip_assets_form
   end
 end

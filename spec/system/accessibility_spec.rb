@@ -75,7 +75,8 @@ RSpec.describe "Accessibility" do
       allow(mock_connection).to receive(:create_assessment_id)
       allow(mock_connection).to receive(:create_proceeding_type)
       allow(mock_connection).to receive(:create_regular_payments)
-      visit "/estimates/#{estimate_id}/build_estimates/check_answers"
+      visit "/estimates/#{estimate_id}/build_estimates/assets"
+      skip_assets_form
       click_on "Submit"
     end
 

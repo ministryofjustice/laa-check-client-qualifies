@@ -116,9 +116,7 @@ RSpec.describe "Applicant Page" do
       click_on "Save and continue"
       select_boolean_value("vehicle-form", :vehicle_owned, false)
       click_on "Save and continue"
-      click_checkbox("assets-form-assets", "none")
-      click_on "Save and continue"
-
+      skip_assets_form
       allow(mock_connection).to receive(:api_result).and_return(calculation_result)
     end
 

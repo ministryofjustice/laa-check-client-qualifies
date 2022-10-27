@@ -58,13 +58,14 @@ RSpec.describe "Results Page" do
       allow(mock_connection).to receive(:create_capitals)
 
       visit "/estimates/#{estimate_id}/build_estimates/assets"
-      click_checkbox("assets-form-assets", "investments")
+
+      fill_in "assets-form-property-value-field", with: "0"
+      fill_in "assets-form-savings-field", with: "0"
+
       fill_in "assets-form-investments-field", with: "4300"
-
-      click_checkbox("assets-form-assets", "valuables")
       fill_in "assets-form-valuables-field", with: "2200"
-      click_on "Save and continue"
 
+      click_on "Save and continue"
       click_on "Submit"
     end
 
@@ -147,15 +148,12 @@ RSpec.describe "Results Page" do
       fill_in "vehicle-details-form-vehicle-finance-field", with: 500
       click_on "Save and continue"
 
-      click_checkbox("assets-form-assets", "property")
       fill_in "assets-form-property-value-field", with: "80_000"
       fill_in "assets-form-property-mortgage-field", with: "70_000"
       fill_in "assets-form-property-percentage-owned-field", with: "50"
 
-      click_checkbox("assets-form-assets", "investments")
+      fill_in "assets-form-savings-field", with: "200"
       fill_in "assets-form-investments-field", with: "400"
-
-      click_checkbox("assets-form-assets", "valuables")
       fill_in "assets-form-valuables-field", with: "600"
       click_on "Save and continue"
 
@@ -199,11 +197,11 @@ RSpec.describe "Results Page" do
         expect(page).to have_content "Property £3,400.00"
         expect(page).to have_content "Vehicles £2,500.00"
         expect(page).to have_content "Second property £3,800.00"
-        expect(page).to have_content "Savings £0.00"
+        expect(page).to have_content "Savings £200.00"
         expect(page).to have_content "Investments £400.00"
         expect(page).to have_content "Valuable items worth £500 or more £600.00"
 
-        expect(page).to have_content "Total capital £7,300.00"
+        expect(page).to have_content "Total capital £7,500.00"
         expect(page).to have_content "Disposable capital limit £8,000.00"
       end
     end

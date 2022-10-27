@@ -36,8 +36,7 @@ end
 
 def progress_to_submit_from_vehicle_form
   click_on "Save and continue"
-  click_checkbox("assets-form-assets", "none")
-  click_on "Save and continue"
+  skip_assets_form
   click_on "Submit"
 end
 
@@ -79,4 +78,12 @@ def progress_to_submit_from_incomes
   fill_in "monthly-income-form-other-field", with: "500"
   click_on "Save and continue"
   progress_to_submit_from_outgoings
+end
+
+def skip_assets_form
+  fill_in "assets-form-property-value-field", with: "0"
+  fill_in "assets-form-savings-field", with: "0"
+  fill_in "assets-form-investments-field", with: "0"
+  fill_in "assets-form-valuables-field", with: "0"
+  click_on "Save and continue"
 end

@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Assets Page" do
-  let(:assets_header) { "Which assets does your client have?" }
+  let(:assets_header) { "Which of these assets does your client have?" }
   let(:estimate_id) { SecureRandom.uuid }
   let(:mock_connection) { instance_double(CfeConnection, create_assessment_id: estimate_id, api_result: CalculationResult.new({}), create_proceeding_type: nil) }
   let(:check_answers_header) { "Check your answers" }
@@ -22,10 +22,13 @@ RSpec.describe "Assets Page" do
     end
 
     it "can submit second property" do
+      fill_in "assets-form-savings-field", with: "0"
+      fill_in "assets-form-investments-field", with: "0"
+      fill_in "assets-form-valuables-field", with: "0"
+
       expect(mock_connection)
         .to receive(:create_properties)
               .with(estimate_id, nil, { outstanding_mortgage: 50_000, percentage_owned: 50, value: 100_000 })
-      click_checkbox("assets-form-assets", "property")
       fill_in "assets-form-property-value-field", with: "100_000"
       fill_in "assets-form-property-mortgage-field", with: "50_000"
       fill_in "assets-form-property-percentage-owned-field", with: "50"
@@ -59,43 +62,48 @@ RSpec.describe "Assets Page" do
     end
 
     it "sets error on assets form" do
+      fill_in "assets-form-savings-field", with: "0"
+      fill_in "assets-form-investments-field", with: "0"
+      fill_in "assets-form-valuables-field", with: "0"
+
       click_on "Save and continue"
       expect(page).to have_css(".govuk-error-summary__list")
       within ".govuk-error-summary__list" do
-        expect(page).to have_content("Please select at least one option")
+        expect(page).to have_content("Please enter the value of the property")
       end
     end
 
     it "can submit second property" do
+      fill_in "assets-form-savings-field", with: "0"
+      fill_in "assets-form-investments-field", with: "0"
+      fill_in "assets-form-valuables-field", with: "0"
       expect(mock_connection)
         .to receive(:create_properties)
               .with(estimate_id,
                     { outstanding_mortgage: 50_000, percentage_owned: 100, value: 100_000 },
                     { outstanding_mortgage: 40_000, percentage_owned: 50, value: 80_000 })
-      click_checkbox("assets-form-assets", "property")
       fill_in "assets-form-property-value-field", with: "80_000"
       fill_in "assets-form-property-mortgage-field", with: "40_000"
       fill_in "assets-form-property-percentage-owned-field", with: "50"
       click_on "Save and continue"
 
       expect(page).to have_content check_answers_header
+      expect(page).to have_content "Second property or holiday home: % owned"
       click_on "Submit"
     end
 
     it "can submit non-zero savings and investments" do
+      fill_in "assets-form-property-value-field", with: "0"
+
       expect(mock_connection)
         .to receive(:create_properties)
               .with(estimate_id,
                     { outstanding_mortgage: 50_000, percentage_owned: 100, value: 100_000 },
                     nil)
       expect(mock_connection).to receive(:create_capitals).with(estimate_id, [100], [500, 1000])
-      click_checkbox("assets-form-assets", "savings")
+
       fill_in "assets-form-savings-field", with: "100"
-
-      click_checkbox("assets-form-assets", "investments")
       fill_in "assets-form-investments-field", with: "500"
-
-      click_checkbox("assets-form-assets", "valuables")
       fill_in "assets-form-valuables-field", with: "1000"
 
       click_on "Save and continue"
@@ -104,13 +112,13 @@ RSpec.describe "Assets Page" do
       click_on "Submit"
     end
 
-    it "can fill in the assets questions and get to results" do
+    it "can skip the assets questions and get to results" do
       allow(mock_connection).to receive(:create_properties)
       allow(mock_connection).to receive(:create_applicant)
       allow(mock_connection).to receive(:create_regular_payments)
       allow(mock_connection).to receive(:api_result).and_return(calculation_result)
-      click_checkbox("assets-form-assets", "none")
-      click_on "Save and continue"
+
+      skip_assets_form
       expect(page).to have_content check_answers_header
       click_on "Submit"
 
@@ -139,15 +147,11 @@ RSpec.describe "Assets Page" do
       expect(page).to have_content assets_header
     end
 
-    it "sets error on assets form" do
-      click_on "Save and continue"
-      expect(page).to have_css(".govuk-error-summary__list")
-      within ".govuk-error-summary__list" do
-        expect(page).to have_content("Please select at least one option")
-      end
-    end
-
     it "can submit second property" do
+      fill_in "assets-form-savings-field", with: "0"
+      fill_in "assets-form-investments-field", with: "0"
+      fill_in "assets-form-valuables-field", with: "0"
+
       allow(mock_connection).to receive(:create_regular_payments)
       allow(mock_connection).to receive(:create_applicant)
       allow(mock_connection).to receive(:api_result).and_return(calculation_result)
@@ -157,7 +161,6 @@ RSpec.describe "Assets Page" do
                 { outstanding_mortgage: 0, percentage_owned: 100, value: 100_000 },
                 { outstanding_mortgage: 40_000, percentage_owned: 50, value: 80_000 })
 
-      click_checkbox("assets-form-assets", "property")
       fill_in "assets-form-property-value-field", with: "80_000"
       fill_in "assets-form-property-mortgage-field", with: "40_000"
       fill_in "assets-form-property-percentage-owned-field", with: "50"

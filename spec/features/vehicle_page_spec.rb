@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Vehicle Page" do
-  let(:assets_header) { "Which assets does your client have?" }
+  let(:assets_header) { "Which of these assets does your client have?" }
   let(:check_answers_header) { "Check your answers" }
 
   let(:estimate_id) { SecureRandom.uuid }
@@ -44,8 +44,7 @@ RSpec.describe "Vehicle Page" do
 
       before do
         allow(mock_connection).to receive(:create_capitals)
-        click_checkbox("assets-form-assets", "none")
-        click_on "Save and continue"
+        skip_assets_form
       end
 
       it "has expected content" do

@@ -2,27 +2,24 @@ class AssetsForm
   include ActiveModel::Model
   include ActiveModel::Attributes
 
-  attribute :assets, array: true, default: []
-  validates :assets, at_least_one_item: true
-
-  ASSETS_DECIMAL_ATTRIBUTES = { savings: { greater_than: 0 },
-                                investments: { greater_than: 0 },
-                                valuables: { greater_than_or_equal_to: 500 } }.freeze
+  ASSETS_DECIMAL_ATTRIBUTES = %i[savings investments valuables].freeze
   ASSETS_PROPERTY_ATTRIBUTES = %i[property_value property_mortgage].freeze
-  ASSETS_ATTRIBUTES = (ASSETS_DECIMAL_ATTRIBUTES.keys + ASSETS_PROPERTY_ATTRIBUTES + [:property_percentage_owned]).freeze
+  ASSETS_ATTRIBUTES = (ASSETS_DECIMAL_ATTRIBUTES + ASSETS_PROPERTY_ATTRIBUTES + [:property_percentage_owned]).freeze
 
-  ASSETS_DECIMAL_ATTRIBUTES.each do |asset_type, threshold|
+  ASSETS_DECIMAL_ATTRIBUTES.each do |asset_type|
     attribute asset_type, :gbp
-    validates asset_type, numericality: threshold.merge(allow_nil: true), presence: true, if: -> { assets.include?(asset_type.to_s) }
+    validates asset_type, numericality: { greater_than_or_equal_to: 0, allow_nil: true }, presence: true
   end
 
   attribute :property_value, :gbp
+  validates :property_value, numericality: { greater_than_or_equal_to: 0, allow_nil: true }, presence: true
+
   attribute :property_mortgage, :gbp
-  validates :property_value, numericality: { greater_than: 0, allow_nil: true }, presence: true, if: -> { assets.include?("property") }
-  validates :property_mortgage, numericality: { greater_than_or_equal_to: 0, allow_nil: true }, presence: true, if: -> { assets.include?("property") }
+  validates :property_mortgage, numericality: { greater_than_or_equal_to: 0, allow_nil: true }, presence: true,
+                                if: -> { property_value.to_i.positive? }
 
   attribute :property_percentage_owned, :integer
   validates :property_percentage_owned,
             numericality: { greater_than: 0, only_integer: true, less_than_or_equal_to: 100, allow_nil: true },
-            presence: true, if: -> { assets.include?("property") }
+            presence: true, if: -> { property_value.to_i.positive? }
 end

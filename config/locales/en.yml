@@ -287,8 +287,18 @@ en:
     assets:
       caption: Your client's finances
       assets:
-        legend: Which assets does your client have?
-        hint: Select all that apply
+        legend: Which of these assets does your client have?
+        hint: Please enter a zero if a question does not apply.
+      property:
+        label: Second property, holiday home or land
+        hint: This can be the sole property owned if not their main dwelling even if the property is abroad or not providing an income.
+        value:
+          label: Enter the estimated value
+        mortgage:
+          label: Enter the outstanding mortgage
+        percentage_owned:
+          input: Enter the share your client owns
+          input_hint: ""
       savings:
         label: Savings
         hint: For example, money in current or savings accounts, ISAs, or child accounts your client is a signatory on.
@@ -303,16 +313,6 @@ en:
         label: Valuable items worth £500 or more
         hint: For example, jewellery, art, antiques or caravan or similar.
         input: Enter the value
-      property:
-        label: Second property, holiday home or land
-        hint: This can be the sole property owned if not their main dwelling even if the property is abroad or not providing an income.
-        value:
-          label: Enter the estimated value
-        mortgage:
-          label: Enter the outstanding mortgage
-        percentage_owned:
-          input: Enter the share your client owns
-          input_hint: ""
       guidance:
         text: Guidance on assets
         link: "#"
@@ -408,6 +408,7 @@ en:
         property_percentage_owned_html: "Second property or holiday home: &#37; owned"
         savings: Savings
         investments: Investments
+        valuables: Valuables
       submission_instructions: Now submit your eligibility check
       submission_explanation: We'll use your answers to give you an estimated result on your client's financial eligibility for legal aid.
       call_to_action: Submit eligibility check
