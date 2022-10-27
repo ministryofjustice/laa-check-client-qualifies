@@ -1,3 +1,5 @@
+- path ||= nil
+- link ||= nil
 .govuk-summary-list__row
   dt.govuk-summary-list__key
     = label_text
@@ -9,4 +11,7 @@
       = "&pound;".html_safe + format_money(value_text).presence
 
   dd.govuk-summary-list__actions
-    = link_to(t("generic.change"), estimate_check_answer_path(@estimate_id, link), class: "govuk-link") if link
+    - if link
+      = link_to(t("generic.change"), estimate_check_answer_path(@estimate_id, link), class: "govuk-link")
+    - elsif path
+       = link_to(t("generic.change"), path, class: "govuk-link")

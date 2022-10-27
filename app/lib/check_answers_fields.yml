@@ -67,6 +67,7 @@ sections:
   - label: other_income
     subsections:
       - label: benefits
+        screen: benefits
       - label: monthly_income
         screen: monthly_income
         fields:

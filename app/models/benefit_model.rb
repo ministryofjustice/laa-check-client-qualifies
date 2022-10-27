@@ -6,7 +6,7 @@ class BenefitModel
 
   attribute :id
 
-  EDITABLE_ATTRIBUTES = %i[benefit_type benefit_amount benefit_frequency].freeze
+  EDITABLE_ATTRIBUTES = %i[benefit_type benefit_amount benefit_frequency return_to_check_answers].freeze
   BENEFITS_ATTRIBUTES = (EDITABLE_ATTRIBUTES + %i[id]).freeze
 
   attribute :benefit_type, :string
@@ -16,6 +16,8 @@ class BenefitModel
 
   attribute :benefit_frequency, :string
   validates :benefit_frequency, inclusion: { in: FREQUENCY_OPTIONS, allow_nil: false }
+
+  attribute :return_to_check_answers, :boolean
 
   def benefit_options
     FREQUENCY_OPTIONS.map { [_1, I18n.t("estimate_flow.benefits.frequencies.#{_1}")] }

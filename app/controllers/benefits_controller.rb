@@ -11,7 +11,7 @@ class BenefitsController < EstimateFlowController
       @model.id = SecureRandom.uuid
       session_data["benefits"] ||= []
       session_data["benefits"] << @model.attributes
-      redirect_to index_path
+      redirect_to flow_path(:benefits)
     else
       render :new
     end
@@ -20,6 +20,7 @@ class BenefitsController < EstimateFlowController
   def edit
     benefit_attributes = session_data["benefits"].find { _1["id"] == params[:id] }
     @model = BenefitModel.new(benefit_attributes)
+    @model.return_to_check_answers = params[:check_answers]
   end
 
   def update
@@ -29,7 +30,11 @@ class BenefitsController < EstimateFlowController
     if @model.valid?
       index = session_data["benefits"].index(benefit_attributes)
       session_data["benefits"][index] = @model.attributes
-      redirect_to index_path
+      if @model.return_to_check_answers
+        redirect_to next_step_path
+      else
+        redirect_to flow_path(:benefits)
+      end
     else
       render :edit
     end
@@ -38,9 +43,9 @@ class BenefitsController < EstimateFlowController
   def destroy
     session_data["benefits"].delete_if { _1["id"] == params["id"] }
     if session_data["benefits"].any?
-      redirect_to index_path
+      redirect_to flow_path(:benefits)
     else
-      redirect_to new_estimate_benefit_path(params[:estimate_id])
+      redirect_to new_path
     end
   end
 
@@ -49,10 +54,10 @@ class BenefitsController < EstimateFlowController
     @estimate = load_estimate
     if @form.valid?
       if @form.add_benefit
-        redirect_to new_estimate_benefit_path(estimate_id)
+        redirect_to new_path
       else
         session_data[:add_benefit] = false
-        redirect_to estimate_build_estimate_path(estimate_id, StepsHelper.next_step_for(@estimate, :benefits))
+        redirect_to next_step_path
       end
     else
       render "estimate_flow/benefits"
@@ -61,7 +66,15 @@ class BenefitsController < EstimateFlowController
 
 private
 
-  def index_path
-    estimate_build_estimate_path estimate_id, :benefits
+  def flow_path(step)
+    estimate_build_estimate_path estimate_id, step
+  end
+
+  def new_path
+    new_estimate_benefit_path(estimate_id)
+  end
+
+  def next_step_path
+    flow_path StepsHelper.next_step_for(@estimate, :benefits)
   end
 end

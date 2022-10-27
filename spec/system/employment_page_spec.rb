@@ -27,7 +27,7 @@ RSpec.describe "Employment Page", :vcr do
       select "Every week", from: "employment-form-frequency-field"
       click_on "Save and continue"
       expect(page).to have_content(benefits_header)
-      find(:css, "#benefits-form-add-benefit-field").click
+      select_boolean_value("benefits-form", :add_benefit, false)
       click_on "Save and continue"
       click_checkbox("monthly-income-form-monthly-incomes", "none")
       click_on "Save and continue"

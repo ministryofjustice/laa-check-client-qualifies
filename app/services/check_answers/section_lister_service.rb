@@ -4,6 +4,8 @@ module CheckAnswers
     Subsection = Struct.new(:label, :screen, :fields, keyword_init: true)
     Field = Struct.new(:label, :type, :value, :screen, :alt_value, keyword_init: true)
 
+    SUBSECTION_SPECIAL_CASES = %i[benefits].freeze
+
     def self.call(session_data)
       new(session_data).call
     end
@@ -41,7 +43,9 @@ module CheckAnswers
     end
 
     def build_fields(field_set, parent_screen, label_set)
-      return [] if field_set.blank?
+      if SUBSECTION_SPECIAL_CASES.include?(label_set.to_sym)
+        return send(:"#{label_set}_fields")
+      end
 
       field_set.map { build_field(_1, label_set, parent_screen) }.compact
     end
@@ -67,6 +71,20 @@ module CheckAnswers
         return unless @session_data[field_data[:requires_inclusion_in]]&.include?(key)
       end
       @session_data[field_data[:attribute]]
+    end
+
+    def benefits_fields
+      if @session_data["benefits"].blank?
+        return [Field.new(label: I18n.t("generic.not_applicable"),
+                          type: "benefit")]
+      end
+
+      @session_data["benefits"].map do |benefit|
+        Field.new(label: benefit["benefit_type"],
+                  type: "benefit",
+                  value: benefit["benefit_amount"],
+                  alt_value: benefit["id"])
+      end
     end
   end
 end

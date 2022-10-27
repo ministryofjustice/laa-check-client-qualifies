@@ -5,7 +5,7 @@
   - if @form.benefits.blank?
     span.govuk-caption-l = t(".caption")
 
-    = form_for(@form, url: add_estimate_benefits_path(params[:estimate_id])) do |form|
+    = form_for(@form, url: variable_controller_benefit_path(action: :add)) do |form|
 
       = form.govuk_collection_radio_buttons :add_benefit, yes_no_options, :first, :last,
               legend: { text: t(".legend"), size: "xl", tag: "h1" },
@@ -24,16 +24,16 @@
               row.cell(text: benefit.benefit_type)
               row.cell(text: "&pound;#{format_money(benefit.benefit_amount)}".html_safe)
               row.cell(text: t(".frequencies.#{benefit.benefit_frequency}"))
-              row.cell(text: link_to(t(".edit"), edit_estimate_benefit_path(params[:estimate_id], benefit.id), class: "govuk-link"))
+              row.cell(text: link_to(t(".edit"), variable_controller_benefit_path(action: :edit, id: benefit.id), class: "govuk-link"))
               row.cell(text: button_to(t(".remove"),
-                                       estimate_benefit_path(params[:estimate_id], benefit.id),
+                                       variable_controller_benefit_path(id: benefit.id),
                                        class: "govuk-link button-as-link",
                                        method: "delete"))
             end
           end
         end
 
-    = form_for(@form, url: add_estimate_benefits_path(params[:estimate_id])) do |form|
+    = form_for(@form, url: variable_controller_benefit_path(action: :add)) do |form|
 
       = form.govuk_collection_radio_buttons :add_benefit, yes_no_options, :first, :last,
               legend: { text: t(".add_more_legend"), size: "l" }

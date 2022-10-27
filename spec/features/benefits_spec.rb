@@ -13,13 +13,13 @@ RSpec.describe "Benefits" do
   end
 
   it "allows me to skip past the screen" do
-    find(:css, "#benefits-form-add-benefit-field").click
+    select_boolean_value("benefits-form", :add_benefit, false)
     click_on("Save and continue")
     expect(page).to have_content("What other income does your client receive?")
   end
 
   it "allows me to enter a benefit" do
-    find(:css, "#benefits-form-add-benefit-true-field").click
+    select_boolean_value("benefits-form", :add_benefit, true)
     click_on "Save and continue"
     fill_in "Benefit type", with: "Child benefit"
     fill_in "Enter amount", with: "150"
@@ -30,7 +30,7 @@ RSpec.describe "Benefits" do
   end
 
   it "validates my input" do
-    find(:css, "#benefits-form-add-benefit-true-field").click
+    select_boolean_value("benefits-form", :add_benefit, true)
     click_on "Save and continue"
     fill_in "Benefit type", with: ""
     fill_in "Enter amount", with: "150"
@@ -40,7 +40,7 @@ RSpec.describe "Benefits" do
   end
 
   it "allows me to edit a benefit" do
-    find(:css, "#benefits-form-add-benefit-true-field").click
+    select_boolean_value("benefits-form", :add_benefit, true)
     click_on "Save and continue"
     fill_in "Benefit type", with: "Child benefit"
     fill_in "Enter amount", with: "150"
@@ -53,7 +53,7 @@ RSpec.describe "Benefits" do
   end
 
   it "validates my edits" do
-    find(:css, "#benefits-form-add-benefit-true-field").click
+    select_boolean_value("benefits-form", :add_benefit, true)
     click_on "Save and continue"
     fill_in "Benefit type", with: "Child benefit"
     fill_in "Enter amount", with: "150"
@@ -66,7 +66,7 @@ RSpec.describe "Benefits" do
   end
 
   it "allows me to remove a benefit" do
-    find(:css, "#benefits-form-add-benefit-true-field").click
+    select_boolean_value("benefits-form", :add_benefit, true)
     click_on "Save and continue"
     fill_in "Benefit type", with: "Child benefit"
     fill_in "Enter amount", with: "150"
@@ -78,13 +78,13 @@ RSpec.describe "Benefits" do
   end
 
   it "allows me to remove one benefit of multiple" do
-    find(:css, "#benefits-form-add-benefit-true-field").click
+    select_boolean_value("benefits-form", :add_benefit, true)
     click_on "Save and continue"
     fill_in "Benefit type", with: "Child benefit"
     fill_in "Enter amount", with: "150"
     choose "Every week"
     click_on "Save and continue"
-    find(:css, "#benefits-form-add-benefit-true-field").click
+    select_boolean_value("benefits-form", :add_benefit, true)
     click_on "Save and continue"
     fill_in "Benefit type", with: "Tax credits"
     fill_in "Enter amount", with: "100"

@@ -1,10 +1,10 @@
 - content_for :back
-  = link_to t("generic.back"), estimate_build_estimate_path(params[:estimate_id], :benefits), class: "govuk-back-link"
+  = link_to t("generic.back"), "javascript:history.back()", class: "govuk-back-link"
 
 .govuk-grid-column-two-thirds
   span.govuk-caption-l = t(".caption")
   h1.govuk-heading-xl = t(".heading")
-  = form_for(@model, url: estimate_benefits_path(params[:estimate_id])) do |form|
+  = form_for(@model, url: url_for([:estimate, controller_name.to_sym])) do |form|
     = render "form", form:
 
 = render "shared/sidebar_with_date", links: {}
