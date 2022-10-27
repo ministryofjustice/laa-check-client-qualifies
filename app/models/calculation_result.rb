@@ -59,7 +59,7 @@ class CalculationResult
       property_or_lodger: extract_other_money(:property_or_lodger),
       pension: extract_other_money(:pension),
       student_finance: api_response.dig(:assessment, :gross_income, :irregular_income, :monthly_equivalents, :student_loan),
-      other: api_response.dig(:assessment, :gross_income, :irregular_income, :monthly_equivalents, :unspecified_source_income),
+      other: api_response.dig(:assessment, :gross_income, :irregular_income, :monthly_equivalents, :unspecified_source),
     }
     data.transform_values { |v| monetise(v) }
   end

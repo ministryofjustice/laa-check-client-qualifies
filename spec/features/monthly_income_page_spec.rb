@@ -63,7 +63,7 @@ RSpec.describe "Monthly income Page" do
   it "handles non-student finance values and continues to the next screen when page is submitted" do
     payments = [
       {
-        "income_type": "unspecified_source_income",
+        "income_type": "unspecified_source",
         "frequency": "quarterly",
         "amount": 333,
       },

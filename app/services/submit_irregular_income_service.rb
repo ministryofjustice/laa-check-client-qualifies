@@ -31,7 +31,7 @@ class SubmitIrregularIncomeService < BaseCfeService
   def create_other_income(cfe_connection, assessment_id, amount)
     payments = [
       {
-        "income_type": "unspecified_source_income",
+        "income_type": "unspecified_source",
         "frequency": "quarterly",
         "amount": amount,
       },
