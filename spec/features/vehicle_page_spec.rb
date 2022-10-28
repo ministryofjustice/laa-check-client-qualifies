@@ -113,15 +113,21 @@ RSpec.describe "Vehicle Page" do
       it "uses 4 years old" do
         expect(mock_connection).to receive(:create_vehicle)
           .with(estimate_id,
-                date_of_purchase: 4.years.ago.to_date,
-                value: vehicle_value,
-                loan_amount_outstanding: loan_amount,
-                in_regular_use: true)
+                [
+                  {
+                    date_of_purchase: 4.years.ago.to_date,
+                    in_regular_use: true,
+                    loan_amount_outstanding: 2_000,
+                    subject_matter_of_dispute: true,
+                    value: 5_000,
+                  },
+                ])
 
         fill_in "vehicle-details-form-vehicle-value-field", with: vehicle_value
         select_boolean_value("vehicle-details-form", :vehicle_in_regular_use, true)
         select_boolean_value("vehicle-details-form", :vehicle_over_3_years_ago, true)
         select_boolean_value("vehicle-details-form", :vehicle_pcp, true)
+        check("This asset is a subject matter of dispute")
         fill_in "vehicle-details-form-vehicle-finance-field", with: loan_amount
         progress_to_submit_from_vehicle_form
       end
@@ -131,10 +137,15 @@ RSpec.describe "Vehicle Page" do
       it "uses 2 years old" do
         expect(mock_connection).to receive(:create_vehicle)
           .with(estimate_id,
-                date_of_purchase: 2.years.ago.to_date,
-                value: vehicle_value,
-                loan_amount_outstanding: loan_amount,
-                in_regular_use: true)
+                [
+                  {
+                    date_of_purchase: 2.years.ago.to_date,
+                    in_regular_use: true,
+                    loan_amount_outstanding: 2_000,
+                    subject_matter_of_dispute: false,
+                    value: 5_000,
+                  },
+                ])
 
         fill_in "vehicle-details-form-vehicle-value-field", with: vehicle_value
         select_boolean_value("vehicle-details-form", :vehicle_in_regular_use, true)
