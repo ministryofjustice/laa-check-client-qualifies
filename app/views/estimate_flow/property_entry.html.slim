@@ -28,6 +28,9 @@
                               label: { text: t(".percentage_owned.input"), size: "m" },
                               hint: { text: t(".percentage_owned.input_hint") }
 
+    = form.govuk_check_box :house_in_dispute, true,
+            label: { text: t(".dispute.label") }
+
     = form.govuk_submit t("generic.save_and_continue")
 
 = render "property_sidebar"

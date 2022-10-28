@@ -18,4 +18,10 @@ class PropertyEntryForm
   validates :percentage_owned,
             numericality: { greater_than: 0, only_integer: true, less_than_or_equal_to: 100, allow_nil: true, message: :within_range },
             presence: true
+
+  attribute :house_in_dispute, array: true, default: []
+
+  def in_dispute?
+    house_in_dispute.any?
+  end
 end
