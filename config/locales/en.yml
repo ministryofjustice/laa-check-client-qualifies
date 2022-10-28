@@ -164,6 +164,10 @@ en:
     related_content_title: Related content
     not_applicable: Not applicable
     opens_in_new_tab: (opens in new tab)
+    dispute: This asset is a subject matter of dispute
+    smod:
+      guidance_text: "Guidance on subject matter of dispute"
+      guidance_link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=68"
   estimate_flow:
     applicant:
       heading: Your client's details
@@ -327,6 +331,8 @@ en:
         percentage_owned:
           input: Enter the share your client owns
           input_hint: ""
+        dispute:
+          label: This asset is a subject matter of dispute
       savings:
         label: Savings
         hint: For example, money in current or savings accounts, ISAs, or child accounts your client is a signatory on.
