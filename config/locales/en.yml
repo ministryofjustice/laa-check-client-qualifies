@@ -531,13 +531,17 @@ en:
         savings: Savings
         investments: Investments
         valuables: Valuable items worth £500 or more
+      client_capital_subtotal_types:
+        total_capital: Total capital
+        total_capital_limit: Disposable capital limit
+        pensioner_capital_disregard: Pensioner disregard
+        smod_disregard: Disputed asset disregard
       gross_monthly_income: Total gross monthly income
       gross_income_limit: Total gross income limit
       gross_monthly_outgoings: Total gross monthly outgoings
       disposable_monthly_income: Assessed disposable monthly income
       disposable_income_limit: Disposable monthly income limit
-      total_capital: Total capital
-      total_capital_limit: Disposable capital limit
+      assessed_capital: Disposable capital
       start_another_check: Start another eligibility check
       print_page: Print this page
     print:
