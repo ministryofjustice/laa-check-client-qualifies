@@ -22,4 +22,11 @@ class AssetsForm
   validates :property_percentage_owned,
             numericality: { greater_than: 0, only_integer: true, less_than_or_equal_to: 100, allow_nil: true },
             presence: true, if: -> { property_value.to_i.positive? }
+
+  # list of assets in SMOD - property, valuables, investments
+  attribute :in_dispute, array: true, default: []
+
+  def property_in_dispute?
+    in_dispute.include? "property"
+  end
 end
