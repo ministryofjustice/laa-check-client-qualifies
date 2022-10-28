@@ -42,12 +42,8 @@ class CalculationResult
     monetise(api_response.dig(:result_summary, :disposable_income, :proceeding_types)&.map { |pt| pt.fetch(:upper_threshold) }&.min)
   end
 
-  def total_capital
-    monetise(api_response.dig(:result_summary, :capital, :total_capital))
-  end
-
-  def total_capital_limit
-    monetise(api_response.dig(:result_summary, :capital, :proceeding_types)&.map { |pt| pt.fetch(:upper_threshold) }&.min)
+  def assessed_capital
+    monetise(api_response.dig(:result_summary, :capital, :assessed_capital))
   end
 
   def client_income_rows
@@ -81,12 +77,23 @@ class CalculationResult
 
   def client_capital_rows
     data = {
-      property: capital_items(:properties)&.dig(:main_home, :net_equity),
+      property: capital_items(:properties)&.dig(:main_home, :assessed_equity),
       vehicles: capital_items(:vehicles)&.sum(0) { |z| z.fetch(:assessed_value) },
       # unfortunately CFE returns capital items as strings rather than numbers for some reason.
-      second_property: capital_items(:properties)&.fetch(:additional_properties)&.sum(0) { |p| p.fetch(:net_equity).to_i },
+      second_property: capital_items(:properties)&.fetch(:additional_properties)&.sum(0) { |p| p.fetch(:assessed_equity).to_i },
       savings: capital_items(:liquid)&.sum(0) { |z| z.fetch(:value).to_i },
     }
+    data.transform_values { |value| monetise(value) }
+  end
+
+  def client_capital_subtotal_rows
+    data = {
+      total_capital: api_response.dig(:result_summary, :capital, :total_capital),
+      total_capital_limit: api_response.dig(:result_summary, :capital, :proceeding_types)&.map { |pt| pt.fetch(:upper_threshold) }&.min,
+      pensioner_capital_disregard: api_response.dig(:result_summary, :capital, :pensioner_capital_disregard),
+      smod_disregard: api_response.dig(:result_summary, :capital, :subject_matter_of_dispute_disregard),
+    }
+
     data.transform_values { |value| monetise(value) }
   end
 
