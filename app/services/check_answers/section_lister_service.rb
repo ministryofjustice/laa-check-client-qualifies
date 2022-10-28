@@ -2,7 +2,7 @@ module CheckAnswers
   class SectionListerService
     Section = Struct.new(:label, :screen, :subsections, keyword_init: true)
     Subsection = Struct.new(:label, :screen, :fields, keyword_init: true)
-    Field = Struct.new(:label, :type, :value, :screen, :alt_value, keyword_init: true)
+    Field = Struct.new(:label, :type, :value, :screen, :alt_value, :disputed?, keyword_init: true)
 
     SUBSECTION_SPECIAL_CASES = %i[benefits].freeze
 
@@ -58,9 +58,20 @@ module CheckAnswers
 
       label = field_data.fetch(:label, field_data.fetch(:attribute))
 
+      disputed = if field_data.key? :disputed_attribute
+                   if field_data.key? :disputed_item
+                     @session_data[field_data[:disputed_attribute]]&.include? field_data[:disputed_item]
+                   else
+                     @session_data[field_data[:disputed_attribute]]
+                   end
+                 else
+                   false
+                 end
+
       Field.new(label: "#{label_set}_fields.#{label}",
                 type: field_data[:type],
                 value:,
+                disputed?: disputed,
                 screen: field_data[:screen],
                 alt_value: @session_data[field_data[:alt_attribute]])
     end

@@ -4,6 +4,8 @@
   "dependencies": {
     "esbuild": "^0.15.12",
     "govuk-frontend": "^4.3.1",
+    "jquery": "^3.6.1",
+    "@ministryofjustice/frontend": "^1.6.2",
     "sass": "^1.55.0"
   },
   "scripts": {

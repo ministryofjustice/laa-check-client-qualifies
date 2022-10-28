@@ -3,6 +3,11 @@ $govuk-new-link-styles: true;
 $govuk-assets-path: "/";
 
 @import "govuk-frontend/govuk/all";
+// can only import this single component as moj/all
+// tries to import govuk/base which exists as _base.scss but the pipeline can't find it
+// components list doesn't seem to include badge anyway?
+@import "@ministryofjustice/frontend/moj/components/badge/badge";
+
 @import "panel-grey.scss";
 @import "sidebar";
 @import "results";
