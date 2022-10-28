@@ -36,6 +36,9 @@
     = form.govuk_collection_radio_buttons :vehicle_in_regular_use, yes_no_options, :first, :last,
                                             legend: { text: t(".vehicle_in_regular_use.legend") },
                                             hint: { text: t(".vehicle_in_regular_use.hint") }
+    .govuk-form-group
+      = form.govuk_check_box :vehicle_in_dispute, true, multiple: false,
+          label: { text: t(".vehicle_in_dispute") }
 
     = form.govuk_submit t("generic.save_and_continue")
 = render "vehicle_sidebar"
