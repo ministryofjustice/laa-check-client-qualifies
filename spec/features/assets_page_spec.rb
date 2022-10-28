@@ -26,7 +26,7 @@ RSpec.describe "Assets Page" do
       expect(page).to have_content assets_header
     end
 
-    it "can submit second property" do
+    it "can submit (disputed) second property" do
       fill_in "assets-form-savings-field", with: "0"
       fill_in "assets-form-investments-field", with: "0"
       fill_in "assets-form-valuables-field", with: "0"
@@ -52,6 +52,9 @@ RSpec.describe "Assets Page" do
       click_on "Save and continue"
 
       expect(page).to have_content check_answers_header
+      within "#field-list-other" do
+        expect(page).to have_content "Disputed asset"
+      end
       click_on "Submit"
     end
   end
@@ -134,6 +137,15 @@ RSpec.describe "Assets Page" do
       click_on "Save and continue"
 
       expect(page).to have_content check_answers_header
+      within "#savings" do
+        expect(page).to have_content "Disputed asset"
+      end
+      within "#investments" do
+        expect(page).not_to have_content "Disputed asset"
+      end
+      within "#valuables" do
+        expect(page).to have_content "Disputed asset"
+      end
       click_on "Submit"
     end
 

@@ -127,9 +127,17 @@ RSpec.describe "Vehicle Page" do
         select_boolean_value("vehicle-details-form", :vehicle_in_regular_use, true)
         select_boolean_value("vehicle-details-form", :vehicle_over_3_years_ago, true)
         select_boolean_value("vehicle-details-form", :vehicle_pcp, true)
-        check("This asset is a subject matter of dispute")
         fill_in "vehicle-details-form-vehicle-finance-field", with: loan_amount
-        progress_to_submit_from_vehicle_form
+        select_boolean_value("vehicle-details-form", :vehicle_in_dispute, true)
+
+        click_on "Save and continue"
+        skip_assets_form
+
+        within "#field-list-vehicles" do
+          expect(page).to have_content "Disputed asset"
+        end
+
+        click_on "Submit"
       end
     end
 

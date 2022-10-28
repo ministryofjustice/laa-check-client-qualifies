@@ -118,6 +118,7 @@ sections:
           - type: select
             attribute: property_owned
             screen: property
+            disputed_attribute: house_in_dispute
           - type: money
             attribute: house_value
             screen: property_entry
@@ -135,6 +136,7 @@ sections:
           - type: boolean
             attribute: vehicle_owned
             screen: vehicle
+            disputed_attribute: vehicle_in_dispute
           - type: money
             attribute: vehicle_value
             screen: vehicle_details
@@ -155,6 +157,8 @@ sections:
         fields:
           - attribute: property_value
             type: money
+            disputed_attribute: in_dispute
+            disputed_item: property
           - attribute: property_mortgage
             type: money
           - attribute: property_percentage_owned
@@ -162,7 +166,13 @@ sections:
             type: number
           - attribute: savings
             type: money
+            disputed_attribute: in_dispute
+            disputed_item: savings
           - attribute: investments
             type: money
+            disputed_attribute: in_dispute
+            disputed_item: investments
           - attribute: valuables
             type: money
+            disputed_attribute: in_dispute
+            disputed_item: valuables
