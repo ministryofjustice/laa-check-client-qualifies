@@ -116,11 +116,19 @@ RSpec.describe "Assets Page" do
         .to receive(:create_properties)
               .with(estimate_id,
                     main_home: { outstanding_mortgage: 50_000, percentage_owned: 100, value: 100_000, shared_with_housing_assoc: false })
-      expect(mock_connection).to receive(:create_capitals).with(estimate_id, [100], [500, 1000])
+      expect(mock_connection)
+        .to receive(:create_capitals)
+              .with(estimate_id,
+                    [{ description: "Liquid Asset", subject_matter_of_dispute: true, value: 100 }],
+                    [{ description: "Non Liquid Asset", subject_matter_of_dispute: true, value: 500 },
+                     { description: "Non Liquid Asset", subject_matter_of_dispute: true, value: 1000 }])
 
       fill_in "assets-form-savings-field", with: "100"
+      click_checkbox("assets-form-in-dispute", "savings")
       fill_in "assets-form-investments-field", with: "500"
+      click_checkbox("assets-form-in-dispute", "investments")
       fill_in "assets-form-valuables-field", with: "1000"
+      click_checkbox("assets-form-in-dispute", "valuables")
 
       click_on "Save and continue"
 

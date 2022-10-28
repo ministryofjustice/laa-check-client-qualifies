@@ -103,20 +103,7 @@ class CfeConnection
     create_record(assessment_id, "properties", properties:)
   end
 
-  def create_capitals(assessment_id, liquid_assets, illiquid_assets)
-    # descriptions are mandatory in CFE
-    bank_accounts = liquid_assets.map do |amount|
-      {
-        value: amount,
-        description: "Liquid Asset",
-      }
-    end
-    non_liquid_capital = illiquid_assets.map do |amount|
-      {
-        value: amount,
-        description: "Non Liquid Asset",
-      }
-    end
+  def create_capitals(assessment_id, bank_accounts, non_liquid_capital)
     create_record(assessment_id, "capitals", bank_accounts:, non_liquid_capital:)
   end
 

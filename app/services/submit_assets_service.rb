@@ -1,16 +1,23 @@
 class SubmitAssetsService < BaseCfeService
+  Asset = Struct.new :amount, :disputed?, keyword_init: true
+
   def self.call(cfe_estimate_id, cfe_session_data)
     new.call(cfe_estimate_id, cfe_session_data)
   end
 
   def call(cfe_estimate_id, cfe_session_data)
     asset_form = Flow::AssetHandler.model(cfe_session_data)
-    liquid_assets = { savings: asset_form.savings }.select { |_asset, value| value.positive? }.map(&:last)
+
+    liquid_assets = {
+      savings: Asset.new(amount: asset_form.savings, disputed?: asset_form.savings_in_dispute?),
+    }.select { |_asset, value| value.amount.positive? }.map(&:last)
+
     illiquid_assets = {
-      investments: asset_form.investments,
-      valuables: asset_form.valuables,
-    }.select { |_asset, value| value.positive? }.map(&:last)
-    cfe_connection.create_capitals cfe_estimate_id, liquid_assets, illiquid_assets if liquid_assets.any? || illiquid_assets.any?
+      investments: Asset.new(amount: asset_form.investments, disputed?: asset_form.investments_in_dispute?),
+      valuables: Asset.new(amount: asset_form.valuables, disputed?: asset_form.valuables_in_dispute?),
+    }.select { |_asset, value| value.amount.positive? }.map(&:last)
+
+    create_capitals cfe_estimate_id, liquid_assets, illiquid_assets if liquid_assets.any? || illiquid_assets.any?
 
     if asset_form.property_value.positive?
       second_property = {
@@ -35,6 +42,27 @@ class SubmitAssetsService < BaseCfeService
   end
 
 private
+
+  def create_capitals(assessment_id, liquid_assets, illiquid_assets)
+    # descriptions are mandatory in CFE
+    bank_accounts = liquid_assets.map do |asset|
+      {
+        value: asset.amount,
+        description: "Liquid Asset",
+      }.tap do |account|
+        account[:subject_matter_of_dispute] = true if asset.disputed?
+      end
+    end
+    non_liquid_capital = illiquid_assets.map do |asset|
+      {
+        value: asset.amount,
+        description: "Non Liquid Asset",
+      }.tap do |account|
+        account[:subject_matter_of_dispute] = true if asset.disputed?
+      end
+    end
+    cfe_connection.create_capitals(assessment_id, bank_accounts, non_liquid_capital)
+  end
 
   def create_properties(assessment_id, main_property, second_property)
     main_home = main_property ||
