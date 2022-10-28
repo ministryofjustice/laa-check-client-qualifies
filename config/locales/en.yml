@@ -333,8 +333,6 @@ en:
         percentage_owned:
           input: Enter the share your client owns
           input_hint: ""
-        dispute:
-          label: This asset is a subject matter of dispute
       savings:
         label: Savings
         hint: For example, money in current or savings accounts, ISAs, or child accounts your client is a signatory on.

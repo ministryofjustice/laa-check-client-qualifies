@@ -31,9 +31,8 @@
               suffix_text: "%",
               label: { text: t(".property.percentage_owned.input") },
               hint: { text: t(".property.percentage_owned.input_hint") }
-
       = form.govuk_check_box :in_dispute, :property,
-              label: { text: t(".property.dispute.label") }
+              label: { text: t("generic.dispute") }
 
     = form.govuk_fieldset legend: { text: t(".savings.label") } do
 
@@ -45,6 +44,9 @@
             width: 5,
             label_text: t(".savings.input")
 
+      = form.govuk_check_box :in_dispute, :savings,
+              label: { text: t("generic.dispute") }
+
     = form.govuk_fieldset legend: { text: t(".investments.label") } do
 
       .govuk-hint = t(".investments.hint")
@@ -55,6 +57,9 @@
               width: 5,
               label_text: t(".investments.input")
 
+      = form.govuk_check_box :in_dispute, :investments,
+              label: { text: t("generic.dispute") }
+
     = form.govuk_fieldset legend: { text: t(".valuables.label") } do
 
       .govuk-hint = t(".valuables.hint")
@@ -64,6 +69,9 @@
                field: :valuables,
                width: 5,
                label_text: t(".valuables.input")
+
+      = form.govuk_check_box :in_dispute, :valuables,
+              label: { text: t("generic.dispute") }
 
     = render "smod_help"
 

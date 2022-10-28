@@ -29,4 +29,16 @@ class AssetsForm
   def property_in_dispute?
     in_dispute.include? "property"
   end
+
+  def investments_in_dispute?
+    in_dispute.include? "investments"
+  end
+
+  def valuables_in_dispute?
+    in_dispute.include? "valuables"
+  end
+
+  def savings_in_dispute?
+    in_dispute.include? "savings"
+  end
 end
