@@ -1,6 +1,6 @@
 module Flow
   class AssetHandler
-    ASSETS_ATTRIBUTES = (AssetsForm::ASSETS_ATTRIBUTES + [:assets]).freeze
+    ASSETS_ATTRIBUTES = (AssetsForm::ASSETS_ATTRIBUTES + [:in_dispute]).freeze
 
     class << self
       def model(session_data)
@@ -8,7 +8,7 @@ module Flow
       end
 
       def form(params, _session_data)
-        AssetsForm.new(params.require(:assets_form).permit(*AssetsForm::ASSETS_ATTRIBUTES, assets: []))
+        AssetsForm.new(params.require(:assets_form).permit(*AssetsForm::ASSETS_ATTRIBUTES, in_dispute: []))
       end
     end
   end

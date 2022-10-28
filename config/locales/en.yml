@@ -155,6 +155,10 @@ en:
     date: Date
     related_content_title: Related content
     not_applicable: Not applicable
+    dispute: This asset is a subject matter of dispute
+    smod:
+      guidance_text: "Guidance on subject matter of dispute"
+      guidance_link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=68"
   estimate_flow:
     applicant:
       heading: Your client's details
@@ -299,6 +303,8 @@ en:
         percentage_owned:
           input: Enter the share your client owns
           input_hint: ""
+        dispute:
+          label: This asset is a subject matter of dispute
       savings:
         label: Savings
         hint: For example, money in current or savings accounts, ISAs, or child accounts your client is a signatory on.
@@ -432,6 +438,8 @@ en:
       percentage_owned:
         input: What percentage share of their home does your client legally own?
         input_hint: Your client's name must be on the property deeds, lease or freehold.
+      dispute:
+        label: This asset is a subject matter of dispute
     vehicle_details:
       caption: Your client's finances
       heading: Tell us about your client's vehicle
