@@ -18,6 +18,7 @@ class SubmitAssetsService < BaseCfeService
         outstanding_mortgage: asset_form.property_mortgage,
         percentage_owned: asset_form.property_percentage_owned,
       }
+      second_property[:subject_matter_of_dispute] = true if asset_form.property_in_dispute?
     end
     property_form = Flow::PropertyHandler.model(cfe_session_data)
     if property_form.owned?
@@ -27,8 +28,23 @@ class SubmitAssetsService < BaseCfeService
         outstanding_mortgage: (property_entry_form.mortgage if property_form.owned_with_mortgage?) || 0,
         percentage_owned: property_entry_form.percentage_owned,
       }
+      main_home[:subject_matter_of_dispute] = true if property_entry_form.house_in_dispute
     end
 
-    cfe_connection.create_properties(cfe_estimate_id, main_home, second_property) if main_home.present? || second_property.present?
+    create_properties(cfe_estimate_id, main_home, second_property) if main_home.present? || second_property.present?
+  end
+
+private
+
+  def create_properties(assessment_id, main_property, second_property)
+    main_home = main_property ||
+      {
+        value: 0,
+        outstanding_mortgage: 0,
+        percentage_owned: 0,
+      }
+    properties = { main_home: main_home.merge(shared_with_housing_assoc: false) }
+    properties[:additional_properties] = [second_property.merge(shared_with_housing_assoc: false)] if second_property
+    cfe_connection.create_properties(assessment_id, properties)
   end
 end

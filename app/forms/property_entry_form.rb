@@ -2,7 +2,7 @@ class PropertyEntryForm
   include ActiveModel::Model
   include ActiveModel::Attributes
 
-  ENTRY_ATTRIBUTES = %i[house_value mortgage percentage_owned].freeze
+  ENTRY_ATTRIBUTES = %i[house_value mortgage percentage_owned house_in_dispute].freeze
 
   attr_accessor :property_owned
 
@@ -18,4 +18,7 @@ class PropertyEntryForm
   validates :percentage_owned,
             numericality: { greater_than: 0, only_integer: true, less_than_or_equal_to: 100, allow_nil: true, message: :within_range },
             presence: true
+
+  attribute :house_in_dispute, :boolean
+  validates :house_in_dispute, inclusion: { in: [true, false] }, allow_nil: false
 end
