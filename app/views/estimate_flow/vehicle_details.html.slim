@@ -37,8 +37,9 @@
                                             legend: { text: t(".vehicle_in_regular_use.legend") },
                                             hint: { text: t(".vehicle_in_regular_use.hint") }
     .govuk-form-group
-      = form.govuk_check_box :vehicle_in_dispute, true, multiple: false,
-          label: { text: t(".vehicle_in_dispute") }
+      = form.govuk_check_box :vehicle_in_dispute, true, 0,
+            multiple: false,
+            label: { text: t(".vehicle_in_dispute") }
 
     = form.govuk_submit t("generic.save_and_continue")
 = render "vehicle_sidebar"

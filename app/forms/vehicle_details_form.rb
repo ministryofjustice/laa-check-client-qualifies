@@ -28,5 +28,5 @@ class VehicleDetailsForm
   attribute :vehicle_in_regular_use, :boolean
   validates :vehicle_in_regular_use, inclusion: { in: [true, false], allow_nil: false }
 
-  attribute :vehicle_in_dispute, :boolean, default: false
+  attribute :vehicle_in_dispute, :boolean
 end
