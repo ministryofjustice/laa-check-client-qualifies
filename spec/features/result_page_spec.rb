@@ -121,7 +121,7 @@ RSpec.describe "Results Page" do
       click_checkbox("monthly-income-form-monthly-incomes", "student_finance")
       fill_in "monthly-income-form-student-finance-field", with: "600"
       click_checkbox("monthly-income-form-monthly-incomes", "other")
-      fill_in "monthly-income-form-other-field", with: "500"
+      fill_in "monthly-income-form-other-field", with: "333"
       click_on "Save and continue"
 
       fill_in "outgoings-form-housing-payments-value-field", with: "300"
@@ -169,8 +169,8 @@ RSpec.describe "Results Page" do
         expect(page).to have_content "Income from a property or lodger £300.00"
         expect(page).to have_content "Pension £40.00"
         expect(page).to have_content "Student finance £50.00"
-        expect(page).to have_content "Other sources £0.00"
-        expect(page).to have_content "Total gross monthly income £1,690.00"
+        expect(page).to have_content "Other sources £111.00"
+        expect(page).to have_content "Total gross monthly income £1,801.00"
         expect(page).to have_content "Total gross income limit £2,657.00"
       end
     end
@@ -187,7 +187,7 @@ RSpec.describe "Results Page" do
         expect(page).to have_content "Dependants allowance £307.64"
 
         expect(page).to have_content "Total gross monthly outgoings £1,102.64"
-        expect(page).to have_content "Assessed disposable monthly income £587.36"
+        expect(page).to have_content "Assessed disposable monthly income £698.36"
         expect(page).to have_content "Disposable monthly income limit £733.00"
       end
     end

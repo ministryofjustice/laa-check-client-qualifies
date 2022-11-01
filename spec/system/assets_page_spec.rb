@@ -9,7 +9,6 @@ RSpec.describe "Assets Page", :vcr do
     travel_to arbitrary_fixed_time
   end
 
-  # have to skip aria-allowed-attr for govuk conditional radio buttons.
   it "has no AXE-detectable accessibility issues" do
     visit_applicant_page
     fill_in_applicant_screen_with_passporting_benefits

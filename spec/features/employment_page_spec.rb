@@ -14,6 +14,7 @@ RSpec.describe "Employment page" do
     allow(mock_connection).to receive(:create_regular_payments)
     allow(mock_connection).to receive(:create_applicant)
     allow(mock_connection).to receive(:create_benefits)
+    allow(mock_connection).to receive(:create_irregular_income)
     allow(mock_connection).to receive(:api_result).and_return(calculation_result)
     visit_applicant_page
   end

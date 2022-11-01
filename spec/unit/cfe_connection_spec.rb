@@ -20,7 +20,7 @@ RSpec.describe CfeConnection do
     )
   end
 
-  describe "create_student_loan" do
+  describe "create_irregular_income" do
     let!(:stub) do
       stub_request(:post, "#{root_url}/assessment_id/irregular_incomes").with(
         body: { payments: [{ income_type: :student_loan, frequency: :annual, amount: 100 }] }.to_json,
@@ -35,7 +35,7 @@ RSpec.describe CfeConnection do
           "amount": 100,
         },
       ]
-      connection.create_student_loan("assessment_id", payments:)
+      connection.create_irregular_income("assessment_id", payments:)
       expect(stub).to have_been_requested
     end
   end
@@ -57,7 +57,7 @@ RSpec.describe CfeConnection do
       stub_request(:post, "#{root_url}/assessment_id/properties").with(body:).to_return(status: 200)
     end
 
-    it "makes a call  without additional properties if only main property is provided" do
+    it "makes a call without additional properties if only main property is provided" do
       main = { value: 100_000, outstanding_mortgage: 50_000, percentage_owned: 100 }
       connection.create_properties("assessment_id", main, nil)
       expect(stub).to have_been_requested
