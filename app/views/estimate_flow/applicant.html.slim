@@ -12,15 +12,6 @@
                                           yes_no_options, :first, :last,
                                           legend: { text: t(".over_60.legend") },
                                           hint: { text: t(".over_60.hint") }
-    = form.govuk_radio_buttons_fieldset :dependants,
-                                        legend: { text: t(".dependants.legend") },
-                                        hint: { text: t(".dependants.hint") }
-      = form.govuk_radio_button :dependants, true, label: { text: t("generic.yes_choice") }
-        = form.govuk_number_field :dependant_count,
-                                  width: 5,
-                                  label: { text: t(".dependant_count.label") }
-      = form.govuk_radio_button :dependants, false, label: { text: t("generic.no_choice") }
-
     = form.govuk_collection_radio_buttons :employed, employment_options, :first, :last,
                                           legend: { text: t(".employed.legend") },
                                           hint: { text: t(".employed.hint") }

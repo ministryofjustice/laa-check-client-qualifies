@@ -8,7 +8,7 @@ def fill_in_applicant_screen_with_passporting_benefits
 end
 
 def fill_in_applicant_screen_without_passporting_benefits
-  %i[over_60 dependants employed passporting].each do |attribute|
+  %i[over_60 employed passporting].each do |attribute|
     select_applicant_boolean(attribute, false)
   end
 end
@@ -31,6 +31,11 @@ def visit_applicant_page
   visit new_estimate_path
   click_on "Reject additional cookies"
   click_checkbox("proceeding-type-form-proceeding-type", "se003")
+  click_on "Save and continue"
+end
+
+def complete_dependants_section
+  select_boolean_value("dependants-form", :dependants, false)
   click_on "Save and continue"
 end
 
