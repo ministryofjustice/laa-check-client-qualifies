@@ -13,6 +13,7 @@ RSpec.describe "Income Page", :vcr do
     visit_applicant_page
     fill_in_applicant_screen_without_passporting_benefits
     click_on "Save and continue"
+    complete_dependants_section
     select_boolean_value("benefits-form", :add_benefit, false)
     click_on "Save and continue"
   end

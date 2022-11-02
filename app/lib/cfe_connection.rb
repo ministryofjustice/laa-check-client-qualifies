@@ -34,16 +34,7 @@ class CfeConnection
     create_record(assessment_id, "applicant", applicant:)
   end
 
-  def create_dependants(assessment_id, count)
-    dependants = (1..count).map do
-      {
-        date_of_birth: 11.years.ago.to_date,
-        in_full_time_education: true,
-        relationship: "child_relative",
-        monthly_income: 0,
-        assets_value: 0,
-      }
-    end
+  def create_dependants(assessment_id, dependants)
     create_record(assessment_id, "dependants", dependants:)
   end
 

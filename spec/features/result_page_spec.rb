@@ -94,12 +94,16 @@ RSpec.describe "Results Page" do
 
       visit_applicant_page
       select_applicant_boolean(:over_60, false)
-      select_applicant_boolean(:dependants, true)
-      fill_in "applicant-form-dependant-count-field", with: "1"
 
       select_applicant_boolean(:employed, true)
       select_applicant_boolean(:passporting, false)
       click_on "Save and continue"
+
+      select_boolean_value("dependants-form", :dependants, true)
+      click_on("Save and continue")
+      fill_in "dependant-details-form-adult-dependants-field", with: "0"
+      fill_in "dependant-details-form-child-dependants-field", with: "1"
+      click_on("Save and continue")
 
       fill_in "employment-form-gross-income-field", with: 1000
       fill_in "employment-form-income-tax-field", with: 400

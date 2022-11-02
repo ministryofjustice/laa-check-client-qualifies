@@ -14,10 +14,18 @@ en:
               inclusion: Select yes if the client is currently in receipt of a passporting benefit
             over_60:
               inclusion: Select yes if the client is over 60 years old
-            dependants:
-              inclusion: Select yes if the client has any dependants
             partner:
               inclusion: Select yes if the client has a partner
+        dependants_form:
+          attributes:
+            dependants:
+              inclusion: Select yes if the client has any dependants
+        dependant_details_form:
+          attributes:
+            child_dependants:
+              blank: Please enter a zero if the client has no child dependants
+            adult_dependants:
+              blank: Please enter a zero if the client has no adult dependants
         employment_form:
           attributes:
             gross_income:
@@ -163,9 +171,6 @@ en:
       over_60:
         legend: Is your client over 60 years old?
         hint: Clients over 60 may have some of their capital excluded from a financial eligibility assessment.
-      dependants:
-        legend: Does your client have any dependants?
-        hint: By dependant we mean a child or adult who lives with your client and depends on them for financial support. Do not include your client's partner (if they have one).
       employed:
         legend: What is your client's employment status?
         hint: ""
@@ -177,6 +182,28 @@ en:
         hint: Universal Credit, Income Support, income-based Jobseeker's Allowance (JSA), income-related Employment and Support Allowance (ESA), and Guarantee Credit element of Pension Credit.
       dependant_count:
         label: Enter the number of dependants
+    dependants:
+      caption: About your client
+      legend: Does your client have any dependants?
+      hint: "A dependant is a child or adult who:"
+      lives_with: lives with your client
+      depends: depends on your client for financial support
+      no_partner: Don't include your client's partner if they have one
+      guidance:
+        text: Guidance on dependants
+        link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf?page=42
+    dependant_details:
+      caption: About your client
+      legend: Tell us about your client's dependants
+      hint: If some don't apply, enter 0.
+      adult_dependants:
+        label: Adult dependants
+        hint: For example, a parent, grandparent, aunt or uncle.
+        instruction: Enter number of adult dependants
+      child_dependants:
+        label: Child dependants
+        hint: For example, your client's child, grandchild, niece or nephew.
+        instruction: Enter number of child dependants
     employment:
       caption: Your client's finances
       heading: Add your client's salary breakdown
@@ -328,6 +355,8 @@ en:
         dependant_count: Number of dependants
         employed: Is employed
         passporting: Receives a passporting benefit
+        child_dependants: Child dependants
+        adult_dependants: Adult dependants
       employment: Employment
       employment_fields:
         gross_income: Gross income

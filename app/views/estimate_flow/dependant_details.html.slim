@@ -1,0 +1,31 @@
+- content_for :back do
+  = back_link(:assets, @estimate, @back_buttons_invoke_browser_back_behaviour)
+
+.govuk-grid-column-two-thirds
+  span.govuk-caption-l = t(".caption")
+  h1.govuk-heading-xl class="govuk-!-margin-bottom-2" = t(".legend")
+  span.govuk-caption-m class="govuk-!-margin-bottom-7" = t(".hint")
+
+  = form_for(@form, url: wizard_path, method: :put) do |form|
+
+    = form.govuk_error_summary t("generic.error_summary_title")
+
+    = form.govuk_number_field :child_dependants,
+                              width: 5,
+                              label: { text: t(".child_dependants.label"), tag: "h2", size: "m" },
+                              hint: lambda { \
+                                      tag.div(t(".child_dependants.hint"), class: "govuk-hint") + \
+                                      tag.p(t(".child_dependants.instruction")) \
+                                    }
+    = form.govuk_number_field :adult_dependants,
+                              width: 5,
+                              label: { text: t(".adult_dependants.label"), tag: "h2", size: "m" },
+                              hint: lambda { \
+                                      tag.div(t(".adult_dependants.hint"), class: "govuk-hint") + \
+                                      tag.p(t(".adult_dependants.instruction")) \
+                                    }
+
+    = form.govuk_submit t("generic.save_and_continue")
+
+= render "shared/sidebar_with_date",
+         links: { t("estimate_flow.dependants.guidance.text") => t("estimate_flow.dependants.guidance.link") }

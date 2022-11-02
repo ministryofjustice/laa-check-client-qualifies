@@ -14,6 +14,7 @@ RSpec.describe "Employment Page", :vcr do
       fill_in_applicant_screen_without_passporting_benefits
       select_applicant_boolean(:employed, true)
       click_on "Save and continue"
+      complete_dependants_section
     end
 
     it "shows the correct page" do
@@ -32,23 +33,6 @@ RSpec.describe "Employment Page", :vcr do
       click_checkbox("monthly-income-form-monthly-incomes", "none")
       click_on "Save and continue"
       progress_to_submit_from_outgoings
-    end
-  end
-
-  describe "accessibility" do
-    before do
-      travel_to arbitrary_fixed_time
-
-      visit_applicant_page
-      select_applicant_boolean(:over_60, false)
-      select_applicant_boolean(:dependants, false)
-      select_applicant_boolean(:employed, true)
-      select_applicant_boolean(:passporting, false)
-      click_on "Save and continue"
-    end
-
-    it "has no accessibility issues" do
-      expect(page).to be_axe_clean
     end
   end
 end

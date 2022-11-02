@@ -21,12 +21,12 @@
 
 
 # FIELDS
-# A field has a type, which is one of boolean, money, select, number, money_with_frequency or no_or_number.
+# A field has a type, which is one of boolean, money, select, number or money_with_frequency.
 # This determines which partial is rendered
 # It has an attribute, which determines the key used to store the relevant value in the session
 # The attribute is also used to construct the I18n key
 # It has a screen IF the field has its own 'change' link to a screen
-# 'no_or_number' and 'money_with_frequency' fields also have an 'alt_attribute' which describes 
+# 'money_with_frequency' fields also have an 'alt_attribute' which describes
 # which number to display.
 # It can have a 'requires_inclusion_in', which defines which array attribute in the session
 # needs to contain the inclusion string (see below) as a string if the value of the field is to be displayed
@@ -45,13 +45,19 @@ sections:
           type: boolean
         - attribute: partner
           type: boolean
-        - attribute: dependants
-          type: no_or_number
-          alt_attribute: dependant_count
         - attribute: employed
           type: boolean
         - attribute: passporting
           type: boolean
+        - attribute: dependants
+          type: boolean
+          screen: dependants
+        - attribute: child_dependants
+          type: number
+          screen: dependant_details
+        - attribute: adult_dependants
+          type: number
+          screen: dependant_details
   - label: employment
     screen: employment
     subsections:

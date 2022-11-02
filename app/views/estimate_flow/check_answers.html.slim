@@ -48,11 +48,6 @@
                      label_text: t(".#{field.label}"),
                      value_text: field.value || t("generic.not_applicable"),
                      link: field.screen
-          - when "no_or_number"
-            = render "check_answer",
-                     label_text: t(".#{field.label}"),
-                     value_text: field.value ? field.alt_value : yes_no_boolean(field.value),
-                     link: field.screen
           - when "select"
             = render "check_answer",
                      label_text: t(".#{field.label}"),

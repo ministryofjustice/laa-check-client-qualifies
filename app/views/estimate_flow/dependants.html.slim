@@ -1,0 +1,26 @@
+- content_for :back do
+  = link_to t("generic.back"), previous_wizard_path, class: "govuk-back-link"
+
+.govuk-grid-column-two-thirds
+  span.govuk-caption-l = t(".caption")
+  = form_for(@form, url: wizard_path, method: :put) do |form|
+
+    = form.govuk_error_summary t("generic.error_summary_title")
+
+    = form.govuk_radio_buttons_fieldset :dependants,
+                                        legend: { text: t(".legend"), tag: "h1", size: "xl" },
+                                        hint: lambda { \
+                                                   tag.p(t(".hint")) + \
+                                                   tag.ul(class: "govuk-list govuk-list--bullet") do \
+                                                     tag.li(t(".lives_with")) + \
+                                                     tag.li(t(".depends")) \
+                                                   end + \
+                                                   tag.div(t(".no_partner"), class: "govuk-inset-text") \
+                                                   }
+      = form.govuk_radio_button :dependants, true, label: { text: t("generic.yes_choice") }
+      = form.govuk_radio_button :dependants, false, label: { text: t("generic.no_choice") }
+
+    = form.govuk_submit t("generic.save_and_continue")
+
+= render "shared/sidebar_with_date",
+         links: { t("estimate_flow.dependants.guidance.text") => t("estimate_flow.dependants.guidance.link") }
