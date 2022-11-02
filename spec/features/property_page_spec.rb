@@ -65,7 +65,6 @@ RSpec.describe "Property Page" do
       within "#field-list-property" do
         expect(page).to have_content "Disputed asset"
       end
-
       click_on "Submit"
     end
 
