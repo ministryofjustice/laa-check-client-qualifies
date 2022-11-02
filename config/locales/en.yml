@@ -188,6 +188,9 @@ en:
       lives_with: lives with your client
       depends: depends on your client for financial support
       no_partner: Don't include your client's partner if they have one
+      guidance:
+        text: Guidance on dependants
+        link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf?page=42
     dependant_details:
       caption: About your client
       legend: Tell us about your client's dependants
