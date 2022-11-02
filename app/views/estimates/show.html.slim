@@ -8,7 +8,7 @@
       h2 = t(".summary", eligibility: t(".#{@model.decision}").downcase)
 
       - if @model.eligible?
-        div = t(".no_contribution")
+        div class="govuk-!-padding-bottom-4" = t(".no_contribution")
 
       - if @model.contribution_required?
         div = t(".we_calculated")
