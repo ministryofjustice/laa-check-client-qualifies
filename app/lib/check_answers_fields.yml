@@ -130,6 +130,7 @@ sections:
           - type: boolean
             attribute: vehicle_owned
             screen: vehicle
+            disputed_attribute: vehicle_in_dispute
           - type: money
             attribute: vehicle_value
             screen: vehicle_details

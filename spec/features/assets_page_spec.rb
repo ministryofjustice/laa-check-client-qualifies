@@ -137,13 +137,13 @@ RSpec.describe "Assets Page" do
       click_on "Save and continue"
 
       expect(page).to have_content check_answers_header
-      within "#Savings" do
+      within "#savings" do
         expect(page).to have_content "Disputed asset"
       end
-      within "#Investments" do
+      within "#investments" do
         expect(page).not_to have_content "Disputed asset"
       end
-      within "#Valuables" do
+      within "#valuables" do
         expect(page).to have_content "Disputed asset"
       end
       click_on "Submit"
