@@ -52,7 +52,7 @@ RSpec.describe "Employment page" do
         fill_in "employment-form-gross-income-field", with: 100
         fill_in "employment-form-income-tax-field", with: 100
         fill_in "employment-form-national-insurance-field", with: 50
-        select "Monthly", from: "employment-form-frequency-field"
+        click_checkbox("employment-form-frequency", "monthly")
         click_on "Save and continue"
       end
 
@@ -79,7 +79,7 @@ RSpec.describe "Employment page" do
         fill_in "employment-form-gross-income-field", with: "5,000"
         fill_in "employment-form-income-tax-field", with: "1000"
         fill_in "employment-form-national-insurance-field", with: 50.5
-        select "Monthly", from: "employment-form-frequency-field"
+        click_checkbox("employment-form-frequency", "monthly")
       end
 
       it "persists my answers to CFE and moves me on to the next question" do
@@ -120,7 +120,8 @@ RSpec.describe "Employment page" do
           expect(payment[:gross]).to eq (1_000 / 3.0).round(2)
           expect(payment[:date]).to eq 1.month.ago.to_date
         end
-        select "Total in last 3 months", from: "employment-form-frequency-field"
+        click_checkbox("employment-form-frequency", "total")
+
         click_on "Save and continue"
         progress_to_submit_from_benefits
       end
@@ -131,7 +132,7 @@ RSpec.describe "Employment page" do
           expect(payment[:gross]).to eq 1_000
           expect(payment[:date]).to eq 1.week.ago.to_date
         end
-        select "Every week", from: "employment-form-frequency-field"
+        click_checkbox("employment-form-frequency", "week")
         click_on "Save and continue"
         progress_to_submit_from_benefits
       end
@@ -142,7 +143,7 @@ RSpec.describe "Employment page" do
           expect(payment[:gross]).to eq 1_000
           expect(payment[:date]).to eq 2.weeks.ago.to_date
         end
-        select "Every two weeks", from: "employment-form-frequency-field"
+        click_checkbox("employment-form-frequency", "two_weeks")
         click_on "Save and continue"
         progress_to_submit_from_benefits
       end
@@ -153,7 +154,7 @@ RSpec.describe "Employment page" do
           expect(payment[:gross]).to eq 1_000
           expect(payment[:date]).to eq 4.weeks.ago.to_date
         end
-        select "Every four weeks", from: "employment-form-frequency-field"
+        click_checkbox("employment-form-frequency", "four_weeks")
         click_on "Save and continue"
         progress_to_submit_from_benefits
       end
@@ -164,7 +165,7 @@ RSpec.describe "Employment page" do
           expect(payment[:gross]).to eq (1_000 / 12.0).round(2)
           expect(payment[:date]).to eq 1.month.ago.to_date
         end
-        select "Annually", from: "employment-form-frequency-field"
+        click_checkbox("employment-form-frequency", "annually")
         click_on "Save and continue"
         progress_to_submit_from_benefits
       end

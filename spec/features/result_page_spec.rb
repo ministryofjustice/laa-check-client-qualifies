@@ -104,7 +104,7 @@ RSpec.describe "Results Page" do
       fill_in "employment-form-gross-income-field", with: 1000
       fill_in "employment-form-income-tax-field", with: 400
       fill_in "employment-form-national-insurance-field", with: 50
-      select "Monthly", from: "employment-form-frequency-field"
+      click_checkbox("employment-form-frequency", "monthly")
       click_on "Save and continue"
 
       select_boolean_value("benefits-form", :add_benefit, false)

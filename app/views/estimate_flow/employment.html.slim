@@ -8,17 +8,16 @@
   = form_for(@form, url: wizard_path, method: :put) do |form|
     = form.govuk_error_summary t("generic.error_summary_title")
 
+    = form.govuk_collection_radio_buttons :frequency,
+            @form.frequency_options,
+            :value,
+            :label,
+            legend: { text: t(".frequency.input") }
     - EmploymentForm::DECIMAL_ATTRIBUTES.each do |field|
       = render "shared/money_input",
                 form:,
                 field:,
                 width: 5,
                 label_text: t(".#{field}.input")
-    = form.govuk_collection_select :frequency,
-                                   @form.frequency_options,
-                                   :value,
-                                   :label,
-                                   label: { text: t(".frequency.input") },
-                                   options: { include_blank: t(".frequency.blank") }
     = form.govuk_submit t("generic.save_and_continue")
 = render "shared/sidebar_with_date", links: []
