@@ -31,8 +31,9 @@
               suffix_text: "%",
               label: { text: t(".property.percentage_owned.input") },
               hint: { text: t(".property.percentage_owned.input_hint") }
+
       = form.govuk_check_box :in_dispute, :property,
-              label: { text: t("generic.dispute") }
+              label: { text: t(".property.dispute.label") }
 
     = form.govuk_fieldset legend: { text: t(".savings.label") } do
 

@@ -5,5 +5,10 @@
   dd.govuk-summary-list__value
     = value_text
 
+  dd.govuk-summary-list__value
+    - if disputed_asset
+      .moj-badge.moj-badge--blue.moj-badge--large
+        = t("generic.disputed_asset")
+
   dd.govuk-summary-list__actions
     = link_to(t("generic.change"), estimate_check_answer_path(@estimate_id, link), class: "govuk-link") if link
