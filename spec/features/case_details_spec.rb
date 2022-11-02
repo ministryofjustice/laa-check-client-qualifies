@@ -8,6 +8,10 @@ RSpec.describe "Case Details Page" do
     visit new_estimate_path
   end
 
+  it "has the correct content" do
+    expect(page).to have_content "Yes"
+  end
+
   it "can submit a domestic abuse case" do
     click_checkbox("proceeding-type-form-proceeding-type", "da001")
     click_on "Save and continue"
