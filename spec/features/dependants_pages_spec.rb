@@ -2,6 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Dependants" do
   let(:estimate_id) { SecureRandom.uuid }
+  let(:benefits_page_header) { I18n.t("estimate_flow.benefits.legend") }
   let(:mock_connection) do
     instance_double(CfeConnection,
                     create_assessment_id: nil,
@@ -29,7 +30,7 @@ RSpec.describe "Dependants" do
   it "allows me to skip past the details screen" do
     select_boolean_value("dependants-form", :dependants, false)
     click_on("Save and continue")
-    expect(page).to have_content("Does your client receive any benefits?")
+    expect(page).to have_content(benefits_page_header)
   end
 
   it "requires me to enter dependants if I say I have them" do

@@ -198,7 +198,7 @@ en:
         instruction: Enter number of adult dependants
       child_dependants:
         label: Child dependants
-        hint: For example, your client's child, grandchild, neice or nephew.
+        hint: For example, your client's child, grandchild, niece or nephew.
         instruction: Enter number of child dependants
     employment:
       caption: Your client's finances

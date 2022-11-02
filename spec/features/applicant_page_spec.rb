@@ -1,9 +1,6 @@
 require "rails_helper"
 
 RSpec.describe "Applicant Page" do
-  let(:dependants_header) { "Does your client have any dependants?" }
-  let(:applicant_header) { "About your client" }
-
   describe "errors" do
     before do
       visit_applicant_page
@@ -113,6 +110,8 @@ RSpec.describe "Applicant Page" do
 
   describe "applicant page flow", :vcr do
     let(:arbitrary_fixed_time) { Time.zone.local(2022, 9, 5, 9, 0, 0) }
+    let(:dependants_page_header) { I18n.t("estimate_flow.dependants.legend") }
+    let(:applicant_page_header) { I18n.t("estimate_flow.applicant.caption") }
 
     before do
       travel_to arbitrary_fixed_time
@@ -124,12 +123,12 @@ RSpec.describe "Applicant Page" do
     end
 
     it "goes on to dependants screen" do
-      expect(page).to have_content dependants_header
+      expect(page).to have_content dependants_page_header
     end
 
     it "has a back pointer to the applicant page" do
       click_on "Back"
-      expect(page).to have_content applicant_header
+      expect(page).to have_content applicant_page_header
     end
   end
 end

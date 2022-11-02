@@ -2,6 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Employment page" do
   let(:employment_page_header) { "Add your client's salary breakdown" }
+  let(:dependant_page_header) { I18n.t("estimate_flow.dependants.legend") }
   let(:estimate_id) { SecureRandom.uuid }
   let(:mock_connection) { instance_double(CfeConnection, create_assessment_id: estimate_id) }
   let(:calculation_result) do
@@ -46,7 +47,7 @@ RSpec.describe "Employment page" do
 
     it "has a back link to the dependants page" do
       click_link "Back"
-      expect(page).to have_content "Does your client have any dependants?"
+      expect(page).to have_content dependant_page_header
     end
 
     context "when I enter negative income by mistake" do
