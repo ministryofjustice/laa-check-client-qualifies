@@ -1,5 +1,5 @@
 - content_for :back
-  = back_link(:check_answers, @estimate, @back_buttons_invoke_browser_back_behaviour)
+  = back_link(:check_answers, @estimate, true)
 
 .govuk-grid-column-two-thirds
   h1.govuk-heading-xl
@@ -71,7 +71,7 @@
   p = t(".submission_explanation")
 
   = form_with(url: estimates_path) do |form|
-    = hidden_field_tag :estimate_id, params[:estimate_id]
+    = hidden_field_tag :estimate_id, params.fetch(:id)
 
     = form.govuk_submit t(".call_to_action")
 

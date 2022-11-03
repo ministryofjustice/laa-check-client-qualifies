@@ -91,7 +91,7 @@ RSpec.describe "Accessibility" do
     before do
       travel_to arbitrary_fixed_time
       allow(CfeService).to receive(:call).and_return(CalculationResult.new(build(:api_result)))
-      visit "/estimates/#{estimate_id}/build_estimates/check_answers"
+      visit check_answers_estimate_path estimate_id
       click_on "Submit"
       click_on "Print this page"
     end

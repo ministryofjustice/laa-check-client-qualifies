@@ -15,7 +15,7 @@ RSpec.describe "Check answers page" do
     end
 
     scenario "I can modify those benefits from the 'check answers' screen" do
-      visit estimate_build_estimate_path(estimate_id, :check_answers)
+      visit check_answers_estimate_path(estimate_id)
 
       within("#field-list-benefits") { click_on "Change" }
       fill_in "Benefit type", with: "Child Benefits"
@@ -26,7 +26,7 @@ RSpec.describe "Check answers page" do
     end
 
     scenario "I can add and remove those benefits from the 'check answers' screen" do
-      visit estimate_build_estimate_path(estimate_id, :check_answers)
+      visit check_answers_estimate_path(estimate_id)
 
       within("#subsection-benefits-header") { click_on "Change" }
 
@@ -42,7 +42,7 @@ RSpec.describe "Check answers page" do
       select_boolean_value("benefits-form", :add_benefit, false)
       click_on "Save and continue"
 
-      expect(page).to have_current_path(estimate_build_estimate_path(estimate_id, :check_answers))
+      expect(page).to have_current_path(check_answers_estimate_path(estimate_id))
 
       within("#field-list-benefits") do
         expect(page).not_to have_content "Child benefit"
@@ -53,7 +53,7 @@ RSpec.describe "Check answers page" do
 
   context "when I have no benefits so far" do
     scenario "I can create new benefits from the 'check answers' screen" do
-      visit estimate_build_estimate_path(estimate_id, :check_answers)
+      visit check_answers_estimate_path(estimate_id)
       within("#subsection-benefits-header") { click_on "Change" }
       select_boolean_value("benefits-form", :add_benefit, true)
       click_on "Save and continue"
@@ -65,7 +65,7 @@ RSpec.describe "Check answers page" do
       select_boolean_value("benefits-form", :add_benefit, false)
       click_on "Save and continue"
 
-      expect(page).to have_current_path(estimate_build_estimate_path(estimate_id, :check_answers))
+      expect(page).to have_current_path(check_answers_estimate_path(estimate_id))
 
       within("#field-list-benefits") do
         expect(page).to have_content "Child Benefits"
