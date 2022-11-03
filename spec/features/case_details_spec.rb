@@ -21,7 +21,7 @@ RSpec.describe "Case Details Page" do
   it "has readable errors" do
     click_on "Save and continue"
     within ".govuk-error-summary__list" do
-      expect(page).to have_content("Please select a case type")
+      expect(page).to have_content("Select yes if your client is likely to be an applicant in a domestic abuse case")
     end
   end
 end

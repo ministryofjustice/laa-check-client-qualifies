@@ -5,7 +5,7 @@ en:
         proceeding_type_form:
           attributes:
             proceeding_type:
-              blank: Please select a case type
+              blank: Select yes if your client is likely to be an applicant in a domestic abuse case
         applicant_form:
           attributes:
             employed:
