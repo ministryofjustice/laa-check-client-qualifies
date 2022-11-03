@@ -5,7 +5,7 @@ en:
         proceeding_type_form:
           attributes:
             proceeding_type:
-              blank: Please select a case type
+              blank: Select yes if your client is likely to be an applicant in a domestic abuse case
         applicant_form:
           attributes:
             employed:
@@ -474,12 +474,12 @@ en:
     case_details:
       caption: About the case
       proceeding_type:
-        legend: What does the case concern?
+        legend: Is your client likely to be the applicant in a Domestic Abuse matter?
         domestic_abuse:
-          label: Domestic abuse
-          hint: Is your client likely to be an applicant in a domestic abuse matter?
+          label: 'Yes'
+          hint: ""
         other:
-          label: Something else
+          label: 'No'
           hint: ''
       domestic_abuse_guidance:
         text: Guidance on domestic abuse or violence
