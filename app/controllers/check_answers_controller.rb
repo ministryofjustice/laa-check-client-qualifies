@@ -1,5 +1,6 @@
 class CheckAnswersController < EstimateFlowController
   before_action :set_back_behaviour
+  include CheckAnswersFinished
 
   def update
     handler = HANDLER_CLASSES.fetch(step)
@@ -9,7 +10,12 @@ class CheckAnswersController < EstimateFlowController
       session_data.merge!(@form.attributes)
       estimate = load_estimate
       if StepsHelper.last_step_in_group?(estimate, step)
-        redirect_to check_answers_estimate_path(estimate_id, anchor:)
+        next_step = next_check_answer_step(HANDLER_CLASSES, step, estimate, session_data)
+        if next_step
+          redirect_to wizard_path next_step
+        else
+          redirect_to check_answers_estimate_path(estimate_id, anchor:)
+        end
       else
         redirect_to wizard_path StepsHelper.next_step_for(estimate, step)
       end
@@ -18,6 +24,8 @@ class CheckAnswersController < EstimateFlowController
       render "estimate_flow/#{step}"
     end
   end
+
+  private
 
   def set_back_behaviour
     @back_buttons_invoke_browser_back_behaviour = true

@@ -1,7 +1,7 @@
 class StepsHelper
   class << self
     def all_possible_steps
-      all_sections.map(&:all_steps).reduce { |l, t| l + t }
+      all_sections.map(&:all_steps).reduce(:+)
     end
 
     def next_step_for(intro, step)
@@ -24,7 +24,7 @@ class StepsHelper
   private
 
     def steps_list_for(estimate)
-      all_sections.map { |section| section.steps_for(estimate) }.reduce { |l, t| l + t }
+      all_sections.map { |section| section.steps_for(estimate) }.reduce(:+)
     end
 
     def all_sections

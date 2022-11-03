@@ -55,10 +55,10 @@ class CfeConnection
 
   def create_regular_payments(assessment_id, income_form, outgoings_form)
     income = {
-      friends_or_family: (income_form.friends_or_family if income_form.monthly_incomes.include?("friends_or_family")),
-      maintenance_in: (income_form.maintenance if income_form.monthly_incomes.include?("maintenance")),
-      property_or_lodger: (income_form.property_or_lodger if income_form.monthly_incomes.include?("property_or_lodger")),
-      pension: (income_form.pension if income_form.monthly_incomes.include?("pension")),
+      friends_or_family: (income_form.friends_or_family if income_form.monthly_incomes&.include?("friends_or_family")),
+      maintenance_in: (income_form.maintenance if income_form.monthly_incomes&.include?("maintenance")),
+      property_or_lodger: (income_form.property_or_lodger if income_form.monthly_incomes&.include?("property_or_lodger")),
+      pension: (income_form.pension if income_form.monthly_incomes&.include?("pension")),
     }.select { |_k, v| v.present? }.map do |category, amount|
       { operation: :credit,
         category:,

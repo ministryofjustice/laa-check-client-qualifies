@@ -6,11 +6,11 @@ class SubmitIrregularIncomeService < BaseCfeService
   def call(cfe_estimate_id, cfe_session_data)
     form = Flow::MonthlyIncomeHandler.model(cfe_session_data)
 
-    if form.monthly_incomes.include?("student_finance")
+    if form.monthly_incomes&.include?("student_finance")
       create_student_loan cfe_connection, cfe_estimate_id, form.student_finance
     end
 
-    if form.monthly_incomes.include?("other")
+    if form.monthly_incomes&.include?("other")
       create_other_income cfe_connection, cfe_estimate_id, form.other
     end
   end

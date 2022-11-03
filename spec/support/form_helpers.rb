@@ -45,12 +45,16 @@ def progress_to_submit_from_vehicle_form
   click_on "Submit"
 end
 
-def progress_to_submit_from_outgoings
+def skip_outgoings_form
   fill_in "outgoings-form-housing-payments-value-field", with: "0"
   fill_in "outgoings-form-childcare-payments-value-field", with: "0"
   fill_in "outgoings-form-legal-aid-payments-value-field", with: "0"
   fill_in "outgoings-form-maintenance-payments-value-field", with: "0"
   click_on "Save and continue"
+end
+
+def progress_to_submit_from_outgoings
+  skip_outgoings_form
 
   click_checkbox("property-form-property-owned", "none")
   click_on "Save and continue"
@@ -91,4 +95,17 @@ def skip_assets_form
   fill_in "assets-form-investments-field", with: "0"
   fill_in "assets-form-valuables-field", with: "0"
   click_on "Save and continue"
+end
+
+def visit_check_answers
+  visit_applicant_page
+  fill_in_applicant_screen_with_passporting_benefits
+  click_on "Save and continue"
+  complete_dependants_section
+
+  click_checkbox("property-form-property-owned", "none")
+  click_on "Save and continue"
+  select_boolean_value("vehicle-form", :vehicle_owned, false)
+  click_on "Save and continue"
+  skip_assets_form
 end
