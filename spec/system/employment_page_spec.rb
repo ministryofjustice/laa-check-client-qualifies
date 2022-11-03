@@ -30,8 +30,7 @@ RSpec.describe "Employment Page", :vcr do
       expect(page).to have_content(benefits_header)
       select_boolean_value("benefits-form", :add_benefit, false)
       click_on "Save and continue"
-      click_checkbox("monthly-income-form-monthly-incomes", "none")
-      click_on "Save and continue"
+      complete_incomes_screen
       progress_to_submit_from_outgoings
     end
   end

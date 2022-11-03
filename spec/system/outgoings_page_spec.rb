@@ -14,17 +14,7 @@ RSpec.describe "Outgoings Page", :vcr do
     complete_dependants_section
     select_boolean_value("benefits-form", :add_benefit, false)
     click_on "Save and continue"
-    click_checkbox("monthly-income-form-monthly-incomes", "friends_or_family")
-    fill_in "monthly-income-form-friends-or-family-field", with: "100"
-    click_checkbox("monthly-income-form-monthly-incomes", "maintenance")
-    fill_in "monthly-income-form-maintenance-field", with: "200"
-    click_checkbox("monthly-income-form-monthly-incomes", "property_or_lodger")
-    fill_in "monthly-income-form-property-or-lodger-field", with: "300"
-    click_checkbox("monthly-income-form-monthly-incomes", "pension")
-    fill_in "monthly-income-form-pension-field", with: "400"
-    click_checkbox("monthly-income-form-monthly-incomes", "other")
-    fill_in "monthly-income-form-other-field", with: "500"
-    click_on "Save and continue"
+    complete_incomes_screen
   end
 
   it "handles outgoings" do

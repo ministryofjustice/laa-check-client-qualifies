@@ -1,6 +1,4 @@
 module BuildEstimatesHelper
-  ALL_ESTIMATE_STEPS = %i[intro monthly_income outgoings property].freeze
-  PASSPORTED_STEPS = %i[intro property].freeze
   POUND = "&pound;".html_safe
 
   YES_NO_OPTIONS = [

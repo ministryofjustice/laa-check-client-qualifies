@@ -10,7 +10,7 @@ class EstimateFlowController < ApplicationController
     dependant_details: Flow::DependantDetailsHandler,
     employment: Flow::EmploymentHandler,
     benefits: Flow::BenefitsHandler,
-    monthly_income: Flow::MonthlyIncomeHandler,
+    other_income: Flow::OtherIncomeHandler,
     property: Flow::PropertyHandler,
     vehicle: Flow::Vehicle::OwnedHandler,
     vehicle_details: Flow::Vehicle::DetailsHandler,

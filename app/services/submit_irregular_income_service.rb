@@ -4,38 +4,28 @@ class SubmitIrregularIncomeService < BaseCfeService
   end
 
   def call(cfe_estimate_id, cfe_session_data)
-    form = Flow::MonthlyIncomeHandler.model(cfe_session_data)
+    form = Flow::OtherIncomeHandler.model(cfe_session_data)
+    payments = []
 
-    if form.monthly_incomes.include?("student_finance")
-      create_student_loan cfe_connection, cfe_estimate_id, form.student_finance
-    end
+    payments << create_student_loan(form) if form.student_finance_value&.positive?
+    payments << create_other_income(form) if form.other_value&.positive?
 
-    if form.monthly_incomes.include?("other")
-      create_other_income cfe_connection, cfe_estimate_id, form.other
-    end
+    cfe_connection.create_irregular_income(cfe_estimate_id, payments) if payments.any?
   end
 
-  def create_student_loan(cfe_connection, assessment_id, amount)
-    if amount.present?
-      payments = [
-        {
-          "income_type": "student_loan",
-          "frequency": "annual",
-          "amount": amount,
-        },
-      ]
-      cfe_connection.create_irregular_income(assessment_id, payments:)
-    end
+  def create_student_loan(form)
+    {
+      "income_type": "student_loan",
+      "frequency": "annual",
+      "amount": form.student_finance_value,
+    }
   end
 
-  def create_other_income(cfe_connection, assessment_id, amount)
-    payments = [
-      {
-        "income_type": "unspecified_source",
-        "frequency": "quarterly",
-        "amount": amount,
-      },
-    ]
-    cfe_connection.create_irregular_income(assessment_id, payments:)
+  def create_other_income(form)
+    {
+      "income_type": "unspecified_source",
+      "frequency": "quarterly",
+      "amount": form.other_value,
+    }
   end
 end

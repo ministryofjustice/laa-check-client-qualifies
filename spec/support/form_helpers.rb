@@ -2,6 +2,10 @@ def select_applicant_boolean(field, value)
   select_boolean_value("applicant-form", field, value)
 end
 
+def select_radio_value(form, field, value)
+  find(:css, "##{form}-#{field}-#{value}-field").click
+end
+
 def fill_in_applicant_screen_with_passporting_benefits
   fill_in_applicant_screen_without_passporting_benefits
   select_applicant_boolean(:passporting, true)
@@ -71,18 +75,22 @@ def progress_to_submit_from_benefits
 end
 
 def progress_to_submit_from_incomes
-  click_checkbox("monthly-income-form-monthly-incomes", "friends_or_family")
-  fill_in "monthly-income-form-friends-or-family-field", with: "100"
-  click_checkbox("monthly-income-form-monthly-incomes", "maintenance")
-  fill_in "monthly-income-form-maintenance-field", with: "200"
-  click_checkbox("monthly-income-form-monthly-incomes", "property_or_lodger")
-  fill_in "monthly-income-form-property-or-lodger-field", with: "300"
-  click_checkbox("monthly-income-form-monthly-incomes", "pension")
-  fill_in "monthly-income-form-pension-field", with: "400"
-  click_checkbox("monthly-income-form-monthly-incomes", "other")
-  fill_in "monthly-income-form-other-field", with: "500"
-  click_on "Save and continue"
+  complete_incomes_screen
   progress_to_submit_from_outgoings
+end
+
+def complete_incomes_screen
+  fill_in "other-income-form-friends-or-family-value-field", with: "100"
+  select_radio_value("other-income-form", "friends-or-family-frequency", "monthly")
+  fill_in "other-income-form-maintenance-value-field", with: "200"
+  select_radio_value("other-income-form", "maintenance-frequency", "monthly")
+  fill_in "other-income-form-property-or-lodger-value-field", with: "300"
+  select_radio_value("other-income-form", "property-or-lodger-frequency", "monthly")
+  fill_in "other-income-form-pension-value-field", with: "400"
+  select_radio_value("other-income-form", "pension-frequency", "monthly")
+  fill_in "other-income-form-student-finance-value-field", with: "0"
+  fill_in "other-income-form-other-value-field", with: "500"
+  click_on "Save and continue"
 end
 
 def skip_assets_form
