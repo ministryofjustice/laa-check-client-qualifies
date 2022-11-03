@@ -31,7 +31,7 @@ class BenefitsController < EstimateFlowController
       index = session_data["benefits"].index(benefit_attributes)
       session_data["benefits"][index] = @model.attributes
       if @model.return_to_check_answers
-        redirect_to next_step_path
+        redirect_to next_step_path load_estimate
       else
         redirect_to flow_path(:benefits)
       end
@@ -57,7 +57,7 @@ class BenefitsController < EstimateFlowController
         redirect_to new_path
       else
         session_data[:add_benefit] = false
-        redirect_to next_step_path
+        redirect_to next_step_path @estimate
       end
     else
       render "estimate_flow/benefits"
@@ -74,7 +74,7 @@ private
     new_estimate_benefit_path(estimate_id)
   end
 
-  def next_step_path
-    flow_path StepsHelper.next_step_for(@estimate, :benefits)
+  def next_step_path(model)
+    flow_path StepsHelper.next_step_for(model, :benefits)
   end
 end
