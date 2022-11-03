@@ -4,22 +4,12 @@ class StepsHelper
       all_sections.map(&:all_steps).reduce(:+)
     end
 
-    def next_step_for(intro, step)
-      next_estimate_step(steps_list_for(intro).flatten, step)
+    def next_step_for(model, step)
+      remaining_steps_for(model, step).first
     end
 
     def remaining_steps_for(model, step)
-      Enumerator.new do |yielder|
-        next_step = step
-        loop do
-          next_step = next_step_for(model, next_step)
-          if next_step
-            yielder << next_step
-          else
-            raise StopIteration
-          end
-        end
-      end
+      remaining_estimate_steps(steps_list_for(model).flatten, step)
     end
 
     def previous_step_for(estimate, step)
@@ -43,6 +33,10 @@ class StepsHelper
 
     def all_sections
       [ApplicantCaseDetailsSection, IncomeSection, CapitalSection]
+    end
+
+    def remaining_estimate_steps(steps, step)
+      steps.each_cons(2).drop_while { |old, _new| old != step }.map(&:last)
     end
 
     def next_estimate_step(steps, step)
