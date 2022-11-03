@@ -8,6 +8,20 @@ class StepsHelper
       next_estimate_step(steps_list_for(intro).flatten, step)
     end
 
+    def remaining_steps_for(model, step)
+      Enumerator.new do |yielder|
+        next_step = step
+        loop do
+          next_step = next_step_for(model, next_step)
+          if next_step
+            yielder << next_step
+          else
+            raise StopIteration
+          end
+        end
+      end
+    end
+
     def previous_step_for(estimate, step)
       next_estimate_step(steps_list_for(estimate).flatten.reverse, step)
     end

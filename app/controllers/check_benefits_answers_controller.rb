@@ -10,7 +10,7 @@ private
   end
 
   def next_step_path(model)
-    next_step = next_check_answer_step :benefits, model, session_data
+    next_step = next_check_answer_step :benefits, model
     if next_step.present?
       flow_path next_step
     else
