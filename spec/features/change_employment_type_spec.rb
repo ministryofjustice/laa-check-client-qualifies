@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe "ChangeEmploymentTypes" do
   let(:employment_header) { "Add your client's salary breakdown" }
@@ -19,8 +19,8 @@ RSpec.describe "ChangeEmploymentTypes" do
     click_on "Save and continue"
 
     skip_assets_form
-    within '#section-client_details-header' do
-      click_on 'Change'
+    within "#section-client_details-header" do
+      click_on "Change"
     end
     select_applicant_boolean(:employed, true)
     select_applicant_boolean(:passporting, false)

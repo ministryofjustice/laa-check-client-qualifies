@@ -26,7 +26,7 @@ class EstimateFlowController < ApplicationController
     render_wizard
   end
 
-  protected
+protected
 
   def load_estimate
     EstimateModel.new session_data.slice(*EstimateModel::ESTIMATE_ATTRIBUTES.map(&:to_s))

@@ -25,7 +25,7 @@ class CheckAnswersController < EstimateFlowController
     end
   end
 
-  private
+private
 
   def set_back_behaviour
     @back_buttons_invoke_browser_back_behaviour = true

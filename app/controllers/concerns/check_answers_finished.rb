@@ -1,9 +1,9 @@
 module CheckAnswersFinished
   extend ActiveSupport::Concern
 
-  private
+private
 
-  def next_check_answer_step handler_classes, step, model, session_data
+  def next_check_answer_step(handler_classes, step, model, session_data)
     steps = Enumerator.new do |yielder|
       next_step = step
       loop do
@@ -15,6 +15,6 @@ module CheckAnswersFinished
         end
       end
     end
-    steps.drop_while { |step|  handler_classes.fetch(step).model(session_data).valid? }.first
+    steps.drop_while { |step| handler_classes.fetch(step).model(session_data).valid? }.first
   end
 end

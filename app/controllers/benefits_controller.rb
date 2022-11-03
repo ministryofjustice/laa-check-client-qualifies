@@ -74,7 +74,7 @@ private
     new_estimate_benefit_path(estimate_id)
   end
 
-  def next_step_path model
+  def next_step_path(model)
     flow_path StepsHelper.next_step_for(model, :benefits)
   end
 end
