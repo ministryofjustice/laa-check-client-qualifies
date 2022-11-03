@@ -16,6 +16,11 @@ class EstimatesController < ApplicationController
     render :print, layout: "print_application"
   end
 
+  def check_answers
+    @form = CheckAnswersPresenter.new cfe_session_data(:id)
+    @estimate_id = params.fetch(:id)
+  end
+
 private
 
   def cfe_session_data(param_name)

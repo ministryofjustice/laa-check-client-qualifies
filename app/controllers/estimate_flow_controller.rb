@@ -15,7 +15,6 @@ class EstimateFlowController < ApplicationController
     vehicle: Flow::Vehicle::OwnedHandler,
     vehicle_details: Flow::Vehicle::DetailsHandler,
     assets: Flow::AssetHandler,
-    check_answers: Flow::CheckAnswersHandler,
     outgoings: Flow::OutgoingsHandler,
     property_entry: Flow::PropertyEntryHandler,
   }.freeze

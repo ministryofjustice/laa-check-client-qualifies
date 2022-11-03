@@ -1,7 +1,7 @@
 class CapitalSection
   PROPERTY_STEPS = %i[property property_entry].freeze
   VEHICLE_STEPS = %i[vehicle vehicle_details].freeze
-  TAIL_STEPS = %i[assets check_answers].freeze
+  TAIL_STEPS = %i[assets].freeze
 
   class << self
     def all_steps

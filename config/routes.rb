@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
   root to: "start#index"
 
   resources :start, only: [:index]
@@ -19,7 +17,7 @@ Rails.application.routes.draw do
       collection { post :add }
     end
 
-    member { get :print }
+    member { get :print, :check_answers }
   end
 
   resource :cookies, only: %i[show update]

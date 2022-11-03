@@ -344,6 +344,60 @@ en:
       guidance:
         text: Guidance on assets
         link: "#"
+    property_entry:
+      heading: Tell us about your client's property
+      caption: Your client's finances
+      house_value:
+        input: How much is your client's home worth?
+        input_hint: You can use property websites to find the estimated value.
+      mortgage:
+        input: What is the outstanding mortgage on your client's home?
+        input_hint: Check the statement from your client's mortgage provider or lender.
+      percentage_owned:
+        input: What percentage share of their home does your client legally own?
+        input_hint: Your client's name must be on the property deeds, lease or freehold.
+    vehicle_details:
+      caption: Your client's finances
+      heading: Tell us about your client's vehicle
+      vehicle_value:
+        input: What is the estimated value of the vehicle?
+        input_hint: You can use car valuation websites to find this out. Please use the upper valuation.
+      vehicle_in_regular_use:
+        legend: Is the vehicle in regular use?
+        hint: This means the vehicle is used at least once every 2 weeks for things like work, shopping or driving children to school.
+      vehicle_three_years_old:
+        legend: Did your client buy the vehicle over 3 years ago?
+        hint: ""
+      vehicle_pcp:
+        legend: Are there any payments left on the vehicle?
+        hint: Include any outstanding payments on loans, hire purchase (HP) or personal contract purchase (PCP) agreements.
+      vehicle_finance:
+        input: Enter the value of payments left
+    case_details:
+      caption: About the case
+      proceeding_type:
+        legend: Is your client likely to be the applicant in a Domestic Abuse matter?
+        domestic_abuse:
+          label: 'Yes'
+          hint: ""
+        other:
+          label: 'No'
+          hint: ""
+      domestic_abuse_guidance:
+        text: Guidance on domestic abuse or violence
+        link: "#"
+  benefits:
+    new:
+      caption: Your client's finances
+      heading: Add benefit details
+    edit:
+      caption: Your client's finances
+      heading: Edit benefit details
+    form:
+      type: Benefit type
+      amount: Enter amount
+      frequency: Select frequency
+  estimates:
     check_answers:
       heading: Check your answers
       case_details: Your client's case details
@@ -442,60 +496,6 @@ en:
       submission_instructions: Now submit your eligibility check
       submission_explanation: We'll use your answers to give you an estimated result on your client's financial eligibility for legal aid.
       call_to_action: Submit eligibility check
-    property_entry:
-      heading: Tell us about your client's property
-      caption: Your client's finances
-      house_value:
-        input: How much is your client's home worth?
-        input_hint: You can use property websites to find the estimated value.
-      mortgage:
-        input: What is the outstanding mortgage on your client's home?
-        input_hint: Check the statement from your client's mortgage provider or lender.
-      percentage_owned:
-        input: What percentage share of their home does your client legally own?
-        input_hint: Your client's name must be on the property deeds, lease or freehold.
-    vehicle_details:
-      caption: Your client's finances
-      heading: Tell us about your client's vehicle
-      vehicle_value:
-        input: What is the estimated value of the vehicle?
-        input_hint: You can use car valuation websites to find this out. Please use the upper valuation.
-      vehicle_in_regular_use:
-        legend: Is the vehicle in regular use?
-        hint: This means the vehicle is used at least once every 2 weeks for things like work, shopping or driving children to school.
-      vehicle_three_years_old:
-        legend: Did your client buy the vehicle over 3 years ago?
-        hint: ""
-      vehicle_pcp:
-        legend: Are there any payments left on the vehicle?
-        hint: Include any outstanding payments on loans, hire purchase (HP) or personal contract purchase (PCP) agreements.
-      vehicle_finance:
-        input: Enter the value of payments left
-    case_details:
-      caption: About the case
-      proceeding_type:
-        legend: Is your client likely to be the applicant in a Domestic Abuse matter?
-        domestic_abuse:
-          label: 'Yes'
-          hint: ""
-        other:
-          label: 'No'
-          hint: ''
-      domestic_abuse_guidance:
-        text: Guidance on domestic abuse or violence
-        link: "#"
-  benefits:
-    new:
-      caption: Your client's finances
-      heading: Add benefit details
-    edit:
-      caption: Your client's finances
-      heading: Edit benefit details
-    form:
-      type: Benefit type
-      amount: Enter amount
-      frequency: Select frequency
-  estimates:
     show:
       eligible: Provisionally eligible
       contribution_required: Provisionally eligible
