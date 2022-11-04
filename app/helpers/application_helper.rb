@@ -26,10 +26,9 @@ module ApplicationHelper
   end
 
   def back_link(step, estimate, mimic_browser_back)
-    previous_step = StepsHelper.previous_step_for(estimate, step)
     link = if mimic_browser_back
              "javascript:history.back()"
-           elsif previous_step
+           elsif (previous_step = StepsHelper.previous_step_for(estimate, step))
              estimate_build_estimate_path(params[:estimate_id], previous_step)
            else
              provider_users_path
