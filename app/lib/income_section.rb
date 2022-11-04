@@ -1,7 +1,7 @@
 class IncomeSection
   class << self
     def all_steps
-      %i[employment benefits monthly_income outgoings]
+      %i[employment benefits other_income outgoings]
     end
 
     def steps_for(estimate)
@@ -9,7 +9,7 @@ class IncomeSection
         []
       else
         employment_step = estimate.employed ? [:employment] : []
-        (employment_step + %i[benefits monthly_income outgoings]).map { [_1] }
+        (employment_step + %i[benefits other_income outgoings]).map { [_1] }
       end
     end
   end

@@ -35,19 +35,8 @@ RSpec.describe CfeConnection do
           "amount": 100,
         },
       ]
-      connection.create_irregular_income("assessment_id", payments:)
+      connection.create_irregular_income("assessment_id", payments)
       expect(stub).to have_been_requested
-    end
-  end
-
-  describe "create_regular_payments" do
-    let!(:stub) do
-      stub_request(:post, "#{root_url}/assessment_id/regular_transactions")
-    end
-
-    it "makes no call if no valid data" do
-      connection.create_regular_payments("assessment_id", MonthlyIncomeForm.new, nil)
-      expect(stub).not_to have_been_requested
     end
   end
 

@@ -38,7 +38,7 @@ class CfeConnection
     create_record(assessment_id, "dependants", dependants:)
   end
 
-  def create_irregular_income(assessment_id, payments:)
+  def create_irregular_income(assessment_id, payments)
     create_record(assessment_id, "irregular_incomes", payments:)
   end
 
@@ -46,42 +46,8 @@ class CfeConnection
     create_record(assessment_id, "employments", employment_income:)
   end
 
-  CFE_OUTGOINGS_FREQUENCIES = {
-    "every_week" => :weekly,
-    "every_two_weeks" => :two_weekly,
-    "every_four_weeks" => :four_weekly,
-    "monthly" => :monthly,
-  }.freeze
-
-  def create_regular_payments(assessment_id, income_form, outgoings_form)
-    income = {
-      friends_or_family: (income_form.friends_or_family if income_form.monthly_incomes.include?("friends_or_family")),
-      maintenance_in: (income_form.maintenance if income_form.monthly_incomes.include?("maintenance")),
-      property_or_lodger: (income_form.property_or_lodger if income_form.monthly_incomes.include?("property_or_lodger")),
-      pension: (income_form.pension if income_form.monthly_incomes.include?("pension")),
-    }.select { |_k, v| v.present? }.map do |category, amount|
-      { operation: :credit,
-        category:,
-        frequency: :monthly,
-        amount: }
-    end
-
-    outgoings = {
-      rent_or_mortgage: :housing_payments,
-      child_care: :childcare_payments,
-      maintenance_out: :maintenance_payments,
-      legal_aid: :legal_aid_payments,
-    }.select { |_k, type| outgoings_form&.send("#{type}_value")&.positive? }
-    .map do |category, type|
-      { operation: :debit,
-        category:,
-        frequency: CFE_OUTGOINGS_FREQUENCIES[outgoings_form.send("#{type}_frequency")],
-        amount: outgoings_form.send("#{type}_value") }
-    end
-
-    regular_transactions = income + outgoings
-
-    create_record(assessment_id, "regular_transactions", regular_transactions:) if regular_transactions.any?
+  def create_regular_payments(assessment_id, regular_transactions)
+    create_record(assessment_id, "regular_transactions", regular_transactions:)
   end
 
   def create_benefits(assessment_id, state_benefits)

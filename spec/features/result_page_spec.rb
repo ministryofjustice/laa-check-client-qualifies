@@ -114,18 +114,16 @@ RSpec.describe "Results Page" do
       select_boolean_value("benefits-form", :add_benefit, false)
       click_on("Save and continue")
 
-      click_checkbox("monthly-income-form-monthly-incomes", "friends_or_family")
-      fill_in "monthly-income-form-friends-or-family-field", with: "100"
-      click_checkbox("monthly-income-form-monthly-incomes", "maintenance")
-      fill_in "monthly-income-form-maintenance-field", with: "200"
-      click_checkbox("monthly-income-form-monthly-incomes", "property_or_lodger")
-      fill_in "monthly-income-form-property-or-lodger-field", with: "300"
-      click_checkbox("monthly-income-form-monthly-incomes", "pension")
-      fill_in "monthly-income-form-pension-field", with: "40"
-      click_checkbox("monthly-income-form-monthly-incomes", "student_finance")
-      fill_in "monthly-income-form-student-finance-field", with: "600"
-      click_checkbox("monthly-income-form-monthly-incomes", "other")
-      fill_in "monthly-income-form-other-field", with: "333"
+      fill_in "other-income-form-friends-or-family-value-field", with: "100"
+      select_radio_value("other-income-form", "friends-or-family-frequency", "monthly")
+      fill_in "other-income-form-maintenance-value-field", with: "200"
+      select_radio_value("other-income-form", "maintenance-frequency", "monthly")
+      fill_in "other-income-form-property-or-lodger-value-field", with: "300"
+      select_radio_value("other-income-form", "property-or-lodger-frequency", "monthly")
+      fill_in "other-income-form-pension-value-field", with: "40"
+      select_radio_value("other-income-form", "pension-frequency", "monthly")
+      fill_in "other-income-form-student-finance-value-field", with: "600"
+      fill_in "other-income-form-other-value-field", with: "333"
       click_on "Save and continue"
 
       fill_in "outgoings-form-housing-payments-value-field", with: "300"

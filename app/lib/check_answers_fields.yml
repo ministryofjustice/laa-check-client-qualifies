@@ -74,27 +74,21 @@ sections:
     subsections:
       - label: benefits
         screen: benefits
-      - label: monthly_income
-        screen: monthly_income
+      - label: other_income
+        screen: other_income
         fields:
           - attribute: friends_or_family
             type: money
-            requires_inclusion_in: monthly_incomes
           - attribute: maintenance
             type: money
-            requires_inclusion_in: monthly_incomes
           - attribute: property_or_lodger
             type: money
-            requires_inclusion_in: monthly_incomes
           - attribute: pension
             type: money
-            requires_inclusion_in: monthly_incomes
           - attribute: student_finance
             type: money
-            requires_inclusion_in: monthly_incomes
           - attribute: other
             type: money
-            requires_inclusion_in: monthly_incomes
   - label: outgoings
     screen: outgoings
     subsections:

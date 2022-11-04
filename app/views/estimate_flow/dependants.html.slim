@@ -7,9 +7,12 @@
 
     = form.govuk_error_summary t("generic.error_summary_title")
 
-    = form.govuk_radio_buttons_fieldset :dependants,
-                                        legend: { text: t(".legend"), tag: "h1", size: "xl" },
-                                        hint: lambda { \
+    = form.govuk_collection_radio_buttons :dependants,
+                                          yes_no_options,
+                                          :first,
+                                          :last,
+                                          legend: { text: t(".legend"), tag: "h1", size: "xl" },
+                                          hint: lambda { \
                                                    tag.p(t(".hint")) + \
                                                    tag.ul(class: "govuk-list govuk-list--bullet") do \
                                                      tag.li(t(".lives_with")) + \
@@ -17,8 +20,6 @@
                                                    end + \
                                                    tag.div(t(".no_partner"), class: "govuk-inset-text") \
                                                    }
-      = form.govuk_radio_button :dependants, true, label: { text: t("generic.yes_choice") }
-      = form.govuk_radio_button :dependants, false, label: { text: t("generic.no_choice") }
 
     = form.govuk_submit t("generic.save_and_continue")
 

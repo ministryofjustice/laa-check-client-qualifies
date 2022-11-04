@@ -20,7 +20,7 @@
     = form.govuk_radio_buttons_fieldset :vehicle_pcp,
                                           legend: { text: t(".vehicle_pcp.legend") },
                                           hint: { text: t(".vehicle_pcp.hint") } do
-      = form.govuk_radio_button :vehicle_pcp, true, label: { text: t("generic.yes_choice") } do
+      = form.govuk_radio_button :vehicle_pcp, true, label: { text: t("generic.yes_choice") }, link_errors: true do
         = render "shared/money_input",
                    form:,
                    field: :vehicle_finance,
