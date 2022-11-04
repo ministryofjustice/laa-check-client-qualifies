@@ -26,11 +26,13 @@ module ApplicationHelper
   end
 
   def back_link(step, estimate, mimic_browser_back)
+    previous_step = StepsHelper.previous_step_for(estimate, step)
     link = if mimic_browser_back
              "javascript:history.back()"
+           elsif previous_step
+             estimate_build_estimate_path(params[:estimate_id], previous_step)
            else
-             estimate_build_estimate_path(params[:estimate_id],
-                                          StepsHelper.previous_step_for(estimate, step) || StepsHelper.all_possible_steps.first)
+             provider_users_path
            end
     link_to t("generic.back"), link, class: "govuk-back-link"
   end

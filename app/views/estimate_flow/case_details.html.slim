@@ -1,5 +1,5 @@
 - content_for :back
-  = link_to t("generic.back"), previous_wizard_path, class: "govuk-back-link"
+  = back_link(:case_details, @estimate, @back_buttons_invoke_browser_back_behaviour)
 
 .govuk-grid-column-two-thirds
   span.govuk-caption-l = t(".caption")
