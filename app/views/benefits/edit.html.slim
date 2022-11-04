@@ -1,5 +1,7 @@
 - content_for :back
-  = link_to t("generic.back"), "javascript:history.back()", class: "govuk-back-link"
+  = link_to t("generic.back"),
+            flow_path(params[:estimate_id], :benefits, check_answers: controller_name == "check_benefits_answers"),
+            class: "govuk-back-link"
 
 .govuk-grid-column-two-thirds
   span.govuk-caption-l = t(".caption")

@@ -42,11 +42,7 @@ class BenefitsController < EstimateFlowController
 
   def destroy
     session_data["benefits"].delete_if { _1["id"] == params["id"] }
-    if session_data["benefits"].any?
-      redirect_to flow_path(:benefits)
-    else
-      redirect_to new_path
-    end
+    redirect_to post_destroy_path
   end
 
   def add
@@ -76,5 +72,13 @@ private
 
   def next_step_path(model)
     flow_path StepsHelper.next_step_for(model, :benefits)
+  end
+
+  def post_destroy_path
+    if session_data["benefits"].any?
+      flow_path(:benefits)
+    else
+      new_path
+    end
   end
 end
