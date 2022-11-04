@@ -54,7 +54,8 @@
           - when "no_or_number"
             = render "check_answer",
                      label_text: t(".#{field.label}"),
-    value_text: t(".#{field.label}_options.#{field.value || 'not_provided'}"),                     link: field.screen,
+                     value_text: t(".#{field.label}_options.#{field.value || 'not_provided'}"),
+                     link: field.screen,
                      disputed_asset: field.disputed?
           - when "select"
             = render "check_answer",
