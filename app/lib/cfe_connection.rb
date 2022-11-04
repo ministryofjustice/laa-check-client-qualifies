@@ -88,15 +88,7 @@ class CfeConnection
     create_record(assessment_id, "state_benefits", state_benefits:)
   end
 
-  def create_properties(assessment_id, main_property, second_property)
-    main_home = main_property ||
-      {
-        value: 0,
-        outstanding_mortgage: 0,
-        percentage_owned: 0,
-      }
-    properties = { main_home: main_home.merge(shared_with_housing_assoc: false) }
-    properties[:additional_properties] = [second_property.merge(shared_with_housing_assoc: false)] if second_property
+  def create_properties(assessment_id, properties)
     create_record(assessment_id, "properties", properties:)
   end
 

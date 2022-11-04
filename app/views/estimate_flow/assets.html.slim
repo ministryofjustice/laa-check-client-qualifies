@@ -32,6 +32,9 @@
               label: { text: t(".property.percentage_owned.input") },
               hint: { text: t(".property.percentage_owned.input_hint") }
 
+      = form.govuk_check_box :in_dispute, :property,
+              label: { text: t(".property.dispute.label") }
+
     = form.govuk_fieldset legend: { text: t(".savings.label") } do
 
       .govuk-hint = t(".savings.hint")
@@ -62,7 +65,11 @@
                width: 5,
                label_text: t(".valuables.input")
 
+    = render "smod_help"
+
     = form.govuk_submit t("generic.save_and_continue")
 
 = render "shared/sidebar_with_date", \
-  links: { t("estimate_flow.assets.guidance.text") => t("estimate_flow.assets.guidance.link") }
+  links: { t("estimate_flow.assets.guidance.text") => t("estimate_flow.assets.guidance.link"), \
+    t("generic.smod.guidance_text") => t("generic.smod.guidance_link"), \
+  }
