@@ -35,4 +35,10 @@ env:
       secretKeyRef:
         name: {{ template "app.fullname" . }}
         key: checkFinancialEligibilityHost
+  - name: REDIS_URL
+    valueFrom:
+      secretKeyRef:
+        name: laa-estimate-financial-eligibility-elasticache-instance-output
+        key: url
+
 {{- end }}
