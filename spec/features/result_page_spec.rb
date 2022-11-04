@@ -108,7 +108,7 @@ RSpec.describe "Results Page" do
       fill_in "employment-form-gross-income-field", with: 1000
       fill_in "employment-form-income-tax-field", with: 400
       fill_in "employment-form-national-insurance-field", with: 50
-      click_checkbox("employment-form-frequency", "monthly")
+      select_radio_value("employment-form", "frequency", "monthly")
       click_on "Save and continue"
 
       select_boolean_value("benefits-form", :add_benefit, false)
@@ -133,7 +133,7 @@ RSpec.describe "Results Page" do
       fill_in "outgoings-form-maintenance-payments-value-field", with: "0"
       click_on "Save and continue"
 
-      click_checkbox("property-form-property-owned", "with_mortgage")
+      select_radio_value("property-form", "property-owned", "with_mortgage")
       click_on "Save and continue"
 
       fill_in "property-entry-form-house-value-field", with: 100_000
@@ -196,7 +196,7 @@ RSpec.describe "Results Page" do
 
     it "shows the capital section" do
       within "#capital-calculation-content" do
-        expect(page).to have_content "Property £3,400.00"
+        expect(page).to have_content "Property £0.00"
         expect(page).to have_content "Vehicles £2,500.00"
         expect(page).to have_content "Second property £3,800.00"
         expect(page).to have_content "Savings £200.00"

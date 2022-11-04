@@ -39,17 +39,4 @@ RSpec.describe CfeConnection do
       expect(stub).to have_been_requested
     end
   end
-
-  describe "create_properties" do
-    let!(:stub) do
-      body = { properties: { main_home: { value: 100_000, outstanding_mortgage: 50_000, percentage_owned: 100, shared_with_housing_assoc: false } } }
-      stub_request(:post, "#{root_url}/assessment_id/properties").with(body:).to_return(status: 200)
-    end
-
-    it "makes a call without additional properties if only main property is provided" do
-      main = { value: 100_000, outstanding_mortgage: 50_000, percentage_owned: 100 }
-      connection.create_properties("assessment_id", main, nil)
-      expect(stub).to have_been_requested
-    end
-  end
 end

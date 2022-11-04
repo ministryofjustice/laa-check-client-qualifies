@@ -37,22 +37,31 @@
             = render "money_check_answer",
                      label_text: t(".#{field.label}"),
                      value_text: field.value,
-                     link: field.screen
+                     disputed_asset: field.disputed?
           - when "boolean"
             = render "check_answer",
                      label_text: t(".#{field.label}"),
                      value_text: yes_no_boolean(field.value),
-                     link: field.screen
+                     link: field.screen,
+                     disputed_asset: field.disputed?
           - when "number"
             = render "check_answer",
                      label_text: t(".#{field.label}"),
                      value_text: field.value || t("generic.not_applicable"),
-                     link: field.screen
+                     link: field.screen,
+                     disputed_asset: field.disputed?
+          - when "no_or_number"
+            = render "check_answer",
+                     label_text: t(".#{field.label}"),
+                     value_text: t(".#{field.label}_options.#{field.value || 'not_provided'}"),
+                     link: field.screen,
+                     disputed_asset: field.disputed?
           - when "select"
             = render "check_answer",
                      label_text: t(".#{field.label}"),
                      value_text: t(".#{field.label}_options.#{field.value || 'not_provided'}"),
-                     link: field.screen
+                     link: field.screen,
+                     disputed_asset: field.disputed?
           - when "money_with_frequency"
             - alt_value = field.alt_value if field.value&.to_f&.positive?
             = render "money_and_frequency_check_answer",
@@ -64,6 +73,7 @@
                      label_text: field.label,
                      value: field.value,
                      frequency: t(".frequency_options.#{field.alt_value}"),
+                     disputed_asset: false,
                      path: (edit_estimate_check_benefits_answer_path(@estimate_id, field.id, check_answers: true) if field.id)
           - else
             - raise "Unknown field_type #{field.type}"

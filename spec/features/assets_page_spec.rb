@@ -3,16 +3,21 @@ require "rails_helper"
 RSpec.describe "Assets Page" do
   let(:assets_header) { "Which of these assets does your client have?" }
   let(:estimate_id) { SecureRandom.uuid }
-  let(:mock_connection) { instance_double(CfeConnection, create_assessment_id: estimate_id, api_result: CalculationResult.new({}), create_proceeding_type: nil) }
+  let(:mock_connection) { instance_double(CfeConnection, create_assessment_id: estimate_id, create_proceeding_type: nil) }
   let(:check_answers_header) { "Check your answers" }
 
   before do
     allow(CfeConnection).to receive(:connection).and_return(mock_connection)
     allow(mock_connection).to receive(:create_regular_payments)
     allow(mock_connection).to receive(:create_applicant)
+    allow(mock_connection).to receive(:api_result).and_return(calculation_result)
   end
 
   context "without main property" do
+    let(:calculation_result) do
+      CalculationResult.new(FactoryBot.build(:api_result))
+    end
+
     before do
       visit estimate_build_estimate_path estimate_id, :assets
     end
@@ -21,21 +26,47 @@ RSpec.describe "Assets Page" do
       expect(page).to have_content assets_header
     end
 
-    it "can submit second property" do
-      fill_in "assets-form-savings-field", with: "0"
-      fill_in "assets-form-investments-field", with: "0"
-      fill_in "assets-form-valuables-field", with: "0"
+    context "with disputed second property" do
+      before do
+        fill_in "assets-form-savings-field", with: "0"
+        fill_in "assets-form-investments-field", with: "0"
+        fill_in "assets-form-valuables-field", with: "0"
 
-      expect(mock_connection)
-        .to receive(:create_properties)
-              .with(estimate_id, nil, { outstanding_mortgage: 50_000, percentage_owned: 50, value: 100_000 })
-      fill_in "assets-form-property-value-field", with: "100_000"
-      fill_in "assets-form-property-mortgage-field", with: "50_000"
-      fill_in "assets-form-property-percentage-owned-field", with: "50"
-      click_on "Save and continue"
+        fill_in "assets-form-property-value-field", with: "100_000"
+        fill_in "assets-form-property-mortgage-field", with: "50_000"
+        fill_in "assets-form-property-percentage-owned-field", with: "50"
+        click_checkbox("assets-form-in-dispute", "property")
 
-      expect(page).to have_content check_answers_header
-      click_on "Submit"
+        click_on "Save and continue"
+      end
+
+      it "can edit via check answers with checked dispute value" do
+        within "#subsection-other-header" do
+          click_on "Change"
+        end
+        expect(find("#assets-form-in-dispute-property-field")).to be_checked
+      end
+
+      it "can submit with an empty first property" do
+        expect(mock_connection)
+          .to receive(:create_properties)
+                .with(estimate_id,
+                      {
+                        main_home: { outstanding_mortgage: 0, value: 0, percentage_owned: 0, shared_with_housing_assoc: false },
+                        additional_properties: [
+                          { outstanding_mortgage: 50_000,
+                            percentage_owned: 50,
+                            value: 100_000,
+                            shared_with_housing_assoc: false,
+                            subject_matter_of_dispute: true },
+                        ],
+                      })
+        expect(page).to have_content check_answers_header
+        within "#field-list-other" do
+          expect(page).to have_content "Disputed asset"
+        end
+        click_on "Submit"
+      end
     end
   end
 
@@ -46,7 +77,7 @@ RSpec.describe "Assets Page" do
 
     before do
       visit estimate_build_estimate_path estimate_id, :property
-      click_checkbox("property-form-property-owned", "with_mortgage")
+      select_radio_value("property-form", "property-owned", "with_mortgage")
       click_on "Save and continue"
 
       fill_in "property-entry-form-house-value-field", with: 100_000
@@ -79,9 +110,11 @@ RSpec.describe "Assets Page" do
       fill_in "assets-form-valuables-field", with: "0"
       expect(mock_connection)
         .to receive(:create_properties)
-              .with(estimate_id,
-                    { outstanding_mortgage: 50_000, percentage_owned: 100, value: 100_000 },
-                    { outstanding_mortgage: 40_000, percentage_owned: 50, value: 80_000 })
+              .with(estimate_id, { main_home:
+                    { outstanding_mortgage: 50_000, percentage_owned: 100, value: 100_000, shared_with_housing_assoc: false },
+                                   additional_properties: [
+                                     { outstanding_mortgage: 40_000, percentage_owned: 50, value: 80_000, shared_with_housing_assoc: false },
+                                   ] })
       fill_in "assets-form-property-value-field", with: "80_000"
       fill_in "assets-form-property-mortgage-field", with: "40_000"
       fill_in "assets-form-property-percentage-owned-field", with: "50"
@@ -98,17 +131,32 @@ RSpec.describe "Assets Page" do
       expect(mock_connection)
         .to receive(:create_properties)
               .with(estimate_id,
-                    { outstanding_mortgage: 50_000, percentage_owned: 100, value: 100_000 },
-                    nil)
-      expect(mock_connection).to receive(:create_capitals).with(estimate_id, [100], [500, 1000])
+                    { main_home: { outstanding_mortgage: 50_000, percentage_owned: 100, value: 100_000, shared_with_housing_assoc: false } })
+      expect(mock_connection)
+        .to receive(:create_capitals)
+              .with(estimate_id,
+                    [{ description: "Liquid Asset", subject_matter_of_dispute: true, value: 100 }],
+                    [{ description: "Non Liquid Asset", value: 500 },
+                     { description: "Non Liquid Asset", subject_matter_of_dispute: true, value: 1000 }])
 
       fill_in "assets-form-savings-field", with: "100"
+      click_checkbox("assets-form-in-dispute", "savings")
       fill_in "assets-form-investments-field", with: "500"
       fill_in "assets-form-valuables-field", with: "1000"
+      click_checkbox("assets-form-in-dispute", "valuables")
 
       click_on "Save and continue"
 
       expect(page).to have_content check_answers_header
+      within "#savings" do
+        expect(page).to have_content "Disputed asset"
+      end
+      within "#investments" do
+        expect(page).not_to have_content "Disputed asset"
+      end
+      within "#valuables" do
+        expect(page).to have_content "Disputed asset"
+      end
       click_on "Submit"
     end
 
@@ -158,8 +206,8 @@ RSpec.describe "Assets Page" do
       expect(mock_connection)
         .to receive(:create_properties)
           .with(estimate_id,
-                { outstanding_mortgage: 0, percentage_owned: 100, value: 100_000 },
-                { outstanding_mortgage: 40_000, percentage_owned: 50, value: 80_000 })
+                { main_home: { outstanding_mortgage: 0, percentage_owned: 100, value: 100_000, shared_with_housing_assoc: false },
+                  additional_properties: [{ outstanding_mortgage: 40_000, percentage_owned: 50, value: 80_000, shared_with_housing_assoc: false }] })
 
       fill_in "assets-form-property-value-field", with: "80_000"
       fill_in "assets-form-property-mortgage-field", with: "40_000"

@@ -3,7 +3,8 @@ def select_applicant_boolean(field, value)
 end
 
 def select_radio_value(form, field, value)
-  find(:css, "##{form}-#{field}-#{value}-field").click
+  fieldname = value.to_s.tr("_", "-")
+  find("label[for=#{"#{form}-#{field}"}-#{fieldname}-field]").click
 end
 
 def fill_in_applicant_screen_with_passporting_benefits
@@ -34,7 +35,7 @@ end
 def visit_applicant_page(partner: false)
   visit new_estimate_path
   click_on "Reject additional cookies"
-  click_checkbox("proceeding-type-form-proceeding-type", "se003")
+  select_radio_value("proceeding-type-form", "proceeding-type", "se003")
   click_on "Save and continue"
   select_boolean_value("partner-form", "partner", partner)
   click_on "Save and continue"
@@ -65,11 +66,10 @@ end
 
 def progress_to_submit_from_outgoings
   skip_outgoings_form
-
-  click_checkbox("property-form-property-owned", "none")
-  click_on "Save and continue"
-  select_boolean_value("vehicle-form", :vehicle_owned, false)
-  progress_to_submit_from_vehicle_form
+  skip_property_form
+  skip_vehicle_form
+  skip_assets_form
+  click_on "Submit"
 end
 
 def progress_to_submit_from_benefits
@@ -111,13 +111,22 @@ def skip_assets_form
   click_on "Save and continue"
 end
 
+def skip_property_form
+  select_radio_value("property-form", "property-owned", "none")
+  click_on "Save and continue"
+end
+
+def skip_vehicle_form
+  select_boolean_value("vehicle-form", :vehicle_owned, false)
+  click_on "Save and continue"
+end
+
 def visit_check_answer_with_passporting_benefit
   visit_applicant_page
   fill_in_applicant_screen_with_passporting_benefits
   click_on "Save and continue"
 
-  click_checkbox("property-form-property-owned", "none")
-  click_on "Save and continue"
+  skip_property_form
   select_boolean_value("vehicle-form", :vehicle_owned, false)
   click_on "Save and continue"
   skip_assets_form
@@ -134,7 +143,7 @@ def visit_check_answer_without_passporting_benefit
   complete_incomes_screen
   skip_outgoings_form
 
-  click_checkbox("property-form-property-owned", "none")
+  select_radio_value("property-form", "property-owned", "none")
   click_on "Save and continue"
   select_boolean_value("vehicle-form", :vehicle_owned, false)
   click_on "Save and continue"

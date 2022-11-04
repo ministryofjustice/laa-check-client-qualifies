@@ -39,7 +39,7 @@ RSpec.describe "Vehicle Page", :vcr do
     fill_in_applicant_screen_with_passporting_benefits
     click_on "Save and continue"
 
-    click_checkbox("property-form-property-owned", "none")
+    select_radio_value("property-form", "property-owned", "none")
     click_on "Save and continue"
   end
 

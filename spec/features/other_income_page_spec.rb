@@ -20,21 +20,44 @@ RSpec.describe "Other income Page" do
     expect(page).to have_content income_header
   end
 
-  it "allows me to proceed if I put in valid values" do
-    fill_in "other-income-form-pension-value-field", with: "0"
-    fill_in "other-income-form-property-or-lodger-value-field", with: "0"
+  context "when I put in valid values" do
+    before do
+      fill_in "other-income-form-pension-value-field", with: "34"
+      select_radio_value("other-income-form", "pension-frequency", "monthly")
 
-    fill_in "other-income-form-friends-or-family-value-field", with: "200"
-    select_radio_value("other-income-form", "friends-or-family-frequency", "every-week")
+      fill_in "other-income-form-property-or-lodger-value-field", with: "45"
+      select_radio_value("other-income-form", "property-or-lodger-frequency", "every-week")
 
-    fill_in "other-income-form-maintenance-value-field", with: "300"
-    select_radio_value("other-income-form", "maintenance-frequency", "every-two-weeks")
+      fill_in "other-income-form-friends-or-family-value-field", with: "200"
+      select_radio_value("other-income-form", "friends-or-family-frequency", "every-week")
 
-    fill_in "other-income-form-student-finance-value-field", with: "100"
-    fill_in "other-income-form-other-value-field", with: "0"
+      fill_in "other-income-form-maintenance-value-field", with: "300"
+      select_radio_value("other-income-form", "maintenance-frequency", "every-two-weeks")
 
-    click_on "Save and continue"
-    expect(page).to have_content("What are your client's outgoings and deductions?")
+      fill_in "other-income-form-student-finance-value-field", with: "100"
+      fill_in "other-income-form-other-value-field", with: "67"
+
+      click_on "Save and continue"
+    end
+
+    it "allows me to proceed" do
+      expect(page).to have_content("What are your client's outgoings and deductions?")
+    end
+
+    it "shows correctly on check answers" do
+      skip_outgoings_form
+      skip_property_form
+      skip_vehicle_form
+      skip_assets_form
+      within "#field-list-other_income" do
+        expect(page).to have_content "Financial help\n£200.00"
+        expect(page).to have_content "Maintenance payments from a former partner\n£300.00"
+        expect(page).to have_content "Student finance£100.00"
+        expect(page).to have_content "Income from a property or lodger\n£45.00"
+        expect(page).to have_content "Pension\n£34.00"
+        expect(page).to have_content "Other sources£67.00"
+      end
+    end
   end
 
   it "validates if value fields are left blank" do

@@ -29,7 +29,7 @@ RSpec.describe "Vehicle Page" do
     end
   end
 
-  context "with no vehicle" do
+  context "without a vehicle" do
     before do
       select_vehicle_value(:vehicle_owned, false)
       click_on "Save and continue"
@@ -40,8 +40,6 @@ RSpec.describe "Vehicle Page" do
     end
 
     context "when checking answers" do
-      let(:vehicle_value) { 20_000 }
-
       before do
         allow(mock_connection).to receive(:create_capitals)
         skip_assets_form
@@ -55,17 +53,17 @@ RSpec.describe "Vehicle Page" do
       end
 
       it "can do a simple loop back to check answers" do
-        within("#field-list-vehicles") { click_on "Change" }
+        within("#subsection-vehicles-header") { click_on "Change" }
         click_on "Save and continue"
         expect(page).to have_content check_answers_header
       end
 
       it "errors correctly if I decline to give further details of a vehicle" do
-        within("#field-list-vehicles") { click_on "Change" }
+        within("#subsection-vehicles-header") { click_on "Change" }
         select_vehicle_value(:vehicle_owned, true)
         click_on "Save and continue"
 
-        fill_in "vehicle-details-form-vehicle-value-field", with: vehicle_value
+        fill_in "vehicle-details-form-vehicle-value-field", with: 20_000
         click_on "Save and continue"
 
         within ".govuk-error-summary__list" do
@@ -74,10 +72,10 @@ RSpec.describe "Vehicle Page" do
       end
 
       it "can do a loop changing the vehicle answer" do
-        within("#field-list-vehicles") { click_on "Change" }
+        within("#subsection-vehicles-header") { click_on "Change" }
         select_vehicle_value(:vehicle_owned, true)
         click_on "Save and continue"
-        fill_in "vehicle-details-form-vehicle-value-field", with: vehicle_value
+        fill_in "vehicle-details-form-vehicle-value-field", with: 20_000
         select_boolean_value("vehicle-details-form", :vehicle_in_regular_use, false)
         select_boolean_value("vehicle-details-form", :vehicle_pcp, false)
         select_boolean_value("vehicle-details-form", :vehicle_over_3_years_ago, true)
@@ -96,9 +94,6 @@ RSpec.describe "Vehicle Page" do
       click_on "Save and continue"
     end
 
-    let(:loan_amount) { 2_000 }
-    let(:vehicle_value) { 5_000 }
-
     it "has readable errors" do
       click_on "Save and continue"
 
@@ -110,20 +105,51 @@ RSpec.describe "Vehicle Page" do
     end
 
     context "when purchased 3 years ago" do
-      it "uses 4 years old" do
-        expect(mock_connection).to receive(:create_vehicle)
-          .with(estimate_id,
-                date_of_purchase: 4.years.ago.to_date,
-                value: vehicle_value,
-                loan_amount_outstanding: loan_amount,
-                in_regular_use: true)
-
-        fill_in "vehicle-details-form-vehicle-value-field", with: vehicle_value
+      before do
+        fill_in "vehicle-details-form-vehicle-value-field", with: 5_000
         select_boolean_value("vehicle-details-form", :vehicle_in_regular_use, true)
         select_boolean_value("vehicle-details-form", :vehicle_over_3_years_ago, true)
         select_boolean_value("vehicle-details-form", :vehicle_pcp, true)
-        fill_in "vehicle-details-form-vehicle-finance-field", with: loan_amount
-        progress_to_submit_from_vehicle_form
+        fill_in "vehicle-details-form-vehicle-finance-field", with: 2_000
+        select_boolean_value("vehicle-details-form", :vehicle_in_dispute, true)
+
+        click_on "Save and continue"
+        skip_assets_form
+      end
+
+      it "removes the dispute badge when vehicle removed" do
+        within("#subsection-vehicles-header") do
+          first(".govuk-link").click
+        end
+        select_vehicle_value(:vehicle_owned, false)
+        click_on "Save and continue"
+
+        within "#field-list-vehicles" do
+          expect(page).not_to have_content "Disputed asset"
+          expect(page).not_to have_content "5,000"
+          expect(page).not_to have_content "2,000"
+          expect(page).not_to have_content "Yes"
+        end
+      end
+
+      it "uses 4 years old" do
+        expect(mock_connection).to receive(:create_vehicle)
+          .with(estimate_id,
+                [
+                  {
+                    date_of_purchase: 4.years.ago.to_date,
+                    in_regular_use: true,
+                    loan_amount_outstanding: 2_000,
+                    subject_matter_of_dispute: true,
+                    value: 5_000,
+                  },
+                ])
+
+        within "#field-list-vehicles" do
+          expect(page).to have_content "Disputed asset"
+        end
+
+        click_on "Submit"
       end
     end
 
@@ -131,16 +157,21 @@ RSpec.describe "Vehicle Page" do
       it "uses 2 years old" do
         expect(mock_connection).to receive(:create_vehicle)
           .with(estimate_id,
-                date_of_purchase: 2.years.ago.to_date,
-                value: vehicle_value,
-                loan_amount_outstanding: loan_amount,
-                in_regular_use: true)
+                [
+                  {
+                    date_of_purchase: 2.years.ago.to_date,
+                    in_regular_use: true,
+                    loan_amount_outstanding: 2_000,
+                    subject_matter_of_dispute: false,
+                    value: 5_000,
+                  },
+                ])
 
-        fill_in "vehicle-details-form-vehicle-value-field", with: vehicle_value
+        fill_in "vehicle-details-form-vehicle-value-field", with: 5_000
         select_boolean_value("vehicle-details-form", :vehicle_in_regular_use, true)
         select_boolean_value("vehicle-details-form", :vehicle_over_3_years_ago, false)
         select_boolean_value("vehicle-details-form", :vehicle_pcp, true)
-        fill_in "vehicle-details-form-vehicle-finance-field", with: loan_amount
+        fill_in "vehicle-details-form-vehicle-finance-field", with: 2_000
         progress_to_submit_from_vehicle_form
       end
     end

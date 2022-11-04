@@ -30,11 +30,11 @@ private
     @back_buttons_invoke_browser_back_behaviour = true
   end
 
-  def anchor
-    "#{relevant_check_answers_section_label}-section"
-  end
+  ANCHOR_EXCEPTIONS = { vehicle_details: :assets,
+                        property: :assets,
+                        property_entry: :assets }.freeze
 
-  def relevant_check_answers_section_label
-    CheckAnswers::RelevantSectionFinderService.call(step, session_data)
+  def anchor
+    "#{ANCHOR_EXCEPTIONS.fetch(step, step)}-section"
   end
 end
