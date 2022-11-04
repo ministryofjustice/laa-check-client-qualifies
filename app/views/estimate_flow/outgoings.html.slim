@@ -19,9 +19,11 @@
              field: :"#{type}_value",
              width: 10,
              label_text: t(".enter_amount")
-      = form.govuk_radio_buttons_fieldset :"#{type}_frequency", legend: -> { tag.p(t(".enter_frequency")) } do
-        - OutgoingsForm::VALID_FREQUENCIES.each do |frequency|
-          = form.govuk_radio_button :"#{type}_frequency", frequency, label: { text: t(".frequencies.#{frequency}") }
+      = form.govuk_collection_radio_buttons :"#{type}_frequency",
+                                            OutgoingsForm::VALID_FREQUENCIES.map { [_1, t(".frequencies.#{_1}")] },
+                                            :first,
+                                            :last,
+                                            legend: -> { tag.p(t(".enter_frequency")) }
 
     = form.govuk_submit t("generic.save_and_continue")
 

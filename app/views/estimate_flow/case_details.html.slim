@@ -8,12 +8,11 @@
 
     = form.govuk_error_summary t("generic.error_summary_title")
 
-    = form.govuk_radio_buttons_fieldset :proceeding_type,
-      legend: { text: t(".proceeding_type.legend"), size: "xl", tag: "h1" } do
-      - ProceedingTypeForm::PROCEEDING_TYPES.each do |proceeding_type, value|
-        = form.govuk_radio_button :proceeding_type, value,
-                label: { text: t(".proceeding_type.#{proceeding_type}.label") },
-                hint: { text: t(".proceeding_type.#{proceeding_type}.hint") }
+    = form.govuk_collection_radio_buttons :proceeding_type,
+                                          ProceedingTypeForm::PROCEEDING_TYPES.to_a,
+                                          :last,
+                                          ->(pair) { t(".proceeding_type.#{pair[0]}.label") },
+                                          legend: { text: t(".proceeding_type.legend"), size: "xl", tag: "h1" }
 
     = form.govuk_submit t("generic.save_and_continue")
 

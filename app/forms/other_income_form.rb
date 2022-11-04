@@ -10,13 +10,14 @@ class OtherIncomeForm
 
   ATTRIBUTES = VALUE_ATTRIBUTES + FREQUENCY_ATTRIBUTES
 
-  VALUE_ATTRIBUTES.each do |value_attribute|
+  (REGULAR_INCOME_TYPES + IRREGULAR_INCOME_TYPES).each do |income_type|
+    value_attribute = :"#{income_type}_value"
+
     attribute value_attribute, :gbp
     validates value_attribute, presence: true
-  end
 
-  REGULAR_INCOME_TYPES.each do |income_type|
-    value_attribute = :"#{income_type}_value"
+    next unless REGULAR_INCOME_TYPES.include?(income_type)
+
     frequency_attribute = :"#{income_type}_frequency"
     attribute frequency_attribute, :string
 
