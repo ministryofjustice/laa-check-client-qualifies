@@ -198,7 +198,7 @@ RSpec.describe "Results Page" do
 
     it "shows the capital section" do
       within "#capital-calculation-content" do
-        expect(page).to have_content "Property £3,400.00"
+        expect(page).to have_content "Property £0.00"
         expect(page).to have_content "Vehicles £2,500.00"
         expect(page).to have_content "Second property £3,800.00"
         expect(page).to have_content "Savings £200.00"
