@@ -39,7 +39,7 @@
     .govuk-form-group
       = form.govuk_check_box :vehicle_in_dispute, true, 0,
             multiple: false,
-            label: { text: t(".vehicle_in_dispute") }
+            label: { text: t("generic.dispute") }
 
     = form.govuk_submit t("generic.save_and_continue")
 = render "vehicle_sidebar"
