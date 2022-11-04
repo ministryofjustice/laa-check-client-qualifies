@@ -13,11 +13,16 @@ class SubmitVehicleService < BaseCfeService
   end
 
   def submit_vehicle_finance_data(cfe_estimate_id, model)
-    date_of_purchase = model.vehicle_over_3_years_ago ? 4.years.ago.to_date : 2.years.ago.to_date
-    cfe_connection.create_vehicle cfe_estimate_id,
-                                  date_of_purchase:,
-                                  value: model.vehicle_value,
-                                  loan_amount_outstanding: model.vehicle_pcp ? model.vehicle_finance : 0,
-                                  in_regular_use: model.vehicle_in_regular_use
+    vehicles = [
+      {
+        value: model.vehicle_value,
+        loan_amount_outstanding: model.vehicle_pcp ? model.vehicle_finance : 0,
+        date_of_purchase: model.vehicle_over_3_years_ago ? 4.years.ago.to_date : 2.years.ago.to_date,
+        in_regular_use: model.vehicle_in_regular_use,
+        subject_matter_of_dispute: model.vehicle_in_dispute,
+      },
+    ]
+
+    cfe_connection.create_vehicle cfe_estimate_id, vehicles
   end
 end

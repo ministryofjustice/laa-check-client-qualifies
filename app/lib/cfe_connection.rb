@@ -96,15 +96,7 @@ class CfeConnection
     create_record(assessment_id, "capitals", bank_accounts:, non_liquid_capital:)
   end
 
-  def create_vehicle(assessment_id, value:, loan_amount_outstanding:, date_of_purchase:, in_regular_use:)
-    vehicles = [
-      {
-        value:,
-        loan_amount_outstanding:,
-        date_of_purchase:,
-        in_regular_use:,
-      },
-    ]
+  def create_vehicle(assessment_id, vehicles)
     create_record(assessment_id, "vehicles", vehicles:)
   end
 

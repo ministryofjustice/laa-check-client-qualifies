@@ -329,7 +329,7 @@ http_interactions:
     uri: https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/assessments/7e235a01-001a-4897-b9e7-6ccc27ce7952/vehicles
     body:
       encoding: UTF-8
-      string: '{"vehicles":[{"value":"18000.0","loan_amount_outstanding":"500.0","date_of_purchase":"2020-10-17","in_regular_use":true}]}'
+      string: '{"vehicles":[{"value":"18000.0","loan_amount_outstanding":"500.0","date_of_purchase":"2020-10-17","in_regular_use":true,"subject_matter_of_dispute":false}]}'
     headers:
       Accept:
       - application/json;version=5

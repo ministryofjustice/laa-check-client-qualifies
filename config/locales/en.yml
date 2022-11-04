@@ -379,6 +379,7 @@ en:
         hint: Include any outstanding payments on loans, hire purchase (HP) or personal contract purchase (PCP) agreements.
       vehicle_finance:
         input: Enter the value of payments left
+      vehicle_in_dispute: This asset is a subject matter of dispute
     case_details:
       caption: About the case
       proceeding_type:
