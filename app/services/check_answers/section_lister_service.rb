@@ -74,6 +74,8 @@ module CheckAnswers
     end
 
     def benefits_fields
+      return [] unless StepsHelper.valid_step?(@model, :benefits)
+
       if @session_data["benefits"].blank?
         return [Field.new(label: I18n.t("generic.not_applicable"),
                           type: "benefit")]
