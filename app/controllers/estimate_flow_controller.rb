@@ -43,4 +43,11 @@ protected
   def session_key
     "estimate_#{estimate_id}"
   end
+
+  def next_check_answer_step(step, model)
+    StepsHelper.remaining_steps_for(model, step)
+      .drop_while { |thestep|
+        HANDLER_CLASSES.fetch(thestep).model(session_data).valid?
+      }.first
+  end
 end
