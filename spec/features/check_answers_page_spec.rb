@@ -34,7 +34,7 @@ RSpec.describe "Check answers page" do
       end
     end
 
-    scenario "I can add and remove those benefits from the 'check answers' screen" do
+    scenario "I can add more benefits from the 'check answers' screen" do
       within("#subsection-benefits-header") { click_on "Change" }
 
       select_boolean_value("benefits-form", :add_benefit, true)
@@ -44,7 +44,23 @@ RSpec.describe "Check answers page" do
       choose "Every week"
       click_on "Save and continue"
 
-      find(".button-as-link", match: :first).click
+      select_boolean_value("benefits-form", :add_benefit, false)
+      click_on "Save and continue"
+
+      expect(page).to have_current_path(check_answers_estimate_path(estimate_id))
+
+      within("#field-list-benefits") do
+        expect(page).to have_content "Child benefit"
+        expect(page).to have_content "Universal credit"
+      end
+    end
+
+    scenario "I can remove benefits from the 'check answers' screen" do
+      visit check_answers_estimate_path(estimate_id)
+
+      within("#subsection-benefits-header") { click_on "Change" }
+
+      click_on "Remove"
 
       select_boolean_value("benefits-form", :add_benefit, false)
       click_on "Save and continue"
@@ -53,7 +69,6 @@ RSpec.describe "Check answers page" do
 
       within("#field-list-benefits") do
         expect(page).not_to have_content "Child benefit"
-        expect(page).to have_content "Universal credit"
       end
     end
   end

@@ -50,4 +50,12 @@ module ApplicationHelper
       send("#{prefix}estimate_#{controller}s_path", params[:estimate_id])
     end
   end
+
+  def flow_path(estimate_id, step, check_answers: false)
+    if check_answers
+      estimate_check_answer_path(estimate_id, step)
+    else
+      estimate_build_estimate_path(estimate_id, step)
+    end
+  end
 end

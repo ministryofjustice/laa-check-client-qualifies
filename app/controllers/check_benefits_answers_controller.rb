@@ -17,4 +17,8 @@ private
       check_answers_estimate_path estimate_id, anchor: "other_income-section"
     end
   end
+
+  def post_destroy_path
+    flow_path(:benefits)
+  end
 end
