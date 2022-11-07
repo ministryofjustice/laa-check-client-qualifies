@@ -42,7 +42,7 @@ RSpec.describe SubmitBenefitsService do
           "benefits" => [
             { "benefit_amount" => "100",
               "benefit_type" => "Child benefit",
-              "benefit_frequency" => "weekly" },
+              "benefit_frequency" => "every_week" },
           ],
         }
       end
@@ -71,7 +71,7 @@ RSpec.describe SubmitBenefitsService do
           "benefits" => [
             { "benefit_amount" => "100",
               "benefit_type" => "Child benefit",
-              "benefit_frequency" => "two_weekly" },
+              "benefit_frequency" => "every_two_weeks" },
           ],
         }
       end
@@ -97,7 +97,7 @@ RSpec.describe SubmitBenefitsService do
           "benefits" => [
             { "benefit_amount" => "100",
               "benefit_type" => "Child benefit",
-              "benefit_frequency" => "four_weekly" },
+              "benefit_frequency" => "every_four_weeks" },
           ],
         }
       end

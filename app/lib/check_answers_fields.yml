@@ -77,17 +77,21 @@ sections:
       - label: other_income
         screen: other_income
         fields:
-          - attribute: friends_or_family
+          - attribute: friends_or_family_value
+            type: money_with_frequency
+            alt_attribute: friends_or_family_frequency
+          - attribute: maintenance_value
+            type: money_with_frequency
+            alt_attribute: maintenance_frequency
+          - attribute: property_or_lodger_value
+            type: money_with_frequency
+            alt_attribute: property_or_lodger_frequency
+          - attribute: pension_value
+            type: money_with_frequency
+            alt_attribute: pension_frequency
+          - attribute: student_finance_value
             type: money
-          - attribute: maintenance
-            type: money
-          - attribute: property_or_lodger
-            type: money
-          - attribute: pension
-            type: money
-          - attribute: student_finance
-            type: money
-          - attribute: other
+          - attribute: other_value
             type: money
   - label: outgoings
     screen: outgoings
