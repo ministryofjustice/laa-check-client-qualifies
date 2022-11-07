@@ -14,8 +14,6 @@ RSpec.describe "Assets Page", :vcr do
     fill_in_applicant_screen_with_passporting_benefits
     click_on "Save and continue"
 
-    complete_dependants_section
-
     click_checkbox("property-form-property-owned", "with_mortgage")
     click_on "Save and continue"
     fill_in "property-entry-form-house-value-field", with: 100_000
