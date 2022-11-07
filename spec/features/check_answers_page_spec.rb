@@ -2,6 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Check answers page" do
   let(:estimate_id) { SecureRandom.uuid }
+  let(:benefits_subsection_header) { I18n.t("estimates.check_answers.benefits") }
 
   context "when I have entered benefits" do
     before do
@@ -57,10 +58,13 @@ RSpec.describe "Check answers page" do
     end
   end
 
-  context "when I have no benefits so far" do
-    scenario "I can create new benefits from the 'check answers' screen" do
-      visit_check_answers
+  context "when I have no benefits so far and no passporting benefit" do
+    before do
+      visit_check_answer_without_passporting_benefit
+    end
 
+    scenario "I can create new benefits from the 'check answers' screen" do
+      expect(page).to have_content benefits_subsection_header
       within("#subsection-benefits-header") { click_on "Change" }
       select_boolean_value("benefits-form", :add_benefit, true)
       click_on "Save and continue"
@@ -75,6 +79,16 @@ RSpec.describe "Check answers page" do
       within("#field-list-benefits") do
         expect(page).to have_content "Child Benefits"
       end
+    end
+  end
+
+  context "when I receive a passporting benefit" do
+    before do
+      visit_check_answer_with_passporting_benefit
+    end
+
+    scenario "I should not see a benefits section" do
+      expect(page).not_to have_content benefits_subsection_header
     end
   end
 end

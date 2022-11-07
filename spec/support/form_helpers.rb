@@ -105,11 +105,29 @@ def skip_assets_form
   click_on "Save and continue"
 end
 
-def visit_check_answers
+def visit_check_answer_with_passporting_benefit
   visit_applicant_page
   fill_in_applicant_screen_with_passporting_benefits
   click_on "Save and continue"
   complete_dependants_section
+
+  click_checkbox("property-form-property-owned", "none")
+  click_on "Save and continue"
+  select_boolean_value("vehicle-form", :vehicle_owned, false)
+  click_on "Save and continue"
+  skip_assets_form
+end
+
+def visit_check_answer_without_passporting_benefit
+  visit_applicant_page
+  fill_in_applicant_screen_without_passporting_benefits
+  click_on "Save and continue"
+  complete_dependants_section
+
+  select_boolean_value("benefits-form", :add_benefit, false)
+  click_on("Save and continue")
+  complete_incomes_screen
+  skip_outgoings_form
 
   click_checkbox("property-form-property-owned", "none")
   click_on "Save and continue"
