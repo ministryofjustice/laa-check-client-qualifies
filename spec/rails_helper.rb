@@ -78,3 +78,10 @@ RSpec.configure do |config|
 
   config.include ActiveSupport::Testing::TimeHelpers
 end
+
+Capybara.configure do |config|
+  # Allow us to use the `choose(label_text)` method in browser tests
+  # even when the radio button element attached to the label is hidden
+  # (as it is using the standard govuk radio element)
+  config.automatic_label_click = true
+end
