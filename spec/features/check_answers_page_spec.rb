@@ -87,7 +87,7 @@ RSpec.describe "Check answers page" do
       visit_check_answer_with_passporting_benefit
     end
 
-    scenario "I should not see a banefits section" do
+    scenario "I should not see a benefits section" do
       expect(page).not_to have_content benefits_subsection_header
     end
   end
