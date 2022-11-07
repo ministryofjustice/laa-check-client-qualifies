@@ -62,14 +62,14 @@ sections:
     screen: employment
     subsections:
       - fields:
+        - attribute: frequency
+          type: select
         - attribute: gross_income
           type: money
         - attribute: income_tax
           type: money
         - attribute: national_insurance
           type: money
-        - attribute: frequency
-          type: select
   - label: other_income
     subsections:
       - label: benefits
