@@ -122,6 +122,8 @@ RSpec.describe "Employment page" do
           payment = params.dig(0, :payments, 1)
           expect(payment[:gross]).to eq (1_000 / 3.0).round(2)
           expect(payment[:date]).to eq 1.month.ago.to_date
+          expect(payment[:national_insurance]).to eq (-50 / 3.0).round(2)
+          expect(payment[:tax]).to eq (-100 / 3.0).round(2)
         end
         click_checkbox("employment-form-frequency", "total")
 
@@ -134,6 +136,8 @@ RSpec.describe "Employment page" do
           payment = params.dig(0, :payments, 1)
           expect(payment[:gross]).to eq 1_000
           expect(payment[:date]).to eq 1.week.ago.to_date
+          expect(payment[:national_insurance]).to eq(-50)
+          expect(payment[:tax]).to eq(-100)
         end
         click_checkbox("employment-form-frequency", "week")
         click_on "Save and continue"
@@ -145,6 +149,8 @@ RSpec.describe "Employment page" do
           payment = params.dig(0, :payments, 1)
           expect(payment[:gross]).to eq 1_000
           expect(payment[:date]).to eq 2.weeks.ago.to_date
+          expect(payment[:national_insurance]).to eq(-50)
+          expect(payment[:tax]).to eq(-100)
         end
         click_checkbox("employment-form-frequency", "two_weeks")
         click_on "Save and continue"
@@ -156,6 +162,8 @@ RSpec.describe "Employment page" do
           payment = params.dig(0, :payments, 1)
           expect(payment[:gross]).to eq 1_000
           expect(payment[:date]).to eq 4.weeks.ago.to_date
+          expect(payment[:national_insurance]).to eq(-50)
+          expect(payment[:tax]).to eq(-100)
         end
         click_checkbox("employment-form-frequency", "four_weeks")
         click_on "Save and continue"
@@ -167,6 +175,8 @@ RSpec.describe "Employment page" do
           payment = params.dig(0, :payments, 1)
           expect(payment[:gross]).to eq (1_000 / 12.0).round(2)
           expect(payment[:date]).to eq 1.month.ago.to_date
+          expect(payment[:national_insurance]).to eq (-50 / 12.0).round(2)
+          expect(payment[:tax]).to eq (-100 / 12.0).round(2)
         end
         click_checkbox("employment-form-frequency", "annually")
         click_on "Save and continue"
