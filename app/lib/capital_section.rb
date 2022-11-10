@@ -9,7 +9,7 @@ class CapitalSection
     end
 
     def steps_for(estimate)
-      property_steps = estimate.owned? ? PROPERTY_STEPS : %i[property]
+      property_steps = estimate.owns_property? ? PROPERTY_STEPS : %i[property]
       vehicle_steps = estimate.vehicle_owned ? VEHICLE_STEPS : %i[vehicle]
 
       ([property_steps] + [vehicle_steps] + TAIL_STEPS.map { |step| [step] }).freeze

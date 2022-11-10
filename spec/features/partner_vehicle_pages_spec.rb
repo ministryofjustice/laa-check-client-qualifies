@@ -14,6 +14,7 @@ RSpec.describe "Partner vehicle pages", :partner_flag do
     click_on "Save and continue"
     complete_incomes_screen(subject: :partner)
     skip_outgoings_form(subject: :partner)
+    skip_partner_property_form
   end
 
   it "shows the correct screen" do

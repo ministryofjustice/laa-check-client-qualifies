@@ -10,7 +10,7 @@ class PropertyForm
   attribute :property_owned, :string
   validates :property_owned, inclusion: { in: OWNED_OPTIONS.map(&:to_s), allow_nil: false }
 
-  def owned?
+  def owns_property?
     %i[with_mortgage outright].map(&:to_s).include? property_owned
   end
 

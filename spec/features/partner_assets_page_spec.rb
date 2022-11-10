@@ -13,8 +13,8 @@ RSpec.describe "Partner assets page", :partner_flag do
     click_on "Save and continue"
     complete_incomes_screen(subject: :partner)
     skip_outgoings_form(subject: :partner)
-    select_boolean_value("partner-vehicle-form", "vehicle_owned", false)
-    click_on "Save and continue"
+    skip_partner_property_form
+    skip_partner_vehicle_form
   end
 
   it "shows the correct screen" do

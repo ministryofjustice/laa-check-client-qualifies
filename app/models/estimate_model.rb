@@ -14,15 +14,20 @@ class EstimateModel
                          partner_vehicle_owned].freeze
 
   # This is the set of attributes which affect the page flow
-  ATTRIBUTES = (ESTIMATE_BOOLEANS + %i[property_owned]).freeze
+  ATTRIBUTES = (ESTIMATE_BOOLEANS + %i[property_owned partner_property_owned]).freeze
 
   ESTIMATE_BOOLEANS.each do |attr|
     attribute attr, :boolean
   end
 
   attribute :property_owned, :string
+  attribute :partner_property_owned, :string
 
-  def owned?
+  def owns_property?
     %i[with_mortgage outright].map(&:to_s).include? property_owned
+  end
+
+  def partner_owns_property?
+    %i[with_mortgage outright].map(&:to_s).include? partner_property_owned
   end
 end

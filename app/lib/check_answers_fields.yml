@@ -127,6 +127,10 @@ sections:
             attribute: mortgage
           - type: number
             attribute: percentage_owned
+          - type: boolean
+            attribute: joint_ownership
+          - type: number
+            attribute: joint_percentage_owned
       - label: vehicles
         screen: vehicle
         model: VehicleSection
@@ -213,6 +217,17 @@ sections:
             alt_attribute: partner_legal_aid_payments_frequency
   - label: partner_assets
     subsections:
+      - label: partner_property
+        screen: partner_property
+        fields:
+          - type: select
+            attribute: partner_property_owned
+          - type: money
+            attribute: partner_house_value
+          - type: money
+            attribute: partner_mortgage
+          - type: number
+            attribute: partner_percentage_owned
       - label: partner_vehicles
         screen: partner_vehicle
         fields:
