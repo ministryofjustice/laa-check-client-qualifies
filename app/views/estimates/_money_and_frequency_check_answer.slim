@@ -1,0 +1,20 @@
+- link ||= nil
+- path ||= nil
+.govuk-summary-list__row
+  dt.govuk-summary-list__key
+    = label_text
+
+  dd.govuk-summary-list__value
+    - if value.nil?
+      = t("generic.not_applicable")
+    - else
+      . class="govuk-!-margin-bottom-1"
+        | &pound;
+        = format_money(value).presence
+      = frequency
+
+  dd.govuk-summary-list__actions
+    - if link
+      = link_to(t("generic.change"), estimate_check_answer_path(@estimate_id, link), class: "govuk-link")
+    - elsif path
+      = link_to(t("generic.change"), path, class: "govuk-link")

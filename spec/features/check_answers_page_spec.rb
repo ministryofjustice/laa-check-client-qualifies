@@ -11,7 +11,7 @@ RSpec.describe "Check answers page" do
       click_on "Save and continue"
       fill_in "Benefit type", with: "Child benefit"
       fill_in "Enter amount", with: "150"
-      click_checkbox("benefit-model-benefit-frequency", :weekly)
+      choose "Every week"
       click_on "Save and continue"
       select_boolean_value("benefits-form", :add_benefit, false)
       click_on "Save and continue"

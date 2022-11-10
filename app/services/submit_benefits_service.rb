@@ -29,9 +29,9 @@ class SubmitBenefitsService < BaseCfeService
   # those frequencies. For 4-weekly or monthly it will accept 3 payments
   def number_of_payments(frequency)
     case frequency
-    when "weekly"
+    when "every_week"
       12
-    when "two_weekly"
+    when "every_two_weeks"
       6
     else
       3
@@ -40,9 +40,9 @@ class SubmitBenefitsService < BaseCfeService
 
   def period(frequency, index)
     case frequency
-    when "weekly"
+    when "every_week"
       index.weeks
-    when "two_weekly"
+    when "every_two_weeks"
       (index * 2).weeks
     else
       (index * 4).weeks

@@ -2,7 +2,7 @@ module CheckAnswers
   class SectionListerService
     Section = Struct.new(:label, :screen, :subsections, keyword_init: true)
     Subsection = Struct.new(:label, :screen, :fields, keyword_init: true)
-    Field = Struct.new(:label, :type, :value, :screen, :alt_value, keyword_init: true)
+    Field = Struct.new(:label, :type, :value, :screen, :alt_value, :id, keyword_init: true)
 
     SUBSECTION_SPECIAL_CASES = %i[benefits].freeze
 
@@ -85,7 +85,8 @@ module CheckAnswers
         Field.new(label: benefit["benefit_type"],
                   type: "benefit",
                   value: benefit["benefit_amount"],
-                  alt_value: benefit["id"])
+                  alt_value: benefit["benefit_frequency"],
+                  id: benefit["id"])
       end
     end
   end

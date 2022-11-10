@@ -2,7 +2,7 @@ class BenefitModel
   include ActiveModel::Model
   include ActiveModel::Attributes
 
-  FREQUENCY_OPTIONS = %w[weekly two_weekly four_weekly].freeze
+  FREQUENCY_OPTIONS = %w[every_week every_two_weeks every_four_weeks].freeze
 
   attribute :id
 

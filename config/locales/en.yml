@@ -228,9 +228,9 @@ en:
       legend: Does your client receive any benefits?
       hint: For example, Child Benefit or tax credits.
       frequencies:
-        weekly: Every week
-        two_weekly: Every two weeks
-        four_weekly: Every four weeks
+        every_week: Every week
+        every_two_weeks: Every two weeks
+        every_four_weeks: Every four weeks
       added_heading: You have added %{count} %{benefit}
       benefit: benefit
       add_more_legend: Does your client receive any other benefits?
@@ -431,42 +431,18 @@ en:
       benefits: Client's benefits
       other_income: Client's other income
       other_income_fields:
-        friends_or_family: Financial help
-        maintenance: Maintenance payments from a former partner
-        property_or_lodger: Income from a property or lodger
-        pension: Pension
-        student_finance: Student finance
-        other: Other sources
+        friends_or_family_value: Financial help
+        maintenance_value: Maintenance payments from a former partner
+        property_or_lodger_value: Income from a property or lodger
+        pension_value: Pension
+        student_finance_value: Student finance
+        other_value: Other sources
       outgoings: Your client's outgoings
       outgoings_fields:
         housing_payments_value: Housing payments
-        housing_payments_value_frequency_options:
-          every_week: Every week
-          every_two_weeks: Every 2 weeks
-          every_four_weeks: Every 4 weeks
-          monthly: Monthly
-          not_applicable: Not applicable
         childcare_payments_value: Childcare payments
-        childcare_payments_value_frequency_options:
-          every_week: Every week
-          every_two_weeks: Every 2 weeks
-          every_four_weeks: Every 4 weeks
-          monthly: Monthly
-          not_applicable: Not applicable
         maintenance_payments_value: Maintenance payments
-        maintenance_payments_value_frequency_options:
-          every_week: Every week
-          every_two_weeks: Every 2 weeks
-          every_four_weeks: Every 4 weeks
-          monthly: Monthly
-          not_applicable: Not applicable
         legal_aid_payments_value: Legal aid payments
-        legal_aid_payments_value_frequency_options:
-          every_week: Every week
-          every_two_weeks: Every 2 weeks
-          every_four_weeks: Every 4 weeks
-          monthly: Monthly
-          not_applicable: Not applicable
       assets: Your client's assets
       vehicles: Client's vehicles
       vehicles_fields:
@@ -495,6 +471,12 @@ en:
         savings: Savings
         investments: Investments
         valuables: Valuables
+      frequency_options:
+        every_week: Every week
+        every_two_weeks: Every two weeks
+        every_four_weeks: Every four weeks
+        monthly: Monthly
+        not_applicable: Not applicable
       submission_instructions: Now submit your eligibility check
       submission_explanation: We'll use your answers to give you an estimated result on your client's financial eligibility for legal aid.
       call_to_action: Submit eligibility check
