@@ -2,11 +2,15 @@ module Flow
   class ApplicantHandler
     class << self
       def model(session_data)
-        ApplicantForm.new session_data.slice(*ApplicantForm::INTRO_ATTRIBUTES.map(&:to_s))
+        ApplicantForm.new(session_data.slice(*ApplicantForm::ATTRIBUTES.map(&:to_s))).tap do |model|
+          model.partner = session_data["partner"]
+        end
       end
 
-      def form(params, _session_data)
-        ApplicantForm.new(params.require(:applicant_form).permit(*ApplicantForm::INTRO_ATTRIBUTES))
+      def form(params, session_data)
+        ApplicantForm.new(params.require(:applicant_form).permit(*ApplicantForm::ATTRIBUTES)).tap do |model|
+          model.partner = session_data["partner"]
+        end
       end
     end
   end

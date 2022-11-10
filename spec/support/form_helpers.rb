@@ -31,11 +31,17 @@ def click_checkbox(form_name, field)
   find("label[for=#{form_name}-#{fieldname}-field]").click
 end
 
-def visit_applicant_page
+def visit_applicant_page(partner: false)
   visit new_estimate_path
   click_on "Reject additional cookies"
   click_checkbox("proceeding-type-form-proceeding-type", "se003")
   click_on "Save and continue"
+  select_boolean_value("partner-form", "partner", partner)
+  click_on "Save and continue"
+end
+
+def visit_applicant_page_with_partner
+  visit_applicant_page(partner: true)
 end
 
 def complete_dependants_section

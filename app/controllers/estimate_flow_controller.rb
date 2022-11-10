@@ -5,6 +5,7 @@ class EstimateFlowController < ApplicationController
 
   HANDLER_CLASSES = {
     case_details: Flow::CaseDetailsHandler,
+    partner: Flow::PartnerHandler,
     applicant: Flow::ApplicantHandler,
     dependants: Flow::DependantsHandler,
     dependant_details: Flow::DependantDetailsHandler,

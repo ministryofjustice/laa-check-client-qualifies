@@ -1,12 +1,13 @@
 class ApplicantCaseDetailsSection
   class << self
     def all_steps
-      %i[case_details applicant dependants dependant_details]
+      %i[case_details partner applicant dependants dependant_details]
     end
 
     def steps_for(estimate)
       steps = [
         [:case_details],
+        [:partner],
         [:applicant],
       ]
       unless estimate.passporting

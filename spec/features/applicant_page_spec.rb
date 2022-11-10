@@ -1,6 +1,11 @@
 require "rails_helper"
 
 RSpec.describe "Applicant Page" do
+  let(:applicant_header_with_partner) { I18n.t("estimate_flow.applicant.heading_with_partner") }
+  let(:applicant_header_without_partner) { I18n.t("estimate_flow.applicant.heading") }
+  let(:partner_age_question) { I18n.t("estimate_flow.applicant.partner_over_60.legend") }
+  let(:partner_employment_question) { I18n.t("estimate_flow.applicant.partner_employed.legend") }
+
   describe "errors" do
     before do
       visit_applicant_page
@@ -31,16 +36,6 @@ RSpec.describe "Applicant Page" do
       it "displays the correct error message" do
         within ".govuk-error-summary__list" do
           expect(page).to have_content("Select employed if the client is currently employed")
-        end
-      end
-    end
-
-    context "when partner is omitted" do
-      let(:field) { :partner }
-
-      it "displays the correct error message", skip: "waiting for partner screens to be added" do
-        within ".govuk-error-summary__list" do
-          expect(page).to have_content("Select yes if the client has a partner")
         end
       end
     end
@@ -103,6 +98,46 @@ RSpec.describe "Applicant Page" do
                                                         receives_qualifying_benefit: true)
         click_on "Submit"
       end
+    end
+  end
+
+  describe "without a partner" do
+    before do
+      visit_applicant_page
+    end
+
+    it "shows me the right header" do
+      expect(page).to have_content applicant_header_without_partner
+    end
+  end
+
+  describe "with a partner" do
+    before do
+      visit_applicant_page_with_partner
+    end
+
+    it "shows me the right content" do
+      expect(page).to have_content applicant_header_without_partner
+      expect(page).to have_content partner_age_question
+      expect(page).to have_content partner_employment_question
+    end
+
+    it "complains if I don't fill in additional questions" do
+      select_applicant_boolean(:over_60, true)
+      select_applicant_boolean(:employed, false)
+      select_applicant_boolean(:passporting, true)
+      click_on "Save and continue"
+      expect(page).to have_css(".govuk-error-summary__list")
+    end
+
+    it "allows me to progress if I do fill in additional questions" do
+      select_applicant_boolean(:over_60, false)
+      select_applicant_boolean(:employed, false)
+      select_applicant_boolean(:passporting, true)
+      select_applicant_boolean(:partner_over_60, true)
+      select_applicant_boolean(:partner_employed, false)
+      click_on "Save and continue"
+      expect(page).not_to have_css(".govuk-error-summary__list")
     end
   end
 
