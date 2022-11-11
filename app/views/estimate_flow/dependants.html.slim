@@ -2,7 +2,7 @@
   = back_link(:dependants, @estimate, @back_buttons_invoke_browser_back_behaviour)
 
 .govuk-grid-column-two-thirds
-  span.govuk-caption-l = t(".caption")
+  span.govuk-caption-l = t(@estimate.partner ? ".caption_with_partner" : ".caption")
   = form_for(@form, url: wizard_path, method: :put) do |form|
 
     = form.govuk_error_summary t("generic.error_summary_title")
@@ -11,14 +11,16 @@
                                           yes_no_options,
                                           :first,
                                           :last,
-                                          legend: { text: t(".legend"), tag: "h1", size: "xl" },
+                                          legend: { text: t(@estimate.partner ? ".legend_with_partner" : ".legend"),
+                                                    tag: "h1",
+                                                    size: "xl" },
                                           hint: lambda { \
                                                    tag.p(t(".hint")) + \
                                                    tag.ul(class: "govuk-list govuk-list--bullet") do \
-                                                     tag.li(t(".lives_with")) + \
-                                                     tag.li(t(".depends")) \
+                                                     tag.li(t(@estimate.partner ? ".lives_with_with_partner" : ".lives_with")) + \
+                                                     tag.li(t(@estimate.partner ? ".depends_with_partner" : ".depends")) \
                                                    end + \
-                                                   tag.div(t(".no_partner"), class: "govuk-inset-text") \
+                                                   (tag.div(t(".not_partner"), class: "govuk-inset-text") if @estimate.partner) \
                                                    }
 
     = form.govuk_submit t("generic.save_and_continue")

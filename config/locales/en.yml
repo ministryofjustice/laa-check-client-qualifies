@@ -291,17 +291,23 @@ en:
         hint: ""
     dependants:
       caption: About your client
+      caption_with_partner: About your client and their partner
       legend: Does your client have any dependants?
+      legend_with_partner: Does your client and/or their partner have any dependants?
       hint: "A dependant is a child or adult who:"
       lives_with: lives with your client
+      lives_with_with_partner: lives with your client and/or their partner
       depends: depends on your client for financial support
-      no_partner: Don't include your client's partner if they have one
+      depends_with_partner: depends on your client and/or their partner for financial support
+      not_partner: Don't include your client's partner as a dependant
       guidance:
         text: Guidance on dependants
         link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=42
     dependant_details:
       caption: About your client
       legend: Tell us about your client's dependants
+      caption_with_partner: About your client and their partner
+      legend_with_partner: Tell us about your client and their partner's dependants
       hint: If some don't apply, enter 0.
       adult_dependants:
         label: Adult dependants
@@ -310,6 +316,7 @@ en:
       child_dependants:
         label: Child dependants
         hint: For example, your client's child, grandchild, niece or nephew.
+        hint_with_partner: For example, your client and/or partner's child, grandchild, niece or nephew.
         instruction: Enter number of child dependants
     employment:
       caption: Your client's finances
