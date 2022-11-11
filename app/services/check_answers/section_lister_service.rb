@@ -54,6 +54,7 @@ module CheckAnswers
       value = build_value(field_data)
 
       return if !value && field_data["skip_if_null"]
+      return if field_data[:skip_unless].present? && !@session_data[field_data[:skip_unless]]
       return unless StepsHelper.valid_step?(@model, (field_data[:screen] || parent_screen).to_sym)
 
       label = field_data.fetch(:label, field_data.fetch(:attribute))

@@ -41,14 +41,21 @@ sections:
     screen: applicant
     subsections:
       - fields:
-        - attribute: over_60
-          type: boolean
         - attribute: partner
+          type: boolean
+          screen: partner
+        - attribute: over_60
           type: boolean
         - attribute: employed
           type: boolean
         - attribute: passporting
           type: boolean
+        - attribute: partner_over_60
+          type: boolean
+          skip_unless: partner
+        - attribute: partner_employed
+          type: boolean
+          skip_unless: partner
         - attribute: dependants
           type: boolean
           screen: dependants

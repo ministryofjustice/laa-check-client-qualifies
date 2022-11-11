@@ -6,6 +6,10 @@ en:
           attributes:
             proceeding_type:
               blank: Select yes if your client is likely to be an applicant in a domestic abuse case
+        partner_form:
+          attributes:
+            partner:
+              inclusion: Select yes if the client has a partner
         applicant_form:
           attributes:
             employed:
@@ -14,8 +18,10 @@ en:
               inclusion: Select yes if the client is currently in receipt of a passporting benefit
             over_60:
               inclusion: Select yes if the client is over 60 years old
-            partner:
-              inclusion: Select yes if the client has a partner
+            partner_employed:
+              inclusion: Select employed if the client's partner is currently employed
+            partner_over_60:
+              inclusion: Select yes if the client's partner is over 60 years old
         dependants_form:
           attributes:
             dependants:
@@ -165,8 +171,13 @@ en:
     not_applicable: Not applicable
     opens_in_new_tab: (opens in new tab)
   estimate_flow:
+    partner:
+      caption: About your client
+      legend: Does your client have a partner?
+      hint: This is a spouse, someone with whom they are in a civil relationship, a cohabiter or someone they share their finances with. They cannot be the opponent in any legal proceedings.
     applicant:
-      heading: Your client's details
+      heading: Tell us about your client
+      heading_with_partner: Tell us about your client and their partner
       caption: About your client
       over_60:
         legend: Is your client over 60 years old?
@@ -174,14 +185,15 @@ en:
       employed:
         legend: What is your client's employment status?
         hint: ""
-      partner:
-        legend: Does your client have a partner?
-        hint: By partner we mean someone your client is married to, in a civil relationship with, cohabits with or otherwise shares finances with. They cannot be the opponent in any legal proceedings.
       passporting:
         legend: Does your client receive a passporting benefit?
         hint: Universal Credit, Income Support, income-based Jobseeker's Allowance (JSA), income-related Employment and Support Allowance (ESA), and Guarantee Credit element of Pension Credit.
-      dependant_count:
-        label: Enter the number of dependants
+      partner_over_60:
+        legend: Is your client's partner over 60 years old?
+        hint: Clients with partners over 60 may have some of their capital excluded from a financial eligibility assessment.
+      partner_employed:
+        legend: What is your client's partner's employment status?
+        hint: ""
     dependants:
       caption: About your client
       legend: Does your client have any dependants?
@@ -411,6 +423,8 @@ en:
         dependant_count: Number of dependants
         employed: Is employed
         passporting: Receives a passporting benefit
+        partner_over_60: Partner is over 60 years old
+        partner_employed: Partner is employed
         child_dependants: Child dependants
         adult_dependants: Adult dependants
       employment: Employment
