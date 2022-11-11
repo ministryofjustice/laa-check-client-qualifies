@@ -18,6 +18,11 @@ def fill_in_applicant_screen_without_passporting_benefits
   end
 end
 
+def add_applicant_partner_answers
+  select_applicant_boolean(:partner_employed, false)
+  select_applicant_boolean(:partner_over_60, false)
+end
+
 def select_boolean_value(form_name, field, value)
   fieldname = field.to_s.tr("_", "-")
   if value
@@ -56,11 +61,12 @@ def progress_to_submit_from_vehicle_form
   click_on "Submit"
 end
 
-def skip_outgoings_form
-  fill_in "outgoings-form-housing-payments-value-field", with: "0"
-  fill_in "outgoings-form-childcare-payments-value-field", with: "0"
-  fill_in "outgoings-form-legal-aid-payments-value-field", with: "0"
-  fill_in "outgoings-form-maintenance-payments-value-field", with: "0"
+def skip_outgoings_form(subject: :client)
+  prefix = subject == :partner ? "partner-" : ""
+  fill_in "#{prefix}outgoings-form-housing-payments-value-field", with: "0"
+  fill_in "#{prefix}outgoings-form-childcare-payments-value-field", with: "0"
+  fill_in "#{prefix}outgoings-form-legal-aid-payments-value-field", with: "0"
+  fill_in "#{prefix}outgoings-form-maintenance-payments-value-field", with: "0"
   click_on "Save and continue"
 end
 
@@ -89,17 +95,18 @@ def progress_to_submit_from_incomes
   progress_to_submit_from_outgoings
 end
 
-def complete_incomes_screen
-  fill_in "other-income-form-friends-or-family-value-field", with: "100"
-  select_radio_value("other-income-form", "friends-or-family-frequency", "monthly")
-  fill_in "other-income-form-maintenance-value-field", with: "200"
-  select_radio_value("other-income-form", "maintenance-frequency", "monthly")
-  fill_in "other-income-form-property-or-lodger-value-field", with: "300"
-  select_radio_value("other-income-form", "property-or-lodger-frequency", "monthly")
-  fill_in "other-income-form-pension-value-field", with: "400"
-  select_radio_value("other-income-form", "pension-frequency", "monthly")
-  fill_in "other-income-form-student-finance-value-field", with: "0"
-  fill_in "other-income-form-other-value-field", with: "500"
+def complete_incomes_screen(subject: :client)
+  prefix = subject == :partner ? "partner-" : ""
+  fill_in "#{prefix}other-income-form-friends-or-family-value-field", with: "100"
+  select_radio_value("#{prefix}other-income-form", "friends-or-family-frequency", "monthly")
+  fill_in "#{prefix}other-income-form-maintenance-value-field", with: "200"
+  select_radio_value("#{prefix}other-income-form", "maintenance-frequency", "monthly")
+  fill_in "#{prefix}other-income-form-property-or-lodger-value-field", with: "300"
+  select_radio_value("#{prefix}other-income-form", "property-or-lodger-frequency", "monthly")
+  fill_in "#{prefix}other-income-form-pension-value-field", with: "400"
+  select_radio_value("#{prefix}other-income-form", "pension-frequency", "monthly")
+  fill_in "#{prefix}other-income-form-student-finance-value-field", with: "0"
+  fill_in "#{prefix}other-income-form-other-value-field", with: "500"
   click_on "Save and continue"
 end
 
@@ -136,8 +143,11 @@ def visit_check_answer_without_passporting_benefit
   visit_applicant_page
   fill_in_applicant_screen_without_passporting_benefits
   click_on "Save and continue"
-  complete_dependants_section
+  travel_from_dependants_to_past_client_assets
+end
 
+def travel_from_dependants_to_past_client_assets
+  complete_dependants_section
   select_boolean_value("benefits-form", :add_benefit, false)
   click_on("Save and continue")
   complete_incomes_screen

@@ -1,0 +1,45 @@
+- content_for :back
+  = back_link(:partner_benefits, @estimate, @back_buttons_invoke_browser_back_behaviour)
+
+.govuk-grid-column-two-thirds
+  - if @form.benefits.blank?
+    span.govuk-caption-l = t(".caption")
+
+    = form_for(@form, url: variable_controller_benefit_path(action: :add, partner: true)) do |form|
+
+      = form.govuk_collection_radio_buttons :add_benefit, yes_no_options, :first, :last,
+              legend: { text: t(".legend"), size: "xl", tag: "h1" },
+              hint: { text: t(".hint") }
+
+      = form.govuk_submit t("generic.save_and_continue")
+  - else
+    span.govuk-caption-l = t(".caption")
+    h1.govuk-heading-xl = t(".added_heading", count: @form.benefits.count, benefit: t(".benefit").pluralize(@form.benefits.count))
+
+    = govuk_table do |table|
+      ruby:
+        table.body do |body|
+          @form.benefits.each do |benefit|
+            body.row do |row|
+              row.cell(text: benefit.benefit_type)
+              row.cell(text: "&pound;#{format_money(benefit.benefit_amount)}".html_safe)
+              row.cell(text: t("estimate_flow.benefits.frequencies.#{benefit.benefit_frequency}"))
+              row.cell(text: link_to(t(".edit"),
+                                     variable_controller_benefit_path(action: :edit, id: benefit.id, partner: true),
+                                     class: "govuk-link"))
+              row.cell(text: button_to(t(".remove"),
+                                       variable_controller_benefit_path(id: benefit.id, partner: true),
+                                       class: "govuk-link button-as-link",
+                                       method: "delete"))
+            end
+          end
+        end
+
+    = form_for(@form, url: variable_controller_benefit_path(action: :add, partner: true)) do |form|
+
+      = form.govuk_collection_radio_buttons :add_benefit, yes_no_options, :first, :last,
+              legend: { text: t(".add_more_legend"), size: "l" }
+
+      = form.govuk_submit t("generic.save_and_continue")
+
+= render "shared/sidebar_with_date", links: {}

@@ -2,7 +2,7 @@ class PropertyEntryForm
   include ActiveModel::Model
   include ActiveModel::Attributes
 
-  ENTRY_ATTRIBUTES = %i[house_value mortgage percentage_owned house_in_dispute].freeze
+  ATTRIBUTES = %i[house_value mortgage percentage_owned house_in_dispute].freeze
 
   attr_accessor :property_owned
 

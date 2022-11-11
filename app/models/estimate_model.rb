@@ -8,7 +8,9 @@ class EstimateModel
                          vehicle_in_regular_use
                          partner
                          employed
-                         dependants].freeze
+                         dependants
+                         partner_employed
+                         partner_vehicle_owned].freeze
 
   # This is the set of attributes which affect the page flow
   ESTIMATE_ATTRIBUTES = (ESTIMATE_BOOLEANS + %i[property_owned]).freeze

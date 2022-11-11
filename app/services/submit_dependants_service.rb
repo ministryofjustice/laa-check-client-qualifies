@@ -4,10 +4,10 @@ class SubmitDependantsService < BaseCfeService
   end
 
   def call(cfe_estimate_id, cfe_session_data)
-    form = Flow::DependantsHandler.model(cfe_session_data)
+    form = Flow::Handler.model_from_session(:dependants, cfe_session_data)
     return unless form.dependants
 
-    details_form = Flow::DependantDetailsHandler.model(cfe_session_data)
+    details_form = Flow::Handler.model_from_session(:dependant_details, cfe_session_data)
 
     child_dependants = Array.new(details_form.child_dependants) do
       {

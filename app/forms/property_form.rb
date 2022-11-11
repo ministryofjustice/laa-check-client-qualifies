@@ -2,6 +2,8 @@ class PropertyForm
   include ActiveModel::Model
   include ActiveModel::Attributes
 
+  ATTRIBUTES = %i[property_owned].freeze
+
   OWNED_OPTIONS = %i[outright with_mortgage none].freeze
 
   attribute :property_owned, :string

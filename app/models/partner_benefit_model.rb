@@ -1,0 +1,1 @@
+class PartnerBenefitModel < BenefitModel; end

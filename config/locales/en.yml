@@ -43,14 +43,37 @@ en:
               blank: National Insurance cannot be blank
             frequency:
               blank: Please select how frequently you receive employment income
+        partner_employment_form:
+          attributes:
+            gross_income:
+              blank: Income cannot be blank
+              net_income_must_be_positive: Net income must be positive, please check
+            income_tax:
+              blank: Income tax cannot be blank
+            national_insurance:
+              blank: National Insurance cannot be blank
+            frequency:
+              blank: Please select how frequently your client's partner receives employment income
         benefits_form:
           attributes:
             add_benefit:
               inclusion: Select yes if you wish to add a client benefit
+        partner_benefits_form:
+          attributes:
+            add_benefit:
+              inclusion: Select yes if you wish to add a client partner benefit
         benefit_model:
           attributes:
             benefit_frequency:
               inclusion: Please enter how frequently your client receives this benefit
+            benefit_amount:
+              blank: Please enter the value of this benefit
+            benefit_type:
+              blank: Please give the name of the benefit
+        partner_benefit_model:
+          attributes:
+            benefit_frequency:
+              inclusion: Please enter how frequently your client's partner receives this benefit
             benefit_amount:
               blank: Please enter the value of this benefit
             benefit_type:
@@ -77,6 +100,28 @@ en:
               blank: Please enter a zero if your client receives no student finance
             other_value:
               blank: Please enter a zero if your client receives no other income
+        partner_other_income_form:
+          attributes:
+            friends_or_family_value:
+              blank: Please enter a zero if your client's partner receives no income from friends or family
+            maintenance_value:
+              blank: Please enter a zero if your client's partner receives no maintenance payments
+            property_or_lodger_value:
+              blank: Please enter a zero if your client's partner receives no income from a property or lodger
+            pension_value:
+              blank: Please enter a zero if your client's partner receives no income from a pension
+            friends_or_family_frequency:
+              blank: Please enter the frequency of your client's partner's friends or family income
+            maintenance_frequency:
+              blank: Please enter the frequency of your client's partner's maintenance payments
+            property_or_lodger_frequency:
+              blank: Please enter the frequency of your client's partner's property or lodger income
+            pension_frequency:
+              blank: Please enter the frequency of your client's partner's pension income
+            student_finance_value:
+              blank: Please enter a zero if your client's partner receives no student finance
+            other_value:
+              blank: Please enter a zero if your client's partner receives no other income
         outgoings_form:
           attributes:
             housing_payments_value:
@@ -95,27 +140,54 @@ en:
               blank: Please enter the frequency of your client's maintenance payments
             legal_aid_payments_frequency:
               blank: Please enter the frequency of your client's legal aid payments
+        partner_outgoings_form:
+          attributes:
+            housing_payments_value:
+              blank: Please enter a zero if your client's partner makes no housing payments
+            childcare_payments_value:
+              blank: Please enter a zero if your client's partner makes no childcare payments
+            maintenance_payments_value:
+              blank: Please enter a zero if your client's partner makes no maintenance payments
+            legal_aid_payments_value:
+              blank: Please enter a zero if your client's partner makes no legal aid payments
+            housing_payments_frequency:
+              blank: Please enter the frequency of your client's partner's housing payments
+            childcare_payments_frequency:
+              blank: Please enter the frequency of your client's partner's childcare payments
+            maintenance_payments_frequency:
+              blank: Please enter the frequency of your client's partner's maintenance payments
+            legal_aid_payments_frequency:
+              blank: Please enter the frequency of your client's partner's legal aid payments
         assets_form:
           attributes:
-            assets:
-              at_least_one_item: Please select at least one option
             valuables:
               blank: Please enter the total of your client's valuables
               greater_than_or_equal_to: Valuables amount must be at least £500
             investments:
               blank: Please enter the total of your client's investments
-              greater_than: Investments amount must be greater than £0
             savings:
               blank: Please enter the total of your client's savings
-              greater_than: Savings amount must be greater than £0
             property_value:
               blank: Please enter the value of the property
-              greater_than: Property value must be greater than £0
             property_mortgage:
               blank: Please enter the amount of the outstanding mortgage
-              greater_than: Mortage amount must be greater than £0
             property_percentage_owned:
               blank: Please enter the percentage of the property owned by your client
+        partner_assets_form:
+          attributes:
+            valuables:
+              blank: Please enter the total of your client's partner's valuables
+              greater_than_or_equal_to: Valuables amount must be at least £500
+            investments:
+              blank: Please enter the total of your client's partner's investments
+            savings:
+              blank: Please enter the total of your client's partner's savings
+            property_value:
+              blank: Please enter the value of the property
+            property_mortgage:
+              blank: Please enter the amount of the outstanding mortgage
+            property_percentage_owned:
+              blank: Please enter the percentage of the property owned by your client's partner
         property_form:
           attributes:
             property_owned:
@@ -138,7 +210,23 @@ en:
           attributes:
             vehicle_owned:
               inclusion: Select yes if the client owns a vehicle
+        partner_vehicle_form:
+          attributes:
+            vehicle_owned:
+              inclusion: Select yes if the client's partner owns a vehicle
         vehicle_details_form:
+          attributes:
+            vehicle_in_regular_use:
+              inclusion: Select yes if the vehicle is in regular use
+            vehicle_value:
+              blank: Please enter the estimated value
+            vehicle_over_3_years_ago:
+              inclusion: Select yes if the vehicle was purchased more than 3 years ago
+            vehicle_pcp:
+              inclusion: Select yes if the vehicle has outstanding finance
+            vehicle_finance:
+              blank: Please enter the outstanding finance amount
+        partner_vehicle_details_form:
           attributes:
             vehicle_in_regular_use:
               inclusion: Select yes if the vehicle is in regular use
@@ -242,6 +330,19 @@ en:
         four_weeks: Every four weeks
         monthly: Monthly
         annually: Annually
+    partner_employment:
+      caption: Your client's partner's finances
+      heading: Add your client's partner's salary breakdown
+      second_caption: You can find this on your client's partner's payslips.
+      gross_income:
+        input: Employment income
+      income_tax:
+        input: Income tax
+      national_insurance:
+        input: National insurance
+      frequency:
+        input: Select frequency
+        blank: "--"
     benefits:
       caption: Your client's finances
       legend: Does your client receive any benefits?
@@ -253,6 +354,15 @@ en:
       added_heading: You have added %{count} %{benefit}
       benefit: benefit
       add_more_legend: Does your client receive any other benefits?
+      edit: Change
+      remove: Remove
+    partner_benefits:
+      caption: Your client's partner's finances
+      legend: Does your client's partner receive any benefits?
+      hint: For example, Child Benefit or tax credits.
+      added_heading: You have added %{count} %{benefit}
+      benefit: benefit
+      add_more_legend: Does your client's partner receive any other benefits?
       edit: Change
       remove: Remove
     other_income:
@@ -289,6 +399,35 @@ en:
         every_two_weeks: Every two weeks
         every_four_weeks: Every four weeks
         monthly: Monthly
+    partner_other_income:
+      caption: Your client's partner's finances
+      heading: What other income does your client's partner receive?
+      second_caption: Please enter zero if a question does not apply.
+      friends_or_family:
+        label: Financial help from friends or family
+        hint: For example, money from a family member for rent or bills.
+        instruction: Enter amount
+      maintenance:
+        label: Maintenance payments from a former partner
+        hint: This includes child maintenance
+        instruction: Enter amount
+      property_or_lodger:
+        label: Income from a property or lodger
+        hint: ""
+        instruction: Enter amount
+      pension:
+        label: Pension
+        hint: Include State, workplace and personal pensions
+        instruction: Enter amount
+      student_finance:
+        label: Student finance
+        hint: This includes any type of student loan, grant or bursary.
+        instruction: Enter amount received this academic year
+      other:
+        label: Income from other sources
+        hint: Include any other income your client's partner received in the last 3 months.
+        instruction: Enter amount
+      enter_frequency: Enter frequency
     outgoings:
       heading: "What are your client's outgoings and deductions?"
       caption: Your client's finances
@@ -312,8 +451,26 @@ en:
         every_two_weeks: Every two weeks
         every_four_weeks: Every four weeks
         monthly: Monthly
-      none:
-        label: My client has no monthly outgoings or deductions
+      guidance_on_outgoings: Guidance on outgoings (need link)
+      link_to_guidance_on_outgoings: "#TODO: To be defined"
+    partner_outgoings:
+      heading: "What are your client's partner's outgoings and deductions?"
+      caption: Your client's partner's finances
+      second_caption: Please enter zero if a question does not apply.
+      housing_payments:
+        label: Housing payments
+        hint: "For example: rent, mortgage or board and lodgings"
+      childcare_payments:
+        label: Childcare payments
+        hint: "For example, to a childminder, nanny or nursery"
+      maintenance_payments:
+        label: Maintenance payments to a former partner
+        hint: "This includes child maintenance"
+      legal_aid_payments:
+        label: Payments towards legal aid in a criminal case
+        hint: ""
+      enter_amount: Enter amount
+      enter_frequency: Enter frequency
       guidance_on_outgoings: Guidance on outgoings (need link)
       link_to_guidance_on_outgoings: "#TODO: To be defined"
     property:
@@ -329,6 +486,14 @@ en:
       caption: Your client's finances
       vehicle_owned:
         legend: Does your client own a vehicle?
+        hint: ""
+      guidance:
+        text: Guidance on vehicles (To Be Supplied)
+        link: "#"
+    partner_vehicle:
+      caption: Your client's partner's finances
+      vehicle_owned:
+        legend: Does your client's partner own a vehicle?
         hint: ""
       guidance:
         text: Guidance on vehicles (To Be Supplied)
@@ -354,8 +519,36 @@ en:
         label: Savings
         hint: For example, money in current or savings accounts, ISAs, or child accounts your client is a signatory on.
         input: Enter the total amount
-      none:
-        label: My client has none of these assets
+      investments:
+        label: Investments
+        hint: For example, shares in a public limited company, unit trusts or capital bonds.
+        input: Enter the total value
+      valuables:
+        label: Valuable items worth £500 or more
+        hint: For example, jewellery, art, antiques or caravan or similar.
+        input: Enter the value
+      guidance:
+        text: Guidance on assets
+        link: "#"
+    partner_assets:
+      caption: Your client's partner's finances
+      assets:
+        legend: Which of these assets does your client's partner have?
+        hint: Please enter a zero if a question does not apply.
+      property:
+        label: Second property, holiday home or land
+        hint: This can be the sole property owned if not their main dwelling even if the property is abroad or not providing an income.
+        value:
+          label: Enter the estimated value
+        mortgage:
+          label: Enter the outstanding mortgage
+        percentage_owned:
+          input: Enter the share your client's partner owns
+          input_hint: ""
+      savings:
+        label: Savings
+        hint: For example, money in current or savings accounts, ISAs, or child accounts your client's partner is a signatory on.
+        input: Enter the total amount
       investments:
         label: Investments
         hint: For example, shares in a public limited company, unit trusts or capital bonds.
@@ -397,6 +590,23 @@ en:
       vehicle_finance:
         input: Enter the value of payments left
       vehicle_in_dispute: This asset is a subject matter of dispute
+    partner_vehicle_details:
+      caption: Your client's partner's finances
+      heading: Tell us about your client's partner's vehicle
+      vehicle_value:
+        input: What is the estimated value of the vehicle?
+        input_hint: You can use car valuation websites to find this out. Please use the upper valuation.
+      vehicle_in_regular_use:
+        legend: Is the vehicle in regular use?
+        hint: This means the vehicle is used at least once every 2 weeks for things like work, shopping or driving children to school.
+      vehicle_three_years_old:
+        legend: Did your client's partner buy the vehicle over 3 years ago?
+        hint: ""
+      vehicle_pcp:
+        legend: Are there any payments left on the vehicle?
+        hint: Include any outstanding payments on loans, hire purchase (HP) or personal contract purchase (PCP) agreements.
+      vehicle_finance:
+        input: Enter the value of payments left
     case_details:
       caption: About the case
       proceeding_type:
@@ -416,6 +626,17 @@ en:
       heading: Add benefit details
     edit:
       caption: Your client's finances
+      heading: Edit benefit details
+    form:
+      type: Benefit type
+      amount: Enter amount
+      frequency: Select frequency
+  partner_benefits:
+    new:
+      caption: Your client's partner's finances
+      heading: Add benefit details
+    edit:
+      caption: Your client's partner's finances
       heading: Edit benefit details
     form:
       type: Benefit type

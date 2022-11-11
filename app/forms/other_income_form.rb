@@ -25,4 +25,8 @@ class OtherIncomeForm
                                    inclusion: { in: VALID_FREQUENCIES, allow_nil: false },
                                    if: -> { send(value_attribute)&.positive? }
   end
+
+  def frequencies
+    VALID_FREQUENCIES.map { [_1, I18n.t("estimate_flow.other_income.frequencies.#{_1}")] }
+  end
 end

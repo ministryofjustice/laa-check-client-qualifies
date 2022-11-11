@@ -4,17 +4,6 @@
   span.govuk-caption-l
     = t(".caption")
 
-  = form_for(@form,
-               url: wizard_path,
-               method: :put) do |form|
-
-    = form.govuk_error_summary t("generic.error_summary_title")
-
-    = form.govuk_collection_radio_buttons :vehicle_owned,
-            yes_no_options, :first, :last,
-            legend: { text: t(".vehicle_owned.legend"), size: "xl", tag: "h1" },
-            hint: { text: t(".vehicle_owned.hint") }
-
-    = form.govuk_submit t("generic.save_and_continue")
+  = render "estimate_flow/forms/vehicle", i18n_key: "vehicle"
 = render "shared/sidebar_with_date",
          links: { t("estimate_flow.vehicle.guidance.text") => t("estimate_flow.vehicle.guidance.link") }

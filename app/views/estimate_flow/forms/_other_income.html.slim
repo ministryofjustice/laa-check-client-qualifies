@@ -1,0 +1,34 @@
+= form_for(@form, url: wizard_path, method: :put) do |form|
+  = form.govuk_error_summary t("generic.error_summary_title")
+
+  - OtherIncomeForm::REGULAR_INCOME_TYPES.each do |type|
+    h2.govuk-heading-m class="govuk-!-margin-top-9 govuk-!-margin-bottom-2"
+      = t("estimate_flow.#{i18n_key}.#{type}.label")
+    span.govuk-caption-m class="govuk-!-margin-bottom-4"
+      = t("estimate_flow.#{i18n_key}.#{type}.hint")
+
+    = render "shared/money_input",
+            form:,
+            field: :"#{type}_value",
+            width: 10,
+            label_text: t("estimate_flow.#{i18n_key}.#{type}.instruction")
+
+    = form.govuk_collection_radio_buttons :"#{type}_frequency",
+                                          @form.frequencies,
+                                          :first,
+                                          :last,
+                                          legend: -> { tag.p(t("estimate_flow.#{i18n_key}.enter_frequency")) }
+
+  - OtherIncomeForm::IRREGULAR_INCOME_TYPES.each do |type|
+    h2.govuk-heading-m class="govuk-!-margin-top-9 govuk-!-margin-bottom-2"
+      = t("estimate_flow.#{i18n_key}.#{type}.label")
+    span.govuk-caption-m class="govuk-!-margin-bottom-4"
+      = t("estimate_flow.#{i18n_key}.#{type}.hint")
+
+    = render "shared/money_input",
+            form:,
+            field: :"#{type}_value",
+            width: 10,
+            label_text: t("estimate_flow.#{i18n_key}.#{type}.instruction")
+
+  = form.govuk_submit t("generic.save_and_continue")

@@ -1,0 +1,13 @@
+- content_for :back
+  = link_to t("generic.back"),
+            flow_path(params[:estimate_id], :partner_benefits, check_answers: controller_name == "check_partner_benefits_answers"),
+            class: "govuk-back-link"
+
+.govuk-grid-column-two-thirds
+  span.govuk-caption-l = t(".caption")
+  h1.govuk-heading-l = t(".heading")
+
+  = form_for(@model, url: "#{url_for([:estimate, controller_name.to_sym])}/#{@model.id}", method: "patch") do |form|
+    = render "benefits/form", form:
+
+= render "shared/sidebar_with_date", links: {}

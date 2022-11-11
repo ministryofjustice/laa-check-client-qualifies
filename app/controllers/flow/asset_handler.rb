@@ -1,15 +1,8 @@
 module Flow
-  class AssetHandler
-    ASSETS_ATTRIBUTES = (AssetsForm::ASSETS_ATTRIBUTES + [:in_dispute]).freeze
-
-    class << self
-      def model(session_data)
-        AssetsForm.new session_data.slice(*ASSETS_ATTRIBUTES.map(&:to_s))
-      end
-
-      def form(params, _session_data)
-        AssetsForm.new(params.require(:assets_form).permit(*AssetsForm::ASSETS_ATTRIBUTES, in_dispute: []))
-      end
+  class AssetHandler < GenericHandler
+    def model_from_params(params, _session_data)
+      relevant_params = params.fetch(@form_class.name.underscore, {}).permit(*@form_class::ATTRIBUTES, in_dispute: [])
+      @form_class.new(relevant_params)
     end
   end
 end

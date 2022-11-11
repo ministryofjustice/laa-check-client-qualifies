@@ -5,19 +5,5 @@
   span.govuk-caption-l = t(".caption")
   h1.govuk-heading-xl = t(".heading")
   span.govuk-caption-m class="govuk-!-padding-bottom-4" = t(".second_caption")
-  = form_for(@form, url: wizard_path, method: :put) do |form|
-    = form.govuk_error_summary t("generic.error_summary_title")
-
-    = form.govuk_collection_radio_buttons :frequency,
-            @form.frequency_options,
-            :value,
-            :label,
-            legend: { text: t(".frequency.input") }
-    - EmploymentForm::DECIMAL_ATTRIBUTES.each do |field|
-      = render "shared/money_input",
-                form:,
-                field:,
-                width: 5,
-                label_text: t(".#{field}.input")
-    = form.govuk_submit t("generic.save_and_continue")
+  = render "estimate_flow/forms/employment", i18n_key: :employment
 = render "shared/sidebar_with_date", links: []

@@ -5,27 +5,7 @@
   span.govuk-caption-l = t(".caption")
   h1.govuk-heading-xl class="govuk-!-margin-bottom-2" = t(".heading")
   span.govuk-caption-m class="govuk-!-margin-bottom-9" = t(".second_caption")
-  = form_for(@form, url: wizard_path, method: :put) do |form|
-    = form.govuk_error_summary t("generic.error_summary_title")
-
-    - OutgoingsForm::PAYMENT_TYPES.each do |type|
-      h2.govuk-heading-m class="govuk-!-margin-top-9 govuk-!-margin-bottom-2"
-        = t(".#{type}.label")
-      span.govuk-caption-m class="govuk-!-margin-bottom-4"
-        = t(".#{type}.hint")
-
-      = render "shared/money_input",
-             form:,
-             field: :"#{type}_value",
-             width: 10,
-             label_text: t(".enter_amount")
-      = form.govuk_collection_radio_buttons :"#{type}_frequency",
-                                            OutgoingsForm::VALID_FREQUENCIES.map { [_1, t(".frequencies.#{_1}")] },
-                                            :first,
-                                            :last,
-                                            legend: -> { tag.p(t(".enter_frequency")) }
-
-    = form.govuk_submit t("generic.save_and_continue")
+  = render "estimate_flow/forms/outgoings", i18n_key: "outgoings"
 
 = render "shared/sidebar_with_date",
          links: { t("estimate_flow.outgoings.guidance_on_outgoings") => t("estimate_flow.outgoings.link_to_guidance_on_outgoings") }

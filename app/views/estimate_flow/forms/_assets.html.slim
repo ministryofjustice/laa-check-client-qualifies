@@ -1,0 +1,78 @@
+= form_for(@form, url: wizard_path, method: :put) do |form|
+
+  = form.govuk_error_summary t("generic.error_summary_title")
+
+  = form.govuk_fieldset legend: { text: t("estimate_flow.#{i18n_key}.property.label") } do
+
+    .govuk-hint = t("estimate_flow.#{i18n_key}.property.hint")
+
+    = render "shared/money_input",
+            form:,
+            field: :property_value,
+            width: 5,
+            label_text: t("estimate_flow.#{i18n_key}.property.value.label")
+    = render "shared/money_input",
+            form:,
+            field: :property_mortgage,
+            width: 5,
+            label_text: t("estimate_flow.#{i18n_key}.property.mortgage.label")
+    = form.govuk_number_field :property_percentage_owned,
+            width: 5,
+            suffix_text: "%",
+            label: { text: t("estimate_flow.#{i18n_key}.property.percentage_owned.input") },
+            hint: { text: t("estimate_flow.#{i18n_key}.property.percentage_owned.input_hint") }
+
+    - if show_smod_content
+      .govuk-form-group
+        = form.govuk_check_box :in_dispute, "property",
+          label: { text: t("estimate_flow.assets.property.dispute.label") }
+
+  = form.govuk_fieldset legend: { text: t("estimate_flow.#{i18n_key}.savings.label") } do
+
+    .govuk-hint = t("estimate_flow.#{i18n_key}.savings.hint")
+
+    = render "shared/money_input",
+          form:,
+          field: :savings,
+          width: 5,
+          label_text: t("estimate_flow.#{i18n_key}.savings.input")
+
+    - if show_smod_content
+      .govuk-form-group
+        = form.govuk_check_box :in_dispute, "savings",
+          label: { text: t("generic.dispute") }
+
+  = form.govuk_fieldset legend: { text: t("estimate_flow.#{i18n_key}.investments.label") } do
+
+    .govuk-hint = t("estimate_flow.#{i18n_key}.investments.hint")
+
+    = render "shared/money_input",
+            form:,
+            field: :investments,
+            width: 5,
+            label_text: t("estimate_flow.#{i18n_key}.investments.input")
+
+    - if show_smod_content
+      .govuk-form-group
+        = form.govuk_check_box :in_dispute, "investments",
+          label: { text: t("generic.dispute") }
+
+  = form.govuk_fieldset legend: { text: t("estimate_flow.#{i18n_key}.valuables.label") } do
+
+    .govuk-hint = t("estimate_flow.#{i18n_key}.valuables.hint")
+
+    = render "shared/money_input",
+              form:,
+              field: :valuables,
+              width: 5,
+              label_text: t("estimate_flow.#{i18n_key}.valuables.input")
+
+    - if show_smod_content
+      .govuk-form-group
+        = form.govuk_check_box :in_dispute, "valuables",
+          label: { text: t("generic.dispute") }
+
+  - if show_smod_content
+    = render "smod_help"
+
+  = form.govuk_submit t("generic.save_and_continue")

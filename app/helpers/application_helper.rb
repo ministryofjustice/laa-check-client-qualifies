@@ -40,9 +40,10 @@ module ApplicationHelper
     number_to_currency(number, unit: "£", separator: ".", delimiter: ",", precision: 2)
   end
 
-  def variable_controller_benefit_path(action: nil, id: nil)
+  def variable_controller_benefit_path(action: nil, id: nil, partner: false)
     prefix = "#{action}_" if action
-    controller = controller_name == "check_answers" ? "check_benefits_answer" : "benefit"
+    main_name = partner ? "partner_benefit" : "benefit"
+    controller = controller_name == "check_answers" ? "check_#{main_name}s_answer" : main_name
 
     if id
       send("#{prefix}estimate_#{controller}_path", params[:estimate_id], id)

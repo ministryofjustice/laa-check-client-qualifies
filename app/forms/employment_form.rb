@@ -3,7 +3,7 @@ class EmploymentForm
   include ActiveModel::Attributes
 
   DECIMAL_ATTRIBUTES = %i[gross_income income_tax national_insurance].freeze
-  EMPLOYMENT_ATTRIBUTES = (DECIMAL_ATTRIBUTES + %i[frequency]).freeze
+  ATTRIBUTES = (DECIMAL_ATTRIBUTES + %i[frequency]).freeze
 
   DECIMAL_ATTRIBUTES.each do |attribute|
     attribute attribute, :gbp

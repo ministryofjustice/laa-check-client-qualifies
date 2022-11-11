@@ -2,38 +2,38 @@ class BenefitsController < EstimateFlowController
   skip_before_action :setup_wizard, only: %i[edit update destroy]
 
   def new
-    @model = BenefitModel.new
+    @model = model_class.new
   end
 
   def create
-    @model = BenefitModel.new(params.require(:benefit_model).permit(*BenefitModel::EDITABLE_ATTRIBUTES))
+    @model = model_class.new(params.require(model_class.name.underscore).permit(*model_class::EDITABLE_ATTRIBUTES))
     if @model.valid?
       @model.id = SecureRandom.uuid
-      session_data["benefits"] ||= []
-      session_data["benefits"] << @model.attributes
-      redirect_to flow_path(:benefits)
+      session_data[benefit_session_key] ||= []
+      session_data[benefit_session_key] << @model.attributes
+      redirect_to flow_path(step_name)
     else
       render :new
     end
   end
 
   def edit
-    benefit_attributes = session_data["benefits"].find { _1["id"] == params[:id] }
-    @model = BenefitModel.new(benefit_attributes)
+    benefit_attributes = session_data[benefit_session_key].find { _1["id"] == params[:id] }
+    @model = model_class.new(benefit_attributes)
     @model.return_to_check_answers = params[:check_answers]
   end
 
   def update
-    benefit_attributes = session_data["benefits"].find { _1["id"] == params[:id] }
-    @model = BenefitModel.new(benefit_attributes)
-    @model.assign_attributes(params.require(:benefit_model).permit(*BenefitModel::EDITABLE_ATTRIBUTES))
+    benefit_attributes = session_data[benefit_session_key].find { _1["id"] == params[:id] }
+    @model = model_class.new(benefit_attributes)
+    @model.assign_attributes(params.require(model_class.name.underscore).permit(*model_class::EDITABLE_ATTRIBUTES))
     if @model.valid?
-      index = session_data["benefits"].index(benefit_attributes)
-      session_data["benefits"][index] = @model.attributes
+      index = session_data[benefit_session_key].index(benefit_attributes)
+      session_data[benefit_session_key][index] = @model.attributes
       if @model.return_to_check_answers
         redirect_to next_step_path load_estimate
       else
-        redirect_to flow_path(:benefits)
+        redirect_to flow_path(step_name)
       end
     else
       render :edit
@@ -41,12 +41,12 @@ class BenefitsController < EstimateFlowController
   end
 
   def destroy
-    session_data["benefits"].delete_if { _1["id"] == params["id"] }
+    session_data[benefit_session_key].delete_if { _1["id"] == params["id"] }
     redirect_to post_destroy_path
   end
 
   def add
-    @form = Flow::BenefitsHandler.form(params, session_data)
+    @form = Flow::Handler.model_from_params(step_name, params, session_data)
     @estimate = load_estimate
     if @form.valid?
       if @form.add_benefit
@@ -56,11 +56,23 @@ class BenefitsController < EstimateFlowController
         redirect_to next_step_path @estimate
       end
     else
-      render "estimate_flow/benefits"
+      render "estimate_flow/#{step_name}"
     end
   end
 
 private
+
+  def step_name
+    :benefits
+  end
+
+  def benefit_session_key
+    "benefits"
+  end
+
+  def model_class
+    BenefitModel
+  end
 
   def flow_path(step)
     estimate_build_estimate_path estimate_id, step
@@ -71,12 +83,12 @@ private
   end
 
   def next_step_path(model)
-    flow_path StepsHelper.next_step_for(model, :benefits)
+    flow_path StepsHelper.next_step_for(model, step_name)
   end
 
   def post_destroy_path
-    if session_data["benefits"].any?
-      flow_path(:benefits)
+    if session_data[benefit_session_key].any?
+      flow_path(step_name)
     else
       new_path
     end
