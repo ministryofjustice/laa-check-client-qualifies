@@ -8,6 +8,7 @@ RSpec.describe "Employment page" do
   let(:calculation_result) do
     CalculationResult.new(build(:api_result))
   end
+  # let(:calculation_result) { CalculationResult.new(FactoryBot.build(:api_result)) }
 
   before do
     allow(CfeConnection).to receive(:connection).and_return(mock_connection)

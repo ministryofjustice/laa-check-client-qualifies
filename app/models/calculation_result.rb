@@ -38,15 +38,19 @@ class CalculationResult
   end
 
   def gross_income_limit
-    monetise(api_response.dig(:result_summary, :gross_income, :proceeding_types)&.map { |pt| pt.fetch(:upper_threshold) }&.min)
+    monetise(api_response.dig(:result_summary, :gross_income, :proceeding_types).map { |pt| pt.fetch(:upper_threshold) }.min)
   end
 
   def total_disposable_income
     monetise(api_response.dig(:result_summary, :disposable_income, :total_disposable_income))
   end
 
+  def total_assessed_capital
+    monetise(api_response.dig(:result_summary, :capital, :assessed_capital))
+  end
+
   def disposable_income_limit
-    monetise(api_response.dig(:result_summary, :disposable_income, :proceeding_types)&.map { |pt| pt.fetch(:upper_threshold) }&.min)
+    monetise(api_response.dig(:result_summary, :disposable_income, :proceeding_types).map { |pt| pt.fetch(:upper_threshold) }.min)
   end
 
   def assessed_capital
@@ -56,6 +60,10 @@ class CalculationResult
     # Therefore we must correct the CFE result to display a zero if it comes back negative.
     cfe_result = api_response.dig(:result_summary, :capital, :assessed_capital)
     monetise([cfe_result, 0].compact.max)
+  end
+
+  def total_capital
+    monetise(api_response.dig(:result_summary, :capital, :total_capital))
   end
 
   def client_income_rows
@@ -87,13 +95,70 @@ class CalculationResult
     data.transform_values { |v| monetise(v) }
   end
 
+  def main_home
+    capital_items(:properties).dig(:main_home)
+  end
+
+  def main_home_value
+    monetise(capital_items(:properties).dig(:main_home, :value))
+  end
+
+  def main_home_mortgage
+    monetise(capital_items(:properties).dig(:main_home, :outstanding_mortgage))
+  end
+
+  def main_home_disregard
+    monetise(capital_items(:properties).dig(:main_home, :main_home_equity_disregard))
+  end
+
+  def main_home_equity
+    monetise(capital_items(:properties).dig(:main_home, :assessed_equity))
+  end
+
+  def additional_property
+    capital_items(:properties)[:additional_properties]
+  end
+
+  def additional_property_value
+    monetise(additional_property.first[:value])
+  end
+
+  def additional_property_mortgage
+    monetise(additional_property.first[:outstanding_mortgage])
+  end
+
+  def additional_property_equity
+    monetise(additional_property.first[:assessed_equity])
+  end
+
+  def vehicle_owned?
+    capital_items(:vehicles).any?
+  end
+
+  def vehicle_value
+    monetise(capital_items(:vehicles).sum(0) { |z| z.fetch(:value) })
+  end
+
+  def vehicle_outstanding_payments
+    monetise(capital_items(:vehicles).sum(0) { |z| z.fetch(:loan_amount_outstanding) })
+  end
+
+  def vehicle_disregards
+    value = capital_items(:vehicles).sum(0) { |z| z.fetch(:value) }
+    pcp = capital_items(:vehicles).sum(0) { |z| z.fetch(:loan_amount_outstanding) }
+    assessed_value = capital_items(:vehicles).sum(0) { |z| z.fetch(:assessed_value) }
+    monetise(value - pcp - assessed_value)
+  end
+
+  def vehicle_assessed_value
+    monetise(capital_items(:vehicles).sum(0) { |z| z.fetch(:assessed_value) })
+  end
+
   def client_capital_rows
     data = {
-      property: capital_items(:properties)&.dig(:main_home, :assessed_equity),
-      vehicles: capital_items(:vehicles)&.sum(0) { |z| z.fetch(:assessed_value) },
       # unfortunately CFE returns capital items as strings rather than numbers for some reason.
-      second_property: capital_items(:properties)&.fetch(:additional_properties)&.sum(0) { |p| p.fetch(:assessed_equity).to_i },
-      savings: capital_items(:liquid)&.sum(0) { |z| z.fetch(:value).to_i },
+      second_property: capital_items(:properties).fetch(:additional_properties).sum(0) { |p| p.fetch(:net_equity).to_i },
+      savings: capital_items(:liquid).sum(0) { |z| z.fetch(:value).to_i },
     }
     data.transform_values { |value| monetise(value) }
   end

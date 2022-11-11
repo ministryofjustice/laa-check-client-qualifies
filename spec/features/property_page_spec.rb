@@ -6,7 +6,8 @@ RSpec.describe "Property Page" do
   let(:property_header) { "Does your client own the home they live in?" }
   let(:vehicle_header) { "Does your client own a vehicle?" }
   let(:estimate_id) { SecureRandom.uuid }
-  let(:mock_connection) { instance_double(CfeConnection, create_assessment_id: estimate_id) }
+   # let(:mock_connection) { instance_double(CfeConnection, create_assessment_id: estimate_id) }
+  let(:mock_connection) { instance_double(CfeConnection, api_result: CalculationResult.new(FactoryBot.build(:api_result)), create_assessment_id: estimate_id) }
 
   before do
     allow(CfeConnection).to receive(:connection).and_return(mock_connection)

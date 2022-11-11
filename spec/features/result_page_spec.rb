@@ -206,15 +206,20 @@ RSpec.describe "Results Page" do
 
     it "shows the capital section" do
       within "#capital-calculation-content" do
-        expect(page).to have_content "Property £0.00"
-        expect(page).to have_content "Vehicles £2,500.00"
-        expect(page).to have_content "Second property £3,800.00"
+        expect(page).to have_content "Property Value £100,000.00"
+        expect(page).to have_content "Outstanding mortgage - £80,000.00"
+        expect(page).to have_content "Disregards and deductions - £100,000.00"
+        expect(page).to have_content "Amount included in calculation £0.00"
+        expect(page).to have_content "Vehicles Value £18,000.00"
+        expect(page).to have_content "Outstanding payments £500.00"
+        expect(page).to have_content "Amount included in calculation £0.00"
+        expect(page).to have_content "Additional property Value £80,000.00"
+        expect(page).to have_content "Outstanding mortgage - £70,000.00"
+        expect(page).to have_content "Amount included in calculation £3,800.00"
         expect(page).to have_content "Savings £200.00"
         expect(page).to have_content "Investments £400.00"
         expect(page).to have_content "Valuable items worth £500 or more £600.00"
-
         expect(page).to have_content "Total capital £7,500.00"
-        expect(page).to have_content "Disposable capital limit £8,000.00"
       end
     end
   end

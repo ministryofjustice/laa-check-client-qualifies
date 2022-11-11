@@ -795,6 +795,19 @@ en:
       assessed_capital: Disposable capital
       start_another_check: Start another eligibility check
       print_page: Print this page
+      property: Property
+      main_home_value: Value
+      main_home_mortgage: Outstanding mortgage
+      disregards_deductions: Disregards and deductions
+      assessed_value: Amount included in calculation
+      disposable_capital: Disposable capital
+      vehicles: Vehicles
+      vehicle_value: Value
+      vehicle_outstanding_payments: Outstanding payments
+      total_assessed_capital: Total assessed capital
+      additional_property: Additional property
+      additional_property_value: Value
+      additional_property_mortgage: Outstanding mortgage
     print:
       date: "Date:"
       legal_aid: Legal Aid
