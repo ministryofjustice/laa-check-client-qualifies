@@ -146,7 +146,7 @@ en:
               blank: Please enter the outstanding finance amount
   service:
     name: Estimate financial eligibility for legal aid
-    email: eligibility@digital.justice.gov.uk
+    email: eligibility@justice.gov.uk
     beta: Beta
     beta_message_html: This is a new service - your <a href="mailto:%{email}">feedback</a> will help us improve it
   generic:
