@@ -82,7 +82,7 @@ RSpec.describe "Vehicle Page" do
         select_boolean_value("vehicle-details-form", :vehicle_pcp, false)
         select_boolean_value("vehicle-details-form", :vehicle_over_3_years_ago, true)
         click_on "Save and continue"
-        expect(page).to have_content check_answers_header
+        expect(page).to have_current_path("http://www.example.com/estimates/#{estimate_id}/check_answers#assets-section")
 
         expect(mock_connection).to receive(:create_vehicle)
         click_on "Submit"
