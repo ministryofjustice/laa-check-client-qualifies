@@ -5,7 +5,7 @@ class CheckAnswersController < EstimateFlowController
     @form = Flow::Handler.model_from_params(step, params, session_data)
 
     if @form.valid?
-      session_data.merge!(Flow::Handler.extract_attributes(step, @form))
+      session_data.merge!(@form.session_attributes)
       estimate = load_estimate
       if StepsHelper.last_step_in_group?(estimate, step)
         next_step = next_check_answer_step(step, estimate)

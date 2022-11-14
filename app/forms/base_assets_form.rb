@@ -1,10 +1,11 @@
 class BaseAssetsForm
   include ActiveModel::Model
   include ActiveModel::Attributes
+  include SessionPersistable
 
   ASSETS_DECIMAL_ATTRIBUTES = %i[savings investments valuables].freeze
   ASSETS_PROPERTY_ATTRIBUTES = %i[property_value property_mortgage].freeze
-  ATTRIBUTES = (ASSETS_DECIMAL_ATTRIBUTES + ASSETS_PROPERTY_ATTRIBUTES + [:property_percentage_owned]).freeze
+  BASE_ATTRIBUTES = (ASSETS_DECIMAL_ATTRIBUTES + ASSETS_PROPERTY_ATTRIBUTES + [:property_percentage_owned]).freeze
 
   ASSETS_DECIMAL_ATTRIBUTES.each do |asset_type|
     attribute asset_type, :gbp

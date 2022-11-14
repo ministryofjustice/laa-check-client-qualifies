@@ -1,6 +1,7 @@
 class PropertyForm
   include ActiveModel::Model
   include ActiveModel::Attributes
+  include SessionPersistable
 
   ATTRIBUTES = %i[property_owned].freeze
 

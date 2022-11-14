@@ -97,4 +97,19 @@ RSpec.describe "Partner benefits" do
     expect(page).not_to have_content "Child benefit"
     expect(page).to have_current_path(estimate_build_estimate_path(estimate_id, :partner_benefits))
   end
+
+  it "allows me to view the page in the context of check answers" do
+    visit estimate_check_answer_path(estimate_id, :partner_benefits)
+    select_boolean_value("partner-benefits-form", :add_benefit, true)
+    click_on "Save and continue"
+    fill_in "Benefit type", with: "Child benefit"
+    fill_in "Enter amount", with: "150"
+    choose "Every week"
+    click_on "Save and continue"
+    expect(page).to have_content "Child benefit"
+    expect(page).to have_content "£150"
+    click_on "Remove"
+    expect(page).not_to have_content "Child benefit"
+    expect(page).to have_current_path(estimate_check_answer_path(estimate_id, :partner_benefits))
+  end
 end

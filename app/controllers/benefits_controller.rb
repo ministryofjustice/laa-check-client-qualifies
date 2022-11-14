@@ -52,7 +52,7 @@ class BenefitsController < EstimateFlowController
       if @form.add_benefit
         redirect_to new_path
       else
-        session_data.merge!(@form.attributes)
+        session_data.merge!(@form.session_attributes)
         redirect_to next_step_path @estimate
       end
     else

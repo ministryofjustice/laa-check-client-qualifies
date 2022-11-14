@@ -4,7 +4,7 @@ class SubmitBenefitsService < BaseCfeService
   end
 
   def call(cfe_estimate_id, cfe_session_data)
-    model = Flow::Handler.model_from_session(:benefits, cfe_session_data)
+    model = BenefitsForm.from_session(cfe_session_data)
     return if model.benefits.blank?
 
     state_benefits = model.benefits.map do |benefit|

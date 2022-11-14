@@ -1,6 +1,7 @@
 class OutgoingsForm
   include ActiveModel::Model
   include ActiveModel::Attributes
+  include SessionPersistable
 
   PAYMENT_TYPES = %i[housing_payments childcare_payments maintenance_payments legal_aid_payments].freeze
   VALUE_ATTRIBUTES = PAYMENT_TYPES.map { :"#{_1}_value" }.freeze

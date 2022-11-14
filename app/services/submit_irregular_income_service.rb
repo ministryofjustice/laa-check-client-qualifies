@@ -4,7 +4,7 @@ class SubmitIrregularIncomeService < BaseCfeService
   end
 
   def call(cfe_estimate_id, cfe_session_data)
-    form = Flow::Handler.model_from_session(:other_income, cfe_session_data)
+    form = OtherIncomeForm.from_session(cfe_session_data)
     payments = []
 
     payments << create_student_loan(form) if form.student_finance_value&.positive?

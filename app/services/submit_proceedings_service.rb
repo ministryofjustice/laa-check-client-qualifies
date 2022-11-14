@@ -4,7 +4,7 @@ class SubmitProceedingsService < BaseCfeService
   end
 
   def call(cfe_estimate_id, cfe_session_data)
-    form = Flow::Handler.model_from_session(:case_details, cfe_session_data)
+    form = ProceedingTypeForm.from_session(cfe_session_data)
     cfe_connection.create_proceeding_type(cfe_estimate_id, form.proceeding_type)
   end
 end

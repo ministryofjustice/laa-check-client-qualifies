@@ -110,11 +110,11 @@ def complete_incomes_screen(subject: :client)
   click_on "Save and continue"
 end
 
-def skip_assets_form
-  fill_in "assets-form-property-value-field", with: "0"
-  fill_in "assets-form-savings-field", with: "0"
-  fill_in "assets-form-investments-field", with: "0"
-  fill_in "assets-form-valuables-field", with: "0"
+def skip_assets_form(subject: :client)
+  fill_in "#{subject}-assets-form-property-value-field", with: "0"
+  fill_in "#{subject}-assets-form-savings-field", with: "0"
+  fill_in "#{subject}-assets-form-investments-field", with: "0"
+  fill_in "#{subject}-assets-form-valuables-field", with: "0"
   click_on "Save and continue"
 end
 

@@ -12,7 +12,7 @@ class EstimateFlowController < ApplicationController
 protected
 
   def load_estimate
-    EstimateModel.new session_data.slice(*EstimateModel::ESTIMATE_ATTRIBUTES.map(&:to_s))
+    EstimateModel.from_session(session_data)
   end
 
   def estimate_id

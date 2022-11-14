@@ -158,7 +158,7 @@ en:
               blank: Please enter the frequency of your client's partner's maintenance payments
             legal_aid_payments_frequency:
               blank: Please enter the frequency of your client's partner's legal aid payments
-        assets_form:
+        client_assets_form:
           attributes:
             valuables:
               blank: Please enter the total of your client's valuables
@@ -214,7 +214,7 @@ en:
           attributes:
             vehicle_owned:
               inclusion: Select yes if the client's partner owns a vehicle
-        vehicle_details_form:
+        client_vehicle_details_form:
           attributes:
             vehicle_in_regular_use:
               inclusion: Select yes if the vehicle is in regular use

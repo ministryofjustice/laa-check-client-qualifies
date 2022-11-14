@@ -4,7 +4,7 @@ class SubmitEmploymentIncomeService < BaseCfeService
   end
 
   def call(cfe_estimate_id, cfe_session_data)
-    form = Flow::Handler.model_from_session(:employment, cfe_session_data)
+    form = EmploymentForm.from_session(cfe_session_data)
     return if form.gross_income.blank?
 
     # CFE wants to infer frequency of payment from gaps between payments.

@@ -19,7 +19,7 @@ module CheckAnswers
 
     def initialize(session_data)
       @session_data = session_data.with_indifferent_access
-      @model = EstimateModel.new session_data.slice(*EstimateModel::ESTIMATE_ATTRIBUTES.map(&:to_s))
+      @model = EstimateModel.from_session(session_data)
     end
 
     def build_section(section_data)

@@ -20,6 +20,10 @@ Rails.application.routes.draw do
       collection { post :add }
     end
 
+    resources :check_partner_benefits_answers, except: %i[index show] do
+      collection { post :add }
+    end
+
     member { get :print, :check_answers }
   end
 

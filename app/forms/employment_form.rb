@@ -1,6 +1,7 @@
 class EmploymentForm
   include ActiveModel::Model
   include ActiveModel::Attributes
+  include SessionPersistable
 
   DECIMAL_ATTRIBUTES = %i[gross_income income_tax national_insurance].freeze
   ATTRIBUTES = (DECIMAL_ATTRIBUTES + %i[frequency]).freeze

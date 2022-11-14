@@ -1,13 +1,14 @@
 class BenefitModel
   include ActiveModel::Model
   include ActiveModel::Attributes
+  include SessionPersistable
 
   FREQUENCY_OPTIONS = %w[every_week every_two_weeks every_four_weeks].freeze
 
   attribute :id
 
   EDITABLE_ATTRIBUTES = %i[benefit_type benefit_amount benefit_frequency return_to_check_answers].freeze
-  BENEFITS_ATTRIBUTES = (EDITABLE_ATTRIBUTES + %i[id]).freeze
+  ATTRIBUTES = (EDITABLE_ATTRIBUTES + %i[id]).freeze
 
   attribute :benefit_type, :string
   validates :benefit_type, presence: true

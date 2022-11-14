@@ -1,6 +1,7 @@
 class DependantsForm
   include ActiveModel::Model
   include ActiveModel::Attributes
+  include SessionPersistable
 
   ATTRIBUTES = [:dependants].freeze
 

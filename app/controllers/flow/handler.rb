@@ -1,45 +1,36 @@
 module Flow
   class Handler
     CLASSES = {
-      case_details: { handler_class: GenericHandler, form_class: ProceedingTypeForm },
-      partner: { handler_class: GenericHandler, form_class: PartnerForm },
-      applicant: { handler_class: ApplicantHandler, form_class: ApplicantForm },
-      dependants: { handler_class: GenericHandler, form_class: DependantsForm },
-      dependant_details: { handler_class: GenericHandler, form_class: DependantDetailsForm },
-      employment: { handler_class: GenericHandler, form_class: EmploymentForm },
-      benefits: { handler_class: BenefitsHandler, form_class: BenefitsForm },
-      other_income: { handler_class: GenericHandler, form_class: OtherIncomeForm },
-      outgoings: { handler_class: GenericHandler, form_class: OutgoingsForm },
-      property: { handler_class: GenericHandler, form_class: PropertyForm },
-      property_entry: { handler_class: PropertyEntryHandler, form_class: PropertyEntryForm },
-      vehicle: { handler_class: GenericHandler, form_class: VehicleForm },
-      vehicle_details: { handler_class: GenericHandler, form_class: VehicleDetailsForm },
-      assets: { handler_class: AssetHandler, form_class: AssetsForm },
-      partner_employment: { handler_class: PartnerHandler, form_class: EmploymentForm },
-      partner_benefits: { handler_class: PartnerBenefitsHandler, form_class: BenefitsForm },
-      partner_other_income: { handler_class: PartnerHandler, form_class: OtherIncomeForm },
-      partner_outgoings: { handler_class: PartnerHandler, form_class: OutgoingsForm },
-      partner_vehicle: { handler_class: PartnerHandler, form_class: VehicleForm },
-      partner_vehicle_details: { handler_class: PartnerVehicleDetailsHandler, form_class: BaseVehicleDetailsForm },
-      partner_assets: { handler_class: PartnerAssetsHandler, form_class: BaseAssetsForm },
+      case_details: ProceedingTypeForm,
+      partner: PartnerForm,
+      applicant: ApplicantForm,
+      dependants: DependantsForm,
+      dependant_details: DependantDetailsForm,
+      employment: EmploymentForm,
+      benefits: BenefitsForm,
+      other_income: OtherIncomeForm,
+      outgoings: OutgoingsForm,
+      property: PropertyForm,
+      property_entry: PropertyEntryForm,
+      vehicle: VehicleForm,
+      vehicle_details: ClientVehicleDetailsForm,
+      assets: ClientAssetsForm,
+      partner_employment: PartnerEmploymentForm,
+      partner_benefits: PartnerBenefitsForm,
+      partner_other_income: PartnerOtherIncomeForm,
+      partner_outgoings: PartnerOutgoingsForm,
+      partner_vehicle: PartnerVehicleForm,
+      partner_vehicle_details: PartnerVehicleDetailsForm,
+      partner_assets: PartnerAssetsForm,
     }.freeze
 
     class << self
       def model_from_session(step, session)
-        handler(step).model_from_session(session)
+        CLASSES.fetch(step).from_session(session)
       end
 
       def model_from_params(step, params, session)
-        handler(step).model_from_params(params, session)
-      end
-
-      def extract_attributes(step, form)
-        handler(step).extract_attributes(form)
-      end
-
-      def handler(step)
-        classes = CLASSES.fetch(step)
-        classes[:handler_class].new(classes[:form_class])
+        CLASSES.fetch(step).from_params(params, session)
       end
     end
   end

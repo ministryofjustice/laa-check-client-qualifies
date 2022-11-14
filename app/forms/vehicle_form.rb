@@ -1,6 +1,7 @@
 class VehicleForm
   include ActiveModel::Model
   include ActiveModel::Attributes
+  include SessionPersistable
 
   ATTRIBUTES = [:vehicle_owned].freeze
 

@@ -65,11 +65,11 @@ RSpec.describe "Results Page" do
 
       visit "/estimates/#{estimate_id}/build_estimates/assets"
 
-      fill_in "assets-form-property-value-field", with: "0"
-      fill_in "assets-form-savings-field", with: "0"
+      fill_in "client-assets-form-property-value-field", with: "0"
+      fill_in "client-assets-form-savings-field", with: "0"
 
-      fill_in "assets-form-investments-field", with: "4300"
-      fill_in "assets-form-valuables-field", with: "2200"
+      fill_in "client-assets-form-investments-field", with: "4300"
+      fill_in "client-assets-form-valuables-field", with: "2200"
 
       click_on "Save and continue"
       click_on "Submit"
@@ -153,20 +153,20 @@ RSpec.describe "Results Page" do
 
       select_boolean_value("vehicle-form", :vehicle_owned, true)
       click_on "Save and continue"
-      fill_in "vehicle-details-form-vehicle-value-field", with: 18_000
-      select_boolean_value("vehicle-details-form", :vehicle_in_regular_use, true)
-      select_boolean_value("vehicle-details-form", :vehicle_over_3_years_ago, false)
-      select_boolean_value("vehicle-details-form", :vehicle_pcp, true)
-      fill_in "vehicle-details-form-vehicle-finance-field", with: 500
+      fill_in "client-vehicle-details-form-vehicle-value-field", with: 18_000
+      select_boolean_value("client-vehicle-details-form", :vehicle_in_regular_use, true)
+      select_boolean_value("client-vehicle-details-form", :vehicle_over_3_years_ago, false)
+      select_boolean_value("client-vehicle-details-form", :vehicle_pcp, true)
+      fill_in "client-vehicle-details-form-vehicle-finance-field", with: 500
       click_on "Save and continue"
 
-      fill_in "assets-form-property-value-field", with: "80_000"
-      fill_in "assets-form-property-mortgage-field", with: "70_000"
-      fill_in "assets-form-property-percentage-owned-field", with: "50"
+      fill_in "client-assets-form-property-value-field", with: "80_000"
+      fill_in "client-assets-form-property-mortgage-field", with: "70_000"
+      fill_in "client-assets-form-property-percentage-owned-field", with: "50"
 
-      fill_in "assets-form-savings-field", with: "200"
-      fill_in "assets-form-investments-field", with: "400"
-      fill_in "assets-form-valuables-field", with: "600"
+      fill_in "client-assets-form-savings-field", with: "200"
+      fill_in "client-assets-form-investments-field", with: "400"
+      fill_in "client-assets-form-valuables-field", with: "600"
       click_on "Save and continue"
 
       click_on "Submit"

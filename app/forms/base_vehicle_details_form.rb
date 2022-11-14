@@ -1,12 +1,13 @@
 class BaseVehicleDetailsForm
   include ActiveModel::Model
   include ActiveModel::Attributes
+  include SessionPersistable
 
-  ATTRIBUTES = %i[vehicle_finance
-                  vehicle_pcp
-                  vehicle_over_3_years_ago
-                  vehicle_value
-                  vehicle_in_regular_use].freeze
+  BASE_ATTRIBUTES = %i[vehicle_finance
+                       vehicle_pcp
+                       vehicle_over_3_years_ago
+                       vehicle_value
+                       vehicle_in_regular_use].freeze
 
   attribute :vehicle_pcp, :boolean
   validates :vehicle_pcp, inclusion: { in: [true, false], allow_nil: false }
