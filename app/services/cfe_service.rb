@@ -13,6 +13,7 @@ class CfeService < BaseCfeService
     SubmitAssetsService.call(cfe_estimate_id, cfe_session_data)
     SubmitRegularTransactionsService.call(cfe_estimate_id, cfe_session_data)
     SubmitApplicantService.call(cfe_estimate_id, cfe_session_data)
+    SubmitPartnerService.call(cfe_estimate_id, cfe_session_data)
     return_cfe_result(cfe_estimate_id)
   end
 
