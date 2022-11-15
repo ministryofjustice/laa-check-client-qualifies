@@ -25,7 +25,7 @@ RSpec.describe "Employment Page", :vcr do
       fill_in "employment-form-gross-income-field", with: 1000
       fill_in "employment-form-income-tax-field", with: 100
       fill_in "employment-form-national-insurance-field", with: 50
-      click_checkbox("employment-form-frequency", "week")
+      select_radio_value("employment-form", "frequency", "week")
       click_on "Save and continue"
       expect(page).to have_content(benefits_header)
       select_boolean_value("benefits-form", :add_benefit, false)

@@ -67,7 +67,7 @@ RSpec.describe "Applicant Page" do
       select_applicant_boolean(:passporting, true)
       click_on "Save and continue"
 
-      click_checkbox("property-form-property-owned", "none")
+      select_radio_value("property-form", "property-owned", "none")
       click_on "Save and continue"
       select_boolean_value("vehicle-form", :vehicle_owned, false)
       click_on "Save and continue"

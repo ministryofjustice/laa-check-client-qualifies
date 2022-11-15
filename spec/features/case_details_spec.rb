@@ -13,7 +13,7 @@ RSpec.describe "Case Details Page" do
   end
 
   it "can submit a domestic abuse case" do
-    click_checkbox("proceeding-type-form-proceeding-type", "da001")
+    select_radio_value("proceeding-type-form", "proceeding-type", "da001")
     click_on "Save and continue"
     expect(page).to have_content applicant_page_header
   end

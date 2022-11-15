@@ -26,7 +26,7 @@ RSpec.describe "Outgoings Page", :vcr do
     find(:css, "#outgoings-form-childcare-payments-frequency-every-two-weeks-field").click
     find(:css, "#outgoings-form-legal-aid-payments-frequency-monthly-field").click
     click_on "Save and continue"
-    click_checkbox("property-form-property-owned", "none")
+    select_radio_value("property-form", "property-owned", "none")
     click_on "Save and continue"
     select_boolean_value("vehicle-form", :vehicle_owned, false)
     progress_to_submit_from_vehicle_form

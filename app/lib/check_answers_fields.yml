@@ -18,7 +18,8 @@
 # A subsection has a label IF it has a visible title
 # It has a screen IF the subsection header should have a 'change' link to that screen next to it.
 # It also has zero or more fields
-
+# It can have a model which is the name of a ruby class that represents the data being displayed.
+# attributes will be retrieved via the model class rather than directly from the session.
 
 # FIELDS
 # A field has a type, which is one of boolean, money, select, number or money_with_frequency.
@@ -28,19 +29,14 @@
 # It has a screen IF the field has its own 'change' link to a screen
 # 'money_with_frequency' fields also have an 'alt_attribute' which describes
 # which number to display.
-# It can have a 'requires_inclusion_in', which defines which array attribute in the session
-# needs to contain the inclusion string (see below) as a string if the value of the field is to be displayed
-# It can have a 'requires_inclusion_of', which defines the inclusion string. If requires_inclusion_of
-# is not defined, the inclusion string is the attribute name
-# It can have a 'skip_if_null' attribute, if the line should be hidden depending on whether or
-# not there is a displayable value.
 sections:
   - label: case_details
     subsections:
   - label: client_details
     screen: applicant
     subsections:
-      - fields:
+      - model: ApplicantSection
+        fields:
         - attribute: partner
           type: boolean
           screen: partner
@@ -83,6 +79,7 @@ sections:
         screen: benefits
       - label: other_income
         screen: other_income
+        model: OtherIncomeSection
         fields:
           - attribute: friends_or_family_value
             type: money_with_frequency
@@ -119,44 +116,36 @@ sections:
   - label: assets
     subsections:
       - label: property
+        screen: property
+        model: PropertySection
         fields:
           - type: select
             attribute: property_owned
-            screen: property
           - type: money
             attribute: house_value
-            screen: property_entry
           - type: money
             attribute: mortgage
-            screen: property_entry
-            skip_if_null: true
-            requires_inclusion_in: property_owned
-            requires_inclusion_of: with_mortgage
           - type: number
             attribute: percentage_owned
-            screen: property_entry
       - label: vehicles
+        screen: vehicle
+        model: VehicleSection
         fields:
           - type: boolean
             attribute: vehicle_owned
-            screen: vehicle
           - type: money
             attribute: vehicle_value
-            screen: vehicle_details
           - type: boolean
             attribute: vehicle_in_regular_use
-            screen: vehicle_details
           - type: boolean
             attribute: vehicle_over_3_years_ago
-            screen: vehicle_details
           - type: boolean
             attribute: vehicle_pcp
-            screen: vehicle_details
           - type: money
             attribute: vehicle_finance
-            screen: vehicle_details
       - label: other
         screen: assets
+        model: OtherSection
         fields:
           - attribute: property_value
             type: money

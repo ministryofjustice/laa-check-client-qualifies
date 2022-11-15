@@ -32,7 +32,7 @@ html lang="en" class="govuk-template"
 
     = govuk_header(service_name: t("service.name"))
 
-    div class="govuk-width-container"
+    .govuk-width-container
       = govuk_phase_banner tag: { text: t("service.beta") },
                            text: t("service.beta_message_html", email: t("service.email")),
                            html_attributes: { role: "complementary", "aria-label": "Beta notification" }

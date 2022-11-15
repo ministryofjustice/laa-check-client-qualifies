@@ -2,7 +2,7 @@ module CheckAnswers
   class SectionListerService
     Section = Struct.new(:label, :screen, :subsections, keyword_init: true)
     Subsection = Struct.new(:label, :screen, :fields, keyword_init: true)
-    Field = Struct.new(:label, :type, :value, :screen, :alt_value, :id, keyword_init: true)
+    Field = Struct.new(:label, :type, :value, :screen, :alt_value, :id, :disputed?, keyword_init: true)
 
     SUBSECTION_SPECIAL_CASES = %i[benefits].freeze
 
@@ -18,7 +18,7 @@ module CheckAnswers
   private
 
     def initialize(session_data)
-      @session_data = session_data
+      @session_data = session_data.with_indifferent_access
       @model = EstimateModel.new session_data.slice(*EstimateModel::ESTIMATE_ATTRIBUTES.map(&:to_s))
     end
 
@@ -35,43 +35,48 @@ module CheckAnswers
     end
 
     def build_subsection(subsection_data, section_data)
+      section = "CheckAnswers::#{subsection_data[:model]}".constantize.from_session(@session_data) if subsection_data.key?(:model)
+      fields = if section.present?
+                 subsection_data[:fields].select { |f| section.display_fields.include? f.fetch(:attribute).to_sym }
+               else
+                 subsection_data[:fields]
+               end
+
       Subsection.new(label: subsection_data[:label],
                      screen: subsection_data[:screen],
-                     fields: build_fields(subsection_data[:fields],
+                     fields: build_fields(section,
+                                          fields,
                                           subsection_data[:screen] || section_data[:screen],
                                           subsection_data[:label] || section_data[:label]))
     end
 
-    def build_fields(field_set, parent_screen, label_set)
+    def build_fields(section, field_set, parent_screen, label_set)
       if SUBSECTION_SPECIAL_CASES.include?(label_set.to_sym)
         return send(:"#{label_set}_fields")
       end
 
-      field_set.map { build_field(_1, label_set, parent_screen) }.compact
+      field_set.map { build_field(section, _1, label_set, parent_screen) }.compact
     end
 
-    def build_field(field_data, label_set, parent_screen)
-      value = build_value(field_data)
-
-      return if !value && field_data["skip_if_null"]
-      return if field_data[:skip_unless].present? && !@session_data[field_data[:skip_unless]]
+    def build_field(section, field_data, label_set, parent_screen)
       return unless StepsHelper.valid_step?(@model, (field_data[:screen] || parent_screen).to_sym)
 
+      value = if section.present?
+                section.public_send field_data.fetch(:attribute).to_sym
+              else
+                @session_data[field_data[:attribute]]
+              end
+
       label = field_data.fetch(:label, field_data.fetch(:attribute))
+
+      disputed = section.disputed_asset? field_data.fetch(:attribute).to_sym if section.present?
 
       Field.new(label: "#{label_set}_fields.#{label}",
                 type: field_data[:type],
                 value:,
+                disputed?: disputed,
                 screen: field_data[:screen],
                 alt_value: @session_data[field_data[:alt_attribute]])
-    end
-
-    def build_value(field_data)
-      if field_data[:requires_inclusion_in]
-        key = field_data[:requires_inclusion_of] || field_data[:attribute]
-        return unless @session_data[field_data[:requires_inclusion_in]]&.include?(key)
-      end
-      @session_data[field_data[:attribute]]
     end
 
     def benefits_fields

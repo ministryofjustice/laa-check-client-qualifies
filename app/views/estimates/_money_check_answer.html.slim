@@ -1,6 +1,5 @@
 - path ||= nil
-- link ||= nil
-.govuk-summary-list__row
+.govuk-summary-list__row id="#{label_text.parameterize}"
   dt.govuk-summary-list__key
     = label_text
 
@@ -11,7 +10,8 @@
       = "&pound;".html_safe + format_money(value_text).presence
 
   dd.govuk-summary-list__actions
-    - if link
-      = link_to(t("generic.change"), estimate_check_answer_path(@estimate_id, link), class: "govuk-link")
+    - if disputed_asset
+      span.moj-badge.moj-badge--blue.moj-badge--large
+        = t("generic.disputed_asset")
     - elsif path
-       = link_to(t("generic.change"), path, class: "govuk-link")
+      = link_to(t("generic.change"), path, class: "govuk-link")

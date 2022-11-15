@@ -16,4 +16,5 @@
             hint: { text: t(".vehicle_owned.hint") }
 
     = form.govuk_submit t("generic.save_and_continue")
-= render "vehicle_sidebar"
+= render "shared/sidebar_with_date",
+         links: { t("estimate_flow.vehicle.guidance.text") => t("estimate_flow.vehicle.guidance.link") }

@@ -18,10 +18,8 @@ RSpec.describe "Check answers page" do
       complete_incomes_screen
       skip_outgoings_form
 
-      click_checkbox("property-form-property-owned", "none")
-      click_on "Save and continue"
-      select_boolean_value("vehicle-form", :vehicle_owned, false)
-      click_on "Save and continue"
+      skip_property_form
+      skip_vehicle_form
       skip_assets_form
     end
 

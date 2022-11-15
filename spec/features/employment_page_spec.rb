@@ -6,7 +6,7 @@ RSpec.describe "Employment page" do
   let(:estimate_id) { SecureRandom.uuid }
   let(:mock_connection) { instance_double(CfeConnection, create_assessment_id: estimate_id) }
   let(:calculation_result) do
-    CalculationResult.new(result_summary: { overall_result: { result: "contribution_required", income_contribution: 12_345.78 } })
+    CalculationResult.new(build(:api_result))
   end
 
   before do
@@ -30,6 +30,18 @@ RSpec.describe "Employment page" do
 
     it "skips the employment page" do
       expect(page).not_to have_content(employment_page_header)
+    end
+
+    it "doesnt show section on check answers screen" do
+      select_boolean_value("benefits-form", :add_benefit, false)
+      click_on("Save and continue")
+      complete_incomes_screen
+      skip_outgoings_form
+
+      skip_property_form
+      skip_vehicle_form
+      skip_assets_form
+      expect(page).not_to have_content "Employment"
     end
   end
 
@@ -55,7 +67,7 @@ RSpec.describe "Employment page" do
         fill_in "employment-form-gross-income-field", with: 100
         fill_in "employment-form-income-tax-field", with: 100
         fill_in "employment-form-national-insurance-field", with: 50
-        click_checkbox("employment-form-frequency", "monthly")
+        select_radio_value("employment-form", "frequency", "monthly")
         click_on "Save and continue"
       end
 
@@ -82,7 +94,7 @@ RSpec.describe "Employment page" do
         fill_in "employment-form-gross-income-field", with: "5,000"
         fill_in "employment-form-income-tax-field", with: "1000"
         fill_in "employment-form-national-insurance-field", with: 50.5
-        click_checkbox("employment-form-frequency", "monthly")
+        select_radio_value("employment-form", "frequency", "monthly")
       end
 
       it "persists my answers to CFE and moves me on to the next question" do
@@ -125,7 +137,7 @@ RSpec.describe "Employment page" do
           expect(payment[:national_insurance]).to eq (-50 / 3.0).round(2)
           expect(payment[:tax]).to eq (-100 / 3.0).round(2)
         end
-        click_checkbox("employment-form-frequency", "total")
+        select_radio_value("employment-form", "frequency", "total")
 
         click_on "Save and continue"
         progress_to_submit_from_benefits
@@ -139,7 +151,7 @@ RSpec.describe "Employment page" do
           expect(payment[:national_insurance]).to eq(-50)
           expect(payment[:tax]).to eq(-100)
         end
-        click_checkbox("employment-form-frequency", "week")
+        select_radio_value("employment-form", "frequency", "week")
         click_on "Save and continue"
         progress_to_submit_from_benefits
       end
@@ -152,7 +164,7 @@ RSpec.describe "Employment page" do
           expect(payment[:national_insurance]).to eq(-50)
           expect(payment[:tax]).to eq(-100)
         end
-        click_checkbox("employment-form-frequency", "two_weeks")
+        select_radio_value("employment-form", "frequency", "two_weeks")
         click_on "Save and continue"
         progress_to_submit_from_benefits
       end
@@ -165,7 +177,7 @@ RSpec.describe "Employment page" do
           expect(payment[:national_insurance]).to eq(-50)
           expect(payment[:tax]).to eq(-100)
         end
-        click_checkbox("employment-form-frequency", "four_weeks")
+        select_radio_value("employment-form", "frequency", "four_weeks")
         click_on "Save and continue"
         progress_to_submit_from_benefits
       end
@@ -178,7 +190,7 @@ RSpec.describe "Employment page" do
           expect(payment[:national_insurance]).to eq (-50 / 12.0).round(2)
           expect(payment[:tax]).to eq (-100 / 12.0).round(2)
         end
-        click_checkbox("employment-form-frequency", "annually")
+        select_radio_value("employment-form", "frequency", "annually")
         click_on "Save and continue"
         progress_to_submit_from_benefits
       end

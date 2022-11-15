@@ -11,7 +11,7 @@ RSpec.describe "ChangeEmploymentTypes" do
 
     click_on "Save and continue"
 
-    click_checkbox("property-form-property-owned", "none")
+    select_radio_value("property-form", "property-owned", "none")
     click_on "Save and continue"
 
     select_boolean_value("vehicle-form", :vehicle_owned, false)
@@ -29,7 +29,7 @@ RSpec.describe "ChangeEmploymentTypes" do
     fill_in "employment-form-gross-income-field", with: "5,000"
     fill_in "employment-form-income-tax-field", with: "1000"
     fill_in "employment-form-national-insurance-field", with: 50.5
-    click_checkbox("employment-form-frequency", :monthly)
+    select_radio_value("employment-form", "frequency", :monthly)
 
     click_on "Save and continue"
     select_boolean_value("benefits-form", :add_benefit, false)
