@@ -66,6 +66,10 @@ class CalculationResult
     monetise(api_response.dig(:result_summary, :capital, :total_capital))
   end
 
+  def assessed_capital
+    monetise(api_response.dig(:result_summary, :capital, :assessed_capital))
+  end
+
   def client_income_rows
     data = {
       employment_income: api_response.dig(:result_summary, :disposable_income, :employment_income, :gross_income),
