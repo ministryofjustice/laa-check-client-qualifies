@@ -9,7 +9,9 @@ module CheckAnswers
                 passporting
                 dependants
                 child_dependants
-                adult_dependants].freeze
+                adult_dependants
+                partner_employed
+                partner_over_60].freeze
 
     attribute :over_60, :boolean
     attribute :partner, :boolean
@@ -18,6 +20,8 @@ module CheckAnswers
     attribute :dependants, :boolean
     attribute :child_dependants, :integer
     attribute :adult_dependants, :integer
+    attribute :partner_employed, :boolean
+    attribute :partner_over_60, :boolean
 
     class << self
       def from_session(session)
@@ -26,7 +30,11 @@ module CheckAnswers
     end
 
     def display_fields
-      @display_fields ||= FIELDS
+      if partner
+        FIELDS
+      else
+        FIELDS - %i[partner_employed partner_over_60]
+      end
     end
 
     def disputed_asset?(_field)

@@ -139,6 +139,20 @@ RSpec.describe "Applicant Page" do
       click_on "Save and continue"
       expect(page).not_to have_css(".govuk-error-summary__list")
     end
+
+    it "shows me partner details on the check answers screen" do
+      select_applicant_boolean(:over_60, false)
+      select_applicant_boolean(:employed, false)
+      select_applicant_boolean(:passporting, true)
+      select_applicant_boolean(:partner_over_60, true)
+      select_applicant_boolean(:partner_employed, false)
+      click_on "Save and continue"
+      skip_property_form
+      select_boolean_value("vehicle-form", :vehicle_owned, false)
+      click_on "Save and continue"
+      skip_assets_form
+      expect(page).to have_content "Partner is employedNo"
+    end
   end
 
   describe "applicant page flow", :vcr do
