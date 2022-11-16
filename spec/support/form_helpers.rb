@@ -42,8 +42,11 @@ def visit_applicant_page(partner: false)
   click_on "Reject additional cookies"
   select_radio_value("proceeding-type-form", "proceeding-type", "se003")
   click_on "Save and continue"
-  select_boolean_value("partner-form", "partner", partner)
-  click_on "Save and continue"
+
+  if Flipper.enabled?(:partner)
+    select_boolean_value("partner-form", "partner", partner)
+    click_on "Save and continue"
+  end
 end
 
 def visit_applicant_page_with_partner

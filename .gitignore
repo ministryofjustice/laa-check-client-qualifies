@@ -26,3 +26,5 @@ log/
 .env.*
 .env
 !.env.sample
+
+flipper.pstore
