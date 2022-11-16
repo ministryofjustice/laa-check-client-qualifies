@@ -21,6 +21,12 @@ RSpec.describe "Results Page" do
               "gross_income": 123.56,
             },
           },
+          "capital": {
+            "total_capital": 10_000,
+            "pensioner_capital_disregard": 100_000,
+            "subject_matter_of_dispute_disregard": 3_000,
+            "assessed_capital": -97_000,
+          },
         },
         "assessment": {
           "gross_income": {
@@ -74,6 +80,10 @@ RSpec.describe "Results Page" do
 
       it "show eligible" do
         expect(page).to have_content "Your client appears provisionally eligible for legal aid based on the information provided."
+      end
+
+      it "zeroes out the negative assessed capital figure" do
+        expect(page).to have_content "Disposable capital £0.00"
       end
     end
 
