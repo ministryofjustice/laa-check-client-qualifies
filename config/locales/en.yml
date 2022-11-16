@@ -795,6 +795,7 @@ en:
       assessed_capital: Disposable capital
       start_another_check: Start another eligibility check
       print_page: Print this page
+      total_capital: Total capital
       property: Property
       main_home_value: Value
       main_home_mortgage: Outstanding mortgage

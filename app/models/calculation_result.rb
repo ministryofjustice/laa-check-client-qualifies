@@ -66,10 +66,6 @@ class CalculationResult
     monetise(api_response.dig(:result_summary, :capital, :total_capital))
   end
 
-  def assessed_capital
-    monetise(api_response.dig(:result_summary, :capital, :assessed_capital))
-  end
-
   def client_income_rows
     data = {
       employment_income: api_response.dig(:result_summary, :disposable_income, :employment_income, :gross_income),
@@ -170,7 +166,7 @@ class CalculationResult
   def client_capital_subtotal_rows
     data = {
       total_capital: api_response.dig(:result_summary, :capital, :total_capital),
-      total_capital_limit: api_response.dig(:result_summary, :capital, :proceeding_types)&.map { |pt| pt.fetch(:upper_threshold) }&.min,
+      total_capital_limit: api_response.dig(:result_summary, :capital, :proceeding_types).map { |pt| pt.fetch(:upper_threshold) }.min,
       pensioner_capital_disregard: api_response.dig(:result_summary, :capital, :pensioner_capital_disregard),
       smod_disregard: api_response.dig(:result_summary, :capital, :subject_matter_of_dispute_disregard),
     }

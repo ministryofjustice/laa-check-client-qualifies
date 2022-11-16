@@ -3,7 +3,6 @@ require "rails_helper"
 RSpec.describe "Assets Page" do
   let(:assets_header) { "Which of these assets does your client have?" }
   let(:estimate_id) { SecureRandom.uuid }
-#   let(:mock_connection) { instance_double(CfeConnection, create_assessment_id: estimate_id, create_proceeding_type: nil) }
   let(:mock_connection) { instance_double(CfeConnection, create_assessment_id: estimate_id, api_result: CalculationResult.new(FactoryBot.build(:api_result)), create_proceeding_type: nil) }
 
   let(:check_answers_header) { "Check your answers" }

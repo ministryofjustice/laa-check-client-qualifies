@@ -6,8 +6,7 @@ RSpec.describe "Property Page" do
   let(:property_header) { "Does your client own the home they live in?" }
   let(:vehicle_header) { "Does your client own a vehicle?" }
   let(:estimate_id) { SecureRandom.uuid }
-   # let(:mock_connection) { instance_double(CfeConnection, create_assessment_id: estimate_id) }
-  let(:mock_connection) { instance_double(CfeConnection, api_result: CalculationResult.new(FactoryBot.build(:api_result)), create_assessment_id: estimate_id) }
+  let(:mock_connection) { instance_double(CfeConnection, api_result: CalculationResult.new(build(:api_result)), create_assessment_id: estimate_id) }
 
   before do
     allow(CfeConnection).to receive(:connection).and_return(mock_connection)
@@ -65,7 +64,7 @@ RSpec.describe "Property Page" do
       end
 
       it "creates a single property in dispute" do
-        allow(mock_connection).to receive(:api_result).and_return(CalculationResult.new({}))
+        allow(mock_connection).to receive(:api_result).and_return(CalculationResult.new(build(:api_result)))
         expect(mock_connection)
           .to receive(:create_properties)
                 .with(estimate_id, { main_home: { outstanding_mortgage: 50_000,
