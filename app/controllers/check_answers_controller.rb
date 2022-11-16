@@ -31,7 +31,8 @@ private
 
   ANCHOR_EXCEPTIONS = { vehicle_details: :assets,
                         property: :assets,
-                        property_entry: :assets }.freeze
+                        property_entry: :assets,
+                        partner_vehicle_details: :partner_assets }.freeze
 
   def anchor
     "#{ANCHOR_EXCEPTIONS.fetch(step, step)}-section"

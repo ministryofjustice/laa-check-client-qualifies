@@ -715,6 +715,52 @@ en:
         savings: Savings
         investments: Investments
         valuables: Valuables
+      partner_employment: Partner's Employment
+      partner_employment_fields:
+        partner_gross_income: Gross income
+        partner_income_tax: Income tax
+        partner_national_insurance: National Insurance
+        partner_frequency: Frequency
+        partner_frequency_options:
+          total: Total in last 3 months
+          week: Every week
+          two_weeks: Every two weeks
+          four_weeks: Every four weeks
+          monthly: Monthly
+          annually: Annually
+          not_provided: Not provided
+      partner_benefits: Partner's benefits
+      partner_other_income: Partner's other income
+      partner_other_income_fields:
+        partner_friends_or_family_value: Financial help
+        partner_maintenance_value: Maintenance payments from a former partner
+        partner_property_or_lodger_value: Income from a property or lodger
+        partner_pension_value: Pension
+        partner_student_finance_value: Student finance
+        partner_other_value: Other sources
+      partner_outgoings: Your client's partner's outgoings
+      partner_outgoings_fields:
+        partner_housing_payments_value: Housing payments
+        partner_childcare_payments_value: Childcare payments
+        partner_maintenance_payments_value: Maintenance payments
+        partner_legal_aid_payments_value: Legal aid payments
+      partner_assets: Your client's partner's assets
+      partner_vehicles: Client's partner's vehicle
+      partner_vehicles_fields:
+        partner_vehicle_owned: Owns a vehicle
+        partner_vehicle_value: Estimated value
+        partner_vehicle_in_regular_use: In regular use
+        partner_vehicle_over_3_years_ago: Bought over 3 years ago
+        partner_vehicle_pcp: Outstanding finance on vehicle?
+        partner_vehicle_finance: Payments left on vehicle
+      partner_other: Client's partner's other assets
+      partner_other_fields:
+        partner_property_value: "Second property or holiday home: value"
+        partner_property_mortgage: "Second property or holiday home: outstanding mortgage"
+        partner_property_percentage_owned_html: "Second property or holiday home: &#37; owned"
+        partner_savings: Savings
+        partner_investments: Investments
+        partner_valuables: Valuables
       frequency_options:
         every_week: Every week
         every_two_weeks: Every two weeks

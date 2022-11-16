@@ -104,4 +104,19 @@ RSpec.describe "Check answers page" do
       expect(page).not_to have_content benefits_subsection_header
     end
   end
+
+  context "when I have a partner" do
+    before do
+      visit_check_answer_with_partner
+    end
+
+    scenario "I should see partner content" do
+      expect(page).to have_content "Partner's Employment"
+      expect(page).to have_content "Partner's other income"
+      expect(page).to have_content "Partner's benefits"
+      expect(page).to have_content "Your client's partner's outgoings"
+      expect(page).to have_content "Your client's partner's assets"
+      expect(page).to have_content "Client's partner's vehicle"
+    end
+  end
 end

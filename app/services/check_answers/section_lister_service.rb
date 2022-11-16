@@ -4,7 +4,7 @@ module CheckAnswers
     Subsection = Struct.new(:label, :screen, :fields, keyword_init: true)
     Field = Struct.new(:label, :type, :value, :screen, :alt_value, :id, :disputed?, keyword_init: true)
 
-    SUBSECTION_SPECIAL_CASES = %i[benefits].freeze
+    SUBSECTION_SPECIAL_CASES = %i[benefits partner_benefits].freeze
 
     def self.call(session_data)
       new(session_data).call
@@ -59,7 +59,8 @@ module CheckAnswers
     end
 
     def build_field(section, field_data, label_set, parent_screen)
-      return unless StepsHelper.valid_step?(@model, (field_data[:screen] || parent_screen).to_sym)
+      return unless StepsHelper.valid_step?(@model, (field_data[:screen] || field_data[:related_screen] || parent_screen).to_sym)
+      return if field_data[:skip_unless].present? && !@session_data[field_data[:skip_unless]]
 
       value = if section.present?
                 section.public_send field_data.fetch(:attribute).to_sym
@@ -79,21 +80,25 @@ module CheckAnswers
                 alt_value: @session_data[field_data[:alt_attribute]])
     end
 
-    def benefits_fields
+    def benefits_fields(session_key: "benefits", field_type: "benefit")
       return [] unless StepsHelper.valid_step?(@model, :benefits)
 
-      if @session_data["benefits"].blank?
+      if @session_data[session_key].blank?
         return [Field.new(label: I18n.t("generic.not_applicable"),
-                          type: "benefit")]
+                          type: field_type)]
       end
 
-      @session_data["benefits"].map do |benefit|
+      @session_data[session_key].map do |benefit|
         Field.new(label: benefit["benefit_type"],
-                  type: "benefit",
+                  type: field_type,
                   value: benefit["benefit_amount"],
                   alt_value: benefit["benefit_frequency"],
                   id: benefit["id"])
       end
+    end
+
+    def partner_benefits_fields
+      benefits_fields(session_key: "partner_benefits", field_type: "benefit")
     end
   end
 end

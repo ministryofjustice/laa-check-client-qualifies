@@ -160,3 +160,93 @@ sections:
             type: money
           - attribute: valuables
             type: money
+  - label: partner_employment
+    screen: partner_employment
+    subsections:
+      - fields:
+        - attribute: partner_frequency
+          type: select
+        - attribute: partner_gross_income
+          type: money
+        - attribute: partner_income_tax
+          type: money
+        - attribute: partner_national_insurance
+          type: money
+  - label: partner_other_income
+    subsections:
+      - label: partner_benefits
+        screen: partner_benefits
+      - label: partner_other_income
+        screen: partner_other_income
+        fields:
+          - attribute: partner_friends_or_family_value
+            type: money_with_frequency
+            alt_attribute: partner_friends_or_family_frequency
+          - attribute: partner_maintenance_value
+            type: money_with_frequency
+            alt_attribute: partner_maintenance_frequency
+          - attribute: partner_property_or_lodger_value
+            type: money_with_frequency
+            alt_attribute: partner_property_or_lodger_frequency
+          - attribute: partner_pension_value
+            type: money_with_frequency
+            alt_attribute: partner_pension_frequency
+          - attribute: partner_student_finance_value
+            type: money
+          - attribute: partner_other_value
+            type: money
+  - label: partner_outgoings
+    screen: partner_outgoings
+    subsections:
+      - fields:
+          - attribute: partner_housing_payments_value
+            type: money_with_frequency
+            alt_attribute: partner_housing_payments_frequency
+          - attribute: partner_childcare_payments_value
+            type: money_with_frequency
+            alt_attribute: partner_childcare_payments_frequency
+          - attribute: partner_maintenance_payments_value
+            type: money_with_frequency
+            alt_attribute: partner_maintenance_payments_frequency
+          - attribute: partner_legal_aid_payments_value
+            type: money_with_frequency
+            alt_attribute: partner_legal_aid_payments_frequency
+  - label: partner_assets
+    subsections:
+      - label: partner_vehicles
+        screen: partner_vehicle
+        fields:
+          - type: boolean
+            attribute: partner_vehicle_owned
+          - type: money
+            attribute: partner_vehicle_value
+            related_screen: partner_vehicle_details
+          - type: boolean
+            attribute: partner_vehicle_in_regular_use
+            related_screen: partner_vehicle_details
+          - type: boolean
+            attribute: partner_vehicle_over_3_years_ago
+            related_screen: partner_vehicle_details
+          - type: boolean
+            attribute: partner_vehicle_pcp
+            related_screen: partner_vehicle_details
+          - type: money
+            attribute: partner_vehicle_finance
+            related_screen: partner_vehicle_details
+            skip_unless: partner_vehicle_pcp
+      - label: partner_other
+        screen: partner_assets
+        fields:
+          - attribute: partner_property_value
+            type: money
+          - attribute: partner_property_mortgage
+            type: money
+          - attribute: partner_property_percentage_owned
+            label: partner_property_percentage_owned_html
+            type: number
+          - attribute: partner_savings
+            type: money
+          - attribute: partner_investments
+            type: money
+          - attribute: partner_valuables
+            type: money
