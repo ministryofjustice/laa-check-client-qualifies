@@ -96,7 +96,7 @@ class CalculationResult
   end
 
   def main_home
-    capital_items(:properties).dig(:main_home)
+    capital_items(:properties)[:main_home]
   end
 
   def main_home_value
