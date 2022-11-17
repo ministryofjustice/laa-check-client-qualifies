@@ -44,7 +44,7 @@ RSpec.describe CfeConnection do
     let(:payload) { { test: :payload } }
     let(:assessment_id) { "assessment_id" }
     let!(:stub) do
-      stub_request(:post, "#{root_url}/#{assessment_id}/partner").with(
+      stub_request(:post, "#{root_url}/#{assessment_id}/partner_financials").with(
         body: payload.to_json,
       ).to_return(status: 200)
     end

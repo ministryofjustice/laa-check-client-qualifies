@@ -67,7 +67,7 @@ class CfeConnection
   end
 
   def create_partner(assessment_id, partner_params)
-    create_record(assessment_id, "partner", partner_params)
+    create_record(assessment_id, "partner_financials", partner_params)
   end
 
   def api_result(assessment_id)
