@@ -82,7 +82,8 @@ RSpec.describe "Applicant Page" do
       it "sets age to 70" do
         expect(mock_connection).to receive(:create_applicant)
                                      .with(estimate_id, date_of_birth:,
-                                                        receives_qualifying_benefit: true)
+                                                        receives_qualifying_benefit: true,
+                                                        employed: false)
 
         click_on "Submit"
       end
@@ -95,7 +96,8 @@ RSpec.describe "Applicant Page" do
       it "sets age to 50" do
         expect(mock_connection).to receive(:create_applicant)
                                      .with(estimate_id, date_of_birth:,
-                                                        receives_qualifying_benefit: true)
+                                                        receives_qualifying_benefit: true,
+                                                        employed: false)
         click_on "Submit"
       end
     end
