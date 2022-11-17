@@ -25,11 +25,12 @@ class CfeConnection
     create_record(assessment_id, "proceeding_types", proceeding_types:)
   end
 
-  def create_applicant(assessment_id, date_of_birth:, receives_qualifying_benefit:)
+  def create_applicant(assessment_id, date_of_birth:, receives_qualifying_benefit:, employed:)
     applicant = {
       date_of_birth:,
       has_partner_opponent: false,
       receives_qualifying_benefit:,
+      employed:,
     }
     create_record(assessment_id, "applicant", applicant:)
   end

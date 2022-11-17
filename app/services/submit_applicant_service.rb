@@ -8,6 +8,7 @@ class SubmitApplicantService < BaseCfeService
 
     cfe_connection.create_applicant cfe_estimate_id,
                                     date_of_birth: estimate.over_60 ? 70.years.ago.to_date : 50.years.ago.to_date,
-                                    receives_qualifying_benefit: estimate.passporting
+                                    receives_qualifying_benefit: estimate.passporting,
+                                    employed: estimate.employed
   end
 end

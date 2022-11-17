@@ -50,12 +50,7 @@ class CalculationResult
   end
 
   def assessed_capital
-    # If the pensioner_capital_disregard is applied, it is applied by CFE in full even when the disregard is
-    # greater than the client's total capital value. This can lead to the CFE 'assessed capital' figure
-    # being a negative number, which is unsuitable for display to the end user.
-    # Therefore we must correct the CFE result to display a zero if it comes back negative.
-    cfe_result = api_response.dig(:result_summary, :capital, :assessed_capital)
-    monetise([cfe_result, 0].compact.max)
+    monetise(api_response.dig(:result_summary, :capital, :assessed_capital))
   end
 
   def client_income_rows
