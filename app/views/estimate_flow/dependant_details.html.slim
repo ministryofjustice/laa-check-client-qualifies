@@ -10,21 +10,17 @@
 
     = form.govuk_error_summary t("generic.error_summary_title")
 
+    h2.govuk-heading-m class="govuk-!-margin-bottom-2" = t(".child_dependants.label")
+    .govuk-hint = t(@estimate.partner ? ".child_dependants.hint_with_partner" : ".child_dependants.hint")
     = form.govuk_number_field :child_dependants,
                               width: 5,
-                              label: { text: t(".child_dependants.label"), tag: "h2", size: "m" },
-                              hint: lambda { \
-                                      tag.div(t(@estimate.partner ? ".child_dependants.hint_with_partner" : ".child_dependants.hint"),
-                                              class: "govuk-hint") + \
-                                      tag.p(t(".child_dependants.instruction")) \
-                                    }
+                              label: { text: t(".child_dependants.instruction") }
+
+    h2.govuk-heading-m class="govuk-!-margin-bottom-2" = t(".adult_dependants.label")
+    .govuk-hint = t(".adult_dependants.hint")
     = form.govuk_number_field :adult_dependants,
                               width: 5,
-                              label: { text: t(".adult_dependants.label"), tag: "h2", size: "m" },
-                              hint: lambda { \
-                                      tag.div(t(".adult_dependants.hint"), class: "govuk-hint") + \
-                                      tag.p(t(".adult_dependants.instruction")) \
-                                    }
+                              label: { text: t(".adult_dependants.instruction") }
 
     = form.govuk_submit t("generic.save_and_continue")
 

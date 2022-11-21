@@ -53,8 +53,8 @@ RSpec.describe "Dependants" do
       select_boolean_value("dependants-form", :dependants, true)
       click_on "Save and continue"
       expect(page).to have_content "Tell us about your client's dependants"
-      fill_in "Adult dependants", with: "1"
-      fill_in "Child dependants", with: "2"
+      fill_in "Enter number of adult dependants", with: "1"
+      fill_in "Enter number of child dependants", with: "2"
       click_on "Save and continue"
 
       expect(mock_connection).to receive(:create_dependants) do |_estimate_id, params|
