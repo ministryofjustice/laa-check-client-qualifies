@@ -183,7 +183,7 @@ RSpec.describe "Results Page" do
         expect(page).to have_content "Student finance £50.00"
         expect(page).to have_content "Other sources £111.00"
         expect(page).to have_content "Total gross monthly income £1,801.00"
-        expect(page).to have_content "Total gross income limit £2,657.00"
+        expect(page).to have_content "Total gross income upper limit £2,657.00"
       end
     end
 
@@ -193,33 +193,150 @@ RSpec.describe "Results Page" do
         expect(page).to have_content "Childcare payments £0.00"
         expect(page).to have_content "Maintenance payments to a former partner £0.00"
         expect(page).to have_content "Payments towards legal aid in a criminal case £0.00"
-        expect(page).to have_content "Income Tax £400.00"
+        expect(page).to have_content "Income tax £400.00"
         expect(page).to have_content "National Insurance £50.00"
         expect(page).to have_content "Employment expenses £45.00"
         expect(page).to have_content "Dependants allowance £307.64"
 
         expect(page).to have_content "Total gross monthly outgoings £1,102.64"
         expect(page).to have_content "Assessed disposable monthly income £698.36"
-        expect(page).to have_content "Disposable monthly income limit £733.00"
+        expect(page).to have_content "Disposable monthly income upper limit £733.00"
       end
     end
 
     it "shows the capital section" do
       within "#capital-calculation-content" do
         expect(page).to have_content "Property Value £100,000.00"
-        expect(page).to have_content "Outstanding mortgage - £80,000.00"
-        expect(page).to have_content "Disregards and deductions - £100,000.00"
-        expect(page).to have_content "Amount included in calculation £0.00"
+        expect(page).to have_content "Outstanding mortgage £80,000.00"
+        expect(page).to have_content "Disregards and deductions £100,000.00"
+        expect(page).to have_content "Assessed value £0.00"
         expect(page).to have_content "Vehicles Value £18,000.00"
         expect(page).to have_content "Outstanding payments £500.00"
-        expect(page).to have_content "Amount included in calculation £0.00"
+        expect(page).to have_content "Assessed value £2,500.00"
         expect(page).to have_content "Additional property Value £80,000.00"
-        expect(page).to have_content "Outstanding mortgage - £70,000.00"
-        expect(page).to have_content "Amount included in calculation £3,800.00"
+        expect(page).to have_content "Outstanding mortgage £70,000.00"
+        expect(page).to have_content "Assessed value £3,800.00"
         expect(page).to have_content "Savings £200.00"
-        expect(page).to have_content "Investments £400.00"
-        expect(page).to have_content "Valuable items worth £500 or more £600.00"
+        expect(page).to have_content "Investments and valuables £1,000.00"
         expect(page).to have_content "Total capital £7,500.00"
+      end
+    end
+  end
+
+  describe "Partner sections accordions", :vcr do
+    let(:arbitrary_fixed_time) { Time.zone.local(2022, 10, 17, 9, 0, 0) }
+
+    enable_partner_screens
+
+    before do
+      travel_to arbitrary_fixed_time
+
+      visit_applicant_page(partner: true)
+      select_applicant_boolean(:over_60, false)
+      select_applicant_boolean(:employed, false)
+      select_applicant_boolean(:passporting, false)
+      select_applicant_boolean(:partner_over_60, false)
+      select_applicant_boolean(:partner_employed, true)
+      click_on "Save and continue"
+
+      select_boolean_value("dependants-form", :dependants, false)
+      click_on("Save and continue")
+
+      select_boolean_value("benefits-form", :add_benefit, false)
+      click_on("Save and continue")
+
+      fill_in "other-income-form-friends-or-family-value-field", with: "0"
+      fill_in "other-income-form-maintenance-value-field", with: "0"
+      fill_in "other-income-form-property-or-lodger-value-field", with: "0"
+      fill_in "other-income-form-pension-value-field", with: "0"
+      fill_in "other-income-form-student-finance-value-field", with: "0"
+      fill_in "other-income-form-other-value-field", with: "0"
+      click_on "Save and continue"
+
+      fill_in "outgoings-form-housing-payments-value-field", with: "0"
+      find(:css, "#outgoings-form-housing-payments-frequency-monthly-field").click
+      fill_in "outgoings-form-childcare-payments-value-field", with: "0"
+      fill_in "outgoings-form-legal-aid-payments-value-field", with: "0"
+      fill_in "outgoings-form-maintenance-payments-value-field", with: "0"
+      click_on "Save and continue"
+
+      select_radio_value("property-form", "property-owned", "none")
+      click_on "Save and continue"
+
+      select_boolean_value("vehicle-form", :vehicle_owned, false)
+      click_on "Save and continue"
+
+      fill_in "client-assets-form-property-value-field", with: "0"
+      fill_in "client-assets-form-savings-field", with: "0"
+      fill_in "client-assets-form-investments-field", with: "0"
+      fill_in "client-assets-form-valuables-field", with: "0"
+      click_on "Save and continue"
+
+      fill_in "partner-employment-form-gross-income-field", with: 1000
+      fill_in "partner-employment-form-income-tax-field", with: 400
+      fill_in "partner-employment-form-national-insurance-field", with: 50
+      select_radio_value("partner-employment-form", "frequency", "monthly")
+      click_on "Save and continue"
+
+      select_boolean_value("partner-benefits-form", :add_benefit, false)
+      click_on("Save and continue")
+
+      fill_in "partner-other-income-form-friends-or-family-value-field", with: "100"
+      select_radio_value("partner-other-income-form", "friends-or-family-frequency", "monthly")
+      fill_in "partner-other-income-form-maintenance-value-field", with: "200"
+      select_radio_value("partner-other-income-form", "maintenance-frequency", "monthly")
+      fill_in "partner-other-income-form-property-or-lodger-value-field", with: "300"
+      select_radio_value("partner-other-income-form", "property-or-lodger-frequency", "monthly")
+      fill_in "partner-other-income-form-pension-value-field", with: "40"
+      select_radio_value("partner-other-income-form", "pension-frequency", "monthly")
+      fill_in "partner-other-income-form-student-finance-value-field", with: "600"
+      fill_in "partner-other-income-form-other-value-field", with: "333"
+      click_on "Save and continue"
+
+      fill_in "partner-outgoings-form-housing-payments-value-field", with: "300"
+      find(:css, "#partner-outgoings-form-housing-payments-frequency-monthly-field").click
+      fill_in "partner-outgoings-form-childcare-payments-value-field", with: "0"
+      fill_in "partner-outgoings-form-legal-aid-payments-value-field", with: "0"
+      fill_in "partner-outgoings-form-maintenance-payments-value-field", with: "0"
+      click_on "Save and continue"
+
+      select_boolean_value("partner-vehicle-form", :vehicle_owned, true)
+      click_on "Save and continue"
+      fill_in "partner-vehicle-details-form-vehicle-value-field", with: 18_000
+      select_boolean_value("partner-vehicle-details-form", :vehicle_in_regular_use, true)
+      select_boolean_value("partner-vehicle-details-form", :vehicle_over_3_years_ago, false)
+      select_boolean_value("partner-vehicle-details-form", :vehicle_pcp, true)
+      fill_in "partner-vehicle-details-form-vehicle-finance-field", with: 500
+      click_on "Save and continue"
+
+      fill_in "partner-assets-form-property-value-field", with: "80_000"
+      fill_in "partner-assets-form-property-mortgage-field", with: "70_000"
+      fill_in "partner-assets-form-property-percentage-owned-field", with: "50"
+
+      fill_in "partner-assets-form-savings-field", with: "200"
+      fill_in "partner-assets-form-investments-field", with: "400"
+      fill_in "partner-assets-form-valuables-field", with: "600"
+      click_on "Save and continue"
+
+      click_on "Submit"
+    end
+
+    it "shows client income section" do
+      within "#income-calculation-content" do
+        expect(page).to have_content "Partner's income Employment income £1,000.00"
+        expect(page).to have_content "Total gross monthly income £1,801.00"
+      end
+    end
+
+    it "shows the outgoings section" do
+      within "#outgoings-calculation-content" do
+        expect(page).to have_content "Partner's outgoings Housing payments"
+      end
+    end
+
+    it "shows the capital section" do
+      within "#capital-calculation-content" do
+        expect(page).to have_content "Partner's additional property Value £80,000.00"
       end
     end
   end

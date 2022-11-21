@@ -799,6 +799,7 @@ en:
       how_calculated: How we calculated your client's financial eligibility estimate
       income_calculation: Income calculation
       client_income: Client's income
+      partner_income: Partner's income
       client_income_types:
         employment_income: Employment income
         benefits: Benefits received
@@ -810,6 +811,7 @@ en:
         other: Other sources
       outgoings_calculation: Outgoings calculation
       client_outgoings: Client's outgoings
+      partner_outgoings: Partner's outgoings
       client_outgoing_types:
         housing_costs: Housing payments
         childcare_payments: Childcare payments
@@ -817,44 +819,52 @@ en:
         legal_aid: Payments towards legal aid in a criminal case
         national_insurance: National Insurance
         employment_expenses: Employment expenses
-        income_tax: Income Tax
-        dependents_allowance: Dependants allowance
+        income_tax: Income tax
+        dependants_allowance: Dependants allowance
+        partner_allowance: Partner allowance
       capital_calculation: Capital calculation
       client_capital: Client's capital
       client_capital_types:
         property: Property
         vehicles: Vehicles
-        second_property: Second property
-        savings: Savings
-        investments: Investments
-        valuables: Valuable items worth £500 or more
+        liquid: Savings
+        non_liquid: Investments and valuables
       client_capital_subtotal_types:
         total_capital: Total capital
-        total_capital_limit: Disposable capital limit
         pensioner_capital_disregard: Pensioner disregard
         smod_disregard: Disputed asset disregard
       gross_monthly_income: Total gross monthly income
-      gross_income_limit: Total gross income limit
+      gross_income_upper_threshold: Total gross income upper limit
       gross_monthly_outgoings: Total gross monthly outgoings
       disposable_monthly_income: Assessed disposable monthly income
-      disposable_income_limit: Disposable monthly income limit
-      assessed_capital: Disposable capital
+      disposable_income_upper_threshold: Disposable monthly income upper limit
+      client_assessed_capital: Disposable capital
+      partner_assessed_capital: Disposable capital
       start_another_check: Start another eligibility check
       print_page: Print this page
       total_capital: Total capital
       property: Property
       main_home_value: Value
       main_home_mortgage: Outstanding mortgage
-      disregards_deductions: Disregards and deductions
+      vehicle_disregards: Disregards and deductions
+      main_home_disregard: Disregards and deductions
+      main_home_equity: Assessed value
       assessed_value: Amount included in calculation
-      disposable_capital: Disposable capital
+      client_disposable_capital: Client's disposable capital
+      partner_disposable_capital: Partner's disposable capital
       vehicles: Vehicles
+      partner_vehicles: Partner's vehicles
       vehicle_value: Value
       vehicle_outstanding_payments: Outstanding payments
+      vehicle_assessed_value: Assessed value
       total_assessed_capital: Total assessed capital
       additional_property: Additional property
+      partner_additional_property: Partner's additional property
       additional_property_value: Value
       additional_property_mortgage: Outstanding mortgage
+      additional_property_equity: Assessed value
+      capital_upper_threshold: Disposable capital upper limit
+      total: Total
     print:
       date: "Date:"
       legal_aid: Legal Aid
