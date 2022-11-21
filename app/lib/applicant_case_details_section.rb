@@ -7,9 +7,10 @@ class ApplicantCaseDetailsSection
     def steps_for(estimate)
       steps = [
         [:case_details],
-        [:partner],
+        ([:partner] if Flipper.enabled?(:partner)),
         [:applicant],
-      ]
+      ].compact
+
       unless estimate.passporting
         steps <<
           [
