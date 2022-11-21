@@ -3,6 +3,12 @@ require "rails_helper"
 RSpec.describe "Partner benefits" do
   let(:estimate_id) { SecureRandom.uuid }
 
+  around do |example|
+    Flipper.enable(:partner)
+    example.run
+    Flipper.disable(:partner)
+  end
+
   before do
     visit estimate_build_estimate_path(estimate_id, :partner)
     select_boolean_value("partner-form", "partner", true)
