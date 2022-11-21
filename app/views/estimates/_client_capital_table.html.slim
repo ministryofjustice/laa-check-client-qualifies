@@ -1,6 +1,53 @@
-= govuk_table do |table|
-  - table.caption(size: caption_size, text: t("estimates.show.client_capital"))
+- if @model.main_home
+  = govuk_table do |table|
+    - table.caption(size: caption_size, text: t("estimates.show.property"))
+    - table.body do |body|
+      - body.row do |row|
+        - row.cell(header: true, text: t("estimates.show.main_home_value"))
+        - row.cell(text: @model.main_home_value, numeric: true)
+      - body.row do |row|
+        - row.cell(header: true, text: t("estimates.show.main_home_mortgage"))
+        - row.cell(text: "- #{@model.main_home_mortgage}", numeric: true)
+      - body.row do |row|
+        - row.cell(header: true, text: t("estimates.show.disregards_deductions"))
+        - row.cell(text: "- #{@model.main_home_disregard}", numeric: true)
+      - body.row do |row|
+        - row.cell(header: true, text: t("estimates.show.assessed_value"))
+        - row.cell(text: @model.main_home_equity, numeric: true)
 
+- if @model.additional_property.any?
+  = govuk_table do |table|
+    - table.caption(size: caption_size, text: t("estimates.show.additional_property"))
+    - table.body do |body|
+      - body.row do |row|
+        - row.cell(header: true, text: t("estimates.show.additional_property_value"))
+        - row.cell(text: @model.additional_property_value, numeric: true)
+      - body.row do |row|
+        - row.cell(header: true, text: t("estimates.show.additional_property_mortgage"))
+        - row.cell(text: "- #{@model.additional_property_mortgage}", numeric: true)
+      - body.row do |row|
+        - row.cell(header: true, text: t("estimates.show.assessed_value"))
+        - row.cell(text: @model.additional_property_equity, numeric: true)
+
+- if @model.vehicle_owned?
+  = govuk_table do |table|
+    - table.caption(size: caption_size, text: t("estimates.show.vehicles"))
+    - table.body do |body|
+      - body.row do |row|
+        - row.cell(header: true, text: t("estimates.show.vehicle_value"))
+        - row.cell(text: @model.vehicle_value, numeric: true)
+      - body.row do |row|
+        - row.cell(header: true, text: t("estimates.show.vehicle_outstanding_payments"))
+        - row.cell(text: @model.vehicle_outstanding_payments, numeric: true)
+      - body.row do |row|
+        - row.cell(header: true, text: t("estimates.show.disregards_deductions"))
+        - row.cell(text: @model.vehicle_disregards, numeric: true)
+      - body.row do |row|
+        - row.cell(header: true, text: t("estimates.show.assessed_value"))
+        - row.cell(text: @model.vehicle_assessed_value, numeric: true)
+
+= govuk_table do |table|
+  - table.caption(size: caption_size, text: t("estimates.show.disposable_capital"))
   - table.body do |body|
     - @model.client_capital_rows.each do |type, amount|
       - body.row do |row|
@@ -19,3 +66,12 @@
     - body.row(classes: %w[solid-bottom-border]) do |row|
       - row.cell(header: true, text: t("estimates.show.assessed_capital"))
       - row.cell(text: @model.assessed_capital, numeric: true)
+
+= govuk_table do |table|
+  - table.body do |body|
+    - body.row(classes: %w[solid-top-border]) do |row|
+      - row.cell(header: true, text: t("estimates.show.total_capital"))
+      - row.cell(text: @model.total_capital, numeric: true)
+    - body.row(classes: %w[solid-bottom-border]) do |row|
+      - row.cell(header: true, text: t("estimates.show.total_assessed_capital"))
+      - row.cell(text: @model.total_assessed_capital, numeric: true)

@@ -13,7 +13,7 @@ RSpec.describe "Dependants" do
                     create_applicant: nil,
                     api_result: calculation_result)
   end
-  let(:calculation_result) { CalculationResult.new({}) }
+  let(:calculation_result) { CalculationResult.new(FactoryBot.build(:api_result)) }
   let(:arbitrary_fixed_time) { Time.zone.local(2022, 10, 17, 9, 0, 0) }
 
   before do

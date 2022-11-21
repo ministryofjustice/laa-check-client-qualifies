@@ -8,7 +8,7 @@ RSpec.describe "Vehicle Page" do
   let(:mock_connection) do
     instance_double(
       CfeConnection,
-      api_result: CalculationResult.new({}),
+      api_result: CalculationResult.new(FactoryBot.build(:api_result)),
       create_assessment_id: estimate_id,
       create_proceeding_type: nil,
       create_applicant: nil,
