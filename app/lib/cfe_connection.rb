@@ -58,12 +58,16 @@ class CfeConnection
     create_record(assessment_id, "properties", properties:)
   end
 
-  def create_capitals(assessment_id, bank_accounts, non_liquid_capital)
-    create_record(assessment_id, "capitals", bank_accounts:, non_liquid_capital:)
+  def create_capitals(assessment_id, capital_params)
+    create_record(assessment_id, "capitals", capital_params)
   end
 
-  def create_vehicle(assessment_id, vehicles)
+  def create_vehicle(assessment_id, vehicles:)
     create_record(assessment_id, "vehicles", vehicles:)
+  end
+
+  def create_partner(assessment_id, partner_params)
+    create_record(assessment_id, "partner_financials", partner_params)
   end
 
   def api_result(assessment_id)

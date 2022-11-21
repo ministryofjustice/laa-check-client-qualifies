@@ -135,7 +135,7 @@ RSpec.describe "Vehicle Page" do
       it "uses 4 years old" do
         expect(mock_connection).to receive(:create_vehicle)
           .with(estimate_id,
-                [
+                vehicles: [
                   {
                     date_of_purchase: 4.years.ago.to_date,
                     in_regular_use: true,
@@ -157,7 +157,7 @@ RSpec.describe "Vehicle Page" do
       it "uses 2 years old" do
         expect(mock_connection).to receive(:create_vehicle)
           .with(estimate_id,
-                [
+                vehicles: [
                   {
                     date_of_purchase: 2.years.ago.to_date,
                     in_regular_use: true,
