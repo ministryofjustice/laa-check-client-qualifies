@@ -20,4 +20,8 @@ private
   def model_class
     PartnerBenefitModel
   end
+
+  def anchor
+    "partner_other_income-section"
+  end
 end

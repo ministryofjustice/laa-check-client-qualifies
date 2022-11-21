@@ -14,11 +14,15 @@ private
     if next_step.present?
       flow_path next_step
     else
-      check_answers_estimate_path estimate_id, anchor: "other_income-section"
+      check_answers_estimate_path estimate_id, anchor:
     end
   end
 
   def post_destroy_path
     flow_path(:benefits)
+  end
+
+  def anchor
+    "other_income-section"
   end
 end
