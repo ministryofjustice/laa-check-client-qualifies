@@ -1,10 +1,11 @@
 class DependantDetailsForm
   include ActiveModel::Model
   include ActiveModel::Attributes
+  include SessionPersistable
 
-  DEPENDANT_ATTRIBUTES = %i[adult_dependants child_dependants].freeze
+  ATTRIBUTES = %i[adult_dependants child_dependants].freeze
 
-  DEPENDANT_ATTRIBUTES.each do |attr|
+  ATTRIBUTES.each do |attr|
     attribute attr, :integer
     validates attr, presence: true
   end

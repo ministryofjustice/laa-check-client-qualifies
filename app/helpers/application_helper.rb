@@ -40,17 +40,6 @@ module ApplicationHelper
     number_to_currency(number, unit: "£", separator: ".", delimiter: ",", precision: 2)
   end
 
-  def variable_controller_benefit_path(action: nil, id: nil)
-    prefix = "#{action}_" if action
-    controller = controller_name == "check_answers" ? "check_benefits_answer" : "benefit"
-
-    if id
-      send("#{prefix}estimate_#{controller}_path", params[:estimate_id], id)
-    else
-      send("#{prefix}estimate_#{controller}s_path", params[:estimate_id])
-    end
-  end
-
   def flow_path(estimate_id, step, check_answers: false)
     if check_answers
       estimate_check_answer_path(estimate_id, step)

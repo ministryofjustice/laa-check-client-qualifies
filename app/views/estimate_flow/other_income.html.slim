@@ -5,38 +5,5 @@
   span.govuk-caption-l = t(".caption")
   h1.govuk-heading-xl class="govuk-!-margin-bottom-2" = t(".heading")
   span.govuk-caption-m class="govuk-!-margin-bottom-9" = t(".second_caption")
-  = form_for(@form, url: wizard_path, method: :put) do |form|
-    = form.govuk_error_summary t("generic.error_summary_title")
-
-    - OtherIncomeForm::REGULAR_INCOME_TYPES.each do |type|
-      h2.govuk-heading-m class="govuk-!-margin-top-9 govuk-!-margin-bottom-2"
-        = t(".#{type}.label")
-      span.govuk-caption-m class="govuk-!-margin-bottom-4"
-        = t(".#{type}.hint")
-
-      = render "shared/money_input",
-             form:,
-             field: :"#{type}_value",
-             width: 10,
-             label_text: t(".#{type}.instruction")
-
-      = form.govuk_collection_radio_buttons :"#{type}_frequency",
-                                            OtherIncomeForm::VALID_FREQUENCIES.map { [_1, t(".frequencies.#{_1}")] },
-                                            :first,
-                                            :last,
-                                            legend: -> { tag.p(t(".enter_frequency")) }
-
-    - OtherIncomeForm::IRREGULAR_INCOME_TYPES.each do |type|
-      h2.govuk-heading-m class="govuk-!-margin-top-9 govuk-!-margin-bottom-2"
-        = t(".#{type}.label")
-      span.govuk-caption-m class="govuk-!-margin-bottom-4"
-        = t(".#{type}.hint")
-
-      = render "shared/money_input",
-             form:,
-             field: :"#{type}_value",
-             width: 10,
-             label_text: t(".#{type}.instruction")
-
-    = form.govuk_submit t("generic.save_and_continue")
+  = render "estimate_flow/forms/other_income", i18n_key: "other_income"
 = render "shared/sidebar_with_date", links: []

@@ -17,11 +17,11 @@ RSpec.describe "Vehicle Page", :vcr do
     end
 
     it "handles a full submit to CFE" do
-      fill_in "vehicle-details-form-vehicle-value-field", with: 18_000
-      select_boolean_value("vehicle-details-form", :vehicle_in_regular_use, true)
-      select_boolean_value("vehicle-details-form", :vehicle_over_3_years_ago, false)
-      select_boolean_value("vehicle-details-form", :vehicle_pcp, true)
-      fill_in "vehicle-details-form-vehicle-finance-field", with: 500
+      fill_in "client-vehicle-details-form-vehicle-value-field", with: 18_000
+      select_boolean_value("client-vehicle-details-form", :vehicle_in_regular_use, true)
+      select_boolean_value("client-vehicle-details-form", :vehicle_over_3_years_ago, false)
+      select_boolean_value("client-vehicle-details-form", :vehicle_pcp, true)
+      fill_in "client-vehicle-details-form-vehicle-finance-field", with: 500
       click_on "Save and continue"
 
       expect(page).to have_content assets_header

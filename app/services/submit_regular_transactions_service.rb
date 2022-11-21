@@ -25,8 +25,8 @@ class SubmitRegularTransactionsService < BaseCfeService
   }.freeze
 
   def call(cfe_estimate_id, cfe_session_data)
-    outgoings_form = Flow::OutgoingsHandler.model(cfe_session_data)
-    income_form = Flow::OtherIncomeHandler.model(cfe_session_data)
+    outgoings_form = OutgoingsForm.from_session(cfe_session_data)
+    income_form = OtherIncomeForm.from_session(cfe_session_data)
 
     income = build_payments(CFE_INCOME_TRANSLATIONS, income_form, :credit)
 

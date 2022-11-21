@@ -1,6 +1,9 @@
 class PropertyForm
   include ActiveModel::Model
   include ActiveModel::Attributes
+  include SessionPersistable
+
+  ATTRIBUTES = %i[property_owned].freeze
 
   OWNED_OPTIONS = %i[outright with_mortgage none].freeze
 

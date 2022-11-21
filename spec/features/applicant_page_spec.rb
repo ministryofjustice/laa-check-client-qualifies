@@ -151,6 +151,9 @@ RSpec.describe "Applicant Page" do
       select_boolean_value("vehicle-form", :vehicle_owned, false)
       click_on "Save and continue"
       skip_assets_form
+      select_boolean_value("partner-vehicle-form", :vehicle_owned, false)
+      click_on "Save and continue"
+      skip_assets_form(subject: :partner)
       expect(page).to have_content "Partner is employedNo"
     end
   end

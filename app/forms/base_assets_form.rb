@@ -1,10 +1,11 @@
-class AssetsForm
+class BaseAssetsForm
   include ActiveModel::Model
   include ActiveModel::Attributes
+  include SessionPersistable
 
   ASSETS_DECIMAL_ATTRIBUTES = %i[savings investments valuables].freeze
   ASSETS_PROPERTY_ATTRIBUTES = %i[property_value property_mortgage].freeze
-  ASSETS_ATTRIBUTES = (ASSETS_DECIMAL_ATTRIBUTES + ASSETS_PROPERTY_ATTRIBUTES + %i[property_percentage_owned]).freeze
+  BASE_ATTRIBUTES = (ASSETS_DECIMAL_ATTRIBUTES + ASSETS_PROPERTY_ATTRIBUTES + [:property_percentage_owned]).freeze
 
   ASSETS_DECIMAL_ATTRIBUTES.each do |asset_type|
     attribute asset_type, :gbp
@@ -22,23 +23,4 @@ class AssetsForm
   validates :property_percentage_owned,
             numericality: { greater_than: 0, only_integer: true, less_than_or_equal_to: 100, allow_nil: true },
             presence: true, if: -> { property_value.to_i.positive? }
-
-  # list of assets in SMOD - property, valuables, investments
-  attribute :in_dispute, array: true, default: []
-
-  def property_in_dispute?
-    in_dispute.include? "property"
-  end
-
-  def investments_in_dispute?
-    in_dispute.include? "investments"
-  end
-
-  def valuables_in_dispute?
-    in_dispute.include? "valuables"
-  end
-
-  def savings_in_dispute?
-    in_dispute.include? "savings"
-  end
 end

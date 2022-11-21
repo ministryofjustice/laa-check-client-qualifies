@@ -1,6 +1,7 @@
 class EstimateModel
   include ActiveModel::Model
   include ActiveModel::Attributes
+  include SessionPersistable
 
   ESTIMATE_BOOLEANS = %i[over_60
                          passporting
@@ -8,10 +9,12 @@ class EstimateModel
                          vehicle_in_regular_use
                          partner
                          employed
-                         dependants].freeze
+                         dependants
+                         partner_employed
+                         partner_vehicle_owned].freeze
 
   # This is the set of attributes which affect the page flow
-  ESTIMATE_ATTRIBUTES = (ESTIMATE_BOOLEANS + %i[property_owned]).freeze
+  ATTRIBUTES = (ESTIMATE_BOOLEANS + %i[property_owned]).freeze
 
   ESTIMATE_BOOLEANS.each do |attr|
     attribute attr, :boolean

@@ -28,14 +28,14 @@ RSpec.describe "Assets Page" do
 
     context "with disputed second property" do
       before do
-        fill_in "assets-form-savings-field", with: "0"
-        fill_in "assets-form-investments-field", with: "0"
-        fill_in "assets-form-valuables-field", with: "0"
+        fill_in "client-assets-form-savings-field", with: "0"
+        fill_in "client-assets-form-investments-field", with: "0"
+        fill_in "client-assets-form-valuables-field", with: "0"
 
-        fill_in "assets-form-property-value-field", with: "100_000"
-        fill_in "assets-form-property-mortgage-field", with: "50_000"
-        fill_in "assets-form-property-percentage-owned-field", with: "50"
-        click_checkbox("assets-form-in-dispute", "property")
+        fill_in "client-assets-form-property-value-field", with: "100_000"
+        fill_in "client-assets-form-property-mortgage-field", with: "50_000"
+        fill_in "client-assets-form-property-percentage-owned-field", with: "50"
+        click_checkbox("client-assets-form-in-dispute", "property")
 
         click_on "Save and continue"
       end
@@ -44,7 +44,7 @@ RSpec.describe "Assets Page" do
         within "#subsection-other-header" do
           click_on "Change"
         end
-        expect(find("#assets-form-in-dispute-property-field")).to be_checked
+        expect(find("#client-assets-form-in-dispute-property-field")).to be_checked
       end
 
       it "can submit with an empty first property" do
@@ -93,9 +93,9 @@ RSpec.describe "Assets Page" do
     end
 
     it "sets error on assets form" do
-      fill_in "assets-form-savings-field", with: "0"
-      fill_in "assets-form-investments-field", with: "0"
-      fill_in "assets-form-valuables-field", with: "0"
+      fill_in "client-assets-form-savings-field", with: "0"
+      fill_in "client-assets-form-investments-field", with: "0"
+      fill_in "client-assets-form-valuables-field", with: "0"
 
       click_on "Save and continue"
       expect(page).to have_css(".govuk-error-summary__list")
@@ -105,9 +105,9 @@ RSpec.describe "Assets Page" do
     end
 
     it "can submit second property" do
-      fill_in "assets-form-savings-field", with: "0"
-      fill_in "assets-form-investments-field", with: "0"
-      fill_in "assets-form-valuables-field", with: "0"
+      fill_in "client-assets-form-savings-field", with: "0"
+      fill_in "client-assets-form-investments-field", with: "0"
+      fill_in "client-assets-form-valuables-field", with: "0"
       expect(mock_connection)
         .to receive(:create_properties)
               .with(estimate_id, { main_home:
@@ -115,9 +115,9 @@ RSpec.describe "Assets Page" do
                                    additional_properties: [
                                      { outstanding_mortgage: 40_000, percentage_owned: 50, value: 80_000, shared_with_housing_assoc: false },
                                    ] })
-      fill_in "assets-form-property-value-field", with: "80_000"
-      fill_in "assets-form-property-mortgage-field", with: "40_000"
-      fill_in "assets-form-property-percentage-owned-field", with: "50"
+      fill_in "client-assets-form-property-value-field", with: "80_000"
+      fill_in "client-assets-form-property-mortgage-field", with: "40_000"
+      fill_in "client-assets-form-property-percentage-owned-field", with: "50"
       click_on "Save and continue"
 
       expect(page).to have_content check_answers_header
@@ -126,7 +126,7 @@ RSpec.describe "Assets Page" do
     end
 
     it "can submit non-zero savings and investments" do
-      fill_in "assets-form-property-value-field", with: "0"
+      fill_in "client-assets-form-property-value-field", with: "0"
 
       expect(mock_connection)
         .to receive(:create_properties)
@@ -139,11 +139,11 @@ RSpec.describe "Assets Page" do
                     [{ description: "Non Liquid Asset", value: 500 },
                      { description: "Non Liquid Asset", subject_matter_of_dispute: true, value: 1000 }])
 
-      fill_in "assets-form-savings-field", with: "100"
-      click_checkbox("assets-form-in-dispute", "savings")
-      fill_in "assets-form-investments-field", with: "500"
-      fill_in "assets-form-valuables-field", with: "1000"
-      click_checkbox("assets-form-in-dispute", "valuables")
+      fill_in "client-assets-form-savings-field", with: "100"
+      click_checkbox("client-assets-form-in-dispute", "savings")
+      fill_in "client-assets-form-investments-field", with: "500"
+      fill_in "client-assets-form-valuables-field", with: "1000"
+      click_checkbox("client-assets-form-in-dispute", "valuables")
 
       click_on "Save and continue"
 
@@ -196,9 +196,9 @@ RSpec.describe "Assets Page" do
     end
 
     it "can submit second property" do
-      fill_in "assets-form-savings-field", with: "0"
-      fill_in "assets-form-investments-field", with: "0"
-      fill_in "assets-form-valuables-field", with: "0"
+      fill_in "client-assets-form-savings-field", with: "0"
+      fill_in "client-assets-form-investments-field", with: "0"
+      fill_in "client-assets-form-valuables-field", with: "0"
 
       allow(mock_connection).to receive(:create_regular_payments)
       allow(mock_connection).to receive(:create_applicant)
@@ -209,9 +209,9 @@ RSpec.describe "Assets Page" do
                 { main_home: { outstanding_mortgage: 0, percentage_owned: 100, value: 100_000, shared_with_housing_assoc: false },
                   additional_properties: [{ outstanding_mortgage: 40_000, percentage_owned: 50, value: 80_000, shared_with_housing_assoc: false }] })
 
-      fill_in "assets-form-property-value-field", with: "80_000"
-      fill_in "assets-form-property-mortgage-field", with: "40_000"
-      fill_in "assets-form-property-percentage-owned-field", with: "50"
+      fill_in "client-assets-form-property-value-field", with: "80_000"
+      fill_in "client-assets-form-property-mortgage-field", with: "40_000"
+      fill_in "client-assets-form-property-percentage-owned-field", with: "50"
       click_on "Save and continue"
 
       expect(page).to have_content check_answers_header

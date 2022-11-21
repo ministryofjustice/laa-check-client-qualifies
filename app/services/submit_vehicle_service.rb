@@ -4,10 +4,10 @@ class SubmitVehicleService < BaseCfeService
   end
 
   def call(cfe_estimate_id, cfe_session_data)
-    owned_model = Flow::Vehicle::OwnedHandler.model(cfe_session_data)
+    owned_model = VehicleForm.from_session(cfe_session_data)
     return unless owned_model.vehicle_owned
 
-    details_model = Flow::Vehicle::DetailsHandler.model(cfe_session_data)
+    details_model = ClientVehicleDetailsForm.from_session(cfe_session_data)
 
     submit_vehicle_finance_data(cfe_estimate_id, details_model)
   end

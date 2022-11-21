@@ -6,7 +6,7 @@ class SubmitAssetsService < BaseCfeService
   end
 
   def call(cfe_estimate_id, cfe_session_data)
-    asset_form = Flow::AssetHandler.model(cfe_session_data)
+    asset_form = ClientAssetsForm.from_session(cfe_session_data)
 
     liquid_assets = [
       Asset.new(amount: asset_form.savings, disputed?: asset_form.savings_in_dispute?),
@@ -27,9 +27,9 @@ class SubmitAssetsService < BaseCfeService
       }
       second_property[:subject_matter_of_dispute] = true if asset_form.property_in_dispute?
     end
-    property_form = Flow::PropertyHandler.model(cfe_session_data)
+    property_form = PropertyForm.from_session(cfe_session_data)
     if property_form.owned?
-      property_entry_form = Flow::PropertyEntryHandler.model(cfe_session_data)
+      property_entry_form = PropertyEntryForm.from_session(cfe_session_data)
       main_home = {
         value: property_entry_form.house_value,
         outstanding_mortgage: (property_entry_form.mortgage if property_form.owned_with_mortgage?) || 0,

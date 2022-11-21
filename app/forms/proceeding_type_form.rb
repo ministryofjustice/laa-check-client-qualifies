@@ -1,6 +1,7 @@
 class ProceedingTypeForm
   include ActiveModel::Model
   include ActiveModel::Attributes
+  include SessionPersistable
 
   PROCEEDING_TYPES = { domestic_abuse: "DA001", other: "SE003" }.freeze
 

@@ -63,7 +63,7 @@ RSpec.describe "Vehicle Page" do
         select_vehicle_value(:vehicle_owned, true)
         click_on "Save and continue"
 
-        fill_in "vehicle-details-form-vehicle-value-field", with: 20_000
+        fill_in "client-vehicle-details-form-vehicle-value-field", with: 20_000
         click_on "Save and continue"
 
         within ".govuk-error-summary__list" do
@@ -75,10 +75,10 @@ RSpec.describe "Vehicle Page" do
         within("#subsection-vehicles-header") { click_on "Change" }
         select_vehicle_value(:vehicle_owned, true)
         click_on "Save and continue"
-        fill_in "vehicle-details-form-vehicle-value-field", with: 20_000
-        select_boolean_value("vehicle-details-form", :vehicle_in_regular_use, false)
-        select_boolean_value("vehicle-details-form", :vehicle_pcp, false)
-        select_boolean_value("vehicle-details-form", :vehicle_over_3_years_ago, true)
+        fill_in "client-vehicle-details-form-vehicle-value-field", with: 20_000
+        select_boolean_value("client-vehicle-details-form", :vehicle_in_regular_use, false)
+        select_boolean_value("client-vehicle-details-form", :vehicle_pcp, false)
+        select_boolean_value("client-vehicle-details-form", :vehicle_over_3_years_ago, true)
         click_on "Save and continue"
         expect(page).to have_current_path("http://www.example.com/estimates/#{estimate_id}/check_answers#assets-section")
 
@@ -106,12 +106,12 @@ RSpec.describe "Vehicle Page" do
 
     context "when purchased 3 years ago" do
       before do
-        fill_in "vehicle-details-form-vehicle-value-field", with: 5_000
-        select_boolean_value("vehicle-details-form", :vehicle_in_regular_use, true)
-        select_boolean_value("vehicle-details-form", :vehicle_over_3_years_ago, true)
-        select_boolean_value("vehicle-details-form", :vehicle_pcp, true)
-        fill_in "vehicle-details-form-vehicle-finance-field", with: 2_000
-        select_boolean_value("vehicle-details-form", :vehicle_in_dispute, true)
+        fill_in "client-vehicle-details-form-vehicle-value-field", with: 5_000
+        select_boolean_value("client-vehicle-details-form", :vehicle_in_regular_use, true)
+        select_boolean_value("client-vehicle-details-form", :vehicle_over_3_years_ago, true)
+        select_boolean_value("client-vehicle-details-form", :vehicle_pcp, true)
+        fill_in "client-vehicle-details-form-vehicle-finance-field", with: 2_000
+        select_boolean_value("client-vehicle-details-form", :vehicle_in_dispute, true)
 
         click_on "Save and continue"
         skip_assets_form
@@ -167,11 +167,11 @@ RSpec.describe "Vehicle Page" do
                   },
                 ])
 
-        fill_in "vehicle-details-form-vehicle-value-field", with: 5_000
-        select_boolean_value("vehicle-details-form", :vehicle_in_regular_use, true)
-        select_boolean_value("vehicle-details-form", :vehicle_over_3_years_ago, false)
-        select_boolean_value("vehicle-details-form", :vehicle_pcp, true)
-        fill_in "vehicle-details-form-vehicle-finance-field", with: 2_000
+        fill_in "client-vehicle-details-form-vehicle-value-field", with: 5_000
+        select_boolean_value("client-vehicle-details-form", :vehicle_in_regular_use, true)
+        select_boolean_value("client-vehicle-details-form", :vehicle_over_3_years_ago, false)
+        select_boolean_value("client-vehicle-details-form", :vehicle_pcp, true)
+        fill_in "client-vehicle-details-form-vehicle-finance-field", with: 2_000
         progress_to_submit_from_vehicle_form
       end
     end

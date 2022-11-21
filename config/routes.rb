@@ -12,8 +12,15 @@ Rails.application.routes.draw do
     resources :benefits, except: %i[index show] do
       collection { post :add }
     end
+    resources :partner_benefits, except: %i[index show] do
+      collection { post :add }
+    end
 
     resources :check_benefits_answers, except: %i[index show] do
+      collection { post :add }
+    end
+
+    resources :check_partner_benefits_answers, except: %i[index show] do
       collection { post :add }
     end
 

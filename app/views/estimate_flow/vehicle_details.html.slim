@@ -4,46 +4,7 @@
   span.govuk-caption-l = t(".caption")
   h1.govuk-heading-xl = t(".heading")
 
-  = form_for(@form,
-               url: wizard_path,
-               method: :put) do |form|
-
-    = form.govuk_error_summary t("generic.error_summary_title")
-
-    = render "shared/money_input_with_hint",
-               form:,
-               field: :vehicle_value,
-               width: 10,
-               label_text: t(".vehicle_value.input"),
-               hint_text: t(".vehicle_value.input_hint")
-
-    = form.govuk_radio_buttons_fieldset :vehicle_pcp,
-                                          legend: { text: t(".vehicle_pcp.legend") },
-                                          hint: { text: t(".vehicle_pcp.hint") } do
-      = form.govuk_radio_button :vehicle_pcp, true, label: { text: t("generic.yes_choice") }, link_errors: true do
-        = render "shared/money_input",
-                   form:,
-                   field: :vehicle_finance,
-                   width: 5,
-                   label_text: t(".vehicle_finance.input")
-      = form.govuk_radio_button :vehicle_pcp, false, label: { text: t("generic.no_choice") }
-
-    = form.govuk_collection_radio_buttons :vehicle_over_3_years_ago,
-            yes_no_options, :first, :last,
-            legend: { text: t(".vehicle_three_years_old.legend") },
-            hint: { text: t(".vehicle_three_years_old.hint") }
-
-    = form.govuk_collection_radio_buttons :vehicle_in_regular_use, yes_no_options, :first, :last,
-                                            legend: { text: t(".vehicle_in_regular_use.legend") },
-                                            hint: { text: t(".vehicle_in_regular_use.hint") }
-    .govuk-form-group
-      = form.govuk_check_box :vehicle_in_dispute, true, 0,
-            multiple: false,
-            label: { text: t(".vehicle_in_dispute") }
-
-    = render "smod_help"
-
-    = form.govuk_submit t("generic.save_and_continue")
+  = render "estimate_flow/forms/vehicle_details", i18n_key: "vehicle_details", show_smod_content: true
 = render "shared/sidebar_with_date",
          links: { t("estimate_flow.vehicle.guidance.text") => t("estimate_flow.vehicle.guidance.link"),
                   t("generic.smod.guidance_text") => t("generic.smod.guidance_text") }

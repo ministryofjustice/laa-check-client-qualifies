@@ -3,26 +3,8 @@ class EstimateFlowController < ApplicationController
 
   steps(*StepsHelper.all_possible_steps)
 
-  HANDLER_CLASSES = {
-    case_details: Flow::CaseDetailsHandler,
-    partner: Flow::PartnerHandler,
-    applicant: Flow::ApplicantHandler,
-    dependants: Flow::DependantsHandler,
-    dependant_details: Flow::DependantDetailsHandler,
-    employment: Flow::EmploymentHandler,
-    benefits: Flow::BenefitsHandler,
-    other_income: Flow::OtherIncomeHandler,
-    property: Flow::PropertyHandler,
-    vehicle: Flow::Vehicle::OwnedHandler,
-    vehicle_details: Flow::Vehicle::DetailsHandler,
-    assets: Flow::AssetHandler,
-    outgoings: Flow::OutgoingsHandler,
-    property_entry: Flow::PropertyEntryHandler,
-  }.freeze
-
   def show
-    handler = HANDLER_CLASSES.fetch(step)
-    @form = handler.model(session_data)
+    @form = Flow::Handler.model_from_session(step, session_data)
     @estimate = load_estimate
     render_wizard
   end
@@ -30,7 +12,7 @@ class EstimateFlowController < ApplicationController
 protected
 
   def load_estimate
-    EstimateModel.new session_data.slice(*EstimateModel::ESTIMATE_ATTRIBUTES.map(&:to_s))
+    EstimateModel.from_session(session_data)
   end
 
   def estimate_id
@@ -48,7 +30,7 @@ protected
   def next_check_answer_step(step, model)
     StepsHelper.remaining_steps_for(model, step)
       .drop_while { |thestep|
-        HANDLER_CLASSES.fetch(thestep).model(session_data).valid?
+        Flow::Handler.model_from_session(thestep, session_data).valid?
       }.first
   end
 end

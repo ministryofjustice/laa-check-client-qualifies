@@ -1,6 +1,7 @@
 class OtherIncomeForm
   include ActiveModel::Model
   include ActiveModel::Attributes
+  include SessionPersistable
 
   REGULAR_INCOME_TYPES = %i[friends_or_family maintenance property_or_lodger pension].freeze
   IRREGULAR_INCOME_TYPES = %i[student_finance other].freeze
@@ -24,5 +25,9 @@ class OtherIncomeForm
     validates frequency_attribute, presence: true,
                                    inclusion: { in: VALID_FREQUENCIES, allow_nil: false },
                                    if: -> { send(value_attribute)&.positive? }
+  end
+
+  def frequencies
+    VALID_FREQUENCIES.map { [_1, I18n.t("estimate_flow.other_income.frequencies.#{_1}")] }
   end
 end
