@@ -11,7 +11,7 @@ RSpec.describe "Vehicle Page", :vcr do
 
   describe "CFE submission" do
     before do
-      driven_by(:rack_test)
+      driven_by(:headless_chrome)
       visit_vehicle_form
       visit_details_form
     end

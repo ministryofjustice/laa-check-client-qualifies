@@ -4,7 +4,7 @@ RSpec.describe "Outgoings Page", :vcr do
   let(:arbitrary_fixed_time) { Time.zone.local(2022, 9, 5, 9, 0, 0) }
 
   before do
-    driven_by(:rack_test)
+    driven_by(:headless_chrome)
     travel_to arbitrary_fixed_time
 
     visit_applicant_page
@@ -22,9 +22,9 @@ RSpec.describe "Outgoings Page", :vcr do
     fill_in "outgoings-form-childcare-payments-value-field", with: "200"
     fill_in "outgoings-form-legal-aid-payments-value-field", with: "300"
     fill_in "outgoings-form-maintenance-payments-value-field", with: "0"
-    find(:css, "#outgoings-form-housing-payments-frequency-every-week-field").click
-    find(:css, "#outgoings-form-childcare-payments-frequency-every-two-weeks-field").click
-    find(:css, "#outgoings-form-legal-aid-payments-frequency-monthly-field").click
+    select_radio_value("outgoings-form", "housing-payments-frequency", "every-week")
+    select_radio_value("outgoings-form", "childcare-payments-frequency", "every-two-weeks")
+    select_radio_value("outgoings-form", "legal-aid-payments-frequency", "monthly")
     click_on "Save and continue"
     select_radio_value("property-form", "property-owned", "none")
     click_on "Save and continue"

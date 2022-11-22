@@ -7,7 +7,7 @@ RSpec.describe "Employment Page", :vcr do
 
   describe "functionality" do
     before do
-      driven_by(:rack_test)
+      driven_by(:headless_chrome)
       travel_to arbitrary_fixed_time
 
       visit_applicant_page
