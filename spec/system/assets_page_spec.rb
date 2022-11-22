@@ -6,6 +6,7 @@ RSpec.describe "Assets Page", :vcr do
   let(:check_answers_header) { "Check your answers" }
 
   before do
+    driven_by(:headless_chrome)
     travel_to arbitrary_fixed_time
   end
 

@@ -80,6 +80,7 @@ group :test do
   gem "rspec"
   gem "selenium-webdriver"
   gem "webdrivers"
+  gem "capybara-selenium"
   gem "vcr", require: false
   gem "webmock", require: false
   gem "axe-core-rspec"
