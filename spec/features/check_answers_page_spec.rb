@@ -104,4 +104,29 @@ RSpec.describe "Check answers page" do
       expect(page).not_to have_content benefits_subsection_header
     end
   end
+
+  context "when I have a partner" do
+    around do |example|
+      Flipper.enable(:partner)
+      example.run
+      Flipper.disable(:partner)
+    end
+
+    before do
+      visit_check_answer_with_partner
+    end
+
+    scenario "I should see partner content" do
+      expect(page).to have_content "Partner's employment"
+      expect(page).to have_content "Partner's other income"
+      expect(page).to have_content "Partner's benefits"
+      expect(page).to have_content "Your client's partner's outgoings"
+      expect(page).to have_content "Your client's partner's assets"
+      expect(page).to have_content "Client's partner's vehicle"
+      within("#subsection-partner_benefits-header") { click_on "Change" }
+      select_boolean_value("partner-benefits-form", :add_benefit, false)
+      click_on "Save and continue"
+      expect(page).to have_content "Check your answers"
+    end
+  end
 end

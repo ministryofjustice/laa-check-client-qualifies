@@ -18,9 +18,9 @@ def fill_in_applicant_screen_without_passporting_benefits
   end
 end
 
-def add_applicant_partner_answers
-  select_applicant_boolean(:partner_employed, false)
-  select_applicant_boolean(:partner_over_60, false)
+def add_applicant_partner_answers(employed: false, over_60: false)
+  select_applicant_boolean(:partner_employed, employed)
+  select_applicant_boolean(:partner_over_60, over_60)
 end
 
 def select_boolean_value(form_name, field, value)
@@ -161,4 +161,40 @@ def travel_from_dependants_to_past_client_assets
   select_boolean_value("vehicle-form", :vehicle_owned, false)
   click_on "Save and continue"
   skip_assets_form
+end
+
+def fill_in_employment_form(subject: :client)
+  prefix = subject == :partner ? "partner-" : ""
+  fill_in "#{prefix}employment-form-gross-income-field", with: 1000
+  fill_in "#{prefix}employment-form-income-tax-field", with: 100
+  fill_in "#{prefix}employment-form-national-insurance-field", with: 50
+  select_radio_value("#{prefix}employment-form", "frequency", "monthly")
+  click_on "Save and continue"
+end
+
+def visit_check_answer_with_partner
+  visit_applicant_page_with_partner
+  fill_in_applicant_screen_without_passporting_benefits
+  add_applicant_partner_answers(employed: true)
+  click_on "Save and continue"
+  travel_from_dependants_to_past_client_assets
+  fill_in_employment_form(subject: :partner)
+  select_boolean_value("partner-benefits-form", :add_benefit, true)
+  click_on "Save and continue"
+  fill_in "Benefit type", with: "Child benefit"
+  fill_in "Enter amount", with: "150"
+  choose "Every week"
+  click_on "Save and continue"
+  select_boolean_value("partner-benefits-form", :add_benefit, false)
+  click_on "Save and continue"
+  complete_incomes_screen(subject: :partner)
+  skip_outgoings_form(subject: :partner)
+  select_boolean_value("partner-vehicle-form", "vehicle_owned", true)
+  click_on "Save and continue"
+  fill_in "partner-vehicle-details-form-vehicle-value-field", with: 5_000
+  select_boolean_value("partner-vehicle-details-form", :vehicle_in_regular_use, true)
+  select_boolean_value("partner-vehicle-details-form", :vehicle_over_3_years_ago, true)
+  select_boolean_value("partner-vehicle-details-form", :vehicle_pcp, false)
+  click_on "Save and continue"
+  skip_assets_form(subject: :partner)
 end
