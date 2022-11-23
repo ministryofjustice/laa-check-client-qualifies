@@ -239,7 +239,7 @@ en:
             vehicle_finance:
               blank: Please enter the outstanding finance amount
   service:
-    name: Estimate financial eligibility for legal aid
+    name: Check if your client qualifies for legal aid
     email: eligibility@justice.gov.uk
     beta: Beta
     beta_message_html: This is a new service - your <a href="mailto:%{email}">feedback</a> will help us improve it
@@ -860,7 +860,7 @@ en:
       legal_aid: Legal Aid
       agency: Agency
       print_this_page: Print this page
-      check_eligibility_for_legal_aid: Check Eligibility For Legal Aid
+      check_eligibility_for_legal_aid: Check if your client qualifies for legal aid
   provider_users:
     show:
       provider_question: Are you a civil or family legal aid provider?
@@ -877,7 +877,6 @@ en:
       return_button: Return to GOV.UK
   start:
     index:
-      efe_heading: Estimate financial eligibility for legal aid
       legal_aid_provider: Legal aid providers can use this service to find out if a client might be financially eligible for legal aid.
       non_provider_check_link_html:
         <a href="https://www.gov.uk/check-legal-aid/">Check if you can get legal aid</a> if you're not a legal aid provider.
@@ -908,7 +907,6 @@ en:
     show:
       title: Cookies
       paragraph_1: "%{service_name} puts small files (known as ‘cookies’) on your computer."
-      service_name: Estimate Financial Eligibility for Legal Aid
       paragraph_2: These cookies are used across the %{service_name} website.
       paragraph_3: Find out %{how_to_manage} from the Information Commissioner's Office.
       how_to_manage: how to manage cookies
