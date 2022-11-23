@@ -195,11 +195,3 @@ def visit_check_answer_with_partner
   click_on "Save and continue"
   skip_assets_form(subject: :partner)
 end
-
-def enable_partner_screens
-  around do |example|
-    Flipper.enable(:partner)
-    example.run
-    Flipper.disable(:partner)
-  end
-end

@@ -7,7 +7,7 @@ RSpec.describe SubmitBenefitsService do
 
   let(:cfe_estimate_id) { SecureRandom.uuid }
   let(:url) do
-    "https://check-financial-eligibility-staging.cloud-platform.service.justice.gov.uk/assessments/#{cfe_estimate_id}/state_benefits"
+    "https://check-financial-eligibility-partner-staging.cloud-platform.service.justice.gov.uk/assessments/#{cfe_estimate_id}/state_benefits"
   end
   let!(:stub) do
     stub_request(:post, url).with(body: translated.to_json).to_return(status: 200)

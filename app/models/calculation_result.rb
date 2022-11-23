@@ -30,23 +30,11 @@ class CalculationResult
   end
 
   def gross_income
-    sum = if has_partner?
-            api_response.dig(:result_summary, :gross_income, :total_gross_income) +
-              api_response.dig(:result_summary, :partner_gross_income, :total_gross_income)
-          else
-            api_response.dig(:result_summary, :gross_income, :total_gross_income)
-          end
-    monetise(sum)
+    monetise(api_response.dig(:result_summary, :gross_income, :combined_total_gross_income))
   end
 
   def gross_outgoings
-    sum = if has_partner?
-            api_response.dig(:result_summary, :disposable_income, :total_outgoings_and_allowances) +
-              api_response.dig(:result_summary, :partner_disposable_income, :total_outgoings_and_allowances)
-          else
-            api_response.dig(:result_summary, :disposable_income, :total_outgoings_and_allowances)
-          end
-    monetise(sum)
+    monetise(api_response.dig(:result_summary, :disposable_income, :combined_total_outgoings_and_allowances))
   end
 
   def gross_income_upper_threshold
@@ -54,23 +42,11 @@ class CalculationResult
   end
 
   def total_disposable_income
-    sum = if has_partner?
-            api_response.dig(:result_summary, :disposable_income, :total_disposable_income) +
-              api_response.dig(:result_summary, :partner_disposable_income, :total_disposable_income)
-          else
-            api_response.dig(:result_summary, :disposable_income, :total_disposable_income)
-          end
-    monetise(sum)
+    monetise(api_response.dig(:result_summary, :disposable_income, :combined_total_disposable_income))
   end
 
   def total_assessed_capital
-    sum = if has_partner?
-            api_response.dig(:result_summary, :capital, :assessed_capital) +
-              api_response.dig(:result_summary, :partner_capital, :assessed_capital)
-          else
-            api_response.dig(:result_summary, :capital, :assessed_capital)
-          end
-    monetise([sum, 0].compact.max)
+    monetise([api_response.dig(:result_summary, :capital, :combined_assessed_capital), 0].compact.max)
   end
 
   def disposable_income_upper_threshold
@@ -179,7 +155,7 @@ private
 
   attr_reader :api_response
 
-  def capital_items(key, prefix = nil)
+  def capital_items(key, prefix = "")
     api_response.dig(:assessment, :"#{prefix}capital", :capital_items, key)
   end
 
@@ -203,7 +179,7 @@ private
     number_to_currency(number, unit: "£", separator: ".", delimiter: ",", precision: 2)
   end
 
-  def income_rows(prefix: nil)
+  def income_rows(prefix: "")
     data = {
       employment_income: api_response.dig(:result_summary, :"#{prefix}disposable_income", :employment_income, :gross_income),
       benefits: api_response.dig(:assessment, :"#{prefix}gross_income", :state_benefits, :monthly_equivalents, :all_sources),
@@ -217,7 +193,7 @@ private
     data.transform_values { |v| monetise(v) }
   end
 
-  def outgoing_rows(prefix: nil)
+  def outgoing_rows(prefix: "")
     data = {
       housing_costs: disposable_income_value(:rent_or_mortgage, prefix),
       childcare_payments: disposable_income_value(:child_care, prefix),
@@ -235,7 +211,7 @@ private
     data.transform_values { |v| monetise(v) }
   end
 
-  def capital_rows(prefix: nil)
+  def capital_rows(prefix: "")
     data = {
       liquid: api_response.dig(:result_summary, :"#{prefix}capital", :total_liquid),
       non_liquid: api_response.dig(:result_summary, :"#{prefix}capital", :total_non_liquid),
@@ -245,7 +221,7 @@ private
     data.transform_values { |value| monetise(value) }
   end
 
-  def capital_subtotal_rows(prefix: nil)
+  def capital_subtotal_rows(prefix: "")
     data = {
       total_capital: api_response.dig(:result_summary, :"#{prefix}capital", :total_capital),
       pensioner_capital_disregard: api_response.dig(:result_summary, :"#{prefix}capital", :pensioner_capital_disregard),
@@ -255,7 +231,7 @@ private
     data.transform_values { |value| monetise(value) }
   end
 
-  def main_home_rows(prefix: nil)
+  def main_home_rows(prefix: "")
     data = {
       main_home_value: :value,
       main_home_mortgage: :outstanding_mortgage,
@@ -265,7 +241,7 @@ private
     data.transform_values { |v| monetise(capital_items(:properties, prefix).dig(:main_home, v)) }
   end
 
-  def additional_property_rows(prefix: nil)
+  def additional_property_rows(prefix: "")
     data = {
       additional_property_value: :value,
       additional_property_mortgage: :outstanding_mortgage,
@@ -274,21 +250,14 @@ private
     data.transform_values { |v| monetise(capital_items(:properties, prefix)[:additional_properties].first[v]) }
   end
 
-  def vehicle_rows(prefix: nil)
+  def vehicle_rows(prefix: "")
     data = {
-      vehicle_value: capital_items(:vehicles, prefix).sum(0) { |z| z.fetch(:value) },
-      vehicle_outstanding_payments: capital_items(:vehicles, prefix).sum(0) { |z| z.fetch(:loan_amount_outstanding) },
-      vehicle_disregards: vehicle_disregards(prefix),
-      vehicle_assessed_value: capital_items(:vehicles).sum(0) { |z| z.fetch(:assessed_value) },
+      vehicle_value: :value,
+      vehicle_outstanding_payments: :loan_amount_outstanding,
+      vehicle_disregards: :disregards_and_deductions,
+      vehicle_assessed_value: :assessed_value,
     }
 
-    data.transform_values { |value| monetise(value) }
-  end
-
-  def vehicle_disregards(prefix)
-    value = capital_items(:vehicles, prefix).sum(0) { |z| z.fetch(:value) }
-    pcp = capital_items(:vehicles, prefix).sum(0) { |z| z.fetch(:loan_amount_outstanding) }
-    assessed_value = capital_items(:vehicles, prefix).sum(0) { |z| z.fetch(:assessed_value) }
-    value - pcp - assessed_value
+    data.transform_values { |value| monetise(capital_items(:vehicles, prefix).sum(0) { _1.fetch(value) }) }
   end
 end

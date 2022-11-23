@@ -223,10 +223,8 @@ RSpec.describe "Results Page" do
     end
   end
 
-  describe "Partner sections accordions", :vcr do
+  describe "Partner sections accordions", :vcr, :partner_flag do
     let(:arbitrary_fixed_time) { Time.zone.local(2022, 10, 17, 9, 0, 0) }
-
-    enable_partner_screens
 
     before do
       travel_to arbitrary_fixed_time
