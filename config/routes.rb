@@ -28,4 +28,5 @@ Rails.application.routes.draw do
   end
 
   resource :cookies, only: %i[show update]
+  resource :privacy, as: :privacy, only: :show
 end

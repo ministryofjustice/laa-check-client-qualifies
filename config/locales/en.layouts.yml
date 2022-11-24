@@ -3,12 +3,11 @@ en:
     application:
       footer:
         support: Support links
-        accessibility_statement: Accessibility statement (need link)
-        terms: Terms and conditions(need link)
-        contact: Contact (need link)
-        feedback: Feedback
+        help: Help
+        terms: Terms and conditions
+        contact: Contact
         cookies: Cookies
-        privacy_policy: Privacy policy (need link)
+        privacy_policy: Privacy policy
         digital_services_html: <abbr title='Ministry of Justice'>MOJ</abbr> Digital Services
         span_text_1: All content is available under the
         span_text_2: except where otherwise stated

@@ -46,6 +46,16 @@ RSpec.describe "Accessibility" do
     end
   end
 
+  describe "Privacy page" do
+    before do
+      visit privacy_path
+    end
+
+    it "has no AXE-detectable accessibility issues" do
+      expect(page).to be_axe_clean
+    end
+  end
+
   describe "Estimate steps" do
     let(:estimate_id) { SecureRandom.uuid }
 
