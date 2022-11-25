@@ -860,7 +860,6 @@ en:
       legal_aid: Legal Aid
       agency: Agency
       print_this_page: Print this page
-      check_eligibility_for_legal_aid: Check if your client qualifies for legal aid
   provider_users:
     show:
       provider_question: Are you a civil or family legal aid provider?
@@ -877,7 +876,6 @@ en:
       return_button: Return to GOV.UK
   start:
     index:
-      efe_heading: Check if your client qualifies for legal aid
       opening_paragraphs:
         - Use this service to find out if your client is likely to get civil legal aid, based on their financial situation.
         - "This must be for a case that would be civil certificated or licensed legal work. It cannot be for a case that would be:"
