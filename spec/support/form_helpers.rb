@@ -137,8 +137,7 @@ def visit_check_answer_with_passporting_benefit
   click_on "Save and continue"
 
   skip_property_form
-  select_boolean_value("vehicle-form", :vehicle_owned, false)
-  click_on "Save and continue"
+  skip_vehicle_form
   skip_assets_form
 end
 
@@ -156,10 +155,8 @@ def travel_from_dependants_to_past_client_assets
   complete_incomes_screen
   skip_outgoings_form
 
-  select_radio_value("property-form", "property-owned", "none")
-  click_on "Save and continue"
-  select_boolean_value("vehicle-form", :vehicle_owned, false)
-  click_on "Save and continue"
+  skip_property_form
+  skip_vehicle_form
   skip_assets_form
 end
 

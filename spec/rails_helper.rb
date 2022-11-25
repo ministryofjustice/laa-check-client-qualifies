@@ -40,7 +40,8 @@ Dir[Rails.root.join("spec/support/**/*.rb")].sort.each { |f| require f }
 #   exit 1
 # end
 
-ALLOWED_HOSTS = ["https://chromedriver.storage.googleapis.com"].freeze
+ALLOWED_HOSTS = ["https://chromedriver.storage.googleapis.com",
+                 "https://github.com"].freeze
 
 RSpec.configure do |config|
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
@@ -77,6 +78,12 @@ RSpec.configure do |config|
     WebMock.allow_net_connect!
     example.run
     WebMock.disable_net_connect!(allow_localhost: true, allow: ALLOWED_HOSTS)
+  end
+
+  config.around(:each, :partner_flag) do |example|
+    Flipper.enable(:partner)
+    example.run
+    Flipper.disable(:partner)
   end
 
   config.include ActiveSupport::Testing::TimeHelpers

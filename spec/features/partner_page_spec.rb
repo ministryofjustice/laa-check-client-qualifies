@@ -1,12 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Partner Page" do
-  around do |example|
-    Flipper.enable(:partner)
-    example.run
-    Flipper.disable(:partner)
-  end
-
+RSpec.describe "Partner Page", :partner_flag do
   before do
     visit estimate_build_estimate_path "estimate_id", :partner
   end
