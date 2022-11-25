@@ -7,6 +7,11 @@ class CfeConnection
     end
   end
 
+  def status
+    response = cfe_connection.get("healthcheck")
+    response.body.deep_symbolize_keys.fetch(:checks)
+  end
+
   def create_assessment_id
     create_request = {
       submission_date: Time.zone.today,
