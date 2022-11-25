@@ -5,6 +5,7 @@
   span.govuk-caption-l
     = t(".caption")
   h1.govuk-heading-xl = t(".heading")
+  span.govuk-caption-m class="govuk-!-margin-bottom-9" = t(".second_caption")
 
   = render "estimate_flow/forms/property_entry", i18n_key: "property_entry",
           show_smod: true, show_joint_ownership: @estimate.partner.present?, show_mortgage: @estimate.property_owned == "with_mortgage"

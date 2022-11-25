@@ -7,6 +7,12 @@
     - t(".unacceptable_case_types").each
       li = _1
 
+  div class="govuk-warning-text"
+    span class="govuk-warning-text__icon" aria-hidden="true" = "!"
+    strong class="govuk-warning-text__text"
+      span class="govuk-warning-text__assistive" = "Warning"
+      = t(".unlikely_to_qualify")
+
   p class="govuk-body" = t(".merits")
   .govuk-inset-text = t(".only_for_legal_aid_providers_html",
                          link: link_to(t(".check_if_you_can_get_legal_aid"), "https://www.gov.uk/check-legal-aid"))
@@ -15,6 +21,8 @@
   ul class="govuk-list govuk-list--bullet"
     - t(".unacceptable_client_types").each
       li = _1
+
+  p class="govuk-body" = t(".laspo_and_merits")
 
   h2 class="govuk-heading-m" = t(".before_start_heading")
 

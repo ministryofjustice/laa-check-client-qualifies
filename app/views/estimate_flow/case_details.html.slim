@@ -12,6 +12,7 @@
                                           ProceedingTypeForm::PROCEEDING_TYPES.to_a,
                                           :last,
                                           ->(pair) { t(".proceeding_type.#{pair[0]}.label") },
+            hint: { text: t(".proceeding_type.hint") },
                                           legend: { text: t(".proceeding_type.legend"), size: "xl", tag: "h1" }
 
     = form.govuk_submit t("generic.save_and_continue")
