@@ -167,6 +167,14 @@ sections:
           type: boolean
         - attribute: partner_dependants
           type: boolean
+        - attribute: partner_child_dependants
+          type: number
+          screen: partner_dependant_details
+          skip_unless: partner_dependants
+        - attribute: partner_adult_dependants
+          type: number
+          screen: partner_dependant_details
+          skip_unless: partner_dependants
   - label: partner_employment
     screen: partner_employment
     subsections:

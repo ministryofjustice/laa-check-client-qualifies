@@ -1,0 +1,19 @@
+= form_for(@form, url: wizard_path, method: :put) do |form|
+
+  = form.govuk_error_summary t("generic.error_summary_title")
+
+  = form.govuk_collection_radio_buttons :dependants,
+          yes_no_options,
+          :first,
+          :last,
+          legend: { text: t("estimate_flow.#{i18n_key}.legend"), tag: "h1", size: "xl" },
+          hint: lambda { \
+                   tag.p(t("estimate_flow.#{i18n_key}.hint")) + \
+                   tag.ul(class: "govuk-list govuk-list--bullet") do \
+                      tag.li(t("estimate_flow.#{i18n_key}.lives_with")) + \
+                      tag.li(t("estimate_flow.#{i18n_key}.depends")) \
+                   end + \
+                   tag.div(t("estimate_flow.#{i18n_key}.no_partner"), class: "govuk-inset-text") \
+                }
+
+  = form.govuk_submit t("generic.save_and_continue")

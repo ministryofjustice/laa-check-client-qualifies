@@ -9,12 +9,6 @@ RSpec.describe "Employment page" do
     CalculationResult.new(build(:api_result))
   end
 
-  around do |example|
-    Flipper.disable(:partner)
-    example.run
-    Flipper.disable(:partner)
-  end
-
   before do
     allow(CfeConnection).to receive(:connection).and_return(mock_connection)
     allow(mock_connection).to receive(:create_proceeding_type)

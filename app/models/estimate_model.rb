@@ -10,6 +10,7 @@ class EstimateModel
                          partner
                          employed
                          dependants
+                         partner_dependants
                          partner_employed
                          partner_vehicle_owned].freeze
 

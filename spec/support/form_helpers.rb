@@ -3,8 +3,13 @@ def select_applicant_boolean(field, value)
 end
 
 def select_radio_value(form, field, value)
-  fieldname = value.to_s.tr("_", "-")
-  find("label[for=#{"#{form}-#{field}"}-#{fieldname}-field]").click
+  fieldname = field.to_s.tr("_", "-")
+  if value
+    fieldvalue = value.to_s.tr("_", "-")
+    find("label[for=#{"#{form}-#{fieldname}"}-#{fieldvalue}-field]").click
+  else
+    find("label[for=#{"#{form}-#{fieldname}"}-field]").click
+  end
 end
 
 def fill_in_applicant_screen_with_passporting_benefits
@@ -23,9 +28,10 @@ def fill_in_applicant_screen_without_passporting_benefits
   end
 end
 
-def add_applicant_partner_answers(employed: false, over_60: false)
-  select_applicant_boolean(:partner_employed, employed)
-  select_applicant_boolean(:partner_over_60, over_60)
+def add_applicant_partner_answers(employed: false, over_60: false, dependants: false)
+  select_radio_value("partner-details-form", :employed, employed)
+  select_radio_value("partner-details-form", :over_60, over_60)
+  select_radio_value("partner-details-form", :dependants, dependants)
 end
 
 def select_boolean_value(form_name, field, value)
@@ -49,8 +55,6 @@ end
 
 def visit_applicant_page_with_partner
   visit_applicant_page
-  fill_in_applicant_screen_without_passporting_benefits
-  click_on "Save and continue"
 end
 
 def progress_to_submit_from_vehicle_form
@@ -106,6 +110,11 @@ def complete_incomes_screen(subject: :client)
   fill_in "#{prefix}other-income-form-student-finance-value-field", with: "0"
   fill_in "#{prefix}other-income-form-other-value-field", with: "500"
   click_on "Save and continue"
+end
+
+def skip_benefits_form
+  select_boolean_value("benefits-form", :add_benefit, false)
+  click_on("Save and continue")
 end
 
 def skip_assets_form(subject: :client)
@@ -177,7 +186,8 @@ def fill_in_employment_form(subject: :client)
 end
 
 def visit_check_answer_with_partner
-  visit_applicant_page_with_partner
+  visit_applicant_page
+  fill_in_applicant_screen_without_passporting_benefits
   click_on "Save and continue"
   travel_from_dependants_to_past_client_assets
 

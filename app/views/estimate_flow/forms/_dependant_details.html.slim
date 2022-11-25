@@ -1,0 +1,20 @@
+= form_for(@form, url: wizard_path, method: :put) do |form|
+
+  = form.govuk_error_summary t("generic.error_summary_title")
+
+  = form.govuk_number_field :child_dependants,
+          width: 5,
+          label: { text: t("estimate_flow.#{i18n_key}.child_dependants.label"), tag: "h2", size: "m" },
+          hint: lambda { \
+                           tag.div(t("estimate_flow.#{i18n_key}.child_dependants.hint"), class: "govuk-hint") + \
+                           tag.p(t("estimate_flow.#{i18n_key}.child_dependants.instruction")) \
+                       }
+  = form.govuk_number_field :adult_dependants,
+          width: 5,
+          label: { text: t("estimate_flow.#{i18n_key}.adult_dependants.label"), tag: "h2", size: "m" },
+          hint: lambda { \
+                          tag.div(t("estimate_flow.#{i18n_key}.adult_dependants.hint"), class: "govuk-hint") + \
+                          tag.p(t("estimate_flow.#{i18n_key}.adult_dependants.instruction")) \
+                       }
+
+  = form.govuk_submit t("generic.save_and_continue")

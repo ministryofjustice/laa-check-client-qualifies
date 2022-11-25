@@ -9,7 +9,12 @@ module CheckAnswers
                 passporting
                 dependants
                 child_dependants
-                adult_dependants].freeze
+                adult_dependants
+                partner_dependants
+                partner_child_dependants
+                partner_adult_dependants
+                partner_employed
+                partner_over_60].freeze
 
     attribute :over_60, :boolean
     attribute :partner, :boolean
@@ -18,6 +23,11 @@ module CheckAnswers
     attribute :dependants, :boolean
     attribute :child_dependants, :integer
     attribute :adult_dependants, :integer
+    attribute :partner_employed, :boolean
+    attribute :partner_over_60, :boolean
+    attribute :partner_dependants, :boolean
+    attribute :partner_child_dependants, :integer
+    attribute :partner_adult_dependants, :integer
 
     class << self
       def from_session(session)

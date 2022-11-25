@@ -4,10 +4,12 @@ en:
       models:
         partner_details_form:
           attributes:
-            partner_employed:
+            employed:
               inclusion: Select employed if the client's partner is currently employed
-            partner_over_60:
+            over_60:
               inclusion: Select yes if the client's partner is over 60 years old
+            dependants:
+              inclusion: Select yes if the client's partner has any dependants
         applicant_form:
           attributes:
             employed:
@@ -24,12 +26,22 @@ en:
           attributes:
             dependants:
               inclusion: Select yes if the client has any dependants
+        partner_dependants_form:
+          attributes:
+            dependants:
+              inclusion: Select yes if the client's partner has any dependants
         dependant_details_form:
           attributes:
             child_dependants:
               blank: Please enter a zero if the client has no child dependants
             adult_dependants:
               blank: Please enter a zero if the client has no adult dependants
+        partner_dependant_details_form:
+          attributes:
+            child_dependants:
+              blank: Please enter a zero if the client's partner has no child dependants
+            adult_dependants:
+              blank: Please enter a zero if the client's partner has no adult dependants
         employment_form:
           attributes:
             gross_income:
@@ -345,6 +357,18 @@ en:
     dependant_details:
       caption: About your client
       legend: Tell us about your client's dependants
+      hint: If some don't apply, enter 0.
+      adult_dependants:
+        label: Adult dependants
+        hint: For example, a parent, grandparent, aunt or uncle.
+        instruction: Enter number of adult dependants
+      child_dependants:
+        label: Child dependants
+        hint: For example, your client's child, grandchild, niece or nephew.
+        instruction: Enter number of child dependants
+    partner_dependant_details:
+      caption: About your client's partner
+      legend: Tell us about your client's partner's dependants
       hint: If some don't apply, enter 0.
       adult_dependants:
         label: Adult dependants
@@ -792,6 +816,8 @@ en:
         partner_over_60: Partner is over 60 years old
         partner_employed: Partner is employed
         partner_dependants: Partner has dependants
+        partner_child_dependants: Partner child dependants
+        partner_adult_dependants: Partner adult dependants
       other: Client's other assets
       other_fields:
         property_value: "Second property or holiday home: value"
