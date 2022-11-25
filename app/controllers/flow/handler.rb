@@ -1,8 +1,6 @@
 module Flow
   class Handler
     CLASSES = {
-      case_details: ProceedingTypeForm,
-      partner: PartnerForm,
       applicant: ApplicantForm,
       dependants: DependantsForm,
       dependant_details: DependantDetailsForm,
@@ -17,6 +15,7 @@ module Flow
       assets: ClientAssetsForm,
       partner_property: PartnerPropertyForm,
       partner_property_entry: PartnerPropertyEntryForm,
+      partner_details: PartnerDetailsForm,
       partner_employment: PartnerEmploymentForm,
       partner_benefits: PartnerBenefitsForm,
       partner_other_income: PartnerOtherIncomeForm,

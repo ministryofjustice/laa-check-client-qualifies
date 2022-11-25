@@ -13,8 +13,8 @@ RSpec.describe "Employment Page", :vcr do
       visit_applicant_page
       fill_in_applicant_screen_without_passporting_benefits
       select_applicant_boolean(:employed, true)
+      select_applicant_boolean(:dependants, false)
       click_on "Save and continue"
-      complete_dependants_section
     end
 
     it "shows the correct page" do

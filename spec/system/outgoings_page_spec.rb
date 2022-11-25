@@ -6,12 +6,9 @@ RSpec.describe "Outgoings Page", :vcr do
   before do
     driven_by(:headless_chrome)
     travel_to arbitrary_fixed_time
-
     visit_applicant_page
     fill_in_applicant_screen_without_passporting_benefits
-
     click_on "Save and continue"
-    complete_dependants_section
     select_boolean_value("benefits-form", :add_benefit, false)
     click_on "Save and continue"
     complete_incomes_screen

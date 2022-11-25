@@ -30,11 +30,7 @@ module CheckAnswers
     end
 
     def display_fields
-      if partner
-        FIELDS
-      else
-        FIELDS - %i[partner_employed partner_over_60]
-      end
+      Flipper.enabled?(:partner) ? FIELDS : FIELDS - %i[partner]
     end
 
     def disputed_asset?(_field)

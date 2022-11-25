@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe SubmitPartnerService do
+RSpec.describe SubmitPartnerService, :partner_flag do
   describe ".call" do
     let(:arbitrary_fixed_time) { Time.zone.local(2022, 10, 24, 9, 0, 0) }
     let(:service) { described_class }

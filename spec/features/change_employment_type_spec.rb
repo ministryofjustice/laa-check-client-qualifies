@@ -21,10 +21,13 @@ RSpec.describe "ChangeEmploymentTypes" do
     within "#section-client_details-header" do
       click_on "Change"
     end
+
+    select_radio_value("applicant-form", "proceeding-type", "se003") # non-domestic abuse case
+    select_applicant_boolean(:over_60, false)
     select_applicant_boolean(:employed, true)
     select_applicant_boolean(:passporting, false)
+    select_applicant_boolean(:dependants, false)
     click_on "Save and continue"
-    complete_dependants_section
     expect(page).to have_content employment_header
     fill_in "employment-form-gross-income-field", with: "5,000"
     fill_in "employment-form-income-tax-field", with: "1000"

@@ -103,14 +103,14 @@ RSpec.describe "Results Page" do
       travel_to arbitrary_fixed_time
 
       visit_applicant_page
-      select_applicant_boolean(:over_60, false)
 
+      select_radio_value("applicant-form", "proceeding-type", "se003") # non-domestic abuse case
+      select_applicant_boolean(:over_60, false)
       select_applicant_boolean(:employed, true)
       select_applicant_boolean(:passporting, false)
+      select_applicant_boolean(:dependants, true)
       click_on "Save and continue"
 
-      select_boolean_value("dependants-form", :dependants, true)
-      click_on("Save and continue")
       fill_in "dependant-details-form-adult-dependants-field", with: "0"
       fill_in "dependant-details-form-child-dependants-field", with: "1"
       click_on("Save and continue")
@@ -229,16 +229,14 @@ RSpec.describe "Results Page" do
     before do
       travel_to arbitrary_fixed_time
 
-      visit_applicant_page(partner: true)
+      visit_applicant_page
+      select_radio_value("applicant-form", "proceeding-type", "se003") # non-domestic abuse case
       select_applicant_boolean(:over_60, false)
       select_applicant_boolean(:employed, false)
       select_applicant_boolean(:passporting, false)
-      select_applicant_boolean(:partner_over_60, false)
-      select_applicant_boolean(:partner_employed, true)
+      select_applicant_boolean(:partner, true)
+      select_applicant_boolean(:dependants, false)
       click_on "Save and continue"
-
-      select_boolean_value("dependants-form", :dependants, false)
-      click_on("Save and continue")
 
       select_boolean_value("benefits-form", :add_benefit, false)
       click_on("Save and continue")
@@ -268,6 +266,11 @@ RSpec.describe "Results Page" do
       fill_in "client-assets-form-savings-field", with: "0"
       fill_in "client-assets-form-investments-field", with: "0"
       fill_in "client-assets-form-valuables-field", with: "0"
+      click_on "Save and continue"
+
+      select_boolean_value("partner-details-form", :over_60, false)
+      select_boolean_value("partner-details-form", :employed, true)
+      select_boolean_value("partner-details-form", :dependants, false)
       click_on "Save and continue"
 
       fill_in "partner-employment-form-gross-income-field", with: 1000
@@ -319,6 +322,10 @@ RSpec.describe "Results Page" do
 
       click_on "Submit"
     end
+
+    # it "shows the capital section" do
+    #   expect(page).to have_content "Partner's additional property Value £80,000.00"
+    # end
 
     it "shows client income section" do
       within "#income-calculation-content" do

@@ -3,28 +3,51 @@
 
 .govuk-grid-column-two-thirds
   span.govuk-caption-l = t(".caption")
-  h1.govuk-heading-l = t(@form.partner ? ".heading_with_partner" : ".heading")
+  h1.govuk-heading-l = t(".heading")
   = form_for(@form, url: wizard_path, method: :put) do |form|
 
     = form.govuk_error_summary t("generic.error_summary_title")
+
+    = form.govuk_collection_radio_buttons :proceeding_type,
+                                          ApplicantForm::PROCEEDING_TYPES.to_a,
+                                          :last,
+                                          ->(pair) { t(".proceeding_type.#{pair[0]}.label") },
+                                          legend: { text: t(".proceeding_type.legend") }
 
     = form.govuk_collection_radio_buttons :over_60,
                                           yes_no_options, :first, :last,
                                           legend: { text: t(".over_60.legend") },
                                           hint: { text: t(".over_60.hint") }
+
+    = form.govuk_collection_radio_buttons :dependants,
+            yes_no_options,
+            :first,
+            :last,
+            legend: { text: t(".dependants.legend") },
+            hint: lambda { \
+                            tag.p(t(".dependants.hint")) + \
+                            tag.ul(class: "govuk-list govuk-list--bullet") do \
+                            tag.li(t(".dependants.lives_with")) + \
+                            tag.li(t(".dependants.depends")) \
+                            end + \
+                            tag.div(t(".dependants.no_partner"), class: "govuk-inset-text") \
+                            }
+
+    - if Flipper.enabled?(:partner)
+        = form.govuk_collection_radio_buttons :partner,
+                                              yes_no_options,
+                                              :first,
+                                              :last,
+                                              legend: { text: t(".partner.legend") },
+                                              hint: { text: t(".partner.hint") }
+
     = form.govuk_collection_radio_buttons :employed, employment_options, :first, :last,
                                           legend: { text: t(".employed.legend") },
                                           hint: { text: t(".employed.hint") }
     = form.govuk_collection_radio_buttons :passporting, yes_no_options, :first, :last,
                                           legend: { text: t(".passporting.legend") },
                                           hint: { text: t(".passporting.hint") }
-    - if @form.partner
-      = form.govuk_collection_radio_buttons :partner_over_60, yes_no_options, :first, :last,
-                                          legend: { text: t(".partner_over_60.legend") },
-                                            hint: { text: t(".partner_over_60.hint") }
-      = form.govuk_collection_radio_buttons :partner_employed, employment_options, :first, :last,
-                                            legend: { text: t(".partner_employed.legend") },
-                                            hint: { text: t(".partner_employed.hint") }
 
     = form.govuk_submit t("generic.save_and_continue")
-= render "shared/sidebar_with_date", links: {}
+= render "shared/sidebar_with_date", links: { t(".domestic_abuse_guidance.text") => t(".domestic_abuse_guidance.link"),
+        t("estimate_flow.applicant.dependants.guidance.text") => t("estimate_flow.applicant.dependants.guidance.link") }

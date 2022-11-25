@@ -13,8 +13,13 @@ def fill_in_applicant_screen_with_passporting_benefits
 end
 
 def fill_in_applicant_screen_without_passporting_benefits
-  %i[over_60 employed passporting].each do |attribute|
+  %i[over_60 employed passporting dependants].each do |attribute|
     select_applicant_boolean(attribute, false)
+  end
+  select_radio_value("applicant-form", "proceeding-type", "se003") # non-domestic abuse case
+
+  if Flipper.enabled?(:partner)
+    select_applicant_boolean(:partner, true)
   end
 end
 
@@ -37,24 +42,14 @@ def click_checkbox(form_name, field)
   find("label[for=#{form_name}-#{fieldname}-field]").click
 end
 
-def visit_applicant_page(partner: false)
+def visit_applicant_page
   visit new_estimate_path
   click_on "Reject additional cookies"
-  select_radio_value("proceeding-type-form", "proceeding-type", "se003")
-  click_on "Save and continue"
-
-  if Flipper.enabled?(:partner)
-    select_boolean_value("partner-form", "partner", partner)
-    click_on "Save and continue"
-  end
 end
 
 def visit_applicant_page_with_partner
-  visit_applicant_page(partner: true)
-end
-
-def complete_dependants_section
-  select_boolean_value("dependants-form", :dependants, false)
+  visit_applicant_page
+  fill_in_applicant_screen_without_passporting_benefits
   click_on "Save and continue"
 end
 
@@ -147,7 +142,8 @@ def visit_check_answer_with_passporting_benefit
   click_on "Save and continue"
 
   skip_property_form
-  skip_vehicle_form
+  select_boolean_value("vehicle-form", :vehicle_owned, false)
+  click_on "Save and continue"
   skip_assets_form
 end
 
@@ -159,14 +155,15 @@ def visit_check_answer_without_passporting_benefit
 end
 
 def travel_from_dependants_to_past_client_assets
-  complete_dependants_section
   select_boolean_value("benefits-form", :add_benefit, false)
   click_on("Save and continue")
   complete_incomes_screen
   skip_outgoings_form
 
-  skip_property_form
-  skip_vehicle_form
+  select_radio_value("property-form", "property-owned", "none")
+  click_on "Save and continue"
+  select_boolean_value("vehicle-form", :vehicle_owned, false)
+  click_on "Save and continue"
   skip_assets_form
 end
 
@@ -181,10 +178,14 @@ end
 
 def visit_check_answer_with_partner
   visit_applicant_page_with_partner
-  fill_in_applicant_screen_without_passporting_benefits
-  add_applicant_partner_answers(employed: true)
   click_on "Save and continue"
   travel_from_dependants_to_past_client_assets
+
+  select_boolean_value("partner-details-form", :over_60, false)
+  select_boolean_value("partner-details-form", :employed, true)
+  select_boolean_value("partner-details-form", :dependants, false)
+  click_on "Save and continue"
+
   fill_in_employment_form(subject: :partner)
   select_boolean_value("partner-benefits-form", :add_benefit, true)
   click_on "Save and continue"
