@@ -1,14 +1,8 @@
 require "rails_helper"
 
-RSpec.describe "Partner employment page" do
+RSpec.describe "Partner employment page", :partner_flag do
   let(:partner_employment_page_header) { I18n.t("estimate_flow.partner_employment.heading") }
   let(:assets_page_header) { I18n.t("estimate_flow.assets.assets.legend") }
-
-  around do |example|
-    Flipper.enable(:partner)
-    example.run
-    Flipper.disable(:partner)
-  end
 
   before do
     visit_applicant_page_with_partner

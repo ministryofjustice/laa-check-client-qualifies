@@ -105,13 +105,7 @@ RSpec.describe "Check answers page" do
     end
   end
 
-  context "when I have a partner" do
-    around do |example|
-      Flipper.enable(:partner)
-      example.run
-      Flipper.disable(:partner)
-    end
-
+  context "when I have a partner", :partner_flag do
     before do
       visit_check_answer_with_partner
     end

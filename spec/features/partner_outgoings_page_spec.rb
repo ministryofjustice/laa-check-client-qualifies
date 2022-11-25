@@ -1,13 +1,7 @@
 require "rails_helper"
 
-RSpec.describe "Partner outgoings page" do
+RSpec.describe "Partner outgoings page", :partner_flag do
   let(:partner_outgoings_heading) { I18n.t("estimate_flow.partner_outgoings.heading") }
-
-  around do |example|
-    Flipper.enable(:partner)
-    example.run
-    Flipper.disable(:partner)
-  end
 
   before do
     visit_applicant_page_with_partner

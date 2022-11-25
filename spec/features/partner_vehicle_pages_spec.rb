@@ -1,14 +1,8 @@
 require "rails_helper"
 
-RSpec.describe "Partner vehicle pages" do
+RSpec.describe "Partner vehicle pages", :partner_flag do
   let(:partner_vehicle_heading) { I18n.t("estimate_flow.partner_vehicle.vehicle_owned.legend") }
   let(:partner_vehicle_details_heading) { I18n.t("estimate_flow.partner_vehicle_details.heading") }
-
-  around do |example|
-    Flipper.enable(:partner)
-    example.run
-    Flipper.disable(:partner)
-  end
 
   before do
     visit_applicant_page_with_partner

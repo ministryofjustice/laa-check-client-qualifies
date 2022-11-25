@@ -115,13 +115,7 @@ RSpec.describe "Applicant Page" do
     end
   end
 
-  describe "with a partner" do
-    around do |example|
-      Flipper.enable(:partner)
-      example.run
-      Flipper.disable(:partner)
-    end
-
+  describe "with a partner", :partner_flag do
     before do
       visit_applicant_page_with_partner
     end
