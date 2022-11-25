@@ -1,22 +1,17 @@
 require "rails_helper"
 
-RSpec.describe "Partner benefits" do
+RSpec.describe "Partner benefits", :partner_flag do
   let(:estimate_id) { SecureRandom.uuid }
 
-  around do |example|
-    Flipper.enable(:partner)
-    example.run
-    Flipper.disable(:partner)
-  end
-
   before do
-    visit_applicant_page_with_partner
+    visit_applicant_page
+    fill_in_applicant_screen_without_passporting_benefits
     click_on "Save and continue"
     travel_from_housing_benefit_to_past_client_assets
     select_boolean_value("partner-details-form", :over_60, false)
     select_boolean_value("partner-details-form", :employed, false)
-    select_boolean_value("partner-details-form", :dependants, false)
     click_on "Save and continue"
+    skip_partner_dependants_form
     select_boolean_value("partner-housing-benefit-form", :housing_benefit, false)
     click_on("Save and continue")
   end

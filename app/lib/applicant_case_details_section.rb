@@ -5,17 +5,12 @@ class ApplicantCaseDetailsSection
     end
 
     def steps_for(estimate)
-      steps = [
-        [:applicant],
-      ].compact
-
-      unless estimate.passporting
-        steps <<
-          [
-            (:dependant_details if estimate.dependants),
-          ].compact
-      end
-      steps
+      steps = if estimate.passporting
+                [:applicant]
+              else
+                %i[applicant dependant_details]
+              end
+      steps.map { [_1] }
     end
   end
 end

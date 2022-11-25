@@ -4,9 +4,10 @@ RSpec.describe SubmitDependantsService do
   let(:service) { described_class }
   let(:session_data) do
     {
-      "dependants" => dependant_boolean,
-      "child_dependants" => child_dependants,
-      "adult_dependants" => adult_dependants,
+      "adult_dependants" => dependant_boolean,
+      "child_dependants" => dependant_boolean,
+      "child_dependants_count" => child_dependants,
+      "adult_dependants_count" => adult_dependants,
     }
   end
   let(:cfe_estimate_id) { SecureRandom.uuid }

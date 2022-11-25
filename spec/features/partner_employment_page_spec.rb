@@ -1,17 +1,13 @@
 require "rails_helper"
 
-RSpec.describe "Partner employment page" do
+RSpec.describe "Partner employment page", :partner_flag do
   let(:partner_employment_page_header) { I18n.t("estimate_flow.partner_employment.heading") }
+  let(:partner_dependants_header) { "Tell us about your client's partner's dependants" }
   let(:partner_details_page_header) { I18n.t("estimate_flow.partner_details.partner_heading") }
 
-  around do |example|
-    Flipper.enable(:partner)
-    example.run
-    Flipper.disable(:partner)
-  end
-
   before do
-    visit_applicant_page_with_partner
+    visit_applicant_page
+    fill_in_applicant_screen_without_passporting_benefits
   end
 
   context "when I have indicated that the partner is unemployed" do
@@ -20,7 +16,6 @@ RSpec.describe "Partner employment page" do
       travel_from_housing_benefit_to_past_client_assets
       select_boolean_value("partner-details-form", :over_60, false)
       select_boolean_value("partner-details-form", :employed, false)
-      select_boolean_value("partner-details-form", :dependants, false)
       click_on "Save and continue"
     end
 
@@ -35,17 +30,17 @@ RSpec.describe "Partner employment page" do
       travel_from_housing_benefit_to_past_client_assets
       select_boolean_value("partner-details-form", :over_60, false)
       select_boolean_value("partner-details-form", :employed, true)
-      select_boolean_value("partner-details-form", :dependants, false)
       click_on "Save and continue"
+      skip_partner_dependants_form
     end
 
     it "shows the partner employment page" do
       expect(page).to have_content(partner_employment_page_header)
     end
 
-    it "has a back link to the partner details page" do
+    it "has a back link to the partner dependants page" do
       click_link "Back"
-      expect(page).to have_content partner_details_page_header
+      expect(page).to have_content partner_dependants_header
     end
 
     context "when I omit some required information" do

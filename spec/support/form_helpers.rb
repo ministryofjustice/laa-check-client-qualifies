@@ -3,8 +3,13 @@ def select_applicant_boolean(field, value)
 end
 
 def select_radio_value(form, field, value)
-  fieldname = value.to_s.tr("_", "-")
-  find("label[for=#{"#{form}-#{field}"}-#{fieldname}-field]").click
+  fieldname = field.to_s.tr("_", "-")
+  if value
+    fieldvalue = value.to_s.tr("_", "-")
+    find("label[for=#{"#{form}-#{fieldname}"}-#{fieldvalue}-field]").click
+  else
+    find("label[for=#{"#{form}-#{fieldname}"}-field]").click
+  end
 end
 
 def fill_in_applicant_screen_with_passporting_benefits
@@ -13,7 +18,7 @@ def fill_in_applicant_screen_with_passporting_benefits
 end
 
 def fill_in_applicant_screen_without_passporting_benefits
-  %i[over_60 employed passporting dependants].each do |attribute|
+  %i[over_60 employed passporting].each do |attribute|
     select_applicant_boolean(attribute, false)
   end
   select_radio_value("applicant-form", "proceeding-type", "se003") # non-domestic abuse case
@@ -23,9 +28,21 @@ def fill_in_applicant_screen_without_passporting_benefits
   end
 end
 
+def skip_dependants_form
+  select_boolean_value("dependant-details-form", :child_dependants, false)
+  select_boolean_value("dependant-details-form", :adult_dependants, false)
+  click_on "Save and continue"
+end
+
+def skip_partner_dependants_form
+  select_boolean_value("partner-dependant-details-form", :child_dependants, false)
+  select_boolean_value("partner-dependant-details-form", :adult_dependants, false)
+  click_on "Save and continue"
+end
+
 def add_applicant_partner_answers(employed: false, over_60: false)
-  select_applicant_boolean(:partner_employed, employed)
-  select_applicant_boolean(:partner_over_60, over_60)
+  select_radio_value("partner-details-form", :employed, employed)
+  select_radio_value("partner-details-form", :over_60, over_60)
 end
 
 def select_boolean_value(form_name, field, value)
@@ -45,12 +62,6 @@ end
 def visit_applicant_page
   visit new_estimate_path
   click_on "Reject additional cookies"
-end
-
-def visit_applicant_page_with_partner
-  visit_applicant_page
-  fill_in_applicant_screen_without_passporting_benefits
-  click_on "Save and continue"
 end
 
 def progress_to_submit_from_vehicle_form
@@ -110,6 +121,20 @@ def complete_incomes_screen(subject: :client)
   click_on "Save and continue"
 end
 
+def skip_benefits_form
+  select_boolean_value("housing-benefit-form", :housing_benefit, false)
+  click_on "Save and continue"
+  select_boolean_value("benefits-form", :add_benefit, false)
+  click_on("Save and continue")
+end
+
+def skip_partner_benefits_form
+  select_boolean_value("partner-housing-benefit-form", :housing_benefit, false)
+  click_on "Save and continue"
+  select_boolean_value("partner-benefits-form", :add_benefit, false)
+  click_on "Save and continue"
+end
+
 def skip_assets_form(subject: :client)
   fill_in "#{subject}-assets-form-property-value-field", with: "0"
   fill_in "#{subject}-assets-form-savings-field", with: "0"
@@ -157,6 +182,7 @@ def visit_check_answer_without_passporting_benefit
 end
 
 def travel_from_housing_benefit_to_past_client_assets
+  skip_dependants_form
   select_boolean_value("housing-benefit-form", :housing_benefit, false)
   click_on("Save and continue")
   select_boolean_value("benefits-form", :add_benefit, false)
@@ -181,14 +207,15 @@ def fill_in_employment_form(subject: :client)
 end
 
 def visit_check_answer_with_partner
-  visit_applicant_page_with_partner
+  visit_applicant_page
+  fill_in_applicant_screen_without_passporting_benefits
   click_on "Save and continue"
   travel_from_housing_benefit_to_past_client_assets
 
   select_boolean_value("partner-details-form", :over_60, false)
   select_boolean_value("partner-details-form", :employed, true)
-  select_boolean_value("partner-details-form", :dependants, false)
   click_on "Save and continue"
+  skip_partner_dependants_form
 
   fill_in_employment_form(subject: :partner)
   select_boolean_value("partner-housing-benefit-form", :housing_benefit, false)

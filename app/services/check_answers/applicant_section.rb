@@ -5,19 +5,12 @@ module CheckAnswers
 
     FIELDS = %i[over_60
                 partner
-                employed
-                passporting
-                dependants
-                child_dependants
-                adult_dependants].freeze
+                employed].freeze
 
     attribute :over_60, :boolean
     attribute :partner, :boolean
     attribute :employed, :boolean
     attribute :passporting, :boolean
-    attribute :dependants, :boolean
-    attribute :child_dependants, :integer
-    attribute :adult_dependants, :integer
 
     class << self
       def from_session(session)

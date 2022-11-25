@@ -12,6 +12,7 @@ class SubmitPartnerService < BaseCfeService
                                   state_benefits:,
                                   additional_properties:,
                                   capitals:,
+                                  dependants:,
                                   vehicles:
   end
 
@@ -78,5 +79,14 @@ class SubmitPartnerService < BaseCfeService
 
     details_model = PartnerVehicleDetailsForm.from_session(@cfe_session_data)
     CfeParamBuilders::Vehicles.call(details_model)
+  end
+
+  def dependants
+    details_form = PartnerDependantDetailsForm.from_session(@cfe_session_data)
+    children = CfeParamBuilders::Dependants.children(dependants: details_form.child_dependants,
+                                                     count: details_form.child_dependants_count)
+    adults = CfeParamBuilders::Dependants.adults(dependants: details_form.adult_dependants,
+                                                 count: details_form.adult_dependants_count)
+    children + adults
   end
 end

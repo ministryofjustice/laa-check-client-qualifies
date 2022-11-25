@@ -9,6 +9,7 @@ RSpec.describe "Outgoings Page", :vcr do
     visit_applicant_page
     fill_in_applicant_screen_without_passporting_benefits
     click_on "Save and continue"
+    skip_dependants_form
     select_boolean_value("housing-benefit-form", :housing_benefit, false)
     click_on "Save and continue"
     select_boolean_value("benefits-form", :add_benefit, false)

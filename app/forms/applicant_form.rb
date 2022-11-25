@@ -6,7 +6,7 @@ class ApplicantForm
   PROCEEDING_TYPES = { domestic_abuse: "DA001", other: "SE003" }.freeze
 
   PROCEEDING_ATTRIBUTE = %i[proceeding_type].freeze
-  BOOLEAN_ATTRIBUTES = %i[passporting over_60 employed partner dependants].freeze
+  BOOLEAN_ATTRIBUTES = %i[passporting over_60 employed partner].freeze
 
   ATTRIBUTES = BOOLEAN_ATTRIBUTES + PROCEEDING_ATTRIBUTE.freeze
 
