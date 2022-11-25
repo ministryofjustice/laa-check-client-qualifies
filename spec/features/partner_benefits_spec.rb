@@ -1,24 +1,33 @@
 require "rails_helper"
 
-RSpec.describe "Partner benefits", :partner_flag do
+RSpec.describe "Partner benefits" do
   let(:estimate_id) { SecureRandom.uuid }
 
+  around do |example|
+    Flipper.enable(:partner)
+    example.run
+    Flipper.disable(:partner)
+  end
+
   before do
-    visit estimate_build_estimate_path(estimate_id, :partner)
-    select_boolean_value("partner-form", "partner", true)
+    visit_applicant_page_with_partner
     click_on "Save and continue"
-    visit estimate_build_estimate_path(estimate_id, :partner_benefits)
+    travel_from_dependants_to_past_client_assets
+    select_boolean_value("partner-details-form", :over_60, false)
+    select_boolean_value("partner-details-form", :employed, false)
+    select_boolean_value("partner-details-form", :dependants, false)
+    click_on "Save and continue"
   end
 
   it "checks I have made a choice" do
     click_on("Save and continue")
-    expect(page).to have_content("Select yes if you wish to add a client partner benefit")
+    expect(page).to have_content I18n.t(".activemodel.errors.models.partner_benefits_form.attributes.add_benefit.inclusion")
   end
 
   it "allows me to skip past the screen" do
+    expect(page).to have_content I18n.t(".estimate_flow.partner_benefits.legend")
     select_boolean_value("partner-benefits-form", :add_benefit, false)
     click_on("Save and continue")
-    expect(page).to have_content("What other income does your client's partner receive?")
   end
 
   it "allows me to enter a benefit" do
@@ -77,7 +86,7 @@ RSpec.describe "Partner benefits", :partner_flag do
     click_on "Save and continue"
     click_on "Remove"
     expect(page).not_to have_content "Child benefit"
-    expect(page).to have_current_path(new_estimate_partner_benefit_path(estimate_id))
+    expect(page).to have_content "Add benefit details"
   end
 
   it "allows me to remove one benefit of multiple" do
@@ -95,7 +104,7 @@ RSpec.describe "Partner benefits", :partner_flag do
     click_on "Save and continue"
     find(".button-as-link", match: :first).click
     expect(page).not_to have_content "Child benefit"
-    expect(page).to have_current_path(estimate_build_estimate_path(estimate_id, :partner_benefits))
+    expect(page).to have_content "You have added 1 benefit"
   end
 
   it "allows me to view the page in the context of check answers" do

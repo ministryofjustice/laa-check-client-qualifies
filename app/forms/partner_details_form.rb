@@ -1,9 +1,9 @@
-class PartnerForm
+class PartnerDetailsForm
   include ActiveModel::Model
   include ActiveModel::Attributes
-  include SessionPersistable
+  include SessionPersistableForPartner
 
-  ATTRIBUTES = %i[partner].freeze
+  ATTRIBUTES = %i[over_60 employed dependants].freeze
 
   ATTRIBUTES.each do |attr|
     attribute attr, :boolean

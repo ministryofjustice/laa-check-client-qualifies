@@ -6,6 +6,7 @@ RSpec.describe "Vehicle Page", :vcr do
   let(:assets_header) { "Which of these assets does your client have?" }
 
   before do
+    Flipper.disable(:partner)
     travel_to arbitrary_fixed_time
   end
 

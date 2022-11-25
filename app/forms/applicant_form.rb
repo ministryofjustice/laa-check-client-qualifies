@@ -3,32 +3,18 @@ class ApplicantForm
   include ActiveModel::Attributes
   include SessionPersistable
 
-  PERMANENT_ATTRIBUTES = %i[passporting over_60 employed].freeze
-  CONTINGENT_ATTRIBUTES = %i[partner_over_60 partner_employed].freeze
+  PROCEEDING_TYPES = { domestic_abuse: "DA001", other: "SE003" }.freeze
 
-  ATTRIBUTES = PERMANENT_ATTRIBUTES + CONTINGENT_ATTRIBUTES.freeze
+  PROCEEDING_ATTRIBUTE = %i[proceeding_type].freeze
+  BOOLEAN_ATTRIBUTES = %i[passporting over_60 employed partner dependants].freeze
 
-  attr_accessor :partner
+  ATTRIBUTES = BOOLEAN_ATTRIBUTES + PROCEEDING_ATTRIBUTE.freeze
 
-  PERMANENT_ATTRIBUTES.each do |attr|
+  BOOLEAN_ATTRIBUTES.each do |attr|
     attribute attr, :boolean
-    validates attr, inclusion: { in: [true, false] }
+    validates attr, inclusion: { in: [true, false] }, if: -> { Flipper.enabled?(:partner) || attr != :partner }
   end
 
-  CONTINGENT_ATTRIBUTES.each do |attr|
-    attribute attr, :boolean
-    validates attr, inclusion: { in: [true, false] }, if: -> { partner }
-  end
-
-  def self.from_session(session_data)
-    super(session_data).tap { add_partner_attribute(_1, session_data) }
-  end
-
-  def self.from_params(params, session_data)
-    super(params, session_data).tap { add_partner_attribute(_1, session_data) }
-  end
-
-  def self.add_partner_attribute(form, session_data)
-    form.partner = session_data["partner"]
-  end
+  attribute :proceeding_type
+  validates :proceeding_type, presence: true, inclusion: { in: PROCEEDING_TYPES.values, allow_nil: true }
 end

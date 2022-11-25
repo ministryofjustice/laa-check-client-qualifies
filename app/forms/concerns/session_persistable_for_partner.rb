@@ -11,6 +11,11 @@ module SessionPersistableForPartner
       transformed_session_attributes = session_attributes.transform_keys { _1.gsub("partner_", "") }
       new(transformed_session_attributes)
     end
+
+    def from_params(params, _session)
+      relevant_params = params.fetch(name.underscore, {}).permit(*self::ATTRIBUTES)
+      new(relevant_params)
+    end
   end
 
   def session_attributes

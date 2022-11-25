@@ -2,14 +2,12 @@ en:
   activemodel:
     errors:
       models:
-        proceeding_type_form:
+        partner_details_form:
           attributes:
-            proceeding_type:
-              blank: Select yes if your client is likely to be an applicant in a domestic abuse case
-        partner_form:
-          attributes:
-            partner:
-              inclusion: Select yes if the client has a partner
+            partner_employed:
+              inclusion: Select employed if the client's partner is currently employed
+            partner_over_60:
+              inclusion: Select yes if the client's partner is over 60 years old
         applicant_form:
           attributes:
             employed:
@@ -18,10 +16,10 @@ en:
               inclusion: Select yes if the client is currently in receipt of a passporting benefit
             over_60:
               inclusion: Select yes if the client is over 60 years old
-            partner_employed:
-              inclusion: Select employed if the client's partner is currently employed
-            partner_over_60:
-              inclusion: Select yes if the client's partner is over 60 years old
+            proceeding_type:
+              blank: Select yes if your client is likely to be an applicant in a domestic abuse case
+            partner:
+              inclusion: Select yes if the client has a partner
         dependants_form:
           attributes:
             dependants:
@@ -299,8 +297,22 @@ en:
         text: "Guidance on Pensioner disregards"
         link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=71
       heading: Tell us about your client
-      heading_with_partner: Tell us about your client and their partner
       caption: About your client
+      partner:
+        caption: About your client
+        legend: Does your client have a partner?
+        hint: This is a spouse, someone with whom they are in a civil relationship, a cohabiter or someone they share their finances with. They cannot be the opponent in any legal proceedings.
+      proceeding_type:
+        legend: Is your client likely to be the applicant in a Domestic Abuse matter?
+        domestic_abuse:
+          label: 'Yes'
+          hint: ""
+        other:
+          label: 'No'
+          hint: ""
+      domestic_abuse_guidance:
+        text: Guidance on domestic abuse or violence
+        link: "#"
       over_60:
         legend: Is your client 60 or over?
         hint: Clients over 60 may have some of their capital excluded from a financial eligibility assessment.
@@ -310,12 +322,40 @@ en:
       passporting:
         legend: Does your client receive a passporting benefit?
         hint: Universal Credit, Income Support, income-based Jobseeker's Allowance (JSA), income-related Employment and Support Allowance (ESA), and Guarantee Credit element of Pension Credit. Also indicate ‘yes’ if your client is listed on their partner’s claim. Do not indicate ‘yes’ if only your client’s partner is receiving a passporting benefit.
+      dependants:
+        caption: About your client
+        legend: Does your client have any dependants?
+        hint: "A dependant is a child or adult who:"
+        lives_with: lives with your client
+        depends: depends on your client for financial support
+        no_partner: Don't include your client's partner if they have one
+        guidance:
+          text: Guidance on dependants
+          link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=42
+    partner_details:
+      partner_heading: You've completed the client section
+      client_partner: You told us your client has a partner
+      ask_details: We will now ask for some details about your client's partner to help us get an accurate financial picture of them.
+      list_title: "You will need information about your client's partner's:"
+      types_of_information:
+        - dependants (if applicable)
+        - employment (if applicable)
+        - benefits  (if applicable)
+        - other income
+        - outgoings
+        - savings, investments, and other assets including property and vehicles
+      dependants:
+        legend: Does your client's partner have any dependants?
+        hint: "A dependant is a child or adult who:"
+        lives_with: lives with your client's partner
+        depends: depends on your client's partner for financial support
       partner_over_60:
         legend: Is your client's partner over 60 years old?
         hint: Clients with partners over 60 may have some of their capital excluded from a financial eligibility assessment.
       partner_employed:
         legend: What is your client's partner's employment status?
         hint: ""
+
     dependants:
       caption: About your client
       legend: Does your client have any dependants?
@@ -784,6 +824,11 @@ en:
         percentage_owned: Percentage share owned
         joint_ownership: Joint owned with partner
         joint_percentage_owned: Percentage share owned by partner
+      partner_details: Your client's partner's details
+      partner_details_fields:
+        partner_over_60: Partner is over 60 years old
+        partner_employed: Partner is employed
+        partner_dependants: Partner has dependants
       other: Client's other assets
       other_fields:
         property_value: "Second property or holiday home: value"
