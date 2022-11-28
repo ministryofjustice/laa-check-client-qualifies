@@ -42,12 +42,12 @@
   h2.govuk-heading-m = t("estimates.show.how_calculated")
 
   h2.govuk-heading-m = t("estimates.show.income_calculation")
-  = render "client_income_table", caption_size: "s"
+  = render "income_table", caption_size: "s"
 
   h2.govuk-heading-m = t("estimates.show.outgoings_calculation")
-  = render "client_outgoings_table", caption_size: "s"
+  = render "outgoings_table", caption_size: "s"
 
   h2.govuk-heading-m = t("estimates.show.capital_calculation")
-  = render "client_capital_table", caption_size: "s"
+  = render "capital_table", caption_size: "s"
 
   button.govuk-button.govuk-button--secondary data-module="govuk-button" onclick="javascript:window.print()" = t(".print_this_page")

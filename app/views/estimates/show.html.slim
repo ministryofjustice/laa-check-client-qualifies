@@ -39,13 +39,13 @@ p.govuk-body = t(".next_steps_paragraph_2")
 h2.govuk-heading-m = t(".how_calculated")
 = govuk_accordion do |accordion|
   - accordion.section(heading_text: t(".income_calculation"))
-    = render "client_income_table", caption_size: "m"
+    = render "income_table", caption_size: "m"
 
   - accordion.section(heading_text: t(".outgoings_calculation"))
-    = render "client_outgoings_table", caption_size: "m"
+    = render "outgoings_table", caption_size: "m"
 
   - accordion.section(heading_text: t(".capital_calculation"))
-    = render "client_capital_table", caption_size: "m"
+    = render "capital_table", caption_size: "m"
 
 .govuk-button-group
   = link_to new_estimate_path
