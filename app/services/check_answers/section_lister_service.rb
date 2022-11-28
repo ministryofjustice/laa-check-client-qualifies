@@ -80,25 +80,35 @@ module CheckAnswers
                 alt_value: @session_data[field_data[:alt_attribute]])
     end
 
-    def benefits_fields(session_key: "benefits", field_type: "benefit")
-      return [] unless StepsHelper.valid_step?(@model, :benefits)
-
-      if @session_data[session_key].blank?
-        return [Field.new(label: I18n.t("generic.not_applicable"),
-                          type: field_type)]
-      end
-
-      @session_data[session_key].map do |benefit|
-        Field.new(label: benefit["benefit_type"],
-                  type: field_type,
-                  value: benefit["benefit_amount"],
-                  alt_value: benefit["benefit_frequency"],
-                  id: benefit["id"])
+    def benefits_fields
+      if StepsHelper.valid_step?(@model, :benefits)
+        benefits_fields_common(session_key: "benefits", field_type: "benefit")
+      else
+        []
       end
     end
 
     def partner_benefits_fields
-      benefits_fields(session_key: "partner_benefits", field_type: "benefit")
+      if StepsHelper.valid_step?(@model, :partner_benefits)
+        benefits_fields_common(session_key: "partner_benefits", field_type: "benefit")
+      else
+        []
+      end
+    end
+
+    def benefits_fields_common(session_key:, field_type:)
+      if @session_data[session_key].blank?
+        [Field.new(label: I18n.t("generic.not_applicable"),
+                   type: field_type)]
+      else
+        @session_data[session_key].map do |benefit|
+          Field.new(label: benefit["benefit_type"],
+                    type: field_type,
+                    value: benefit["benefit_amount"],
+                    alt_value: benefit["benefit_frequency"],
+                    id: benefit["id"])
+        end
+      end
     end
   end
 end
