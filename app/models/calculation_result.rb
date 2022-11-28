@@ -140,7 +140,13 @@ class CalculationResult
   end
 
   def client_capital_subtotal_rows
-    capital_subtotal_rows
+    data = {
+      total_capital: :total_capital,
+      pensioner_capital_disregard: :pensioner_capital_disregard,
+      smod_disregard: :subject_matter_of_dispute_disregard,
+    }
+
+    data.transform_values { |value| monetise(api_response.dig(:result_summary, :capital, value)) }
   end
 
   def partner_capital_rows
@@ -148,7 +154,9 @@ class CalculationResult
   end
 
   def partner_capital_subtotal_rows
-    capital_subtotal_rows(prefix: "partner_")
+    {
+      total_capital: monetise(api_response.dig(:result_summary, :partner_capital, :total_capital)),
+    }
   end
 
 private
@@ -218,16 +226,6 @@ private
       property: api_response.dig(:result_summary, :"#{prefix}capital", :total_property),
       vehicles: api_response.dig(:result_summary, :"#{prefix}capital", :total_vehicle),
     }
-    data.transform_values { |value| monetise(value) }
-  end
-
-  def capital_subtotal_rows(prefix: "")
-    data = {
-      total_capital: api_response.dig(:result_summary, :"#{prefix}capital", :total_capital),
-      pensioner_capital_disregard: api_response.dig(:result_summary, :"#{prefix}capital", :pensioner_capital_disregard),
-      smod_disregard: api_response.dig(:result_summary, :"#{prefix}capital", :subject_matter_of_dispute_disregard),
-    }
-
     data.transform_values { |value| monetise(value) }
   end
 
