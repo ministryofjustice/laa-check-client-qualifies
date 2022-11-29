@@ -23,6 +23,6 @@ private
   end
 
   def anchor
-    "other_income-section"
+    CheckAnswers::SectionIdFinder.call(:benefits)
   end
 end
