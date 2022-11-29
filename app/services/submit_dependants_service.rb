@@ -1,6 +1,6 @@
 class SubmitDependantsService < BaseCfeService
   def call(cfe_estimate_id, cfe_session_data)
-    form = DependantsForm.from_session(cfe_session_data)
+    form = ApplicantForm.from_session(cfe_session_data)
     return unless form.dependants
 
     details_form = DependantDetailsForm.from_session(cfe_session_data)

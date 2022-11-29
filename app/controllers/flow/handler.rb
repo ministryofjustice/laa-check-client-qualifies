@@ -2,7 +2,6 @@ module Flow
   class Handler
     CLASSES = {
       applicant: ApplicantForm,
-      dependants: DependantsForm,
       dependant_details: DependantDetailsForm,
       employment: EmploymentForm,
       benefits: BenefitsForm,
