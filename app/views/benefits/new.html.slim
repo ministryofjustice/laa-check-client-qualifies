@@ -6,7 +6,11 @@
 .govuk-grid-column-two-thirds
   span.govuk-caption-l = t(".caption")
   h1.govuk-heading-xl = t(".heading")
+  span.govuk-caption-m class="govuk-!-margin-bottom-9" = t(".hint")
   = form_for(@model, url: url_for([:estimate, controller_name.to_sym])) do |form|
     = render "form", form:
 
-= render "shared/sidebar_with_date", links: {}
+= render "shared/sidebar_with_date", \
+  links: { \
+    t(".disregarded_benefits.text") => t(".disregarded_benefits.link"), \
+    }
