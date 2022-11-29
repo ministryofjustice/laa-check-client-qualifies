@@ -1,0 +1,48 @@
+= form_for(@form, url: wizard_path, method: :put) do |form|
+
+  = form.govuk_error_summary t("generic.error_summary_title")
+
+  = render "shared/money_input_with_hint",
+           form:,
+           field: :house_value,
+           width: 10,
+           label_text: t("estimate_flow.#{i18n_key}.house_value.input"),
+           hint_text: t("estimate_flow.#{i18n_key}.house_value.input_hint")
+  - if show_mortgage
+    = render "shared/money_input_with_hint",
+             form:,
+             field: :mortgage,
+             width: 10,
+             label_text: t("estimate_flow.#{i18n_key}.mortgage.input"),
+             hint_text: t("estimate_flow.#{i18n_key}.mortgage.input_hint")
+
+  = form.govuk_number_field :percentage_owned,
+                            width: 3,
+                            suffix_text: "%",
+                            label: { text: t("estimate_flow.#{i18n_key}.percentage_owned.input"), size: "m" },
+                            hint: { text: t("estimate_flow.#{i18n_key}.percentage_owned.input_hint") }
+
+  - if show_joint_ownership
+    = form.govuk_radio_buttons_fieldset :joint_ownership,
+            hint: { text: t("estimate_flow.#{i18n_key}.joint_ownership.hint") },
+            legend: { text: t("estimate_flow.#{i18n_key}.joint_ownership.legend") } do
+      = form.govuk_radio_button :joint_ownership, true,
+              label: { text: t("generic.yes_choice") } do
+        = form.govuk_number_field :joint_percentage_owned,
+                width: 3,
+                suffix_text: "%",
+                label: { text: t("estimate_flow.#{i18n_key}.joint_percentage_owned.input"), size: "m" }
+
+      = form.govuk_radio_button :joint_ownership, false,
+              label: { text: t("generic.no_choice") }
+
+  - if show_smod
+    = form.govuk_check_box :house_in_dispute, true, 0,
+            multiple: false,
+            label: { text: t("generic.dispute") }
+
+    / otherwise the 'dispute' check box attaches itself to the 'Save and Continue' button
+    div class= "govuk-!-padding-bottom-4"
+    = render "smod_help"
+
+  = form.govuk_submit t("generic.save_and_continue")

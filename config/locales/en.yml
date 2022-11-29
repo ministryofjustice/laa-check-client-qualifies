@@ -195,7 +195,7 @@ en:
         provider_user:
           attributes:
             blank: Select yes if you are a Legal Aid service provider
-        property_entry_form:
+        client_property_entry_form:
           attributes:
             house_value:
               blank: Please enter the value of your client's house
@@ -205,6 +205,23 @@ en:
               greater_than: Please enter a mortgage amount that is greater than zero
             percentage_owned:
               blank: Please specify what percentage of your client's house they own
+              within_range: Please enter an ownership percentage between 1 and 100
+            joint_ownership:
+              inclusion: Please enter yes if property is jointly owned with a partner
+            joint_percentage_owned:
+              blank: Please specify what percentage of the house the partner owns
+              within_range: Please enter an ownership percentage between 1 and 100
+              cannot_exceed_100: Total property share cannot exceed 100%
+        partner_property_entry_form:
+          attributes:
+            house_value:
+              blank: Please enter the value of your client's house
+              greater_than: Please enter a house value that is greater than zero
+            mortgage:
+              blank: Please enter the the outstanding mortgage amount your client's partner has
+              greater_than: Please enter a mortgage amount that is greater than zero
+            percentage_owned:
+              blank: Please specify what percentage of the house they own
               within_range: Please enter an ownership percentage between 1 and 100
         vehicle_form:
           attributes:
@@ -476,13 +493,20 @@ en:
       link_to_guidance_on_outgoings: "#TODO: To be defined"
     property:
       caption: Your client's finances
+      legend: Does your client own the home they live in?
       property_owned:
-        legend: Does your client own the home they live in?
         outright: Yes, owned outright
         with_mortgage: Yes, with a mortgage or loan
         none: "No"
+        legend: Does your client and/or their partner own the home they live in?
+      single:
+        property_owned:
+          legend: Does your client own the home they live in?
       guidance_on_properties: Guidance on properties
       link_to_guidance_on_properties: '#'
+    partner_property:
+      caption: Your client's partner's finances
+      legend: Does your client's partner own the home they live in?
     vehicle:
       caption: Your client's finances
       vehicle_owned:
@@ -564,6 +588,11 @@ en:
     property_entry:
       heading: Tell us about your client's property
       caption: Your client's finances
+      joint_ownership:
+        legend: Is the property joint owned with a partner?
+        hint: By joint owned we mean the client and partner can own different shares of the property. The property does not automatically go to the other owners if you die. You can pass your share of the property in your will.
+      joint_percentage_owned:
+        input: Enter the percentage the partner owns
       house_value:
         input: How much is your client's home worth?
         input_hint: You can use property websites to find the estimated value.
@@ -573,6 +602,18 @@ en:
       percentage_owned:
         input: What percentage share of their home does your client legally own?
         input_hint: Your client's name must be on the property deeds, lease or freehold.
+    partner_property_entry:
+      heading: Tell us about the property
+      caption: Your client's partner's finances
+      house_value:
+        input: How much is the property worth?
+        input_hint: You can use property websites to find the estimated value.
+      mortgage:
+        input: What is the outstanding mortgage on the property?
+        input_hint: Check the statement from the mortgage provider or lender.
+      percentage_owned:
+        input: What percentage share of their home does your client's partner legally own?
+        input_hint: Your client's partner's name must be on the property deeds, lease or freehold.
     vehicle_details:
       caption: Your client's finances
       heading: Tell us about your client's vehicle
@@ -697,7 +738,18 @@ en:
         vehicle_over_3_years_ago: Bought over 3 years ago
         vehicle_pcp: Outstanding finance on vehicle?
         vehicle_finance: Payments left on vehicle
-      property: Client's property
+      property: Main dwelling
+      partner_property: Partner main dwelling
+      partner_property_fields:
+        partner_property_owned: Owns the home they live it
+        partner_property_owned_options:
+          outright: "Yes"
+          with_mortgage: "Yes"
+          none: "No"
+          not_provided: Not provided
+        partner_house_value: Estimated value
+        partner_mortgage: Outstanding mortgage
+        partner_percentage_owned: Percentage share owned
       property_fields:
         property_owned: Owns the home they live in
         property_owned_options:
@@ -708,6 +760,8 @@ en:
         house_value: Estimated value
         mortgage: Outstanding mortgage
         percentage_owned: Percentage share owned
+        joint_ownership: Joint owned with partner
+        joint_percentage_owned: Percentage share owned by partner
       other: Client's other assets
       other_fields:
         property_value: "Second property or holiday home: value"

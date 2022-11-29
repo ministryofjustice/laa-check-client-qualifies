@@ -17,14 +17,30 @@ class SubmitAssetsService < BaseCfeService
     end
 
     property_form = PropertyForm.from_session(cfe_session_data)
-    if property_form.owned?
-      property_entry_form = PropertyEntryForm.from_session(cfe_session_data)
+    client_form = ApplicantForm.from_session(cfe_session_data)
+    if property_form.owns_property?
+      property_entry_form = ClientPropertyEntryForm.from_session(cfe_session_data)
+      percentage_owned = if property_entry_form.joint_ownership
+                           property_entry_form.percentage_owned + property_entry_form.joint_percentage_owned
+                         else
+                           property_entry_form.percentage_owned
+                         end
       main_home = {
         value: property_entry_form.house_value,
         outstanding_mortgage: (property_entry_form.mortgage if property_form.owned_with_mortgage?) || 0,
-        percentage_owned: property_entry_form.percentage_owned,
+        percentage_owned:,
       }
       main_home[:subject_matter_of_dispute] = true if property_entry_form.house_in_dispute
+    elsif client_form.partner
+      partner_property_form = PartnerPropertyForm.from_session(cfe_session_data)
+      if partner_property_form.owns_property?
+        property_entry_form = PartnerPropertyEntryForm.from_session(cfe_session_data)
+        main_home = {
+          value: property_entry_form.house_value,
+          outstanding_mortgage: (property_entry_form.mortgage if partner_property_form.owned_with_mortgage?) || 0,
+          percentage_owned: property_entry_form.percentage_owned,
+        }
+      end
     end
 
     create_properties(cfe_estimate_id, main_home, second_property) if main_home.present? || second_property.present?

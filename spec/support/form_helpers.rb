@@ -126,8 +126,18 @@ def skip_property_form
   click_on "Save and continue"
 end
 
+def skip_partner_property_form
+  select_radio_value("partner-property-form", "property-owned", "none")
+  click_on "Save and continue"
+end
+
 def skip_vehicle_form
   select_boolean_value("vehicle-form", :vehicle_owned, false)
+  click_on "Save and continue"
+end
+
+def skip_partner_vehicle_form
+  select_boolean_value("partner-vehicle-form", :vehicle_owned, false)
   click_on "Save and continue"
 end
 
@@ -186,6 +196,7 @@ def visit_check_answer_with_partner
   click_on "Save and continue"
   complete_incomes_screen(subject: :partner)
   skip_outgoings_form(subject: :partner)
+  skip_partner_property_form
   select_boolean_value("partner-vehicle-form", "vehicle_owned", true)
   click_on "Save and continue"
   fill_in "partner-vehicle-details-form-vehicle-value-field", with: 5_000

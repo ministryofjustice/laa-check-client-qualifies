@@ -2,40 +2,10 @@
   = back_link(:property_entry, @estimate, @back_buttons_invoke_browser_back_behaviour)
 
 .govuk-grid-column-two-thirds
-  span.govuk-caption-l = t(".caption")
+  span.govuk-caption-l
+    = t(".caption")
   h1.govuk-heading-xl = t(".heading")
-  = form_for(@form, url: wizard_path, method: :put) do |form|
 
-    = form.govuk_error_summary t("generic.error_summary_title")
-
-    = render "shared/money_input_with_hint",
-             form:,
-             field: :house_value,
-             width: 10,
-             label_text: t(".house_value.input"),
-             hint_text: t(".house_value.input_hint")
-    - if @estimate.property_owned == "with_mortgage"
-      = render "shared/money_input_with_hint",
-               form:,
-               field: :mortgage,
-               width: 10,
-               label_text: t(".mortgage.input"),
-               hint_text: t(".mortgage.input_hint")
-
-    = form.govuk_number_field :percentage_owned,
-                              width: 3,
-                              suffix_text: "%",
-                              label: { text: t(".percentage_owned.input"), size: "m" },
-                              hint: { text: t(".percentage_owned.input_hint") }
-
-    = form.govuk_check_box :house_in_dispute, true, 0,
-            multiple: false,
-            label: { text: t("generic.dispute") }
-
-    / otherwise the 'dispute' check box attaches itself to the 'Save and Continue' button
-    div class= "govuk-!-padding-bottom-4"
-    = render "smod_help"
-
-    = form.govuk_submit t("generic.save_and_continue")
-
+  = render "estimate_flow/forms/property_entry", i18n_key: "property_entry",
+          show_smod: true, show_joint_ownership: @estimate.partner.present?, show_mortgage: @estimate.property_owned == "with_mortgage"
 = render "property_sidebar"

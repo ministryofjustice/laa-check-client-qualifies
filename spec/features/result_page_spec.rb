@@ -146,9 +146,9 @@ RSpec.describe "Results Page" do
       select_radio_value("property-form", "property-owned", "with_mortgage")
       click_on "Save and continue"
 
-      fill_in "property-entry-form-house-value-field", with: 100_000
-      fill_in "property-entry-form-mortgage-field", with: 80_000
-      fill_in "property-entry-form-percentage-owned-field", with: 20
+      fill_in "client-property-entry-form-house-value-field", with: 100_000
+      fill_in "client-property-entry-form-mortgage-field", with: 80_000
+      fill_in "client-property-entry-form-percentage-owned-field", with: 20
       click_on "Save and continue"
 
       select_boolean_value("vehicle-form", :vehicle_owned, true)
@@ -252,7 +252,7 @@ RSpec.describe "Results Page" do
       click_on "Save and continue"
 
       fill_in "outgoings-form-housing-payments-value-field", with: "0"
-      find(:css, "#outgoings-form-housing-payments-frequency-monthly-field").click
+      select_radio_value("outgoings-form", "housing-payments-frequency", :monthly)
       fill_in "outgoings-form-childcare-payments-value-field", with: "0"
       fill_in "outgoings-form-legal-aid-payments-value-field", with: "0"
       fill_in "outgoings-form-maintenance-payments-value-field", with: "0"
@@ -292,12 +292,13 @@ RSpec.describe "Results Page" do
       click_on "Save and continue"
 
       fill_in "partner-outgoings-form-housing-payments-value-field", with: "300"
-      find(:css, "#partner-outgoings-form-housing-payments-frequency-monthly-field").click
+      select_radio_value("partner-outgoings-form", "housing-payments-frequency", :monthly)
       fill_in "partner-outgoings-form-childcare-payments-value-field", with: "0"
       fill_in "partner-outgoings-form-legal-aid-payments-value-field", with: "0"
       fill_in "partner-outgoings-form-maintenance-payments-value-field", with: "0"
       click_on "Save and continue"
 
+      skip_partner_property_form
       select_boolean_value("partner-vehicle-form", :vehicle_owned, true)
       click_on "Save and continue"
       fill_in "partner-vehicle-details-form-vehicle-value-field", with: 18_000

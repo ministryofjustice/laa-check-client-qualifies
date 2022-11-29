@@ -1,0 +1,10 @@
+- content_for :back do
+  = back_link(:partner_property_entry, @estimate, @back_buttons_invoke_browser_back_behaviour)
+.govuk-grid-column-two-thirds
+  span.govuk-caption-l
+    = t(".caption")
+  h1.govuk-heading-xl = t(".heading")
+
+  = render "estimate_flow/forms/property_entry", i18n_key: "partner_property_entry",
+          show_smod: false, show_joint_ownership: false, show_mortgage: @estimate.partner_property_owned == "with_mortgage"
+= render "partner_property_sidebar"
