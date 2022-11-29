@@ -30,8 +30,8 @@ html lang="en" class="govuk-template"
 
     .govuk-width-container
       = govuk_phase_banner tag: { text: t("service.beta") },
-                           text: t("service.beta_message_html", email: t("service.email")),
-                           html_attributes: { role: "complementary", "aria-label": "Beta notification" }
+              text: t("service.beta_message_html", user_survey_link: t("service.user_survey_link")),
+              html_attributes: { role: "complementary", "aria-label": "Beta notification" }
 
       main#main-content.govuk-main-wrapper role="main"
         div class="govuk-grid-row"
