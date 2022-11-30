@@ -2,14 +2,13 @@
   .govuk-panel.govuk-panel--confirmation.panel-grey
     h1.govuk-panel__title.govuk--font-size-36
       = t(".page_heading")
+  p.govuk-body = t(".extra_text")
 
   h2.govuk-heading-m = t(".sub_heading")
 
   .govuk-list
     ul class="govuk-list govuk-list--bullet"
-      li = link_to t(".item_1"), "https://www.gov.uk/civil-legal-advice"
-      li = link_to t(".item_2"), "https://www.gov.uk/check-legal-aid"
-      li = link_to t(".item_3"), "https://www.gov.uk/legal-aid"
-      li = link_to t(".item_4"), "https://www.gov.uk/guidance/civil-legal-aid-means-testing"
+      - t(".links_html").each
+        li = _1
 
   a.govuk-button href="https://www.gov.uk/" = t(".return_button")
