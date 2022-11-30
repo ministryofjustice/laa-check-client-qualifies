@@ -62,6 +62,16 @@ en:
               inclusion: Please select how frequently your client receives Housing Benefit
             housing_benefit_value:
               blank: Please enter the value of your client's Housing Benefit
+        partner_housing_benefit_form:
+          attributes:
+            housing_benefit:
+              inclusion: Select yes if your client's partner receives Housing Benefit
+        partner_housing_benefit_details_form:
+          attributes:
+            housing_benefit_frequency:
+              inclusion: Please select how frequently your client's partner receives Housing Benefit
+            housing_benefit_value:
+              blank: Please enter the value of your client's partner's Housing Benefit
         benefits_form:
           attributes:
             add_benefit:
@@ -428,6 +438,16 @@ en:
         hint: ""
     housing_benefit_details:
       caption: Your client's finances
+      heading: Add Housing Benefit details
+      housing_benefit_value: Enter amount
+      housing_benefit_frequency: Select frequency
+    partner_housing_benefit:
+      caption: Your client's partner's finances
+      housing_benefit_received:
+        legend: Does your client's partner receive Housing Benefit?
+        hint: ""
+    partner_housing_benefit_details:
+      caption: Your client's partner's finances
       heading: Add Housing Benefit details
       housing_benefit_value: Enter amount
       housing_benefit_frequency: Select frequency
@@ -879,7 +899,11 @@ en:
           monthly: Monthly
           annually: Annually
           not_provided: Not provided
-      partner_benefits: Partner's benefits
+      partner_benefits: Other benefits
+      partner_housing_benefit: Housing Benefit
+      partner_housing_benefit_fields:
+        partner_housing_benefit_value: Housing Benefit
+        partner_housing_benefit: Receives housing benefit
       partner_other_income: Partner's other income
       partner_other_income_fields:
         partner_friends_or_family_value: Financial help

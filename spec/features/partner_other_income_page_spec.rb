@@ -17,6 +17,8 @@ RSpec.describe "Partner other income page" do
     select_boolean_value("partner-details-form", :employed, false)
     select_boolean_value("partner-details-form", :dependants, false)
     click_on "Save and continue"
+    select_boolean_value("partner-housing-benefit-form", :housing_benefit, false)
+    click_on("Save and continue")
     select_boolean_value("partner-benefits-form", :add_benefit, false)
     click_on "Save and continue"
   end

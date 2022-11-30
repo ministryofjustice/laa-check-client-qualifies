@@ -191,6 +191,8 @@ def visit_check_answer_with_partner
   click_on "Save and continue"
 
   fill_in_employment_form(subject: :partner)
+  select_boolean_value("partner-housing-benefit-form", :housing_benefit, false)
+  click_on "Save and continue"
   select_boolean_value("partner-benefits-form", :add_benefit, true)
   click_on "Save and continue"
   fill_in "Benefit type", with: "Child benefit"

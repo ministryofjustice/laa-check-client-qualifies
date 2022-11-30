@@ -190,6 +190,15 @@ sections:
           type: money
   - label: partner_other_income
     subsections:
+      - label: partner_housing_benefit
+        screen: partner_housing_benefit
+        fields:
+          - attribute: partner_housing_benefit
+            type: boolean
+          - attribute: partner_housing_benefit_value
+            type: money_with_frequency
+            alt_attribute: partner_housing_benefit_frequency
+            skip_unless: partner_housing_benefit
       - label: partner_benefits
         screen: partner_benefits
       - label: partner_other_income
