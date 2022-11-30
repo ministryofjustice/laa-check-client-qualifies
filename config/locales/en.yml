@@ -4,10 +4,12 @@ en:
       models:
         partner_details_form:
           attributes:
-            partner_employed:
+            employed:
               inclusion: Select employed if the client's partner is currently employed
-            partner_over_60:
+            over_60:
               inclusion: Select yes if the client's partner is over 60 years old
+            dependants:
+              inclusion: Select yes if the client's partner has any dependants
         applicant_form:
           attributes:
             employed:
@@ -20,8 +22,6 @@ en:
               blank: Select yes if your client is likely to be an applicant in a domestic abuse case
             partner:
               inclusion: Select yes if the client has a partner
-        dependants_form:
-          attributes:
             dependants:
               inclusion: Select yes if the client has any dependants
         dependant_details_form:
