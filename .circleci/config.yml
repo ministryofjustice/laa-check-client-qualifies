@@ -73,7 +73,7 @@ jobs:
       - attach_workspace:
           at: ~/
       - restore_cache:
-          key: laa-estimate-eligibility-{{ checksum "Gemfile.lock" }}-v1-{{ checksum "yarn.lock" }}
+          key: check-client-qualifies-{{ checksum "Gemfile.lock" }}-v1-{{ checksum "yarn.lock" }}
       - run:
           name: Which bundler?
           command: bundle -v
@@ -94,7 +94,7 @@ jobs:
           name: Compile assets for test run
           command: bundle exec rake test:prepare
       - save_cache:
-          key: laa-estimate-eligibility-{{ checksum "Gemfile.lock" }}-v1-{{ checksum "yarn.lock" }}
+          key: check-client-qualifies-{{ checksum "Gemfile.lock" }}-v1-{{ checksum "yarn.lock" }}
           paths:
             - vendor/bundle
             - node_modules
@@ -166,7 +166,7 @@ jobs:
       - *decrypt_secrets
       - *authenticate_k8s
       - deploy:
-          name: Deploy LAA Estimate Eligibility Service to UAT
+          name: Deploy LAA Check-your-client-qualifies-for-legal-aid service to UAT
           command: |
             ./bin/uat_deployment 
 
@@ -179,9 +179,9 @@ jobs:
       - *decrypt_secrets
       - *authenticate_k8s
       - deploy:
-          name: Deploy LAA Estimate Eligibility Service to Staging
+          name: Deploy LAA Check-your-client-qualifies-for-legal-aid service to Staging
           command: |
-            helm upgrade estimate-financial-eligibility ./helm_deploy/laa-estimate-eligibility/. \
+            helm upgrade check-client-qualifies ./helm_deploy/laa-estimate-eligibility/. \
                           --install --wait \
                           --namespace=${K8S_NAMESPACE} \
                           --values ./helm_deploy/laa-estimate-eligibility/values-staging.yaml \
@@ -197,9 +197,9 @@ jobs:
       - *decrypt_secrets
       - *authenticate_k8s
       - deploy:
-          name: Deploy LAA Estimate Eligibility Service to Production
+          name: Deploy LAA Check-your-client-qualifies-for-legal-aid service to Production
           command: |
-            helm upgrade estimate-financial-eligibility ./helm_deploy/laa-estimate-eligibility/. \
+            helm upgrade check-client-qualifies ./helm_deploy/laa-estimate-eligibility/. \
                           --install --wait \
                           --namespace=${K8S_NAMESPACE} \
                           --values ./helm_deploy/laa-estimate-eligibility/values-production.yaml \
