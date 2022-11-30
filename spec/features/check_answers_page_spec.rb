@@ -24,8 +24,11 @@ RSpec.describe "Check answers page" do
     end
 
     scenario "I can modify those benefits from the 'check answers' screen" do
-      within("#field-list-benefits") { click_on "Change" }
+      within("#subsection-benefits-header") { click_on "Change" }
+      click_on "Change"
       fill_in "Benefit type", with: "Child Benefits"
+      click_on "Save and continue"
+      select_boolean_value("benefits-form", :add_benefit, false)
       click_on "Save and continue"
       within("#field-list-benefits") do
         expect(page).to have_content "Child Benefits"

@@ -4,6 +4,8 @@ module Flow
       applicant: ApplicantForm,
       dependant_details: DependantDetailsForm,
       employment: EmploymentForm,
+      housing_benefit: HousingBenefitForm,
+      housing_benefit_details: HousingBenefitDetailsForm,
       benefits: BenefitsForm,
       other_income: OtherIncomeForm,
       outgoings: OutgoingsForm,

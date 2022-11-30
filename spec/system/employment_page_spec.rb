@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "Employment Page", :vcr do
   let(:arbitrary_fixed_time) { Time.zone.local(2022, 9, 5, 9, 0, 0) }
   let(:employment_header) { "Add your client's salary breakdown" }
-  let(:benefits_header) { "Does your client receive any benefits?" }
+  let(:housing_benefit_header) { "Does your client receive Housing Benefit?" }
 
   describe "functionality" do
     before do
@@ -27,7 +27,9 @@ RSpec.describe "Employment Page", :vcr do
       fill_in "employment-form-national-insurance-field", with: 50
       select_radio_value("employment-form", "frequency", "week")
       click_on "Save and continue"
-      expect(page).to have_content(benefits_header)
+      expect(page).to have_content(housing_benefit_header)
+      select_boolean_value("housing-benefit-form", :housing_benefit, false)
+      click_on "Save and continue"
       select_boolean_value("benefits-form", :add_benefit, false)
       click_on "Save and continue"
       complete_incomes_screen

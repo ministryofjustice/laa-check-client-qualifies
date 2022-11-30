@@ -73,15 +73,13 @@
                      label_text: field.label,
                      value: field.value,
                      frequency: t(".frequency_options.#{field.alt_value}"),
-                     disputed_asset: false,
-                     path: (edit_estimate_check_benefits_answer_path(@estimate_id, field.id, check_answers: true) if field.id)
+                     disputed_asset: false
           - when "partner_benefit"
             = render "money_and_frequency_check_answer",
                      label_text: field.label,
                      value: field.value,
                      frequency: t(".frequency_options.#{field.alt_value}"),
-                     disputed_asset: false,
-                     path: (edit_estimate_check_partner_benefits_answer_path(@estimate_id, field.id, check_answers: true) if field.id)
+                     disputed_asset: false
           - else
             - raise "Unknown field_type #{field.type}"
 

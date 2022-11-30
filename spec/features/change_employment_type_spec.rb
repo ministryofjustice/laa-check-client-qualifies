@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "ChangeEmploymentTypes" do
+RSpec.describe "Change employment types" do
   let(:employment_header) { "Add your client's salary breakdown" }
   let(:outgoings_header) { "What are your client's outgoings and deductions?" }
   let(:check_answers_header) { "Check your answers" }
@@ -35,6 +35,8 @@ RSpec.describe "ChangeEmploymentTypes" do
     select_radio_value("employment-form", "frequency", :monthly)
 
     click_on "Save and continue"
+    select_boolean_value("housing-benefit-form", :housing_benefit, false)
+    click_on("Save and continue")
     select_boolean_value("benefits-form", :add_benefit, false)
     click_on("Save and continue")
     complete_incomes_screen

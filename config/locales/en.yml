@@ -52,6 +52,16 @@ en:
               blank: National Insurance cannot be blank
             frequency:
               blank: Please select how frequently your client's partner receives employment income
+        housing_benefit_form:
+          attributes:
+            housing_benefit:
+              inclusion: Select yes if your client receives Housing Benefit
+        housing_benefit_details_form:
+          attributes:
+            housing_benefit_frequency:
+              inclusion: Please select how frequently your client receives Housing Benefit
+            housing_benefit_value:
+              blank: Please enter the value of your client's Housing Benefit
         benefits_form:
           attributes:
             add_benefit:
@@ -410,6 +420,16 @@ en:
       frequency:
         input: Select frequency
         blank: "--"
+    housing_benefit:
+      caption: Your client's finances
+      housing_benefit_received:
+        legend: Does your client receive Housing Benefit?
+        hint: ""
+    housing_benefit_details:
+      caption: Your client's finances
+      heading: Add Housing Benefit details
+      housing_benefit_value: Enter amount
+      housing_benefit_frequency: Select frequency
     benefits:
       caption: Your client's finances
       legend: Does your client receive any benefits?
@@ -776,7 +796,13 @@ en:
           monthly: Monthly
           annually: Annually
           not_provided: Not provided
-      benefits: Client's benefits
+      benefits: Other benefits
+      benefits_fields:
+        receives_benefits: Receives other benefits
+      housing_benefit: Housing Benefit
+      housing_benefit_fields:
+        housing_benefit_value: Housing Benefit
+        housing_benefit: Receives housing benefit
       other_income: Client's other income
       other_income_fields:
         friends_or_family_value: Financial help

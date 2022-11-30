@@ -2,7 +2,7 @@ module CheckAnswers
   class SectionListerService
     Section = Struct.new(:label, :screen, :subsections, keyword_init: true)
     Subsection = Struct.new(:label, :screen, :fields, keyword_init: true)
-    Field = Struct.new(:label, :type, :value, :screen, :alt_value, :id, :disputed?, keyword_init: true)
+    Field = Struct.new(:label, :type, :value, :screen, :alt_value, :disputed?, keyword_init: true)
 
     SUBSECTION_SPECIAL_CASES = %i[benefits partner_benefits].freeze
 
@@ -82,7 +82,7 @@ module CheckAnswers
 
     def benefits_fields
       if StepsHelper.valid_step?(@model, :benefits)
-        benefits_fields_common(session_key: "benefits", field_type: "benefit")
+        benefits_fields_common(session_key: "benefits")
       else
         []
       end
@@ -90,24 +90,27 @@ module CheckAnswers
 
     def partner_benefits_fields
       if StepsHelper.valid_step?(@model, :partner_benefits)
-        benefits_fields_common(session_key: "partner_benefits", field_type: "benefit")
+        benefits_fields_common(session_key: "partner_benefits")
       else
         []
       end
     end
 
-    def benefits_fields_common(session_key:, field_type:)
+    def benefits_fields_common(session_key:)
       if @session_data[session_key].blank?
-        [Field.new(label: I18n.t("generic.not_applicable"),
-                   type: field_type)]
+        [Field.new(label: "benefits_fields.receives_benefits",
+                   type: "boolean",
+                   value: false)]
       else
-        @session_data[session_key].map do |benefit|
+        line_items = @session_data[session_key].map do |benefit|
           Field.new(label: benefit["benefit_type"],
-                    type: field_type,
+                    type: "benefit",
                     value: benefit["benefit_amount"],
-                    alt_value: benefit["benefit_frequency"],
-                    id: benefit["id"])
+                    alt_value: benefit["benefit_frequency"])
         end
+        [Field.new(label: "benefits_fields.receives_benefits",
+                   type: "boolean",
+                   value: true)] + line_items
       end
     end
   end

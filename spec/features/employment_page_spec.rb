@@ -37,6 +37,8 @@ RSpec.describe "Employment page" do
     end
 
     it "doesnt show section on check answers screen" do
+      select_boolean_value("housing-benefit-form", :housing_benefit, false)
+      click_on("Save and continue")
       select_boolean_value("benefits-form", :add_benefit, false)
       click_on("Save and continue")
       complete_incomes_screen
