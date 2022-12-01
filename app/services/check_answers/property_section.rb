@@ -21,7 +21,7 @@ module CheckAnswers
 
     def display_fields
       if owns_property?
-        FIELDS
+        Flipper.enabled?(:partner) ? FIELDS : FIELDS - %i[joint_ownership joint_percentage_owned]
       else
         [:property_owned]
       end

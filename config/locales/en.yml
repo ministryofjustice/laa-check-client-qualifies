@@ -332,6 +332,7 @@ en:
       passporting:
         legend: Does your client receive a passporting benefit?
         hint: Universal Credit, Income Support, income-based Jobseeker's Allowance (JSA), income-related Employment and Support Allowance (ESA), and Guarantee Credit element of Pension Credit. Also indicate ‘yes’ if your client is listed on their partner’s claim. Do not indicate ‘yes’ if only your client’s partner is receiving a passporting benefit.
+        alt_hint: Universal Credit, Income Support, income-based Jobseeker's Allowance (JSA), income-related Employment and Support Allowance (ESA), and Guarantee Credit element of Pension Credit.
       dependants:
         caption: About your client
         legend: Does your client have any dependants?
@@ -1044,9 +1045,14 @@ en:
       unacceptable_case_types:
         - in the Immigration and Asylum Chamber of the Upper Tribunal
         - controlled work
-      merits: We cannot tell you if the merits or the type of case put it in scope for civil legal aid. You will have to make an application to find this out.
+      merits: This service cannot tell you if the merits or the type of case put it in scope for civil legal aid. You will have to make an application to find this out.
       only_for_legal_aid_providers_html: You can only use this service if you give legal advice or provide legal services. %{link} as an individual.
       check_if_you_can_get_legal_aid: Check if you can get legal aid
+      unacceptable_client_explanation_no_partner: "You cannot use this service if your client:"
+      unacceptable_client_types_no_partner:
+        - is self employed
+        - is in the armed forces
+        - has a partner
       unacceptable_client_explanation: "You cannot use this service if your client (or their partner) is:"
       unacceptable_client_types:
         - self employed
@@ -1055,10 +1061,14 @@ en:
       before_start_paragraphs:
         - It should take about 15 minutes to answer all the questions.
         - "You'll need information from your client (and any partner if applicable) about their:"
+      before_start_paragraphs_no_partner:
+        - It should take about 15 minutes to answer all the questions.
+        - "You'll need information from your client about their:"
       required_information_types:
-        - "Income including any salary, benefits and financial support received"
-        - "Outgoings such as housing costs, childcare costs, maintenance and any criminal legal aid contribution payments your client may be making"
-        - "Savings, investments and other assets"
+        - income, including any benefits they claim
+        - outgoings
+        - savings and investments
+        - assets, like property and vehicles
       related_content_item_1:
         text: Legal aid overview
         link: https://www.gov.uk/legal-aid
@@ -1066,8 +1076,6 @@ en:
         text: Civil legal aid
         link: https://www.gov.uk/guidance/civil-legal-aid-means-testing
       start_button: Start now
-      unlikely_to_qualify: "If your client and/or their partner have combined assets worth £8,000 or more they are unlikely to qualify for legal aid unless a waiver applies (for example if your client is an applicant in a Domestic Abuse matter)."
-      laspo_and_merits: "This service only considers whether an individual may be financially eligible for civil legal aid and does not cover whether their case is in scope for legal aid or the merits of their case."
   cookie_banner:
     title: Cookies on Estimate Eligibility For Financial Aid
     essential_cookies: We use some essential cookies to make this service work.

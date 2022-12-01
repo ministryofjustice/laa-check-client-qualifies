@@ -18,35 +18,48 @@
                                           yes_no_options, :first, :last,
                                           legend: { text: t(".over_60.legend") },
                                           hint: { text: t(".over_60.hint") }
-
-    = form.govuk_collection_radio_buttons :dependants,
-            yes_no_options,
-            :first,
-            :last,
-            legend: { text: t(".dependants.legend") },
-            hint: lambda { \
-                            tag.p(t(".dependants.hint")) + \
-                            tag.ul(class: "govuk-list govuk-list--bullet") do \
-                            tag.li(t(".dependants.lives_with")) + \
-                            tag.li(t(".dependants.depends")) \
-                            end + \
-                            tag.div(t(".dependants.no_partner"), class: "govuk-inset-text") \
-                            }
+    - if Flipper.enabled?(:partner)
+      = form.govuk_collection_radio_buttons :dependants,
+              yes_no_options,
+              :first,
+              :last,
+              legend: { text: t(".dependants.legend") },
+              hint: lambda { \
+                              tag.p(t(".dependants.hint")) + \
+                              tag.ul(class: "govuk-list govuk-list--bullet") do \
+                              tag.li(t(".dependants.lives_with")) + \
+                              tag.li(t(".dependants.depends")) \
+                              end + \
+                              tag.div(t(".dependants.no_partner"), class: "govuk-inset-text") \
+                              }
+    - else
+      = form.govuk_collection_radio_buttons :dependants,
+              yes_no_options,
+              :first,
+              :last,
+              legend: { text: t(".dependants.legend") },
+              hint: lambda { \
+                                    tag.p(t(".dependants.hint")) + \
+                                    tag.ul(class: "govuk-list govuk-list--bullet") do \
+                                    tag.li(t(".dependants.lives_with")) + \
+                                    tag.li(t(".dependants.depends")) \
+                                    end \
+                                    }
 
     - if Flipper.enabled?(:partner)
-        = form.govuk_collection_radio_buttons :partner,
-                                              yes_no_options,
-                                              :first,
-                                              :last,
-                                              legend: { text: t(".partner.legend") },
-                                              hint: { text: t(".partner.hint") }
+      = form.govuk_collection_radio_buttons :partner,
+                                            yes_no_options,
+                                            :first,
+                                            :last,
+                                            legend: { text: t(".partner.legend") },
+                                            hint: { text: t(".partner.hint") }
 
     = form.govuk_collection_radio_buttons :employed, employment_options, :first, :last,
                                           legend: { text: t(".employed.legend") },
                                           hint: { text: t(".employed.hint") }
     = form.govuk_collection_radio_buttons :passporting, yes_no_options, :first, :last,
                                           legend: { text: t(".passporting.legend") },
-                                          hint: { text: t(".passporting.hint") }
+                                          hint: { text: Flipper.enabled?(:partner) ? t(".passporting.hint") : t(".passporting.alt_hint") }
 
     = form.govuk_submit t("generic.save_and_continue")
 
