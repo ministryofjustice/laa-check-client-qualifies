@@ -955,13 +955,15 @@ en:
         provider_user_radio_buttons: This includes if you provide civil or family legal aid and advice in England and Wales to help people deal with their legal problems.
   referrals:
     show:
-      page_heading: You cannot use this service to get a financial eligibility estimate for legal aid
+      page_heading: You cannot use this service to check if someone qualifies for legal aid
       sub_heading: What to do next
-      item_1: Civil Legal Advice
-      item_2: Check eligibility for Civil Legal Advice
-      item_3: Legal aid overview
-      item_4: Civil legal aid means testing
       return_button: Return to GOV.UK
+      extra_text: This is because this service is only for use by those who give legal advice or provide legal services.
+      links_html:
+        - '<a href="https://www.gov.uk/check-legal-aid">Check if you can get legal aid</a> as an individual'
+        - 'Check if you can get free and confidential advice from <a href="https://www.gov.uk/civil-legal-advice">Civil Legal Advice</a>'
+        - 'Find out more about <a href="https://www.gov.uk/legal-aid">Legal aid</a>'
+        - 'Find out what information we use to <a href="https://www.gov.uk/guidance/civil-legal-aid-means-testing">check who can get civil legal aid</a>'
   start:
     index:
       opening_paragraphs:
