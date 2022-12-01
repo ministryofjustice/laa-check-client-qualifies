@@ -12,7 +12,8 @@
                                           ApplicantForm::PROCEEDING_TYPES.to_a,
                                           :last,
                                           ->(pair) { t(".proceeding_type.#{pair[0]}.label") },
-                                          legend: { text: t(".proceeding_type.legend") }
+                                          legend: { text: t(".proceeding_type.legend") },
+                                          hint: { text: t(".proceeding_type.hint") }
 
     = form.govuk_collection_radio_buttons :over_60,
                                           yes_no_options, :first, :last,
@@ -30,9 +31,29 @@
     = form.govuk_collection_radio_buttons :employed, employment_options, :first, :last,
                                           legend: { text: t(".employed.legend") },
                                           hint: { text: t(".employed.hint") }
-    = form.govuk_collection_radio_buttons :passporting, yes_no_options, :first, :last,
-                                          legend: { text: t(".passporting.legend") },
-                                          hint: { text: Flipper.enabled?(:partner) ? t(".passporting.hint") : t(".passporting.alt_hint") }
+    - if Flipper.enabled?(:partner)
+      = form.govuk_collection_radio_buttons :passporting, yes_no_options, :first, :last,
+                                            legend: { text: t(".passporting.legend") },
+                                            hint: lambda { \
+                                                    tag.p(t(".passporting.hint"), class: "govuk-hint") + \
+                                                    tag.ul(class: "govuk-list govuk-list--bullet") do \
+                                                      t(".passporting.valid_benefits").map { |benefit| \
+                                                        tag.li(benefit, class: "govuk-hint") \
+                                                      }.join.html_safe \
+                                                     end + \
+                                                    tag.p(t(".passporting.partner_hint"), class: "govuk-hint") \
+                                                  }
+    - else
+      = form.govuk_collection_radio_buttons :passporting, yes_no_options, :first, :last,
+                                            legend: { text: t(".passporting.legend") },
+                                            hint: lambda { \
+                                                    tag.p(t(".passporting.hint"), class: "govuk-hint") + \
+                                                    tag.ul(class: "govuk-list govuk-list--bullet") do \
+                                                      t(".passporting.valid_benefits").map { |benefit| \
+                                                        tag.li(benefit, class: "govuk-hint") \
+                                                      }.join.html_safe \
+                                                    end \
+                                                  }
 
     = form.govuk_submit t("generic.save_and_continue")
 

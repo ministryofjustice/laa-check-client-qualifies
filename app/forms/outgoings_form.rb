@@ -6,7 +6,7 @@ class OutgoingsForm
   PAYMENT_TYPES = %i[housing_payments childcare_payments maintenance_payments legal_aid_payments].freeze
   VALUE_ATTRIBUTES = PAYMENT_TYPES.map { :"#{_1}_value" }.freeze
   FREQUENCY_ATTRIBUTES = PAYMENT_TYPES.map { :"#{_1}_frequency" }.freeze
-  VALID_FREQUENCIES = %w[every_week every_two_weeks every_four_weeks monthly].freeze
+  VALID_FREQUENCIES = %w[every_week every_two_weeks every_four_weeks monthly total].freeze
 
   ATTRIBUTES = VALUE_ATTRIBUTES + FREQUENCY_ATTRIBUTES
 
