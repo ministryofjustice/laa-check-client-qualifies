@@ -12,6 +12,8 @@ class IncomeSection
       end
     end
 
+  private
+
     def employment_steps(estimate)
       estimate.employed ? [[:employment]] : []
     end

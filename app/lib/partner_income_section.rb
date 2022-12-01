@@ -12,6 +12,8 @@ class PartnerIncomeSection
       end
     end
 
+  private
+
     def employment_steps(estimate)
       estimate.partner_employed ? [[:partner_employment]] : []
     end
