@@ -107,5 +107,31 @@ RSpec.describe SubmitBenefitsService do
         expect(stub).to have_been_requested
       end
     end
+
+    context "when it is passed valid monthly data" do
+      let(:translated) do
+        { "state_benefits" =>
+      [{ "name" => "Child benefit",
+         "payments" =>
+         [{ "date" => "2022-10-24", "amount" => "100.0", "client_id" => "" },
+          { "date" => "2022-09-24", "amount" => "100.0", "client_id" => "" },
+          { "date" => "2022-08-24", "amount" => "100.0", "client_id" => "" }] }] }
+      end
+
+      let(:session_data) do
+        {
+          "benefits" => [
+            { "benefit_amount" => "100",
+              "benefit_type" => "Child benefit",
+              "benefit_frequency" => "monthly" },
+          ],
+        }
+      end
+
+      it "makes a successful call" do
+        service.call(cfe_estimate_id, session_data)
+        expect(stub).to have_been_requested
+      end
+    end
   end
 end
