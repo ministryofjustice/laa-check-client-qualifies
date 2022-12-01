@@ -203,7 +203,7 @@ private
 
   def outgoing_rows(prefix: "")
     data = {
-      housing_costs: disposable_income_value(:rent_or_mortgage, prefix),
+      housing_costs: api_response.dig(:result_summary, :"#{prefix}disposable_income", :net_housing_costs),
       childcare_payments: disposable_income_value(:child_care, prefix),
       maintenance_out: disposable_income_value(:maintenance_out, prefix),
       legal_aid: disposable_income_value(:legal_aid, prefix),

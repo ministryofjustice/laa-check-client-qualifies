@@ -55,8 +55,10 @@ module CfeParamBuilders
           index.weeks
         when "every_two_weeks"
           (index * 2).weeks
-        else
+        when "every_four_weeks"
           (index * 4).weeks
+        else
+          index.months
         end
       end
     end

@@ -194,7 +194,7 @@ RSpec.describe "Results Page" do
 
     it "shows the outgoings section" do
       within "#outgoings-calculation-content" do
-        expect(page).to have_content "Housing payments £300.00"
+        expect(page).to have_content "Housing payments £7.50"
         expect(page).to have_content "Childcare payments £0.00"
         expect(page).to have_content "Maintenance payments to a former partner £0.00"
         expect(page).to have_content "Payments towards legal aid in a criminal case £0.00"

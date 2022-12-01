@@ -3,7 +3,7 @@ class BenefitModel
   include ActiveModel::Attributes
   include SessionPersistable
 
-  FREQUENCY_OPTIONS = %w[every_week every_two_weeks every_four_weeks].freeze
+  FREQUENCY_OPTIONS = %w[every_week every_two_weeks every_four_weeks monthly].freeze
 
   attribute :id
 
