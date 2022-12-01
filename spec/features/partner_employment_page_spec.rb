@@ -1,8 +1,14 @@
 require "rails_helper"
 
-RSpec.describe "Partner employment page", :partner_flag do
+RSpec.describe "Partner employment page" do
   let(:partner_employment_page_header) { I18n.t("estimate_flow.partner_employment.heading") }
-  let(:assets_page_header) { I18n.t("estimate_flow.assets.assets.legend") }
+  let(:partner_details_page_header) { I18n.t("estimate_flow.partner_details.partner_heading") }
+
+  around do |example|
+    Flipper.enable(:partner)
+    example.run
+    Flipper.disable(:partner)
+  end
 
   before do
     visit_applicant_page_with_partner
@@ -10,11 +16,12 @@ RSpec.describe "Partner employment page", :partner_flag do
 
   context "when I have indicated that the partner is unemployed" do
     before do
-      fill_in_applicant_screen_without_passporting_benefits
-      select_applicant_boolean(:partner_employed, false)
-      select_applicant_boolean(:partner_over_60, false)
       click_on "Save and continue"
       travel_from_dependants_to_past_client_assets
+      select_boolean_value("partner-details-form", :over_60, false)
+      select_boolean_value("partner-details-form", :employed, false)
+      select_boolean_value("partner-details-form", :dependants, false)
+      click_on "Save and continue"
     end
 
     it "skips the partner employment page" do
@@ -24,20 +31,21 @@ RSpec.describe "Partner employment page", :partner_flag do
 
   context "when I have indicated that the partner is employed" do
     before do
-      fill_in_applicant_screen_without_passporting_benefits
-      select_applicant_boolean(:partner_employed, true)
-      select_applicant_boolean(:partner_over_60, false)
       click_on "Save and continue"
       travel_from_dependants_to_past_client_assets
+      select_boolean_value("partner-details-form", :over_60, false)
+      select_boolean_value("partner-details-form", :employed, true)
+      select_boolean_value("partner-details-form", :dependants, false)
+      click_on "Save and continue"
     end
 
     it "shows the partner employment page" do
       expect(page).to have_content(partner_employment_page_header)
     end
 
-    it "has a back link to the assets page" do
+    it "has a back link to the partner details page" do
       click_link "Back"
-      expect(page).to have_content assets_page_header
+      expect(page).to have_content partner_details_page_header
     end
 
     context "when I omit some required information" do

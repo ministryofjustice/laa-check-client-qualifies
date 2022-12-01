@@ -1,8 +1,8 @@
 class SubmitPartnerService < BaseCfeService
   def call(cfe_estimate_id, cfe_session_data)
     @cfe_session_data = cfe_session_data
-    form = PartnerForm.from_session(cfe_session_data)
-    return unless form.partner
+    form = ApplicantForm.from_session(cfe_session_data)
+    return unless Flipper.enabled?(:partner) && form.partner
 
     cfe_connection.create_partner cfe_estimate_id,
                                   partner:,
@@ -17,10 +17,10 @@ class SubmitPartnerService < BaseCfeService
 
   def partner
     @partner ||= begin
-      form = ApplicantForm.from_session(@cfe_session_data)
+      form = PartnerDetailsForm.from_session(@cfe_session_data)
       {
-        date_of_birth: form.partner_over_60 ? 70.years.ago.to_date : 50.years.ago.to_date,
-        employed: form.partner_employed,
+        date_of_birth: form.over_60 ? 70.years.ago.to_date : 50.years.ago.to_date,
+        employed: form.employed,
       }
     end
   end

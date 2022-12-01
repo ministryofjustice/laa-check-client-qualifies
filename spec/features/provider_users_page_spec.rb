@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Provider User Page" do
-  let(:first_page_header) { "About the case" }
+  let(:first_page_header) { I18n.t("estimate_flow.applicant.heading") }
   let(:referral_header) { I18n.t("referrals.show.page_heading") }
   let(:estimate_id) { SecureRandom.uuid }
 

@@ -14,7 +14,7 @@ RSpec.describe "Property Page" do
     allow(mock_connection).to receive(:create_proceeding_type)
     allow(mock_connection).to receive(:create_regular_payments)
     allow(mock_connection).to receive(:create_applicant)
-    visit_applicant_page(partner:)
+    visit_applicant_page
   end
 
   context "with partner", :partner_flag do
@@ -28,8 +28,6 @@ RSpec.describe "Property Page" do
 
     before do
       fill_in_applicant_screen_with_passporting_benefits
-      select_applicant_boolean(:partner_over_60, false)
-      select_applicant_boolean(:partner_employed, false)
       click_on "Save and continue"
       allow(mock_connection).to receive(:create_partner)
     end
@@ -39,6 +37,10 @@ RSpec.describe "Property Page" do
         skip_property_form
         skip_vehicle_form
         skip_assets_form
+        select_boolean_value("partner-details-form", :over_60, false)
+        select_boolean_value("partner-details-form", :employed, false)
+        select_boolean_value("partner-details-form", :dependants, false)
+        click_on "Save and continue"
       end
 
       context "without dwelling" do
@@ -189,6 +191,10 @@ RSpec.describe "Property Page" do
     def complete_from_vehicle_form
       skip_vehicle_form
       skip_assets_form
+      select_boolean_value("partner-details-form", :over_60, false)
+      select_boolean_value("partner-details-form", :employed, false)
+      select_boolean_value("partner-details-form", :dependants, false)
+      click_on "Save and continue"
       skip_partner_vehicle_form
       skip_assets_form(subject: :partner)
 

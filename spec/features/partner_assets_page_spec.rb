@@ -1,14 +1,22 @@
 require "rails_helper"
 
-RSpec.describe "Partner assets page", :partner_flag do
+RSpec.describe "Partner assets page" do
   let(:partner_assets_heading) { I18n.t("estimate_flow.partner_assets.assets.legend") }
+
+  around do |example|
+    Flipper.enable(:partner)
+    example.run
+    Flipper.disable(:partner)
+  end
 
   before do
     visit_applicant_page_with_partner
-    fill_in_applicant_screen_without_passporting_benefits
-    add_applicant_partner_answers
     click_on "Save and continue"
     travel_from_dependants_to_past_client_assets
+    select_boolean_value("partner-details-form", :over_60, false)
+    select_boolean_value("partner-details-form", :employed, false)
+    select_boolean_value("partner-details-form", :dependants, false)
+    click_on "Save and continue"
     select_boolean_value("partner-benefits-form", :add_benefit, false)
     click_on "Save and continue"
     complete_incomes_screen(subject: :partner)
@@ -28,7 +36,6 @@ RSpec.describe "Partner assets page", :partner_flag do
 
     it "shows me an error message" do
       expect(page).to have_content partner_assets_heading
-      expect(page).to have_content "Please enter the total of your client's partner's valuables"
     end
   end
 
