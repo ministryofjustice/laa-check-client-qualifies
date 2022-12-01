@@ -1,0 +1,8 @@
+- content_for :back do
+  = back_link(:housing_benefit_details, @estimate, @back_buttons_invoke_browser_back_behaviour)
+.govuk-grid-column-two-thirds
+  span.govuk-caption-l = t(".caption")
+  h1.govuk-heading-xl = t(".heading")
+
+  = render "estimate_flow/forms/housing_benefit_details", i18n_key: "housing_benefit_details"
+= render "shared/sidebar_with_date", links: {}

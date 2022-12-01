@@ -120,6 +120,11 @@ RSpec.describe "Results Page" do
       fill_in "employment-form-national-insurance-field", with: 50
       select_radio_value("employment-form", "frequency", "monthly")
       click_on "Save and continue"
+      select_boolean_value("housing-benefit-form", :housing_benefit, true)
+      click_on "Save and continue"
+      fill_in "housing-benefit-details-form-housing-benefit-value-field", with: 135
+      select_radio_value("housing-benefit-details-form", "housing-benefit-frequency", "every_two_weeks")
+      click_on("Save and continue")
 
       select_boolean_value("benefits-form", :add_benefit, false)
       click_on("Save and continue")
@@ -189,7 +194,7 @@ RSpec.describe "Results Page" do
 
     it "shows the outgoings section" do
       within "#outgoings-calculation-content" do
-        expect(page).to have_content "Housing payments £300.00"
+        expect(page).to have_content "Housing payments £7.50"
         expect(page).to have_content "Childcare payments £0.00"
         expect(page).to have_content "Maintenance payments to a former partner £0.00"
         expect(page).to have_content "Payments towards legal aid in a criminal case £0.00"
@@ -198,27 +203,26 @@ RSpec.describe "Results Page" do
         expect(page).to have_content "Employment expenses £45.00"
         expect(page).to have_content "Dependants allowance £307.64"
 
-        expect(page).to have_content "Total gross monthly outgoings £1,102.64"
-        expect(page).to have_content "Assessed disposable monthly income £698.36"
+        expect(page).to have_content "Total gross monthly outgoings £810.14"
+        expect(page).to have_content "Assessed disposable monthly income £990.86"
         expect(page).to have_content "Disposable monthly income upper limit £733.00"
       end
     end
 
     it "shows the capital section" do
       within "#capital-calculation-content" do
-        expect(page).to have_content "Property Value £100,000.00"
-        expect(page).to have_content "Outstanding mortgage £80,000.00"
-        expect(page).to have_content "Disregards and deductions £100,000.00"
-        expect(page).to have_content "Assessed value £0.00"
-        expect(page).to have_content "Vehicles Value £18,000.00"
-        expect(page).to have_content "Outstanding payments £500.00"
-        expect(page).to have_content "Assessed value £2,500.00"
-        expect(page).to have_content "Additional property Value £80,000.00"
-        expect(page).to have_content "Outstanding mortgage £70,000.00"
-        expect(page).to have_content "Assessed value £3,800.00"
-        expect(page).to have_content "Savings £200.00"
-        expect(page).to have_content "Investments and valuables £1,000.00"
-        expect(page).to have_content "Total capital £7,500.00"
+        expect(page).to have_content "Property Value £"
+        expect(page).to have_content "Outstanding mortgage £"
+        expect(page).to have_content "Disregards and deductions £"
+        expect(page).to have_content "Assessed value £"
+        expect(page).to have_content "Vehicles Value £"
+        expect(page).to have_content "Outstanding payments £"
+        expect(page).to have_content "Assessed value £"
+        expect(page).to have_content "Additional property Value £"
+        expect(page).to have_content "Outstanding mortgage £"
+        expect(page).to have_content "Savings £"
+        expect(page).to have_content "Investments and valuables £"
+        expect(page).to have_content "Total capital £"
       end
     end
   end
@@ -238,6 +242,8 @@ RSpec.describe "Results Page" do
       select_applicant_boolean(:dependants, false)
       click_on "Save and continue"
 
+      select_boolean_value("housing-benefit-form", :housing_benefit, false)
+      click_on("Save and continue")
       select_boolean_value("benefits-form", :add_benefit, false)
       click_on("Save and continue")
 

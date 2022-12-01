@@ -77,6 +77,8 @@ def progress_to_submit_from_outgoings
 end
 
 def progress_to_submit_from_benefits
+  select_boolean_value("housing-benefit-form", :housing_benefit, false)
+  click_on("Save and continue")
   select_boolean_value("benefits-form", :add_benefit, true)
   click_on "Save and continue"
   fill_in "Benefit type", with: "Child benefit"
@@ -151,10 +153,12 @@ def visit_check_answer_without_passporting_benefit
   visit_applicant_page
   fill_in_applicant_screen_without_passporting_benefits
   click_on "Save and continue"
-  travel_from_dependants_to_past_client_assets
+  travel_from_housing_benefit_to_past_client_assets
 end
 
-def travel_from_dependants_to_past_client_assets
+def travel_from_housing_benefit_to_past_client_assets
+  select_boolean_value("housing-benefit-form", :housing_benefit, false)
+  click_on("Save and continue")
   select_boolean_value("benefits-form", :add_benefit, false)
   click_on("Save and continue")
   complete_incomes_screen
@@ -179,7 +183,7 @@ end
 def visit_check_answer_with_partner
   visit_applicant_page_with_partner
   click_on "Save and continue"
-  travel_from_dependants_to_past_client_assets
+  travel_from_housing_benefit_to_past_client_assets
 
   select_boolean_value("partner-details-form", :over_60, false)
   select_boolean_value("partner-details-form", :employed, true)

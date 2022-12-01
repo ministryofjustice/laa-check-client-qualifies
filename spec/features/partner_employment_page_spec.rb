@@ -17,7 +17,7 @@ RSpec.describe "Partner employment page" do
   context "when I have indicated that the partner is unemployed" do
     before do
       click_on "Save and continue"
-      travel_from_dependants_to_past_client_assets
+      travel_from_housing_benefit_to_past_client_assets
       select_boolean_value("partner-details-form", :over_60, false)
       select_boolean_value("partner-details-form", :employed, false)
       select_boolean_value("partner-details-form", :dependants, false)
@@ -32,7 +32,7 @@ RSpec.describe "Partner employment page" do
   context "when I have indicated that the partner is employed" do
     before do
       click_on "Save and continue"
-      travel_from_dependants_to_past_client_assets
+      travel_from_housing_benefit_to_past_client_assets
       select_boolean_value("partner-details-form", :over_60, false)
       select_boolean_value("partner-details-form", :employed, true)
       select_boolean_value("partner-details-form", :dependants, false)

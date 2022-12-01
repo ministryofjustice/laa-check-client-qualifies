@@ -20,7 +20,6 @@ class BenefitsController < EstimateFlowController
   def edit
     benefit_attributes = session_data[benefit_session_key].find { _1["id"] == params[:id] }
     @model = model_class.new(benefit_attributes)
-    @model.return_to_check_answers = params[:check_answers]
   end
 
   def update
@@ -30,11 +29,7 @@ class BenefitsController < EstimateFlowController
     if @model.valid?
       index = session_data[benefit_session_key].index(benefit_attributes)
       session_data[benefit_session_key][index] = @model.attributes
-      if @model.return_to_check_answers
-        redirect_to next_step_path load_estimate
-      else
-        redirect_to flow_path(step_name)
-      end
+      redirect_to flow_path(step_name)
     else
       render :edit
     end

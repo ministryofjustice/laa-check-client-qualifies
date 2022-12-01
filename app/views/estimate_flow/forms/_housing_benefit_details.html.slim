@@ -1,0 +1,15 @@
+= form_for(@form, url: wizard_path, method: :put) do |form|
+  = form.govuk_error_summary t("generic.error_summary_title")
+
+  = render "shared/money_input",
+          form:,
+          field: :housing_benefit_value,
+          width: 10,
+          label_text: t("estimate_flow.#{i18n_key}.housing_benefit_value")
+  = form.govuk_collection_radio_buttons :housing_benefit_frequency,
+                                        @form.frequencies,
+                                        :first,
+                                        :last,
+                                        legend: -> { tag.p(t("estimate_flow.#{i18n_key}.housing_benefit_frequency")) }
+
+  = form.govuk_submit t("generic.save_and_continue")

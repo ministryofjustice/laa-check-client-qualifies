@@ -68,6 +68,15 @@ sections:
           type: money
   - label: other_income
     subsections:
+      - label: housing_benefit
+        screen: housing_benefit
+        fields:
+          - attribute: housing_benefit
+            type: boolean
+          - attribute: housing_benefit_value
+            type: money_with_frequency
+            alt_attribute: housing_benefit_frequency
+            skip_unless: housing_benefit
       - label: benefits
         screen: benefits
       - label: other_income
