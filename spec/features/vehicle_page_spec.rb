@@ -16,33 +16,58 @@ RSpec.describe "Vehicle Page" do
     )
   end
 
-  before do
-    allow(CfeConnection).to receive(:connection).and_return(mock_connection)
-    visit estimate_build_estimate_path estimate_id, :vehicle
-  end
-
-  it "sets error on vehicle form" do
-    click_on "Save and continue"
-    expect(page).to have_css(".govuk-error-summary__list")
-    within ".govuk-error-summary__list" do
-      expect(page).to have_content("Select yes if the client owns a vehicle")
-    end
-  end
-
-  context "without a vehicle" do
+  context "when on vehicle form" do
     before do
-      select_vehicle_value(:vehicle_owned, false)
+      visit estimate_build_estimate_path estimate_id, :vehicle
+    end
+
+    it "sets error on vehicle form" do
       click_on "Save and continue"
+      expect(page).to have_css(".govuk-error-summary__list")
+      within ".govuk-error-summary__list" do
+        expect(page).to have_content("Select yes if the client owns a vehicle")
+      end
     end
 
-    it "skips vehicle questions" do
-      expect(page).to have_content(assets_header)
+    context "without a vehicle" do
+      before do
+        select_vehicle_value(:vehicle_owned, false)
+        click_on "Save and continue"
+      end
+
+      it "skips vehicle questions" do
+        expect(page).to have_content(assets_header)
+      end
     end
 
-    context "when checking answers" do
+    context "with a vehicle" do
+      before do
+        select_vehicle_value(:vehicle_owned, true)
+        click_on "Save and continue"
+      end
+
+      it "has readable errors" do
+        click_on "Save and continue"
+
+        expect(page).to have_css(".govuk-error-summary__list")
+        within ".govuk-error-summary__list" do
+          expect(page).to have_content("Select yes if the vehicle is in regular use")
+          expect(page).to have_content("Please enter the estimated value")
+        end
+      end
+    end
+  end
+
+  context "when checking answers" do
+    context "without a vehicle" do
       before do
         allow(mock_connection).to receive(:create_capitals)
-        skip_assets_form
+        visit_check_answers(passporting: true) do |step|
+          case step
+          when :vehicle
+            select_vehicle_value(:vehicle_owned, false)
+          end
+        end
       end
 
       it "has expected content" do
@@ -72,6 +97,8 @@ RSpec.describe "Vehicle Page" do
       end
 
       it "can do a loop changing the vehicle answer" do
+        allow(CfeConnection).to receive(:connection).and_return(mock_connection)
+
         within("#subsection-vehicles-header") { click_on "Change" }
         select_vehicle_value(:vehicle_owned, true)
         click_on "Save and continue"
@@ -80,99 +107,90 @@ RSpec.describe "Vehicle Page" do
         select_boolean_value("client-vehicle-details-form", :vehicle_pcp, false)
         select_boolean_value("client-vehicle-details-form", :vehicle_over_3_years_ago, true)
         click_on "Save and continue"
-        expect(page).to have_current_path("http://www.example.com/estimates/#{estimate_id}/check_answers#subsection-vehicles-header")
+        expect(page.current_url).to end_with("check_answers#subsection-vehicles-header")
 
         expect(mock_connection).to receive(:create_vehicle)
         click_on "Submit"
       end
     end
-  end
 
-  context "with a vehicle" do
-    before do
-      select_vehicle_value(:vehicle_owned, true)
-      click_on "Save and continue"
-    end
-
-    it "has readable errors" do
-      click_on "Save and continue"
-
-      expect(page).to have_css(".govuk-error-summary__list")
-      within ".govuk-error-summary__list" do
-        expect(page).to have_content("Select yes if the vehicle is in regular use")
-        expect(page).to have_content("Please enter the estimated value")
-      end
-    end
-
-    context "when purchased 3 years ago" do
+    context "with a vehicle" do
       before do
-        fill_in "client-vehicle-details-form-vehicle-value-field", with: 5_000
-        select_boolean_value("client-vehicle-details-form", :vehicle_in_regular_use, true)
-        select_boolean_value("client-vehicle-details-form", :vehicle_over_3_years_ago, true)
-        select_boolean_value("client-vehicle-details-form", :vehicle_pcp, true)
-        fill_in "client-vehicle-details-form-vehicle-finance-field", with: 2_000
-        select_boolean_value("client-vehicle-details-form", :vehicle_in_dispute, true)
-
-        click_on "Save and continue"
-        skip_assets_form
-      end
-
-      it "removes the dispute badge when vehicle removed" do
-        within("#subsection-vehicles-header") do
-          first(".govuk-link").click
-        end
-        select_vehicle_value(:vehicle_owned, false)
-        click_on "Save and continue"
-
-        within "#field-list-vehicles" do
-          expect(page).not_to have_content "Disputed asset"
-          expect(page).not_to have_content "5,000"
-          expect(page).not_to have_content "2,000"
-          expect(page).not_to have_content "Yes"
+        visit_check_answers(passporting: true) do |step|
+          case step
+          when :vehicle
+            select_vehicle_value(:vehicle_owned, true)
+            click_on "Save and continue"
+            fill_in "client-vehicle-details-form-vehicle-value-field", with: 5_000
+            select_boolean_value("client-vehicle-details-form", :vehicle_in_regular_use, true)
+            select_boolean_value("client-vehicle-details-form", :vehicle_over_3_years_ago, over_3_years)
+            select_boolean_value("client-vehicle-details-form", :vehicle_pcp, true)
+            fill_in "client-vehicle-details-form-vehicle-finance-field", with: 2_000
+            select_boolean_value("client-vehicle-details-form", :vehicle_in_dispute, true)
+          end
         end
       end
 
-      it "uses 4 years old" do
-        expect(mock_connection).to receive(:create_vehicle)
-          .with(estimate_id,
-                vehicles: [
-                  {
-                    date_of_purchase: 4.years.ago.to_date,
-                    in_regular_use: true,
-                    loan_amount_outstanding: 2_000,
-                    subject_matter_of_dispute: true,
-                    value: 5_000,
-                  },
-                ])
+      context "when purchased 3 years ago" do
+        let(:over_3_years) { true }
 
-        within "#field-list-vehicles" do
-          expect(page).to have_content "Disputed asset"
+        it "removes the dispute badge when vehicle removed" do
+          within("#subsection-vehicles-header") do
+            first(".govuk-link").click
+          end
+          select_vehicle_value(:vehicle_owned, false)
+          click_on "Save and continue"
+
+          within "#field-list-vehicles" do
+            expect(page).not_to have_content "Disputed asset"
+            expect(page).not_to have_content "5,000"
+            expect(page).not_to have_content "2,000"
+            expect(page).not_to have_content "Yes"
+          end
         end
 
-        click_on "Submit"
+        it "uses 4 years old" do
+          allow(CfeConnection).to receive(:connection).and_return(mock_connection)
+
+          expect(mock_connection).to receive(:create_vehicle)
+                                       .with(estimate_id,
+                                             vehicles: [
+                                               {
+                                                 date_of_purchase: 4.years.ago.to_date,
+                                                 in_regular_use: true,
+                                                 loan_amount_outstanding: 2_000,
+                                                 subject_matter_of_dispute: true,
+                                                 value: 5_000,
+                                               },
+                                             ])
+
+          within "#field-list-vehicles" do
+            expect(page).to have_content "Disputed asset"
+          end
+
+          click_on "Submit"
+        end
       end
-    end
 
-    context "when purchased recently" do
-      it "uses 2 years old" do
-        expect(mock_connection).to receive(:create_vehicle)
-          .with(estimate_id,
-                vehicles: [
-                  {
-                    date_of_purchase: 2.years.ago.to_date,
-                    in_regular_use: true,
-                    loan_amount_outstanding: 2_000,
-                    subject_matter_of_dispute: false,
-                    value: 5_000,
-                  },
-                ])
+      context "when purchased recently" do
+        let(:over_3_years) { false }
 
-        fill_in "client-vehicle-details-form-vehicle-value-field", with: 5_000
-        select_boolean_value("client-vehicle-details-form", :vehicle_in_regular_use, true)
-        select_boolean_value("client-vehicle-details-form", :vehicle_over_3_years_ago, false)
-        select_boolean_value("client-vehicle-details-form", :vehicle_pcp, true)
-        fill_in "client-vehicle-details-form-vehicle-finance-field", with: 2_000
-        progress_to_submit_from_vehicle_form
+        it "uses 2 years old" do
+          allow(CfeConnection).to receive(:connection).and_return(mock_connection)
+
+          expect(mock_connection).to receive(:create_vehicle)
+                                       .with(estimate_id,
+                                             vehicles: [
+                                               {
+                                                 date_of_purchase: 2.years.ago.to_date,
+                                                 in_regular_use: true,
+                                                 loan_amount_outstanding: 2_000,
+                                                 subject_matter_of_dispute: true,
+                                                 value: 5_000,
+                                               },
+                                             ])
+          click_on "Submit"
+        end
       end
     end
   end

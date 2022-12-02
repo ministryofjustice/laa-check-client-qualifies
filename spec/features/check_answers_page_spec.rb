@@ -1,26 +1,22 @@
 require "rails_helper"
 
 RSpec.describe "Check answers page" do
-  let(:estimate_id) { SecureRandom.uuid }
   let(:benefits_subsection_header) { I18n.t("estimates.check_answers.benefits") }
 
   context "when I have entered benefits" do
     before do
-      visit estimate_build_estimate_path(estimate_id, :benefits)
-      select_boolean_value("benefits-form", :add_benefit, true)
-      click_on "Save and continue"
-      fill_in "Benefit type", with: "Child benefit"
-      fill_in "Enter amount", with: "150"
-      choose "Every week"
-      click_on "Save and continue"
-      select_boolean_value("benefits-form", :add_benefit, false)
-      click_on "Save and continue"
-      complete_incomes_screen
-      skip_outgoings_form
-
-      skip_property_form
-      skip_vehicle_form
-      skip_assets_form
+      visit_check_answers(passporting: false) do |step|
+        case step
+        when :benefits
+          select_boolean_value("benefits-form", :add_benefit, true)
+          click_on "Save and continue"
+          fill_in "Benefit type", with: "Child benefit"
+          fill_in "Enter amount", with: "150"
+          choose "Every week"
+          click_on "Save and continue"
+          select_boolean_value("benefits-form", :add_benefit, false)
+        end
+      end
     end
 
     scenario "I can modify those benefits from the 'check answers' screen" do
@@ -48,8 +44,6 @@ RSpec.describe "Check answers page" do
       select_boolean_value("benefits-form", :add_benefit, false)
       click_on "Save and continue"
 
-      expect(page).to have_current_path(check_answers_estimate_path(estimate_id))
-
       within("#field-list-benefits") do
         expect(page).to have_content "Child benefit"
         expect(page).to have_content "Universal credit"
@@ -57,16 +51,12 @@ RSpec.describe "Check answers page" do
     end
 
     scenario "I can remove benefits from the 'check answers' screen" do
-      visit check_answers_estimate_path(estimate_id)
-
       within("#subsection-benefits-header") { click_on "Change" }
 
       click_on "Remove"
 
       select_boolean_value("benefits-form", :add_benefit, false)
       click_on "Save and continue"
-
-      expect(page).to have_current_path(check_answers_estimate_path(estimate_id))
 
       within("#field-list-benefits") do
         expect(page).not_to have_content "Child benefit"
@@ -76,7 +66,7 @@ RSpec.describe "Check answers page" do
 
   context "when I have no benefits so far and no passporting benefit" do
     before do
-      visit_check_answer_without_passporting_benefit
+      visit_check_answers(passporting: false)
     end
 
     scenario "I can create new benefits from the 'check answers' screen" do
@@ -100,7 +90,7 @@ RSpec.describe "Check answers page" do
 
   context "when I receive a passporting benefit" do
     before do
-      visit_check_answer_with_passporting_benefit
+      visit_check_answers(passporting: true)
     end
 
     scenario "I should not see a benefits section" do

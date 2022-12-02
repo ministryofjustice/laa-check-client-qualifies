@@ -4,12 +4,15 @@ RSpec.describe "Outgoings Page" do
   let(:outgoings_header) { "What are your client's outgoings and deductions?" }
   let(:property_header) { "Does your client own the home they live in?" }
   let(:estimate_id) { SecureRandom.uuid }
-  let(:mock_connection) { instance_double(CfeConnection, create_assessment_id: estimate_id) }
+  let(:mock_connection) do
+    instance_double(CfeConnection,
+                    create_proceeding_type: nil,
+                    create_assessment_id: estimate_id)
+  end
 
   before do
     allow(CfeConnection).to receive(:connection).and_return(mock_connection)
-    allow(mock_connection).to receive(:create_proceeding_type)
-    visit estimate_build_estimate_path(estimate_id, :outgoings)
+    visit_flow_page(passporting: false, target: :outgoings)
   end
 
   it "shows the correct page" do

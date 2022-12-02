@@ -6,46 +6,30 @@ RSpec.describe "Vehicle Page", :vcr do
   let(:assets_header) { "Which of these assets does your client have?" }
 
   before do
-    Flipper.disable(:partner)
     travel_to arbitrary_fixed_time
   end
 
   describe "CFE submission" do
     before do
       driven_by(:headless_chrome)
-      visit_vehicle_form
-      visit_details_form
+      visit_check_answers(passporting: true) do |step|
+        case step
+        when :vehicle
+          select_boolean_value("vehicle-form", :vehicle_owned, true)
+          click_on "Save and continue"
+          fill_in "client-vehicle-details-form-vehicle-value-field", with: 18_000
+          select_boolean_value("client-vehicle-details-form", :vehicle_in_regular_use, true)
+          select_boolean_value("client-vehicle-details-form", :vehicle_over_3_years_ago, false)
+          select_boolean_value("client-vehicle-details-form", :vehicle_pcp, true)
+          fill_in "client-vehicle-details-form-vehicle-finance-field", with: 500
+        end
+      end
     end
 
     it "handles a full submit to CFE" do
-      fill_in "client-vehicle-details-form-vehicle-value-field", with: 18_000
-      select_boolean_value("client-vehicle-details-form", :vehicle_in_regular_use, true)
-      select_boolean_value("client-vehicle-details-form", :vehicle_over_3_years_ago, false)
-      select_boolean_value("client-vehicle-details-form", :vehicle_pcp, true)
-      fill_in "client-vehicle-details-form-vehicle-finance-field", with: 500
-      click_on "Save and continue"
-
-      expect(page).to have_content assets_header
-      skip_assets_form
-
-      expect(page).to have_content check_answers_header
       click_on "Submit"
 
       expect(page).to have_content "Your client appears provisionally eligible"
     end
-  end
-
-  def visit_vehicle_form
-    visit_applicant_page
-    fill_in_applicant_screen_with_passporting_benefits
-    click_on "Save and continue"
-
-    select_radio_value("property-form", "property-owned", "none")
-    click_on "Save and continue"
-  end
-
-  def visit_details_form
-    select_boolean_value("vehicle-form", :vehicle_owned, true)
-    click_on "Save and continue"
   end
 end

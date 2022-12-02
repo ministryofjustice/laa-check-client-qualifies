@@ -7,10 +7,7 @@ RSpec.describe "Housing Benefit Pages" do
   let(:estimate_id) { SecureRandom.uuid }
 
   before do
-    visit_applicant_page
-    fill_in_applicant_screen_without_passporting_benefits
-    click_on "Save and continue"
-    skip_dependants_form
+    visit_flow_page(passporting: false, target: :housing_benefit)
   end
 
   it "shows the correct screen" do

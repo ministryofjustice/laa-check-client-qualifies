@@ -5,15 +5,9 @@ RSpec.describe "Partner employment page", :partner_flag do
   let(:partner_dependants_header) { "Tell us about your client's partner's dependants" }
   let(:partner_details_page_header) { I18n.t("estimate_flow.partner_details.partner_heading") }
 
-  before do
-    visit_applicant_page
-    fill_in_applicant_screen_without_passporting_benefits
-  end
-
   context "when I have indicated that the partner is unemployed" do
     before do
-      click_on "Save and continue"
-      travel_from_housing_benefit_to_past_client_assets
+      visit_flow_page(passporting: false, partner: true, target: :partner_details)
       select_boolean_value("partner-details-form", :over_60, false)
       select_boolean_value("partner-details-form", :employed, false)
       click_on "Save and continue"
@@ -26,12 +20,13 @@ RSpec.describe "Partner employment page", :partner_flag do
 
   context "when I have indicated that the partner is employed" do
     before do
-      click_on "Save and continue"
-      travel_from_housing_benefit_to_past_client_assets
-      select_boolean_value("partner-details-form", :over_60, false)
-      select_boolean_value("partner-details-form", :employed, true)
-      click_on "Save and continue"
-      skip_partner_dependants_form
+      visit_flow_page(passporting: false, partner: true, target: :partner_employment) do |step|
+        case step
+        when :partner_details
+          select_boolean_value("partner-details-form", :over_60, false)
+          select_boolean_value("partner-details-form", :employed, true)
+        end
+      end
     end
 
     it "shows the partner employment page" do
@@ -59,7 +54,7 @@ RSpec.describe "Partner employment page", :partner_flag do
         fill_in "partner-employment-form-gross-income-field", with: "5,000"
         fill_in "partner-employment-form-income-tax-field", with: "1000"
         fill_in "partner-employment-form-national-insurance-field", with: 50.5
-        click_checkbox("partner-employment-form-frequency", "monthly")
+        select_radio_value("partner-employment-form", "frequency", "monthly")
       end
 
       it "Moves me on to the next question and stores my answers" do
