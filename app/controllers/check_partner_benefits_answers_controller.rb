@@ -22,6 +22,6 @@ private
   end
 
   def anchor
-    "partner_other_income-section"
+    CheckAnswers::SectionIdFinder.call(:partner_benefits)
   end
 end

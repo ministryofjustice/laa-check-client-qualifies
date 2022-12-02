@@ -29,12 +29,7 @@ private
     @back_buttons_invoke_browser_back_behaviour = true
   end
 
-  ANCHOR_EXCEPTIONS = { vehicle_details: :assets,
-                        property: :assets,
-                        property_entry: :assets,
-                        partner_vehicle_details: :partner_assets }.freeze
-
   def anchor
-    "#{ANCHOR_EXCEPTIONS.fetch(step, step)}-section"
+    CheckAnswers::SectionIdFinder.call(step)
   end
 end
