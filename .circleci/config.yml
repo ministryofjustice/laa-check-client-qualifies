@@ -4,11 +4,11 @@ executors:
   basic-executor:
     resource_class: small
     docker:
-      - image: cimg/ruby:3.1.2-browsers
+      - image: cimg/ruby:3.1.3-browsers
   test-executor:
     resource_class: small
     docker:
-      - image: cimg/ruby:3.1.2-browsers
+      - image: cimg/ruby:3.1.3-browsers
         environment:
           VCR_RECORD_MODE: none
           COVERAGE: true
@@ -84,6 +84,7 @@ jobs:
           name: Install ruby gems
           command: |
             bundle config set path 'vendor/bundle'
+            bundle config set without 'development'
             bundle check || {
               # Install CMake - required to install undercover gem
               sudo apt update && sudo apt install cmake
