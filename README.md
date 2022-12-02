@@ -1,5 +1,6 @@
 # LAA estimate financial eligibility for legal aid
 
+Caseworker Testing branch - Do not merge
 [![repo standards badge](https://img.shields.io/badge/dynamic/json?color=blue&style=for-the-badge&logo=github&label=MoJ%20Compliant&query=%24.data%5B%3F%28%40.name%20%3D%3D%20%22laa-estimate-financial-eligibility-for-legal-aid%22%29%5D.status&url=https%3A%2F%2Foperations-engineering-reports.cloud-platform.service.justice.gov.uk%2Fgithub_repositories)](https://operations-engineering-reports.cloud-platform.service.justice.gov.uk/github_repositories#laa-estimate-financial-eligibility-for-legal-aid "Link to report")
 
 This is a calculator for providers to obtain a quick estimate to decide if a client is eligible for Legal Aid
@@ -43,11 +44,11 @@ Sentry is a realtime application monitoring and error tracking service. The serv
 
 New error messages can be added using the ```Sentry.capture_exception()``` or ```Sentry.capture_message()``` methods:
 ```
-def test_sentry 
-  begin 
-    1 / 0 
-  rescue ZeroDivisionError => exception 
-    Sentry.capture_exception(exception) 
+def test_sentry
+  begin
+    1 / 0
+  rescue ZeroDivisionError => exception
+    Sentry.capture_exception(exception)
    end
 end
 ```
