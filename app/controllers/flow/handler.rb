@@ -18,6 +18,8 @@ module Flow
       partner_property_entry: PartnerPropertyEntryForm,
       partner_details: PartnerDetailsForm,
       partner_employment: PartnerEmploymentForm,
+      partner_housing_benefit: PartnerHousingBenefitForm,
+      partner_housing_benefit_details: PartnerHousingBenefitDetailsForm,
       partner_benefits: PartnerBenefitsForm,
       partner_other_income: PartnerOtherIncomeForm,
       partner_outgoings: PartnerOutgoingsForm,

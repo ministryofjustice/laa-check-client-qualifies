@@ -16,6 +16,8 @@ module CheckAnswers
       assets: "subsection-other-header",
       partner_details: "section-partner_details-header",
       partner_employment: "section-partner_employment-header",
+      partner_housing_benefit: "subsection-partner_housing_benefit-header",
+      partner_housing_benefit_details: "subsection-partner_housing_benefit-header",
       partner_benefits: "subsection-partner_benefits-header",
       partner_other_income: "subsection-partner_other_income-header",
       partner_outgoings: "section-partner_outgoings-header",

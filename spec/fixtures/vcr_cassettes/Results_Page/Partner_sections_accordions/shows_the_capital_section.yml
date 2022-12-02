@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       date:
-      - Wed, 30 Nov 2022 15:23:15 GMT
+      - Wed, 30 Nov 2022 16:53:27 GMT
       content-type:
       - application/json; charset=utf-8
       transfer-encoding:
@@ -41,22 +41,22 @@ http_interactions:
       vary:
       - Accept
       etag:
-      - W/"d2d40952a10f8a928a99b76a77c1dc3c"
+      - W/"0156c648b5edf2801a4bf6d90c8768a2"
       cache-control:
       - max-age=0, private, must-revalidate
       x-request-id:
-      - 1cc4a82146c545f430563538d0531117
+      - 16587d19669e6b5f43307ea6326ef80c
       x-runtime:
-      - '0.040714'
+      - '0.038651'
       strict-transport-security:
       - max-age=15724800; includeSubDomains
     body:
       encoding: UTF-8
-      string: '{"success":true,"assessment_id":"dfb7fbb9-2c69-4fbb-b022-d7d476e40346","errors":[]}'
+      string: '{"success":true,"assessment_id":"7211b113-e07a-4704-8e60-5ae7f43a5d22","errors":[]}'
   recorded_at: Mon, 17 Oct 2022 09:00:00 GMT
 - request:
     method: post
-    uri: https://check-financial-eligibility-partner-staging.cloud-platform.service.justice.gov.uk/assessments/dfb7fbb9-2c69-4fbb-b022-d7d476e40346/proceeding_types
+    uri: https://check-financial-eligibility-partner-staging.cloud-platform.service.justice.gov.uk/assessments/7211b113-e07a-4704-8e60-5ae7f43a5d22/proceeding_types
     body:
       encoding: UTF-8
       string: '{"proceeding_types":[{"ccms_code":"SE003","client_involvement_type":"A"}]}'
@@ -73,7 +73,7 @@ http_interactions:
       message: OK
     headers:
       date:
-      - Wed, 30 Nov 2022 15:23:15 GMT
+      - Wed, 30 Nov 2022 16:53:28 GMT
       content-type:
       - application/json; charset=utf-8
       transfer-encoding:
@@ -99,9 +99,9 @@ http_interactions:
       cache-control:
       - max-age=0, private, must-revalidate
       x-request-id:
-      - 38bb69a0f768861816504d128c001433
+      - 61375db497ec2d3058a58643b6573546
       x-runtime:
-      - '0.024193'
+      - '0.024778'
       strict-transport-security:
       - max-age=15724800; includeSubDomains
     body:
@@ -110,7 +110,7 @@ http_interactions:
   recorded_at: Mon, 17 Oct 2022 09:00:00 GMT
 - request:
     method: post
-    uri: https://check-financial-eligibility-partner-staging.cloud-platform.service.justice.gov.uk/assessments/dfb7fbb9-2c69-4fbb-b022-d7d476e40346/applicant
+    uri: https://check-financial-eligibility-partner-staging.cloud-platform.service.justice.gov.uk/assessments/7211b113-e07a-4704-8e60-5ae7f43a5d22/applicant
     body:
       encoding: UTF-8
       string: '{"applicant":{"date_of_birth":"1972-10-17","has_partner_opponent":false,"receives_qualifying_benefit":false,"employed":false}}'
@@ -127,7 +127,7 @@ http_interactions:
       message: OK
     headers:
       date:
-      - Wed, 30 Nov 2022 15:23:16 GMT
+      - Wed, 30 Nov 2022 16:53:28 GMT
       content-type:
       - application/json; charset=utf-8
       transfer-encoding:
@@ -153,9 +153,9 @@ http_interactions:
       cache-control:
       - max-age=0, private, must-revalidate
       x-request-id:
-      - 4e71d200310e42d26db6c158c31afbeb
+      - 348c1d9c52b29593447f905b1fae6343
       x-runtime:
-      - '0.025696'
+      - '0.024747'
       strict-transport-security:
       - max-age=15724800; includeSubDomains
     body:
@@ -164,10 +164,10 @@ http_interactions:
   recorded_at: Mon, 17 Oct 2022 09:00:00 GMT
 - request:
     method: post
-    uri: https://check-financial-eligibility-partner-staging.cloud-platform.service.justice.gov.uk/assessments/dfb7fbb9-2c69-4fbb-b022-d7d476e40346/partner_financials
+    uri: https://check-financial-eligibility-partner-staging.cloud-platform.service.justice.gov.uk/assessments/7211b113-e07a-4704-8e60-5ae7f43a5d22/partner_financials
     body:
       encoding: UTF-8
-      string: '{"partner":{"date_of_birth":"1972-10-17","employed":true},"irregular_incomes":[{"income_type":"student_loan","frequency":"annual","amount":"600.0"},{"income_type":"unspecified_source","frequency":"quarterly","amount":"333.0"}],"employments":[{"name":"Job","client_id":"ID","payments":[{"gross":"1000.0","tax":"-400.0","national_insurance":"-50.0","client_id":"id-0","date":"2022-10-17","benefits_in_kind":0,"net_employment_income":"550.0"},{"gross":"1000.0","tax":"-400.0","national_insurance":"-50.0","client_id":"id-1","date":"2022-09-17","benefits_in_kind":0,"net_employment_income":"550.0"},{"gross":"1000.0","tax":"-400.0","national_insurance":"-50.0","client_id":"id-2","date":"2022-08-17","benefits_in_kind":0,"net_employment_income":"550.0"}]}],"regular_transactions":[{"operation":"credit","category":"friends_or_family","frequency":"monthly","amount":"100.0"},{"operation":"credit","category":"maintenance_in","frequency":"monthly","amount":"200.0"},{"operation":"credit","category":"property_or_lodger","frequency":"monthly","amount":"300.0"},{"operation":"credit","category":"pension","frequency":"monthly","amount":"40.0"},{"operation":"debit","category":"rent_or_mortgage","frequency":"monthly","amount":"300.0"}],"state_benefits":[],"additional_properties":[{"value":"80000.0","outstanding_mortgage":"70000.0","percentage_owned":50,"shared_with_housing_assoc":false}],"capitals":{"bank_accounts":[{"value":"200.0","description":"Liquid
+      string: '{"partner":{"date_of_birth":"1972-10-17","employed":true},"irregular_incomes":[{"income_type":"student_loan","frequency":"annual","amount":"600.0"},{"income_type":"unspecified_source","frequency":"quarterly","amount":"333.0"}],"employments":[{"name":"Job","client_id":"ID","payments":[{"gross":"1000.0","tax":"-400.0","national_insurance":"-50.0","client_id":"id-0","date":"2022-10-17","benefits_in_kind":0,"net_employment_income":"550.0"},{"gross":"1000.0","tax":"-400.0","national_insurance":"-50.0","client_id":"id-1","date":"2022-09-17","benefits_in_kind":0,"net_employment_income":"550.0"},{"gross":"1000.0","tax":"-400.0","national_insurance":"-50.0","client_id":"id-2","date":"2022-08-17","benefits_in_kind":0,"net_employment_income":"550.0"}]}],"regular_transactions":[{"operation":"credit","category":"friends_or_family","frequency":"monthly","amount":"100.0"},{"operation":"credit","category":"maintenance_in","frequency":"monthly","amount":"200.0"},{"operation":"credit","category":"property_or_lodger","frequency":"monthly","amount":"300.0"},{"operation":"credit","category":"pension","frequency":"monthly","amount":"40.0"},{"operation":"debit","category":"rent_or_mortgage","frequency":"monthly","amount":"300.0"}],"state_benefits":[{"name":"housing_benefit","payments":[{"date":"2022-10-17","amount":"135.0","client_id":""},{"date":"2022-10-03","amount":"135.0","client_id":""},{"date":"2022-09-19","amount":"135.0","client_id":""},{"date":"2022-09-05","amount":"135.0","client_id":""},{"date":"2022-08-22","amount":"135.0","client_id":""},{"date":"2022-08-08","amount":"135.0","client_id":""}]}],"additional_properties":[{"value":"80000.0","outstanding_mortgage":"70000.0","percentage_owned":50,"shared_with_housing_assoc":false}],"capitals":{"bank_accounts":[{"value":"200.0","description":"Liquid
         Asset","subject_matter_of_dispute":false}],"non_liquid_capital":[{"value":"400.0","description":"Non
         Liquid Asset","subject_matter_of_dispute":false},{"value":"600.0","description":"Non
         Liquid Asset","subject_matter_of_dispute":false}]},"vehicles":[{"value":"18000.0","loan_amount_outstanding":"500.0","date_of_purchase":"2020-10-17","in_regular_use":true,"subject_matter_of_dispute":false}]}'
@@ -184,7 +184,7 @@ http_interactions:
       message: OK
     headers:
       date:
-      - Wed, 30 Nov 2022 15:23:16 GMT
+      - Wed, 30 Nov 2022 16:53:28 GMT
       content-type:
       - application/json; charset=utf-8
       transfer-encoding:
@@ -210,9 +210,9 @@ http_interactions:
       cache-control:
       - max-age=0, private, must-revalidate
       x-request-id:
-      - ee4ecc5971623fae6e22a004724ff112
+      - 63f5a3d363d622794e35ee1d874050c1
       x-runtime:
-      - '0.104576'
+      - '0.131124'
       strict-transport-security:
       - max-age=15724800; includeSubDomains
     body:
@@ -221,7 +221,7 @@ http_interactions:
   recorded_at: Mon, 17 Oct 2022 09:00:00 GMT
 - request:
     method: get
-    uri: https://check-financial-eligibility-partner-staging.cloud-platform.service.justice.gov.uk/assessments/dfb7fbb9-2c69-4fbb-b022-d7d476e40346
+    uri: https://check-financial-eligibility-partner-staging.cloud-platform.service.justice.gov.uk/assessments/7211b113-e07a-4704-8e60-5ae7f43a5d22
     body:
       encoding: US-ASCII
       string: ''
@@ -236,7 +236,7 @@ http_interactions:
       message: OK
     headers:
       date:
-      - Wed, 30 Nov 2022 15:23:17 GMT
+      - Wed, 30 Nov 2022 16:53:29 GMT
       content-type:
       - application/json; charset=utf-8
       transfer-encoding:
@@ -258,18 +258,19 @@ http_interactions:
       vary:
       - Accept
       etag:
-      - W/"053430cb2c753a1fc6834ea035b0e986"
+      - W/"815dc3af2f9a53db216d579294934591"
       cache-control:
       - max-age=0, private, must-revalidate
       x-request-id:
-      - 111067563d2c92d9da41a892ff0fee94
+      - f67c9df2e3af3c81a8e3c344527722bc
       x-runtime:
-      - '0.492664'
+      - '0.621814'
       strict-transport-security:
       - max-age=15724800; includeSubDomains
     body:
       encoding: UTF-8
-      string: '{"version":"5","timestamp":"2022-11-30T15:23:17.091Z","success":true,"result_summary":{"overall_result":{"result":"ineligible","capital_contribution":0.0,"income_contribution":0.0,"proceeding_types":[{"ccms_code":"SE003","client_involvement_type":"A","upper_threshold":0.0,"lower_threshold":0.0,"result":"ineligible"}]},"gross_income":{"total_gross_income":0.0,"proceeding_types":[{"ccms_code":"SE003","client_involvement_type":"A","upper_threshold":2657.0,"lower_threshold":0.0,"result":"eligible"}],"combined_total_gross_income":1801.0},"partner_gross_income":{"total_gross_income":1801.0},"disposable_income":{"dependant_allowance":0.0,"gross_housing_costs":0.0,"housing_benefit":0.0,"net_housing_costs":0.0,"maintenance_allowance":0.0,"total_outgoings_and_allowances":0.0,"total_disposable_income":0.0,"employment_income":{"gross_income":0.0,"benefits_in_kind":0.0,"tax":0.0,"national_insurance":0.0,"fixed_employment_deduction":0.0,"net_employment_income":0.0},"income_contribution":0.0,"proceeding_types":[{"ccms_code":"SE003","client_involvement_type":"A","upper_threshold":733.0,"lower_threshold":315.0,"result":"ineligible"}],"combined_total_disposable_income":814.59,"combined_total_outgoings_and_allowances":986.41},"partner_disposable_income":{"dependant_allowance":0.0,"gross_housing_costs":300.0,"housing_benefit":0.0,"net_housing_costs":300.0,"maintenance_allowance":0.0,"total_outgoings_and_allowances":986.41,"total_disposable_income":814.59,"employment_income":{"gross_income":1000.0,"benefits_in_kind":0.0,"tax":-400.0,"national_insurance":-50.0,"fixed_employment_deduction":-45.0,"net_employment_income":505.0},"income_contribution":0.0,"partner_allowance":191.41},"capital":{"total_liquid":0.0,"total_non_liquid":0.0,"total_vehicle":0.0,"total_property":0.0,"total_mortgage_allowance":0.0,"total_capital":0.0,"pensioner_capital_disregard":0.0,"subject_matter_of_dispute_disregard":0.0,"capital_contribution":0.0,"assessed_capital":0.0,"proceeding_types":[{"ccms_code":"SE003","client_involvement_type":"A","upper_threshold":8000.0,"lower_threshold":3000.0,"result":"pending"}],"combined_assessed_capital":0.0},"partner_capital":{"total_liquid":0.0,"total_non_liquid":0.0,"total_vehicle":0.0,"total_property":0.0,"total_mortgage_allowance":0.0,"total_capital":0.0,"pensioner_capital_disregard":0.0,"subject_matter_of_dispute_disregard":0.0,"capital_contribution":0.0,"assessed_capital":0.0}},"assessment":{"id":"dfb7fbb9-2c69-4fbb-b022-d7d476e40346","client_reference_id":null,"submission_date":"2022-10-17","applicant":{"date_of_birth":"1972-10-17","involvement_type":null,"employed":false,"has_partner_opponent":false,"receives_qualifying_benefit":false,"self_employed":false},"gross_income":{"employment_income":[],"irregular_income":{"monthly_equivalents":{"student_loan":0.0,"unspecified_source":0.0}},"state_benefits":{"monthly_equivalents":{"all_sources":0.0,"cash_transactions":0.0,"bank_transactions":[]}},"other_income":{"monthly_equivalents":{"all_sources":{"friends_or_family":0.0,"maintenance_in":0.0,"property_or_lodger":0.0,"pension":0.0},"bank_transactions":{"friends_or_family":0.0,"maintenance_in":0.0,"property_or_lodger":0.0,"pension":0.0},"cash_transactions":{"friends_or_family":0.0,"maintenance_in":0.0,"property_or_lodger":0.0,"pension":0.0}}}},"partner_gross_income":{"employment_income":[{"name":"Job","payments":[{"date":"2022-10-17","gross":1000.0,"benefits_in_kind":0.0,"tax":-400.0,"national_insurance":-50.0,"net_employment_income":550.0},{"date":"2022-09-17","gross":1000.0,"benefits_in_kind":0.0,"tax":-400.0,"national_insurance":-50.0,"net_employment_income":550.0},{"date":"2022-08-17","gross":1000.0,"benefits_in_kind":0.0,"tax":-400.0,"national_insurance":-50.0,"net_employment_income":550.0}]}],"irregular_income":{"monthly_equivalents":{"student_loan":50.0,"unspecified_source":111.0}},"state_benefits":{"monthly_equivalents":{"all_sources":0.0,"cash_transactions":0.0,"bank_transactions":[]}},"other_income":{"monthly_equivalents":{"all_sources":{"friends_or_family":100.0,"maintenance_in":200.0,"property_or_lodger":300.0,"pension":40.0},"bank_transactions":{"friends_or_family":0.0,"maintenance_in":0.0,"property_or_lodger":0.0,"pension":0.0},"cash_transactions":{"friends_or_family":0.0,"maintenance_in":0.0,"property_or_lodger":0.0,"pension":0.0}}}},"disposable_income":{"monthly_equivalents":{"all_sources":{"child_care":0.0,"rent_or_mortgage":0.0,"maintenance_out":0.0,"legal_aid":0.0},"bank_transactions":{"child_care":0.0,"rent_or_mortgage":0.0,"maintenance_out":0.0,"legal_aid":0.0},"cash_transactions":{"child_care":0.0,"rent_or_mortgage":0.0,"maintenance_out":0.0,"legal_aid":0.0}},"childcare_allowance":0.0,"deductions":{"dependants_allowance":0.0,"disregarded_state_benefits":0.0}},"partner_disposable_income":{"monthly_equivalents":{"all_sources":{"child_care":0.0,"rent_or_mortgage":300.0,"maintenance_out":0.0,"legal_aid":0.0},"bank_transactions":{"child_care":0.0,"rent_or_mortgage":0.0,"maintenance_out":0.0,"legal_aid":0.0},"cash_transactions":{"child_care":0.0,"rent_or_mortgage":0.0,"maintenance_out":0.0,"legal_aid":0.0}},"childcare_allowance":0.0,"deductions":{"dependants_allowance":0.0,"disregarded_state_benefits":0.0}},"capital":{"capital_items":{"liquid":[],"non_liquid":[],"vehicles":[],"properties":{"main_home":null,"additional_properties":[]}}},"partner_capital":{"capital_items":{"liquid":[{"description":"Liquid
+      string: '{"version":"5","timestamp":"2022-11-30T16:53:29.053Z","success":true,"result_summary":{"overall_result":{"result":"ineligible","capital_contribution":0.0,"income_contribution":0.0,"proceeding_types":[{"ccms_code":"SE003","client_involvement_type":"A","upper_threshold":0.0,"lower_threshold":0.0,"result":"ineligible"}]},"gross_income":{"total_gross_income":0.0,"proceeding_types":[{"ccms_code":"SE003","client_involvement_type":"A","upper_threshold":2657.0,"lower_threshold":0.0,"result":"eligible"}],"combined_total_gross_income":1801.0},"partner_gross_income":{"total_gross_income":1801.0},"disposable_income":{"dependant_allowance":0.0,"gross_housing_costs":0.0,"housing_benefit":0.0,"net_housing_costs":0.0,"maintenance_allowance":0.0,"total_outgoings_and_allowances":0.0,"total_disposable_income":0.0,"employment_income":{"gross_income":0.0,"benefits_in_kind":0.0,"tax":0.0,"national_insurance":0.0,"fixed_employment_deduction":0.0,"net_employment_income":0.0},"income_contribution":0.0,"proceeding_types":[{"ccms_code":"SE003","client_involvement_type":"A","upper_threshold":733.0,"lower_threshold":315.0,"result":"ineligible"}],"combined_total_disposable_income":1107.09,"combined_total_outgoings_and_allowances":693.91},"partner_disposable_income":{"dependant_allowance":0.0,"gross_housing_costs":300.0,"housing_benefit":292.5,"net_housing_costs":7.5,"maintenance_allowance":0.0,"total_outgoings_and_allowances":693.91,"total_disposable_income":1107.09,"employment_income":{"gross_income":1000.0,"benefits_in_kind":0.0,"tax":-400.0,"national_insurance":-50.0,"fixed_employment_deduction":-45.0,"net_employment_income":505.0},"income_contribution":0.0,"partner_allowance":191.41},"capital":{"total_liquid":0.0,"total_non_liquid":0.0,"total_vehicle":0.0,"total_property":0.0,"total_mortgage_allowance":0.0,"total_capital":0.0,"pensioner_capital_disregard":0.0,"subject_matter_of_dispute_disregard":0.0,"capital_contribution":0.0,"assessed_capital":0.0,"proceeding_types":[{"ccms_code":"SE003","client_involvement_type":"A","upper_threshold":8000.0,"lower_threshold":3000.0,"result":"pending"}],"combined_assessed_capital":0.0},"partner_capital":{"total_liquid":0.0,"total_non_liquid":0.0,"total_vehicle":0.0,"total_property":0.0,"total_mortgage_allowance":0.0,"total_capital":0.0,"pensioner_capital_disregard":0.0,"subject_matter_of_dispute_disregard":0.0,"capital_contribution":0.0,"assessed_capital":0.0}},"assessment":{"id":"7211b113-e07a-4704-8e60-5ae7f43a5d22","client_reference_id":null,"submission_date":"2022-10-17","applicant":{"date_of_birth":"1972-10-17","involvement_type":null,"employed":false,"has_partner_opponent":false,"receives_qualifying_benefit":false,"self_employed":false},"gross_income":{"employment_income":[],"irregular_income":{"monthly_equivalents":{"student_loan":0.0,"unspecified_source":0.0}},"state_benefits":{"monthly_equivalents":{"all_sources":0.0,"cash_transactions":0.0,"bank_transactions":[]}},"other_income":{"monthly_equivalents":{"all_sources":{"friends_or_family":0.0,"maintenance_in":0.0,"property_or_lodger":0.0,"pension":0.0},"bank_transactions":{"friends_or_family":0.0,"maintenance_in":0.0,"property_or_lodger":0.0,"pension":0.0},"cash_transactions":{"friends_or_family":0.0,"maintenance_in":0.0,"property_or_lodger":0.0,"pension":0.0}}}},"partner_gross_income":{"employment_income":[{"name":"Job","payments":[{"date":"2022-10-17","gross":1000.0,"benefits_in_kind":0.0,"tax":-400.0,"national_insurance":-50.0,"net_employment_income":550.0},{"date":"2022-09-17","gross":1000.0,"benefits_in_kind":0.0,"tax":-400.0,"national_insurance":-50.0,"net_employment_income":550.0},{"date":"2022-08-17","gross":1000.0,"benefits_in_kind":0.0,"tax":-400.0,"national_insurance":-50.0,"net_employment_income":550.0}]}],"irregular_income":{"monthly_equivalents":{"student_loan":50.0,"unspecified_source":111.0}},"state_benefits":{"monthly_equivalents":{"all_sources":0.0,"cash_transactions":0.0,"bank_transactions":[{"name":"Housing
+        Benefit","monthly_value":"292.5","excluded_from_income_assessment":true}]}},"other_income":{"monthly_equivalents":{"all_sources":{"friends_or_family":100.0,"maintenance_in":200.0,"property_or_lodger":300.0,"pension":40.0},"bank_transactions":{"friends_or_family":0.0,"maintenance_in":0.0,"property_or_lodger":0.0,"pension":0.0},"cash_transactions":{"friends_or_family":0.0,"maintenance_in":0.0,"property_or_lodger":0.0,"pension":0.0}}}},"disposable_income":{"monthly_equivalents":{"all_sources":{"child_care":0.0,"rent_or_mortgage":0.0,"maintenance_out":0.0,"legal_aid":0.0},"bank_transactions":{"child_care":0.0,"rent_or_mortgage":0.0,"maintenance_out":0.0,"legal_aid":0.0},"cash_transactions":{"child_care":0.0,"rent_or_mortgage":0.0,"maintenance_out":0.0,"legal_aid":0.0}},"childcare_allowance":0.0,"deductions":{"dependants_allowance":0.0,"disregarded_state_benefits":0.0}},"partner_disposable_income":{"monthly_equivalents":{"all_sources":{"child_care":0.0,"rent_or_mortgage":300.0,"maintenance_out":0.0,"legal_aid":0.0},"bank_transactions":{"child_care":0.0,"rent_or_mortgage":0.0,"maintenance_out":0.0,"legal_aid":0.0},"cash_transactions":{"child_care":0.0,"rent_or_mortgage":0.0,"maintenance_out":0.0,"legal_aid":0.0}},"childcare_allowance":0.0,"deductions":{"dependants_allowance":0.0,"disregarded_state_benefits":0.0}},"capital":{"capital_items":{"liquid":[],"non_liquid":[],"vehicles":[],"properties":{"main_home":null,"additional_properties":[]}}},"partner_capital":{"capital_items":{"liquid":[{"description":"Liquid
         Asset","value":"200.0"}],"non_liquid":[{"description":"Non Liquid Asset","value":"400.0"},{"description":"Non
         Liquid Asset","value":"600.0"}],"vehicles":[{"value":18000.0,"loan_amount_outstanding":500.0,"date_of_purchase":"2020-10-17","in_regular_use":true,"included_in_assessment":false,"disregards_and_deductions":17500.0,"assessed_value":0.0}],"properties":{"main_home":null,"additional_properties":[{"value":"80000.0","outstanding_mortgage":"70000.0","percentage_owned":"50.0","main_home":false,"shared_with_housing_assoc":false,"transaction_allowance":"0.0","allowable_outstanding_mortgage":"0.0","net_value":"0.0","net_equity":"0.0","main_home_equity_disregard":"0.0","assessed_equity":null}]}}},"remarks":{}}}'
   recorded_at: Mon, 17 Oct 2022 09:00:00 GMT

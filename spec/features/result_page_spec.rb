@@ -285,6 +285,11 @@ RSpec.describe "Results Page" do
       select_radio_value("partner-employment-form", "frequency", "monthly")
       click_on "Save and continue"
 
+      select_boolean_value("partner-housing-benefit-form", :housing_benefit, true)
+      click_on("Save and continue")
+      fill_in "partner-housing-benefit-details-form-housing-benefit-value-field", with: 135
+      select_radio_value("partner-housing-benefit-details-form", "housing-benefit-frequency", "every_two_weeks")
+      click_on("Save and continue")
       select_boolean_value("partner-benefits-form", :add_benefit, false)
       click_on("Save and continue")
 

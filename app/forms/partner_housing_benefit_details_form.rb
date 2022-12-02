@@ -1,0 +1,3 @@
+class PartnerHousingBenefitDetailsForm < HousingBenefitDetailsForm
+  include SessionPersistableForPartner
+end

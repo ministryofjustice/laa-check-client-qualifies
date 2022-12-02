@@ -116,7 +116,6 @@ RSpec.describe "Check answers page" do
     scenario "I should see partner content" do
       expect(page).to have_content "Partner's employment"
       expect(page).to have_content "Partner's other income"
-      expect(page).to have_content "Partner's benefits"
       expect(page).to have_content "Your client's partner's outgoings"
       expect(page).to have_content "Your client's partner's assets"
       expect(page).to have_content "Client's partner's vehicle"
