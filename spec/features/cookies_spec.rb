@@ -1,10 +1,12 @@
 require "rails_helper"
 
 RSpec.describe "Cookies" do
+  let(:cookie_banner_text) { "Cookies on Check if your client qualifies for legal aid" }
+
   context "when cookie choices are not made" do
     scenario "I accept cookies via the banner" do
       visit root_path
-      expect(page).to have_content "Cookies on Estimate Eligibility For Financial Aid"
+      expect(page).to have_content cookie_banner_text
       click_on "Accept additional cookies"
       expect(page).to have_content "You’ve accepted additional cookies"
       click_on "Hide"
@@ -28,7 +30,7 @@ RSpec.describe "Cookies" do
 
     scenario "I do not see the banner" do
       visit root_path
-      expect(page).not_to have_content "Cookies on Estimate Eligibility For Financial Aid"
+      expect(page).not_to have_content cookie_banner_text
     end
   end
 end

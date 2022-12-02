@@ -2,12 +2,12 @@
   = form_tag(cookies_path, method: "PATCH", id: "cookie-choice-submission-form", class: "govuk-!-margin-0")
     input type="hidden" name="return_to" value=request.env["PATH_INFO"]
     input type="hidden" name="add_choice_to_query_string" value=1
-    .govuk-cookie-banner data-nosnippet=true role="region" aria-label=t("cookie_banner.title")
+    .govuk-cookie-banner data-nosnippet=true role="region" aria-label= "#{t("cookie_banner.title")} #{t("service.name")}"
       .govuk-cookie-banner__message.govuk-width-container hidden=params[:cookie_choice].present?
 
         .govuk-grid-row
           .govuk-grid-column-two-thirds
-            h2.govuk-cookie-banner__heading.govuk-heading-m = t("cookie_banner.title")
+            h2.govuk-cookie-banner__heading.govuk-heading-m = "#{t('cookie_banner.title')} #{t('service.name')}"
 
             .govuk-cookie-banner__content
               p.govuk-body = t("cookie_banner.essential_cookies")
