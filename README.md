@@ -1,3 +1,4 @@
+Branch for DAC testing - Do not merge
 # LAA estimate financial eligibility for legal aid
 
 [![repo standards badge](https://img.shields.io/badge/dynamic/json?color=blue&style=for-the-badge&logo=github&label=MoJ%20Compliant&query=%24.result&url=https%3A%2F%2Foperations-engineering-reports.cloud-platform.service.justice.gov.uk%2Fapi%2Fv1%2Fcompliant_public_repositories%2Flaa-estimate-financial-eligibility-for-legal-aid)](https://operations-engineering-reports.cloud-platform.service.justice.gov.uk/public-github-repositories.html#laa-estimate-financial-eligibility-for-legal-aid "Link to report")
@@ -43,11 +44,11 @@ Sentry is a realtime application monitoring and error tracking service. The serv
 
 New error messages can be added using the ```Sentry.capture_exception()``` or ```Sentry.capture_message()``` methods:
 ```
-def test_sentry 
-  begin 
-    1 / 0 
-  rescue ZeroDivisionError => exception 
-    Sentry.capture_exception(exception) 
+def test_sentry
+  begin
+    1 / 0
+  rescue ZeroDivisionError => exception
+    Sentry.capture_exception(exception)
    end
 end
 ```
