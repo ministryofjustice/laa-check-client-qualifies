@@ -3,6 +3,7 @@ module CheckAnswers
     include ActiveModel::Model
     include ActiveModel::Attributes
 
+    attribute :partner
     attribute :property_owned, :string
     attribute :house_value, :decimal
     attribute :mortgage, :decimal
@@ -15,13 +16,13 @@ module CheckAnswers
 
     class << self
       def from_session(session_data)
-        new session_data.slice(*FIELDS)
+        new session_data.slice(*FIELDS + [:partner])
       end
     end
 
     def display_fields
       if owns_property?
-        FIELDS
+        partner ? FIELDS : FIELDS - %i[joint_ownership joint_percentage_owned]
       else
         [:property_owned]
       end
