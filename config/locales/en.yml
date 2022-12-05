@@ -623,7 +623,7 @@ en:
         none: "No"
         legend: Does your client and/or their partner own the home they live in?
       trapped_capital:
-        text: "If your client’s capital includes assets that may be inaccessible (e.g. trapped equity in a property) please refer to the following guidance:"
+        text: "Guidance on trapped capital"
         link: "https://legalaidlearning.justice.gov.uk/course/view.php?id=186"
       properties_guidance:
         text: Guidance on properties
@@ -639,6 +639,9 @@ en:
       guidance:
         text: Guidance on vehicles
         link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=55"
+      trapped_capital_guidance:
+        text: Guidance on trapped capital
+        link: https://legalaidlearning.justice.gov.uk/course/view.php?id=186
     partner_vehicle:
       caption: Your client's partner's finances
       vehicle_owned:
@@ -661,7 +664,7 @@ en:
           label: Enter the outstanding mortgage
         percentage_owned:
           input: Enter the share your client owns
-          input_hint: ""
+          input_hint: "Your client's name must be on the property deeds, lease, freehold or mortgage"
         dispute:
           label: This asset is a subject matter of dispute
       savings:
@@ -725,14 +728,14 @@ en:
         input: Enter the percentage the partner owns
       house_value:
         input: How much is your client's home worth?
-        input_hint: You can use property websites to find the estimated value.
+        input_hint: You can use property websites to find the estimated value
       mortgage:
         input: What is the outstanding mortgage on your client's home?
-        input_hint: Check the statement from your client's mortgage provider or lender. The figure entered as the answer to this question should also include any loans secured against the property.
+        input_hint: Check the statement from your client's mortgage provider or lender and include any other loans secured against the property
       percentage_owned:
         input: What percentage share of their home does your client legally own?
-        input_hint: Your client's name must be on the property deeds, lease or freehold.
-      second_caption: "If your client has temporarily fled their former matrimonial home due to domestic abuse, the value of this property may not be included in their financial eligibility assessment at application stage."
+        input_hint: Your client's name must be on the property deeds, lease, freehold or mortgage
+      second_caption: "If you make an application for civil legal aid, the property's value may be excluded from the financial assessment if your client has left their former matrimonial home because of domestic abuse"
     partner_property_entry:
       heading: Tell us about the property
       caption: Your client's partner's finances
@@ -748,18 +751,19 @@ en:
     vehicle_details:
       caption: Your client's finances
       heading: Tell us about your client's vehicle
+      second_caption: If you make an application for civil legal aid, the vehicle's value may be excluded from the financial assessment if your client has left their former matrimonial home because of domestic abuse
       vehicle_value:
         input: What is the estimated value of the vehicle?
-        input_hint: You can use car valuation websites to find this out. Please use the upper valuation.
+        input_hint: You can use car valuation websites to find this out
       vehicle_in_regular_use:
         legend: Is the vehicle in regular use?
-        hint: This means the vehicle is used at least once every 2 weeks for things like work, shopping or driving children to school.
+        hint: This means the vehicle is used at least once every 2 weeks for things like work, shopping or driving children to school
       vehicle_three_years_old:
         legend: Did your client buy the vehicle over 3 years ago?
         hint: ""
       vehicle_pcp:
         legend: Are there any payments left on the vehicle?
-        hint: Include any outstanding payments on loans, hire purchase (HP) or personal contract purchase (PCP) agreements.
+        hint: Include any outstanding payments on loans, hire purchase (HP) or personal contract purchase (PCP) agreements
       vehicle_finance:
         input: Enter the value of payments left
       vehicle_in_dispute: This asset is a subject matter of dispute
@@ -768,16 +772,16 @@ en:
       heading: Tell us about your client's partner's vehicle
       vehicle_value:
         input: What is the estimated value of the vehicle?
-        input_hint: You can use car valuation websites to find this out. Please use the upper valuation.
+        input_hint: You can use car valuation websites to find this out
       vehicle_in_regular_use:
         legend: Is the vehicle in regular use?
-        hint: This means the vehicle is used at least once every 2 weeks for things like work, shopping or driving children to school.
+        hint: This means the vehicle is used at least once every 2 weeks for things like work, shopping or driving children to school
       vehicle_three_years_old:
         legend: Did your client's partner buy the vehicle over 3 years ago?
         hint: ""
       vehicle_pcp:
         legend: Are there any payments left on the vehicle?
-        hint: Include any outstanding payments on loans, hire purchase (HP) or personal contract purchase (PCP) agreements.
+        hint: Include any outstanding payments on loans, hire purchase (HP) or personal contract purchase (PCP) agreements
       vehicle_finance:
         input: Enter the value of payments left
   benefits:
