@@ -22,14 +22,24 @@ en:
               blank: Select yes if your client is likely to be an applicant in a domestic abuse case
             partner:
               inclusion: Select yes if the client has a partner
-            dependants:
-              inclusion: Select yes if the client has any dependants
         dependant_details_form:
           attributes:
             child_dependants:
-              blank: Please enter a zero if the client has no child dependants
+              inclusion: Please select yes if client has child dependants
             adult_dependants:
-              blank: Please enter a zero if the client has no adult dependants
+              inclusion: Please select yes if client has adult dependants
+            child_dependants_count:
+              blank: Please enter the number of child dependants
+              greater_than: Number of child dependants must be greater than zero
+            adult_dependants_count:
+              blank: Please enter the number of adult dependants
+              greater_than: Number of adult dependants must be greater than zero
+        partner_dependant_details_form:
+          attributes:
+            child_dependants:
+              inclusion: Please select yes if client's partner has child dependants
+            adult_dependants:
+              inclusion: Please select yes if client's partner has adult dependants
         employment_form:
           attributes:
             gross_income:
@@ -376,7 +386,6 @@ en:
       partner_employed:
         legend: What is your client's partner's employment status?
         hint: ""
-
     dependants:
       caption: About your client
       legend: Does your client have any dependants?
@@ -390,14 +399,28 @@ en:
     dependant_details:
       caption: About your client
       legend: Tell us about your client's dependants
-      hint: If some don't apply, enter 0.
       adult_dependants:
-        label: Adult dependants
+        label: How many?
+        legend: Does your client have any adult dependants?
         hint: Any adult relative who lives in the same household and is financially dependant on your client.
+      child_dependants:
+        legend: Does your client have any child dependants?
+        label: How many?
+        hint: For example your client’s children or another child relative who lives in their household. Do not include any foster children.
+      second_caption: A dependant is someone who lives with your client and depends on them for financial support
+      third_caption: A dependant can be an adult or a child
+    partner_dependant_details:
+      caption: About your client's partner
+      legend: Tell us about your client's partner's dependants
+      adult_dependants:
+        legend: Does your client's partner have any adult dependants?
+        label: Adult dependants
+        hint: For example, a parent, grandparent, aunt or uncle.
         instruction: Enter number of adult dependants
       child_dependants:
+        legend: Does your client's partner have any child dependants?
         label: Child dependants
-        hint: For example your client’s children or another child relative who lives in their household. Do not include any foster children.
+        hint: For example, your client's child, grandchild, niece or nephew.
         instruction: Enter number of child dependants
     employment:
       caption: Your client's finances
@@ -790,20 +813,23 @@ en:
       frequency: Select frequency
   estimates:
     check_answers:
+      about_your_client: About your client
+      about_partner: About your client's partner
+      client_dependant_details: Your client's dependants
+      partner_dependant_details: Your client's partner's dependants
       heading: Check your answers
       case_details: Your client's case details
       client_details: Your client's details
       client_details_fields:
         over_60: Over 60 years old
         partner: Has a partner
-        dependants: Has dependants
-        dependant_count: Number of dependants
         employed: Is employed
         passporting: Receives a passporting benefit
-        partner_over_60: Partner is over 60 years old
-        partner_employed: Partner is employed
-        child_dependants: Child dependants
-        adult_dependants: Adult dependants
+      client_dependant_details_fields:
+        adult_dependants: Has adult dependants
+        adult_dependants_count: Number of adult dependants
+        child_dependants: Has child dependants
+        child_dependants_count: Number of child dependants
       employment: Employment
       employment_fields:
         gross_income: Gross income
@@ -876,7 +902,11 @@ en:
       partner_details_fields:
         partner_over_60: Partner is over 60 years old
         partner_employed: Partner is employed
-        partner_dependants: Partner has dependants
+      partner_dependant_details_fields:
+        partner_child_dependants: Partner has child dependants
+        partner_child_dependants_count: Number of partner child dependants
+        partner_adult_dependants: Partner has adult dependants
+        partner_adult_dependants_count: Number of partner adult dependants
       other: Client's other assets
       other_fields:
         property_value: "Second property or holiday home: value"

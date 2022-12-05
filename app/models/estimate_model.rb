@@ -9,7 +9,6 @@ class EstimateModel
                          vehicle_in_regular_use
                          partner
                          employed
-                         dependants
                          partner_employed
                          partner_vehicle_owned
                          housing_benefit

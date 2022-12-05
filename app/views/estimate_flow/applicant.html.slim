@@ -18,41 +18,14 @@
                                           yes_no_options, :first, :last,
                                           legend: { text: t(".over_60.legend") },
                                           hint: { text: t(".over_60.hint") }
-    - if Flipper.enabled?(:partner)
-      = form.govuk_collection_radio_buttons :dependants,
-              yes_no_options,
-              :first,
-              :last,
-              legend: { text: t(".dependants.legend") },
-              hint: lambda { \
-                              tag.p(t(".dependants.hint")) + \
-                              tag.ul(class: "govuk-list govuk-list--bullet") do \
-                              tag.li(t(".dependants.lives_with")) + \
-                              tag.li(t(".dependants.depends")) \
-                              end + \
-                              tag.div(t(".dependants.no_partner"), class: "govuk-inset-text") \
-                              }
-    - else
-      = form.govuk_collection_radio_buttons :dependants,
-              yes_no_options,
-              :first,
-              :last,
-              legend: { text: t(".dependants.legend") },
-              hint: lambda { \
-                                    tag.p(t(".dependants.hint")) + \
-                                    tag.ul(class: "govuk-list govuk-list--bullet") do \
-                                    tag.li(t(".dependants.lives_with")) + \
-                                    tag.li(t(".dependants.depends")) \
-                                    end \
-                                    }
 
     - if Flipper.enabled?(:partner)
       = form.govuk_collection_radio_buttons :partner,
-                                            yes_no_options,
-                                            :first,
-                                            :last,
-                                            legend: { text: t(".partner.legend") },
-                                            hint: { text: t(".partner.hint") }
+                                              yes_no_options,
+                                              :first,
+                                              :last,
+                                              legend: { text: t(".partner.legend") },
+                                              hint: { text: t(".partner.hint") }
 
     = form.govuk_collection_radio_buttons :employed, employment_options, :first, :last,
                                           legend: { text: t(".employed.legend") },

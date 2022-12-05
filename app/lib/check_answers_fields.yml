@@ -32,10 +32,11 @@
 sections:
   - label: case_details
     subsections:
-  - label: client_details
-    screen: applicant
+  - label: about_your_client
     subsections:
-      - model: ApplicantSection
+      - label: client_details
+        screen: applicant
+        model: ApplicantSection
         fields:
         - attribute: partner
           type: boolean
@@ -45,15 +46,19 @@ sections:
           type: boolean
         - attribute: passporting
           type: boolean
-        - attribute: dependants
-          type: boolean
-          screen: dependants
+      - label: client_dependant_details
+        screen: dependant_details
+        fields:
         - attribute: child_dependants
+          type: boolean
+        - attribute: child_dependants_count
           type: number
-          screen: dependant_details
+          skip_unless: child_dependants
         - attribute: adult_dependants
+          type: boolean
+        - attribute: adult_dependants_count
           type: number
-          screen: dependant_details
+          skip_unless: adult_dependants
   - label: employment
     screen: employment
     subsections:
@@ -166,16 +171,28 @@ sections:
             type: money
           - attribute: valuables
             type: money
-  - label: partner_details
-    screen: partner_details
+  - label: about_partner
     subsections:
-      - fields:
+      - label: partner_details
+        screen: partner_details
+        fields:
         - attribute: partner_over_60
           type: boolean
         - attribute: partner_employed
           type: boolean
-        - attribute: partner_dependants
+      - label: partner_dependant_details
+        screen: partner_dependant_details
+        fields:
+        - attribute: partner_child_dependants
           type: boolean
+        - attribute: partner_child_dependants_count
+          type: number
+          skip_unless: partner_child_dependants
+        - attribute: partner_adult_dependants
+          type: boolean
+        - attribute: partner_adult_dependants_count
+          type: number
+          skip_unless: partner_adult_dependants
   - label: partner_employment
     screen: partner_employment
     subsections:

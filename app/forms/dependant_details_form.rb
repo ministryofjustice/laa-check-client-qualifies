@@ -3,10 +3,17 @@ class DependantDetailsForm
   include ActiveModel::Attributes
   include SessionPersistable
 
-  ATTRIBUTES = %i[adult_dependants child_dependants].freeze
+  FORM_ATTRIBUTES = {
+    child_dependants: :child_dependants_count,
+    adult_dependants: :adult_dependants_count,
+  }.freeze
 
-  ATTRIBUTES.each do |attr|
-    attribute attr, :integer
-    validates attr, presence: true
+  ATTRIBUTES = FORM_ATTRIBUTES.map { |k, v| [k, v] }.flatten.freeze
+
+  FORM_ATTRIBUTES.each do |boolean_field, integer_field|
+    attribute boolean_field, :boolean
+    validates boolean_field, inclusion: { in: [true, false] }
+    attribute integer_field, :integer
+    validates integer_field, presence: true, numericality: { greater_than: 0 }, if: ->(m) { m.public_send(boolean_field) }
   end
 end

@@ -63,10 +63,8 @@ RSpec.describe "Applicant Page" do
       select_applicant_boolean(:over_60, over_60)
       select_applicant_boolean(:employed, false)
       select_applicant_boolean(:passporting, true)
-      select_applicant_boolean(:dependants, false)
 
       click_on "Save and continue"
-
       select_radio_value("property-form", "property-owned", "none")
       click_on "Save and continue"
       select_boolean_value("vehicle-form", :vehicle_owned, false)
@@ -124,7 +122,6 @@ RSpec.describe "Applicant Page" do
       select_applicant_boolean(:over_60, true)
       select_applicant_boolean(:employed, false)
       select_applicant_boolean(:passporting, true)
-      select_applicant_boolean(:dependants, false)
       click_on "Save and continue"
       expect(page).to have_css(".govuk-error-summary__list")
     end
@@ -134,7 +131,6 @@ RSpec.describe "Applicant Page" do
       select_applicant_boolean(:employed, false)
       select_applicant_boolean(:passporting, true)
       select_applicant_boolean(:partner, true)
-      select_applicant_boolean(:dependants, false)
       select_radio_value("applicant-form", "proceeding-type", "se003") # non-domestic abuse case
       click_on "Save and continue"
       expect(page).not_to have_css(".govuk-error-summary__list")
@@ -145,7 +141,6 @@ RSpec.describe "Applicant Page" do
       select_applicant_boolean(:employed, false)
       select_applicant_boolean(:passporting, true)
       select_applicant_boolean(:partner, true)
-      select_applicant_boolean(:dependants, false)
       select_radio_value("applicant-form", "proceeding-type", "se003")
       click_on "Save and continue"
       skip_property_form
@@ -156,8 +151,8 @@ RSpec.describe "Applicant Page" do
 
       select_boolean_value("partner-details-form", :over_60, false)
       select_boolean_value("partner-details-form", :employed, false)
-      select_boolean_value("partner-details-form", :dependants, false)
       click_on "Save and continue"
+      skip_partner_dependants_form
 
       skip_partner_property_form
       click_on "Save and continue"
@@ -168,7 +163,7 @@ RSpec.describe "Applicant Page" do
       expect(page).to have_content I18n.t(".estimates.check_answers.partner_details")
       expect(page).to have_content I18n.t(".estimates.check_answers.partner_details_fields.partner_over_60")
       expect(page).to have_content I18n.t(".estimates.check_answers.partner_details_fields.partner_employed")
-      expect(page).to have_content I18n.t(".estimates.check_answers.partner_details_fields.partner_dependants")
+      expect(page).to have_content I18n.t(".estimates.check_answers.partner_dependant_details_fields.partner_child_dependants")
       expect(page).to have_content "Has a partnerYes"
     end
   end
@@ -186,7 +181,6 @@ RSpec.describe "Applicant Page" do
       select_applicant_boolean(:partner, false)
       select_applicant_boolean(:employed, false)
       select_applicant_boolean(:passporting, false)
-      select_applicant_boolean(:dependants, true)
       click_on "Save and continue"
     end
 
@@ -196,8 +190,8 @@ RSpec.describe "Applicant Page" do
 
     it "displays error messages if nothing is entered" do
       click_on "Save and continue"
-      expect(page).to have_content("Please enter a zero if the client has no child dependants")
-      expect(page).to have_content("Please enter a zero if the client has no adult dependants")
+      expect(page).to have_content("Please select yes if client has child dependants")
+      expect(page).to have_content("Please select yes if client has adult dependants")
     end
 
     it "has a back pointer to the applicant page" do

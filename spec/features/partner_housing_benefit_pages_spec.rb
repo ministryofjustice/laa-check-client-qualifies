@@ -6,13 +6,15 @@ RSpec.describe "Housing Benefit Pages", :partner_flag do
   let(:partner_benefits_page_heading) { I18n.t("estimate_flow.partner_benefits.legend") }
 
   before do
-    visit_applicant_page_with_partner
+    visit_applicant_page
+    fill_in_applicant_screen_without_passporting_benefits
+
     click_on "Save and continue"
     travel_from_housing_benefit_to_past_client_assets
     select_boolean_value("partner-details-form", :over_60, false)
     select_boolean_value("partner-details-form", :employed, false)
-    select_boolean_value("partner-details-form", :dependants, false)
     click_on "Save and continue"
+    skip_partner_dependants_form
   end
 
   it "shows the correct screen" do

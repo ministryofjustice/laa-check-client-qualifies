@@ -1,23 +1,18 @@
 require "rails_helper"
 
-RSpec.describe "Partner vehicle pages" do
+RSpec.describe "Partner vehicle pages", :partner_flag do
   let(:partner_vehicle_heading) { I18n.t("estimate_flow.partner_vehicle.vehicle_owned.legend") }
   let(:partner_vehicle_details_heading) { I18n.t("estimate_flow.partner_vehicle_details.heading") }
 
-  around do |example|
-    Flipper.enable(:partner)
-    example.run
-    Flipper.disable(:partner)
-  end
-
   before do
-    visit_applicant_page_with_partner
+    visit_applicant_page
+    fill_in_applicant_screen_without_passporting_benefits
     click_on "Save and continue"
     travel_from_housing_benefit_to_past_client_assets
     select_boolean_value("partner-details-form", :over_60, false)
     select_boolean_value("partner-details-form", :employed, false)
-    select_boolean_value("partner-details-form", :dependants, false)
     click_on "Save and continue"
+    skip_partner_dependants_form
     select_boolean_value("partner-housing-benefit-form", :housing_benefit, false)
     click_on("Save and continue")
     select_boolean_value("partner-benefits-form", :add_benefit, false)

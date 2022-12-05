@@ -28,18 +28,5 @@
             legend: { text: t(".partner_employed.legend") },
             hint: { text: t(".partner_employed.hint") }
 
-    = form.govuk_collection_radio_buttons :dependants,
-            yes_no_options,
-            :first,
-            :last,
-            legend: { text: t(".dependants.legend") },
-            hint: lambda { \
-                           tag.p(t(".dependants.hint")) + \
-                           tag.ul(class: "govuk-list govuk-list--bullet") do \
-                           tag.li(t(".dependants.lives_with")) + \
-                           tag.li(t(".dependants.depends")) \
-                           end \
-                          }
-
     = form.govuk_submit t("generic.save_and_continue")
 = render "shared/sidebar_with_date", links: {}

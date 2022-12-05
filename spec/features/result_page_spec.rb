@@ -108,11 +108,12 @@ RSpec.describe "Results Page" do
       select_applicant_boolean(:over_60, false)
       select_applicant_boolean(:employed, true)
       select_applicant_boolean(:passporting, false)
-      select_applicant_boolean(:dependants, true)
       click_on "Save and continue"
 
-      fill_in "dependant-details-form-adult-dependants-field", with: "0"
-      fill_in "dependant-details-form-child-dependants-field", with: "1"
+      select_boolean_value("dependant-details-form", :adult_dependants, true)
+      select_boolean_value("dependant-details-form", :child_dependants, true)
+      fill_in "dependant-details-form-adult-dependants-count-field", with: "2"
+      fill_in "dependant-details-form-child-dependants-count-field", with: "1"
       click_on("Save and continue")
 
       fill_in "employment-form-gross-income-field", with: 1000
@@ -142,7 +143,7 @@ RSpec.describe "Results Page" do
       click_on "Save and continue"
 
       fill_in "outgoings-form-housing-payments-value-field", with: "300"
-      find(:css, "#outgoings-form-housing-payments-frequency-monthly-field").click
+      select_radio_value("outgoings-form", "housing-payments-frequency", "monthly")
       fill_in "outgoings-form-childcare-payments-value-field", with: "0"
       fill_in "outgoings-form-legal-aid-payments-value-field", with: "0"
       fill_in "outgoings-form-maintenance-payments-value-field", with: "0"
@@ -201,10 +202,10 @@ RSpec.describe "Results Page" do
         expect(page).to have_content "Income tax £400.00"
         expect(page).to have_content "National Insurance £50.00"
         expect(page).to have_content "Employment expenses £45.00"
-        expect(page).to have_content "Dependants allowance £307.64"
+        expect(page).to have_content "Dependants allowance £922.92"
 
-        expect(page).to have_content "Total gross monthly outgoings £810.14"
-        expect(page).to have_content "Assessed disposable monthly income £990.86"
+        expect(page).to have_content "Total gross monthly outgoings £1,425.42"
+        expect(page).to have_content "Assessed disposable monthly income £375.58"
         expect(page).to have_content "Disposable monthly income upper limit £733.00"
       end
     end
@@ -239,8 +240,8 @@ RSpec.describe "Results Page" do
       select_applicant_boolean(:employed, false)
       select_applicant_boolean(:passporting, false)
       select_applicant_boolean(:partner, true)
-      select_applicant_boolean(:dependants, false)
       click_on "Save and continue"
+      skip_dependants_form
 
       select_boolean_value("housing-benefit-form", :housing_benefit, false)
       click_on("Save and continue")
@@ -276,8 +277,8 @@ RSpec.describe "Results Page" do
 
       select_boolean_value("partner-details-form", :over_60, false)
       select_boolean_value("partner-details-form", :employed, true)
-      select_boolean_value("partner-details-form", :dependants, false)
       click_on "Save and continue"
+      skip_partner_dependants_form
 
       fill_in "partner-employment-form-gross-income-field", with: 1000
       fill_in "partner-employment-form-income-tax-field", with: 400

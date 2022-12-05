@@ -18,7 +18,6 @@ RSpec.describe "Case Details Page", :partner_flag do
     select_applicant_boolean(:partner, false)
     select_applicant_boolean(:employed, true)
     select_applicant_boolean(:passporting, false)
-    select_applicant_boolean(:dependants, true)
     click_on "Save and continue"
     expect(page).to have_content dependants_details_page_header
   end

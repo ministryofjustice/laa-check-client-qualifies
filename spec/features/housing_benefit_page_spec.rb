@@ -10,6 +10,7 @@ RSpec.describe "Housing Benefit Pages" do
     visit_applicant_page
     fill_in_applicant_screen_without_passporting_benefits
     click_on "Save and continue"
+    skip_dependants_form
   end
 
   it "shows the correct screen" do

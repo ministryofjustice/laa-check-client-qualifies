@@ -1,0 +1,27 @@
+= form_for(@form, url: wizard_path, method: :put) do |form|
+
+  = form.govuk_error_summary t("generic.error_summary_title")
+
+  = form.govuk_radio_buttons_fieldset :child_dependants,
+          hint: { text: t("estimate_flow.#{i18n_key}.child_dependants.hint") },
+              legend: { text: t("estimate_flow.#{i18n_key}.child_dependants.legend") } do
+    = form.govuk_radio_button :child_dependants, true,
+            label: { text: t("generic.yes_choice") } do
+      = form.govuk_number_field :child_dependants_count,
+          width: 5,
+          label: { text: t("estimate_flow.#{i18n_key}.child_dependants.label") }
+    = form.govuk_radio_button :child_dependants, false,
+            label: { text: t("generic.no_choice") }
+
+  = form.govuk_radio_buttons_fieldset :adult_dependants,
+          hint: { text: t("estimate_flow.#{i18n_key}.adult_dependants.hint") },
+          legend: { text: t("estimate_flow.#{i18n_key}.adult_dependants.legend") } do
+    = form.govuk_radio_button :adult_dependants, true,
+            label: { text: t("generic.yes_choice") } do
+      = form.govuk_number_field :adult_dependants_count,
+          width: 5,
+          label: { text: t("estimate_flow.#{i18n_key}.adult_dependants.label") }
+    = form.govuk_radio_button :adult_dependants, false,
+            label: { text: t("generic.no_choice") }
+
+  = form.govuk_submit t("generic.save_and_continue")
