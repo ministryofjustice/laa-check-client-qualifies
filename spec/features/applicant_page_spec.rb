@@ -6,44 +6,21 @@ RSpec.describe "Applicant Page" do
   describe "errors" do
     before do
       visit_applicant_page
-
-      %i[over_60 passporting employed].reject { |f| f == field }.each do |f|
-        select_applicant_boolean(f, true)
-      end
       click_on "Save and continue"
     end
 
-    context "when over_60 is omitted" do
-      let(:field) { :over_60 }
-
-      it "has an error section" do
-        expect(page).to have_css(".govuk-error-summary__list")
-      end
-
-      it "displays the correct error message" do
-        within ".govuk-error-summary__list" do
-          expect(page).to have_content("Select yes if the client is over 60 years old")
-        end
-      end
+    it "has an error section" do
+      expect(page).to have_css(".govuk-error-summary__list")
     end
 
-    context "when employed is omitted" do
-      let(:field) { :employed }
-
-      it "displays the correct error message" do
-        within ".govuk-error-summary__list" do
-          expect(page).to have_content("Select employed if the client is currently employed")
-        end
-      end
-    end
-
-    context "when passporting is omitted" do
-      let(:field) { :passporting }
-
-      it "displays the correct error message" do
-        within ".govuk-error-summary__list" do
-          expect(page).to have_content("Select yes if the client is currently in receipt of a passporting benefit")
-        end
+    it "displays the correct error messages" do
+      within ".govuk-error-summary__list" do
+        expect(all("li").map(&:text)).to eq [
+          "Select yes if your client is likely to be an applicant in a domestic abuse case",
+          "Select yes if the client is over 60 years old",
+          "Select employed if the client is currently employed",
+          "Select yes if the client is currently in receipt of a passporting benefit",
+        ]
       end
     end
   end
@@ -103,40 +80,44 @@ RSpec.describe "Applicant Page" do
     end
   end
 
-  describe "with a partner" do
-    around do |example|
-      Flipper.enable(:partner)
-      example.run
-      Flipper.disable(:partner)
-    end
+  describe "with a partner", :partner_flag do
+    context "when on applicant page" do
+      before do
+        visit_applicant_page
+      end
 
-    before do
-      visit_applicant_page
-    end
+      it "shows me the right content" do
+        expect(page).to have_content applicant_header
+      end
 
-    it "shows me the right content" do
-      expect(page).to have_content applicant_header
-    end
+      it "complains if I don't fill in additional questions - omitting domestic abuse and partner" do
+        select_applicant_boolean(:over_60, true)
+        select_applicant_boolean(:employed, false)
+        select_applicant_boolean(:passporting, true)
 
-    it "complains if I don't fill in additional questions - omitting domestic abuse and partner" do
-      select_applicant_boolean(:over_60, true)
-      select_applicant_boolean(:employed, false)
-      select_applicant_boolean(:passporting, true)
-      click_on "Save and continue"
-      expect(page).to have_css(".govuk-error-summary__list")
-    end
+        click_on "Save and continue"
+        within ".govuk-error-summary__list" do
+          expect(all("li").map(&:text)).to match_array [
+            "Select yes if your client is likely to be an applicant in a domestic abuse case",
+            "Select yes if the client has a partner",
+          ]
+        end
+      end
 
-    it "allows me to progress if I do fill in additional questions" do
-      select_applicant_boolean(:over_60, false)
-      select_applicant_boolean(:employed, false)
-      select_applicant_boolean(:passporting, true)
-      select_applicant_boolean(:partner, true)
-      select_radio_value("applicant-form", "proceeding-type", "se003") # non-domestic abuse case
-      click_on "Save and continue"
-      expect(page).not_to have_css(".govuk-error-summary__list")
+      it "allows me to progress if I do fill in additional questions" do
+        select_applicant_boolean(:over_60, false)
+        select_applicant_boolean(:employed, false)
+        select_applicant_boolean(:passporting, true)
+        select_applicant_boolean(:partner, true)
+
+        select_radio_value("applicant-form", "proceeding-type", "se003") # non-domestic abuse case
+        click_on "Save and continue"
+        expect(page).not_to have_css(".govuk-error-summary__list")
+      end
     end
 
     it "shows me partner details on the check answers screen" do
+      visit_applicant_page
       select_applicant_boolean(:over_60, false)
       select_applicant_boolean(:employed, false)
       select_applicant_boolean(:passporting, true)
@@ -149,8 +130,8 @@ RSpec.describe "Applicant Page" do
       click_on "Save and continue"
       skip_assets_form
 
-      select_boolean_value("partner-details-form", :over_60, false)
-      select_boolean_value("partner-details-form", :employed, false)
+      select_boolean_value("partner-details-form", :over_60, true)
+      select_boolean_value("partner-details-form", :employed, true)
       click_on "Save and continue"
       skip_partner_dependants_form
 
@@ -161,14 +142,13 @@ RSpec.describe "Applicant Page" do
       click_on "Save and continue"
       skip_assets_form(subject: :partner)
       expect(page).to have_content I18n.t(".estimates.check_answers.partner_details")
-      expect(page).to have_content I18n.t(".estimates.check_answers.partner_details_fields.partner_over_60")
-      expect(page).to have_content I18n.t(".estimates.check_answers.partner_details_fields.partner_employed")
-      expect(page).to have_content I18n.t(".estimates.check_answers.partner_dependant_details_fields.partner_child_dependants")
       expect(page).to have_content "Has a partnerYes"
+      expect(page).to have_content "Partner is over 60 years oldYes"
+      expect(page).to have_content "Partner is employedYes"
     end
   end
 
-  describe "applicant page flow", :vcr, :partner_flag do
+  describe "applicant page flow", :partner_flag do
     let(:arbitrary_fixed_time) { Time.zone.local(2022, 9, 5, 9, 0, 0) }
     let(:dependant_details_page_header) { I18n.t("estimate_flow.dependant_details.legend") }
     let(:applicant_page_header) { I18n.t("estimate_flow.applicant.caption") }
