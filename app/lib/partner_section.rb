@@ -7,6 +7,8 @@ class PartnerSection
     def steps_for(estimate)
       if !estimate.partner
         []
+      elsif estimate.passporting
+        %i[partner_details].map { [_1] }
       else
         %i[partner_details partner_dependant_details].map { [_1] }
       end

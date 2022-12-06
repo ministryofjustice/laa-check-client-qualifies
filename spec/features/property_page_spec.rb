@@ -40,7 +40,6 @@ RSpec.describe "Property Page" do
         select_boolean_value("partner-details-form", :over_60, false)
         select_boolean_value("partner-details-form", :employed, false)
         click_on "Save and continue"
-        skip_partner_dependants_form
       end
 
       context "without dwelling" do
@@ -194,7 +193,6 @@ RSpec.describe "Property Page" do
       select_boolean_value("partner-details-form", :over_60, false)
       select_boolean_value("partner-details-form", :employed, false)
       click_on "Save and continue"
-      skip_partner_dependants_form
       skip_partner_vehicle_form
       skip_assets_form(subject: :partner)
 
