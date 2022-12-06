@@ -17,11 +17,11 @@ RSpec.describe "Employment page" do
     allow(mock_connection).to receive(:create_benefits)
     allow(mock_connection).to receive(:create_irregular_income)
     allow(mock_connection).to receive(:api_result).and_return(calculation_result)
-    visit_applicant_page
   end
 
   context "when I have indicated that I am not employed" do
     before do
+      visit_applicant_page
       fill_in_applicant_screen_without_passporting_benefits
       click_on "Save and continue"
       skip_dependants_form
@@ -47,55 +47,83 @@ RSpec.describe "Employment page" do
   end
 
   context "when I have indicated that I am employed" do
-    before do
-      fill_in_applicant_screen_without_passporting_benefits
-      select_applicant_boolean(:employed, true)
-      click_on "Save and continue"
-      skip_dependants_form
-    end
-
-    it "shows the employment page" do
-      expect(page).to have_content(employment_page_header)
-    end
-
-    it "has a back link to the applicant form with the dependant question page" do
-      click_link "Back"
-      expect(page).to have_content dependant_question
-    end
-
-    context "when I enter negative income by mistake" do
+    context "when on the employment screen" do
       before do
-        fill_in "employment-form-gross-income-field", with: 100
-        fill_in "employment-form-income-tax-field", with: 100
-        fill_in "employment-form-national-insurance-field", with: 50
-        select_radio_value("employment-form", "frequency", "monthly")
+        visit_applicant_page
+        fill_in_applicant_screen_without_passporting_benefits
+        select_applicant_boolean(:employed, true)
         click_on "Save and continue"
+        skip_dependants_form
       end
 
-      it "shows a friendly error message" do
-        within ".govuk-error-summary__list" do
-          expect(page).to have_content("Net income must be positive, please check")
+      it "shows the employment page" do
+        expect(page).to have_content(employment_page_header)
+      end
+
+      it "has a back link to the applicant form with the dependant question page" do
+        click_link "Back"
+        expect(page).to have_content dependant_question
+      end
+
+      context "when I enter negative income by mistake" do
+        before do
+          fill_in "employment-form-gross-income-field", with: 100
+          fill_in "employment-form-income-tax-field", with: 100
+          fill_in "employment-form-national-insurance-field", with: 50
+          select_radio_value("employment-form", "frequency", "monthly")
+          click_on "Save and continue"
+        end
+
+        it "shows a friendly error message" do
+          within ".govuk-error-summary__list" do
+            expect(page).to have_content("Net income must be positive, please check")
+          end
         end
       end
-    end
 
-    context "when I omit some required information" do
-      before do
-        click_on "Save and continue"
+      context "when I omit some required information" do
+        before do
+          click_on "Save and continue"
+        end
+
+        it "shows me an error message" do
+          expect(page).to have_content employment_page_header
+          expect(page).to have_content "Income cannot be blank"
+        end
       end
 
-      it "shows me an error message" do
-        expect(page).to have_content employment_page_header
-        expect(page).to have_content "Income cannot be blank"
+      context "when extering correct information" do
+        before do
+          fill_in "employment-form-gross-income-field", with: "5,000"
+          fill_in "employment-form-income-tax-field", with: "1000"
+          fill_in "employment-form-national-insurance-field", with: 50.5
+          select_radio_value("employment-form", "frequency", "monthly")
+          click_on "Save and continue"
+          click_on "Back"
+        end
+
+        it "formats my answers appropriately if I return to the screen" do
+          expect(find("#employment-form-gross-income-field").value).to eq "5,000"
+          expect(find("#employment-form-income-tax-field").value).to eq "1,000"
+          expect(find("#employment-form-national-insurance-field").value).to eq "50.50"
+        end
       end
     end
 
     context "when I provide all required information" do
       before do
-        fill_in "employment-form-gross-income-field", with: "5,000"
-        fill_in "employment-form-income-tax-field", with: "1000"
-        fill_in "employment-form-national-insurance-field", with: 50.5
-        select_radio_value("employment-form", "frequency", "monthly")
+        visit_check_answers(passporting: false) do |step|
+          case step
+          when :applicant
+            fill_in_applicant_screen_without_passporting_benefits
+            select_applicant_boolean(:employed, true)
+          when :employment
+            fill_in "employment-form-gross-income-field", with: "5,000"
+            fill_in "employment-form-income-tax-field", with: "1000"
+            fill_in "employment-form-national-insurance-field", with: 50.5
+            select_radio_value("employment-form", "frequency", "monthly")
+          end
+        end
       end
 
       it "persists my answers to CFE and moves me on to the next question" do
@@ -108,92 +136,99 @@ RSpec.describe "Employment page" do
           expect(payment[:date]).to eq 1.month.ago.to_date
         end
 
-        click_on "Save and continue"
-        expect(page).not_to have_content employment_page_header
-        progress_to_submit_from_benefits
-      end
-
-      it "formats my answers appropriately if I return to the screen" do
-        allow(mock_connection).to receive(:create_employment)
-        click_on "Save and continue"
-        click_on "Back"
-        expect(find("#employment-form-gross-income-field").value).to eq "5,000"
-        expect(find("#employment-form-income-tax-field").value).to eq "1,000"
-        expect(find("#employment-form-national-insurance-field").value).to eq "50.50"
+        click_on "Submit"
       end
     end
 
     context "when I provide different frequencies" do
       before do
-        fill_in "employment-form-gross-income-field", with: 1000
-        fill_in "employment-form-income-tax-field", with: 100
-        fill_in "employment-form-national-insurance-field", with: 50
+        visit_check_answers(passporting: false) do |step|
+          case step
+          when :applicant
+            fill_in_applicant_screen_without_passporting_benefits
+            select_applicant_boolean(:employed, true)
+          when :employment
+            fill_in "employment-form-gross-income-field", with: 1000
+            fill_in "employment-form-income-tax-field", with: 100
+            fill_in "employment-form-national-insurance-field", with: 50
+            select_radio_value("employment-form", "frequency", frequency)
+          end
+        end
       end
 
-      it "handles 3-month total" do
-        expect(mock_connection).to receive(:create_employment) do |_id, params|
-          payment = params.dig(0, :payments, 1)
-          expect(payment[:gross]).to eq (1_000 / 3.0).round(2)
-          expect(payment[:date]).to eq 1.month.ago.to_date
-          expect(payment[:national_insurance]).to eq (-50 / 3.0).round(2)
-          expect(payment[:tax]).to eq (-100 / 3.0).round(2)
-        end
-        select_radio_value("employment-form", "frequency", "total")
+      context "with 3-month total" do
+        let(:frequency) { "total" }
 
-        click_on "Save and continue"
-        progress_to_submit_from_benefits
+        it "submits correctly to CFE" do
+          expect(mock_connection).to receive(:create_employment) do |_id, params|
+            payment = params.dig(0, :payments, 1)
+            expect(payment[:gross]).to eq (1_000 / 3.0).round(2)
+            expect(payment[:date]).to eq 1.month.ago.to_date
+            expect(payment[:national_insurance]).to eq (-50 / 3.0).round(2)
+            expect(payment[:tax]).to eq (-100 / 3.0).round(2)
+          end
+          click_on "Submit"
+        end
       end
 
-      it "handles 1 week" do
-        expect(mock_connection).to receive(:create_employment) do |_id, params|
-          payment = params.dig(0, :payments, 1)
-          expect(payment[:gross]).to eq 1_000
-          expect(payment[:date]).to eq 1.week.ago.to_date
-          expect(payment[:national_insurance]).to eq(-50)
-          expect(payment[:tax]).to eq(-100)
+      context "with 1 week" do
+        let(:frequency) { "week" }
+
+        it "submits to CFE" do
+          expect(mock_connection).to receive(:create_employment) do |_id, params|
+            payment = params.dig(0, :payments, 1)
+            expect(payment[:gross]).to eq 1_000
+            expect(payment[:date]).to eq 1.week.ago.to_date
+            expect(payment[:national_insurance]).to eq(-50)
+            expect(payment[:tax]).to eq(-100)
+          end
+          click_on "Submit"
         end
-        select_radio_value("employment-form", "frequency", "week")
-        click_on "Save and continue"
-        progress_to_submit_from_benefits
       end
 
-      it "handles two weeks" do
-        expect(mock_connection).to receive(:create_employment) do |_id, params|
-          payment = params.dig(0, :payments, 1)
-          expect(payment[:gross]).to eq 1_000
-          expect(payment[:date]).to eq 2.weeks.ago.to_date
-          expect(payment[:national_insurance]).to eq(-50)
-          expect(payment[:tax]).to eq(-100)
+      context "with two weeks" do
+        let(:frequency) { "two_weeks" }
+
+        it "submits to CFE" do
+          expect(mock_connection).to receive(:create_employment) do |_id, params|
+            payment = params.dig(0, :payments, 1)
+            expect(payment[:gross]).to eq 1_000
+            expect(payment[:date]).to eq 2.weeks.ago.to_date
+            expect(payment[:national_insurance]).to eq(-50)
+            expect(payment[:tax]).to eq(-100)
+          end
+          click_on "Submit"
         end
-        select_radio_value("employment-form", "frequency", "two_weeks")
-        click_on "Save and continue"
-        progress_to_submit_from_benefits
       end
 
-      it "handles four weeks" do
-        expect(mock_connection).to receive(:create_employment) do |_id, params|
-          payment = params.dig(0, :payments, 1)
-          expect(payment[:gross]).to eq 1_000
-          expect(payment[:date]).to eq 4.weeks.ago.to_date
-          expect(payment[:national_insurance]).to eq(-50)
-          expect(payment[:tax]).to eq(-100)
+      context "with four weeks" do
+        let(:frequency) { "four_weeks" }
+
+        it "submits to CFE" do
+          expect(mock_connection).to receive(:create_employment) do |_id, params|
+            payment = params.dig(0, :payments, 1)
+            expect(payment[:gross]).to eq 1_000
+            expect(payment[:date]).to eq 4.weeks.ago.to_date
+            expect(payment[:national_insurance]).to eq(-50)
+            expect(payment[:tax]).to eq(-100)
+          end
+          click_on "Submit"
         end
-        select_radio_value("employment-form", "frequency", "four_weeks")
-        click_on "Save and continue"
-        progress_to_submit_from_benefits
       end
 
-      it "handles annually" do
-        expect(mock_connection).to receive(:create_employment) do |_id, params|
-          payment = params.dig(0, :payments, 1)
-          expect(payment[:gross]).to eq (1_000 / 12.0).round(2)
-          expect(payment[:date]).to eq 1.month.ago.to_date
-          expect(payment[:national_insurance]).to eq (-50 / 12.0).round(2)
-          expect(payment[:tax]).to eq (-100 / 12.0).round(2)
+      context "with annually" do
+        let(:frequency) { "annually" }
+
+        it "submits to CFE" do
+          expect(mock_connection).to receive(:create_employment) do |_id, params|
+            payment = params.dig(0, :payments, 1)
+            expect(payment[:gross]).to eq (1_000 / 12.0).round(2)
+            expect(payment[:date]).to eq 1.month.ago.to_date
+            expect(payment[:national_insurance]).to eq (-50 / 12.0).round(2)
+            expect(payment[:tax]).to eq (-100 / 12.0).round(2)
+          end
+          click_on "Submit"
         end
-        select_radio_value("employment-form", "frequency", "annually")
-        click_on "Save and continue"
-        progress_to_submit_from_benefits
       end
     end
   end
