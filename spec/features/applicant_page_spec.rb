@@ -133,7 +133,6 @@ RSpec.describe "Applicant Page" do
       select_boolean_value("partner-details-form", :over_60, true)
       select_boolean_value("partner-details-form", :employed, true)
       click_on "Save and continue"
-      skip_partner_dependants_form
 
       skip_partner_property_form
       click_on "Save and continue"
