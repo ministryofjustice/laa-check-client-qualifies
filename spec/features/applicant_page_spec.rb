@@ -95,16 +95,12 @@ RSpec.describe "Applicant Page" do
       allow(CfeConnection).to receive(:connection).and_return(mock_connection)
       visit_applicant_page
 
-      select_radio_value("applicant-form", "proceeding-type", "se003") # non-domestic abuse case
-      select_applicant_boolean(:over_60, false)
+      fill_in_applicant_screen_with_passporting_benefits
       select_applicant_boolean(:employed, true)
-      select_applicant_boolean(:passporting, true)
+      click_on "Save and continue"
 
-      click_on "Save and continue"
-      select_radio_value("property-form", "property-owned", "none")
-      click_on "Save and continue"
-      select_boolean_value("vehicle-form", :vehicle_owned, false)
-      click_on "Save and continue"
+      skip_property_form
+      skip_vehicle_form
       skip_assets_form
     end
 
