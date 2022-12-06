@@ -1,58 +1,10 @@
 require "rails_helper"
 
 RSpec.describe "Results Page" do
-  let(:estimate_id) { "123" }
-  let(:mock_connection) do
-    instance_double(CfeConnection, api_result: CalculationResult.new(payload), create_applicant: nil)
-  end
-
   describe "Client income" do
-    let(:payload) do
-      {
-        "success": true,
-        "result_summary": {
-          "overall_result": {
-            "result": "contribution_required",
-            "capital_contribution": 2000,
-            "income_contribution": 1219.95,
-          },
-          "disposable_income": {
-            "employment_income": {
-              "gross_income": 123.56,
-            },
-          },
-          "capital": {
-            "total_capital": 10_000,
-            "pensioner_capital_disregard": 100_000,
-            "subject_matter_of_dispute_disregard": 3_000,
-            "assessed_capital": -97_000,
-          },
-        },
-        "assessment": {
-          "gross_income": {
-            "irregular_income": {
-              "monthly_equivalents": {
-                "student_loan": 123.45,
-              },
-            },
-            "state_benefits": {
-              "monthly_equivalents": {
-                "all_sources": 123.67,
-              },
-            },
-            "other_income": {
-              "monthly_equivalents": {
-                "all_sources": {
-                  "friends_or_family": 123.78,
-                  "maintenance_in": 123.79,
-                  "property_or_lodger": 123.80,
-                  "pension": 123.81,
-                },
-              },
-            },
-          },
-        },
-      }
+    let(:estimate_id) { "123" }
+    let(:mock_connection) do
+      instance_double(CfeConnection, api_result: CalculationResult.new(payload), create_applicant: nil)
     end
 
     before do
@@ -142,11 +94,13 @@ RSpec.describe "Results Page" do
       fill_in "other-income-form-other-value-field", with: "333"
       click_on "Save and continue"
 
-      fill_in "outgoings-form-housing-payments-value-field", with: "300"
-      select_radio_value("outgoings-form", "housing-payments-frequency", "monthly")
-      fill_in "outgoings-form-childcare-payments-value-field", with: "0"
-      fill_in "outgoings-form-legal-aid-payments-value-field", with: "0"
+      fill_in "outgoings-form-housing-payments-value-field", with: "100"
+      fill_in "outgoings-form-childcare-payments-value-field", with: "200"
+      fill_in "outgoings-form-legal-aid-payments-value-field", with: "300"
       fill_in "outgoings-form-maintenance-payments-value-field", with: "0"
+      select_radio_value("outgoings-form", "housing-payments-frequency", "every-week")
+      select_radio_value("outgoings-form", "childcare-payments-frequency", "every-two-weeks")
+      select_radio_value("outgoings-form", "legal-aid-payments-frequency", "monthly")
       click_on "Save and continue"
 
       select_radio_value("property-form", "property-owned", "with_mortgage")
@@ -195,17 +149,17 @@ RSpec.describe "Results Page" do
 
     it "shows the outgoings section" do
       within "#outgoings-calculation-content" do
-        expect(page).to have_content "Housing payments £7.50"
-        expect(page).to have_content "Childcare payments £0.00"
+        expect(page).to have_content "Housing payments £140.83"
+        expect(page).to have_content "Childcare payments £433.33"
         expect(page).to have_content "Maintenance payments to a former partner £0.00"
-        expect(page).to have_content "Payments towards legal aid in a criminal case £0.00"
+        expect(page).to have_content "Payments towards legal aid in a criminal case £300.00"
         expect(page).to have_content "Income tax £400.00"
         expect(page).to have_content "National Insurance £50.00"
         expect(page).to have_content "Employment expenses £45.00"
         expect(page).to have_content "Dependants allowance £922.92"
 
-        expect(page).to have_content "Total gross monthly outgoings £1,425.42"
-        expect(page).to have_content "Assessed disposable monthly income £375.58"
+        expect(page).to have_content "Total gross monthly outgoings £2,292.08"
+        expect(page).to have_content "Assessed disposable monthly income -£491.08"
         expect(page).to have_content "Disposable monthly income upper limit £733.00"
       end
     end
@@ -334,10 +288,6 @@ RSpec.describe "Results Page" do
 
       click_on "Submit"
     end
-
-    # it "shows the capital section" do
-    #   expect(page).to have_content "Partner's additional property Value £80,000.00"
-    # end
 
     it "shows client income section" do
       within "#income-calculation-content" do
