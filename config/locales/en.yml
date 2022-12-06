@@ -311,6 +311,9 @@ en:
       guidance_link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=68"
     smod_help: Help with subject matter of dispute
     smod_help_text: Regulation 38 (Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013) provides for a disregard of the amount or value of assets that are the subject matter of dispute (SMOD); however the total amount disregarded must not exceed £100,000. Please read the related content on subject matter of dispute (Regulation 38).
+    trapped_capital:
+      text: "Guidance on trapped capital"
+      link: "https://legalaidlearning.justice.gov.uk/course/view.php?id=186"
   estimate_flow:
     partner:
       partner_guidance:
@@ -622,9 +625,6 @@ en:
         with_mortgage: Yes, with a mortgage or loan
         none: "No"
         legend: Does your client and/or their partner own the home they live in?
-      trapped_capital:
-        text: "Guidance on trapped capital"
-        link: "https://legalaidlearning.justice.gov.uk/course/view.php?id=186"
       properties_guidance:
         text: Guidance on properties
         link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=57"
@@ -639,9 +639,6 @@ en:
       guidance:
         text: Guidance on vehicles
         link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=55"
-      trapped_capital_guidance:
-        text: Guidance on trapped capital
-        link: https://legalaidlearning.justice.gov.uk/course/view.php?id=186
     partner_vehicle:
       caption: Your client's partner's finances
       vehicle_owned:
