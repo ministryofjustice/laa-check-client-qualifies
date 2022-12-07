@@ -510,7 +510,7 @@ en:
     other_income:
       caption: Your client's finances
       heading: What other income does your client receive?
-      second_caption: Enter zero for any that are not relevant.
+      second_caption: Enter zero for any that are not relevant
       friends_or_family:
         label: Financial help from friends or family
         hint: For example, money from a family member for rent or bills
@@ -535,7 +535,7 @@ en:
         label: Income from other sources
         hint: Include any other income your client received
         instruction: Enter amount received in the last 3 months
-      enter_frequency: Enter frequency
+      enter_frequency: Select frequency
       frequencies:
         every_week: Every week
         every_two_weeks: Every 2 weeks
@@ -545,7 +545,7 @@ en:
     partner_other_income:
       caption: Your client's partner's finances
       heading: What other income does your client's partner receive?
-      second_caption: Enter zero for any that are not relevant.
+      second_caption: Enter zero for any that are not relevant
       friends_or_family:
         label: Financial help from friends or family
         hint: For example, money from a family member for rent or bills
@@ -570,25 +570,25 @@ en:
         label: Income from other sources
         hint: Include any other income your client's partner received
         instruction: Enter amount received in the last 3 months
-      enter_frequency: Enter frequency
+      enter_frequency: Select frequency
     outgoings:
       heading: "What are your client's outgoings and deductions?"
       caption: Your client's finances
-      second_caption: Enter zero for any that are not relevant.
+      second_caption: Enter zero for any that are not relevant
       housing_payments:
         label: Housing payments
-        hint: "For example: rent, mortgage or board and lodgings. If your client is paying all or part of their ex partner’s housing costs in the former matrimonial home, include this as maintenance."
+        hint: "For example, rent, mortgage or board and lodgings. If your client is paying all or part of their ex partner’s housing costs in the former matrimonial home, do not include this here - add it as maintenance payments to a former partner instead."
       childcare_payments:
         label: Childcare payments
         hint: "For example, to a childminder, nanny or nursery"
       maintenance_payments:
         label: Maintenance payments to a former partner
-        hint: "This includes child maintenance"
+        hint: "This includes child maintenance. If your client is paying all or part of their ex partner’s housing costs in the former matrimonial home, include this."
       legal_aid_payments:
         label: Payments towards legal aid in a criminal case
         hint: ""
       enter_amount: Enter amount
-      enter_frequency: Enter frequency
+      enter_frequency: Select frequency
       frequencies:
         every_week: Every week
         every_two_weeks: Every 2 weeks
@@ -600,7 +600,7 @@ en:
     partner_outgoings:
       heading: "What are your client's partner's outgoings and deductions?"
       caption: Your client's partner's finances
-      second_caption: Enter zero for any that are not relevant.
+      second_caption: Enter zero for any that are not relevant
       housing_payments:
         label: Housing payments
         hint: "For example: rent, mortgage or board and lodgings. If your client is paying board and lodgings, enter the portion of the costs that relates to lodgings or, if you are unsure, 50% of the total costs."
@@ -614,7 +614,7 @@ en:
         label: Payments towards legal aid in a criminal case
         hint: ""
       enter_amount: Enter amount
-      enter_frequency: Enter frequency
+      enter_frequency: Select frequency
       guidance_on_outgoings: Guidance on outgoings (need link)
       link_to_guidance_on_outgoings: "#TODO: To be defined"
     property:
