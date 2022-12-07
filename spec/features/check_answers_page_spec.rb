@@ -10,7 +10,7 @@ RSpec.describe "Check answers page" do
         when :benefits
           select_boolean_value("benefits-form", :add_benefit, true)
           click_on "Save and continue"
-          fill_in "Benefit type", with: "Child benefit"
+          fill_in "Benefit name", with: "Child benefit"
           fill_in "Enter amount", with: "150"
           choose "Every week"
           click_on "Save and continue"
@@ -22,7 +22,7 @@ RSpec.describe "Check answers page" do
     scenario "I can modify those benefits from the 'check answers' screen" do
       within("#subsection-benefits-header") { click_on "Change" }
       click_on "Change"
-      fill_in "Benefit type", with: "Child Benefits"
+      fill_in "Benefit name", with: "Child Benefits"
       click_on "Save and continue"
       select_boolean_value("benefits-form", :add_benefit, false)
       click_on "Save and continue"
@@ -36,7 +36,7 @@ RSpec.describe "Check answers page" do
 
       select_boolean_value("benefits-form", :add_benefit, true)
       click_on "Save and continue"
-      fill_in "Benefit type", with: "Universal credit"
+      fill_in "Benefit name", with: "Universal credit"
       fill_in "Enter amount", with: "300"
       choose "Every week"
       click_on "Save and continue"
@@ -74,7 +74,7 @@ RSpec.describe "Check answers page" do
       within("#subsection-benefits-header") { click_on "Change" }
       select_boolean_value("benefits-form", :add_benefit, true)
       click_on "Save and continue"
-      fill_in "Benefit type", with: "Child Benefits"
+      fill_in "Benefit name", with: "Child Benefits"
       fill_in "Enter amount", with: "150"
       choose "Every week"
       click_on "Save and continue"

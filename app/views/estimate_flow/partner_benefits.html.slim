@@ -9,7 +9,7 @@
 
       = form.govuk_collection_radio_buttons :add_benefit, yes_no_options, :first, :last,
               legend: { text: t(".legend"), size: "xl", tag: "h1" },
-              hint: { text: t(".hint") }
+              hint: { text: t("generic.benefits.hint_html") }
 
       = form.govuk_submit t("generic.save_and_continue")
   - else
@@ -38,7 +38,7 @@
     = form_for(@form, url: variable_controller_partner_benefit_path(action: :add)) do |form|
 
       = form.govuk_collection_radio_buttons :add_benefit, yes_no_options, :first, :last,
-              legend: { text: t(".add_more_legend"), size: "l" }
+              legend: { text: t(".legend"), size: "l" }
 
       = form.govuk_submit t("generic.save_and_continue")
 

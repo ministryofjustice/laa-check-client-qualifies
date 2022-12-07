@@ -4,14 +4,11 @@
 .govuk-grid-column-two-thirds
   - if @form.benefits.blank?
 
-    = form_for(@form, url: variable_controller_benefit_path(action: :add)) do |form|
-      = form.govuk_error_summary t("generic.error_summary_title")
-      span.govuk-caption-l = t(".caption")
-      = form.govuk_collection_radio_buttons :add_benefit, yes_no_options, :first, :last,
-              legend: { text: t(".legend"), size: "xl", tag: "h1" },
-              hint: { text: t(".hint") }
-
-      = form.govuk_submit t("generic.save_and_continue")
+    = render "add_benefit_form",
+            form: @form,
+            caption: t(".caption"),
+            legend: { text: t(".legend"), size: "xl", tag: "h1" },
+            hint_text: t("generic.benefits.hint_html")
   - else
     = form_for(@form, url: variable_controller_benefit_path(action: :add)) do |form|
       = form.govuk_error_summary t("generic.error_summary_title")
@@ -34,9 +31,13 @@
               end
             end
           end
-      = form.govuk_collection_radio_buttons :add_benefit, yes_no_options, :first, :last,
-              legend: { text: t(".add_more_legend"), size: "l" }
 
-      = form.govuk_submit t("generic.save_and_continue")
+    = render "add_benefit_form", form: @form,
+            caption: t(".caption"),
+            legend: { text: t(".legend"), size: "l" },
+            hint_text: t(".add_more_hint_html")
 
-= render "shared/sidebar_with_date", links: {}
+= render "shared/sidebar_with_date", \
+  links: { \
+    t("generic.disregarded_benefits_guidance.text") => t("generic.disregarded_benefits_guidance.link"), \
+    }
