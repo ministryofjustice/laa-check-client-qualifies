@@ -577,13 +577,13 @@ en:
       second_caption: Enter zero for any that are not relevant
       housing_payments:
         label: Housing payments
-        hint: "For example, rent, mortgage or board and lodgings. If your client is paying all or part of their ex partner’s housing costs in the former matrimonial home, do not include this here - add it as maintenance payments to a former partner instead."
+        hint: "For example, rent, mortgage or board and lodgings. If your client is paying all or part of their ex-partner’s housing costs in the former matrimonial home, do not include this here - add it as maintenance payments to a former partner instead."
       childcare_payments:
         label: Childcare payments
         hint: "For example, to a childminder, nanny or nursery"
       maintenance_payments:
         label: Maintenance payments to a former partner
-        hint: "This includes child maintenance. If your client is paying all or part of their ex partner’s housing costs in the former matrimonial home, include this."
+        hint: "This includes child maintenance. If your client is paying all or part of their ex-partner’s housing costs in the former matrimonial home, include this."
       legal_aid_payments:
         label: Payments towards legal aid in a criminal case
         hint: ""
