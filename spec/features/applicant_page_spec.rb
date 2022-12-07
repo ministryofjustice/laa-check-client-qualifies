@@ -80,6 +80,35 @@ RSpec.describe "Applicant Page" do
     end
   end
 
+  context "when employed but also in receipt of a passporting benefit" do
+    let(:estimate_id) { SecureRandom.uuid }
+    let(:mock_connection) do
+      instance_double(CfeConnection,
+                      create_assessment_id: estimate_id,
+                      create_applicant: nil,
+                      create_proceeding_type: nil,
+                      api_result: calculation_result)
+    end
+    let(:calculation_result) { CalculationResult.new FactoryBot.build(:api_result) }
+
+    before do
+      allow(CfeConnection).to receive(:connection).and_return(mock_connection)
+      visit_applicant_page
+
+      fill_in_applicant_screen_with_passporting_benefits
+      select_applicant_boolean(:employed, true)
+      click_on "Save and continue"
+
+      skip_property_form
+      skip_vehicle_form
+      skip_assets_form
+    end
+
+    it "does not error out trying to submit employment data to CFE" do
+      expect { click_on "Submit" }.not_to raise_error
+    end
+  end
+
   describe "with a partner", :partner_flag do
     context "when on applicant page" do
       before do

@@ -1,8 +1,8 @@
 class SubmitPartnerService < BaseCfeService
   def call(cfe_estimate_id, cfe_session_data)
     @cfe_session_data = cfe_session_data
-    form = ApplicantForm.from_session(cfe_session_data)
-    return unless Flipper.enabled?(:partner) && form.partner
+    @applicant_form = ApplicantForm.from_session(cfe_session_data)
+    return unless Flipper.enabled?(:partner) && @applicant_form.partner
 
     cfe_connection.create_partner cfe_estimate_id,
                                   partner:,
@@ -32,7 +32,7 @@ class SubmitPartnerService < BaseCfeService
   end
 
   def employments
-    return [] unless partner[:employed]
+    return [] unless partner[:employed] && !@applicant_form.passporting
 
     form = PartnerEmploymentForm.from_session(@cfe_session_data)
     CfeParamBuilders::Employments.call(form)
