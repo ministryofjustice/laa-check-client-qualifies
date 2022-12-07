@@ -16,7 +16,7 @@ class EmploymentForm
   attribute :frequency, :string
   validates :frequency, presence: true
 
-  FREQUENCY_OPTIONS = %i[total week two_weeks four_weeks monthly annually].freeze
+  FREQUENCY_OPTIONS = %i[week two_weeks four_weeks monthly total annually].freeze
 
   def frequency_options
     FREQUENCY_OPTIONS.map do |key|

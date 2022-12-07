@@ -13,6 +13,7 @@ module CfeParamBuilders
       "every_two_weeks" => :two_weekly,
       "every_four_weeks" => :four_weekly,
       "monthly" => :monthly,
+      "total" => :three_monthly,
     }.freeze
 
     CFE_INCOME_TRANSLATIONS = {

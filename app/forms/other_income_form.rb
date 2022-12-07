@@ -7,7 +7,7 @@ class OtherIncomeForm
   IRREGULAR_INCOME_TYPES = %i[student_finance other].freeze
   VALUE_ATTRIBUTES = (REGULAR_INCOME_TYPES + IRREGULAR_INCOME_TYPES).map { :"#{_1}_value" }.freeze
   FREQUENCY_ATTRIBUTES = REGULAR_INCOME_TYPES.map { :"#{_1}_frequency" }.freeze
-  VALID_FREQUENCIES = %w[every_week every_two_weeks every_four_weeks monthly].freeze
+  VALID_FREQUENCIES = %w[every_week every_two_weeks every_four_weeks monthly total].freeze
 
   ATTRIBUTES = VALUE_ATTRIBUTES + FREQUENCY_ATTRIBUTES
 
