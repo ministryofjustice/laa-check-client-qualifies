@@ -748,7 +748,6 @@ en:
     vehicle_details:
       caption: Your client's finances
       heading: Tell us about your client's vehicle
-      second_caption: If you make an application for civil legal aid, the vehicle's value may be excluded from the financial assessment if your client has left their former matrimonial home because of domestic abuse
       vehicle_value:
         input: What is the estimated value of the vehicle?
         input_hint: You can use car valuation websites to find this out
