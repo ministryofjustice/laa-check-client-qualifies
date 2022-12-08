@@ -413,11 +413,14 @@ en:
       adult_dependants:
         label: How many?
         legend: Does your client have any adult dependants?
-        hint: Any adult relative who lives in the same household and is financially dependant on your client.
+        hint: An adult dependant is any adult relative who lives in the same household and is financially dependant on your client. Do not include anyone who owns any property, vehicles or other assets valued at over £8,000 in total.
       child_dependants:
         legend: Does your client have any child dependants?
         label: How many?
-        hint: For example your client’s children or another child relative who lives in their household. Do not include any foster children.
+        hint: "A child dependant is one who lives with your client and depends on them for financial support. For example, your client’s child or another child relative who lives in their household. Do not include any:"
+        exclusions:
+          - foster child
+          - child with over £307.64 income every month
       second_caption: A dependant is someone who lives with your client and depends on them for financial support
       third_caption: A dependant can be an adult or a child
     partner_dependant_details:
@@ -426,13 +429,11 @@ en:
       adult_dependants:
         legend: Does your client's partner have any adult dependants?
         label: Adult dependants
-        hint: For example, a parent, grandparent, aunt or uncle.
-        instruction: Enter number of adult dependants
+        hint: An adult dependant is any adult relative who lives in the same household and is financially dependant on your client’s partner. Do not include anyone who owns any property, vehicles or other assets valued at over £8,000 in total.
       child_dependants:
         legend: Does your client's partner have any child dependants?
         label: Child dependants
-        hint: For example, your client's child, grandchild, niece or nephew.
-        instruction: Enter number of child dependants
+        hint: "A child dependant is one who lives with your client and depends on them for financial support. For example, your client’s partner’s child or another child relative who lives in their household. Do not include any:"
     employment:
       caption: Your client's finances
       heading: Add your client's salary breakdown
