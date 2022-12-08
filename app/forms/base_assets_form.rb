@@ -19,7 +19,7 @@ class BaseAssetsForm
   validates :property_mortgage, numericality: { greater_than_or_equal_to: 0, allow_nil: true }, presence: true,
                                 if: -> { property_value.to_i.positive? }
 
-  attribute :property_percentage_owned, :integer
+  attribute :property_percentage_owned, :fully_validatable_integer
   validates :property_percentage_owned,
             numericality: { greater_than: 0, only_integer: true, less_than_or_equal_to: 100, allow_nil: true },
             presence: true, if: -> { property_value.to_i.positive? }

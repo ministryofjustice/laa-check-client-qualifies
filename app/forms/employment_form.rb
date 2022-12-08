@@ -8,7 +8,7 @@ class EmploymentForm
 
   DECIMAL_ATTRIBUTES.each do |attribute|
     attribute attribute, :gbp
-    validates attribute, presence: true
+    validates attribute, presence: true, numericality: true
   end
 
   validate :net_income_must_be_positive

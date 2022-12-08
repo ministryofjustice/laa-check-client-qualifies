@@ -80,6 +80,21 @@ RSpec.describe "Employment page" do
         end
       end
 
+      context "when I enter something invalid" do
+        before do
+          fill_in "employment-form-gross-income-field", with: "5,000"
+          fill_in "employment-form-income-tax-field", with: "1000"
+          fill_in "employment-form-national-insurance-field", with: "foo"
+          select_radio_value("employment-form", "frequency", "monthly")
+          click_on "Save and continue"
+        end
+
+        it "shows me an error message" do
+          expect(page).to have_content employment_page_header
+          expect(page).to have_content "There is a problem"
+        end
+      end
+
       context "when extering correct information" do
         before do
           fill_in "employment-form-gross-income-field", with: "5,000"

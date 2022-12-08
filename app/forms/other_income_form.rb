@@ -15,7 +15,7 @@ class OtherIncomeForm
     value_attribute = :"#{income_type}_value"
 
     attribute value_attribute, :gbp
-    validates value_attribute, presence: true
+    validates value_attribute, presence: true, numericality: true
 
     next unless REGULAR_INCOME_TYPES.include?(income_type)
 

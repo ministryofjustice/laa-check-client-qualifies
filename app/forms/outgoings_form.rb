@@ -16,7 +16,7 @@ class OutgoingsForm
     attribute value_attribute, :gbp
     attribute frequency_attribute, :string
 
-    validates value_attribute, presence: true
+    validates value_attribute, presence: true, numericality: true
     validates frequency_attribute, presence: true,
                                    inclusion: { in: VALID_FREQUENCIES, allow_nil: false },
                                    if: -> { send(value_attribute)&.positive? }
