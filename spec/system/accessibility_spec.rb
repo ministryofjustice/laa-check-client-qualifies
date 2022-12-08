@@ -82,13 +82,11 @@ RSpec.describe "Accessibility" do
     end
 
     before do
-      travel_to arbitrary_fixed_time
       allow(CfeConnection).to receive(:connection).and_return(mock_connection)
       allow(mock_connection).to receive(:create_assessment_id)
       allow(mock_connection).to receive(:create_proceeding_type)
       allow(mock_connection).to receive(:create_regular_payments)
-      visit "/estimates/#{estimate_id}/build_estimates/assets"
-      skip_assets_form
+      visit_check_answers(passporting: true)
       click_on "Submit"
     end
 

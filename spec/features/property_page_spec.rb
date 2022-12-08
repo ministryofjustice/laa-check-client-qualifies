@@ -14,7 +14,6 @@ RSpec.describe "Property Page" do
     allow(mock_connection).to receive(:create_proceeding_type)
     allow(mock_connection).to receive(:create_regular_payments)
     allow(mock_connection).to receive(:create_applicant)
-    visit_applicant_page
   end
 
   context "with partner", :partner_flag do
@@ -27,45 +26,35 @@ RSpec.describe "Property Page" do
     end
 
     before do
-      fill_in_applicant_screen_with_passporting_benefits
-      click_on "Save and continue"
       allow(mock_connection).to receive(:create_partner)
     end
 
     context "without main client dwelling" do
-      before do
-        skip_property_form
-        skip_vehicle_form
-        skip_assets_form
-        select_boolean_value("partner-details-form", :over_60, false)
-        select_boolean_value("partner-details-form", :employed, false)
-        click_on "Save and continue"
-      end
-
       context "without dwelling" do
-        it "doesn't send a main dwelling" do
-          skip_partner_property_form
-          skip_partner_vehicle_form
-          skip_assets_form(subject: :partner)
+        before do
+          visit_check_answers(passporting: true, partner: true)
+        end
 
+        it "doesn't send a main dwelling" do
           click_on "Submit"
         end
       end
 
       context "when partner owns main dwelling" do
-        before do
-          click_checkbox("partner-property-form-property-owned", property_ownership)
-          click_on "Save and continue"
-          fill_in "partner-property-entry-form-house-value-field", with: 100_000
-          fill_in "partner-property-entry-form-percentage-owned-field", with: 40
-        end
-
         context "with mortgage" do
-          let(:property_ownership) { "with_mortgage" }
           let(:expected_share) { 40 }
           let(:mortgage) { 50_000 }
 
           context "without a value" do
+            before do
+              visit_flow_page(passporting: true, partner: true, target: :partner_property)
+
+              select_radio_value("partner-property-form", "property-owned", "with_mortgage")
+              click_on "Save and continue"
+              fill_in "partner-property-entry-form-house-value-field", with: 100_000
+              fill_in "partner-property-entry-form-percentage-owned-field", with: 40
+            end
+
             it "errors" do
               click_on "Save and continue"
               within ".govuk-error-summary__list" do
@@ -76,10 +65,16 @@ RSpec.describe "Property Page" do
 
           context "with a value" do
             before do
-              fill_in "partner-property-entry-form-mortgage-field", with: mortgage
-              click_on "Save and continue"
-              skip_partner_vehicle_form
-              skip_assets_form(subject: :partner)
+              visit_check_answers(passporting: true, partner: true) do |step|
+                case step
+                when :partner_property
+                  select_radio_value("partner-property-form", "property-owned", "with_mortgage")
+                  click_on "Save and continue"
+                  fill_in "partner-property-entry-form-house-value-field", with: 100_000
+                  fill_in "partner-property-entry-form-percentage-owned-field", with: 40
+                  fill_in "partner-property-entry-form-mortgage-field", with: mortgage
+                end
+              end
             end
 
             it "submits the partner asset as the main home" do
@@ -105,19 +100,26 @@ RSpec.describe "Property Page" do
         end
 
         context "without mortgage" do
-          let(:property_ownership) { "outright" }
+          before do
+            visit_check_answers(passporting: true, partner: true) do |step|
+              case step
+              when :partner_property
+                select_radio_value("partner-property-form", "property-owned", "outright")
+                click_on "Save and continue"
+                fill_in "partner-property-entry-form-house-value-field", with: 100_000
+                fill_in "partner-property-entry-form-percentage-owned-field", with: 40
+              end
+            end
+          end
+
           let(:expected_share) { 40 }
           let(:mortgage) { 0 }
 
           it "submits the partner asset as the main home" do
-            click_on "Save and continue"
             expect(mock_connection)
               .to receive(:create_properties)
                     .with(estimate_id,
                           { main_home: expected_main_home })
-
-            skip_partner_vehicle_form
-            skip_assets_form(subject: :partner)
 
             click_on "Submit"
           end
@@ -128,31 +130,47 @@ RSpec.describe "Property Page" do
     context "when client owns main dwelling" do
       let(:mortgage) { 50_000 }
 
-      before do
-        click_checkbox("property-form-property-owned", "with_mortgage")
-        click_on "Save and continue"
-        fill_in "client-property-entry-form-house-value-field", with: 100_000
-        fill_in "client-property-entry-form-mortgage-field", with: mortgage
-        fill_in "client-property-entry-form-percentage-owned-field", with: 50
-      end
-
       context "without shared ownership" do
         let(:expected_share) { 50 }
+
+        before do
+          visit_check_answers(passporting: true, partner:) do |step|
+            case step
+            when :property
+              select_radio_value("property-form", "property-owned", "with_mortgage")
+              click_on "Save and continue"
+              fill_in "client-property-entry-form-house-value-field", with: 100_000
+              fill_in "client-property-entry-form-mortgage-field", with: mortgage
+              fill_in "client-property-entry-form-percentage-owned-field", with: 50
+              choose("No")
+            # partner property question skipped in this case
+            when :partner_property
+              true
+            end
+          end
+        end
 
         it "submits 50% share" do
           expect(mock_connection)
             .to receive(:create_properties)
                   .with(estimate_id,
                         { main_home: expected_main_home })
-          choose("No")
-          click_on "Save and continue"
-          complete_from_vehicle_form
+          click_on "Submit"
         end
       end
 
       context "without a partner percentage" do
-        it "errors" do
+        before do
+          visit_flow_page(passporting: true, partner:, target: :property)
+          select_radio_value("property-form", "property-owned", "with_mortgage")
+          click_on "Save and continue"
+          fill_in "client-property-entry-form-house-value-field", with: 100_000
+          fill_in "client-property-entry-form-mortgage-field", with: mortgage
+          fill_in "client-property-entry-form-percentage-owned-field", with: 50
           choose("Yes")
+        end
+
+        it "errors" do
           click_on "Save and continue"
           within ".govuk-error-summary__list" do
             expect(page).to have_content("Please specify what percentage of the house the partner owns")
@@ -161,9 +179,18 @@ RSpec.describe "Property Page" do
       end
 
       context "when percentage exceeded 100" do
-        it "errors" do
+        before do
+          visit_flow_page(passporting: true, partner:, target: :property)
+          select_radio_value("property-form", "property-owned", "with_mortgage")
+          click_on "Save and continue"
+          fill_in "client-property-entry-form-house-value-field", with: 100_000
+          fill_in "client-property-entry-form-mortgage-field", with: mortgage
+          fill_in "client-property-entry-form-percentage-owned-field", with: 50
           choose("Yes")
           fill_in "client-property-entry-form-joint-percentage-owned-field", with: 51
+        end
+
+        it "errors" do
           click_on "Save and continue"
           within ".govuk-error-summary__list" do
             expect(page).to have_content("Total property share cannot exceed 100%")
@@ -174,113 +201,64 @@ RSpec.describe "Property Page" do
       context "with shared ownership" do
         let(:expected_share) { 70 }
 
+        before do
+          visit_check_answers(passporting: true, partner:) do |step|
+            case step
+            when :property
+              select_radio_value("property-form", "property-owned", "with_mortgage")
+              click_on "Save and continue"
+              fill_in "client-property-entry-form-house-value-field", with: 100_000
+              fill_in "client-property-entry-form-mortgage-field", with: mortgage
+              fill_in "client-property-entry-form-percentage-owned-field", with: 50
+              choose("Yes")
+              fill_in "client-property-entry-form-joint-percentage-owned-field", with: 20
+            when :partner_property
+              true
+            end
+          end
+        end
+
         it "submits 70% share" do
           expect(mock_connection)
             .to receive(:create_properties)
                   .with(estimate_id,
                         { main_home: expected_main_home })
-          choose("Yes")
-          fill_in "client-property-entry-form-joint-percentage-owned-field", with: 20
-          click_on "Save and continue"
-          complete_from_vehicle_form
+          click_on "Submit"
         end
       end
-    end
-
-    def complete_from_vehicle_form
-      skip_vehicle_form
-      skip_assets_form
-      select_boolean_value("partner-details-form", :over_60, false)
-      select_boolean_value("partner-details-form", :employed, false)
-      click_on "Save and continue"
-      skip_partner_vehicle_form
-      skip_assets_form(subject: :partner)
-
-      click_on "Submit"
     end
   end
 
   context "without partner" do
     let(:partner) { false }
 
-    before do
-      fill_in_applicant_screen_with_passporting_benefits
-      click_on "Save and continue"
-    end
+    context "when on property form" do
+      before do
+        visit_flow_page(passporting: true, target: :property)
+      end
 
-    it "shows the correct form" do
-      expect(page).to have_content property_header
-    end
+      it "shows the correct form" do
+        expect(page).to have_content property_header
+      end
 
-    it "sets error on property form" do
-      click_on "Save and continue"
-      expect(page).to have_css(".govuk-error-summary__list")
-      within ".govuk-error-summary__list" do
-        expect(page).to have_content("Please select the option that best describes your client's property ownership")
+      it "sets error on property form" do
+        click_on "Save and continue"
+        expect(page).to have_css(".govuk-error-summary__list")
+        within ".govuk-error-summary__list" do
+          expect(page).to have_content("Please select the option that best describes your client's property ownership")
+        end
       end
     end
 
     context "with a mortgage" do
       before do
+        visit_flow_page(passporting: true, target: :property)
         select_radio_value("property-form", "property-owned", "with_mortgage")
         click_on "Save and continue"
       end
 
       it "shows the property entry screen" do
         expect(page).to have_content property_entry_header
-      end
-
-      context "with a property" do
-        before do
-          fill_in "client-property-entry-form-house-value-field", with: 100_000
-          fill_in "client-property-entry-form-mortgage-field", with: 50_000
-          fill_in "client-property-entry-form-percentage-owned-field", with: 37
-        end
-
-        it "can be changed via check answers" do
-          click_checkbox("client-property-entry-form-house-in-dispute", "true")
-          click_on "Save and continue"
-          expect(page).to have_content vehicle_header
-
-          skip_vehicle_form
-          skip_assets_form
-
-          within("#subsection-property-header") { click_on "Change" }
-          select_radio_value("property-form", "property-owned", "none")
-          click_on "Save and continue"
-          expect(page).to have_content check_answers_header
-          within "#field-list-property" do
-            expect(page).not_to have_content "Disputed asset"
-            expect(page).not_to have_content "Estimated value"
-          end
-        end
-
-        it "creates a single property in dispute" do
-          allow(mock_connection).to receive(:api_result).and_return(CalculationResult.new(build(:api_result)))
-          expect(mock_connection)
-            .to receive(:create_properties)
-                  .with(estimate_id, { main_home: { outstanding_mortgage: 50_000,
-                                                    percentage_owned: 37,
-                                                    value: 100_000,
-                                                    shared_with_housing_assoc: false,
-                                                    subject_matter_of_dispute: true } })
-
-          click_checkbox("client-property-entry-form-house-in-dispute", "true")
-
-          click_on "Save and continue"
-          expect(page).to have_content vehicle_header
-
-          select_boolean_value("vehicle-form", :vehicle_owned, false)
-          click_on "Save and continue"
-          skip_assets_form
-
-          expect(page).to have_content check_answers_header
-          within "#field-list-property" do
-            expect(page).to have_content "Disputed asset"
-          end
-
-          click_on "Submit"
-        end
       end
 
       it "applies validation on the property entry form" do
@@ -290,6 +268,51 @@ RSpec.describe "Property Page" do
           expect(page).to have_content I18n.t("activemodel.errors.models.client_property_entry_form.attributes.mortgage.blank")
           expect(page).to have_content I18n.t("activemodel.errors.models.client_property_entry_form.attributes.percentage_owned.blank")
         end
+      end
+    end
+
+    context "with a property" do
+      before do
+        visit_check_answers(passporting: true) do |step|
+          case step
+          when :property
+            select_radio_value("property-form", "property-owned", "with_mortgage")
+            click_on "Save and continue"
+            fill_in "client-property-entry-form-house-value-field", with: 100_000
+            fill_in "client-property-entry-form-mortgage-field", with: 50_000
+            fill_in "client-property-entry-form-percentage-owned-field", with: 37
+            click_checkbox("client-property-entry-form-house-in-dispute", "true")
+          end
+        end
+      end
+
+      it "can be changed via check answers" do
+        within("#subsection-property-header") { click_on "Change" }
+        select_radio_value("property-form", "property-owned", "none")
+        click_on "Save and continue"
+        expect(page).to have_content check_answers_header
+        within "#field-list-property" do
+          expect(page).not_to have_content "Disputed asset"
+          expect(page).not_to have_content "Estimated value"
+        end
+      end
+
+      it "creates a single property in dispute" do
+        allow(mock_connection).to receive(:api_result).and_return(CalculationResult.new(build(:api_result)))
+        expect(mock_connection)
+          .to receive(:create_properties)
+                .with(estimate_id, { main_home: { outstanding_mortgage: 50_000,
+                                                  percentage_owned: 37,
+                                                  value: 100_000,
+                                                  shared_with_housing_assoc: false,
+                                                  subject_matter_of_dispute: true } })
+
+        expect(page).to have_content check_answers_header
+        within "#field-list-property" do
+          expect(page).to have_content "Disputed asset"
+        end
+
+        click_on "Submit"
       end
     end
   end

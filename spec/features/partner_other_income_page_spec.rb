@@ -4,18 +4,7 @@ RSpec.describe "Partner other income page", :partner_flag do
   let(:partner_other_income_heading) { I18n.t("estimate_flow.partner_other_income.heading") }
 
   before do
-    visit_applicant_page
-    fill_in_applicant_screen_without_passporting_benefits
-    click_on "Save and continue"
-    travel_from_housing_benefit_to_past_client_assets
-    select_boolean_value("partner-details-form", :over_60, false)
-    select_boolean_value("partner-details-form", :employed, false)
-    click_on "Save and continue"
-    skip_partner_dependants_form
-    select_boolean_value("partner-housing-benefit-form", :housing_benefit, false)
-    click_on("Save and continue")
-    select_boolean_value("partner-benefits-form", :add_benefit, false)
-    click_on "Save and continue"
+    visit_flow_page(passporting: false, partner: true, target: :partner_income)
   end
 
   it "shows the correct screen" do
