@@ -91,7 +91,9 @@ RSpec.describe "Employment page" do
 
         it "shows me an error message" do
           expect(page).to have_content employment_page_header
-          expect(page).to have_content "There is a problem"
+          within ".govuk-error-summary__list" do
+            expect(page.text).to eq "National Insurance must be a number, if this does not apply enter 0"
+          end
         end
       end
 
