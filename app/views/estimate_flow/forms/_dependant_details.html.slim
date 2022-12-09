@@ -7,8 +7,9 @@
               legend: { text: t("estimate_flow.#{i18n_key}.child_dependants.legend") } do
     = form.govuk_radio_button :child_dependants, true,
             label: { text: t("generic.yes_choice") } do
-      = form.govuk_number_field :child_dependants_count,
+      = form.govuk_text_field :child_dependants_count,
           width: 5,
+          value: integer_field_value(form, :child_dependants_count),
           label: { text: t("estimate_flow.#{i18n_key}.child_dependants.label") }
     = form.govuk_radio_button :child_dependants, false,
             label: { text: t("generic.no_choice") }
@@ -18,8 +19,9 @@
           legend: { text: t("estimate_flow.#{i18n_key}.adult_dependants.legend") } do
     = form.govuk_radio_button :adult_dependants, true,
             label: { text: t("generic.yes_choice") } do
-      = form.govuk_number_field :adult_dependants_count,
+      = form.govuk_text_field :adult_dependants_count,
           width: 5,
+          value: integer_field_value(form, :adult_dependants_count),
           label: { text: t("estimate_flow.#{i18n_key}.adult_dependants.label") }
     = form.govuk_radio_button :adult_dependants, false,
             label: { text: t("generic.no_choice") }

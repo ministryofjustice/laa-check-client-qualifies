@@ -8,7 +8,7 @@ module CheckAnswers
     attribute :investments, :gbp
     attribute :valuables, :gbp
     attribute :property_mortgage, :gbp
-    attribute :property_percentage_owned, :integer
+    attribute :property_percentage_owned, :fully_validatable_integer
     attribute :in_dispute, array: true, default: []
 
     FIELDS = %i[property_value
