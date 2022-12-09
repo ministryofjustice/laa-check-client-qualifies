@@ -13,7 +13,6 @@ see https://stackoverflow.com/questions/71262775/how-do-i-ensure-assets-are-pres
 ## Dependencies
 
 - Ruby version
-
   - Ruby version 3.x
   - Rails 7.0.x
 
