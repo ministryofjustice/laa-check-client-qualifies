@@ -32,11 +32,11 @@ spec:
             httpGet:
               path: /status
               port: http
-            initialDelaySeconds: 60
+            initialDelaySeconds: 120
           readinessProbe:
             httpGet:
               path: /health-including-dependents
               port: http
-            initialDelaySeconds: 60
+            initialDelaySeconds: 120
           resources:
   {{ toYaml .Values.resources | indent 12 }}
