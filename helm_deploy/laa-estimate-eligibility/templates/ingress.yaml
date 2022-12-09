@@ -13,7 +13,7 @@ metadata:
 {{ toYaml . | indent 4 }}
 {{- end }}
 spec:
-  ingressClassName: modsec
+  ingressClassName: default
   tls:
   {{- range .Values.ingress.hosts }}
     - hosts:
