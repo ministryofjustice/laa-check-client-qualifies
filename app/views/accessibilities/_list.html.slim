@@ -1,0 +1,4 @@
+- paragraphs.each do |p|
+  h2.govuk-heading-m = p.fetch(:heading)
+  - p.fetch(:text).each do |text|
+    p.govuk-body = text
