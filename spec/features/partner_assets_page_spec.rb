@@ -26,8 +26,8 @@ RSpec.describe "Partner assets page", :partner_flag do
       fill_in "partner-assets-form-savings-field", with: "0"
       fill_in "partner-assets-form-investments-field", with: "0"
       fill_in "partner-assets-form-valuables-field", with: "0"
-      fill_in "partner-assets-form-property-value-field", with: "80_000"
-      fill_in "partner-assets-form-property-mortgage-field", with: "40_000"
+      fill_in "partner-assets-form-property-value-field", with: "80,000"
+      fill_in "partner-assets-form-property-mortgage-field", with: "40,000"
       fill_in "partner-assets-form-property-percentage-owned-field", with: "50"
     end
 

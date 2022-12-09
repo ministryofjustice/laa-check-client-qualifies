@@ -27,8 +27,8 @@ RSpec.describe "Assets Page" do
             fill_in "client-assets-form-investments-field", with: "0"
             fill_in "client-assets-form-valuables-field", with: "0"
 
-            fill_in "client-assets-form-property-value-field", with: "100_000"
-            fill_in "client-assets-form-property-mortgage-field", with: "50_000"
+            fill_in "client-assets-form-property-value-field", with: "100,000"
+            fill_in "client-assets-form-property-mortgage-field", with: "50,000"
             fill_in "client-assets-form-property-percentage-owned-field", with: "50"
             click_checkbox("client-assets-form-in-dispute", "property")
           end
@@ -215,8 +215,8 @@ RSpec.describe "Assets Page" do
           fill_in "client-assets-form-savings-field", with: "0"
           fill_in "client-assets-form-investments-field", with: "0"
           fill_in "client-assets-form-valuables-field", with: "0"
-          fill_in "client-assets-form-property-value-field", with: "80_000"
-          fill_in "client-assets-form-property-mortgage-field", with: "40_000"
+          fill_in "client-assets-form-property-value-field", with: "80,000"
+          fill_in "client-assets-form-property-mortgage-field", with: "40,000"
           fill_in "client-assets-form-property-percentage-owned-field", with: "50"
         end
       end

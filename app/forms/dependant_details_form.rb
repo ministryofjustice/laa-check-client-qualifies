@@ -13,7 +13,9 @@ class DependantDetailsForm
   FORM_ATTRIBUTES.each do |boolean_field, integer_field|
     attribute boolean_field, :boolean
     validates boolean_field, inclusion: { in: [true, false] }
-    attribute integer_field, :integer
-    validates integer_field, presence: true, numericality: { greater_than: 0 }, if: ->(m) { m.public_send(boolean_field) }
+    attribute integer_field, :fully_validatable_integer
+    validates integer_field, presence: true,
+                             numericality: { greater_than: 0, only_integer: true },
+                             if: ->(m) { m.public_send(boolean_field) }
   end
 end

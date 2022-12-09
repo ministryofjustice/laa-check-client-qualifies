@@ -16,9 +16,10 @@
             field: :property_mortgage,
             width: 5,
             label_text: t("estimate_flow.#{i18n_key}.property.mortgage.label")
-    = form.govuk_number_field :property_percentage_owned,
+    = form.govuk_text_field :property_percentage_owned,
             width: 5,
             suffix_text: "%",
+            value: integer_field_value(form, :property_percentage_owned),
             label: { text: t("estimate_flow.#{i18n_key}.property.percentage_owned.input") },
             hint: { text: t("estimate_flow.#{i18n_key}.property.percentage_owned.input_hint") }
 

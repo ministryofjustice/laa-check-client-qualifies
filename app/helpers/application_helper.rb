@@ -20,9 +20,18 @@ module ApplicationHelper
 
   def decimal_as_money_string(form, field)
     current_value = form.object.attributes[field.to_s]
+    return current_value if current_value.is_a?(String)
+
     precision = current_value&.round == current_value ? 0 : 2
 
     number_with_precision(current_value, precision:, delimiter: ",")
+  end
+
+  def integer_field_value(form, field)
+    current_value = form.object.attributes[field.to_s]
+    return current_value if current_value.is_a?(String)
+
+    number_with_precision(current_value, precision: 0, delimiter: ",")
   end
 
   def back_link(step, estimate, mimic_browser_back)

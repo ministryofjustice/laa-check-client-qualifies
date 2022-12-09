@@ -9,7 +9,7 @@ class ClientPropertyEntryForm < BasePropertyEntryForm
   attribute :joint_ownership, :boolean
   validates :joint_ownership, inclusion: { in: [true, false] }, allow_nil: false, if: -> { partner }
 
-  attribute :joint_percentage_owned, :integer
+  attribute :joint_percentage_owned, :fully_validatable_integer
   validates :joint_percentage_owned,
             presence: true,
             numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: 100, message: :within_range },

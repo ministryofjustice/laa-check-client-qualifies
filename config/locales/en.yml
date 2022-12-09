@@ -49,6 +49,7 @@ en:
               blank: Income tax cannot be blank
             national_insurance:
               blank: National Insurance cannot be blank
+              not_a_number: National Insurance must be a number, if this does not apply enter 0
             frequency:
               blank: Please select how frequently you receive employment income
         partner_employment_form:

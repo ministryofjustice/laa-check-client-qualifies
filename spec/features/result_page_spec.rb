@@ -112,8 +112,8 @@ RSpec.describe "Results Page" do
           select_boolean_value("client-vehicle-details-form", :vehicle_pcp, true)
           fill_in "client-vehicle-details-form-vehicle-finance-field", with: 500
         when :assets
-          fill_in "client-assets-form-property-value-field", with: "80_000"
-          fill_in "client-assets-form-property-mortgage-field", with: "70_000"
+          fill_in "client-assets-form-property-value-field", with: "80,000"
+          fill_in "client-assets-form-property-mortgage-field", with: "70000"
           fill_in "client-assets-form-property-percentage-owned-field", with: "50"
 
           fill_in "client-assets-form-savings-field", with: "200"
@@ -221,8 +221,8 @@ RSpec.describe "Results Page" do
           select_boolean_value("partner-vehicle-details-form", :vehicle_pcp, true)
           fill_in "partner-vehicle-details-form-vehicle-finance-field", with: 500
         when :partner_assets
-          fill_in "partner-assets-form-property-value-field", with: "80_000"
-          fill_in "partner-assets-form-property-mortgage-field", with: "70_000"
+          fill_in "partner-assets-form-property-value-field", with: "80,000"
+          fill_in "partner-assets-form-property-mortgage-field", with: "70,000"
           fill_in "partner-assets-form-property-percentage-owned-field", with: "50"
 
           fill_in "partner-assets-form-savings-field", with: "200"
