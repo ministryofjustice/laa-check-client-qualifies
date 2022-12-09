@@ -1074,7 +1074,7 @@ en:
     show:
       provider_question: Do you give legal advice or provide legal services?
       hints:
-        provider_user_radio_buttons: This includes if you provide civil or family legal aid and advice in England and Wales to help people deal with their legal problems.
+        provider_user_radio_buttons: This includes if you provide civil or family legal aid and advice in England and Wales to help people deal with their legal problems
   referrals:
     show:
       page_heading: You cannot use this service to check if someone qualifies for legal aid
