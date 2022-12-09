@@ -1,6 +1,6 @@
 = form_for(@form, url: wizard_path, method: :put) do |form|
   = form.govuk_error_summary t("generic.error_summary_title")
-
+  = yield
   - OutgoingsForm::PAYMENT_TYPES.each do |type|
     h2.govuk-heading-m class="govuk-!-margin-top-9 govuk-!-margin-bottom-2"
       = t("estimate_flow.#{i18n_key}.#{type}.label")

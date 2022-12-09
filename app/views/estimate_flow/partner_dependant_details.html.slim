@@ -2,9 +2,9 @@
   = back_link(:partner_dependant_details, @estimate, @back_buttons_invoke_browser_back_behaviour)
 
 .govuk-grid-column-two-thirds
-  span.govuk-caption-l = t(".caption")
-  h1.govuk-heading-xl class="govuk-!-margin-bottom-2" = t(".legend")
   = render "estimate_flow/forms/dependant_details", i18n_key: :partner_dependant_details
+    span.govuk-caption-l = t("estimate_flow.partner_dependant_details.caption")
+    h1.govuk-heading-xl class="govuk-!-margin-bottom-2" = t("estimate_flow.partner_dependant_details.legend")
 
 = render "shared/sidebar_with_date",
         links: { t("estimate_flow.applicant.dependants.guidance.text") => t("estimate_flow.applicant.dependants.guidance.link") }

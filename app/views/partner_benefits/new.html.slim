@@ -4,9 +4,10 @@
             class: "govuk-back-link"
 
 .govuk-grid-column-two-thirds
-  span.govuk-caption-l = t(".caption")
-  h1.govuk-heading-xl = t(".heading")
   = form_for(@model, url: url_for([:estimate, controller_name.to_sym])) do |form|
+    = form.govuk_error_summary t("generic.error_summary_title")
+    span.govuk-caption-l = t(".caption")
+    h1.govuk-heading-xl = t(".heading")
     = render "benefits/form", form:
 
 = render "shared/sidebar_with_date", links: {}

@@ -55,8 +55,8 @@ RSpec.describe "Partner Dependants", :partner_flag do
       within ".govuk-error-summary__list" do
         expect(all("li").map(&:text))
           .to eq([
-            "Please enter the number of child dependants",
-            "Please enter the number of adult dependants",
+            "Enter the number of child dependants",
+            "Enter the number of adult dependants",
           ])
       end
     end
@@ -65,8 +65,8 @@ RSpec.describe "Partner Dependants", :partner_flag do
       fill_in "Adult dependants", with: "0"
       fill_in "Child dependants", with: "0"
       click_on "Save and continue"
-      expect(page).to have_content("Number of adult dependants must be greater than zero")
-      expect(page).to have_content("Number of child dependants must be greater than zero")
+      expect(page).to have_content("The number of child dependants must be greater than zero")
+      expect(page).to have_content("The number of adult dependants must be greater than zero")
     end
   end
 

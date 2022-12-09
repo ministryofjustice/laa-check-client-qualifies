@@ -18,7 +18,7 @@ RSpec.describe "Partner other income page", :partner_flag do
 
     it "shows me an error message" do
       expect(page).to have_content partner_other_income_heading
-      expect(page).to have_content "Please enter a zero if your client's partner receives no"
+      expect(page).to have_content "Enter financial help from friends and family, if this does not apply enter 0"
     end
   end
 

@@ -19,7 +19,7 @@ RSpec.describe "Partner vehicle pages", :partner_flag do
 
     it "shows me an error message" do
       expect(page).to have_content partner_vehicle_heading
-      expect(page).to have_content "Select yes if the client's partner owns a vehicle"
+      expect(page).to have_content "Select yes if your client's partner owns a vehicle"
     end
   end
 
@@ -36,7 +36,7 @@ RSpec.describe "Partner vehicle pages", :partner_flag do
     it "Shows an error if I leave out answers" do
       click_on "Save and continue"
       expect(page).to have_content partner_vehicle_details_heading
-      expect(page).to have_content "Please enter the estimated value"
+      expect(page).to have_content "p"
     end
 
     it "Allows me to proceed if I enter answers" do

@@ -17,9 +17,9 @@ RSpec.describe "Applicant Page" do
       within ".govuk-error-summary__list" do
         expect(all("li").map(&:text)).to eq [
           "Select yes if your client is likely to be an applicant in a domestic abuse case",
-          "Select yes if the client is over 60 years old",
-          "Select employed if the client is currently employed",
-          "Select yes if the client is currently in receipt of a passporting benefit",
+          "Select yes if your client is over 60 years old",
+          "Select employed if your client is currently employed",
+          "Select yes if your client is currently in receipt of a passporting benefit",
         ]
       end
     end
@@ -181,8 +181,8 @@ RSpec.describe "Applicant Page" do
 
     it "displays error messages if nothing is entered" do
       click_on "Save and continue"
-      expect(page).to have_content("Please select yes if client has child dependants")
-      expect(page).to have_content("Please select yes if client has adult dependants")
+      expect(page).to have_content("Select yes if your client has child dependants")
+      expect(page).to have_content("Select yes if your client has adult dependants")
     end
 
     it "has a back pointer to the applicant page" do

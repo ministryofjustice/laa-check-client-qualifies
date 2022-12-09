@@ -64,7 +64,7 @@ RSpec.describe "Employment page" do
 
         it "shows a friendly error message" do
           within ".govuk-error-summary__list" do
-            expect(page).to have_content("Net income must be positive, please check")
+            expect(page).to have_content("Gross employment income must be more than income tax and National Insurance combined")
           end
         end
       end
@@ -76,7 +76,7 @@ RSpec.describe "Employment page" do
 
         it "shows me an error message" do
           expect(page).to have_content employment_page_header
-          expect(page).to have_content "Income cannot be blank"
+          expect(page).to have_content "Enter gross employment income"
         end
       end
 

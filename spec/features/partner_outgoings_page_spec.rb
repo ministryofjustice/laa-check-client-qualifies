@@ -18,7 +18,7 @@ RSpec.describe "Partner outgoings page", :partner_flag do
 
     it "shows me an error message" do
       expect(page).to have_content partner_outgoings_heading
-      expect(page).to have_content "Please enter a zero if your client's partner "
+      expect(page).to have_content "Enter housing payments, if this does not apply enter 0"
     end
   end
 

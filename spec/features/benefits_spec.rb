@@ -9,7 +9,7 @@ RSpec.describe "Benefits" do
 
   it "checks I have made a choice" do
     click_on("Save and continue")
-    expect(page).to have_content("Select yes if you wish to add a client benefit")
+    expect(page).to have_content("Select yes if your client receives any other benefits")
   end
 
   it "allows me to skip past the screen" do
@@ -36,7 +36,7 @@ RSpec.describe "Benefits" do
     fill_in "Enter amount", with: "150"
     choose "Every week"
     click_on "Save and continue"
-    expect(page).to have_content "Please give the name of the benefit"
+    expect(page).to have_content "Enter the benefit name"
   end
 
   it "allows me to edit a benefit" do
@@ -62,7 +62,7 @@ RSpec.describe "Benefits" do
     click_on "Change"
     fill_in "Benefit type", with: ""
     click_on "Save and continue"
-    expect(page).to have_content "Please give the name of the benefit"
+    expect(page).to have_content "Enter the benefit name"
   end
 
   it "allows me to remove a benefit" do
@@ -90,7 +90,7 @@ RSpec.describe "Benefits" do
     fill_in "Enter amount", with: "100"
     choose "Every week"
     click_on "Save and continue"
-    find(".button-as-link", match: :first).click
+    find("a", text: "Remove", match: :first).click
     expect(page).not_to have_content "Child benefit"
     expect(page).to have_current_path(estimate_build_estimate_path(estimate_id, :benefits))
   end

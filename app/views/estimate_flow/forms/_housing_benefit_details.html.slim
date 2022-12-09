@@ -1,6 +1,6 @@
 = form_for(@form, url: wizard_path, method: :put) do |form|
   = form.govuk_error_summary t("generic.error_summary_title")
-
+  = yield
   = render "shared/money_input",
           form:,
           field: :housing_benefit_value,

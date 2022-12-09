@@ -58,7 +58,7 @@ RSpec.describe "Property Page" do
             it "errors" do
               click_on "Save and continue"
               within ".govuk-error-summary__list" do
-                expect(page).to have_content("Please enter the the outstanding mortgage amount your client's partner has")
+                expect(page).to have_content("Enter the outstanding mortage on your client's partner's home")
               end
             end
           end
@@ -245,7 +245,7 @@ RSpec.describe "Property Page" do
         click_on "Save and continue"
         expect(page).to have_css(".govuk-error-summary__list")
         within ".govuk-error-summary__list" do
-          expect(page).to have_content("Please select the option that best describes your client's property ownership")
+          expect(page).to have_content("Select yes if your client owns the home they live in")
         end
       end
     end
