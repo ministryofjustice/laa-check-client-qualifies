@@ -258,10 +258,18 @@ workflows:
             branches:
               only:
                 - main
+      - deploy_production_approval:
+          type: approval
+          requires:
+            - build_and_push_to_ecr
+          filters:
+            branches:
+              only:
+                - main
       - deploy_production:
           context: laa-estimate-eligibility-production
           requires:
-            - build_and_push_to_ecr
+            - deploy_production_approval
           filters:
             branches:
               only:
