@@ -117,7 +117,7 @@ jobs:
       - run:
           name: Run tests
           command: |
-            bundle exec rake spec
+            bundle exec rspec -t ~long_slow
       - store_artifacts:
           path: coverage
   linters:

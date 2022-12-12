@@ -59,8 +59,8 @@ end
 
 INCOME_HANDLERS = {
   dependants: lambda { |page:|
-    select_boolean(page:, form_name: "dependant-details-form", field: :child_dependants, value: false)
-    select_boolean(page:, form_name: "dependant-details-form", field: :adult_dependants, value: false)
+    select_radio(page:, form: "dependant-details-form", field: :child_dependants, value: false)
+    select_radio(page:, form: "dependant-details-form", field: :adult_dependants, value: false)
   },
   employment: nil,
   housing_benefit: lambda { |page:|
@@ -144,8 +144,12 @@ def process_handler_group(handlers, target)
   true
 end
 
-def visit_flow_page(passporting:, target:, partner: false, &block)
-  visit_applicant_page
+def visit_flow_page(passporting:, target:, host: nil, partner: false, &block)
+  if host
+    visit "#{host}/estimates/new"
+  else
+    visit new_estimate_path
+  end
   return if target == :applicant
 
   if !block_given? || !yield(:applicant)
@@ -173,6 +177,6 @@ def visit_flow_page(passporting:, target:, partner: false, &block)
   end
 end
 
-def visit_check_answers(passporting:, partner: false, &block)
-  visit_flow_page(passporting:, partner:, target: nil, &block)
+def visit_check_answers(passporting:, host: nil, partner: false, &block)
+  visit_flow_page(passporting:, partner:, host:, target: nil, &block)
 end

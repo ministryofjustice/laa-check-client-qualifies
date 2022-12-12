@@ -94,4 +94,7 @@ Capybara.configure do |config|
   # even when the radio button element attached to the label is hidden
   # (as it is using the standard govuk radio element)
   config.automatic_label_click = true
+
+  # config.run_server = false
+  config.default_max_wait_time = 20
 end
