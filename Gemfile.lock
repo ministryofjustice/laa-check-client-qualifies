@@ -145,6 +145,8 @@ GEM
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (3.0.2)
+    faraday-retry (2.0.0)
+      faraday (~> 2.0)
     flipper (0.26.0)
       concurrent-ruby (< 2)
     globalid (1.0.0)
@@ -418,6 +420,7 @@ DEPENDENCIES
   erb_lint
   factory_bot_rails
   faraday
+  faraday-retry
   flipper
   govuk-components
   govuk_design_system_formbuilder

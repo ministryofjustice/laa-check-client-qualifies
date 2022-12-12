@@ -94,6 +94,14 @@ private
   def cfe_connection
     @cfe_connection ||= Faraday.new(url: CFE_HOST, headers: { "Accept" => "application/json;version=5" }) do |faraday|
       faraday.request :json
+
+      # retry 502 errors from CFE requests
+      faraday.request :retry, max: 3, interval: 0.05,
+                              interval_randomness: 0.5, backoff_factor: 2,
+                              retry_statuses: [502, 504],
+                              methods: Faraday::Retry::Middleware::IDEMPOTENT_METHODS + [:post]
+
+      # response middleware is supposed to be registered after request middleware
       faraday.response :json
     end
   end
