@@ -3,8 +3,15 @@
   = form.govuk_error_summary t("generic.error_summary_title")
 
   = form.govuk_radio_buttons_fieldset :child_dependants,
-          hint: { text: t("estimate_flow.#{i18n_key}.child_dependants.hint") },
-              legend: { text: t("estimate_flow.#{i18n_key}.child_dependants.legend") } do
+          hint: lambda { \
+                          tag.p(t("estimate_flow.#{i18n_key}.child_dependants.hint"), class: "govuk-hint") + \
+                          tag.ul(class: "govuk-list govuk-list--bullet") do \
+                            (t("estimate_flow.dependant_details.child_dependants.exclusions").map do |exclusion| \
+                              tag.li(exclusion, class: "govuk-hint") \
+                            end).join.html_safe \
+                          end \
+                        },
+          legend: { text: t("estimate_flow.#{i18n_key}.child_dependants.legend") } do
     = form.govuk_radio_button :child_dependants, true,
             label: { text: t("generic.yes_choice") } do
       = form.govuk_text_field :child_dependants_count,
