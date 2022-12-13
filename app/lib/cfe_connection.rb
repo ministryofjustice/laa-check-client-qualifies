@@ -95,10 +95,12 @@ private
     @cfe_connection ||= Faraday.new(url: CFE_HOST, headers: { "Accept" => "application/json;version=5" }) do |faraday|
       faraday.request :json
 
-      # retry 502 errors from CFE requests
+      # retry 502 errors from CFE requests. Some 502 requests don't return valid JSOn so we get Faraday::ParsingError
+      # thrown, so we have to add that to the list of exceptions to be handled on retries
       faraday.request :retry, max: 3, interval: 0.05,
                               interval_randomness: 0.5, backoff_factor: 2,
                               retry_statuses: [502, 504],
+                              exceptions: Faraday::Retry::Middleware::DEFAULT_EXCEPTIONS + [Faraday::ParsingError],
                               methods: Faraday::Retry::Middleware::IDEMPOTENT_METHODS + [:post]
 
       # response middleware is supposed to be registered after request middleware
