@@ -50,6 +50,7 @@ en:
               blank: Enter gross employment income
               net_income_must_be_positive: Gross employment income must be more than income tax and National Insurance combined
               not_a_number: Gross employment income must be a number
+              greater_than: Gross employment income must be more than 0
             income_tax:
               blank: Enter income tax, if this does not apply enter 0
               not_a_number: Income tax must be a number, if this does not apply enter 0
@@ -61,6 +62,7 @@ en:
         partner_employment_form:
           attributes:
             gross_income:
+              greater_than: Gross employment income must be more than 0
               blank: Enter gross employment income
               net_income_must_be_positive: Gross employment income must be more than income tax and National Insurance combined
               not_a_number: Gross employment income must be a number
@@ -229,7 +231,7 @@ en:
             valuables:
               blank: Enter the value of items worth £500 or more, or if this does not apply enter 0
               not_a_number: Value of items worth £500 or more must be a number, if this does not apply enter 0
-              greater_than_or_equal_to: Valuable items must be £500 or more, if this does not apply enter 0
+              below_500: Valuable items must be £500 or more, if this does not apply enter 0
             investments:
               blank: Enter the total value of investments, if this does not apply enter 0
               not_a_number: Total value of investments must be a number, if this does not apply enter 0
@@ -250,7 +252,7 @@ en:
           attributes:
             valuables:
               blank: Please enter the total of your client's partner's valuables
-              greater_than_or_equal_to: Valuables amount must be at least £500
+              below_500: Valuable items must be £500 or more, if this does not apply enter 0
             investments:
               blank: Please enter the total of your client's partner's investments
             savings:
@@ -264,7 +266,7 @@ en:
         property_form:
           attributes:
             property_owned:
-              inclusion: Select yes if your client owns the home they live in
+              inclusion: Select if your client owns the home they live in
         partner_property_form:
           attributes:
             property_owned:
@@ -329,7 +331,7 @@ en:
             vehicle_pcp:
               inclusion: Select yes if there are payments left on the vehicle
             vehicle_finance:
-              blank: Please enter the outstanding finance amount
+              blank: Enter value of payments left on the vehicle
               greater_than: Payments left on the vehicle must be more than 0
               not_a_number: Payments left on the vehicle must be a number
         partner_vehicle_details_form:

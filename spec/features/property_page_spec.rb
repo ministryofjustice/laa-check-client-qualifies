@@ -245,7 +245,7 @@ RSpec.describe "Property Page" do
         click_on "Save and continue"
         expect(page).to have_css(".govuk-error-summary__list")
         within ".govuk-error-summary__list" do
-          expect(page).to have_content("Select yes if your client owns the home they live in")
+          expect(page).to have_content("Select if your client owns the home they live in")
         end
       end
     end
