@@ -19,7 +19,7 @@ class OutgoingsForm
     validates value_attribute, presence: true, numericality: true
     validates frequency_attribute, presence: true,
                                    inclusion: { in: VALID_FREQUENCIES, allow_nil: false },
-                                   if: -> { send(value_attribute)&.positive? }
+                                   if: -> { send(value_attribute).to_i.positive? }
   end
 
   def frequencies
