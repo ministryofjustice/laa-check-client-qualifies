@@ -547,7 +547,7 @@ en:
     employment:
       caption: Your client's finances
       heading: Add your client's salary breakdown
-      second_caption: You can find this on your client's payslips.
+      second_caption: You can find this on your client's payslips
       gross_income:
         input: Gross employment income, before any deductions
       income_tax:
@@ -555,7 +555,7 @@ en:
       national_insurance:
         input: National Insurance
       frequency:
-        input: Select frequency
+        input: How often does your client get paid?
         blank: "--"
         total: Total in last 3 months
         week: Every week
