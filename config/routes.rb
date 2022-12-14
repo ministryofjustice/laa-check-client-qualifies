@@ -29,6 +29,7 @@ Rails.application.routes.draw do
 
   resource :cookies, only: %i[show update]
   resource :privacy, as: :privacy, only: :show
+  resource :accessibility, only: :show
 
   get "/health-including-dependents", to: "status#health"
 end

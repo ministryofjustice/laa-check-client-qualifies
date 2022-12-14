@@ -1291,3 +1291,47 @@ en:
         - LAA does not collect any information that could identify an individual in this service. The financial information you provide is held anonymously.
         - No information that you provide will be shared outside the MoJ, other than with MoJ IT providers that provide services supporting ‘Check if your client qualifies for legal aid’.
         - All the data you provide will be deleted from our system 2 weeks after you submit it.
+  accessibilities:
+    show:
+      title: Accessibility statement
+      p1_text:
+        - This website is run by the Legal Aid Agency.
+        - We want as many people as possible to be able to use this website.
+        - "For example, that means you should be able to:"
+      p1_bullets:
+        - change colours, contrast levels and fonts
+        - zoom in up to 300% without the text spilling off the screen
+        - navigate most of the website using just a keyboard
+        - navigate most of the website using speech recognition software
+        - listen to most of the website using a screen reader (including the most recent versions of JAWS, NVDA and VoiceOver)
+      p1_extra_text: We’ve also made the website text as simple as possible to understand.
+      p1_extra_html: "<a href='https://mcmw.abilitynet.org.uk/'>AbilityNet</a> has advice on making your device easier to use if you have a disability."
+      paragraphs:
+        - heading: How accessible this website is
+          text:
+            - "The Ministry of Justice digital team is committed to making sure our online services are accessible to all users and comply with level AA of the Web Content Accessibility Guidelines – WCAG 2.1, in line with The Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018."
+            - "To help us achieve and maintain our objective, we have commissioned The Digital Accessibility Centre (DAC) to carry out a WCAG 2.1 AA level technical compliance audit that also includes extensive manual testing. The website currently booked in for testing is: 'Check if your client qualifies for legal aid'."
+            - We expect all tests to be complete by 16 December 2022.
+      p12_heading: Reporting accessibility problems with this website
+      p12_html: "We’re always looking to improve the accessibility of this website. If you find any problems not listed on this page or think we’re not meeting accessibility requirements, contact us by email at eligibility@justice.gov.uk."
+      p13_heading: Enforcement procedure
+      p13_text:
+        - "The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the ‘accessibility regulations’)."
+      p13_html: If you’re not happy with how we respond to your complaint, <a rel="external" href="https://www.equalityadvisoryservice.com/">contact the Equality Advisory and Support Service (<abbr title="Equality Advisory and Support Service">EASS</abbr>)</a>.
+      p14_heading: Contacting us
+      p14_html: "Contact us by email at eligibility@justice.gov.uk."
+      paragraphs2:
+        - heading: Technical information about this website’s accessibility
+          text:
+            - "The Legal Aid Agency is committed to making its websites accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018."
+      p31_heading: Compliance status
+      p31_html: This website is not compliant with the <a href="https://www.w3.org/TR/WCAG21/">Web Content Accessibility Guidelines version 2.1</a> AA Standard.
+      p32_heading: Non-accessible content
+      p32_text: The content listed below is non-accessible for the following reasons.
+      p33_heading: Non compliance with the accessibility regulations
+      p33_text: This service is not compliant with the accessibility regulations as we have not had an accessibility audit completed. We anticipate the outcome of all tests to be complete by 16 December 2022. We will then update this statement with details of any accessibility issues and how we plan to fix them.
+      p4_html: We expect this website to be fully compliant with the <a href="https://www.w3.org/TR/WCAG21/">Web Content Accessibility Guidelines version 2.1</a> AA Standard before we go into public beta.
+      paragraphs4:
+        - heading: Preparation of this accessibility statement
+          text:
+            - This statement was prepared on 12 December 2022. It was last reviewed on 13 December 2022.

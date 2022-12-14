@@ -18,6 +18,9 @@ footer.govuk-footer.no-print role="contentinfo"
             = link_to t("layouts.application.footer.privacy_policy"), privacy_path, class: "govuk-footer__link"
 
           li.govuk-footer__inline-list-item
+            = link_to t("layouts.application.footer.accessibility"), accessibility_path, class: "govuk-footer__link", target: "_blank", rel: "noopener"
+
+          li.govuk-footer__inline-list-item
             = link_to t("layouts.application.footer.terms"), "https://www.gov.uk/help/terms-conditions", class: "govuk-footer__link"
 
         svg.govuk-footer__licence-logo aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 483.2 195.7" height="17" width="41"

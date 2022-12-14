@@ -5,6 +5,18 @@ RSpec.describe "Accessibility" do
 
   let(:arbitrary_fixed_time) { Time.zone.local(2022, 9, 5, 9, 0, 0) }
 
+  describe "accessibility statement" do
+    before do
+      visit accessibility_path
+      click_on "Reject additional cookies"
+      click_on "Hide cookie message"
+    end
+
+    it "has a clean accessibility page" do
+      expect(page).to be_axe_clean
+    end
+  end
+
   describe "Start page" do
     before do
       visit root_path
