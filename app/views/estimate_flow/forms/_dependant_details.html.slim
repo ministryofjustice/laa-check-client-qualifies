@@ -1,7 +1,7 @@
 = form_for(@form, url: wizard_path, method: :put) do |form|
-
   = form.govuk_error_summary t("generic.error_summary_title")
 
+  = yield
   = form.govuk_radio_buttons_fieldset :child_dependants,
           hint: lambda { \
                           tag.p(t("estimate_flow.#{i18n_key}.child_dependants.hint"), class: "govuk-hint") + \

@@ -36,7 +36,7 @@ RSpec.describe "Partner benefits", :partner_flag do
     fill_in "Enter amount", with: "150"
     choose "Every week"
     click_on "Save and continue"
-    expect(page).to have_content "Please give the name of the benefit"
+    expect(page).to have_content "Enter the benefit name"
   end
 
   it "allows me to edit a benefit" do
@@ -62,7 +62,7 @@ RSpec.describe "Partner benefits", :partner_flag do
     click_on "Change"
     fill_in "Benefit type", with: ""
     click_on "Save and continue"
-    expect(page).to have_content "Please give the name of the benefit"
+    expect(page).to have_content "Enter the benefit name"
   end
 
   it "allows me to remove a benefit" do

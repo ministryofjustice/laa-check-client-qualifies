@@ -84,6 +84,15 @@ RSpec.describe "Assets Page" do
         expect(page).to have_content assets_header
       end
 
+      it "shows correct error for invalid valuables figure" do
+        fill_in "client-assets-form-valuables-field", with: "400"
+
+        click_on "Save and continue"
+        within ".govuk-error-summary__list" do
+          expect(page).to have_content("Valuable items must be £500 or more, if this does not apply enter 0")
+        end
+      end
+
       it "sets error on assets form" do
         fill_in "client-assets-form-savings-field", with: "0"
         fill_in "client-assets-form-investments-field", with: "0"
@@ -92,7 +101,7 @@ RSpec.describe "Assets Page" do
         click_on "Save and continue"
         expect(page).to have_css(".govuk-error-summary__list")
         within ".govuk-error-summary__list" do
-          expect(page).to have_content("Please enter the value of the property")
+          expect(page).to have_content("Enter the estimated value of the second property")
         end
       end
     end

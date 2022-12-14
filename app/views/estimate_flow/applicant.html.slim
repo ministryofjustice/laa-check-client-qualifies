@@ -2,9 +2,9 @@
   = back_link(:applicant, @estimate, @back_buttons_invoke_browser_back_behaviour)
 
 .govuk-grid-column-two-thirds
-  span.govuk-caption-l = t(".caption")
-  h1.govuk-heading-l = t(".heading")
   = form_for(@form, url: wizard_path, method: :put) do |form|
+    span.govuk-caption-l = t(".caption")
+    h1.govuk-heading-xl = t(".heading")
 
     = form.govuk_error_summary t("generic.error_summary_title")
 

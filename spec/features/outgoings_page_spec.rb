@@ -22,10 +22,10 @@ RSpec.describe "Outgoings Page" do
   it "validates numbers in every value box" do
     click_on "Save and continue"
     within ".govuk-error-summary__list" do
-      expect(page).to have_content("Please enter a zero if your client makes no housing payments")
-      expect(page).to have_content("Please enter a zero if your client makes no maintenance payments")
-      expect(page).to have_content("Please enter a zero if your client makes no childcare payments")
-      expect(page).to have_content("Please enter a zero if your client makes no legal aid payments")
+      expect(page).to have_content("Enter housing payments, if this does not apply enter 0")
+      expect(page).to have_content("Enter childcare payments, if this does not apply enter 0")
+      expect(page).to have_content("Enter maintenance payments to a former partner, if this does not apply enter 0")
+      expect(page).to have_content("Enter payments towards legal aid in a criminal case, if this does not apply enter 0")
     end
   end
 
@@ -34,7 +34,7 @@ RSpec.describe "Outgoings Page" do
     click_on "Save and continue"
     expect(page).to have_css(".govuk-error-summary__list")
     within ".govuk-error-summary__list" do
-      expect(page).to have_content("Please enter the frequency of your client's housing payments")
+      expect(page).to have_content("Select frequency of housing payments")
     end
   end
 

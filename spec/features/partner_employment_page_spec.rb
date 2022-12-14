@@ -45,7 +45,7 @@ RSpec.describe "Partner employment page", :partner_flag do
 
       it "shows me a partner-specific error message" do
         expect(page).to have_content partner_employment_page_header
-        expect(page).to have_content "Please select how frequently your client's partner receives employment income"
+        expect(page).to have_content "Select how frequently your client's partner receives employment income"
       end
     end
 

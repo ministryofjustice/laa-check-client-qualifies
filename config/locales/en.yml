@@ -13,11 +13,11 @@ en:
         applicant_form:
           attributes:
             employed:
-              inclusion: Select employed if the client is currently employed
+              inclusion: Select employed if your client is currently employed
             passporting:
-              inclusion: Select yes if the client is currently in receipt of a passporting benefit
+              inclusion: Select yes if your client is currently in receipt of a passporting benefit
             over_60:
-              inclusion: Select yes if the client is over 60 years old
+              inclusion: Select yes if your client is over 60 years old
             proceeding_type:
               blank: Select yes if your client is likely to be an applicant in a domestic abuse case
             partner:
@@ -25,15 +25,19 @@ en:
         dependant_details_form:
           attributes:
             child_dependants:
-              inclusion: Please select yes if client has child dependants
+              inclusion: Select yes if your client has child dependants
             adult_dependants:
-              inclusion: Please select yes if client has adult dependants
+              inclusion: Select yes if your client has adult dependants
             child_dependants_count:
-              blank: Please enter the number of child dependants
-              greater_than: Number of child dependants must be greater than zero
+              blank: Enter the number of child dependants
+              greater_than: The number of child dependants must be greater than zero
+              not_a_number: Child dependants must be a number
+              not_an_integer: Child dependants must be a whole number
             adult_dependants_count:
-              blank: Please enter the number of adult dependants
-              greater_than: Number of adult dependants must be greater than zero
+              blank: Enter the number of adult dependants
+              greater_than: The number of adult dependants must be greater than zero
+              not_a_number: Adult dependants must be a number
+              not_an_integer: Adult dependants must be a whole number
         partner_dependant_details_form:
           attributes:
             child_dependants:
@@ -43,26 +47,33 @@ en:
         employment_form:
           attributes:
             gross_income:
-              blank: Income cannot be blank
-              net_income_must_be_positive: Net income must be positive, please check
+              blank: Enter gross employment income
+              net_income_must_be_positive: Gross employment income must be more than income tax and National Insurance combined
+              not_a_number: Gross employment income must be a number
+              greater_than: Gross employment income must be more than 0
             income_tax:
-              blank: Income tax cannot be blank
+              blank: Enter income tax, if this does not apply enter 0
+              not_a_number: Income tax must be a number, if this does not apply enter 0
             national_insurance:
-              blank: National Insurance cannot be blank
+              blank: Enter National Insurance, if this does not apply enter 0
               not_a_number: National Insurance must be a number, if this does not apply enter 0
             frequency:
-              blank: Please select how frequently you receive employment income
+              blank: Select how frequently your client receives employment income
         partner_employment_form:
           attributes:
             gross_income:
-              blank: Income cannot be blank
-              net_income_must_be_positive: Net income must be positive, please check
+              greater_than: Gross employment income must be more than 0
+              blank: Enter gross employment income
+              net_income_must_be_positive: Gross employment income must be more than income tax and National Insurance combined
+              not_a_number: Gross employment income must be a number
             income_tax:
-              blank: Income tax cannot be blank
+              blank: Enter income tax, if this does not apply enter 0
+              not_a_number: Income tax must be a number, if this does not apply enter 0
             national_insurance:
-              blank: National Insurance cannot be blank
+              blank: Enter National Insurance, if this does not apply enter 0
+              not_a_number: National Insurance must be a number, if this does not apply enter 0
             frequency:
-              blank: Please select how frequently your client's partner receives employment income
+              blank: Select how frequently your client's partner receives employment income
         housing_benefit_form:
           attributes:
             housing_benefit:
@@ -70,9 +81,11 @@ en:
         housing_benefit_details_form:
           attributes:
             housing_benefit_frequency:
-              inclusion: Please select how frequently your client receives Housing Benefit
+              inclusion: Select frequency of Housing Benefit
             housing_benefit_value:
-              blank: Please enter the value of your client's Housing Benefit
+              blank: Enter Housing Benefit amount
+              greater_than: Housing Benefit must be more than 0
+              not_a_number: Housing Benefit must be a number
         partner_housing_benefit_form:
           attributes:
             housing_benefit:
@@ -80,133 +93,166 @@ en:
         partner_housing_benefit_details_form:
           attributes:
             housing_benefit_frequency:
-              inclusion: Please select how frequently your client's partner receives Housing Benefit
+              inclusion: Select frequency of Housing Benefit
             housing_benefit_value:
-              blank: Please enter the value of your client's partner's Housing Benefit
+              blank: Enter Housing Benefit amount
+              greater_than: Housing Benefit must be more than 0
+              not_a_number: Housing Benefit must be a number
         benefits_form:
           attributes:
             add_benefit:
-              inclusion: Select yes if you wish to add a client benefit
+              inclusion: Select yes if your client receives any other benefits
         partner_benefits_form:
           attributes:
             add_benefit:
-              inclusion: Select yes if you wish to add a client partner benefit
+              inclusion: Select yes if your client's partner receives any other benefits
         benefit_model:
           attributes:
             benefit_frequency:
-              inclusion: Please enter how frequently your client receives this benefit
+              inclusion: Select the frequency
             benefit_amount:
-              blank: Please enter the value of this benefit
+              blank: Enter the amount
+              greater_than: Amount must be more than 0
+              not_a_number: Amount must be a number
             benefit_type:
-              blank: Please give the name of the benefit
+              blank: Enter the benefit name
         partner_benefit_model:
           attributes:
             benefit_frequency:
-              inclusion: Please enter how frequently your client's partner receives this benefit
+              inclusion: Select the frequency
             benefit_amount:
-              blank: Please enter the value of this benefit
+              blank: Enter the amount
+              greater_than: Amount must be more than 0
+              not_a_number: Amount must be a number
             benefit_type:
-              blank: Please give the name of the benefit
+              blank: Enter the benefit name
         other_income_form:
           attributes:
             friends_or_family_value:
-              blank: Please enter a zero if your client receives no income from friends or family
+              blank: Enter financial help from friends and family, if this does not apply enter 0
+              not_a_number: Financial help from friends and family must be a number, if this does not apply enter 0
             maintenance_value:
-              blank: Please enter a zero if your client receives no maintenance payments
+              blank: Enter maintenance payments from a former partner, if this does not apply enter 0
+              not_a_number: Maintenance payments from a former partner must be a number, if this does not apply enter 0
             property_or_lodger_value:
-              blank: Please enter a zero if your client receives no income from a property or lodger
+              blank: Enter income from a property or lodger, if this does not apply enter 0
+              not_a_number: Income from property or lodger income must be a number, if this does not apply enter 0
             pension_value:
-              blank: Please enter a zero if your client receives no income from a pension
+              blank: Enter pension, if this does not apply enter 0
+              not_a_number: Pension must be a number, if this does not apply enter 0
             friends_or_family_frequency:
-              blank: Please enter the frequency of your client's friends or family income
+              blank: Select frequency of financial help from friends and family
             maintenance_frequency:
-              blank: Please enter the frequency of your client's maintenance payments
+              blank: Select frequency of maintenance payments from a former partner
             property_or_lodger_frequency:
-              blank: Please enter the frequency of your client's property or lodger income
+              blank: Select frequency of income from a property or lodger
             pension_frequency:
-              blank: Please enter the frequency of your client's pension income
+              blank: Select frequency of pension
             student_finance_value:
-              blank: Please enter a zero if your client receives no student finance
+              blank: Enter student finance, if this does not apply enter 0
+              not_a_number: Student finance must be a number, if this does not apply enter 0
             other_value:
-              blank: Please enter a zero if your client receives no other income
+              blank: Enter income from other sources, if this does not apply enter 0
+              not_a_number: Income from other sources must be a number, if this does not apply enter 0
         partner_other_income_form:
           attributes:
             friends_or_family_value:
-              blank: Please enter a zero if your client's partner receives no income from friends or family
+              blank: Enter financial help from friends and family, if this does not apply enter 0
+              not_a_number: Financial help from friends and family must be a number, if this does not apply enter 0
             maintenance_value:
-              blank: Please enter a zero if your client's partner receives no maintenance payments
+              blank: Enter maintenance payments from a former partner, if this does not apply enter 0
+              not_a_number: Maintenance payments from a former partner must be a number, if this does not apply enter 0
             property_or_lodger_value:
-              blank: Please enter a zero if your client's partner receives no income from a property or lodger
+              blank: Enter income from a property or lodger, if this does not apply enter 0
+              not_a_number: Income from property or lodger income must be a number, if this does not apply enter 0
             pension_value:
-              blank: Please enter a zero if your client's partner receives no income from a pension
+              blank: Enter pension, if this does not apply enter 0
+              not_a_number: Pension must be a number, if this does not apply enter 0
             friends_or_family_frequency:
-              blank: Please enter the frequency of your client's partner's friends or family income
+              blank: Select frequency of financial help from friends and family
             maintenance_frequency:
-              blank: Please enter the frequency of your client's partner's maintenance payments
+              blank: Select frequency of maintenance payments from a former partner
             property_or_lodger_frequency:
-              blank: Please enter the frequency of your client's partner's property or lodger income
+              blank: Select frequency of income from a property or lodger
             pension_frequency:
-              blank: Please enter the frequency of your client's partner's pension income
+              blank: Select frequency of pension
             student_finance_value:
-              blank: Please enter a zero if your client's partner receives no student finance
+              blank: Enter student finance, if this does not apply enter 0
+              not_a_number: Student finance must be a number, if this does not apply enter 0
             other_value:
-              blank: Please enter a zero if your client's partner receives no other income
+              blank: Enter income from other sources, if this does not apply enter 0
+              not_a_number: Income from other sources must be a number, if this does not apply enter 0
         outgoings_form:
           attributes:
             housing_payments_value:
-              blank: Please enter a zero if your client makes no housing payments
+              blank: Enter housing payments, if this does not apply enter 0
+              not_a_number: Housing payments must be a number
             childcare_payments_value:
-              blank: Please enter a zero if your client makes no childcare payments
+              blank: Enter childcare payments, if this does not apply enter 0
+              not_a_number: Childcare payments must be a number
             maintenance_payments_value:
-              blank: Please enter a zero if your client makes no maintenance payments
+              blank: Enter maintenance payments to a former partner, if this does not apply enter 0
+              not_a_number: Maintenance payments to a former partner must be a number
             legal_aid_payments_value:
-              blank: Please enter a zero if your client makes no legal aid payments
+              blank: Enter payments towards legal aid in a criminal case, if this does not apply enter 0
+              not_a_number: Payments towards legal aid in a criminal case must be a number
             housing_payments_frequency:
-              blank: Please enter the frequency of your client's housing payments
+              blank: Select frequency of housing payments
             childcare_payments_frequency:
-              blank: Please enter the frequency of your client's childcare payments
+              blank: Select frequency of childcare payments
             maintenance_payments_frequency:
-              blank: Please enter the frequency of your client's maintenance payments
+              blank: Select frequency of maintenance payments to a former partner
             legal_aid_payments_frequency:
-              blank: Please enter the frequency of your client's legal aid payments
+              blank: Select frequency of payments towards legal aid in a criminal case
         partner_outgoings_form:
           attributes:
             housing_payments_value:
-              blank: Please enter a zero if your client's partner makes no housing payments
+              blank: Enter housing payments, if this does not apply enter 0
+              not_a_number: Housing payments must be a number
             childcare_payments_value:
-              blank: Please enter a zero if your client's partner makes no childcare payments
+              blank: Enter childcare payments, if this does not apply enter 0
+              not_a_number: Childcare payments must be a number
             maintenance_payments_value:
-              blank: Please enter a zero if your client's partner makes no maintenance payments
+              blank: Enter maintenance payments to a former partner, if this does not apply enter 0
+              not_a_number: Maintenance payments to a former partner must be a number
             legal_aid_payments_value:
-              blank: Please enter a zero if your client's partner makes no legal aid payments
+              blank: Enter payments towards legal aid in a criminal case, if this does not apply enter 0
+              not_a_number: Payments towards legal aid in a criminal case must be a number
             housing_payments_frequency:
-              blank: Please enter the frequency of your client's partner's housing payments
+              blank: Select frequency of housing payments
             childcare_payments_frequency:
-              blank: Please enter the frequency of your client's partner's childcare payments
+              blank: Select frequency of childcare payments
             maintenance_payments_frequency:
-              blank: Please enter the frequency of your client's partner's maintenance payments
+              blank: Select frequency of maintenance payments to a former partner
             legal_aid_payments_frequency:
-              blank: Please enter the frequency of your client's partner's legal aid payments
+              blank: Select frequency of payments towards legal aid in a criminal case
         client_assets_form:
           attributes:
             valuables:
-              blank: Please enter the total of your client's valuables
-              greater_than_or_equal_to: Valuables amount must be at least £500
+              blank: Enter the value of items worth £500 or more, or if this does not apply enter 0
+              not_a_number: Value of items worth £500 or more must be a number, if this does not apply enter 0
+              below_500: Valuable items must be £500 or more, if this does not apply enter 0
             investments:
-              blank: Please enter the total of your client's investments
+              blank: Enter the total value of investments, if this does not apply enter 0
+              not_a_number: Total value of investments must be a number, if this does not apply enter 0
             savings:
-              blank: Please enter the total of your client's savings
+              blank: Enter the total amount of savings, if this does not apply enter 0
+              not_a_number: Total amount of savings must be a number, if this does not apply enter 0
             property_value:
-              blank: Please enter the value of the property
+              blank: Enter the estimated value of the second property, holiday home, or land, if this does not apply enter 0
+              not_a_number: Estimated value of the second property, holiday home, or land must be a number, if this does not apply enter 0
             property_mortgage:
-              blank: Please enter the amount of the outstanding mortgage
+              blank: Enter the outstanding mortgage on the second property, holiday home or land, if this does not apply enter 0"
+              not_a_number: Outstanding mortgage on the second property, holiday home, or land must be a number, if this does not apply enter 0
             property_percentage_owned:
-              blank: Please enter the percentage of the property owned by your client
+              blank: Enter the share your client owns of the second property, holiday home, or land, if this does not apply enter 0
+              not_a_number: Share your client owns of the second property, holiday home, or land must be a number, if this does not apply enter 0
+              not_an_integer: Share your client owns of the second property, holiday home, or land must be a whole number, if this does not apply enter 0
         partner_assets_form:
           attributes:
             valuables:
               blank: Please enter the total of your client's partner's valuables
-              greater_than_or_equal_to: Valuables amount must be at least £500
+              below_500: Valuable items must be £500 or more, if this does not apply enter 0
             investments:
               blank: Please enter the total of your client's partner's investments
             savings:
@@ -220,21 +266,29 @@ en:
         property_form:
           attributes:
             property_owned:
-              inclusion: Please select the option that best describes your client's property ownership
+              inclusion: Select if your client owns the home they live in
+        partner_property_form:
+          attributes:
+            property_owned:
+              inclusion: Select yes if your client's partner owns the home they live in
         provider_user:
           attributes:
-            blank: Select yes if you are a Legal Aid service provider
+            blank: Select yes if you give legal advice or provide legal services
         client_property_entry_form:
           attributes:
             house_value:
-              blank: Please enter the value of your client's house
-              greater_than: Please enter a house value that is greater than zero
+              blank: Enter how much your client's home is worth
+              greater_than: Value of your client's home must be more than 0
+              not_a_number: Value of your client's home must be a number
             mortgage:
-              blank: Please enter the the outstanding mortgage amount your client has
-              greater_than: Please enter a mortgage amount that is greater than zero
+              blank: Enter the outstanding mortage on your client's home
+              greater_than: Outstanding mortgage on your client's home must be more than 0
+              not_a_number: Outstanding mortgage on your client's home must be a number
             percentage_owned:
-              blank: Please specify what percentage of your client's house they own
-              within_range: Please enter an ownership percentage between 1 and 100
+              blank: Enter the percentage share of their home that your client legally owns
+              within_range: Percentage share that your client owns must be between 1 and 100
+              not_a_number: Percentage share that your client owns must be a number between 1 and 100
+              not_an_integer: Percentage share that your client owns must be a whole number between 1 and 100
             joint_ownership:
               inclusion: Please enter yes if property is jointly owned with a partner
             joint_percentage_owned:
@@ -244,46 +298,58 @@ en:
         partner_property_entry_form:
           attributes:
             house_value:
-              blank: Please enter the value of your client's house
-              greater_than: Please enter a house value that is greater than zero
+              blank: Enter how much your client's partner's home is worth
+              greater_than: Value of your client's partner's home must be more than 0
+              not_a_number: Value of your client's partner's home must be a number
             mortgage:
-              blank: Please enter the the outstanding mortgage amount your client's partner has
-              greater_than: Please enter a mortgage amount that is greater than zero
+              blank: Enter the outstanding mortage on your client's partner's home
+              greater_than: Outstanding mortgage on your client's partner's home must be more than 0
+              not_a_number: Outstanding mortgage on your client's partner's home must be a number
             percentage_owned:
-              blank: Please specify what percentage of the house they own
-              within_range: Please enter an ownership percentage between 1 and 100
+              blank: Enter the percentage share of their home that your client's partner legally owns
+              within_range: Percentage share that your client's partner owns must be between 1 and 100
+              not_a_number: Percentage share that your client's partner owns must be a number between 1 and 100
+              not_an_integer: Percentage share that your client owns must be a whole number between 1 and 100
         vehicle_form:
           attributes:
             vehicle_owned:
-              inclusion: Select yes if the client owns a vehicle
+              inclusion: Select yes if your client owns a vehicle
         partner_vehicle_form:
           attributes:
             vehicle_owned:
-              inclusion: Select yes if the client's partner owns a vehicle
+              inclusion: Select yes if your client's partner owns a vehicle
         client_vehicle_details_form:
           attributes:
             vehicle_in_regular_use:
               inclusion: Select yes if the vehicle is in regular use
             vehicle_value:
-              blank: Please enter the estimated value
+              blank: Enter the estimated value of the vehicle
+              greater_than: Estimated value of the vehicle must be more than 0
+              not_a_number: Estimated value of the vehicle must be a number
             vehicle_over_3_years_ago:
-              inclusion: Select yes if the vehicle was purchased more than 3 years ago
+              inclusion: Select yes if the vehicle was bought over 3 years ago
             vehicle_pcp:
-              inclusion: Select yes if the vehicle has outstanding finance
+              inclusion: Select yes if there are payments left on the vehicle
             vehicle_finance:
-              blank: Please enter the outstanding finance amount
+              blank: Enter value of payments left on the vehicle
+              greater_than: Payments left on the vehicle must be more than 0
+              not_a_number: Payments left on the vehicle must be a number
         partner_vehicle_details_form:
           attributes:
             vehicle_in_regular_use:
               inclusion: Select yes if the vehicle is in regular use
             vehicle_value:
-              blank: Please enter the estimated value
+              blank: Enter the estimated value of the vehicle
+              greater_than: Estimated value of the vehicle must be more than 0
+              not_a_number: Estimated value of the vehicle must be a number
             vehicle_over_3_years_ago:
-              inclusion: Select yes if the vehicle was purchased more than 3 years ago
+              inclusion: Select yes if the vehicle was bought over 3 years ago
             vehicle_pcp:
-              inclusion: Select yes if the vehicle has outstanding finance
+              inclusion: Select yes if there are payments left on the vehicle
             vehicle_finance:
               blank: Please enter the outstanding finance amount
+              greater_than: Payments left on the vehicle must be more than 0
+              not_a_number: Payments left on the vehicle must be a number
   service:
     name: Check if your client qualifies for legal aid
     email: eligibility@justice.gov.uk
@@ -661,9 +727,8 @@ en:
         link: "#"
     assets:
       caption: Your client's finances
-      assets:
-        legend: Which of these assets does your client have?
-        hint: Please enter a zero if a question does not apply.
+      legend: Which of these assets does your client have?
+      hint: Please enter a zero if a question does not apply.
       property:
         label: Second property, holiday home or land
         hint: This can be the sole property owned if not their main dwelling even if the property is abroad or not providing an income.

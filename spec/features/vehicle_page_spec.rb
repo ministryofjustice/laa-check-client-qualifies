@@ -25,7 +25,7 @@ RSpec.describe "Vehicle Page" do
       click_on "Save and continue"
       expect(page).to have_css(".govuk-error-summary__list")
       within ".govuk-error-summary__list" do
-        expect(page).to have_content("Select yes if the client owns a vehicle")
+        expect(page).to have_content("Select yes if your client owns a vehicle")
       end
     end
 
@@ -52,7 +52,7 @@ RSpec.describe "Vehicle Page" do
         expect(page).to have_css(".govuk-error-summary__list")
         within ".govuk-error-summary__list" do
           expect(page).to have_content("Select yes if the vehicle is in regular use")
-          expect(page).to have_content("Please enter the estimated value")
+          expect(page).to have_content("Enter the estimated value of the vehicle")
         end
       end
     end

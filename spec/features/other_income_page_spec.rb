@@ -83,12 +83,12 @@ RSpec.describe "Other income Page" do
 
     it "validates if value fields are left blank" do
       click_on "Save and continue"
-      expect(page).to have_content("Please enter a zero if your client receives no income from friends or family")
-      expect(page).to have_content("Please enter a zero if your client receives no maintenance payments")
-      expect(page).to have_content("Please enter a zero if your client receives no income from a property or lodger")
-      expect(page).to have_content("Please enter a zero if your client receives no income from a pension")
-      expect(page).to have_content("Please enter a zero if your client receives no student finance")
-      expect(page).to have_content("Please enter a zero if your client receives no other income")
+      expect(page).to have_content("Enter financial help from friends and family, if this does not apply enter 0")
+      expect(page).to have_content("Enter maintenance payments from a former partner, if this does not apply enter 0")
+      expect(page).to have_content("Enter income from a property or lodger, if this does not apply enter 0")
+      expect(page).to have_content("Enter pension, if this does not apply enter 0")
+      expect(page).to have_content("Enter student finance, if this does not apply enter 0")
+      expect(page).to have_content("Enter income from other sources, if this does not apply enter 0")
     end
 
     it "validates if value fields are entered above zero and frequencies aren't" do
@@ -99,10 +99,10 @@ RSpec.describe "Other income Page" do
       fill_in "other-income-form-student-finance-value-field", with: "0"
       fill_in "other-income-form-other-value-field", with: "0"
       click_on "Save and continue"
-      expect(page).to have_content("Please enter the frequency of your client's friends or family income")
-      expect(page).to have_content("Please enter the frequency of your client's maintenance payments")
-      expect(page).to have_content("Please enter the frequency of your client's property or lodger income")
-      expect(page).not_to have_content("Please enter the frequency of your client's pension income")
+      expect(page).to have_content("Select frequency of financial help from friends and family")
+      expect(page).to have_content("Select frequency of maintenance payments from a former partner")
+      expect(page).to have_content("Select frequency of income from a property or lodger")
+      expect(page).not_to have_content("Select frequency of pension")
     end
   end
 

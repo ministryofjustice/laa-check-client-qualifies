@@ -2,8 +2,9 @@
   = back_link(:other_income, @estimate, @back_buttons_invoke_browser_back_behaviour)
 
 .govuk-grid-column-two-thirds
-  span.govuk-caption-l = t(".caption")
-  h1.govuk-heading-xl class="govuk-!-margin-bottom-2" = t(".heading")
-  span.govuk-caption-m class="govuk-!-margin-bottom-9" = t(".second_caption")
   = render "estimate_flow/forms/other_income", i18n_key: "other_income"
+    span.govuk-caption-l = t("estimate_flow.other_income.caption")
+    h1.govuk-heading-xl class="govuk-!-margin-bottom-2" = t("estimate_flow.other_income.heading")
+    span.govuk-caption-m class="govuk-!-margin-bottom-9" = t("estimate_flow.other_income.second_caption")
+
 = render "shared/sidebar_with_date", links: []

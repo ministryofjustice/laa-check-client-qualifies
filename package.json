@@ -6,6 +6,7 @@
     "govuk-frontend": "^4.4.0",
     "jquery": "^3.6.1",
     "@ministryofjustice/frontend": "^1.6.3",
+    "@rails/ujs": "^7.0.4",
     "sass": "^1.56.2"
   },
   "scripts": {
