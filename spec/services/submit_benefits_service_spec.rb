@@ -48,7 +48,7 @@ RSpec.describe SubmitBenefitsService do
       end
 
       it "makes a successful call" do
-        service.call(cfe_estimate_id, session_data)
+        service.call(CfeConnection.new, cfe_estimate_id, session_data)
         expect(stub).to have_been_requested
       end
     end
@@ -77,7 +77,7 @@ RSpec.describe SubmitBenefitsService do
       end
 
       it "makes a successful call" do
-        service.call(cfe_estimate_id, session_data)
+        service.call(CfeConnection.new, cfe_estimate_id, session_data)
         expect(stub).to have_been_requested
       end
     end
@@ -103,7 +103,7 @@ RSpec.describe SubmitBenefitsService do
       end
 
       it "makes a successful call" do
-        service.call(cfe_estimate_id, session_data)
+        service.call(CfeConnection.new, cfe_estimate_id, session_data)
         expect(stub).to have_been_requested
       end
     end
@@ -129,7 +129,7 @@ RSpec.describe SubmitBenefitsService do
       end
 
       it "makes a successful call" do
-        service.call(cfe_estimate_id, session_data)
+        service.call(CfeConnection.new, cfe_estimate_id, session_data)
         expect(stub).to have_been_requested
       end
     end

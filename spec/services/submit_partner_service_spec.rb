@@ -7,10 +7,6 @@ RSpec.describe SubmitPartnerService, :partner_flag do
     let(:cfe_assessment_id) { SecureRandom.uuid }
     let(:mock_connection) { instance_double(CfeConnection) }
 
-    before do
-      allow(CfeConnection).to receive(:connection).and_return(mock_connection)
-    end
-
     context "with lots of partner info" do
       let(:session_data) do
         {
@@ -72,7 +68,7 @@ RSpec.describe SubmitPartnerService, :partner_flag do
                                               value: 5_000,
                                               subject_matter_of_dispute: false }])
         end
-        described_class.call(cfe_assessment_id, session_data)
+        described_class.call(mock_connection, cfe_assessment_id, session_data)
       end
     end
 
@@ -106,7 +102,7 @@ RSpec.describe SubmitPartnerService, :partner_flag do
                                              non_liquid_capital: [] })
           expect(payload[:vehicles]).to eq([])
         end
-        described_class.call(cfe_assessment_id, session_data)
+        described_class.call(mock_connection, cfe_assessment_id, session_data)
       end
     end
   end

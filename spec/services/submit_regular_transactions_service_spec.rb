@@ -20,11 +20,9 @@ RSpec.describe SubmitRegularTransactionsService do
         }
       end
 
-      before { allow(CfeConnection).to receive(:connection).and_return(mock_connection) }
-
       it "makes a no call" do
         expect(mock_connection).not_to receive(:create_regular_payments)
-        service.call(cfe_estimate_id, session_data)
+        service.call(mock_connection, cfe_estimate_id, session_data)
       end
     end
   end
