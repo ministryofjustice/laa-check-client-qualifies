@@ -49,7 +49,7 @@ def visit_check_answer_with_partner
     when :partner_benefits
       select_boolean_value("partner-benefits-form", :add_benefit, true)
       click_on "Save and continue"
-      fill_in "Benefit type", with: "Child benefit"
+      fill_in "Benefit name", with: "Child benefit"
       fill_in "Enter amount", with: "150"
       choose "Every week"
       click_on "Save and continue"

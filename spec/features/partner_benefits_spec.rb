@@ -21,7 +21,7 @@ RSpec.describe "Partner benefits", :partner_flag do
   it "allows me to enter a benefit" do
     select_boolean_value("partner-benefits-form", :add_benefit, true)
     click_on "Save and continue"
-    fill_in "Benefit type", with: "Child benefit"
+    fill_in "Benefit name", with: "Child benefit"
     fill_in "Enter amount", with: "150"
     choose "Every week"
     click_on "Save and continue"
@@ -32,7 +32,7 @@ RSpec.describe "Partner benefits", :partner_flag do
   it "validates my input" do
     select_boolean_value("partner-benefits-form", :add_benefit, true)
     click_on "Save and continue"
-    fill_in "Benefit type", with: ""
+    fill_in "Benefit name", with: ""
     fill_in "Enter amount", with: "150"
     choose "Every week"
     click_on "Save and continue"
@@ -42,12 +42,12 @@ RSpec.describe "Partner benefits", :partner_flag do
   it "allows me to edit a benefit" do
     select_boolean_value("partner-benefits-form", :add_benefit, true)
     click_on "Save and continue"
-    fill_in "Benefit type", with: "Child benefit"
+    fill_in "Benefit name", with: "Child benefit"
     fill_in "Enter amount", with: "150"
     choose "Every week"
     click_on "Save and continue"
     click_on "Change"
-    fill_in "Benefit type", with: "Children benefit"
+    fill_in "Benefit name", with: "Children benefit"
     click_on "Save and continue"
     expect(page).to have_content "Children benefit"
   end
@@ -55,12 +55,12 @@ RSpec.describe "Partner benefits", :partner_flag do
   it "validates my edits" do
     select_boolean_value("partner-benefits-form", :add_benefit, true)
     click_on "Save and continue"
-    fill_in "Benefit type", with: "Child benefit"
+    fill_in "Benefit name", with: "Child benefit"
     fill_in "Enter amount", with: "150"
     choose "Every week"
     click_on "Save and continue"
     click_on "Change"
-    fill_in "Benefit type", with: ""
+    fill_in "Benefit name", with: ""
     click_on "Save and continue"
     expect(page).to have_content "Enter the benefit name"
   end
@@ -68,7 +68,7 @@ RSpec.describe "Partner benefits", :partner_flag do
   it "allows me to remove a benefit" do
     select_boolean_value("partner-benefits-form", :add_benefit, true)
     click_on "Save and continue"
-    fill_in "Benefit type", with: "Child benefit"
+    fill_in "Benefit name", with: "Child benefit"
     fill_in "Enter amount", with: "150"
     choose "Every week"
     click_on "Save and continue"
@@ -80,13 +80,13 @@ RSpec.describe "Partner benefits", :partner_flag do
   it "allows me to remove one benefit of multiple" do
     select_boolean_value("partner-benefits-form", :add_benefit, true)
     click_on "Save and continue"
-    fill_in "Benefit type", with: "Child benefit"
+    fill_in "Benefit name", with: "Child benefit"
     fill_in "Enter amount", with: "150"
     choose "Every week"
     click_on "Save and continue"
     select_boolean_value("partner-benefits-form", :add_benefit, true)
     click_on "Save and continue"
-    fill_in "Benefit type", with: "Tax credits"
+    fill_in "Benefit name", with: "Tax credits"
     fill_in "Enter amount", with: "100"
     choose "Every week"
     click_on "Save and continue"
@@ -99,7 +99,7 @@ RSpec.describe "Partner benefits", :partner_flag do
     visit estimate_check_answer_path(estimate_id, :partner_benefits)
     select_boolean_value("partner-benefits-form", :add_benefit, true)
     click_on "Save and continue"
-    fill_in "Benefit type", with: "Child benefit"
+    fill_in "Benefit name", with: "Child benefit"
     fill_in "Enter amount", with: "150"
     choose "Every week"
     click_on "Save and continue"
