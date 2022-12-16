@@ -29,8 +29,6 @@ module CheckAnswers
     end
 
     def build_subsections(section_data)
-      return [] if section_data[:subsections].blank?
-
       section_data[:subsections].map { build_subsection(_1, section_data) }.select { _1.fields.any? }
     end
 

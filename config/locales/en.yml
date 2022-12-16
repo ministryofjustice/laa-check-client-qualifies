@@ -927,7 +927,6 @@ en:
       client_dependant_details: Your client's dependants
       partner_dependant_details: Your client's partner's dependants
       heading: Check your answers
-      case_details: Your client's case details
       client_details: Your client's details
       client_details_fields:
         over_60: Over 60 years old
