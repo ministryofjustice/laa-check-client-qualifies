@@ -207,6 +207,16 @@ jobs:
                           --set image.repository="$ECR_ENDPOINT" \
                           --set image.tag="${CIRCLE_SHA1}"  
 
+  deploy_infrastructure_uat:
+    executor: cloud-platform-executor
+    steps:
+      - checkout
+      - *authenticate_k8s
+      - deploy:
+          name: Deploy LAA Check-your-client-qualifies-for-legal-aid service's /infrastructure to UAT
+          command: |
+            kubectl apply --record=false -f ./infrastructure/laa-estimate-financial-eligibility-for-legal-aid-uat/
+
 workflows:
   open_new_pr:
     jobs:
@@ -270,6 +280,12 @@ workflows:
           context: laa-estimate-eligibility-production
           requires:
             - deploy_production_approval
+          filters:
+            branches:
+              only:
+                - main
+      - deploy_infrastructure_uat:
+          context: laa-estimate-eligibility-uat
           filters:
             branches:
               only:
