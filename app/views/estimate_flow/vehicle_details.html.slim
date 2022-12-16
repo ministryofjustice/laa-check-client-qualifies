@@ -1,3 +1,5 @@
+- content_for :page_title
+  = t(".heading")
 - content_for :back do
   = back_link(:vehicle_details, @estimate, @back_buttons_invoke_browser_back_behaviour)
 .govuk-grid-column-two-thirds

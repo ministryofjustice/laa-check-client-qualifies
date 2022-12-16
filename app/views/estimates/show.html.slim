@@ -1,3 +1,5 @@
+- content_for :page_title
+  = t(".#{@model.decision}")
 - content_for :back do
   = link_to t("generic.back"), "javascript:history.back()", class: "govuk-back-link"
 
