@@ -286,10 +286,10 @@ workflows:
                 - main
       - deploy_infrastructure_uat:
           context: laa-estimate-eligibility-uat
-          # filters:
-          #   branches:
-          #     only:
-          #       - main
+          filters:
+            branches:
+              only:
+                - main
   nightly:
     triggers:
       - schedule:
