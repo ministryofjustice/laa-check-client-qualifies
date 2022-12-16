@@ -94,11 +94,11 @@ data:
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "sum(increase(nginx_ingress_controller_request_duration_seconds_count{exported_namespace = \"$namespace\", ingress = \"$ingress\"}[1m]))/2",
+              "expr": "sum(rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace = \"$namespace\", path !~\"/socket.io/.*\", ingress = \"$ingress\"}[5m]))",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "req",
+              "legendFormat": "req / s",
               "refId": "A",
               "step": 60
             }
