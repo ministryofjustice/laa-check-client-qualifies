@@ -1,3 +1,6 @@
+- content_for(:page_title)
+  = t(".heading")
+
 - content_for :back
   = link_to t("generic.back"),
             flow_path(params[:estimate_id], :benefits, check_answers: controller_name == "check_benefits_answers"),

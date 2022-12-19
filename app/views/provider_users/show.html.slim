@@ -1,3 +1,5 @@
+- content_for :page_title
+  = t(".provider_question")
 - content_for :back do
   = link_to t("generic.back"), "/start", class: "govuk-back-link"
 
@@ -6,12 +8,11 @@
       url: provider_users_path,
       method: :post) do |form|
     = form.govuk_error_summary t("generic.error_summary_title")
-    h1 class="govuk-heading-xl" = t(".provider_question")
 
     = form.govuk_collection_radio_buttons(:provider_user_valid,
             yes_no_options,
             :first, :last,
-            legend: nil,
+            legend: { text: t(".provider_question"), size: "xl", tag: "h1" },
             hint: { text: t(".hints.provider_user_radio_buttons") })
 
     = form.govuk_submit t("generic.save_and_continue")

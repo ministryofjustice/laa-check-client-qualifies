@@ -1,3 +1,5 @@
+- content_for :page_title
+  = t("estimates.show.#{@model.decision}")
 .govuk-grid-column-full
   .gem-c-organisation-logo
     .gem-c-organisation-logo__container
@@ -13,7 +15,7 @@
   button.govuk-button.govuk-button--secondary data-module="govuk-button" onclick="javascript:window.print()" = t(".print_this_page")
 
   h1.govuk-heading-xl = t("service.name")
-  h1.govuk-heading-l = t("estimates.show.#{@model.decision}")
+  h2.govuk-heading-l = t("estimates.show.#{@model.decision}")
   h2.govuk-heading-m = t("estimates.show.summary", eligibility: t("estimates.show.#{@model.decision}").downcase)
 
   - if @model.contribution_required?

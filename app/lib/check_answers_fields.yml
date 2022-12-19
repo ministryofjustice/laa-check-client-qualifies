@@ -30,8 +30,6 @@
 # 'money_with_frequency' fields also have an 'alt_attribute' which describes
 # which number to display.
 sections:
-  - label: case_details
-    subsections:
   - label: about_your_client
     subsections:
       - label: client_details
