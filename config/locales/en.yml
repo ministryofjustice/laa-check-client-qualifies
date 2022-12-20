@@ -58,7 +58,7 @@ en:
               blank: Enter National Insurance, if this does not apply enter 0
               not_a_number: National Insurance must be a number, if this does not apply enter 0
             frequency:
-              blank: Select how frequently your client receives employment income
+              blank: Select how often your client gets paid
         partner_employment_form:
           attributes:
             gross_income:
@@ -484,6 +484,11 @@ en:
         guidance:
           text: Guidance on dependants
           link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=42
+    forms:
+      employment:
+        gross_income: Gross employment income, before any deductions
+        income_tax: Income tax
+        national_insurance: National insurance
     partner_details:
       partner_heading: You've completed the client section
       client_partner: You told us your client has a partner
@@ -547,15 +552,15 @@ en:
     employment:
       caption: Your client's finances
       heading: Add your client's salary breakdown
-      second_caption: You can find this on your client's payslips.
+      second_caption: You can find this on your client's payslips
       gross_income:
-        input: Gross employment income, before any deductions
+        input: Enter amount
       income_tax:
-        input: Income tax
+        input: Enter amount
       national_insurance:
-        input: National Insurance
+        input: Enter amount
       frequency:
-        input: Select frequency
+        input: How often does your client get paid?
         blank: "--"
         total: Total in last 3 months
         week: Every week
