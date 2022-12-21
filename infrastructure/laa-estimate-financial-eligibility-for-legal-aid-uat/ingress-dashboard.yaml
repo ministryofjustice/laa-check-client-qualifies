@@ -6,7 +6,7 @@ metadata:
   labels:
     grafana_dashboard: ""
 data:
-  my-dashboard.json: |
+  ccq-ingress-dashboard.json: |
     {
       "annotations": {
         "list": [
