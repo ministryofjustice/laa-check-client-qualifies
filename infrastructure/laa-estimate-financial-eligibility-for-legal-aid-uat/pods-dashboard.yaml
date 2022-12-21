@@ -417,35 +417,6 @@ data:
             "tagsQuery": "",
             "type": "query",
             "useTags": false
-          },
-          {
-            "current": {
-              "selected": false,
-              "text": "main-laa-estimate-eligibility",
-              "value": "main-laa-estimate-eligibility"
-            },
-            "datasource": {
-              "type": "prometheus",
-              "uid": "prometheus"
-            },
-            "definition": "label_values(nginx_ingress_controller_requests{exported_namespace = \"$namespace\"}, ingress)",
-            "hide": 0,
-            "includeAll": false,
-            "multi": false,
-            "name": "ingress",
-            "options": [],
-            "query": {
-              "query": "label_values(nginx_ingress_controller_requests{exported_namespace = \"$namespace\"}, ingress)",
-              "refId": "Prometheus-ingress-Variable-Query"
-            },
-            "refresh": 1,
-            "regex": "",
-            "skipUrlSync": false,
-            "sort": 1,
-            "tagValuesQuery": "",
-            "tagsQuery": "",
-            "type": "query",
-            "useTags": false
           }
         ]
       },
