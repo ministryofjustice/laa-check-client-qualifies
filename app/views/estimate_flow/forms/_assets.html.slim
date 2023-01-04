@@ -32,6 +32,8 @@
 
     .govuk-hint = t("estimate_flow.#{i18n_key}.savings.hint")
 
+    = render "shared/cost_of_living"
+
     = render "shared/money_input",
           form:,
           field: :savings,

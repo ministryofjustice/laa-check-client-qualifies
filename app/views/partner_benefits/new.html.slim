@@ -8,8 +8,12 @@
 .govuk-grid-column-two-thirds
   = form_for(@model, url: url_for([:estimate, controller_name.to_sym])) do |form|
     = form.govuk_error_summary t("generic.error_summary_title")
-    span.govuk-caption-l = t(".caption")
-    h1.govuk-heading-xl = t(".heading")
+    = render "shared/three_headings",
+            caption: t(".caption"),
+            heading: t(".heading"),
+            hint: t("estimate_flow.benefits.add_more_hint_html")
+    = render "shared/disregarded_benefits"
+
     = render "benefits/form", form:
 
 = render "shared/sidebar_with_date", links: {}
