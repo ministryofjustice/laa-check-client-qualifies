@@ -148,14 +148,12 @@ RSpec.describe "Applicant Page" do
         case step
         when :partner_details
           select_boolean_value("partner-details-form", :over_60, true)
-          select_boolean_value("partner-details-form", :employed, true)
         end
       end
 
       expect(page).to have_content I18n.t(".estimates.check_answers.partner_details")
       expect(page).to have_content "Has a partnerYes"
       expect(page).to have_content "Partner is over 60 years oldYes"
-      expect(page).to have_content "Partner is employedYes"
     end
   end
 

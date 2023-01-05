@@ -26,9 +26,10 @@
             legend: { text: t(".partner_over_60.legend") },
             hint: { text: t(".partner_over_60.hint") }
 
-    = form.govuk_collection_radio_buttons :employed, employment_options, :first, :last,
-            legend: { text: t(".partner_employed.legend") },
-            hint: { text: t(".partner_employed.hint") }
+    - unless @estimate.passporting
+      = form.govuk_collection_radio_buttons :employed, employment_options, :first, :last,
+                  legend: { text: t(".partner_employed.legend") },
+                  hint: { text: t(".partner_employed.hint") }
 
     = form.govuk_submit t("generic.save_and_continue")
 = render "shared/sidebar_with_date", links: {}
