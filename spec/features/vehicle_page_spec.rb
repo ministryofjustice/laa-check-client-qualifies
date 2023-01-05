@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Vehicle Page" do
-  let(:assets_header) { "Which of these assets does your client have?" }
+  let(:assets_header) { I18n.t("estimate_flow.assets.legend") }
   let(:check_answers_header) { "Check your answers" }
 
   let(:estimate_id) { SecureRandom.uuid }

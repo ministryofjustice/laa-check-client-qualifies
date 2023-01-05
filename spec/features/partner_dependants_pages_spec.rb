@@ -14,7 +14,7 @@ RSpec.describe "Partner Dependants", :partner_flag do
   end
   let(:calculation_result) { CalculationResult.new(FactoryBot.build(:api_result)) }
   let(:arbitrary_fixed_time) { Time.zone.local(2022, 10, 17, 9, 0, 0) }
-  let(:partner_dependants_header) { "Tell us about your client's partner's dependants" }
+  let(:partner_dependants_header) { I18n.t("estimate_flow.partner_dependant_details.legend") }
   let(:benefits_page_header) { I18n.t("estimate_flow.partner_housing_benefit.housing_benefit_received.legend") }
 
   context "when on dependants screen" do
@@ -62,8 +62,8 @@ RSpec.describe "Partner Dependants", :partner_flag do
     end
 
     it "required a non-zero dependant count" do
-      fill_in "Adult dependants", with: "0"
-      fill_in "Child dependants", with: "0"
+      fill_in "partner-dependant-details-form-adult-dependants-count-field", with: "0"
+      fill_in "partner-dependant-details-form-child-dependants-count-field", with: "0"
       click_on "Save and continue"
       expect(page).to have_content("The number of child dependants must be greater than zero")
       expect(page).to have_content("The number of adult dependants must be greater than zero")
@@ -80,8 +80,8 @@ RSpec.describe "Partner Dependants", :partner_flag do
           select_boolean_value("partner-dependant-details-form", :child_dependants, true)
           select_boolean_value("partner-dependant-details-form", :adult_dependants, true)
 
-          fill_in "Adult dependants", with: "1"
-          fill_in "Child dependants", with: "2"
+          fill_in "partner-dependant-details-form-adult-dependants-count-field", with: "1"
+          fill_in "partner-dependant-details-form-child-dependants-count-field", with: "2"
         end
       end
     end

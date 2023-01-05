@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Other income Page" do
   let(:income_header) { "What other income does your client receive?" }
-  let(:outgoings_header) { "What are your client's outgoings and deductions?" }
+  let(:outgoings_header) { I18n.t("estimate_flow.outgoings.heading") }
   let(:estimate_id) { SecureRandom.uuid }
   let(:mock_connection) do
     instance_double(CfeConnection,
@@ -77,7 +77,7 @@ RSpec.describe "Other income Page" do
       end
 
       it "allows me to proceed" do
-        expect(page).to have_content("What are your client's outgoings and deductions?")
+        expect(page).to have_content outgoings_header
       end
     end
 

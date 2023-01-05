@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Outgoings Page" do
-  let(:outgoings_header) { "What are your client's outgoings and deductions?" }
+  let(:outgoings_header) { I18n.t("estimate_flow.outgoings.heading") }
   let(:property_header) { "Does your client own the home they live in?" }
   let(:estimate_id) { SecureRandom.uuid }
   let(:mock_connection) do
