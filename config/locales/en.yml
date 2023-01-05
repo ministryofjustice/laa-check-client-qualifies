@@ -439,7 +439,7 @@ en:
           - Widow’s Pension lump sum payments
           - Windrush Compensation Scheme payments
     benefits:
-      hint_html: For example, Child Benefit or tax credits. Do not include Housing Benefit, government Cost of Living Payments, or any other disregarded benefits.
+      hint: For example, Child Benefit or tax credits. Do not include Housing Benefit, government Cost of Living Payments, or any other disregarded benefits.
   estimate_flow:
     partner:
       partner_guidance:
@@ -628,7 +628,7 @@ en:
       benefit: benefit
       edit: Change
       remove: Remove
-      add_more_hint_html: Add details of any benefits your client receives. After you’ve added one you can add more. Do not include Housing Benefit, government Cost of Living Payments, or any other disregarded benefits.
+      add_more_hint: Add details of any benefits your client receives. After you’ve added one you can add more. Do not include Housing Benefit, government Cost of Living Payments, or any other disregarded benefits.
     partner_benefits:
       caption: Your client's partner's finances
       legend: Does your client's partner receive any other benefits?
@@ -636,7 +636,7 @@ en:
       benefit: benefit
       edit: Change
       remove: Remove
-      add_more_hint_html: Add details of any benefits your client's partner receives. After you’ve added one you can add more. Do not include Housing Benefit, government Cost of Living Payments, or any other disregarded benefits.
+      add_more_hint: Add details of any benefits your client's partner receives. After you’ve added one you can add more. Do not include Housing Benefit, government Cost of Living Payments, or any other disregarded benefits.
     other_income:
       caption: Your client's finances
       heading: What other income does your client receive?

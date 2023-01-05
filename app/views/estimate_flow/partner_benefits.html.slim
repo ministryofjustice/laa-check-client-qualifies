@@ -10,7 +10,7 @@
               form:,
               caption: t(".caption"),
               legend: { text: t(".legend"), size: "xl", tag: "h1" },
-              hint_text: t("generic.benefits.hint_html")
+              hint_text: t("generic.benefits.hint")
   - else
     = form_for(@form, url: variable_controller_partner_benefit_path(action: :add)) do |form|
       = form.govuk_error_summary t("generic.error_summary_title")
@@ -40,6 +40,6 @@
               form:,
               caption: t(".caption"),
               legend: { text: t(".legend"), size: "l" },
-              hint_text: t(".add_more_hint_html")
+              hint_text: t(".add_more_hint")
 
 = render "shared/sidebar_with_date", links: {}
