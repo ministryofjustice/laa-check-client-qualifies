@@ -19,7 +19,7 @@ module CheckAnswers
     end
 
     def display_fields
-      Flipper.enabled?(:partner) ? FIELDS : FIELDS - %i[partner]
+      FeatureFlags.enabled?(:partner) ? FIELDS : FIELDS - %i[partner]
     end
 
     def disputed_asset?(_field)

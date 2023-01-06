@@ -62,7 +62,7 @@ While our flagging requirements are simple we set desired flag values in env var
 To add a new feature flag, set a `"#{flag_name.upcase}_FEATURE_FLAG"` env var in all environments where you want the flag enabled.
 Then add `flag_name` to the list of flags Flipper should read from in `config/initializers/flipper.rb`.
 
-To use the feature flag in your code, just call `Flipper.enabled?(:flag_name)`.
+To use the feature flag in your code, just call `FeatureFlags.enabled?(:flag_name)`.
 
 In tests, you can temporarily enable a feature flag with `Flipper.enable(:flag_name)`.
 However, flags are _not_ reset between specs, so to avoid polluting other tests use an `around` block and call `Flipper.disable(:flag_name)` once the test has run.

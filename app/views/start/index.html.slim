@@ -11,7 +11,7 @@
   .govuk-inset-text = t(".only_for_legal_aid_providers_html",
                          link: link_to(t(".check_if_you_can_get_legal_aid"), "https://www.gov.uk/check-legal-aid"))
 
-  - if Flipper.enabled?(:partner)
+  - if FeatureFlags.enabled?(:partner)
     |
     p class="govuk-body" = t(".unacceptable_client_explanation")
     ul class="govuk-list govuk-list--bullet"
@@ -26,7 +26,7 @@
 
   h2 class="govuk-heading-m" = t(".before_start_heading")
 
-  - if Flipper.enabled?(:partner)
+  - if FeatureFlags.enabled?(:partner)
     |
     - t(".before_start_paragraphs").each
       p class="govuk-body" = _1
