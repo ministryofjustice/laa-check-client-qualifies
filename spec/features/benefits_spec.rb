@@ -15,7 +15,7 @@ RSpec.describe "Benefits" do
   it "allows me to skip past the screen" do
     select_boolean_value("benefits-form", :add_benefit, false)
     click_on("Save and continue")
-    expect(page).to have_content("What other income does your client receive?")
+    expect(page).to have_content("Other income")
   end
 
   it "allows me to enter a benefit" do
