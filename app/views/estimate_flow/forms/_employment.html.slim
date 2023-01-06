@@ -8,12 +8,10 @@
           :label,
           legend: { text: t("estimate_flow.#{i18n_key}.frequency.input") }
   - EmploymentForm::DECIMAL_ATTRIBUTES.each do |field|
-
-    span.govuk-heading-m = t(".#{field}")
-
     = render "shared/money_input",
               form:,
               field:,
               width: 5,
-              label_text: t("estimate_flow.#{i18n_key}.#{field}.input")
+              size: "m",
+              label_text: t(".#{field}")
   = form.govuk_submit t("generic.save_and_continue")

@@ -9,7 +9,7 @@ RSpec.describe "Benefits" do
 
   it "checks I have made a choice" do
     click_on("Save and continue")
-    expect(page).to have_content("Select yes if your client receives any other benefits")
+    expect(page).to have_content("Select yes if your client gets any other benefits")
   end
 
   it "allows me to skip past the screen" do
