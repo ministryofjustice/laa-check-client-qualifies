@@ -950,6 +950,7 @@ en:
       heading: Check your answers
       client_details: Your client's details
       client_details_fields:
+        domestic_abuse: Applicant in a domestic abuse case
         over_60: Over 60 years old
         partner: Has a partner
         employed: Is employed
