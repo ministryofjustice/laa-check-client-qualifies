@@ -36,6 +36,8 @@ sections:
         screen: applicant
         model: ApplicantSection
         fields:
+        - attribute: domestic_abuse
+          type: boolean
         - attribute: partner
           type: boolean
         - attribute: over_60

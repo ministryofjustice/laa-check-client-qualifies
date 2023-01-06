@@ -3,18 +3,25 @@ module CheckAnswers
     include ActiveModel::Model
     include ActiveModel::Attributes
 
-    FIELDS = %i[over_60
+    FIELDS = %i[domestic_abuse
+                over_60
                 partner
-                employed].freeze
+                employed
+                passporting].freeze
 
     attribute :over_60, :boolean
     attribute :partner, :boolean
     attribute :employed, :boolean
     attribute :passporting, :boolean
+    attribute :proceeding_type
+
+    def domestic_abuse
+      proceeding_type == ApplicantForm::PROCEEDING_TYPES[:domestic_abuse]
+    end
 
     class << self
       def from_session(session)
-        new session.slice(*FIELDS)
+        new session.slice(*FIELDS + [:proceeding_type])
       end
     end
 
