@@ -666,33 +666,33 @@ en:
         monthly: Every month
         total: Total in last 3 months
     partner_other_income:
-      caption: Your client's partner's finances
-      heading: What other income does your client's partner receive?
-      second_caption: Enter zero for any that are not relevant
+      caption: The partner's finances
+      heading: Other income
+      second_caption: Do not add any income you've listed as other income for the client. Enter 0 for any that do not apply.
       friends_or_family:
         label: Financial help from friends or family
-        hint: For example, money from a family member for rent or bills
+        hint: For example, money from a family member for rent or bills. Enter 0 if this does not apply.
         instruction: Enter amount
       maintenance:
         label: Maintenance payments from a former partner
-        hint: This includes child maintenance
+        hint: This includes child maintenance. Enter 0 if this does not apply.
         instruction: Enter amount
       property_or_lodger:
         label: Income from a property or lodger
-        hint: ""
+        hint: "Enter 0 if this does not apply"
         instruction: Enter amount
       pension:
         label: Pension
-        hint: Include State Pension, workplace and personal pensions
+        hint: Include State Pension, workplace and personal pensions. Enter 0 if this does not apply.
         instruction: Enter amount
       student_finance:
         label: Student finance
-        hint: This includes any type of student loan, grant or bursary
+        hint: This includes any type of student loan, grant or bursary. Enter 0 if this does not apply.
         instruction: Enter amount received this academic year
       other:
         label: Income from other sources
-        hint: Include any other income your client's partner received
-        hint_with_col: Include any other income your client's partner received. Do not include any government Cost of Living Payments.
+        hint: Include any other income your client's partner received. Enter 0 if this does not apply.
+        hint_with_col: Include any other income your client's partner received. Do not include any government Cost of Living Payments. Enter 0 if this does not apply.
         instruction: Enter amount received in the last 3 months
       enter_frequency: Select frequency
     outgoings:
@@ -727,26 +727,28 @@ en:
       guidance_on_outgoings: Guidance on outgoings
       link_to_guidance_on_outgoings: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=38"
     partner_outgoings:
-      heading: "What are your client's partner's outgoings and deductions?"
-      caption: Your client's partner's finances
-      second_caption: Enter zero for any that are not relevant
+      heading: "Outgoings and deductions"
+      caption: The partner's finances
+      second_caption: Do not add any outgoings you've listed as outgoings for the client. Enter 0 for any that do not apply.
       housing_payments:
         label: Housing payments
         hints:
-          - "For example, rent, mortgage or board and lodgings"
-          - "If your client's partner is paying all or part of their ex-partner’s housing costs in the former matrimonial home, do not include this here - add it as maintenance payments to a former partner instead"
-          - "If your client's partner is paying board and lodgings, enter the portion of the costs that relates to lodgings or, if you are unsure, 50% of the total costs"
+          - "For example, rent, mortgage or board and lodgings."
+          - "If your client's partner is paying all or part of their ex-partner’s housing costs in the former matrimonial home, do not include this here - add it as maintenance payments to a former partner instead."
+          - "If your client's partner is paying board and lodgings, enter the portion of the costs that relates to lodgings or, if you are unsure, 50% of the total costs."
+          - Enter 0 if this does not apply.
       childcare_payments:
         label: Childcare payments
         hints:
-          - "For example, to a childminder, nanny or nursery"
+          - "For example, to a childminder, nanny or nursery. Enter 0 if this does not apply"
       maintenance_payments:
         label: Maintenance payments to a former partner
         hints:
-          - "This includes child maintenance"
+          - "This includes child maintenance. Enter 0 if this does not apply"
       legal_aid_payments:
         label: Payments towards legal aid in a criminal case
-        hints: []
+        hints:
+          - Enter 0 if this does not apply
       enter_amount: Enter amount
       enter_frequency: Select frequency
       guidance_on_outgoings: Guidance on outgoings (need link)
@@ -820,33 +822,38 @@ en:
         text: Guidance on properties owned that are not the 'main house'
         link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=59"
     partner_assets:
-      caption: Your client's partner's finances
+      caption: The partner's finances
       assets:
-        legend: Which of these assets does your client's partner have?
-        hint: Please enter a zero if a question does not apply.
+        legend: Partner assets
+        hint: Enter 0 for any that do not apply. Do not enter any assets if you listed them as owned by the client.
       property:
-        label: Second property, holiday home or land
+        label: Additional property, holiday home or land
         hint: This can be the sole property owned if not their main dwelling even if the property is abroad or not providing an income.
         value:
-          label: Enter the estimated value
+          label: Estimated value
         mortgage:
-          label: Enter the outstanding mortgage
+          label: Outstanding mortgage
         percentage_owned:
-          input: Enter the share your client's partner owns
+          input: The share the partner owns
           input_hint: ""
       savings:
         label: Savings
-        hint: For example, money in current or savings accounts, ISAs, or child accounts your client's partner is a signatory on
-        hint_with_col: For example, money in current or savings accounts, ISAs, or child accounts your client's partner is a signatory on. Do not include any government Cost of Living Payments owed to the partner.
-        input: Enter the total amount
+<<<<<<< HEAD
+        hint: For example, money in current or savings accounts, ISAs, or child accounts your client's partner is a signatory on. Enter 0 if this does not apply.
+        hint_with_col: For example, money in current or savings accounts, ISAs, or child accounts your client's partner is a signatory on. Do not include any government Cost of Living Payments owed to your client. Enter 0 if this does not apply.
+        input: Total of all savings
+=======
+        hint: For example, money in current or savings accounts, ISAs, or child accounts your client's partner is a signatory on. Do not include any government Cost of Living Payments owed to your client. Enter 0 if this does not apply.
+        input: Total of all savings
+>>>>>>> 4dd0c33 (Content updates)
       investments:
         label: Investments
-        hint: For example, shares in a public limited company, unit trusts or capital bonds.
-        input: Enter the total value
+        hint: For example, shares in a public limited company, unit trusts or capital bonds. Enter 0 if this does not apply.
+        input: Total of all investments
       valuables:
         label: Valuable items worth £500 or more
-        hint: For example, jewellery, art, antiques or caravan or similar.
-        input: Enter the value
+        hint: For example, jewellery, art, antiques or caravan or similar. Enter 0 if this does not apply.
+        input: Total of all valuable items
       guidance:
         text: Guidance on assets
         link: "#"
@@ -942,7 +949,7 @@ en:
       about_your_client: About your client
       about_partner: About your client's partner
       client_dependant_details: Your client's dependants
-      partner_dependant_details: Your client's partner's dependants
+      partner_dependant_details: Partner's dependants
       heading: Check your answers
       client_details: Your client's details
       client_details_fields:
@@ -1023,7 +1030,7 @@ en:
         percentage_owned: Percentage share owned
         joint_ownership: Joint owned with partner
         joint_percentage_owned: Percentage share owned by partner
-      partner_details: Your client's partner's details
+      partner_details: Partner's details
       partner_details_fields:
         partner_over_60: Partner is over 60 years old
         partner_employed: Partner is employed
@@ -1067,14 +1074,14 @@ en:
         partner_pension_value: Pension
         partner_student_finance_value: Student finance
         partner_other_value: Other sources
-      partner_outgoings: Your client's partner's outgoings
+      partner_outgoings: Partner's outgoings
       partner_outgoings_fields:
         partner_housing_payments_value: Housing payments
         partner_childcare_payments_value: Childcare payments
         partner_maintenance_payments_value: Maintenance payments
         partner_legal_aid_payments_value: Legal aid payments
-      partner_assets: Your client's partner's assets
-      partner_vehicles: Client's partner's vehicle
+      partner_assets: Partner's assets
+      partner_vehicles: Partner's vehicle
       partner_vehicles_fields:
         partner_vehicle_owned: Owns a vehicle
         partner_vehicle_value: Estimated value
@@ -1082,7 +1089,7 @@ en:
         partner_vehicle_over_3_years_ago: Bought over 3 years ago
         partner_vehicle_pcp: Outstanding finance on vehicle?
         partner_vehicle_finance: Payments left on vehicle
-      partner_other: Client's partner's other assets
+      partner_other: Partner's other assets
       partner_other_fields:
         partner_property_value: "Second property or holiday home: value"
         partner_property_mortgage: "Second property or holiday home: outstanding mortgage"
