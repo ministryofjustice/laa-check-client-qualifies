@@ -36,6 +36,7 @@ module LaaEstimateFinancialEligibilityForLegalAid
     config.assets.paths << Rails.root.join("node_modules/govuk-frontend/govuk/assets")
 
     config.sentry_dsn = ENV["SENTRY_DSN"]&.strip
-    config.check_financial_eligibility_host = "https://el-594-combined-cont-check-financial-partner-uat.cloud-platform.service.justice.gov.uk"
+    config.check_financial_eligibility_host = ENV.fetch("CFE_HOST",
+                                                        "https://check-financial-eligibility-partner-staging.cloud-platform.service.justice.gov.uk/")
   end
 end
