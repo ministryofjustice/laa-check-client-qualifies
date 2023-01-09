@@ -2,7 +2,7 @@
   "name": "laa-estimate-financial-eligibility-for-legal-aid",
   "private": "true",
   "dependencies": {
-    "esbuild": "^0.16.13",
+    "esbuild": "^0.16.16",
     "govuk-frontend": "^4.4.1",
     "jquery": "^3.6.3",
     "@ministryofjustice/frontend": "^1.6.3",
