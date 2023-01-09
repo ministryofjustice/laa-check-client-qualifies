@@ -21,7 +21,7 @@ class SubmitPartnerService < BaseCfeService
       form = PartnerDetailsForm.from_session(@cfe_session_data)
       {
         date_of_birth: form.over_60 ? 70.years.ago.to_date : 50.years.ago.to_date,
-        employed: form.employed,
+        employed: !!form.employed,
       }
     end
   end
