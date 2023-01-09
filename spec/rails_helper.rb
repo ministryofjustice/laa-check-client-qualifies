@@ -41,8 +41,6 @@ Dir[Rails.root.join("spec/support/**/*.rb")].sort.each { |f| require f }
 # end
 
 ALLOWED_HOSTS = ["https://chromedriver.storage.googleapis.com",
-                 "*.cloud-platform.service.justice.gov.uk",
-                 "https://reliability-test-check-client-qualifies-legal-aid-uat.cloud-platform.service.justice.gov.uk",
                  "https://github.com"].freeze
 
 RSpec.configure do |config|
