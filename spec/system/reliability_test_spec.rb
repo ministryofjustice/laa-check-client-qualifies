@@ -4,7 +4,7 @@ RSpec.describe "Reliability test", :long_slow do
   before { driven_by(:headless_chrome) }
 
   # let(:host) { "https://check-your-client-qualifies-for-legal-aid.cloud-platform.service.justice.gov.uk" }
-  let(:host) { "https://reliability-test-check-client-qualifies-legal-aid-uat.cloud-platform.service.justice.gov.uk" }
+  let(:host) { "https://reliability-test-check-client-qualifies-legal-aid-uat.cloud-platform.service.justice.gov.uk:443" }
   # let(:host) { "https://el-558-reuse-http-check-client-qualifies-legal-aid-uat.cloud-platform.service.justice.gov.uk" }
 
   it "can navigate to check answers a lot", :partner_flag do
@@ -43,7 +43,7 @@ RSpec.describe "Reliability test", :long_slow do
       click_on "Submit"
       # make sure answer has arrived
       expect(page.all(".govuk-accordion").count).to eq(1)
-      sleep 1
+      # sleep 1
     end
   end
 end
