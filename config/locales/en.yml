@@ -855,7 +855,7 @@ en:
         text: Guidance on assets
         link: "#"
     property_entry:
-      heading: Tell us about your client's property
+      heading: About their home
       caption: Your client's finances
       joint_ownership:
         legend: Is the property joint owned with a partner?
@@ -863,13 +863,13 @@ en:
       joint_percentage_owned:
         input: Enter the percentage the partner owns
       house_value:
-        input: How much is your client's home worth?
+        input: How much is the home they live in worth?
         input_hint: You can use property websites to find the estimated value
       mortgage:
-        input: What is the outstanding mortgage on your client's home?
-        input_hint: Check the statement from your client's mortgage provider or lender and include any other loans secured against the property
+        input: How much is left to pay on the mortgage?
+        input_hint: Check the statement from the mortgage provider or lender and include any other loans secured against the property
       percentage_owned:
-        input: What percentage share of their home does your client legally own?
+        input: What percentage of the home do they own?
         input_hint: Your client's name must be on the property deeds, lease, freehold or mortgage
       second_caption: "If you make an application for civil legal aid, the property's value may be excluded from the financial assessment if your client has left their former matrimonial home because of domestic abuse"
     partner_property_entry:
