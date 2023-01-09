@@ -25,6 +25,9 @@
     span.govuk-caption-m class="govuk-!-margin-bottom-4"
       = t("estimate_flow.#{i18n_key}.#{type}.hint")
 
+    - if type == :other
+      = render "shared/cost_of_living"
+
     = render "shared/money_input",
             form:,
             field: :"#{type}_value",
