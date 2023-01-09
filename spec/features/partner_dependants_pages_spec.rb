@@ -62,8 +62,12 @@ RSpec.describe "Partner Dependants", :partner_flag do
     end
 
     it "required a non-zero dependant count" do
-      fill_in "partner-dependant-details-form-adult-dependants-count-field", with: "0"
-      fill_in "partner-dependant-details-form-child-dependants-count-field", with: "0"
+      within(find("fieldset", text: /Does the partner have any adult dependants/)) do
+        fill_in "How many?", with: "0"
+      end
+      within(find("fieldset", text: /Does the partner have any child dependants/)) do
+        fill_in "How many?", with: "0"
+      end
       click_on "Save and continue"
       expect(page).to have_content("The number of child dependants must be greater than zero")
       expect(page).to have_content("The number of adult dependants must be greater than zero")
@@ -80,8 +84,12 @@ RSpec.describe "Partner Dependants", :partner_flag do
           select_boolean_value("partner-dependant-details-form", :child_dependants, true)
           select_boolean_value("partner-dependant-details-form", :adult_dependants, true)
 
-          fill_in "partner-dependant-details-form-adult-dependants-count-field", with: "1"
-          fill_in "partner-dependant-details-form-child-dependants-count-field", with: "2"
+          within(find("fieldset", text: /Does the partner have any adult dependants/)) do
+            fill_in "How many?", with: "1"
+          end
+          within(find("fieldset", text: /Does the partner have any child dependants/)) do
+            fill_in "How many?", with: "2"
+          end
         end
       end
     end
