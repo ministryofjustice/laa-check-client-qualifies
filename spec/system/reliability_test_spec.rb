@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Reliability test", :long_slow do
-  before { driven_by(:headless_chrome) }
+  # before { driven_by(:headless_chrome) }
 
   # let(:host) { "https://check-your-client-qualifies-for-legal-aid.cloud-platform.service.justice.gov.uk" }
   let(:host) { "https://reliability-test-check-client-qualifies-legal-aid-uat.cloud-platform.service.justice.gov.uk:443" }
