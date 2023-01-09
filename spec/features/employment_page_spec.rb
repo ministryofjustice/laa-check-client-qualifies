@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Employment page" do
   let(:employment_page_header) { "Add your client's salary breakdown" }
-  let(:dependant_question) { "Tell us about your client's dependants" }
+  let(:dependant_question) { I18n.t("estimate_flow.dependant_details.legend") }
   let(:estimate_id) { SecureRandom.uuid }
   let(:mock_connection) { instance_double(CfeConnection, create_assessment_id: estimate_id) }
   let(:calculation_result) do

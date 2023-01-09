@@ -518,12 +518,12 @@ en:
         hint: "You cannot use this service if your client or their partner is self-employed or in the armed forces."
     dependant_details:
       caption: About your client
-      legend: Tell us about your client's dependants
+      legend: Your client's dependants
       adult_dependants:
         label: How many?
         legend: Does your client have any adult dependants?
         hints:
-          - An adult dependant is any adult relative who lives with client and depends on them for financial support. Do not include anyone who owns any property, vehicles or other assets valued at over £8,000 in total.
+          - An adult dependant is any adult relative who lives with your client and depends on them for financial support. Do not include anyone who owns any property, vehicles or other assets valued at over £8,000 in total.
         exclusions: []
       child_dependants:
         legend: Does your client have any child dependants?
@@ -540,7 +540,7 @@ en:
         text: Guidance on dependants
         link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=42
     partner_dependant_details:
-      caption: About your client's partner
+      caption: About the partner
       legend: The partner's dependants
       adult_dependants:
         legend: Does the partner have any adult dependants?
