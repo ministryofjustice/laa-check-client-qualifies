@@ -765,8 +765,8 @@ en:
         text: Guidance on properties
         link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=57"
     partner_property:
-      caption: Your client's partner's finances
-      legend: Does your client's partner own the home they live in?
+      caption: The partner's finances
+      legend: Does the partner own the home the client lives in?
     vehicle:
       caption: Your client's finances
       vehicle_owned:
@@ -872,17 +872,17 @@ en:
         input_hint: Your client's name must be on the property deeds, lease, freehold or mortgage
       second_caption: "If you make an application for civil legal aid, the property's value may be excluded from the financial assessment if your client has left their former matrimonial home because of domestic abuse"
     partner_property_entry:
-      heading: Tell us about the property
-      caption: Your client's partner's finances
+      heading: About the home the client lives in
+      caption: The partner's finances
       house_value:
-        input: How much is the property worth?
+        input: How much is the home the client lives in worth?
         input_hint: You can use property websites to find the estimated value.
       mortgage:
-        input: What is the outstanding mortgage on the property?
-        input_hint: Check the statement from the mortgage provider or lender.
+        input: How much is left to pay on the mortgage?
+        input_hint: Check the statement from mortgage provider or lender and include any other loans secured against the property.
       percentage_owned:
-        input: What percentage share of their home does your client's partner legally own?
-        input_hint: Your client's partner's name must be on the property deeds, lease or freehold.
+        input: What percentage of the home your client lives in does the partner own?
+        input_hint: The partner's name must be on the property deeds, lease, freehold or mortgage.
     vehicle_details:
       caption: Your client's finances
       heading: About the vehicle
