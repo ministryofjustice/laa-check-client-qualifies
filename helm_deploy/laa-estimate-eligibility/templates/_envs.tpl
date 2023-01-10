@@ -25,25 +25,9 @@ env:
       secretKeyRef:
         name: {{ template "app.fullname" . }}
         key: sentryDsn
-  - name: GOOGLE_TAG_MANAGER_ID
+  - name: GOOGLE_ANALYTICS_ID
     valueFrom:
       secretKeyRef:
         name: {{ template "app.fullname" . }}
-        key: googleTagManagerId
-  - name: CFE_HOST
-    valueFrom:
-      secretKeyRef:
-        name: {{ template "app.fullname" . }}
-        key: checkFinancialEligibilityHost
-  - name: REDIS_URL
-    valueFrom:
-      secretKeyRef:
-        name: laa-estimate-financial-eligibility-elasticache-instance-output
-        key: url
-  - name: PARTNER_FEATURE_FLAG
-    valueFrom:
-      secretKeyRef:
-        name: {{ template "app.fullname" . }}
-        key: partnerFeatureFlag
-
+        key: googleAnalyticsId
 {{- end }}

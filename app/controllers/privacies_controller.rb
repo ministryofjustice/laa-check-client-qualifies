@@ -1,1 +1,0 @@
-class PrivaciesController < ApplicationController; end

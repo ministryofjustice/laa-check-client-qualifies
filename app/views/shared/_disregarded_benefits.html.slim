@@ -1,7 +1,0 @@
-= govuk_details(summary_text: t("generic.disregarded_benefits.text")) do
-  p = t("generic.disregarded_benefits.hint")
-  - %i[disability low_income other].each do |benefit_type|
-    b = t("generic.disregarded_benefits.#{benefit_type}.text")
-    p.govuk-body
-      - t("generic.disregarded_benefits.#{benefit_type}.list").each do
-        div = _1

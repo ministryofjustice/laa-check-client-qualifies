@@ -1,6 +1,6 @@
 # LAA estimate financial eligibility for legal aid
 
-[![repo standards badge](https://img.shields.io/badge/dynamic/json?color=blue&style=for-the-badge&logo=github&label=MoJ%20Compliant&query=%24.result&url=https%3A%2F%2Foperations-engineering-reports.cloud-platform.service.justice.gov.uk%2Fapi%2Fv1%2Fcompliant_public_repositories%2Flaa-estimate-financial-eligibility-for-legal-aid)](https://operations-engineering-reports.cloud-platform.service.justice.gov.uk/public-github-repositories.html#laa-estimate-financial-eligibility-for-legal-aid "Link to report")
+[![repo standards badge](https://img.shields.io/badge/dynamic/json?color=blue&style=for-the-badge&logo=github&label=MoJ%20Compliant&query=%24.data%5B%3F%28%40.name%20%3D%3D%20%22laa-estimate-financial-eligibility-for-legal-aid%22%29%5D.status&url=https%3A%2F%2Foperations-engineering-reports.cloud-platform.service.justice.gov.uk%2Fgithub_repositories)](https://operations-engineering-reports.cloud-platform.service.justice.gov.uk/github_repositories#laa-estimate-financial-eligibility-for-legal-aid "Link to report")
 
 This is a calculator for providers to obtain a quick estimate to decide if a client is eligible for Legal Aid
 
@@ -54,18 +54,6 @@ end
 or
 
 ```Sentry.capture_message("This is the error message that is sent to Sentry")```
-
-### Feature flags
-
-We use Flipper to manage feature flags.
-While our flagging requirements are simple we set desired flag values in env vars and transfer them to Flipper's file-based data store in an initializer.
-To add a new feature flag, set a `"#{flag_name.upcase}_FEATURE_FLAG"` env var in all environments where you want the flag enabled.
-Then add `flag_name` to the list of flags Flipper should read from in `config/initializers/flipper.rb`.
-
-To use the feature flag in your code, just call `Flipper.enabled?(:flag_name)`.
-
-In tests, you can temporarily enable a feature flag with `Flipper.enable(:flag_name)`.
-However, flags are _not_ reset between specs, so to avoid polluting other tests use an `around` block and call `Flipper.disable(:flag_name)` once the test has run.
 
 ### Deploying to UAT/Staging/Production
 

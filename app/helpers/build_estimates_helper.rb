@@ -1,4 +1,6 @@
 module BuildEstimatesHelper
+  ALL_ESTIMATE_STEPS = %i[intro monthly_income outgoings property].freeze
+  PASSPORTED_STEPS = %i[intro property].freeze
   POUND = "&pound;".html_safe
 
   YES_NO_OPTIONS = [
@@ -12,9 +14,9 @@ module BuildEstimatesHelper
   ].freeze
 
   PROPERTY_OPTIONS = [
-    [:with_mortgage, I18n.t("estimate_flow.property.property_owned.with_mortgage")],
-    [:outright, I18n.t("estimate_flow.property.property_owned.outright")],
-    [:none, I18n.t("estimate_flow.property.property_owned.none")],
+    [:outright, I18n.t("build_estimates.property.property_owned.outright")],
+    [:with_mortgage, I18n.t("build_estimates.property.property_owned.with_mortgage")],
+    [:none, I18n.t("build_estimates.property.property_owned.none")],
   ].freeze
 
   def property_options

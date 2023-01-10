@@ -1,20 +1,18 @@
 class ApplicantForm
   include ActiveModel::Model
   include ActiveModel::Attributes
-  include SessionPersistable
 
-  PROCEEDING_TYPES = { domestic_abuse: "DA001", other: "SE003" }.freeze
+  INTRO_BOOLEAN_ATTRIBUTES = %i[passporting over_60 dependants partner employed].freeze
+  INTRO_ATTRIBUTES = (INTRO_BOOLEAN_ATTRIBUTES + [:dependant_count]).freeze
 
-  PROCEEDING_ATTRIBUTE = %i[proceeding_type].freeze
-  BOOLEAN_ATTRIBUTES = %i[over_60 employed partner passporting].freeze
-
-  ATTRIBUTES = BOOLEAN_ATTRIBUTES + PROCEEDING_ATTRIBUTE.freeze
-
-  attribute :proceeding_type
-  validates :proceeding_type, presence: true, inclusion: { in: PROCEEDING_TYPES.values, allow_nil: true }
-
-  BOOLEAN_ATTRIBUTES.each do |attr|
+  INTRO_BOOLEAN_ATTRIBUTES.each do |attr|
     attribute attr, :boolean
-    validates attr, inclusion: { in: [true, false] }, if: -> { Flipper.enabled?(:partner) || attr != :partner }
+    validates attr, inclusion: { in: [true, false] }
   end
+
+  attribute :dependant_count, :integer
+  validates :dependant_count,
+            numericality: { greater_than: 0, only_integer: true, allow_nil: true },
+            presence: true,
+            if: -> { dependants }
 end

@@ -1,2 +1,0 @@
-class AccessibilitiesController < ApplicationController
-end

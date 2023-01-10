@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.1.3"
+ruby "3.1.2"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4"
@@ -13,7 +13,7 @@ gem "propshaft"
 # gem "pg", "~> 1.1"
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", "~> 6.0"
+gem "puma", "~> 5.0"
 
 # Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
 gem "jsbundling-rails"
@@ -43,18 +43,11 @@ gem "bootsnap", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
-gem "flipper"
-
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[mri mingw x64_mingw]
   gem "rspec-rails"
   gem "dotenv-rails"
-  gem "factory_bot_rails"
-
-  gem "pry-rescue"
-  gem "pry-stack_explorer"
-  gem "pry-nav"
 
   gem "simplecov", require: false
   gem "slim_lint"
@@ -80,7 +73,6 @@ group :test do
   gem "rspec"
   gem "selenium-webdriver"
   gem "webdrivers"
-  gem "capybara-selenium"
   gem "vcr", require: false
   gem "webmock", require: false
   gem "axe-core-rspec"
@@ -90,6 +82,4 @@ gem "govuk-components"
 gem "govuk_design_system_formbuilder"
 gem "wicked"
 gem "faraday"
-gem "faraday-retry"
 gem "slim-rails"
-gem "redis-rails"

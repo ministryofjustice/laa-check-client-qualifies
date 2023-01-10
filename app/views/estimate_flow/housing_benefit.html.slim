@@ -1,9 +1,0 @@
-- content_for :page_title
-  = t(".housing_benefit_received.legend")
-- content_for :back do
-  = back_link(:housing_benefit, @estimate, @back_buttons_invoke_browser_back_behaviour)
-.govuk-grid-column-two-thirds
-  = render "estimate_flow/forms/housing_benefit", i18n_key: "housing_benefit"
-    span.govuk-caption-l
-      = t("estimate_flow.housing_benefit.caption")
-= render "shared/sidebar_with_date", links: {}
