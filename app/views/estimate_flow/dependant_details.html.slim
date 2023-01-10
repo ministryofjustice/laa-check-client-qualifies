@@ -8,7 +8,9 @@
     span.govuk-caption-l = t("estimate_flow.dependant_details.caption")
     h1.govuk-heading-xl class="govuk-!-margin-bottom-2" = t("estimate_flow.dependant_details.legend")
     span.govuk-caption-m class="govuk-!-margin-bottom-2" = t("estimate_flow.dependant_details.second_caption")
-    span.govuk-caption-m class="govuk-!-margin-bottom-5" = t("estimate_flow.dependant_details.third_caption")
+    ul.govuk-list.govuk-list--bullet class="govuk-!-margin-bottom-9"
+      - t("estimate_flow.dependant_details.second_caption_bullets").each
+        li.govuk-hint = _1
 
 = render "shared/sidebar_with_date",
-         links: { t("estimate_flow.applicant.dependants.guidance.text") => t("estimate_flow.applicant.dependants.guidance.link") }
+         links: { t("estimate_flow.dependant_details.guidance.text") => t("estimate_flow.dependant_details.guidance.link") }

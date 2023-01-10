@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Assets Page" do
-  let(:assets_header) { "Which of these assets does your client have?" }
+  let(:assets_header) { I18n.t("estimate_flow.assets.legend") }
   let(:estimate_id) { SecureRandom.uuid }
   let(:mock_connection) do
     instance_double(CfeConnection,

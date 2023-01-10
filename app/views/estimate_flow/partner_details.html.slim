@@ -18,7 +18,10 @@
     p class="govuk-body" = t(".list_title")
 
     ul.govuk-list.govuk-list--bullet
-      - t(".types_of_information").each do |evidence|
+      - unless @estimate.passporting
+        - t(".non_passported_types_of_information").each do |evidence|
+          li.govuk-body = evidence
+      - t(".passported_types_of_information").each do |evidence|
         li.govuk-body = evidence
 
     = form.govuk_collection_radio_buttons :over_60,
