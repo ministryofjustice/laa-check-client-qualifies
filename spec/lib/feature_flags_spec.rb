@@ -16,4 +16,8 @@ RSpec.describe FeatureFlags do
   it "contains no out of date flags" do
     expect(described_class::ENABLED_AFTER_DATE.values.count { 1.month.ago > _1 }).to eq 0
   end
+
+  it "errors on unrecognised flags" do
+    expect { described_class.enabled?(:unknown_flag) }.to raise_error "Unrecognised flag 'unknown_flag'"
+  end
 end
