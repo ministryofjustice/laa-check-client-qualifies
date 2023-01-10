@@ -2,7 +2,7 @@ class SubmitPartnerService < BaseCfeService
   def call(cfe_estimate_id, cfe_session_data)
     @cfe_session_data = cfe_session_data
     @applicant_form = ApplicantForm.from_session(cfe_session_data)
-    return unless Flipper.enabled?(:partner) && @applicant_form.partner
+    return unless FeatureFlags.enabled?(:partner) && @applicant_form.partner
 
     cfe_connection.create_partner cfe_estimate_id,
                                   partner:,

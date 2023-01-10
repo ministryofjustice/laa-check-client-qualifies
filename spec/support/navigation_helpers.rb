@@ -23,7 +23,7 @@ def applicant_without_passporting(page:, partner:)
   end
   select_radio(page:, form: "applicant-form", field: "proceeding-type", value: "se003") # non-domestic abuse case
 
-  if Flipper.enabled?(:partner)
+  if FeatureFlags.enabled?(:partner)
     select_boolean(page:, form_name: "applicant-form", field: :partner, value: partner)
   end
 end
