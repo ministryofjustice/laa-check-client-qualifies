@@ -10,9 +10,12 @@
   = form_for(@model, url: "#{url_for([:estimate, controller_name.to_sym])}/#{@model.id}", method: "patch") do |form|
     = form.govuk_error_summary t("generic.error_summary_title")
 
-    span.govuk-caption-l = t(".caption")
-    h1.govuk-heading-l = t(".heading")
+    = render "shared/three_headings",
+             caption: t(".caption"),
+             heading: t(".heading"),
+             hint: t("estimate_flow.benefits.add_more_hint")
+    = render "shared/disregarded_benefits_details"
 
     = render "form", form:
 
-= render "shared/sidebar_with_date", links: {}
+= render "shared/disregarded_benefits_sidebar"

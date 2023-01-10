@@ -15,7 +15,7 @@ RSpec.describe "Partner Dependants", :partner_flag do
   let(:calculation_result) { CalculationResult.new(FactoryBot.build(:api_result)) }
   let(:arbitrary_fixed_time) { Time.zone.local(2022, 10, 17, 9, 0, 0) }
   let(:partner_dependants_header) { "Tell us about your client's partner's dependants" }
-  let(:benefits_page_header) { "Does your client's partner receive Housing Benefit?" }
+  let(:benefits_page_header) { I18n.t("estimate_flow.partner_housing_benefit.housing_benefit_received.legend") }
 
   context "when on dependants screen" do
     before do

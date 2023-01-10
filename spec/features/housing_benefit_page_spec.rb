@@ -21,7 +21,7 @@ RSpec.describe "Housing Benefit Pages" do
 
     it "shows me an error message" do
       expect(page).to have_content housing_benefit_header
-      expect(page).to have_content "Select yes if your client receives Housing Benefit"
+      expect(page).to have_content "Select yes if your client gets Housing Benefit"
     end
   end
 

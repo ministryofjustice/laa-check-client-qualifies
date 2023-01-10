@@ -10,14 +10,11 @@
     = form.govuk_error_summary t("generic.error_summary_title")
 
     = render "shared/three_headings",
-            caption: t(".caption"),
-            heading: t(".heading"),
-            hint: t("estimate_flow.benefits.add_more_hint")
-    = render "shared/disregarded_benefits"
+             caption: t(".caption"),
+             heading: t(".heading"),
+             hint: t("estimate_flow.benefits.add_more_hint")
+    = render "shared/disregarded_benefits_details"
 
     = render "form", form:
 
-= render "shared/sidebar_with_date", \
-  links: { \
-    t("generic.disregarded_benefits_guidance.text") => t("generic.disregarded_benefits_guidance.link"), \
-    }
+= render "shared/disregarded_benefits_sidebar"

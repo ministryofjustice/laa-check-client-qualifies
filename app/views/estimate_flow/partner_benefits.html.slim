@@ -5,10 +5,10 @@
 
 .govuk-grid-column-two-thirds
   - if @form.benefits.blank?
+    span.govuk-caption-l = t(".caption")
     = form_for(@form, url: variable_controller_partner_benefit_path(action: :add)) do |form|
       = render "add_benefit_form",
               form:,
-              caption: t(".caption"),
               legend: { text: t(".legend"), size: "xl", tag: "h1" },
               hint_text: t("generic.benefits.hint")
   - else
@@ -37,9 +37,8 @@
           end
 
       = render "add_benefit_form",
-              form:,
-              caption: t(".caption"),
-              legend: { text: t(".legend"), size: "l" },
-              hint_text: t(".add_more_hint")
+               form:,
+               legend: { text: t(".legend"), size: "l" },
+               hint_text: t(".add_more_hint")
 
-= render "shared/sidebar_with_date", links: {}
+= render "shared/disregarded_benefits_sidebar"

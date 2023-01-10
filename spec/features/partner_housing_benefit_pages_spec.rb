@@ -20,7 +20,7 @@ RSpec.describe "Housing Benefit Pages", :partner_flag do
 
     it "shows me an error message" do
       expect(page).to have_content partner_housing_benefit_header
-      expect(page).to have_content "Select yes if your client's partner receives Housing Benefit"
+      expect(page).to have_content "Select yes if the partner gets Housing Benefit"
     end
   end
 

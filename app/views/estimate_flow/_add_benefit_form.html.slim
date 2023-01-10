@@ -1,15 +1,13 @@
-  = form.govuk_error_summary t("generic.error_summary_title")
-  span.govuk-caption-l = caption
+= form.govuk_error_summary t("generic.error_summary_title")
+= form.govuk_radio_buttons_fieldset :add_benefit,
+        legend: legend,
+        hint: { text: hint_text } do
 
-  = form.govuk_radio_buttons_fieldset :add_benefit,
-          legend: legend,
-          hint: { text: hint_text } do
+  = render "shared/disregarded_benefits_details"
 
-    = render "shared/disregarded_benefits"
+  = form.govuk_radio_button :add_benefit, true,
+          label: { text: t("generic.yes_choice") }
+  = form.govuk_radio_button :add_benefit, false,
+          label: { text: t("generic.no_choice") }
 
-    = form.govuk_radio_button :add_benefit, true,
-            label: { text: t("generic.yes_choice") }
-    = form.govuk_radio_button :add_benefit, false,
-            label: { text: t("generic.no_choice") }
-
-  = form.govuk_submit t("generic.save_and_continue")
+= form.govuk_submit t("generic.save_and_continue")
