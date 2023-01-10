@@ -4,11 +4,11 @@ executors:
   basic-executor:
     resource_class: small
     docker:
-      - image: cimg/ruby:3.1.2-browsers
+      - image: cimg/ruby:3.1.3-browsers
   test-executor:
     resource_class: small
     docker:
-      - image: cimg/ruby:3.1.2-browsers
+      - image: cimg/ruby:3.1.3-browsers
         environment:
           VCR_RECORD_MODE: none
           COVERAGE: true
@@ -73,7 +73,7 @@ jobs:
       - attach_workspace:
           at: ~/
       - restore_cache:
-          key: laa-estimate-eligibility-{{ checksum "Gemfile.lock" }}-v1-{{ checksum "yarn.lock" }}
+          key: check-client-qualifies-{{ checksum "Gemfile.lock" }}-v1-{{ checksum "yarn.lock" }}
       - run:
           name: Which bundler?
           command: bundle -v
@@ -84,6 +84,7 @@ jobs:
           name: Install ruby gems
           command: |
             bundle config set path 'vendor/bundle'
+            bundle config set without 'development'
             bundle check || {
               # Install CMake - required to install undercover gem
               sudo apt update && sudo apt install cmake
@@ -94,7 +95,7 @@ jobs:
           name: Compile assets for test run
           command: bundle exec rake test:prepare
       - save_cache:
-          key: laa-estimate-eligibility-{{ checksum "Gemfile.lock" }}-v1-{{ checksum "yarn.lock" }}
+          key: check-client-qualifies-{{ checksum "Gemfile.lock" }}-v1-{{ checksum "yarn.lock" }}
           paths:
             - vendor/bundle
             - node_modules
@@ -133,6 +134,10 @@ jobs:
           name: erb-lint checks
           command: |
             bundle exec erblint --lint-all
+      - run:
+          name: Slim Lint
+          command: |
+            bundle exec slim-lint **/*.slim
 
   build_and_push_to_ecr:
     executor: cloud-platform-executor
@@ -162,7 +167,7 @@ jobs:
       - *decrypt_secrets
       - *authenticate_k8s
       - deploy:
-          name: Deploy LAA Estimate Eligibility Service to UAT
+          name: Deploy LAA Check-your-client-qualifies-for-legal-aid service to UAT
           command: |
             ./bin/uat_deployment 
 
@@ -175,27 +180,42 @@ jobs:
       - *decrypt_secrets
       - *authenticate_k8s
       - deploy:
-          name: Deploy LAA Estimate Eligibility Service to Staging
+          name: Deploy LAA Check-your-client-qualifies-for-legal-aid service to Staging
           command: |
-            helm upgrade estimate-financial-eligibility ./helm_deploy/laa-estimate-eligibility/. \
+            helm upgrade check-client-qualifies ./helm_deploy/laa-estimate-eligibility/. \
                           --install --wait \
                           --namespace=${K8S_NAMESPACE} \
                           --values ./helm_deploy/laa-estimate-eligibility/values-staging.yaml \
                           --set image.repository="$ECR_ENDPOINT" \
-                          --set image.tag="${CIRCLE_SHA1}"
+                          --set image.tag="${CIRCLE_SHA1}"  
 
-  delete_uat_branch:
+  deploy_production:
     executor: cloud-platform-executor
     steps:
       - checkout
       - setup_remote_docker:
           docker_layer_caching: true
+      - *decrypt_secrets
       - *authenticate_k8s
-      - run:
-          name: Delete UAT deployment
+      - deploy:
+          name: Deploy LAA Check-your-client-qualifies-for-legal-aid service to Production
           command: |
-            ./bin/delete_uat_deployment
+            helm upgrade check-client-qualifies ./helm_deploy/laa-estimate-eligibility/. \
+                          --install --wait \
+                          --namespace=${K8S_NAMESPACE} \
+                          --values ./helm_deploy/laa-estimate-eligibility/values-production.yaml \
+                          --set image.repository="$ECR_ENDPOINT" \
+                          --set image.tag="${CIRCLE_SHA1}"  
 
+  deploy_infrastructure_uat:
+    executor: cloud-platform-executor
+    steps:
+      - checkout
+      - *authenticate_k8s
+      - deploy:
+          name: Deploy LAA Check-your-client-qualifies-for-legal-aid service's /infrastructure to UAT
+          command: |
+            kubectl apply --record=false -f ./infrastructure/laa-estimate-financial-eligibility-for-legal-aid-uat/
 
 workflows:
   open_new_pr:
@@ -210,10 +230,10 @@ workflows:
       - run_specs:
           requires:
             - install_dependencies
-      - build_and_push_to_ecr
-      #          requires:
-      #            - run_specs
-      #            - linters
+      - build_and_push_to_ecr:
+          requires:
+            - run_specs
+            - linters
       - deploy_uat:
           context: laa-estimate-eligibility-uat
           requires:
@@ -240,14 +260,32 @@ workflows:
           context: laa-estimate-eligibility-uat
           requires:
             - build_and_push_to_ecr
-      - delete_uat_branch:
-          context: laa-estimate-eligibility-uat
-          requires:
-            - deploy_main_uat
       - deploy_staging:
           context: laa-estimate-eligibility-staging
           requires:
             - build_and_push_to_ecr
+          filters:
+            branches:
+              only:
+                - main
+      - deploy_production_approval:
+          type: approval
+          requires:
+            - build_and_push_to_ecr
+          filters:
+            branches:
+              only:
+                - main
+      - deploy_production:
+          context: laa-estimate-eligibility-production
+          requires:
+            - deploy_production_approval
+          filters:
+            branches:
+              only:
+                - main
+      - deploy_infrastructure_uat:
+          context: laa-estimate-eligibility-uat
           filters:
             branches:
               only:
