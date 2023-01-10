@@ -22,18 +22,35 @@
                                           legend: { text: t(".over_60.legend") },
                                           hint: { text: t(".over_60.hint") }
 
-    - if FeatureFlags.enabled?(:partner)
-      = form.govuk_collection_radio_buttons :partner,
-                                              yes_no_options,
-                                              :first,
-                                              :last,
-                                              legend: { text: t(".partner.legend") },
-                                              hint: { text: t(".partner.hint") }
+    - if Flipper.enabled?(:partner)
+      = form.govuk_radio_buttons_fieldset(:partner, legend: { text: t(".partner.legend"), tag: 'h2', size: 'm'}, hint: lambda { \
+                                                      tag.p(t(".partner.hint_text"), class: "govuk-hint") + \
+                                                      tag.ul(class: "govuk-list govuk-list--bullet") do \
+                                                        t(".partner.hint_list").map { |benefit| \
+                                                          tag.li(benefit, class: "govuk-hint") \
+                                                        }.join.html_safe \
+                                                      end + \
+                                                      tag.p(t(".partner.partner_additional.hint_text"), class: "govuk-hint") + \
+                                                      tag.ul(class: "govuk-list govuk-list--bullet") do \
+                                                        t(".partner.partner_additional.hint_list").map { |benefit| \
+                                                          tag.li(benefit, class: "govuk-hint") \
+                                                        }.join.html_safe \
+                                                      end \
+                                                     } ) do
+        - yes_no_options.each do |btn|
+          - rb_hint = btn[1] == "Yes" ? t('.partner.rb_hint_text') : ''
+          = form.govuk_radio_button :partner, btn[0],
+            link_errors: true,
+            label: { text: btn[1] },
+            hint:  { text: rb_hint }
+
+
 
     = form.govuk_collection_radio_buttons :employed, employment_options, :first, :last,
                                           legend: { text: t(".employed.legend") },
                                           hint: { text: t(".employed.hint") }
-    - if FeatureFlags.enabled?(:partner)
+
+    - if Flipper.enabled?(:partner)
       = form.govuk_collection_radio_buttons :passporting, yes_no_options, :first, :last,
                                             legend: { text: t(".passporting.legend") },
                                             hint: lambda { \

@@ -30,11 +30,7 @@
 
   = form.govuk_fieldset legend: { text: t("estimate_flow.#{i18n_key}.savings.label") } do
 
-    .govuk-hint
-      - if FeatureFlags.enabled?(:disregard_cost_of_living)
-        = t("estimate_flow.#{i18n_key}.savings.hint_with_col")
-      - else
-        = t("estimate_flow.#{i18n_key}.savings.hint")
+    .govuk-hint = t("estimate_flow.#{i18n_key}.savings.hint")
 
     = render "shared/cost_of_living"
 

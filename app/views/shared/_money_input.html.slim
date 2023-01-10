@@ -1,7 +1,6 @@
-- size ||= nil
 = form.govuk_text_field field,
                         width:,
-                        label: { text: label_text, size: },
+                        label: { text: label_text },
                         prefix_text: BuildEstimatesHelper::POUND,
                         value: decimal_as_money_string(form, field),
                         pattern: "[0-9]*",
