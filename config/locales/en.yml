@@ -374,7 +374,7 @@ en:
     dispute: This asset is a subject matter of dispute
     disputed_asset: Disputed asset
     disregarded_benefits_guidance:
-      text: List of disregarded benefits
+      text: Guidance on disregarded benefits
       link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=36"
     smod:
       guidance_text: "Guidance on subject matter of dispute"
