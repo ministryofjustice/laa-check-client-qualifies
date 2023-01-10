@@ -32,10 +32,12 @@ class SubmitPartnerService < BaseCfeService
   end
 
   def employments
-    return [] unless partner[:employed] && !@applicant_form.passporting
-
-    form = PartnerEmploymentForm.from_session(@cfe_session_data)
-    CfeParamBuilders::Employments.call(form)
+    if partner[:employed] && !@applicant_form.passporting
+      form = PartnerEmploymentForm.from_session(@cfe_session_data)
+      CfeParamBuilders::Employments.call(form)
+    else
+      []
+    end
   end
 
   def regular_transactions
