@@ -3,14 +3,17 @@ module CheckAnswers
     include ActiveModel::Model
     include ActiveModel::Attributes
 
-    FIELDS = %i[over_60
+    FIELDS = %i[proceeding_type
+                over_60
                 partner
-                employed].freeze
+                employed
+                passporting].freeze
 
     attribute :over_60, :boolean
     attribute :partner, :boolean
     attribute :employed, :boolean
     attribute :passporting, :boolean
+    attribute :proceeding_type, :string
 
     class << self
       def from_session(session)
