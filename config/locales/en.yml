@@ -1334,9 +1334,7 @@ en:
       paragraphs:
         - heading: How accessible this website is
           text:
-            - "The Ministry of Justice digital team is committed to making sure our online services are accessible to all users and comply with level AA of the Web Content Accessibility Guidelines – WCAG 2.1, in line with The Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018."
-            - "To help us achieve and maintain our objective, we have commissioned The Digital Accessibility Centre (DAC) to carry out a WCAG 2.1 AA level technical compliance audit that also includes extensive manual testing. The website currently booked in for testing is: 'Check if your client qualifies for legal aid'."
-            - We expect all tests to be complete by 16 December 2022.
+            - "This website is fully compliant with levels A, AA and AAA of the Web Content Accessibility Guidelines – WCAG 2.1."
       p12_heading: Reporting accessibility problems with this website
       p12_html: "We’re always looking to improve the accessibility of this website. If you find any problems not listed on this page or think we’re not meeting accessibility requirements, contact us by email at eligibility@justice.gov.uk."
       p13_heading: Enforcement procedure
@@ -1350,16 +1348,12 @@ en:
           text:
             - "The Legal Aid Agency is committed to making its websites accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018."
       p31_heading: Compliance status
-      p31_html: This website is not compliant with the <a href="https://www.w3.org/TR/WCAG21/">Web Content Accessibility Guidelines version 2.1</a> AA Standard.
-      p32_heading: Non-accessible content
-      p32_text: The content listed below is non-accessible for the following reasons.
-      p33_heading: Non compliance with the accessibility regulations
-      p33_text: This service is not compliant with the accessibility regulations as we have not had an accessibility audit completed. We anticipate the outcome of all tests to be complete by 16 December 2022. We will then update this statement with details of any accessibility issues and how we plan to fix them.
-      p4_html: We expect this website to be fully compliant with the <a href="https://www.w3.org/TR/WCAG21/">Web Content Accessibility Guidelines version 2.1</a> AA Standard before we go into public beta.
+      p31_html: This website is fully compliant with the <a href="https://www.w3.org/TR/WCAG21/">Web Content Accessibility Guidelines version 2.1</a> AA Standard.
       paragraphs4:
         - heading: Preparation of this accessibility statement
           text:
-            - This statement was prepared on 12 December 2022. It was last reviewed on 13 December 2022.
+            - This statement was prepared on 10 January 2023.
+            - This website was last tested on 4 January 2023. The test was carried out by <a href="https://digitalaccessibilitycentre.org">Digital Accessibility Centre (DAC)</a>.
   cost_of_living_details:
     header: Government Cost of Living Payments
     text: Government Cost of Living Payments are disregarded from the financial eligibility calculation, for example
