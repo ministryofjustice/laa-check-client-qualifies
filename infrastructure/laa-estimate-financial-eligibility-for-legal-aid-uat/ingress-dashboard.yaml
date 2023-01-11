@@ -384,7 +384,7 @@ data:
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "sum by(status) (increase(nginx_ingress_controller_requests{exported_namespace=\"$namespace\", path!~\"/socket.io/.*\", ingress=\"$ingress\", status=~\"4..|5..\"}[5m]))/2",
+              "expr": "sum by(status) (increase(nginx_ingress_controller_requests{exported_namespace=\"$namespace\", path!~\"/socket.io/.*\", ingress=\"$ingress\", status=~\"4..|5..\"}[1m]))/2",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
