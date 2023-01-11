@@ -23,20 +23,18 @@
                                           hint: { text: t(".over_60.hint") }
 
     - if FeatureFlags.enabled?(:partner)
-      = form.govuk_radio_buttons_fieldset(:partner, legend: { text: t(".partner.legend") }, hint: lambda { \
-                                                      tag.p(t(".partner.hint_text"), class: "govuk-hint") + \
-                                                      tag.ul(class: "govuk-list govuk-list--bullet") do \
-                                                        t(".partner.hint_list").map { |benefit| \
-                                                          tag.li(benefit, class: "govuk-hint") \
-                                                        }.join.html_safe \
-                                                      end + \
-                                                      tag.p(t(".partner.partner_additional.hint_text"), class: "govuk-hint") + \
-                                                      tag.ul(class: "govuk-list govuk-list--bullet") do \
-                                                        t(".partner.partner_additional.hint_list").map { |benefit| \
-                                                          tag.li(benefit, class: "govuk-hint") \
-                                                        }.join.html_safe \
-                                                      end \
-                                                     }) do
+      = form.govuk_radio_buttons_fieldset(:partner,
+              legend: { text: t(".partner.legend") },
+              hint: lambda { \
+                       tag.p(t(".partner.hint_text"), class: "govuk-hint") + \
+                       tag.ul(class: "govuk-list govuk-list--bullet") do \
+                          t(".partner.hint_list").map { |benefit| tag.li(benefit, class: "govuk-hint") }.join.html_safe \
+                       end + \
+                       tag.p(t(".partner.partner_additional.hint_text"), class: "govuk-hint") + \
+                       tag.ul(class: "govuk-list govuk-list--bullet") do \
+                         t(".partner.partner_additional.hint_list").map { |benefit| tag.li(benefit, class: "govuk-hint") }.join.html_safe \
+                       end \
+                    }) do
         - yes_no_options.each do |btn|
           - rb_hint = btn[1] == "Yes" ? t(".partner.rb_hint_text") : ""
           = form.govuk_radio_button :partner, btn[0],
