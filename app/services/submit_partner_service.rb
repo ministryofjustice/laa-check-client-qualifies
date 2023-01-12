@@ -21,7 +21,7 @@ class SubmitPartnerService < BaseCfeService
       form = PartnerDetailsForm.from_session(@cfe_session_data)
       {
         date_of_birth: form.over_60 ? 70.years.ago.to_date : 50.years.ago.to_date,
-        employed: form.employed,
+        employed: form.employed || false,
       }
     end
   end
@@ -32,10 +32,12 @@ class SubmitPartnerService < BaseCfeService
   end
 
   def employments
-    return [] unless partner[:employed] && !@applicant_form.passporting
-
-    form = PartnerEmploymentForm.from_session(@cfe_session_data)
-    CfeParamBuilders::Employments.call(form)
+    if partner[:employed] && !@applicant_form.passporting
+      form = PartnerEmploymentForm.from_session(@cfe_session_data)
+      CfeParamBuilders::Employments.call(form)
+    else
+      []
+    end
   end
 
   def regular_transactions
