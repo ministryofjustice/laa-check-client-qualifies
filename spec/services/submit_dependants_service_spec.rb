@@ -51,7 +51,7 @@ RSpec.describe SubmitDependantsService do
             expect(valid_adult_count).to eq adult_dependants
           end
 
-          service.call(cfe_estimate_id, session_data)
+          service.call(mock_connection, cfe_estimate_id, session_data)
         end
       end
 
@@ -62,7 +62,7 @@ RSpec.describe SubmitDependantsService do
 
         it "does not make a call" do
           expect(mock_connection).not_to receive(:create_dependants)
-          service.call(cfe_estimate_id, session_data)
+          service.call(mock_connection, cfe_estimate_id, session_data)
         end
       end
 
@@ -73,7 +73,7 @@ RSpec.describe SubmitDependantsService do
 
         it "does not make a call" do
           expect(mock_connection).not_to receive(:create_dependants)
-          service.call(cfe_estimate_id, session_data)
+          service.call(mock_connection, cfe_estimate_id, session_data)
         end
       end
     end
