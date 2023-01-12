@@ -36,6 +36,8 @@ sections:
         screen: applicant
         model: ApplicantSection
         fields:
+        - attribute: proceeding_type
+          type: select
         - attribute: partner
           type: boolean
         - attribute: over_60

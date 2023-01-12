@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Change employment types" do
   let(:employment_header) { "Add your client's salary breakdown" }
-  let(:outgoings_header) { "What are your client's outgoings and deductions?" }
+  let(:outgoings_header) { I18n.t("estimate_flow.outgoings.heading") }
   let(:check_answers_header) { "Check your answers" }
 
   it "prompts for employment (and other) questions when required" do

@@ -90,7 +90,7 @@ RSpec.describe "Partner benefits", :partner_flag do
     fill_in "Enter amount", with: "100"
     choose "Every week"
     click_on "Save and continue"
-    find(".button-as-link", match: :first).click
+    find("a", text: "Remove", match: :first).click
     expect(page).not_to have_content "Child benefit"
     expect(page).to have_content "You have added 1 benefit"
   end

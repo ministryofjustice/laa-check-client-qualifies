@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Property Page" do
   let(:check_answers_header) { "Check your answers" }
-  let(:property_entry_header) { "How much is your client's home worth?" }
+  let(:property_entry_header) { "How much is the home they live in worth?" }
   let(:partner_property_entry_header) { "How much is the home worth?" }
   let(:property_header) { "Does your client own the home they live in?" }
   let(:vehicle_header) { "Does your client own a vehicle?" }
@@ -32,7 +32,7 @@ RSpec.describe "Property Page" do
     context "without main client dwelling" do
       context "without dwelling" do
         before do
-          visit_check_answers(passporting: true, partner: true)
+          visit_check_answers(passporting: false, partner: true)
         end
 
         it "doesn't send a main dwelling" do
@@ -47,7 +47,7 @@ RSpec.describe "Property Page" do
 
           context "without a value" do
             before do
-              visit_flow_page(passporting: true, partner: true, target: :partner_property)
+              visit_flow_page(passporting: false, partner: true, target: :partner_property)
 
               select_radio_value("partner-property-form", "property-owned", "with_mortgage")
               click_on "Save and continue"
@@ -65,7 +65,7 @@ RSpec.describe "Property Page" do
 
           context "with a value" do
             before do
-              visit_check_answers(passporting: true, partner: true) do |step|
+              visit_check_answers(passporting: false, partner: true) do |step|
                 case step
                 when :partner_property
                   select_radio_value("partner-property-form", "property-owned", "with_mortgage")
@@ -101,7 +101,7 @@ RSpec.describe "Property Page" do
 
         context "without mortgage" do
           before do
-            visit_check_answers(passporting: true, partner: true) do |step|
+            visit_check_answers(passporting: false, partner: true) do |step|
               case step
               when :partner_property
                 select_radio_value("partner-property-form", "property-owned", "outright")
@@ -134,7 +134,7 @@ RSpec.describe "Property Page" do
         let(:expected_share) { 50 }
 
         before do
-          visit_check_answers(passporting: true, partner:) do |step|
+          visit_check_answers(passporting: false, partner:) do |step|
             case step
             when :property
               select_radio_value("property-form", "property-owned", "with_mortgage")
@@ -202,7 +202,7 @@ RSpec.describe "Property Page" do
         let(:expected_share) { 70 }
 
         before do
-          visit_check_answers(passporting: true, partner:) do |step|
+          visit_check_answers(passporting: false, partner:) do |step|
             case step
             when :property
               select_radio_value("property-form", "property-owned", "with_mortgage")

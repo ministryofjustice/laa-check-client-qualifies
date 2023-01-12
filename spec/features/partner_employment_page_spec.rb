@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Partner employment page", :partner_flag do
   let(:partner_employment_page_header) { I18n.t("estimate_flow.partner_employment.heading") }
-  let(:partner_dependants_header) { "Tell us about your client's partner's dependants" }
+  let(:partner_dependants_header) { I18n.t("estimate_flow.partner_dependant_details.legend") }
   let(:partner_details_page_header) { I18n.t("estimate_flow.partner_details.partner_heading") }
 
   context "when I have indicated that the partner is unemployed" do
@@ -45,7 +45,7 @@ RSpec.describe "Partner employment page", :partner_flag do
 
       it "shows me a partner-specific error message" do
         expect(page).to have_content partner_employment_page_header
-        expect(page).to have_content "Select how frequently your client's partner receives employment income"
+        expect(page).to have_content "Select how frequently the partner receives employment income"
       end
     end
 

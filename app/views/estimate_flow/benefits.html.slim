@@ -5,12 +5,12 @@
 
 .govuk-grid-column-two-thirds
   - if @form.benefits.blank?
-
-    = render "add_benefit_form",
-            form: @form,
-            caption: t(".caption"),
-            legend: { text: t(".legend"), size: "xl", tag: "h1" },
-            hint_text: t("generic.benefits.hint_html")
+    span.govuk-caption-l = t(".caption")
+    = form_for(@form, url: variable_controller_benefit_path(action: :add)) do |form|
+      = render "add_benefit_form",
+              form:,
+              legend: { text: t(".legend"), size: "xl", tag: "h1" },
+              hint_text: FeatureFlags.enabled?(:disregard_cost_of_living) ? t("generic.benefits.hint_with_col") : t("generic.benefits.hint")
   - else
     = form_for(@form, url: variable_controller_benefit_path(action: :add)) do |form|
       = form.govuk_error_summary t("generic.error_summary_title")
@@ -33,13 +33,9 @@
               end
             end
           end
+      = render "add_benefit_form",
+               form:,
+               legend: { text: t(".legend"), size: "l" },
+               hint_text: FeatureFlags.enabled?(:disregard_cost_of_living) ? t(".add_more_hint_with_col") : t(".add_more_hint")
 
-    = render "add_benefit_form", form: @form,
-            caption: t(".caption"),
-            legend: { text: t(".legend"), size: "l" },
-            hint_text: t(".add_more_hint_html")
-
-= render "shared/sidebar_with_date", \
-  links: { \
-    t("generic.disregarded_benefits_guidance.text") => t("generic.disregarded_benefits_guidance.link"), \
-    }
+= render "shared/disregarded_benefits_sidebar"
