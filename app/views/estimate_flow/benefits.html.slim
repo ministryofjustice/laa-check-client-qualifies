@@ -14,8 +14,9 @@
   - else
     = form_for(@form, url: variable_controller_benefit_path(action: :add)) do |form|
       = form.govuk_error_summary t("generic.error_summary_title")
-      span.govuk-caption-l = t(".caption")
-      h1.govuk-heading-xl = t(".added_heading", count: @form.benefits.count, benefit: t(".benefit").pluralize(@form.benefits.count))
+      = render "shared/heading",
+               pre_header_text: t(".caption"),
+               header_text: t(".added_heading", count: @form.benefits.count, benefit: t(".benefit").pluralize(@form.benefits.count))
 
       = govuk_table do |table|
         ruby:

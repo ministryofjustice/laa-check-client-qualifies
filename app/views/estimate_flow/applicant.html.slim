@@ -5,8 +5,7 @@
 
 .govuk-grid-column-two-thirds
   = form_for(@form, url: wizard_path, method: :put) do |form|
-    span.govuk-caption-l = t(".caption")
-    h1.govuk-heading-xl = t(".heading")
+    = render "shared/heading", pre_header_text: t(".caption"), header_text: t(".heading")
 
     = form.govuk_error_summary t("generic.error_summary_title")
 

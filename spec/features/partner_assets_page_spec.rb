@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Partner assets page", :partner_flag do
-  let(:partner_assets_heading) { I18n.t("estimate_flow.partner_assets.assets.legend") }
+  let(:partner_assets_heading) { I18n.t("estimate_flow.partner_assets.legend") }
 
   before do
     visit_flow_page(passporting: false, partner: true, target: :partner_assets)

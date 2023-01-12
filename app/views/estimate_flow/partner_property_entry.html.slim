@@ -5,7 +5,4 @@
 .govuk-grid-column-two-thirds
   = render "estimate_flow/forms/property_entry", i18n_key: "partner_property_entry",
           show_smod: false, show_joint_ownership: false, show_mortgage: @estimate.partner_property_owned == "with_mortgage"
-    span.govuk-caption-l
-      = t("estimate_flow.partner_property_entry.caption")
-    h1.govuk-heading-xl = t("estimate_flow.partner_property_entry.heading")
 = render "partner_property_sidebar"

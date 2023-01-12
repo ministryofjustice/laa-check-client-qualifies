@@ -1,8 +1,11 @@
 = form_for(@form, url: wizard_path, method: :put) do |form|
   = form.govuk_error_summary t("generic.error_summary_title")
-  = yield
+  = render "shared/heading",
+           pre_header_text: t("estimate_flow.#{i18n_key}.caption"),
+           header_text: t("estimate_flow.#{i18n_key}.heading"),
+           post_header_text: t("estimate_flow.#{i18n_key}.second_caption")
   - OutgoingsForm::PAYMENT_TYPES.each do |type|
-    h2.govuk-heading-m class="govuk-!-margin-top-9 govuk-!-margin-bottom-2"
+    h2.govuk-heading-m class="govuk-!-margin-bottom-2"
       = t("estimate_flow.#{i18n_key}.#{type}.label")
     - t("estimate_flow.#{i18n_key}.#{type}.hints").each do |hint|
       span.govuk-caption-m class="govuk-!-margin-bottom-4"

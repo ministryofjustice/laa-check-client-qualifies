@@ -1,6 +1,7 @@
 = form_for(@form, url: wizard_path, method: :put) do |form|
   = form.govuk_error_summary t("generic.error_summary_title")
-  = yield
+  span.govuk-caption-l
+    = t("estimate_flow.#{i18n_key}.caption")
   = form.govuk_collection_radio_buttons :housing_benefit,
           yes_no_options, :first, :last,
           legend: { text: t("estimate_flow.#{i18n_key}.housing_benefit_received.legend"), size: "xl", tag: "h1" },

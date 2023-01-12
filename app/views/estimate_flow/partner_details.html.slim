@@ -9,7 +9,7 @@
 
     = form.govuk_error_summary t("generic.error_summary_title")
 
-    h1.govuk-heading-l = t(".partner_heading")
+    = render "shared/heading", header_text: t(".partner_heading")
 
     h2.govuk-heading-m = t(".client_partner")
 

@@ -4,8 +4,7 @@
   = back_link(:check_answers, @estimate, true)
 
 .govuk-grid-column-two-thirds
-  h1.govuk-heading-xl
-    = t(".heading")
+  = render "shared/heading", header_text: t(".heading")
 
   - @form.sections.each do |section|
     .govuk-grid-row  id="section-#{section.label}-header"
