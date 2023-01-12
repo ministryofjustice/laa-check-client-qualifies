@@ -105,6 +105,8 @@ private
 
       # response middleware is supposed to be registered after request middleware
       faraday.response :json
+
+      faraday.adapter :net_http_persistent
     end
   end
 end

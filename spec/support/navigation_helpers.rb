@@ -96,6 +96,12 @@ PARTNER_HANDLERS = {
   },
 }.freeze
 
+PARTNER_PASSPORTED_HANDLERS = {
+  partner_details: lambda { |page:|
+    select_boolean(page:, form_name: "partner-details-form", field: :over_60, value: false)
+  },
+}.freeze
+
 PARTNER_INCOME_HANDLERS = {
   partner_dependants: lambda { |page:|
     select_boolean(page:, form_name: "partner-dependant-details-form", field: :child_dependants, value: false)
@@ -163,7 +169,8 @@ def visit_flow_page(passporting:, target:, partner: false, &block)
   return unless process_handler_group(CAPITAL_HANDLERS, target, &block)
 
   if partner
-    return unless process_handler_group(PARTNER_HANDLERS, target, &block)
+    partner_group = passporting ? PARTNER_PASSPORTED_HANDLERS : PARTNER_HANDLERS
+    return unless process_handler_group(partner_group, target, &block)
 
     if !passporting && !process_handler_group(PARTNER_INCOME_HANDLERS, target, &block)
       return
