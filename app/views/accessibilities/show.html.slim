@@ -2,8 +2,8 @@
   = t(".title")
 
 .govuk-grid-column-two-thirds.gem-c-govspeak
-  h1.govuk-heading-xl
-    = t(".title")
+  = render "shared/heading", header_text: t(".title")
+
   p.govuk-body = t(".p1_text").join(" ")
   ul.govuk-list.govuk-list--bullet
     - t(".p1_bullets").each do |bullet|

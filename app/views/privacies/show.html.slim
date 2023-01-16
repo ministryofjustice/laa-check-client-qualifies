@@ -1,7 +1,6 @@
 - content_for :page_title
   = t(".title")
 .govuk-grid-column-two-thirds
-  h1.govuk-heading-l
-    = t(".title")
+  = render "shared/heading", header_text: t(".title")
   - t(".paragraphs").each do |paragraph|
     p.govuk-body = paragraph

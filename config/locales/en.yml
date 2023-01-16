@@ -825,9 +825,8 @@ en:
         link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=59"
     partner_assets:
       caption: The partner's finances
-      assets:
-        legend: Partner assets
-        hint: Enter 0 for any that do not apply. Do not enter any assets if you listed them as owned by the client.
+      legend: Partner assets
+      hint: Enter 0 for any that do not apply. Do not enter any assets if you listed them as owned by the client.
       property:
         label: Additional property, holiday home or land
         hint: This can be the sole property owned if not their main dwelling even if the property is abroad or not providing an income. Enter 0 if this does not apply.

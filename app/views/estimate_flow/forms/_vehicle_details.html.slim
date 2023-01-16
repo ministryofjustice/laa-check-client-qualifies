@@ -1,7 +1,9 @@
 = form_for(@form, url: wizard_path, method: :put) do |form|
 
   = form.govuk_error_summary t("generic.error_summary_title")
-  = yield
+  = render "shared/heading",
+           pre_header_text: t("estimate_flow.#{i18n_key}.caption"),
+           header_text: t("estimate_flow.#{i18n_key}.heading")
   = render "shared/money_input_with_hint",
               form:,
               field: :vehicle_value,

@@ -13,7 +13,7 @@
             yes_no_options,
             :first, :last,
             legend: { text: t(".provider_question"), size: "xl", tag: "h1" },
-            hint: { text: t(".hints.provider_user_radio_buttons") })
+            hint: { text: t(".hints.provider_user_radio_buttons"), class: "govuk-!-margin-bottom-5" })
 
     = form.govuk_submit t("generic.save_and_continue")
 = render "shared/sidebar_with_date", links: {}

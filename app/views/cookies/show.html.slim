@@ -1,7 +1,6 @@
 - content_for(:page_title)
   = t(".title")
-h1.govuk-heading-xl
-  = t(".title")
+= render "shared/heading", header_text: t(".title")
 p.govuk-body
   == t(".paragraph_1", service_name: link_to(t("service.name"), root_path, class: "govuk-link"))
 p.govuk-body
