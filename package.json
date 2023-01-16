@@ -5,7 +5,7 @@
     "esbuild": "^0.16.16",
     "govuk-frontend": "^4.4.1",
     "jquery": "^3.6.3",
-    "@ministryofjustice/frontend": "^1.6.3",
+    "@ministryofjustice/frontend": "^1.6.4",
     "@rails/ujs": "^7.0.4",
     "sass": "^1.57.1"
   },
