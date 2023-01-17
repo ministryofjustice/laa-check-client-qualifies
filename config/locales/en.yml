@@ -460,8 +460,20 @@ en:
       heading: Tell us about your client
       caption: About your client
       partner:
+        rb_hint: You will be asked questions about the partner after you have answered questions about your client
         caption: About your client
         legend: Does your client have a partner?
+        hint_text: "A partner is someone your client is:"
+        hint_list:
+          - married to
+          - in a civil partnership with
+          - living with as if they are married or in a civil partnership
+        partner_additional:
+          hint_text: "A partner cannot be:"
+          hint_list:
+            - separated from the client in a way that is likely to be permanent
+            - the opponent in the case
+            - have a contrary interest in the case
         hint: This is a spouse, someone with whom they are in a civil relationship, a cohabiter or someone they share their finances with. They cannot be the opponent in any legal proceedings.
       proceeding_type:
         legend: Is your client likely to be the applicant in a domestic abuse matter?
@@ -483,7 +495,7 @@ en:
         hint: "You cannot use this service if your client is self-employed or in the armed forces."
       passporting:
         legend: Does your client receive a passporting benefit?
-        partner_hint: Also indicate ‘yes’ if your client is listed on their partner’s claim. Do not indicate ‘yes’ if only your client’s partner is receiving a passporting benefit.
+        partner_hint: Also select yes if your client is named on their partner’s passporting benefit claim.
         hint: "They will not need an income assessment if they receive any of these passporting benefits:"
         valid_benefits:
           - Universal Credit
@@ -522,9 +534,12 @@ en:
       adult_dependants:
         label: How many?
         legend: Does your client have any adult dependants?
+        no_partner_hint: An adult dependant is any adult relative who lives with your client and depends on them for financial support. Do not include anyone who owns any property, vehicles or other assets valued at over £8,000 in total.
         hints:
-          - An adult dependant is any adult relative who lives with your client and depends on them for financial support. Do not include anyone who owns any property, vehicles or other assets valued at over £8,000 in total.
-        exclusions: []
+          - "An adult dependant is any adult relative who lives with your client and depends on them for financial support. Do not include:"
+        exclusions:
+          - your client's partner
+          - anyone who owns any property, vehicles or other assets valued at over £8000 in total
       child_dependants:
         legend: Does your client have any child dependants?
         label: How many?
@@ -545,6 +560,7 @@ en:
       adult_dependants:
         legend: Does the partner have any adult dependants?
         label: How many?
+        no_partner_hint: An adult dependant is any adult relative who lives with your client and depends on them for financial support. Do not include anyone who owns any property, vehicles or other assets valued at over £8,000 in total.
         hints:
           - An adult dependant is any adult relative who lives with the partner and depends on them for financial support.
           - "Do not include:"
@@ -629,32 +645,32 @@ en:
       add_more_hint_with_col: Add details of any benefits the partner gets. After you’ve added one you can add more. Do not include Housing Benefit, government Cost of Living Payments, or any other disregarded benefits.
     other_income:
       caption: Your client's finances
-      heading: What other income does your client receive?
-      second_caption: Enter zero for any that are not relevant
+      heading: Other income
+      second_caption: Enter 0 for any that do not apply
       friends_or_family:
         label: Financial help from friends or family
-        hint: For example, money from a family member for rent or bills
+        hint: For example, money from a family member for rent or bills. Enter 0 if this does not apply
         instruction: Enter amount
       maintenance:
         label: Maintenance payments from a former partner
-        hint: This includes child maintenance
+        hint: This includes child maintenance. Enter 0 if this does not apply
         instruction: Enter amount
       property_or_lodger:
         label: Income from a property or lodger
-        hint: ""
+        hint: Enter 0 if this does not apply
         instruction: Enter amount
       pension:
         label: Pension
-        hint: Include State Pension, workplace and personal pensions
+        hint: Include State Pension, workplace and personal pensions. Enter 0 if this does not apply
         instruction: Enter amount
       student_finance:
         label: Student finance
-        hint: This includes any type of student loan, grant or bursary
+        hint: This includes any type of student loan, grant or bursary. Enter 0 if this does not apply
         instruction: Enter amount received this academic year
       other:
         label: Income from other sources
-        hint: Include any other income your client received
-        hint_with_col: Include any other income your client received. Do not include any government Cost of Living Payments.
+        hint: Include any other income your client received.
+        hint_with_col: Include any other income your client received. Do not include any government Cost of Living Payments. Enter 0 if this does not apply
         instruction: Enter amount received in the last 3 months
       enter_frequency: Select frequency
       frequencies:
@@ -765,8 +781,8 @@ en:
         text: Guidance on properties
         link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=57"
     partner_property:
-      caption: Your client's partner's finances
-      legend: Does your client's partner own the home they live in?
+      caption: The partner's finances
+      legend: Does the partner own the home the client lives in?
     vehicle:
       caption: Your client's finances
       vehicle_owned:
@@ -872,17 +888,17 @@ en:
         input_hint: Your client's name must be on the property deeds, lease, freehold or mortgage
       second_caption: "If you make an application for civil legal aid, the property's value may be excluded from the financial assessment if your client has left their former matrimonial home because of domestic abuse"
     partner_property_entry:
-      heading: Tell us about the property
-      caption: Your client's partner's finances
+      heading: About the home the client lives in
+      caption: The partner's finances
       house_value:
-        input: How much is the property worth?
+        input: How much is the home the client lives in worth?
         input_hint: You can use property websites to find the estimated value.
       mortgage:
-        input: What is the outstanding mortgage on the property?
-        input_hint: Check the statement from the mortgage provider or lender.
+        input: How much is left to pay on the mortgage?
+        input_hint: Check the statement from mortgage provider or lender and include any other loans secured against the property.
       percentage_owned:
-        input: What percentage share of their home does your client's partner legally own?
-        input_hint: Your client's partner's name must be on the property deeds, lease or freehold.
+        input: What percentage of the home your client lives in does the partner own?
+        input_hint: The partner's name must be on the property deeds, lease, freehold or mortgage.
     vehicle_details:
       caption: Your client's finances
       heading: About the vehicle
@@ -1212,7 +1228,7 @@ en:
     show:
       provider_question: Do you give legal advice or provide legal services?
       hints:
-        provider_user_radio_buttons: This includes if you provide civil or family legal aid and advice in England and Wales to help people deal with their legal problems
+        provider_user_radio_buttons: This includes if you provide civil or family legal representation and advice in England and Wales to help people deal with their legal problems
   referrals:
     show:
       page_heading: You cannot use this service to check if someone qualifies for legal aid
@@ -1247,7 +1263,7 @@ en:
       before_start_heading: Before you start
       before_start_paragraphs:
         - It should take about 15 minutes to answer all the questions.
-        - "You'll need information from your client (and any partner if applicable) about their:"
+        - "You'll need information from your client (and their partner) about their:"
       before_start_paragraphs_no_partner:
         - It should take about 15 minutes to answer all the questions.
         - "You'll need information from your client about their:"

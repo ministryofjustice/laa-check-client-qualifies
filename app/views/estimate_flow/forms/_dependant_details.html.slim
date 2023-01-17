@@ -27,25 +27,38 @@
     = form.govuk_radio_button :child_dependants, false,
             label: { text: t("generic.no_choice") }
 
-  = form.govuk_radio_buttons_fieldset :adult_dependants,
-          hint: lambda { \
-                          (t("estimate_flow.#{i18n_key}.adult_dependants.hints").map do |hint| \
-                            tag.p(hint, class: "govuk-hint") \
-                          end).join.html_safe + \
-                          tag.ul(class: "govuk-list govuk-list--bullet") do \
-                            (t("estimate_flow.#{i18n_key}.adult_dependants.exclusions").map do |exclusion| \
-                              tag.li(exclusion, class: "govuk-hint") \
-                            end).join.html_safe \
-                          end \
-                        },
-          legend: { text: t("estimate_flow.#{i18n_key}.adult_dependants.legend") } do
-    = form.govuk_radio_button :adult_dependants, true,
-            label: { text: t("generic.yes_choice") } do
-      = form.govuk_text_field :adult_dependants_count,
-          width: 5,
-          value: integer_field_value(form, :adult_dependants_count),
-          label: { text: t("estimate_flow.#{i18n_key}.adult_dependants.label") }
-    = form.govuk_radio_button :adult_dependants, false,
-            label: { text: t("generic.no_choice") }
+  -if @estimate.partner
+    = form.govuk_radio_buttons_fieldset :adult_dependants,
+            hint: lambda { \
+                            (t("estimate_flow.#{i18n_key}.adult_dependants.hints").map do |hint| \
+                              tag.p(hint, class: "govuk-hint") \
+                            end).join.html_safe + \
+                            tag.ul(class: "govuk-list govuk-list--bullet") do \
+                              (t("estimate_flow.#{i18n_key}.adult_dependants.exclusions").map do |exclusion| \
+                                tag.li(exclusion, class: "govuk-hint") \
+                              end).join.html_safe \
+                            end \
+                          },
+            legend: { text: t("estimate_flow.#{i18n_key}.adult_dependants.legend") } do
+      = form.govuk_radio_button :adult_dependants, true,
+              label: { text: t("generic.yes_choice") } do
+        = form.govuk_text_field :adult_dependants_count,
+            width: 5,
+            value: integer_field_value(form, :adult_dependants_count),
+            label: { text: t("estimate_flow.#{i18n_key}.adult_dependants.label") }
+      = form.govuk_radio_button :adult_dependants, false,
+              label: { text: t("generic.no_choice") }
+  -else
+    = form.govuk_radio_buttons_fieldset :adult_dependants,
+            hint: { text: t("estimate_flow.#{i18n_key}.adult_dependants.no_partner_hint") },
+            legend: { text: t("estimate_flow.#{i18n_key}.adult_dependants.legend") } do
+      = form.govuk_radio_button :adult_dependants, true,
+              label: { text: t("generic.yes_choice") } do
+        = form.govuk_text_field :adult_dependants_count,
+                width: 5,
+                value: integer_field_value(form, :adult_dependants_count),
+                label: { text: t("estimate_flow.#{i18n_key}.adult_dependants.label") }
+      = form.govuk_radio_button :adult_dependants, false,
+              label: { text: t("generic.no_choice") }
 
   = form.govuk_submit t("generic.save_and_continue")
