@@ -62,3 +62,5 @@ h2.govuk-heading-m = t(".how_calculated")
     .govuk-button data-module="govuk-button" = t(".start_another_check")
   = link_to print_estimate_path(params[:estimate_id]), target: "_blank", rel: "noopener"
     .govuk-button.govuk-button--secondary data-module="govuk-button" = t(".print_page")
+  = link_to print_estimate_path(params[:estimate_id], format: "pdf"), target: "_blank", rel: "noopener"
+    .govuk-button.govuk-button--secondary data-module="govuk-button" = t(".save_as_pdf")

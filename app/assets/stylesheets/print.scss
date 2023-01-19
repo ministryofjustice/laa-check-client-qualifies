@@ -26,3 +26,9 @@
   top: 3px;
   font-family: HelveticaNeue, "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
+
+@media print {
+  button {
+    display: none !important;
+  }
+}

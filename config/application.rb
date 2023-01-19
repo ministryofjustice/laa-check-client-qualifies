@@ -14,6 +14,8 @@ require "action_view/railtie"
 # require "action_cable/engine"
 require "rails/test_unit/railtie"
 
+require "grover"
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -38,5 +40,7 @@ module LaaEstimateFinancialEligibilityForLegalAid
     config.sentry_dsn = ENV["SENTRY_DSN"]&.strip
     config.check_financial_eligibility_host = ENV.fetch("CFE_HOST",
                                                         "https://check-financial-eligibility-partner-staging.cloud-platform.service.justice.gov.uk/")
+
+    config.middleware.use Grover::Middleware
   end
 end
