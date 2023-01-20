@@ -2,7 +2,7 @@ class CookiesController < ApplicationController
   COOKIE_CHOICE_NAME = :optional_cookie_choice
   def update
     choice = params[:cookies] == "accept" ? "accepted" : "rejected"
-    cookies[COOKIE_CHOICE_NAME] = { value: choice, expires: 1.year }
+    cookies[COOKIE_CHOICE_NAME] = { value: choice, expires: 1.year, httponly: true }
 
     redirect_to build_return_to_url(choice)
   end
