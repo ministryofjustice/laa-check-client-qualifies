@@ -1149,7 +1149,7 @@ en:
         - documentation showing the value of any assets held by your client
         - a property valuation (if your client owns a property)
         - evidence of any claims against your client's assets
-      how_calculated: How we calculated your client's financial eligibility estimate
+      how_calculated: How we calculated whether your client is likely to be financially eligible for legal aid for civil certificated work
       income_calculation: Income calculation
       client_income: Client's monthly income
       partner_income: Partner's monthly income
