@@ -126,32 +126,34 @@ RSpec.describe "Results Page" do
 
     it "shows client income section" do
       within "#income-calculation-content" do
-        expect(page).to have_content "Employment income £1,000.00"
-        expect(page).to have_content "Benefits received £0.00"
-        expect(page).to have_content "Financial help from friends and family £100.00"
-        expect(page).to have_content "Maintenance payments from a former partner £200.00"
-        expect(page).to have_content "Income from a property or lodger £300.00"
-        expect(page).to have_content "Pension £40.00"
-        expect(page).to have_content "Student finance £50.00"
-        expect(page).to have_content "Other sources £111.00"
-        expect(page).to have_content "Total gross monthly income £1,801.00"
-        expect(page).to have_content "Total gross income upper limit £2,657.00"
+        expect(page).to have_content "Employment income\n£1,000.00"
+        expect(page).to have_content "Benefits received\nThis does not include Housing Benefit\n£0.00"
+        expect(page).to have_content "Financial help from friends and family\n£100.00"
+        expect(page).to have_content "Maintenance payments from a former partner\n£200.00"
+        expect(page).to have_content "Income from a property or lodger\n£300.00"
+        expect(page).to have_content "Pension\n£40.00"
+        expect(page).to have_content "Student finance\n£50.00"
+        expect(page).to have_content "Other sources\n£111.00"
+        expect(page).to have_content "Total monthly income £1,801.00"
+        expect(page).to have_content "Monthly income upper limit £2,657.00"
       end
     end
 
     it "shows the outgoings section" do
       within "#outgoings-calculation-content" do
-        expect(page).to have_content "Housing payments £140.83"
-        expect(page).to have_content "Childcare payments £433.33"
-        expect(page).to have_content "Maintenance payments to a former partner £0.00"
-        expect(page).to have_content "Payments towards legal aid in a criminal case £300.00"
-        expect(page).to have_content "Income tax £400.00"
-        expect(page).to have_content "National Insurance £50.00"
-        expect(page).to have_content "Employment expenses £45.00"
-        expect(page).to have_content "Dependants allowance £922.92"
+        expect(page).to have_content "Housing payments\nNet housing costs minus" # Full hint text omitted for brevity
+        expect(page).to have_content "and does not have any dependants\n£140.83"
+        expect(page).to have_content "Childcare payments\nThis figure will" # Full hint text omitted for brevity
+        expect(page).to have_content " or receiving student finance\n£433.33"
+        expect(page).to have_content "Maintenance payments to a former partner\n£0.00"
+        expect(page).to have_content "Payments towards legal aid in a criminal case\n£300.00"
+        expect(page).to have_content "Income tax\n£400.00"
+        expect(page).to have_content "National Insurance\n£50.00"
+        expect(page).to have_content "Employment expenses\nA fixed allowance if your client is employed\n£45.00"
+        expect(page).to have_content "Dependants allowance\nA fixed allowance deducted for each dependant your client has\n£922.92"
 
-        expect(page).to have_content "Total gross monthly outgoings £2,292.08"
-        expect(page).to have_content "Assessed disposable monthly income -£491.08"
+        expect(page).to have_content "Total monthly outgoings £2,292.08"
+        expect(page).to have_content "Assessed disposable monthly income\nTotal monthly income minus total monthly outgoings\n-£491.08"
         expect(page).to have_content "Disposable monthly income upper limit £733.00"
       end
     end
@@ -236,14 +238,14 @@ RSpec.describe "Results Page" do
 
     it "shows client income section" do
       within "#income-calculation-content" do
-        expect(page).to have_content "Partner's income Employment income £1,000.00"
-        expect(page).to have_content "Total gross monthly income £1,801.00"
+        expect(page).to have_content "Partner's monthly income\nAll figures have been converted into a monthly amount.\nEmployment income\n£1,000.00"
+        expect(page).to have_content "Total client and partner monthly income £1,801.00"
       end
     end
 
     it "shows the outgoings section" do
       within "#outgoings-calculation-content" do
-        expect(page).to have_content "Partner's outgoings Housing payments"
+        expect(page).to have_content "Partner's monthly outgoings\nAll figures have been converted into a monthly amount.\nHousing payments"
       end
     end
 
