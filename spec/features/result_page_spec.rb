@@ -198,18 +198,18 @@ RSpec.describe "Results Page" do
           fill_in "partner-housing-benefit-details-form-housing-benefit-value-field", with: 135
           select_radio_value("partner-housing-benefit-details-form", "housing-benefit-frequency", "every_two_weeks")
         when :partner_income
-          fill_in "partner-other-income-form-friends-or-family-value-field", with: "100"
+          fill_in "partner-other-income-form-friends-or-family-value-field", with: "10"
           select_radio_value("partner-other-income-form", "friends-or-family-frequency", "monthly")
-          fill_in "partner-other-income-form-maintenance-value-field", with: "200"
+          fill_in "partner-other-income-form-maintenance-value-field", with: "20"
           select_radio_value("partner-other-income-form", "maintenance-frequency", "monthly")
-          fill_in "partner-other-income-form-property-or-lodger-value-field", with: "300"
+          fill_in "partner-other-income-form-property-or-lodger-value-field", with: "30"
           select_radio_value("partner-other-income-form", "property-or-lodger-frequency", "monthly")
           fill_in "partner-other-income-form-pension-value-field", with: "40"
           select_radio_value("partner-other-income-form", "pension-frequency", "monthly")
-          fill_in "partner-other-income-form-student-finance-value-field", with: "600"
-          fill_in "partner-other-income-form-other-value-field", with: "333"
+          fill_in "partner-other-income-form-student-finance-value-field", with: "60"
+          fill_in "partner-other-income-form-other-value-field", with: "33"
         when :partner_outgoings
-          fill_in "partner-outgoings-form-housing-payments-value-field", with: "300"
+          fill_in "partner-outgoings-form-housing-payments-value-field", with: "30"
           select_radio_value("partner-outgoings-form", "housing-payments-frequency", :monthly)
           fill_in "partner-outgoings-form-childcare-payments-value-field", with: "0"
           fill_in "partner-outgoings-form-legal-aid-payments-value-field", with: "0"
@@ -239,7 +239,7 @@ RSpec.describe "Results Page" do
     it "shows client income section" do
       within "#income-calculation-content" do
         expect(page).to have_content "Partner's monthly income\nAll figures have been converted into a monthly amount.\nEmployment income\n£1,000.00"
-        expect(page).to have_content "Total client and partner monthly income £1,801.00"
+        expect(page).to have_content "Total client and partner monthly income £1,116.00"
       end
     end
 

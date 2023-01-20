@@ -46,13 +46,16 @@
   h2.govuk-heading-m = t("estimates.show.limits_calculation")
   = render "limits_table", caption_size: "s"
 
-  h2.govuk-heading-m = t("estimates.show.income_calculation")
-  = render "income_table", caption_size: "s"
+  - if @model.calculated?(:gross_income)
+    h2.govuk-heading-m = t("estimates.show.income_calculation")
+    = render "income_table", caption_size: "s"
 
-  h2.govuk-heading-m = t("estimates.show.outgoings_calculation")
-  = render "outgoings_table", caption_size: "s"
+  - if @model.calculated?(:disposable_income)
+    h2.govuk-heading-m = t("estimates.show.outgoings_calculation")
+    = render "outgoings_table", caption_size: "s"
 
-  h2.govuk-heading-m = t("estimates.show.capital_calculation")
-  = render "capital_table", caption_size: "s"
+  - if @model.calculated?(:capital)
+    h2.govuk-heading-m = t("estimates.show.capital_calculation")
+    = render "capital_table", caption_size: "s"
 
   button.govuk-button.govuk-button--secondary data-module="govuk-button" onclick="javascript:window.print()" = t(".print_this_page")

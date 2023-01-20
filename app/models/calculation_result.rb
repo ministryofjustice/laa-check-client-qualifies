@@ -21,6 +21,10 @@ class CalculationResult
     %w[contribution_required partially_eligible].include?(decision)
   end
 
+  def calculated?(section)
+    api_response.dig(:result_summary, section, :proceeding_types).none? { _1[:result] == "pending" }
+  end
+
   def capital_contribution
     monetise(api_response.dig(:result_summary, :overall_result, :capital_contribution))
   end

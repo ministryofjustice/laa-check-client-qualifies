@@ -45,14 +45,17 @@ h2.govuk-heading-m = t(".how_calculated")
   - accordion.section(heading_text: t(".limits_calculation"))
     = render "limits_table", caption_size: "m"
 
-  - accordion.section(heading_text: t(".income_calculation"))
-    = render "income_table", caption_size: "m"
+  - if @model.calculated?(:gross_income)
+    - accordion.section(heading_text: t(".income_calculation"))
+      = render "income_table", caption_size: "m"
 
-  - accordion.section(heading_text: t(".outgoings_calculation"))
-    = render "outgoings_table", caption_size: "m"
+  - if @model.calculated?(:disposable_income)
+    - accordion.section(heading_text: t(".outgoings_calculation"))
+      = render "outgoings_table", caption_size: "m"
 
-  - accordion.section(heading_text: t(".capital_calculation"))
-    = render "capital_table", caption_size: "m"
+  - if @model.calculated?(:capital)
+    - accordion.section(heading_text: t(".capital_calculation"))
+      = render "capital_table", caption_size: "m"
 
 .govuk-button-group
   = link_to new_estimate_path
