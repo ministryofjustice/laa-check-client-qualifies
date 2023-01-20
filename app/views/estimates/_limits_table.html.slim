@@ -2,9 +2,10 @@ p.govuk-body = t(".calculation_information")
 p.govuk-body = t(".regulations_html")
 h2.govuk-heading-m = t(".limits_heading")
 p.govuk-body = t(".outgoings_explanation")
-ul.govuk-list.govuk-list--bullet
-  - t(".list").each do |bullet|
-    li = bullet
+p.govuk-body
+  - t(".list").each do |reason|
+    p = reason
+
 p.govuk-body = t(".monetary_limits")
 
 table class="govuk-table"
@@ -14,31 +15,12 @@ table class="govuk-table"
       th class="govuk-table__header govuk-!-width-one-half" scope="col" = t(".number_of_children")
       th class="govuk-table__header" scope="col" = t(".gross_limit")
   tbody class="govuk-table__body"
-    tr class="govuk-table__row"
-      td class="govuk-table__header"
-        = "0-4"
-        td class="govuk-table__cell"
-          = t(".gi_upper_limit")
-    tr class="govuk-table__row"
-      td class="govuk-table__header"
-        = "5"
-        td class="govuk-table__cell"
-          = "£2,879"
-    tr class="govuk-table__row"
-      td class="govuk-table__header"
-        = "6"
-        td class="govuk-table__cell"
-          = "£3,101"
-    tr class="govuk-table__row"
-      td class="govuk-table__header"
-        = "7"
-        td class="govuk-table__cell"
-          = "£3,323"
-    tr class="govuk-table__row"
-      td class="govuk-table__header"
-        = "8+"
-        td class="govuk-table__cell"
-          = t(".eight_plus")
+    - t(".child_list").each do |entry|
+      tr class="govuk-table__row"
+        td class="govuk-table__header"
+          = entry
+          td class="govuk-table__cell"
+            = t(".#{entry}_limit")
 
 table class="govuk-table"
   caption class="govuk-table__caption govuk-table__caption--m" = t(".limits_table_caption")
