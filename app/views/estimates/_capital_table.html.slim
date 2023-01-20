@@ -1,3 +1,9 @@
+- text = @model.has_partner? ? "estimates.show.capital_header.partner" : "estimates.show.capital_header.client"
+p
+  = t("#{text}.first")
+p class="govuk-!-margin-bottom-8"
+  = t("#{text}.second")
+
 - if @model.client_owns_main_home?
   = govuk_table do |table|
     - table.caption(size: caption_size, text: t("estimates.show.property"))
@@ -51,9 +57,18 @@
         - row.cell(header: true, text: t("estimates.show.client_capital_types.#{type}"))
         - row.cell(text: amount, numeric: true)
     - @model.client_capital_subtotal_rows.each_with_index do |type_and_amount, index|
-      - body.row(classes: (%w[solid-top-border] if index.zero?)) do |row|
-        - row.cell(header: true, text: t("estimates.show.client_capital_subtotal_types.#{type_and_amount[0]}"))
-        - row.cell(text: type_and_amount[1], numeric: true)
+      - if type_and_amount[0].in?(%i[pensioner_capital_disregard smod_disregard])
+        - body.row(classes: (%w[solid-top-border] if index.zero?)) do |row|
+          - row.cell(classes: %w[no-bottom-border], header: true, \
+                     text: t("estimates.show.client_capital_subtotal_types.#{type_and_amount[0]}.text"))
+          - row.cell(classes: %w[no-bottom-border], text: type_and_amount[1], numeric: true)
+        - body.row do |row|
+          - row.cell(classes: %w[govuk-hint], text: t("estimates.show.client_capital_subtotal_types.#{type_and_amount[0]}.hint"))
+          - row.cell(text: "")
+      - else
+        - body.row(classes: (%w[solid-top-border] if index.zero?)) do |row|
+          - row.cell(header: true, text: t("estimates.show.client_capital_subtotal_types.#{type_and_amount[0]}.text"))
+          - row.cell(text: type_and_amount[1], numeric: true)
     - body.row(classes: %w[solid-bottom-border]) do |row|
       - row.cell(header: true, text: t("estimates.show.client_assessed_capital"))
       - row.cell(text: @model.client_assessed_capital, numeric: true)
@@ -68,11 +83,26 @@
           - row.cell(text: amount, numeric: true)
       - @model.partner_capital_subtotal_rows.each_with_index do |type_and_amount, index|
         - body.row(classes: (%w[solid-top-border] if index.zero?)) do |row|
-          - row.cell(header: true, text: t("estimates.show.client_capital_subtotal_types.#{type_and_amount[0]}"))
+          - row.cell(header: true, text: t("estimates.show.client_capital_subtotal_types.#{type_and_amount[0]}.text"))
           - row.cell(text: type_and_amount[1], numeric: true)
       - body.row(classes: %w[solid-bottom-border]) do |row|
         - row.cell(header: true, text: t("estimates.show.partner_assessed_capital"))
         - row.cell(text: @model.partner_assessed_capital, numeric: true)
+
+- if @model.has_partner? && @model.pensioner_disregard_applied?
+  = govuk_table do |table|
+    - table.caption(size: caption_size, text: t("estimates.show.pensioner_disregard"))
+    - table.body do |body|
+      - body.row do |row|
+        - row.cell(classes: %w[no-bottom-border], text: t("estimates.show.pensioner_disregard_caption"))
+        - row.cell(classes: %w[no-bottom-border], text: "")
+      - @model.pensioner_disregard_rows.each do |type, amount|
+        - body.row do |row|
+          - row.cell(header: true, text: t("estimates.show.pensioner_disregard_types.#{type}.text"))
+          - row.cell(numeric: true, text: amount)
+      - body.row(classes: %w[solid-top-border]) do |row|
+        - row.cell(header: true, text: t("estimates.show.pensioner_disregard_types.assessed_capital.text"))
+        - row.cell(numeric: true, header: true, text: @model.total_assessed_capital)
 
 = govuk_table do |table|
   - table.caption(size: caption_size, text: t("estimates.show.total"))
@@ -82,4 +112,4 @@
       - row.cell(text: @model.capital_upper_threshold, numeric: true)
     - body.row(classes: %w[solid-bottom-border]) do |row|
       - row.cell(header: true, text: t("estimates.show.total_assessed_capital"))
-      - row.cell(text: @model.total_assessed_capital, numeric: true)
+      - row.cell(header: true, text: @model.total_assessed_capital, numeric: true)

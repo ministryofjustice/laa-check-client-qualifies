@@ -10,7 +10,12 @@ RSpec.describe "Partner with passporting", :vcr, :partner_flag do
   describe "CFE submission" do
     before do
       driven_by(:headless_chrome)
-      visit_check_answers(passporting: true, partner: true)
+      visit_check_answers(passporting: true, partner: true) do |page|
+        case page
+        when :partner_details
+          select_boolean_value("partner-details-form", :over_60, true)
+        end
+      end
     end
 
     it "handles can submit to CFE" do

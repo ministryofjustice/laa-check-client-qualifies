@@ -1178,14 +1178,30 @@ en:
       capital_calculation: Capital calculation
       client_capital: Client's capital
       client_capital_types:
-        property: Property
+        property: Home client lives in
         vehicles: Vehicles
         liquid: Savings
         non_liquid: Investments and valuables
       client_capital_subtotal_types:
-        total_capital: Total capital
-        pensioner_capital_disregard: Pensioner disregard
-        smod_disregard: Disputed asset disregard
+        total_capital:
+          text: Total capital
+          hint: ""
+        pensioner_capital_disregard:
+          text: Pensioner disregard
+          hint: Applied to total capital and capped at £100,000
+        smod_disregard:
+          text: Disputed asset disregard
+          hint: Equal to the assessed value of all assets marked as disputed and capped at £100,000
+      pensioner_disregard_types:
+        total_capital:
+          text: Total client and partner disposable capital
+          hint: ""
+        pensioner_capital_disregard:
+          text: Pensioner disregard
+          hint: ""
+        assessed_capital:
+          text: Total assessed disposable capital
+          hint: ""
       gross_monthly_income: Total gross monthly income
       gross_income_upper_threshold: Total gross income upper limit
       gross_monthly_outgoings: Total gross monthly outgoings
@@ -1210,7 +1226,7 @@ en:
       vehicle_value: Value
       vehicle_outstanding_payments: Outstanding payments
       vehicle_assessed_value: Assessed value
-      total_assessed_capital: Total assessed capital
+      total_assessed_capital: Total assessed disposable capital
       additional_property: Additional property
       partner_additional_property: Partner's additional property
       additional_property_value: Value
@@ -1219,6 +1235,15 @@ en:
       capital_upper_threshold: Disposable capital upper limit
       total: Total
       capped_contributions: "Capital contributions will be limited to the likely costs of the case when the capital contribution figure stated exceeds that amount."
+      pensioner_disregard: Pensioner disregard
+      pensioner_disregard_caption: Applied to the total of the client and partner's disposable capital, and capped at £100,000.
+      capital_header:
+        partner:
+          first: The calculations below assess the value of any property and vehicles the client and their partner own.
+          second: The assessed values are used to calculate the total disposable capital for your client and their partner.
+        client:
+          first: The calculations below assess the value of any property and vehicle the client owns.
+          second: The assessed values are used to calculate the total disposable capital for your client.
     print:
       date: "Date:"
       legal_aid: Legal Aid

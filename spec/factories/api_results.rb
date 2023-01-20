@@ -37,6 +37,8 @@ FactoryBot.define do
           ],
         },
         capital: {
+          pensioner_capital_disregard: 0,
+          subject_matter_of_dispute_disregard: 0,
           proceeding_types: [
             { "ccms_code": "DA001",
               "client_involvement_type": "A",

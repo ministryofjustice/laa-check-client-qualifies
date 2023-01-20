@@ -83,6 +83,10 @@ class CalculationResult
     @has_partner ||= api_response.dig(:assessment, :partner_capital).present?
   end
 
+  def pensioner_disregard_applied?
+    api_response.dig(:result_summary, :capital, :pensioner_capital_disregard).positive?
+  end
+
   def partner_income_rows
     income_rows(prefix: "partner_")
   end
@@ -100,7 +104,7 @@ class CalculationResult
   end
 
   def client_main_home_rows
-    main_home_rows
+    main_home_rows(prefix: "")
   end
 
   def client_owns_additional_property?
@@ -112,7 +116,7 @@ class CalculationResult
   end
 
   def client_additional_property_rows
-    additional_property_rows
+    additional_property_rows(prefix: "")
   end
 
   def partner_additional_property_rows
@@ -128,7 +132,7 @@ class CalculationResult
   end
 
   def client_vehicle_rows
-    vehicle_rows
+    vehicle_rows(prefix: "")
   end
 
   def partner_vehicle_rows
@@ -140,13 +144,17 @@ class CalculationResult
   end
 
   def client_capital_subtotal_rows
-    data = {
-      total_capital: :total_capital,
-      pensioner_capital_disregard: :pensioner_capital_disregard,
-      smod_disregard: :subject_matter_of_dispute_disregard,
-    }
-
-    data.transform_values { |value| monetise(api_response.dig(:result_summary, :capital, value)) }
+    if has_partner? && pensioner_disregard_applied?
+      {
+        total_capital: monetise(api_response.dig(:result_summary, :capital, :total_capital)),
+      }
+    else
+      {
+        total_capital: monetise(api_response.dig(:result_summary, :capital, :total_capital)),
+        pensioner_capital_disregard: monetise(-api_response.dig(:result_summary, :capital, :pensioner_capital_disregard)),
+        smod_disregard: monetise(-api_response.dig(:result_summary, :capital, :subject_matter_of_dispute_disregard)),
+      }
+    end
   end
 
   def partner_capital_rows
@@ -156,6 +164,14 @@ class CalculationResult
   def partner_capital_subtotal_rows
     {
       total_capital: monetise(api_response.dig(:result_summary, :partner_capital, :total_capital)),
+    }
+  end
+
+  def pensioner_disregard_rows
+    {
+      total_capital: monetise(api_response.dig(:result_summary, :capital, :total_capital) +
+                                api_response.dig(:result_summary, :partner_capital, :total_capital)),
+      pensioner_capital_disregard: monetise(-api_response.dig(:result_summary, :capital, :pensioner_capital_disregard)),
     }
   end
 
@@ -229,33 +245,32 @@ private
     data.transform_values { |value| monetise(value) }
   end
 
-  def main_home_rows(prefix: "")
-    data = {
-      main_home_value: :value,
-      main_home_mortgage: :outstanding_mortgage,
-      main_home_disregard: :main_home_equity_disregard,
-      main_home_equity: :assessed_equity,
+  def main_home_rows(prefix:)
+    capital = capital_items(:properties, prefix)
+    {
+      main_home_value: monetise(capital.dig(:main_home, :value)),
+      main_home_mortgage: monetise(-capital.dig(:main_home, :outstanding_mortgage).to_f),
+      main_home_disregard: monetise(-capital.dig(:main_home, :main_home_equity_disregard).to_f),
+      main_home_equity: monetise(capital.dig(:main_home, :assessed_equity)),
     }
-    data.transform_values { |v| monetise(capital_items(:properties, prefix).dig(:main_home, v)) }
   end
 
-  def additional_property_rows(prefix: "")
-    data = {
-      additional_property_value: :value,
-      additional_property_mortgage: :outstanding_mortgage,
-      additional_property_equity: :assessed_equity,
+  def additional_property_rows(prefix:)
+    home = capital_items(:properties, prefix)[:additional_properties].first
+    {
+      additional_property_value: monetise(home.fetch(:value)),
+      additional_property_mortgage: monetise(-home.fetch(:outstanding_mortgage).to_f),
+      additional_property_equity: monetise(home.fetch(:assessed_equity)),
     }
-    data.transform_values { |v| monetise(capital_items(:properties, prefix)[:additional_properties].first[v]) }
   end
 
-  def vehicle_rows(prefix: "")
-    data = {
-      vehicle_value: :value,
-      vehicle_outstanding_payments: :loan_amount_outstanding,
-      vehicle_disregards: :disregards_and_deductions,
-      vehicle_assessed_value: :assessed_value,
+  def vehicle_rows(prefix:)
+    vehicles = capital_items(:vehicles, prefix)
+    {
+      vehicle_value: monetise(vehicles.sum(0) { _1.fetch(:value) }),
+      vehicle_outstanding_payments: monetise(-vehicles.sum(0) { _1.fetch(:loan_amount_outstanding) }),
+      vehicle_disregards: monetise(-vehicles.sum(0) { _1.fetch(:disregards_and_deductions) }),
+      vehicle_assessed_value: monetise(vehicles.sum(0) { _1.fetch(:assessed_value) }),
     }
-
-    data.transform_values { |value| monetise(capital_items(:vehicles, prefix).sum(0) { _1.fetch(value) }) }
   end
 end
