@@ -1149,7 +1149,8 @@ en:
         - documentation showing the value of any assets held by your client
         - a property valuation (if your client owns a property)
         - evidence of any claims against your client's assets
-      how_calculated: How we calculated whether your client is likely to be financially eligible for legal aid for civil certificated work
+      how_calculated: How we calculated whether your client is likely to be financially eligible for civil certificated legal aid work
+      limits_calculation: Upper limits, lower limits and exemptions
       income_calculation: Income calculation
       client_income: Client's monthly income
       partner_income: Partner's monthly income
@@ -1252,6 +1253,34 @@ en:
       capital_upper_threshold: Disposable capital upper limit
       total: Total
       capped_contributions: "Capital contributions will be limited to the likely costs of the case when the capital contribution figure stated exceeds that amount."
+    limits_table:
+      calculation_information: We’ve used the information you provided to compare your client’s income and outgoings. This allows us to calculate their monthly disposable income.
+      regulations_html: "All the regulations referred to on this page can be found in the <a href='http://www.legislation.gov.uk/all?title=Civil%20Legal%20Aid%20%28Financial%20Resources%20'>Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 and subsequent amendments.</a>"
+      limits_heading: Limits
+      outgoings_explanation: "For some outgoings, you may see figures that differ from what you entered. This is because some outgoing amounts are capped or disregarded in certain situations. For example:"
+      list:
+        - Childcare costs will display as £0 if your client is not employed or a student (Regulation 27 of the Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013).
+        - Housing costs are capped at £545 per month if your client is single and does not have any dependants (Regulation 28(7)).
+        - If your client’s gross income is above the applicable upper gross income limit, they will not qualify for legal aid. If this occurs, our service will not perform disposable income or disposable capital calculations. Any figures you entered in the outgoings or capital sections may either display as 0, or not at all.
+        - If your client’s income or capital is between the applicable upper and lower income limits, they may qualify for legal aid but may have to make a monthly or lump sum contribution towards the cost of their case.
+      monetary_limits: "These limits are:"
+      lower: Lower limit
+      upper: Upper limit
+      gross_income_caption: Gross income limits
+      number_of_children: Number of child dependants
+      gross_limit: Gross monthly income limit
+      limits_table_caption: Disposable income and Capital limits
+      disposable_limit: Disposable monthly income
+      capital_limit: Capital
+      not_applicable_abbr: "N/A"
+      gi_upper_limit: £ 2,657
+      di_lower_limit: £315
+      di_upper_limit: £733
+      capital_lower_limit: £3,000
+      capital_upper_limit: £8,000
+      eight_plus: Add £222 to above figure for each additional child
+      not_applicable: When limits are not applicable
+      not_applicable_text: The upper limits do not apply if your client is the applicant in a matter such as domestic abuse (see Regulation 12 for the full list).
     print:
       date: "Date:"
       legal_aid: Legal Aid
