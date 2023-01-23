@@ -492,7 +492,7 @@ en:
         hint: Clients aged 60 or over may have some of their capital excluded from a financial eligibility assessment.
       employed:
         legend: What is your client's employment status?
-        hint: "You cannot use this service if your client is self-employed or in the armed forces."
+        hint: "You cannot use this service if your client, or their partner, is self-employed or in the armed forces."
       passporting:
         legend: Does your client receive a passporting benefit?
         partner_hint: Also select yes if your client is named on their partner’s passporting benefit claim.
@@ -507,7 +507,7 @@ en:
       employment:
         gross_income: Gross employment income, before any deductions
         income_tax: Income tax
-        national_insurance: National insurance
+        national_insurance: National Insurance
     partner_details:
       partner_heading: You've completed the client section
       client_partner: You told us your client has a partner
@@ -873,10 +873,10 @@ en:
       heading: About their home
       caption: Your client's finances
       joint_ownership:
-        legend: Is the property joint owned with a partner?
+        legend: Is the property joint owned with their partner?
         hint: By joint owned we mean the client and partner can own different shares of the property. The property does not automatically go to the other owners if you die. You can pass your share of the property in your will.
       joint_percentage_owned:
-        input: Enter the percentage the partner owns
+        input: What percentage does the partner own?
       house_value:
         input: How much is the home they live in worth?
         input_hint: You can use property websites to find the estimated value
@@ -1339,7 +1339,7 @@ en:
         - "You'll need information from your client about their:"
       required_information_types:
         - income, including any benefits they claim
-        - outgoings
+        - outgoings, like housing costs, maintenance payments and childcare costs
         - savings and investments
         - assets, like property and vehicles
       related_content_item_1:
