@@ -38,6 +38,11 @@ RSpec.describe "Results Page" do
       it "zeroes out the negative assessed capital figure" do
         expect(page).to have_content "Disposable capital £0.00"
       end
+
+      it "lets me download the result as a PDF" do
+        click_on "Save this page as a PDF"
+        expect(page).to have_current_path "/estimates/#{estimate_id}/download"
+      end
     end
 
     context "when not eligible" do

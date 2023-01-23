@@ -114,6 +114,10 @@ jobs:
       - attach_workspace:
           at: ./
       - run:
+          name: Install Puppeteer with Chromium
+          command: |
+            yarn add puppeteer@19.2.0
+      - run:
           name: Run tests
           command: |
             bundle exec rake spec
