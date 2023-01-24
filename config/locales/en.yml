@@ -1151,8 +1151,9 @@ en:
         - evidence of any claims against your client's assets
       how_calculated: How we calculated your client's financial eligibility estimate
       income_calculation: Income calculation
-      client_income: Client's income
-      partner_income: Partner's income
+      client_income: Client's monthly income
+      partner_income: Partner's monthly income
+      period_conversion_hint: All figures have been converted into a monthly amount.
       client_income_types:
         employment_income: Employment income
         benefits: Benefits received
@@ -1162,9 +1163,18 @@ en:
         pension: Pension
         student_finance: Student finance
         other: Other sources
+      client_income_hints:
+        employment_income: ""
+        benefits: This does not include Housing Benefit
+        friends_and_family: ""
+        maintenance: ""
+        property_or_lodger: ""
+        pension: ""
+        student_finance: ""
+        other: ""
       outgoings_calculation: Outgoings calculation
-      client_outgoings: Client's outgoings
-      partner_outgoings: Partner's outgoings
+      client_outgoings: Client's monthly outgoings
+      partner_outgoings: Partner's monthly outgoings
       client_outgoing_types:
         housing_costs: Housing payments
         childcare_payments: Childcare payments
@@ -1175,6 +1185,26 @@ en:
         income_tax: Income tax
         dependants_allowance: Dependants allowance
         partner_allowance: Partner allowance
+      client_outgoing_hints:
+        housing_costs: Net housing costs minus any Housing Benefit payments your client receives and capped at £545 if your client is single and does not have any dependants
+        childcare_payments: This figure will show as £0.00 unless your client and their partner (if applicable) are employed or receiving student finance
+        maintenance_out: ""
+        legal_aid: ""
+        national_insurance: ""
+        employment_expenses: A fixed allowance if your client is employed
+        income_tax: ""
+        dependants_allowance: A fixed allowance deducted for each dependant your client has
+        partner_allowance: A fixed allowance if your client has a partner
+      partner_outgoing_hints:
+        housing_costs: Net housing costs minus any Housing Benefit payments the partner receives
+        childcare_payments: This figure will show as £0.00 unless the partner and your client are employed or receiving student finance
+        maintenance_out: ""
+        legal_aid: ""
+        national_insurance: ""
+        employment_expenses: A fixed allowance if the partner is employed
+        income_tax: ""
+        dependants_allowance: A fixed allowance deducted for each dependant the partner has
+        partner_allowance: ""
       capital_calculation: Capital calculation
       client_capital: Client's capital
       client_capital_types:
@@ -1186,10 +1216,13 @@ en:
         total_capital: Total capital
         pensioner_capital_disregard: Pensioner disregard
         smod_disregard: Disputed asset disregard
-      gross_monthly_income: Total gross monthly income
-      gross_income_upper_threshold: Total gross income upper limit
-      gross_monthly_outgoings: Total gross monthly outgoings
+      gross_monthly_income: Total monthly income
+      gross_with_partner: Total client and partner monthly income
+      gross_income_upper_threshold: Monthly income upper limit
+      gross_monthly_outgoings: Total monthly outgoings
+      outgoings_with_partner: Total client and partner monthly outgoings
       disposable_monthly_income: Assessed disposable monthly income
+      disposable_income_hint: Total monthly income minus total monthly outgoings
       disposable_income_upper_threshold: Disposable monthly income upper limit
       client_assessed_capital: Disposable capital
       partner_assessed_capital: Disposable capital
