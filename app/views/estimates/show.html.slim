@@ -42,6 +42,9 @@ p.govuk-body = t(".next_steps_paragraph_2")
 
 h2.govuk-heading-m = t(".how_calculated")
 = govuk_accordion do |accordion|
+  - accordion.section(heading_text: t(".limits_calculation"))
+    = render "limits_table", caption_size: "m"
+
   - accordion.section(heading_text: t(".income_calculation"))
     = render "income_table", caption_size: "m"
 

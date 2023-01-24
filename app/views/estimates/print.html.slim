@@ -43,6 +43,9 @@
 
   h2.govuk-heading-m = t("estimates.show.how_calculated")
 
+  h2.govuk-heading-m = t("estimates.show.limits_calculation")
+  = render "limits_table", caption_size: "s"
+
   h2.govuk-heading-m = t("estimates.show.income_calculation")
   = render "income_table", caption_size: "s"
 
