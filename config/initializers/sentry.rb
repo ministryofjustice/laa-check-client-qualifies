@@ -1,5 +1,5 @@
 sentry_dsn = Rails.configuration.sentry_dsn
-if %w[production].include?(Rails.env) && sentry_dsn.present?
+if %w[production].include?(Rails.env) && sentry_dsn.present? && ENV["SENTRY_FEATURE_FLAG"]&.casecmp("enabled")&.zero?
   Sentry.init do |config|
     config.dsn = sentry_dsn
     config.breadcrumbs_logger = %i[active_support_logger http_logger]
