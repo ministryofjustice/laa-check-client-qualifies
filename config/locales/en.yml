@@ -1242,10 +1242,13 @@ en:
           hint: Total of home client lives in and any additional property
         vehicles:
           text: Asssessed vehicle value
+          hint: ""
         liquid:
           text: Savings
+          hint: ""
         non_liquid:
           text: Investments and valuables
+          hint: ""
       client_capital_subtotal_types:
         total_capital:
           text: Total capital
@@ -1291,7 +1294,7 @@ en:
         disregard:
           text: Disregards and deductions
           hint: Applied to the home equity and capped at £100,000
-        assessed_equity:
+        equity:
           text: Assessed value
           hint: Calculated using the client’s percentage share provided
       assessed_value: Amount included in calculation
@@ -1308,8 +1311,12 @@ en:
       client_additional_property: Client's additional property
       partner_additional_property: Partner's additional property
       additional_property:
-        value: Value
-        mortgage: Outstanding mortgage
+        value:
+          text: Value
+          hint: ""
+        mortgage:
+          text: Outstanding mortgage
+          hint: ""
         equity:
           text: Assessed value
           hint: Calculated using the partner’s percentage share provided

@@ -5,141 +5,72 @@
     = t("#{text}.second")
 
 - if @model.client_owns_main_home?
-  = govuk_table do |table|
-    - table.caption(size: caption_size, text: t("estimates.show.property"))
-    - table.body do |body|
-      - @model.client_main_home_rows.each do |key, value|
-        - if t("estimates.show.main_home.#{key}.hint").present?
-          - body.row do |row|
-            - row.cell(classes: %w[no-bottom-border], header: true, text: t("estimates.show.main_home.#{key}.text"))
-            - row.cell(classes: %w[no-bottom-border], text: value, numeric: true)
-          - body.row do |row|
-            - row.cell(classes: %w[govuk-hint], text: t("estimates.show.main_home.#{key}.hint"))
-            - row.cell(text: "")
-        - else
-          - body.row do |row|
-            - row.cell(header: true, text: t("estimates.show.main_home.#{key}.text"))
-            - row.cell(text: value, numeric: true)
-      - body.row(classes: %w[solid-top-border]) do |row|
-        - row.cell(header: true, classes: %w[no-bottom-border], text: t("estimates.show.main_home.assessed_equity.text"))
-        - row.cell(header: true, classes: %w[no-bottom-border], text: @model.client_assessed_equity, numeric: true)
-      - body.row do |row|
-        - row.cell(classes: %w[govuk-hint], text: t("estimates.show.main_home.assessed_equity.hint"))
-        - row.cell(text: "")
+  = render "property_table",
+          caption_size:,
+          caption: t("estimates.show.property"),
+          type: "main_home",
+          rows: @model.client_main_home_rows,
+          assessed_value: @model.client_assessed_equity
 
 - if @model.client_owns_additional_property?
-  = govuk_table do |table|
-    - table.caption(size: caption_size, text: t("estimates.show.client_additional_property"))
-    - table.body do |body|
-      - @model.client_additional_property_rows.each do |key, value|
-        - body.row do |row|
-          - row.cell(header: true, text: t("estimates.show.additional_property.#{key}"))
-          - row.cell(text: value, numeric: true)
-      - body.row(classes: %w[solid-top-border]) do |row|
-        - row.cell(header: true, text: t("estimates.show.additional_property.equity.text"))
-        - row.cell(header: true, text: @model.client_additional_equity, numeric: true)
+  = render "property_table",
+          caption_size:,
+          caption: t("estimates.show.client_additional_property"),
+          type: "additional_property",
+          rows: @model.client_additional_property_rows,
+          assessed_value: @model.client_additional_equity
 
 - if @model.vehicle_owned?
-  = govuk_table do |table|
-    - table.caption(size: caption_size, text: t("estimates.show.vehicles"))
-    - table.body do |body|
-      - @model.client_vehicle_rows.each do |key, value|
-        - body.row do |row|
-          - row.cell(header: true, text: t("estimates.show.vehicle.#{key}"))
-          - row.cell(text: value, numeric: true)
-      - body.row(classes: %w[solid-top-border]) do |row|
-        - row.cell(header: true, text: t("estimates.show.vehicle.assessed_value"))
-        - row.cell(header: true, text: @model.client_vehicle_assessed_value, numeric: true)
+  = render "vehicle_table",
+          caption_size:,
+          caption: t("estimates.show.vehicles"),
+          rows: @model.client_vehicle_rows,
+          assessed_value: @model.client_vehicle_assessed_value
 
 - if @model.partner_owns_additional_property?
-  = govuk_table do |table|
-    - table.caption(size: caption_size, text: t("estimates.show.partner_additional_property"))
-    - table.body do |body|
-      - @model.partner_additional_property_rows.each do |key, value|
-        - body.row do |row|
-          - row.cell(header: true, text: t("estimates.show.additional_property.#{key}"))
-          - row.cell(text: value, numeric: true)
-      - body.row(classes: %w[solid-top-border]) do |row|
-        - row.cell(header: true, classes: %w[no-bottom-border], text: t("estimates.show.additional_property.equity.text"))
-        - row.cell(header: true, classes: %w[no-bottom-border], text: @model.partner_additional_equity, numeric: true)
-      - body.row(classes: %w[solid-bottom-border]) do |row|
-        - row.cell(classes: %w[govuk-hint], text: t("estimates.show.additional_property.equity.hint"))
-        - row.cell(text: "")
+  = render "property_table",
+          caption_size:,
+          caption: t("estimates.show.partner_additional_property"),
+          type: "additional_property",
+          rows: @model.partner_additional_property_rows,
+          assessed_value: @model.partner_additional_equity
 
 - if @model.partner_vehicle_owned?
-  = govuk_table do |table|
-    - table.caption(size: caption_size, text: t("estimates.show.partner_vehicles"))
-    - table.body do |body|
-      - @model.partner_vehicle_rows.each do |key, value|
-        - body.row do |row|
-          - row.cell(header: true, text: t("estimates.show.vehicle.#{key}"))
-          - row.cell(text: value, numeric: true)
-      - body.row(classes: %w[solid-top-border]) do |row|
-        - row.cell(header: true, text: t("estimates.show.vehicle.assessed_value"))
-        - row.cell(header: true, text: @model.partner_vehicle_assessed_value, numeric: true)
+  = render "vehicle_table",
+          caption_size:,
+          caption: t("estimates.show.partner_vehicles"),
+          rows: @model.partner_vehicle_rows,
+          assessed_value: @model.partner_vehicle_assessed_value
 
-= govuk_table do |table|
-  - table.caption(size: caption_size, text: t("estimates.show.client_disposable_capital"))
-  - table.body do |body|
-    - @model.client_capital_rows.each do |type, amount|
-      - if type == :property
-        - body.row do |row|
-          - row.cell(classes: %w[no-bottom-border], header: true, text: t("estimates.show.client_capital_types.#{type}.text"))
-          - row.cell(classes: %w[no-bottom-border], text: amount, numeric: true)
-        - body.row do |row|
-          - row.cell(classes: %w[govuk-hint], text: t("estimates.show.client_capital_types.#{type}.hint"))
-          - row.cell(text: "")
-      - else
-        - body.row do |row|
-          - row.cell(header: true, text: t("estimates.show.client_capital_types.#{type}.text"))
-          - row.cell(text: amount, numeric: true)
-    - @model.client_capital_subtotal_rows.each_with_index do |type_and_amount, index|
-      - if type_and_amount[0].in?(%i[pensioner_capital_disregard smod_disregard])
-        - body.row(classes: (%w[solid-top-border] if index.zero?)) do |row|
-          - row.cell(classes: %w[no-bottom-border], header: true, \
-                     text: t("estimates.show.client_capital_subtotal_types.#{type_and_amount[0]}.text"))
-          - row.cell(classes: %w[no-bottom-border], text: type_and_amount[1], numeric: true)
-        - body.row do |row|
-          - row.cell(classes: %w[govuk-hint], text: t("estimates.show.client_capital_subtotal_types.#{type_and_amount[0]}.hint"))
-          - row.cell(text: "")
-      - else
-        - body.row(classes: (%w[solid-top-border] if index.zero?)) do |row|
-          - row.cell(header: true, text: t("estimates.show.client_capital_subtotal_types.#{type_and_amount[0]}.text"))
-          - row.cell(text: type_and_amount[1], numeric: true)
-    - body.row(classes: %w[solid-top-border]) do |row|
-      - row.cell(header: true, text: t("estimates.show.client_assessed_capital"))
-      - row.cell(header: true, text: @model.client_assessed_capital, numeric: true)
+= render "disposable_capital_table",
+        caption_size:,
+        caption: t("estimates.show.client_disposable_capital"),
+        rows: @model.client_capital_rows,
+        subtotal_rows: @model.client_capital_subtotal_rows,
+        assessed_capital: @model.client_assessed_capital
 
 - if @model.has_partner?
-  = govuk_table do |table|
-    - table.caption(size: caption_size, text: t("estimates.show.partner_disposable_capital"))
-    - table.body do |body|
-      - @model.partner_capital_rows.each do |type, amount|
-        - body.row do |row|
-          - row.cell(header: true, text: t("estimates.show.client_capital_types.#{type}"))
-          - row.cell(text: amount, numeric: true)
-      - @model.partner_capital_subtotal_rows.each_with_index do |type_and_amount, index|
-        - body.row(classes: (%w[solid-top-border] if index.zero?)) do |row|
-          - row.cell(header: true, text: t("estimates.show.client_capital_subtotal_types.#{type_and_amount[0]}.text"))
-          - row.cell(text: type_and_amount[1], numeric: true)
-      - body.row do |row|
-        - row.cell(header: true, text: t("estimates.show.partner_assessed_capital"))
-        - row.cell(header: true, text: @model.partner_assessed_capital, numeric: true)
+  = render "disposable_capital_table",
+          caption_size:,
+          caption: t("estimates.show.partner_disposable_capital"),
+          rows: @model.partner_capital_rows,
+          subtotal_rows: @model.partner_capital_subtotal_rows,
+          assessed_capital: @model.partner_assessed_capital
 
-- if @model.has_partner? && @model.pensioner_disregard_applied?
-  = govuk_table do |table|
-    - table.caption(size: caption_size, text: t("estimates.show.pensioner_disregard"))
-    - table.body do |body|
-      - body.row do |row|
-        - row.cell(classes: %w[no-bottom-border], text: t("estimates.show.pensioner_disregard_caption"))
-        - row.cell(classes: %w[no-bottom-border], text: "")
-      - @model.pensioner_disregard_rows.each do |type, amount|
+  - if @model.pensioner_disregard_applied?
+    = govuk_table do |table|
+      - table.caption(size: caption_size, text: t("estimates.show.pensioner_disregard"))
+      - table.body do |body|
         - body.row do |row|
-          - row.cell(header: true, text: t("estimates.show.pensioner_disregard_types.#{type}.text"))
-          - row.cell(numeric: true, text: amount)
-      - body.row(classes: %w[solid-top-border]) do |row|
-        - row.cell(header: true, text: t("estimates.show.pensioner_disregard_types.assessed_capital.text"))
-        - row.cell(numeric: true, header: true, text: @model.total_assessed_capital)
+          - row.cell(classes: %w[no-bottom-border], text: t("estimates.show.pensioner_disregard_caption"))
+          - row.cell(classes: %w[no-bottom-border], text: "")
+        - @model.pensioner_disregard_rows.each do |type, amount|
+          - body.row do |row|
+            - row.cell(header: true, text: t("estimates.show.pensioner_disregard_types.#{type}.text"))
+            - row.cell(numeric: true, text: amount)
+        - body.row(classes: %w[solid-top-border]) do |row|
+          - row.cell(header: true, text: t("estimates.show.pensioner_disregard_types.assessed_capital.text"))
+          - row.cell(numeric: true, header: true, text: @model.total_assessed_capital)
 
 = govuk_table do |table|
   - table.caption(size: caption_size, text: t("estimates.show.total"))
