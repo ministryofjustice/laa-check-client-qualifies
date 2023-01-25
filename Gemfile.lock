@@ -69,6 +69,10 @@ GEM
     addressable (2.8.1)
       public_suffix (>= 2.0.2, < 6.0)
     ast (2.4.2)
+    async (2.3.1)
+      console (~> 1.10)
+      io-event (~> 1.1)
+      timers (~> 4.1)
     axe-core-api (4.5.1)
       dumb_delegator
       virtus
@@ -110,6 +114,8 @@ GEM
       descendants_tracker (~> 0.0.1)
     concurrent-ruby (1.1.10)
     connection_pool (2.3.0)
+    console (1.16.2)
+      fiber-local
     crack (0.4.5)
       rexml
     crass (1.0.6)
@@ -151,6 +157,7 @@ GEM
       net-http-persistent (~> 4.0)
     faraday-retry (2.0.0)
       faraday (~> 2.0)
+    fiber-local (1.0.0)
     flipper (0.26.0)
       concurrent-ruby (< 2)
     globalid (1.0.1)
@@ -172,6 +179,7 @@ GEM
     ice_nine (0.11.2)
     interception (0.5)
     io-console (0.6.0)
+    io-event (1.1.6)
     irb (1.6.2)
       reline (>= 0.3.0)
     jsbundling-rails (1.1.1)
@@ -370,6 +378,7 @@ GEM
     thread_safe (0.3.6)
     tilt (2.0.11)
     timeout (0.3.1)
+    timers (4.3.5)
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.3.0)
@@ -413,6 +422,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  async
   axe-core-rspec
   bootsnap
   capybara
