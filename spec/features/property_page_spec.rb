@@ -58,7 +58,7 @@ RSpec.describe "Property Page" do
             it "errors" do
               click_on "Save and continue"
               within ".govuk-error-summary__list" do
-                expect(page).to have_content("Enter the outstanding mortage on your client's partner's home")
+                expect(page).to have_content("Enter the outstanding mortgage on the home")
               end
             end
           end
@@ -173,7 +173,7 @@ RSpec.describe "Property Page" do
         it "errors" do
           click_on "Save and continue"
           within ".govuk-error-summary__list" do
-            expect(page).to have_content("Please specify what percentage of the house the partner owns")
+            expect(page).to have_content("Enter the percentage that the partner owns of the home")
           end
         end
       end
@@ -193,7 +193,7 @@ RSpec.describe "Property Page" do
         it "errors" do
           click_on "Save and continue"
           within ".govuk-error-summary__list" do
-            expect(page).to have_content("Total property share cannot exceed 100%")
+            expect(page).to have_content(I18n.t("activemodel.errors.models.client_property_entry_form.attributes.joint_percentage_owned.cannot_exceed_100"))
           end
         end
       end
