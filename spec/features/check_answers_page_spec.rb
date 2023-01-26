@@ -3,6 +3,13 @@ require "rails_helper"
 RSpec.describe "Check answers page" do
   let(:benefits_subsection_header) { I18n.t("estimates.check_answers.benefits") }
 
+  before do
+    stub_request(:get, "https://check-financial-eligibility-partner-staging.cloud-platform.service.justice.gov.uk/state_benefit_type").to_return(
+      status: 200,
+      body: [{ name: "Child Benefit" }].to_json,
+    )
+  end
+
   context "when I have entered benefits" do
     before do
       visit_check_answers(passporting: false) do |step|

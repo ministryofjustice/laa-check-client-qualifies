@@ -12,6 +12,13 @@ class CfeConnection
     response.body.deep_symbolize_keys.fetch(:checks)
   end
 
+  def state_benefit_types
+    response = cfe_connection.get("state_benefit_type")
+    response.body.map { _1["name"] }.uniq
+  rescue StandardError
+    []
+  end
+
   def create_assessment_id
     create_request = {
       submission_date: Time.zone.today,
