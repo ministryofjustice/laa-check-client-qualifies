@@ -1283,7 +1283,7 @@ en:
       print_page: Print this page
       save_as_pdf: Save this page as a PDF
       total_capital: Total capital
-      property: Property
+      property: Home client lives in
       main_home:
         value:
           text: Value

@@ -171,10 +171,12 @@ class CalculationResult
   end
 
   def pensioner_disregard_rows
+    total_capital = api_response.dig(:result_summary, :capital, :total_capital) +
+      api_response.dig(:result_summary, :partner_capital, :total_capital)
+    disregarded = [total_capital, api_response.dig(:result_summary, :capital, :pensioner_capital_disregard)].min
     {
-      total_capital: monetise(api_response.dig(:result_summary, :capital, :total_capital) +
-                                api_response.dig(:result_summary, :partner_capital, :total_capital)),
-      pensioner_capital_disregard: monetise(-api_response.dig(:result_summary, :capital, :pensioner_capital_disregard)),
+      total_capital: monetise(total_capital),
+      pensioner_capital_disregard: monetise(-disregarded),
     }
   end
 
