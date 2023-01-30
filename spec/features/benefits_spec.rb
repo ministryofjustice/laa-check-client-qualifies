@@ -5,6 +5,10 @@ RSpec.describe "Benefits" do
 
   before do
     visit estimate_build_estimate_path(estimate_id, :benefits)
+    stub_request(:get, "https://check-financial-eligibility-partner-staging.cloud-platform.service.justice.gov.uk/state_benefit_type").to_return(
+      status: 200,
+      body: [{ name: "Child Benefit" }].to_json,
+    )
   end
 
   it "checks I have made a choice" do

@@ -5,6 +5,10 @@ RSpec.describe "Partner benefits", :partner_flag do
 
   before do
     visit_flow_page(passporting: false, partner: true, target: :partner_benefits)
+    stub_request(:get, "https://check-financial-eligibility-partner-staging.cloud-platform.service.justice.gov.uk/state_benefit_type").to_return(
+      status: 200,
+      body: [{ name: "Child Benefit" }].to_json,
+    )
   end
 
   it "checks I have made a choice" do

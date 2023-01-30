@@ -21,4 +21,8 @@ class BenefitModel
   def benefit_options
     FREQUENCY_OPTIONS.map { [_1, I18n.t("estimate_flow.benefits.frequencies.#{_1}")] }
   end
+
+  def benefit_list
+    @benefit_list ||= CfeConnection.connection.state_benefit_types
+  end
 end

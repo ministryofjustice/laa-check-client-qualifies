@@ -1,6 +1,12 @@
 = form.govuk_text_field :benefit_type,
-        width: 20,
-        label: { text: t("benefits.form.type") }
+                        width: 20,
+                        label: { text: t("benefits.form.type") },
+                        autocomplete: "off",
+                        data: { suggestions: :suggestions, module: "govuk-input" }
+
+datalist#suggestions
+  - @model.benefit_list.each
+    = tag.option(_1)
 
 = render "shared/money_input",
         form:,
