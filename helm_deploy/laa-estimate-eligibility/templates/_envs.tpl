@@ -45,5 +45,25 @@ env:
       secretKeyRef:
         name: {{ template "app.fullname" . }}
         key: partnerFeatureFlag
+  - name: SENTRY_FEATURE_FLAG
+    valueFrom:
+      secretKeyRef:
+        name: {{ template "app.fullname" . }}
+        key: sentryFeatureFlag
+  - name: NOTIFICATIONS_API_KEY
+    valueFrom:
+      secretKeyRef:
+        name: {{ template "app.fullname" . }}
+        key: notificationsApiKey
+  - name: NOTIFICATIONS_ERROR_MESSAGE_TEMPLATE_ID
+    valueFrom:
+      secretKeyRef:
+        name: {{ template "app.fullname" . }}
+        key: notificationsErrorMessageTemplateId
+  - name: NOTIFICATIONS_RECIPIENT
+    valueFrom:
+      secretKeyRef:
+        name: {{ template "app.fullname" . }}
+        key: notificationsRecipient
 
 {{- end }}

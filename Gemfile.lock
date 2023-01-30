@@ -140,6 +140,9 @@ GEM
       rubocop
       smart_properties
     erubi (1.12.0)
+    exception_notification (4.5.0)
+      actionmailer (>= 5.2, < 8)
+      activesupport (>= 5.2, < 8)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
     factory_bot_rails (6.2.0)
@@ -167,6 +170,9 @@ GEM
       activemodel (>= 6.1)
       activesupport (>= 6.1)
       html-attributes-utils (~> 0.9, >= 0.9.2)
+    govuk_notify_rails (2.2.0)
+      notifications-ruby-client (~> 5.1)
+      rails (>= 4.1.0)
     grover (1.1.2)
       combine_pdf (~> 1.0)
       nokogiri (~> 1.0)
@@ -183,6 +189,7 @@ GEM
     jsbundling-rails (1.1.1)
       railties (>= 6.0.0)
     json (2.6.3)
+    jwt (2.6.0)
     loofah (2.19.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -215,6 +222,8 @@ GEM
       racc (~> 1.4)
     nokogiri (1.14.0-x86_64-linux)
       racc (~> 1.4)
+    notifications-ruby-client (5.4.0)
+      jwt (>= 1.5, < 3)
     pagy (5.10.1)
       activesupport
     parallel (1.22.1)
@@ -428,6 +437,7 @@ DEPENDENCIES
   debug
   dotenv-rails
   erb_lint
+  exception_notification
   factory_bot_rails
   faraday
   faraday-net_http_persistent
@@ -435,6 +445,7 @@ DEPENDENCIES
   flipper
   govuk-components
   govuk_design_system_formbuilder
+  govuk_notify_rails (~> 2.2.0)
   grover
   jsbundling-rails
   propshaft
