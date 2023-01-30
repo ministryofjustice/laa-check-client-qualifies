@@ -48,6 +48,7 @@
 = render "disposable_capital_table",
         caption_size:,
         caption: t("estimates.show.client_disposable_capital"),
+        person: :client,
         rows: @model.client_capital_rows,
         subtotal_rows: @model.client_capital_subtotal_rows,
         assessed_capital: @model.client_assessed_capital
@@ -56,6 +57,7 @@
   = render "disposable_capital_table",
           caption_size:,
           caption: t("estimates.show.partner_disposable_capital"),
+          person: :partner,
           rows: @model.partner_capital_rows,
           subtotal_rows: @model.partner_capital_subtotal_rows,
           assessed_capital: @model.partner_assessed_capital

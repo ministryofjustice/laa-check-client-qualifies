@@ -290,6 +290,7 @@ private
     home = capital_items(:properties, prefix)[:additional_properties].first
     {
       value: monetise(home.fetch(:value)),
+      disregards: monetise(-home.fetch(:transaction_allowance)),
       mortgage: monetise(-home.fetch(:outstanding_mortgage)),
     }
   end

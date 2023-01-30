@@ -2,7 +2,7 @@
   - table.caption(size: caption_size, text: caption)
   - table.body do |body|
     - rows.each do |key, amount|
-      - text = header_with_hint("estimates.show.client_capital_types.#{key}.text", "estimates.show.client_capital_types.#{key}.hint")
+      - text = header_with_hint("estimates.show.#{person}_capital_types.#{key}.text", "estimates.show.#{person}_capital_types.#{key}.hint")
       - body.row do |row|
         - row.cell(header: true, text:)
         - row.cell(text: amount, numeric: true)

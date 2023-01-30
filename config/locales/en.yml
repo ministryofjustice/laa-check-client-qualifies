@@ -253,7 +253,7 @@ en:
               not_a_number: The total of savings all saving must be a number. Enter 0 if this does not apply.
               greater_than_or_equal_to: The total of all savings must be 0 or more.
             property_value:
-              blank: Enter the estimated value of the second property, holiday home, or land, if this does not apply enter 0
+              blank: Enter the estimated value of the additional property, holiday home, or land, if this does not apply enter 0
               not_a_number: The estimated value of the additional property, holiday home, or land must be a number. Enter 0 if this does not apply.
               greater_than_or_equal_to: The estimated value of the additional property, holiday home or land must be 0 or more
             property_mortgage:
@@ -1051,8 +1051,8 @@ en:
         vehicle_over_3_years_ago: Bought over 3 years ago
         vehicle_pcp: Outstanding finance on vehicle?
         vehicle_finance: Payments left on vehicle
-      property: Main dwelling
-      partner_property: Partner main dwelling
+      property: Home client lives in
+      partner_property: Home client lives in
       partner_property_fields:
         partner_property_owned: Owns the home they live it
         partner_property_owned_options:
@@ -1086,9 +1086,9 @@ en:
         partner_adult_dependants_count: Number of partner adult dependants
       other: Client's other assets
       other_fields:
-        property_value: "Second property or holiday home: value"
-        property_mortgage: "Second property or holiday home: outstanding mortgage"
-        property_percentage_owned_html: "Second property or holiday home: &#37; owned"
+        property_value: "Additional property or holiday home: value"
+        property_mortgage: "Additional property or holiday home: outstanding mortgage"
+        property_percentage_owned_html: "Additional property or holiday home: &#37; owned"
         savings: Savings
         investments: Investments
         valuables: Valuables
@@ -1136,9 +1136,9 @@ en:
         partner_vehicle_finance: Payments left on vehicle
       partner_other: Partner's other assets
       partner_other_fields:
-        partner_property_value: "Second property or holiday home: value"
-        partner_property_mortgage: "Second property or holiday home: outstanding mortgage"
-        partner_property_percentage_owned_html: "Second property or holiday home: &#37; owned"
+        partner_property_value: "Additional property or holiday home: value"
+        partner_property_mortgage: "Additional property or holiday home: outstanding mortgage"
+        partner_property_percentage_owned_html: "Additional property or holiday home: &#37; owned"
         partner_savings: Savings
         partner_investments: Investments
         partner_valuables: Valuables
@@ -1249,6 +1249,19 @@ en:
         non_liquid:
           text: Investments and valuables
           hint: ""
+      partner_capital_types:
+        property:
+          text: Assessed property value
+          hint: ""
+        vehicles:
+          text: Asssessed vehicle value
+          hint: ""
+        liquid:
+          text: Savings
+          hint: ""
+        non_liquid:
+          text: Investments and valuables
+          hint: ""
       client_capital_subtotal_types:
         total_capital:
           text: Total capital
@@ -1317,6 +1330,9 @@ en:
         mortgage:
           text: Outstanding mortgage
           hint: ""
+        disregards:
+          text: Disregards and deductions
+          hint: 3% of the property value deducted for cost of sale
         equity:
           text: Assessed value
       partner_additional_property_hint: Calculated using the partner’s percentage share provided
