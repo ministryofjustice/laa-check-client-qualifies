@@ -17,6 +17,8 @@ require "simplecov"
 SimpleCov.start "rails" do
   # no database (yet) so this file is never loaded
   add_filter "app/models/application_record.rb"
+  add_filter "app/mailers/exception_alert_mailer.rb"
+  add_filter "app/lib/exception_notifier/templated_notifier.rb"
 
   enable_coverage :branch
   primary_coverage :branch

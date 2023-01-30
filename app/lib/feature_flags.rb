@@ -4,7 +4,7 @@ class FeatureFlags
     disregard_cost_of_living: "2023-01-10",
   }.freeze
 
-  FLIPPER_FLAGS = %i[partner].freeze
+  FLIPPER_FLAGS = %i[partner sentry].freeze
 
   class << self
     def enabled?(flag)
