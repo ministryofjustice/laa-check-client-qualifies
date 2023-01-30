@@ -6,6 +6,10 @@ tr.solid-bottom-border {
   border-bottom: 2px solid #000
 }
 
+.no-bottom-border {
+  border-bottom: 0;
+}
+
 // make the confirmation panel a neutral colour
 .panel-blue {
   background: govuk-colour("blue");

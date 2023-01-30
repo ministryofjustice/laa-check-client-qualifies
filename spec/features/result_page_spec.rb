@@ -165,18 +165,17 @@ RSpec.describe "Results Page" do
 
     it "shows the capital section" do
       within "#capital-calculation-content" do
-        expect(page).to have_content "Property Value £"
-        expect(page).to have_content "Outstanding mortgage £"
-        expect(page).to have_content "Disregards and deductions £"
+        expect(page).to have_content "Home client lives in Value\n£"
+        expect(page).to have_content "Outstanding mortgage\n-£70,000.00"
+        expect(page).to have_content "Disregards and deductions\nApplied to the home equity and capped at £100,000\n-£100,000.00"
         expect(page).to have_content "Assessed value £"
-        expect(page).to have_content "Vehicles Value £"
-        expect(page).to have_content "Outstanding payments £"
+        expect(page).to have_content "Client's vehicle Value £"
+        expect(page).to have_content "Outstanding payments -£500.00"
         expect(page).to have_content "Assessed value £"
-        expect(page).to have_content "Additional property Value £"
-        expect(page).to have_content "Outstanding mortgage £"
-        expect(page).to have_content "Savings £"
-        expect(page).to have_content "Investments and valuables £"
-        expect(page).to have_content "Total capital £"
+        expect(page).to have_content "Client's additional property Value\n£80,000.00"
+        expect(page).to have_content "Savings\n£"
+        expect(page).to have_content "Investments and valuables\n£"
+        expect(page).to have_content "Total capital\n£"
       end
     end
   end
@@ -256,7 +255,7 @@ RSpec.describe "Results Page" do
 
     it "shows the capital section" do
       within "#capital-calculation-content" do
-        expect(page).to have_content "Partner's additional property Value £80,000.00"
+        expect(page).to have_content "Partner's additional property Value\n£80,000.00"
       end
     end
   end

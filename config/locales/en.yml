@@ -253,7 +253,7 @@ en:
               not_a_number: The total of savings all saving must be a number. Enter 0 if this does not apply.
               greater_than_or_equal_to: The total of all savings must be 0 or more.
             property_value:
-              blank: Enter the estimated value of the second property, holiday home, or land, if this does not apply enter 0
+              blank: Enter the estimated value of the additional property, holiday home, or land, if this does not apply enter 0
               not_a_number: The estimated value of the additional property, holiday home, or land must be a number. Enter 0 if this does not apply.
               greater_than_or_equal_to: The estimated value of the additional property, holiday home or land must be 0 or more
             property_mortgage:
@@ -1051,8 +1051,8 @@ en:
         vehicle_over_3_years_ago: Bought over 3 years ago
         vehicle_pcp: Outstanding finance on vehicle?
         vehicle_finance: Payments left on vehicle
-      property: Main dwelling
-      partner_property: Partner main dwelling
+      property: Home client lives in
+      partner_property: Home client lives in
       partner_property_fields:
         partner_property_owned: Owns the home they live it
         partner_property_owned_options:
@@ -1086,9 +1086,9 @@ en:
         partner_adult_dependants_count: Number of partner adult dependants
       other: Client's other assets
       other_fields:
-        property_value: "Second property or holiday home: value"
-        property_mortgage: "Second property or holiday home: outstanding mortgage"
-        property_percentage_owned_html: "Second property or holiday home: &#37; owned"
+        property_value: "Additional property or holiday home: value"
+        property_mortgage: "Additional property or holiday home: outstanding mortgage"
+        property_percentage_owned_html: "Additional property or holiday home: &#37; owned"
         savings: Savings
         investments: Investments
         valuables: Valuables
@@ -1136,9 +1136,9 @@ en:
         partner_vehicle_finance: Payments left on vehicle
       partner_other: Partner's other assets
       partner_other_fields:
-        partner_property_value: "Second property or holiday home: value"
-        partner_property_mortgage: "Second property or holiday home: outstanding mortgage"
-        partner_property_percentage_owned_html: "Second property or holiday home: &#37; owned"
+        partner_property_value: "Additional property or holiday home: value"
+        partner_property_mortgage: "Additional property or holiday home: outstanding mortgage"
+        partner_property_percentage_owned_html: "Additional property or holiday home: &#37; owned"
         partner_savings: Savings
         partner_investments: Investments
         partner_valuables: Valuables
@@ -1237,14 +1237,51 @@ en:
       capital_calculation: Capital calculation
       client_capital: Client's capital
       client_capital_types:
-        property: Property
-        vehicles: Vehicles
-        liquid: Savings
-        non_liquid: Investments and valuables
+        property:
+          text: Assessed property value
+          hint: Total of home client lives in and any additional property
+        vehicles:
+          text: Asssessed vehicle value
+          hint: ""
+        liquid:
+          text: Savings
+          hint: ""
+        non_liquid:
+          text: Investments and valuables
+          hint: ""
+      partner_capital_types:
+        property:
+          text: Assessed property value
+          hint: ""
+        vehicles:
+          text: Asssessed vehicle value
+          hint: ""
+        liquid:
+          text: Savings
+          hint: ""
+        non_liquid:
+          text: Investments and valuables
+          hint: ""
       client_capital_subtotal_types:
-        total_capital: Total capital
-        pensioner_capital_disregard: Pensioner disregard
-        smod_disregard: Disputed asset disregard
+        total_capital:
+          text: Total capital
+          hint: ""
+        pensioner_capital_disregard:
+          text: Pensioner disregard
+          hint: Applied to total capital and capped at £100,000
+        smod_disregard:
+          text: Disputed asset disregard
+          hint: Equal to the assessed value of all assets marked as disputed and capped at £100,000
+      pensioner_disregard_types:
+        total_capital:
+          text: Total client and partner disposable capital
+          hint: ""
+        pensioner_capital_disregard:
+          text: Pensioner disregard
+          hint: ""
+        assessed_capital:
+          text: Total assessed disposable capital
+          hint: ""
       gross_monthly_income: Total monthly income
       gross_with_partner: Total client and partner monthly income
       gross_income_upper_threshold: Monthly income upper limit
@@ -1259,29 +1296,59 @@ en:
       print_page: Print this page
       save_as_pdf: Save this page as a PDF
       total_capital: Total capital
-      property: Property
-      main_home_value: Value
-      main_home_mortgage: Outstanding mortgage
-      vehicle_disregards: Disregards and deductions
-      main_home_disregard: Disregards and deductions
-      main_home_equity: Assessed value
+      property: Home client lives in
+      main_home:
+        value:
+          text: Value
+          hint: ""
+        mortgage:
+          text: Outstanding mortgage
+          hint: ""
+        disregard:
+          text: Disregards and deductions
+          hint: Applied to the home equity and capped at £100,000
+        equity:
+          text: Assessed value
+          hint: Calculated using the client’s percentage share provided
       assessed_value: Amount included in calculation
       client_disposable_capital: Client's disposable capital
       partner_disposable_capital: Partner's disposable capital
-      vehicles: Vehicles
-      partner_vehicles: Partner's vehicles
-      vehicle_value: Value
-      vehicle_outstanding_payments: Outstanding payments
-      vehicle_assessed_value: Assessed value
-      total_assessed_capital: Total assessed capital
-      additional_property: Additional property
+      vehicles: Client's vehicle
+      partner_vehicles: Partner's vehicle
+      vehicle:
+        value: Value
+        outstanding_payments: Outstanding payments
+        disregards: Disregards and deductions
+        assessed_value: Assessed value
+      total_assessed_capital: Total assessed disposable capital
+      client_additional_property: Client's additional property
       partner_additional_property: Partner's additional property
-      additional_property_value: Value
-      additional_property_mortgage: Outstanding mortgage
-      additional_property_equity: Assessed value
+      additional_property:
+        value:
+          text: Value
+          hint: ""
+        mortgage:
+          text: Outstanding mortgage
+          hint: ""
+        disregards:
+          text: Disregards and deductions
+          hint: 3% of the property value deducted for cost of sale
+        equity:
+          text: Assessed value
+      partner_additional_property_hint: Calculated using the partner’s percentage share provided
+      client_additional_property_hint: Calculated using the client’s percentage share provided
       capital_upper_threshold: Disposable capital upper limit
       total: Total
       capped_contributions: "Capital contributions will be limited to the likely costs of the case when the capital contribution figure stated exceeds that amount."
+      pensioner_disregard: Pensioner disregard
+      pensioner_disregard_caption: Applied to the total of the client and partner's disposable capital, and capped at £100,000.
+      capital_header:
+        partner:
+          first: The calculations below assess the value of any property and vehicles the client and their partner own.
+          second: The assessed values are used to calculate the total disposable capital for your client and their partner.
+        client:
+          first: The calculations below assess the value of any property and vehicle the client owns.
+          second: The assessed values are used to calculate the total disposable capital for your client.
     limits_table:
       calculation_information: We’ve used the information you provided to compare your client’s income and outgoings. This allows us to calculate their monthly disposable income.
       regulations_html: "All the regulations referred to on this page can be found in the <a href='http://www.legislation.gov.uk/all?title=Civil%20Legal%20Aid%20%28Financial%20Resources%20'>Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 and subsequent amendments</a>."
