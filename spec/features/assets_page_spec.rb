@@ -101,7 +101,7 @@ RSpec.describe "Assets Page" do
         click_on "Save and continue"
         expect(page).to have_css(".govuk-error-summary__list")
         within ".govuk-error-summary__list" do
-          expect(page).to have_content("Enter the estimated value of the second property")
+          expect(page).to have_content("Enter the estimated value of the additional property")
         end
       end
     end
@@ -157,7 +157,7 @@ RSpec.describe "Assets Page" do
                                        ] })
 
           expect(page).to have_content check_answers_header
-          expect(page).to have_content "Second property or holiday home: % owned"
+          expect(page).to have_content "Additional property or holiday home: % owned"
           click_on "Submit"
         end
       end
