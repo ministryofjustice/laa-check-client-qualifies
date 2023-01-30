@@ -2,30 +2,16 @@
   - table.caption(size: caption_size, text: caption)
   - table.body do |body|
     - rows.each do |key, amount|
-      - if t("estimates.show.client_capital_types.#{key}.hint").blank?
-        - body.row do |row|
-          - row.cell(header: true, text: t("estimates.show.client_capital_types.#{key}.text"))
-          - row.cell(text: amount, numeric: true)
-      - else
-        - body.row do |row|
-          - row.cell(classes: %w[no-bottom-border], header: true, text: t("estimates.show.client_capital_types.#{key}.text"))
-          - row.cell(classes: %w[no-bottom-border], text: amount, numeric: true)
-        - body.row do |row|
-          - row.cell(classes: %w[govuk-hint], text: t("estimates.show.client_capital_types.#{key}.hint"))
-          - row.cell(text: "")
+      - text = header_with_hint("estimates.show.client_capital_types.#{key}.text", "estimates.show.client_capital_types.#{key}.hint")
+      - body.row do |row|
+        - row.cell(header: true, text:)
+        - row.cell(text: amount, numeric: true)
     - subtotal_rows.each_with_index do |type_and_amount, index|
-      - if t("estimates.show.client_capital_subtotal_types.#{type_and_amount[0]}.hint").blank?
-        - body.row(classes: (%w[solid-top-border] if index.zero?)) do |row|
-          - row.cell(header: true, text: t("estimates.show.client_capital_subtotal_types.#{type_and_amount[0]}.text"))
-          - row.cell(text: type_and_amount[1], numeric: true)
-      - else
-        - body.row(classes: (%w[solid-top-border] if index.zero?)) do |row|
-          - row.cell(classes: %w[no-bottom-border], header: true, \
-                     text: t("estimates.show.client_capital_subtotal_types.#{type_and_amount[0]}.text"))
-          - row.cell(classes: %w[no-bottom-border], text: type_and_amount[1], numeric: true)
-        - body.row do |row|
-          - row.cell(classes: %w[govuk-hint], text: t("estimates.show.client_capital_subtotal_types.#{type_and_amount[0]}.hint"))
-          - row.cell(text: "")
+      - text = header_with_hint("estimates.show.client_capital_subtotal_types.#{type_and_amount[0]}.text",
+                                "estimates.show.client_capital_subtotal_types.#{type_and_amount[0]}.hint")
+      - body.row(classes: (%w[solid-top-border] if index.zero?)) do |row|
+        - row.cell(header: true, text:)
+        - row.cell(text: type_and_amount[1], numeric: true)
     - body.row(classes: %w[solid-top-border]) do |row|
       - row.cell(header: true, text: t("estimates.show.client_assessed_capital"))
       - row.cell(header: true, text: assessed_capital, numeric: true)

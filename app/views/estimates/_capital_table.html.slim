@@ -8,6 +8,7 @@
   = render "property_table",
           caption_size:,
           caption: t("estimates.show.property"),
+          hint_key: "estimates.show.main_home.equity.hint",
           type: "main_home",
           rows: @model.client_main_home_rows,
           assessed_value: @model.client_assessed_equity
@@ -16,6 +17,7 @@
   = render "property_table",
           caption_size:,
           caption: t("estimates.show.client_additional_property"),
+          hint_key: "estimates.show.client_additional_property_hint",
           type: "additional_property",
           rows: @model.client_additional_property_rows,
           assessed_value: @model.client_additional_equity
@@ -31,6 +33,7 @@
   = render "property_table",
           caption_size:,
           caption: t("estimates.show.partner_additional_property"),
+          hint_key: "estimates.show.partner_additional_property_hint",
           type: "additional_property",
           rows: @model.partner_additional_property_rows,
           assessed_value: @model.partner_additional_equity
@@ -79,5 +82,5 @@
       - row.cell(header: true, text: t("estimates.show.total_assessed_capital"))
       - row.cell(header: true, text: @model.total_assessed_capital, numeric: true)
     - body.row(classes: %w[solid-bottom-border]) do |row|
-      - row.cell(header: true, text: t("estimates.show.capital_upper_threshold"))
+      - row.cell(text: t("estimates.show.capital_upper_threshold"))
       - row.cell(text: @model.capital_upper_threshold, numeric: true)

@@ -1300,8 +1300,8 @@ en:
       assessed_value: Amount included in calculation
       client_disposable_capital: Client's disposable capital
       partner_disposable_capital: Partner's disposable capital
-      vehicles: Client's vehicles
-      partner_vehicles: Partner's vehicles
+      vehicles: Client's vehicle
+      partner_vehicles: Partner's vehicle
       vehicle:
         value: Value
         outstanding_payments: Outstanding payments
@@ -1319,7 +1319,8 @@ en:
           hint: ""
         equity:
           text: Assessed value
-          hint: Calculated using the partner’s percentage share provided
+      partner_additional_property_hint: Calculated using the partner’s percentage share provided
+      client_additional_property_hint: Calculated using the client’s percentage share provided
       capital_upper_threshold: Disposable capital upper limit
       total: Total
       capped_contributions: "Capital contributions will be limited to the likely costs of the case when the capital contribution figure stated exceeds that amount."

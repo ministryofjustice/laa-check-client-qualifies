@@ -1,7 +1,5 @@
 - body.row do |row|
   ruby:
-    text = (t("estimates.show.client_income_types.#{income_type}") +
-                tag.div(t("estimates.show.client_income_hints.#{income_type}"),
-                        class: "govuk-hint govuk-!-margin-top-1 govuk-!-margin-bottom-0")).html_safe
+    text = header_with_hint("estimates.show.client_income_types.#{income_type}", "estimates.show.client_income_hints.#{income_type}")
   - row.cell(header: true, text:)
   - row.cell(text: money_amount, numeric: true)
