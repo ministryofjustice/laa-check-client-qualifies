@@ -21,7 +21,7 @@ RSpec.describe "Partner with passporting", :vcr, :partner_flag do
     it "handles can submit to CFE" do
       click_on "Submit"
 
-      expect(page).to have_content "Your client appears provisionally eligible"
+      expect(page).to have_content "Your client is likely to qualify for civil legal aid"
     end
   end
 end

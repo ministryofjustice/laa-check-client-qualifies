@@ -9,19 +9,8 @@ class CalculationResult
     @api_response = api_response
   end
 
-  def eligible?
-    decision == "eligible"
-  end
-
   def decision
     api_response.dig(:result_summary, :overall_result, :result)
-  end
-
-  # Note - this is probably technically incorrect as partially eligible could mean
-  # eligible for 1 proceeding type and ineligible for the other. It can't happen here
-  # as we only ever submit one proceeding type so partial eligibility can never occur
-  def contribution_required?
-    %w[contribution_required partially_eligible].include?(decision)
   end
 
   def calculated?(section)

@@ -29,7 +29,7 @@ RSpec.describe "Vehicle Page", :vcr do
     it "handles a full submit to CFE" do
       click_on "Submit"
 
-      expect(page).to have_content "Your client appears provisionally eligible"
+      expect(page).to have_content "Your client is likely to qualify for civil legal aid"
     end
   end
 end
