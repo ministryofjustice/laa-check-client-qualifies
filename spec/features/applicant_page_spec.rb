@@ -17,9 +17,9 @@ RSpec.describe "Applicant Page" do
       within ".govuk-error-summary__list" do
         expect(all("li").map(&:text)).to eq [
           "Select yes if your client is likely to be an applicant in a domestic abuse case",
-          "Select yes if your client is over 60 years old",
+          "Select yes if your client is aged 60 or over",
           "Select employed if your client is currently employed",
-          "Select yes if your client is currently in receipt of a passporting benefit",
+          "Select yes if your client receives a passporting benefit or if they are named on their partner's passporting benefit",
         ]
       end
     end

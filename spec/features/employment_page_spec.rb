@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Employment page" do
-  let(:employment_page_header) { "Add your client's salary breakdown" }
+  let(:employment_page_header) { I18n.t("estimate_flow.employment.heading") }
   let(:dependant_question) { I18n.t("estimate_flow.dependant_details.legend") }
   let(:estimate_id) { SecureRandom.uuid }
   let(:mock_connection) { instance_double(CfeConnection, create_assessment_id: estimate_id) }
@@ -64,7 +64,7 @@ RSpec.describe "Employment page" do
 
         it "shows a friendly error message" do
           within ".govuk-error-summary__list" do
-            expect(page).to have_content("Gross employment income must be more than income tax and National Insurance combined")
+            expect(page).to have_content("Employment income must be more than income tax and National Insurance combined")
           end
         end
       end
@@ -76,7 +76,7 @@ RSpec.describe "Employment page" do
 
         it "shows me an error message" do
           expect(page).to have_content employment_page_header
-          expect(page).to have_content "Enter gross employment income"
+          expect(page).to have_content "Enter employment income, before any deductions"
         end
       end
 

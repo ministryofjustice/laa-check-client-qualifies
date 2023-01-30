@@ -19,7 +19,7 @@ RSpec.describe "Partner vehicle pages", :partner_flag do
 
     it "shows me an error message" do
       expect(page).to have_content partner_vehicle_heading
-      expect(page).to have_content "Select yes if your client's partner owns a vehicle"
+      expect(page).to have_content "Select yes if the partner owns a vehicle"
     end
   end
 
