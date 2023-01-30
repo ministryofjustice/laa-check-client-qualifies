@@ -1185,17 +1185,28 @@ en:
       submission_explanation: We'll use your answers to give you an estimated result on your client's financial eligibility for legal aid.
       call_to_action: Submit eligibility check
     show:
-      eligible: Provisionally eligible
-      contribution_required: Provisionally eligible
-      partially_eligible: Provisionally eligible
-      ineligible: Ineligible
-      summary: Your client appears %{eligibility} for legal aid based on the information provided.
-      no_contribution: We estimate that your client will not have to pay any financial contribution.
-      we_calculated: "We estimate that your client may have to pay:"
+      likely_to_qualify: Your client is likely to qualify for civil legal aid
+      not_likely_to_qualify: Your client is not likely to qualify for civil legal aid
+      eligible_intro_paragraphs:
+        - Your client is likely to qualify financially for civil legal aid, without needing to pay a contribution, based on the information you entered.
+        - This is not a guarantee that your client will get civil legal aid. For a final decision on eligibility and contributions (if any), an application and supporting evidence must be submitted to the Legal Aid Agency (LAA) for assessment. A full assessment supported by evidence may generate a different result.
+        - "The LAA will also consider:"
+      contribution_intro_paragraph: "Your client is likely to qualify financially for civil legal aid based on the information you have entered. We estimate they will have to pay towards the costs of their case:"
       per_month: per month from their disposable income
-      from_capital: from their disposable capital
-      per_guidance: The provisional declaration has been determined in line with the Lord Chancellor's Guidance - Guide to Determining Financial Eligibility for Certified Work
-      disclaimer: Any figures quoted are not a guarantee of legal aid and eligibility is subject to a final decision following LAA consideration of any application for legal aid made by the provider.
+      from_capital: lump sum payment from their disposable capital
+      contribution_explanations:
+        - Any capital contribution will not exceed the likely costs of their case.
+        - This is not a guarantee that your client will get civil legal aid if an application is made for them and the contribution figure(s) displayed may change. For a final decision on eligibility and contributions (if any), an application and supporting evidence must be submitted to the Legal Aid Agency (LAA) for assessment. A full assessment supported by evidence may generate a different result.
+        - "The LAA will also consider:"
+      ineligible_intro_paragraphs:
+        - Your client is not likely to qualify financially for civil legal aid based on the information you entered. You may wish to discuss your client’s options, for example they can pay for legal support or get advice from a charity or advice organisation.
+        - "Although it is unlikely to generate a different result, your client may wish to have an application and supporting evidence submitted to the Legal Aid Agency (LAA) for assessment. An application may also consider:"
+      also_considered:
+        - whether your client’s case is in scope for legal aid
+        - the case merits, for example its likelihood of success and the benefit it would give your client
+      lord_chancellors_guidance: These calculations were made in line with the latest version of the Lord Chancellor's Guidance on Determining Financial Eligibility for Certificated Work.
+      not_always_free: Legal aid is not always free
+      freeness_explanation: In some circumstances, your client may be asked to repay the legal costs of their case, for example from money or assets kept or gained as a result of legal aid if the statutory charge arises.
       what_happens_next: What happens next
       next_steps_paragraph_1: Use Apply for legal aid or CCMS to start an application for your client.
       next_steps_paragraph_2: You may need to provide evidence of your client's eligibility as part of your application.
