@@ -17,17 +17,18 @@ class BaseAssetsForm
   attribute :property_percentage_owned, :fully_validatable_integer
   validates :property_percentage_owned,
             numericality: { greater_than: 0, only_integer: true, less_than_or_equal_to: 100, allow_nil: true },
-            presence: true, if: -> { property_value.to_i.positive? }
+            presence: true,
+            if: -> { property_value.to_i.positive? }
 
   ASSETS_DECIMAL_ATTRIBUTES.each do |asset_type|
     attribute asset_type, :gbp
-    validates asset_type, numericality: { allow_nil: true }, presence: true
+    validates asset_type, numericality: { greater_than_or_equal_to: 0, allow_nil: true }, presence: true
   end
 
   validate :positive_valuables_must_be_over_500
 
   def positive_valuables_must_be_over_500
-    return if valuables.to_i.zero? || valuables >= 500
+    return if valuables.to_i <= 0 || valuables >= 500
 
     errors.add(:valuables, :below_500)
   end

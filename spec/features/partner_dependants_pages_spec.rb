@@ -29,8 +29,8 @@ RSpec.describe "Partner Dependants", :partner_flag do
     it "checks I have made a choice" do
       click_on("Save and continue")
       within ".govuk-error-summary__list" do
-        expect(page).to have_content("Please select yes if client's partner has adult dependants")
-        expect(page).to have_content("Please select yes if client's partner has child dependants")
+        expect(page).to have_content("Select yes if the partner has child dependants")
+        expect(page).to have_content("Select yes if the partner has adult dependants")
       end
     end
 
