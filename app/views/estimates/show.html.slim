@@ -58,7 +58,6 @@ h2.govuk-heading-m = t(".how_calculated")
       = render "capital_table", caption_size: "m"
 
 .govuk-button-group
-  = link_to new_estimate_path
-    .govuk-button data-module="govuk-button" = t(".start_another_check")
-  = link_to print_estimate_path(params[:estimate_id]), target: "_blank", rel: "noopener"
-    .govuk-button.govuk-button--secondary data-module="govuk-button" = t(".print_page")
+  = link_to t(".start_another_check"), new_estimate_path, class: "govuk-button", data: { module: "govuk-button" }
+  = link_to t(".print_page"), print_estimate_path(params[:estimate_id]), target: "_blank", rel: "noopener", class: "govuk-button govuk-button--secondary"
+  = link_to t(".save_as_pdf"), download_estimate_path(params[:estimate_id]), target: "_blank", rel: "noopener", class: "govuk-button govuk-button--secondary"

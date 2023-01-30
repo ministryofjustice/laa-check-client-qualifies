@@ -24,7 +24,7 @@ Rails.application.routes.draw do
       collection { post :add }
     end
 
-    member { get :print, :check_answers }
+    member { get :print, :check_answers, :download }
   end
 
   resource :cookies, only: %i[show update]

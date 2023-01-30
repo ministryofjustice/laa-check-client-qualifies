@@ -19,6 +19,33 @@ class EstimatesController < ApplicationController
     @estimate_id = params.fetch(:id)
   end
 
+  def download
+    html = render_to_string({
+      template: "estimates/print",
+      layout: "print_application",
+      locals: { :@model => CfeService.call(cfe_session_data(:id)) },
+    })
+
+    grover_options = {
+      format: "A4",
+      margin: {
+        top: "2cm",
+        bottom: "2cm",
+        left: "1cm",
+        right: "1cm",
+      },
+      emulate_media: "print",
+      launch_args: ["--no-sandbox"],
+      display_url: request.url.split("/estimates").first,
+    }
+
+    pdf = Grover.new(html, **grover_options).to_pdf
+
+    send_data pdf,
+              filename: "#{I18n.t('generic.download_name')} - #{Time.zone.now.strftime('%Y-%m-%d %H.%M.%S')}.pdf",
+              type: "application/pdf"
+  end
+
 private
 
   def cfe_session_data(param_name)

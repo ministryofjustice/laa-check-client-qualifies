@@ -39,5 +39,11 @@ pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 #
 # preload_app!
 
+if ENV["MULTI_THREAD"]
+  silence_single_worker_warning
+  workers 1 # Note that this is the number of workers *in addition to* the main process
+  preload_app!
+end
+
 # Allow puma to be restarted by `bin/rails restart` command.
 plugin :tmp_restart

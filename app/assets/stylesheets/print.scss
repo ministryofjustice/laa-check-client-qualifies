@@ -26,3 +26,10 @@
   top: 3px;
   font-family: HelveticaNeue, "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
+
+@media print {
+  button {
+    display: none !important; // In no circumstances do we want buttons to appear when the page is printed,
+                              // regardless of class-based button styles
+  }
+}

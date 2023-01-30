@@ -67,6 +67,14 @@ To use the feature flag in your code, just call `FeatureFlags.enabled?(:flag_nam
 In tests, you can temporarily enable a feature flag with `Flipper.enable(:flag_name)`.
 However, flags are _not_ reset between specs, so to avoid polluting other tests use an `around` block and call `Flipper.disable(:flag_name)` once the test has run.
 
+### Saving as PDF
+
+We use Grover to save pages as PDF files for download, which in turn uses Puppeteer. For it to work, the app needs to make HTTP requests to the app, to load assets. This means that it only works in a multi-threaded environment. To run the app multithreadedly in development mode, set the `MULTI_THREAD` environment variable, e.g.:
+
+```bash
+MULTI_THREAD=1 bundle exec rails s
+```
+
 ### Deploying to UAT/Staging/Production
 
 The service uses `helm` to deploy to Cloud Platform Environments via CircleCI. This can be installed using:

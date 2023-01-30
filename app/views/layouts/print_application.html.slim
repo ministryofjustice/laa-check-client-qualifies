@@ -10,6 +10,7 @@ html lang="en" class="govuk-template"
     = tag.meta property: "og:image", content: asset_path("images/govuk-opengraph-image.png")
     = tag.meta name: "theme-color", content: "#0b0c0c"
     = tag.meta name: "robots", content: "noindex"
+    meta charset="UTF-8"
 
     = favicon_link_tag asset_path("images/favicon.ico")
     = favicon_link_tag asset_path("images/govuk-mask-icon.svg"), rel: "mask-icon", type: "image/svg", color: "#0b0c0c"
@@ -28,12 +29,6 @@ html lang="en" class="govuk-template"
     = govuk_skip_link
 
     .govuk-width-container
-      = govuk_phase_banner tag: { text: t("service.beta") },
-              text: t("service.beta_message_html", user_survey_link: t("service.user_survey_link")),
-              html_attributes: { role: "complementary", "aria-label": "Beta notification" }
-
       main#main-content.govuk-main-wrapper role="main"
         div class="govuk-grid-row"
           = yield
-
-    = render partial: "layouts/footer"
