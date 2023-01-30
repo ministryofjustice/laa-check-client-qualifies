@@ -296,7 +296,7 @@ en:
         partner_property_form:
           attributes:
             property_owned:
-              inclusion: Select yes if the partner owns the home they live in
+              inclusion: Select yes if the partner owns the home the client lives in
         provider_user:
           attributes:
             blank: Select yes if you give legal advice or provide legal services
