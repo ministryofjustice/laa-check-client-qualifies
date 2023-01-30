@@ -48,7 +48,7 @@ en:
               blank: Enter employment income, before any deductions
               net_income_must_be_positive: Employment income must be more than income tax and National Insurance combined
               not_a_number: Employment income, before any deductions, must be a number
-              greater_than: Employment income must be more than 0
+              greater_than: Employment income, before any deductions, must be more than 0
             income_tax:
               greater_than_or_equal_to: Income tax must be 0 or more
               blank: Enter income tax, if this does not apply enter 0
@@ -219,16 +219,16 @@ en:
           attributes:
             housing_payments_value:
               blank: Enter housing payments, if this does not apply enter 0
-              not_a_number: Housing payments must be a number
+              not_a_number: Housing payments must be a number, or enter 0 if this does not apply
             childcare_payments_value:
               blank: Enter childcare payments, if this does not apply enter 0
-              not_a_number: Childcare payments must be a number
+              not_a_number: Childcare payments must be a number, or enter 0 if this does not apply
             maintenance_payments_value:
               blank: Enter maintenance payments to a former partner, if this does not apply enter 0
-              not_a_number: Maintenance payments to a former partner must be a number
+              not_a_number: Maintenance payments to a former partner must be a number, or enter 0 if this does not apply
             legal_aid_payments_value:
               blank: Enter payments towards legal aid in a criminal case, if this does not apply enter 0
-              not_a_number: Payments towards legal aid in a criminal case must be a number
+              not_a_number: Payments towards legal aid in a criminal case must be a number, or enter 0 if this does not apply
             housing_payments_frequency:
               blank: Select frequency of housing payments
             childcare_payments_frequency:
@@ -243,28 +243,29 @@ en:
               blank: Enter the total value of items worth £500 or more. Enter 0 if this does not apply.
               not_a_number: Value of items worth £500 or more must be a number, if this does not apply enter 0
               below_500: Valuable items must be £500 or more, if this does not apply enter 0
-              greater_than_or_equal_to: The total value of all items worth £500 or more must be a number. Enter 0 if this does not apply.
+              greater_than_or_equal_to: The total value of all items worth £500 or more must be 0 or more.
             investments:
               blank: Enter the total value of investments, if this does not apply enter 0
               not_a_number: The total value of all investments must be a number. Enter 0 if this does not apply.
-              greater_than_or_equal_to: Enter the total of all investments. Enter 0 if this does not apply.
+              greater_than_or_equal_to: The total value of all investments must be 0 or more.
             savings:
               blank: Enter the total amount of all savings. Enter 0 if this does not apply.
               not_a_number: The total of savings all saving must be a number. Enter 0 if this does not apply.
-              greater_than_or_equal_to: Enter the total amount of all savings. Enter 0 if this does not apply.
+              greater_than_or_equal_to: The total of all savings must be 0 or more.
             property_value:
               blank: Enter the estimated value of the second property, holiday home, or land, if this does not apply enter 0
               not_a_number: The estimated value of the additional property, holiday home, or land must be a number. Enter 0 if this does not apply.
               greater_than_or_equal_to: The estimated value of the additional property, holiday home or land must be 0 or more
             property_mortgage:
-              blank: Enter the outstanding mortgage on the second property, holiday home or land, if this does not apply enter 0
+              blank: Enter the outstanding mortgage on the additional property, holiday home or land, if this does not apply enter 0
               not_a_number: The outstanding mortgage on the additional property, holiday home or land  must be a number. Enter 0 if this does not apply.
-              greater_than_or_equal_to: Enter the outstanding mortgage on the second property, holiday home or land, if this does not apply enter 0
+              greater_than_or_equal_to: The outstanding mortgage on the additional property, holiday home or land must be 0 or more.
             property_percentage_owned:
               blank: Enter the share your client owns of the additional property, holiday home, or land. Enter 0 if this does not apply
-              not_a_number: Share your client owns of the second property, holiday home, or land must be a number, if this does not apply enter 0
-              not_an_integer: Share your client owns of the second property, holiday home, or land must be a whole number, if this does not apply enter 0
+              not_a_number: Share your client owns of the additional property, holiday home, or land must be a number, if this does not apply enter 0
+              not_an_integer: Share your client owns of the additional property, holiday home, or land must be a whole number, if this does not apply enter 0
               greater_than: The share your client owns of the additional property, holiday home, or land must be 0 or more
+              less_than_or_equal_to: The share your client owns of the additional property, holiday home, or land must be between 1 and 100
         partner_assets_form:
           attributes:
             valuables:
@@ -279,10 +280,15 @@ en:
               not_a_number: Total amount of savings must be a number, if this does not apply enter 0
             property_value:
               blank: Enter the estimated value of the additional property, holiday home, or land, if this does not apply enter 0
+              not_a_number: Estimated value of the additional property, holiday home, or land must be a number, or enter 0 if this does not apply
             property_mortgage:
               blank: Enter the outstanding mortgage on the additional property, holiday home or land, if this does not apply enter 0
+              not_a_number: Outstanding mortgage on the additional property, holiday home, or land must be a number, or enter 0 if this does not apply
             property_percentage_owned:
               blank: Enter the share the partner owns of the additional property, holiday home, or land
+              greater_than: Share the partner owns must be greater than 0
+              not_a_number: Share the partner owns of the additional property, holiday home, or land must be a number, or enter 0 if this does not apply
+              less_than_or_equal_to: Share the partner owns must be between 1 and 100
         property_form:
           attributes:
             property_owned:
@@ -298,7 +304,7 @@ en:
           attributes:
             house_value:
               blank: Enter how much the home they live in is worth
-              greater_than: Your client's home must be more than 0
+              greater_than: Your client's home must be worth more than 0
               not_a_number: How much your client's home is worth must be a number
             mortgage:
               blank: Enter how much is left to pay on the mortgage
@@ -308,7 +314,7 @@ en:
               blank: Enter the percentage share that they own of the home
               within_range: The percentage that they own of the home must be between 1 and 100
               not_a_number: The percentage that they own of the home must be a number between 1 and 100
-              not_an_integer: The percentage that they own of the home must be a whole number between 1 and 100
+              not_an_integer: The percentage that they own of the home must be a whole number
             joint_ownership:
               inclusion: Select yes if the property is jointly owned with their partner
             joint_percentage_owned:
@@ -321,16 +327,16 @@ en:
             house_value:
               blank: Enter how much the home is worth
               greater_than: Value of the home must be more than 0
-              not_a_number: Estimated value of the additional property, holiday home, or land must be a number, if this does not apply enter 0
+              not_a_number: How much the home is worth must be a number
             mortgage:
               blank: Enter the outstanding mortgage on the home
               greater_than: Outstanding mortgage on the home must be more than 0
-              not_a_number: Outstanding mortgage on the additinoal property, holiday home, or land must be a number, if this does not apply enter 0
+              not_a_number: The amount left to pay on the mortgage must be a number
             percentage_owned:
               blank: Enter the percentage share of the home that the partner legally owns
-              within_range: Share the partner owns must be between 1 and 100
-              not_a_number: Share the partner owns of the additional property, holiday home, or land must be a number, if this does not apply enter 0
-              not_an_integer: Share the partner owns must be a whole number between 1 and 100
+              within_range: The percentage that the partner owns must be between 1 and 100
+              not_a_number: The percentage that the partner owns must be a number
+              not_an_integer: The percentage that the partner owns must be a whole number
         vehicle_form:
           attributes:
             vehicle_owned:

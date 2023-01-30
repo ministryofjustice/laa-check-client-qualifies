@@ -17,7 +17,8 @@ class BaseAssetsForm
   attribute :property_percentage_owned, :fully_validatable_integer
   validates :property_percentage_owned,
             numericality: { greater_than: 0, only_integer: true, less_than_or_equal_to: 100, allow_nil: true },
-            presence: true, if: -> { property_value.to_i.positive? }
+            presence: true,
+            if: -> { property_value.to_i.positive? }
 
   ASSETS_DECIMAL_ATTRIBUTES.each do |asset_type|
     attribute asset_type, :gbp
