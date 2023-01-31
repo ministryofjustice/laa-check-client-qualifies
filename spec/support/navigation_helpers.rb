@@ -152,7 +152,17 @@ end
 
 def visit_flow_page(passporting:, target:, partner: false, &block)
   visit_first_page
-  return if target == current_path.split("/").last.to_sym
+
+  if FeatureFlags.enabled?(:controlled)
+    return if target == :level_of_help
+
+    if !block_given? || !yield(:level_of_help)
+      select_radio(page:, form: "level-of-help-form", field: "level-of-help", value: "certificated")
+      click_on "Save and continue"
+    end
+  end
+
+  return if target == :applicant
 
   if !block_given? || !yield(:applicant)
     applicant_without_passporting(page:, partner:)
