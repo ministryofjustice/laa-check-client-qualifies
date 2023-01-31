@@ -1,5 +1,6 @@
 class CalculationResult
   CFE_MAX_VALUE = 999_999_999_999
+  VALID_OVERALL_RESULTS = %w[eligible contribution_required ineligible].freeze
 
   include ActionView::Helpers::NumberHelper
 
@@ -10,7 +11,15 @@ class CalculationResult
   end
 
   def decision
-    api_response.dig(:result_summary, :overall_result, :result)
+    @decision ||= begin
+      # In some circumstances CFE can return other results, such as 'partially_eligible'.
+      # We believe that those circumstances can never be reached via CCQ.
+      # However we want to safeguard against CFE doing something unexpected.
+      result = api_response.dig(:result_summary, :overall_result, :result)
+      raise "Unhandled CFE result: #{result}" unless VALID_OVERALL_RESULTS.include?(result)
+
+      result
+    end
   end
 
   def calculated?(section)
