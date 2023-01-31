@@ -21,7 +21,10 @@ def applicant_without_passporting(page:, partner:)
   %i[over_60 employed passporting].each do |attribute|
     select_boolean(page:, form_name: "applicant-form", field: attribute, value: false)
   end
-  select_radio(page:, form: "applicant-form", field: "proceeding-type", value: "se003") # non-domestic abuse case
+
+  if page.text.include?("domestic abuse")
+    select_radio(page:, form: "applicant-form", field: "proceeding-type", value: "se003") # non-domestic abuse case
+  end
 
   if FeatureFlags.enabled?(:partner)
     select_boolean(page:, form_name: "applicant-form", field: :partner, value: partner)

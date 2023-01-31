@@ -9,12 +9,13 @@
 
     = form.govuk_error_summary t("generic.error_summary_title")
 
-    = form.govuk_collection_radio_buttons :proceeding_type,
-                                          ApplicantForm::PROCEEDING_TYPES.to_a,
-                                          :last,
-                                          ->(pair) { t(".proceeding_type.#{pair[0]}.label") },
-                                          legend: { text: t(".proceeding_type.legend") },
-                                          hint: { text: t(".proceeding_type.hint") }
+    - if @form.level_of_help != "controlled"
+      = form.govuk_collection_radio_buttons :proceeding_type,
+                                            ApplicantForm::PROCEEDING_TYPES.to_a,
+                                            :last,
+                                            ->(pair) { t(".proceeding_type.#{pair[0]}.label") },
+                                            legend: { text: t(".proceeding_type.legend") },
+                                            hint: { text: t(".proceeding_type.hint") }
 
     = form.govuk_collection_radio_buttons :over_60,
                                           yes_no_options, :first, :last,
@@ -70,9 +71,16 @@
 
     = form.govuk_submit t("generic.save_and_continue")
 
-= render "shared/sidebar_with_date", \
-links: { \
-t(".passporting_guidance.text") => t(".passporting_guidance.link"), \
-t(".pensioner_guidance.text") => t(".pensioner_guidance.link"), \
-t(".domestic_abuse_guidance.text") => t(".domestic_abuse_guidance.link"),
-}
+- if @form.level_of_help == "controlled"
+  = render "shared/sidebar_with_date", \
+           links: { \
+             t(".passporting_guidance.text") => t(".passporting_guidance.link"), \
+             t(".pensioner_guidance.text") => t(".pensioner_guidance.link"),
+           }
+- else
+  = render "shared/sidebar_with_date", \
+           links: { \
+             t(".passporting_guidance.text") => t(".passporting_guidance.link"), \
+             t(".pensioner_guidance.text") => t(".pensioner_guidance.link"), \
+             t(".domestic_abuse_guidance.text") => t(".domestic_abuse_guidance.link"),
+           }
