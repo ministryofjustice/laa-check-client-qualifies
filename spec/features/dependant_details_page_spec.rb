@@ -7,7 +7,7 @@ RSpec.describe "Dependant details page" do
   let(:dependant_details_header) { I18n.t("estimate_flow.dependant_details.legend") }
 
   before do
-    visit_applicant_page
+    visit_first_page
     fill_in_applicant_screen_without_passporting_benefits
     click_on "Save and continue"
   end

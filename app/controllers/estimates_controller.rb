@@ -1,6 +1,6 @@
 class EstimatesController < ApplicationController
   def new
-    redirect_to estimate_build_estimates_path SecureRandom.uuid
+    redirect_to estimate_build_estimate_path SecureRandom.uuid, StepsHelper.first_step
   end
 
   def create
