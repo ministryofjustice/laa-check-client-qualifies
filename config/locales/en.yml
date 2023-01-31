@@ -1457,6 +1457,21 @@ en:
       unacceptable_client_types:
         - self employed
         - in the armed forces
+      case_types: Case types
+      case_types_intro: "This must be for a case that would be:"
+      valid_case_types:
+        - civil certificated or licensed legal work
+        - controlled work or family mediation
+      invalid_case_types_intro: "It cannot be for a case that would be in the:"
+      invalid_case_types:
+        - Immigration and Asylum Chamber of the Upper Tribunal
+        - First-tier Tribunal (Immigration and Asylum)
+      client_types: Client types
+      service_function: What this service will help you assess
+      service_function_paragraphs:
+        - This service assesses whether your client's case is likely to meet the financial criteria for legal aid. It cannot tell you if the merits or the type of case put it in scope for civil legal aid.
+        - For controlled work and family mediation, you must make a decision using the relevant legislation and guidance. The Legal Aid Agency (LAA) may check your decision in the future.
+        - For certificated or licensed work, you must submit an application with supporting evidence. You will have to wait for the LAA assessment to get a decision.
       before_start_heading: Before you start
       before_start_paragraphs:
         - It should take about 15 minutes to answer all the questions.
