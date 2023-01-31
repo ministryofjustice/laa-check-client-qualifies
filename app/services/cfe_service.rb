@@ -13,7 +13,7 @@ class CfeService
       SubmitRegularTransactionsService.call(cfe_connection, cfe_estimate_id, cfe_session_data)
       SubmitApplicantService.call(cfe_connection, cfe_estimate_id, cfe_session_data)
       SubmitPartnerService.call(cfe_connection, cfe_estimate_id, cfe_session_data)
-      cfe_connection.api_result(cfe_estimate_id)
+      result(cfe_connection, cfe_estimate_id, cfe_session_data)
     end
 
     def create_assessment_id(cfe_connection, session_data)
@@ -21,6 +21,12 @@ class CfeService
       form = LevelOfHelpForm.from_session(session_data)
       attributes[:level_of_representation] = form.level_of_help if form.level_of_help.present?
       cfe_connection.create_assessment_id(attributes)
+    end
+
+    def result(cfe_connection, cfe_estimate_id, cfe_session_data)
+      cfe_connection.api_result(cfe_estimate_id).tap do |calculation_result|
+        calculation_result.level_of_help = cfe_session_data["level_of_help"]
+      end
     end
   end
 end

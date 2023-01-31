@@ -10,11 +10,13 @@ RSpec.describe "Level of help page" do
     end
   end
 
-  context "when controlled is enabled", :controlled_flag do
+  context "when controlled is enabled", :controlled_flag, :partner_flag do
     let(:mock_connection) do
       instance_double(CfeConnection, create_proceeding_type: nil, create_applicant: nil, api_result: calculation_result)
     end
     let(:calculation_result) { CalculationResult.new FactoryBot.build(:api_result) }
+    let(:assets_header) { I18n.t("estimate_flow.assets.legend") }
+    let(:partner_assets_header) { I18n.t("estimate_flow.partner_assets.legend") }
 
     it "shows this page first" do
       visit_first_page
@@ -40,6 +42,34 @@ RSpec.describe "Level of help page" do
       end
 
       click_on "Submit"
+    end
+
+    it "skips the client vehicle screens if I choose controlled" do
+      visit_flow_page(passporting: true, target: :property) do |step|
+        case step
+        when :level_of_help
+          select_radio(page:, form: "level-of-help-form", field: "level-of-help", value: "controlled")
+          click_on "Save and continue"
+        end
+      end
+
+      select_radio(page:, form: "property-form", field: "property-owned", value: "none")
+      click_on "Save and continue"
+      expect(page).to have_content assets_header
+    end
+
+    it "skips the partner vehicle screens if I choose controlled" do
+      visit_flow_page(passporting: true, partner: true, target: :partner_property) do |step|
+        case step
+        when :level_of_help
+          select_radio(page:, form: "level-of-help-form", field: "level-of-help", value: "controlled")
+          click_on "Save and continue"
+        end
+      end
+
+      select_radio(page:, form: "partner-property-form", field: "property-owned", value: "none")
+      click_on "Save and continue"
+      expect(page).to have_content partner_assets_header
     end
   end
 end
