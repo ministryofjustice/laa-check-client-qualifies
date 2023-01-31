@@ -30,6 +30,12 @@
 # 'money_with_frequency' fields also have an 'alt_attribute' which describes
 # which number to display.
 sections:
+  - label: level_of_help
+    screen: level_of_help
+    subsections:
+      - fields:
+        - attribute: level_of_help
+          type: select
   - label: about_your_client
     subsections:
       - label: client_details

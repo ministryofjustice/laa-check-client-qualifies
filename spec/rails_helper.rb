@@ -86,6 +86,12 @@ RSpec.configure do |config|
     Flipper.disable(:partner)
   end
 
+  config.around(:each, :controlled_flag) do |example|
+    Flipper.enable(:controlled)
+    example.run
+    Flipper.disable(:controlled)
+  end
+
   config.include ActiveSupport::Testing::TimeHelpers
 end
 

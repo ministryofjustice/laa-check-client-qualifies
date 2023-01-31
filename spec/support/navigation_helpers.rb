@@ -151,8 +151,8 @@ def process_handler_group(handlers, target)
 end
 
 def visit_flow_page(passporting:, target:, partner: false, &block)
-  visit_applicant_page
-  return if target == :applicant
+  visit_first_page
+  return if target == current_path.split("/").last.to_sym
 
   if !block_given? || !yield(:applicant)
     applicant_without_passporting(page:, partner:)

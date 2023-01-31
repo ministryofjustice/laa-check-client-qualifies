@@ -5,7 +5,7 @@ RSpec.describe "Applicant Page" do
 
   describe "errors" do
     before do
-      visit_applicant_page
+      visit_first_page
       click_on "Save and continue"
     end
 
@@ -110,7 +110,7 @@ RSpec.describe "Applicant Page" do
   describe "with a partner", :partner_flag do
     context "when on applicant page" do
       before do
-        visit_applicant_page
+        visit_first_page
       end
 
       it "shows me the right content" do
@@ -164,7 +164,7 @@ RSpec.describe "Applicant Page" do
 
     before do
       travel_to arbitrary_fixed_time
-      visit_applicant_page
+      visit_first_page
       select_radio_value("applicant-form", "proceeding-type", "se003") # non-domestic abuse case
       select_applicant_boolean(:over_60, false)
       select_applicant_boolean(:partner, false)

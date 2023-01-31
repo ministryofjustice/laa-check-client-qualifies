@@ -1,0 +1,18 @@
+- content_for :page_title
+  = t(".title")
+- content_for :back do
+  = back_link(:level_of_help, @estimate, @back_buttons_invoke_browser_back_behaviour)
+
+.govuk-grid-column-two-thirds
+  = form_for(@form, url: wizard_path, method: :put) do |form|
+    = form.govuk_error_summary t("generic.error_summary_title")
+    = form.govuk_radio_buttons_fieldset :level_of_help,
+                                        legend: { text: t(".title"), size: "xl", tag: "h1" }
+      = form.govuk_radio_button :level_of_help, "controlled",
+              label: { text: t(".controlled") }, hint: { text: t(".controlled_hint") }
+      = form.govuk_radio_button :level_of_help, "certificated",
+              label: { text: t(".certificated") }, hint: { text: t(".certificated_hint") }
+
+    = form.govuk_submit t("generic.save_and_continue")
+
+= render "shared/sidebar_with_date", links: {}

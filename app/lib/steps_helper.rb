@@ -25,6 +25,10 @@ class StepsHelper
       steps_list_for(model).flatten.include?(step)
     end
 
+    def first_step
+      steps_list_for(EstimateModel.new).flatten.first
+    end
+
   private
 
     def steps_list_for(estimate)
