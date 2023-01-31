@@ -6,6 +6,8 @@ class EmploymentForm
   DECIMAL_ATTRIBUTES = %i[gross_income income_tax national_insurance].freeze
   ATTRIBUTES = (DECIMAL_ATTRIBUTES + %i[frequency]).freeze
 
+  attr_accessor :level_of_help
+
   attribute :frequency, :string
   validates :frequency, presence: true
 
@@ -20,8 +22,23 @@ class EmploymentForm
   FREQUENCY_OPTIONS = %i[week two_weeks four_weeks monthly total annually].freeze
 
   def frequency_options
-    FREQUENCY_OPTIONS.map do |key|
+    options = level_of_help == "controlled" ? FREQUENCY_OPTIONS - %i[total annually] : FREQUENCY_OPTIONS
+    options.map do |key|
       OpenStruct.new(value: key, label: I18n.t("estimate_flow.employment.frequency.#{key}"))
+    end
+  end
+
+  class << self
+    def from_session(session_data)
+      super(session_data).tap { set_level_of_help(_1, session_data) }
+    end
+
+    def from_params(params, session_data)
+      super(params, session_data).tap { set_level_of_help(_1, session_data) }
+    end
+
+    def set_level_of_help(form, session_data)
+      form.level_of_help = session_data["level_of_help"]
     end
   end
 
