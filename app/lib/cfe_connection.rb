@@ -19,11 +19,8 @@ class CfeConnection
     []
   end
 
-  def create_assessment_id
-    create_request = {
-      submission_date: Time.zone.today,
-    }
-    response = cfe_connection.post("assessments", create_request)
+  def create_assessment_id(attributes)
+    response = cfe_connection.post("assessments", attributes)
     response.body.symbolize_keys.fetch(:assessment_id)
   end
 
