@@ -268,12 +268,17 @@ private
   def capital_row_items(prefix:)
     items = {
       property: api_response.dig(:result_summary, :"#{prefix}capital", :total_property),
-      vehicles: api_response.dig(:result_summary, :"#{prefix}capital", :total_vehicle),
       liquid: api_response.dig(:result_summary, :"#{prefix}capital", :total_liquid),
       non_liquid: api_response.dig(:result_summary, :"#{prefix}capital", :total_non_liquid),
     }
 
     level_of_help == "controlled" ? items.except(:vehicles) : items
+
+    if level_of_help == "certificated" || level_of_help.nil?
+      items[:vehicles] = api_response.dig(:result_summary, :"#{prefix}capital", :total_vehicle)
+    end
+
+    items
   end
 
   def capital_rows(prefix:)
