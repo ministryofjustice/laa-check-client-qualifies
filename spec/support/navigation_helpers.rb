@@ -125,6 +125,8 @@ PARTNER_INCOME_HANDLERS = {
   },
 }.freeze
 
+POSSIBLY_SKIPPED = %i[vehicle partner_vehicle].freeze
+
 PARTNER_CAPITAL_HANDLERS = {
   partner_property: lambda { |page:|
     select_radio(page:, form: "partner-property-form", field: "property-owned", value: "none")
@@ -140,6 +142,8 @@ PARTNER_CAPITAL_HANDLERS = {
 def process_handler_group(handlers, target)
   handlers.each do |page_name, handler|
     return false if target == page_name
+
+    next if POSSIBLY_SKIPPED.include?(page_name) && current_path.split("/").last.to_sym != page_name
 
     if handler.present?
       if !block_given? || !yield(page_name)
