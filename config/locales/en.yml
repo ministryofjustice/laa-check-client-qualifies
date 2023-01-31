@@ -996,6 +996,12 @@ en:
       frequency: Select frequency
   estimates:
     check_answers:
+      level_of_help: Level of help your client needs
+      level_of_help_fields:
+        level_of_help: Level of help
+        level_of_help_options:
+          controlled: Civil controlled work
+          certificated: Civil certificated work
       about_your_client: About your client
       about_partner: About your client's partner
       client_dependant_details: Your client's dependants
