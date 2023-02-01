@@ -74,13 +74,13 @@
 - if @form.level_of_help == "controlled"
   = render "shared/sidebar_with_date", \
            links: { \
-             t(".passporting_guidance.text") => t(".passporting_guidance.link"), \
-             t(".pensioner_guidance.text") => t(".pensioner_guidance.link"),
+             t(".passporting_guidance.text") => t(".passporting_guidance.controlled_link"), \
+             t(".pensioner_guidance.text") => t(".pensioner_guidance.controlled_link"),
            }
 - else
   = render "shared/sidebar_with_date", \
            links: { \
-             t(".passporting_guidance.text") => t(".passporting_guidance.link"), \
-             t(".pensioner_guidance.text") => t(".pensioner_guidance.link"), \
+             t(".passporting_guidance.text") => t(".passporting_guidance.certificated_link"), \
+             t(".pensioner_guidance.text") => t(".pensioner_guidance.certificated_link"), \
              t(".domestic_abuse_guidance.text") => t(".domestic_abuse_guidance.link"),
            }
