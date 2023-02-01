@@ -11,4 +11,4 @@
           show_mortgage: @estimate.property_owned == "with_mortgage",
           hint: t("estimate_flow.property_entry.second_caption")
 
-= render "property_sidebar"
+= render "#{@estimate.level_of_help}_property_sidebar"

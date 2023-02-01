@@ -5,4 +5,4 @@
 .govuk-grid-column-two-thirds
   = render "estimate_flow/forms/property", i18n_key: "partner_property"
 
-= render "partner_property_sidebar"
+= render "#{@estimate.level_of_help}_partner_property_sidebar"

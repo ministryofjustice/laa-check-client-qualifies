@@ -316,4 +316,26 @@ RSpec.describe "Property Page" do
       end
     end
   end
+
+  context "with controlled", :controlled_flag do
+    context "without partner" do
+      before do
+        visit_flow_page(controlled: true, passporting: true, target: :property)
+      end
+
+      it "shows controlled guidance" do
+        expect(page).to have_link(href: I18n.t("generic.smod.guidance.controlled_link"))
+      end
+    end
+
+    context "with partner", :partner_flag do
+      before do
+        visit_flow_page(controlled: true, passporting: true, partner: true, target: :partner_property)
+      end
+
+      it "shows controlled guidance" do
+        expect(page).to have_link(href: I18n.t("generic.trapped_capital.controlled_link"))
+      end
+    end
+  end
 end
