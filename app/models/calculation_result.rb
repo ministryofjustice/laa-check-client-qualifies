@@ -268,6 +268,7 @@ private
   def capital_row_items(prefix:)
     items = {
       property: api_response.dig(:result_summary, :"#{prefix}capital", :total_property),
+      vehicles: api_response.dig(:result_summary, :"#{prefix}capital", :total_vehicle),
       liquid: api_response.dig(:result_summary, :"#{prefix}capital", :total_liquid),
       non_liquid: api_response.dig(:result_summary, :"#{prefix}capital", :total_non_liquid),
     }
