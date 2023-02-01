@@ -2,6 +2,9 @@ class CalculationResult
   CFE_MAX_VALUE = 999_999_999_999
 
   include ActionView::Helpers::NumberHelper
+
+  attr_accessor :level_of_help
+
   def initialize(api_response)
     @api_response = api_response
   end
@@ -265,12 +268,14 @@ private
   end
 
   def capital_row_items(prefix:)
-    {
+    items = {
       property: api_response.dig(:result_summary, :"#{prefix}capital", :total_property),
       vehicles: api_response.dig(:result_summary, :"#{prefix}capital", :total_vehicle),
       liquid: api_response.dig(:result_summary, :"#{prefix}capital", :total_liquid),
       non_liquid: api_response.dig(:result_summary, :"#{prefix}capital", :total_non_liquid),
     }
+
+    level_of_help == "controlled" ? items.except(:vehicles) : items
   end
 
   def capital_rows(prefix:)

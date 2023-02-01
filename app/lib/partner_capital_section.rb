@@ -18,9 +18,14 @@ class PartnerCapitalSection
                        else
                          %i[partner_property]
                        end
-      vehicle_steps = estimate.partner_vehicle_owned ? VEHICLE_STEPS : %i[partner_vehicle]
 
-      ([property_steps] + [vehicle_steps] + TAIL_STEPS.map { |step| [step] }).freeze
+      ([property_steps] + [vehicle_steps(estimate)] + TAIL_STEPS.map { |step| [step] }).freeze
+    end
+
+    def vehicle_steps(estimate)
+      return [] if estimate.level_of_help == "controlled"
+
+      estimate.partner_vehicle_owned ? VEHICLE_STEPS : %i[partner_vehicle]
     end
   end
 end

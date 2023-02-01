@@ -1,6 +1,9 @@
 - (@model.has_partner? ? "estimates.show.capital_header.partner" : "estimates.show.capital_header.client").tap do |text|
   p
-    = t("#{text}.first")
+    - if @model.level_of_help == "controlled"
+      = t("#{text}.first_controlled")
+    - else
+      = t("#{text}.first_certificated")
   p class="govuk-!-margin-bottom-8"
     = t("#{text}.second")
 
