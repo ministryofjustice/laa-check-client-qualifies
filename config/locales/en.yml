@@ -560,6 +560,9 @@ en:
       passported_types_of_information:
         - savings and investments
         - other assets including property and vehicles
+      controlled_passported_types_of_information:
+        - savings and investments
+        - other assets including property
       partner_over_60:
         legend: Is the partner over 60 years old?
         hint: Clients with partners over 60 may have some of their capital excluded from a financial eligibility assessment.
@@ -1257,7 +1260,7 @@ en:
           text: Assessed property value
           hint: Total of home client lives in and any additional property
         vehicles:
-          text: Asssessed vehicle value
+          text: Assessed vehicle value
           hint: ""
         liquid:
           text: Savings
@@ -1270,7 +1273,7 @@ en:
           text: Assessed property value
           hint: ""
         vehicles:
-          text: Asssessed vehicle value
+          text: Assessed vehicle value
           hint: ""
         liquid:
           text: Savings

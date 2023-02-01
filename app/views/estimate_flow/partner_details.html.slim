@@ -21,7 +21,8 @@
       - unless @estimate.passporting
         - t(".non_passported_types_of_information").each do |evidence|
           li.govuk-body = evidence
-      - t(".passported_types_of_information").each do |evidence|
+      - key = @estimate.level_of_help == "controlled" ? ".controlled_passported_types_of_information" : ".passported_types_of_information"
+      - t(key).each do |evidence|
         li.govuk-body = evidence
 
     = form.govuk_collection_radio_buttons :over_60,
