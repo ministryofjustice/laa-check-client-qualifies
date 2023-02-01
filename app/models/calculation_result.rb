@@ -11,7 +11,7 @@ class CalculationResult
   end
 
   def decision
-    api_response.dig(:result_summary, :overall_result, :result) || "ineligible"
+    api_response.dig(:result_summary, :overall_result, :result)
   end
 
   # Note - this is probably technically incorrect as partially eligible could mean
