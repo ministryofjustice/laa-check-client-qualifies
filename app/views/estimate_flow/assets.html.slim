@@ -9,9 +9,10 @@
            show_smod_content: true,
            hints: ([t("estimate_flow.assets.partner_hint"), t("estimate_flow.assets.partner_second_hint")] if @estimate.partner)
 
+  - translation_text = @estimate.level_of_help == "controlled" ? "controlled" : "certificated"
 = render "shared/sidebar_with_date", \
-  links: { t("estimate_flow.assets.guidance.text") => t("estimate_flow.assets.guidance.link"), \
-    t(".other_properties_guidance.text") => t(".other_properties_guidance.link"), \
+  links: { t("estimate_flow.assets.guidance.text") => t("estimate_flow.assets.guidance.#{translation_text}.link"), \
+    t(".other_property_guidance.text") => t(".other_property_guidance.#{translation_text}.link"), \
     t(".disregarded_capital_guidance.text") => t(".disregarded_capital_guidance.link"), \
-    t("generic.smod.guidance.text") => t("generic.smod.guidance.certificated_link"), \
+    t("generic.smod.guidance.text") => t("generic.smod.guidance.#{translation_text}.link"), \
   }

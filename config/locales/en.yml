@@ -413,8 +413,10 @@ en:
     smod:
       guidance:
         text: "Guidance on subject matter of dispute"
-        certificated_link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=68"
-        controlled_link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=24"
+        certificated:
+          link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=68"
+        controlled:
+          link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=24"
     smod_help: Help with subject matter of dispute
     smod_help_text: Regulation 38 (Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013) provides for a disregard of the amount or value of assets that are the subject matter of dispute (SMOD); however the total amount disregarded must not exceed £100,000. Please read the related content on subject matter of dispute (Regulation 38).
     trapped_capital:
@@ -891,13 +893,19 @@ en:
         input: Total of all valuable items
       guidance:
         text: Guidance on assets/capital
-        link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=47"
+        controlled:
+          link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=20"
+        certificated:
+          link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=47"
       disregarded_capital_guidance:
         text: Guidance on disregarded capital
         link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=70"
-      other_properties_guidance:
+      other_property_guidance:
         text: Guidance on properties owned that are not the 'main house'
-        link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=59"
+        certificated:
+          link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=59"
+        controlled:
+          link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=23"
     partner_assets:
       caption: The partner's finances
       legend: Partner assets
