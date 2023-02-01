@@ -1363,10 +1363,12 @@ en:
       pensioner_disregard_caption: Applied to the total of the client and partner's disposable capital, and capped at £100,000.
       capital_header:
         partner:
-          first: The calculations below assess the value of any property and vehicles the client and their partner own.
+          first_certificated: The calculations below assess the value of any property and vehicles the client and their partner own.
+          first_controlled: The calculations below assess the value of any property the client and their partner own.
           second: The assessed values are used to calculate the total disposable capital for your client and their partner.
         client:
-          first: The calculations below assess the value of any property and vehicle the client owns.
+          first_certificated: The calculations below assess the value of any property and vehicles the client owns.
+          first_controlled: The calculations below assess the value of any property the client owns.
           second: The assessed values are used to calculate the total disposable capital for your client.
     limits_table:
       calculation_information: We’ve used the information you provided to compare your client’s income and outgoings. This allows us to calculate their monthly disposable income.
