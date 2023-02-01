@@ -6,5 +6,9 @@
 .govuk-grid-column-two-thirds
   = render "estimate_flow/forms/dependant_details", i18n_key: :dependant_details
 
-= render "shared/sidebar_with_date",
-         links: { t("estimate_flow.dependant_details.guidance.text") => t("estimate_flow.dependant_details.guidance.link") }
+- if @estimate.level_of_help == "controlled"
+  = render "shared/sidebar_with_date",
+          links: { t("estimate_flow.dependant_details.guidance.text") => t("estimate_flow.dependant_details.guidance.controlled_link") }
+- else
+  = render "shared/sidebar_with_date",
+          links: { t("estimate_flow.dependant_details.guidance.text") => t("estimate_flow.dependant_details.guidance.certificated_link") }
