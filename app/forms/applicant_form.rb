@@ -11,10 +11,29 @@ class ApplicantForm
   ATTRIBUTES = BOOLEAN_ATTRIBUTES + PROCEEDING_ATTRIBUTE.freeze
 
   attribute :proceeding_type
-  validates :proceeding_type, presence: true, inclusion: { in: PROCEEDING_TYPES.values, allow_nil: true }
+  validates :proceeding_type,
+            presence: true,
+            inclusion: { in: PROCEEDING_TYPES.values, allow_nil: true },
+            if: -> { level_of_help != "controlled" }
+
+  attr_accessor :level_of_help
 
   BOOLEAN_ATTRIBUTES.each do |attr|
     attribute attr, :boolean
     validates attr, inclusion: { in: [true, false] }, if: -> { FeatureFlags.enabled?(:partner) || attr != :partner }
+  end
+
+  class << self
+    def from_session(session_data)
+      super(session_data).tap { set_level_of_help(_1, session_data) }
+    end
+
+    def from_params(params, session_data)
+      super(params, session_data).tap { set_level_of_help(_1, session_data) }
+    end
+
+    def set_level_of_help(form, session_data)
+      form.level_of_help = session_data["level_of_help"]
+    end
   end
 end
