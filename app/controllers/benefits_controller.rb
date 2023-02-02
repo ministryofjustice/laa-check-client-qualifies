@@ -3,9 +3,11 @@ class BenefitsController < EstimateFlowController
 
   def new
     @model = model_class.new
+    @estimate = load_estimate
   end
 
   def create
+    @estimate = load_estimate
     @model = model_class.new(params.require(model_class.name.underscore).permit(*model_class::EDITABLE_ATTRIBUTES))
     if @model.valid?
       @model.id = SecureRandom.uuid
@@ -18,11 +20,13 @@ class BenefitsController < EstimateFlowController
   end
 
   def edit
+    @estimate = load_estimate
     benefit_attributes = session_data[benefit_session_key].find { _1["id"] == params[:id] }
     @model = model_class.new(benefit_attributes)
   end
 
   def update
+    @estimate = load_estimate
     benefit_attributes = session_data[benefit_session_key].find { _1["id"] == params[:id] }
     @model = model_class.new(benefit_attributes)
     @model.assign_attributes(params.require(model_class.name.underscore).permit(*model_class::EDITABLE_ATTRIBUTES))

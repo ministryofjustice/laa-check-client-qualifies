@@ -17,4 +17,5 @@
 
     = render "benefits/form", form:
 
-= render "shared/disregarded_benefits_sidebar"
+  - level_of_help = @estimate.level_of_help == "controlled" ? "controlled" : "certificated"
+= render "shared/disregarded_benefits_sidebar", translation_text: level_of_help
