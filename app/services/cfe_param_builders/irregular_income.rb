@@ -18,7 +18,7 @@ module CfeParamBuilders
     def self.create_other_income(form)
       {
         "income_type": "unspecified_source",
-        "frequency": "quarterly",
+        "frequency": form.level_of_help == "controlled" ? "monthly" : "quarterly",
         "amount": form.other_value,
       }
     end

@@ -710,12 +710,14 @@ en:
       student_finance:
         label: Student finance
         hint: This includes any type of student loan, grant or bursary. Enter 0 if this does not apply
-        instruction: Enter amount received this academic year
+        certificated_instruction: Enter amount received this academic year
+        controlled_instruction: Enter amount received this academic year
       other:
         label: Income from other sources
         hint: Include any other income your client received.
         hint_with_col: Include any other income your client received. Do not include any government Cost of Living Payments. Enter 0 if this does not apply
-        instruction: Enter amount received in the last 3 months
+        certificated_instruction: Enter amount received in the last 3 months
+        controlled_instruction: Enter amount received in the last month
       enter_frequency: Select frequency
       frequencies:
         every_week: Every week
@@ -746,12 +748,14 @@ en:
       student_finance:
         label: Student finance
         hint: This includes any type of student loan, grant or bursary. Enter 0 if this does not apply.
-        instruction: Enter amount received this academic year
+        certificated_instruction: Enter amount received this academic year
+        controlled_instruction: Enter amount received this academic year
       other:
         label: Income from other sources
         hint: Include any other income the partner received. Enter 0 if this does not apply.
         hint_with_col: Include any other income the partner received. Do not include any government Cost of Living Payments. Enter 0 if this does not apply.
-        instruction: Enter amount received in the last 3 months
+        certificated_instruction: Enter amount received in the last 3 months
+        controlled_instruction: Enter amount received in the last month
       enter_frequency: Select frequency
     outgoings:
       heading: Outgoings and deductions

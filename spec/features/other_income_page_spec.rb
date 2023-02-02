@@ -147,4 +147,34 @@ RSpec.describe "Other income Page" do
       click_on "Submit"
     end
   end
+
+  context "when assessing controlled work", :controlled_flag do
+    before do
+      visit_check_answers(passporting: false) do |step|
+        case step
+        when :level_of_help
+          select_radio(page:, form: "level-of-help-form", field: "level-of-help", value: "controlled")
+          click_on "Save and continue"
+        when :income
+          fill_in "other-income-form-pension-value-field", with: "0"
+          fill_in "other-income-form-property-or-lodger-value-field", with: "0"
+          fill_in "other-income-form-friends-or-family-value-field", with: "0"
+          fill_in "other-income-form-maintenance-value-field", with: "0"
+          fill_in "other-income-form-student-finance-value-field", with: "0"
+          fill_in "other-income-form-other-value-field", with: "500"
+        end
+      end
+    end
+
+    it "sends a the 'other' amount at a monthly frequency to CFE" do
+      allow(CfeConnection).to receive(:connection).and_return(mock_connection)
+
+      expect(mock_connection).to receive(:create_irregular_income) do |_cfe_estimate_id, payments|
+        expect(payments.length).to eq 1
+        expect(payments[0][:frequency]).to eq("monthly")
+        expect(payments[0][:amount]).to eq(500)
+      end
+      click_on "Submit"
+    end
+  end
 end
