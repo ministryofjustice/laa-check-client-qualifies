@@ -406,7 +406,10 @@ en:
     disputed_asset: Disputed asset
     disregarded_benefits_guidance:
       text: Guidance on disregarded benefits
-      link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=36"
+      certificated:
+        link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=36"
+      controlled:
+        link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=10"
     smod:
       guidance:
         text: "Guidance on subject matter of dispute"
