@@ -8,6 +8,6 @@
 
   - translation_text = @estimate.level_of_help == "controlled" ? "controlled" : "certificated"
 = render "shared/sidebar_with_date", \
-  links: { t("estimate_flow.assets.guidance.text") => t("estimate_flow.assets.guidance.#{translation_text}.link"), \
+  links: { t("estimate_flow.assets.guidance.#{translation_text}.text") => t("estimate_flow.assets.guidance.#{translation_text}.link"), \
     t("estimate_flow.assets.other_property_guidance.text") => t("estimate_flow.assets.other_property_guidance.#{translation_text}.link"), \
   }
