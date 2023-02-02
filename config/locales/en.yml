@@ -784,8 +784,11 @@ en:
         every_four_weeks: Every 4 weeks
         monthly: Every month
         total: Total in last 3 months
-      guidance_on_outgoings: Guidance on outgoings
-      link_to_guidance_on_outgoings: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=38"
+      guidance_on_outgoings:
+        certificated_text: Guidance on outgoings
+        controlled_text: Guidance on determining disposable income
+        certificated_link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=38"
+        controlled_link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=15
     partner_outgoings:
       heading: "Outgoings and deductions"
       caption: The partner's finances

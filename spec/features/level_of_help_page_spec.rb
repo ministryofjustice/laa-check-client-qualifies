@@ -90,5 +90,18 @@ RSpec.describe "Level of help page" do
       expect(page).not_to have_content "Total in last 3 months"
       expect(page).not_to have_content "Every year"
     end
+
+    it "shows different outgoings guidance text if I select controlled" do
+      visit_flow_page(passporting: false, target: :outgoings) do |step|
+        case step
+        when :level_of_help
+          select_radio(page:, form: "level-of-help-form", field: "level-of-help", value: "controlled")
+          click_on "Save and continue"
+        end
+      end
+
+      expect(page).not_to have_content "Guidance on outgoings"
+      expect(page).to have_content "Guidance on determining disposable income"
+    end
   end
 end

@@ -22,7 +22,24 @@ class OutgoingsForm
                                    if: -> { send(value_attribute).to_i.positive? }
   end
 
+  attr_accessor :level_of_help
+
   def frequencies
-    VALID_FREQUENCIES.map { [_1, I18n.t("estimate_flow.outgoings.frequencies.#{_1}")] }
+    valid_frequencies = level_of_help == "controlled" ? VALID_FREQUENCIES - %w[total] : VALID_FREQUENCIES
+    valid_frequencies.map { [_1, I18n.t("estimate_flow.outgoings.frequencies.#{_1}")] }
+  end
+
+  class << self
+    def from_session(session_data)
+      super(session_data).tap { set_level_of_help(_1, session_data) }
+    end
+
+    def from_params(params, session_data)
+      super(params, session_data).tap { set_level_of_help(_1, session_data) }
+    end
+
+    def set_level_of_help(form, session_data)
+      form.level_of_help = session_data["level_of_help"]
+    end
   end
 end
