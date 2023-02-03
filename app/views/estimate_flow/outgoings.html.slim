@@ -6,5 +6,11 @@
 .govuk-grid-column-two-thirds
   = render "estimate_flow/forms/outgoings", i18n_key: "outgoings"
 
-= render "shared/sidebar_with_date",
-         links: { t("estimate_flow.outgoings.guidance_on_outgoings") => t("estimate_flow.outgoings.link_to_guidance_on_outgoings") }
+- if @estimate.level_of_help == "controlled"
+  = render "shared/sidebar_with_date",
+          links: { t("estimate_flow.outgoings.guidance_on_outgoings.controlled_text") => \
+                   t("estimate_flow.outgoings.guidance_on_outgoings.controlled_link") }
+- else
+  = render "shared/sidebar_with_date",
+          links: { t("estimate_flow.outgoings.guidance_on_outgoings.certificated_text") => \
+                   t("estimate_flow.outgoings.guidance_on_outgoings.certificated_link") }
