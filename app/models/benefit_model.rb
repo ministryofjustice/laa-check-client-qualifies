@@ -5,6 +5,15 @@ class BenefitModel
 
   FREQUENCY_OPTIONS = %w[every_week every_two_weeks every_four_weeks monthly].freeze
 
+  PASSPORTED_BENEFITS = %w[
+    age_related_payment
+    universal_credit
+    income_support
+    jobseekers_allowance
+    employment_support_allowance
+    pension_credit
+  ].freeze
+
   attribute :id
 
   EDITABLE_ATTRIBUTES = %i[benefit_type benefit_amount benefit_frequency].freeze
@@ -22,7 +31,13 @@ class BenefitModel
     FREQUENCY_OPTIONS.map { [_1, I18n.t("estimate_flow.benefits.frequencies.#{_1}")] }
   end
 
+  def cfe_benefit_list
+    CfeConnection.connection.state_benefit_types
+  end
+
   def benefit_list
-    @benefit_list ||= CfeConnection.connection.state_benefit_types
+    full_list = cfe_benefit_list.pluck("label", "name", "exclude_from_gross_income")
+    display_list = full_list.reject { |item| item[2] == true || item[0].in?(PASSPORTED_BENEFITS) }
+    display_list.map { |row| row[1] }
   end
 end

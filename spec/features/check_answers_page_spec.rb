@@ -6,7 +6,7 @@ RSpec.describe "Check answers page" do
   before do
     stub_request(:get, "https://check-financial-eligibility-partner-staging.cloud-platform.service.justice.gov.uk/state_benefit_type").to_return(
       status: 200,
-      body: [{ name: "Child Benefit" }].to_json,
+      body: [{ "label" => "child_benefit", "name" => "Child Benefit", "exclude_from_gross_income" => false }],
     )
   end
 

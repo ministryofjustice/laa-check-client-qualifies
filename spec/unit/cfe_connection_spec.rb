@@ -6,6 +6,7 @@ end
 RSpec.describe CfeConnection do
   let(:connection) { described_class.new }
   let(:root_url) { "https://check-financial-eligibility-partner-staging.cloud-platform.service.justice.gov.uk/assessments" }
+  let(:root_url_one) { "https://check-financial-eligibility-partner-staging.cloud-platform.service.justice.gov.uk" }
 
   it "reformats raised errors" do
     faraday_client = instance_double("MockableFaradayClient")
