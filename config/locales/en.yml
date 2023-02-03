@@ -1461,7 +1461,7 @@ en:
       case_types_intro: "This must be for a case that would be:"
       valid_case_types:
         - civil certificated or licensed legal work
-        - controlled work or family mediation
+        - controlled work (including legal help)  or family mediation
       invalid_case_types_intro: "It cannot be for a case that would be in the:"
       invalid_case_types:
         - Immigration and Asylum Chamber of the Upper Tribunal
