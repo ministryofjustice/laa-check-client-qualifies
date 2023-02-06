@@ -25,4 +25,8 @@ private
   def anchor
     CheckAnswers::SectionIdFinder.call(:benefits)
   end
+
+  def page_name
+    "check_#{action_name}_#{step_name}"
+  end
 end

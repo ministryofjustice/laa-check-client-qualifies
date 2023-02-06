@@ -41,5 +41,11 @@ RSpec.describe CookiesController, type: :controller do
 
       expect(response).to redirect_to new_estimate_path(alpha: "beta", cookie_choice: "rejected")
     end
+
+    it "deletes an existing browser id cookie if cookies are rejected" do
+      cookies[:browser_id] = "FOO"
+      patch :update, params: { cookies: "reject" }
+      expect(response.cookies[:browser_id]).to eq nil
+    end
   end
 end

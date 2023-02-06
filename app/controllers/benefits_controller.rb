@@ -4,6 +4,7 @@ class BenefitsController < EstimateFlowController
   def new
     @model = model_class.new
     @estimate = load_estimate
+    track_page_view(assessment_id: estimate_id)
   end
 
   def create
@@ -15,6 +16,7 @@ class BenefitsController < EstimateFlowController
       session_data[benefit_session_key] << @model.attributes
       redirect_to flow_path(step_name)
     else
+      track_validation_error(assessment_id: estimate_id)
       render :new
     end
   end
@@ -23,6 +25,7 @@ class BenefitsController < EstimateFlowController
     @estimate = load_estimate
     benefit_attributes = session_data[benefit_session_key].find { _1["id"] == params[:id] }
     @model = model_class.new(benefit_attributes)
+    track_page_view(assessment_id: estimate_id)
   end
 
   def update
@@ -35,6 +38,7 @@ class BenefitsController < EstimateFlowController
       session_data[benefit_session_key][index] = @model.attributes
       redirect_to flow_path(step_name)
     else
+      track_validation_error(assessment_id: estimate_id)
       render :edit
     end
   end
@@ -55,6 +59,7 @@ class BenefitsController < EstimateFlowController
         redirect_to next_step_path @estimate
       end
     else
+      track_validation_error(assessment_id: estimate_id)
       render "estimate_flow/#{step_name}"
     end
   end
@@ -91,5 +96,9 @@ private
     else
       new_path
     end
+  end
+
+  def page_name
+    "#{action_name}_#{step_name}"
   end
 end

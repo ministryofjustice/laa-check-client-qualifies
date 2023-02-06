@@ -1592,6 +1592,7 @@ en:
       two_years: 2 years
       analytics_purpose: Helps us count how many people visit %{service_name} by telling us if you’ve visited before.
       reduce_requests: Used to reduce the number of requests.
+      track_over_time: Helps us count how many people visit %{service_name} by telling us if you’ve visited before.
       save: Save cookie settings
       accept_cookies: Do you want to accept analytics cookies?
   privacies:
