@@ -33,11 +33,11 @@
 
     - if type == :other
       = render "shared/cost_of_living"
-
+    - level = @form.level_of_help == "controlled" ? "controlled" : "certificated"
     = render "shared/money_input",
             form:,
             field: :"#{type}_value",
             width: 10,
-            label_text: t("estimate_flow.#{i18n_key}.#{type}.instruction")
+            label_text: t("estimate_flow.#{i18n_key}.#{type}.#{level}_instruction")
 
   = form.govuk_submit t("generic.save_and_continue")
