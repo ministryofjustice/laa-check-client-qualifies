@@ -570,7 +570,7 @@ en:
         - other assets including property and vehicles
       controlled_passported_types_of_information:
         - savings and investments
-        - other assets including property
+        - other assets, including property
       partner_over_60:
         legend: Is the partner over 60 years old?
         hint: Clients with partners over 60 may have some of their capital excluded from a financial eligibility assessment.
@@ -886,7 +886,8 @@ en:
         input: Total of all investments
       valuables:
         label: Valuable items worth £500 or more
-        hint: For example, jewellery, art, antiques or caravan or similar. Enter 0 if this does not apply.
+        certificated_hint: For example, jewellery, art, antiques or caravan or similar. Enter 0 if this does not apply.
+        controlled_hint: For example, any vehicle that is not in regular use, jewellery, art, antiques or caravan or similar. Enter 0 if this does not apply.
         input: Total of all valuable items
       guidance:
         text: Guidance on assets/capital
@@ -922,7 +923,8 @@ en:
         input: Total of all investments
       valuables:
         label: Valuable items worth £500 or more
-        hint: For example, jewellery, art, antiques or caravan or similar. Enter 0 if this does not apply.
+        certificated_hint: For example, jewellery, art, antiques or caravan or similar. Enter 0 if this does not apply.
+        controlled_hint: For example, any vehicle that is not in regular use, jewellery, art, antiques or caravan or similar. Enter 0 if this does not apply.
         input: Total of all valuable items
       guidance:
         text: Guidance on assets
@@ -944,7 +946,8 @@ en:
       percentage_owned:
         input: What percentage of the home do they own?
         input_hint: Your client's name must be on the property deeds, lease, freehold or mortgage
-      second_caption: "If you make an application for civil legal aid, the property's value may be excluded from the financial assessment if your client has left their former matrimonial home because of domestic abuse"
+      second_caption_certificated: "If you make an application for civil legal aid, the property's value may be excluded from the financial assessment if your client has left their former matrimonial home because of domestic abuse"
+      second_caption_controlled: "When doing this check, the property's value can be excluded from the financial assessment if your client has left their former matrimonial home because of domestic abuse"
     partner_property_entry:
       heading: About the home the client lives in
       caption: The partner's finances
