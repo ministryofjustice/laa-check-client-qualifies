@@ -157,14 +157,14 @@ def process_handler_group(handlers, target)
   true
 end
 
-def visit_flow_page(passporting:, target:, partner: false, &block)
+def visit_flow_page(passporting:, target:, controlled: false, partner: false, &block)
   visit_first_page
 
   if FeatureFlags.enabled?(:controlled)
     return if target == :level_of_help
 
     if !block_given? || !yield(:level_of_help)
-      select_radio(page:, form: "level-of-help-form", field: "level-of-help", value: "certificated")
+      select_radio(page:, form: "level-of-help-form", field: "level-of-help", value: controlled ? "controlled" : "certificated")
       click_on "Save and continue"
     end
   end

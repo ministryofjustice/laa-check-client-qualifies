@@ -408,13 +408,16 @@ en:
       text: Guidance on disregarded benefits
       link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=36"
     smod:
-      guidance_text: "Guidance on subject matter of dispute"
-      guidance_link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=68"
+      guidance:
+        text: "Guidance on subject matter of dispute"
+        certificated_link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=68"
+        controlled_link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=24"
     smod_help: Help with subject matter of dispute
     smod_help_text: Regulation 38 (Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013) provides for a disregard of the amount or value of assets that are the subject matter of dispute (SMOD); however the total amount disregarded must not exceed £100,000. Please read the related content on subject matter of dispute (Regulation 38).
     trapped_capital:
       text: "Guidance on trapped capital"
-      link: "https://legalaidlearning.justice.gov.uk/course/view.php?id=186"
+      certificated_link: "https://legalaidlearning.justice.gov.uk/course/view.php?id=186"
+      controlled_link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=20"
     disregarded_benefits:
       text: Disregarded benefits
       text_with_col: Government Cost of Living Payments and disregarded benefits
@@ -830,7 +833,8 @@ en:
         legend: Does your client and/or their partner own the home they live in?
       properties_guidance:
         text: Guidance on properties
-        link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=57"
+        certificated_link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=57"
+        controlled_link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=23"
     partner_property:
       caption: The partner's finances
       legend: Does the partner own the home the client lives in?

@@ -23,7 +23,9 @@ class EstimateModel
 
   attribute :property_owned, :string
   attribute :partner_property_owned, :string
-  attribute :level_of_help, :string
+
+  # TODO: This should not be defaulted after :controlled flag removed
+  attribute :level_of_help, :string, default: "certificated"
 
   def owns_property?
     %i[with_mortgage outright].map(&:to_s).include? property_owned
