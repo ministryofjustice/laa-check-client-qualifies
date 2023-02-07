@@ -1,0 +1,9 @@
+h1.govuk-heading-l = t("estimates.show.likely_to_qualify")
+- t("estimates.show.eligible_intro_paragraphs").each do
+  p.govuk-body = _1
+ul.govuk-list--bullet
+  - t("estimates.show.also_considered").each do
+    li.govuk-body = _1
+p.govuk-body = t("estimates.show.lord_chancellors_guidance")
+h2.govuk-heading-m = t("estimates.show.not_always_free")
+p.govuk-body = t("estimates.show.freeness_explanation")

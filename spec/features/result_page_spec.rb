@@ -32,7 +32,7 @@ RSpec.describe "Results Page" do
       let(:payload) { FactoryBot.build(:api_result, eligible: true) }
 
       it "show eligible" do
-        expect(page).to have_content "Your client appears provisionally eligible for legal aid based on the information provided."
+        expect(page).to have_content "Your client is likely to qualify for civil legal aid"
       end
 
       it "zeroes out the negative assessed capital figure" do
@@ -49,7 +49,7 @@ RSpec.describe "Results Page" do
       let(:payload) { FactoryBot.build(:api_result, eligible: false) }
 
       it "show ineligible" do
-        expect(page).to have_content("Ineligible")
+        expect(page).to have_content("Your client is not likely to qualify for civil legal aid")
       end
     end
   end

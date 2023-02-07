@@ -1,5 +1,8 @@
 - content_for :page_title
-  = t("estimates.show.#{@model.decision}")
+  - if @model.decision == "ineligible"
+    = t("estimates.show.not_likely_to_qualify")
+  - else
+    = t("estimates.show.likely_to_qualify")
 .govuk-grid-column-full
   .gem-c-organisation-logo
     .gem-c-organisation-logo__container
@@ -15,26 +18,11 @@
   button.govuk-button.govuk-button--secondary data-module="govuk-button" onclick="javascript:window.print()" = t(".print_this_page")
 
   = render "shared/heading", header_text: t("service.name")
-  h2.govuk-heading-l = t("estimates.show.#{@model.decision}")
-  h2.govuk-heading-m = t("estimates.show.summary", eligibility: t("estimates.show.#{@model.decision}").downcase)
+  = render @model.decision
 
-  - if @model.contribution_required?
-    p.govuk-body = t("estimates.show.we_calculated")
-
-    ul class="govuk-list--bullet"
-      li
-        .govuk-body
-          strong> = @model.income_contribution
-          = t("estimates.show.per_month")
-      li
-        .govuk-body
-          strong> = @model.capital_contribution
-          = t("estimates.show.from_capital")
-
-  p.govuk-body = t("estimates.show.per_guidance")
-
-  p.govuk-body class="govuk-!-margin-top-5"
-    strong = t("estimates.show.disclaimer")
+  h2.govuk-heading-m = t("estimates.show.what_happens_next")
+  p.govuk-body = t("estimates.show.next_steps_paragraph_1")
+  p.govuk-body = t("estimates.show.next_steps_paragraph_2")
 
   h2.govuk-heading-m = t("estimates.show.evidence_needed")
   ul.govuk-list.govuk-list--bullet

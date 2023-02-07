@@ -204,7 +204,7 @@ RSpec.describe "Assets Page" do
           expect(page).to have_content check_answers_header
           click_on "Submit"
 
-          expect(page).to have_content "provisional declaration"
+          expect(page).to have_content "Your client is not likely to qualify for civil legal aid"
         end
       end
     end

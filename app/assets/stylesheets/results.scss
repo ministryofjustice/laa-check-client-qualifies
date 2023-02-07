@@ -13,4 +13,11 @@ tr.solid-bottom-border {
 // make the confirmation panel a neutral colour
 .panel-blue {
   background: govuk-colour("blue");
+
+  // All text on the blue background should be white for accessibility and legibility purposes.
+  // However, several govuk classes that provide handy spacing and typography rules also dictate a dark text colour.
+  // Therefore we use this strong rule to ensure that text stays white even when we use those classes.
+  * {
+    color: white !important;
+  }
 }
