@@ -9,21 +9,32 @@
 
 .govuk-panel.panel-blue.govuk-panel--confirmation class="govuk-!-text-align-left govuk-!-margin-bottom-9"
   .govuk-panel__body
-    = render @model.decision
+    = render "#{@model.level_of_help}_#{@model.decision}"
 
-h2.govuk-heading-m = t(".what_happens_next")
-p.govuk-body = t(".next_steps_paragraph_1")
-p.govuk-body = t(".next_steps_paragraph_2")
+- if @model.level_of_help == "certificated"
+  h2.govuk-heading-m = t(".what_happens_next")
+  p.govuk-body = t(".next_steps_paragraph_1")
+  p.govuk-body = t(".next_steps_paragraph_2")
 
-= govuk_details(summary_text: t(".evidence_needed")) do
-  p.govuk-body = t(".evidence_needed_explainer")
-  ul.govuk-list.govuk-list--bullet
-    - t(".types_of_evidence").each do |evidence|
-      li = evidence
+  = govuk_details(summary_text: t(".evidence_needed")) do
+    p.govuk-body = t(".evidence_needed_explainer")
+    ul.govuk-list.govuk-list--bullet
+      - t(".types_of_evidence").each do |evidence|
+        li = evidence
+- elsif @model.level_of_help == "controlled" && @model.decision == "eligible"
+  h2.govuk-heading-m = t(".what_happens_next")
+  p.govuk-body = t(".controlled_next_steps_paragraph_1")
+  p.govuk-body == t(".controlled_next_steps_paragraph_2")
 
-h2.govuk-heading-m = t(".how_calculated")
+  = govuk_details(summary_text: t(".controlled_evidence_needed")) do
+    p.govuk-body = t(".evidence_needed_explainer")
+    ul.govuk-list.govuk-list--bullet
+      - t(".controlled_types_of_evidence").each do |evidence|
+        li = evidence
+
+h2.govuk-heading-m = t(".#{@model.level_of_help}_how_calculated")
 = govuk_accordion do |accordion|
-  - accordion.section(heading_text: t(".limits_calculation"))
+  - accordion.section(heading_text: t(".#{@model.level_of_help}_limits_calculation"))
     = render "limits_table", caption_size: "m"
 
   - if @model.calculated?(:gross_income)

@@ -3,8 +3,11 @@ require "rails_helper"
 RSpec.describe "Results Page" do
   describe "Client income" do
     let(:estimate_id) { "123" }
+    let(:calculation_result) do
+      CalculationResult.new(payload).tap { _1.level_of_help = "certificated" }
+    end
     let(:mock_connection) do
-      instance_double(CfeConnection, api_result: CalculationResult.new(payload),
+      instance_double(CfeConnection, api_result: calculation_result,
                                      create_applicant: nil,
                                      create_assessment_id: nil,
                                      create_proceeding_type: nil,
