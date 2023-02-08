@@ -70,7 +70,7 @@
 
   = form.govuk_fieldset legend: { text: t("estimate_flow.#{i18n_key}.valuables.label") } do
 
-    .govuk-hint = t("estimate_flow.#{i18n_key}.valuables.hint")
+    .govuk-hint = t("estimate_flow.#{i18n_key}.valuables.#{@estimate.level_of_help}_hint")
 
     = render "shared/money_input",
               form:,

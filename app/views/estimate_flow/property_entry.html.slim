@@ -9,6 +9,6 @@
           show_smod: true,
           show_joint_ownership: @estimate.partner.present?,
           show_mortgage: @estimate.property_owned == "with_mortgage",
-          hint: t("estimate_flow.property_entry.second_caption")
+          hint: t("estimate_flow.property_entry.second_caption_#{@estimate.level_of_help}")
 
 = render "#{@estimate.level_of_help}_property_sidebar"
