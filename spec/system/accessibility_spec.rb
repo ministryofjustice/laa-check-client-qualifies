@@ -113,7 +113,7 @@ RSpec.describe "Accessibility" do
   describe "Print results page" do
     let(:estimate_id) { SecureRandom.uuid }
     let(:calculation_result) do
-      CalculationResult.new(build(:api_result)).tap { _1.level_of_help = "controlled" }
+      CalculationResult.new(build(:api_result)).tap { _1.level_of_help = level_of_help }
     end
 
     before do
@@ -124,8 +124,20 @@ RSpec.describe "Accessibility" do
       click_on "Print this page"
     end
 
-    it "has no AXE-detectable accessibility issues" do
-      expect(page).to be_axe_clean
+    context "when assessing controlled work" do
+      let(:level_of_help) { "controlled" }
+
+      it "has no AXE-detectable accessibility issues" do
+        expect(page).to be_axe_clean
+      end
+    end
+
+    context "when assessing certificated work" do
+      let(:level_of_help) { "certificated" }
+
+      it "has no AXE-detectable accessibility issues" do
+        expect(page).to be_axe_clean
+      end
     end
   end
 end

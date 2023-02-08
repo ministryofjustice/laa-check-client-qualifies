@@ -1,13 +1,10 @@
 require "rails_helper"
 
 RSpec.describe "Results Page" do
-  describe "Client income" do
+  describe "Client income", :controlled_flag do
     let(:estimate_id) { "123" }
-    let(:calculation_result) do
-      CalculationResult.new(payload).tap { _1.level_of_help = "certificated" }
-    end
     let(:mock_connection) do
-      instance_double(CfeConnection, api_result: calculation_result,
+      instance_double(CfeConnection, api_result: CalculationResult.new(payload),
                                      create_applicant: nil,
                                      create_assessment_id: nil,
                                      create_proceeding_type: nil,
@@ -18,6 +15,10 @@ RSpec.describe "Results Page" do
 
     before do
       allow(CfeConnection).to receive(:connection).and_return(mock_connection)
+
+      visit "/estimates/#{estimate_id}/build_estimates/level_of_help"
+      select_radio(page:, form: "level-of-help-form", field: "level-of-help", value: level_of_help)
+      click_on "Save and continue"
 
       visit "/estimates/#{estimate_id}/build_estimates/assets"
 
@@ -31,7 +32,8 @@ RSpec.describe "Results Page" do
       click_on "Submit"
     end
 
-    context "when eligible" do
+    context "when eligible for certificated work" do
+      let(:level_of_help) { "certificated" }
       let(:payload) { FactoryBot.build(:api_result, eligible: true) }
 
       it "show eligible" do
@@ -48,7 +50,17 @@ RSpec.describe "Results Page" do
       end
     end
 
+    context "when eligible for controlled work" do
+      let(:level_of_help) { "controlled" }
+      let(:payload) { FactoryBot.build(:api_result, eligible: true) }
+
+      it "shows eligibility message" do
+        expect(page).to have_content "Your client is likely to qualify for civil legal aid, for controlled work and family mediation"
+      end
+    end
+
     context "when not eligible" do
+      let(:level_of_help) { "certificated" }
       let(:payload) { FactoryBot.build(:api_result, eligible: false) }
 
       it "show ineligible" do

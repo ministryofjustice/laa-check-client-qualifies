@@ -1037,6 +1037,7 @@ en:
         level_of_help_options:
           controlled: Civil controlled work or family mediation
           certificated: Civil certificated or licensed legal work
+          not_provided: Not provided
       about_your_client: About your client
       about_partner: About your client's partner
       client_dependant_details: Your client's dependants
