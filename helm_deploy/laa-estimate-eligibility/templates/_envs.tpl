@@ -55,6 +55,11 @@ env:
       secretKeyRef:
         name: {{ template "app.fullname" . }}
         key: controlledFeatureFlag
+  - name: ASYLUM_AND_IMMIGRATION_FEATURE_FLAG
+    valueFrom:
+      secretKeyRef:
+        name: {{ template "app.fullname" . }}
+        key: asylumAndImmigrationFeatureFlag
   - name: NOTIFICATIONS_API_KEY
     valueFrom:
       secretKeyRef:
