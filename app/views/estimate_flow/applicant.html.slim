@@ -59,16 +59,6 @@
 
     = form.govuk_submit t("generic.save_and_continue")
 
-- if @form.level_of_help == "controlled"
-  = render "shared/sidebar_with_date", \
-           links: { \
-             t(".passporting_guidance.text") => t(".passporting_guidance.controlled_link"), \
-             t(".pensioner_guidance.text") => t(".pensioner_guidance.controlled_link"),
-           }
-- else
-  = render "shared/sidebar_with_date", \
-           links: { \
-             t(".passporting_guidance.text") => t(".passporting_guidance.certificated_link"), \
-             t(".pensioner_guidance.text") => t(".pensioner_guidance.certificated_link"), \
-             t(".domestic_abuse_guidance.text") => t(".domestic_abuse_guidance.link"),
-           }
+= render "shared/question_sidebar", \
+           level_of_help: @estimate.level_of_help,
+           links: applicant_links(@estimate.level_of_help)

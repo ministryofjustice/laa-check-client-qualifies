@@ -6,4 +6,8 @@ class CheckAnswersPresenter
   def sections
     CheckAnswers::SectionListerService.call(@session_data)
   end
+
+  def level_of_help
+    EstimateModel.from_session(@session_data).level_of_help
+  end
 end

@@ -5,6 +5,7 @@
 .govuk-grid-column-two-thirds
   = render "estimate_flow/forms/vehicle", i18n_key: "vehicle"
 
-= render "shared/sidebar_with_date",
+= render "shared/question_sidebar",
+         level_of_help: @estimate.level_of_help,
          links: { t("estimate_flow.vehicle.guidance.text") => t("estimate_flow.vehicle.guidance.link"),
-                  t("generic.trapped_capital.text") => t("generic.trapped_capital.certificated_link") }
+                  t("generic.trapped_capital.text") => t("generic.trapped_capital.certificated.link") }

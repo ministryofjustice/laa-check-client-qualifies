@@ -15,4 +15,6 @@
 
     = form.govuk_submit t(".call_to_action")
 
-= render "shared/sidebar_with_date", links: {}
+= render "shared/question_sidebar",
+        level_of_help: @answers.level_of_help,
+        links: {}

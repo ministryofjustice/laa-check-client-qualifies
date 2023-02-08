@@ -7,7 +7,8 @@
   = render "estimate_flow/forms/assets", i18n_key: "partner_assets", show_smod_content: false
 
   - translation_text = @estimate.level_of_help == "controlled" ? "controlled" : "certificated"
-= render "shared/sidebar_with_date", \
+= render "shared/question_sidebar", \
+  level_of_help: @estimate.level_of_help,
   links: { t("estimate_flow.assets.guidance.#{translation_text}.text") => t("estimate_flow.assets.guidance.#{translation_text}.link"), \
     t("estimate_flow.assets.other_property_guidance.text") => t("estimate_flow.assets.other_property_guidance.#{translation_text}.link"), \
   }

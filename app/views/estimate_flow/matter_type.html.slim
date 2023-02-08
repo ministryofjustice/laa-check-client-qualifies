@@ -15,5 +15,6 @@
 
     = form.govuk_submit t("generic.save_and_continue")
 
-= render "shared/sidebar_with_date",
-         links: { t("estimate_flow.tribunal.guidance_text") => t("estimate_flow.tribunal.guidance_link") }
+= render "shared/question_sidebar",
+        level_of_help: @estimate.level_of_help,
+        links: { t("estimate_flow.tribunal.guidance_text") => t("estimate_flow.tribunal.guidance_link") }

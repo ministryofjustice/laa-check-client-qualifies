@@ -5,4 +5,5 @@
 .govuk-grid-column-two-thirds
   = render "estimate_flow/forms/property_entry", i18n_key: "partner_property_entry",
           show_smod: false, show_joint_ownership: false, show_mortgage: @estimate.partner_property_owned == "with_mortgage"
-= render "#{@estimate.level_of_help}_partner_property_sidebar"
+
+= render "partner_property_sidebar", level_of_help: @estimate.level_of_help

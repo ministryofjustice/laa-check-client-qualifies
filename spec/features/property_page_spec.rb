@@ -334,7 +334,7 @@ RSpec.describe "Property Page" do
       end
 
       it "shows controlled guidance" do
-        expect(page).to have_link(href: I18n.t("generic.trapped_capital.controlled_link"))
+        expect(page).to have_link(href: I18n.t("generic.trapped_capital.controlled.link"))
       end
     end
   end

@@ -36,4 +36,6 @@
                   hint: { text: t(".partner_employed.hint") }
 
     = form.govuk_submit t("generic.save_and_continue")
-= render "shared/sidebar_with_date", links: {}
+= render "shared/question_sidebar",
+        level_of_help: @estimate.level_of_help,
+        links: {}
