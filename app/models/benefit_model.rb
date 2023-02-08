@@ -36,8 +36,7 @@ class BenefitModel
   end
 
   def benefit_list
-    full_list = cfe_benefit_list.pluck("label", "name", "exclude_from_gross_income")
-    display_list = full_list.reject { |item| item[2] == true || item[0].in?(PASSPORTED_BENEFITS) }
-    display_list.map { |row| row[1] }
+    display_list = cfe_benefit_list.reject { _1["exclude_from_gross_income"] || _1["label"].in?(PASSPORTED_BENEFITS) }
+    display_list.map { _1["name"] }.uniq
   end
 end
