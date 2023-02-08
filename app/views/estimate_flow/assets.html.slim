@@ -9,9 +9,16 @@
            show_smod_content: true,
            hints: ([t("estimate_flow.assets.partner_hint"), t("estimate_flow.assets.partner_second_hint")] if @estimate.partner)
 
-= render "shared/sidebar_with_date", \
-  links: { t("estimate_flow.assets.guidance.text") => t("estimate_flow.assets.guidance.link"), \
-    t(".other_properties_guidance.text") => t(".other_properties_guidance.link"), \
-    t(".disregarded_capital_guidance.text") => t(".disregarded_capital_guidance.link"), \
-    t("generic.smod.guidance.text") => t("generic.smod.guidance.certificated_link"), \
-  }
+- if @estimate.level_of_help == "controlled"
+  = render "shared/sidebar_with_date",
+          links: { t("estimate_flow.assets.guidance.controlled.text") => t("estimate_flow.assets.guidance.controlled.link"), \
+              t(".other_property_guidance.text") => t(".other_property_guidance.controlled.link"), \
+              t("generic.smod.guidance.text") => t("generic.smod.guidance.controlled.link"), \
+            }
+- else
+  = render "shared/sidebar_with_date",
+          links: { t("estimate_flow.assets.guidance.certificated.text") => t("estimate_flow.assets.guidance.certificated.link"), \
+              t(".other_property_guidance.text") => t(".other_property_guidance.certificated.link"), \
+              t(".disregarded_capital_guidance.text") => t(".disregarded_capital_guidance.certificated.link"), \
+              t("generic.smod.guidance.text") => t("generic.smod.guidance.certificated.link"), \
+            }
