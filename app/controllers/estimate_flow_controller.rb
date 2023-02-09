@@ -4,6 +4,7 @@ class EstimateFlowController < ApplicationController
   steps(*StepsHelper.all_possible_steps)
 
   def show
+    track_page_view(assessment_id: estimate_id)
     @form = Flow::Handler.model_from_session(step, session_data)
     @estimate = load_estimate
     render_wizard
@@ -32,5 +33,9 @@ protected
       .drop_while { |thestep|
         Flow::Handler.model_from_session(thestep, session_data).valid?
       }.first
+  end
+
+  def page_name
+    step
   end
 end

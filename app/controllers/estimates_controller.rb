@@ -5,21 +5,24 @@ class EstimatesController < ApplicationController
 
   def create
     @model = CfeService.call(cfe_session_data(:estimate_id))
+    track_page_view(assessment_id: params[:estimate_id], page: :view_results)
     render :show
   end
 
   def print
     @model = CfeService.call(cfe_session_data(:id))
-
+    track_page_view(assessment_id: params[:id], page: :print_results)
     render :print, layout: "print_application"
   end
 
   def check_answers
     @form = CheckAnswersPresenter.new cfe_session_data(:id)
     @estimate_id = params.fetch(:id)
+    track_page_view(assessment_id: @estimate_id, page: :check_answers)
   end
 
   def download
+    track_page_view(assessment_id: params[:id], page: :download_results)
     html = render_to_string({
       template: "estimates/print",
       layout: "print_application",

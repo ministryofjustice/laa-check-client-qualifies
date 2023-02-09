@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resource :referrals, only: [:show]
 
   resources :estimates, only: %i[new create] do
-    resources :build_estimates, only: %i[index show update]
+    resources :build_estimates, only: %i[show update]
     resources :check_answers, only: %i[show update]
     resources :benefits, except: %i[index show] do
       collection { post :add }

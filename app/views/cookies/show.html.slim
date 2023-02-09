@@ -87,6 +87,13 @@ table.govuk-table
         = t(".reduce_requests")
       td.govuk-table__cell
         = t(".two_years")
+    tr.govuk-table__row
+      th.govuk-table__header[scope="row"]
+        = CookiesController::BROWSER_ID_COOKIE
+      td.govuk-table__cell
+        = t(".track_over_time", service_name: t("service.name"))
+      td.govuk-table__cell
+        = t(".one_year")
 
 = form_with(url: cookies_path, method: "PATCH") do |form|
   input type="hidden" name="return_to" value=cookies_path

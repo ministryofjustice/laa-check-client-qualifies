@@ -16,6 +16,7 @@ class BuildEstimatesController < EstimateFlowController
       end
     else
       @estimate = load_estimate
+      track_validation_error(assessment_id: estimate_id)
       render_wizard
     end
   end
