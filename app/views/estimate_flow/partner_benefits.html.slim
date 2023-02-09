@@ -10,7 +10,7 @@
       = render "add_benefit_form",
               form:,
               legend: { text: t(".legend"), size: "xl", tag: "h1" },
-              hint_text: FeatureFlags.enabled?(:disregard_cost_of_living) ? t("generic.benefits.hint_with_col") : t("generic.benefits.hint")
+              hint_text: t("generic.benefits.hint_with_col")
   - else
     = form_for(@form, url: variable_controller_partner_benefit_path(action: :add)) do |form|
       = form.govuk_error_summary t("generic.error_summary_title")
@@ -40,7 +40,7 @@
       = render "add_benefit_form",
                form:,
                legend: { text: t(".legend"), size: "l" },
-               hint_text: FeatureFlags.enabled?(:disregard_cost_of_living) ? t(".add_more_hint_with_col") : t(".add_more_hint")
+               hint_text: t(".add_more_hint_with_col")
 
   - level_of_help = @estimate.level_of_help == "controlled" ? "controlled" : "certificated"
 = render "shared/disregarded_benefits_sidebar", translation_text: level_of_help
