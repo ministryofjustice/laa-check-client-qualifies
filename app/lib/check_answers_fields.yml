@@ -36,6 +36,18 @@ sections:
       - fields:
         - attribute: level_of_help
           type: select
+  - label: about_the_case
+    subsections:
+      - screen: tribunal
+        label: tribunal
+        fields:
+          - attribute: upper_tribunal
+            type: boolean
+      - screen: matter_type
+        label: case_details
+        fields:
+          - attribute: upper_tribunal_proceeding_type
+            type: select
   - label: about_your_client
     subsections:
       - label: client_details

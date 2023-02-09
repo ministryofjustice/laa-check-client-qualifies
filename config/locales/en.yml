@@ -6,6 +6,14 @@ en:
           attributes:
             level_of_help:
               blank: Select the level of help your client needs
+        tribunal_form:
+          attributes:
+            upper_tribunal:
+              inclusion: Select yes if the case relates to proceedings in the Immigration and Asylum chamber of either the First-tier or Upper Tribunal
+        matter_type_form:
+          attributes:
+            upper_tribunal_proceeding_type:
+              blank: Select what type of matter this is
         partner_details_form:
           attributes:
             employed:
@@ -488,6 +496,16 @@ en:
       controlled_hint: This includes legal help, help at court, family help (lower) and family mediation
       certificated: Civil certificated or licensed legal work
       certificated_hint: This includes full representation and family help (higher)
+    tribunal:
+      title: Does the case relate to proceedings in the Immigration and Asylum chamber of either the First-tier or Upper tribunal?
+      guidance_text: Guidance to determining controlled work
+      guidance_link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf
+    matter_type:
+      title: Which type of matter is this?
+      immigration: Immigration in the First-tier Tribunal
+      immigration_hint: Or immigration in the Upper Tribunal, in relation to an appeal or review from the Immigration and Asylum Chamber of the First-tier Tribunal
+      asylum: Asylum in the First-tier Tribunal
+      asylum_hint: Or asylum in the Upper Tribunal, in relation to an appeal or review from the Immigration and Asylum Chamber of the First-tier Tribunal
     partner:
       partner_guidance:
         text: "Guidance on partners"
@@ -1031,6 +1049,17 @@ en:
           controlled: Civil controlled work or family mediation
           certificated: Civil certificated or licensed legal work
           not_provided: Not provided
+      about_the_case: About the case
+      tribunal: Tribunal
+      tribunal_fields:
+        upper_tribunal: Concerns the Upper Tribunal
+      case_details: Case details
+      case_details_fields:
+        upper_tribunal_proceeding_type: What the case concerns
+        upper_tribunal_proceeding_type_options:
+          IM030: "Immigration"
+          IA031: "Asylum"
+          not_provided: "Not provided"
       about_your_client: About your client
       about_partner: About your client's partner
       client_dependant_details: Your client's dependants

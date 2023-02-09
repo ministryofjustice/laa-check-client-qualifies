@@ -2,6 +2,8 @@ module CheckAnswers
   class SectionIdFinder
     IDS = {
       level_of_help: "section-level-of-help-header",
+      tribunal: "subsection-tribunal-header",
+      matter_type: "subsection-case_details-header",
       applicant: "subsection-client_details-header",
       dependant_details: "subsection-client_dependant_details-header",
       employment: "section-employment-header",

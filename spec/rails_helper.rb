@@ -86,6 +86,12 @@ RSpec.configure do |config|
     Flipper.disable(:controlled)
   end
 
+  config.around(:each, :asylum_and_immigration_flag) do |example|
+    Flipper.enable(:asylum_and_immigration)
+    example.run
+    Flipper.disable(:asylum_and_immigration)
+  end
+
   config.include ActiveSupport::Testing::TimeHelpers
 end
 

@@ -1,0 +1,19 @@
+- content_for :page_title
+  = t(".title")
+- content_for :back do
+  = back_link(:matter_type, @estimate, @back_buttons_invoke_browser_back_behaviour)
+
+.govuk-grid-column-two-thirds
+  = form_for(@form, url: wizard_path, method: :put) do |form|
+    = form.govuk_error_summary t("generic.error_summary_title")
+    = form.govuk_radio_buttons_fieldset :upper_tribunal_proceeding_type,
+                                        legend: { text: t(".title"), size: "xl", tag: "h1" }
+      = form.govuk_radio_button :upper_tribunal_proceeding_type, MatterTypeForm::PROCEEDING_TYPES[:immigration],
+              label: { text: t(".immigration") }, hint: { text: t(".immigration_hint") }
+      = form.govuk_radio_button :upper_tribunal_proceeding_type, MatterTypeForm::PROCEEDING_TYPES[:asylum],
+              label: { text: t(".asylum") }, hint: { text: t(".asylum_hint") }
+
+    = form.govuk_submit t("generic.save_and_continue")
+
+= render "shared/sidebar_with_date",
+         links: { t("estimate_flow.tribunal.guidance_text") => t("estimate_flow.tribunal.guidance_link") }
