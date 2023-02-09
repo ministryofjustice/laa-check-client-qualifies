@@ -19,6 +19,7 @@ RSpec.describe "Applicant Page" do
           "Select yes if your client is likely to be an applicant in a domestic abuse case",
           "Select yes if your client is aged 60 or over",
           "Select employed if your client is currently employed",
+          "Select yes if the client has a partner",
           "Select yes if your client receives a passporting benefit or if they are named on their partner's passporting benefit",
         ]
       end
@@ -42,6 +43,7 @@ RSpec.describe "Applicant Page" do
           select_applicant_boolean(:over_60, over_60)
           select_applicant_boolean(:employed, false)
           select_applicant_boolean(:passporting, true)
+          select_applicant_boolean(:partner, false)
         end
       end
       allow(mock_connection).to receive(:api_result).and_return(calculation_result)
@@ -98,6 +100,7 @@ RSpec.describe "Applicant Page" do
           select_applicant_boolean(:over_60, false)
           select_applicant_boolean(:employed, true)
           select_applicant_boolean(:passporting, true)
+          select_applicant_boolean(:partner, false)
         end
       end
     end
@@ -107,7 +110,7 @@ RSpec.describe "Applicant Page" do
     end
   end
 
-  describe "with a partner", :partner_flag do
+  describe "with a partner" do
     context "when on applicant page" do
       before do
         visit_first_page

@@ -120,7 +120,7 @@ RSpec.describe "Employment page" do
         visit_check_answers(passporting: false) do |step|
           case step
           when :applicant
-            fill_in_applicant_screen_without_passporting_benefits
+            fill_in_applicant_screen_without_passporting_benefits(partner: false)
             select_applicant_boolean(:employed, true)
           when :employment
             fill_in "employment-form-gross-income-field", with: "5,000"
@@ -150,7 +150,7 @@ RSpec.describe "Employment page" do
         visit_check_answers(passporting: false) do |step|
           case step
           when :applicant
-            fill_in_applicant_screen_without_passporting_benefits
+            fill_in_applicant_screen_without_passporting_benefits(partner: false)
             select_applicant_boolean(:employed, true)
           when :employment
             fill_in "employment-form-gross-income-field", with: 1000

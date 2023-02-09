@@ -22,52 +22,40 @@
                                           legend: { text: t(".over_60.legend") },
                                           hint: { text: t(".over_60.hint") }
 
-    - if FeatureFlags.enabled?(:partner)
-      = form.govuk_radio_buttons_fieldset(:partner,
-              legend: { text: t(".partner.legend") },
-              hint: lambda { \
-                       tag.p(t(".partner.hint_text"), class: "govuk-hint") + \
-                       tag.ul(class: "govuk-list govuk-list--bullet") do \
-                          t(".partner.hint_list").map { |benefit| tag.li(benefit, class: "govuk-hint") }.join.html_safe \
-                       end + \
-                       tag.p(t(".partner.partner_additional.hint_text"), class: "govuk-hint") + \
-                       tag.ul(class: "govuk-list govuk-list--bullet") do \
-                         t(".partner.partner_additional.hint_list").map { |benefit| tag.li(benefit, class: "govuk-hint") }.join.html_safe \
-                       end \
-                    }) do
-        = form.govuk_radio_button :partner,
-                true,
-                label: { text: t("generic.yes_choice") },
-                hint: { text: t(".partner.rb_hint") },
-                link_errors: true
-        = form.govuk_radio_button :partner, false, label: { text: t("generic.no_choice") }
+    = form.govuk_radio_buttons_fieldset(:partner,
+            legend: { text: t(".partner.legend") },
+            hint: lambda { \
+                     tag.p(t(".partner.hint_text"), class: "govuk-hint") + \
+                     tag.ul(class: "govuk-list govuk-list--bullet") do \
+                        t(".partner.hint_list").map { |benefit| tag.li(benefit, class: "govuk-hint") }.join.html_safe \
+                     end + \
+                     tag.p(t(".partner.partner_additional.hint_text"), class: "govuk-hint") + \
+                     tag.ul(class: "govuk-list govuk-list--bullet") do \
+                       t(".partner.partner_additional.hint_list").map { |benefit| tag.li(benefit, class: "govuk-hint") }.join.html_safe \
+                     end \
+                  }) do
+      = form.govuk_radio_button :partner,
+              true,
+              label: { text: t("generic.yes_choice") },
+              hint: { text: t(".partner.rb_hint") },
+              link_errors: true
+      = form.govuk_radio_button :partner, false, label: { text: t("generic.no_choice") }
 
     = form.govuk_collection_radio_buttons :employed, employment_options, :first, :last,
                                           legend: { text: t(".employed.legend") },
                                           hint: { text: t(".employed.hint") }
-    - if FeatureFlags.enabled?(:partner)
-      = form.govuk_collection_radio_buttons :passporting, yes_no_options, :first, :last,
-                                            legend: { text: t(".passporting.legend") },
-                                            hint: lambda { \
-                                                    tag.p(t(".passporting.hint"), class: "govuk-hint") + \
-                                                    tag.ul(class: "govuk-list govuk-list--bullet") do \
-                                                      t(".passporting.valid_benefits").map { |benefit| \
-                                                        tag.li(benefit, class: "govuk-hint") \
-                                                      }.join.html_safe \
-                                                     end + \
-                                                    tag.p(t(".passporting.partner_hint"), class: "govuk-hint") \
-                                                  }
-    - else
-      = form.govuk_collection_radio_buttons :passporting, yes_no_options, :first, :last,
-                                            legend: { text: t(".passporting.legend") },
-                                            hint: lambda { \
-                                                    tag.p(t(".passporting.hint"), class: "govuk-hint") + \
-                                                    tag.ul(class: "govuk-list govuk-list--bullet") do \
-                                                      t(".passporting.valid_benefits").map { |benefit| \
-                                                        tag.li(benefit, class: "govuk-hint") \
-                                                      }.join.html_safe \
-                                                    end \
-                                                  }
+
+    = form.govuk_collection_radio_buttons :passporting, yes_no_options, :first, :last,
+                                          legend: { text: t(".passporting.legend") },
+                                          hint: lambda { \
+                                                  tag.p(t(".passporting.hint"), class: "govuk-hint") + \
+                                                  tag.ul(class: "govuk-list govuk-list--bullet") do \
+                                                    t(".passporting.valid_benefits").map { |benefit| \
+                                                      tag.li(benefit, class: "govuk-hint") \
+                                                    }.join.html_safe \
+                                                   end + \
+                                                  tag.p(t(".passporting.partner_hint"), class: "govuk-hint") \
+                                                }
 
     = form.govuk_submit t("generic.save_and_continue")
 

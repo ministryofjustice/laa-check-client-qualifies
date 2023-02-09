@@ -40,11 +40,6 @@ env:
       secretKeyRef:
         name: laa-estimate-financial-eligibility-elasticache-instance-output
         key: url
-  - name: PARTNER_FEATURE_FLAG
-    valueFrom:
-      secretKeyRef:
-        name: {{ template "app.fullname" . }}
-        key: partnerFeatureFlag
   - name: SENTRY_FEATURE_FLAG
     valueFrom:
       secretKeyRef:

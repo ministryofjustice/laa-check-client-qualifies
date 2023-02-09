@@ -32,7 +32,7 @@ RSpec.describe "Property Page" do
     context "without main client dwelling" do
       context "without dwelling" do
         before do
-          visit_check_answers(passporting: false, partner: true)
+          visit_check_answers(passporting: false)
         end
 
         it "doesn't send a main dwelling" do

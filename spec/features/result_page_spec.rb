@@ -66,6 +66,7 @@ RSpec.describe "Results Page" do
           select_radio_value("applicant-form", "proceeding-type", "se003") # non-domestic abuse case
           select_applicant_boolean(:over_60, false)
           select_applicant_boolean(:employed, true)
+          select_applicant_boolean(:partner, false)
           select_applicant_boolean(:passporting, false)
         when :dependants
           select_boolean_value("dependant-details-form", :child_dependants, true)
