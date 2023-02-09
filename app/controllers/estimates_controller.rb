@@ -11,12 +11,13 @@ class EstimatesController < ApplicationController
 
   def print
     @model = CfeService.call(cfe_session_data(:id))
+    @answers = CheckAnswersPresenter.new cfe_session_data(:id)
     track_page_view(assessment_id: params[:id], page: :print_results)
     render :print, layout: "print_application"
   end
 
   def check_answers
-    @form = CheckAnswersPresenter.new cfe_session_data(:id)
+    @answers = CheckAnswersPresenter.new cfe_session_data(:id)
     @estimate_id = params.fetch(:id)
     track_page_view(assessment_id: @estimate_id, page: :check_answers)
   end
@@ -26,7 +27,10 @@ class EstimatesController < ApplicationController
     html = render_to_string({
       template: "estimates/print",
       layout: "print_application",
-      locals: { :@model => CfeService.call(cfe_session_data(:id)) },
+      locals: {
+        :@model => CfeService.call(cfe_session_data(:id)),
+        :@answers => CheckAnswersPresenter.new(cfe_session_data(:id)),
+      },
     })
 
     grover_options = {
