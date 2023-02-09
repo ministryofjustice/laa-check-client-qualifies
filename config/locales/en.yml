@@ -1258,8 +1258,9 @@ en:
         - bank statements covering the most recent month
         - evidence of any benefits or financial support your client received from the government, local authorities or third parties dated in the last 6 months
         - wage slips covering the most recent month (if your client is employed)
-        - evidence of housing payments such as a mortgage statement, rent book or receipts (if your clients housing payments are more than a third of their total income)
-        - receipts for childcare payments (if these exceed £600 a month or a pro-rata amount if your client is employed part time) documentation showing the value of any assets held by your client
+        - evidence of housing payments such as a mortgage statement, rent book or receipts (if your client's housing payments are more than a third of their total income)
+        - receipts for childcare payments (if these exceed £600 a month or a pro-rata amount if your client is employed part time)
+        - documentation showing the value of any assets held by your client
         - a property valuation (if your client owns a property)
         - evidence of any claims against your client's assets
       certificated_limits_calculation: Upper limits, lower limits and exemptions
