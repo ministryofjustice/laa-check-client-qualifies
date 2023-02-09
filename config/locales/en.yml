@@ -479,8 +479,7 @@ en:
           - Widow’s Pension lump sum payments
           - Windrush Compensation Scheme payments
     benefits:
-      hint: For example, Child Benefit or tax credits. Do not include Housing Benefit or any other disregarded benefits.
-      hint_with_col: For example, Child Benefit or tax credits. Do not include Housing Benefit, government Cost of Living Payments, or any other disregarded benefits.
+      hint: For example, Child Benefit or tax credits. Do not include Housing Benefit, government Cost of Living Payments, or any other disregarded benefits.
     download_name: Legal aid eligibility assessment
   estimate_flow:
     level_of_help:
@@ -684,8 +683,7 @@ en:
       benefit: benefit
       edit: Change
       remove: Remove
-      add_more_hint: Add details of any benefits your client gets. After you’ve added one you can add more. Do not include Housing Benefit or any other disregarded benefits.
-      add_more_hint_with_col: Add details of any benefits your client gets. After you’ve added one you can add more. Do not include Housing Benefit, government Cost of Living Payments, or any other disregarded benefits.
+      add_more_hint: Add details of any benefits your client gets. After you’ve added one you can add more. Do not include Housing Benefit, government Cost of Living Payments, or any other disregarded benefits.
     partner_benefits:
       caption: The partner's finances
       legend: Does the partner get any other benefits?
@@ -693,8 +691,7 @@ en:
       benefit: benefit
       edit: Change
       remove: Remove
-      add_more_hint: Add details of any benefits the partner gets. After you’ve added one you can add more. Do not include Housing Benefit or any other disregarded benefits.
-      add_more_hint_with_col: Add details of any benefits the partner gets. After you’ve added one you can add more. Do not include Housing Benefit, government Cost of Living Payments, or any other disregarded benefits.
+      add_more_hint: Add details of any benefits the partner gets. After you’ve added one you can add more. Do not include Housing Benefit, government Cost of Living Payments, or any other disregarded benefits.
     other_income:
       caption: Your client's finances
       heading: Other income
@@ -722,8 +719,7 @@ en:
         controlled_instruction: Enter amount received this academic year
       other:
         label: Income from other sources
-        hint: Include any other income your client received.
-        hint_with_col: Include any other income your client received. Do not include any government Cost of Living Payments. Enter 0 if this does not apply
+        hint: Include any other income your client received. Do not include any government Cost of Living Payments. Enter 0 if this does not apply
         certificated_instruction: Enter amount received in the last 3 months
         controlled_instruction: Enter amount received in the last month
       enter_frequency: Select frequency
@@ -760,8 +756,7 @@ en:
         controlled_instruction: Enter amount received this academic year
       other:
         label: Income from other sources
-        hint: Include any other income the partner received. Enter 0 if this does not apply.
-        hint_with_col: Include any other income the partner received. Do not include any government Cost of Living Payments. Enter 0 if this does not apply.
+        hint: Include any other income the partner received. Do not include any government Cost of Living Payments. Enter 0 if this does not apply.
         certificated_instruction: Enter amount received in the last 3 months
         controlled_instruction: Enter amount received in the last month
       enter_frequency: Select frequency
@@ -879,8 +874,7 @@ en:
           label: This asset is a subject matter of dispute
       savings:
         label: Savings
-        hint: For example, money in current or savings accounts, ISAs, or child accounts your client is a signatory on. Enter 0 if this does not apply.
-        hint_with_col: For example, money in current or savings accounts, ISAs, or child accounts your client is a signatory on. Do not include any government Cost of Living Payments owed to your client. Enter 0 if this does not apply.
+        hint: For example, money in current or savings accounts, ISAs, or child accounts your client is a signatory on. Do not include any government Cost of Living Payments owed to your client. Enter 0 if this does not apply.
         input: Total of all savings
       investments:
         label: Investments
@@ -926,8 +920,7 @@ en:
           input_hint: ""
       savings:
         label: Savings
-        hint: For example, money in current or savings accounts, ISAs, or child accounts the partner is a signatory on. Enter 0 if this does not apply.
-        hint_with_col: For example, money in current or savings accounts, ISAs, or child accounts the partner is a signatory on. Do not include any government Cost of Living Payments owed to the partner. Enter 0 if this does not apply.
+        hint: For example, money in current or savings accounts, ISAs, or child accounts the partner is a signatory on. Do not include any government Cost of Living Payments owed to the partner. Enter 0 if this does not apply.
         input: Total of all savings
       investments:
         label: Investments
