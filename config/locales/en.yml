@@ -1481,11 +1481,6 @@ en:
       merits: This service cannot tell you if the merits or the type of case put it in scope for civil legal aid. You will have to make an application to find this out.
       only_for_legal_aid_providers_html: You can only use this service if you give legal advice or provide legal services. %{link} as an individual.
       check_if_you_can_get_legal_aid: Check if you can get legal aid
-      unacceptable_client_explanation_no_partner: "You cannot use this service if your client:"
-      unacceptable_client_types_no_partner:
-        - is self employed
-        - is in the armed forces
-        - has a partner
       unacceptable_client_explanation: "You cannot use this service if your client (or their partner) is:"
       unacceptable_client_types:
         - self employed
@@ -1509,9 +1504,6 @@ en:
       before_start_paragraphs:
         - It should take about 15 minutes to answer all the questions.
         - "You'll need information from your client (and their partner) about their:"
-      before_start_paragraphs_no_partner:
-        - It should take about 15 minutes to answer all the questions.
-        - "You'll need information from your client about their:"
       required_information_types:
         - income, including any benefits they claim
         - outgoings, like housing costs, maintenance payments and childcare costs

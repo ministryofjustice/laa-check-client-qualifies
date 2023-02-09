@@ -33,7 +33,7 @@
     h2.govuk-heading-m = t(".service_function")
     - t(".service_function_paragraphs").each
       p.govuk-body = _1
-
+  - else
     p class="govuk-body" = t(".unacceptable_client_explanation")
     ul class="govuk-list govuk-list--bullet"
       - t(".unacceptable_client_types").each
