@@ -188,7 +188,7 @@ jobs:
             helm upgrade check-client-qualifies ./helm_deploy/laa-estimate-eligibility/. \
                           --install --wait \
                           --namespace=${K8S_NAMESPACE} \
-                          --values ./helm_deploy/laa-estimate-eligibility/values-staging-unencrypted.yaml \
+                          --values ./helm_deploy/laa-estimate-eligibility/values-staging.yaml \
                           --set image.repository="$ECR_ENDPOINT" \
                           --set image.tag="${CIRCLE_SHA1}"  
 
@@ -206,7 +206,7 @@ jobs:
             helm upgrade check-client-qualifies ./helm_deploy/laa-estimate-eligibility/. \
                           --install --wait \
                           --namespace=${K8S_NAMESPACE} \
-                          --values ./helm_deploy/laa-estimate-eligibility/values-production-unencrypted.yaml \
+                          --values ./helm_deploy/laa-estimate-eligibility/values-production.yaml \
                           --set image.repository="$ECR_ENDPOINT" \
                           --set image.tag="${CIRCLE_SHA1}"  
 

@@ -29,14 +29,6 @@ yarn build
 yarn build:css
 ```
 
-### Initial setup
-
-Git-crypt is used for encryption. It uses either your personal public key or a symmetric key.
-
-To obtain the symmetric key you will need to get access to LastPass. Liase with a team member for this. Once you have the the key you can unlock:
-
-    git-crypt unlock path-to-symmetric-key
-
 ### Sentry
 
 Sentry is a realtime application monitoring and error tracking service. The service has separate monitoring for UAT/dev, Staging and Production.
@@ -94,3 +86,11 @@ Deployments can be deleted by running:
 e.g. `helm -n laa-estimate-financial-eligibility-for-legal-aid-uat delete el-351-employment-questions-pa`
 
 It is also possible to manually deploy to an environment from the command line, the structure of the command can be found in `bin/uat_deployment`
+
+Secrets have been stored for each environment using `kubectl create secret`. The following secrets are currently in use:
+
+* sentry-dsn
+* notifications-api-key
+* secret-key-base
+
+The current values for these are available as secure notes in LastPass for each environment, should they be lost from Kubernetes.
