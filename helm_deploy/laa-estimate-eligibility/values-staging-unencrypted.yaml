@@ -1,0 +1,58 @@
+replicaCount: 5
+
+resources: {}
+
+image:
+  repository: nginx
+  tag: stable
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: "cd-serviceaccount"
+
+podSecurityContext: {}
+# fsGroup: 2000
+
+securityContext:
+ runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  hosts:
+    - check-your-client-qualifies-for-legal-aid-staging.cloud-platform.service.justice.gov.uk
+  annotations:
+    external-dns.alpha.kubernetes.io/set-identifier: "check-client-qualifies-laa-estimate-eligibility-laa-estimate-financial-eligibility-for-legal-aid-staging-green"
+    external-dns.alpha.kubernetes.io/aws-weight: "100"
+
+deploy:
+  host: check-your-client-qualifies-for-legal-aid-staging.cloud-platform.service.justice.gov.uk
+
+postgresql:
+  enabled: false
+
+notifications:
+  errorMessageTemplateId: 928f3ea3-0134-4966-b43d-ba7e1369fd5d
+  recipient: patrick.gleeson@digital.justice.gov.uk,michael.blatherwick@digital.justice.gov.uk,stephen.p.dicks@digital.justice.gov.uk,william.clarke@digital.justice.gov.uk
+
+googleTagManager:
+  containerId: GTM-WJ98FR4
+
+cfe:
+  host: http://check-financial-eligibility-partner-check-financial-partner.check-financial-eligibility-partner-staging.svc.cluster.local
+
+featureFlags:
+  partner: ENABLED
+  sentry: NOT_ENABLED
+  controlled: NOT_ENABLED
+  asylumAndImmigration: NOT_ENABLED

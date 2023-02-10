@@ -23,7 +23,7 @@ spec:
         - name: api
           image: '{{ .Values.image.repository }}:{{ .Values.image.tag }}'
           imagePullPolicy: IfNotPresent
-  {{ include "app.envs" . | nindent 10 }}
+{{ include "app.envs" . | nindent 10 }}
           ports:
             - name: http
               containerPort: 3000

@@ -1,0 +1,59 @@
+# Default values for laa-estimate-eligibility-uat.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 2
+
+resources: {}
+
+image:
+  repository: nginx
+  tag: stable
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: "cd-serviceaccount"
+
+podSecurityContext: {}
+# fsGroup: 2000
+
+service:
+  type: ClusterIP
+  port: 80
+
+securityContext:
+  runAsUser: 1000
+
+ingress:
+  annotations:
+    external-dns.alpha.kubernetes.io/aws-weight: "100"
+
+notifications:
+  errorMessageTemplateId: b8879191-e4bb-4f10-831a-7d9bd2b078f1
+  recipient: patrick.gleeson@digital.justice.gov.uk,michael.blatherwick@digital.justice.gov.uk,stephen.p.dicks@digital.justice.gov.uk,william.clarke@digital.justice.gov.uk
+
+googleTagManager:
+  containerId: GTM-WJ98FR4
+
+cfe:
+  host: http://main-check-financial-partner.check-financial-eligibility-partner-uat.svc.cluster.local
+
+featureFlags:
+  partner: ENABLED
+  sentry: NOT_ENABLED
+  controlled: ENABLED
+  asylumAndImmigration: ENABLED
