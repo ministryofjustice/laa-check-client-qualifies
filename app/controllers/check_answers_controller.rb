@@ -18,6 +18,7 @@ class CheckAnswersController < EstimateFlowController
         redirect_to wizard_path StepsHelper.next_step_for(estimate, step)
       end
     else
+      track_validation_error(assessment_id: estimate_id)
       @estimate = load_estimate
       render "estimate_flow/#{step}"
     end
@@ -31,5 +32,9 @@ private
 
   def anchor
     CheckAnswers::SectionIdFinder.call(step)
+  end
+
+  def page_name
+    "check_#{step}"
   end
 end

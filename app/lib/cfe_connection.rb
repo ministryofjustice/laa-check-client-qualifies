@@ -13,8 +13,7 @@ class CfeConnection
   end
 
   def state_benefit_types
-    response = cfe_connection.get("state_benefit_type")
-    response.body.map { _1["name"] }.uniq
+    cfe_connection.get("state_benefit_type").body
   rescue StandardError
     []
   end

@@ -1,6 +1,5 @@
-- if FeatureFlags.enabled?(:disregard_cost_of_living)
-  = govuk_details(summary_text: t("cost_of_living_details.header"))
-    p.govuk-body = t("cost_of_living_details.text")
-    p.govuk-body
-      - t("cost_of_living_details.list").each
-        div = _1
+= govuk_details(summary_text: t("cost_of_living_details.header"))
+  p.govuk-body = t("cost_of_living_details.text")
+  p.govuk-body
+    - t("cost_of_living_details.list").each
+      div = _1

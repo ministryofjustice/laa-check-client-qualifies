@@ -88,9 +88,12 @@ RSpec.describe "Accessibility" do
 
   describe "Results page" do
     let(:estimate_id) { SecureRandom.uuid }
+    let(:calculation_result) do
+      CalculationResult.new(build(:api_result)).tap { _1.level_of_help = "certificated" }
+    end
     let(:mock_connection) do
       instance_double(CfeConnection, create_applicant: nil,
-                                     api_result: CalculationResult.new(build(:api_result)))
+                                     api_result: calculation_result)
     end
 
     before do
@@ -109,17 +112,32 @@ RSpec.describe "Accessibility" do
 
   describe "Print results page" do
     let(:estimate_id) { SecureRandom.uuid }
+    let(:calculation_result) do
+      CalculationResult.new(build(:api_result)).tap { _1.level_of_help = level_of_help }
+    end
 
     before do
       travel_to arbitrary_fixed_time
-      allow(CfeService).to receive(:call).and_return(CalculationResult.new(build(:api_result)))
+      allow(CfeService).to receive(:call).and_return(calculation_result)
       visit check_answers_estimate_path estimate_id
       click_on "Submit"
       click_on "Print this page"
     end
 
-    it "has no AXE-detectable accessibility issues" do
-      expect(page).to be_axe_clean
+    context "when assessing controlled work" do
+      let(:level_of_help) { "controlled" }
+
+      it "has no AXE-detectable accessibility issues" do
+        expect(page).to be_axe_clean
+      end
+    end
+
+    context "when assessing certificated work" do
+      let(:level_of_help) { "certificated" }
+
+      it "has no AXE-detectable accessibility issues" do
+        expect(page).to be_axe_clean
+      end
     end
   end
 end
