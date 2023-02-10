@@ -33,29 +33,16 @@
     h2.govuk-heading-m = t(".service_function")
     - t(".service_function_paragraphs").each
       p.govuk-body = _1
-  - elsif FeatureFlags.enabled?(:partner)
-    |
+  - else
     p class="govuk-body" = t(".unacceptable_client_explanation")
     ul class="govuk-list govuk-list--bullet"
       - t(".unacceptable_client_types").each
         li = _1
-  - else
-    |
-    p class="govuk-body" = t(".unacceptable_client_explanation_no_partner")
-    ul class="govuk-list govuk-list--bullet"
-      - t(".unacceptable_client_types_no_partner").each
-        li = _1
 
   h2 class="govuk-heading-m" = t(".before_start_heading")
 
-  - if FeatureFlags.enabled?(:partner)
-    |
-    - t(".before_start_paragraphs").each
-      p class="govuk-body" = _1
-  - else
-    |
-    - t(".before_start_paragraphs_no_partner").each
-      p class="govuk-body" = _1
+  - t(".before_start_paragraphs").each
+    p class="govuk-body" = _1
 
   ul class="govuk-list govuk-list--bullet"
     - t(".required_information_types").each

@@ -20,7 +20,7 @@ class ApplicantForm
 
   BOOLEAN_ATTRIBUTES.each do |attr|
     attribute attr, :boolean
-    validates attr, inclusion: { in: [true, false] }, if: -> { FeatureFlags.enabled?(:partner) || attr != :partner }
+    validates attr, inclusion: { in: [true, false] }
   end
 
   class << self

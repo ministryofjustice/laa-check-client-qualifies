@@ -24,7 +24,6 @@ module CheckAnswers
 
     def display_fields
       disabled_fields = [
-        (:partner unless FeatureFlags.enabled?(:partner)),
         (:proceeding_type if level_of_help == "controlled"),
       ]
       FIELDS - disabled_fields.compact
