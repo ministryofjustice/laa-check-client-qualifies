@@ -5,7 +5,7 @@ class PartnerIncomeSection
     end
 
     def steps_for(estimate)
-      if estimate.passporting || !estimate.partner
+      if estimate.passporting || !estimate.partner || estimate.asylum_support
         []
       else
         employment_steps(estimate) + housing_benefit_steps(estimate) + other_steps

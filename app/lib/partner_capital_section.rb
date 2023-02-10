@@ -9,17 +9,19 @@ class PartnerCapitalSection
     end
 
     def steps_for(estimate)
-      return [] unless estimate.partner
+      if estimate.asylum_support || !estimate.partner
+        []
+      else
+        property_steps = if estimate.owns_property?
+                           []
+                         elsif estimate.partner_owns_property?
+                           PROPERTY_STEPS
+                         else
+                           %i[partner_property]
+                         end
 
-      property_steps = if estimate.owns_property?
-                         []
-                       elsif estimate.partner_owns_property?
-                         PROPERTY_STEPS
-                       else
-                         %i[partner_property]
-                       end
-
-      ([property_steps] + [vehicle_steps(estimate)] + TAIL_STEPS.map { |step| [step] }).freeze
+        ([property_steps] + [vehicle_steps(estimate)] + TAIL_STEPS.map { |step| [step] }).freeze
+      end
     end
 
     def vehicle_steps(estimate)
