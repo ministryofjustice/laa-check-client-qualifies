@@ -3,7 +3,8 @@ class EstimateModel
   include ActiveModel::Attributes
   include SessionPersistable
 
-  ESTIMATE_BOOLEANS = %i[over_60
+  ESTIMATE_BOOLEANS = %i[upper_tribunal
+                         over_60
                          passporting
                          vehicle_owned
                          vehicle_in_regular_use

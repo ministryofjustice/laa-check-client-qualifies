@@ -26,7 +26,7 @@
   p.govuk-body = t(".controlled_next_steps_paragraph_1")
   p.govuk-body == t(".controlled_next_steps_paragraph_2")
 
-  = govuk_details(summary_text: t(".controlled_evidence_needed")) do
+  = govuk_details(summary_text: t(".evidence_needed")) do
     p.govuk-body = t(".evidence_needed_explainer")
     ul.govuk-list.govuk-list--bullet
       - t(".controlled_types_of_evidence").each do |evidence|
