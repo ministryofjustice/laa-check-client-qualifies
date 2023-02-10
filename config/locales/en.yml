@@ -497,8 +497,8 @@ en:
       certificated: Civil certificated or licensed legal work
       certificated_hint: This includes full representation and family help (higher)
     tribunal:
-      title: Does the case relate to proceedings in the Immigration and Asylum chamber of either the First-tier or Upper tribunal?
-      guidance_text: Guidance to determining controlled work
+      title: Does the case relate to proceedings in the Immigration and Asylum Chamber of either the First-tier or Upper Tribunal?
+      guidance_text: Guide to determining controlled work
       guidance_link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf
     matter_type:
       title: Which type of matter is this?
@@ -1052,11 +1052,11 @@ en:
       about_the_case: About the case
       case_details: Case details
       case_details_fields:
-        upper_tribunal: Relates to Immigration/Asylum tribunal
+        upper_tribunal: Relates to Immigration/Asylum Tribunal
         upper_tribunal_proceeding_type: Type of matter
         upper_tribunal_proceeding_type_options:
-          IM030: "Immigration tribunal"
-          IA031: "Asylum tribunal"
+          IM030: "Immigration Tribunal"
+          IA031: "Asylum Tribunal"
           not_provided: "Not provided"
       about_your_client: About your client
       about_partner: About your client's partner
