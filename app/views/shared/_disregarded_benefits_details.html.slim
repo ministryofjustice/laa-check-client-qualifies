@@ -1,7 +1,6 @@
-- key = FeatureFlags.enabled?(:disregard_cost_of_living) ? "text_with_col" : "text"
+- key = "text_with_col"
 = govuk_details(summary_text: t("generic.disregarded_benefits.#{key}")) do
-  - standard_types = %i[disability low_income other]
-  - types = FeatureFlags.enabled?(:disregard_cost_of_living) ? (%i[cost_of_living disregarded] + standard_types) : standard_types
+  - types = (%i[cost_of_living disregarded] + %i[disability low_income other])
   - types.each do |benefit_type|
     b = t("generic.disregarded_benefits.#{benefit_type}.text")
     p.govuk-body

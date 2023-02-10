@@ -1,7 +1,6 @@
 class FeatureFlags
   ENABLED_AFTER_DATE = {
     example_2125_flag: "2125-01-01",
-    disregard_cost_of_living: "2023-01-10",
   }.freeze
 
   FLIPPER_FLAGS = %i[partner sentry controlled asylum_and_immigration].freeze
