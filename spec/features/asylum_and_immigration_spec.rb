@@ -67,6 +67,7 @@ RSpec.describe "Asylum and immigration pages", :controlled_flag do
       expect(mock_connection).to receive(:create_proceeding_type).with(estimate_id, "IM030")
 
       select_boolean(page:, form_name: "applicant-form", field: :over_60, value: false)
+      select_boolean(page:, form_name: "applicant-form", field: :partner, value: false)
       select_boolean(page:, form_name: "applicant-form", field: :passporting, value: true)
       select_boolean(page:, form_name: "applicant-form", field: :employed, value: true)
       click_on "Save and continue"
