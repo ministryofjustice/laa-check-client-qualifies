@@ -1050,15 +1050,13 @@ en:
           certificated: Civil certificated or licensed legal work
           not_provided: Not provided
       about_the_case: About the case
-      tribunal: Tribunal
-      tribunal_fields:
-        upper_tribunal: Concerns the Upper Tribunal
       case_details: Case details
       case_details_fields:
-        upper_tribunal_proceeding_type: What the case concerns
+        upper_tribunal: Relates to Immigration/Asylum tribunal
+        upper_tribunal_proceeding_type: Type of matter
         upper_tribunal_proceeding_type_options:
-          IM030: "Immigration"
-          IA031: "Asylum"
+          IM030: "Immigration tribunal"
+          IA031: "Asylum tribunal"
           not_provided: "Not provided"
       about_your_client: About your client
       about_partner: About your client's partner
