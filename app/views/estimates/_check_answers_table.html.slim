@@ -1,0 +1,77 @@
+- @answers.sections.each do |section|
+  .govuk-grid-row  id="section-#{section.label}-header"
+    .govuk-grid-column-two-thirds
+      h2.govuk-heading-l id="#{section.label}-section"
+        = t("estimates.check_answers.#{section.label}")
+    .govuk-grid-column-one-third
+      - if section.screen.present? && change_links
+        p class="govuk-!-text-align-right"
+          = link_to t("generic.change"),
+                    estimate_check_answer_path(@estimate_id, section.screen),
+                    class: "govuk-link govuk-!-font-size-19"
+
+  - section.subsections.each do |subsection|
+    - if subsection.label
+      .govuk-grid-row id="subsection-#{subsection.label}-header"
+        .govuk-grid-column-two-thirds
+          h2.govuk-heading-m
+            = t("estimates.check_answers.#{subsection.label}")
+        .govuk-grid-column-one-third
+          - if subsection.screen.present? && change_links
+            p class="govuk-!-text-align-right"
+              = link_to t("generic.change"),
+                        estimate_check_answer_path(@estimate_id, subsection.screen),
+                        class: "govuk-link govuk-!-font-size-19"
+
+    dl class="govuk-summary-list govuk-!-margin-bottom-9" id="field-list-#{subsection.label || section.label}"
+      - subsection.fields.each do |field|
+        - case field.type
+        - when "money"
+          = render "money_check_answer",
+                    label_text: t("estimates.check_answers.#{field.label}"),
+                    value_text: field.value,
+                    disputed_asset: field.disputed?
+        - when "boolean"
+          = render "check_answer",
+                    label_text: t("estimates.check_answers.#{field.label}"),
+                    value_text: yes_no_boolean(field.value),
+                    link: (field.screen if change_links),
+                    disputed_asset: field.disputed?
+        - when "number"
+          = render "check_answer",
+                    label_text: t("estimates.check_answers.#{field.label}"),
+                    value_text: field.value || t("generic.not_applicable"),
+                    link: (field.screen if change_links),
+                    disputed_asset: field.disputed?
+        - when "no_or_number"
+          = render "check_answer",
+                    label_text: t("estimates.check_answers.#{field.label}"),
+                    value_text: t("estimates.check_answers.#{field.label}_options.#{field.value || 'not_provided'}"),
+                    link: (field.screen if change_links),
+                    disputed_asset: field.disputed?
+        - when "select"
+          = render "check_answer",
+                    label_text: t("estimates.check_answers.#{field.label}"),
+                    value_text: t("estimates.check_answers.#{field.label}_options.#{field.value || 'not_provided'}"),
+                    link: (field.screen if change_links),
+                    disputed_asset: field.disputed?
+        - when "money_with_frequency"
+          - alt_value = field.alt_value if field.value&.to_f&.positive?
+          = render "money_and_frequency_check_answer",
+                    label_text: t("estimates.check_answers.#{field.label}"),
+                    value: (field.value if field.value&.to_f&.positive?),
+                    frequency: t("estimates.check_answers.frequency_options.#{alt_value || 'not_applicable'}")
+        - when "benefit"
+          = render "money_and_frequency_check_answer",
+                    label_text: field.label,
+                    value: field.value,
+                    frequency: t("estimates.check_answers.frequency_options.#{field.alt_value}"),
+                    disputed_asset: false
+        - when "partner_benefit"
+          = render "money_and_frequency_check_answer",
+                    label_text: field.label,
+                    value: field.value,
+                    frequency: t("estimates.check_answers.frequency_options.#{field.alt_value}"),
+                    disputed_asset: false
+        - else
+          - raise "Unknown field_type #{field.type}"
