@@ -1498,6 +1498,7 @@ en:
       legal_aid: Legal Aid
       agency: Agency
       print_this_page: Print this page
+      your_answers: Your answers
   provider_users:
     show:
       provider_question: Do you give legal advice or provide legal services?

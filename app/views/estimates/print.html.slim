@@ -55,7 +55,7 @@
     h2.govuk-heading-m = t("estimates.show.capital_calculation")
     = render "capital_table", caption_size: "s"
 
-  . class="govuk-!-margin-bottom-9"
+  h2.govuk-heading-l class="govuk-!-margin-bottom-9 govuk-!-margin-top-9" = t(".your_answers")
   = render "check_answers_table", change_links: false
 
   button.govuk-button.govuk-button--secondary data-module="govuk-button" onclick="javascript:window.print()" = t(".print_this_page")
