@@ -2,6 +2,7 @@ module Flow
   class Handler
     CLASSES = {
       level_of_help: LevelOfHelpForm,
+      asylum_support: AsylumSupportForm,
       matter_type: MatterTypeForm,
       applicant: ApplicantForm,
       dependant_details: DependantDetailsForm,

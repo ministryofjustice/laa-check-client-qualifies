@@ -9,7 +9,7 @@ class CfeService
       SubmitBenefitsService.call(cfe_connection, cfe_assessment_id, session_data)
       SubmitIrregularIncomeService.call(cfe_connection, cfe_assessment_id, session_data)
       SubmitVehicleService.call(cfe_connection, cfe_assessment_id, session_data)
-      SubmitAssetsService.call(cfe_connection, cfe_assessment_id, session_data)
+      session_data["asylum_support"] ? nil : SubmitAssetsService.call(cfe_connection, cfe_assessment_id, session_data)
       SubmitRegularTransactionsService.call(cfe_connection, cfe_assessment_id, session_data)
       SubmitApplicantService.call(cfe_connection, cfe_assessment_id, session_data)
       SubmitPartnerService.call(cfe_connection, cfe_assessment_id, session_data)

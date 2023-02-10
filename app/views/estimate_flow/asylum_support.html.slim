@@ -1,0 +1,23 @@
+- content_for :page_title
+  = t(".question")
+- content_for :back do
+  = back_link(:asylum_support, @estimate, @back_buttons_invoke_browser_back_behaviour)
+
+.govuk-grid-column-two-thirds
+  = form_for(@form, url: wizard_path, method: :put) do |form|
+    = form.govuk_error_summary t("generic.error_summary_title")
+
+    = form.govuk_collection_radio_buttons :asylum_support,
+            yes_no_options, :first, :last,
+            legend: { text: t(".question"), size: "xl", tag: "h1" },
+            hint: lambda { \
+                            tag.p(t(".help_text_1"), class: "govuk-body") + \
+                            tag.p(t(".help_text_2"), class: "govuk-body") + \
+                            tag.p(t(".help_text_3"), class: "govuk-body") \
+                          }
+    = form.govuk_submit t("generic.save_and_continue")
+
+= render "shared/question_sidebar", level_of_help: @estimate.level_of_help, links: { \
+  t("estimate_flow.asylum_support.guidance.text") => t("estimate_flow.asylum_support.guidance.controlled_link"), \
+  t("estimate_flow.tribunal.guidance_text") => t("estimate_flow.tribunal.guidance_link"), \
+  }

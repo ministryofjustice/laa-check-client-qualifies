@@ -4,6 +4,7 @@ class EstimateModel
   include SessionPersistable
 
   ESTIMATE_BOOLEANS = %i[upper_tribunal
+                         asylum_support
                          over_60
                          passporting
                          vehicle_owned
@@ -16,7 +17,7 @@ class EstimateModel
                          partner_housing_benefit].freeze
 
   # This is the set of attributes which affect the page flow
-  ATTRIBUTES = (ESTIMATE_BOOLEANS + %i[level_of_help property_owned partner_property_owned]).freeze
+  ATTRIBUTES = (ESTIMATE_BOOLEANS + %i[level_of_help controlled_proceeding_type property_owned partner_property_owned]).freeze
 
   ESTIMATE_BOOLEANS.each do |attr|
     attribute attr, :boolean
@@ -24,6 +25,7 @@ class EstimateModel
 
   attribute :property_owned, :string
   attribute :partner_property_owned, :string
+  attribute :controlled_proceeding_type, :string
 
   # TODO: This should not be defaulted after :controlled flag removed
   attribute :level_of_help, :string, default: "certificated"
@@ -38,5 +40,10 @@ class EstimateModel
 
   def controlled?
     level_of_help == "controlled"
+  end
+
+  def upper_tribunal?
+    # controlled_proceeding_type != "SE003"
+    controlled_proceeding_type.in?(%w[IM030 IA031])
   end
 end

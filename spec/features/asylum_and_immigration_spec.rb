@@ -2,6 +2,8 @@ require "rails_helper"
 
 RSpec.describe "Asylum and immigration pages", :controlled_flag do
   let(:applicant_header) { I18n.t("estimate_flow.applicant.heading") }
+  let(:asylum_support_header) { I18n.t("estimate_flow.asylum_support.question") }
+  let(:check_answers_header) { I18n.t("estimates.check_answers.heading") }
   let(:matter_type_header) { I18n.t("estimate_flow.matter_type.title") }
 
   context "when asylum and immigration is not enabled" do
@@ -27,7 +29,7 @@ RSpec.describe "Asylum and immigration pages", :controlled_flag do
       click_on "Save and continue"
     end
 
-    it "shows the tribunal page first" do
+    it "shows the matter_type page first" do
       expect(page).to have_content matter_type_header
     end
 
@@ -37,12 +39,40 @@ RSpec.describe "Asylum and immigration pages", :controlled_flag do
       expect(page).to have_content "Select what type of matter this is"
     end
 
+    it "takes me to the applicant page if I say no" do
+      select_radio(page:, form: "matter-type-form", field: "controlled-proceeding-type", value: "se003")
+      click_on "Save and continue"
+      expect(page).to have_content applicant_header
+    end
+
+    it "takes me to the asylum_support page if I say yes" do
+      select_radio(page:, form: "matter-type-form", field: "controlled-proceeding-type", value: "ia031")
+      click_on "Save and continue"
+      expect(page).to have_content asylum_support_header
+    end
+
+    it "takes me to the check_answers page if I say yes to asylum_support" do
+      select_radio(page:, form: "matter-type-form", field: "controlled-proceeding-type", value: "ia031")
+      click_on "Save and continue"
+      select_boolean_value("asylum-support-form", :asylum_support, true)
+      click_on "Save and continue"
+      expect(page).to have_content check_answers_header
+    end
+
+    it "takes me to the applicant details page if I say no to asylum support" do
+      select_radio(page:, form: "matter-type-form", field: "controlled-proceeding-type", value: "ia031")
+      click_on "Save and continue"
+      select_boolean_value("asylum-support-form", :asylum_support, false)
+      click_on "Save and continue"
+      expect(page).to have_content applicant_header
+    end
+
     it "sends what I choose to CFE" do
       select_radio(page:, form: "matter-type-form", field: "controlled-proceeding-type", value: "im030")
       click_on "Save and continue"
-
+      select_boolean_value("asylum-support-form", :asylum_support, false)
+      click_on "Save and continue"
       expect(mock_connection).to receive(:create_proceeding_type).with(estimate_id, "IM030")
-
       select_boolean(page:, form_name: "applicant-form", field: :over_60, value: false)
       select_boolean(page:, form_name: "applicant-form", field: :partner, value: false)
       select_boolean(page:, form_name: "applicant-form", field: :passporting, value: true)
@@ -56,6 +86,19 @@ RSpec.describe "Asylum and immigration pages", :controlled_flag do
       fill_in "client-assets-form-property-value-field", with: "0"
       click_on "Save and continue"
       click_on "Submit"
+    end
+
+    context "when in receipt of asylum support" do
+      it "sends what I choose to CFE" do
+        select_radio(page:, form: "matter-type-form", field: "controlled-proceeding-type", value: "im030")
+        click_on "Save and continue"
+        select_boolean_value("asylum-support-form", :asylum_support, true)
+        click_on "Save and continue"
+        expect(page).to have_content "Check your answers"
+        expect(mock_connection).to receive(:create_proceeding_type).with(estimate_id, "IM030")
+        expect(mock_connection).not_to receive(:create_capitals)
+        click_on "Submit"
+      end
     end
   end
 end

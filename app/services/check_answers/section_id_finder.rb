@@ -3,6 +3,8 @@ module CheckAnswers
     IDS = {
       level_of_help: "section-level-of-help-header",
       matter_type: "section-about_the_case-header",
+      tribunal: "subsection-case_details-header",
+      asylum_support: "subsection-asylum_support-header",
       applicant: "subsection-client_details-header",
       dependant_details: "subsection-client_dependant_details-header",
       employment: "section-employment-header",
