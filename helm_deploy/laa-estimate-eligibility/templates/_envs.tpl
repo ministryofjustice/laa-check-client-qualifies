@@ -7,8 +7,8 @@ env:
   - name: SECRET_KEY_BASE
     valueFrom:
       secretKeyRef:
-        name: {{ template "app.fullname" . }}
-        key: secretKeyBase
+        name: kube-secrets
+        key: secret-key-base
   - name: RAILS_ENV
     value: production
   - name: RAILS_SERVE_STATIC_FILES
@@ -16,59 +16,35 @@ env:
   - name: RAILS_LOG_TO_STDOUT
     value: 'true'
   - name: HOST
-    valueFrom:
-      secretKeyRef:
-        name: {{ template "app.fullname" . }}
-        key: deployHost
+    value: {{ .Values.deploy.host }}
   - name: SENTRY_DSN
     valueFrom:
       secretKeyRef:
-        name: {{ template "app.fullname" . }}
-        key: sentryDsn
+        name: kube-secrets
+        key: sentry-dsn
   - name: GOOGLE_TAG_MANAGER_ID
-    valueFrom:
-      secretKeyRef:
-        name: {{ template "app.fullname" . }}
-        key: googleTagManagerId
+    value: {{ .Values.googleTagManager.containerId }}
   - name: CFE_HOST
-    valueFrom:
-      secretKeyRef:
-        name: {{ template "app.fullname" . }}
-        key: checkFinancialEligibilityHost
+    value: {{ .Values.cfe.host }}
   - name: REDIS_URL
     valueFrom:
       secretKeyRef:
         name: laa-estimate-financial-eligibility-elasticache-instance-output
         key: url
   - name: SENTRY_FEATURE_FLAG
-    valueFrom:
-      secretKeyRef:
-        name: {{ template "app.fullname" . }}
-        key: sentryFeatureFlag
+    value: {{ .Values.featureFlags.sentry }}
   - name: CONTROLLED_FEATURE_FLAG
-    valueFrom:
-      secretKeyRef:
-        name: {{ template "app.fullname" . }}
-        key: controlledFeatureFlag
+    value: {{ .Values.featureFlags.controlled }}
   - name: ASYLUM_AND_IMMIGRATION_FEATURE_FLAG
-    valueFrom:
-      secretKeyRef:
-        name: {{ template "app.fullname" . }}
-        key: asylumAndImmigrationFeatureFlag
+    value: {{ .Values.featureFlags.asylumAndImmigration }}
   - name: NOTIFICATIONS_API_KEY
     valueFrom:
       secretKeyRef:
-        name: {{ template "app.fullname" . }}
-        key: notificationsApiKey
+        name: kube-secrets
+        key: notifications-api-key
   - name: NOTIFICATIONS_ERROR_MESSAGE_TEMPLATE_ID
-    valueFrom:
-      secretKeyRef:
-        name: {{ template "app.fullname" . }}
-        key: notificationsErrorMessageTemplateId
+    value:  {{ .Values.notifications.errorMessageTemplateId }}
   - name: NOTIFICATIONS_RECIPIENT
-    valueFrom:
-      secretKeyRef:
-        name: {{ template "app.fullname" . }}
-        key: notificationsRecipient
+    value: {{ .Values.notifications.recipient }}
 
 {{- end }}
