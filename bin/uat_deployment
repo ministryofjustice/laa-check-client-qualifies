@@ -14,7 +14,7 @@ deploy() {
   helm upgrade $RELEASE_NAME ./helm_deploy/laa-estimate-eligibility/. \
                 --install --wait \
                 --namespace=${K8S_NAMESPACE} \
-                --values ./helm_deploy/laa-estimate-eligibility/values/values-uat.yaml \
+                --values ./helm_deploy/laa-estimate-eligibility/values/uat.yaml \
                 --set image.repository="$IMG_REPO" \
                 --set image.tag="$CIRCLE_SHA1" \
                 --set ingress.annotations."external-dns\.alpha\.kubernetes\.io/set-identifier"="$IDENTIFIER" \
