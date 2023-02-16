@@ -4,12 +4,9 @@ class EstimatesController < ApplicationController
   end
 
   def create
-    redirect_to estimate_path(params[:estimate_id])
-  end
-
-  def show
     @model = CfeService.call(session_data)
     track_page_view(page: :view_results)
+    render :show
   end
 
   def print
@@ -26,13 +23,11 @@ class EstimatesController < ApplicationController
 
   def download
     track_page_view(page: :download_results)
+    @model = CfeService.call(session_data)
+    @answers = CheckAnswersPresenter.new(session_data)
     html = render_to_string({
       template: "estimates/print",
       layout: "print_application",
-      locals: {
-        :@model => CfeService.call(session_data),
-        :@answers => CheckAnswersPresenter.new(session_data),
-      },
     })
 
     grover_options = {
