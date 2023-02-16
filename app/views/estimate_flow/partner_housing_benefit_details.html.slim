@@ -5,4 +5,6 @@
 .govuk-grid-column-two-thirds
   = render "estimate_flow/forms/housing_benefit_details", i18n_key: "partner_housing_benefit_details"
 
-= render "shared/sidebar_with_date", links: {}
+= render "shared/question_sidebar",
+        level_of_help: @estimate.level_of_help,
+        links: {}

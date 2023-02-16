@@ -407,6 +407,10 @@ en:
     check_box_divider: or
     change: Change
     date: Date
+    level_of_help:
+      text: Level of help
+      certificated: Civil certificated or licensed legal work
+      controlled: Civil controlled work or family mediation
     related_content_title: Related content
     not_applicable: Not applicable
     opens_in_new_tab: (opens in new tab)
@@ -429,8 +433,10 @@ en:
     smod_help_text: Regulation 38 (Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013) provides for a disregard of the amount or value of assets that are the subject matter of dispute (SMOD); however the total amount disregarded must not exceed £100,000. Please read the related content on subject matter of dispute (Regulation 38).
     trapped_capital:
       text: "Guidance on trapped capital"
-      certificated_link: "https://legalaidlearning.justice.gov.uk/course/view.php?id=186"
-      controlled_link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=20"
+      certificated:
+        link: "https://legalaidlearning.justice.gov.uk/course/view.php?id=186"
+      controlled:
+        link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=20"
     disregarded_benefits:
       text: Disregarded benefits
       text_with_col: Government Cost of Living Payments and disregarded benefits
@@ -516,12 +522,16 @@ en:
     applicant:
       passporting_guidance:
         text: Guidance on passporting
-        certificated_link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=11
-        controlled_link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=5
+        certificated:
+          link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=11
+        controlled:
+          link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=5
       pensioner_guidance:
         text: "Guidance on Pensioner disregards"
-        certificated_link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=71
-        controlled_link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=29
+        certificated:
+          link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=71
+        controlled:
+          link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=29
       heading: Tell us about your client
       caption: About your client
       partner:
@@ -621,8 +631,10 @@ en:
         - can be an adult or a child
       guidance:
         text: Guidance on dependants
-        certificated_link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=42
-        controlled_link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=15
+        certificated:
+          link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=42
+        controlled:
+          link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=15
     partner_dependant_details:
       caption: About the partner
       legend: The partner's dependants
@@ -810,10 +822,12 @@ en:
         monthly: Every month
         total: Total in last 3 months
       guidance_on_outgoings:
-        certificated_text: Guidance on outgoings
-        controlled_text: Guidance on determining disposable income
-        certificated_link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=38"
-        controlled_link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=15
+        certificated:
+          text: Guidance on outgoings
+          link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=38"
+        controlled:
+          text: Guidance on determining disposable income
+          link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=15
     partner_outgoings:
       heading: "Outgoings and deductions"
       caption: The partner's finances
@@ -851,8 +865,10 @@ en:
         legend: Does your client and/or their partner own the home they live in?
       properties_guidance:
         text: Guidance on properties
-        certificated_link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=57"
-        controlled_link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=23"
+        certificated:
+          link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=57"
+        controlled:
+          link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=23"
     partner_property:
       caption: The partner's finances
       legend: Does the partner own the home the client lives in?
@@ -1554,12 +1570,6 @@ en:
         - outgoings, like housing costs, maintenance payments and childcare costs
         - savings and investments
         - assets, like property and vehicles
-      related_content_item_1:
-        text: Legal aid overview
-        link: https://www.gov.uk/legal-aid
-      related_content_item_2:
-        text: Civil legal aid
-        link: https://www.gov.uk/guidance/civil-legal-aid-means-testing
       start_button: Start now
   cookie_banner:
     title: Cookies on

@@ -4,4 +4,6 @@
   = back_link(:partner_housing_benefit, @estimate, @back_buttons_invoke_browser_back_behaviour)
 .govuk-grid-column-two-thirds
   = render "estimate_flow/forms/housing_benefit", i18n_key: "partner_housing_benefit"
-= render "shared/sidebar_with_date", links: {}
+= render "shared/question_sidebar",
+        level_of_help: @estimate.level_of_help,
+        links: {}
