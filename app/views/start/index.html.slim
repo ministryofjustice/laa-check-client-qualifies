@@ -7,8 +7,9 @@
     - t(".opening_paragraphs").each
       p.govuk-body = _1
     ul.govuk-list.govuk-list--bullet
-      - t(".unacceptable_case_types").each
-        li = _1
+      - unless FeatureFlags.enabled?(:asylum_and_immigration)
+        li = t(".unacceptable_case_type_upper_tribunal")
+      li = t(".unacceptable_case_type_controlled_work")
 
     p.govuk-body = t(".merits")
 
@@ -21,10 +22,11 @@
     ul.govuk-list.govuk-list--bullet
       - t(".valid_case_types").each
         li = _1
-    p.govuk-body = t(".invalid_case_types_intro")
-    ul.govuk-list.govuk-list--bullet
-      - t(".invalid_case_types").each
-        li = _1
+    - unless FeatureFlags.enabled?(:asylum_and_immigration)
+      p.govuk-body = t(".invalid_case_types_intro")
+      ul.govuk-list.govuk-list--bullet
+        - t(".invalid_case_types").each
+          li = _1
     h2.govuk-heading-m = t(".client_types")
     p.govuk-body = t(".unacceptable_client_explanation")
     ul.govuk-list.govuk-list--bullet

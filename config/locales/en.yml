@@ -1536,9 +1536,8 @@ en:
       opening_paragraphs:
         - Use this service to find out if your client is likely to get civil legal aid, based on their financial situation.
         - "This must be for a case that would be civil certificated or licensed legal work. It cannot be for a case that would be:"
-      unacceptable_case_types:
-        - in the Immigration and Asylum Chamber of the Upper Tribunal
-        - controlled work
+      unacceptable_case_type_upper_tribunal: in the Immigration and Asylum Chamber of the Upper Tribunal
+      unacceptable_case_type_controlled_work: controlled work
       merits: This service cannot tell you if the merits or the type of case put it in scope for civil legal aid. You will have to make an application to find this out.
       only_for_legal_aid_providers_html: You can only use this service if you give legal advice or provide legal services. %{link} as an individual.
       check_if_you_can_get_legal_aid: Check if you can get legal aid
