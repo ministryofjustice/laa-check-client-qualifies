@@ -498,10 +498,31 @@ en:
   estimate_flow:
     level_of_help:
       title: What level of help does your client need?
+      controlled_header: Civil controlled work or family mediation
+      includes: "This includes:"
+      controlled_types:
+        - legal help
+        - help at court
+        - help with family mediation
+        - civil certificated or licensed legal work
+        - family mediation
+        - family help (lower)
+      also_includes: "It also includes legal representation for proceedings in:"
+      controlled_chambers:
+        - the Health, Education and Social Care Chamber of the First-tier Tribunal under the Mental Health Act 1983 or paragraph 5(2) of the Schedule to the Repatriation of Prisoners Act 1984
+        - the Mental Health Review Tribunal for Wales
+        - the Immigration and Asylum Chamber of the First tier Tribunal
+      certificated_header: Civil certificated or licensed legal work
+      certificated_explanation: This includes full representation and family help (higher).
+      select_a_level: Select a level of help
       controlled: Civil controlled work or family mediation
-      controlled_hint: This includes legal help, help at court, family help (lower) and family mediation
       certificated: Civil certificated or licensed legal work
-      certificated_hint: This includes full representation and family help (higher)
+      controlled_guidance:
+        text: Guide to determining controlled work
+        link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf
+      certificated_guidance:
+        text: Guide to determining certificated work
+        link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf
     tribunal:
       title: Does the case relate to proceedings in the Immigration and Asylum Chamber of either the First-tier or Upper Tribunal?
       guidance_text: Guide to determining controlled work

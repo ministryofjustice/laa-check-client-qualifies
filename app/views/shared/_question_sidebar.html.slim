@@ -1,6 +1,9 @@
+- level_of_help ||= nil
+
 = render "layouts/sidebar"
-  h2.govuk-heading-s class="govuk-!-margin-bottom-0" = t("generic.level_of_help.text")
-  p.govuk-body-m = t("generic.level_of_help.#{level_of_help}")
+  - if level_of_help
+    h2.govuk-heading-s class="govuk-!-margin-bottom-0" = t("generic.level_of_help.text")
+    p.govuk-body-m = t("generic.level_of_help.#{level_of_help}")
 
   - if links.any?
     h2.govuk-heading-s class="govuk-!-margin-bottom-0 govuk-!-padding-top-0" = t("generic.related_content_title")
