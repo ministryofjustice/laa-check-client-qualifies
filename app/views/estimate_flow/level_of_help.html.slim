@@ -28,6 +28,9 @@
       = form.govuk_radio_button :level_of_help, "certificated", label: { text: t(".certificated") }
 
     = form.govuk_submit t("generic.save_and_continue")
-= render "shared/question_sidebar",
-        links: { t(".controlled_guidance.text") => t(".controlled_guidance.link"),
-                 t(".certificated_guidance.text") => t(".certificated_guidance.link") }
+= render "layouts/sidebar"
+  = render "shared/related_content",
+           links: { t("estimate_flow.level_of_help.controlled_guidance.text") => \
+                      t("estimate_flow.level_of_help.controlled_guidance.link"),
+                    t("estimate_flow.level_of_help.certificated_guidance.text") => \
+                      t("estimate_flow.level_of_help.certificated_guidance.link") }
