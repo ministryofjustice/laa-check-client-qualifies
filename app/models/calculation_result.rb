@@ -281,11 +281,12 @@ private
   end
 
   def main_home_rows(prefix:)
-    capital = capital_items(:properties, prefix)
+    main_home = capital_items(:properties, prefix).fetch(:main_home)
+    disregard = main_home.fetch(:net_equity).to_d - main_home.fetch(:assessed_equity).to_d
     {
-      value: monetise(capital.dig(:main_home, :value)),
-      mortgage: monetise(-capital.dig(:main_home, :outstanding_mortgage)),
-      disregard: monetise(-capital.dig(:main_home, :main_home_equity_disregard)),
+      value: monetise(main_home.fetch(:value)),
+      mortgage: monetise(-main_home.fetch(:outstanding_mortgage)),
+      disregard: monetise(-disregard),
     }
   end
 
