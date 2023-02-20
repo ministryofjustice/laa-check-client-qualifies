@@ -1526,11 +1526,12 @@ en:
       sub_heading: What to do next
       return_button: Return to GOV.UK
       extra_text: This is because this service is only for use by those who give legal advice or provide legal services.
+      find_out_more: "To find out more about legal aid and your options you can:"
       links_html:
-        - '<a href="https://www.gov.uk/check-legal-aid">Check if you can get legal aid</a> as an individual'
-        - 'Check if you can get free and confidential advice from <a href="https://www.gov.uk/civil-legal-advice">Civil Legal Advice</a>'
-        - 'Find out more about <a href="https://www.gov.uk/legal-aid">Legal aid</a>'
-        - 'Find out what information we use to <a href="https://www.gov.uk/guidance/civil-legal-aid-means-testing">check who can get civil legal aid</a>'
+        - '<a href="https://www.gov.uk/check-legal-aid">check if you can get legal aid</a> as an individual'
+        - 'check if you can get free and confidential advice from <a href="https://www.gov.uk/civil-legal-advice">Civil Legal Advice</a>'
+        - 'find out more about <a href="https://www.gov.uk/legal-aid">legal aid</a>'
+        - 'find out what information we use to <a href="https://www.gov.uk/guidance/civil-legal-aid-means-testing">check who can get civil legal aid</a>'
   start:
     index:
       opening_paragraphs:
