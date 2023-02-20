@@ -1,10 +1,10 @@
 class SubmitAssetsService < BaseCfeService
-  def call(cfe_estimate_id, cfe_session_data)
-    asset_form = ClientAssetsForm.from_session(cfe_session_data)
+  def call(cfe_assessment_id, session_data)
+    asset_form = ClientAssetsForm.from_session(session_data)
     capitals = CfeParamBuilders::Capitals.call(asset_form, assets_in_dispute: asset_form.in_dispute)
 
     if capitals[:bank_accounts].any? || capitals[:non_liquid_capital].any?
-      cfe_connection.create_capitals cfe_estimate_id, capitals
+      cfe_connection.create_capitals cfe_assessment_id, capitals
     end
 
     if asset_form.property_value.positive?
@@ -16,10 +16,10 @@ class SubmitAssetsService < BaseCfeService
       second_property[:subject_matter_of_dispute] = true if asset_form.property_in_dispute?
     end
 
-    property_form = PropertyForm.from_session(cfe_session_data)
-    client_form = ApplicantForm.from_session(cfe_session_data)
+    property_form = PropertyForm.from_session(session_data)
+    client_form = ApplicantForm.from_session(session_data)
     if property_form.owns_property?
-      property_entry_form = ClientPropertyEntryForm.from_session(cfe_session_data)
+      property_entry_form = ClientPropertyEntryForm.from_session(session_data)
       percentage_owned = if property_entry_form.joint_ownership
                            property_entry_form.percentage_owned + property_entry_form.joint_percentage_owned
                          else
@@ -32,9 +32,9 @@ class SubmitAssetsService < BaseCfeService
       }
       main_home[:subject_matter_of_dispute] = true if property_entry_form.house_in_dispute
     elsif client_form.partner
-      partner_property_form = PartnerPropertyForm.from_session(cfe_session_data)
+      partner_property_form = PartnerPropertyForm.from_session(session_data)
       if partner_property_form.owns_property?
-        property_entry_form = PartnerPropertyEntryForm.from_session(cfe_session_data)
+        property_entry_form = PartnerPropertyEntryForm.from_session(session_data)
         main_home = {
           value: property_entry_form.house_value,
           outstanding_mortgage: (property_entry_form.mortgage if partner_property_form.owned_with_mortgage?) || 0,
@@ -43,7 +43,7 @@ class SubmitAssetsService < BaseCfeService
       end
     end
 
-    create_properties(cfe_estimate_id, main_home, second_property) if main_home.present? || second_property.present?
+    create_properties(cfe_assessment_id, main_home, second_property) if main_home.present? || second_property.present?
   end
 
 private

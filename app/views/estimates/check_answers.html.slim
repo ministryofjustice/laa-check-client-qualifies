@@ -11,7 +11,7 @@
   p = t(".submission_explanation")
 
   = form_with(url: estimates_path) do |form|
-    = hidden_field_tag :estimate_id, params.fetch(:id)
+    = hidden_field_tag :id, params.fetch(:id)
 
     = form.govuk_submit t(".call_to_action")
 

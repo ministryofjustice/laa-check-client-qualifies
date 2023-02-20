@@ -4,33 +4,30 @@ class EstimatesController < ApplicationController
   end
 
   def create
-    @model = CfeService.call(cfe_session_data(:estimate_id))
-    track_page_view(assessment_id: params[:estimate_id], page: :view_results)
+    @model = CfeService.call(session_data)
+    track_page_view(page: :view_results)
     render :show
   end
 
   def print
-    @model = CfeService.call(cfe_session_data(:id))
-    @answers = CheckAnswersPresenter.new cfe_session_data(:id)
-    track_page_view(assessment_id: params[:id], page: :print_results)
+    @model = CfeService.call(session_data)
+    @answers = CheckAnswersPresenter.new session_data
+    track_page_view(page: :print_results)
     render :print, layout: "print_application"
   end
 
   def check_answers
-    @answers = CheckAnswersPresenter.new cfe_session_data(:id)
-    @estimate_id = params.fetch(:id)
-    track_page_view(assessment_id: @estimate_id, page: :check_answers)
+    @answers = CheckAnswersPresenter.new session_data
+    track_page_view(page: :check_answers)
   end
 
   def download
-    track_page_view(assessment_id: params[:id], page: :download_results)
+    track_page_view(page: :download_results)
+    @model = CfeService.call(session_data)
+    @answers = CheckAnswersPresenter.new(session_data)
     html = render_to_string({
       template: "estimates/print",
       layout: "print_application",
-      locals: {
-        :@model => CfeService.call(cfe_session_data(:id)),
-        :@answers => CheckAnswersPresenter.new(cfe_session_data(:id)),
-      },
     })
 
     grover_options = {
@@ -55,7 +52,7 @@ class EstimatesController < ApplicationController
 
 private
 
-  def cfe_session_data(param_name)
-    session_data params[param_name]
+  def assessment_code
+    params[:id]
   end
 end

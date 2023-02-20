@@ -12,13 +12,13 @@ class CheckAnswersController < EstimateFlowController
         if next_step
           redirect_to wizard_path next_step
         else
-          redirect_to check_answers_estimate_path(estimate_id, anchor:)
+          redirect_to check_answers_estimate_path(assessment_code, anchor:)
         end
       else
         redirect_to wizard_path StepsHelper.next_step_for(estimate, step)
       end
     else
-      track_validation_error(assessment_id: estimate_id)
+      track_validation_error
       @estimate = load_estimate
       render "estimate_flow/#{step}"
     end

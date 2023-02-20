@@ -15,6 +15,6 @@
 
   dd.govuk-summary-list__actions
     - if link
-      = link_to(t("generic.change"), estimate_check_answer_path(@estimate_id, link), class: "govuk-link")
+      = link_to(t("generic.change"), estimate_check_answer_path(params[:id], link), class: "govuk-link")
     - elsif path
       = link_to(t("generic.change"), path, class: "govuk-link")

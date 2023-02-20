@@ -2,7 +2,7 @@ class CheckPartnerBenefitsAnswersController < CheckBenefitsAnswersController
 private
 
   def new_path
-    new_estimate_check_partner_benefits_answer_path(estimate_id)
+    new_estimate_check_partner_benefits_answer_path(assessment_code)
   end
 
   def post_destroy_path

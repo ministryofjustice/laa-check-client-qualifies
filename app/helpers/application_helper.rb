@@ -45,11 +45,11 @@ module ApplicationHelper
     link_to t("generic.back"), link, class: "govuk-back-link"
   end
 
-  def flow_path(estimate_id, step, check_answers: false)
+  def flow_path(assessment_code, step, check_answers: false)
     if check_answers
-      estimate_check_answer_path(estimate_id, step)
+      estimate_check_answer_path(assessment_code, step)
     else
-      estimate_build_estimate_path(estimate_id, step)
+      estimate_build_estimate_path(assessment_code, step)
     end
   end
 end

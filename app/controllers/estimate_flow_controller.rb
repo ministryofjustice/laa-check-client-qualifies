@@ -4,7 +4,7 @@ class EstimateFlowController < ApplicationController
   steps(*StepsHelper.all_possible_steps)
 
   def show
-    track_page_view(assessment_id: estimate_id)
+    track_page_view
     @form = Flow::Handler.model_from_session(step, session_data)
     @estimate = load_estimate
     render_wizard
@@ -16,16 +16,8 @@ protected
     EstimateModel.from_session(session_data)
   end
 
-  def estimate_id
+  def assessment_code
     params[:estimate_id]
-  end
-
-  def session_data
-    session[session_key] ||= {}
-  end
-
-  def session_key
-    "estimate_#{estimate_id}"
   end
 
   def next_check_answer_step(step, model)

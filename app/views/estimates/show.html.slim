@@ -51,5 +51,5 @@ h2.govuk-heading-m = t(".#{@model.level_of_help}_how_calculated")
 
 .govuk-button-group
   = link_to t(".start_another_check"), new_estimate_path, class: "govuk-button", data: { module: "govuk-button" }
-  = link_to t(".print_page"), print_estimate_path(params[:estimate_id]), target: "_blank", rel: "noopener", class: "govuk-button govuk-button--secondary"
-  = link_to t(".save_as_pdf"), download_estimate_path(params[:estimate_id]), target: "_blank", rel: "noopener", class: "govuk-button govuk-button--secondary"
+  = link_to t(".print_page"), print_estimate_path(params[:id]), target: "_blank", rel: "noopener", class: "govuk-button govuk-button--secondary"
+  = link_to t(".save_as_pdf"), download_estimate_path(params[:id]), target: "_blank", rel: "noopener", class: "govuk-button govuk-button--secondary"

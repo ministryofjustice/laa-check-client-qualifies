@@ -1,6 +1,6 @@
 class SubmitApplicantService < BaseCfeService
-  def call(cfe_estimate_id, cfe_session_data)
-    estimate = ApplicantForm.from_session(cfe_session_data)
+  def call(cfe_assessment_id, session_data)
+    estimate = ApplicantForm.from_session(session_data)
 
     applicant = {
       date_of_birth: estimate.over_60 ? 70.years.ago.to_date : 50.years.ago.to_date,
@@ -9,6 +9,6 @@ class SubmitApplicantService < BaseCfeService
       employed: estimate.employed,
     }
 
-    cfe_connection.create_applicant(cfe_estimate_id, applicant)
+    cfe_connection.create_applicant(cfe_assessment_id, applicant)
   end
 end
