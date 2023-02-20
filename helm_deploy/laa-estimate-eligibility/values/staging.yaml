@@ -53,5 +53,5 @@ cfe:
 
 featureFlags:
   sentry: NOT_ENABLED
-  controlled: NOT_ENABLED
+  controlled: ENABLED
   asylumAndImmigration: NOT_ENABLED
