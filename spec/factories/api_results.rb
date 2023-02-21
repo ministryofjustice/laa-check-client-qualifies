@@ -92,5 +92,6 @@ FactoryBot.define do
     outstanding_mortgage { 90_000.0 }
     net_equity { 110_000.0 }
     assessed_equity { 100_000.0 }
+    transaction_allowance { 0 }
   end
 end

@@ -1455,9 +1455,12 @@ en:
         mortgage:
           text: Outstanding mortgage
           hint: ""
-        disregard:
-          text: Disregards and deductions
+        disregards:
+          text: Disregards
           hint: Applied to the home equity and capped at £100,000
+        deductions:
+          text: Deductions
+          hint: 3% of property value deducted for cost of sale
         equity:
           text: Assessed value
           hint: Calculated using the client’s percentage share provided
@@ -1481,9 +1484,9 @@ en:
         mortgage:
           text: Outstanding mortgage
           hint: ""
-        disregards:
-          text: Disregards and deductions
-          hint: 3% of the property value deducted for cost of sale
+        deductions:
+          text: Deductions
+          hint: 3% of property value deducted for cost of sale
         equity:
           text: Assessed value
       partner_additional_property_hint: Calculated using the partner’s percentage share provided

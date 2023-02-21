@@ -20,6 +20,96 @@ RSpec.describe CalculationResult do
       main_home: FactoryBot.build(:property_api_result, net_equity: 20, assessed_equity: 10),
     )
 
-    expect(described_class.new(data).client_main_home_rows[:disregard]).to eq "-£10.00"
+    expect(described_class.new(data).client_main_home_rows[:disregards]).to eq "-£10.00"
+  end
+
+  describe "#client_main_home_rows" do
+    it "does not show cost of sale deduction row in situations where cost of sale deduction is zero" do
+      data = {
+        assessment: {
+          capital: {
+            capital_items: {
+              properties: {
+                main_home: {
+                  value: 0,
+                  outstanding_mortgage: 0,
+                  main_home_equity_disregard: 0,
+                  net_equity: 0,
+                  assessed_equity: 0,
+                  transaction_allowance: 0,
+                },
+              },
+            },
+          },
+        },
+      }
+
+      expect(described_class.new(data).client_main_home_rows.keys).not_to include(:deductions)
+    end
+
+    it "does shows cost of sale deduction row in situations where cost of sale deduction is not zero" do
+      data = {
+        assessment: {
+          capital: {
+            capital_items: {
+              properties: {
+                main_home: {
+                  value: 0,
+                  outstanding_mortgage: 0,
+                  main_home_equity_disregard: 0,
+                  net_equity: 0,
+                  assessed_equity: 0,
+                  transaction_allowance: 1,
+                },
+              },
+            },
+          },
+        },
+      }
+
+      expect(described_class.new(data).client_main_home_rows.keys).to include(:deductions)
+    end
+  end
+
+  describe "#client_additional_property_rows" do
+    it "does not show cost of sale deduction row in situations where cost of sale deduction is zero" do
+      data = {
+        assessment: {
+          capital: {
+            capital_items: {
+              properties: {
+                additional_properties: [{
+                  value: 0,
+                  outstanding_mortgage: 0,
+                  transaction_allowance: 0,
+                }],
+              },
+            },
+          },
+        },
+      }
+
+      expect(described_class.new(data).client_additional_property_rows.keys).not_to include(:deductions)
+    end
+
+    it "does shows cost of sale deduction row in situations where cost of sale deduction is not zero" do
+      data = {
+        assessment: {
+          capital: {
+            capital_items: {
+              properties: {
+                additional_properties: [{
+                  value: 0,
+                  outstanding_mortgage: 0,
+                  transaction_allowance: 1,
+                }],
+              },
+            },
+          },
+        },
+      }
+
+      expect(described_class.new(data).client_additional_property_rows.keys).to include(:deductions)
+    end
   end
 end
