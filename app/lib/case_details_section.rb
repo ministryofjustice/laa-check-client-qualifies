@@ -17,7 +17,7 @@ class CaseDetailsSection
     end
 
     def matter_type
-      :matter_type if FeatureFlags.enabled?(:controlled) && FeatureFlags.enabled?(:asylum_and_immigration)
+      :matter_type if FeatureFlags.enabled?(:asylum_and_immigration)
     end
 
     def asylum_support(estimate)
