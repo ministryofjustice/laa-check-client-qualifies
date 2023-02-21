@@ -6,15 +6,19 @@
 .govuk-grid-column-two-thirds
   = form_for(@form, url: wizard_path, method: :put) do |form|
     = form.govuk_error_summary t("generic.error_summary_title")
-    = form.govuk_radio_buttons_fieldset :upper_tribunal_proceeding_type,
+    = form.govuk_radio_buttons_fieldset :controlled_proceeding_type,
                                         legend: { text: t(".title"), size: "xl", tag: "h1" }
-      = form.govuk_radio_button :upper_tribunal_proceeding_type, MatterTypeForm::PROCEEDING_TYPES[:immigration],
+      = form.govuk_radio_button :controlled_proceeding_type, MatterTypeForm::PROCEEDING_TYPES[:immigration],
               label: { text: t(".immigration") }, hint: { text: t(".immigration_hint") }
-      = form.govuk_radio_button :upper_tribunal_proceeding_type, MatterTypeForm::PROCEEDING_TYPES[:asylum],
+      = form.govuk_radio_button :controlled_proceeding_type, MatterTypeForm::PROCEEDING_TYPES[:asylum],
               label: { text: t(".asylum") }, hint: { text: t(".asylum_hint") }
+      = form.govuk_radio_divider
+
+      = form.govuk_radio_button :controlled_proceeding_type, MatterTypeForm::PROCEEDING_TYPES[:other],
+              label: { text: t(".other") }
 
     = form.govuk_submit t("generic.save_and_continue")
 
 = render "shared/question_sidebar",
         level_of_help: @estimate.level_of_help,
-        links: { t("estimate_flow.tribunal.guidance_text") => t("estimate_flow.tribunal.guidance_link") }
+        links: { t(".guidance_text") => t(".guidance_link") }

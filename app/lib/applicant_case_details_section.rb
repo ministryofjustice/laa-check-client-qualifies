@@ -1,7 +1,7 @@
 class ApplicantCaseDetailsSection
   class << self
     def all_steps
-      %i[level_of_help tribunal matter_type applicant dependant_details]
+      %i[level_of_help matter_type applicant dependant_details]
     end
 
     def steps_for(estimate)
@@ -9,19 +9,15 @@ class ApplicantCaseDetailsSection
     end
 
     def steps(estimate)
-      [level_of_help, tribunal(estimate), matter_type(estimate), :applicant, dependant_details(estimate)].compact
+      [level_of_help, matter_type(estimate), :applicant, dependant_details(estimate)].compact
     end
 
     def level_of_help
       :level_of_help if FeatureFlags.enabled?(:controlled)
     end
 
-    def tribunal(estimate)
-      :tribunal if estimate.level_of_help == "controlled" && FeatureFlags.enabled?(:asylum_and_immigration)
-    end
-
     def matter_type(estimate)
-      :matter_type if estimate.upper_tribunal
+      :matter_type if estimate.level_of_help == "controlled" && FeatureFlags.enabled?(:asylum_and_immigration)
     end
 
     def dependant_details(estimate)
