@@ -2,11 +2,11 @@ class CheckBenefitsAnswersController < BenefitsController
 private
 
   def flow_path(step)
-    estimate_check_answer_path estimate_id, step
+    estimate_check_answer_path assessment_code, step
   end
 
   def new_path
-    new_estimate_check_benefits_answer_path(estimate_id)
+    new_estimate_check_benefits_answer_path(assessment_code)
   end
 
   def next_step_path(model)
@@ -14,7 +14,7 @@ private
     if next_step.present?
       flow_path next_step
     else
-      check_answers_estimate_path estimate_id, anchor:
+      check_answers_estimate_path assessment_code, anchor:
     end
   end
 

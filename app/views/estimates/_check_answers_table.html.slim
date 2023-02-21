@@ -7,7 +7,7 @@
       - if section.screen.present? && change_links
         p class="govuk-!-text-align-right"
           = link_to t("generic.change"),
-                    estimate_check_answer_path(@estimate_id, section.screen),
+                    estimate_check_answer_path(params[:id], section.screen),
                     class: "govuk-link govuk-!-font-size-19"
 
   - section.subsections.each do |subsection|
@@ -20,7 +20,7 @@
           - if subsection.screen.present? && change_links
             p class="govuk-!-text-align-right"
               = link_to t("generic.change"),
-                        estimate_check_answer_path(@estimate_id, subsection.screen),
+                        estimate_check_answer_path(params[:id], subsection.screen),
                         class: "govuk-link govuk-!-font-size-19"
 
     dl class="govuk-summary-list govuk-!-margin-bottom-9" id="field-list-#{subsection.label || section.label}"

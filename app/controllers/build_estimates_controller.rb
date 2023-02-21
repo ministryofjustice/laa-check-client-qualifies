@@ -1,6 +1,4 @@
 class BuildEstimatesController < EstimateFlowController
-  before_action :load_estimate_id
-
   def update
     @form = Flow::Handler.model_from_params(step, params, session_data)
 
@@ -16,18 +14,12 @@ class BuildEstimatesController < EstimateFlowController
       end
     else
       @estimate = load_estimate
-      track_validation_error(assessment_id: estimate_id)
+      track_validation_error
       render_wizard
     end
   end
 
   def finish_wizard_path
-    check_answers_estimate_path @estimate_id
-  end
-
-private
-
-  def load_estimate_id
-    @estimate_id = params[:estimate_id]
+    check_answers_estimate_path assessment_code
   end
 end

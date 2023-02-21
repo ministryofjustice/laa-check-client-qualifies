@@ -14,6 +14,6 @@ private
   end
 
   def new_path
-    new_estimate_partner_benefit_path(estimate_id)
+    new_estimate_partner_benefit_path(assessment_code)
   end
 end
