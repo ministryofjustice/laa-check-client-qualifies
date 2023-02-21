@@ -53,6 +53,6 @@ cfe:
   host: http://main-check-financial-partner.check-financial-eligibility-partner-uat.svc.cluster.local
 
 featureFlags:
-  sentry: NOT_ENABLED
+  sentry: ENABLED
   controlled: ENABLED
   asylumAndImmigration: ENABLED
