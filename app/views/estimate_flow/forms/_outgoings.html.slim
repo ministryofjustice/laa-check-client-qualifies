@@ -10,6 +10,12 @@
     - t("estimate_flow.#{i18n_key}.#{type}.hints").each do |hint|
       span.govuk-caption-m class="govuk-!-margin-bottom-4"
         = hint
+    - if type == :childcare_payments
+      span.govuk-caption-m class="govuk-!-margin-bottom-4"
+        - if @estimate.partner
+          = t("estimate_flow.outgoings.childcare_payments.partner_hint")
+        - else
+          = t("estimate_flow.outgoings.childcare_payments.no_partner_hint")
 
     = render "shared/money_input",
             form:,
