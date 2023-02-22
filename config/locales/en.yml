@@ -547,8 +547,16 @@ en:
       asylum: Asylum in the First-tier Tribunal
       asylum_hint: Or Upper Tribunal in relation to an appeal or review from the First-tier Tribunal
       other: Another legal matter
-      guidance_text: Guide to determining controlled work
-      guidance_link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf
+      domestic_abuse: Domestic abuse
+      domestic_abuse_hint: Upper eligibility limits are waived if your client is an applicant in a domestic abuse matter
+      controlled_guidance_text: Guide to determining controlled work
+      controlled_guidance_link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf
+      domestic_abuse_guidance:
+        text: Guidance on domestic abuse or violence
+        link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=13
+      tribunal_guidance:
+        text: Guidance on Upper Tribunal cases
+        link: need_something_to_go_here_no_link_on_the_jira_ticket
     partner:
       partner_guidance:
         text: "Guidance on partners"
@@ -1119,13 +1127,14 @@ en:
           controlled: Civil controlled work or family mediation
           certificated: Civil certificated or licensed legal work
           not_provided: Not provided
-      about_the_case: About the case
+      about_the_case: Case details
       about_the_case_fields:
         controlled_proceeding_type: Type of matter
         controlled_proceeding_type_options:
-          IM030: "Immigration Tribunal"
-          IA031: "Asylum Tribunal"
-          SE003: "Neither Immigration nor Asylum"
+          IM030: "Immigration in the Upper Tribunal"
+          IA031: "Asylum in the Upper Tribunal"
+          SE003: "Another legal matter"
+          DA001: "Domestic abuse"
           not_provided: "Not provided"
       about_your_client: About your client
       about_partner: About your client's partner

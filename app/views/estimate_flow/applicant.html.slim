@@ -9,13 +9,13 @@
 
     = form.govuk_error_summary t("generic.error_summary_title")
 
-    - if @form.level_of_help != "controlled"
+    - if !FeatureFlags.enabled?(:controlled) && @form.level_of_help != "controlled"
       = form.govuk_collection_radio_buttons :proceeding_type,
-                                            ApplicantForm::PROCEEDING_TYPES.to_a,
-                                            :last,
-                                            ->(pair) { t(".proceeding_type.#{pair[0]}.label") },
-                                            legend: { text: t(".proceeding_type.legend") },
-                                            hint: { text: t(".proceeding_type.hint") }
+              ApplicantForm::PROCEEDING_TYPES.to_a,
+              :last,
+              ->(pair) { t(".proceeding_type.#{pair[0]}.label") },
+              legend: { text: t(".proceeding_type.legend") },
+              hint: { text: t(".proceeding_type.hint") }
 
     = form.govuk_collection_radio_buttons :over_60,
                                           yes_no_options, :first, :last,

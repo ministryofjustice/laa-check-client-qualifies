@@ -16,7 +16,7 @@ class ApplicantForm
   validates :proceeding_type,
             presence: true,
             inclusion: { in: PROCEEDING_TYPES.values, allow_nil: true },
-            if: -> { level_of_help != "controlled" }
+            if: -> { !FeatureFlags.enabled?(:controlled) && level_of_help != "controlled" }
 
   BOOLEAN_ATTRIBUTES.each do |attr|
     attribute attr, :boolean

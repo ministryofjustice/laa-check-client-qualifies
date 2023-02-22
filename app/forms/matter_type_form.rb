@@ -3,7 +3,7 @@ class MatterTypeForm
   include ActiveModel::Attributes
   include SessionPersistable
 
-  PROCEEDING_TYPES = { immigration: "IM030", asylum: "IA031", other: "SE003" }.freeze
+  PROCEEDING_TYPES = { immigration: "IM030", asylum: "IA031", other: "SE003", domestic_abuse: "DA001" }.freeze
 
   ATTRIBUTES = %i[controlled_proceeding_type].freeze
 

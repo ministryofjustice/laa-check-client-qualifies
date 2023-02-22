@@ -12,6 +12,9 @@
               label: { text: t(".immigration") }, hint: { text: t(".immigration_hint") }
       = form.govuk_radio_button :controlled_proceeding_type, MatterTypeForm::PROCEEDING_TYPES[:asylum],
               label: { text: t(".asylum") }, hint: { text: t(".asylum_hint") }
+      - if @estimate.level_of_help != "controlled"
+        = form.govuk_radio_button :controlled_proceeding_type, MatterTypeForm::PROCEEDING_TYPES[:domestic_abuse],
+                label: { text: t(".domestic_abuse") }, hint: { text: t(".domestic_abuse_hint") }
       = form.govuk_radio_divider
 
       = form.govuk_radio_button :controlled_proceeding_type, MatterTypeForm::PROCEEDING_TYPES[:other],
@@ -21,4 +24,4 @@
 
 = render "shared/question_sidebar",
         level_of_help: @estimate.level_of_help,
-        links: { t(".guidance_text") => t(".guidance_link") }
+        links: matter_type_links(@estimate.level_of_help)
