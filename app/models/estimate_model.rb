@@ -35,4 +35,8 @@ class EstimateModel
   def partner_owns_property?
     %i[with_mortgage outright].map(&:to_s).include? partner_property_owned
   end
+
+  def controlled?
+    level_of_help == "controlled"
+  end
 end

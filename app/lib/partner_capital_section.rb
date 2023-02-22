@@ -23,7 +23,7 @@ class PartnerCapitalSection
     end
 
     def vehicle_steps(estimate)
-      return [] if estimate.level_of_help == "controlled"
+      return [] if estimate.controlled?
 
       estimate.partner_vehicle_owned ? VEHICLE_STEPS : %i[partner_vehicle]
     end
