@@ -6,22 +6,10 @@ RSpec.describe CalculationResult do
   end
 
   it "works out disregard from net equity minus assessed equity" do
-    data = {
-      assessment: {
-        capital: {
-          capital_items: {
-            properties: {
-              main_home: {
-                value: 20.0,
-                outstanding_mortgage: 9.0,
-                net_equity: "11.0",
-                assessed_equity: "1.0",
-              },
-            },
-          },
-        },
-      },
-    }
+    data = FactoryBot.build(
+      :api_result,
+      main_home: FactoryBot.build(:property_api_result, net_equity: 20, assessed_equity: 10),
+    )
 
     expect(described_class.new(data).client_main_home_rows[:disregard]).to eq "-£10.00"
   end
