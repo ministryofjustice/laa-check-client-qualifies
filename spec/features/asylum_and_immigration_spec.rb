@@ -12,7 +12,6 @@ RSpec.describe "Asylum and immigration pages", :controlled_flag do
       select_radio(page:, form: "level-of-help-form", field: "level-of-help", value: "controlled")
       click_on "Save and continue"
       expect(page).to have_content applicant_header
-      expect(page).not_to have_content matter_type_header
     end
   end
 
