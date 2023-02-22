@@ -1310,9 +1310,7 @@ en:
         - wage slips covering the most recent month (if your client is employed)
         - evidence of housing payments such as a mortgage statement, rent book or receipts (if your client's housing payments are more than a third of their total income)
         - receipts for childcare payments (if these exceed £600 a month or a pro-rata amount if your client is employed part time)
-        - documentation showing the value of any assets held by your client
-        - a property valuation (if your client owns a property)
-        - evidence of any claims against your client's assets
+        - evidence of the value of any capital held by your client if you believe it necessary to collect
       certificated_limits_calculation: Upper limits, lower limits and exemptions
       controlled_limits_calculation: Upper limits
       income_calculation: Income calculation
