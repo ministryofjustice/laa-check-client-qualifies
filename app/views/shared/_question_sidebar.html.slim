@@ -3,10 +3,4 @@
   p.govuk-body-m = t("generic.level_of_help.#{level_of_help}")
 
   - if links.any?
-    h2.govuk-heading-s class="govuk-!-margin-bottom-0 govuk-!-padding-top-0" = t("generic.related_content_title")
-    - new_tab_text = t("generic.opens_in_new_tab")
-    ul class="govuk-list govuk-!-font-size-16"
-      - links.each do |text, dest|
-        li
-          p
-            = link_to "#{text} #{new_tab_text}", dest, target: "_blank", rel: "noreferrer noopener", class: "govuk-link govuk-body-m"
+    = render "shared/related_content", links:

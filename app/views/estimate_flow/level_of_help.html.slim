@@ -6,11 +6,31 @@
 .govuk-grid-column-two-thirds
   = form_for(@form, url: wizard_path, method: :put) do |form|
     = form.govuk_error_summary t("generic.error_summary_title")
-    = form.govuk_radio_buttons_fieldset :level_of_help,
-                                        legend: { text: t(".title"), size: "xl", tag: "h1" }
-      = form.govuk_radio_button :level_of_help, "controlled",
-              label: { text: t(".controlled") }, hint: { text: t(".controlled_hint") }
-      = form.govuk_radio_button :level_of_help, "certificated",
-              label: { text: t(".certificated") }, hint: { text: t(".certificated_hint") }
+    = render "shared/heading", header_text: t(".title")
+
+    h2.govuk-heading-s = t(".controlled_header")
+    p.govuk-body = t(".includes")
+
+    ul.govuk-list.govuk-list--bullet
+      - t(".controlled_types").each do |bullet|
+        li = bullet
+
+    p.govuk-body = t(".also_includes")
+    ul.govuk-list.govuk-list--bullet
+      - t(".controlled_chambers").each do |bullet|
+        li = bullet
+
+    h2.govuk-heading-s = t(".certificated_header")
+    p.govuk-body = t(".certificated_explanation")
+
+    = form.govuk_radio_buttons_fieldset :level_of_help, legend: { text: t(".select_a_level") }
+      = form.govuk_radio_button :level_of_help, "controlled", label: { text: t(".controlled") }
+      = form.govuk_radio_button :level_of_help, "certificated", label: { text: t(".certificated") }
 
     = form.govuk_submit t("generic.save_and_continue")
+= render "layouts/sidebar"
+  = render "shared/related_content",
+           links: { t("estimate_flow.level_of_help.controlled_guidance.text") => \
+                      t("estimate_flow.level_of_help.controlled_guidance.link"),
+                    t("estimate_flow.level_of_help.certificated_guidance.text") => \
+                      t("estimate_flow.level_of_help.certificated_guidance.link") }
