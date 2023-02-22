@@ -72,11 +72,16 @@ FactoryBot.define do
     transient do
       eligible { false }
       main_home { nil }
+      additional_property { nil }
     end
 
     after(:build) do |api_result, evaluator|
       if evaluator.main_home
         api_result.dig(:assessment, :capital, :capital_items, :properties)[:main_home] = evaluator.main_home
+      end
+
+      if evaluator.additional_property
+        api_result.dig(:assessment, :capital, :capital_items, :properties)[:additional_properties] = [evaluator.additional_property]
       end
 
       if evaluator.eligible

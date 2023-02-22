@@ -286,11 +286,13 @@ private
     data = {
       value: monetise(main_home.fetch(:value)),
       mortgage: monetise(-main_home.fetch(:outstanding_mortgage)),
-      disregards: monetise(-monetise(-disregard)),
+      disregards: monetise(-disregard),
     }
 
     transaction_allowance = main_home.fetch(:transaction_allowance)
-    data.merge(deductions: monetise(-transaction_allowance)) if transaction_allowance.positive?
+    data[:deductions] = monetise(-transaction_allowance) if transaction_allowance.positive?
+
+    data
   end
 
   def additional_property_rows(prefix:)
@@ -299,8 +301,11 @@ private
       value: monetise(home.fetch(:value)),
       mortgage: monetise(-home.fetch(:outstanding_mortgage)),
     }
+
     transaction_allowance = home.fetch(:transaction_allowance)
-    data.merge(deductions: monetise(-transaction_allowance)) if transaction_allowance.positive?
+    data[:deductions] = monetise(-transaction_allowance) if transaction_allowance.positive?
+
+    data
   end
 
   def vehicle_rows(prefix:)
