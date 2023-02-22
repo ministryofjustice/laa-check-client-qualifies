@@ -104,7 +104,7 @@ class CalculationResult
   end
 
   def client_owns_main_home?
-    capital_items(:properties)[:main_home].present?
+    capital_items(:properties).dig(:main_home, :value)&.positive?
   end
 
   def client_main_home_rows
