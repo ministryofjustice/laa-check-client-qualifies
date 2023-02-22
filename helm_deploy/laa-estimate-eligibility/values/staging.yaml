@@ -52,6 +52,6 @@ cfe:
   host: http://check-financial-eligibility-partner-check-financial-partner.check-financial-eligibility-partner-staging.svc.cluster.local
 
 featureFlags:
-  sentry: NOT_ENABLED
+  sentry: ENABLED
   controlled: ENABLED
   asylumAndImmigration: NOT_ENABLED
