@@ -9,7 +9,7 @@ RSpec.describe "Asylum and immigration pages", :controlled_flag do
       visit_flow_page(target: :level_of_help, passporting: true)
       select_radio(page:, form: "level-of-help-form", field: "level-of-help", value: "controlled")
       click_on "Save and continue"
-      expect(page).not_to have_content matter_type_header
+      expect(page).to have_content applicant_header
     end
   end
 

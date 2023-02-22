@@ -6,7 +6,7 @@
 .govuk-grid-column-two-thirds
   = render "estimate_flow/forms/assets", i18n_key: "partner_assets", show_smod_content: false
 
-  - translation_text = @estimate.level_of_help == "controlled" ? "controlled" : "certificated"
+  - translation_text = @estimate.controlled? ? "controlled" : "certificated"
 = render "shared/question_sidebar", \
   level_of_help: @estimate.level_of_help,
   links: { t("estimate_flow.assets.guidance.#{translation_text}.text") => t("estimate_flow.assets.guidance.#{translation_text}.link"), \

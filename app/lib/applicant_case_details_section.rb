@@ -17,7 +17,7 @@ class ApplicantCaseDetailsSection
     end
 
     def matter_type(estimate)
-      :matter_type if estimate.level_of_help == "controlled" && FeatureFlags.enabled?(:asylum_and_immigration)
+      :matter_type if estimate.controlled? && FeatureFlags.enabled?(:asylum_and_immigration)
     end
 
     def dependant_details(estimate)

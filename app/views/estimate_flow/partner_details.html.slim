@@ -21,7 +21,7 @@
       - unless @estimate.passporting
         - t(".non_passported_types_of_information").each do |evidence|
           li.govuk-body = evidence
-      - key = @estimate.level_of_help == "controlled" ? ".controlled_passported_types_of_information" : ".passported_types_of_information"
+      - key = @estimate.controlled? ? ".controlled_passported_types_of_information" : ".passported_types_of_information"
       - t(key).each do |evidence|
         li.govuk-body = evidence
 
