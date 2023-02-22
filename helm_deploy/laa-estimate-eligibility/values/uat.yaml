@@ -66,8 +66,10 @@ postgresql:
     requests:
       cpu: 250m
       memory: 256Mi
+  auth:
+    database: ccq_uat
+    enablePostgresUser: true
+    postgresPassword: postgres
   postgresqlUsername: postgres
-  postgresqlPassword: postgres
-  postgresqlDatabase: ccq_uat
   persistence:
     enabled: false

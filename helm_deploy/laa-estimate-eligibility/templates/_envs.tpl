@@ -8,11 +8,11 @@ env:
   - name: POSTGRES_USER
     value: {{ .Values.postgresql.postgresqlUsername }}
   - name: POSTGRES_PASSWORD
-    value: {{ .Values.postgresql.postgresqlPassword }}
+    value: {{ .Values.postgresql.auth.postgresPassword }}
   - name: POSTGRES_HOST
     value: {{ printf "%s-%s" .Release.Name "postgresql" | trunc 63 | trimSuffix "-" }}
   - name: POSTGRES_DATABASE
-    value: {{ .Values.postgresql.postgresqlDatabase }}
+    value: {{ .Values.postgresql.auth.database }}
   {{ else }}
   - name: POSTGRES_USER
     valueFrom:
