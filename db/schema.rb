@@ -15,12 +15,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_21_125618) do
   enable_extension "plpgsql"
 
   create_table "analytics_events", force: :cascade do |t|
-    t.string "event_type"
-    t.string "page"
+    t.string "event_type", null: false
+    t.string "page", null: false
     t.string "assessment_code"
     t.string "browser_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["assessment_code"], name: "index_analytics_events_on_assessment_code"
+    t.index ["created_at"], name: "index_analytics_events_on_created_at"
   end
 
 end
