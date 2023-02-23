@@ -3,8 +3,7 @@ class EstimateModel
   include ActiveModel::Attributes
   include SessionPersistable
 
-  ESTIMATE_BOOLEANS = %i[upper_tribunal
-                         asylum_support
+  ESTIMATE_BOOLEANS = %i[asylum_support
                          over_60
                          passporting
                          vehicle_owned
@@ -43,7 +42,6 @@ class EstimateModel
   end
 
   def upper_tribunal?
-    # controlled_proceeding_type != "SE003"
-    controlled_proceeding_type.in?(%w[IM030 IA031])
+    controlled_proceeding_type&.in?(%w[IM030 IA031])
   end
 end
