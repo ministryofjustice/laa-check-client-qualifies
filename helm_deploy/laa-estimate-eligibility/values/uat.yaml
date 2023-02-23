@@ -43,15 +43,14 @@ ingress:
     external-dns.alpha.kubernetes.io/aws-weight: "100"
 
 notifications:
-  errorMessageTemplateId: b8879191-e4bb-4f10-831a-7d9bd2b078f1
+  errorMessageTemplateId: b8879191-e4bb-4f10-831a-7d9bd2b078f
   recipient: patrick.gleeson@digital.justice.gov.uk,michael.blatherwick@digital.justice.gov.uk,stephen.p.dicks@digital.justice.gov.uk,william.clarke@digital.justice.gov.uk
 
 googleTagManager:
   containerId: GTM-WJ98FR4
 
 cfe:
-  host:   https://el-701-asylum-suppor-check-financial-partner-uat.cloud-platform.service.justice.gov.uk
-#  host: http://main-check-financial-partner.check-financial-eligibility-partner-uat.svc.cluster.local
+  host: http://main-check-financial-partner.check-financial-eligibility-partner-uat.svc.cluster.local
 
 featureFlags:
   sentry: ENABLED

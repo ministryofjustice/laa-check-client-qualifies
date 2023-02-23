@@ -3,7 +3,7 @@ class ApplicantForm
   include ActiveModel::Attributes
   include SessionPersistable
 
-  attr_accessor :asylum_support, :level_of_help
+  attr_accessor :level_of_help
 
   PROCEEDING_TYPES = { domestic_abuse: "DA001", other: "SE003" }.freeze
 
