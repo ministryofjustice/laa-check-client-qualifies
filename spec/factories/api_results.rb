@@ -72,11 +72,16 @@ FactoryBot.define do
     transient do
       eligible { false }
       main_home { nil }
+      additional_property { nil }
     end
 
     after(:build) do |api_result, evaluator|
       if evaluator.main_home
         api_result.dig(:assessment, :capital, :capital_items, :properties)[:main_home] = evaluator.main_home
+      end
+
+      if evaluator.additional_property
+        api_result.dig(:assessment, :capital, :capital_items, :properties)[:additional_properties] = [evaluator.additional_property]
       end
 
       if evaluator.eligible
@@ -92,5 +97,6 @@ FactoryBot.define do
     outstanding_mortgage { 90_000.0 }
     net_equity { 110_000.0 }
     assessed_equity { 100_000.0 }
+    transaction_allowance { 0 }
   end
 end

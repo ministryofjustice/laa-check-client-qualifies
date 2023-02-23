@@ -283,20 +283,29 @@ private
   def main_home_rows(prefix:)
     main_home = capital_items(:properties, prefix).fetch(:main_home)
     disregard = main_home.fetch(:net_equity) - main_home.fetch(:assessed_equity)
-    {
+    data = {
       value: monetise(main_home.fetch(:value)),
       mortgage: monetise(-main_home.fetch(:outstanding_mortgage)),
-      disregard: monetise(-disregard),
+      disregards: monetise(-disregard),
     }
+
+    transaction_allowance = main_home.fetch(:transaction_allowance)
+    data[:deductions] = monetise(-transaction_allowance) if transaction_allowance.positive?
+
+    data
   end
 
   def additional_property_rows(prefix:)
     home = capital_items(:properties, prefix)[:additional_properties].first
-    {
+    data = {
       value: monetise(home.fetch(:value)),
-      disregards: monetise(-home.fetch(:transaction_allowance)),
       mortgage: monetise(-home.fetch(:outstanding_mortgage)),
     }
+
+    transaction_allowance = home.fetch(:transaction_allowance)
+    data[:deductions] = monetise(-transaction_allowance) if transaction_allowance.positive?
+
+    data
   end
 
   def vehicle_rows(prefix:)
