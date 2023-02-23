@@ -28,7 +28,7 @@ RSpec.describe "Employment page" do
 
     it "doesnt show section on check answers screen" do
       visit_check_answers(passporting: false)
-      expect(page).not_to have_content "Employment"
+      expect(page).not_to have_content "Gross income"
     end
   end
 
@@ -39,7 +39,7 @@ RSpec.describe "Employment page" do
           case step
           when :applicant
             fill_in_applicant_screen_without_passporting_benefits
-            select_applicant_boolean(:employed, true)
+            select_radio_value("applicant-form", "employment-status", "in_work")
           end
         end
       end
@@ -121,7 +121,7 @@ RSpec.describe "Employment page" do
           case step
           when :applicant
             fill_in_applicant_screen_without_passporting_benefits(partner: false)
-            select_applicant_boolean(:employed, true)
+            select_radio_value("applicant-form", "employment-status", "in_work")
           when :employment
             fill_in "employment-form-gross-income-field", with: "5,000"
             fill_in "employment-form-income-tax-field", with: "1000"
@@ -151,7 +151,7 @@ RSpec.describe "Employment page" do
           case step
           when :applicant
             fill_in_applicant_screen_without_passporting_benefits(partner: false)
-            select_applicant_boolean(:employed, true)
+            select_radio_value("applicant-form", "employment-status", "in_work")
           when :employment
             fill_in "employment-form-gross-income-field", with: 1000
             fill_in "employment-form-income-tax-field", with: 100

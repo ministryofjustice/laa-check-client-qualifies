@@ -80,7 +80,7 @@ RSpec.describe "Results Page" do
         when :applicant
           select_radio_value("applicant-form", "legacy-proceeding-type", "se003") # non-domestic abuse case
           select_applicant_boolean(:over_60, false)
-          select_applicant_boolean(:employed, true)
+          select_radio_value("applicant-form", "employment-status", "in_work")
           select_applicant_boolean(:partner, false)
           select_applicant_boolean(:passporting, false)
         when :dependants
@@ -211,7 +211,7 @@ RSpec.describe "Results Page" do
         case step
         when :partner_details
           select_boolean_value("partner-details-form", :over_60, false)
-          select_boolean_value("partner-details-form", :employed, true)
+          select_radio(page:, form: "partner-details-form", field: "employment-status", value: "in_work")
         when :partner_employment
           fill_in "partner-employment-form-gross-income-field", with: 1000
           fill_in "partner-employment-form-income-tax-field", with: 400

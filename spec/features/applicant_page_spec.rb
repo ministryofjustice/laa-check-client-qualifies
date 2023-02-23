@@ -18,7 +18,7 @@ RSpec.describe "Applicant Page" do
         expect(all("li").map(&:text)).to eq [
           "Select yes if your client is likely to be an applicant in a domestic abuse case",
           "Select yes if your client is aged 60 or over",
-          "Select employed if your client is currently employed",
+          "Select if your client is currently employed",
           "Select yes if the client has a partner",
           "Select yes if your client receives a passporting benefit or if they are named on their partner's passporting benefit",
         ]
@@ -41,7 +41,7 @@ RSpec.describe "Applicant Page" do
         when :applicant
           select_radio_value("applicant-form", "legacy-proceeding-type", "se003") # non-domestic abuse case
           select_applicant_boolean(:over_60, over_60)
-          select_applicant_boolean(:employed, false)
+          select_radio_value("applicant-form", "employment-status", "unemployed")
           select_applicant_boolean(:passporting, true)
           select_applicant_boolean(:partner, false)
         end
@@ -79,6 +79,58 @@ RSpec.describe "Applicant Page" do
     end
   end
 
+  describe "applicant employment" do
+    let(:estimate_id) { SecureRandom.uuid }
+    let(:mock_connection) do
+      instance_double(CfeConnection, create_assessment_id: estimate_id, create_applicant: nil, create_proceeding_type: nil, api_result:)
+    end
+    let(:api_result) { CalculationResult.new FactoryBot.build(:api_result) }
+
+    before do
+      allow(CfeConnection).to receive(:connection).and_return(mock_connection)
+
+      visit_check_answers(passporting: false) do |step|
+        case step
+        when :applicant
+          select_radio_value("applicant-form", "legacy-proceeding-type", "se003") # non-domestic abuse case
+          select_applicant_boolean(:over_60, false)
+          select_radio_value("applicant-form", "employment-status", employment_status)
+          select_applicant_boolean(:passporting, false)
+          select_applicant_boolean(:partner, false)
+        when :employment
+          fill_in "employment-form-gross-income-field", with: "5,000"
+          fill_in "employment-form-income-tax-field", with: "1000"
+          fill_in "employment-form-national-insurance-field", with: 50.5
+          select_radio_value("employment-form", "frequency", "monthly")
+        end
+      end
+    end
+
+    context "when on statutory pay" do
+      let(:employment_status) { "receiving_statutory_pay" }
+
+      it "flags as such" do
+        expect(mock_connection).to receive(:create_employment) do |_, params|
+          expect(params.dig(0, :receiving_only_statutory_sick_or_maternity_pay)).to eq true
+        end
+
+        click_on "Submit"
+      end
+    end
+
+    context "when employed normally" do
+      let(:employment_status) { "in_work" }
+
+      it "does not flag statutory pay" do
+        expect(mock_connection).to receive(:create_employment) do |_, params|
+          expect(params.dig(0, :receiving_only_statutory_sick_or_maternity_pay)).to eq false
+        end
+
+        click_on "Submit"
+      end
+    end
+  end
+
   context "when employed but also in receipt of a passporting benefit" do
     let(:estimate_id) { SecureRandom.uuid }
     let(:mock_connection) do
@@ -98,7 +150,7 @@ RSpec.describe "Applicant Page" do
         when :applicant
           select_radio_value("applicant-form", "legacy-proceeding-type", "se003") # non-domestic abuse case
           select_applicant_boolean(:over_60, false)
-          select_applicant_boolean(:employed, true)
+          select_radio_value("applicant-form", "employment-status", "in_work")
           select_applicant_boolean(:passporting, true)
           select_applicant_boolean(:partner, false)
         end
@@ -136,7 +188,7 @@ RSpec.describe "Applicant Page" do
 
       it "complains if I don't fill in additional questions - omitting domestic abuse and partner" do
         select_applicant_boolean(:over_60, true)
-        select_applicant_boolean(:employed, false)
+        select_radio_value("applicant-form", "employment-status", "unemployed")
         select_applicant_boolean(:passporting, true)
 
         click_on "Save and continue"
@@ -150,7 +202,7 @@ RSpec.describe "Applicant Page" do
 
       it "allows me to progress if I do fill in additional questions" do
         select_applicant_boolean(:over_60, false)
-        select_applicant_boolean(:employed, false)
+        select_radio_value("applicant-form", "employment-status", "unemployed")
         select_applicant_boolean(:passporting, true)
         select_applicant_boolean(:partner, true)
 
@@ -185,7 +237,7 @@ RSpec.describe "Applicant Page" do
       select_radio_value("applicant-form", "legacy-proceeding-type", "se003") # non-domestic abuse case
       select_applicant_boolean(:over_60, false)
       select_applicant_boolean(:partner, false)
-      select_applicant_boolean(:employed, false)
+      select_radio_value("applicant-form", "employment-status", "unemployed")
       select_applicant_boolean(:passporting, false)
       click_on "Save and continue"
     end

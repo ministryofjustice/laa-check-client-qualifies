@@ -12,7 +12,7 @@ RSpec.describe "Change employment types" do
       click_on "Change"
     end
 
-    select_applicant_boolean(:employed, true)
+    select_radio_value("applicant-form", "employment-status", "in_work")
     select_applicant_boolean(:passporting, false)
     click_on "Save and continue"
     skip_dependants_form
