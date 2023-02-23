@@ -104,7 +104,7 @@ class CalculationResult
   end
 
   def client_owns_main_home?
-    capital_items(:properties)[:main_home].present?
+    capital_items(:properties).dig(:main_home, :value)&.positive?
   end
 
   def client_main_home_rows
@@ -281,11 +281,12 @@ private
   end
 
   def main_home_rows(prefix:)
-    capital = capital_items(:properties, prefix)
+    main_home = capital_items(:properties, prefix).fetch(:main_home)
+    disregard = main_home.fetch(:net_equity) - main_home.fetch(:assessed_equity)
     {
-      value: monetise(capital.dig(:main_home, :value)),
-      mortgage: monetise(-capital.dig(:main_home, :outstanding_mortgage)),
-      disregard: monetise(-capital.dig(:main_home, :main_home_equity_disregard)),
+      value: monetise(main_home.fetch(:value)),
+      mortgage: monetise(-main_home.fetch(:outstanding_mortgage)),
+      disregard: monetise(-disregard),
     }
   end
 

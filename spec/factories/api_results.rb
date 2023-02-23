@@ -71,12 +71,26 @@ FactoryBot.define do
 
     transient do
       eligible { false }
+      main_home { nil }
     end
 
     after(:build) do |api_result, evaluator|
+      if evaluator.main_home
+        api_result.dig(:assessment, :capital, :capital_items, :properties)[:main_home] = evaluator.main_home
+      end
+
       if evaluator.eligible
         api_result.fetch(:result_summary).merge! overall_result: { result: "eligible" }
       end
     end
+  end
+
+  factory :property_api_result, class: Hash do
+    initialize_with { attributes }
+
+    value { 200_000.0 }
+    outstanding_mortgage { 90_000.0 }
+    net_equity { 110_000.0 }
+    assessed_equity { 100_000.0 }
   end
 end
