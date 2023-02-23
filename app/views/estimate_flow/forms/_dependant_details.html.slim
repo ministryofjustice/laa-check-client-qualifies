@@ -12,7 +12,7 @@
           hint: lambda { \
                           tag.p(t("estimate_flow.#{i18n_key}.child_dependants.hint"), class: "govuk-hint") + \
                           tag.ul(class: "govuk-list govuk-list--bullet") do \
-                            (t("estimate_flow.#{i18n_key}.child_dependants.exclusions").map do |exclusion| \
+                            (t("estimate_flow.#{i18n_key}.child_dependants.#{@estimate.level_of_help}_exclusions").map do |exclusion| \
                               tag.li(exclusion, class: "govuk-hint") \
                             end).join.html_safe \
                           end \
@@ -34,7 +34,8 @@
                               tag.p(hint, class: "govuk-hint") \
                             end).join.html_safe + \
                             tag.ul(class: "govuk-list govuk-list--bullet") do \
-                              (t("estimate_flow.#{i18n_key}.adult_dependants.exclusions").map do |exclusion| \
+                              tag.li(t("estimate_flow.#{i18n_key}.adult_dependants.the_partner"), class: "govuk-hint") + \
+                              (t("estimate_flow.#{i18n_key}.adult_dependants.#{@estimate.level_of_help}_exclusions").map do |exclusion| \
                                 tag.li(exclusion, class: "govuk-hint") \
                               end).join.html_safe \
                             end \
@@ -50,7 +51,16 @@
               label: { text: t("generic.no_choice") }
   -else
     = form.govuk_radio_buttons_fieldset :adult_dependants,
-            hint: { text: t("estimate_flow.#{i18n_key}.adult_dependants.no_partner_hint") },
+            hint: lambda { \
+                            (t("estimate_flow.#{i18n_key}.adult_dependants.hints").map do |hint| \
+                              tag.p(hint, class: "govuk-hint") \
+                            end).join.html_safe + \
+                            tag.ul(class: "govuk-list govuk-list--bullet") do \
+                              (t("estimate_flow.#{i18n_key}.adult_dependants.#{@estimate.level_of_help}_exclusions").map do |exclusion| \
+                                tag.li(exclusion, class: "govuk-hint") \
+                              end).join.html_safe \
+                            end \
+                          },
             legend: { text: t("estimate_flow.#{i18n_key}.adult_dependants.legend") } do
       = form.govuk_radio_button :adult_dependants, true,
               label: { text: t("generic.yes_choice") } do
