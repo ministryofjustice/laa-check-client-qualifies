@@ -71,7 +71,7 @@ RUN apk add --update --no-cache tzdata && \
     echo "Europe/London" > /etc/timezone
 
 # libpq: required to run postgres
-RUN apk add --no-cache libpq
+RUN apk add --no-cache libpq postgresql-client
 
 # Install Chromium and Puppeteer for PDF generation
 # Installs latest Chromium package available on Alpine (Chromium 108)

@@ -56,3 +56,20 @@ featureFlags:
   sentry: ENABLED
   controlled: ENABLED
   asylumAndImmigration: ENABLED
+
+postgresql:
+  enabled: true
+  resources:
+    limits:
+      cpu: 250m
+      memory: 256Mi
+    requests:
+      cpu: 250m
+      memory: 256Mi
+  auth:
+    database: ccq_uat
+    enablePostgresUser: true
+    postgresPassword: postgres
+  postgresqlUsername: postgres
+  persistence:
+    enabled: false

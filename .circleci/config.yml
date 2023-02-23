@@ -91,6 +91,9 @@ jobs:
               bundle install
             }
       - run:
+          name: Install postgres client
+          command: sudo apt-get install -y postgresql-client
+      - run:
           name: Compile assets for test run
           command: bundle exec rake test:prepare
       - save_cache:
