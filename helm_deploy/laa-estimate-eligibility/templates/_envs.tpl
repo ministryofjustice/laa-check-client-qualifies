@@ -77,5 +77,16 @@ env:
     value:  {{ .Values.notifications.errorMessageTemplateId }}
   - name: NOTIFICATIONS_RECIPIENT
     value: {{ .Values.notifications.recipient }}
+  - name: GECKOBOARD_API_KEY
+    valueFrom:
+      secretKeyRef:
+        name: kube-secrets
+        key: geckoboard-api-key
+  - name: GECKOBOARD_METRIC_DATASET_NAME
+    value:  {{ .Values.geckoboard.metricsDataset }}
+  - name: GECKOBOARD_VALIDATION_DATASET_NAME
+    value:  {{ .Values.geckoboard.validationsDataset }}
+  - name: GECKOBOARD_ENABLED
+    value: {{ .Values.geckoboard.enabled }}
 
 {{- end }}

@@ -159,6 +159,7 @@ GEM
       faraday (~> 2.0)
     flipper (0.26.0)
       concurrent-ruby (< 2)
+    geckoboard-ruby (0.4.0)
     globalid (1.1.0)
       activesupport (>= 5.0)
     govuk-components (3.3.0)
@@ -447,6 +448,7 @@ DEPENDENCIES
   faraday-net_http_persistent
   faraday-retry
   flipper
+  geckoboard-ruby
   govuk-components
   govuk_design_system_formbuilder
   govuk_notify_rails (~> 2.2.0)
