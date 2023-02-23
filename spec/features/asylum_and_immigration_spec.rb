@@ -68,7 +68,7 @@ RSpec.describe "Asylum and immigration pages", :controlled_flag do
     end
 
     it "sends what I choose to CFE" do
-      select_radio(page:, form: "matter-type-form", field: "controlled-proceeding-type", value: "im030")
+      select_radio(page:, form: "matter-type-form", field: "proceeding-type", value: "im030")
       click_on "Save and continue"
       select_boolean_value("asylum-support-form", :asylum_support, false)
       click_on "Save and continue"

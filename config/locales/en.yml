@@ -16,7 +16,7 @@ en:
               inclusion: Select if your client receives section 4 or section 95 Asylum Support
         matter_type_form:
           attributes:
-            controlled_proceeding_type:
+            proceeding_type:
               blank: Select what type of matter this is
         partner_details_form:
           attributes:
@@ -32,7 +32,7 @@ en:
               inclusion: Select yes if your client receives a passporting benefit or if they are named on their partner's passporting benefit
             over_60:
               inclusion: Select yes if your client is aged 60 or over
-            proceeding_type:
+            legacy_proceeding_type:
               blank: Select yes if your client is likely to be an applicant in a domestic abuse case
             partner:
               inclusion: Select yes if the client has a partner
@@ -595,7 +595,7 @@ en:
             - the opponent in the case
             - have a contrary interest in the case
         hint: This is a spouse, someone with whom they are in a civil relationship, a cohabiter or someone they share their finances with. They cannot be the opponent in any legal proceedings.
-      proceeding_type:
+      legacy_proceeding_type:
         legend: Is your client likely to be the applicant in a domestic abuse matter?
         hint: Upper eligibility limits are waived if your client is an applicant in a domestic abuse matter. Refer to our guidance on domestic abuse or violence for more information.
         domestic_abuse:
@@ -1129,8 +1129,8 @@ en:
           not_provided: Not provided
       about_the_case: Case details
       about_the_case_fields:
-        controlled_proceeding_type: Type of matter
-        controlled_proceeding_type_options:
+        legacy_proceeding_type: Type of matter
+        legacy_proceeding_type_options:
           IM030: "Immigration in the Upper Tribunal"
           IA031: "Asylum in the Upper Tribunal"
           SE003: "Another legal matter"
@@ -1146,8 +1146,8 @@ en:
       heading: Check your answers
       client_details: Your client's details
       client_details_fields:
-        proceeding_type: Applicant in a domestic abuse case
-        proceeding_type_options:
+        legacy_proceeding_type: Applicant in a domestic abuse case
+        legacy_proceeding_type_options:
           DA001: "Yes"
           SE003: "No"
           not_provided: "No"

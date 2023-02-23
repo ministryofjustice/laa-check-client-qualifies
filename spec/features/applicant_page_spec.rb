@@ -39,7 +39,7 @@ RSpec.describe "Applicant Page" do
       visit_check_answers(passporting: true) do |step|
         case step
         when :applicant
-          select_radio_value("applicant-form", "proceeding-type", "se003") # non-domestic abuse case
+          select_radio_value("applicant-form", "legacy-proceeding-type", "se003") # non-domestic abuse case
           select_applicant_boolean(:over_60, over_60)
           select_applicant_boolean(:employed, false)
           select_applicant_boolean(:passporting, true)
@@ -96,7 +96,7 @@ RSpec.describe "Applicant Page" do
       visit_check_answers(passporting: true) do |step|
         case step
         when :applicant
-          select_radio_value("applicant-form", "proceeding-type", "se003") # non-domestic abuse case
+          select_radio_value("applicant-form", "legacy-proceeding-type", "se003") # non-domestic abuse case
           select_applicant_boolean(:over_60, false)
           select_applicant_boolean(:employed, true)
           select_applicant_boolean(:passporting, true)
@@ -140,7 +140,7 @@ RSpec.describe "Applicant Page" do
         select_applicant_boolean(:passporting, true)
         select_applicant_boolean(:partner, true)
 
-        select_radio_value("applicant-form", "proceeding-type", "se003") # non-domestic abuse case
+        select_radio_value("applicant-form", "legacy-proceeding-type", "se003") # non-domestic abuse case
         click_on "Save and continue"
         expect(page).not_to have_css(".govuk-error-summary__list")
       end
@@ -168,7 +168,7 @@ RSpec.describe "Applicant Page" do
     before do
       travel_to arbitrary_fixed_time
       visit_first_page
-      select_radio_value("applicant-form", "proceeding-type", "se003") # non-domestic abuse case
+      select_radio_value("applicant-form", "legacy-proceeding-type", "se003") # non-domestic abuse case
       select_applicant_boolean(:over_60, false)
       select_applicant_boolean(:partner, false)
       select_applicant_boolean(:employed, false)

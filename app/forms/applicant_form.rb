@@ -7,16 +7,16 @@ class ApplicantForm
 
   PROCEEDING_TYPES = { domestic_abuse: "DA001", other: "SE003" }.freeze
 
-  PROCEEDING_ATTRIBUTE = %i[proceeding_type].freeze
+  PROCEEDING_ATTRIBUTE = %i[legacy_proceeding_type].freeze
   BOOLEAN_ATTRIBUTES = %i[over_60 employed partner passporting].freeze
 
   ATTRIBUTES = BOOLEAN_ATTRIBUTES + PROCEEDING_ATTRIBUTE.freeze
 
-  attribute :proceeding_type
-  validates :proceeding_type,
+  attribute :legacy_proceeding_type
+  validates :legacy_proceeding_type,
             presence: true,
             inclusion: { in: PROCEEDING_TYPES.values, allow_nil: true },
-            if: -> { !FeatureFlags.enabled?(:controlled) && level_of_help != "controlled" }
+            if: -> { !FeatureFlags.enabled?(:asylum_and_immigration) && level_of_help != "controlled" }
 
   BOOLEAN_ATTRIBUTES.each do |attr|
     attribute attr, :boolean

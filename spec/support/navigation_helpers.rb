@@ -23,8 +23,8 @@ def applicant_without_passporting(page:, partner:)
   end
   select_boolean(page:, form_name: "applicant-form", field: :partner, value: partner)
 
-  if page.text.include?("domestic abuse")
-    select_radio(page:, form: "applicant-form", field: "proceeding-type", value: "se003") # non-domestic abuse case
+  if !FeatureFlags.enabled?(:controlled) && page.text.include?("domestic abuse")
+    select_radio(page:, form: "applicant-form", field: "legacy-proceeding-type", value: "se003") # non-domestic abuse case
   end
 end
 
