@@ -21,7 +21,7 @@ class CaseDetailsSection
     end
 
     def asylum_support(estimate)
-      :asylum_support if estimate.level_of_help == "controlled" && estimate.upper_tribunal?
+      :asylum_support if estimate.upper_tribunal?
     end
   end
 end

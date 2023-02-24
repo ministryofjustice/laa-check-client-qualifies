@@ -39,7 +39,7 @@ sections:
   - label: about_the_case
     subsections:
       - fields:
-          - attribute: legacy_proceeding_type
+          - attribute: proceeding_type
             type: select
             screen: matter_type
       - screen: asylum_support

@@ -542,9 +542,9 @@ en:
         controlled_link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=5
     matter_type:
       title: Which type of matter is this?
-      immigration: Controlled legal representation for an immigration matter in the First-tier Tribunal
+      immigration: Immigration in the First-tier Tribunal
       immigration_hint: Or Upper Tribunal in relation to an appeal or review from the First-tier Tribunal
-      asylum: Legal help or help at court for an immigration or asylum matter in the First-tier Tribunal
+      asylum: Asylum in the First-tier Tribunal
       asylum_hint: Or Upper Tribunal in relation to an appeal or review from the First-tier Tribunal
       other: Another legal matter
       domestic_abuse: Domestic abuse
@@ -1129,8 +1129,8 @@ en:
           not_provided: Not provided
       about_the_case: Case details
       about_the_case_fields:
-        legacy_proceeding_type: Type of matter
-        legacy_proceeding_type_options:
+        proceeding_type: Type of matter
+        proceeding_type_options:
           IM030: "Immigration in the Upper Tribunal"
           IA031: "Asylum in the Upper Tribunal"
           SE003: "Another legal matter"
