@@ -3,6 +3,8 @@ class ApplicantForm
   include ActiveModel::Attributes
   include SessionPersistable
 
+  attr_accessor :level_of_help
+
   PROCEEDING_TYPES = { domestic_abuse: "DA001", other: "SE003" }.freeze
 
   PROCEEDING_ATTRIBUTE = %i[proceeding_type].freeze
@@ -15,8 +17,6 @@ class ApplicantForm
             presence: true,
             inclusion: { in: PROCEEDING_TYPES.values, allow_nil: true },
             if: -> { level_of_help != "controlled" }
-
-  attr_accessor :level_of_help
 
   BOOLEAN_ATTRIBUTES.each do |attr|
     attribute attr, :boolean

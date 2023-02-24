@@ -6,6 +6,14 @@ en:
           attributes:
             level_of_help:
               blank: Select the level of help your client needs
+        tribunal_form:
+          attributes:
+            upper_tribunal:
+              inclusion: Select yes if the case relates to proceedings in the Immigration and Asylum chamber of either the First-tier or Upper Tribunal
+        asylum_support_form:
+          attributes:
+            asylum_support:
+              inclusion: Select if your client receives section 4 or section 95 Asylum Support
         matter_type_form:
           attributes:
             controlled_proceeding_type:
@@ -519,6 +527,19 @@ en:
       certificated_guidance:
         text: Guide to determining certificated work
         link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf
+      certificated_hint: This includes full representation and family help (higher)
+    tribunal:
+      title: Does the case relate to proceedings in the Immigration and Asylum Chamber of either the First-tier or Upper Tribunal?
+      guidance_text: Guide to determining controlled work
+      guidance_link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf
+    asylum_support:
+      question: Does your client get Asylum Support?
+      help_text_1: This means Asylum Support as defined in Section 4 or Section 95 of the Immigration and Asylum Act 1999.
+      help_text_2: They will not need an income or capital assessment if they receive this type of Asylum Support.
+      help_text_3: Also select yes if your client is named in their partner's Asylum Support claim.
+      guidance:
+        text: Guidance on Asylum Support
+        controlled_link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=5
     matter_type:
       title: Which type of matter is this?
       immigration: Immigration in the First-tier Tribunal
@@ -1108,6 +1129,9 @@ en:
           not_provided: "Not provided"
       about_your_client: About your client
       about_partner: About your client's partner
+      asylum_support: Asylum support
+      asylum_support_fields:
+        asylum_support: Receives asylum support
       client_dependant_details: Your client's dependants
       partner_dependant_details: Partner's dependants
       heading: Check your answers

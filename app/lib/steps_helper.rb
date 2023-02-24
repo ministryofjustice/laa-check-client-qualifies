@@ -36,7 +36,7 @@ class StepsHelper
     end
 
     def all_sections
-      [ApplicantCaseDetailsSection, IncomeSection, CapitalSection, PartnerSection, PartnerIncomeSection, PartnerCapitalSection]
+      [CaseDetailsSection, ApplicantDetailsSection, IncomeSection, CapitalSection, PartnerSection, PartnerIncomeSection, PartnerCapitalSection]
     end
 
     def remaining_estimate_steps(steps, step)

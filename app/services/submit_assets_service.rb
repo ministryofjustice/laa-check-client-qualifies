@@ -1,5 +1,10 @@
 class SubmitAssetsService < BaseCfeService
   def call(cfe_assessment_id, session_data)
+    estimate = EstimateModel.from_session(session_data)
+    asylum_support_form = AsylumSupportForm.from_session(session_data)
+
+    return if asylum_support_form.asylum_support && estimate.upper_tribunal?
+
     asset_form = ClientAssetsForm.from_session(session_data)
     capitals = CfeParamBuilders::Capitals.call(asset_form, assets_in_dispute: asset_form.in_dispute)
 
