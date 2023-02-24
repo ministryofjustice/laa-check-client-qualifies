@@ -2,12 +2,17 @@ p.govuk-body = t(".calculation_information")
 p.govuk-body = t(".regulations_html")
 h2.govuk-heading-m = t(".limits_heading")
 p.govuk-body = t(".outgoings_explanation")
+- lower_limits = @model.level_of_help == "certificated" && !@estimate.upper_tribunal?
+- upper_limit_could_be_waived = @model.level_of_help == "certificated" && !@estimate.upper_tribunal?
 - t(".list").each do |reason|
     p.govuk-body = reason
-- if @model.level_of_help == "certificated"
+- if lower_limits
   p.govuk-body = t(".certificated_last_item")
 
-p.govuk-body = t(".#{@model.level_of_help}_monetary_limits")
+- if lower_limits
+  p.govuk-body = t(".upper_and_lower_monetary_limits")
+- else
+  p.govuk-body = t(".upper_and_lower_monetary_limits")
 
 table class="govuk-table"
   caption class="govuk-table__caption govuk-table__caption--m" = t(".gross_income_caption")
@@ -28,14 +33,14 @@ table class="govuk-table"
   thead class="govuk-table__head"
     tr class="govuk-table__row"
       th class="govuk-table__header govuk-!-width-one-half" scope="col"
-      - if @model.level_of_help == "certificated"
+      - if lower_limits
         th class="govuk-table__header" scope="col" = t(".lower")
       th class="govuk-table__header" scope="col" = t(".upper")
   tbody class="govuk-table__body"
     tr class="govuk-table__row"
       td class="govuk-table__header"
         = t(".disposable_limit")
-      - if @model.level_of_help == "certificated"
+      - if lower_limits
         td class="govuk-table__cell"
           = t(".di_lower_limit")
       td class="govuk-table__cell"
@@ -43,12 +48,15 @@ table class="govuk-table"
     tr class="govuk-table__row"
       td class="govuk-table__header"
         = t(".capital_limit")
-      - if @model.level_of_help == "certificated"
+      - if lower_limits
         td class="govuk-table__cell"
           = t(".capital_lower_limit")
       td class="govuk-table__cell"
-        = t(".capital_upper_limit")
+        - if @estimate.proceeding_type == MatterTypeForm::PROCEEDING_TYPES[:immigration]
+          = t(".controlled_immigration_capital_upper_limit")
+        - else
+          = t(".capital_upper_limit")
 
-- if @model.level_of_help == "certificated"
+- if upper_limit_could_be_waived
   h2.govuk-heading-m = t(".not_applicable")
   p.govuk-body = t(".not_applicable_text")
