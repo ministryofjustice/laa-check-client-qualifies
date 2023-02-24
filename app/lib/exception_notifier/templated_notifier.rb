@@ -1,6 +1,6 @@
 module ExceptionNotifier
   class TemplatedNotifier
-    def initialize(_); end
+    def initialize(_ = nil); end
 
     def call(exception, options = {})
       ExceptionAlertMailer.notify(

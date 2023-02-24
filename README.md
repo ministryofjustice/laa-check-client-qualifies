@@ -21,6 +21,8 @@ see https://stackoverflow.com/questions/71262775/how-do-i-ensure-assets-are-pres
   - postgres
   - yarn
 
+You can install postgres with `brew install postgresql` if you have homebrew. Then please run `bundle exec rails db:create` to set up the development and test databases.
+
 Install dependencies:
 
 ```

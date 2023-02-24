@@ -12,6 +12,14 @@ executors:
         environment:
           VCR_RECORD_MODE: none
           COVERAGE: true
+          RAILS_ENV: test
+          PGHOST: localhost
+          PGUSER: user
+          TZ: "Europe/London"
+      - image: cimg/postgres:10.18
+        environment:
+          POSTGRES_USER: user
+          POSTGRES_DB: ccq_test
   cloud-platform-executor:
     docker:
       - image: ministryofjustice/cloud-platform-tools:2.1
@@ -54,12 +62,12 @@ references:
           docker push "${ECR_ENDPOINT}:latest"
         fi
 
-  decrypt_secrets: &decrypt_secrets
+  setup_database: &setup_database
     run:
-      name: Decrypt secrets file
+      name: Database Setup
       command: |
-        echo "${GIT_CRYPT_KEY}" | base64 -d > git-crypt.key
-        git-crypt unlock git-crypt.key
+        bundle exec rake db:create db:schema:load
+        bundle exec rake db:migrate
 
 orbs:
   browser-tools: circleci/browser-tools@1.4.0
@@ -120,6 +128,7 @@ jobs:
           name: Install Puppeteer with Chromium
           command: |
             yarn add puppeteer@19.2.0
+      - *setup_database
       - run:
           name: Run tests
           command: |
@@ -150,7 +159,6 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-      - *decrypt_secrets
       - *build_docker_image
       - *push_to_ecr
 
@@ -170,7 +178,6 @@ jobs:
       - checkout
       - setup_remote_docker:
           docker_layer_caching: true
-      - *decrypt_secrets
       - *authenticate_k8s
       - deploy:
           name: Deploy LAA Check-your-client-qualifies-for-legal-aid service to UAT
@@ -183,7 +190,6 @@ jobs:
       - checkout
       - setup_remote_docker:
           docker_layer_caching: true
-      - *decrypt_secrets
       - *authenticate_k8s
       - deploy:
           name: Deploy LAA Check-your-client-qualifies-for-legal-aid service to Staging
@@ -201,7 +207,6 @@ jobs:
       - checkout
       - setup_remote_docker:
           docker_layer_caching: true
-      - *decrypt_secrets
       - *authenticate_k8s
       - deploy:
           name: Deploy LAA Check-your-client-qualifies-for-legal-aid service to Production

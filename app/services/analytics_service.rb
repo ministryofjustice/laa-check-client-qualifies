@@ -1,14 +1,14 @@
 class AnalyticsService
   class << self
     def call(event_type:, page:, assessment_code:, browser_id:)
-      hash = {
-        key: "CCQ Analytics Datum",
+      AnalyticsEvent.create!(
         event_type:,
         page:,
         assessment_code:,
         browser_id:,
-      }
-      Rails.logger.info hash.to_json
+      )
+    rescue StandardError => e
+      ErrorService.call(e)
     end
   end
 end

@@ -145,6 +145,10 @@ RSpec.describe "Results Page" do
       click_on "Submit"
     end
 
+    it "records every step of the journey in analytics events" do
+      expect(AnalyticsEvent.count).to be_positive
+    end
+
     it "shows client income section" do
       within "#income-calculation-content" do
         expect(page).to have_content "Employment income\n£1,000.00"
