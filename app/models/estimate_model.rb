@@ -44,4 +44,8 @@ class EstimateModel
   def upper_tribunal?
     proceeding_type&.in?(%w[IM030 IA031])
   end
+
+  def asylum_support_and_upper_tribunal?
+    upper_tribunal? && asylum_support
+  end
 end

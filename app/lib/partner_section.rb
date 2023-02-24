@@ -5,7 +5,7 @@ class PartnerSection
     end
 
     def steps_for(estimate)
-      if !estimate.partner || estimate.asylum_support
+      if !estimate.partner || estimate.asylum_support_and_upper_tribunal?
         []
       elsif estimate.passporting
         %i[partner_details].map { [_1] }

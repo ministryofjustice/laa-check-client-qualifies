@@ -9,13 +9,11 @@ class CapitalSection
     end
 
     def steps_for(estimate)
-      if estimate.asylum_support
-        []
-      else
-        property_steps = estimate.owns_property? ? PROPERTY_STEPS : %i[property]
+      return [] if estimate.asylum_support_and_upper_tribunal?
 
-        ([property_steps] + [vehicle_steps(estimate)] + TAIL_STEPS.map { |step| [step] }).freeze
-      end
+      property_steps = estimate.owns_property? ? PROPERTY_STEPS : %i[property]
+
+      ([property_steps] + [vehicle_steps(estimate)] + TAIL_STEPS.map { |step| [step] }).freeze
     end
 
     def vehicle_steps(estimate)
