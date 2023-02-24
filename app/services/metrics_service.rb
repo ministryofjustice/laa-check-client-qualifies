@@ -22,6 +22,7 @@ private
       fields: [
         Geckoboard::DateField.new(:date, name: "#{DAYS_TO_CONSIDER}-day period ending"),
         Geckoboard::NumberField.new(:assessments_started, name: "Assessments started"),
+        Geckoboard::NumberField.new(:assessments_completed, name: "Assessments completed"),
         Geckoboard::NumberField.new(:percent_completed, name: "% of started assessments completed", optional: true),
         Geckoboard::NumberField.new(:assessments_per_user, name: "Average assessments started per user", optional: true),
         Geckoboard::NumberField.new(:percent_controlled, name: "% of completed assessments that are controlled", optional: true),
@@ -34,6 +35,7 @@ private
       {
         date: 1.day.ago.to_date,
         assessments_started:,
+        assessments_completed:,
         percent_completed:,
         assessments_per_user:,
         percent_controlled:,

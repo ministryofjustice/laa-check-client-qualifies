@@ -38,6 +38,7 @@ RSpec.describe MetricsService do
           expect(metric_dataset).to receive(:put).with(
             [
               {
+                assessments_completed: 0,
                 assessments_per_user: nil,
                 assessments_started: 0,
                 date: 1.day.ago.to_date,
@@ -86,6 +87,7 @@ RSpec.describe MetricsService do
           expect(metric_dataset).to receive(:put).with(
             [
               {
+                assessments_completed: 4,
                 assessments_per_user: 2,
                 assessments_started: 5,
                 date: 1.day.ago.to_date,
