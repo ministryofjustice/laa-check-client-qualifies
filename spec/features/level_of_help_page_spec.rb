@@ -72,25 +72,6 @@ RSpec.describe "Level of help page" do
       expect(page).to have_content partner_assets_header
     end
 
-    it "hides annual employment frequency if I select controlled" do
-      visit_flow_page(passporting: false, target: :employment) do |step|
-        case step
-        when :level_of_help
-          select_radio(page:, form: "level-of-help-form", field: "level-of-help", value: "controlled")
-          click_on "Save and continue"
-        when :applicant
-          select_boolean(page:, form_name: "applicant-form", field: :over_60, value: false)
-          select_boolean(page:, form_name: "applicant-form", field: :passporting, value: false)
-          select_boolean(page:, form_name: "applicant-form", field: :partner, value: false)
-          select_radio(page:, form: "applicant-form", field: :employment_status, value: "in_work")
-          click_on "Save and continue"
-        end
-      end
-
-      expect(page).not_to have_content "Total in last 3 months"
-      expect(page).not_to have_content "Every year"
-    end
-
     it "shows different outgoings guidance text if I select controlled" do
       visit_flow_page(passporting: false, target: :outgoings) do |step|
         case step

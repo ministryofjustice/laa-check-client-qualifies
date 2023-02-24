@@ -43,8 +43,6 @@ module CfeParamBuilders
     # be if they were paid as regular monthly income
     def self.multiplier(form)
       case form.frequency
-      when "annually"
-        1.0 / 12
       when "total"
         1.0 / 3
       else

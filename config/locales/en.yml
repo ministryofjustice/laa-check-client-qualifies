@@ -61,10 +61,10 @@ en:
         employment_form:
           attributes:
             gross_income:
-              blank: Enter employment income, before any deductions
-              net_income_must_be_positive: Employment income must be more than income tax and National Insurance combined
-              not_a_number: Employment income, before any deductions, must be a number
-              greater_than: Employment income, before any deductions, must be more than 0
+              blank: Enter gross pay before any deductions
+              net_income_must_be_positive: Gross pay must be more than income tax and National Insurance combined
+              not_a_number: Gross pay before any deductions must be a number
+              greater_than: Gross pay before any deductions must be more than 0
             income_tax:
               greater_than_or_equal_to: Income tax must be 0 or more
               blank: Enter income tax, if this does not apply enter 0
@@ -78,10 +78,10 @@ en:
         partner_employment_form:
           attributes:
             gross_income:
-              greater_than: Employment income must be more than 0
-              blank: Enter employment income, before any deductions
-              net_income_must_be_positive: Employment income must be more than income tax and National Insurance combined
-              not_a_number: Employment income must be a number
+              greater_than: Gross pay before any deductions must be more than 0
+              blank: Enter gross pay before any deductions
+              net_income_must_be_positive: Gross pay must be more than income tax and National Insurance combined
+              not_a_number: Gross pay before any deductions must be a number
             income_tax:
               blank: Enter income tax, if this does not apply enter 0
               not_a_number: Income tax must be a number, if this does not apply enter 0
@@ -625,7 +625,7 @@ en:
           - Guarantee Credit element of Pension Credit
     forms:
       employment:
-        gross_income: Employment income, before any deductions
+        gross_income: Gross pay, before any deductions
         income_tax: Income tax
         national_insurance: National Insurance
     partner_details:
@@ -723,24 +723,22 @@ en:
         - can be an adult or a child
     employment:
       caption: Your client's finances
-      heading: Add your client's salary breakdown
+      heading: Your client's pay
       second_caption: You can find this on your client's payslips
       frequency:
-        input: How often does your client get paid?
-        blank: "--"
+        input: When does your client normally get paid?
+        hint: We'll use this to calculate their monthly pay. If they do not get paid regularly, tell us how much they got paid in the last 3 months.
         total: Total in last 3 months
         week: Every week
         two_weeks: Every 2 weeks
         four_weeks: Every 4 weeks
         monthly: Every month
-        annually: Every year
     partner_employment:
       caption: The partner's finances
-      heading: Add the partner's salary breakdown
+      heading: The partner's pay
       second_caption: You can find this on the partner's payslips.
       frequency:
-        input: How often does the partner get paid?
-        blank: "--"
+        input: When does the partner normally get paid?
     housing_benefit:
       caption: Your client's finances
       housing_benefit_received:
@@ -1177,7 +1175,6 @@ en:
           two_weeks: Every 2 weeks
           four_weeks: Every 4 weeks
           monthly: Every month
-          annually: Every year
           not_provided: Not provided
       benefits: Other benefits
       benefits_fields:
@@ -1267,7 +1264,6 @@ en:
           two_weeks: Every 2 weeks
           four_weeks: Every 4 weeks
           monthly: Every month
-          annually: Every year
           not_provided: Not provided
       partner_benefits: Other benefits
       partner_housing_benefit: Housing Benefit
