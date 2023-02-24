@@ -118,6 +118,20 @@ RSpec.describe "Applicant Page" do
 
       it "shows me the right content" do
         expect(page).to have_content applicant_header
+        expect(page).to have_content "Guidance on passporting (opens in new tab)"
+        expect(page).to have_content "Guidance on Pensioner disregards (opens in new tab)"
+        expect(page).to have_content "Guidance on domestic abuse or violence (opens in new tab)"
+      end
+
+      it "shows me the right content when flags are enabled", :controlled_flag, :asylum_and_immigration_flag do
+        select_radio(page:, form: "level-of-help-form", field: "level-of-help", value: "certificated")
+        click_on "Save and continue"
+        select_radio(page:, form: "matter-type-form", field: "proceeding-type", value: "se003")
+        click_on "Save and continue"
+        expect(page).to have_content applicant_header
+        expect(page).to have_content "Guidance on passporting (opens in new tab)"
+        expect(page).to have_content "Guidance on Pensioner disregards (opens in new tab)"
+        expect(page).not_to have_content "Guidance on domestic abuse or violence (opens in new tab)"
       end
 
       it "complains if I don't fill in additional questions - omitting domestic abuse and partner" do
