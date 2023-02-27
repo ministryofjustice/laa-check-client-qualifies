@@ -98,7 +98,7 @@ RSpec.describe "Asylum and immigration pages", :controlled_flag do
         expect(mock_connection).to receive(:create_proceeding_type).with(estimate_id, "IM030")
         expect(mock_connection).not_to receive(:create_capitals)
         click_on "Submit"
-        expect(page).to have_content "These calculations were made in line with the latest version of the Lord Chancellor's Guidance"
+        expect(page).to have_content "This assessment has been made in line with the latest version of the Lord Chancellor’s Guidance"
       end
     end
   end
