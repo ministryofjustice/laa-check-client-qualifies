@@ -94,5 +94,6 @@ Secrets have been stored for each environment using `kubectl create secret`. The
 * sentry-dsn
 * notifications-api-key
 * secret-key-base
+* geckoboard-api-key
 
 The current values for these are available as secure notes in LastPass for each environment, should they be lost from Kubernetes.
