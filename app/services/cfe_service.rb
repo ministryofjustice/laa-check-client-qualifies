@@ -19,7 +19,7 @@ class CfeService
     def create_assessment_id(cfe_connection, session_data)
       attributes = { submission_date: Time.zone.today }
       form = LevelOfHelpForm.from_session(session_data)
-      attributes[:level_of_representation] = form.level_of_help if form.level_of_help.present?
+      attributes[:level_of_help] = form.level_of_help if form.level_of_help.present?
       cfe_connection.create_assessment_id(attributes)
     end
 

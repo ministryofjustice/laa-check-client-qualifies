@@ -32,7 +32,7 @@ RSpec.describe "Level of help page" do
 
     it "tells CFE if I choose controlled" do
       allow(CfeConnection).to receive(:connection).and_return(mock_connection)
-      expect(mock_connection).to receive(:create_assessment_id).with({ submission_date: Time.zone.today, level_of_representation: "controlled" })
+      expect(mock_connection).to receive(:create_assessment_id).with({ submission_date: Time.zone.today, level_of_help: "controlled" })
       visit_check_answers(passporting: true) do |step|
         case step
         when :level_of_help
