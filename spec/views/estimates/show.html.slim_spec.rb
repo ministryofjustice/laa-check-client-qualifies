@@ -101,6 +101,10 @@ describe "estimates/show.html.slim" do
         it "makes no reference to lower limits" do
           expect(rendered).not_to include "lower limit"
         end
+
+        it "makes no reference to Apply" do
+          expect(rendered).to include "Use CCMS to start an application for your client."
+        end
       end
     end
 
@@ -129,6 +133,10 @@ describe "estimates/show.html.slim" do
 
         it "makes no reference to lower limits" do
           expect(rendered).not_to include "lower limit"
+        end
+
+        it "makes no reference to Apply" do
+          expect(rendered).to include "Use CCMS to start an application for your client."
         end
       end
     end

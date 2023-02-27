@@ -13,7 +13,7 @@
 
 - if @model.level_of_help == "certificated"
   h2.govuk-heading-m = t(".what_happens_next")
-  - if @estimate.asylum_support_and_upper_tribunal?
+  - if @estimate.upper_tribunal?
     p.govuk-body = t(".next_steps_without_apply_paragraph_1")
   - else
     p.govuk-body = t(".next_steps_paragraph_1")
