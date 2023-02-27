@@ -77,6 +77,4 @@ postgresql:
 geckoboard:
   metricsDataset: "ccq_metrics_uat"
   validationsDataset: "ccq_validations_uat"
-  # TODO: Disable this before merging so all UAT branches don't try to push to geckoboard every day.
-  # This is purely to enabled UAT of the initial geckoboard implementation
-  enabled: enabled
+  enabled: not_enabled
