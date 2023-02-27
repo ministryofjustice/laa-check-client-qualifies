@@ -535,11 +535,12 @@ en:
     asylum_support:
       question: Does your client get Asylum Support?
       help_text_1: This means Asylum Support as defined in Section 4 or Section 95 of the Immigration and Asylum Act 1999.
-      help_text_2: They will not need an income or capital assessment if they receive this type of Asylum Support.
+      help_text_2: Your client will not need an income or capital assessment if they receive this type of Asylum Support.
       help_text_3: Also select yes if your client is named in their partner's Asylum Support claim.
       guidance:
         text: Guidance on Asylum Support
         controlled_link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=5
+        certificated_link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=127
     matter_type:
       title: Which type of matter is this?
       immigration: Immigration in the First-tier Tribunal
