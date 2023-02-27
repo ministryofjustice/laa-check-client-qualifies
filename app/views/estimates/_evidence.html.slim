@@ -1,4 +1,4 @@
-- if @estimate.upper_tribunal? && @estimate.asylum_support
+- if @estimate.asylum_support_and_upper_tribunal?
   ul.govuk-list.govuk-list--bullet
   - t("estimates.show.controlled_asylum_types_of_evidence").each_with_index do |evidence, index|
     li
