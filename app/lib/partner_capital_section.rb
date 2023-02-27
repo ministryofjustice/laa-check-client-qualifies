@@ -9,7 +9,7 @@ class PartnerCapitalSection
     end
 
     def steps_for(estimate)
-      if estimate.asylum_support || !estimate.partner
+      if estimate.asylum_support_and_upper_tribunal? || !estimate.partner
         []
       else
         property_steps = if estimate.owns_property?

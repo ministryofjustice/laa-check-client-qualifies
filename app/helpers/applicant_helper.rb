@@ -4,7 +4,7 @@ module ApplicantHelper
       t("estimate_flow.applicant.passporting_guidance.text") => t("estimate_flow.applicant.passporting_guidance.#{level_of_help}.link"),
       t("estimate_flow.applicant.pensioner_guidance.text") => t("estimate_flow.applicant.pensioner_guidance.#{level_of_help}.link"),
     }
-    if level_of_help == "controlled"
+    if FeatureFlags.enabled?(:asylum_and_immigration) && level_of_help != "controlled"
       links
     else
       links.merge({

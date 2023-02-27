@@ -5,7 +5,7 @@ class ApplicantDetailsSection
     end
 
     def steps_for(estimate)
-      if estimate.asylum_support
+      if estimate.asylum_support_and_upper_tribunal?
         []
       else
         steps(estimate).map { [_1] }

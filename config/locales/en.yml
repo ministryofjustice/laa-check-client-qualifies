@@ -16,7 +16,7 @@ en:
               inclusion: Select if your client receives section 4 or section 95 Asylum Support
         matter_type_form:
           attributes:
-            controlled_proceeding_type:
+            proceeding_type:
               blank: Select what type of matter this is
         partner_details_form:
           attributes:
@@ -32,7 +32,7 @@ en:
               inclusion: Select yes if your client receives a passporting benefit or if they are named on their partner's passporting benefit
             over_60:
               inclusion: Select yes if your client is aged 60 or over
-            proceeding_type:
+            legacy_proceeding_type:
               blank: Select yes if your client is likely to be an applicant in a domestic abuse case
             partner:
               inclusion: Select yes if the client has a partner
@@ -543,12 +543,18 @@ en:
     matter_type:
       title: Which type of matter is this?
       immigration: Immigration in the First-tier Tribunal
-      immigration_hint: Or Upper Tribunal in relation to an appeal or review from the First-tier Tribunal
       asylum: Asylum in the First-tier Tribunal
-      asylum_hint: Or Upper Tribunal in relation to an appeal or review from the First-tier Tribunal
       other: Another legal matter
-      guidance_text: Guide to determining controlled work
-      guidance_link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf
+      domestic_abuse: Domestic abuse
+      domestic_abuse_hint: Upper eligibility limits are waived if your client is an applicant in a domestic abuse matter
+      controlled_guidance_text: Guide to determining controlled work
+      controlled_guidance_link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf
+      domestic_abuse_guidance:
+        text: Guidance on domestic abuse or violence
+        link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=13
+      tribunal_guidance:
+        text: Guidance on Upper Tribunal matters
+        link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=5
     partner:
       partner_guidance:
         text: "Guidance on partners"
@@ -587,7 +593,7 @@ en:
             - the opponent in the case
             - have a contrary interest in the case
         hint: This is a spouse, someone with whom they are in a civil relationship, a cohabiter or someone they share their finances with. They cannot be the opponent in any legal proceedings.
-      proceeding_type:
+      legacy_proceeding_type:
         legend: Is your client likely to be the applicant in a domestic abuse matter?
         hint: Upper eligibility limits are waived if your client is an applicant in a domestic abuse matter. Refer to our guidance on domestic abuse or violence for more information.
         domestic_abuse:
@@ -1119,13 +1125,14 @@ en:
           controlled: Civil controlled work or family mediation
           certificated: Civil certificated or licensed legal work
           not_provided: Not provided
-      about_the_case: About the case
+      about_the_case: Case details
       about_the_case_fields:
-        controlled_proceeding_type: Type of matter
-        controlled_proceeding_type_options:
-          IM030: "Immigration Tribunal"
-          IA031: "Asylum Tribunal"
-          SE003: "Neither Immigration nor Asylum"
+        proceeding_type: Type of matter
+        proceeding_type_options:
+          IM030: "Immigration in the Upper Tribunal"
+          IA031: "Asylum in the Upper Tribunal"
+          SE003: "Another legal matter"
+          DA001: "Domestic abuse"
           not_provided: "Not provided"
       about_your_client: About your client
       about_partner: About your client's partner
@@ -1137,8 +1144,8 @@ en:
       heading: Check your answers
       client_details: Your client's details
       client_details_fields:
-        proceeding_type: Applicant in a domestic abuse case
-        proceeding_type_options:
+        legacy_proceeding_type: Applicant in a domestic abuse case
+        legacy_proceeding_type_options:
           DA001: "Yes"
           SE003: "No"
           not_provided: "No"
