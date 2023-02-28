@@ -1,4 +1,6 @@
 class EstimatesController < ApplicationController
+  before_action :load_estimate, only: %i[create print download]
+
   def new
     redirect_to estimate_build_estimate_path SecureRandom.uuid, StepsHelper.first_step
   end
@@ -54,5 +56,9 @@ private
 
   def assessment_code
     params[:id]
+  end
+
+  def load_estimate
+    @estimate = EstimateModel.from_session(session_data)
   end
 end

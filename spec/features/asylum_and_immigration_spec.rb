@@ -40,19 +40,19 @@ RSpec.describe "Asylum and immigration pages", :controlled_flag do
     end
 
     it "takes me to the applicant page if I say no" do
-      select_radio(page:, form: "matter-type-form", field: "controlled-proceeding-type", value: "se003")
+      select_radio(page:, form: "matter-type-form", field: "proceeding-type", value: "se003")
       click_on "Save and continue"
       expect(page).to have_content applicant_header
     end
 
     it "takes me to the asylum_support page if I say yes" do
-      select_radio(page:, form: "matter-type-form", field: "controlled-proceeding-type", value: "ia031")
+      select_radio(page:, form: "matter-type-form", field: "proceeding-type", value: "ia031")
       click_on "Save and continue"
       expect(page).to have_content asylum_support_header
     end
 
     it "takes me to the check_answers page if I say yes to asylum_support" do
-      select_radio(page:, form: "matter-type-form", field: "controlled-proceeding-type", value: "ia031")
+      select_radio(page:, form: "matter-type-form", field: "proceeding-type", value: "ia031")
       click_on "Save and continue"
       select_boolean_value("asylum-support-form", :asylum_support, true)
       click_on "Save and continue"
@@ -60,7 +60,7 @@ RSpec.describe "Asylum and immigration pages", :controlled_flag do
     end
 
     it "takes me to the applicant details page if I say no to asylum support" do
-      select_radio(page:, form: "matter-type-form", field: "controlled-proceeding-type", value: "ia031")
+      select_radio(page:, form: "matter-type-form", field: "proceeding-type", value: "ia031")
       click_on "Save and continue"
       select_boolean_value("asylum-support-form", :asylum_support, false)
       click_on "Save and continue"
@@ -68,7 +68,7 @@ RSpec.describe "Asylum and immigration pages", :controlled_flag do
     end
 
     it "sends what I choose to CFE" do
-      select_radio(page:, form: "matter-type-form", field: "controlled-proceeding-type", value: "im030")
+      select_radio(page:, form: "matter-type-form", field: "proceeding-type", value: "im030")
       click_on "Save and continue"
       select_boolean_value("asylum-support-form", :asylum_support, false)
       click_on "Save and continue"
@@ -90,7 +90,7 @@ RSpec.describe "Asylum and immigration pages", :controlled_flag do
 
     context "when in receipt of asylum support" do
       it "sends what I choose to CFE" do
-        select_radio(page:, form: "matter-type-form", field: "controlled-proceeding-type", value: "im030")
+        select_radio(page:, form: "matter-type-form", field: "proceeding-type", value: "im030")
         click_on "Save and continue"
         select_boolean_value("asylum-support-form", :asylum_support, true)
         click_on "Save and continue"
@@ -98,6 +98,7 @@ RSpec.describe "Asylum and immigration pages", :controlled_flag do
         expect(mock_connection).to receive(:create_proceeding_type).with(estimate_id, "IM030")
         expect(mock_connection).not_to receive(:create_capitals)
         click_on "Submit"
+        expect(page).to have_content "This assessment has been made in line with the latest version of the Lord Chancellor’s Guidance"
       end
     end
   end

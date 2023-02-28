@@ -9,19 +9,19 @@ class CaseDetailsSection
     end
 
     def steps(estimate)
-      [level_of_help, matter_type(estimate), asylum_support(estimate)].compact
+      [level_of_help, matter_type, asylum_support(estimate)].compact
     end
 
     def level_of_help
       :level_of_help if FeatureFlags.enabled?(:controlled)
     end
 
-    def matter_type(estimate)
-      :matter_type if estimate.controlled? && FeatureFlags.enabled?(:asylum_and_immigration)
+    def matter_type
+      :matter_type if FeatureFlags.enabled?(:asylum_and_immigration)
     end
 
     def asylum_support(estimate)
-      :asylum_support if estimate.level_of_help == "controlled" && estimate.upper_tribunal?
+      :asylum_support if estimate.upper_tribunal?
     end
   end
 end

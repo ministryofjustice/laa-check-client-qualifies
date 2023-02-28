@@ -16,7 +16,7 @@ en:
               inclusion: Select if your client receives section 4 or section 95 Asylum Support
         matter_type_form:
           attributes:
-            controlled_proceeding_type:
+            proceeding_type:
               blank: Select what type of matter this is
         partner_details_form:
           attributes:
@@ -32,7 +32,7 @@ en:
               inclusion: Select yes if your client receives a passporting benefit or if they are named on their partner's passporting benefit
             over_60:
               inclusion: Select yes if your client is aged 60 or over
-            proceeding_type:
+            legacy_proceeding_type:
               blank: Select yes if your client is likely to be an applicant in a domestic abuse case
             partner:
               inclusion: Select yes if the client has a partner
@@ -535,20 +535,27 @@ en:
     asylum_support:
       question: Does your client get Asylum Support?
       help_text_1: This means Asylum Support as defined in Section 4 or Section 95 of the Immigration and Asylum Act 1999.
-      help_text_2: They will not need an income or capital assessment if they receive this type of Asylum Support.
+      help_text_2: Your client will not need an income or capital assessment if they receive this type of Asylum Support.
       help_text_3: Also select yes if your client is named in their partner's Asylum Support claim.
       guidance:
         text: Guidance on Asylum Support
         controlled_link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=5
+        certificated_link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=127
     matter_type:
       title: Which type of matter is this?
       immigration: Immigration in the First-tier Tribunal
-      immigration_hint: Or Upper Tribunal in relation to an appeal or review from the First-tier Tribunal
       asylum: Asylum in the First-tier Tribunal
-      asylum_hint: Or Upper Tribunal in relation to an appeal or review from the First-tier Tribunal
       other: Another legal matter
-      guidance_text: Guide to determining controlled work
-      guidance_link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf
+      domestic_abuse: Domestic abuse
+      domestic_abuse_hint: Upper eligibility limits are waived if your client is an applicant in a domestic abuse matter
+      controlled_guidance_text: Guide to determining controlled work
+      controlled_guidance_link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf
+      domestic_abuse_guidance:
+        text: Guidance on domestic abuse or violence
+        link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=13
+      tribunal_guidance:
+        text: Guidance on Upper Tribunal matters
+        link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=5
     partner:
       partner_guidance:
         text: "Guidance on partners"
@@ -587,7 +594,7 @@ en:
             - the opponent in the case
             - have a contrary interest in the case
         hint: This is a spouse, someone with whom they are in a civil relationship, a cohabiter or someone they share their finances with. They cannot be the opponent in any legal proceedings.
-      proceeding_type:
+      legacy_proceeding_type:
         legend: Is your client likely to be the applicant in a domestic abuse matter?
         hint: Upper eligibility limits are waived if your client is an applicant in a domestic abuse matter. Refer to our guidance on domestic abuse or violence for more information.
         domestic_abuse:
@@ -1119,13 +1126,14 @@ en:
           controlled: Civil controlled work or family mediation
           certificated: Civil certificated or licensed legal work
           not_provided: Not provided
-      about_the_case: About the case
+      about_the_case: Case details
       about_the_case_fields:
-        controlled_proceeding_type: Type of matter
-        controlled_proceeding_type_options:
-          IM030: "Immigration Tribunal"
-          IA031: "Asylum Tribunal"
-          SE003: "Neither Immigration nor Asylum"
+        proceeding_type: Type of matter
+        proceeding_type_options:
+          IM030: "Immigration in the Upper Tribunal"
+          IA031: "Asylum in the Upper Tribunal"
+          SE003: "Another legal matter"
+          DA001: "Domestic abuse"
           not_provided: "Not provided"
       about_your_client: About your client
       about_partner: About your client's partner
@@ -1137,8 +1145,8 @@ en:
       heading: Check your answers
       client_details: Your client's details
       client_details_fields:
-        proceeding_type: Applicant in a domestic abuse case
-        proceeding_type_options:
+        legacy_proceeding_type: Applicant in a domestic abuse case
+        legacy_proceeding_type_options:
           DA001: "Yes"
           SE003: "No"
           not_provided: "No"
@@ -1327,8 +1335,20 @@ en:
       controlled_ineligible_paragraphs:
         - Your client is not likely to qualify financially for civil legal aid based on the information you entered. You may wish to discuss your client’s options, for example they can pay for legal support or get advice from a charity or advice organisation.
         - These calculations were made in line with the latest version of the Lord Chancellor's Guidance on Determining Financial Eligibility for Controlled Work.
+      certificated_asylum_support_eligible_intro_paragraphs:
+        - Your client is likely to qualify financially for civil legal aid, without needing to pay a contribution, based on the information you entered.
+        - You told us your client is in receipt of Section 4 or Section 95 Asylum Support, which makes them automatically financially eligible for civil certificated legal aid for proceedings in the Immigration and Asylum chamber of the Upper Tribunal without income, outgoing and capital calculations.
+        - This is not a guarantee that your client will get civil legal aid. For a final decision, an application and supporting evidence must be submitted to the Legal Aid Agency (LAA) for assessment. A full assessment supported by evidence may generate a different result.
+        - "The LAA will also consider:"
+      controlled_asylum_support_eligible_paragraphs:
+        - Your client is likely to qualify financially for civil legal aid, based on the information you have entered.
+        - You told us your client is in receipt of Section 4 or Section 95 Asylum Support, which makes them automatically financially eligible for civil controlled work relating to proceedings in the Immigration and Asylum chamber of the first tier or upper tribunal without income, outgoing and capital calculations.
+        - Before you (or a legal aid provider) proceed with your client’s case, it must also be within scope for legal aid and satisfy the relevant merits criteria set out in the relevant legislation and guidance.
+        - Save or print this page and keep any supporting evidence to support your decision in case the Legal Aid Agency (LAA) audits or assesses your client’s file in the future.
+        - This assessment has been made in line with the latest version of the Lord Chancellor’s Guidance on Determining Eligibility for Controlled Work.
       what_happens_next: What happens next
       next_steps_paragraph_1: Use Apply for legal aid or CCMS to start an application for your client.
+      next_steps_without_apply_paragraph_1: Use CCMS to start an application for your client.
       next_steps_paragraph_2: You may need to provide evidence of your client's eligibility as part of your application.
       evidence_needed: Evidence you might need
       evidence_needed_explainer: Depending on your client's financial situation, you may need to provide items from this general list.
@@ -1352,8 +1372,19 @@ en:
         - evidence of housing payments such as a mortgage statement, rent book or receipts (if your client's housing payments are more than a third of their total income)
         - receipts for childcare payments (if these exceed £600 a month or a pro-rata amount if your client is employed part time)
         - evidence of the value of any capital held by your client if you believe it necessary to collect
-      certificated_limits_calculation: Upper limits, lower limits and exemptions
-      controlled_limits_calculation: Upper limits
+      controlled_asylum_types_of_evidence:
+        - confirmation from the Home Office or Migrant Help that the individual is in receipt of support (dated in the last 6 months)
+        - completed LAA Asylum Support enquiry form
+        - "detailed note of phone call to Migrant Help to confirm individual is currently in receipt of Asylum Support; the note will need to include:"
+      controlled_asylum_subtypes_of_evidence:
+        - date of call
+        - client name
+        - details of who the firm spoke to
+        - Asylum Support reference number
+        - type of Asylum Support
+        - date payment of current Asylum Support started
+      upper_and_lower_limits_calculation_header: Upper limits, lower limits and exemptions
+      upper_limits_calculation_header: Upper limits
       income_calculation: Income calculation
       client_income: Client's monthly income
       partner_income: Partner's monthly income
@@ -1539,8 +1570,8 @@ en:
         - Housing costs are capped at £545 per month if your client is single and does not have any dependants (Regulation 28(7)).
         - If your client’s gross income is above the applicable upper gross income limit, they will not qualify for legal aid. If this occurs, our service will not perform disposable income or disposable capital calculations. Any figures you entered in the outgoings or capital sections may either display as £0, or not at all.
       certificated_last_item: If your client’s income or capital is between the applicable upper and lower income limits, they may qualify for legal aid but may have to make a monthly or lump sum contribution towards the cost of their case.
-      certificated_monetary_limits: "These limits are:"
-      controlled_monetary_limits: "The upper limits are:"
+      upper_and_lower_monetary_limits: "These limits are:"
+      upper_monetary_limits: "The upper limits are:"
       lower: Lower limit
       upper: Upper limit
       gross_income_caption: Gross income limits
@@ -1564,6 +1595,7 @@ en:
       di_upper_limit: £733
       capital_lower_limit: £3,000
       capital_upper_limit: £8,000
+      controlled_immigration_capital_upper_limit: £3,000
       not_applicable: When limits are not applicable
       not_applicable_text: The upper limits do not apply if your client is the applicant in a matter such as domestic abuse (see Regulation 12 for the full list).
     print:

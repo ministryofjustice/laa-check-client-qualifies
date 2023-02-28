@@ -78,7 +78,7 @@ RSpec.describe "Results Page" do
       visit_check_answers(passporting: false) do |step|
         case step
         when :applicant
-          select_radio_value("applicant-form", "proceeding-type", "se003") # non-domestic abuse case
+          select_radio_value("applicant-form", "legacy-proceeding-type", "se003") # non-domestic abuse case
           select_applicant_boolean(:over_60, false)
           select_applicant_boolean(:employed, true)
           select_applicant_boolean(:partner, false)

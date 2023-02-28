@@ -73,3 +73,8 @@ postgresql:
   postgresqlUsername: postgres
   persistence:
     enabled: false
+
+geckoboard:
+  metricsDataset: "ccq_metrics_uat"
+  validationsDataset: "ccq_validations_uat"
+  enabled: not_enabled

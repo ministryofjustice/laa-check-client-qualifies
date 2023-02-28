@@ -55,3 +55,8 @@ featureFlags:
   sentry: ENABLED
   controlled: NOT_ENABLED
   asylumAndImmigration: NOT_ENABLED
+
+geckoboard:
+  metricsDataset: "ccq_metrics_production"
+  validationsDataset: "ccq_validations_production"
+  enabled: enabled

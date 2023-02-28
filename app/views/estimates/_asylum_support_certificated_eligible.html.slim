@@ -1,0 +1,7 @@
+h1.govuk-heading-l = t("estimates.show.likely_to_qualify")
+- t("estimates.show.certificated_asylum_support_eligible_intro_paragraphs").each
+  p.govuk-body = _1
+ul.govuk-list--bullet
+  - t("estimates.show.also_considered").each
+    li.govuk-body = _1
+p.govuk-body = t("estimates.show.lord_chancellors_guidance")

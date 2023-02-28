@@ -39,7 +39,7 @@ sections:
   - label: about_the_case
     subsections:
       - fields:
-          - attribute: controlled_proceeding_type
+          - attribute: proceeding_type
             type: select
             screen: matter_type
       - screen: asylum_support
@@ -53,7 +53,7 @@ sections:
         screen: applicant
         model: ApplicantSection
         fields:
-        - attribute: proceeding_type
+        - attribute: legacy_proceeding_type
           type: select
         - attribute: partner
           type: boolean
