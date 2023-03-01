@@ -4,6 +4,8 @@
 
 This is a calculator for providers to obtain a quick estimate to decide if a client is eligible for Legal Aid
 
+**This branch is being used to prototype an alternative flow for the calculator.**
+
 ## Documentation for developers.
 
 The new 'propshaft' asset pipeline (specifically jsbundling-rails and cssbundling-rails gems) has a 'test:prepare'
