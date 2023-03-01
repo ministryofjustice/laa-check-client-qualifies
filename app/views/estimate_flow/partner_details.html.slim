@@ -11,20 +11,6 @@
 
     = render "shared/heading", header_text: t(".partner_heading")
 
-    h2.govuk-heading-m = t(".client_partner")
-
-    p class="govuk-body" = t(".ask_details")
-
-    p class="govuk-body" = t(".list_title")
-
-    ul.govuk-list.govuk-list--bullet
-      - unless @estimate.passporting
-        - t(".non_passported_types_of_information").each do |evidence|
-          li.govuk-body = evidence
-      - key = @estimate.controlled? ? ".controlled_passported_types_of_information" : ".passported_types_of_information"
-      - t(key).each do |evidence|
-        li.govuk-body = evidence
-
     = form.govuk_collection_radio_buttons :over_60,
             yes_no_options, :first, :last,
             legend: { text: t(".partner_over_60.legend") },
