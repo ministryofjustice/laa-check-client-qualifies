@@ -1,10 +1,8 @@
 class SubmitAssetsService < BaseCfeService
-  def call(cfe_assessment_id, session_data)
-    estimate = EstimateModel.from_session(session_data)
+  def call(cfe_assessment_id)
+    return unless relevant_form?(:assets)
 
-    return if estimate.asylum_support_and_upper_tribunal?
-
-    asset_form = ClientAssetsForm.from_session(session_data)
+    asset_form = ClientAssetsForm.from_session(@session_data)
     capitals = CfeParamBuilders::Capitals.call(asset_form, assets_in_dispute: asset_form.in_dispute)
 
     if capitals[:bank_accounts].any? || capitals[:non_liquid_capital].any?
@@ -20,10 +18,9 @@ class SubmitAssetsService < BaseCfeService
       second_property[:subject_matter_of_dispute] = true if asset_form.property_in_dispute?
     end
 
-    property_form = PropertyForm.from_session(session_data)
-    client_form = ApplicantForm.from_session(session_data)
-    if property_form.owns_property?
-      property_entry_form = ClientPropertyEntryForm.from_session(session_data)
+    if relevant_form?(:property_entry)
+      property_form = PropertyForm.from_session(@session_data)
+      property_entry_form = ClientPropertyEntryForm.from_session(@session_data)
       percentage_owned = if property_entry_form.joint_ownership
                            property_entry_form.percentage_owned + property_entry_form.joint_percentage_owned
                          else
@@ -35,16 +32,14 @@ class SubmitAssetsService < BaseCfeService
         percentage_owned:,
       }
       main_home[:subject_matter_of_dispute] = true if property_entry_form.house_in_dispute
-    elsif client_form.partner
-      partner_property_form = PartnerPropertyForm.from_session(session_data)
-      if partner_property_form.owns_property?
-        property_entry_form = PartnerPropertyEntryForm.from_session(session_data)
-        main_home = {
-          value: property_entry_form.house_value,
-          outstanding_mortgage: (property_entry_form.mortgage if partner_property_form.owned_with_mortgage?) || 0,
-          percentage_owned: property_entry_form.percentage_owned,
-        }
-      end
+    elsif relevant_form?(:partner_property_entry)
+      partner_property_form = PartnerPropertyForm.from_session(@session_data)
+      partner_property_entry_form = PartnerPropertyEntryForm.from_session(@session_data)
+      main_home = {
+        value: partner_property_entry_form.house_value,
+        outstanding_mortgage: (partner_property_entry_form.mortgage if partner_property_form.owned_with_mortgage?) || 0,
+        percentage_owned: partner_property_entry_form.percentage_owned,
+      }
     end
 
     create_properties(cfe_assessment_id, main_home, second_property) if main_home.present? || second_property.present?

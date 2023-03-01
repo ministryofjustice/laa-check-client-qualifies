@@ -1,8 +1,6 @@
 class SubmitPartnerService < BaseCfeService
-  def call(cfe_assessment_id, session_data)
-    @session_data = session_data
-    @applicant_form = ApplicantForm.from_session(session_data)
-    return unless @applicant_form.partner
+  def call(cfe_assessment_id)
+    return unless relevant_form?(:partner_details)
 
     cfe_connection.create_partner cfe_assessment_id,
                                   partner:,
@@ -27,33 +25,31 @@ class SubmitPartnerService < BaseCfeService
   end
 
   def irregular_incomes
+    return [] unless relevant_form?(:partner_other_income)
+
     form = PartnerOtherIncomeForm.from_session(@session_data)
     CfeParamBuilders::IrregularIncome.call(form)
   end
 
   def employments
-    if partner[:employed] && !@applicant_form.passporting
-      form = PartnerEmploymentForm.from_session(@session_data)
-      CfeParamBuilders::Employments.call(form)
-    else
-      []
-    end
+    return [] unless relevant_form?(:partner_employment)
+
+    form = PartnerEmploymentForm.from_session(@session_data)
+    CfeParamBuilders::Employments.call(form)
   end
 
   def regular_transactions
+    return [] unless relevant_form?(:partner_other_income) && relevant_form?(:partner_outgoings)
+
     outgoings_form = PartnerOutgoingsForm.from_session(@session_data)
     income_form = PartnerOtherIncomeForm.from_session(@session_data)
     CfeParamBuilders::RegularTransactions.call(income_form, outgoings_form)
   end
 
   def state_benefits
-    benefits_form = PartnerBenefitsForm.from_session(@session_data)
-    housing_benefit_form = PartnerHousingBenefitForm.from_session(@session_data)
-    return [] if benefits_form.benefits.blank? && !housing_benefit_form.housing_benefit
-
-    if housing_benefit_form.housing_benefit
-      housing_benefit_details_form = PartnerHousingBenefitDetailsForm.from_session(@session_data)
-    end
+    benefits_form = PartnerBenefitsForm.from_session(@session_data) if relevant_form?(:partner_benefits)
+    housing_benefit_details_form = PartnerHousingBenefitDetailsForm.from_session(@session_data) if relevant_form?(:partner_housing_benefit_details)
+    return [] if benefits_form&.benefits.blank? && !housing_benefit_details_form
 
     CfeParamBuilders::StateBenefits.call(benefits_form, housing_benefit_details_form)
   end
@@ -76,14 +72,15 @@ class SubmitPartnerService < BaseCfeService
   end
 
   def vehicles
-    owned_model = PartnerVehicleForm.from_session(@session_data)
-    return [] unless owned_model.vehicle_owned
+    return [] unless relevant_form?(:partner_vehicle_details)
 
     details_model = PartnerVehicleDetailsForm.from_session(@session_data)
     CfeParamBuilders::Vehicles.call(details_model)
   end
 
   def dependants
+    return [] unless relevant_form?(:partner_dependant_details)
+
     details_form = PartnerDependantDetailsForm.from_session(@session_data)
     children = CfeParamBuilders::Dependants.children(dependants: details_form.child_dependants,
                                                      count: details_form.child_dependants_count)

@@ -1,7 +1,7 @@
 class SubmitApplicantService < BaseCfeService
-  def call(cfe_assessment_id, session_data)
-    estimate = ApplicantForm.from_session(session_data)
-    asylum_support_form = AsylumSupportForm.from_session(session_data)
+  def call(cfe_assessment_id)
+    estimate = ApplicantForm.from_session(@session_data)
+    asylum_support_form = AsylumSupportForm.from_session(@session_data)
 
     base_attributes = {
       date_of_birth: estimate.over_60 ? 70.years.ago.to_date : 50.years.ago.to_date,
