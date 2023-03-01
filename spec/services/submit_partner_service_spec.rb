@@ -19,8 +19,6 @@ RSpec.describe SubmitPartnerService, :partner_flag do
           "partner_gross_income" => 500,
           "partner_income_tax" => 50,
           "partner_national_insurance" => 20,
-          "partner_housing_payments_value" => 100,
-          "partner_housing_payments_frequency" => "every_week",
           "partner_friends_or_family_value" => 100,
           "partner_friends_of_family_value" => "every_week",
           "partner_benefits" => [
@@ -45,11 +43,7 @@ RSpec.describe SubmitPartnerService, :partner_flag do
           expect(payload[:regular_transactions]).to eq([{ amount: 100,
                                                           category: :friends_or_family,
                                                           frequency: nil,
-                                                          operation: :credit },
-                                                        { amount: 100,
-                                                          category: :rent_or_mortgage,
-                                                          frequency: :weekly,
-                                                          operation: :debit }])
+                                                          operation: :credit }])
           expect(payload[:state_benefits][0][:payments].count).to eq(12)
           expect(payload[:additional_properties]).to eq([{ outstanding_mortgage: 50_000,
                                                            percentage_owned: 100,

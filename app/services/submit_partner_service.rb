@@ -47,10 +47,9 @@ class SubmitPartnerService < BaseCfeService
 
   def state_benefits
     benefits_form = PartnerBenefitsForm.from_session(@session_data) if relevant_form?(:partner_benefits)
-    housing_benefit_details_form = PartnerHousingBenefitDetailsForm.from_session(@session_data) if relevant_form?(:partner_housing_benefit_details)
-    return [] if benefits_form&.benefits.blank? && !housing_benefit_details_form
+    return [] if benefits_form&.benefits.blank?
 
-    CfeParamBuilders::StateBenefits.call(benefits_form, housing_benefit_details_form)
+    CfeParamBuilders::StateBenefits.call(benefits_form)
   end
 
   def additional_properties

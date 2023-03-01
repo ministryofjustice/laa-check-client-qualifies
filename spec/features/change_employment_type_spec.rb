@@ -30,13 +30,18 @@ RSpec.describe "Change employment types" do
     expect(page).to have_content outgoings_header
     fill_outgoings_form(page:, subject: :client)
     click_on "Save and continue"
+    skip_housing_form
     expect(page).to have_content check_answers_header
   end
 
   def skip_benefits_form
-    select_boolean_value("housing-benefit-form", :housing_benefit, false)
-    click_on "Save and continue"
     select_boolean_value("benefits-form", :add_benefit, false)
+    click_on("Save and continue")
+  end
+
+  def skip_housing_form
+    fill_in "housing-form-housing-payments-value-field", with: "0"
+    select_boolean_value("housing-form", :receives_housing_benefit, false)
     click_on("Save and continue")
   end
 end

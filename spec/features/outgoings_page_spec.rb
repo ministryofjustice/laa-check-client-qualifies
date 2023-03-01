@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Outgoings Page" do
   let(:outgoings_header) { I18n.t("estimate_flow.outgoings.heading") }
-  let(:property_header) { "Does your client own the home they live in?" }
+  let(:housing_header) { I18n.t("estimate_flow.housing.title") }
   let(:estimate_id) { SecureRandom.uuid }
   let(:mock_connection) do
     instance_double(CfeConnection,
@@ -22,7 +22,6 @@ RSpec.describe "Outgoings Page" do
   it "validates numbers in every value box" do
     click_on "Save and continue"
     within ".govuk-error-summary__list" do
-      expect(page).to have_content("Enter housing payments, if this does not apply enter 0")
       expect(page).to have_content("Enter childcare payments, if this does not apply enter 0")
       expect(page).to have_content("Enter maintenance payments to a former partner, if this does not apply enter 0")
       expect(page).to have_content("Enter payments towards legal aid in a criminal case, if this does not apply enter 0")
@@ -30,23 +29,21 @@ RSpec.describe "Outgoings Page" do
   end
 
   it "validates that when values are entered, so are frequencies" do
-    fill_in "outgoings-form-housing-payments-value-field", with: "100"
+    fill_in "outgoings-form-childcare-payments-value-field", with: "100"
     click_on "Save and continue"
     expect(page).to have_css(".govuk-error-summary__list")
     within ".govuk-error-summary__list" do
-      expect(page).to have_content("Select frequency of housing payments")
+      expect(page).to have_content("Select frequency of childcare payments")
     end
   end
 
-  it "moves onto property on successful submission with no income" do
-    fill_in "outgoings-form-housing-payments-value-field", with: "100"
+  it "moves onto next page on successful submission with no income" do
     fill_in "outgoings-form-childcare-payments-value-field", with: "200"
     fill_in "outgoings-form-legal-aid-payments-value-field", with: "300"
     fill_in "outgoings-form-maintenance-payments-value-field", with: "0"
-    find(:css, "#outgoings-form-housing-payments-frequency-every-week-field").click
     find(:css, "#outgoings-form-childcare-payments-frequency-every-two-weeks-field").click
     find(:css, "#outgoings-form-legal-aid-payments-frequency-monthly-field").click
     click_on "Save and continue"
-    expect(page).to have_content(property_header)
+    expect(page).to have_content(housing_header)
   end
 end
