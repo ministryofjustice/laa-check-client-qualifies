@@ -628,19 +628,18 @@ en:
         income_tax: Income tax
         national_insurance: National Insurance
     partner_details:
-      partner_heading: You've completed the client section
-      client_partner: You told us your client has a partner
-      ask_details: We will now ask for some details about your client's partner to help us get an accurate financial picture of them.
-      list_title: "You will need information from the partner about any:"
-      non_passported_types_of_information:
-        - dependants
-        - employment
-        - benefits
-        - other income
-        - outgoings, like housing costs, maintenance payments and childcare costs
-      passported_types_of_information:
-        - savings and investments
-        - other assets including property and vehicles
+      partner_heading: Tell us about the partner
+#      ask_details: We will now ask for some details about your client's partner to help us get an accurate financial picture of them.
+#      list_title: "You will need information from the partner about any:"
+#      non_passported_types_of_information:
+#        - dependants
+#        - employment
+#        - benefits
+#        - other income
+#        - outgoings, like housing costs, maintenance payments and childcare costs
+#      passported_types_of_information:
+#        - savings and investments
+#        - other assets including property and vehicles
       controlled_passported_types_of_information:
         - savings and investments
         - other assets, including property
