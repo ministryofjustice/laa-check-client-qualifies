@@ -1,0 +1,15 @@
+.no-additional-vehicle-section,
+.additional-vehicle-section {
+  display: none;
+  &.visible {
+    display: block;
+  }
+}
+
+.additional-vehicle-header {
+  display: flex;
+  align-items: center;
+  button: {
+    margin-left: 20px;
+  }
+}

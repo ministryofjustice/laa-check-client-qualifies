@@ -122,14 +122,11 @@ PARTNER_INCOME_HANDLERS = {
   },
 }.freeze
 
-POSSIBLY_SKIPPED = %i[vehicle partner_vehicle].freeze
+POSSIBLY_SKIPPED = %i[vehicle partner_property].freeze
 
 PARTNER_CAPITAL_HANDLERS = {
   partner_property: lambda { |page:|
     select_radio(page:, form: "partner-property-form", field: "property-owned", value: "none")
-  },
-  partner_vehicle: lambda { |page:|
-    select_boolean(page:, form_name: "partner-vehicle-form", field: :vehicle_owned, value: false)
   },
   partner_assets: lambda { |page:|
     assets_form(page:, subject: :partner)

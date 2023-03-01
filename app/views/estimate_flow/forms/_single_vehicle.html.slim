@@ -1,0 +1,33 @@
+= render "shared/money_input_with_hint",
+            form:,
+            field: :"#{prefix}_value",
+            width: 10,
+            label_text: t("estimate_flow.vehicle_details.vehicle_value.input"),
+            hint_text: t("estimate_flow.vehicle_details.vehicle_value.input_hint")
+
+= form.govuk_radio_buttons_fieldset :"#{prefix}_pcp",
+                                      legend: { text: t("estimate_flow.vehicle_details.vehicle_pcp.legend") },
+                                      hint: { text: t("estimate_flow.vehicle_details.vehicle_pcp.hint") } do
+  = form.govuk_radio_button :"#{prefix}_pcp", true, label: { text: t("generic.yes_choice") }, link_errors: true do
+    = render "shared/money_input",
+                form:,
+                field: :"#{prefix}_finance",
+                width: 5,
+                label_text: t("estimate_flow.vehicle_details.vehicle_finance.input")
+  = form.govuk_radio_button :"#{prefix}_pcp", false, label: { text: t("generic.no_choice") }
+
+= form.govuk_collection_radio_buttons :"#{prefix}_over_3_years_ago",
+        yes_no_options, :first, :last,
+        legend: { text: t("estimate_flow.vehicle_details.vehicle_three_years_old.legend") },
+        hint: { text: t("estimate_flow.vehicle_details.vehicle_three_years_old.hint") }
+
+= form.govuk_collection_radio_buttons :"#{prefix}_in_regular_use", yes_no_options, :first, :last,
+                                        legend: { text: t("estimate_flow.vehicle_details.vehicle_in_regular_use.legend") },
+                                        hint: { text: t("estimate_flow.vehicle_details.vehicle_in_regular_use.hint") }
+
+.govuk-form-group
+  = form.govuk_check_box :"#{prefix}_in_dispute", true, 0,
+        multiple: false,
+        label: { text: t("estimate_flow.vehicle_details.vehicle_in_dispute") }
+
+= render "smod_help"

@@ -1,11 +1,10 @@
 class PartnerCapitalSection
   PROPERTY_STEPS = %i[partner_property partner_property_entry].freeze
-  VEHICLE_STEPS = %i[partner_vehicle partner_vehicle_details].freeze
   TAIL_STEPS = %i[partner_assets].freeze
 
   class << self
     def all_steps
-      (PROPERTY_STEPS + VEHICLE_STEPS + TAIL_STEPS).freeze
+      (PROPERTY_STEPS + TAIL_STEPS).freeze
     end
 
     def steps_for(estimate)
@@ -20,14 +19,8 @@ class PartnerCapitalSection
                            %i[partner_property]
                          end
 
-        ([property_steps] + [vehicle_steps(estimate)] + TAIL_STEPS.map { |step| [step] }).freeze
+        ([property_steps] + TAIL_STEPS.map { |step| [step] }).freeze
       end
-    end
-
-    def vehicle_steps(estimate)
-      return [] if estimate.controlled?
-
-      estimate.partner_vehicle_owned ? VEHICLE_STEPS : %i[partner_vehicle]
     end
   end
 end

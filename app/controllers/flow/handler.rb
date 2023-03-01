@@ -15,7 +15,7 @@ module Flow
       property: PropertyForm,
       property_entry: ClientPropertyEntryForm,
       vehicle: VehicleForm,
-      vehicle_details: ClientVehicleDetailsForm,
+      vehicle_details: VehicleDetailsForm,
       assets: ClientAssetsForm,
       partner_dependant_details: PartnerDependantDetailsForm,
       partner_property: PartnerPropertyForm,
@@ -27,8 +27,6 @@ module Flow
       partner_benefits: PartnerBenefitsForm,
       partner_other_income: PartnerOtherIncomeForm,
       partner_outgoings: PartnerOutgoingsForm,
-      partner_vehicle: PartnerVehicleForm,
-      partner_vehicle_details: PartnerVehicleDetailsForm,
       partner_assets: PartnerAssetsForm,
     }.freeze
 

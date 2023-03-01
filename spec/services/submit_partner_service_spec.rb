@@ -33,11 +33,6 @@ RSpec.describe SubmitPartnerService, :partner_flag do
           "partner_property_percentage_owned" => 100,
           "partner_savings" => 1_000,
           "partner_investments" => 250,
-          "partner_vehicle_owned" => true,
-          "partner_vehicle_value" => 5000,
-          "partner_vehicle_outstanding_finance" => false,
-          "partner_vehicle_over_3_years_ago" => true,
-          "partner_vehicle_in_regular_use" => false,
         }
       end
 
@@ -62,11 +57,7 @@ RSpec.describe SubmitPartnerService, :partner_flag do
                                                            value: 100_000 }])
           expect(payload[:capitals]).to eq({ bank_accounts: [{ description: "Liquid Asset", value: 1_000, subject_matter_of_dispute: false }],
                                              non_liquid_capital: [{ description: "Non Liquid Asset", value: 250, subject_matter_of_dispute: false }] })
-          expect(payload[:vehicles]).to eq([{ date_of_purchase: 4.years.ago.to_date,
-                                              in_regular_use: false,
-                                              loan_amount_outstanding: 0,
-                                              value: 5_000,
-                                              subject_matter_of_dispute: false }])
+          expect(payload[:vehicles]).to eq([])
         end
         described_class.call(mock_connection, cfe_assessment_id, session_data)
       end
@@ -85,7 +76,6 @@ RSpec.describe SubmitPartnerService, :partner_flag do
           "partner_property_value" => 0,
           "partner_savings" => 0,
           "partner_investments" => 0,
-          "partner_vehicle_owned" => false,
         }
       end
 

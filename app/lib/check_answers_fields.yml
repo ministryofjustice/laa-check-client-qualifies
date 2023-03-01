@@ -283,27 +283,6 @@ sections:
             attribute: partner_mortgage
           - type: number
             attribute: partner_percentage_owned
-      - label: partner_vehicles
-        screen: partner_vehicle
-        fields:
-          - type: boolean
-            attribute: partner_vehicle_owned
-          - type: money
-            attribute: partner_vehicle_value
-            related_screen: partner_vehicle_details
-          - type: boolean
-            attribute: partner_vehicle_in_regular_use
-            related_screen: partner_vehicle_details
-          - type: boolean
-            attribute: partner_vehicle_over_3_years_ago
-            related_screen: partner_vehicle_details
-          - type: boolean
-            attribute: partner_vehicle_pcp
-            related_screen: partner_vehicle_details
-          - type: money
-            attribute: partner_vehicle_finance
-            related_screen: partner_vehicle_details
-            skip_unless: partner_vehicle_pcp
       - label: partner_other
         screen: partner_assets
         fields:
