@@ -67,7 +67,7 @@ class CalculationResult
   end
 
   def client_assessed_capital
-    monetise(capital_row_items(prefix: "").values.compact.sum(0))
+    monetise(api_response.dig(:result_summary, :capital, :total_capital_with_smod))
   end
 
   def partner_assessed_capital
@@ -163,12 +163,6 @@ class CalculationResult
 
   def partner_capital_rows
     capital_rows(prefix: "partner_")
-  end
-
-  def partner_capital_subtotal_rows
-    {
-      total_capital: monetise(api_response.dig(:result_summary, :partner_capital, :total_capital)),
-    }
   end
 
   def pensioner_disregard_rows
