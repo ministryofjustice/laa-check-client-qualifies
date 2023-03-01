@@ -4,7 +4,7 @@ VALID_INTEGER_VALUES = ["2", "2,000"].freeze
 INVALID_INTEGER_VALUES = ["two", "2 00", "2.37"].freeze
 
 RSpec.describe "Dependant details page" do
-  let(:dependant_details_header) { I18n.t("estimate_flow.dependant_details.legend") }
+  let(:dependant_details_header) { I18n.t("estimate_flow.partner_dependant_details.legend") }
 
   before do
     visit_first_page

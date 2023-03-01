@@ -646,6 +646,7 @@ en:
     dependant_details:
       caption: About your client
       legend: Your client's dependants
+      legend_with_partner: Tell us about your client and their partner's dependants
       adult_dependants:
         label: How many?
         legend: Does your client have any adult dependants?
@@ -680,38 +681,31 @@ en:
           link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=15
     partner_dependant_details:
       caption: About the partner
-      legend: The partner's dependants
+      legend: Tell us about your client and their partner's dependants
       adult_dependants:
-        legend: Does the partner have any adult dependants?
+        legend: Does your client or their partner have any adult dependants?
         label: How many?
-        no_partner_hint: An adult dependant is any adult relative who lives with your client and depends on them for financial support. Do not include anyone who owns any property, vehicles or other assets valued at over £8,000 in total.
         hints:
-          - An adult dependant is any adult relative who lives with the partner and depends on them for financial support.
-          - "Do not include:"
-        the_partner:  your client
+          - "An adult dependant is any adult relative who lives in the same household and is financially dependand on your client or their partner. Do not include:"
         certificated_exclusions:
           - anyone who owns any property, vehicles or other assets valued at over £8,000 in total
-          - any adult you've listed as a dependant of the client
           - anyone with over £307.64 income every month (any income below this will be deducted from the dependants allowance if an application is made)
         controlled_exclusions:
           - anyone who owns any property, vehicles or other assets valued at over £8,000 in total
-          - any adult you've listed as a dependant of the client
           - anyone with over £307.64 income every month (any income below this should be deducted from the dependants allowance when you complete the relevant controlled work form)
       child_dependants:
-        legend: Does the partner have any child dependants?
+        legend: Does your client or their partner have any child dependants?
         label: How many?
-        hint: "A child dependant is one who lives with the partner and depends on them for financial support. For example, the partner’s child or another child relative who lives in their household. Do not include any:"
+        hint: "A child dependant is one who lives with your client and depends on them or their partner for financial support. For example, your client's or their partner’s child or another child relative who lives in their household. Do not include any:"
         certificated_exclusions:
           - foster child
-          - child you’ve listed as a dependant of the client
           - child with over £307.64 income every month (any income below this will be deducted from the dependants allowance if an application is made)
         controlled_exclusions:
           - foster child
-          - child you’ve listed as a dependant of the client
           - child with over £307.64 income every month (any income below this should be deducted from the dependants allowance when you complete the relevant controlled work form)
       second_caption: "A dependant:"
       second_caption_bullets:
-        - is someone who lives with the partner and depends on them for financial support
+        - is someone who lives with your client and depends on them or their partner for financial support
         - can be an adult or a child
     employment:
       caption: Your client's finances
