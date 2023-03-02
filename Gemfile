@@ -91,6 +91,7 @@ group :test do
   gem "vcr", require: false
   gem "webmock", require: false
   gem "axe-core-rspec"
+  gem "rack_session_access"
 end
 
 gem "govuk-components"

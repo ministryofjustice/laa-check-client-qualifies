@@ -1,5 +1,7 @@
 require "rails_helper"
 
+# In this case we use a controller spec because it allows for easy setting and
+# inspecting of cookie contents
 RSpec.describe CookiesController, type: :controller do
   before do
     cookies.delete(:optional_cookie_choice)

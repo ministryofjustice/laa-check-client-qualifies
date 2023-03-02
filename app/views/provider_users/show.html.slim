@@ -9,7 +9,7 @@
       method: :post) do |form|
     = form.govuk_error_summary t("generic.error_summary_title")
 
-    = form.govuk_collection_radio_buttons(:provider_user_valid,
+    = form.govuk_collection_radio_buttons(:legal_aid_provider,
             yes_no_options,
             :first, :last,
             legend: { text: t(".provider_question"), size: "xl", tag: "h1" },
