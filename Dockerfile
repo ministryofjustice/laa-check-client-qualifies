@@ -98,9 +98,5 @@ COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
 
 USER 1000
 
-# Ensure the database is set up and up to date
-CMD bundle exec rake db:create
-CMD bundle exec rake db:migrate
-
-CMD bundle exec rails server -b 0.0.0.0
+CMD ["docker/run"]
 
