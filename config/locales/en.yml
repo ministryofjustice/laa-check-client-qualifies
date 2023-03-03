@@ -680,7 +680,7 @@ en:
         legend: Does your client or their partner have any adult dependants?
         label: How many?
         hints:
-          - "An adult dependant is any adult relative who lives in the same household and is financially dependand on your client or their partner. Do not include:"
+          - "An adult dependant is any adult relative who lives in the same household and is financially dependant on your client or their partner. Do not include:"
         certificated_exclusions:
           - anyone who owns any property, vehicles or other assets valued at over £8,000 in total
           - anyone with over £307.64 income every month (any income below this will be deducted from the dependants allowance if an application is made)
