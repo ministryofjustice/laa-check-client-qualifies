@@ -1055,7 +1055,7 @@ en:
         legend: Is the vehicle in regular use?
         hint: This means the vehicle is used at least once every 2 weeks for things like work, shopping or driving children to school
       vehicle_three_years_old:
-        legend: Did your client buy the vehicle over 3 years ago?
+        legend: Was the vehicle bought over 3 years ago?
         hint: ""
       vehicle_pcp:
         legend: Are there any payments left on the vehicle?
