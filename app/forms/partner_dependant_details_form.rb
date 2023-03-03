@@ -1,3 +1,0 @@
-class PartnerDependantDetailsForm < DependantDetailsForm
-  include SessionPersistableForPartner
-end

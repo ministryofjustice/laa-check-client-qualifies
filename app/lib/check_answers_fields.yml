@@ -197,19 +197,6 @@ sections:
           type: boolean
         - attribute: partner_employed
           type: boolean
-      - label: partner_dependant_details
-        screen: partner_dependant_details
-        fields:
-        - attribute: partner_child_dependants
-          type: boolean
-        - attribute: partner_child_dependants_count
-          type: number
-          skip_unless: partner_child_dependants
-        - attribute: partner_adult_dependants
-          type: boolean
-        - attribute: partner_adult_dependants_count
-          type: number
-          skip_unless: partner_adult_dependants
   - label: partner_employment
     screen: partner_employment
     subsections:

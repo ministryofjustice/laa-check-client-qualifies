@@ -4,7 +4,7 @@
   = back_link(:dependant_details, @estimate, @back_buttons_invoke_browser_back_behaviour)
 
 .govuk-grid-column-two-thirds
-  = render "estimate_flow/forms/dependant_details", i18n_key: (@estimate.partner ? :partner_dependant_details : :dependant_details)
+  = render "estimate_flow/forms/dependant_details", i18n_key: (@estimate.partner ? :combined_dependant_details : :dependant_details)
 
 = render "shared/question_sidebar",
           level_of_help: @estimate.level_of_help,

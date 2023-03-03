@@ -52,12 +52,6 @@ en:
               greater_than: The number of adult dependants must be greater than zero
               not_a_number: Adult dependants must be a number
               not_an_integer: Adult dependants must be a whole number
-        partner_dependant_details_form:
-          attributes:
-            child_dependants:
-              inclusion: Select yes if the partner has child dependants
-            adult_dependants:
-              inclusion: Select yes if the partner has adult dependants
         employment_form:
           attributes:
             gross_income:
@@ -679,7 +673,7 @@ en:
           link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=42
         controlled:
           link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=15
-    partner_dependant_details:
+    combined_dependant_details:
       caption: About the partner
       legend: Tell us about your client and their partner's dependants
       adult_dependants:
@@ -1106,7 +1100,6 @@ en:
       asylum_support_fields:
         asylum_support: Receives asylum support
       client_dependant_details: Your client's dependants
-      partner_dependant_details: Partner's dependants
       heading: Check your answers
       client_details: Your client's details
       client_details_fields:
@@ -1196,11 +1189,6 @@ en:
       partner_details_fields:
         partner_over_60: Partner is over 60 years old
         partner_employed: Partner is employed
-      partner_dependant_details_fields:
-        partner_child_dependants: Partner has child dependants
-        partner_child_dependants_count: Number of partner child dependants
-        partner_adult_dependants: Partner has adult dependants
-        partner_adult_dependants_count: Number of partner adult dependants
       other: Client's other assets
       other_fields:
         property_value: "Additional property or holiday home: value"
