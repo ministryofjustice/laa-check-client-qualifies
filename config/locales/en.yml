@@ -852,7 +852,7 @@ en:
       housing_payments_hints:
         - For example, rent, mortgage or board and lodgings.
         - If your client or their partner pays for board and lodgings, only enter the amount that relates to the client's accommodation. If you do not know the exact amount, enter 50% of the board and lodgings cost.
-        - Do not include any payments towards your client's ex-partner's housing costs for the former matrimonial home. Add this as maintenance payments to a former partner on the Outgoings page instead.
+        - Do not include any payments towards your client's ex-partner's housing costs for the former matrimonial home. Add this as maintenance payments to a former partner on the outgoings page instead.
       enter_amount: Enter amount
       select_frequency: Select frequency
       receives_housing_benefit: Does the household get Housing Benefit towards these payments
