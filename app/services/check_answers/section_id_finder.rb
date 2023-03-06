@@ -22,8 +22,6 @@ module CheckAnswers
       partner_benefits: "subsection-partner_benefits-header",
       partner_other_income: "subsection-partner_other_income-header",
       partner_outgoings: "section-partner_outgoings-header",
-      partner_property: "subsection-partner_property-header",
-      partner_property_entry: "subsection-partner_property-header",
       partner_assets: "subsection-partner_other-header",
     }.freeze
 

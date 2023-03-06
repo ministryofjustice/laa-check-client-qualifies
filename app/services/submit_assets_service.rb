@@ -32,14 +32,6 @@ class SubmitAssetsService < BaseCfeService
         percentage_owned:,
       }
       main_home[:subject_matter_of_dispute] = true if property_entry_form.house_in_dispute
-    elsif relevant_form?(:partner_property_entry)
-      partner_property_form = PartnerPropertyForm.from_session(@session_data)
-      partner_property_entry_form = PartnerPropertyEntryForm.from_session(@session_data)
-      main_home = {
-        value: partner_property_entry_form.house_value,
-        outstanding_mortgage: (partner_property_entry_form.mortgage if partner_property_form.owned_with_mortgage?) || 0,
-        percentage_owned: partner_property_entry_form.percentage_owned,
-      }
     end
 
     create_properties(cfe_assessment_id, main_home, second_property) if main_home.present? || second_property.present?

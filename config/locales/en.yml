@@ -1124,17 +1124,6 @@ en:
         vehicle_pcp: Outstanding finance on vehicle?
         vehicle_finance: Payments left on vehicle
       property: Home client lives in
-      partner_property: Home client lives in
-      partner_property_fields:
-        partner_property_owned: Owns the home they live it
-        partner_property_owned_options:
-          outright: "Yes"
-          with_mortgage: "Yes"
-          none: "No"
-          not_provided: Not provided
-        partner_house_value: Estimated value
-        partner_mortgage: Outstanding mortgage
-        partner_percentage_owned: Percentage share owned
       property_fields:
         property_owned: Owns the home they live in
         property_owned_options:

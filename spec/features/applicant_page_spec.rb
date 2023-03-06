@@ -173,36 +173,4 @@ RSpec.describe "Applicant Page" do
       expect(page).to have_content "Partner is over 60 years oldYes"
     end
   end
-
-  describe "applicant page flow", :partner_flag do
-    let(:arbitrary_fixed_time) { Time.zone.local(2022, 9, 5, 9, 0, 0) }
-    let(:dependant_details_page_header) { I18n.t("estimate_flow.dependant_details.legend") }
-    let(:applicant_page_header) { I18n.t("estimate_flow.applicant.caption") }
-
-    before do
-      travel_to arbitrary_fixed_time
-      visit_first_page
-      select_radio_value("applicant-form", "legacy-proceeding-type", "se003") # non-domestic abuse case
-      select_applicant_boolean(:over_60, false)
-      select_applicant_boolean(:partner, false)
-      select_applicant_boolean(:employed, false)
-      select_applicant_boolean(:passporting, false)
-      click_on "Save and continue"
-    end
-
-    it "goes on to dependants details screen" do
-      expect(page).to have_content dependant_details_page_header
-    end
-
-    it "displays error messages if nothing is entered" do
-      click_on "Save and continue"
-      expect(page).to have_content("Select yes if your client or their partner has child dependants")
-      expect(page).to have_content("Select yes if your client or their partner has adult dependants")
-    end
-
-    it "has a back pointer to the applicant page" do
-      click_on "Back"
-      expect(page).to have_content applicant_page_header
-    end
-  end
 end

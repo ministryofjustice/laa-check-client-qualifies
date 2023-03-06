@@ -58,20 +58,6 @@ RSpec.describe "Level of help page" do
       expect(page).to have_content assets_header
     end
 
-    it "skips the partner vehicle screens if I choose controlled" do
-      visit_flow_page(passporting: true, partner: true, target: :partner_property) do |step|
-        case step
-        when :level_of_help
-          select_radio(page:, form: "level-of-help-form", field: "level-of-help", value: "controlled")
-          click_on "Save and continue"
-        end
-      end
-
-      select_radio(page:, form: "partner-property-form", field: "property-owned", value: "none")
-      click_on "Save and continue"
-      expect(page).to have_content partner_assets_header
-    end
-
     it "hides annual employment frequency if I select controlled" do
       visit_flow_page(passporting: false, target: :employment) do |step|
         case step

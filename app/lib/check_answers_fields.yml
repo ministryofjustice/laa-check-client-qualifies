@@ -259,17 +259,6 @@ sections:
             alt_attribute: partner_legal_aid_payments_frequency
   - label: partner_assets
     subsections:
-      - label: partner_property
-        screen: partner_property
-        fields:
-          - type: select
-            attribute: partner_property_owned
-          - type: money
-            attribute: partner_house_value
-          - type: money
-            attribute: partner_mortgage
-          - type: number
-            attribute: partner_percentage_owned
       - label: partner_other
         screen: partner_assets
         fields:

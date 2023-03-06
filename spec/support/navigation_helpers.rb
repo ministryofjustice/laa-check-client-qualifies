@@ -56,8 +56,8 @@ def assets_form(page:, subject: :client)
   page.fill_in "#{subject}-assets-form-valuables-field", with: "0"
 end
 
-INCOME_HANDLERS = {
-  dependants: lambda { |page:|
+HANDLERS = {
+  dependant_details: lambda { |page:|
     select_boolean(page:, form_name: "dependant-details-form", field: :child_dependants, value: false)
     select_boolean(page:, form_name: "dependant-details-form", field: :adult_dependants, value: false)
   },
@@ -65,7 +65,7 @@ INCOME_HANDLERS = {
   benefits: lambda { |page:|
     select_boolean(page:, form_name: "benefits-form", field: :add_benefit, value: false)
   },
-  income: lambda { |page:|
+  other_income: lambda { |page:|
     fill_incomes_screen(page:)
   },
   outgoings: lambda { |page:|
@@ -75,9 +75,6 @@ INCOME_HANDLERS = {
     page.fill_in "housing-form-housing-payments-value-field", with: "0"
     select_boolean(page:, form_name: "housing-form", field: :receives_housing_benefit, value: false)
   },
-}.freeze
-
-CAPITAL_HANDLERS = {
   property: lambda { |page:|
     select_radio(page:, form: "property-form", field: "property-owned", value: "none")
   },
@@ -87,37 +84,20 @@ CAPITAL_HANDLERS = {
   assets: lambda { |page:|
     assets_form(page:)
   },
-}.freeze
-
-PARTNER_HANDLERS = {
   partner_details: lambda { |page:|
     select_boolean(page:, form_name: "partner-details-form", field: :over_60, value: false)
-    select_boolean(page:, form_name: "partner-details-form", field: :employed, value: false)
+    select_boolean(page:, form_name: "partner-details-form", field: :employed, value: false) if page.body.include?("mployed")
   },
-}.freeze
-
-PARTNER_PASSPORTED_HANDLERS = {
-  partner_details: lambda { |page:|
-    select_boolean(page:, form_name: "partner-details-form", field: :over_60, value: false)
-  },
-}.freeze
-
-PARTNER_INCOME_HANDLERS = {
   partner_employment: nil,
   partner_benefits: lambda { |page:|
     select_boolean(page:, form_name: "partner-benefits-form", field: :add_benefit, value: false)
   },
-  partner_income: lambda { |page:|
+  partner_other_income: lambda { |page:|
     fill_incomes_screen(page:, subject: :partner)
   },
   partner_outgoings: lambda { |page:|
     fill_outgoings_form(page:, subject: :partner)
   },
-}.freeze
-
-POSSIBLY_SKIPPED = %i[vehicle partner_property].freeze
-
-PARTNER_CAPITAL_HANDLERS = {
   partner_property: lambda { |page:|
     select_radio(page:, form: "partner-property-form", field: "property-owned", value: "none")
   },
@@ -126,25 +106,7 @@ PARTNER_CAPITAL_HANDLERS = {
   },
 }.freeze
 
-def process_handler_group(handlers, target)
-  handlers.each do |page_name, handler|
-    return false if target == page_name
-
-    next if POSSIBLY_SKIPPED.include?(page_name) && current_path.split("/").last.to_sym != page_name
-
-    if handler.present?
-      if !block_given? || !yield(page_name)
-        handler.call(page:)
-      end
-      click_on "Save and continue"
-    elsif block_given? && yield(page_name)
-      click_on "Save and continue"
-    end
-  end
-  true
-end
-
-def visit_flow_page(passporting:, target:, controlled: false, partner: false, &block)
+def visit_flow_page(passporting:, target:, controlled: false, partner: false)
   visit_first_page
 
   if FeatureFlags.enabled?(:controlled)
@@ -165,22 +127,24 @@ def visit_flow_page(passporting:, target:, controlled: false, partner: false, &b
     end
   end
   click_on "Save and continue"
+  current_page = nil
+  loop do
+    new_current_page = current_path.split("/").last.to_sym
+    break if current_page == new_current_page
 
-  if !passporting && !process_handler_group(INCOME_HANDLERS, target, &block)
-    return
-  end
+    current_page = new_current_page
+    break if current_page == target
 
-  return unless process_handler_group(CAPITAL_HANDLERS, target, &block)
+    handler = HANDLERS[current_page]
 
-  if partner
-    partner_group = passporting ? PARTNER_PASSPORTED_HANDLERS : PARTNER_HANDLERS
-    return unless process_handler_group(partner_group, target, &block)
-
-    if !passporting && !process_handler_group(PARTNER_INCOME_HANDLERS, target, &block)
-      return
+    if handler.present?
+      if !block_given? || !yield(current_page)
+        handler.call(page:)
+      end
+      click_on "Save and continue"
+    elsif block_given? && yield(current_page)
+      click_on "Save and continue"
     end
-
-    return unless process_handler_group(PARTNER_CAPITAL_HANDLERS, target, &block)
   end
 end
 

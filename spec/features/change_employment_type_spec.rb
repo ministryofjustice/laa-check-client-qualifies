@@ -15,7 +15,6 @@ RSpec.describe "Change employment types" do
     select_applicant_boolean(:employed, true)
     select_applicant_boolean(:passporting, false)
     click_on "Save and continue"
-    skip_dependants_form
 
     expect(page).to have_content employment_header
     fill_in "employment-form-gross-income-field", with: "5,000"
@@ -27,6 +26,7 @@ RSpec.describe "Change employment types" do
     skip_benefits_form
     fill_incomes_screen(page:)
     click_on "Save and continue"
+    skip_dependants_form
     expect(page).to have_content outgoings_header
     fill_outgoings_form(page:, subject: :client)
     click_on "Save and continue"

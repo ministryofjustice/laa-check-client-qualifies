@@ -2,7 +2,6 @@ require "rails_helper"
 
 RSpec.describe "Other income Page" do
   let(:income_header) { "Other income" }
-  let(:outgoings_header) { I18n.t("estimate_flow.outgoings.heading") }
   let(:estimate_id) { SecureRandom.uuid }
   let(:mock_connection) do
     instance_double(CfeConnection,
@@ -16,7 +15,7 @@ RSpec.describe "Other income Page" do
     before do
       visit_check_answers(passporting: false) do |step|
         case step
-        when :income
+        when :other_income
           fill_in "other-income-form-pension-value-field", with: "34"
           select_radio_value("other-income-form", "pension-frequency", "monthly")
 
@@ -77,7 +76,7 @@ RSpec.describe "Other income Page" do
       end
 
       it "allows me to proceed" do
-        expect(page).to have_content outgoings_header
+        expect(page).not_to have_content income_header
       end
     end
 
@@ -110,7 +109,7 @@ RSpec.describe "Other income Page" do
     before do
       visit_check_answers(passporting: false) do |step|
         case step
-        when :income
+        when :other_income
           fill_in "other-income-form-pension-value-field", with: "0"
           fill_in "other-income-form-property-or-lodger-value-field", with: "0"
 
@@ -155,7 +154,7 @@ RSpec.describe "Other income Page" do
         when :level_of_help
           select_radio(page:, form: "level-of-help-form", field: "level-of-help", value: "controlled")
           click_on "Save and continue"
-        when :income
+        when :other_income
           fill_in "other-income-form-pension-value-field", with: "0"
           fill_in "other-income-form-property-or-lodger-value-field", with: "0"
           fill_in "other-income-form-friends-or-family-value-field", with: "0"
