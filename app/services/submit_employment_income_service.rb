@@ -2,8 +2,9 @@ class SubmitEmploymentIncomeService < BaseCfeService
   def call(cfe_assessment_id)
     return unless relevant_form?(:employment)
 
-    form = EmploymentForm.from_session(@session_data)
-    employment_data = CfeParamBuilders::Employments.call(form)
+    employment_form = EmploymentForm.from_session(@session_data)
+    applicant_form = ApplicantForm.from_session(@session_data)
+    employment_data = CfeParamBuilders::Employments.call(employment_form, applicant_form)
 
     cfe_connection.create_employment(cfe_assessment_id, employment_data)
   end

@@ -9,7 +9,7 @@ RSpec.describe "Partner employment page", :partner_flag do
     before do
       visit_flow_page(passporting: false, partner: true, target: :partner_details)
       select_boolean_value("partner-details-form", :over_60, false)
-      select_boolean_value("partner-details-form", :employed, false)
+      select_radio(page:, form: "partner-details-form", field: "employment-status", value: "unemployed")
       click_on "Save and continue"
     end
 
@@ -24,7 +24,7 @@ RSpec.describe "Partner employment page", :partner_flag do
         case step
         when :partner_details
           select_boolean_value("partner-details-form", :over_60, false)
-          select_boolean_value("partner-details-form", :employed, true)
+          select_radio(page:, form: "partner-details-form", field: "employment-status", value: "in_work")
         end
       end
     end

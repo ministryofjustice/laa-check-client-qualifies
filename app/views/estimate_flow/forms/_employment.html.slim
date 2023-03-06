@@ -5,11 +5,19 @@
             pre_header_text: t("estimate_flow.#{i18n_key}.caption"),
             header_text: t("estimate_flow.#{i18n_key}.heading"),
             post_header_text: t("estimate_flow.#{i18n_key}.second_caption")
-  = form.govuk_collection_radio_buttons :frequency,
-          @form.frequency_options,
-          :value,
-          :label,
-          legend: { text: t("estimate_flow.#{i18n_key}.frequency.input") }
+  = form.govuk_radio_buttons_fieldset(:frequency,
+                                      legend: { text: t("estimate_flow.#{i18n_key}.frequency.input") },
+                                      hint: { text: t("estimate_flow.employment.frequency.hint") })
+    - EmploymentForm::FREQUENCY_STANDARD_OPTIONS.each_with_index do |option, index|
+      = form.govuk_radio_button :frequency,
+                                option,
+                                label: { text: t("estimate_flow.employment.frequency.#{option}") },
+                                link_errors: index.zero?
+    = form.govuk_radio_divider
+    = form.govuk_radio_button :frequency,
+                              EmploymentForm::FREQUENCY_TOTAL_OPTION,
+                              label: { text: t("estimate_flow.employment.frequency.#{EmploymentForm::FREQUENCY_TOTAL_OPTION}") }
+
   - EmploymentForm::DECIMAL_ATTRIBUTES.each do |field|
     = render "shared/money_input",
               form:,
