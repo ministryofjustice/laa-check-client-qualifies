@@ -39,9 +39,9 @@ en:
         dependant_details_form:
           attributes:
             child_dependants:
-              inclusion: Select yes if your client has child dependants
+              inclusion: Select yes if your client or their partner has child dependants
             adult_dependants:
-              inclusion: Select yes if your client has adult dependants
+              inclusion: Select yes if your client or their partner has adult dependants
             child_dependants_count:
               blank: Enter the number of child dependants
               greater_than: The number of child dependants must be greater than zero

@@ -196,8 +196,8 @@ RSpec.describe "Applicant Page" do
 
     it "displays error messages if nothing is entered" do
       click_on "Save and continue"
-      expect(page).to have_content("Select yes if your client has child dependants")
-      expect(page).to have_content("Select yes if your client has adult dependants")
+      expect(page).to have_content("Select yes if your client or their partner has child dependants")
+      expect(page).to have_content("Select yes if your client or their partner has adult dependants")
     end
 
     it "has a back pointer to the applicant page" do
