@@ -40,7 +40,7 @@ def visit_check_answer_with_partner
     case step
     when :partner_details
       select_boolean_value("partner-details-form", :over_60, false)
-      select_boolean_value("partner-details-form", :employed, true)
+      select_radio(page:, form: "partner-details-form", field: "employment-status", value: "in_work")
     when :partner_employment
       fill_in "partner-employment-form-gross-income-field", with: 1000
       fill_in "partner-employment-form-income-tax-field", with: 100
