@@ -6,12 +6,12 @@ module CheckAnswers
     FIELDS = %i[proceeding_type
                 over_60
                 partner
-                employed
+                employment_status
                 passporting].freeze
 
     attribute :over_60, :boolean
     attribute :partner, :boolean
-    attribute :employed, :boolean
+    attribute :employment_status, :string
     attribute :passporting, :boolean
     attribute :proceeding_type, :string
     attribute :level_of_help, :string

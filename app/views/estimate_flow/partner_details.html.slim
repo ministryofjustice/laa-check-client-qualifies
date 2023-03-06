@@ -31,7 +31,7 @@
             hint: { text: t(".partner_over_60.hint") }
 
     - unless @estimate.passporting
-      = form.govuk_collection_radio_buttons :employed, employment_options, :first, :last,
+      = form.govuk_collection_radio_buttons :employment_status, employment_options, :first, :last,
                   legend: { text: t(".partner_employed.legend") },
                   hint: { text: t(".partner_employed.hint") }
 

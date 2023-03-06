@@ -76,7 +76,7 @@ RSpec.describe "Asylum and immigration pages", :controlled_flag do
       select_boolean(page:, form_name: "applicant-form", field: :over_60, value: false)
       select_boolean(page:, form_name: "applicant-form", field: :partner, value: false)
       select_boolean(page:, form_name: "applicant-form", field: :passporting, value: true)
-      select_boolean(page:, form_name: "applicant-form", field: :employed, value: true)
+      select_radio(page:, form: "applicant-form", field: :employment_status, value: "in_work")
       click_on "Save and continue"
       select_radio(page:, form: "property-form", field: "property-owned", value: "none")
       click_on "Save and continue"

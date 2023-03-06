@@ -8,8 +8,12 @@ class EmploymentForm
 
   attr_accessor :level_of_help
 
+  FREQUENCY_STANDARD_OPTIONS = %i[week two_weeks four_weeks monthly].freeze
+  FREQUENCY_TOTAL_OPTION = :total
+  FREQUENCY_OPTIONS = (FREQUENCY_STANDARD_OPTIONS + [FREQUENCY_TOTAL_OPTION]).freeze
+
   attribute :frequency, :string
-  validates :frequency, presence: true
+  validates :frequency, presence: true, inclusion: { in: FREQUENCY_OPTIONS.map(&:to_s), allow_nil: true }
 
   validate :net_income_must_be_positive
 
@@ -17,15 +21,6 @@ class EmploymentForm
     numericality = attribute == :gross_income ? { greater_than: 0, allow_nil: true } : { greater_than_or_equal_to: 0, allow_nil: true }
     attribute attribute, :gbp
     validates attribute, presence: true, numericality:
-  end
-
-  FREQUENCY_OPTIONS = %i[week two_weeks four_weeks monthly total annually].freeze
-
-  def frequency_options
-    options = level_of_help == "controlled" ? FREQUENCY_OPTIONS - %i[total annually] : FREQUENCY_OPTIONS
-    options.map do |key|
-      OpenStruct.new(value: key, label: I18n.t("estimate_flow.employment.frequency.#{key}"))
-    end
   end
 
   class << self

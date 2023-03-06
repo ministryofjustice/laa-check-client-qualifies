@@ -59,8 +59,8 @@ sections:
           type: boolean
         - attribute: over_60
           type: boolean
-        - attribute: employed
-          type: boolean
+        - attribute: employment_status
+          type: select
         - attribute: passporting
           type: boolean
       - label: client_dependant_details
@@ -195,8 +195,8 @@ sections:
         fields:
         - attribute: partner_over_60
           type: boolean
-        - attribute: partner_employed
-          type: boolean
+        - attribute: partner_employment_status
+          type: select
       - label: partner_dependant_details
         screen: partner_dependant_details
         fields:

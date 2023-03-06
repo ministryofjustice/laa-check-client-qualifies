@@ -7,8 +7,9 @@ module BuildEstimatesHelper
   ].freeze
 
   EMPLOYMENT_OPTIONS = [
-    [true, I18n.t("generic.employed")],
-    [false, I18n.t("generic.unemployed")],
+    ["in_work", I18n.t("generic.in_work")],
+    ["receiving_statutory_pay", I18n.t("generic.receiving_statutory_pay")],
+    ["unemployed", I18n.t("generic.unemployed")],
   ].freeze
 
   PROPERTY_OPTIONS = [

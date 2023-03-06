@@ -2,6 +2,7 @@ class SubmitPartnerService < BaseCfeService
   def call(cfe_assessment_id)
     return unless relevant_form?(:partner_details)
 
+    @partner_details_form = PartnerDetailsForm.from_session(@session_data)
     cfe_connection.create_partner cfe_assessment_id,
                                   partner:,
                                   irregular_incomes:,
@@ -15,13 +16,10 @@ class SubmitPartnerService < BaseCfeService
   end
 
   def partner
-    @partner ||= begin
-      form = PartnerDetailsForm.from_session(@session_data)
-      {
-        date_of_birth: form.over_60 ? 70.years.ago.to_date : 50.years.ago.to_date,
-        employed: form.employed || false,
-      }
-    end
+    @partner ||= {
+      date_of_birth: @partner_details_form.over_60 ? 70.years.ago.to_date : 50.years.ago.to_date,
+      employed: @partner_details_form.employment_status&.in?(ApplicantForm::EMPLOYED_STATUSES.map(&:to_s)) || false,
+    }
   end
 
   def irregular_incomes
@@ -35,7 +33,7 @@ class SubmitPartnerService < BaseCfeService
     return [] unless relevant_form?(:partner_employment)
 
     form = PartnerEmploymentForm.from_session(@session_data)
-    CfeParamBuilders::Employments.call(form)
+    CfeParamBuilders::Employments.call(form, @partner_details_form)
   end
 
   def regular_transactions

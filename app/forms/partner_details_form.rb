@@ -5,12 +5,15 @@ class PartnerDetailsForm
 
   attr_accessor :passporting
 
-  ATTRIBUTES = %i[over_60 employed].freeze
+  ATTRIBUTES = %i[over_60 employment_status].freeze
 
-  ATTRIBUTES.each do |attr|
-    attribute attr, :boolean
-    validates attr, inclusion: { in: [true, false] }, if: -> { !passporting || attr != :employed }
-  end
+  attribute :over_60, :boolean
+  validates :over_60, inclusion: { in: [true, false] }
+
+  attribute :employment_status, :string
+  validates :employment_status,
+            inclusion: { in: ApplicantForm::EMPLOYMENT_STATUSES.map(&:to_s), allow_nil: false },
+            if: -> { !passporting }
 
   class << self
     def from_session(session_data)

@@ -18,10 +18,11 @@ def select_radio(page:, form:, field:, value:)
 end
 
 def applicant_without_passporting(page:, partner:)
-  %i[over_60 employed passporting].each do |attribute|
+  %i[over_60 passporting].each do |attribute|
     select_boolean(page:, form_name: "applicant-form", field: attribute, value: false)
   end
   select_boolean(page:, form_name: "applicant-form", field: :partner, value: partner)
+  select_radio(page:, form: "applicant-form", field: "employment-status", value: "unemployed")
 
   if !FeatureFlags.enabled?(:controlled) && page.text.include?("domestic abuse")
     select_radio(page:, form: "applicant-form", field: "legacy-proceeding-type", value: "se003") # non-domestic abuse case
@@ -92,7 +93,7 @@ CAPITAL_HANDLERS = {
 PARTNER_HANDLERS = {
   partner_details: lambda { |page:|
     select_boolean(page:, form_name: "partner-details-form", field: :over_60, value: false)
-    select_boolean(page:, form_name: "partner-details-form", field: :employed, value: false)
+    select_radio(page:, form: "partner-details-form", field: :employment_status, value: "unemployed")
   },
 }.freeze
 
