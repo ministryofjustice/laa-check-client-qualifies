@@ -14,25 +14,60 @@ see https://stackoverflow.com/questions/71262775/how-do-i-ensure-assets-are-pres
 
 - Ruby version
 
-  - Ruby version 3.x
+  - Ruby version 3.1.3
   - Rails 7.0.x
 
 - System dependencies
   - postgres
   - yarn
 
-You can install postgres with `brew install postgresql` if you have homebrew. Then please run `bundle exec rails db:create` to set up the development and test databases.
+## Setting up the app
 
-Install dependencies:
+You can use [Homebrew](https://brew.sh/) to install any dependencies. The Homebrew documentation has lots of useful commands.
+
+If using Homebrew:
+
+Install postgres. You will need to select a version if using brew. Run the below command, changing the version number as appropriate.
+
+```
+brew install postgresql@14
+```
+
+You will be prompted on the command line to start the server with something like:
+
+```
+brew services start postgresql@14
+```
+
+If you are running Ruby version 3.1.3, then [Bundler](https://bundler.io/) should already be installed. You may run into an error here if you are not using the correct Ruby version.
 
 ```
 bundle install
+```
+
+Create the development and test databases and run migrations
+
+```
+bundle exec rails db:create
+bundle exec rails db:migrate
+```
+
+Install [Yarn](https://classic.yarnpkg.com/en/) (you can use Homebrew for this) and run the below:
+
+```
+brew install yarn
+yarn install
 yarn build
 yarn build:css
 ```
+
 ## Tests
 
 We test with RSpec and enforce 100% line and branch coverage with SimpleCov.
+
+You can run tests with the command `bundle exec rspec`. 
+
+To get the tests running, you will need to create a `.env.development` file with the relevant environment variables. Copy the contents of `.env.sample` and speak to another developer on the team to get the correct variables set up.
 
 Our test suite is in the process of being refactored. Below is the _intended_ main structure of the test suite, which our actual test suite does not yet reflect.
 
