@@ -103,10 +103,6 @@ PARTNER_PASSPORTED_HANDLERS = {
 }.freeze
 
 PARTNER_INCOME_HANDLERS = {
-  partner_dependants: lambda { |page:|
-    select_boolean(page:, form_name: "partner-dependant-details-form", field: :child_dependants, value: false)
-    select_boolean(page:, form_name: "partner-dependant-details-form", field: :adult_dependants, value: false)
-  },
   partner_employment: nil,
   partner_housing_benefit: lambda { |page:|
     select_boolean(page:, form_name: "partner-housing-benefit-form", field: :housing_benefit, value: false)

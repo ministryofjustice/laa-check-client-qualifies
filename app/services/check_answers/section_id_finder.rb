@@ -19,7 +19,6 @@ module CheckAnswers
       vehicle_details: "subsection-vehicles-header",
       assets: "subsection-other-header",
       partner_details: "subsection-partner_details-header",
-      partner_dependant_details: "subsection-partner_dependant_details-header",
       partner_employment: "section-partner_employment-header",
       partner_housing_benefit: "subsection-partner_housing_benefit-header",
       partner_housing_benefit_details: "subsection-partner_housing_benefit-header",

@@ -17,7 +17,6 @@ module Flow
       vehicle: VehicleForm,
       vehicle_details: VehicleDetailsForm,
       assets: ClientAssetsForm,
-      partner_dependant_details: PartnerDependantDetailsForm,
       partner_property: PartnerPropertyForm,
       partner_property_entry: PartnerPropertyEntryForm,
       partner_details: PartnerDetailsForm,

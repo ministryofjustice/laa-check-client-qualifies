@@ -10,7 +10,6 @@ class SubmitPartnerService < BaseCfeService
                                   state_benefits:,
                                   additional_properties:,
                                   capitals:,
-                                  dependants:,
                                   vehicles:
   end
 
@@ -73,16 +72,5 @@ class SubmitPartnerService < BaseCfeService
 
   def vehicles
     []
-  end
-
-  def dependants
-    return [] unless relevant_form?(:partner_dependant_details)
-
-    details_form = PartnerDependantDetailsForm.from_session(@session_data)
-    children = CfeParamBuilders::Dependants.children(dependants: details_form.child_dependants,
-                                                     count: details_form.child_dependants_count)
-    adults = CfeParamBuilders::Dependants.adults(dependants: details_form.adult_dependants,
-                                                 count: details_form.adult_dependants_count)
-    children + adults
   end
 end
