@@ -127,11 +127,11 @@ RSpec.describe "Results Page" do
         when :vehicle
           select_boolean_value("vehicle-form", :vehicle_owned, true)
           click_on "Save and continue"
-          fill_in "client-vehicle-details-form-vehicle-value-field", with: 18_000
-          select_boolean_value("client-vehicle-details-form", :vehicle_in_regular_use, true)
-          select_boolean_value("client-vehicle-details-form", :vehicle_over_3_years_ago, false)
-          select_boolean_value("client-vehicle-details-form", :vehicle_pcp, true)
-          fill_in "client-vehicle-details-form-vehicle-finance-field", with: 500
+          fill_in "vehicle-details-form-vehicle-value-field", with: 18_000
+          select_boolean_value("vehicle-details-form", :vehicle_in_regular_use, true)
+          select_boolean_value("vehicle-details-form", :vehicle_over_3_years_ago, false)
+          select_boolean_value("vehicle-details-form", :vehicle_pcp, true)
+          fill_in "vehicle-details-form-vehicle-finance-field", with: 500
         when :assets
           fill_in "client-assets-form-property-value-field", with: "80,000"
           fill_in "client-assets-form-property-mortgage-field", with: "70000"
@@ -239,14 +239,6 @@ RSpec.describe "Results Page" do
           fill_in "partner-outgoings-form-childcare-payments-value-field", with: "0"
           fill_in "partner-outgoings-form-legal-aid-payments-value-field", with: "0"
           fill_in "partner-outgoings-form-maintenance-payments-value-field", with: "0"
-        when :partner_vehicle
-          select_boolean_value("partner-vehicle-form", :vehicle_owned, true)
-          click_on "Save and continue"
-          fill_in "partner-vehicle-details-form-vehicle-value-field", with: 18_000
-          select_boolean_value("partner-vehicle-details-form", :vehicle_in_regular_use, true)
-          select_boolean_value("partner-vehicle-details-form", :vehicle_over_3_years_ago, false)
-          select_boolean_value("partner-vehicle-details-form", :vehicle_pcp, true)
-          fill_in "partner-vehicle-details-form-vehicle-finance-field", with: 500
         when :partner_assets
           fill_in "partner-assets-form-property-value-field", with: "80,000"
           fill_in "partner-assets-form-property-mortgage-field", with: "70,000"

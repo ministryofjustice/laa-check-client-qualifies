@@ -11,7 +11,6 @@ class EstimateModel
                          partner
                          employed
                          partner_employed
-                         partner_vehicle_owned
                          housing_benefit
                          partner_housing_benefit].freeze
 

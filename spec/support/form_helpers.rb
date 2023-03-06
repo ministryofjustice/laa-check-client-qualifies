@@ -54,13 +54,6 @@ def visit_check_answer_with_partner
       choose "Every week"
       click_on "Save and continue"
       select_boolean_value("partner-benefits-form", :add_benefit, false)
-    when :partner_vehicle
-      select_boolean_value("partner-vehicle-form", "vehicle_owned", true)
-      click_on "Save and continue"
-      fill_in "partner-vehicle-details-form-vehicle-value-field", with: 5_000
-      select_boolean_value("partner-vehicle-details-form", :vehicle_in_regular_use, true)
-      select_boolean_value("partner-vehicle-details-form", :vehicle_over_3_years_ago, true)
-      select_boolean_value("partner-vehicle-details-form", :vehicle_pcp, false)
     end
   end
 end

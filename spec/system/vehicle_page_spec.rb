@@ -17,11 +17,11 @@ RSpec.describe "Vehicle Page", :vcr do
         when :vehicle
           select_boolean_value("vehicle-form", :vehicle_owned, true)
           click_on "Save and continue"
-          fill_in "client-vehicle-details-form-vehicle-value-field", with: 18_000
-          select_boolean_value("client-vehicle-details-form", :vehicle_in_regular_use, true)
-          select_boolean_value("client-vehicle-details-form", :vehicle_over_3_years_ago, false)
-          select_boolean_value("client-vehicle-details-form", :vehicle_pcp, true)
-          fill_in "client-vehicle-details-form-vehicle-finance-field", with: 500
+          fill_in "vehicle-details-form-vehicle-value-field", with: 18_000
+          select_boolean_value("vehicle-details-form", :vehicle_in_regular_use, true)
+          select_boolean_value("vehicle-details-form", :vehicle_over_3_years_ago, false)
+          select_boolean_value("vehicle-details-form", :vehicle_pcp, true)
+          fill_in "vehicle-details-form-vehicle-finance-field", with: 500
         end
       end
     end

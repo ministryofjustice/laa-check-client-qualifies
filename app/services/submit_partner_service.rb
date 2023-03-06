@@ -72,10 +72,7 @@ class SubmitPartnerService < BaseCfeService
   end
 
   def vehicles
-    return [] unless relevant_form?(:partner_vehicle_details)
-
-    details_model = PartnerVehicleDetailsForm.from_session(@session_data)
-    CfeParamBuilders::Vehicles.call(details_model)
+    []
   end
 
   def dependants

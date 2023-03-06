@@ -88,7 +88,7 @@ RSpec.describe "Vehicle Page" do
         select_vehicle_value(:vehicle_owned, true)
         click_on "Save and continue"
 
-        fill_in "client-vehicle-details-form-vehicle-value-field", with: 20_000
+        fill_in "vehicle-details-form-vehicle-value-field", with: 20_000
         click_on "Save and continue"
 
         within ".govuk-error-summary__list" do
@@ -102,14 +102,14 @@ RSpec.describe "Vehicle Page" do
         within("#subsection-vehicles-header") { click_on "Change" }
         select_vehicle_value(:vehicle_owned, true)
         click_on "Save and continue"
-        fill_in "client-vehicle-details-form-vehicle-value-field", with: 20_000
-        select_boolean_value("client-vehicle-details-form", :vehicle_in_regular_use, false)
-        select_boolean_value("client-vehicle-details-form", :vehicle_pcp, false)
-        select_boolean_value("client-vehicle-details-form", :vehicle_over_3_years_ago, true)
+        fill_in "vehicle-details-form-vehicle-value-field", with: 20_000
+        select_boolean_value("vehicle-details-form", :vehicle_in_regular_use, false)
+        select_boolean_value("vehicle-details-form", :vehicle_pcp, false)
+        select_boolean_value("vehicle-details-form", :vehicle_over_3_years_ago, true)
         click_on "Save and continue"
         expect(page.current_url).to end_with("check_answers#subsection-vehicles-header")
 
-        expect(mock_connection).to receive(:create_vehicle)
+        expect(mock_connection).to receive(:create_vehicles)
         click_on "Submit"
       end
     end
@@ -121,12 +121,12 @@ RSpec.describe "Vehicle Page" do
           when :vehicle
             select_vehicle_value(:vehicle_owned, true)
             click_on "Save and continue"
-            fill_in "client-vehicle-details-form-vehicle-value-field", with: 5_000
-            select_boolean_value("client-vehicle-details-form", :vehicle_in_regular_use, true)
-            select_boolean_value("client-vehicle-details-form", :vehicle_over_3_years_ago, over_3_years)
-            select_boolean_value("client-vehicle-details-form", :vehicle_pcp, true)
-            fill_in "client-vehicle-details-form-vehicle-finance-field", with: 2_000
-            select_boolean_value("client-vehicle-details-form", :vehicle_in_dispute, true)
+            fill_in "vehicle-details-form-vehicle-value-field", with: 5_000
+            select_boolean_value("vehicle-details-form", :vehicle_in_regular_use, true)
+            select_boolean_value("vehicle-details-form", :vehicle_over_3_years_ago, over_3_years)
+            select_boolean_value("vehicle-details-form", :vehicle_pcp, true)
+            fill_in "vehicle-details-form-vehicle-finance-field", with: 2_000
+            select_boolean_value("vehicle-details-form", :vehicle_in_dispute, true)
           end
         end
       end
@@ -152,7 +152,7 @@ RSpec.describe "Vehicle Page" do
         it "uses 4 years old" do
           allow(CfeConnection).to receive(:connection).and_return(mock_connection)
 
-          expect(mock_connection).to receive(:create_vehicle)
+          expect(mock_connection).to receive(:create_vehicles)
                                        .with(estimate_id,
                                              vehicles: [
                                                {
@@ -178,7 +178,7 @@ RSpec.describe "Vehicle Page" do
         it "uses 2 years old" do
           allow(CfeConnection).to receive(:connection).and_return(mock_connection)
 
-          expect(mock_connection).to receive(:create_vehicle)
+          expect(mock_connection).to receive(:create_vehicles)
                                        .with(estimate_id,
                                              vehicles: [
                                                {

@@ -143,9 +143,6 @@ RSpec.describe "Property Page" do
               fill_in "client-property-entry-form-mortgage-field", with: mortgage
               fill_in "client-property-entry-form-percentage-owned-field", with: 50
               choose("No")
-            # partner property question skipped in this case
-            when :partner_property
-              true
             end
           end
         end

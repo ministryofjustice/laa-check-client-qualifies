@@ -139,10 +139,6 @@ class CalculationResult
     vehicle_rows(prefix: "")
   end
 
-  def partner_vehicle_rows
-    vehicle_rows(prefix: "partner_")
-  end
-
   def client_capital_rows
     capital_rows(prefix: "")
   end
@@ -195,10 +191,6 @@ class CalculationResult
 
   def client_vehicle_assessed_value
     monetise(capital_items(:vehicles).sum(0) { _1.fetch(:assessed_value) })
-  end
-
-  def partner_vehicle_assessed_value
-    monetise(partner_capital_items(:vehicles).sum(0) { _1.fetch(:assessed_value) })
   end
 
 private

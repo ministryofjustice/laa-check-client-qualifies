@@ -28,8 +28,6 @@ module CheckAnswers
       partner_outgoings: "section-partner_outgoings-header",
       partner_property: "subsection-partner_property-header",
       partner_property_entry: "subsection-partner_property-header",
-      partner_vehicle: "subsection-partner_vehicles-header",
-      partner_vehicle_details: "subsection-partner_vehicles-header",
       partner_assets: "subsection-partner_other-header",
     }.freeze
 

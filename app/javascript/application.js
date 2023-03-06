@@ -12,5 +12,27 @@ if ($inputs) {
   }
 }
 
+document.querySelectorAll(".toggle-additional-vehicle").forEach((element) => {
+  element.addEventListener("click", () => {
+    if (element.dataset.additionalVehicleSection === "show") {
+      document.querySelectorAll(".additional-vehicle-section").forEach((section) => {
+        section.classList.add("visible");
+      });
+      document.querySelectorAll(".no-additional-vehicle-section").forEach((section) => {
+        section.classList.remove("visible");
+      });
+      document.getElementById("vehicle_details_form_additional_vehicle_owned").value = "true";
+    } else {
+      document.querySelectorAll(".additional-vehicle-section").forEach((section) => {
+        section.classList.remove("visible");
+      });
+      document.querySelectorAll(".no-additional-vehicle-section").forEach((section) => {
+        section.classList.add("visible");
+      });
+      document.getElementById("vehicle_details_form_additional_vehicle_owned").value = "";
+    }
+  });
+});
+
 Rails.start();
 initAll();
