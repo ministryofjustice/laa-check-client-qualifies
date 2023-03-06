@@ -1,6 +1,6 @@
 module CfeParamBuilders
   class Employments
-    def self.call(form)
+    def self.call(employment_form, applicant_form)
       # CFE wants to infer frequency of payment from gaps between payments.
       # So we use our knowledge of frequency to generate three appropriately-spaced,
       # representative payments, to allow CFE to make that inference
@@ -8,15 +8,16 @@ module CfeParamBuilders
         {
           name: "Job",
           client_id: "ID",
-          payments: Array.new(number_of_payments(form)) do |index|
+          receiving_only_statutory_sick_or_maternity_pay: applicant_form.employment_status == "receiving_statutory_pay",
+          payments: Array.new(number_of_payments(employment_form)) do |index|
             {
-              gross: (form.gross_income * multiplier(form)).round(2),
-              tax: (-1 * form.income_tax * multiplier(form)).round(2),
-              national_insurance: (-1 * form.national_insurance * multiplier(form)).round(2),
+              gross: (employment_form.gross_income * multiplier(employment_form)).round(2),
+              tax: (-1 * employment_form.income_tax * multiplier(employment_form)).round(2),
+              national_insurance: (-1 * employment_form.national_insurance * multiplier(employment_form)).round(2),
               client_id: "id-#{index}",
-              date: Date.current - period(form, index),
+              date: Date.current - period(employment_form, index),
               benefits_in_kind: 0,
-              net_employment_income: ((form.gross_income - form.income_tax - form.national_insurance) * multiplier(form)).round(2),
+              net_employment_income: ((employment_form.gross_income - employment_form.income_tax - employment_form.national_insurance) * multiplier(employment_form)).round(2),
             }
           end,
         },
@@ -42,8 +43,6 @@ module CfeParamBuilders
     # be if they were paid as regular monthly income
     def self.multiplier(form)
       case form.frequency
-      when "annually"
-        1.0 / 12
       when "total"
         1.0 / 3
       else

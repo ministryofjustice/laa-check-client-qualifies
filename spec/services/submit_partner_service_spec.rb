@@ -11,7 +11,7 @@ RSpec.describe SubmitPartnerService, :partner_flag do
       let(:session_data) do
         {
           "partner" => true,
-          "partner_employed" => true,
+          "partner_employment_status" => "in_work",
           "partner_over_60" => true,
           "partner_student_finance_value" => 1_000,
           "partner_other_income_value" => 500,
