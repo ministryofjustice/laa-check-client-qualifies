@@ -53,7 +53,7 @@ cfe:
 
 featureFlags:
   sentry: ENABLED
-  controlled: NOT_ENABLED
+  controlled: ENABLED
   asylumAndImmigration: NOT_ENABLED
 
 geckoboard:
