@@ -1046,11 +1046,13 @@ en:
           DA001: "Domestic abuse"
           not_provided: "Not provided"
       about_your_client: About your client
-      about_partner: About your client's partner
+      about_partner: About the partner
       asylum_support: Asylum support
       asylum_support_fields:
         asylum_support: Receives asylum support
       client_dependant_details: Your client's dependants
+      client_and_partner_dependants: Dependants
+      dependant_details: Client's and their partner's dependants
       heading: Check your answers
       client_details: Your client's details
       client_details_fields:
@@ -1063,12 +1065,12 @@ en:
         partner: Has a partner
         employed: Is employed
         passporting: Receives a passporting benefit
-      client_dependant_details_fields:
+      dependant_details_fields:
         adult_dependants: Has adult dependants
         adult_dependants_count: Number of adult dependants
         child_dependants: Has child dependants
         child_dependants_count: Number of child dependants
-      employment: Employment
+      employment: Client's pay
       employment_fields:
         gross_income: Gross income
         income_tax: Income tax
@@ -1082,7 +1084,7 @@ en:
           monthly: Every month
           annually: Every year
           not_provided: Not provided
-      benefits: Other benefits
+      benefits: Client's benefits
       benefits_fields:
         receives_benefits: Gets other benefits
       housing_benefit: Housing Benefit
@@ -1097,21 +1099,22 @@ en:
         pension_value: Pension
         student_finance_value: Student finance
         other_value: Other sources
-      outgoings: Your client's outgoings
-      outgoings_fields:
+      outgoings: Outgoings
+      client_outgoings: Client's outgoings
+      client_outgoings_fields:
         housing_payments_value: Housing payments
         childcare_payments_value: Childcare payments
         maintenance_payments_value: Maintenance payments
         legal_aid_payments_value: Legal aid payments
-      assets: Your client's assets
+      assets: Assets
       vehicles: Client's vehicle
       vehicles_fields:
-        vehicle_owned: Owns a vehicle
+        vehicle_owned: Client or partner owns a vehicle
         vehicle_value: Estimated value
         vehicle_in_regular_use: In regular use
         vehicle_over_3_years_ago: Bought over 3 years ago
         vehicle_pcp: Outstanding finance on vehicle?
-        vehicle_finance: Payments left on vehicle
+        vehicle_finance: Payments left
       property: Home client lives in
       property_fields:
         property_owned: Owns the home they live in
@@ -1123,10 +1126,6 @@ en:
         house_value: Estimated value
         mortgage: Outstanding mortgage
         percentage_owned: Percentage share owned
-      partner_details: Partner's details
-      partner_details_fields:
-        partner_over_60: Partner is over 60 years old
-        partner_employed: Partner is employed
       other: Client's other assets
       other_fields:
         property_value: "Additional property or holiday home: value"
@@ -1135,13 +1134,23 @@ en:
         savings: Savings
         investments: Investments
         valuables: Valuables
-      partner_employment: Partner's employment
+      partner_details: Partner's details
+      partner_details_fields:
+        partner_over_60: Partner is over 60 years old
+        partner_employment_status: Partner is employed
+        partner_employment_status_options:
+          not_provided: Not provided
+          employed: Employed
+          unemployed: Unemployed
+      partner_income: The partner's income
+      client_income: Your client's income
+      partner_employment: Partner's pay
       partner_employment_fields:
-        partner_gross_income: Gross income
-        partner_income_tax: Income tax
-        partner_national_insurance: National Insurance
-        partner_frequency: Frequency
-        partner_frequency_options:
+        gross_income: Gross income
+        income_tax: Income tax
+        national_insurance: National Insurance
+        frequency: Frequency
+        frequency_options:
           total: Total in last 3 months
           week: Every week
           two_weeks: Every 2 weeks
@@ -1149,7 +1158,7 @@ en:
           monthly: Every month
           annually: Every year
           not_provided: Not provided
-      partner_benefits: Other benefits
+      partner_benefits: Partner's benefits
       partner_housing_benefit: Housing Benefit
       partner_housing_benefit_fields:
         partner_housing_benefit_value: Housing Benefit

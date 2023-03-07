@@ -111,10 +111,10 @@ RSpec.describe "Check answers page" do
     end
 
     scenario "I should see partner content" do
-      expect(page).to have_content "Partner's employment"
+      expect(page).to have_content "Partner's pay"
       expect(page).to have_content "Partner's other income"
       expect(page).to have_content "Partner's outgoings"
-      expect(page).to have_content "Partner's assets"
+      expect(page).to have_content "Partner's other assets"
       within("#subsection-partner_benefits-header") { click_on "Change" }
       select_boolean_value("partner-benefits-form", :add_benefit, false)
       click_on "Save and continue"
