@@ -4,7 +4,7 @@ RSpec.describe "Property Page" do
   let(:check_answers_header) { "Check your answers" }
   let(:property_entry_header) { "How much is the home they live in worth?" }
   let(:partner_property_entry_header) { "How much is the home worth?" }
-  let(:property_header) { "Does your client own the home they live in?" }
+  let(:property_header) { I18n.t("estimate_flow.property.legend") }
   let(:vehicle_header) { "Does your client own a vehicle?" }
   let(:estimate_id) { SecureRandom.uuid }
   let(:mock_connection) { instance_double(CfeConnection, api_result: CalculationResult.new(build(:api_result)), create_assessment_id: estimate_id) }

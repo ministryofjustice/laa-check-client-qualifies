@@ -861,7 +861,7 @@ en:
       how_often: How often do they get this?
     property:
       caption: Your client's finances
-      legend: Does your client own the home they live in?
+      legend: Does your client or their partner own the home the client lives in?
       property_owned:
         outright: Yes, owned outright
         with_mortgage: Yes, with a mortgage or loan
@@ -965,13 +965,8 @@ en:
         text: Guidance on assets
         link: "#"
     property_entry:
-      heading: About their home
+      heading: The home your client lives in
       caption: Your client's finances
-      joint_ownership:
-        legend: Is the property joint owned with their partner?
-        hint: By joint owned we mean the client and partner can own different shares of the property. The property does not automatically go to the other owners if you die. You can pass your share of the property in your will.
-      joint_percentage_owned:
-        input: What percentage does the partner own?
       house_value:
         input: How much is the home they live in worth?
         input_hint: You can use property websites to find the estimated value
@@ -980,7 +975,7 @@ en:
         input_hint: Check the statement from the mortgage provider or lender and include any other loans secured against the property
       percentage_owned:
         input: What percentage of the home do they own?
-        input_hint: Your client's name must be on the property deeds, lease, freehold or mortgage
+        input_hint: Your client's or their partner's name must be on the property deeds, lease, freehold or mortgage
       second_caption_certificated: "If you make an application for civil legal aid, the property's value may be excluded from the financial assessment if your client has left their former matrimonial home because of domestic abuse"
       second_caption_controlled: "When doing this check, the property's value can be excluded from the financial assessment if your client has left their former matrimonial home because of domestic abuse"
     partner_property_entry:
