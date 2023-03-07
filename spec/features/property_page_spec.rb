@@ -43,99 +43,27 @@ RSpec.describe "Property Page" do
 
     context "when client owns main dwelling" do
       let(:mortgage) { 50_000 }
+      let(:expected_share) { 50 }
 
-      context "without shared ownership" do
-        let(:expected_share) { 50 }
-
-        before do
-          visit_check_answers(passporting: false, partner:) do |step|
-            case step
-            when :property
-              select_radio_value("property-form", "property-owned", "with_mortgage")
-              click_on "Save and continue"
-              fill_in "client-property-entry-form-house-value-field", with: 100_000
-              fill_in "client-property-entry-form-mortgage-field", with: mortgage
-              fill_in "client-property-entry-form-percentage-owned-field", with: 50
-              choose("No")
-            end
-          end
-        end
-
-        it "submits 50% share" do
-          expect(mock_connection)
-            .to receive(:create_properties)
-                  .with(estimate_id,
-                        { main_home: expected_main_home })
-          click_on "Submit"
-        end
-      end
-
-      context "without a partner percentage" do
-        before do
-          visit_flow_page(passporting: true, partner:, target: :property)
-          select_radio_value("property-form", "property-owned", "with_mortgage")
-          click_on "Save and continue"
-          fill_in "client-property-entry-form-house-value-field", with: 100_000
-          fill_in "client-property-entry-form-mortgage-field", with: mortgage
-          fill_in "client-property-entry-form-percentage-owned-field", with: 50
-          choose("Yes")
-        end
-
-        it "errors" do
-          click_on "Save and continue"
-          within ".govuk-error-summary__list" do
-            expect(page).to have_content("Enter the percentage that the partner owns of the home")
+      before do
+        visit_check_answers(passporting: false, partner:) do |step|
+          case step
+          when :property
+            select_radio_value("property-form", "property-owned", "with_mortgage")
+            click_on "Save and continue"
+            fill_in "client-property-entry-form-house-value-field", with: 100_000
+            fill_in "client-property-entry-form-mortgage-field", with: mortgage
+            fill_in "client-property-entry-form-percentage-owned-field", with: 50
           end
         end
       end
 
-      context "when percentage exceeded 100" do
-        before do
-          visit_flow_page(passporting: true, partner:, target: :property)
-          select_radio_value("property-form", "property-owned", "with_mortgage")
-          click_on "Save and continue"
-          fill_in "client-property-entry-form-house-value-field", with: 100_000
-          fill_in "client-property-entry-form-mortgage-field", with: mortgage
-          fill_in "client-property-entry-form-percentage-owned-field", with: 50
-          choose("Yes")
-          fill_in "client-property-entry-form-joint-percentage-owned-field", with: 51
-        end
-
-        it "errors" do
-          click_on "Save and continue"
-          within ".govuk-error-summary__list" do
-            expect(page).to have_content(I18n.t("activemodel.errors.models.client_property_entry_form.attributes.joint_percentage_owned.cannot_exceed_100"))
-          end
-        end
-      end
-
-      context "with shared ownership" do
-        let(:expected_share) { 70 }
-
-        before do
-          visit_check_answers(passporting: false, partner:) do |step|
-            case step
-            when :property
-              select_radio_value("property-form", "property-owned", "with_mortgage")
-              click_on "Save and continue"
-              fill_in "client-property-entry-form-house-value-field", with: 100_000
-              fill_in "client-property-entry-form-mortgage-field", with: mortgage
-              fill_in "client-property-entry-form-percentage-owned-field", with: 50
-              choose("Yes")
-              fill_in "client-property-entry-form-joint-percentage-owned-field", with: 20
-            when :partner_property
-              true
-            end
-          end
-        end
-
-        it "submits 70% share" do
-          expect(mock_connection)
-            .to receive(:create_properties)
-                  .with(estimate_id,
-                        { main_home: expected_main_home })
-          click_on "Submit"
-        end
+      it "submits 50% share" do
+        expect(mock_connection)
+          .to receive(:create_properties)
+                .with(estimate_id,
+                      { main_home: expected_main_home })
+        click_on "Submit"
       end
     end
   end

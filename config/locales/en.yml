@@ -306,13 +306,6 @@ en:
               within_range: The percentage that they own of the home must be between 1 and 100
               not_a_number: The percentage that they own of the home must be a number between 1 and 100
               not_an_integer: The percentage that they own of the home must be a whole number
-            joint_ownership:
-              inclusion: Select yes if the property is jointly owned with their partner
-            joint_percentage_owned:
-              blank: Enter the percentage that the partner owns of the home
-              within_range: The percentage must be between 1 and 100
-              cannot_exceed_100: Total percentage cannot exceed 100%
-              not_a_number: The percentage must be a number between 1 and 100
         partner_property_entry_form:
           attributes:
             house_value:
@@ -1129,8 +1122,6 @@ en:
         house_value: Estimated value
         mortgage: Outstanding mortgage
         percentage_owned: Percentage share owned
-        joint_ownership: Joint owned with partner
-        joint_percentage_owned: Percentage share owned by partner
       partner_details: Partner's details
       partner_details_fields:
         partner_over_60: Partner is over 60 years old
