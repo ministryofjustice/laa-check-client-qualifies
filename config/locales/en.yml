@@ -509,7 +509,6 @@ en:
         - legal help
         - help at court
         - help with family mediation
-        - civil certificated or licensed legal work
         - family mediation
         - family help (lower)
       also_includes: "It also includes legal representation for proceedings in:"
@@ -1045,8 +1044,6 @@ en:
       percentage_owned:
         input: What percentage of the home do they own?
         input_hint: Your client's name must be on the property deeds, lease, freehold or mortgage
-      second_caption_certificated: "If you make an application for civil legal aid, the property's value may be excluded from the financial assessment if your client has left their former matrimonial home because of domestic abuse"
-      second_caption_controlled: "When doing this check, the property's value can be excluded from the financial assessment if your client has left their former matrimonial home because of domestic abuse"
     partner_property_entry:
       heading: About the home the client lives in
       caption: The partner's finances
