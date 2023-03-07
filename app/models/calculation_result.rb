@@ -103,6 +103,23 @@ class CalculationResult
     outgoing_rows(prefix: "partner_")
   end
 
+  def household_outgoing_rows
+    @household_outgoing_rows ||= begin
+      housing_costs = disposable_income_summary_value(:net_housing_costs) +
+        disposable_income_summary_value(:net_housing_costs, "partner_")
+      dependants_allowance = disposable_income_summary_value(:dependant_allowance) +
+        disposable_income_summary_value(:dependant_allowance, "partner_")
+      data = {}
+      data[:housing_costs] = housing_costs if housing_costs.positive?
+      data[:dependants_allowance] = dependants_allowance if dependants_allowance.positive?
+      data.transform_values { |v| monetise(v) }
+    end
+  end
+
+  def disposable_income_summary_value(key, prefix = "")
+    api_response.dig(:result_summary, :"#{prefix}disposable_income", key) || 0
+  end
+
   def client_owns_main_home?
     capital_items(:properties).dig(:main_home, :value)&.positive?
   end
@@ -131,12 +148,16 @@ class CalculationResult
     capital_items(:vehicles).any?
   end
 
-  def partner_vehicle_owned?
-    partner_capital_items(:vehicles)&.any?
+  def additional_vehicle_owned?
+    capital_items(:vehicles).count == 2
   end
 
   def client_vehicle_rows
-    vehicle_rows(prefix: "")
+    vehicle_rows(0)
+  end
+
+  def additional_vehicle_rows
+    vehicle_rows(1)
   end
 
   def client_capital_rows
@@ -190,7 +211,11 @@ class CalculationResult
   end
 
   def client_vehicle_assessed_value
-    monetise(capital_items(:vehicles).sum(0) { _1.fetch(:assessed_value) })
+    monetise(capital_items(:vehicles).first.fetch(:assessed_value))
+  end
+
+  def additional_vehicle_assessed_value
+    monetise(capital_items(:vehicles).last.fetch(:assessed_value))
   end
 
 private
@@ -241,7 +266,6 @@ private
 
   def outgoing_rows(prefix:)
     data = {
-      housing_costs: api_response.dig(:result_summary, :"#{prefix}disposable_income", :net_housing_costs),
       childcare_payments: disposable_income_value(:child_care, prefix),
       maintenance_out: disposable_income_value(:maintenance_out, prefix),
       legal_aid: disposable_income_value(:legal_aid, prefix),
@@ -249,10 +273,8 @@ private
       national_insurance: employment_deduction(:national_insurance, prefix),
       employment_expenses: employment_deduction(:fixed_employment_deduction, prefix),
     }
-    dependants_allowance = api_response.dig(:result_summary, :"#{prefix}disposable_income", :dependant_allowance)
     partner_allowance = api_response.dig(:result_summary, :"#{prefix}disposable_income", :partner_allowance)
 
-    data[:dependants_allowance] = dependants_allowance if dependants_allowance&.positive?
     data[:partner_allowance] = partner_allowance if partner_allowance&.positive?
     data.transform_values { |v| monetise(v) }
   end
@@ -300,12 +322,12 @@ private
     data
   end
 
-  def vehicle_rows(prefix:)
-    vehicles = capital_items(:vehicles, prefix)
+  def vehicle_rows(index)
+    vehicles = capital_items(:vehicles, "")
     {
-      value: monetise(vehicles.sum(0) { _1.fetch(:value) }),
-      outstanding_payments: monetise(-vehicles.sum(0) { _1.fetch(:loan_amount_outstanding) }),
-      disregards: monetise(-vehicles.sum(0) { _1.fetch(:disregards_and_deductions) }),
+      value: monetise(vehicles[index].fetch(:value)),
+      outstanding_payments: monetise(-vehicles[index].fetch(:loan_amount_outstanding)),
+      disregards: monetise(-vehicles[index].fetch(:disregards_and_deductions)),
     }
   end
 end

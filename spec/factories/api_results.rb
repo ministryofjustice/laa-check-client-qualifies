@@ -73,6 +73,7 @@ FactoryBot.define do
       eligible { false }
       main_home { nil }
       additional_property { nil }
+      vehicles { nil }
     end
 
     after(:build) do |api_result, evaluator|
@@ -85,7 +86,11 @@ FactoryBot.define do
       end
 
       if evaluator.eligible
-        api_result.fetch(:result_summary).merge! overall_result: { result: "eligible" }
+        api_result.fetch(:result_summary)[:overall_result] = { result: "eligible" }
+      end
+
+      if evaluator.vehicles
+        api_result.dig(:assessment, :capital, :capital_items)[:vehicles] = evaluator.vehicles
       end
     end
   end
@@ -98,5 +103,14 @@ FactoryBot.define do
     net_equity { 110_000.0 }
     assessed_equity { 100_000.0 }
     transaction_allowance { 0 }
+  end
+
+  factory :vehicle_api_result, class: Hash do
+    initialize_with { attributes }
+
+    value { 5_000 }
+    loan_amount_outstanding { 0 }
+    disregards_and_deductions { 1_000 }
+    assessed_value { 4_000 }
   end
 end
