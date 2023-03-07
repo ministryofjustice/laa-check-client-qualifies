@@ -55,7 +55,6 @@ RSpec.describe "Certificated passported check", type: :feature do
       headers: { "Content-Type" => "application/json" },
     )
 
-    # This test explicitly asserts what screens are visited in what order
     start_assessment
     fill_in_forms_until(:applicant)
     fill_in_applicant_screen(passporting: "Yes")
