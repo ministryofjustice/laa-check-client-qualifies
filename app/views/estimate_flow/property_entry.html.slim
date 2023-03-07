@@ -8,7 +8,6 @@
           i18n_key: "property_entry",
           show_smod: true,
           show_joint_ownership: @estimate.partner.present?,
-          show_mortgage: @estimate.property_owned == "with_mortgage",
-          hint: t("estimate_flow.property_entry.second_caption_#{@estimate.level_of_help}")
+          show_mortgage: @estimate.property_owned == "with_mortgage"
 
 = render "property_sidebar", level_of_help: @estimate.level_of_help
