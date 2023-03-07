@@ -17,11 +17,7 @@ RSpec.describe "Controlled other income", type: :feature do
   context "when the check is for certificated work" do
     before do
       start_assessment
-      fill_in_provider_screen
-      fill_in_applicant_screen
-      fill_in_dependants_screen
-      fill_in_housing_benefit_screen
-      fill_in_benefits_screen
+      fill_in_forms_until(:other_income)
     end
 
     it "sends the right data to CFE for certificated work - in particular ther other income frequency" do
@@ -69,12 +65,9 @@ RSpec.describe "Controlled other income", type: :feature do
   context "when the check is for controlled work", :controlled_flag do
     before do
       start_assessment
-      fill_in_provider_screen
+      fill_in_forms_until(:level_of_help)
       fill_in_level_of_help_screen(choice: "Civil controlled work or family mediation")
-      fill_in_applicant_screen
-      fill_in_dependants_screen
-      fill_in_housing_benefit_screen
-      fill_in_benefits_screen
+      fill_in_forms_until(:other_income)
     end
 
     it "sends the right data to CFE for controlled work - in particular ther other income frequency" do

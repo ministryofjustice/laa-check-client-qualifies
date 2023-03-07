@@ -3,7 +3,7 @@ def start_assessment
   click_on "Start now"
 end
 
-def fill_in_provider_screen(choice: "Yes")
+def fill_in_provider_users_screen(choice: "Yes")
   confirm_screen "provider_users"
   choose choice
   click_on "Save and continue"
@@ -41,13 +41,16 @@ def fill_in_applicant_screen(choices = {})
   click_on "Save and continue"
 end
 
-def fill_in_dependants_screen(options = {})
+def fill_in_dependant_details_screen(options = {})
   screen_name = options.fetch(:screen_name, :dependant_details)
   confirm_screen screen_name
-  choose options.fetch(:child_dependants, "No"), name: "#{screen_name}_form[child_dependants]"
-  choose options.fetch(:adult_dependants, "No"), name: "#{screen_name}_form[adult_dependants]"
-  fill_in "#{screen_name}_form[child_dependants_count]", with: options.fetch(:child_dependants_count, "0")
-  fill_in "#{screen_name}_form[adult_dependants_count]", with: options.fetch(:adult_dependants_count, "0")
+
+  child_dependants = options.fetch(:child_dependants, "No")
+  adult_dependants = options.fetch(:adult_dependants, "No")
+  choose child_dependants, name: "#{screen_name}_form[child_dependants]"
+  choose adult_dependants, name: "#{screen_name}_form[adult_dependants]"
+  fill_in "#{screen_name}_form[child_dependants_count]", with: options.fetch(:child_dependants_count, "0") if child_dependants == "Yes"
+  fill_in "#{screen_name}_form[adult_dependants_count]", with: options.fetch(:adult_dependants_count, "0") if adult_dependants == "Yes"
   click_on "Save and continue"
 end
 
@@ -125,7 +128,7 @@ def fill_in_property_screen(choice: "No", screen_name: :property)
   click_on "Save and continue"
 end
 
-def fill_in_property_details_screen(screen_name: :property_entry, form_name: :client_property_entry)
+def fill_in_property_entry_screen(screen_name: :property_entry, form_name: :client_property_entry)
   confirm_screen screen_name
   fill_in "#{form_name}_form[house_value]", with: "1"
   fill_in "#{form_name}_form[mortgage]", with: "1" if page.text.include?("How much is left to pay on the mortgage?")
@@ -179,8 +182,8 @@ def fill_in_partner_details_screen(choices = {})
   click_on "Save and continue"
 end
 
-def fill_in_partner_dependants_screen(options = {})
-  fill_in_dependants_screen(options.merge(screen_name: :partner_dependant_details))
+def fill_in_partner_dependant_details_screen(options = {})
+  fill_in_dependant_details_screen(options.merge(screen_name: :partner_dependant_details))
 end
 
 def fill_in_partner_employment_screen
@@ -219,8 +222,8 @@ def fill_in_partner_property_screen(choice: "No")
   fill_in_property_screen(screen_name: :partner_property, choice:)
 end
 
-def fill_in_partner_property_details_screen
-  fill_in_property_details_screen(screen_name: :partner_property_entry, form_name: :partner_property_entry)
+def fill_in_partner_property_entry_screen
+  fill_in_property_entry_screen(screen_name: :partner_property_entry, form_name: :partner_property_entry)
 end
 
 def fill_in_partner_vehicle_screen(choice: "No")
@@ -251,4 +254,17 @@ end
 def confirm_screen(expected)
   path = page.current_path
   expect(path).to end_with expected.to_s
+end
+
+def fill_in_forms_until(target)
+  current_page = nil
+  loop do
+    new_current_page = current_path.split("/").last.to_sym
+    raise "Infinite loop detected on screen #{current_page}" if current_page == new_current_page
+
+    current_page = new_current_page
+    break if current_page == target
+
+    send("fill_in_#{current_page}_screen")
+  end
 end

@@ -110,9 +110,7 @@ RSpec.describe "Accessibility" do
       allow(mock_connection).to receive(:create_proceeding_type)
       allow(mock_connection).to receive(:create_regular_payments)
       start_assessment
-      fill_in_provider_screen
-      fill_in_applicant_screen(passporting: "Yes")
-      fill_in_client_capital_screens
+      fill_in_forms_until(:check_answers)
       click_on "Submit"
     end
 

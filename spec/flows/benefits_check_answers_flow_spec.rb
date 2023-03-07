@@ -8,17 +8,11 @@ RSpec.describe "Modifying benefits from check answers screen", type: :feature do
       )
 
       start_assessment
-      fill_in_provider_screen
-      fill_in_applicant_screen
-      fill_in_dependants_screen
-      fill_in_housing_benefit_screen
+      fill_in_forms_until(:benefits)
       fill_in_benefits_screen(choice: "Yes")
       fill_in_add_benefit_screen benefit_type: "Old benefit"
       fill_in_benefits_screen
-      fill_in_other_income_screen
-      fill_in_outgoings_screen
-      fill_in_client_capital_screens
-      confirm_screen("check_answers")
+      fill_in_forms_until(:check_answers)
     end
 
     it "lets me modify my previous answers" do
@@ -60,12 +54,7 @@ RSpec.describe "Modifying benefits from check answers screen", type: :feature do
       )
 
       start_assessment
-      fill_in_provider_screen
-      fill_in_applicant_screen
-      fill_in_dependants_screen
-      fill_in_client_income_screens
-      fill_in_client_capital_screens
-      confirm_screen("check_answers")
+      fill_in_forms_until(:check_answers)
     end
 
     it "lets me add a new benefit" do
@@ -86,21 +75,13 @@ RSpec.describe "Modifying benefits from check answers screen", type: :feature do
       )
 
       start_assessment
-      fill_in_provider_screen
+      fill_in_forms_until(:applicant)
       fill_in_applicant_screen(partner: "Yes")
-      fill_in_dependants_screen
-      fill_in_client_income_screens
-      fill_in_client_capital_screens
-      fill_in_partner_details_screen
-      fill_in_partner_dependants_screen
-      fill_in_partner_housing_benefit_screen
+      fill_in_forms_until(:partner_benefits)
       fill_in_partner_benefits_screen(choice: "Yes")
       fill_in_add_partner_benefit_screen(benefit_type: "Old benefit")
       fill_in_partner_benefits_screen
-      fill_in_partner_other_income_screen
-      fill_in_partner_outgoings_screen
-      fill_in_partner_capital_screens
-      confirm_screen("check_answers")
+      fill_in_forms_until(:check_answers)
     end
 
     it "allows me to loop back to the partner benefits screen" do

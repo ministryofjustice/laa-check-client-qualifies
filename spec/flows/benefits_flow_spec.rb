@@ -7,10 +7,7 @@ RSpec.describe "Benefits flow", type: :feature do
     )
 
     start_assessment
-    fill_in_provider_screen
-    fill_in_applicant_screen
-    fill_in_dependants_screen
-    fill_in_housing_benefit_screen
+    fill_in_forms_until(:benefits)
     fill_in_benefits_screen(choice: "Yes")
     fill_in_add_benefit_screen
     click_on "Change"
@@ -24,10 +21,7 @@ RSpec.describe "Benefits flow", type: :feature do
     )
 
     start_assessment
-    fill_in_provider_screen
-    fill_in_applicant_screen
-    fill_in_dependants_screen
-    fill_in_housing_benefit_screen
+    fill_in_forms_until(:benefits)
     fill_in_benefits_screen(choice: "Yes")
     fill_in_add_benefit_screen
     fill_in_benefits_screen(choice: "Yes")
@@ -42,10 +36,7 @@ RSpec.describe "Benefits flow", type: :feature do
     )
 
     start_assessment
-    fill_in_provider_screen
-    fill_in_applicant_screen
-    fill_in_dependants_screen
-    fill_in_housing_benefit_screen
+    fill_in_forms_until(:benefits)
     fill_in_benefits_screen(choice: "Yes")
     fill_in_add_benefit_screen
     click_on "Remove"

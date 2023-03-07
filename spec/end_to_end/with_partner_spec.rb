@@ -66,13 +66,11 @@ RSpec.describe "Certificated check without partner", type: :feature do
     )
 
     start_assessment
-    fill_in_provider_screen
+    fill_in_forms_until(:applicant)
     fill_in_applicant_screen(partner: "Yes")
-    fill_in_dependants_screen
-    fill_in_client_income_screens
-    fill_in_client_capital_screens
+    fill_in_forms_until(:partner_details)
     fill_in_partner_details_screen(employed: "Employed and in work")
-    fill_in_partner_dependants_screen(child_dependants: "Yes", child_dependants_count: 1)
+    fill_in_partner_dependant_details_screen(child_dependants: "Yes", child_dependants_count: 1)
     fill_in_partner_employment_screen
     fill_in_partner_housing_benefit_screen(choice: "Yes")
     fill_in_partner_housing_benefit_details_screen
@@ -82,7 +80,7 @@ RSpec.describe "Certificated check without partner", type: :feature do
     fill_in_partner_other_income_screen(values: { friends_or_family: "200", other: "100" }, frequencies: { friends_or_family: "Every week" })
     fill_in_partner_outgoings_screen
     fill_in_partner_property_screen(choice: "Yes, with a mortgage or loan")
-    fill_in_partner_property_details_screen
+    fill_in_partner_property_entry_screen
     fill_in_partner_vehicle_screen(choice: "Yes")
     fill_in_partner_vehicle_details_screen
     fill_in_partner_assets_screen(values: { valuables: "700" })

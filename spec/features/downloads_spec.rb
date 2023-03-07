@@ -12,11 +12,7 @@ RSpec.describe "Download result", type: :feature do
     allow(CfeService).to receive(:call).and_return(calculation_result)
 
     start_assessment
-    fill_in_provider_screen
-    fill_in_applicant_screen
-    fill_in_dependants_screen
-    fill_in_client_income_screens
-    fill_in_client_capital_screens
+    fill_in_forms_until(:check_answers)
     click_on "Submit"
     click_on "Save this page as a PDF"
     expect(page.response_headers["Content-Type"]).to eq("application/pdf")

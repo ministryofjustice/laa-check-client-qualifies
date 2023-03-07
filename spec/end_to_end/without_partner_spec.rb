@@ -111,10 +111,11 @@ RSpec.describe "Certificated check without partner", type: :feature do
       headers: { "Content-Type" => "application/json" },
     )
 
+    # This test explicitly asserts what screens are visited in what order
     start_assessment
-    fill_in_provider_screen
+    fill_in_provider_users_screen
     fill_in_applicant_screen(employed: "Employed and in work")
-    fill_in_dependants_screen(child_dependants: "Yes", child_dependants_count: 1)
+    fill_in_dependant_details_screen(child_dependants: "Yes", child_dependants_count: 1)
     fill_in_employment_screen
     fill_in_housing_benefit_screen(choice: "Yes")
     fill_in_housing_benefit_details_screen
@@ -124,7 +125,7 @@ RSpec.describe "Certificated check without partner", type: :feature do
     fill_in_other_income_screen(values: { friends_or_family: "200", student_finance: "100" }, frequencies: { friends_or_family: "Every week" })
     fill_in_outgoings_screen
     fill_in_property_screen(choice: "Yes, with a mortgage or loan")
-    fill_in_property_details_screen
+    fill_in_property_entry_screen
     fill_in_vehicle_screen(choice: "Yes")
     fill_in_vehicle_details_screen(vehicle_finance: "5")
     fill_in_assets_screen(values: { valuables: "700" })
