@@ -44,7 +44,6 @@ end
 
 def fill_outgoings_form(page:, subject: :client)
   prefix = subject == :partner ? "partner-" : ""
-  page.fill_in "#{prefix}outgoings-form-housing-payments-value-field", with: "0"
   page.fill_in "#{prefix}outgoings-form-childcare-payments-value-field", with: "0"
   page.fill_in "#{prefix}outgoings-form-legal-aid-payments-value-field", with: "0"
   page.fill_in "#{prefix}outgoings-form-maintenance-payments-value-field", with: "0"
@@ -63,9 +62,6 @@ INCOME_HANDLERS = {
     select_boolean(page:, form_name: "dependant-details-form", field: :adult_dependants, value: false)
   },
   employment: nil,
-  housing_benefit: lambda { |page:|
-    select_boolean(page:, form_name: "housing-benefit-form", field: :housing_benefit, value: false)
-  },
   benefits: lambda { |page:|
     select_boolean(page:, form_name: "benefits-form", field: :add_benefit, value: false)
   },
@@ -74,6 +70,10 @@ INCOME_HANDLERS = {
   },
   outgoings: lambda { |page:|
     fill_outgoings_form(page:)
+  },
+  housing: lambda { |page:|
+    page.fill_in "housing-form-housing-payments-value-field", with: "0"
+    select_boolean(page:, form_name: "housing-form", field: :receives_housing_benefit, value: false)
   },
 }.freeze
 
@@ -104,9 +104,6 @@ PARTNER_PASSPORTED_HANDLERS = {
 
 PARTNER_INCOME_HANDLERS = {
   partner_employment: nil,
-  partner_housing_benefit: lambda { |page:|
-    select_boolean(page:, form_name: "partner-housing-benefit-form", field: :housing_benefit, value: false)
-  },
   partner_benefits: lambda { |page:|
     select_boolean(page:, form_name: "partner-benefits-form", field: :add_benefit, value: false)
   },

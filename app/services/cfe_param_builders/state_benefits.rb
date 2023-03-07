@@ -3,8 +3,8 @@ module CfeParamBuilders
     HOUSING_BENEFIT_TYPE = "housing_benefit".freeze
 
     class << self
-      def call(benefits_form, housing_benefit_details_form)
-        general_benefits(benefits_form) + housing_benefit(housing_benefit_details_form)
+      def call(benefits_form, housing_form = nil)
+        general_benefits(benefits_form) + housing_benefit(housing_form)
       end
 
       def general_benefits(form)
@@ -16,7 +16,7 @@ module CfeParamBuilders
       end
 
       def housing_benefit(form)
-        return [] unless form
+        return [] unless form&.receives_housing_benefit
 
         [build_benefit(form.housing_benefit_frequency, form.housing_benefit_value, HOUSING_BENEFIT_TYPE)]
       end

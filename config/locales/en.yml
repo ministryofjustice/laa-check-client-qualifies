@@ -85,30 +85,6 @@ en:
               greater_than: Income tax must be 0 or more
             frequency:
               blank: Select how frequently the partner receives employment income
-        housing_benefit_form:
-          attributes:
-            housing_benefit:
-              inclusion: Select yes if your client gets Housing Benefit
-        housing_benefit_details_form:
-          attributes:
-            housing_benefit_frequency:
-              inclusion: Select frequency of Housing Benefit
-            housing_benefit_value:
-              blank: Enter Housing Benefit amount
-              greater_than: Housing Benefit must be more than 0
-              not_a_number: Housing Benefit must be a number
-        partner_housing_benefit_form:
-          attributes:
-            housing_benefit:
-              inclusion: Select yes if the partner gets Housing Benefit
-        partner_housing_benefit_details_form:
-          attributes:
-            housing_benefit_frequency:
-              inclusion: Select frequency of Housing Benefit
-            housing_benefit_value:
-              blank: Enter Housing Benefit amount
-              greater_than: Housing Benefit must be more than 0
-              not_a_number: Housing Benefit must be a number
         benefits_form:
           attributes:
             add_benefit:
@@ -201,10 +177,6 @@ en:
               not_a_number: Income from other sources must be a number, if this does not apply enter 0
         outgoings_form:
           attributes:
-            housing_payments_value:
-              blank: Enter housing payments, if this does not apply enter 0
-              not_a_number: Housing payments must be a number, if this does not apply enter 0
-              greater_than_or_equal_to: Housing payments must be 0 or more
             childcare_payments_value:
               blank: Enter childcare payments, if this does not apply enter 0
               not_a_number: Childcare payments must be a number, if this does not apply enter 0
@@ -217,8 +189,6 @@ en:
               blank: Enter payments towards legal aid in a criminal case, if this does not apply enter 0
               not_a_number: Payments towards legal aid in a criminal case must be a number, if this does not apply enter 0
               greater_than_or_equal_to: Payments towards legal aid in a criminal case  must be 0 or more
-            housing_payments_frequency:
-              blank: Select frequency of housing payments
             childcare_payments_frequency:
               blank: Select frequency of childcare payments
             maintenance_payments_frequency:
@@ -227,9 +197,6 @@ en:
               blank: Select frequency of payments towards legal aid in a criminal case
         partner_outgoings_form:
           attributes:
-            housing_payments_value:
-              blank: Enter housing payments, if this does not apply enter 0
-              not_a_number: Housing payments must be a number, or enter 0 if this does not apply
             childcare_payments_value:
               blank: Enter childcare payments, if this does not apply enter 0
               not_a_number: Childcare payments must be a number, or enter 0 if this does not apply
@@ -239,14 +206,28 @@ en:
             legal_aid_payments_value:
               blank: Enter payments towards legal aid in a criminal case, if this does not apply enter 0
               not_a_number: Payments towards legal aid in a criminal case must be a number, or enter 0 if this does not apply
-            housing_payments_frequency:
-              blank: Select frequency of housing payments
             childcare_payments_frequency:
               blank: Select frequency of childcare payments
             maintenance_payments_frequency:
               blank: Select frequency of maintenance payments to a former partner
             legal_aid_payments_frequency:
               blank: Select frequency of payments towards legal aid in a criminal case
+        housing_form:
+          attributes:
+            housing_payments_value:
+              blank: Enter housing payments, if this does not apply enter 0
+              not_a_number: Housing payments must be a number, or enter 0 if this does not applyg
+              greater_than_or_equal_to: Housing payments must be 0 or more
+            housing_payments_frequency:
+              blank: Select frequency of housing payments
+            receives_housing_benefit:
+              inclusion: Select if the client or their partner receives Housing Benefit
+            housing_benefit_value:
+              blank: Enter Housing Benefit amount
+              not_a_number: Housing Benefit must be a number
+              greater_than: Housing Benefit must be more than 0
+            housing_benefit_frequency:
+              blank: Select frequency of Housing Benefit payments
         client_assets_form:
           attributes:
             valuables:
@@ -721,26 +702,6 @@ en:
       frequency:
         input: How often does the partner get paid?
         blank: "--"
-    housing_benefit:
-      caption: Your client's finances
-      housing_benefit_received:
-        legend: Does your client get Housing Benefit?
-        hint: ""
-    housing_benefit_details:
-      caption: Your client's finances
-      heading: Add Housing Benefit details
-      housing_benefit_value: Enter amount
-      housing_benefit_frequency: Select frequency
-    partner_housing_benefit:
-      caption: The partner's finances
-      housing_benefit_received:
-        legend: Does the partner get Housing Benefit?
-        hint: ""
-    partner_housing_benefit_details:
-      caption: The partner's finances
-      heading: Add Housing Benefit details
-      housing_benefit_value: Enter amount
-      housing_benefit_frequency: Select frequency
     benefits:
       caption: Your client's finances
       legend: Does your client get any other benefits?
@@ -834,13 +795,6 @@ en:
       heading: Outgoings and deductions
       caption: Your client's finances
       second_caption: Enter 0 for any that do not apply
-      housing_payments:
-        label: Housing payments
-        hints:
-          - "For example, rent, mortgage or board and lodgings."
-          - "If your client is paying all or part of their ex-partner’s housing costs in the former matrimonial home, do not include this here - add it as maintenance payments to a former partner instead."
-          - "If your client is paying board and lodgings, enter the portion of the costs that relates to lodgings or, if you are unsure, 50% of the total costs."
-          - "Enter 0 if this does not apply."
       childcare_payments:
         label: Childcare payments
         hints:
@@ -874,13 +828,6 @@ en:
       heading: "Outgoings and deductions"
       caption: The partner's finances
       second_caption: Do not add any outgoings you've listed as outgoings for the client. Enter 0 for any that do not apply.
-      housing_payments:
-        label: Housing payments
-        hints:
-          - "For example, rent, mortgage or board and lodgings."
-          - "If your client's partner is paying all or part of their ex-partner’s housing costs in the former matrimonial home, do not include this here - add it as maintenance payments to a former partner instead."
-          - "If your client's partner is paying board and lodgings, enter the portion of the costs that relates to lodgings or, if you are unsure, 50% of the total costs."
-          - Enter 0 if this does not apply.
       childcare_payments:
         label: Childcare payments
         hints:
@@ -897,6 +844,21 @@ en:
       enter_frequency: Select frequency
       guidance_on_outgoings: Guidance on outgoings (need link)
       link_to_guidance_on_outgoings: "#TODO: To be defined"
+    housing:
+      title: Housing costs
+      hint_1: The questions below refer to housing costs for the home the client lives in.
+      hint_2: If your client and their partner live separately, do not include the partner's housing costs.
+      housing_payments: What are the housing payments for the home your client lives in?
+      housing_payments_hints:
+        - For example, rent, mortgage or board and lodgings.
+        - If your client or their partner pays for board and lodgings, only enter the amount that relates to the client's accommodation. If you do not know the exact amount, enter 50% of the board and lodgings cost.
+        - Do not include any payments towards any ex-partner's housing costs for a former matrimonial home. Add this as maintenance payments to a former partner on the outgoings page instead.
+      enter_amount: Enter amount
+      select_frequency: Select frequency
+      receives_housing_benefit: Does the household get Housing Benefit towards these payments?
+      housing_benefit_hint_1: This will be used to work out the net housing costs.
+      housing_benefit_hint_2: If the Housing Benefit is paid to the landlord and taken off the housing payments, select no.
+      how_often: How often do they get this?
     property:
       caption: Your client's finances
       legend: Does your client own the home they live in?

@@ -1,11 +1,12 @@
 module CfeParamBuilders
   class RegularTransactions
-    def self.call(income_form, outgoings_form)
+    def self.call(income_form, outgoings_form, housing_form = nil)
       income = build_payments(CFE_INCOME_TRANSLATIONS, income_form, :credit)
 
       outgoings = build_payments(CFE_OUTGOINGS_TRANSLATIONS, outgoings_form, :debit)
+      housing_outgoings = build_housing_outgoings(housing_form)
 
-      income + outgoings
+      income + outgoings + housing_outgoings
     end
 
     CFE_FREQUENCIES = {
@@ -24,7 +25,6 @@ module CfeParamBuilders
     }.freeze
 
     CFE_OUTGOINGS_TRANSLATIONS = {
-      rent_or_mortgage: :housing_payments,
       child_care: :childcare_payments,
       maintenance_out: :maintenance_payments,
       legal_aid: :legal_aid_payments,
@@ -40,6 +40,17 @@ module CfeParamBuilders
           amount: form.send("#{local_name}_value"),
         }
       end
+    end
+
+    def self.build_housing_outgoings(form)
+      return [] unless form && form.housing_payments_value&.positive?
+
+      [{
+        operation: :debit,
+        category: :rent_or_mortgage,
+        frequency: CFE_FREQUENCIES[form.housing_payments_frequency],
+        amount: form.housing_payments_value,
+      }]
     end
   end
 end

@@ -1,0 +1,52 @@
+- content_for :page_title
+  = t(".title")
+- content_for :back do
+  = back_link(:housing, @estimate, @back_buttons_invoke_browser_back_behaviour)
+
+.govuk-grid-column-two-thirds
+  = form_for(@form, url: wizard_path, method: :put) do |form|
+    = form.govuk_error_summary t("generic.error_summary_title")
+    = render "shared/heading",
+             header_text: t(".title"),
+             post_header_texts: [t(".hint_1"), t(".hint_2")]
+
+    h2.govuk-heading-m class="govuk-!-margin-bottom-2"
+      = t(".housing_payments")
+    - t(".housing_payments_hints").each do |hint|
+      span.govuk-caption-m class="govuk-!-margin-bottom-4"
+        = hint
+    = render "shared/money_input",
+            form:,
+            field: :housing_payments_value,
+            width: 10,
+            label_text: t(".enter_amount")
+    = form.govuk_collection_radio_buttons :housing_payments_frequency,
+                                          @form.frequencies(:housing_payments_frequency),
+                                          :first,
+                                          :last,
+                                          legend: -> { tag.p(t(".select_frequency")) }
+
+    = form.govuk_radio_buttons_fieldset :receives_housing_benefit,
+                                        legend: { text: t(".receives_housing_benefit") },
+                                        hint: lambda { \
+                                            tag.p(t(".housing_benefit_hint_1"), class: "govuk-hint") + \
+                                            tag.p(t(".housing_benefit_hint_2"), class: "govuk-hint") \
+                                         } do
+      = form.govuk_radio_button :receives_housing_benefit, true, label: { text: t("generic.yes_choice") }, link_errors: true do
+        = render "shared/money_input",
+                    form:,
+                    field: :housing_benefit_value,
+                    width: 5,
+                    label_text: t(".enter_amount")
+        = form.govuk_collection_radio_buttons :housing_benefit_frequency,
+                                          @form.frequencies(:housing_benefit_frequency),
+                                          :first,
+                                          :last,
+                                          legend: -> { tag.p(t(".how_often")) }
+      = form.govuk_radio_button :receives_housing_benefit, false, label: { text: t("generic.no_choice") }
+
+    = form.govuk_submit t("generic.save_and_continue")
+
+= render "shared/question_sidebar",
+        level_of_help: @estimate.level_of_help,
+        links: outgoings_links(@estimate.level_of_help)

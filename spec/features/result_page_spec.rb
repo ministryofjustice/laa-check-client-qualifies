@@ -93,11 +93,11 @@ RSpec.describe "Results Page" do
           fill_in "employment-form-income-tax-field", with: 400
           fill_in "employment-form-national-insurance-field", with: 50
           select_radio_value("employment-form", "frequency", "monthly")
-        when :housing_benefit
-          select_boolean_value("housing-benefit-form", :housing_benefit, true)
-          click_on "Save and continue"
-          fill_in "housing-benefit-details-form-housing-benefit-value-field", with: 135
-          select_radio_value("housing-benefit-details-form", "housing-benefit-frequency", "every_two_weeks")
+        when :housing
+          fill_in "housing-form-housing-payments-value-field", with: 0
+          select_boolean_value("housing-form", :receives_housing_benefit, true)
+          fill_in "housing-form-housing-benefit-value-field", with: 135
+          select_radio_value("housing-form", "housing-benefit-frequency", "every_two_weeks")
         when :income
           fill_in "other-income-form-friends-or-family-value-field", with: "100"
           select_radio_value("other-income-form", "friends-or-family-frequency", "monthly")
@@ -110,11 +110,9 @@ RSpec.describe "Results Page" do
           fill_in "other-income-form-student-finance-value-field", with: "600"
           fill_in "other-income-form-other-value-field", with: "333"
         when :outgoings
-          fill_in "outgoings-form-housing-payments-value-field", with: "100"
           fill_in "outgoings-form-childcare-payments-value-field", with: "200"
           fill_in "outgoings-form-legal-aid-payments-value-field", with: "300"
           fill_in "outgoings-form-maintenance-payments-value-field", with: "0"
-          select_radio_value("outgoings-form", "housing-payments-frequency", "every-week")
           select_radio_value("outgoings-form", "childcare-payments-frequency", "every-two-weeks")
           select_radio_value("outgoings-form", "legal-aid-payments-frequency", "monthly")
         when :property
@@ -167,7 +165,7 @@ RSpec.describe "Results Page" do
     it "shows the outgoings section" do
       within "#outgoings-calculation-content" do
         expect(page).to have_content "Housing payments\nNet housing costs minus" # Full hint text omitted for brevity
-        expect(page).to have_content "and does not have any dependants\n£140.83"
+        expect(page).to have_content "and does not have any dependants\n£0.00"
         expect(page).to have_content "Childcare payments\nThis figure will" # Full hint text omitted for brevity
         expect(page).to have_content " or receiving student finance\n£433.33"
         expect(page).to have_content "Maintenance payments to a former partner\n£0.00"
@@ -177,8 +175,8 @@ RSpec.describe "Results Page" do
         expect(page).to have_content "Employment expenses\nA fixed allowance if your client is employed\n£45.00"
         expect(page).to have_content "Dependants allowance\nA fixed allowance deducted for each dependant your client has\n£922.92"
 
-        expect(page).to have_content "Total monthly outgoings £2,292.08"
-        expect(page).to have_content "Assessed disposable monthly income\nTotal monthly income minus total monthly outgoings\n-£491.08"
+        expect(page).to have_content "Total monthly outgoings £2,151.25"
+        expect(page).to have_content "Assessed disposable monthly income\nTotal monthly income minus total monthly outgoings\n-£350.25"
         expect(page).to have_content "Disposable monthly income upper limit £733.00"
       end
     end
@@ -217,11 +215,6 @@ RSpec.describe "Results Page" do
           fill_in "partner-employment-form-income-tax-field", with: 400
           fill_in "partner-employment-form-national-insurance-field", with: 50
           select_radio_value("partner-employment-form", "frequency", "monthly")
-        when :partner_housing_benefit
-          select_boolean_value("partner-housing-benefit-form", :housing_benefit, true)
-          click_on("Save and continue")
-          fill_in "partner-housing-benefit-details-form-housing-benefit-value-field", with: 135
-          select_radio_value("partner-housing-benefit-details-form", "housing-benefit-frequency", "every_two_weeks")
         when :partner_income
           fill_in "partner-other-income-form-friends-or-family-value-field", with: "10"
           select_radio_value("partner-other-income-form", "friends-or-family-frequency", "monthly")
@@ -234,8 +227,6 @@ RSpec.describe "Results Page" do
           fill_in "partner-other-income-form-student-finance-value-field", with: "60"
           fill_in "partner-other-income-form-other-value-field", with: "33"
         when :partner_outgoings
-          fill_in "partner-outgoings-form-housing-payments-value-field", with: "30"
-          select_radio_value("partner-outgoings-form", "housing-payments-frequency", :monthly)
           fill_in "partner-outgoings-form-childcare-payments-value-field", with: "0"
           fill_in "partner-outgoings-form-legal-aid-payments-value-field", with: "0"
           fill_in "partner-outgoings-form-maintenance-payments-value-field", with: "0"
