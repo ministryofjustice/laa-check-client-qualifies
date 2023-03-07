@@ -855,7 +855,7 @@ en:
         - Do not include any payments towards any ex-partner's housing costs for a former matrimonial home. Add this as maintenance payments to a former partner on the outgoings page instead.
       enter_amount: Enter amount
       select_frequency: Select frequency
-      receives_housing_benefit: Does the household get Housing Benefit towards these payments
+      receives_housing_benefit: Does the household get Housing Benefit towards these payments?
       housing_benefit_hint_1: This will be used to work out the net housing costs.
       housing_benefit_hint_2: If the Housing Benefit is paid to the landlord and taken off the housing payments, select no.
       how_often: How often do they get this?
