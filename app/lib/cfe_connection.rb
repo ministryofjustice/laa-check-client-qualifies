@@ -59,7 +59,7 @@ class CfeConnection
     create_record(assessment_id, "capitals", capital_params)
   end
 
-  def create_vehicles(assessment_id, vehicles:)
+  def create_vehicles(assessment_id, vehicles)
     create_record(assessment_id, "vehicles", vehicles:)
   end
 
