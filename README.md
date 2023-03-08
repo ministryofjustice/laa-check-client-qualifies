@@ -27,7 +27,7 @@ You can use [Homebrew](https://brew.sh/) to install any dependencies. The Homebr
 
 If using Homebrew:
 
-Install postgres. You will need to select a version if using brew. Run the below command, changing the version number as appropriate.
+Install PostgreSQL. You will need to select a version if using brew. Run the below command, changing the version number as appropriate:
 
 ```
 brew install postgresql@14
@@ -39,7 +39,7 @@ You will be prompted on the command line to start the server with something like
 brew services start postgresql@14
 ```
 
-If you are running Ruby version 3.1.3, then [Bundler](https://bundler.io/) should already be installed. You may run into an error here if you are not using the correct Ruby version.
+If you are running Ruby version 3.1.3, then [Bundler](https://bundler.io/) should already be installed. You may run into an error here if you are not using the correct Ruby version:
 
 ```
 bundle install
@@ -50,6 +50,7 @@ Create the development and test databases and run migrations
 ```
 bundle exec rails db:create
 bundle exec rails db:migrate
+bundle exec rails db:migrate RAILS_ENV=test
 ```
 
 Install [Yarn](https://classic.yarnpkg.com/en/) (you can use Homebrew for this) and run the below:
@@ -63,11 +64,13 @@ yarn build:css
 
 ## Tests
 
-We test with RSpec and enforce 100% line and branch coverage with SimpleCov.
+We test with [RSpec](https://rspec.info/) and enforce 100% line and branch coverage with [SimpleCov](https://www.learnhowtoprogram.com/ruby-and-rails/authentication-and-authorization/simplecov).
 
-You can run tests with the command `bundle exec rspec`. 
+You can run tests with the command: 
 
-To get the tests running, you will need to create a `.env.development` file with the relevant environment variables. Copy the contents of `.env.sample` and speak to another developer on the team to get the correct variables set up.
+```
+bundle exec rspec
+```
 
 Our test suite is in the process of being refactored. Below is the _intended_ main structure of the test suite, which our actual test suite does not yet reflect.
 
