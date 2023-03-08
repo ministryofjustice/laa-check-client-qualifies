@@ -6,6 +6,6 @@ class SubmitBenefitsService < BaseCfeService
 
     state_benefits = CfeParamBuilders::StateBenefits.call(benefits_form, housing_benefit_details_form)
 
-    cfe_connection.create_benefits(cfe_assessment_id, state_benefits)
+    cfe_connection.create_state_benefits(cfe_assessment_id, state_benefits)
   end
 end

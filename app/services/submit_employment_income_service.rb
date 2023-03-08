@@ -6,6 +6,6 @@ class SubmitEmploymentIncomeService < BaseCfeService
     applicant_form = ApplicantForm.from_session(@session_data)
     employment_data = CfeParamBuilders::Employments.call(employment_form, applicant_form)
 
-    cfe_connection.create_employment(cfe_assessment_id, employment_data)
+    cfe_connection.create_employments(cfe_assessment_id, employment_data)
   end
 end

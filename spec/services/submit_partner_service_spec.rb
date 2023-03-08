@@ -42,7 +42,7 @@ RSpec.describe SubmitPartnerService, :partner_flag do
       end
 
       it "constructs a valid payload to send to CFE" do
-        expect(mock_connection).to receive(:create_partner) do |assessment_id, payload|
+        expect(mock_connection).to receive(:create_partner_financials) do |assessment_id, payload|
           expect(assessment_id).to eq cfe_assessment_id
           expect(payload[:partner]).to eq({ employed: true, date_of_birth: 70.years.ago.to_date })
           expect(payload[:irregular_incomes]).to eq([{ amount: 1_000, frequency: "annual", income_type: "student_loan" }])
@@ -91,7 +91,7 @@ RSpec.describe SubmitPartnerService, :partner_flag do
       end
 
       it "constructs a valid payload to send to CFE" do
-        expect(mock_connection).to receive(:create_partner) do |assessment_id, payload|
+        expect(mock_connection).to receive(:create_partner_financials) do |assessment_id, payload|
           expect(assessment_id).to eq cfe_assessment_id
           expect(payload[:partner]).to eq({ employed: false, date_of_birth: 50.years.ago.to_date })
           expect(payload[:irregular_incomes]).to eq([])
@@ -123,7 +123,7 @@ RSpec.describe SubmitPartnerService, :partner_flag do
       end
 
       it "constructs a valid payload to send to CFE" do
-        expect(mock_connection).to receive(:create_partner) do |assessment_id, payload|
+        expect(mock_connection).to receive(:create_partner_financials) do |assessment_id, payload|
           expect(assessment_id).to eq cfe_assessment_id
           expect(payload[:partner]).to eq({ employed: false, date_of_birth: 50.years.ago.to_date })
           expect(payload[:irregular_incomes]).to eq([])

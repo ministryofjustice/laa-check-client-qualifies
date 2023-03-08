@@ -9,6 +9,14 @@ class SubmitProceedingsService < BaseCfeService
                       else
                         ApplicantForm::PROCEEDING_TYPES[:other]
                       end
-    cfe_connection.create_proceeding_type(cfe_assessment_id, proceeding_type)
+
+    proceeding_types = [
+      {
+        ccms_code: proceeding_type,
+        client_involvement_type: "A",
+      },
+    ]
+
+    cfe_connection.create_proceeding_types(cfe_assessment_id, proceeding_types)
   end
 end

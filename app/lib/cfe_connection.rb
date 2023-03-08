@@ -23,13 +23,7 @@ class CfeConnection
     response.body.symbolize_keys.fetch(:assessment_id)
   end
 
-  def create_proceeding_type(assessment_id, proceeding_type)
-    proceeding_types = [
-      {
-        ccms_code: proceeding_type,
-        client_involvement_type: "A",
-      },
-    ]
+  def create_proceeding_types(assessment_id, proceeding_types)
     create_record(assessment_id, "proceeding_types", proceeding_types:)
   end
 
@@ -41,19 +35,19 @@ class CfeConnection
     create_record(assessment_id, "dependants", dependants:)
   end
 
-  def create_irregular_income(assessment_id, payments)
+  def create_irregular_incomes(assessment_id, payments)
     create_record(assessment_id, "irregular_incomes", payments:)
   end
 
-  def create_employment(assessment_id, employment_income)
+  def create_employments(assessment_id, employment_income)
     create_record(assessment_id, "employments", employment_income:)
   end
 
-  def create_regular_payments(assessment_id, regular_transactions)
+  def create_regular_transactions(assessment_id, regular_transactions)
     create_record(assessment_id, "regular_transactions", regular_transactions:)
   end
 
-  def create_benefits(assessment_id, state_benefits)
+  def create_state_benefits(assessment_id, state_benefits)
     create_record(assessment_id, "state_benefits", state_benefits:)
   end
 
@@ -65,11 +59,11 @@ class CfeConnection
     create_record(assessment_id, "capitals", capital_params)
   end
 
-  def create_vehicle(assessment_id, vehicles:)
+  def create_vehicles(assessment_id, vehicles:)
     create_record(assessment_id, "vehicles", vehicles:)
   end
 
-  def create_partner(assessment_id, partner_params)
+  def create_partner_financials(assessment_id, partner_params)
     create_record(assessment_id, "partner_financials", partner_params)
   end
 

@@ -14,7 +14,11 @@ RSpec.describe SubmitProceedingsService do
       end
 
       it "uses the specified proceeding type" do
-        expect(mock_connection).to receive(:create_proceeding_type).with(cfe_estimate_id, "foo")
+        payload = {
+          ccms_code: "foo",
+          client_involvement_type: "A",
+        }
+        expect(mock_connection).to receive(:create_proceeding_types).with(cfe_estimate_id, [payload])
         service.call(mock_connection, cfe_estimate_id, session_data)
       end
     end
@@ -28,7 +32,11 @@ RSpec.describe SubmitProceedingsService do
       end
 
       it "uses the specified proceeding type" do
-        expect(mock_connection).to receive(:create_proceeding_type).with(cfe_estimate_id, "bar")
+        payload = {
+          ccms_code: "bar",
+          client_involvement_type: "A",
+        }
+        expect(mock_connection).to receive(:create_proceeding_types).with(cfe_estimate_id, [payload])
         service.call(mock_connection, cfe_estimate_id, session_data)
       end
     end

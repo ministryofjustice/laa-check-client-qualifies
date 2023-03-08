@@ -26,14 +26,14 @@ RSpec.describe SubmitEmploymentIncomeService do
         let(:frequency) { scenario[:frequency] }
 
         it "submits the right number of payments to CFE" do
-          expect(mock_connection).to receive(:create_employment) do |_assessment_id, employment_data|
+          expect(mock_connection).to receive(:create_employments) do |_assessment_id, employment_data|
             expect(employment_data.dig(0, :payments).length).to eq scenario[:cfe_payments]
           end
           described_class.call(mock_connection, cfe_assessment_id, session_data)
         end
 
         it "submits the right amounts to CFE" do
-          expect(mock_connection).to receive(:create_employment) do |_assessment_id, employment_data|
+          expect(mock_connection).to receive(:create_employments) do |_assessment_id, employment_data|
             expect(employment_data.dig(0, :payments, 0, :gross)).to eq(gross_income / scenario[:divisor])
           end
           described_class.call(mock_connection, cfe_assessment_id, session_data)
