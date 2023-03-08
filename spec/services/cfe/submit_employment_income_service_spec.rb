@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe SubmitEmploymentIncomeService do
+RSpec.describe Cfe::SubmitEmploymentIncomeService do
   let(:session_data) do
     {
       "employment_status" => "in_work",

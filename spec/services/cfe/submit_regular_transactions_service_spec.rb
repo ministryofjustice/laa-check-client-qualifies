@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe SubmitRegularTransactionsService do
+RSpec.describe Cfe::SubmitRegularTransactionsService do
   let(:service) { described_class }
   let(:cfe_estimate_id) { SecureRandom.uuid }
   let(:mock_connection) { instance_double(CfeConnection) }

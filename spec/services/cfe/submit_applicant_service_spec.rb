@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe SubmitApplicantService do
+RSpec.describe Cfe::SubmitApplicantService do
   let(:service) { described_class }
   let(:session_data) do
     {

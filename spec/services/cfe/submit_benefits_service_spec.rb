@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe SubmitBenefitsService do
+RSpec.describe Cfe::SubmitBenefitsService do
   let(:arbitrary_fixed_time) { Time.zone.local(2022, 10, 24, 9, 0, 0) }
 
   let(:service) { described_class }

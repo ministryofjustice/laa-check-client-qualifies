@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe SubmitAssetsService do
+RSpec.describe Cfe::SubmitAssetsService do
   let(:cfe_assessment_id) { SecureRandom.uuid }
   let(:mock_connection) { instance_double(CfeConnection) }
 
