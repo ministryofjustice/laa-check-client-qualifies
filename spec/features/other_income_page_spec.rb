@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Other income Page" do
-  let(:income_header) { "Other income" }
+  let(:income_header) { I18n.t("estimate_flow.other_income.heading") }
   let(:estimate_id) { SecureRandom.uuid }
   let(:mock_connection) do
     instance_double(CfeConnection,

@@ -1,11 +1,10 @@
 - content_for :page_title
-  = t(".legend")
+  = t(@form.benefits.blank? ? ".legend" : ".legend_with_benefits")
 - content_for :back
   = back_link(:partner_benefits, @estimate, @back_buttons_invoke_browser_back_behaviour)
 
 .govuk-grid-column-two-thirds
   - if @form.benefits.blank?
-    span.govuk-caption-l = t(".caption")
     = form_for(@form, url: variable_controller_partner_benefit_path(action: :add)) do |form|
       = render "add_benefit_form",
               form:,
@@ -15,7 +14,6 @@
     = form_for(@form, url: variable_controller_partner_benefit_path(action: :add)) do |form|
       = form.govuk_error_summary t("generic.error_summary_title")
       = render "shared/heading",
-              pre_header_text: t(".caption"),
               header_text: t(".added_heading", count: @form.benefits.count, benefit: t(".benefit").pluralize(@form.benefits.count))
 
       = govuk_table do |table|
@@ -39,7 +37,7 @@
 
       = render "add_benefit_form",
                form:,
-               legend: { text: t(".legend"), size: "l" },
+               legend: { text: t(".legend_with_benefits"), size: "l" },
                hint_text: t(".add_more_hint")
 
 = render "shared/disregarded_benefits_sidebar", level_of_help: @estimate.level_of_help

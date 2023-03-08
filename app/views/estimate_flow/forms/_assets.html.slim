@@ -3,7 +3,6 @@
 
   = form.govuk_error_summary t("generic.error_summary_title")
   = render "shared/heading",
-             pre_header_text: t("estimate_flow.#{i18n_key}.caption"),
              header_text: t("estimate_flow.#{i18n_key}.legend"),
              post_header_texts: hints || [t("estimate_flow.#{i18n_key}.hint")]
   = form.govuk_fieldset legend: { text: t("estimate_flow.#{i18n_key}.property.label") } do

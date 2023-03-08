@@ -2,7 +2,6 @@
 
   = form.govuk_error_summary t("generic.error_summary_title")
   = render "shared/heading",
-           pre_header_text: t("estimate_flow.vehicle_details.caption"),
            header_text: t("estimate_flow.vehicle_details.heading")
   = render "estimate_flow/forms/single_vehicle", form:, prefix: :vehicle
   = form.hidden_field :additional_vehicle_owned
