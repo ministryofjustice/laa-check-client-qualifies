@@ -138,5 +138,18 @@ RSpec.describe Cfe::SubmitPartnerService, :partner_flag do
         described_class.call(mock_connection, cfe_assessment_id, session_data)
       end
     end
+
+    context "when no partner" do
+      let(:session_data) do
+        {
+          "partner" => false,
+        }
+      end
+
+      it "sends nothing to CFE" do
+        expect(mock_connection).not_to receive(:create_partner_financials)
+        described_class.call(mock_connection, cfe_assessment_id, session_data)
+      end
+    end
   end
 end

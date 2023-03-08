@@ -40,5 +40,14 @@ RSpec.describe Cfe::SubmitEmploymentIncomeService do
         end
       end
     end
+
+    context "when the client is not employed" do
+      let(:session_data) { { "employment_status" => "unemployed" } }
+
+      it "does not make a call" do
+        expect(mock_connection).not_to receive(:create_employments)
+        described_class.call(mock_connection, cfe_assessment_id, session_data)
+      end
+    end
   end
 end

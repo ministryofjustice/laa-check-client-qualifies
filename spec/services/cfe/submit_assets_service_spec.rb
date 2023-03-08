@@ -19,6 +19,25 @@ RSpec.describe Cfe::SubmitAssetsService do
       end
     end
 
+    context "when there are no homes" do
+      let(:session_data) do
+        {
+          "property_owned" => "none",
+          "partner_property_owned" => "none",
+          "property_value" => 0,
+          "partner_property_value" => 0,
+          "savings" => 0,
+          "investments" => 0,
+          "valuables" => 0,
+        }
+      end
+
+      it "does not call CFE" do
+        expect(mock_connection).not_to receive(:create_capitals)
+        described_class.call(mock_connection, cfe_assessment_id, session_data)
+      end
+    end
+
     context "when there is a second property but no main home" do
       let(:session_data) do
         {

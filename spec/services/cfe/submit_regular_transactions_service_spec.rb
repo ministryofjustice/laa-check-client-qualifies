@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Cfe::SubmitRegularTransactionsService do
   let(:service) { described_class }
-  let(:cfe_estimate_id) { SecureRandom.uuid }
+  let(:cfe_assessment_id) { SecureRandom.uuid }
   let(:mock_connection) { instance_double(CfeConnection) }
 
   describe ".call" do
@@ -22,7 +22,20 @@ RSpec.describe Cfe::SubmitRegularTransactionsService do
 
       it "makes no call" do
         expect(mock_connection).not_to receive(:create_regular_transactions)
-        service.call(mock_connection, cfe_estimate_id, session_data)
+        service.call(mock_connection, cfe_assessment_id, session_data)
+      end
+    end
+
+    context "when the applicant is passported" do
+      let(:session_data) do
+        {
+          "passporting" => true,
+        }
+      end
+
+      it "sends nothing to CFE" do
+        expect(mock_connection).not_to receive(:create_partner_financials)
+        described_class.call(mock_connection, cfe_assessment_id, session_data)
       end
     end
   end

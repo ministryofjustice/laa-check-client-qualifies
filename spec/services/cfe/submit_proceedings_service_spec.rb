@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Cfe::SubmitProceedingsService do
   let(:service) { described_class }
-  let(:cfe_estimate_id) { SecureRandom.uuid }
+  let(:cfe_assessment_id) { SecureRandom.uuid }
   let(:mock_connection) { instance_double(CfeConnection) }
 
   describe ".call" do
@@ -18,8 +18,27 @@ RSpec.describe Cfe::SubmitProceedingsService do
           ccms_code: "foo",
           client_involvement_type: "A",
         }
-        expect(mock_connection).to receive(:create_proceeding_types).with(cfe_estimate_id, [payload])
-        service.call(mock_connection, cfe_estimate_id, session_data)
+        expect(mock_connection).to receive(:create_proceeding_types).with(cfe_assessment_id, [payload])
+        service.call(mock_connection, cfe_assessment_id, session_data)
+      end
+    end
+
+    context "when there is a controlled flag and the work is controlled", :controlled_flag do
+      let(:session_data) do
+        {
+          "level_of_help" => "controlled",
+          "legacy_proceeding_type" => "foo",
+          "proceeding_type" => "bar",
+        }
+      end
+
+      it "uses the default type" do
+        payload = {
+          ccms_code: "SE003",
+          client_involvement_type: "A",
+        }
+        expect(mock_connection).to receive(:create_proceeding_types).with(cfe_assessment_id, [payload])
+        service.call(mock_connection, cfe_assessment_id, session_data)
       end
     end
 
@@ -36,8 +55,8 @@ RSpec.describe Cfe::SubmitProceedingsService do
           ccms_code: "bar",
           client_involvement_type: "A",
         }
-        expect(mock_connection).to receive(:create_proceeding_types).with(cfe_estimate_id, [payload])
-        service.call(mock_connection, cfe_estimate_id, session_data)
+        expect(mock_connection).to receive(:create_proceeding_types).with(cfe_assessment_id, [payload])
+        service.call(mock_connection, cfe_assessment_id, session_data)
       end
     end
   end

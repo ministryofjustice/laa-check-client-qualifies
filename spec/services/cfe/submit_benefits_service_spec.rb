@@ -1,17 +1,12 @@
 require "rails_helper"
 
 RSpec.describe Cfe::SubmitBenefitsService do
-  let(:arbitrary_fixed_time) { Time.zone.local(2022, 10, 24, 9, 0, 0) }
+  let(:arbitrary_fixed_time) { Time.zone.local(2022, 10, 24, 9) }
 
   let(:service) { described_class }
 
-  let(:cfe_estimate_id) { SecureRandom.uuid }
-  let(:url) do
-    "https://check-financial-eligibility-partner-staging.cloud-platform.service.justice.gov.uk/assessments/#{cfe_estimate_id}/state_benefits"
-  end
-  let!(:stub) do
-    stub_request(:post, url).with(body: translated.to_json).to_return(status: 200)
-  end
+  let(:cfe_assessment_id) { SecureRandom.uuid }
+  let(:mock_connection) { instance_double(CfeConnection) }
 
   before do
     travel_to arbitrary_fixed_time
@@ -20,21 +15,20 @@ RSpec.describe Cfe::SubmitBenefitsService do
   describe ".call" do
     context "when it is passed valid weekly data" do
       let(:translated) do
-        { "state_benefits" =>
-      [{ "name" => "Child benefit",
-         "payments" =>
-         [{ "date" => "2022-10-24", "amount" => "100.0", "client_id" => "" },
-          { "date" => "2022-10-17", "amount" => "100.0", "client_id" => "" },
-          { "date" => "2022-10-10", "amount" => "100.0", "client_id" => "" },
-          { "date" => "2022-10-03", "amount" => "100.0", "client_id" => "" },
-          { "date" => "2022-09-26", "amount" => "100.0", "client_id" => "" },
-          { "date" => "2022-09-19", "amount" => "100.0", "client_id" => "" },
-          { "date" => "2022-09-12", "amount" => "100.0", "client_id" => "" },
-          { "date" => "2022-09-05", "amount" => "100.0", "client_id" => "" },
-          { "date" => "2022-08-29", "amount" => "100.0", "client_id" => "" },
-          { "date" => "2022-08-22", "amount" => "100.0", "client_id" => "" },
-          { "date" => "2022-08-15", "amount" => "100.0", "client_id" => "" },
-          { "date" => "2022-08-08", "amount" => "100.0", "client_id" => "" }] }] }
+        [{ name: "Child benefit",
+           payments:
+         [{ date: Date.new(2022, 10, 24), amount: 100.to_d, client_id: "" },
+          { date: Date.new(2022, 10, 17), amount: 100.to_d, client_id: "" },
+          { date: Date.new(2022, 10, 10), amount: 100.to_d, client_id: "" },
+          { date: Date.new(2022, 10, 3), amount: 100.to_d, client_id: "" },
+          { date: Date.new(2022, 9, 26), amount: 100.to_d, client_id: "" },
+          { date: Date.new(2022, 9, 19), amount: 100.to_d, client_id: "" },
+          { date: Date.new(2022, 9, 12), amount: 100.to_d, client_id: "" },
+          { date: Date.new(2022, 9, 5), amount: 100.to_d, client_id: "" },
+          { date: Date.new(2022, 8, 29), amount: 100.to_d, client_id: "" },
+          { date: Date.new(2022, 8, 22), amount: 100.to_d, client_id: "" },
+          { date: Date.new(2022, 8, 15), amount: 100.to_d, client_id: "" },
+          { date: Date.new(2022, 8, 8), amount: 100.to_d, client_id: "" }] }]
       end
 
       let(:session_data) do
@@ -48,22 +42,21 @@ RSpec.describe Cfe::SubmitBenefitsService do
       end
 
       it "makes a successful call" do
-        service.call(CfeConnection.new, cfe_estimate_id, session_data)
-        expect(stub).to have_been_requested
+        expect(mock_connection).to receive(:create_state_benefits).with(cfe_assessment_id, translated)
+        service.call(mock_connection, cfe_assessment_id, session_data)
       end
     end
 
     context "when it is passed valid two-weekly data" do
       let(:translated) do
-        { "state_benefits" =>
-      [{ "name" => "Child benefit",
-         "payments" =>
-         [{ "date" => "2022-10-24", "amount" => "100.0", "client_id" => "" },
-          { "date" => "2022-10-10", "amount" => "100.0", "client_id" => "" },
-          { "date" => "2022-09-26", "amount" => "100.0", "client_id" => "" },
-          { "date" => "2022-09-12", "amount" => "100.0", "client_id" => "" },
-          { "date" => "2022-08-29", "amount" => "100.0", "client_id" => "" },
-          { "date" => "2022-08-15", "amount" => "100.0", "client_id" => "" }] }] }
+        [{ name: "Child benefit",
+           payments:
+         [{ date: Date.new(2022, 10, 24), amount: 100.to_d, client_id: "" },
+          { date: Date.new(2022, 10, 10), amount: 100.to_d, client_id: "" },
+          { date: Date.new(2022, 9, 26), amount: 100.to_d, client_id: "" },
+          { date: Date.new(2022, 9, 12), amount: 100.to_d, client_id: "" },
+          { date: Date.new(2022, 8, 29), amount: 100.to_d, client_id: "" },
+          { date: Date.new(2022, 8, 15), amount: 100.to_d, client_id: "" }] }]
       end
 
       let(:session_data) do
@@ -77,19 +70,18 @@ RSpec.describe Cfe::SubmitBenefitsService do
       end
 
       it "makes a successful call" do
-        service.call(CfeConnection.new, cfe_estimate_id, session_data)
-        expect(stub).to have_been_requested
+        expect(mock_connection).to receive(:create_state_benefits).with(cfe_assessment_id, translated)
+        service.call(mock_connection, cfe_assessment_id, session_data)
       end
     end
 
     context "when it is passed valid four-weekly data" do
       let(:translated) do
-        { "state_benefits" =>
-      [{ "name" => "Child benefit",
-         "payments" =>
-         [{ "date" => "2022-10-24", "amount" => "100.0", "client_id" => "" },
-          { "date" => "2022-09-26", "amount" => "100.0", "client_id" => "" },
-          { "date" => "2022-08-29", "amount" => "100.0", "client_id" => "" }] }] }
+        [{ name: "Child benefit",
+           payments:
+         [{ date: Date.new(2022, 10, 24), amount: 100.to_d, client_id: "" },
+          { date: Date.new(2022, 9, 26), amount: 100.to_d, client_id: "" },
+          { date: Date.new(2022, 8, 29), amount: 100.to_d, client_id: "" }] }]
       end
 
       let(:session_data) do
@@ -103,19 +95,18 @@ RSpec.describe Cfe::SubmitBenefitsService do
       end
 
       it "makes a successful call" do
-        service.call(CfeConnection.new, cfe_estimate_id, session_data)
-        expect(stub).to have_been_requested
+        expect(mock_connection).to receive(:create_state_benefits).with(cfe_assessment_id, translated)
+        service.call(mock_connection, cfe_assessment_id, session_data)
       end
     end
 
     context "when it is passed valid monthly data" do
       let(:translated) do
-        { "state_benefits" =>
-      [{ "name" => "Child benefit",
-         "payments" =>
-         [{ "date" => "2022-10-24", "amount" => "100.0", "client_id" => "" },
-          { "date" => "2022-09-24", "amount" => "100.0", "client_id" => "" },
-          { "date" => "2022-08-24", "amount" => "100.0", "client_id" => "" }] }] }
+        [{ name: "Child benefit",
+           payments:
+         [{ date: Date.new(2022, 10, 24), amount: 100.to_d, client_id: "" },
+          { date: Date.new(2022, 9, 24), amount: 100.to_d, client_id: "" },
+          { date: Date.new(2022, 8, 24), amount: 100.to_d, client_id: "" }] }]
       end
 
       let(:session_data) do
@@ -129,19 +120,18 @@ RSpec.describe Cfe::SubmitBenefitsService do
       end
 
       it "makes a successful call" do
-        service.call(CfeConnection.new, cfe_estimate_id, session_data)
-        expect(stub).to have_been_requested
+        expect(mock_connection).to receive(:create_state_benefits).with(cfe_assessment_id, translated)
+        service.call(mock_connection, cfe_assessment_id, session_data)
       end
     end
 
     context "when it is housing_benefit data" do
       let(:translated) do
-        { "state_benefits" =>
-      [{ "name" => "housing_benefit",
-         "payments" =>
-         [{ "date" => "2022-10-24", "amount" => "100.0", "client_id" => "" },
-          { "date" => "2022-09-24", "amount" => "100.0", "client_id" => "" },
-          { "date" => "2022-08-24", "amount" => "100.0", "client_id" => "" }] }] }
+        [{ name: "housing_benefit",
+           payments:
+         [{ date: Date.new(2022, 10, 24), amount: 100.to_d, client_id: "" },
+          { date: Date.new(2022, 9, 24), amount: 100.to_d, client_id: "" },
+          { date: Date.new(2022, 8, 24), amount: 100.to_d, client_id: "" }] }]
       end
 
       let(:session_data) do
@@ -153,8 +143,21 @@ RSpec.describe Cfe::SubmitBenefitsService do
       end
 
       it "makes a successful call" do
-        service.call(CfeConnection.new, cfe_estimate_id, session_data)
-        expect(stub).to have_been_requested
+        expect(mock_connection).to receive(:create_state_benefits).with(cfe_assessment_id, translated)
+        service.call(mock_connection, cfe_assessment_id, session_data)
+      end
+    end
+
+    context "when the client is passported" do
+      let(:session_data) do
+        {
+          "passporting" => true,
+        }
+      end
+
+      it "makes no call to CFE" do
+        expect(mock_connection).not_to receive(:create_state_benefits)
+        service.call(mock_connection, cfe_assessment_id, session_data)
       end
     end
   end
