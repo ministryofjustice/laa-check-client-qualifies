@@ -25,11 +25,7 @@ class CfeService
 
     def result(cfe_connection, cfe_assessment_id, session_data)
       cfe_connection.api_result(cfe_assessment_id).tap do |calculation_result|
-        calculation_result.level_of_help = if FeatureFlags.enabled?(:controlled)
-                                             session_data["level_of_help"]
-                                           else
-                                             "certificated"
-                                           end
+        calculation_result.level_of_help = session_data.fetch("level_of_help", "certificated")
       end
     end
   end
