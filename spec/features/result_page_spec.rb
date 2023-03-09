@@ -83,7 +83,7 @@ RSpec.describe "Results Page" do
           select_applicant_boolean(:employed, true)
           select_applicant_boolean(:partner, false)
           select_applicant_boolean(:passporting, false)
-        when :dependants
+        when :dependant_details
           select_boolean_value("dependant-details-form", :child_dependants, true)
           select_boolean_value("dependant-details-form", :adult_dependants, true)
           fill_in "dependant-details-form-adult-dependants-count-field", with: "2"
@@ -98,7 +98,7 @@ RSpec.describe "Results Page" do
           select_boolean_value("housing-form", :receives_housing_benefit, true)
           fill_in "housing-form-housing-benefit-value-field", with: 135
           select_radio_value("housing-form", "housing-benefit-frequency", "every_two_weeks")
-        when :income
+        when :other_income
           fill_in "other-income-form-friends-or-family-value-field", with: "100"
           select_radio_value("other-income-form", "friends-or-family-frequency", "monthly")
           fill_in "other-income-form-maintenance-value-field", with: "200"
@@ -215,7 +215,7 @@ RSpec.describe "Results Page" do
           fill_in "partner-employment-form-income-tax-field", with: 400
           fill_in "partner-employment-form-national-insurance-field", with: 50
           select_radio_value("partner-employment-form", "frequency", "monthly")
-        when :partner_income
+        when :partner_other_income
           fill_in "partner-other-income-form-friends-or-family-value-field", with: "10"
           select_radio_value("partner-other-income-form", "friends-or-family-frequency", "monthly")
           fill_in "partner-other-income-form-maintenance-value-field", with: "20"

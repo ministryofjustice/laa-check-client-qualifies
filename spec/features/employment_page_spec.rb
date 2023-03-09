@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Employment page" do
   let(:employment_page_header) { I18n.t("estimate_flow.employment.heading") }
-  let(:dependant_question) { I18n.t("estimate_flow.combined_dependant_details.legend") }
+  let(:dependant_question) { I18n.t("estimate_flow.dependant_details.legend") }
   let(:estimate_id) { SecureRandom.uuid }
   let(:mock_connection) { instance_double(CfeConnection, create_assessment_id: estimate_id) }
   let(:calculation_result) do
@@ -21,8 +21,11 @@ RSpec.describe "Employment page" do
 
   context "when I have indicated that I am not employed" do
     it "skips the employment page" do
-      visit_flow_page(passporting: false, target: :dependants)
-      skip_dependants_form
+      visit_first_page
+      select_applicant_boolean(:over_60, false)
+      select_applicant_boolean(:employed, false)
+      select_applicant_boolean(:passporting, false)
+      select_applicant_boolean(:partner, false)
       expect(page).not_to have_content(employment_page_header)
     end
 
@@ -46,11 +49,6 @@ RSpec.describe "Employment page" do
 
       it "shows the employment page" do
         expect(page).to have_content(employment_page_header)
-      end
-
-      it "has a back link to the applicant form with the dependant question page" do
-        click_link "Back"
-        expect(page).to have_content dependant_question
       end
 
       context "when I enter negative income by mistake" do

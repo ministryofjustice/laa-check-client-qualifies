@@ -39,92 +39,6 @@ RSpec.describe "Property Page" do
           click_on "Submit"
         end
       end
-
-      context "when partner owns main dwelling" do
-        context "with mortgage" do
-          let(:expected_share) { 40 }
-          let(:mortgage) { 50_000 }
-
-          context "without a value" do
-            before do
-              visit_flow_page(passporting: false, partner: true, target: :partner_property)
-
-              select_radio_value("partner-property-form", "property-owned", "with_mortgage")
-              click_on "Save and continue"
-              fill_in "partner-property-entry-form-house-value-field", with: 100_000
-              fill_in "partner-property-entry-form-percentage-owned-field", with: 40
-            end
-
-            it "errors" do
-              click_on "Save and continue"
-              within ".govuk-error-summary__list" do
-                expect(page).to have_content("Enter the outstanding mortgage on the home")
-              end
-            end
-          end
-
-          context "with a value" do
-            before do
-              visit_check_answers(passporting: false, partner: true) do |step|
-                case step
-                when :partner_property
-                  select_radio_value("partner-property-form", "property-owned", "with_mortgage")
-                  click_on "Save and continue"
-                  fill_in "partner-property-entry-form-house-value-field", with: 100_000
-                  fill_in "partner-property-entry-form-percentage-owned-field", with: 40
-                  fill_in "partner-property-entry-form-mortgage-field", with: mortgage
-                end
-              end
-            end
-
-            it "submits the partner asset as the main home" do
-              expect(mock_connection)
-                .to receive(:create_properties)
-                      .with(estimate_id,
-                            { main_home: expected_main_home })
-              click_on "Submit"
-            end
-
-            it "can do a check answers loop, changing mortgage to N/A" do
-              within "#subsection-partner_property-header" do
-                click_on "Change"
-              end
-              select_radio_value("partner-property-form", "property-owned", "outright")
-              click_on "Save and continue"
-              click_on "Save and continue"
-              within "#field-list-partner_property" do
-                expect(find("#outstanding-mortgage")).to have_content("Outstanding mortgageNot applicable")
-              end
-            end
-          end
-        end
-
-        context "without mortgage" do
-          before do
-            visit_check_answers(passporting: false, partner: true) do |step|
-              case step
-              when :partner_property
-                select_radio_value("partner-property-form", "property-owned", "outright")
-                click_on "Save and continue"
-                fill_in "partner-property-entry-form-house-value-field", with: 100_000
-                fill_in "partner-property-entry-form-percentage-owned-field", with: 40
-              end
-            end
-          end
-
-          let(:expected_share) { 40 }
-          let(:mortgage) { 0 }
-
-          it "submits the partner asset as the main home" do
-            expect(mock_connection)
-              .to receive(:create_properties)
-                    .with(estimate_id,
-                          { main_home: expected_main_home })
-
-            click_on "Submit"
-          end
-        end
-      end
     end
 
     context "when client owns main dwelling" do
@@ -322,16 +236,6 @@ RSpec.describe "Property Page" do
 
       it "shows controlled guidance" do
         expect(page).to have_link(href: I18n.t("generic.smod.guidance.controlled.link"))
-      end
-    end
-
-    context "with partner", :partner_flag do
-      before do
-        visit_flow_page(controlled: true, passporting: true, partner: true, target: :partner_property)
-      end
-
-      it "shows controlled guidance" do
-        expect(page).to have_link(href: I18n.t("generic.trapped_capital.controlled.link"))
       end
     end
   end

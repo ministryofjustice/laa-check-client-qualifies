@@ -4,12 +4,10 @@ VALID_INTEGER_VALUES = ["2", "2,000"].freeze
 INVALID_INTEGER_VALUES = ["two", "2 00", "2.37"].freeze
 
 RSpec.describe "Dependant details page" do
-  let(:dependant_details_header) { I18n.t("estimate_flow.combined_dependant_details.legend") }
+  let(:dependant_details_header) { I18n.t("estimate_flow.dependant_details.legend") }
 
   before do
-    visit_first_page
-    fill_in_applicant_screen_without_passporting_benefits
-    click_on "Save and continue"
+    visit_flow_page(passporting: false, target: :dependant_details)
   end
 
   VALID_INTEGER_VALUES.each do |value|

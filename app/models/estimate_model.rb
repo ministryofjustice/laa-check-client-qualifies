@@ -13,14 +13,13 @@ class EstimateModel
                          partner_employed].freeze
 
   # This is the set of attributes which affect the page flow
-  ATTRIBUTES = (ESTIMATE_BOOLEANS + %i[level_of_help proceeding_type property_owned partner_property_owned]).freeze
+  ATTRIBUTES = (ESTIMATE_BOOLEANS + %i[level_of_help proceeding_type property_owned]).freeze
 
   ESTIMATE_BOOLEANS.each do |attr|
     attribute attr, :boolean
   end
 
   attribute :property_owned, :string
-  attribute :partner_property_owned, :string
   attribute :proceeding_type, :string
 
   # TODO: This should not be defaulted after :controlled flag removed
@@ -28,10 +27,6 @@ class EstimateModel
 
   def owns_property?
     %i[with_mortgage outright].map(&:to_s).include? property_owned
-  end
-
-  def partner_owns_property?
-    %i[with_mortgage outright].map(&:to_s).include? partner_property_owned
   end
 
   def controlled?

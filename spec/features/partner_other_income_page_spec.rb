@@ -4,7 +4,7 @@ RSpec.describe "Partner other income page", :partner_flag do
   let(:partner_other_income_heading) { I18n.t("estimate_flow.partner_other_income.heading") }
 
   before do
-    visit_flow_page(passporting: false, partner: true, target: :partner_income)
+    visit_flow_page(passporting: false, partner: true, target: :partner_other_income)
   end
 
   it "shows the correct screen" do
