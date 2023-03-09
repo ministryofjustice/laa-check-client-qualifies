@@ -515,7 +515,7 @@ en:
       controlled_chambers:
         - the Health, Education and Social Care Chamber of the First-tier Tribunal under the Mental Health Act 1983 or paragraph 5(2) of the Schedule to the Repatriation of Prisoners Act 1984
         - the Mental Health Review Tribunal for Wales
-        - the Immigration and Asylum Chamber of the First tier Tribunal
+      asylum_and_immigration_chamber: the Immigration and Asylum Chamber of the First tier Tribunal
       certificated_header: Civil certificated or licensed legal work
       certificated_explanation: This includes full representation and family help (higher).
       select_a_level: Select a level of help
