@@ -54,7 +54,7 @@ cfe:
 
 featureFlags:
   sentry: ENABLED
-  controlled: ENABLED
+  controlled: NOT_ENABLED
   asylumAndImmigration: ENABLED
 
 postgresql:
