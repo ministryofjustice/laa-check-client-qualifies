@@ -20,6 +20,12 @@ RSpec.describe "status requests" do
       expect(response_json).to eq("healthy" => true)
     end
 
+    it "returns false if there is a problem reading from the database" do
+      allow(AnalyticsEvent).to receive(:count).and_raise(PG::UndefinedTable)
+      get("/health-including-dependents")
+      expect(response).not_to be_successful
+    end
+
     it "returns false if there is a problem writing to the cache" do
       allow(Rails.cache).to receive(:write).and_return(false)
       get("/health-including-dependents")
