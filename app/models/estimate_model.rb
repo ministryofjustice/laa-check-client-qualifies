@@ -10,6 +10,7 @@ class EstimateModel
                          vehicle_in_regular_use
                          partner
                          partner_vehicle_owned
+                         vehicle_pcp
                          housing_benefit
                          partner_housing_benefit].freeze
 
@@ -61,5 +62,9 @@ class EstimateModel
 
   def partner_employed?
     ApplicantForm::EMPLOYED_STATUSES.map(&:to_s).include? partner_employment_status
+  end
+
+  def use_legacy_proceeding_type?
+    !controlled? && !FeatureFlags.enabled?(:asylum_and_immigration)
   end
 end
