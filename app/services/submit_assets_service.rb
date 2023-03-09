@@ -21,15 +21,10 @@ class SubmitAssetsService < BaseCfeService
     if relevant_form?(:property_entry)
       property_form = PropertyForm.from_session(@session_data)
       property_entry_form = ClientPropertyEntryForm.from_session(@session_data)
-      percentage_owned = if property_entry_form.joint_ownership
-                           property_entry_form.percentage_owned + property_entry_form.joint_percentage_owned
-                         else
-                           property_entry_form.percentage_owned
-                         end
       main_home = {
         value: property_entry_form.house_value,
         outstanding_mortgage: (property_entry_form.mortgage if property_form.owned_with_mortgage?) || 0,
-        percentage_owned:,
+        percentage_owned: property_entry_form.percentage_owned,
       }
       main_home[:subject_matter_of_dispute] = true if property_entry_form.house_in_dispute
     end

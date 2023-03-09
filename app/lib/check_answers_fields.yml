@@ -151,10 +151,6 @@ sections:
             attribute: mortgage
           - type: number
             attribute: percentage_owned
-          - type: boolean
-            attribute: joint_ownership
-          - type: number
-            attribute: joint_percentage_owned
       - label: vehicles
         screen: vehicle
         model: VehicleSection

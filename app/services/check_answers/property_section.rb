@@ -9,10 +9,8 @@ module CheckAnswers
     attribute :mortgage, :decimal
     attribute :percentage_owned, :integer
     attribute :house_in_dispute, :boolean
-    attribute :joint_ownership, :boolean
-    attribute :joint_percentage_owned, :integer
 
-    FIELDS = %i[property_owned house_value mortgage percentage_owned house_in_dispute joint_ownership joint_percentage_owned].freeze
+    FIELDS = %i[property_owned house_value mortgage percentage_owned house_in_dispute].freeze
 
     class << self
       def from_session(session_data)
@@ -22,7 +20,7 @@ module CheckAnswers
 
     def display_fields
       if owns_property?
-        partner ? FIELDS : FIELDS - %i[joint_ownership joint_percentage_owned]
+        FIELDS
       else
         [:property_owned]
       end
