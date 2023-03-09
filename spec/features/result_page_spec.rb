@@ -185,9 +185,9 @@ RSpec.describe "Results Page" do
 
     it "shows the capital section" do
       within "#capital-calculation-content" do
-        expect(page).to have_content "Home client lives in Value\n£"
+        expect(page).to have_content "Home client lives in Home worth\n£"
         expect(page).to have_content "Outstanding mortgage\n-£70,000.00"
-        expect(page).to have_content "Disregards\nApplied to the home equity and capped at £100,000\n-£3,400.00"
+        expect(page).to have_content "Disregards\nApplied to the home equity and capped at £100,000\n-£100,000.00"
         expect(page).to have_content "Deductions\n3% of property value deducted for cost of sale\n-£3,000.00"
         expect(page).to have_content "Assessed value £"
         expect(page).to have_content "Client's vehicle Value £"

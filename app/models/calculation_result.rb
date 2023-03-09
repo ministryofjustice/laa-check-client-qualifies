@@ -107,8 +107,9 @@ class CalculationResult
     capital_items(:properties).dig(:main_home, :value)&.positive?
   end
 
-  def client_main_home_rows
-    main_home_rows(prefix: "")
+  def main_home_data
+    main_home = capital_items(:properties, "").fetch(:main_home)
+    property_data(main_home, property_type: :main)
   end
 
   def client_owns_additional_property?
@@ -119,12 +120,12 @@ class CalculationResult
     partner_capital_items(:properties)&.dig(:additional_properties).present?
   end
 
-  def client_additional_property_rows
-    additional_property_rows(prefix: "")
+  def client_additional_property_data
+    additional_property_data(prefix: "")
   end
 
-  def partner_additional_property_rows
-    additional_property_rows(prefix: "partner_")
+  def partner_additional_property_data
+    additional_property_data(prefix: "partner_")
   end
 
   def vehicle_owned?
@@ -175,15 +176,15 @@ class CalculationResult
     }
   end
 
-  def client_assessed_equity
+  def main_home_assessed_equity
     monetise(capital_items(:properties).dig(:main_home, :assessed_equity))
   end
 
-  def client_additional_equity
+  def client_additional_property_assessed_equity
     monetise(capital_items(:properties)[:additional_properties].first.fetch(:assessed_equity))
   end
 
-  def partner_additional_equity
+  def partner_additional_property_assessed_equity
     monetise(partner_capital_items(:properties)[:additional_properties].first.fetch(:assessed_equity))
   end
 
@@ -274,32 +275,46 @@ private
     capital_row_items(prefix:).transform_values { |value| monetise(value) }
   end
 
-  def main_home_rows(prefix:)
-    main_home = capital_items(:properties, prefix).fetch(:main_home)
-    disregard = main_home.fetch(:net_equity) - main_home.fetch(:assessed_equity)
-    data = {
-      value: monetise(main_home.fetch(:value)),
-      mortgage: monetise(-main_home.fetch(:outstanding_mortgage)),
-      disregards: monetise(-disregard),
-    }
-
-    transaction_allowance = main_home.fetch(:transaction_allowance)
-    data[:deductions] = monetise(-transaction_allowance) if transaction_allowance.positive?
-
-    data
+  def additional_property_data(prefix:)
+    additional_property = capital_items(:properties, prefix)[:additional_properties].first
+    property_data(additional_property, property_type: :additional)
   end
 
-  def additional_property_rows(prefix:)
-    home = capital_items(:properties, prefix)[:additional_properties].first
+  def property_data(property, property_type:)
     data = {
-      value: monetise(home.fetch(:value)),
-      mortgage: monetise(-home.fetch(:outstanding_mortgage)),
+      value: property.fetch(:value),
+      mortgage: -property.fetch(:outstanding_mortgage),
+      transaction_allowance: -property.fetch(:transaction_allowance),
+      smod_allowance: -property.fetch(:smod_allowance),
+      main_home_disregard: -property.fetch(:main_home_equity_disregard),
     }
 
-    transaction_allowance = home.fetch(:transaction_allowance)
-    data[:deductions] = monetise(-transaction_allowance) if transaction_allowance.positive?
+    data.each_key do |key|
+      data.delete(key) if data[key].zero?
+    end
 
-    data
+    monetised = data.transform_values { monetise(_1) }
+
+    if property_type == :additional && property.fetch(:percentage_owned) < 100 && !data[:smod_allowance]
+      {
+        type: :partially_owned_minimal,
+        rows: monetised,
+        percentage_owned: property.fetch(:percentage_owned),
+      }
+    elsif property.fetch(:percentage_owned) < 100
+      {
+        type: :partially_owned,
+        upper_rows: monetised.slice(:value, :mortgage, :transaction_allowance),
+        percentage_owned: property.fetch(:percentage_owned),
+        net_equity: monetise(property.fetch(:net_equity)),
+        lower_rows: monetised.slice(:smod_allowance, :main_home_disregard),
+      }
+    else
+      {
+        type: :fully_owned,
+        rows: monetised,
+      }
+    end
   end
 
   def vehicle_rows(prefix:)

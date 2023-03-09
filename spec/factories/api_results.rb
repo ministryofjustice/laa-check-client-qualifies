@@ -98,5 +98,8 @@ FactoryBot.define do
     net_equity { 110_000.0 }
     assessed_equity { 100_000.0 }
     transaction_allowance { 0 }
+    smod_allowance { 0 }
+    main_home_equity_disregard { 0 }
+    percentage_owned { 100.0 }
   end
 end

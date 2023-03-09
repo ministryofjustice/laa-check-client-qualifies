@@ -1506,23 +1506,31 @@ en:
       print_page: Print this page
       save_as_pdf: Save this page as a PDF
       total_capital: Total capital
-      property: Home client lives in
-      main_home:
+      client_main_home: Home client lives in
+      property_rows:
         value:
-          text: Value
+          text: Home worth
+          alt_text: Value
           hint: ""
         mortgage:
           text: Outstanding mortgage
           hint: ""
-        disregards:
-          text: Disregards
-          hint: Applied to the home equity and capped at £100,000
-        deductions:
+        transaction_allowance:
           text: Deductions
           hint: 3% of property value deducted for cost of sale
+        net_equity:
+          text: "%{percentage}% share of home equity"
+        main_home_disregard:
+          text: Disregards
+          alt_text: Other disregards
+          hint: Applied to the home equity and capped at £100,000
+        smod_allowance:
+          text: Disputed asset disregard
+          hint: ""
         equity:
           text: Assessed value
-          hint: Calculated using the client’s percentage share provided
+          partial_partner_hint: Partner’s %{percentage}% share of home equity
+          partial_client_hint: Client’s %{percentage}% share of home equity
       assessed_value: Amount included in calculation
       client_disposable_capital: Client's disposable capital
       partner_disposable_capital: Partner's disposable capital
@@ -1536,20 +1544,6 @@ en:
       total_assessed_capital: Total assessed disposable capital
       client_additional_property: Client's additional property
       partner_additional_property: Partner's additional property
-      additional_property:
-        value:
-          text: Value
-          hint: ""
-        mortgage:
-          text: Outstanding mortgage
-          hint: ""
-        deductions:
-          text: Deductions
-          hint: 3% of property value deducted for cost of sale
-        equity:
-          text: Assessed value
-      partner_additional_property_hint: Calculated using the partner’s percentage share provided
-      client_additional_property_hint: Calculated using the client’s percentage share provided
       capital_upper_threshold: Disposable capital upper limit
       total: Total
       capped_contributions: "Capital contributions will be limited to the likely costs of the case when the capital contribution figure stated exceeds that amount."

@@ -14,15 +14,6 @@ RSpec.describe CalculationResult do
     expect(described_class.new(data).client_owns_main_home?).to eq false
   end
 
-  it "works out disregard from net equity minus assessed equity" do
-    data = FactoryBot.build(
-      :api_result,
-      main_home: FactoryBot.build(:property_api_result, net_equity: 20, assessed_equity: 10),
-    )
-
-    expect(described_class.new(data).client_main_home_rows[:disregards]).to eq "-£10.00"
-  end
-
   describe "#client_main_home_rows" do
     it "does not show cost of sale deduction row in situations where cost of sale deduction is zero" do
       data = FactoryBot.build(
@@ -30,7 +21,7 @@ RSpec.describe CalculationResult do
         main_home: FactoryBot.build(:property_api_result, transaction_allowance: 0),
       )
 
-      expect(described_class.new(data).client_main_home_rows.keys).not_to include(:deductions)
+      expect(described_class.new(data).main_home_data[:rows].keys).not_to include(:transaction_allowance)
     end
 
     it "does shows cost of sale deduction row in situations where cost of sale deduction is not zero" do
@@ -39,7 +30,7 @@ RSpec.describe CalculationResult do
         main_home: FactoryBot.build(:property_api_result, transaction_allowance: 1),
       )
 
-      expect(described_class.new(data).client_main_home_rows.keys).to include(:deductions)
+      expect(described_class.new(data).main_home_data[:rows].keys).to include(:transaction_allowance)
     end
   end
 
@@ -50,7 +41,7 @@ RSpec.describe CalculationResult do
         additional_property: FactoryBot.build(:property_api_result, transaction_allowance: 0),
       )
 
-      expect(described_class.new(data).client_additional_property_rows.keys).not_to include(:deductions)
+      expect(described_class.new(data).client_additional_property_data[:rows].keys).not_to include(:transaction_allowance)
     end
 
     it "does shows cost of sale deduction row in situations where cost of sale deduction is not zero" do
@@ -59,7 +50,7 @@ RSpec.describe CalculationResult do
         additional_property: FactoryBot.build(:property_api_result, transaction_allowance: 1),
       )
 
-      expect(described_class.new(data).client_additional_property_rows.keys).to include(:deductions)
+      expect(described_class.new(data).client_additional_property_data[:rows].keys).to include(:transaction_allowance)
     end
   end
 end
