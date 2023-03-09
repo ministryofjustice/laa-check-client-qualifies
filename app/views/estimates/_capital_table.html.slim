@@ -16,6 +16,20 @@
           rows: @model.client_main_home_rows,
           assessed_value: @model.client_assessed_equity
 
+- if @model.vehicle_owned?
+  = render "vehicle_table",
+          caption_size:,
+          caption: t("estimates.show.vehicles"),
+          rows: @model.client_vehicle_rows,
+          assessed_value: @model.client_vehicle_assessed_value
+
+- if @model.additional_vehicle_owned?
+  = render "vehicle_table",
+          caption_size:,
+          caption: t("estimates.show.additional_vehicles"),
+          rows: @model.additional_vehicle_rows,
+          assessed_value: @model.additional_vehicle_assessed_value
+
 - if @model.client_owns_additional_property?
   = render "property_table",
           caption_size:,
@@ -25,13 +39,6 @@
           rows: @model.client_additional_property_rows,
           assessed_value: @model.client_additional_equity
 
-- if @model.vehicle_owned?
-  = render "vehicle_table",
-          caption_size:,
-          caption: t("estimates.show.vehicles"),
-          rows: @model.client_vehicle_rows,
-          assessed_value: @model.client_vehicle_assessed_value
-
 - if @model.partner_owns_additional_property?
   = render "property_table",
           caption_size:,
@@ -40,13 +47,6 @@
           type: "additional_property",
           rows: @model.partner_additional_property_rows,
           assessed_value: @model.partner_additional_equity
-
-- if @model.partner_vehicle_owned?
-  = render "vehicle_table",
-          caption_size:,
-          caption: t("estimates.show.partner_vehicles"),
-          rows: @model.partner_vehicle_rows,
-          assessed_value: @model.partner_vehicle_assessed_value
 
 = render "disposable_capital_table",
         caption_size:,

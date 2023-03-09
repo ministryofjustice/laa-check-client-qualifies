@@ -1306,6 +1306,10 @@ en:
       outgoings_calculation: Outgoings calculation
       client_outgoings: Client's monthly outgoings
       partner_outgoings: Partner's monthly outgoings
+      household_outgoings: Household monthly outgoings
+      household_outgoing_hints:
+        housing_costs: Net housing payments minus any Housing Benefit payments the household gets
+        dependants_allowance: A fixed allowance deducted for each dependant in the household
       client_outgoing_types:
         housing_costs: Housing payments
         childcare_payments: Childcare payments
@@ -1317,14 +1321,12 @@ en:
         dependants_allowance: Dependants allowance
         partner_allowance: Partner allowance
       client_outgoing_hints:
-        housing_costs: Net housing costs minus any Housing Benefit payments your client receives and capped at £545 if your client is single and does not have any dependants
         childcare_payments: This figure will show as £0.00 unless your client and their partner (if applicable) are employed or receiving student finance
         maintenance_out: ""
         legal_aid: ""
         national_insurance: ""
         employment_expenses: A fixed allowance if your client is employed
         income_tax: ""
-        dependants_allowance: A fixed allowance deducted for each dependant your client has
         partner_allowance: A fixed allowance if your client has a partner
       partner_outgoing_hints:
         housing_costs: Net housing costs minus any Housing Benefit payments the partner receives
@@ -1418,7 +1420,8 @@ en:
       assessed_value: Amount included in calculation
       client_disposable_capital: Client's disposable capital
       partner_disposable_capital: Partner's disposable capital
-      vehicles: Client's vehicle
+      vehicles: Vehicle
+      additional_vehicles: Additional vehicle
       vehicle:
         value: Value
         outstanding_payments: Outstanding payments

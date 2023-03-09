@@ -164,8 +164,6 @@ RSpec.describe "Results Page" do
 
     it "shows the outgoings section" do
       within "#outgoings-calculation-content" do
-        expect(page).to have_content "Housing payments\nNet housing costs minus" # Full hint text omitted for brevity
-        expect(page).to have_content "and does not have any dependants\n£0.00"
         expect(page).to have_content "Childcare payments\nThis figure will" # Full hint text omitted for brevity
         expect(page).to have_content " or receiving student finance\n£433.33"
         expect(page).to have_content "Maintenance payments to a former partner\n£0.00"
@@ -173,7 +171,7 @@ RSpec.describe "Results Page" do
         expect(page).to have_content "Income tax\n£400.00"
         expect(page).to have_content "National Insurance\n£50.00"
         expect(page).to have_content "Employment expenses\nA fixed allowance if your client is employed\n£45.00"
-        expect(page).to have_content "Dependants allowance\nA fixed allowance deducted for each dependant your client has\n£922.92"
+        expect(page).to have_content "Dependants allowance\nA fixed allowance deducted for each dependant in the household\n£922.92"
 
         expect(page).to have_content "Total monthly outgoings £2,151.25"
         expect(page).to have_content "Assessed disposable monthly income\nTotal monthly income minus total monthly outgoings\n-£350.25"
@@ -188,7 +186,7 @@ RSpec.describe "Results Page" do
         expect(page).to have_content "Disregards\nApplied to the home equity and capped at £100,000\n-£3,400.00"
         expect(page).to have_content "Deductions\n3% of property value deducted for cost of sale\n-£3,000.00"
         expect(page).to have_content "Assessed value £"
-        expect(page).to have_content "Client's vehicle Value £"
+        expect(page).to have_content "Vehicle Value £"
         expect(page).to have_content "Outstanding payments -£500.00"
         expect(page).to have_content "Assessed value £"
         expect(page).to have_content "Client's additional property Value\n£80,000.00"
@@ -253,7 +251,7 @@ RSpec.describe "Results Page" do
 
     it "shows the outgoings section" do
       within "#outgoings-calculation-content" do
-        expect(page).to have_content "Partner's monthly outgoings\nAll figures have been converted into a monthly amount.\nHousing payments"
+        expect(page).to have_content "Partner's monthly outgoings\nAll figures have been converted into a monthly amount."
       end
     end
 

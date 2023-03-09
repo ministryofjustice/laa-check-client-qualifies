@@ -62,4 +62,38 @@ RSpec.describe CalculationResult do
       expect(described_class.new(data).client_additional_property_rows.keys).to include(:deductions)
     end
   end
+
+  describe "#additional_vehicle_rows" do
+    it "can cope with multiple vehicles" do
+      data = FactoryBot.build(
+        :api_result,
+        vehicles: FactoryBot.build_list(:vehicle_api_result, 2,
+                                        value: 5_000,
+                                        loan_amount_outstanding: 0,
+                                        disregards_and_deductions: 1_000,
+                                        assessed_value: 4_000),
+      )
+
+      expect(described_class.new(data).additional_vehicle_rows).to eq({
+        disregards: "-£1,000.00",
+        outstanding_payments: "£0.00",
+        value: "£5,000.00",
+      })
+      expect(described_class.new(data).additional_vehicle_assessed_value).to eq "£4,000.00"
+    end
+  end
+
+  describe "#household_outgoing_rows" do
+    it "retrieves the right data" do
+      data = {
+        result_summary: {
+          disposable_income: {
+            net_housing_costs: 500.0,
+          },
+        },
+      }
+
+      expect(described_class.new(data).household_outgoing_rows[:housing_costs]).to eq "£500.00"
+    end
+  end
 end
