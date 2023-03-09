@@ -6,19 +6,25 @@
 .govuk-grid-column-two-thirds
   = form_for(@form, url: wizard_path, method: :put) do |form|
     = form.govuk_error_summary t("generic.error_summary_title")
-    = form.govuk_radio_buttons_fieldset :proceeding_type,
-                                        legend: { text: t(".title"), size: "xl", tag: "h1" }
+    = render "shared/heading", header_text: t(".title")
+
+    h2.govuk-heading-s = t(".immigration_and_asylum_header")
+    p.govuk-body = t(".immigration_and_asylum_paragraph")
+
+    TODO add asylum, immigration and domestic abuse content here
+
+    = form.govuk_radio_buttons_fieldset :proceeding_type, legend: { text: t(".select_a_matter_type") }
       = form.govuk_radio_button :proceeding_type, MatterTypeForm::PROCEEDING_TYPES[:immigration],
-              label: { text: t(".immigration") }
+              label: { text: t(".immigration_#{@estimate.level_of_help}") }
       = form.govuk_radio_button :proceeding_type, MatterTypeForm::PROCEEDING_TYPES[:asylum],
-              label: { text: t(".asylum") }
+              label: { text: t(".asylum_#{@estimate.level_of_help}") }
       - if @estimate.level_of_help != "controlled"
         = form.govuk_radio_button :proceeding_type, MatterTypeForm::PROCEEDING_TYPES[:domestic_abuse],
                 label: { text: t(".domestic_abuse") }, hint: { text: t(".domestic_abuse_hint") }
       = form.govuk_radio_divider
 
       = form.govuk_radio_button :proceeding_type, MatterTypeForm::PROCEEDING_TYPES[:other],
-              label: { text: t(".other") }
+              label: { text: t(".other_#{@estimate.level_of_help}") }
 
     = form.govuk_submit t("generic.save_and_continue")
 
