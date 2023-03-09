@@ -41,7 +41,7 @@ RSpec.describe "Results Page" do
       end
 
       it "zeroes out the negative assessed capital figure" do
-        expect(page).to have_content "Disposable capital £0.00"
+        expect(page).to have_content "Total assessed disposable capital £0.00"
       end
 
       it "lets me download the result as a PDF" do

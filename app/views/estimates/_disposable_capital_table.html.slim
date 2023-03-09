@@ -1,3 +1,4 @@
+- subtotal_rows ||= []
 = govuk_table do |table|
   - table.caption(size: caption_size, text: caption)
   - table.body do |body|
@@ -12,6 +13,7 @@
       - body.row(classes: (%w[solid-top-border] if index.zero?)) do |row|
         - row.cell(header: true, text:)
         - row.cell(text: type_and_amount[1], numeric: true)
-    - body.row(classes: %w[solid-top-border]) do |row|
-      - row.cell(header: true, text: t("estimates.show.client_assessed_capital"))
-      - row.cell(header: true, text: assessed_capital, numeric: true)
+    - if assessed_capital
+      - body.row(classes: %w[solid-top-border]) do |row|
+        - row.cell(header: true, text: t("estimates.show.client_assessed_capital"))
+        - row.cell(header: true, text: assessed_capital, numeric: true)
