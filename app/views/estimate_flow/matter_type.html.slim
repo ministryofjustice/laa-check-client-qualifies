@@ -8,20 +8,33 @@
     = form.govuk_error_summary t("generic.error_summary_title")
     = render "shared/heading", header_text: t(".title")
 
+    h2.govuk-heading-s = t(".immigration_and_asylum_header")
     - if @estimate.level_of_help == "certificated"
-      h2.govuk-heading-s = t(".immigration_and_asylum_header")
       p.govuk-body = t(".immigration_and_asylum_certificated_paragraph")
 
-      = govuk_details(summary_text: t(".immigration_header"))
+      = govuk_details(summary_text: t(".immigration_header_certificated"))
         p.govuk-body = t(".immigration_certificated_paragraph_one")
         p.govuk-body == t(".immigration_certificated_paragraph_two_html")
 
-      = govuk_details(summary_text: t(".asylum_header"))
+      = govuk_details(summary_text: t(".asylum_header_certificated"))
         p.govuk-body = t(".asylum_certificated_paragraph_one")
         p.govuk-body == t(".asylum_certificated_paragraph_two_html")
 
       h2.govuk-heading-s = t(".domestic_abuse_header")
       p.govuk-body = t(".domestic_abuse_paragraph")
+    - else
+      p.govuk-body = t(".immigration_and_asylum_controlled_paragraph")
+
+      = govuk_details(summary_text: t(".immigration_header_controlled"))
+        p.govuk-body = t(".immigration_controlled_paragraph_one")
+        p.govuk-body == t(".immigration_controlled_paragraph_two_html")
+
+      = govuk_details(summary_text: t(".asylum_header_controlled"))
+        p.govuk-body = t(".asylum_controlled_paragraph_one")
+        ul.govuk-list.govuk-list--bullet
+          - t(".asylum_controlled_bullets").each do |bullet|
+            li = bullet
+        p.govuk-body == t(".asylum_controlled_paragraph_two_html")
 
     = form.govuk_radio_buttons_fieldset :proceeding_type, legend: { text: t(".select_a_matter_type") }
       = form.govuk_radio_button :proceeding_type, MatterTypeForm::PROCEEDING_TYPES[:immigration],
@@ -34,7 +47,7 @@
       = form.govuk_radio_divider
 
       = form.govuk_radio_button :proceeding_type, MatterTypeForm::PROCEEDING_TYPES[:other],
-              label: { text: t(".other_#{@estimate.level_of_help}") }
+              label: { text: t(".other") }
 
     = form.govuk_submit t("generic.save_and_continue")
 
