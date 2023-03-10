@@ -76,15 +76,6 @@ sections:
             type: money
           - attribute: national_insurance
             type: money
-      - label: other_income
-        screen: housing_benefit
-        fields:
-          - attribute: housing_benefit
-            type: boolean
-          - attribute: housing_benefit_value
-            type: money_with_frequency
-            alt_attribute: housing_benefit_frequency
-            skip_unless: housing_benefit
       - label: benefits
         screen: benefits
       - label: other_income
@@ -129,15 +120,6 @@ sections:
             type: money
           - attribute: national_insurance
             type: money
-      - label: partner_housing_benefit
-        screen: partner_housing_benefit
-        fields:
-          - attribute: partner_housing_benefit
-            type: boolean
-          - attribute: partner_housing_benefit_value
-            type: money_with_frequency
-            alt_attribute: partner_housing_benefit_frequency
-            skip_unless: partner_housing_benefit
       - label: partner_benefits
         screen: partner_benefits
       - label: partner_other_income
@@ -179,9 +161,6 @@ sections:
       - label: client_outgoings
         screen: outgoings
         fields:
-          - attribute: housing_payments_value
-            type: money_with_frequency
-            alt_attribute: housing_payments_frequency
           - attribute: childcare_payments_value
             type: money_with_frequency
             alt_attribute: childcare_payments_frequency
@@ -194,9 +173,6 @@ sections:
       - label: partner_outgoings
         screen: partner_outgoings
         fields:
-          - attribute: partner_housing_payments_value
-            type: money_with_frequency
-            alt_attribute: partner_housing_payments_frequency
           - attribute: partner_childcare_payments_value
             type: money_with_frequency
             alt_attribute: partner_childcare_payments_frequency
@@ -206,7 +182,18 @@ sections:
           - attribute: partner_legal_aid_payments_value
             type: money_with_frequency
             alt_attribute: partner_legal_aid_payments_frequency
-  #   new housing benefit page needs to go here
+  - label: housing
+    screen: housing
+    subsections:
+      - fields:
+          - attribute: housing_payments_value
+            type: money_with_frequency
+            alt_attribute: housing_payments_frequency
+          - attribute: receives_housing_benefit
+            type: boolean
+          - attribute: housing_benefit_value
+            type: money_with_frequency
+            alt_attribute: housing_benefit_frequency
   - label: assets
     subsections:
       - label: property

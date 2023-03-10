@@ -1086,7 +1086,8 @@ en:
           not_provided: Not provided
       benefits: Client's benefits
       benefits_fields:
-        receives_benefits: Gets other benefits
+        receives_benefits: Gets benefits
+      housing: Housing Costs
       housing_benefit: Housing Benefit
       housing_benefit_fields:
         housing_benefit_value: Housing Benefit
@@ -1099,6 +1100,7 @@ en:
         pension_value: Pension
         student_finance_value: Student finance
         other_value: Other sources
+      housing_costs: this is housong cost section
       outgoings: Outgoings
       client_outgoings: Client's outgoings
       client_outgoings_fields:
@@ -1107,7 +1109,7 @@ en:
         maintenance_payments_value: Maintenance payments
         legal_aid_payments_value: Legal aid payments
       assets: Assets
-      vehicles: Client's vehicle
+      vehicles: Vehicles
       vehicles_fields:
         vehicle_owned: Client or partner owns a vehicle
         vehicle_value: Estimated value
@@ -1117,7 +1119,7 @@ en:
         vehicle_finance: Payments left
       property: Home client lives in
       property_fields:
-        property_owned: Owns the home they live in
+        property_owned: Owned by client or partner
         property_owned_options:
           outright: "Yes"
           with_mortgage: "Yes"
