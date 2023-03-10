@@ -550,11 +550,11 @@ en:
           - in a civil partnership with
           - living with as if they are married or in a civil partnership
         partner_additional:
-          hint_text: "A partner cannot be:"
+          hint_text: "Do not include anyone who:"
           hint_list:
-            - separated from the client in a way that is likely to be permanent
-            - the opponent in the case
-            - have a contrary interest in the case
+            - is separated from the client in a way that is likely to be permanent
+            - is an opponent in the case
+            - has a contrary interest in the case - this means they want a different outcome to your client
         hint: This is a spouse, someone with whom they are in a civil relationship, a cohabiter or someone they share their finances with. They cannot be the opponent in any legal proceedings.
       legacy_proceeding_type:
         legend: Is your client likely to be the applicant in a domestic abuse matter?
