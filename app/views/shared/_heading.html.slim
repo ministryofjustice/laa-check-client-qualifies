@@ -1,12 +1,8 @@
 ruby:
-  pre_header_text ||= nil
   header_text ||= nil
   post_header_text ||= nil
   post_header_texts ||= [post_header_text].compact
   end_block = yield
-
-- if pre_header_text
-  span.govuk-caption-l = pre_header_text
 
 - if header_text
   h1.govuk-heading-xl class=("govuk-!-margin-bottom-3" if post_header_texts.any?) = header_text

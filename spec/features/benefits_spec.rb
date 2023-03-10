@@ -2,6 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Benefits" do
   let(:estimate_id) { SecureRandom.uuid }
+  let(:other_income_header) { I18n.t("estimate_flow.other_income.heading") }
 
   before do
     visit estimate_build_estimate_path(estimate_id, :benefits)
@@ -19,7 +20,7 @@ RSpec.describe "Benefits" do
   it "allows me to skip past the screen" do
     select_boolean_value("benefits-form", :add_benefit, false)
     click_on("Save and continue")
-    expect(page).to have_content("Other income")
+    expect(page).to have_content(other_income_header)
   end
 
   it "allows me to enter a benefit" do

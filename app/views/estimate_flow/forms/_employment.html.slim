@@ -2,7 +2,6 @@
   = form.govuk_error_summary t("generic.error_summary_title")
 
   = render "shared/heading",
-            pre_header_text: t("estimate_flow.#{i18n_key}.caption"),
             header_text: t("estimate_flow.#{i18n_key}.heading"),
             post_header_text: t("estimate_flow.#{i18n_key}.second_caption")
   = form.govuk_collection_radio_buttons :frequency,

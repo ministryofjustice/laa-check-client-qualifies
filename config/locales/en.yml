@@ -541,7 +541,6 @@ en:
       heading: Tell us about your client
       caption: About your client
       partner:
-        rb_hint: You will be asked questions about the partner after you have answered questions about your client
         caption: About your client
         legend: Does your client have a partner?
         hint_text: "A partner is someone your client is:"
@@ -697,7 +696,8 @@ en:
         blank: "--"
     benefits:
       caption: Your client's finances
-      legend: Does your client get any other benefits?
+      legend: Does your client get any benefits?
+      legend_with_benefits: Does your client get any other benefits?
       frequencies:
         every_week: Every week
         every_two_weeks: Every 2 weeks
@@ -710,7 +710,8 @@ en:
       add_more_hint: Add details of any benefits your client gets, for example, Child Benefit, tax credits or Asylum Support payments. After you’ve added one you can add more. Do not include Housing Benefit, State Pension, government Cost of Living Payments, or any other disregarded benefits.
     partner_benefits:
       caption: The partner's finances
-      legend: Does the partner get any other benefits?
+      legend: Does the partner get any benefits?
+      legend_with_benefits: Does the partner get any other benefits?
       added_heading: You have added %{count} %{benefit}
       benefit: benefit
       edit: Change
@@ -718,7 +719,7 @@ en:
       add_more_hint: Add details of any benefits the partner gets, for example, Child Benefit, tax credits or Asylum Support payments. After you’ve added one you can add more. Do not include Housing Benefit, State Pension, government Cost of Living Payments, or any other disregarded benefits.
     other_income:
       caption: Your client's finances
-      heading: Other income
+      heading: Your client's other income
       second_caption: Enter 0 for any that do not apply
       friends_or_family:
         label: Financial help from friends or family
@@ -755,7 +756,7 @@ en:
         total: Total in last 3 months
     partner_other_income:
       caption: The partner's finances
-      heading: Other income
+      heading: The partner's other income
       second_caption: Do not add any income you've listed as other income for the client. Enter 0 for any that do not apply.
       friends_or_family:
         label: Financial help from friends or family
@@ -785,7 +786,7 @@ en:
         controlled_instruction: Enter amount received in the last month
       enter_frequency: Select frequency
     outgoings:
-      heading: Outgoings and deductions
+      heading: Your client's outgoings and deductions
       caption: Your client's finances
       second_caption: Enter 0 for any that do not apply
       childcare_payments:
@@ -818,7 +819,7 @@ en:
           text: Guidance on determining disposable income
           link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=15
     partner_outgoings:
-      heading: "Outgoings and deductions"
+      heading: The partner's outgoings and deductions
       caption: The partner's finances
       second_caption: Do not add any outgoings you've listed as outgoings for the client. Enter 0 for any that do not apply.
       childcare_payments:
