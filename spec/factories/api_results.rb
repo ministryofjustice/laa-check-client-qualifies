@@ -10,11 +10,6 @@ FactoryBot.define do
         },
         gross_income: {
           proceeding_types: [
-            { "ccms_code": "DA001",
-              "client_involvement_type": "A",
-              "upper_threshold": 999_999_999_999.0,
-              "lower_threshold": 0.0,
-              "result": "eligible" },
             { "ccms_code": "SE013",
               "client_involvement_type": "I",
               "upper_threshold": 2657.0,
@@ -24,11 +19,6 @@ FactoryBot.define do
         },
         disposable_income: {
           proceeding_types: [
-            { "ccms_code": "DA001",
-              "client_involvement_type": "A",
-              "upper_threshold": 999_999_999_999.0,
-              "lower_threshold": 0.0,
-              "result": "eligible" },
             { "ccms_code": "SE013",
               "client_involvement_type": "I",
               "upper_threshold": 2657.0,
@@ -37,20 +27,16 @@ FactoryBot.define do
           ],
         },
         capital: {
-          pensioner_capital_disregard: 0,
-          subject_matter_of_dispute_disregard: 0,
           proceeding_types: [
-            { "ccms_code": "DA001",
-              "client_involvement_type": "A",
-              "upper_threshold": 999_999_999_999.0,
-              "lower_threshold": 0.0,
-              "result": "eligible" },
             { "ccms_code": "SE013",
               "client_involvement_type": "I",
               "upper_threshold": 2657.0,
               "lower_threshold": 0.0,
               "result": "eligible" },
           ],
+          total_capital: 0,
+          pensioner_capital_disregard: 0,
+          subject_matter_of_dispute_disregard: 0,
         },
       }
     end
@@ -70,9 +56,11 @@ FactoryBot.define do
     end
 
     transient do
-      eligible { false }
+      eligible { "ineligible" }
       main_home { nil }
       additional_property { nil }
+      over_60 { false }
+      partner { false }
     end
 
     after(:build) do |api_result, evaluator|
@@ -84,8 +72,27 @@ FactoryBot.define do
         api_result.dig(:assessment, :capital, :capital_items, :properties)[:additional_properties] = [evaluator.additional_property]
       end
 
-      if evaluator.eligible
-        api_result.fetch(:result_summary).merge! overall_result: { result: "eligible" }
+      api_result.fetch(:result_summary)[:overall_result] = { result: evaluator.eligible }
+
+      if evaluator.over_60
+        api_result.dig(:result_summary, :capital)[:pensioner_capital_disregard] = 100_000
+      end
+
+      if evaluator.partner
+        api_result.fetch(:result_summary).merge!(
+          {
+            partner_capital: api_result.dig(:result_summary, :capital),
+            partner_gross_income: api_result.dig(:result_summary, :gross_income),
+            partner_disposable_income: api_result.dig(:result_summary, :disposable_income),
+          },
+        )
+        api_result.fetch(:assessment).merge!(
+          {
+            partner_capital: api_result.dig(:assessment, :capital),
+            partner_gross_income: api_result.dig(:assessment, :gross_income),
+            partner_disposable_income: api_result.dig(:assessment, :disposable_income),
+          },
+        )
       end
     end
   end

@@ -5,8 +5,6 @@ class HousingBenefitDetailsForm
 
   ATTRIBUTES = %i[housing_benefit_value housing_benefit_frequency].freeze
 
-  attr_accessor :property_owned
-
   attribute :housing_benefit_value, :gbp
   validates :housing_benefit_value, numericality: { greater_than: 0, allow_nil: true }, presence: true
 

@@ -13,6 +13,7 @@
 # it.
 
 require "simplecov"
+require "rack_session_access/capybara"
 
 SimpleCov.start "rails" do
   # no database (yet) so this file is never loaded

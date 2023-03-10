@@ -133,5 +133,29 @@ RSpec.describe SubmitBenefitsService do
         expect(stub).to have_been_requested
       end
     end
+
+    context "when it is housing_benefit data" do
+      let(:translated) do
+        { "state_benefits" =>
+      [{ "name" => "housing_benefit",
+         "payments" =>
+         [{ "date" => "2022-10-24", "amount" => "100.0", "client_id" => "" },
+          { "date" => "2022-09-24", "amount" => "100.0", "client_id" => "" },
+          { "date" => "2022-08-24", "amount" => "100.0", "client_id" => "" }] }] }
+      end
+
+      let(:session_data) do
+        {
+          "housing_benefit" => true,
+          "housing_benefit_value" => "100",
+          "housing_benefit_frequency" => "monthly",
+        }
+      end
+
+      it "makes a successful call" do
+        service.call(CfeConnection.new, cfe_estimate_id, session_data)
+        expect(stub).to have_been_requested
+      end
+    end
   end
 end

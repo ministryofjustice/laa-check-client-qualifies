@@ -85,10 +85,10 @@ the correct information is stored in the session. If the structure or copy of a 
 Since feature specs don't normally provide session access, we use the [rack_session_access](https://github.com/railsware/rack_session_access) gem.
 
 #### CfeService tests
-CfeService test files are held in `spec/lib/services`, and there is one for each of the various SubmitXService classes. These tests comprehensively describe the behaviour of these classes, by providing session data as input and setting expectations on what methods get called on `CfeConnection` and what arguments are passed to it.
+CfeService test files are held in `spec/services`, and there is one for each of the various SubmitXService classes. These tests comprehensively describe the behaviour of these classes, by providing session data as input and setting expectations on what methods get called on `CfeConnection` and what arguments are passed to it.
 
 #### CfeConnection tests
-CfeConnection is tested in `spec/lib/services/cfe_connection_spec.rb`.  It validates that for each method on CfeConnection, whatever gets passed in gets turned into an appropriate HTTP request. We set expectations with `stub_request` calls.
+CfeConnection is tested in `spec/services/cfe_connection_spec.rb`.  It validates that for each method on CfeConnection, whatever gets passed in gets turned into an appropriate HTTP request. We set expectations with `stub_request` calls.
 
 #### Result screen tests
 Result screen tests are held in `spec/views/estimates/` mock a response payload from CFE and set expectations for what appears on the results screen accordingly. They comprehensively test what content gets displayed based on the eligibility outcome.

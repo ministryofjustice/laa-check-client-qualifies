@@ -3,7 +3,7 @@ module AsylumSupportHelper
     if level_of_help == "controlled"
       {
         t("estimate_flow.asylum_support.guidance.text") => t("estimate_flow.asylum_support.guidance.controlled_link"),
-        t("estimate_flow.tribunal.guidance_text") => t("estimate_flow.tribunal.guidance_link"),
+        t("estimate_flow.asylum_support.tribunal_guidance_text") => t("estimate_flow.asylum_support.tribunal_guidance_link"),
       }
     else
       {

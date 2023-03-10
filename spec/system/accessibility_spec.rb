@@ -68,6 +68,14 @@ RSpec.describe "Accessibility" do
     end
   end
 
+  describe "Error page" do
+    before { visit "/500" }
+
+    it "has no AXE-detectable accessibility issues" do
+      expect(page).to be_axe_clean
+    end
+  end
+
   describe "Estimate steps" do
     let(:estimate_id) { SecureRandom.uuid }
 
@@ -101,7 +109,8 @@ RSpec.describe "Accessibility" do
       allow(mock_connection).to receive(:create_assessment_id)
       allow(mock_connection).to receive(:create_proceeding_type)
       allow(mock_connection).to receive(:create_regular_payments)
-      visit_check_answers(passporting: true)
+      start_assessment
+      fill_in_forms_until(:check_answers)
       click_on "Submit"
     end
 

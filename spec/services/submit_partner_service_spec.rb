@@ -14,7 +14,7 @@ RSpec.describe SubmitPartnerService, :partner_flag do
           "partner_employment_status" => "in_work",
           "partner_over_60" => true,
           "partner_student_finance_value" => 1_000,
-          "partner_other_income_value" => 500,
+          "partner_other_value" => 0,
           "partner_frequency" => "week",
           "partner_gross_income" => 500,
           "partner_income_tax" => 50,
@@ -76,16 +76,49 @@ RSpec.describe SubmitPartnerService, :partner_flag do
       let(:session_data) do
         {
           "partner" => true,
-          "partner_employed" => false,
           "partner_over_60" => false,
           "partner_student_finance_value" => 0,
+          "partner_other_value" => 0,
           "partner_housing_payments_value" => 0,
           "partner_friends_or_family_value" => 0,
           "partner_benefits" => [],
+          "partner_housing_benefit" => false,
           "partner_property_value" => 0,
           "partner_savings" => 0,
           "partner_investments" => 0,
           "partner_vehicle_owned" => false,
+        }
+      end
+
+      it "constructs a valid payload to send to CFE" do
+        expect(mock_connection).to receive(:create_partner) do |assessment_id, payload|
+          expect(assessment_id).to eq cfe_assessment_id
+          expect(payload[:partner]).to eq({ employed: false, date_of_birth: 50.years.ago.to_date })
+          expect(payload[:irregular_incomes]).to eq([])
+          expect(payload[:employments]).to eq([])
+          expect(payload[:regular_transactions]).to eq([])
+          expect(payload[:state_benefits]).to eq([])
+          expect(payload[:additional_properties]).to eq([])
+          expect(payload[:capitals]).to eq({ bank_accounts: [],
+                                             non_liquid_capital: [] })
+          expect(payload[:vehicles]).to eq([])
+        end
+        described_class.call(mock_connection, cfe_assessment_id, session_data)
+      end
+    end
+
+    context "with passported partner info" do
+      let(:session_data) do
+        {
+          "partner" => true,
+          "partner_over_60" => false,
+          "passporting" => true,
+          "partner_property_value" => 0,
+          "partner_savings" => 0,
+          "partner_investments" => 0,
+          "partner_valuables" => 0,
+          "partner_vehicle_owned" => false,
+          "partner_property_owned" => "none",
         }
       end
 

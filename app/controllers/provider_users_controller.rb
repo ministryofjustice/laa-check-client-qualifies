@@ -6,14 +6,14 @@ class ProviderUsersController < ApplicationController
   end
 
   def create
-    case params[:provider_user][:provider_user_valid]
+    case params[:provider_user][:legal_aid_provider]
     when "true"
       redirect_to new_estimate_path
     when "false"
       redirect_to referrals_path
     else
       track_validation_error
-      provider_user.errors.add(:provider_user_valid, I18n.t("activemodel.errors.models.provider_user.attributes.blank"))
+      provider_user.errors.add(:legal_aid_provider, I18n.t("activemodel.errors.models.provider_user.attributes.blank"))
       render :show
     end
   end

@@ -528,10 +528,6 @@ en:
         text: Guide to determining certificated work
         link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf
       certificated_hint: This includes full representation and family help (higher)
-    tribunal:
-      title: Does the case relate to proceedings in the Immigration and Asylum Chamber of either the First-tier or Upper Tribunal?
-      guidance_text: Guide to determining controlled work
-      guidance_link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf
     asylum_support:
       question: Does your client get Asylum Support?
       help_text_1: This means Asylum Support as defined in Section 4 or Section 95 of the Immigration and Asylum Act 1999.
@@ -541,6 +537,8 @@ en:
         text: Guidance on Asylum Support
         controlled_link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=5
         certificated_link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=127
+      tribunal_guidance_text: Guide to determining controlled work
+      tribunal_guidance_link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf
     matter_type:
       title: Which type of matter is this?
       immigration: Immigration in the First-tier Tribunal
