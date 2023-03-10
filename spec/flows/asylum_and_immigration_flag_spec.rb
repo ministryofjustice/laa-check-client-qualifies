@@ -5,14 +5,14 @@ RSpec.describe "Asylum and immigration flag", :controlled_flag, :asylum_and_immi
     start_assessment
     fill_in_forms_until(:level_of_help)
     fill_in_level_of_help_screen
-    fill_in_matter_type_screen(choice: "Another legal matter")
+    fill_in_matter_type_screen(choice: "Another category of law")
     confirm_screen("applicant")
   end
 
   it "adds an asylum support question screen for immigration matter type" do
     start_assessment
     fill_in_forms_until(:matter_type)
-    fill_in_matter_type_screen(choice: "Immigration in the First-tier Tribunal")
+    fill_in_matter_type_screen(choice: "Immigration")
     fill_in_asylum_support_screen
     confirm_screen("applicant")
   end
@@ -20,7 +20,7 @@ RSpec.describe "Asylum and immigration flag", :controlled_flag, :asylum_and_immi
   it "adds an asylum support question screen for asylum matter type" do
     start_assessment
     fill_in_forms_until(:matter_type)
-    fill_in_matter_type_screen(choice: "Asylum in the First-tier Tribunal")
+    fill_in_matter_type_screen(choice: "Asylum")
     fill_in_asylum_support_screen
     confirm_screen("applicant")
   end
@@ -28,7 +28,7 @@ RSpec.describe "Asylum and immigration flag", :controlled_flag, :asylum_and_immi
   it "skips to end if asylum support received" do
     start_assessment
     fill_in_forms_until(:matter_type)
-    fill_in_matter_type_screen(choice: "Asylum in the First-tier Tribunal")
+    fill_in_matter_type_screen(choice: "Asylum")
     fill_in_asylum_support_screen(choice: "Yes")
     confirm_screen("check_answers")
   end
