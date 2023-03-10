@@ -112,13 +112,13 @@ sections:
       - label: partner_employment
         screen: partner_employment
         fields:
-          - attribute: frequency
+          - attribute: partner_frequency
             type: select
-          - attribute: gross_income
+          - attribute: partner_gross_income
             type: money
-          - attribute: income_tax
+          - attribute: partner_income_tax
             type: money
-          - attribute: national_insurance
+          - attribute: partner_national_insurance
             type: money
       - label: partner_benefits
         screen: partner_benefits
