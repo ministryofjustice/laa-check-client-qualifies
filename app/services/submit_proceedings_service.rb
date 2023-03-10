@@ -1,9 +1,9 @@
 class SubmitProceedingsService < BaseCfeService
   def call(cfe_assessment_id)
     applicant_form = ApplicantForm.from_session(@session_data)
-    proceeding_type = if applicant_form.level_of_help != "controlled" && !FeatureFlags.enabled?(:asylum_and_immigration)
+    proceeding_type = if estimate.use_legacy_proceeding_type?
                         applicant_form.legacy_proceeding_type
-                      elsif FeatureFlags.enabled?(:asylum_and_immigration)
+                      elsif relevant_form?(:matter_type)
                         matter_type_form = MatterTypeForm.from_session(@session_data)
                         matter_type_form.proceeding_type
                       else

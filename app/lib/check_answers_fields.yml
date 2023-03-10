@@ -16,19 +16,17 @@
 
 # SUBSECTIONS
 # A subsection has a label IF it has a visible title
-# It has a screen IF the subsection header should have a 'change' link to that screen next to it.
+# It has a screen if this differs from the parent section screen
 # It also has zero or more fields
-# It can have a model which is the name of a ruby class that represents the data being displayed.
-# attributes will be retrieved via the model class rather than directly from the session.
 
 # FIELDS
 # A field has a type, which is one of boolean, money, select, number or money_with_frequency.
 # This determines which partial is rendered
 # It has an attribute, which determines the key used to store the relevant value in the session
 # The attribute is also used to construct the I18n key
-# It has a screen IF the field has its own 'change' link to a screen
-# 'money_with_frequency' fields also have an 'alt_attribute' which describes
-# which number to display.
+# It has a screen if the relevant screen differs from the parent subsection screen
+# It may have a `change_link` attribute if this should display a "change" link to its screen
+# 'money_with_frequency' fields also have an 'alt_attribute' which describes which number to display.
 sections:
   - label: level_of_help
     screen: level_of_help
@@ -42,6 +40,7 @@ sections:
           - attribute: proceeding_type
             type: select
             screen: matter_type
+            change_link: true
       - screen: asylum_support
         label: asylum_support
         fields:
@@ -51,10 +50,10 @@ sections:
     subsections:
       - label: client_details
         screen: applicant
-        model: ApplicantSection
         fields:
         - attribute: legacy_proceeding_type
           type: select
+          skip_unless: use_legacy_proceeding_type?
         - attribute: partner
           type: boolean
         - attribute: over_60
@@ -103,7 +102,6 @@ sections:
         screen: benefits
       - label: other_income
         screen: other_income
-        model: OtherIncomeSection
         fields:
           - attribute: friends_or_family_value
             type: money_with_frequency
@@ -141,39 +139,47 @@ sections:
     subsections:
       - label: property
         screen: property
-        model: PropertySection
         fields:
           - type: select
             attribute: property_owned
           - type: money
             attribute: house_value
+            screen: property_entry
           - type: money
             attribute: mortgage
+            screen: property_entry
           - type: number
             attribute: percentage_owned
+            screen: property_entry
           - type: boolean
             attribute: joint_ownership
+            screen: property_entry
           - type: number
             attribute: joint_percentage_owned
+            screen: property_entry
       - label: vehicles
         screen: vehicle
-        model: VehicleSection
         fields:
           - type: boolean
             attribute: vehicle_owned
           - type: money
             attribute: vehicle_value
+            screen: vehicle_details
           - type: boolean
             attribute: vehicle_in_regular_use
+            screen: vehicle_details
           - type: boolean
             attribute: vehicle_over_3_years_ago
+            screen: vehicle_details
           - type: boolean
             attribute: vehicle_pcp
+            screen: vehicle_details
           - type: money
             attribute: vehicle_finance
+            skip_unless: vehicle_pcp
+            screen: vehicle_details
       - label: other
         screen: assets
-        model: OtherSection
         fields:
           - attribute: property_value
             type: money

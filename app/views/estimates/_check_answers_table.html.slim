@@ -35,25 +35,25 @@
           = render "check_answer",
                     label_text: t("estimates.check_answers.#{field.label}"),
                     value_text: yes_no_boolean(field.value),
-                    link: (field.screen if change_links),
+                    screen_to_link_to: (field.screen_to_link_to if change_links),
                     disputed_asset: field.disputed?
         - when "number"
           = render "check_answer",
                     label_text: t("estimates.check_answers.#{field.label}"),
                     value_text: field.value || t("generic.not_applicable"),
-                    link: (field.screen if change_links),
+                    screen_to_link_to: (field.screen_to_link_to if change_links),
                     disputed_asset: field.disputed?
         - when "no_or_number"
           = render "check_answer",
                     label_text: t("estimates.check_answers.#{field.label}"),
                     value_text: t("estimates.check_answers.#{field.label}_options.#{field.value || 'not_provided'}"),
-                    link: (field.screen if change_links),
+                    screen_to_link_to: (field.screen_to_link_to if change_links),
                     disputed_asset: field.disputed?
         - when "select"
           = render "check_answer",
                     label_text: t("estimates.check_answers.#{field.label}"),
                     value_text: t("estimates.check_answers.#{field.label}_options.#{field.value || 'not_provided'}"),
-                    link: (field.screen if change_links),
+                    screen_to_link_to: (field.screen_to_link_to if change_links),
                     disputed_asset: field.disputed?
         - when "money_with_frequency"
           - alt_value = field.alt_value if field.value&.to_f&.positive?
