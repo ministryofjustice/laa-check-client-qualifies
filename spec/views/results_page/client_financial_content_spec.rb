@@ -58,6 +58,9 @@ RSpec.describe "estimates/show.html.slim" do
                   net_equity: 30,
                   assessed_equity: 2,
                   transaction_allowance: 34,
+                  smod_allowance: 5,
+                  main_home_equity_disregard: 0,
+                  percentage_owned: 100,
                 },
                 additional_properties: [
                   {
@@ -66,6 +69,9 @@ RSpec.describe "estimates/show.html.slim" do
                     net_equity: 530,
                     assessed_equity: 52,
                     transaction_allowance: 534,
+                    smod_allowance: 0,
+                    main_home_equity_disregard: 0,
+                    percentage_owned: 100,
                   },
                 ],
               },
@@ -153,31 +159,27 @@ RSpec.describe "estimates/show.html.slim" do
     end
 
     it "shows capital content" do
-      expect(page_text).to include "Home client lives in Value £1.00"
+      expect(page_text).to include "Home client lives in Home worth £1.00"
       expect(page_text).to include "Outstanding mortgage -£2.00"
-      expect(page_text).to include "DisregardsApplied to the home equity and capped at £100,000 -£28.00"
       expect(page_text).to include "Deductions3% of property value deducted for cost of sale -£34.00"
-      expect(page_text).to include "Assessed valueCalculated using the client’s percentage share provided £2.00"
-      expect(page_text).to include "Client's additional property"
-      expect(page_text).to include "Value £51.00"
+      expect(page_text).to include "Disputed asset disregard -£5.00"
+      expect(page_text).to include "Assessed value £2.00"
+      expect(page_text).to include "Client's additional property Value £51.00"
       expect(page_text).to include "Outstanding mortgage -£52.00"
       expect(page_text).to include "Deductions3% of property value deducted for cost of sale -£534.00"
-      expect(page_text).to include "Assessed valueCalculated using the client’s percentage share provided £52.00"
-      expect(page_text).to include "Client's vehicle"
-      expect(page_text).to include "Value £587.00"
+      expect(page_text).to include "Assessed value £52.00"
+      expect(page_text).to include "Client's vehicle Value £587.00"
       expect(page_text).to include "Outstanding payments -£234.00"
       expect(page_text).to include "Disregards and deductions -£144.00"
       expect(page_text).to include "Assessed value £3.00"
       expect(page_text).to include "Client's disposable capital"
       expect(page_text).to include "Assessed property valueTotal of home client lives in and any additional property £0.00"
       expect(page_text).to include "Assessed vehicle value £3,000.00"
-      expect(page_text).to include "Savings £3,676.00"
-      expect(page_text).to include "Investments and valuables £5,353.00"
+      expect(page_text).to include "Savings £3,676.00 Investments and valuables £5,353.00"
       expect(page_text).to include "Total capital £12,000.00"
       expect(page_text).to include "Pensioner disregardApplied to total capital and capped at £100,000 -£3,000.00"
       expect(page_text).to include "Disputed asset disregardEqual to the assessed value of all assets marked as disputed and capped at £100,000 -£1,000.00"
-      expect(page_text).to include "Disposable capital £12,029.00"
-      expect(page_text).to include "Total assessed disposable capital £0.00"
+      expect(page_text).to include "Total Total assessed disposable capital £0.00"
       expect(page_text).to include "Disposable capital upper limit £2,657.00"
     end
   end

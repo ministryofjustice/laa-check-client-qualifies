@@ -88,6 +88,9 @@ RSpec.describe "estimates/show.html.slim" do
                   net_equity: 0,
                   assessed_equity: 0,
                   transaction_allowance: 0,
+                  smod_allowance: 0,
+                  main_home_equity_disregard: 0,
+                  percentage_owned: 100,
                 },
                 additional_properties: [
                   {
@@ -96,6 +99,9 @@ RSpec.describe "estimates/show.html.slim" do
                     net_equity: 530,
                     assessed_equity: 52,
                     transaction_allowance: 534,
+                    smod_allowance: 0,
+                    main_home_equity_disregard: 0,
+                    percentage_owned: 100,
                   },
                 ],
               },
@@ -182,22 +188,21 @@ RSpec.describe "estimates/show.html.slim" do
     end
 
     it "shows capital content" do
-      expect(page_text).to include "Partner's additional property"
-      expect(page_text).to include "Value £51.00"
+      expect(page_text).to include "Partner's additional property Value £51.00"
       expect(page_text).to include "Outstanding mortgage -£52.00"
       expect(page_text).to include "Deductions3% of property value deducted for cost of sale -£534.00"
-      expect(page_text).to include "Assessed valueCalculated using the partner’s percentage share provided £52.00"
-      expect(page_text).to include "Partner's vehicle"
-      expect(page_text).to include "Value £587.00"
+      expect(page_text).to include "Assessed value £52.00"
+      expect(page_text).to include "Partner's vehicle Value £587.00"
       expect(page_text).to include "Outstanding payments -£234.00"
       expect(page_text).to include "Disregards and deductions -£144.00"
       expect(page_text).to include "Assessed value £3.00"
-      expect(page_text).to include "Partner's disposable capital"
-      expect(page_text).to include "Assessed property value £0.00"
+      expect(page_text).to include "Partner's disposable capital Assessed property value £0.00"
       expect(page_text).to include "Assessed vehicle value £3,000.00"
       expect(page_text).to include "Savings £3,676.00"
       expect(page_text).to include "Investments and valuables £5,353.00"
-      expect(page_text).to include "Total capital £12,000.00"
+      expect(page_text).to include "Disposable capital £0.00"
+      expect(page_text).to include "Total assessed disposable capital £0.00"
+      expect(page_text).to include "Disposable capital upper limit £2,657.00"
     end
   end
 end
