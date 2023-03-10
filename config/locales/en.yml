@@ -1137,11 +1137,11 @@ en:
       partner_details: Partner's details
       partner_details_fields:
         partner_over_60: Partner is over 60 years old
-        partner_employment_status: Partner is employed
-        partner_employment_status_options:
-          not_provided: Not provided
-          employed: Employed
-          unemployed: Unemployed
+        partner_employed: Partner is employed
+        partner_employed_options:
+          not_provided: "No"
+          true: "Yes"
+          false: "No"
       partner_income: The partner's income
       client_income: Your client's income
       partner_employment: Partner's pay

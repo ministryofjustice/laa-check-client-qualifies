@@ -114,9 +114,8 @@ sections:
         fields:
           - attribute: partner_over_60
             type: boolean
-          - attribute: partner_employment_status
+          - attribute: partner_employed
             type: select
-            skip_unless: partner_employed
   - label: partner_income
     subsections:
       - label: partner_employment
