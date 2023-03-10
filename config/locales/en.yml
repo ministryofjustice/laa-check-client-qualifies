@@ -541,19 +541,32 @@ en:
       tribunal_guidance_link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf
     matter_type:
       title: Which type of matter is this?
-      immigration: Immigration in the First-tier Tribunal
-      asylum: Asylum in the First-tier Tribunal
-      other: Another legal matter
+      immigration_controlled: Immigration in the First-tier Tribunal
+      asylum_controlled: Asylum in the First-tier Tribunal
+      other_controlled: Another legal matter
+      immigration_certificated: Immigration (Upper Tribunal)
+      asylum_certificated: Asylum (Upper Tribunal)
+      other_certificated: Another category of law
       domestic_abuse: Domestic abuse
       domestic_abuse_hint: Upper eligibility limits are waived if your client is an applicant in a domestic abuse matter
-      controlled_guidance_text: Guide to determining controlled work
-      controlled_guidance_link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf
       domestic_abuse_guidance:
         text: Guidance on domestic abuse or violence
         link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=13
       tribunal_guidance:
         text: Guidance on Upper Tribunal matters
-        link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=5
+        controlled_link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=5
+        certificated_link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=127
+      immigration_and_asylum_header: Immigration and asylum matters
+      immigration_and_asylum_certificated_paragraph: These must be for matters in the Immigration and Asylum Chamber of the Upper Tribunal including in relation to an appeal or review from the Immigration and Asylum Chamber of the First-tier Tribunal.
+      immigration_header: Immigration (Upper Tribunal)
+      immigration_certificated_paragraph_one: This must be for legal representation for an immigration matter in the Immigration and Asylum Chamber of the Upper Tribunal including in relation to an appeal or review from the Immigration and Asylum Chamber of the First-tier Tribunal.
+      immigration_certificated_paragraph_two_html: Guidance for this is in paragraphs 25 to 29, 32(1), 32A(1) of Part 1 of Schedule 1 to the <a href='https://www.legislation.gov.uk/ukpga/2012/10/schedule/1' target='_blank' rel='noreferrer noopener'>Legal Aid, Sentencing and Punishment of Offenders Act 2012</a> (LASPO).
+      asylum_header: Asylum (Upper Tribunal)
+      asylum_certificated_paragraph_one: This must be for legal representation for an asylum matter in the Immigration and Asylum Chamber of the Upper Tribunal including in relation to an appeal or review from the Immigration and Asylum Chamber of the First-tier Tribunal
+      asylum_certificated_paragraph_two_html: Guidance for this is in paragraphs 24 to 30, 32(1) and 32A(1) of Part 1 of Schedule 1 to the <a href='https://www.legislation.gov.uk/ukpga/2012/10/schedule/1' target='_blank' rel='noreferrer noopener'>Legal Aid, Sentencing and Punishment of Offenders Act 2012</a> (LASPO).
+      domestic_abuse_header: Domestic abuse
+      domestic_abuse_paragraph: This must be for legal representation for a domestic abuse matter (injunction or other order for protection from harm, or committal for breach), FGM protection order, or forced marriage protection order.
+      select_a_matter_type: Select a matter type
     partner:
       partner_guidance:
         text: "Guidance on partners"
