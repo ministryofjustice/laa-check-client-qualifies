@@ -228,6 +228,21 @@ sections:
             attribute: vehicle_pcp
           - type: money
             attribute: vehicle_finance
+      - label: additional_vehicle
+        screen: vehicle
+        fields:
+          - type: boolean
+            attribute: additional_vehicle_owned
+          - type: money
+            attribute: additional_vehicle_value
+          - type: boolean
+            attribute: additional_vehicle_in_regular_use
+          - type: boolean
+            attribute: additional_vehicle_over_3_years_ago
+          - type: boolean
+            attribute: additional_vehicle_pcp
+          - type: money
+            attribute: additional_vehicle_finance
       - label: other
         screen: assets
         model: OtherSection

@@ -1117,6 +1117,14 @@ en:
         vehicle_over_3_years_ago: Bought over 3 years ago
         vehicle_pcp: Outstanding finance on vehicle?
         vehicle_finance: Payments left
+      additional_vehicle: Additional vehicle
+      additional_vehicle_fields:
+        vehicle_owned: Client or partner owns a vehicle
+        vehicle_value: Estimated value
+        vehicle_in_regular_use: In regular use
+        vehicle_over_3_years_ago: Bought over 3 years ago
+        vehicle_pcp: Outstanding finance on vehicle?
+        vehicle_finance: Payments left
       property: Home client lives in
       property_fields:
         property_owned: Owned by client or partner
