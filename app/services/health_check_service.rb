@@ -1,7 +1,13 @@
 class HealthCheckService
   def self.call
-    short_term_persistence_healthy? && cfe_healthy?
+    database_healthy? && short_term_persistence_healthy? && cfe_healthy?
   rescue StandardError
+    false
+  end
+
+  def self.database_healthy?
+    ActiveRecord::Base.connection.active? && AnalyticsEvent.count.is_a?(Numeric)
+  rescue PG::ConnectionBad, PG::UndefinedTable
     false
   end
 
