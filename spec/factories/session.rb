@@ -1,4 +1,48 @@
 FactoryBot.define do
+  factory :basic_session, class: Hash do
+    initialize_with { attributes.transform_keys(&:to_s) }
+
+    trait :with_main_home do
+      property_owned { "outright" }
+      house_value { 234_234 }
+      mortgage { 123_123 }
+      percentage_owned { 100 }
+      house_in_dispute { false }
+      joint_ownership { false }
+    end
+
+    trait :with_partner_owned_main_home do
+      partner { true }
+      property_owned { "none" }
+      partner_property_owned { "with_mortgage" }
+      partner_house_value { 234_234 }
+      partner_mortgage { 123_123 }
+      partner_percentage_owned { 100 }
+    end
+
+    trait :with_no_main_home do
+      property_owned { "none" }
+      partner_property_owned { "none" }
+    end
+
+    trait :with_vehicle do
+      vehicle_owned { true }
+      vehicle_value { "1000.0" }
+      vehicle_pcp { false }
+      vehicle_over_3_years_ago { false }
+      vehicle_in_regular_use { false }
+      vehicle_in_dispute { false }
+    end
+
+    trait :with_zero_capital_assets do
+      property_value { 0 }
+      savings { 0 }
+      investments { 0 }
+      valuables { 0 }
+      in_dispute { %w[] }
+    end
+  end
+
   factory :full_session, class: Hash do
     initialize_with { attributes.transform_keys(&:to_s) }
 

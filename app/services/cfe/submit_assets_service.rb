@@ -16,8 +16,8 @@ module Cfe
           value: asset_form.property_value,
           outstanding_mortgage: asset_form.property_mortgage,
           percentage_owned: asset_form.property_percentage_owned,
+          subject_matter_of_dispute: (asset_form.property_in_dispute? && !estimate.upper_tribunal?) || false,
         }
-        second_property[:subject_matter_of_dispute] = true if asset_form.property_in_dispute? && !estimate.upper_tribunal?
       end
 
       if relevant_form?(:property_entry)
@@ -32,8 +32,8 @@ module Cfe
           value: property_entry_form.house_value,
           outstanding_mortgage: (property_entry_form.mortgage if property_form.owned_with_mortgage?) || 0,
           percentage_owned:,
+          subject_matter_of_dispute: (property_entry_form.house_in_dispute && !estimate.upper_tribunal?) || false,
         }
-        main_home[:subject_matter_of_dispute] = true if property_entry_form.house_in_dispute && !estimate.upper_tribunal?
       elsif relevant_form?(:partner_property_entry)
         partner_property_form = PartnerPropertyForm.from_session(@session_data)
         partner_property_entry_form = PartnerPropertyEntryForm.from_session(@session_data)
@@ -41,6 +41,7 @@ module Cfe
           value: partner_property_entry_form.house_value,
           outstanding_mortgage: (partner_property_entry_form.mortgage if partner_property_form.owned_with_mortgage?) || 0,
           percentage_owned: partner_property_entry_form.percentage_owned,
+          subject_matter_of_dispute: false,
         }
       end
 
@@ -55,6 +56,7 @@ module Cfe
           value: 0,
           outstanding_mortgage: 0,
           percentage_owned: 0,
+          subject_matter_of_dispute: false,
         }
       properties = { main_home: main_home.merge(shared_with_housing_assoc: false) }
       properties[:additional_properties] = [second_property.merge(shared_with_housing_assoc: false)] if second_property

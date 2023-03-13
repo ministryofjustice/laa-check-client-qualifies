@@ -92,6 +92,7 @@ RSpec.describe "Certificated check without partner", type: :feature do
             "outstanding_mortgage" => "1.0",
             "percentage_owned" => 1,
             "shared_with_housing_assoc" => false,
+            "subject_matter_of_dispute" => false,
             "value" => "1.0",
           },
         },
