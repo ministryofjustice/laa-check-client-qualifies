@@ -11,7 +11,7 @@ module Cfe
         employed: applicant_form.employment_status.in?(ApplicantForm::EMPLOYED_STATUSES.map(&:to_s)),
       }
 
-      applicant = if FeatureFlags.enabled?(:asylum_and_immigration)
+      applicant = if relevant_form?(:asylum_support)
                     base_attributes.merge({ receives_asylum_support: asylum_support_form.asylum_support || false })
                   else
                     base_attributes
