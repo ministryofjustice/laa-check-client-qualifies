@@ -60,9 +60,9 @@ module CheckAnswers
     def additional_vehicle_fields
       if additional_vehicle_owned
         if additional_vehicle_pcp
-          FIELDS
+          ADDITIONAL_VEHICLE_FIELDS
         else
-          FIELDS - [:additional_vehicle_finance]
+          ADDITIONAL_VEHICLE_FIELDS - [:additional_vehicle_finance]
         end
       else
         []
