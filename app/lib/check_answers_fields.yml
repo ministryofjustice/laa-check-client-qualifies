@@ -53,52 +53,29 @@ sections:
         screen: applicant
         model: ApplicantSection
         fields:
-        - attribute: legacy_proceeding_type
-          type: select
-        - attribute: partner
-          type: boolean
-        - attribute: over_60
-          type: boolean
-        - attribute: employed
-          type: boolean
-        - attribute: passporting
-          type: boolean
-      - label: client_dependant_details
-        screen: dependant_details
-        fields:
-        - attribute: child_dependants
-          type: boolean
-        - attribute: child_dependants_count
-          type: number
-          skip_unless: child_dependants
-        - attribute: adult_dependants
-          type: boolean
-        - attribute: adult_dependants_count
-          type: number
-          skip_unless: adult_dependants
-  - label: employment
-    screen: employment
-    subsections:
-      - fields:
-        - attribute: frequency
-          type: select
-        - attribute: gross_income
-          type: money
-        - attribute: income_tax
-          type: money
-        - attribute: national_insurance
-          type: money
-  - label: other_income
-    subsections:
-      - label: housing_benefit
-        screen: housing_benefit
-        fields:
-          - attribute: housing_benefit
+          - attribute: legacy_proceeding_type
+            type: select
+          - attribute: partner
             type: boolean
-          - attribute: housing_benefit_value
-            type: money_with_frequency
-            alt_attribute: housing_benefit_frequency
-            skip_unless: housing_benefit
+          - attribute: over_60
+            type: boolean
+          - attribute: employed
+            type: boolean
+          - attribute: passporting
+            type: boolean
+  - label: client_income
+    subsections:
+      - label: employment
+        screen: employment
+        fields:
+          - attribute: frequency
+            type: select
+          - attribute: gross_income
+            type: money
+          - attribute: income_tax
+            type: money
+          - attribute: national_insurance
+            type: money
       - label: benefits
         screen: benefits
       - label: other_income
@@ -121,101 +98,28 @@ sections:
             type: money
           - attribute: other_value
             type: money
-  - label: outgoings
-    screen: outgoings
-    subsections:
-      - fields:
-          - attribute: housing_payments_value
-            type: money_with_frequency
-            alt_attribute: housing_payments_frequency
-          - attribute: childcare_payments_value
-            type: money_with_frequency
-            alt_attribute: childcare_payments_frequency
-          - attribute: maintenance_payments_value
-            type: money_with_frequency
-            alt_attribute: maintenance_payments_frequency
-          - attribute: legal_aid_payments_value
-            type: money_with_frequency
-            alt_attribute: legal_aid_payments_frequency
-  - label: assets
-    subsections:
-      - label: property
-        screen: property
-        model: PropertySection
-        fields:
-          - type: select
-            attribute: property_owned
-          - type: money
-            attribute: house_value
-          - type: money
-            attribute: mortgage
-          - type: number
-            attribute: percentage_owned
-      - label: vehicles
-        screen: vehicle
-        model: VehicleSection
-        fields:
-          - type: boolean
-            attribute: vehicle_owned
-          - type: money
-            attribute: vehicle_value
-          - type: boolean
-            attribute: vehicle_in_regular_use
-          - type: boolean
-            attribute: vehicle_over_3_years_ago
-          - type: boolean
-            attribute: vehicle_pcp
-          - type: money
-            attribute: vehicle_finance
-      - label: other
-        screen: assets
-        model: OtherSection
-        fields:
-          - attribute: property_value
-            type: money
-          - attribute: property_mortgage
-            type: money
-          - attribute: property_percentage_owned
-            label: property_percentage_owned_html
-            type: number
-          - attribute: savings
-            type: money
-          - attribute: investments
-            type: money
-          - attribute: valuables
-            type: money
   - label: about_partner
     subsections:
       - label: partner_details
         screen: partner_details
         fields:
-        - attribute: partner_over_60
-          type: boolean
-        - attribute: partner_employed
-          type: boolean
-  - label: partner_employment
-    screen: partner_employment
-    subsections:
-      - fields:
-        - attribute: partner_frequency
-          type: select
-        - attribute: partner_gross_income
-          type: money
-        - attribute: partner_income_tax
-          type: money
-        - attribute: partner_national_insurance
-          type: money
-  - label: partner_other_income
-    subsections:
-      - label: partner_housing_benefit
-        screen: partner_housing_benefit
-        fields:
-          - attribute: partner_housing_benefit
+          - attribute: partner_over_60
             type: boolean
-          - attribute: partner_housing_benefit_value
-            type: money_with_frequency
-            alt_attribute: partner_housing_benefit_frequency
-            skip_unless: partner_housing_benefit
+          - attribute: partner_employed
+            type: select
+  - label: partner_income
+    subsections:
+      - label: partner_employment
+        screen: partner_employment
+        fields:
+          - attribute: partner_frequency
+            type: select
+          - attribute: partner_gross_income
+            type: money
+          - attribute: partner_income_tax
+            type: money
+          - attribute: partner_national_insurance
+            type: money
       - label: partner_benefits
         screen: partner_benefits
       - label: partner_other_income
@@ -237,13 +141,38 @@ sections:
             type: money
           - attribute: partner_other_value
             type: money
-  - label: partner_outgoings
-    screen: partner_outgoings
+  - label: client_and_partner_dependants
     subsections:
-      - fields:
-          - attribute: partner_housing_payments_value
+      - label: dependant_details
+        screen: dependant_details
+        fields:
+          - attribute: child_dependants
+            type: boolean
+          - attribute: child_dependants_count
+            type: number
+            skip_unless: child_dependants
+          - attribute: adult_dependants
+            type: boolean
+          - attribute: adult_dependants_count
+            type: number
+            skip_unless: adult_dependants
+  - label: outgoings
+    subsections:
+      - label: client_outgoings
+        screen: outgoings
+        fields:
+          - attribute: childcare_payments_value
             type: money_with_frequency
-            alt_attribute: partner_housing_payments_frequency
+            alt_attribute: childcare_payments_frequency
+          - attribute: maintenance_payments_value
+            type: money_with_frequency
+            alt_attribute: maintenance_payments_frequency
+          - attribute: legal_aid_payments_value
+            type: money_with_frequency
+            alt_attribute: legal_aid_payments_frequency
+      - label: partner_outgoings
+        screen: partner_outgoings
+        fields:
           - attribute: partner_childcare_payments_value
             type: money_with_frequency
             alt_attribute: partner_childcare_payments_frequency
@@ -253,10 +182,89 @@ sections:
           - attribute: partner_legal_aid_payments_value
             type: money_with_frequency
             alt_attribute: partner_legal_aid_payments_frequency
-  - label: partner_assets
+      - label: housing
+        screen: housing
+        fields:
+          - attribute: housing_payments_value
+            type: money_with_frequency
+            alt_attribute: housing_payments_frequency
+          - attribute: receives_housing_benefit
+            type: boolean
+          - attribute: housing_benefit_value
+            type: money_with_frequency
+            alt_attribute: housing_benefit_frequency
+            skip_unless: receives_housing_benefit
+  - label: assets
     subsections:
+      - label: property
+        screen: property
+        model: PropertySection
+        fields:
+          - type: select
+            attribute: property_owned
+          - type: money
+            attribute: house_value
+          - type: money
+            attribute: mortgage
+          - type: number
+            attribute: percentage_owned
+          - type: boolean
+            attribute: joint_ownership
+          - type: number
+            attribute: joint_percentage_owned
+      - label: vehicles
+        screen: vehicle
+        model: VehicleSection
+        fields:
+          - type: boolean
+            attribute: vehicle_owned
+          - type: money
+            attribute: vehicle_value
+          - type: boolean
+            attribute: vehicle_in_regular_use
+          - type: boolean
+            attribute: vehicle_over_3_years_ago
+          - type: boolean
+            attribute: vehicle_pcp
+          - type: money
+            attribute: vehicle_finance
+          - type: sub_sub_header
+            attribute: additional_vehicle_owned
+            skip_unless: additional_vehicle_owned
+          - type: money
+            attribute: additional_vehicle_value
+            skip_unless: additional_vehicle_owned
+          - type: boolean
+            attribute: additional_vehicle_in_regular_use
+            skip_unless: additional_vehicle_owned
+          - type: boolean
+            attribute: additional_vehicle_over_3_years_ago
+            skip_unless: additional_vehicle_owned
+          - type: boolean
+            attribute: additional_vehicle_pcp
+            skip_unless: additional_vehicle_owned
+          - type: money
+            attribute: additional_vehicle_finance
+            skip_unless: additional_vehicle_owned
+      - label: other
+        screen: assets
+        model: OtherSection
+        fields:
+          - attribute: property_value
+            type: money
+          - attribute: property_mortgage
+            type: money
+          - attribute: property_percentage_owned
+            label: property_percentage_owned_html
+            type: number
+          - attribute: savings
+            type: money
+          - attribute: investments
+            type: money
+          - attribute: valuables
+            type: money
       - label: partner_other
-        screen: partner_assets
+        screen: assets
         fields:
           - attribute: partner_property_value
             type: money

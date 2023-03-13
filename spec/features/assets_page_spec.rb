@@ -179,15 +179,10 @@ RSpec.describe "Assets Page" do
           )
 
           expect(page).to have_content check_answers_header
-          within "#savings" do
-            expect(page).to have_content "Disputed asset"
-          end
-          within "#investments" do
-            expect(page).not_to have_content "Disputed asset"
-          end
-          within "#valuables" do
-            expect(page).to have_content "Disputed asset"
-          end
+          expect(page).to have_content "Savings£100.00Disputed asset"
+          expect(page).not_to have_content "Investments£500.00Disputed asset"
+          expect(page).to have_content "Investments£500.00"
+          expect(page).to have_content "Valuables£1,000.00Disputed asset"
           click_on "Submit"
         end
       end
