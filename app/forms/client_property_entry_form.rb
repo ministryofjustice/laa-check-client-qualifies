@@ -4,7 +4,6 @@ class ClientPropertyEntryForm < BasePropertyEntryForm
   attr_accessor :partner
 
   attribute :house_in_dispute, :boolean
-  validates :house_in_dispute, inclusion: { in: [true, false] }, allow_nil: false
 
   attribute :joint_ownership, :boolean
   validates :joint_ownership, inclusion: { in: [true, false] }, allow_nil: false, if: -> { partner }

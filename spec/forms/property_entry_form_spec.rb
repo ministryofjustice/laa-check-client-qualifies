@@ -64,4 +64,19 @@ RSpec.describe "property_entry", type: :feature do
       expect(session_contents["mortgage"]).to eq 50_000
     end
   end
+
+  it "shows SMOD checkbox" do
+    expect(page).to have_content(I18n.t("generic.dispute"))
+  end
+
+  context "when this is an upper tribunal matter" do
+    before do
+      set_session(assessment_code, "proceeding_type" => "IM030")
+      visit "estimates/#{assessment_code}/build_estimates/property_entry"
+    end
+
+    it "shows no SMOD checkbox" do
+      expect(page).not_to have_content(I18n.t("generic.dispute"))
+    end
+  end
 end

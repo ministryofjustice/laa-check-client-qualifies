@@ -320,5 +320,49 @@ RSpec.describe Cfe::SubmitAssetsService do
         described_class.call(mock_connection, cfe_assessment_id, session_data)
       end
     end
+
+    context "when assets marked as SMOD, but SMOD does not apply" do
+      let(:session_data) do
+        {
+          "property_owned" => "outright",
+          "joint_ownership" => false,
+          "house_value" => 100_000,
+          "percentage_owned" => 100,
+          "house_in_dispute" => true,
+          "savings" => 100,
+          "investments" => 0,
+          "valuables" => 0,
+          "property_value" => 0,
+          "in_dispute" => %w[savings],
+          "proceeding_type" => "IM030",
+        }
+      end
+
+      it "does not tell CFE about SMOD" do
+        expect(mock_connection).to receive(:create_properties).with(
+          cfe_assessment_id,
+          {
+            main_home: {
+              outstanding_mortgage: 0,
+              percentage_owned: 100,
+              shared_with_housing_assoc: false,
+              value: 100_000,
+            },
+          },
+        )
+        expect(mock_connection).to receive(:create_capitals).with(
+          cfe_assessment_id,
+          {
+            bank_accounts: [
+              { value: 100,
+                description: "Liquid Asset",
+                subject_matter_of_dispute: false },
+            ],
+            non_liquid_capital: [],
+          },
+        )
+        described_class.call(mock_connection, cfe_assessment_id, session_data)
+      end
+    end
   end
 end

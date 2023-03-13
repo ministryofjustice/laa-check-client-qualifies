@@ -44,5 +44,35 @@ RSpec.describe Cfe::SubmitVehicleService do
         described_class.call(mock_connection, cfe_assessment_id, session_data)
       end
     end
+
+    context "when vehicle marked as SMOD, but SMOD does not apply" do
+      let(:session_data) do
+        {
+          "vehicle_owned" => true,
+          "vehicle_value" => "1000.0",
+          "vehicle_pcp" => false,
+          "vehicle_over_3_years_ago" => false,
+          "vehicle_in_regular_use" => false,
+          "vehicle_in_dispute" => true,
+          "proceeding_type" => "IM030",
+        }
+      end
+
+      it "does not tell CFE about SMOD" do
+        expect(mock_connection).to receive(:create_vehicles).with(
+          cfe_assessment_id,
+          [
+            {
+              value: 1000.0,
+              date_of_purchase: 2.years.ago.to_date,
+              in_regular_use: false,
+              loan_amount_outstanding: 0,
+              subject_matter_of_dispute: false,
+            },
+          ],
+        )
+        described_class.call(mock_connection, cfe_assessment_id, session_data)
+      end
+    end
   end
 end
