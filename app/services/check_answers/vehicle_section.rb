@@ -10,14 +10,30 @@ module CheckAnswers
     attribute :vehicle_in_regular_use, :boolean
     attribute :vehicle_in_dispute, :boolean
     attribute :vehicle_owned, :boolean
+    attribute :additional_vehicle_pcp, :boolean
+    attribute :additional_vehicle_finance, :gbp
+    attribute :additional_vehicle_over_3_years_ago, :boolean
+    attribute :additional_vehicle_value, :gbp
+    attribute :additional_vehicle_in_regular_use, :boolean
+    attribute :additional_vehicle_in_dispute, :boolean
+    attribute :additional_vehicle_owned, :boolean
 
-    FIELDS = %i[vehicle_value
-                vehicle_pcp
-                vehicle_owned
-                vehicle_finance
-                vehicle_in_dispute
-                vehicle_in_regular_use
-                vehicle_over_3_years_ago].freeze
+    VEHICLE_FIELDS = %i[vehicle_value
+                        vehicle_pcp
+                        vehicle_owned
+                        vehicle_finance
+                        vehicle_in_dispute
+                        vehicle_in_regular_use
+                        vehicle_over_3_years_ago].freeze
+    ADDITIONAL_VEHICLE_FIELDS = %i[additional_vehicle_value
+                                   additional_vehicle_pcp
+                                   additional_vehicle_owned
+                                   additional_vehicle_finance
+                                   additional_vehicle_in_dispute
+                                   additional_vehicle_in_regular_use
+                                   additional_vehicle_over_3_years_ago].freeze
+
+    FIELDS = (VEHICLE_FIELDS + ADDITIONAL_VEHICLE_FIELDS).freeze
 
     class << self
       def from_session(session_data)
@@ -26,19 +42,42 @@ module CheckAnswers
     end
 
     def display_fields
+      vehicle_fields + additional_vehicle_fields
+    end
+
+    def vehicle_fields
       if vehicle_owned
         if vehicle_pcp
-          FIELDS
+          VEHICLE_FIELDS
         else
-          FIELDS - [:vehicle_finance]
+          VEHICLE_FIELDS - [:vehicle_finance]
         end
       else
         [:vehicle_owned]
       end
     end
 
+    def additional_vehicle_fields
+      if additional_vehicle_owned
+        if additional_vehicle_pcp
+          FIELDS
+        else
+          FIELDS - [:additional_vehicle_finance]
+        end
+      else
+        []
+      end
+    end
+
     def disputed_asset?(field)
-      vehicle_owned && vehicle_in_dispute if field == :vehicle_owned
+      case field
+      when :vehicle_owned
+        vehicle_owned && vehicle_in_dispute
+      when :additional_vehicle_owned
+        additional_vehicle_owned && additional_vehicle_in_dispute
+      else
+        false
+      end
     end
   end
 end

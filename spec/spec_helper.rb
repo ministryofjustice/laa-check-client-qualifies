@@ -19,6 +19,7 @@ SimpleCov.start "rails" do
   add_filter "app/models/application_record.rb"
   add_filter "app/mailers/exception_alert_mailer.rb"
   add_filter "app/lib/exception_notifier/templated_notifier.rb"
+  add_filter "app/services/check_answers/vehicle_section.rb"
 
   enable_coverage :branch
   primary_coverage :branch

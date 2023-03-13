@@ -1089,9 +1089,10 @@ en:
         receives_benefits: Gets benefits
       housing: Housing Costs
       housing_benefit: Housing Benefit
-      housing_benefit_fields:
-        housing_benefit_value: Housing Benefit
-        housing_benefit: Receives Housing Benefit
+      housing_fields:
+        receives_housing_benefit: Gets Housing Benefit
+        housing_payments_value: Housing payments
+        housing_benefit_value: Housing Benefit amount
       other_income: Client's other income
       other_income_fields:
         friends_or_family_value: Financial help
@@ -1104,7 +1105,6 @@ en:
       outgoings: Outgoings
       client_outgoings: Client's outgoings
       client_outgoings_fields:
-        housing_payments_value: Housing payments
         childcare_payments_value: Childcare payments
         maintenance_payments_value: Maintenance payments
         legal_aid_payments_value: Legal aid payments
@@ -1117,14 +1117,12 @@ en:
         vehicle_over_3_years_ago: Bought over 3 years ago
         vehicle_pcp: Outstanding finance on vehicle?
         vehicle_finance: Payments left
-      additional_vehicle: Additional vehicle
-      additional_vehicle_fields:
-        vehicle_owned: Client or partner owns a vehicle
-        vehicle_value: Estimated value
-        vehicle_in_regular_use: In regular use
-        vehicle_over_3_years_ago: Bought over 3 years ago
-        vehicle_pcp: Outstanding finance on vehicle?
-        vehicle_finance: Payments left
+        additional_vehicle_owned: Additional vehicle
+        additional_vehicle_value: Estimated value
+        additional_vehicle_in_regular_use: In regular use
+        additional_vehicle_over_3_years_ago: Bought over 3 years ago
+        additional_vehicle_pcp: Outstanding finance on vehicle?
+        additional_vehicle_finance: Payments left
       property: Home client lives in
       property_fields:
         property_owned: Owned by client or partner
@@ -1156,11 +1154,11 @@ en:
       client_income: Your client's income
       partner_employment: Partner's pay
       partner_employment_fields:
-        gross_income: Gross income
-        income_tax: Income tax
-        national_insurance: National Insurance
-        frequency: Frequency
-        frequency_options:
+        partner_gross_income: Gross income
+        partner_income_tax: Income tax
+        partner_national_insurance: National Insurance
+        partner_frequency: Frequency
+        partner_frequency_options:
           total: Total in last 3 months
           week: Every week
           two_weeks: Every 2 weeks
@@ -1169,10 +1167,6 @@ en:
           annually: Every year
           not_provided: Not provided
       partner_benefits: Partner's benefits
-      partner_housing_benefit: Housing Benefit
-      partner_housing_benefit_fields:
-        partner_housing_benefit_value: Housing Benefit
-        partner_housing_benefit: Receives housing benefit
       partner_other_income: Partner's other income
       partner_other_income_fields:
         partner_friends_or_family_value: Financial help
@@ -1183,7 +1177,6 @@ en:
         partner_other_value: Other sources
       partner_outgoings: Partner's outgoings
       partner_outgoings_fields:
-        partner_housing_payments_value: Housing payments
         partner_childcare_payments_value: Childcare payments
         partner_maintenance_payments_value: Maintenance payments
         partner_legal_aid_payments_value: Legal aid payments

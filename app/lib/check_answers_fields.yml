@@ -34,8 +34,8 @@ sections:
     screen: level_of_help
     subsections:
       - fields:
-          - attribute: level_of_help
-            type: select
+        - attribute: level_of_help
+          type: select
   - label: about_the_case
     subsections:
       - fields:
@@ -182,10 +182,9 @@ sections:
           - attribute: partner_legal_aid_payments_value
             type: money_with_frequency
             alt_attribute: partner_legal_aid_payments_frequency
-  - label: housing
-    screen: housing
-    subsections:
-      - fields:
+      - label: housing
+        screen: housing
+        fields:
           - attribute: housing_payments_value
             type: money_with_frequency
             alt_attribute: housing_payments_frequency
@@ -194,6 +193,7 @@ sections:
           - attribute: housing_benefit_value
             type: money_with_frequency
             alt_attribute: housing_benefit_frequency
+            skip_unless: receives_housing_benefit
   - label: assets
     subsections:
       - label: property
@@ -228,21 +228,24 @@ sections:
             attribute: vehicle_pcp
           - type: money
             attribute: vehicle_finance
-      - label: additional_vehicle
-        screen: vehicle
-        fields:
-          - type: boolean
+          - type: sub_sub_header
             attribute: additional_vehicle_owned
+            skip_unless: additional_vehicle_owned
           - type: money
             attribute: additional_vehicle_value
+            skip_unless: additional_vehicle_owned
           - type: boolean
             attribute: additional_vehicle_in_regular_use
+            skip_unless: additional_vehicle_owned
           - type: boolean
             attribute: additional_vehicle_over_3_years_ago
+            skip_unless: additional_vehicle_owned
           - type: boolean
             attribute: additional_vehicle_pcp
+            skip_unless: additional_vehicle_owned
           - type: money
             attribute: additional_vehicle_finance
+            skip_unless: additional_vehicle_owned
       - label: other
         screen: assets
         model: OtherSection
