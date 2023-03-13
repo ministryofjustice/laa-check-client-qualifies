@@ -10,6 +10,7 @@ RSpec.describe Cfe::SubmitApplicantService do
       partner: false,
     }.with_indifferent_access
   end
+
   let(:cfe_assessment_id) { SecureRandom.uuid }
   let(:mock_connection) { instance_double(CfeConnection) }
 

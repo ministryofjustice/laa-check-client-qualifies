@@ -5,6 +5,54 @@ RSpec.describe Cfe::SubmitAssetsService do
   let(:mock_connection) { instance_double(CfeConnection) }
 
   describe ".call" do
+    context "when there is a full set of data" do
+      let(:session_data) do
+        {
+          "property_owned" => "with_mortgage",
+          "house_value" => 234_234,
+          "mortgage" => 123_123,
+          "percentage_owned" => 80,
+          "house_in_dispute" => false,
+          "joint_ownership" => true,
+          "joint_percentage_owned" => 11,
+          "property_value" => 123,
+          "property_mortgage" => 1313,
+          "property_percentage_owned" => 44,
+          "savings" => 553,
+          "investments" => 345,
+          "valuables" => 665,
+          "in_dispute" => %w[savings investments valuables],
+        }
+      end
+
+      it "calls CFE appropriately" do
+        expect(mock_connection).to receive(:create_capitals).with(
+          cfe_assessment_id,
+          { bank_accounts: [{ description: "Liquid Asset",
+                              subject_matter_of_dispute: true,
+                              value: 553 }],
+            non_liquid_capital: [{ description: "Non Liquid Asset",
+                                   subject_matter_of_dispute: true,
+                                   value: 345 },
+                                 { description: "Non Liquid Asset",
+                                   subject_matter_of_dispute: true,
+                                   value: 665 }] },
+        )
+        expect(mock_connection).to receive(:create_properties).with(
+          cfe_assessment_id,
+          { additional_properties: [{ outstanding_mortgage: 1313,
+                                      percentage_owned: 44,
+                                      shared_with_housing_assoc: false,
+                                      value: 123 }],
+            main_home: { outstanding_mortgage: 123_123,
+                         percentage_owned: 91,
+                         shared_with_housing_assoc: false,
+                         value: 234_234 } },
+        )
+        described_class.call(mock_connection, cfe_assessment_id, session_data)
+      end
+    end
+
     context "when the client is asylum supported" do
       let(:session_data) do
         {
