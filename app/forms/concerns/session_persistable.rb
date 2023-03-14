@@ -7,20 +7,20 @@ module SessionPersistable
     attr_reader :estimate
   end
 
-  def initialize(attributes = {})
-    @estimate = attributes.delete(:estimate)
+  def initialize(attributes = {}, estimate = nil)
+    @estimate = estimate
     super(attributes)
   end
 
   class_methods do
     def from_session(session_data)
       estimate = EstimateModel.from_session(session_data)
-      new(attributes_from_session(session_data).merge(estimate:))
+      new(attributes_from_session(session_data), estimate)
     end
 
     def from_params(params, session_data)
       estimate = EstimateModel.from_session(session_data)
-      new(attributes_from_params(params).merge(estimate:))
+      new(attributes_from_params(params), estimate)
     end
 
     def attributes_from_session(session_data)
