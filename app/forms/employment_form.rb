@@ -6,7 +6,7 @@ class EmploymentForm
   DECIMAL_ATTRIBUTES = %i[gross_income income_tax national_insurance].freeze
   ATTRIBUTES = (DECIMAL_ATTRIBUTES + %i[frequency]).freeze
 
-  attr_accessor :level_of_help
+  delegate :level_of_help, to: :estimate
 
   FREQUENCY_STANDARD_OPTIONS = %i[week two_weeks four_weeks monthly].freeze
   FREQUENCY_TOTAL_OPTION = :total
@@ -21,20 +21,6 @@ class EmploymentForm
     numericality = attribute == :gross_income ? { greater_than: 0, allow_nil: true } : { greater_than_or_equal_to: 0, allow_nil: true }
     attribute attribute, :gbp
     validates attribute, presence: true, numericality:
-  end
-
-  class << self
-    def from_session(session_data)
-      super(session_data).tap { set_level_of_help(_1, session_data) }
-    end
-
-    def from_params(params, session_data)
-      super(params, session_data).tap { set_level_of_help(_1, session_data) }
-    end
-
-    def set_level_of_help(form, session_data)
-      form.level_of_help = session_data["level_of_help"]
-    end
   end
 
 private

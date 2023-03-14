@@ -3,18 +3,13 @@
 # attribute will be prefixed with `partner_`.
 module SessionPersistableForPartner
   extend ActiveSupport::Concern
+  include SessionPersistable
 
   class_methods do
-    def from_session(session_data)
+    def attributes_from_session(session_data)
       session_keys = self::ATTRIBUTES.map(&:to_s).map { "partner_#{_1}" }
       session_attributes = session_data.slice(*session_keys)
-      transformed_session_attributes = session_attributes.transform_keys { _1.gsub("partner_", "") }
-      new(transformed_session_attributes)
-    end
-
-    def from_params(params, _session)
-      relevant_params = params.fetch(name.underscore, {}).permit(*self::ATTRIBUTES)
-      new(relevant_params)
+      session_attributes.transform_keys { _1.gsub("partner_", "") }
     end
   end
 

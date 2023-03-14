@@ -3,7 +3,7 @@ class PartnerDetailsForm
   include ActiveModel::Attributes
   include SessionPersistableForPartner
 
-  attr_accessor :passporting
+  delegate :passporting, to: :estimate
 
   ATTRIBUTES = %i[over_60 employment_status].freeze
 
@@ -14,18 +14,4 @@ class PartnerDetailsForm
   validates :employment_status,
             inclusion: { in: ApplicantForm::EMPLOYMENT_STATUSES.map(&:to_s), allow_nil: false },
             if: -> { !passporting }
-
-  class << self
-    def from_session(session_data)
-      super(session_data).tap { set_extra_properties(_1, session_data) }
-    end
-
-    def from_params(params, session_data)
-      super(params, session_data).tap { set_extra_properties(_1, session_data) }
-    end
-
-    def set_extra_properties(form, session_data)
-      form.passporting = session_data["passporting"]
-    end
-  end
 end
