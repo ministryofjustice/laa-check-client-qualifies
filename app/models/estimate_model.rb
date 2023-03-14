@@ -75,4 +75,8 @@ class EstimateModel
   def use_legacy_proceeding_type?
     !controlled? && !FeatureFlags.enabled?(:asylum_and_immigration)
   end
+
+  def smod_applicable?
+    !upper_tribunal?
+  end
 end

@@ -1,10 +1,12 @@
 module Cfe
   class SubmitAssetsService < BaseService
+    delegate :smod_applicable?, to: :estimate
+
     def call(cfe_assessment_id)
       return unless relevant_form?(:assets)
 
       asset_form = ClientAssetsForm.from_session(@session_data)
-      assets_in_dispute = estimate.upper_tribunal? ? [] : asset_form.in_dispute
+      assets_in_dispute = smod_applicable? ? asset_form.in_dispute : []
       capitals = CfeParamBuilders::Capitals.call(asset_form, assets_in_dispute:)
 
       if capitals[:bank_accounts].any? || capitals[:non_liquid_capital].any?
@@ -16,7 +18,7 @@ module Cfe
           value: asset_form.property_value,
           outstanding_mortgage: asset_form.property_mortgage,
           percentage_owned: asset_form.property_percentage_owned,
-          subject_matter_of_dispute: (asset_form.property_in_dispute? && !estimate.upper_tribunal?) || false,
+          subject_matter_of_dispute: (asset_form.property_in_dispute? && smod_applicable?) || false,
         }
       end
 
@@ -32,7 +34,7 @@ module Cfe
           value: property_entry_form.house_value,
           outstanding_mortgage: (property_entry_form.mortgage if property_form.owned_with_mortgage?) || 0,
           percentage_owned:,
-          subject_matter_of_dispute: (property_entry_form.house_in_dispute && !estimate.upper_tribunal?) || false,
+          subject_matter_of_dispute: (property_entry_form.house_in_dispute && smod_applicable?) || false,
         }
       elsif relevant_form?(:partner_property_entry)
         partner_property_form = PartnerPropertyForm.from_session(@session_data)

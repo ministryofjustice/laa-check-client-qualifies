@@ -6,7 +6,7 @@
 .govuk-grid-column-two-thirds
   = render "estimate_flow/forms/assets",
            i18n_key: "assets",
-           show_smod_content: !@estimate.upper_tribunal?,
+           show_smod_content: @estimate.smod_applicable?,
            hints: ([t("estimate_flow.assets.partner_hint"), t("estimate_flow.assets.partner_second_hint")] if @estimate.partner)
 
 = render "shared/question_sidebar",
