@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe SubmitPartnerService, :partner_flag do
+RSpec.describe Cfe::SubmitPartnerService, :partner_flag do
   describe ".call" do
     let(:arbitrary_fixed_time) { Time.zone.local(2022, 10, 24, 9, 0, 0) }
     let(:service) { described_class }
@@ -42,7 +42,7 @@ RSpec.describe SubmitPartnerService, :partner_flag do
       end
 
       it "constructs a valid payload to send to CFE" do
-        expect(mock_connection).to receive(:create_partner) do |assessment_id, payload|
+        expect(mock_connection).to receive(:create_partner_financials) do |assessment_id, payload|
           expect(assessment_id).to eq cfe_assessment_id
           expect(payload[:partner]).to eq({ employed: true, date_of_birth: 70.years.ago.to_date })
           expect(payload[:irregular_incomes]).to eq([{ amount: 1_000, frequency: "annual", income_type: "student_loan" }])
@@ -91,7 +91,7 @@ RSpec.describe SubmitPartnerService, :partner_flag do
       end
 
       it "constructs a valid payload to send to CFE" do
-        expect(mock_connection).to receive(:create_partner) do |assessment_id, payload|
+        expect(mock_connection).to receive(:create_partner_financials) do |assessment_id, payload|
           expect(assessment_id).to eq cfe_assessment_id
           expect(payload[:partner]).to eq({ employed: false, date_of_birth: 50.years.ago.to_date })
           expect(payload[:irregular_incomes]).to eq([])
@@ -123,7 +123,7 @@ RSpec.describe SubmitPartnerService, :partner_flag do
       end
 
       it "constructs a valid payload to send to CFE" do
-        expect(mock_connection).to receive(:create_partner) do |assessment_id, payload|
+        expect(mock_connection).to receive(:create_partner_financials) do |assessment_id, payload|
           expect(assessment_id).to eq cfe_assessment_id
           expect(payload[:partner]).to eq({ employed: false, date_of_birth: 50.years.ago.to_date })
           expect(payload[:irregular_incomes]).to eq([])
@@ -135,6 +135,19 @@ RSpec.describe SubmitPartnerService, :partner_flag do
                                              non_liquid_capital: [] })
           expect(payload[:vehicles]).to eq([])
         end
+        described_class.call(mock_connection, cfe_assessment_id, session_data)
+      end
+    end
+
+    context "when no partner" do
+      let(:session_data) do
+        {
+          "partner" => false,
+        }
+      end
+
+      it "sends nothing to CFE" do
+        expect(mock_connection).not_to receive(:create_partner_financials)
         described_class.call(mock_connection, cfe_assessment_id, session_data)
       end
     end

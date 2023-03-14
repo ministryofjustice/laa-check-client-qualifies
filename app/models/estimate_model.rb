@@ -12,7 +12,12 @@ class EstimateModel
                          partner_vehicle_owned
                          vehicle_pcp
                          housing_benefit
-                         partner_housing_benefit].freeze
+                         child_dependants
+                         adult_dependants
+                         partner_child_dependants
+                         partner_adult_dependants
+                         partner_housing_benefit
+                         partner_vehicle_pcp].freeze
 
   ESTIMATE_STRINGS = %i[level_of_help
                         proceeding_type

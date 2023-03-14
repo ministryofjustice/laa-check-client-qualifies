@@ -52,7 +52,7 @@ module CheckAnswers
     def build_field(field_data, label_set, parent_screen)
       relevant_screen = (field_data[:screen] || field_data[:related_screen] || parent_screen).to_sym
       return unless StepsHelper.valid_step?(@model, relevant_screen)
-      return if field_data[:skip_unless].present? && !@session_data[field_data[:skip_unless]]
+      return if field_data[:skip_unless].present? && !@model.send(field_data[:skip_unless])
 
       label = field_data.fetch(:label, field_data.fetch(:attribute))
 

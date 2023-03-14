@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe SubmitApplicantService do
+RSpec.describe Cfe::SubmitApplicantService do
   let(:service) { described_class }
   let(:session_data) do
     {
@@ -10,6 +10,7 @@ RSpec.describe SubmitApplicantService do
       partner: false,
     }.with_indifferent_access
   end
+
   let(:cfe_assessment_id) { SecureRandom.uuid }
   let(:mock_connection) { instance_double(CfeConnection) }
 
@@ -53,6 +54,7 @@ RSpec.describe SubmitApplicantService do
     context "when a&I flag is enabled", :asylum_and_immigration_flag do
       let(:session_data) do
         {
+          proceeding_type: "IM030",
           asylum_support: true,
         }.with_indifferent_access
       end

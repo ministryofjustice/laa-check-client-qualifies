@@ -101,14 +101,13 @@ RSpec.describe "Accessibility" do
     end
     let(:mock_connection) do
       instance_double(CfeConnection, create_applicant: nil,
+                                     create_assessment_id: nil,
+                                     create_proceeding_types: nil,
                                      api_result: calculation_result)
     end
 
     before do
       allow(CfeConnection).to receive(:connection).and_return(mock_connection)
-      allow(mock_connection).to receive(:create_assessment_id)
-      allow(mock_connection).to receive(:create_proceeding_type)
-      allow(mock_connection).to receive(:create_regular_payments)
       start_assessment
       fill_in_forms_until(:check_answers)
       click_on "Submit"
