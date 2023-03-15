@@ -12,6 +12,7 @@ class EstimatesController < ApplicationController
 
   def show
     @model = CalculationResult.new(session_data)
+    track_completed_journey(@model)
     track_page_view(page: :view_results)
   end
 
@@ -65,5 +66,9 @@ private
 
   def load_check
     @check = Check.new(session_data)
+  end
+
+  def track_completed_journey(calculation_result)
+    JourneyLoggerService.call(assessment_id, calculation_result, @estimate)
   end
 end
