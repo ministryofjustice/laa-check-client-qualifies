@@ -1503,7 +1503,7 @@ en:
           text: Pensioner disregard
           hint: Applied to total capital up to a maximum of £100,000
           alt_hint: Applied to remaining capital after disputed asset disregard has been applied, and up to a maximum of £100,000
-        smod_disregard:
+        smod_non_property_disregard:
           text: Disputed asset disregard
           hint: Equal to the assessed value of all assets marked as disputed and capped at £100,000
           alt_hint: Equal to the assessed value of all assets marked as disputed and capped at £100,000
