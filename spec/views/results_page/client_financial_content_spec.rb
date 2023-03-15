@@ -37,7 +37,8 @@ RSpec.describe "estimates/show.html.slim" do
           capital: {
             pensioner_disregard_applied: 3_000,
             pensioner_capital_disregard: 100_000,
-            subject_matter_of_dispute_disregard: 1_000,
+            disputed_non_property_disregard: 1_000,
+            subject_matter_of_dispute_disregard: 2_000,
             total_capital: 12_000,
             total_property: 0.0,
             total_vehicle: 3_000,
