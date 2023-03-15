@@ -38,6 +38,7 @@ FactoryBot.define do
               "result": "eligible" },
           ],
           total_capital: 0,
+          disputed_non_property_disregard: 0,
         },
       }
     end

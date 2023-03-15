@@ -155,7 +155,7 @@ class CalculationResult
   def client_capital_subtotal_rows
     rows = {
       total_capital: monetise(api_response.dig(:result_summary, :capital, :total_capital)),
-      smod_disregard: monetise(-api_response.dig(:result_summary, :capital, :subject_matter_of_dispute_disregard)),
+      smod_non_property_disregard: monetise(-api_response.dig(:result_summary, :capital, :disputed_non_property_disregard)),
       pensioner_capital_disregard: monetise(-api_response.dig(:result_summary, :capital, :pensioner_disregard_applied)),
     }
 
