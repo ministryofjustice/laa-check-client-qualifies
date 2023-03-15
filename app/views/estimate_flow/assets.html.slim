@@ -11,4 +11,4 @@
 
 = render "shared/question_sidebar",
         level_of_help: @estimate.level_of_help,
-        links: assets_links(@estimate.level_of_help)
+        links: assets_links(@estimate.level_of_help, @estimate.smod_applicable?)

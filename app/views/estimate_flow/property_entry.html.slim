@@ -10,4 +10,4 @@
           show_joint_ownership: @estimate.partner.present?,
           show_mortgage: @estimate.property_owned == "with_mortgage"
 
-= render "property_sidebar", level_of_help: @estimate.level_of_help
+= render "property_sidebar", level_of_help: @estimate.level_of_help, smod_applicable: @estimate.smod_applicable?

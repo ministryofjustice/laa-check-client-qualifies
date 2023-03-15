@@ -7,6 +7,4 @@
 
 = render "shared/question_sidebar",
          level_of_help: @estimate.level_of_help,
-         links: { t("estimate_flow.vehicle.guidance.text") => t("estimate_flow.vehicle.guidance.link"),
-                  t("generic.trapped_capital.text") => t("generic.trapped_capital.certificated.link"),
-                  t("generic.smod.guidance.text") => t("generic.smod.guidance.certificated.link") }
+         links: vehicle_links(@estimate.smod_applicable?)
