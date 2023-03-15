@@ -396,7 +396,7 @@ en:
   service:
     name: Check if your client qualifies for legal aid
     email: eligibility@justice.gov.uk
-    user_survey_link: https://eu.surveymonkey.com/r/pilot1cycq
+    user_survey_link: https://eu.surveymonkey.com/r/ccq1
     beta: Beta
     beta_message_html: This is a new service - your <a href="%{user_survey_link}" target="_blank">feedback</a> will help us improve it
   generic:
