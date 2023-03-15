@@ -49,11 +49,15 @@ RSpec.describe "estimates/show.html.slim" do
           capital: {
             pensioner_capital_disregard: 0,
             subject_matter_of_dispute_disregard: 0,
-            total_capital: 0,
+            pensioner_disregard_applied: 0,
             proceeding_types: [
-              { upper_threshold: 2657.0,
-                result: "eligible" },
+              { "ccms_code": "SE013",
+                "client_involvement_type": "I",
+                "upper_threshold": 2657.0,
+                "lower_threshold": 0.0,
+                "result": "eligible" },
             ],
+            total_capital: 0,
           },
           partner_capital: {
             pensioner_capital_disregard: 3_000,

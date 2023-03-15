@@ -8,8 +8,9 @@
         - row.cell(header: true, text:)
         - row.cell(text: amount, numeric: true)
     - subtotal_rows.each_with_index do |type_and_amount, index|
+      - hint = @model.smod_applied? ? "alt_hint" : "hint"
       - text = header_with_hint("estimates.show.client_capital_subtotal_types.#{type_and_amount[0]}.text",
-                                "estimates.show.client_capital_subtotal_types.#{type_and_amount[0]}.hint")
+                                "estimates.show.client_capital_subtotal_types.#{type_and_amount[0]}.#{hint}")
       - body.row(classes: (%w[solid-top-border] if index.zero?)) do |row|
         - row.cell(header: true, text:)
         - row.cell(text: type_and_amount[1], numeric: true)
