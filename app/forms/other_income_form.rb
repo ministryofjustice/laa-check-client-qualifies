@@ -28,24 +28,10 @@ class OtherIncomeForm
                                    if: -> { send(value_attribute).to_i.positive? }
   end
 
-  attr_accessor :level_of_help
+  delegate :level_of_help, to: :estimate
 
   def frequencies
     valid_frequencies = level_of_help == "controlled" ? VALID_FREQUENCIES - %w[total] : VALID_FREQUENCIES
     valid_frequencies.map { [_1, I18n.t("estimate_flow.other_income.frequencies.#{_1}")] }
-  end
-
-  class << self
-    def from_session(session_data)
-      super(session_data).tap { set_level_of_help(_1, session_data) }
-    end
-
-    def from_params(params, session_data)
-      super(params, session_data).tap { set_level_of_help(_1, session_data) }
-    end
-
-    def set_level_of_help(form, session_data)
-      form.level_of_help = session_data["level_of_help"]
-    end
   end
 end

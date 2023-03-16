@@ -41,7 +41,7 @@
       = form.govuk_radio_button :joint_ownership, false,
               label: { text: t("generic.no_choice") }
 
-  - if show_smod
+  - if show_smod_content
     = form.govuk_check_box :house_in_dispute, true, 0,
             multiple: false,
             label: { text: t("generic.dispute") }

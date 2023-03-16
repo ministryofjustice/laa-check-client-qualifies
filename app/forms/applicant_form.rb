@@ -3,7 +3,7 @@ class ApplicantForm
   include ActiveModel::Attributes
   include SessionPersistable
 
-  attr_accessor :level_of_help
+  delegate :level_of_help, to: :estimate
 
   PROCEEDING_TYPES = { domestic_abuse: "DA001", other: "SE003" }.freeze
   EMPLOYED_STATUSES = %i[in_work receiving_statutory_pay].freeze
@@ -32,18 +32,4 @@ class ApplicantForm
 
   attribute :passporting, :boolean
   validates :passporting, inclusion: { in: [true, false] }
-
-  class << self
-    def from_session(session_data)
-      super(session_data).tap { set_level_of_help(_1, session_data) }
-    end
-
-    def from_params(params, session_data)
-      super(params, session_data).tap { set_level_of_help(_1, session_data) }
-    end
-
-    def set_level_of_help(form, session_data)
-      form.level_of_help = session_data["level_of_help"]
-    end
-  end
 end
