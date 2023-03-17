@@ -35,7 +35,7 @@ RSpec.describe "dependant_details", type: :feature do
       travel_to "2023-04-09"
       visit "estimates/#{assessment_code}/build_estimates/dependant_details"
     end
-  
+
     it "shows me the old dependant allowance text" do
       expect(page).to have_content "anyone with over £307.64 income every month"
     end
@@ -46,10 +46,9 @@ RSpec.describe "dependant_details", type: :feature do
       travel_to "2023-04-10"
       visit "estimates/#{assessment_code}/build_estimates/dependant_details"
     end
-  
+
     it "shows me the new dependant allowance text" do
       expect(page).to have_content "anyone with over £338.90 income every month"
     end
   end
-
 end
