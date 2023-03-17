@@ -7,7 +7,7 @@ RSpec.describe "Certificated passported check", type: :feature do
 
   it "sends the right data to CFE for certificated work" do
     stubbed_assessment_call = stub_request(:post, %r{assessments\z}).with do |request|
-      expect(request.body).to eq({ submission_date: "2023-02-15" }.to_json)
+      expect(request.body).to eq({ submission_date: "2023-04-11" }.to_json)
     end
     create_assessment_stub = stubbed_assessment_call.to_return(
       body: { assessment_id: "assessment_id" }.to_json,

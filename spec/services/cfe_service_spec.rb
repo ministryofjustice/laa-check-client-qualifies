@@ -43,7 +43,7 @@ RSpec.describe CfeService do
     let(:session_data) { {} }
 
     it "does not include level of help in payload if none is specified" do
-      expect(mock_connection).to receive(:create_assessment_id).with({ submission_date: Date.current })
+      expect(mock_connection).to receive(:create_assessment_id).with({ submission_date: Date.new(2023, 4, 11) })
       described_class.create_assessment_id(mock_connection, session_data)
     end
   end
