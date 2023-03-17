@@ -89,14 +89,13 @@ private
   def percent_controlled
     return if assessments_completed.zero?
 
-    # ASSUMPTION: All and only certificated assessments will involve viewing the `vehicle` page prior to reaching the result screen
-    certificated_completed = relevant_events.joins("LEFT JOIN analytics_events ae2 ON ae2.assessment_code = analytics_events.assessment_code")
-                                            .where(event_type: "page_view", page: "view_results")
-                                            .where(ae2: { event_type: "page_view", page: "vehicle" })
-                                            .distinct
-                                            .count(:assessment_code)
+    controlled_completed = relevant_events.joins("LEFT JOIN analytics_events ae2 ON ae2.assessment_code = analytics_events.assessment_code")
+                                          .where(event_type: "page_view", page: "view_results")
+                                          .where(ae2: { event_type: "controlled_level_of_help_chosen", page: "level_of_help_choice" })
+                                          .distinct
+                                          .count(:assessment_code)
 
-    100 - (100 * certificated_completed / assessments_completed.to_f).round
+    (100 * controlled_completed / assessments_completed.to_f).round
   end
 
   def top_validation_screens
