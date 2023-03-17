@@ -4,6 +4,7 @@ RSpec.describe "estimates/show.html.slim" do
   describe "Client financial content" do
     let(:calculation_result) { CalculationResult.new(api_response).tap { _1.level_of_help = "certificated" } }
     let(:estimate) { EstimateModel.from_session({}) }
+    let(:vehicle_in_regular_use) { true }
     let(:api_response) do
       FactoryBot.build(
         :api_result,
@@ -81,6 +82,7 @@ RSpec.describe "estimates/show.html.slim" do
                   loan_amount_outstanding: 234,
                   disregards_and_deductions: 144,
                   assessed_value: 3,
+                  in_regular_use: vehicle_in_regular_use,
                 },
               ],
               liquid: [],
@@ -181,6 +183,15 @@ RSpec.describe "estimates/show.html.slim" do
       expect(page_text).to include "Disputed asset disregardEqual to the assessed value of all assets marked as disputed and capped at £100,000 -£1,000.00"
       expect(page_text).to include "Total Total assessed disposable capital £0.00"
       expect(page_text).to include "Disposable capital upper limit £2,657.00"
+    end
+
+    context "when the vehicle is not in regular use" do
+      let(:vehicle_in_regular_use) { false }
+
+      it "does not show additional vehicle rows" do
+        expect(page_text).not_to include "Outstanding payments -£234.00"
+        expect(page_text).not_to include "Disregards and deductions -£144.00"
+      end
     end
   end
 end
