@@ -1,6 +1,7 @@
 class FeatureFlags
   ENABLED_AFTER_DATE = {
     example_2125_flag: "2125-01-01",
+    el_809: "2023-04-10",
   }.freeze
 
   FLIPPER_FLAGS = %i[sentry controlled asylum_and_immigration cw_forms].freeze
