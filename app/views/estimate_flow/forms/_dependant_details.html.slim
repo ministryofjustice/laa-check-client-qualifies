@@ -1,5 +1,5 @@
-- dependant_allowance = FeatureFlags.enabled?(:dependance_allowance_increase) ? "new" : "legacy"
-- income_exclusion_key = "#{@estimate.level_of_help}_income_exclusion_#{dependant_allowance}"
+- suffix = FeatureFlags.enabled?(:dependance_allowance_increase) ? "" : "_legacy"
+- income_exclusion_key = "#{@estimate.level_of_help}_income_exclusion#{suffix}"
 
 = form_for(@form, url: wizard_path, method: :put) do |form|
   = form.govuk_error_summary t("generic.error_summary_title")
