@@ -396,7 +396,7 @@ en:
   service:
     name: Check if your client qualifies for legal aid
     email: eligibility@justice.gov.uk
-    user_survey_link: https://eu.surveymonkey.com/r/pilot1cycq
+    user_survey_link: https://eu.surveymonkey.com/r/ccq1
     beta: Beta
     beta_message_html: This is a new service - your <a href="%{user_survey_link}" target="_blank">feedback</a> will help us improve it
   generic:
@@ -1498,12 +1498,15 @@ en:
         total_capital:
           text: Total capital
           hint: ""
+          alt_hint: ""
         pensioner_capital_disregard:
           text: Pensioner disregard
-          hint: Applied to total capital and capped at £100,000
-        smod_disregard:
+          hint: Applied to total capital up to a maximum of £100,000
+          alt_hint: Applied to remaining capital after disputed asset disregard has been applied, and up to a maximum of £100,000
+        smod_non_property_disregard:
           text: Disputed asset disregard
           hint: Equal to the assessed value of all assets marked as disputed and capped at £100,000
+          alt_hint: Equal to the assessed value of all assets marked as disputed and capped at £100,000
       pensioner_disregard_types:
         total_capital:
           text: Total client and partner disposable capital

@@ -3,14 +3,32 @@
 module SessionPersistable
   extend ActiveSupport::Concern
 
+  included do
+    attr_reader :estimate
+  end
+
+  def initialize(attributes = {}, estimate = nil)
+    @estimate = estimate
+    super(attributes)
+  end
+
   class_methods do
     def from_session(session_data)
-      new(session_data.slice(*self::ATTRIBUTES.map(&:to_s)))
+      estimate = EstimateModel.from_session(session_data)
+      new(attributes_from_session(session_data), estimate)
     end
 
-    def from_params(params, _session)
-      relevant_params = params.fetch(name.underscore, {}).permit(*self::ATTRIBUTES)
-      new(relevant_params)
+    def from_params(params, session_data)
+      estimate = EstimateModel.from_session(session_data)
+      new(attributes_from_params(params), estimate)
+    end
+
+    def attributes_from_session(session_data)
+      session_data.slice(*self::ATTRIBUTES.map(&:to_s))
+    end
+
+    def attributes_from_params(params)
+      params.fetch(name.underscore, {}).permit(*self::ATTRIBUTES)
     end
   end
 

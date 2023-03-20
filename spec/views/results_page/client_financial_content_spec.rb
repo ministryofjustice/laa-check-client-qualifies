@@ -35,8 +35,10 @@ RSpec.describe "estimates/show.html.slim" do
             combined_total_disposable_income: 12_345.0,
           },
           capital: {
-            pensioner_capital_disregard: 3_000,
-            subject_matter_of_dispute_disregard: 1_000,
+            pensioner_disregard_applied: 3_000,
+            pensioner_capital_disregard: 100_000,
+            disputed_non_property_disregard: 1_000,
+            subject_matter_of_dispute_disregard: 2_000,
             total_capital: 12_000,
             total_property: 0.0,
             total_vehicle: 3_000,
@@ -177,7 +179,7 @@ RSpec.describe "estimates/show.html.slim" do
       expect(page_text).to include "Assessed vehicle value £3,000.00"
       expect(page_text).to include "Savings £3,676.00 Investments and valuables £5,353.00"
       expect(page_text).to include "Total capital £12,000.00"
-      expect(page_text).to include "Pensioner disregardApplied to total capital and capped at £100,000 -£3,000.00"
+      expect(page_text).to include "Pensioner disregardApplied to remaining capital after disputed asset disregard has been applied, and up to a maximum of £100,000 -£3,000.00"
       expect(page_text).to include "Disputed asset disregardEqual to the assessed value of all assets marked as disputed and capped at £100,000 -£1,000.00"
       expect(page_text).to include "Total Total assessed disposable capital £0.00"
       expect(page_text).to include "Disposable capital upper limit £2,657.00"

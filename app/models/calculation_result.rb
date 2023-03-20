@@ -83,7 +83,11 @@ class CalculationResult
   end
 
   def pensioner_disregard_applied?
-    api_response.dig(:result_summary, :capital, :pensioner_capital_disregard).positive?
+    api_response.dig(:result_summary, :capital, :pensioner_disregard_applied).positive?
+  end
+
+  def smod_applied?
+    api_response.dig(:result_summary, :capital, :subject_matter_of_dispute_disregard).positive?
   end
 
   def partner_income_rows
@@ -146,11 +150,11 @@ class CalculationResult
   def client_capital_subtotal_rows
     rows = {
       total_capital: monetise(api_response.dig(:result_summary, :capital, :total_capital)),
-      pensioner_capital_disregard: monetise(-api_response.dig(:result_summary, :capital, :pensioner_capital_disregard)),
-      smod_disregard: monetise(-api_response.dig(:result_summary, :capital, :subject_matter_of_dispute_disregard)),
+      smod_non_property_disregard: monetise(-api_response.dig(:result_summary, :capital, :disputed_non_property_disregard)),
+      pensioner_capital_disregard: monetise(-api_response.dig(:result_summary, :capital, :pensioner_disregard_applied)),
     }
 
-    if has_partner? && pensioner_disregard_applied?
+    if has_partner? || !pensioner_disregard_applied?
       rows.except(:pensioner_capital_disregard)
     else
       rows
@@ -164,7 +168,7 @@ class CalculationResult
   def pensioner_disregard_rows
     total_capital = api_response.dig(:result_summary, :capital, :total_capital) +
       api_response.dig(:result_summary, :partner_capital, :total_capital)
-    disregarded = [total_capital, api_response.dig(:result_summary, :capital, :pensioner_capital_disregard)].min
+    disregarded = api_response.dig(:result_summary, :capital, :pensioner_disregard_applied)
     {
       total_capital: monetise(total_capital),
       pensioner_capital_disregard: monetise(-disregarded),
