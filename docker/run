@@ -4,5 +4,5 @@ set -e
 
 ./docker/wait_for_pg
 
-bundle exec rake db:migrate
+bundle exec rails db:migrations:run_with_retry
 bundle exec rails server -b 0.0.0.0
