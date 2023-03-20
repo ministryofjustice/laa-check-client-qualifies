@@ -1,4 +1,4 @@
-- dependant_allowance = FeatureFlags.enabled?(:el_809) ? "new" : "old"
+- dependant_allowance = FeatureFlags.enabled?(:dependance_allowance_increase) ? "new" : "legacy"
 - income_exclusion_key = "#{@estimate.level_of_help}_income_exclusion_#{dependant_allowance}"
 
 = form_for(@form, url: wizard_path, method: :put) do |form|
