@@ -13,7 +13,7 @@ require "pry-rescue/rspec" if Rails.env.development?
 Capybara.register_driver :headless_chrome do |app|
   options = Selenium::WebDriver::Chrome::Options.new
   options.add_argument("--headless")
-  Capybara::Selenium::Driver.new(app, browser: :chrome, capabilities: options)
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options:)
 end
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
