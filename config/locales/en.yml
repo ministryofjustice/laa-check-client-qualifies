@@ -1182,7 +1182,7 @@ en:
         adult_dependants_count: Number of adult dependants
         child_dependants: Has child dependants
         child_dependants_count: Number of child dependants
-      employment: Employment pay
+      employment: Pay
       employment_fields:
         gross_income: Gross pay
         income_tax: Income tax
@@ -1271,7 +1271,7 @@ en:
         savings: Savings
         investments: Investments
         valuables: Valuables
-      partner_employment: Partner's employment pay
+      partner_employment: Partner's pay
       partner_employment_fields:
         partner_gross_income: Gross pay
         partner_income_tax: Income tax
