@@ -76,7 +76,9 @@ postgresql:
     enabled: false
 
 geckoboard:
-  metricsDataset: "ccq_metrics_uat"
-  validationsDataset: "ccq_validations_uat"
+  metricsDataset: "ccq_monthly_metrics_uat"
+  allMetricsDataset: "ccq_all_metrics_uat"
+  recentValidationsDataset: "ccq_recent_validations_uat"
+  allValidationsDataset: "ccq_all_validations_uat"
   lastPagesDataset: "ccq_last_pages_uat"
   enabled: not_enabled

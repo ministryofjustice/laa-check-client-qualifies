@@ -86,10 +86,14 @@ env:
         key: geckoboard-api-key
   - name: GECKOBOARD_METRIC_DATASET_NAME
     value:  {{ .Values.geckoboard.metricsDataset }}
-  - name: GECKOBOARD_VALIDATION_DATASET_NAME
-    value:  {{ .Values.geckoboard.validationsDataset }}
   - name: GECKOBOARD_LAST_PAGE_DATASET_NAME
     value:  {{ .Values.geckoboard.lastPagesDataset }}
+  - name: GECKOBOARD_ALL_METRIC_DATASET_NAME
+    value:  {{ .Values.geckoboard.allMetricsDataset }}
+  - name: GECKOBOARD_RECENT_VALIDATION_DATASET_NAME
+    value:  {{ .Values.geckoboard.recentValidationsDataset }}
+  - name: GECKOBOARD_ALL_VALIDATION_DATASET_NAME
+    value:  {{ .Values.geckoboard.allValidationsDataset }}
   - name: GECKOBOARD_ENABLED
     value: {{ .Values.geckoboard.enabled }}
 
