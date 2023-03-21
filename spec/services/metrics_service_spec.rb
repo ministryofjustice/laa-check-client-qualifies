@@ -75,10 +75,12 @@ RSpec.describe MetricsService do
           # Completed controlled assessment by user 2
           create :analytics_event, assessment_code: "CODE4", page: "applicant", browser_id: "BROWSER2", created_at: 1.day.ago
           create :analytics_event, assessment_code: "CODE4", page: "view_results", browser_id: "BROWSER2", created_at: 1.day.ago
+          create :analytics_event, assessment_code: "CODE4", event_type: "controlled_level_of_help_chosen", page: "level_of_help_choice", browser_id: "BROWSER2", created_at: 1.day.ago
 
           # Completed controlled assessment
           create :analytics_event, assessment_code: "CODE5", page: "applicant", created_at: 1.day.ago
           create :analytics_event, assessment_code: "CODE5", page: "view_results", created_at: 1.day.ago
+          create :analytics_event, assessment_code: "CODE5", event_type: "controlled_level_of_help_chosen", page: "level_of_help_choice", created_at: 1.day.ago
 
           create :analytics_event, page: "index_start"
         end
