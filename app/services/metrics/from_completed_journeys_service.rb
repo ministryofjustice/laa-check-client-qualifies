@@ -33,72 +33,37 @@ module Metrics
     def metric_dataset_definition
       {
         fields: [
-          Geckoboard::NumberField.new(:with_partner_overall, name: "Completed checks with partner"),
-          Geckoboard::NumberField.new(:with_partner_certificated, name: "Completed certificated checks with partner"),
-          Geckoboard::NumberField.new(:with_partner_controlled, name: "Completed controlled checks with partner"),
-          Geckoboard::NumberField.new(:no_partner_overall, name: "Completed checks without partner"),
-          Geckoboard::NumberField.new(:no_partner_certificated, name: "Completed certificated checks without partner"),
-          Geckoboard::NumberField.new(:no_partner_controlled, name: "Completed controlled checks without partner"),
-          Geckoboard::NumberField.new(:over_60_overall, name: "Completed checks with person over 60"),
-          Geckoboard::NumberField.new(:over_60_certificated, name: "Completed certificated checks with person over 60"),
-          Geckoboard::NumberField.new(:over_60_controlled, name: "Completed controlled checks with person over 60"),
-          Geckoboard::NumberField.new(:passported_overall, name: "Completed checks with passporting benefit"),
-          Geckoboard::NumberField.new(:passported_certificated, name: "Completed certificated checks with passporting benefit"),
-          Geckoboard::NumberField.new(:passported_controlled, name: "Completed controlled checks with passporting benefit"),
-          Geckoboard::NumberField.new(:non_passported_overall, name: "Completed checks without passporting benefit"),
-          Geckoboard::NumberField.new(:non_passported_certificated, name: "Completed certificated checks without passporting benefit"),
-          Geckoboard::NumberField.new(:non_passported_controlled, name: "Completed controlled checks without passporting benefit"),
-          Geckoboard::NumberField.new(:property_overall, name: "Completed checks with owned property"),
-          Geckoboard::NumberField.new(:property_certificated, name: "Completed certificated checks with owned property"),
-          Geckoboard::NumberField.new(:property_controlled, name: "Completed controlled checks with owned property"),
-          Geckoboard::NumberField.new(:vehicle_overall, name: "Completed checks with owned vehicle"),
-          Geckoboard::NumberField.new(:vehicle_certificated, name: "Completed certificated checks with owned vehicle"),
-          Geckoboard::NumberField.new(:vehicle_controlled, name: "Completed controlled checks with owned vehicle"),
-          Geckoboard::NumberField.new(:smod_overall, name: "Completed checks with SMOD assets"),
-          Geckoboard::NumberField.new(:smod_certificated, name: "Completed certificated checks with SMOD assets"),
-          Geckoboard::NumberField.new(:smod_controlled, name: "Completed controlled checks with SMOD assets"),
-          Geckoboard::NumberField.new(:eligible_overall, name: "Completed checks with eligible result"),
-          Geckoboard::NumberField.new(:eligible_certificated, name: "Completed certificated checks with eligible result"),
-          Geckoboard::NumberField.new(:eligible_controlled, name: "Completed controlled checks with eligible result"),
-          Geckoboard::NumberField.new(:ineligible_overall, name: "Completed checks with ineligible result"),
-          Geckoboard::NumberField.new(:ineligible_certificated, name: "Completed certificated checks with ineligible result"),
-          Geckoboard::NumberField.new(:ineligible_controlled, name: "Completed controlled checks with ineligible result"),
-          Geckoboard::NumberField.new(:capital_contribution_overall, name: "Completed checks with capital contribution required"),
-          Geckoboard::NumberField.new(:capital_contribution_certificated, name: "Completed certificated checks with capital contribution required"),
-          Geckoboard::NumberField.new(:capital_contribution_controlled, name: "Completed controlled checks with capital contribution required"),
-          Geckoboard::NumberField.new(:income_contribution_overall, name: "Completed checks with income contribution required"),
-          Geckoboard::NumberField.new(:income_contribution_certificated, name: "Completed certificated checks with income contribution required"),
-          Geckoboard::NumberField.new(:income_contribution_controlled, name: "Completed controlled checks with income contribution required"),
+          Geckoboard::StringField.new(:property, name: "The property in question"),
+          Geckoboard::StringField.new(:metric_variant, name: "What about the property we're measuring"),
+          Geckoboard::NumberField.new(:checks, name: "The measurement"),
         ],
       }
     end
 
     def metrics
-      # We produce a dataset with two rows in it, one which contains values for the current month and one
-      # with values for all time. The latter's values will by definition be greater than or equal to
-      # the former's, and this allows us to specify which to display in Geckoboard's widget editor
-      # by choosing 'Max' and 'Min' aggregate options
-      %i[all_time month_to_date].map do |range|
-        build_row_for(range)
-      end
+      METRIC_TO_ATTRIBUTE_MAPPINGS.map { |property, relevant_attributes| build_rows_for(property, relevant_attributes) }.flatten
     end
 
-    def build_row_for(range)
-      METRIC_TO_ATTRIBUTE_MAPPINGS.map { |prefix, relevant_attributes| build_columns_for(prefix, relevant_attributes, range) }.reduce({}, :merge)
+    def build_rows_for(property, relevant_attributes)
+      [
+        build_columns_for(property, relevant_attributes, :certificated, :all_time),
+        build_columns_for(property, relevant_attributes, :controlled, :all_time),
+        build_columns_for(property, relevant_attributes, :certificated, :month_to_date),
+        build_columns_for(property, relevant_attributes, :controlled, :month_to_date),
+      ]
     end
 
-    def build_columns_for(prefix, relevant_attributes, range)
+    def build_columns_for(property, relevant_attributes, level_of_help, range)
       {
-        "#{prefix}_overall": count(range, relevant_attributes),
-        "#{prefix}_certificated": count(range, relevant_attributes.merge(certificated: true)),
-        "#{prefix}_controlled": count(range, relevant_attributes.merge(certificated: false)),
+        property: property.to_s,
+        metric_variant: "#{level_of_help == :certificated ? 'Certificated' : 'Controlled'} #{range == :all_time ? 'all time' : 'this month'}",
+        checks: count(range, level_of_help, relevant_attributes),
       }
     end
 
-    def count(range, attributes)
-      extra_attributes = {}
+    def count(range, level_of_help, attributes)
+      extra_attributes = { certificated: level_of_help == :certificated }
       extra_attributes[:completed] = Date.current.all_month if range == :month_to_date
-      extra_attributes[:certificated] = [true, false] unless attributes.key?(:certificated)
       CompletedUserJourney.where(attributes.merge(extra_attributes)).count
     end
   end

@@ -40,12 +40,10 @@ RSpec.describe Metrics::FromCompletedJourneysService do
 
         it "pushes appropriate numbers to Geckoboard" do
           expect(dataset).to receive(:put) do |rows|
-            expect(rows.map { _1[:"#{prefix}_overall"] }.max).to eq 15
-            expect(rows.map { _1[:"#{prefix}_certificated"] }.max).to eq 8
-            expect(rows.map { _1[:"#{prefix}_controlled"] }.max).to eq 7
-            expect(rows.map { _1[:"#{prefix}_overall"] }.min).to eq 11
-            expect(rows.map { _1[:"#{prefix}_certificated"] }.min).to eq 5
-            expect(rows.map { _1[:"#{prefix}_controlled"] }.min).to eq 6
+            expect(rows.find { _1[:property] == prefix && _1[:metric_variant] == "Certificated all time" }[:checks]).to eq 8
+            expect(rows.find { _1[:property] == prefix && _1[:metric_variant] == "Controlled all time" }[:checks]).to eq 7
+            expect(rows.find { _1[:property] == prefix && _1[:metric_variant] == "Certificated this month" }[:checks]).to eq 5
+            expect(rows.find { _1[:property] == prefix && _1[:metric_variant] == "Controlled this month" }[:checks]).to eq 6
           end
           described_class.call
         end
