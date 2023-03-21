@@ -14,7 +14,7 @@ RSpec.describe "estimates/check_answers.html.slim" do
     context "when there is housing benefit information" do
       context "when partner has housing benefit" do
         let(:session_data) do
-          build(:minimal_session,
+          build(:minimal_complete_session,
                 :with_partner,
                 housing_benefit: false,
                 partner_housing_benefit: true)
@@ -27,7 +27,7 @@ RSpec.describe "estimates/check_answers.html.slim" do
 
       context "when partner does not have housing benefit" do
         let(:session_data) do
-          build(:minimal_session,
+          build(:minimal_complete_session,
                 :with_partner,
                 housing_benefit: false,
                 partner_housing_benefit: false)

@@ -11,10 +11,12 @@ RSpec.describe "estimates/check_answers.html.slim" do
   end
 
   describe "partner sections" do
+    let(:text) { page_text }
+
     context "when there are partner dependants" do
       context "when multiple dependants" do
         let(:session_data) do
-          build(:minimal_session,
+          build(:minimal_complete_session,
                 :with_partner,
                 partner_child_dependants: true,
                 partner_child_dependants_count: 1,
@@ -23,24 +25,24 @@ RSpec.describe "estimates/check_answers.html.slim" do
         end
 
         it "renders content" do
-          expect(page_text).to include("Partner has child dependantsYes")
-          expect(page_text).to include("Number of partner child dependants1")
-          expect(page_text).to include("Partner has adult dependantsYes")
-          expect(page_text).to include("Number of partner adult dependants2")
+          expect(text).to include("Partner has child dependantsYes")
+          expect(text).to include("Number of partner child dependants1")
+          expect(text).to include("Partner has adult dependantsYes")
+          expect(text).to include("Number of partner adult dependants2")
         end
       end
 
       context "when no dependants" do
         let(:session_data) do
-          build(:minimal_session,
+          build(:minimal_complete_session,
                 :with_partner,
                 partner_child_dependants: nil,
                 partner_adult_dependants: nil)
         end
 
         it "renders content" do
-          expect(page_text).to include("Partner has child dependantsNo")
-          expect(page_text).to include("Partner has adult dependantsNo")
+          expect(text).to include("Partner has child dependantsNo")
+          expect(text).to include("Partner has adult dependantsNo")
         end
       end
     end

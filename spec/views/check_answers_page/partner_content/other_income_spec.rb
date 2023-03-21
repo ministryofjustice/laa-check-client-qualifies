@@ -11,10 +11,12 @@ RSpec.describe "estimates/check_answers.html.slim" do
   end
 
   describe "partner sections" do
+    let(:text) { page_text }
+
     context "when there is partner other income" do
       context "when there are multiple other incomes" do
         let(:session_data) do
-          build(:minimal_session,
+          build(:minimal_complete_session,
                 :with_partner,
                 partner_friends_or_family_value: 50,
                 partner_friends_or_family_frequency: "every_week",
@@ -29,18 +31,18 @@ RSpec.describe "estimates/check_answers.html.slim" do
         end
 
         it "renders content" do
-          expect(page_text).to include("Financial help£50.00Every week")
-          expect(page_text).to include("Maintenance payments from a former partner£100.00Every 2 weeks")
-          expect(page_text).to include("Income from a property or lodger£150.00Every 4 weeks")
-          expect(page_text).to include("Pension£1,000.00Monthly")
-          expect(page_text).to include("Student finance£350.00")
-          expect(page_text).to include("Other sources£200.00")
+          expect(text).to include("Financial help£50.00Every week")
+          expect(text).to include("Maintenance payments from a former partner£100.00Every 2 weeks")
+          expect(text).to include("Income from a property or lodger£150.00Every 4 weeks")
+          expect(text).to include("Pension£1,000.00Monthly")
+          expect(text).to include("Student finance£350.00")
+          expect(text).to include("Other sources£200.00")
         end
       end
 
       context "when there is no other partner income" do
         let(:session_data) do
-          build(:minimal_session,
+          build(:minimal_complete_session,
                 :with_partner,
                 :with_other_income,
                 partner_friends_or_family_value: 0.0,
@@ -56,12 +58,12 @@ RSpec.describe "estimates/check_answers.html.slim" do
         end
 
         it "renders content" do
-          expect(page_text).to include("Financial helpNot applicable")
-          expect(page_text).to include("Maintenance payments from a former partnerNot applicable")
-          expect(page_text).to include("Income from a property or lodgerNot applicable")
-          expect(page_text).to include("PensionNot applicable")
-          expect(page_text).to include("Student finance£0.00")
-          expect(page_text).to include("Other sources£0.00")
+          expect(text).to include("Financial helpNot applicable")
+          expect(text).to include("Maintenance payments from a former partnerNot applicable")
+          expect(text).to include("Income from a property or lodgerNot applicable")
+          expect(text).to include("PensionNot applicable")
+          expect(text).to include("Student finance£0.00")
+          expect(text).to include("Other sources£0.00")
         end
       end
     end

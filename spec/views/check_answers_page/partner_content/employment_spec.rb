@@ -11,9 +11,11 @@ RSpec.describe "estimates/check_answers.html.slim" do
   end
 
   describe "partner sections" do
+    let(:text) { page_text }
+
     context "when there is partner employment information" do
       let(:session_data) do
-        build(:minimal_session,
+        build(:minimal_complete_session,
               :with_partner,
               employment_status: "unemployed",
               partner_employment_status:,
@@ -27,11 +29,11 @@ RSpec.describe "estimates/check_answers.html.slim" do
         let(:partner_employment_status) { "in_work" }
 
         it "renders content" do
-          expect(page_text).to include("Partner employment statusEmployed and in work")
-          expect(page_text).to include("FrequencyEvery month")
-          expect(page_text).to include("Gross pay£1,500.00")
-          expect(page_text).to include("Income tax£200.00")
-          expect(page_text).to include("National Insurance£100.00")
+          expect(text).to include("Partner employment statusEmployed and in work")
+          expect(text).to include("FrequencyEvery month")
+          expect(text).to include("Gross pay£1,500.00")
+          expect(text).to include("Income tax£200.00")
+          expect(text).to include("National Insurance£100.00")
         end
       end
 
@@ -39,20 +41,20 @@ RSpec.describe "estimates/check_answers.html.slim" do
         let(:partner_employment_status) { "receiving_statutory_pay" }
 
         it "renders content" do
-          expect(page_text).to include("Partner employment statusEmployed and on Statutory Sick Pay or Statutory Maternity Pay")
+          expect(text).to include("Partner employment statusEmployed and on Statutory Sick Pay or Statutory Maternity Pay")
         end
       end
 
       context "when the partner is unemployed" do
         let(:session_data) do
-          build(:minimal_session,
+          build(:minimal_complete_session,
                 :with_partner,
                 :with_employment,
                 partner_employment_status: "unemployed")
         end
 
         it "renders content" do
-          expect(page_text).to include("Partner employment statusUnemployed")
+          expect(text).to include("Partner employment statusUnemployed")
         end
       end
     end

@@ -11,10 +11,12 @@ RSpec.describe "estimates/check_answers.html.slim" do
   end
 
   describe "client sections" do
+    let(:text) { page_text }
+
     context "when assets" do
       context "when vehicle" do
         let(:session_data) do
-          build(:minimal_session,
+          build(:minimal_complete_session,
                 vehicle_owned:,
                 vehicle_value:,
                 vehicle_pcp:,
@@ -34,18 +36,18 @@ RSpec.describe "estimates/check_answers.html.slim" do
           let(:vehicle_in_dispute) { false }
 
           it "renders content" do
-            expect(page_text).to include("Owns a vehicleYes")
-            expect(page_text).to include("Estimated value£3,000.00")
-            expect(page_text).to include("In regular useNo")
-            expect(page_text).to include("Bought over 3 years agoNo")
-            expect(page_text).to include("Payments left on vehicleNo")
+            expect(text).to include("Owns a vehicleYes")
+            expect(text).to include("Estimated value£3,000.00")
+            expect(text).to include("In regular useNo")
+            expect(text).to include("Bought over 3 years agoNo")
+            expect(text).to include("Payments left on vehicleNo")
           end
 
           context "when is smod" do
             let(:vehicle_in_dispute) { true }
 
             it "renders content" do
-              expect(page_text).to include("Disputed asset")
+              expect(page_text_within("#field-list-vehicles")).to include("Disputed asset")
             end
           end
         end
@@ -60,12 +62,12 @@ RSpec.describe "estimates/check_answers.html.slim" do
           let(:vehicle_in_dispute) { false }
 
           it "renders content correctly" do
-            expect(page_text).to include("Owns a vehicleYes")
-            expect(page_text).to include("Estimated value£2,000.00")
-            expect(page_text).to include("In regular useYes")
-            expect(page_text).to include("Bought over 3 years agoYes")
-            expect(page_text).to include("Payments left on vehicleYes")
-            expect(page_text).to include("Value of payments left£100.00")
+            expect(text).to include("Owns a vehicleYes")
+            expect(text).to include("Estimated value£2,000.00")
+            expect(text).to include("In regular useYes")
+            expect(text).to include("Bought over 3 years agoYes")
+            expect(text).to include("Payments left on vehicleYes")
+            expect(text).to include("Value of payments left£100.00")
           end
         end
 
@@ -79,7 +81,7 @@ RSpec.describe "estimates/check_answers.html.slim" do
           let(:vehicle_in_dispute) { nil }
 
           it "renders content" do
-            expect(page_text).to include("Owns a vehicleNo")
+            expect(text).to include("Owns a vehicleNo")
           end
         end
       end
@@ -87,7 +89,7 @@ RSpec.describe "estimates/check_answers.html.slim" do
       context "when other assets" do
         context "when multiple other assets" do
           let(:session_data) do
-            build(:minimal_session,
+            build(:minimal_complete_session,
                   savings: 50,
                   investments: 60,
                   valuables: 550,
@@ -97,24 +99,24 @@ RSpec.describe "estimates/check_answers.html.slim" do
           let(:in_dispute) { [] }
 
           it "renders the content correctly" do
-            expect(page_text).to include("Savings£50.00")
-            expect(page_text).to include("Investments£60.00")
-            expect(page_text).to include("Valuables£550.00")
-            expect(page_text).not_to include("Disputed asset")
+            expect(text).to include("Savings£50.00")
+            expect(text).to include("Investments£60.00")
+            expect(text).to include("Valuables£550.00")
           end
 
           context "when is smod" do
             let(:in_dispute) { %w[savings investments valuables] }
 
             it "renders content" do
-              expect(page_text).to include("Disputed asset")
-              expect(page_text.scan(/(?=Disputed asset)/).count).to eq(3)
+              expect(page_text_within("#savings")).to include("Disputed asset")
+              expect(page_text_within("#investments")).to include("Disputed asset")
+              expect(page_text_within("#valuables")).to include("Disputed asset")
             end
           end
 
           context "when additional property" do
             let(:session_data) do
-              build(:minimal_session,
+              build(:minimal_complete_session,
                     property_value: 100_000,
                     property_mortgage:,
                     property_percentage_owned:,
@@ -128,17 +130,16 @@ RSpec.describe "estimates/check_answers.html.slim" do
               let(:property_percentage_owned) { 100 }
 
               it "renders content" do
-                expect(page_text).to include("Additional property or holiday home: value£100,000.00")
-                expect(page_text).to include("Additional property or holiday home: outstanding mortgage£0.00")
-                expect(page_text).to include("Additional property or holiday home: % owned100")
-                expect(page_text).not_to include("Disputed asset")
+                expect(text).to include("Additional property or holiday home: value£100,000.00")
+                expect(text).to include("Additional property or holiday home: outstanding mortgage£0.00")
+                expect(text).to include("Additional property or holiday home: % owned100")
               end
 
               context "when smod" do
                 let(:in_dispute) { %w[property] }
 
                 it "renders content" do
-                  expect(page_text).to include("Disputed asset")
+                  expect(page_text_within("#additional-property-or-holiday-home-value")).to include("Disputed asset")
                 end
               end
             end
@@ -148,10 +149,10 @@ RSpec.describe "estimates/check_answers.html.slim" do
               let(:property_percentage_owned) { 50 }
 
               it "renders content" do
-                expect(page_text).to include("Additional property or holiday home: value£100,000.00")
-                expect(page_text).to include("Additional property or holiday home: outstanding mortgage£2,000.00")
-                expect(page_text).to include("Additional property or holiday home: % owned50")
-                expect(page_text).not_to include("Disputed asset")
+                expect(text).to include("Additional property or holiday home: value£100,000.00")
+                expect(text).to include("Additional property or holiday home: outstanding mortgage£2,000.00")
+                expect(text).to include("Additional property or holiday home: % owned50")
+                expect(page_text_within("#additional-property-or-holiday-home-value")).not_to include("Disputed asset")
               end
             end
           end
@@ -159,7 +160,7 @@ RSpec.describe "estimates/check_answers.html.slim" do
 
         context "when no other assets" do
           let(:session_data) do
-            build(:minimal_session,
+            build(:minimal_complete_session,
                   property_value: 0,
                   property_mortgage: 0,
                   property_percentage_owned: nil,
@@ -169,12 +170,12 @@ RSpec.describe "estimates/check_answers.html.slim" do
           end
 
           it "renders content" do
-            expect(page_text).to include("Savings£0.00")
-            expect(page_text).to include("Investments£0.00")
-            expect(page_text).to include("Valuables£0.00")
-            expect(page_text).to include("Additional property or holiday home: value£0.00")
-            expect(page_text).to include("Additional property or holiday home: outstanding mortgage£0.00")
-            expect(page_text).to include("Additional property or holiday home: % ownedNot applicable")
+            expect(text).to include("Savings£0.00")
+            expect(text).to include("Investments£0.00")
+            expect(text).to include("Valuables£0.00")
+            expect(text).to include("Additional property or holiday home: value£0.00")
+            expect(text).to include("Additional property or holiday home: outstanding mortgage£0.00")
+            expect(text).to include("Additional property or holiday home: % ownedNot applicable")
           end
         end
       end

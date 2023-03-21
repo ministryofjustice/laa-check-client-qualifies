@@ -11,10 +11,12 @@ RSpec.describe "estimates/check_answers.html.slim" do
   end
 
   describe "partner sections" do
+    let(:text) { page_text }
+
     context "when there are other partner benefits" do
       context "when there are multiple other benefits" do
         let(:session_data) do
-          build(:minimal_session,
+          build(:minimal_complete_session,
                 :with_partner,
                 benefits: [],
                 partner_benefits: [
@@ -38,19 +40,19 @@ RSpec.describe "estimates/check_answers.html.slim" do
         end
 
         it "renders content" do
-          expect(page_text).to include("Gets other benefitsYes")
-          expect(page_text).to include("Child Benefit£100.00Every 2 weeks")
-          expect(page_text).to include("Tax Credit£50.00Every week")
-          expect(page_text).to include("State Pension Credit£40.00Every 4 weeks")
-          expect(page_text).to include("Incapacity Benefit£60.00Monthly")
+          expect(text).to include("Gets other benefitsYes")
+          expect(text).to include("Child Benefit£100.00Every 2 weeks")
+          expect(text).to include("Tax Credit£50.00Every week")
+          expect(text).to include("State Pension Credit£40.00Every 4 weeks")
+          expect(text).to include("Incapacity Benefit£60.00Monthly")
         end
       end
 
       context "when there are no other partner benefits" do
-        let(:session_data) { build(:minimal_session, :with_partner, benefits: [], partner_benefits: []) }
+        let(:session_data) { build(:minimal_complete_session, :with_partner, benefits: [], partner_benefits: []) }
 
         it "renders content" do
-          expect(page_text).to include("Gets other benefitsNo")
+          expect(text).to include("Gets other benefitsNo")
         end
       end
     end

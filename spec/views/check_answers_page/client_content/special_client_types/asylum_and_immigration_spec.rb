@@ -12,7 +12,7 @@ RSpec.describe "estimates/check_answers.html.slim" do
 
   describe "immigration and asylum proceedings", :asylum_and_immigration_flag do
     let(:session_data) do
-      build(:minimal_session,
+      build(:minimal_complete_session,
             level_of_help: "controlled",
             legacy_proceeding_type: nil,
             proceeding_type:,

@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :minimal_session, class: Hash do
+  factory :minimal_complete_session, class: Hash do
     initialize_with { attributes.transform_keys(&:to_s) }
 
     level_of_help { "certificated" }

@@ -11,10 +11,12 @@ RSpec.describe "estimates/check_answers.html.slim" do
   end
 
   describe "partner sections" do
+    let(:text) { page_text }
+
     context "when there are partner outgoings" do
       context "when there are multiple outgoings" do
         let(:session_data) do
-          build(:minimal_session,
+          build(:minimal_complete_session,
                 :with_partner,
                 partner_housing_payments_value: 500,
                 partner_housing_payments_frequency: "monthly",
@@ -27,16 +29,16 @@ RSpec.describe "estimates/check_answers.html.slim" do
         end
 
         it "renders content" do
-          expect(page_text).to include("Housing payments£500.00Monthly")
-          expect(page_text).to include("Childcare payments£300.00Every 4 weeks")
-          expect(page_text).to include("Maintenance payments£200.00Every 2 weeks")
-          expect(page_text).to include("Legal aid payments£50.00Every week")
+          expect(text).to include("Housing payments£500.00Monthly")
+          expect(text).to include("Childcare payments£300.00Every 4 weeks")
+          expect(text).to include("Maintenance payments£200.00Every 2 weeks")
+          expect(text).to include("Legal aid payments£50.00Every week")
         end
       end
 
       context "when there are no outgoings" do
         let(:session_data) do
-          build(:minimal_session,
+          build(:minimal_complete_session,
                 :with_partner,
                 :with_outgoings,
                 partner_housing_payments_value: 0.0,
@@ -50,10 +52,10 @@ RSpec.describe "estimates/check_answers.html.slim" do
         end
 
         it "renders content" do
-          expect(page_text).to include("Housing paymentsNot applicable")
-          expect(page_text).to include("Childcare paymentsNot applicable")
-          expect(page_text).to include("Maintenance paymentsNot applicable")
-          expect(page_text).to include("Legal aid paymentsNot applicable")
+          expect(text).to include("Housing paymentsNot applicable")
+          expect(text).to include("Childcare paymentsNot applicable")
+          expect(text).to include("Maintenance paymentsNot applicable")
+          expect(text).to include("Legal aid paymentsNot applicable")
         end
       end
     end

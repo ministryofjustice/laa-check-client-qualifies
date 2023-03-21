@@ -13,7 +13,7 @@ RSpec.describe "estimates/check_answers.html.slim" do
   describe "client sections" do
     context "when housing benefit" do
       context "when client has housing benefit" do
-        let(:session_data) { build(:minimal_session, housing_benefit: true) }
+        let(:session_data) { build(:minimal_complete_session, housing_benefit: true) }
 
         it "renders content" do
           expect(page_text).to include("Receives Housing BenefitYes")
@@ -21,7 +21,7 @@ RSpec.describe "estimates/check_answers.html.slim" do
       end
 
       context "when client does not have housing benefit" do
-        let(:session_data) { build(:minimal_session, housing_benefit: false) }
+        let(:session_data) { build(:minimal_complete_session, housing_benefit: false) }
 
         it "renders content" do
           expect(page_text).to include("Receives Housing BenefitNo")

@@ -11,9 +11,11 @@ RSpec.describe "estimates/check_answers.html.slim" do
   end
 
   describe "client sections" do
+    let(:text) { page_text }
+
     context "when employment" do
       let(:session_data) do
-        build(:minimal_session,
+        build(:minimal_complete_session,
               employment_status:,
               frequency: "monthly",
               gross_income: 1_500,
@@ -25,11 +27,11 @@ RSpec.describe "estimates/check_answers.html.slim" do
         let(:employment_status) { "in_work" }
 
         it "renders content" do
-          expect(page_text).to include("Employment statusEmployed and in work")
-          expect(page_text).to include("FrequencyEvery month")
-          expect(page_text).to include("Gross pay£1,500.00")
-          expect(page_text).to include("Income tax£200.00")
-          expect(page_text).to include("National Insurance£100.00")
+          expect(text).to include("Employment statusEmployed and in work")
+          expect(text).to include("FrequencyEvery month")
+          expect(text).to include("Gross pay£1,500.00")
+          expect(text).to include("Income tax£200.00")
+          expect(text).to include("National Insurance£100.00")
         end
       end
 
@@ -37,15 +39,15 @@ RSpec.describe "estimates/check_answers.html.slim" do
         let(:employment_status) { "receiving_statutory_pay" }
 
         it "renders content" do
-          expect(page_text).to include("Employment statusEmployed and on Statutory Sick Pay or Statutory Maternity Pay")
+          expect(text).to include("Employment statusEmployed and on Statutory Sick Pay or Statutory Maternity Pay")
         end
       end
 
       context "when the client is unemployed" do
-        let(:session_data) { build(:minimal_session) }
+        let(:session_data) { build(:minimal_complete_session) }
 
         it "renders content" do
-          expect(page_text).to include("Employment statusUnemployed")
+          expect(text).to include("Employment statusUnemployed")
         end
       end
     end
