@@ -3,7 +3,7 @@ class FeatureFlags
     example_2125_flag: "2125-01-01",
   }.freeze
 
-  FLIPPER_FLAGS = %i[sentry controlled asylum_and_immigration].freeze
+  FLIPPER_FLAGS = %i[sentry controlled asylum_and_immigration cw_forms].freeze
 
   class << self
     def enabled?(flag)

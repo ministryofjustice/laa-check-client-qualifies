@@ -68,6 +68,8 @@ env:
     value: {{ .Values.featureFlags.controlled }}
   - name: ASYLUM_AND_IMMIGRATION_FEATURE_FLAG
     value: {{ .Values.featureFlags.asylumAndImmigration }}
+  - name: CW_FORMS_FEATURE_FLAG
+    value: {{ .Values.featureFlags.cwForms }}
   - name: NOTIFICATIONS_API_KEY
     valueFrom:
       secretKeyRef:
