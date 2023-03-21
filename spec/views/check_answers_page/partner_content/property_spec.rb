@@ -23,7 +23,7 @@ RSpec.describe "estimates/check_answers.html.slim" do
         end
 
         it "renders content" do
-          expect(page_text).to include("Owns the home they live itYes")
+          expect(page_text).to include("Owns the home they live inYes")
           expect(page_text).to include("Estimated value£200,000.00")
           expect(page_text).to include("Outstanding mortgage£5,000.00")
           expect(page_text).to include("Percentage share owned50")
@@ -41,7 +41,7 @@ RSpec.describe "estimates/check_answers.html.slim" do
         end
 
         it "renders content" do
-          expect(page_text).to include("Owns the home they live itYes")
+          expect(page_text).to include("Owns the home they live inYes")
           expect(page_text).to include("Estimated value£200,000.00")
           expect(page_text).to include("Outstanding mortgageNot applicable")
           expect(page_text).to include("Percentage share owned50")
@@ -59,7 +59,7 @@ RSpec.describe "estimates/check_answers.html.slim" do
         end
 
         it "renders content" do
-          expect(page_text).to include("Owns the home they live itNo")
+          expect(page_text).to include("Owns the home they live inNo")
         end
       end
     end
