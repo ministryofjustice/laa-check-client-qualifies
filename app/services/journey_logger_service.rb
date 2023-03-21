@@ -15,6 +15,7 @@ class JourneyLoggerService
 
     def build_attributes(calculation_result, estimate)
       {
+        completed: Date.current,
         certificated: !estimate.controlled?,
         partner: estimate.partner || false,
         person_over_60: estimate.over_60 || (estimate.partner && estimate.partner_over_60) || false,

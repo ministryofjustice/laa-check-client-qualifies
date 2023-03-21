@@ -21,10 +21,10 @@ RSpec.describe Metrics::FromCompletedJourneysService do
     context "when there is relevant data" do
       shared_examples "an aggregator" do |prefix, criteria|
         before do
-          create_list :completed_user_journey, 3, **criteria.merge(certificated: true, created_at: 1.month.ago)
-          create_list :completed_user_journey, 1, **criteria.merge(certificated: false, created_at: 1.month.ago)
-          create_list :completed_user_journey, 5, **criteria.merge(certificated: true, created_at: Time.current)
-          create_list :completed_user_journey, 6, **criteria.merge(certificated: false, created_at: Time.current)
+          create_list :completed_user_journey, 3, **criteria.merge(certificated: true, completed: 1.month.ago)
+          create_list :completed_user_journey, 1, **criteria.merge(certificated: false, completed: 1.month.ago)
+          create_list :completed_user_journey, 5, **criteria.merge(certificated: true, completed: Time.current)
+          create_list :completed_user_journey, 6, **criteria.merge(certificated: false, completed: Time.current)
 
           # Create some rows that should _not_ be included in the aggregation
           inverse = criteria.dup
@@ -35,7 +35,7 @@ RSpec.describe Metrics::FromCompletedJourneysService do
                                    "something_else"
                                  end
 
-          create_list :completed_user_journey, 9, **inverse.merge(certificated: true, created_at: 1.month.ago)
+          create_list :completed_user_journey, 9, **inverse.merge(certificated: true, completed: 1.month.ago)
         end
 
         it "pushes appropriate numbers to Geckoboard" do

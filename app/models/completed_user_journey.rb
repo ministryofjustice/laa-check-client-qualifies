@@ -10,5 +10,5 @@ class CompletedUserJourney < ApplicationRecord
   attribute :outcome, :string
   attribute :capital_contribution, :boolean
   attribute :income_contribution, :boolean
-  attribute :created_at, :datetime
+  attribute :completed, :date
 end

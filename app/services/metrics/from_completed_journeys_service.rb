@@ -97,7 +97,7 @@ module Metrics
 
     def count(range, attributes)
       extra_attributes = {}
-      extra_attributes[:created_at] = Date.current.all_month if range == :month_to_date
+      extra_attributes[:completed] = Date.current.all_month if range == :month_to_date
       extra_attributes[:certificated] = [true, false] unless attributes.key?(:certificated)
       CompletedUserJourney.where(attributes.merge(extra_attributes)).count
     end
