@@ -1182,9 +1182,9 @@ en:
         adult_dependants_count: Number of adult dependants
         child_dependants: Has child dependants
         child_dependants_count: Number of child dependants
-      employment: Employment
+      employment: Pay
       employment_fields:
-        gross_income: Gross income
+        gross_income: Gross pay
         income_tax: Income tax
         national_insurance: National Insurance
         frequency: Frequency
@@ -1223,8 +1223,8 @@ en:
         vehicle_value: Estimated value
         vehicle_in_regular_use: In regular use
         vehicle_over_3_years_ago: Bought over 3 years ago
-        vehicle_pcp: Outstanding finance on vehicle?
-        vehicle_finance: Payments left on vehicle
+        vehicle_pcp: Payments left on vehicle
+        vehicle_finance: Value of payments left
       property: Home client lives in
       partner_property: Home client lives in
       partner_property_fields:
@@ -1271,9 +1271,9 @@ en:
         savings: Savings
         investments: Investments
         valuables: Valuables
-      partner_employment: Partner's employment
+      partner_employment: Partner's pay
       partner_employment_fields:
-        partner_gross_income: Gross income
+        partner_gross_income: Gross pay
         partner_income_tax: Income tax
         partner_national_insurance: National Insurance
         partner_frequency: Frequency
@@ -1310,8 +1310,8 @@ en:
         partner_vehicle_value: Estimated value
         partner_vehicle_in_regular_use: In regular use
         partner_vehicle_over_3_years_ago: Bought over 3 years ago
-        partner_vehicle_pcp: Outstanding finance on vehicle?
-        partner_vehicle_finance: Payments left on vehicle
+        partner_vehicle_pcp: Payments left on vehicle
+        partner_vehicle_finance: Value of payments left
       partner_other: Partner's other assets
       partner_other_fields:
         partner_property_value: "Additional property or holiday home: value"
