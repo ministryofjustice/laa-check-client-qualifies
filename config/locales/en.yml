@@ -1223,7 +1223,7 @@ en:
         vehicle_value: Estimated value
         vehicle_in_regular_use: In regular use
         vehicle_over_3_years_ago: Bought over 3 years ago
-        vehicle_pcp: Payments left on vehicle?
+        vehicle_pcp: Payments left on vehicle
         vehicle_finance: Value of payments left
       property: Home client lives in
       partner_property: Home client lives in
@@ -1310,7 +1310,7 @@ en:
         partner_vehicle_value: Estimated value
         partner_vehicle_in_regular_use: In regular use
         partner_vehicle_over_3_years_ago: Bought over 3 years ago
-        partner_vehicle_pcp: Payments left on vehicle?
+        partner_vehicle_pcp: Payments left on vehicle
         partner_vehicle_finance: Value of payments left
       partner_other: Partner's other assets
       partner_other_fields:
