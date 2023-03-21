@@ -88,6 +88,8 @@ env:
     value:  {{ .Values.geckoboard.metricsDataset }}
   - name: GECKOBOARD_VALIDATION_DATASET_NAME
     value:  {{ .Values.geckoboard.validationsDataset }}
+  - name: GECKOBOARD_LAST_PAGE_DATASET_NAME
+    value:  {{ .Values.geckoboard.lastPagesDataset }}
   - name: GECKOBOARD_ENABLED
     value: {{ .Values.geckoboard.enabled }}
 

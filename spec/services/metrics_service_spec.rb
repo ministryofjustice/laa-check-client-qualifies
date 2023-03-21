@@ -6,6 +6,7 @@ RSpec.describe MetricsService do
     let(:dataset_client) { instance_double(Geckoboard::DatasetsClient) }
     let(:metric_dataset) { instance_double(Geckoboard::Dataset) }
     let(:validation_dataset) { instance_double(Geckoboard::Dataset) }
+    let(:last_page_dataset) { instance_double(Geckoboard::Dataset) }
 
     context "when api key is not set" do
       it "does nothing" do
@@ -29,6 +30,8 @@ RSpec.describe MetricsService do
             metric_dataset
           when "validations"
             validation_dataset
+          when "last_pages"
+            last_page_dataset
           end
         end
       end
@@ -48,6 +51,7 @@ RSpec.describe MetricsService do
             ],
           )
           expect(validation_dataset).to receive(:put).with([])
+          expect(last_page_dataset).to receive(:put).with([])
           described_class.call
         end
       end
@@ -68,6 +72,7 @@ RSpec.describe MetricsService do
           create :analytics_event, assessment_code: "CODE2", page: "view_results", browser_id: "BROWSER1", created_at: 1.day.ago
 
           # Incomplete certificated assessment by user 1
+          create :analytics_event, assessment_code: "CODE3", event_type: "controlled_level_of_help_chosen", page: "level_of_help_choice", browser_id: "BROWSER1", created_at: 1.day.ago
           create :analytics_event, assessment_code: "CODE3", page: "applicant", browser_id: "BROWSER1", created_at: 1.day.ago
           create :analytics_event, assessment_code: "CODE3", page: "outgoings", browser_id: "BROWSER1", created_at: 1.day.ago, event_type: "validation_message"
           create :analytics_event, assessment_code: "CODE3", page: "vehicle", browser_id: "BROWSER1", created_at: 1.day.ago
@@ -110,6 +115,12 @@ RSpec.describe MetricsService do
                 date: 1.day.ago.to_date,
                 screen: "outgoings",
               },
+            ],
+          )
+          expect(last_page_dataset).to receive(:put).with(
+            [
+              { checks: 1, context: "controlled_all_time", page: "vehicle" },
+              { checks: 1, context: "controlled_current_month", page: "vehicle" },
             ],
           )
           described_class.call
