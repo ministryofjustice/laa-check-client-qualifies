@@ -12,17 +12,13 @@ class MetricsService
     all_metric_dataset = client.datasets.find_or_create(ENV.fetch("GECKOBOARD_ALL_METRIC_DATASET_NAME", "all_metrics"),
                                                         **metric_dataset_definition)
     all_metric_dataset.put(all_metrics)
-    recent_validation_dataset = client.datasets.find_or_create(ENV.fetch("GECKOBOARD_RECENT_VALIDATION_DATASET_NAME", "recent_validations"),
-                                                               **validation_dataset_definition)
-    recent_validation_dataset.put(validations(:current_month))
-
-    all_validation_dataset = client.datasets.find_or_create(ENV.fetch("GECKOBOARD_ALL_VALIDATION_DATASET_NAME", "all_validations"),
-                                                            **validation_dataset_definition)
-    all_validation_dataset.put(validations(:all_time))
 
     last_page_dataset = client.datasets.find_or_create(ENV.fetch("GECKOBOARD_LAST_PAGE_DATASET_NAME", "last_pages"),
                                                        **last_page_dataset_definition)
     last_page_dataset.put(last_pages)
+    validation_dataset = client.datasets.find_or_create(ENV.fetch("GECKOBOARD_VALIDATION_DATASET_NAME", "validations"),
+                                                        **validation_dataset_definition)
+    validation_dataset.put(validations.flatten)
   end
 
 private
@@ -81,16 +77,20 @@ private
       fields: [
         Geckoboard::NumberField.new(:checks, name: "Assessments"),
         Geckoboard::StringField.new(:screen, name: "Screen on which shown"),
+        Geckoboard::StringField.new(:data_type, name: "Whether this is current month or all time"),
       ],
     }
   end
 
-  def validations(time_period)
-    top_validation_screens(time_period).map do |screen_and_count|
-      {
-        checks: screen_and_count[1],
-        screen: screen_and_count[0],
-      }
+  def validations
+    %i[current_month all_time].map do |time_period|
+      top_validation_screens(time_period).map do |screen_and_count|
+        {
+          checks: screen_and_count[1],
+          screen: screen_and_count[0],
+          data_type: time_period,
+        }
+      end
     end
   end
 

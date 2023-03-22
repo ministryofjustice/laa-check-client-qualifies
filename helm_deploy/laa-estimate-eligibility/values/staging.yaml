@@ -60,7 +60,6 @@ featureFlags:
 geckoboard:
   metricsDataset: "ccq_monthly_metrics_staging"
   allMetricsDataset: "ccq_all_metrics_staging"
-  recentValidationsDataset: "ccq_recent_validations_staging"
-  allValidationsDataset: "ccq_all_validations_staging"
   lastPagesDataset: "ccq_last_pages_staging"
+  validationsDataset: "ccq_validations_staging"
   enabled: enabled

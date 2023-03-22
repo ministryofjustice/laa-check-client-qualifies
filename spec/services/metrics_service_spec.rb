@@ -6,9 +6,8 @@ RSpec.describe MetricsService do
     let(:dataset_client) { instance_double(Geckoboard::DatasetsClient) }
     let(:metric_dataset) { instance_double(Geckoboard::Dataset) }
     let(:all_metric_dataset) { instance_double(Geckoboard::Dataset) }
+    let(:validation_dataset) { instance_double(Geckoboard::Dataset) }
     let(:last_page_dataset) { instance_double(Geckoboard::Dataset) }
-    let(:recent_validation_dataset) { instance_double(Geckoboard::Dataset) }
-    let(:all_validation_dataset) { instance_double(Geckoboard::Dataset) }
     let(:arbitrary_fixed_time) { "2023-3-20" }
 
     before { travel_to arbitrary_fixed_time }
@@ -35,12 +34,10 @@ RSpec.describe MetricsService do
             metric_dataset
           when "all_metrics"
             all_metric_dataset
+          when "validations"
+            validation_dataset
           when "last_pages"
             last_page_dataset
-          when "recent_validations"
-            recent_validation_dataset
-          when "all_validations"
-            all_validation_dataset
           end
         end
       end
@@ -59,8 +56,7 @@ RSpec.describe MetricsService do
               date: Date.current,
             },
           ])
-          expect(recent_validation_dataset).to receive(:put).with([])
-          expect(all_validation_dataset).to receive(:put).with([])
+          expect(validation_dataset).to receive(:put).with([])
           expect(last_page_dataset).to receive(:put).with([])
           described_class.call
         end
@@ -134,27 +130,27 @@ RSpec.describe MetricsService do
               },
             ],
           )
-          expect(recent_validation_dataset).to receive(:put).with(
+          expect(validation_dataset).to receive(:put).with(
             [
               {
                 checks: 1,
                 screen: "outgoings",
+                data_type: :current_month,
               },
               {
                 checks: 1,
                 screen: "vehicle",
+                data_type: :current_month,
               },
-            ],
-          )
-          expect(all_validation_dataset).to receive(:put).with(
-            [
               {
                 checks: 2,
                 screen: "vehicle",
+                data_type: :all_time,
               },
               {
                 checks: 1,
                 screen: "outgoings",
+                data_type: :all_time,
               },
             ],
           )
