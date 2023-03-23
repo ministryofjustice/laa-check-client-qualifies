@@ -4,7 +4,7 @@ RSpec.describe CfeService do
   describe ".call", :controlled_flag do
     context "when there is a full set of data" do
       let(:session_data) { FactoryBot.build(:full_session) }
-      let(:calculation_result) { CalculationResult.new({}) }
+      let(:api_response) { { foo: :bar } }
       let(:mock_connection) { instance_double(CfeConnection) }
       let(:arbitrary_fixed_time) { Date.new(2023, 3, 8) }
       let(:assessment_id) { "assessment-id" }
@@ -29,11 +29,10 @@ RSpec.describe CfeService do
         expect(mock_connection).to receive(:create_applicant)
         expect(mock_connection).to receive(:create_partner_financials)
 
-        allow(mock_connection).to receive(:api_result).with(assessment_id).and_return(calculation_result)
+        allow(mock_connection).to receive(:api_result).with(assessment_id).and_return(api_response)
 
         result = described_class.call(session_data)
-        expect(result).to eq calculation_result
-        expect(calculation_result.level_of_help).to eq "certificated"
+        expect(result).to eq api_response
       end
     end
   end

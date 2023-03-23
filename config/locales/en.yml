@@ -393,6 +393,10 @@ en:
               blank: Enter value of payments left on the vehicle
               greater_than: Payments left on the vehicle must be more than 0
               not_a_number: Payments left on the vehicle must be a number
+        cw_selection:
+          attributes:
+            form_type:
+              blank: Select which form you need
   service:
     name: Check if your client qualifies for legal aid
     email: eligibility@justice.gov.uk
@@ -1818,4 +1822,23 @@ en:
         bullets:
           - partner allowance increased to £211.32 (was £191.41)
           - dependant allowance increased to £338.90 (was £307.64)
+  cws:
+    new:
+      title: Which controlled work (CW) form do you need?
+      explainers:
+        - Your answers from previous pages will be included in the CW form you select to download.
+        - After you download the form, you will need to add your client’s details and any other information needed on that form.
+        - Once complete, get your client to sign the form and keep it, with any evidence provided by your client, for your records.
+      option:
+        cw1: CW1 - legal help, help at court or family help (lower)
+        cw2: CW2 (IMM) - immigration
+        cw1_and_2: CW1&2 - mental health
+        cw5: CW5 - help with family mediation
+        civ_means_7: CIV Means 7 - family mediation
+      download: Download the pre-populated form
+      start_another_check: Start another eligibility check
+      links:
+        guidance:
+          text: Guidance on controlled work forms (TO BE PROVIDED)
+          link: "#"
 

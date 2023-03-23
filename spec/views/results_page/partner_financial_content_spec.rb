@@ -2,8 +2,11 @@ require "rails_helper"
 
 RSpec.describe "estimates/show.html.slim" do
   describe "Partner financial content" do
-    let(:calculation_result) { CalculationResult.new(api_response).tap { _1.level_of_help = "certificated" } }
-    let(:estimate) { EstimateModel.from_session({ "partner" => true }) }
+    let(:calculation_result) { CalculationResult.new(session_data) }
+    let(:estimate) { EstimateModel.from_session(session_data) }
+    let(:session_data) do
+      { "partner" => true, "api_response" => api_response, "level_of_help" => "certificated" }
+    end
     let(:vehicle_in_regular_use) { true }
     let(:api_response) do
       FactoryBot.build(

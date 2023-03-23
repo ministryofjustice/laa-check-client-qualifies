@@ -2,9 +2,10 @@ require "rails_helper"
 
 RSpec.describe "estimates/show.html.slim" do
   describe "CW Forms content" do
-    let(:calculation_result) { CalculationResult.new(api_response).tap { _1.level_of_help = level_of_help } }
+    let(:calculation_result) { CalculationResult.new(session_data) }
     let(:api_response) { FactoryBot.build(:api_result, eligible: eligibility) }
-    let(:estimate) { EstimateModel.from_session({}) }
+    let(:estimate) { EstimateModel.from_session(session_data) }
+    let(:session_data) { { api_response:, level_of_help: }.with_indifferent_access }
 
     before do
       assign(:model, calculation_result)

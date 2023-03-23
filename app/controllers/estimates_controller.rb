@@ -1,18 +1,22 @@
 class EstimatesController < ApplicationController
-  before_action :load_estimate, only: %i[create print download]
+  before_action :load_estimate, only: %i[show print download]
 
   def new
     redirect_to estimate_build_estimate_path SecureRandom.uuid, StepsHelper.first_step
   end
 
   def create
-    @model = CfeService.call(session_data)
+    session_data["api_response"] = CfeService.call(session_data)
+    redirect_to estimate_path(assessment_code)
+  end
+
+  def show
+    @model = CalculationResult.new(session_data)
     track_page_view(page: :view_results)
-    render :show
   end
 
   def print
-    @model = CfeService.call(session_data)
+    @model = CalculationResult.new(session_data)
     @answers = CheckAnswersPresenter.new session_data
     track_page_view(page: :print_results)
     render :print, layout: "print_application"
@@ -25,7 +29,7 @@ class EstimatesController < ApplicationController
 
   def download
     track_page_view(page: :download_results)
-    @model = CfeService.call(session_data)
+    @model = CalculationResult.new(session_data)
     @answers = CheckAnswersPresenter.new(session_data)
     html = render_to_string({
       template: "estimates/print",
