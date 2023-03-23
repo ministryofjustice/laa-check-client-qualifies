@@ -1,4 +1,7 @@
 .govuk-grid-column-two-thirds
+  - ChangeLogs.for_banner.each do |change_log|
+    = render "change_logs/banner", change_log:
+
   h1.govuk-heading-xl = t("service.name")
 
   - if FeatureFlags.enabled?(:controlled)
@@ -55,3 +58,14 @@
     class: "govuk-button govuk-button--start govuk-!-margin-top-2",
     role: "button",
     id: "start"
+
+  - if ChangeLogs.occurred.any?
+    hr
+    p.govuk-body
+      = t(".last_updated", date: ChangeLogs.latest_change)
+      button.change-log-toggle.hidden.govuk-body [data-change-log-role="toggle"
+                                                  data-show-text=t(".show_all_updates")
+                                                  data-hide-text=t(".hide_all_updates")]
+
+    - ChangeLogs.occurred.each do |change_log|
+      = render "change_logs/log_item", change_log:

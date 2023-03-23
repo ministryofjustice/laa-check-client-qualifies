@@ -1,0 +1,14 @@
+.change-log-item, .change-log-toggle  {
+  &.hidden {
+    display: none;
+  }
+}
+
+.change-log-toggle {
+  background-color: transparent;
+  border: none;
+  margin-left: 10px;
+  color: govuk-colour("blue");
+  text-decoration: underline;
+  cursor: pointer;
+}

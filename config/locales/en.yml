@@ -1683,6 +1683,9 @@ en:
         - savings and investments
         - assets, like property and vehicles
       start_button: Start now
+      last_updated: Last updated %{date}
+      show_all_updates: + show all updates
+      hide_all_updates: "- hide all updates"
   cookie_banner:
     title: Cookies on
     essential_cookies: We use some essential cookies to make this service work.
@@ -1785,4 +1788,21 @@ en:
       - Council tax rebate
       - Energy Bills Support Scheme (EBSS)
       - Payments for those who are not served by mains gas
+  change_logs:
+    dependant_allowance:
+      banner:
+        header: Changes to dependant and partner allowances
+        prior_text: "On 10 April 2023 some allowances used to estimate if a client is likely to meet the financial criteria for legal aid will change:"
+        live_text: "On 10 April 2023 some allowances used to estimate if a client is likely to meet the financial criteria for legal aid changed:"
+        prior_bullets:
+          - partner allowance increases to £211.32 (currently £191.41)
+          - dependant allowance increases to £338.90 (currently £307.64)
+        live_bullets:
+          - partner allowance increased to £211.32 (was £191.41)
+          - dependant allowance increased to £338.90 (was £307.64)
+      history:
+        text: "Changes to dependant and partner allowances: "
+        bullets:
+          - partner allowance increased to £211.32 (previously £191.41)
+          - dependant allowance increased to £338.90 (previously £307.64)
 
