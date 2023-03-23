@@ -138,7 +138,7 @@ private
     query_exit_pages(level_of_help, period).map do |result|
       {
         checks: result["checks"],
-        page: result["page"],
+        screen: result["page"],
         context: "#{level_of_help}_#{period}",
       }
     end

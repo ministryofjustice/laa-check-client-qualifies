@@ -119,8 +119,8 @@ RSpec.describe MetricsService do
           )
           expect(last_page_dataset).to receive(:put).with(
             [
-              { checks: 1, context: "controlled_all_time", page: "vehicle" },
-              { checks: 1, context: "controlled_current_month", page: "vehicle" },
+              { checks: 1, context: "controlled_all_time", screen: "vehicle" },
+              { checks: 1, context: "controlled_current_month", screen: "vehicle" },
             ],
           )
           described_class.call
