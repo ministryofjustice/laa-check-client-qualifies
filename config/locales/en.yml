@@ -1528,6 +1528,7 @@ en:
       client_assessed_capital: Disposable capital
       partner_assessed_capital: Disposable capital
       start_another_check: Start another eligibility check
+      continue_to_cw: Continue to CW forms
       print_page: Print this page
       save_as_pdf: Save this page as a PDF
       total_capital: Total capital
@@ -1583,6 +1584,18 @@ en:
           first_certificated: The calculations below assess the value of any property and vehicles the client owns.
           first_controlled: The calculations below assess the value of any property the client owns.
           second: The assessed values are used to calculate the total disposable capital for your client.
+      controlled_cw_next_steps:
+        intro_paragraphs:
+          - You will need to complete the relevant controlled work form and keep for your records, along with any evidence provided by your client. Your client’s file may be audited and assessed by the LAA at a later date.
+          - You can download a controlled work form with the answers you gave included, or complete the form yourself.
+        prefilled_header: Download a controlled work form with your answers included
+        prefilled_bullets:
+          - Choose which form to download on the next page. The answers you gave here will be included.
+          - Add your client’s personal details and any other questions not already filled in.
+          - Get your client to sign the form.
+          - Keep the form, with any evidence provided by your client, for your records.
+        manual_header:  Complete a controlled work form yourself
+        manual_instruction: Download a controlled work application form. Some of these can be filled in on a computer.
     limits_table:
       calculation_information: We’ve used the information you provided to compare your client’s income and outgoings. This allows us to calculate their monthly disposable income.
       regulations_html: "All the regulations referred to on this page can be found in the <a href='http://www.legislation.gov.uk/all?title=Civil%20Legal%20Aid%20%28Financial%20Resources%20'>Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 and subsequent amendments</a>."

@@ -23,8 +23,11 @@
     = render "evidence"
 - elsif @model.level_of_help == "controlled" && @model.decision == "eligible"
   h2.govuk-heading-m = t(".what_happens_next")
-  p.govuk-body = t(".controlled_next_steps_paragraph_1")
-  p.govuk-body == t(".controlled_next_steps_paragraph_2")
+  - if FeatureFlags.enabled?(:cw_forms)
+    = render "controlled_work_next_steps"
+  - else
+    p.govuk-body = t(".controlled_next_steps_paragraph_1")
+    p.govuk-body == t(".controlled_next_steps_paragraph_2")
 
   = govuk_details(summary_text: t(".evidence_needed")) do
     = render "evidence"
@@ -49,6 +52,9 @@
         = render "capital_table", caption_size: "m"
 
 .govuk-button-group
-  = link_to t(".start_another_check"), new_estimate_path, class: "govuk-button", data: { module: "govuk-button" }
+  - if @model.level_of_help == "controlled" && @model.decision == "eligible" && FeatureFlags.enabled?(:cw_forms)
+    = link_to t(".continue_to_cw"), new_estimate_cw_path(params[:id]), class: "govuk-button", data: { module: "govuk-button" }
+  - else
+    = link_to t(".start_another_check"), new_estimate_path, class: "govuk-button", data: { module: "govuk-button" }
   = link_to t(".print_page"), print_estimate_path(params[:id]), target: "_blank", rel: "noopener", class: "govuk-button govuk-button--secondary"
   = link_to t(".save_as_pdf"), download_estimate_path(params[:id]), target: "_blank", rel: "noopener", class: "govuk-button govuk-button--secondary"

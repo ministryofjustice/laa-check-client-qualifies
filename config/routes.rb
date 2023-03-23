@@ -25,6 +25,8 @@ Rails.application.routes.draw do
     end
 
     member { get :print, :check_answers, :download }
+
+    resources :cws, only: %i[new create]
   end
 
   resource :cookies, only: %i[show update]
