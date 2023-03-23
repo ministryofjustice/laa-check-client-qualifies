@@ -185,7 +185,7 @@ private
     SQL
 
     result = ActiveRecord::Base.connection.execute(ApplicationRecord.sanitize_sql([sql, { start_date:, end_date: }]))
-    result[0]["average_completion_time"]
+    result[0]["average_completion_time"].to_f
   end
 
   def relevant_events(range)
