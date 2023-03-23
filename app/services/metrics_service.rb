@@ -33,6 +33,7 @@ private
         Geckoboard::NumberField.new(:controlled_checks_completed, name: "Controlled checks completed", optional: true),
         Geckoboard::NumberField.new(:certificated_checks_completed, name: "Certificated checks completed", optional: true),
         Geckoboard::NumberField.new(:completed_checks_per_user, name: "Completed checks per (analytics opted-in) user", optional: true),
+        Geckoboard::NumberField.new(:average_completion_time, name: "Average time taken to complete a check", optional: true),
       ],
     }
   end
@@ -50,6 +51,7 @@ private
         controlled_checks_completed: controlled_checks_completed(range),
         certificated_checks_completed: certificated_checks_completed(range),
         completed_checks_per_user: completed_checks_per_user(range),
+        average_completion_time: average_completion_time(range),
       }
     end
   end
@@ -68,6 +70,7 @@ private
         controlled_checks_completed:,
         certificated_checks_completed:,
         completed_checks_per_user:,
+        average_completion_time:,
       },
     ]
   end
@@ -161,6 +164,28 @@ private
           .order(Arel.sql("COUNT(DISTINCT assessment_code) DESC"))
           .limit(10)
           .pluck(Arel.sql("page, COUNT(DISTINCT assessment_code)"))
+  end
+
+  def average_completion_time(range = nil)
+    return unless relevant_events(range).where(page: "view_results").any?
+
+    start_date = range ? range.first : 100.years.ago
+    end_date = range ? range.last : Time.current
+
+    # returns the average_completion_time in minutes
+    sql = <<~SQL
+      SELECT AVG(EXTRACT(epoch FROM (end_time - start_time)) / 60) AS average_completion_time
+      FROM
+        (SELECT ae1.assessment_code, ae1.created_at AS start_time, MIN(ae2.created_at) AS end_time
+         FROM analytics_events ae1
+         JOIN analytics_events ae2 ON ae1.assessment_code = ae2.assessment_code
+         WHERE ae1.page = 'level_of_help' AND ae2.page = 'view_results' AND ae2.created_at > ae1.created_at
+         AND ae1.created_at BETWEEN :start_date AND :end_date
+         GROUP BY ae1.assessment_code, ae1.created_at) AS time_diffs;
+    SQL
+
+    result = ActiveRecord::Base.connection.execute(ApplicationRecord.sanitize_sql([sql, { start_date:, end_date: }]))
+    result[0]["average_completion_time"]
   end
 
   def relevant_events(range)
