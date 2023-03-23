@@ -75,10 +75,14 @@ RSpec.describe MetricsService do
 
           # Completed certificated assessment by user 1
           create :analytics_event, assessment_code: "CODE2", page: "level_of_help", browser_id: "BROWSER1", created_at: 26.hours.ago
+          # add second level_of_help event to check that the oldest is used as the starting point
+          create :analytics_event, assessment_code: "CODE2", page: "level_of_help", browser_id: "BROWSER1", created_at: 25.hours.ago
           create :analytics_event, assessment_code: "CODE2", page: "applicant", browser_id: "BROWSER1", created_at: 1.day.ago
           create :analytics_event, assessment_code: "CODE2", page: "vehicle", browser_id: "BROWSER1", created_at: 1.day.ago, event_type: "validation_message"
           create :analytics_event, assessment_code: "CODE2", page: "vehicle", browser_id: "BROWSER1", created_at: 1.day.ago
           create :analytics_event, assessment_code: "CODE2", page: "view_results", browser_id: "BROWSER1", created_at: 1.day.ago
+          # add second view_results event to check that the earliest is used as the end date
+          create :analytics_event, assessment_code: "CODE2", page: "view_results", browser_id: "BROWSER1", created_at: 12.hours.ago
 
           # Incomplete certificated assessment by user 1
           create :analytics_event, assessment_code: "CODE3", event_type: "controlled_level_of_help_chosen", page: "level_of_help_choice", browser_id: "BROWSER1", created_at: 1440.minutes.ago

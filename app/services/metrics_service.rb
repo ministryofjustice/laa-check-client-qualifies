@@ -176,12 +176,12 @@ private
     sql = <<~SQL
       SELECT AVG(EXTRACT(epoch FROM (end_time - start_time)) / 60) AS average_completion_time
       FROM
-        (SELECT ae1.assessment_code, ae1.created_at AS start_time, MIN(ae2.created_at) AS end_time
+        (SELECT ae1.assessment_code, MIN(ae1.created_at) AS start_time, MIN(ae2.created_at) AS end_time
          FROM analytics_events ae1
          JOIN analytics_events ae2 ON ae1.assessment_code = ae2.assessment_code
-         WHERE ae1.page = 'level_of_help' AND ae2.page = 'view_results' AND ae2.created_at > ae1.created_at
+         WHERE ae1.assessment_code IS NOT NULL AND ae2.page = 'view_results' AND ae2.created_at > ae1.created_at
          AND ae1.created_at BETWEEN :start_date AND :end_date
-         GROUP BY ae1.assessment_code, ae1.created_at) AS time_diffs;
+         GROUP BY ae1.assessment_code) AS time_diffs;
     SQL
 
     result = ActiveRecord::Base.connection.execute(ApplicationRecord.sanitize_sql([sql, { start_date:, end_date: }]))
