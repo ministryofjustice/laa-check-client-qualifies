@@ -60,4 +60,5 @@ featureFlags:
 geckoboard:
   metricsDataset: "ccq_metrics_production"
   validationsDataset: "ccq_validations_production"
+  lastPagesDataset: "ccq_last_pages_production"
   enabled: enabled
