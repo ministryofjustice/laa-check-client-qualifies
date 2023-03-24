@@ -1803,6 +1803,6 @@ en:
       history:
         text: "Changes to dependant and partner allowances: "
         bullets:
-          - partner allowance increased to £211.32 (previously £191.41)
-          - dependant allowance increased to £338.90 (previously £307.64)
+          - partner allowance increased to £211.32 (was £191.41)
+          - dependant allowance increased to £338.90 (was £307.64)
 
