@@ -53,7 +53,7 @@
 
 .govuk-button-group
   - if @model.level_of_help == "controlled" && @model.decision == "eligible" && FeatureFlags.enabled?(:cw_forms)
-    = link_to t(".continue_to_cw"), new_estimate_cw_path(params[:id]), class: "govuk-button", data: { module: "govuk-button" }
+    = link_to t(".continue_to_cw"), new_estimate_controlled_work_document_selection_path(params[:id]), class: "govuk-button", data: { module: "govuk-button" }
   - else
     = link_to t(".start_another_check"), new_estimate_path, class: "govuk-button", data: { module: "govuk-button" }
   = link_to t(".print_page"), print_estimate_path(params[:id]), target: "_blank", rel: "noopener", class: "govuk-button govuk-button--secondary"

@@ -26,7 +26,7 @@ Rails.application.routes.draw do
 
     member { get :print, :check_answers, :download }
 
-    resources :cws, only: %i[new create]
+    resources :controlled_work_document_selections, only: %i[new create]
   end
 
   resource :cookies, only: %i[show update]

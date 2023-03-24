@@ -393,7 +393,7 @@ en:
               blank: Enter value of payments left on the vehicle
               greater_than: Payments left on the vehicle must be more than 0
               not_a_number: Payments left on the vehicle must be a number
-        cw_selection:
+        controlled_work_document_selection:
           attributes:
             form_type:
               blank: Select which form you need
@@ -1822,7 +1822,7 @@ en:
         bullets:
           - partner allowance increased to £211.32 (was £191.41)
           - dependant allowance increased to £338.90 (was £307.64)
-  cws:
+  controlled_work_document_selections:
     new:
       title: Which controlled work (CW) form do you need?
       explainers:

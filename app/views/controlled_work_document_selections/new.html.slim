@@ -4,12 +4,12 @@
   = link_to t("generic.back"), estimate_path(params[:estimate_id]), class: "govuk-back-link"
 
 .govuk-grid-column-two-thirds
-  = form_for(@form, url: estimate_cws_path(params[:estimate_id])) do |form|
+  = form_for(@form, url: estimate_controlled_work_document_selections_path(params[:estimate_id])) do |form|
     = form.govuk_error_summary t("generic.error_summary_title")
     = form.govuk_radio_buttons_fieldset :form_type,
-                                        legend: { text: t(".title") },
+                                        legend: { text: t(".title"), size: "xl", tag: "h1" },
                                         hint: -> { t(".explainers").map { tag.p(_1, class: "govuk-hint") }.join.html_safe }
-      - CwSelection::OPTIONS.each do |option|
+      - ControlledWorkDocumentSelection::OPTIONS.each do |option|
         = form.govuk_radio_button :form_type, option, label: { text: t(".option.#{option}") }
     .govuk-button-group
       = form.govuk_submit t(".download")

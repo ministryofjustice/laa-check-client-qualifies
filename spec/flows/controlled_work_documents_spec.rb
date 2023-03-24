@@ -9,6 +9,6 @@ RSpec.describe "CW Forms", :controlled_flag, :cw_forms_flag, type: :feature do
     fill_in_forms_until(:check_answers)
     click_on "Submit"
     click_on "Continue to CW forms"
-    confirm_screen "cws/new"
+    confirm_screen "controlled_work_document_selections/new"
   end
 end

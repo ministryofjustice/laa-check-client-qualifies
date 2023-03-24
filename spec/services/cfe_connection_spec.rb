@@ -111,7 +111,7 @@ RSpec.describe CfeConnection do
     let(:assessment_id) { :assessment_id }
     let(:payload) { { "foo" => "bar" } }
 
-    it "returns what CFE provides wrapped in a calculation result" do
+    it "returns what CFE provides" do
       stub_request(:get, "#{root_url}/#{assessment_id}")
         .to_return(status: 200, body: payload.to_json, headers: { "Content-Type" => "application/json" })
       result = connection.api_result(assessment_id)

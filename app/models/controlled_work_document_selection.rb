@@ -1,4 +1,4 @@
-class CwSelection
+class ControlledWorkDocumentSelection
   include ActiveModel::Model
   include ActiveModel::Attributes
 

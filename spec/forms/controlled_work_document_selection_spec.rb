@@ -4,7 +4,7 @@ RSpec.describe "cw_selection", type: :feature do
   let(:assessment_code) { :assessment_code }
 
   before do
-    visit "estimates/#{assessment_code}/cws/new"
+    visit "estimates/#{assessment_code}/controlled_work_document_selections/new"
   end
 
   it "shows an error message if no value is entered" do
