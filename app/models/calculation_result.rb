@@ -318,10 +318,17 @@ private
 
   def vehicle_rows(prefix:)
     vehicles = capital_items(:vehicles, prefix)
-    {
-      value: monetise(vehicles.sum(0) { _1.fetch(:value) }),
-      outstanding_payments: monetise(-vehicles.sum(0) { _1.fetch(:loan_amount_outstanding) }),
-      disregards: monetise(-vehicles.sum(0) { _1.fetch(:disregards_and_deductions) }),
-    }
+    vehicle = vehicles.first
+    if vehicle[:in_regular_use]
+      {
+        value: monetise(vehicle[:value]),
+        outstanding_payments: monetise(-vehicle[:loan_amount_outstanding]),
+        disregards: monetise(-vehicle[:disregards_and_deductions]),
+      }
+    else
+      {
+        value: monetise(vehicle[:value]),
+      }
+    end
   end
 end
