@@ -8,7 +8,7 @@ class ChangeLogs
       CHANGES.select { Time.current.beginning_of_day >= _1[:show_from] && Time.current.beginning_of_day <= _1[:show_until] }
     end
 
-    def latest_change
+    def last_updated_at
       occurred.map { Date.parse(_1[:change_on]) }.max.strftime("%-d %B %Y")
     end
 
