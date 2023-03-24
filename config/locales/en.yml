@@ -1228,7 +1228,7 @@ en:
       property: Home client lives in
       partner_property: Home client lives in
       partner_property_fields:
-        partner_property_owned: Owns the home they live it
+        partner_property_owned: Owns the home they live in
         partner_property_owned_options:
           outright: "Yes"
           with_mortgage: "Yes"
