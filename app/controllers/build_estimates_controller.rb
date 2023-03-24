@@ -3,6 +3,7 @@ class BuildEstimatesController < EstimateFlowController
     @form = Flow::Handler.model_from_params(step, params, session_data)
 
     if @form.valid?
+      track_choices(@form)
       session_data.merge!(@form.session_attributes)
       estimate = load_estimate
 

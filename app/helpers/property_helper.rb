@@ -1,5 +1,7 @@
 module PropertyHelper
-  def property_links(level_of_help)
+  def property_links(level_of_help, smod_applicable)
+    return partner_property_links(level_of_help) unless smod_applicable
+
     partner_property_links(level_of_help).merge({ t("generic.smod.guidance.text") => t("generic.smod.guidance.#{level_of_help}.link") })
   end
 

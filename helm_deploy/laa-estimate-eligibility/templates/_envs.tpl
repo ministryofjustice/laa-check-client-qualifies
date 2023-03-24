@@ -68,6 +68,8 @@ env:
     value: {{ .Values.featureFlags.controlled }}
   - name: ASYLUM_AND_IMMIGRATION_FEATURE_FLAG
     value: {{ .Values.featureFlags.asylumAndImmigration }}
+  - name: CW_FORMS_FEATURE_FLAG
+    value: {{ .Values.featureFlags.cwForms }}
   - name: NOTIFICATIONS_API_KEY
     valueFrom:
       secretKeyRef:
@@ -86,6 +88,8 @@ env:
     value:  {{ .Values.geckoboard.metricsDataset }}
   - name: GECKOBOARD_VALIDATION_DATASET_NAME
     value:  {{ .Values.geckoboard.validationsDataset }}
+  - name: GECKOBOARD_LAST_PAGE_DATASET_NAME
+    value:  {{ .Values.geckoboard.lastPagesDataset }}
   - name: GECKOBOARD_ENABLED
     value: {{ .Values.geckoboard.enabled }}
 

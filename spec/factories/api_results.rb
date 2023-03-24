@@ -27,6 +27,9 @@ FactoryBot.define do
           ],
         },
         capital: {
+          pensioner_capital_disregard: 0,
+          subject_matter_of_dispute_disregard: 0,
+          pensioner_disregard_applied: 123,
           proceeding_types: [
             { "ccms_code": "SE013",
               "client_involvement_type": "I",
@@ -35,8 +38,7 @@ FactoryBot.define do
               "result": "eligible" },
           ],
           total_capital: 0,
-          pensioner_capital_disregard: 0,
-          subject_matter_of_dispute_disregard: 0,
+          disputed_non_property_disregard: 0,
         },
       }
     end

@@ -54,9 +54,9 @@ sections:
         - attribute: legacy_proceeding_type
           type: select
           skip_unless: use_legacy_proceeding_type?
-        - attribute: partner
-          type: boolean
         - attribute: over_60
+          type: boolean
+        - attribute: partner
           type: boolean
         - attribute: employment_status
           type: select
@@ -166,17 +166,17 @@ sections:
             attribute: vehicle_value
             screen: vehicle_details
           - type: boolean
-            attribute: vehicle_in_regular_use
-            screen: vehicle_details
-          - type: boolean
-            attribute: vehicle_over_3_years_ago
-            screen: vehicle_details
-          - type: boolean
             attribute: vehicle_pcp
             screen: vehicle_details
           - type: money
             attribute: vehicle_finance
             skip_unless: vehicle_pcp
+            screen: vehicle_details
+          - type: boolean
+            attribute: vehicle_over_3_years_ago
+            screen: vehicle_details
+          - type: boolean
+            attribute: vehicle_in_regular_use
             screen: vehicle_details
       - label: other
         screen: assets
@@ -298,18 +298,18 @@ sections:
             attribute: partner_vehicle_value
             related_screen: partner_vehicle_details
           - type: boolean
-            attribute: partner_vehicle_in_regular_use
-            related_screen: partner_vehicle_details
-          - type: boolean
-            attribute: partner_vehicle_over_3_years_ago
-            related_screen: partner_vehicle_details
-          - type: boolean
             attribute: partner_vehicle_pcp
             related_screen: partner_vehicle_details
           - type: money
             attribute: partner_vehicle_finance
             related_screen: partner_vehicle_details
             skip_unless: partner_vehicle_pcp
+          - type: boolean
+            attribute: partner_vehicle_over_3_years_ago
+            related_screen: partner_vehicle_details
+          - type: boolean
+            attribute: partner_vehicle_in_regular_use
+            related_screen: partner_vehicle_details
       - label: partner_other
         screen: partner_assets
         fields:

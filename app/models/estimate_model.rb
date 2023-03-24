@@ -1,7 +1,10 @@
 class EstimateModel
   include ActiveModel::Model
   include ActiveModel::Attributes
-  include SessionPersistable
+
+  def self.from_session(session_data)
+    new(session_data.slice(*self::ATTRIBUTES.map(&:to_s)))
+  end
 
   ESTIMATE_BOOLEANS = %i[asylum_support
                          over_60
@@ -71,5 +74,9 @@ class EstimateModel
 
   def use_legacy_proceeding_type?
     !controlled? && !FeatureFlags.enabled?(:asylum_and_immigration)
+  end
+
+  def smod_applicable?
+    !upper_tribunal?
   end
 end

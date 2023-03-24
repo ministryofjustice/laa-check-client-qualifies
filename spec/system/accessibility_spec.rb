@@ -114,7 +114,9 @@ RSpec.describe "Accessibility" do
     end
 
     it "has no AXE-detectable accessibility issues" do
-      expect(page).to be_axe_clean
+      # govuk accordions deliberately break ARIA rules by putting 'aria-labelledBy' without a role
+      # C.F. https://github.com/alphagov/govuk-frontend/issues/2472#issuecomment-1398629391
+      expect(page).to be_axe_clean.skipping("aria-allowed-attr")
     end
   end
 
@@ -130,6 +132,8 @@ RSpec.describe "Accessibility" do
       visit check_answers_estimate_path estimate_id
       click_on "Submit"
       click_on "Print this page"
+      windows = page.driver.browser.window_handles
+      page.driver.browser.switch_to.window(windows.last)
     end
 
     context "when assessing controlled work" do

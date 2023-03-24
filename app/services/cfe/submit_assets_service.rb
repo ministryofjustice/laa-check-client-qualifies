@@ -1,10 +1,13 @@
 module Cfe
   class SubmitAssetsService < BaseService
+    delegate :smod_applicable?, to: :estimate
+
     def call(cfe_assessment_id)
       return unless relevant_form?(:assets)
 
       asset_form = ClientAssetsForm.from_session(@session_data)
-      capitals = CfeParamBuilders::Capitals.call(asset_form, assets_in_dispute: asset_form.in_dispute)
+      assets_in_dispute = smod_applicable? ? asset_form.in_dispute : []
+      capitals = CfeParamBuilders::Capitals.call(asset_form, assets_in_dispute:)
 
       if capitals[:bank_accounts].any? || capitals[:non_liquid_capital].any?
         cfe_connection.create_capitals cfe_assessment_id, capitals
@@ -15,8 +18,8 @@ module Cfe
           value: asset_form.property_value,
           outstanding_mortgage: asset_form.property_mortgage,
           percentage_owned: asset_form.property_percentage_owned,
+          subject_matter_of_dispute: (asset_form.property_in_dispute? && smod_applicable?) || false,
         }
-        second_property[:subject_matter_of_dispute] = true if asset_form.property_in_dispute?
       end
 
       if relevant_form?(:property_entry)
@@ -31,8 +34,8 @@ module Cfe
           value: property_entry_form.house_value,
           outstanding_mortgage: (property_entry_form.mortgage if property_form.owned_with_mortgage?) || 0,
           percentage_owned:,
+          subject_matter_of_dispute: (property_entry_form.house_in_dispute && smod_applicable?) || false,
         }
-        main_home[:subject_matter_of_dispute] = true if property_entry_form.house_in_dispute
       elsif relevant_form?(:partner_property_entry)
         partner_property_form = PartnerPropertyForm.from_session(@session_data)
         partner_property_entry_form = PartnerPropertyEntryForm.from_session(@session_data)
@@ -40,6 +43,7 @@ module Cfe
           value: partner_property_entry_form.house_value,
           outstanding_mortgage: (partner_property_entry_form.mortgage if partner_property_form.owned_with_mortgage?) || 0,
           percentage_owned: partner_property_entry_form.percentage_owned,
+          subject_matter_of_dispute: false,
         }
       end
 
@@ -54,6 +58,7 @@ module Cfe
           value: 0,
           outstanding_mortgage: 0,
           percentage_owned: 0,
+          subject_matter_of_dispute: false,
         }
       properties = { main_home: main_home.merge(shared_with_housing_assoc: false) }
       properties[:additional_properties] = [second_property.merge(shared_with_housing_assoc: false)] if second_property

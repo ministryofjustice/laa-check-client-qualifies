@@ -45,4 +45,19 @@ RSpec.describe "assets", type: :feature do
     expect(session_contents["property_percentage_owned"]).to eq 50
     expect(session_contents["in_dispute"]).to eq %w[property]
   end
+
+  it "shows SMOD checkbox" do
+    expect(page).to have_content(I18n.t("generic.dispute"))
+  end
+
+  context "when this is an upper tribunal matter" do
+    before do
+      set_session(assessment_code, "proceeding_type" => "IM030")
+      visit "estimates/#{assessment_code}/build_estimates/assets"
+    end
+
+    it "shows no SMOD checkbox" do
+      expect(page).not_to have_content(I18n.t("generic.dispute"))
+    end
+  end
 end

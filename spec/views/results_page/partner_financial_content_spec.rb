@@ -50,11 +50,16 @@ RSpec.describe "estimates/show.html.slim" do
           capital: {
             pensioner_capital_disregard: 0,
             subject_matter_of_dispute_disregard: 0,
-            total_capital: 0,
+            disputed_non_property_disregard: 0,
+            pensioner_disregard_applied: 0,
             proceeding_types: [
-              { upper_threshold: 2657.0,
-                result: "eligible" },
+              { "ccms_code": "SE013",
+                "client_involvement_type": "I",
+                "upper_threshold": 2657.0,
+                "lower_threshold": 0.0,
+                "result": "eligible" },
             ],
+            total_capital: 0,
           },
           partner_capital: {
             pensioner_capital_disregard: 3_000,
@@ -63,6 +68,7 @@ RSpec.describe "estimates/show.html.slim" do
             total_vehicle: 3_000,
             total_liquid: 3676,
             total_non_liquid: 5353,
+            total_capital_with_smod: 30_000,
             proceeding_types: [
               { upper_threshold: 2657.0,
                 result: "eligible" },
@@ -202,7 +208,7 @@ RSpec.describe "estimates/show.html.slim" do
       expect(page_text).to include "Assessed vehicle value £3,000.00"
       expect(page_text).to include "Savings £3,676.00"
       expect(page_text).to include "Investments and valuables £5,353.00"
-      expect(page_text).to include "Disposable capital £0.00"
+      expect(page_text).to include "Disposable capital £30,000.00"
       expect(page_text).to include "Total assessed disposable capital £0.00"
       expect(page_text).to include "Disposable capital upper limit £2,657.00"
     end

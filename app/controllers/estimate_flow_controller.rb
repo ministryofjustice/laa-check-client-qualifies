@@ -30,4 +30,8 @@ protected
   def page_name
     step
   end
+
+  def track_choices(form)
+    ChoiceAnalyticsService.call(form, assessment_code, cookies[BROWSER_ID_COOKIE])
+  end
 end
