@@ -58,7 +58,8 @@ featureFlags:
   cwForms: NOT_ENABLED
 
 geckoboard:
-  metricsDataset: "ccq_metrics_staging"
-  validationsDataset: "ccq_validations_staging"
+  metricsDataset: "ccq_monthly_metrics_staging"
+  allMetricsDataset: "ccq_all_metrics_staging"
   lastPagesDataset: "ccq_last_pages_staging"
+  validationsDataset: "ccq_validations_staging"
   enabled: enabled

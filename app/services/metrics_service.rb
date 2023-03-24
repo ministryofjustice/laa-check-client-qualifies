@@ -1,22 +1,24 @@
 class MetricsService
-  DAYS_TO_CONSIDER = 30
-
   def self.call
     new.call if ENV["GECKOBOARD_ENABLED"]&.casecmp("enabled")&.zero?
   end
 
   def call
     client = Geckoboard.client(ENV["GECKOBOARD_API_KEY"])
-    metric_dataset = client.datasets.find_or_create(ENV.fetch("GECKOBOARD_METRIC_DATASET_NAME", "metrics"),
+    metric_dataset = client.datasets.find_or_create(ENV.fetch("GECKOBOARD_METRIC_DATASET_NAME", "monthly_metrics"),
                                                     **metric_dataset_definition)
     metric_dataset.put(metrics)
-    validation_dataset = client.datasets.find_or_create(ENV.fetch("GECKOBOARD_VALIDATION_DATASET_NAME", "validations"),
-                                                        **validation_dataset_definition)
-    validation_dataset.put(validations)
+
+    all_metric_dataset = client.datasets.find_or_create(ENV.fetch("GECKOBOARD_ALL_METRIC_DATASET_NAME", "all_metrics"),
+                                                        **metric_dataset_definition)
+    all_metric_dataset.put(all_metrics)
 
     last_page_dataset = client.datasets.find_or_create(ENV.fetch("GECKOBOARD_LAST_PAGE_DATASET_NAME", "last_pages"),
                                                        **last_page_dataset_definition)
     last_page_dataset.put(last_pages)
+    validation_dataset = client.datasets.find_or_create(ENV.fetch("GECKOBOARD_VALIDATION_DATASET_NAME", "validations"),
+                                                        **validation_dataset_definition)
+    validation_dataset.put(validations.flatten)
   end
 
 private
@@ -24,25 +26,48 @@ private
   def metric_dataset_definition
     {
       fields: [
-        Geckoboard::DateField.new(:date, name: "#{DAYS_TO_CONSIDER}-day period ending"),
-        Geckoboard::NumberField.new(:assessments_started, name: "Assessments started"),
-        Geckoboard::NumberField.new(:assessments_completed, name: "Assessments completed"),
-        Geckoboard::NumberField.new(:percent_completed, name: "% of started assessments completed", optional: true),
-        Geckoboard::NumberField.new(:assessments_per_user, name: "Average assessments started per user", optional: true),
-        Geckoboard::NumberField.new(:percent_controlled, name: "% of completed assessments that are controlled", optional: true),
+        Geckoboard::DateField.new(:date, name: "Month beginning"),
+        Geckoboard::NumberField.new(:checks_started, name: "Checks started"),
+        Geckoboard::NumberField.new(:checks_completed, name: "Checks completed"),
+        Geckoboard::NumberField.new(:completion_rate, name: "Completion rate", optional: true),
+        Geckoboard::NumberField.new(:controlled_checks_completed, name: "Controlled checks completed", optional: true),
+        Geckoboard::NumberField.new(:certificated_checks_completed, name: "Certificated checks completed", optional: true),
+        Geckoboard::NumberField.new(:completed_checks_per_user, name: "Completed checks per (analytics opted-in) user", optional: true),
       ],
     }
   end
 
   def metrics
+    earliest_date = AnalyticsEvent.minimum(:created_at)
+    return [] unless earliest_date
+
+    date_ranges(earliest_date).map do |range|
+      {
+        date: range.first.to_date,
+        checks_started: checks_started(range),
+        checks_completed: checks_completed(range),
+        completion_rate: completion_rate(range),
+        controlled_checks_completed: controlled_checks_completed(range),
+        certificated_checks_completed: certificated_checks_completed(range),
+        completed_checks_per_user: completed_checks_per_user(range),
+      }
+    end
+  end
+
+  def all_metrics
+    # While many overall metrics can be derived by summing the monthly metrics in Geckoboard,
+    # some can't. Notably the sum of all monthly % values, like completion rate, is not equal
+    # to the overall % value. So for simplicity, and particularly given Geckoboard's limited
+    # query capabilities, we send all overall data to Geckoboard separately
     [
       {
-        date: 1.day.ago.to_date,
-        assessments_started:,
-        assessments_completed:,
-        percent_completed:,
-        assessments_per_user:,
-        percent_controlled:,
+        date: Date.current,
+        checks_started:,
+        checks_completed:,
+        completion_rate:,
+        controlled_checks_completed:,
+        certificated_checks_completed:,
+        completed_checks_per_user:,
       },
     ]
   end
@@ -50,20 +75,22 @@ private
   def validation_dataset_definition
     {
       fields: [
-        Geckoboard::DateField.new(:date, name: "#{DAYS_TO_CONSIDER}-day period ending"),
-        Geckoboard::NumberField.new(:assessments, name: "Assessments"),
+        Geckoboard::NumberField.new(:checks, name: "Assessments"),
         Geckoboard::StringField.new(:screen, name: "Screen on which shown"),
+        Geckoboard::StringField.new(:data_type, name: "Whether this is current month or all time"),
       ],
     }
   end
 
   def validations
-    top_validation_screens.map do |screen_and_count|
-      {
-        date: 1.day.ago.to_date,
-        assessments: screen_and_count[1],
-        screen: screen_and_count[0],
-      }
+    %i[current_month all_time].map do |time_period|
+      top_validation_screens(time_period).map do |screen_and_count|
+        {
+          checks: screen_and_count[1],
+          screen: screen_and_count[0],
+          data_type: time_period,
+        }
+      end
     end
   end
 
@@ -86,52 +113,74 @@ private
     ].flatten
   end
 
-  def assessments_started
-    @assessments_started ||= relevant_events.where.not(assessment_code: nil).count("DISTINCT assessment_code")
+  def checks_started(range = nil)
+    relevant_events(range).where.not(assessment_code: nil).count("DISTINCT assessment_code")
   end
 
-  def assessments_completed
-    @assessments_completed ||= relevant_events.where(event_type: "page_view", page: "view_results").count("DISTINCT assessment_code")
+  def checks_completed(range = nil)
+    relevant_events(range).where(event_type: "page_view", page: "view_results").count("DISTINCT assessment_code")
   end
 
-  def percent_completed
-    return if assessments_started.zero?
+  def completion_rate(range = nil)
+    started = checks_started(range)
+    return if started.zero?
 
-    (100 * assessments_completed / assessments_started.to_f).round
+    (100 * checks_completed(range) / started.to_f).round
   end
 
-  def assessments_per_user
-    subset_of_events = relevant_events.where.not(assessment_code: nil).where.not(browser_id: nil)
-    assessments_with_browser = subset_of_events.distinct.count(:assessment_code)
-    browsers_with_assessments = subset_of_events.distinct.count(:browser_id)
-    return if browsers_with_assessments.zero?
+  def completed_checks_per_user(range = nil)
+    subset_of_events = relevant_events(range).where.not(assessment_code: nil).where.not(browser_id: nil)
+    checks_with_browser = subset_of_events.distinct.count(:assessment_code)
+    browsers_with_checks = subset_of_events.distinct.count(:browser_id)
+    return if browsers_with_checks.zero?
 
-    (assessments_with_browser / browsers_with_assessments.to_f).round
+    (checks_with_browser / browsers_with_checks.to_f).round
   end
 
-  def percent_controlled
-    return if assessments_completed.zero?
-
-    controlled_completed = relevant_events.joins("LEFT JOIN analytics_events ae2 ON ae2.assessment_code = analytics_events.assessment_code")
-                                          .where(event_type: "page_view", page: "view_results")
-                                          .where(ae2: { event_type: "controlled_level_of_help_chosen", page: "level_of_help_choice" })
-                                          .distinct
-                                          .count(:assessment_code)
-
-    (100 * controlled_completed / assessments_completed.to_f).round
+  def controlled_checks_completed(range = nil)
+    relevant_events(range).joins("LEFT JOIN analytics_events ae2 ON ae2.assessment_code = analytics_events.assessment_code")
+                          .where(event_type: "page_view", page: "view_results")
+                          .where(ae2: { event_type: "controlled_level_of_help_chosen", page: "level_of_help_choice" })
+                          .distinct
+                          .count(:assessment_code)
   end
 
-  def top_validation_screens
-    relevant_events.where(event_type: "validation_message")
-                   .group(:page)
-                   .order(Arel.sql("COUNT(DISTINCT assessment_code) DESC"))
-                   .limit(10)
-                   .pluck(Arel.sql("page, COUNT(DISTINCT assessment_code)"))
+  def certificated_checks_completed(range = nil)
+    checks_completed(range) - controlled_checks_completed(range)
   end
 
-  def relevant_events
-    period_end = Date.current.beginning_of_day
-    AnalyticsEvent.where(created_at: (period_end - DAYS_TO_CONSIDER.days)..period_end)
+  def top_validation_screens(time_period)
+    events = case time_period
+             when :current_month
+               relevant_events(Date.current.all_month)
+             else
+               AnalyticsEvent
+             end
+    events.where(event_type: "validation_message")
+          .group(:page)
+          .order(Arel.sql("COUNT(DISTINCT assessment_code) DESC"))
+          .limit(10)
+          .pluck(Arel.sql("page, COUNT(DISTINCT assessment_code)"))
+  end
+
+  def relevant_events(range)
+    return AnalyticsEvent unless range
+
+    AnalyticsEvent.where(created_at: range)
+  end
+
+  def date_ranges(earliest_date)
+    end_date = Time.zone.today
+
+    dates = []
+    date = earliest_date.beginning_of_month
+
+    while date <= end_date.beginning_of_month
+      dates << date.all_month
+      date += 1.month
+    end
+
+    dates
   end
 
   def exit_pages(level_of_help, period)

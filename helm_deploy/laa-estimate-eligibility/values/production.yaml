@@ -58,7 +58,8 @@ featureFlags:
   cwForms: NOT_ENABLED
 
 geckoboard:
-  metricsDataset: "ccq_metrics_production"
-  validationsDataset: "ccq_validations_production"
+  metricsDataset: "ccq_monthly_metrics_production"
+  allMetricsDataset: "ccq_all_metrics_production"
   lastPagesDataset: "ccq_last_pages_production"
+  validationsDataset: "ccq_validations_production"
   enabled: enabled
