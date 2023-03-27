@@ -33,7 +33,8 @@ private
         Geckoboard::NumberField.new(:controlled_checks_completed, name: "Controlled checks completed", optional: true),
         Geckoboard::NumberField.new(:certificated_checks_completed, name: "Certificated checks completed", optional: true),
         Geckoboard::NumberField.new(:completed_checks_per_user, name: "Completed checks per (analytics opted-in) user", optional: true),
-        Geckoboard::NumberField.new(:average_completion_time, name: "Average time taken to complete a check", optional: true),
+        Geckoboard::NumberField.new(:model_completion_time_controlled, name: "Mode of time taken to complete a controlled check", optional: true),
+        Geckoboard::NumberField.new(:model_completion_time_certificated, name: "Mode of time taken to complete a certificated check", optional: true),
       ],
     }
   end
@@ -51,7 +52,8 @@ private
         controlled_checks_completed: controlled_checks_completed(range),
         certificated_checks_completed: certificated_checks_completed(range),
         completed_checks_per_user: completed_checks_per_user(range),
-        average_completion_time: average_completion_time(range),
+        mode_completion_time_controlled: mode_completion_time(:controlled, range),
+        mode_completion_time_certificated: mode_completion_time(:certificated, range),
       }
     end
   end
@@ -70,7 +72,8 @@ private
         controlled_checks_completed:,
         certificated_checks_completed:,
         completed_checks_per_user:,
-        average_completion_time:,
+        mode_completion_time_controlled: mode_completion_time(:controlled),
+        mode_completion_time_certificated: mode_completion_time(:certificated),
       },
     ]
   end
@@ -166,26 +169,37 @@ private
           .pluck(Arel.sql("page, COUNT(DISTINCT assessment_code)"))
   end
 
-  def average_completion_time(range = nil)
-    return unless relevant_events(range).where(page: "view_results").any?
+  def mode_completion_time(level_of_help, range = nil)
+    completed_checks = level_of_help == :controlled ? controlled_checks_completed(range) : certificated_checks_completed(range = nil)
+    return if completed_checks.zero?
 
     start_date = range ? range.first : 100.years.ago
     end_date = range ? range.last : Time.current
+    choice = "#{level_of_help}_level_of_help_chosen"
 
-    # returns the average_completion_time in minutes
+    # returns the mode_completion_time in minutes
     sql = <<~SQL
-      SELECT AVG(EXTRACT(epoch FROM (end_time - start_time)) / 60) AS average_completion_time
+      SELECT MODE() WITHIN GROUP (ORDER BY durations.duration_in_minutes) AS mode_completion_time
       FROM
-        (SELECT ae1.assessment_code, MIN(ae1.created_at) AS start_time, MIN(ae2.created_at) AS end_time
-         FROM analytics_events ae1
-         JOIN analytics_events ae2 ON ae1.assessment_code = ae2.assessment_code
-         WHERE ae1.assessment_code IS NOT NULL AND ae2.page = 'view_results' AND ae2.created_at > ae1.created_at
-         AND ae1.created_at BETWEEN :start_date AND :end_date
-         GROUP BY ae1.assessment_code) AS time_diffs;
+        (
+          SELECT ROUND(EXTRACT(epoch FROM (completed_checks.end_time - completed_checks.start_time)) / 60) AS duration_in_minutes
+          FROM
+          (
+            SELECT ae1.assessment_code, MIN(ae1.created_at) AS start_time, MIN(ae2.created_at) AS end_time
+            FROM analytics_events ae1
+            JOIN analytics_events ae2 ON ae1.assessment_code = ae2.assessment_code
+            JOIN analytics_events level_of_help_filter ON level_of_help_filter.assessment_code = ae1.assessment_code
+            WHERE ae1.assessment_code IS NOT NULL AND ae2.page = 'view_results' AND ae2.created_at > ae1.created_at
+            AND ae1.created_at BETWEEN :start_date AND :end_date
+            AND level_of_help_filter.page = 'level_of_help_choice'
+            AND level_of_help_filter.event_type = :choice
+            GROUP BY ae1.assessment_code
+          ) AS completed_checks
+        ) AS durations;
     SQL
 
-    result = ActiveRecord::Base.connection.execute(ApplicationRecord.sanitize_sql([sql, { start_date:, end_date: }]))
-    result[0]["average_completion_time"].to_f
+    result = ActiveRecord::Base.connection.execute(ApplicationRecord.sanitize_sql([sql, { start_date:, end_date:, choice: }]))
+    result[0]["mode_completion_time"].to_f
   end
 
   def relevant_events(range)

@@ -47,7 +47,8 @@ RSpec.describe MetricsService do
           expect(metric_dataset).to receive(:put).with([])
           expect(all_metric_dataset).to receive(:put).with([
             {
-              average_completion_time: nil,
+              mode_completion_time_controlled: nil,
+              mode_completion_time_certificated: nil,
               certificated_checks_completed: 0,
               checks_completed: 0,
               checks_started: 0,
@@ -67,6 +68,7 @@ RSpec.describe MetricsService do
         before do
           # Completed certificated assessment by user 1
           create :analytics_event, assessment_code: "CODE1", page: "level_of_help", browser_id: "BROWSER1", created_at: 32.days.ago
+          create :analytics_event, assessment_code: "CODE1", event_type: "certificated_level_of_help_chosen", page: "level_of_help_choice", browser_id: "BROWSER1", created_at: 1.month.ago
           create :analytics_event, assessment_code: "CODE1", page: "applicant", browser_id: "BROWSER1", created_at: 1.month.ago
           create :analytics_event, assessment_code: "CODE1", page: "vehicle", browser_id: "BROWSER1", created_at: 1.month.ago
           create :analytics_event, assessment_code: "CODE1", page: "vehicle", browser_id: "BROWSER1", created_at: 1.month.ago, event_type: "validation_message"
@@ -77,6 +79,7 @@ RSpec.describe MetricsService do
           create :analytics_event, assessment_code: "CODE2", page: "level_of_help", browser_id: "BROWSER1", created_at: 26.hours.ago
           # add second level_of_help event to check that the oldest is used as the starting point
           create :analytics_event, assessment_code: "CODE2", page: "level_of_help", browser_id: "BROWSER1", created_at: 25.hours.ago
+          create :analytics_event, assessment_code: "CODE2", event_type: "certificated_level_of_help_chosen", page: "level_of_help_choice", browser_id: "BROWSER1", created_at: 25.hours.ago
           create :analytics_event, assessment_code: "CODE2", page: "applicant", browser_id: "BROWSER1", created_at: 1.day.ago
           create :analytics_event, assessment_code: "CODE2", page: "vehicle", browser_id: "BROWSER1", created_at: 1.day.ago, event_type: "validation_message"
           create :analytics_event, assessment_code: "CODE2", page: "vehicle", browser_id: "BROWSER1", created_at: 1.day.ago
@@ -92,13 +95,13 @@ RSpec.describe MetricsService do
 
           # Completed controlled assessment by user 2
           create :analytics_event, assessment_code: "CODE4", page: "level_of_help", browser_id: "BROWSER2", created_at: 25.hours.ago
+          create :analytics_event, assessment_code: "CODE4", event_type: "controlled_level_of_help_chosen", page: "level_of_help_choice", browser_id: "BROWSER1", created_at: 1.day.ago
           create :analytics_event, assessment_code: "CODE4", page: "applicant", browser_id: "BROWSER2", created_at: 1.day.ago
-          create :analytics_event, assessment_code: "CODE4", page: "view_results", browser_id: "BROWSER2", created_at: 1.day.ago
-          create :analytics_event, assessment_code: "CODE4", event_type: "controlled_level_of_help_chosen", page: "level_of_help_choice", browser_id: "BROWSER2", created_at: 1.day.ago
+          create :analytics_event, assessment_code: "CODE4", page: "view_results", browser_id: "BROWSER2", created_at: 23.hours.ago
 
           # Completed controlled assessment
           create :analytics_event, assessment_code: "CODE5", page: "level_of_help", created_at: 26.hours.ago
-          create :analytics_event, assessment_code: "CODE5", event_type: "controlled_level_of_help_chosen", page: "level_of_help_choice", created_at: 1.day.ago
+          create :analytics_event, assessment_code: "CODE5", event_type: "controlled_level_of_help_chosen", page: "level_of_help_choice", created_at: 25.hours.ago
           create :analytics_event, assessment_code: "CODE5", page: "applicant", created_at: 1.day.ago
           create :analytics_event, assessment_code: "CODE5", page: "view_results", created_at: 1.day.ago
 
@@ -109,7 +112,8 @@ RSpec.describe MetricsService do
           expect(all_metric_dataset).to receive(:put).with(
             [
               {
-                average_completion_time: 1515.0,
+                mode_completion_time_controlled: 120.0,
+                mode_completion_time_certificated: 120.0,
                 certificated_checks_completed: 2,
                 checks_completed: 4,
                 checks_started: 5,
@@ -123,7 +127,8 @@ RSpec.describe MetricsService do
           expect(metric_dataset).to receive(:put).with(
             [
               {
-                average_completion_time: 5760.0,
+                mode_completion_time_controlled: nil,
+                mode_completion_time_certificated: 120.0,
                 certificated_checks_completed: 1,
                 checks_completed: 1,
                 checks_started: 1,
@@ -133,7 +138,8 @@ RSpec.describe MetricsService do
                 date: Date.new(2023, 2, 1),
               },
               {
-                average_completion_time: 100.0,
+                mode_completion_time_certificated: 120.0,
+                mode_completion_time_controlled: 120.0,
                 certificated_checks_completed: 1,
                 checks_completed: 3,
                 checks_started: 4,
