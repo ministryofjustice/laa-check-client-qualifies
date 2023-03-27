@@ -33,8 +33,8 @@ private
         Geckoboard::NumberField.new(:controlled_checks_completed, name: "Controlled checks completed", optional: true),
         Geckoboard::NumberField.new(:certificated_checks_completed, name: "Certificated checks completed", optional: true),
         Geckoboard::NumberField.new(:completed_checks_per_user, name: "Completed checks per (analytics opted-in) user", optional: true),
-        Geckoboard::NumberField.new(:model_completion_time_controlled, name: "Mode of time taken to complete a controlled check", optional: true),
-        Geckoboard::NumberField.new(:model_completion_time_certificated, name: "Mode of time taken to complete a certificated check", optional: true),
+        Geckoboard::NumberField.new(:mode_completion_time_controlled, name: "Mode of time taken to complete a controlled check", optional: true),
+        Geckoboard::NumberField.new(:mode_completion_time_certificated, name: "Mode of time taken to complete a certificated check", optional: true),
       ],
     }
   end
@@ -170,7 +170,7 @@ private
   end
 
   def mode_completion_time(level_of_help, range = nil)
-    completed_checks = level_of_help == :controlled ? controlled_checks_completed(range) : certificated_checks_completed(range = nil)
+    completed_checks = level_of_help == :controlled ? controlled_checks_completed(range) : certificated_checks_completed(range)
     return if completed_checks.zero?
 
     start_date = range ? range.first : 100.years.ago

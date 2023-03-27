@@ -94,16 +94,16 @@ RSpec.describe MetricsService do
           create :analytics_event, assessment_code: "CODE3", page: "vehicle", browser_id: "BROWSER1", created_at: 1437.minutes.ago
 
           # Completed controlled assessment by user 2
-          create :analytics_event, assessment_code: "CODE4", page: "level_of_help", browser_id: "BROWSER2", created_at: 25.hours.ago
-          create :analytics_event, assessment_code: "CODE4", event_type: "controlled_level_of_help_chosen", page: "level_of_help_choice", browser_id: "BROWSER1", created_at: 1.day.ago
-          create :analytics_event, assessment_code: "CODE4", page: "applicant", browser_id: "BROWSER2", created_at: 1.day.ago
-          create :analytics_event, assessment_code: "CODE4", page: "view_results", browser_id: "BROWSER2", created_at: 23.hours.ago
+          create :analytics_event, assessment_code: "CODE4", page: "level_of_help", browser_id: "BROWSER2", created_at: 22.hours.ago
+          create :analytics_event, assessment_code: "CODE4", event_type: "controlled_level_of_help_chosen", page: "level_of_help_choice", browser_id: "BROWSER1", created_at: 21.hours.ago
+          create :analytics_event, assessment_code: "CODE4", page: "applicant", browser_id: "BROWSER2", created_at: 20.hours.ago
+          create :analytics_event, assessment_code: "CODE4", page: "view_results", browser_id: "BROWSER2", created_at: 16.hours.ago
 
           # Completed controlled assessment
-          create :analytics_event, assessment_code: "CODE5", page: "level_of_help", created_at: 26.hours.ago
-          create :analytics_event, assessment_code: "CODE5", event_type: "controlled_level_of_help_chosen", page: "level_of_help_choice", created_at: 25.hours.ago
-          create :analytics_event, assessment_code: "CODE5", page: "applicant", created_at: 1.day.ago
-          create :analytics_event, assessment_code: "CODE5", page: "view_results", created_at: 1.day.ago
+          create :analytics_event, assessment_code: "CODE5", page: "level_of_help", created_at: 28.hours.ago
+          create :analytics_event, assessment_code: "CODE5", event_type: "controlled_level_of_help_chosen", page: "level_of_help_choice", created_at: 27.hours.ago
+          create :analytics_event, assessment_code: "CODE5", page: "applicant", created_at: 24.hours.ago
+          create :analytics_event, assessment_code: "CODE5", page: "view_results", created_at: 24.hours.ago
 
           create :analytics_event, page: "index_start"
         end
@@ -112,7 +112,7 @@ RSpec.describe MetricsService do
           expect(all_metric_dataset).to receive(:put).with(
             [
               {
-                mode_completion_time_controlled: 120.0,
+                mode_completion_time_controlled: 240.0,
                 mode_completion_time_certificated: 120.0,
                 certificated_checks_completed: 2,
                 checks_completed: 4,
@@ -128,7 +128,7 @@ RSpec.describe MetricsService do
             [
               {
                 mode_completion_time_controlled: nil,
-                mode_completion_time_certificated: 120.0,
+                mode_completion_time_certificated: 5760.0,
                 certificated_checks_completed: 1,
                 checks_completed: 1,
                 checks_started: 1,
@@ -139,7 +139,7 @@ RSpec.describe MetricsService do
               },
               {
                 mode_completion_time_certificated: 120.0,
-                mode_completion_time_controlled: 120.0,
+                mode_completion_time_controlled: 240.0,
                 certificated_checks_completed: 1,
                 checks_completed: 3,
                 checks_started: 4,
