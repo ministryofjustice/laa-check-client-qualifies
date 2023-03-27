@@ -683,20 +683,24 @@ en:
         the_partner:  your client's partner
         certificated_exclusions:
           - anyone who owns any property, vehicles or other assets valued at over £8,000 in total
-          - anyone with over £307.64 income every month (any income below this will be deducted from the dependants allowance if an application is made)
+        certificated_income_exclusion_legacy: anyone with over £307.64 income every month (any income below this will be deducted from the dependants allowance if an application is made)
+        certificated_income_exclusion: anyone with over £338.90 income every month (any income below this will be deducted from the dependants allowance if an application is made)
         controlled_exclusions:
           - anyone who owns any property, vehicles or other assets valued at over £8,000 in total
-          - anyone with over £307.64 income every month (any income below this should be deducted from the dependants allowance when you complete the relevant controlled work form)
+        controlled_income_exclusion_legacy: anyone with over £307.64 income every month (any income below this should be deducted from the dependants allowance when you complete the relevant controlled work form)
+        controlled_income_exclusion: anyone with over £338.90 income every month (any income below this should be deducted from the dependants allowance when you complete the relevant controlled work form)
       child_dependants:
         legend: Does your client have any child dependants?
         label: How many?
         hint: "A child dependant is one who lives with your client and depends on them for financial support. For example, your client’s child or another child relative who lives in their household. Do not include any:"
         certificated_exclusions:
           - foster child
-          - child with over £307.64 income every month (any income below this will be deducted from the dependants allowance if an application is made)
+        certificated_income_exclusion_legacy: child with over £307.64 income every month (any income below this will be deducted from the dependants allowance if an application is made)
+        certificated_income_exclusion: child with over £338.90 income every month (any income below this will be deducted from the dependants allowance if an application is made)
         controlled_exclusions:
           - foster child
-          - child with over £307.64 income every month (any income below this should be deducted from the dependants allowance when you complete the relevant controlled work form)
+        controlled_income_exclusion_legacy: child with over £307.64 income every month (any income below this should be deducted from the dependants allowance when you complete the relevant controlled work form)
+        controlled_income_exclusion: child with over £338.90 income every month (any income below this should be deducted from the dependants allowance when you complete the relevant controlled work form)
       second_caption: "A dependant:"
       second_caption_bullets:
         - is someone who lives with your client and depends on them for financial support
@@ -721,11 +725,9 @@ en:
         certificated_exclusions:
           - anyone who owns any property, vehicles or other assets valued at over £8,000 in total
           - any adult you've listed as a dependant of the client
-          - anyone with over £307.64 income every month (any income below this will be deducted from the dependants allowance if an application is made)
         controlled_exclusions:
           - anyone who owns any property, vehicles or other assets valued at over £8,000 in total
           - any adult you've listed as a dependant of the client
-          - anyone with over £307.64 income every month (any income below this should be deducted from the dependants allowance when you complete the relevant controlled work form)
       child_dependants:
         legend: Does the partner have any child dependants?
         label: How many?
@@ -733,11 +735,9 @@ en:
         certificated_exclusions:
           - foster child
           - child you’ve listed as a dependant of the client
-          - child with over £307.64 income every month (any income below this will be deducted from the dependants allowance if an application is made)
         controlled_exclusions:
           - foster child
           - child you’ve listed as a dependant of the client
-          - child with over £307.64 income every month (any income below this should be deducted from the dependants allowance when you complete the relevant controlled work form)
       second_caption: "A dependant:"
       second_caption_bullets:
         - is someone who lives with the partner and depends on them for financial support
