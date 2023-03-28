@@ -85,3 +85,5 @@
     - body.row(classes: %w[solid-bottom-border]) do |row|
       - row.cell(text: t("estimates.show.capital_upper_threshold"))
       - row.cell(text: @model.capital_upper_threshold, numeric: true)
+
+= render "ineligible_explanation", value_type: :capital

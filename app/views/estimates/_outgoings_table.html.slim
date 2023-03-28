@@ -29,3 +29,5 @@ p.govuk-body = t("estimates.show.period_conversion_hint")
     - body.row(classes: %w[solid-bottom-border]) do |row|
       - row.cell(text: t("estimates.show.disposable_income_upper_threshold"))
       - row.cell(text: @model.disposable_income_upper_threshold, numeric: true)
+
+= render "ineligible_explanation", value_type: :disposable_income
