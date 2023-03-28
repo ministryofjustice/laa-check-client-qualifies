@@ -531,6 +531,9 @@ en:
       certificated_guidance:
         text: Guide to determining certificated work
         link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf
+      mental_health_guidance:
+        text: Means assessment section of Mental Health guidance
+        link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1143984/Mental_Health_Guidance_-_Contract_management_-_GOV.UK_2023.pdf#page=3
       certificated_hint: This includes full representation and family help (higher)
     asylum_support:
       question: Does your client get Asylum Support?
