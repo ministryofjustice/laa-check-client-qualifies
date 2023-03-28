@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Asylum and immigration flag", :controlled_flag, :asylum_and_immigration_flag, type: :feature do
+RSpec.describe "Asylum and immigration flag", :asylum_and_immigration_flag, type: :feature do
   it "adds a new matter type screen" do
     start_assessment
     fill_in_forms_until(:level_of_help)
