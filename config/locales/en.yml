@@ -1599,7 +1599,7 @@ en:
           - Get your client to sign the form.
           - Keep the form, with any evidence provided by your client, for your records.
         manual_header:  Complete a controlled work form yourself
-        manual_instruction: Download a controlled work application form. Some of these can be filled in on a computer.
+        manual_instruction: Download a <a href='https://www.gov.uk/government/collections/controlled-work-application-forms' target='_blank' rel='noreferrer noopener'>controlled work application form</a>. Some of these can be filled in on a computer.
     limits_table:
       calculation_information: We’ve used the information you provided to compare your client’s income and outgoings. This allows us to calculate their monthly disposable income.
       regulations_html: "All the regulations referred to on this page can be found in the <a href='http://www.legislation.gov.uk/all?title=Civil%20Legal%20Aid%20%28Financial%20Resources%20'>Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 and subsequent amendments</a>."
