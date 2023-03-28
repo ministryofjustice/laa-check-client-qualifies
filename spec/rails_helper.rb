@@ -92,6 +92,12 @@ RSpec.configure do |config|
     Flipper.disable(:asylum_and_immigration)
   end
 
+  config.around(:each, :cw_forms_flag) do |example|
+    Flipper.enable(:cw_forms)
+    example.run
+    Flipper.disable(:cw_forms)
+  end
+
   config.include ActiveSupport::Testing::TimeHelpers
 end
 

@@ -4,10 +4,11 @@ class CalculationResult
 
   include ActionView::Helpers::NumberHelper
 
-  attr_accessor :level_of_help
+  attr_reader :level_of_help
 
-  def initialize(api_response)
-    @api_response = api_response
+  def initialize(session_data)
+    @api_response = session_data["api_response"].deep_symbolize_keys
+    @level_of_help = session_data.fetch("level_of_help", "certificated")
   end
 
   def decision

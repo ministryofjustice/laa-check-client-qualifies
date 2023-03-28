@@ -2,8 +2,9 @@ require "rails_helper"
 
 RSpec.describe "estimates/show.html.slim" do
   describe "Partially owned property content" do
-    let(:calculation_result) { CalculationResult.new(api_response).tap { _1.level_of_help = "certificated" } }
+    let(:calculation_result) { CalculationResult.new(session_data) }
     let(:estimate) { EstimateModel.from_session({}) }
+    let(:session_data) { { api_response: }.with_indifferent_access }
     let(:api_response) do
       FactoryBot.build(
         :api_result,

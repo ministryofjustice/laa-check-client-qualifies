@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "estimates/show.html.slim" do
   describe "Pensioner content" do
-    let(:calculation_result) { CalculationResult.new(api_response).tap { _1.level_of_help = "certificated" } }
+    let(:calculation_result) { CalculationResult.new(session_data) }
     let(:estimate) { EstimateModel.from_session(session_data) }
 
     let(:api_response) do
@@ -125,7 +125,9 @@ RSpec.describe "estimates/show.html.slim" do
     end
 
     let(:session_data) do
-      {}.with_indifferent_access
+      {
+        api_response:,
+      }.with_indifferent_access
     end
 
     before do
