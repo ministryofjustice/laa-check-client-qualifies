@@ -24,7 +24,7 @@ RSpec.describe "partner_property_entry", type: :feature do
   end
 
   context "when partner has a mortgage" do
-    let(:session) { { "level_of_help" => "certificated", "partner_property_owned" => "with_mortgage" } }
+    let(:session) { { "level_of_help" => "certificated", "partner" => true, "partner_property_owned" => "with_mortgage" } }
 
     before do
       fill_in "partner-property-entry-form-house-value-field", with: "100000"

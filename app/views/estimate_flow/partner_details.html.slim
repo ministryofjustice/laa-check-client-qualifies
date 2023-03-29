@@ -1,7 +1,7 @@
 - content_for :page_title
   = t(".partner_heading")
 - content_for :back do
-  = back_link(:partner_details, @estimate, @back_buttons_invoke_browser_back_behaviour)
+  = back_link(:partner_details, @check, @back_buttons_invoke_browser_back_behaviour)
 
 .govuk-grid-column-two-thirds
 
@@ -18,10 +18,10 @@
     p class="govuk-body" = t(".list_title")
 
     ul.govuk-list.govuk-list--bullet
-      - unless @estimate.passporting
+      - unless @check.passporting
         - t(".non_passported_types_of_information").each do |evidence|
           li.govuk-body = evidence
-      - key = @estimate.controlled? ? ".controlled_passported_types_of_information" : ".passported_types_of_information"
+      - key = @check.controlled? ? ".controlled_passported_types_of_information" : ".passported_types_of_information"
       - t(key).each do |evidence|
         li.govuk-body = evidence
 
@@ -30,12 +30,12 @@
             legend: { text: t(".partner_over_60.legend") },
             hint: { text: t(".partner_over_60.hint") }
 
-    - unless @estimate.passporting
+    - unless @check.passporting
       = form.govuk_collection_radio_buttons :employment_status, employment_options, :first, :last,
                   legend: { text: t(".partner_employed.legend") },
                   hint: { text: t(".partner_employed.hint") }
 
     = form.govuk_submit t("generic.save_and_continue")
 = render "shared/question_sidebar",
-        level_of_help: @estimate.level_of_help,
+        level_of_help: @check.level_of_help,
         links: {}

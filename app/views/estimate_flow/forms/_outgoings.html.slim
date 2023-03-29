@@ -12,7 +12,7 @@
         = hint
     - if type == :childcare_payments
       span.govuk-caption-m class="govuk-!-margin-bottom-4"
-        - if @estimate.partner
+        - if @check.partner
           = t("estimate_flow.outgoings.childcare_payments.partner_hint")
         - else
           = t("estimate_flow.outgoings.childcare_payments.no_partner_hint")

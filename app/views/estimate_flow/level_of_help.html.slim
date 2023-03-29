@@ -1,7 +1,7 @@
 - content_for :page_title
   = t(".title")
 - content_for :back do
-  = back_link(:level_of_help, @estimate, @back_buttons_invoke_browser_back_behaviour)
+  = back_link(:level_of_help, @check, @back_buttons_invoke_browser_back_behaviour)
 
 .govuk-grid-column-two-thirds
   = form_for(@form, url: wizard_path, method: :put) do |form|

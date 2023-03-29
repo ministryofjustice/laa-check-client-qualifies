@@ -3,7 +3,7 @@ class PartnerDetailsForm
   include ActiveModel::Attributes
   include SessionPersistableForPartner
 
-  delegate :passporting, to: :estimate
+  delegate :passporting, to: :check
 
   ATTRIBUTES = %i[over_60 employment_status].freeze
 

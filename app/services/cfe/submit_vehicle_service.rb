@@ -5,7 +5,7 @@ module Cfe
 
       details_model = ClientVehicleDetailsForm.from_session(@session_data)
       vehicles = CfeParamBuilders::Vehicles.call(details_model,
-                                                 in_dispute: details_model.vehicle_in_dispute && estimate.smod_applicable?)
+                                                 in_dispute: details_model.vehicle_in_dispute && check.smod_applicable?)
       cfe_connection.create_vehicles cfe_assessment_id, vehicles
     end
   end

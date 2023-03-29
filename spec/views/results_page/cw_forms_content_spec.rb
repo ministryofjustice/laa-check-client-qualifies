@@ -4,12 +4,12 @@ RSpec.describe "estimates/show.html.slim" do
   describe "CW Forms content" do
     let(:calculation_result) { CalculationResult.new(session_data) }
     let(:api_response) { FactoryBot.build(:api_result, eligible: eligibility) }
-    let(:estimate) { EstimateModel.from_session(session_data) }
+    let(:check) { Check.new(session_data) }
     let(:session_data) { { api_response:, level_of_help: }.with_indifferent_access }
 
     before do
       assign(:model, calculation_result)
-      assign(:estimate, estimate)
+      assign(:check, check)
       params[:id] = :id
       render template: "estimates/show"
     end

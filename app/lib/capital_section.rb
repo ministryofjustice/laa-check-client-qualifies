@@ -8,18 +8,18 @@ class CapitalSection
       (PROPERTY_STEPS + VEHICLE_STEPS + TAIL_STEPS).freeze
     end
 
-    def steps_for(estimate)
-      return [] if estimate.asylum_support_and_upper_tribunal?
+    def steps_for(session_data)
+      return [] if NavigationHelper.asylum_supported?(session_data)
 
-      property_steps = estimate.owns_property? ? PROPERTY_STEPS : %i[property]
+      property_steps = NavigationHelper.owns_property?(session_data) ? PROPERTY_STEPS : %i[property]
 
-      ([property_steps] + [vehicle_steps(estimate)] + TAIL_STEPS.map { |step| [step] }).freeze
+      ([property_steps] + [vehicle_steps(session_data)] + TAIL_STEPS.map { |step| [step] }).freeze
     end
 
-    def vehicle_steps(estimate)
-      return [] if estimate.controlled?
+    def vehicle_steps(session_data)
+      return [] if NavigationHelper.controlled?(session_data)
 
-      estimate.vehicle_owned ? VEHICLE_STEPS : %i[vehicle]
+      NavigationHelper.owns_vehicle?(session_data) ? VEHICLE_STEPS : %i[vehicle]
     end
   end
 end
