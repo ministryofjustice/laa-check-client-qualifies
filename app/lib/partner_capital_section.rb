@@ -8,26 +8,28 @@ class PartnerCapitalSection
       (PROPERTY_STEPS + VEHICLE_STEPS + TAIL_STEPS).freeze
     end
 
-    def steps_for(estimate)
-      if estimate.asylum_support_and_upper_tribunal? || !estimate.partner
+    def steps_for(session_data)
+      if !NavigationHelper.partner?(session_data)
         []
       else
-        property_steps = if estimate.owns_property?
-                           []
-                         elsif estimate.partner_owns_property?
-                           PROPERTY_STEPS
-                         else
-                           %i[partner_property]
-                         end
-
-        ([property_steps] + [vehicle_steps(estimate)] + TAIL_STEPS.map { |step| [step] }).freeze
+        ([property_steps(session_data)] + [vehicle_steps(session_data)] + TAIL_STEPS.map { |step| [step] }).freeze
       end
     end
 
-    def vehicle_steps(estimate)
-      return [] if estimate.controlled?
+    def property_steps(session_data)
+      if NavigationHelper.owns_property?(session_data)
+        []
+      elsif NavigationHelper.partner_owns_property?(session_data)
+        PROPERTY_STEPS
+      else
+        %i[partner_property]
+      end
+    end
 
-      estimate.partner_vehicle_owned ? VEHICLE_STEPS : %i[partner_vehicle]
+    def vehicle_steps(session_data)
+      return [] if NavigationHelper.controlled?(session_data)
+
+      NavigationHelper.partner_owns_vehicle?(session_data) ? VEHICLE_STEPS : %i[partner_vehicle]
     end
   end
 end

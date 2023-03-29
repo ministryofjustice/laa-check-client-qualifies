@@ -3,7 +3,7 @@ class ApplicantForm
   include ActiveModel::Attributes
   include SessionPersistable
 
-  delegate :level_of_help, to: :estimate
+  delegate :level_of_help, to: :check
 
   PROCEEDING_TYPES = { domestic_abuse: "DA001", other: "SE003" }.freeze
   EMPLOYED_STATUSES = %i[in_work receiving_statutory_pay].freeze

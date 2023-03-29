@@ -13,7 +13,7 @@
 
 - if @model.level_of_help == "certificated"
   h2.govuk-heading-m = t(".what_happens_next")
-  - if @estimate.upper_tribunal?
+  - if @check.upper_tribunal?
     p.govuk-body = t(".next_steps_without_apply_paragraph_1")
   - else
     p.govuk-body = t(".next_steps_paragraph_1")
@@ -35,7 +35,7 @@
 - if @model.calculated?(:gross_income) || @model.calculated?(:disposable_income) || @model.calculated?(:capital)
   h2.govuk-heading-m = t(".#{@model.level_of_help}_how_calculated")
   = govuk_accordion do |accordion|
-    - key = @model.level_of_help == "certificated" && !@estimate.upper_tribunal? ? ".upper_and_lower_limits_calculation_header" : ".upper_limits_calculation_header"
+    - key = @model.level_of_help == "certificated" && !@check.upper_tribunal? ? ".upper_and_lower_limits_calculation_header" : ".upper_limits_calculation_header"
     - accordion.section(heading_text: t(key))
       = render "limits_table", caption_size: "m"
 

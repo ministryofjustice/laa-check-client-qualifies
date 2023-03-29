@@ -1,4 +1,4 @@
-- if @estimate.asylum_support_and_upper_tribunal?
+- if @check.asylum_support
   = render "asylum_support_#{@model.level_of_help}_eligible"
 - else
   = render "#{@model.level_of_help}_#{@model.decision}"

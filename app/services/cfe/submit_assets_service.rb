@@ -1,6 +1,6 @@
 module Cfe
   class SubmitAssetsService < BaseService
-    delegate :smod_applicable?, to: :estimate
+    delegate :smod_applicable?, to: :check
 
     def call(cfe_assessment_id)
       return unless relevant_form?(:assets)

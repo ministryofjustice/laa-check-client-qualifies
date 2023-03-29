@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "estimates/show.html.slim" do
   describe "Pensioner content" do
     let(:calculation_result) { CalculationResult.new(session_data) }
-    let(:estimate) { EstimateModel.from_session(session_data) }
+    let(:check) { Check.new(session_data) }
 
     let(:api_response) do
       FactoryBot.build(
@@ -132,7 +132,7 @@ RSpec.describe "estimates/show.html.slim" do
 
     before do
       assign(:model, calculation_result)
-      assign(:estimate, estimate)
+      assign(:check, check)
       params[:id] = :id
       render template: "estimates/show"
     end

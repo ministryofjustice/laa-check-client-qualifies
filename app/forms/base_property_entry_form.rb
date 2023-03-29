@@ -6,7 +6,7 @@ class BasePropertyEntryForm
 
   BASE_ATTRIBUTES = %i[house_value mortgage percentage_owned].freeze
 
-  delegate :property_owned, to: :estimate
+  delegate :property_owned, to: :check
 
   attribute :house_value, :gbp
   validates :house_value, numericality: { greater_than: 0, allow_nil: true }, presence: true

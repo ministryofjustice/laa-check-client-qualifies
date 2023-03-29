@@ -1,7 +1,7 @@
 class ControlledWorkDocumentSelectionsController < ApplicationController
   def new
     @form = ControlledWorkDocumentSelection.new
-    @estimate = EstimateModel.from_session(session_data)
+    @check = Check.new(session_data)
   end
 
   def create
@@ -13,7 +13,7 @@ class ControlledWorkDocumentSelectionsController < ApplicationController
                 filename: "cw1-form.pdf",
                 type: "application/pdf"
     else
-      @estimate = EstimateModel.from_session(session_data)
+      @check = Check.new(session_data)
       render :new
     end
   end

@@ -7,7 +7,7 @@ class EmploymentForm
   DECIMAL_ATTRIBUTES = %i[gross_income income_tax national_insurance].freeze
   ATTRIBUTES = (DECIMAL_ATTRIBUTES + %i[frequency]).freeze
 
-  delegate :level_of_help, to: :estimate
+  delegate :level_of_help, to: :check
 
   FREQUENCY_STANDARD_OPTIONS = %i[week two_weeks four_weeks monthly].freeze
   FREQUENCY_TOTAL_OPTION = :total

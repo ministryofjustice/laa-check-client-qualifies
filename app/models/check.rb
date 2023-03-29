@@ -1,0 +1,41 @@
+class Check
+  def initialize(session_data)
+    @session_data = session_data
+  end
+
+  attr_reader :session_data
+
+  def method_missing(attribute, *args, &block)
+    step, form_class = Flow::Handler::CLASSES.find { |_, v| v.session_keys.include?(attribute.to_s) }
+    return super unless form_class
+    return unless StepsHelper.valid_step?(@session_data, step)
+
+    form_class.from_session(@session_data).send(attribute.to_s.gsub(/^partner_/, ""))
+  end
+
+  def respond_to_missing?(attribute, include_private = false)
+    return true if Flow::Handler::CLASSES.find { |_, v| v.session_keys.include?(attribute.to_s) }
+
+    super
+  end
+
+  def level_of_help
+    session_data.fetch("level_of_help", LevelOfHelpForm::LEVELS_OF_HELP[:certificated])
+  end
+
+  def controlled?
+    level_of_help == LevelOfHelpForm::LEVELS_OF_HELP[:controlled]
+  end
+
+  def smod_applicable?
+    !upper_tribunal?
+  end
+
+  def use_legacy_proceeding_type?
+    !controlled? && !FeatureFlags.enabled?(:asylum_and_immigration)
+  end
+
+  def upper_tribunal?
+    NavigationHelper.upper_tribunal?(@session_data)
+  end
+end
