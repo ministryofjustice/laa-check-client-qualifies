@@ -8,6 +8,7 @@ RSpec.describe "partner_benefits/new", type: :feature do
       instance_double(CfeConnection, state_benefit_types: []),
     )
 
+    set_session(assessment_code, "level_of_help" => "controlled")
     visit "estimates/#{assessment_code}/partner_benefits/new"
   end
 

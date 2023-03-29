@@ -2,8 +2,10 @@ require "rails_helper"
 
 RSpec.describe "applicant", type: :feature do
   let(:assessment_code) { :assessment_code }
+  let(:level_of_help) { "certificated" }
 
   before do
+    set_session(assessment_code, "level_of_help" => level_of_help)
     visit "estimates/#{assessment_code}/build_estimates/applicant"
   end
 
@@ -44,10 +46,7 @@ RSpec.describe "applicant", type: :feature do
   end
 
   context "when level of help is explicitly set to 'controlled'" do
-    before do
-      set_session(assessment_code, { "level_of_help" => "controlled" })
-      visit "estimates/#{assessment_code}/build_estimates/employment"
-    end
+    let(:level_of_help) { "controlled" }
 
     it "hides domestic abuse question" do
       expect(page).not_to have_content "Is your client likely to be the applicant in a domestic abuse matter?"

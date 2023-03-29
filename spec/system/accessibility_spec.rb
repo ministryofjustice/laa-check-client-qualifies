@@ -84,12 +84,15 @@ RSpec.describe "Accessibility" do
     end
 
     StepsHelper.all_possible_steps.each do |step|
-      it "has no AXE-detectable accessibility issues on #{step} step" do
-        visit estimate_build_estimate_path(estimate_id, step)
+      %w[controlled certificated].each do |level_of_help|
+        it "has no AXE-detectable accessibility issues on #{step} step when level of help is #{level_of_help}" do
+          set_session(estimate_id, { "level_of_help" => level_of_help })
+          visit estimate_build_estimate_path(estimate_id, step)
 
-        # govuk components deliberately break ARIA rules by putting 'aria-expanded' attributes on inputs
-        # C.F. https://github.com/alphagov/govuk-frontend/issues/979
-        expect(page).to be_axe_clean.skipping("aria-allowed-attr")
+          # govuk components deliberately break ARIA rules by putting 'aria-expanded' attributes on inputs
+          # C.F. https://github.com/alphagov/govuk-frontend/issues/979
+          expect(page).to be_axe_clean.skipping("aria-allowed-attr")
+        end
       end
     end
   end

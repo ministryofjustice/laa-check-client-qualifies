@@ -2,8 +2,10 @@ require "rails_helper"
 
 RSpec.describe "assets", type: :feature do
   let(:assessment_code) { :assessment_code }
+  let(:session) { { "level_of_help" => "controlled" } }
 
   before do
+    set_session(assessment_code, session)
     visit "estimates/#{assessment_code}/build_estimates/assets"
   end
 
@@ -51,10 +53,7 @@ RSpec.describe "assets", type: :feature do
   end
 
   context "when this is an upper tribunal matter" do
-    before do
-      set_session(assessment_code, "proceeding_type" => "IM030")
-      visit "estimates/#{assessment_code}/build_estimates/assets"
-    end
+    let(:session) { { "level_of_help" => "controlled", "proceeding_type" => "IM030" } }
 
     it "shows no SMOD checkbox" do
       expect(page).not_to have_content(I18n.t("generic.dispute"))

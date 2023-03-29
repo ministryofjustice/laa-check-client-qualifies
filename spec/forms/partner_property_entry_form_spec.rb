@@ -2,8 +2,10 @@ require "rails_helper"
 
 RSpec.describe "partner_property_entry", type: :feature do
   let(:assessment_code) { :assessment_code }
+  let(:session) { { "level_of_help" => "certificated" } }
 
   before do
+    set_session(assessment_code, session)
     visit "estimates/#{assessment_code}/build_estimates/partner_property_entry"
   end
 
@@ -22,9 +24,9 @@ RSpec.describe "partner_property_entry", type: :feature do
   end
 
   context "when partner has a mortgage" do
+    let(:session) { { "level_of_help" => "certificated", "partner_property_owned" => "with_mortgage" } }
+
     before do
-      set_session(assessment_code, "partner_property_owned" => "with_mortgage")
-      visit "estimates/#{assessment_code}/build_estimates/partner_property_entry"
       fill_in "partner-property-entry-form-house-value-field", with: "100000"
       fill_in "partner-property-entry-form-percentage-owned-field", with: "10"
     end
