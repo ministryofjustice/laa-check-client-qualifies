@@ -27,6 +27,10 @@ class CalculationResult
     api_response.dig(:result_summary, section, :proceeding_types).none? { _1[:result] == "pending" }
   end
 
+  def ineligible?(section)
+    api_response.dig(:result_summary, section, :proceeding_types).all? { _1[:result] == "ineligible" }
+  end
+
   def capital_contribution
     monetise(api_response.dig(:result_summary, :overall_result, :capital_contribution))
   end
