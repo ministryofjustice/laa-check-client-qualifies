@@ -5,6 +5,7 @@ RSpec.describe "benefits", type: :feature do
 
   context "when no benefits have previously been added" do
     before do
+      set_session(assessment_code, "level_of_help" => "controlled")
       visit "estimates/#{assessment_code}/build_estimates/benefits"
     end
 
@@ -16,12 +17,14 @@ RSpec.describe "benefits", type: :feature do
 
   context "when a benefit has previously been added" do
     before do
-      set_session(assessment_code, "benefits" => [
-        {
-          "benefit_type" => "BENEFIT A",
-          "id" => "BENEFIT_ID",
-        },
-      ])
+      set_session(assessment_code,
+                  "benefits" => [
+                    {
+                      "benefit_type" => "BENEFIT A",
+                      "id" => "BENEFIT_ID",
+                    },
+                  ],
+                  "level_of_help" => "controlled")
 
       allow(CfeConnection).to receive(:connection).and_return(
         instance_double(CfeConnection, state_benefit_types: []),

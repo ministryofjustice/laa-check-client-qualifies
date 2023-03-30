@@ -2,33 +2,21 @@ require "rails_helper"
 
 RSpec.describe "outgoings", type: :feature do
   let(:assessment_code) { :assessment_code }
+  let(:level_of_help) { "certificated" }
 
   before do
+    set_session(assessment_code, "level_of_help" => level_of_help)
     visit "estimates/#{assessment_code}/build_estimates/outgoings"
   end
 
-  context "when level of help is not set" do
+  context "when level of help is 'certificated'" do
     it "shows default guidance text" do
       expect(page).to have_content "Guidance on outgoings"
     end
   end
 
-  context "when level of help is explicitly 'certificated'" do
-    before do
-      set_session(assessment_code, { "level_of_help" => "certificated" })
-      visit "estimates/#{assessment_code}/build_estimates/outgoings"
-    end
-
-    it "shows default guidance text" do
-      expect(page).to have_content "Guidance on outgoings"
-    end
-  end
-
-  context "when level of help is explicitly 'controlled'" do
-    before do
-      set_session(assessment_code, { "level_of_help" => "controlled" })
-      visit "estimates/#{assessment_code}/build_estimates/outgoings"
-    end
+  context "when level of help is 'controlled'" do
+    let(:level_of_help) { "controlled" }
 
     it "shows alternative guidance" do
       expect(page).to have_content "Guidance on determining disposable income"

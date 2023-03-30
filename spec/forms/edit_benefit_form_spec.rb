@@ -9,14 +9,16 @@ RSpec.describe "benefits/new", type: :feature do
       instance_double(CfeConnection, state_benefit_types: []),
     )
 
-    set_session(assessment_code, "benefits" => [
-      {
-        "id" => benefit_id,
-        "benefit_frequency" => "every_week",
-        "benefit_amount" => 1,
-        "benefit_type" => "A",
-      },
-    ])
+    set_session(assessment_code,
+                "benefits" => [
+                  {
+                    "id" => benefit_id,
+                    "benefit_frequency" => "every_week",
+                    "benefit_amount" => 1,
+                    "benefit_type" => "A",
+                  },
+                ],
+                "level_of_help" => "certificated")
     visit "estimates/#{assessment_code}/benefits/#{benefit_id}/edit"
   end
 

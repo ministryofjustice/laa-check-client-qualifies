@@ -2,8 +2,10 @@ require "rails_helper"
 
 RSpec.describe "matter_type", type: :feature do
   let(:assessment_code) { :assessment_code }
+  let(:level_of_help) { "certificated" }
 
   before do
+    set_session(assessment_code, "level_of_help" => level_of_help)
     visit "estimates/#{assessment_code}/build_estimates/matter_type"
   end
 
@@ -14,10 +16,7 @@ RSpec.describe "matter_type", type: :feature do
   end
 
   context "when level of help is controlled" do
-    before do
-      set_session(assessment_code, "level_of_help" => "controlled")
-      visit "estimates/#{assessment_code}/build_estimates/matter_type"
-    end
+    let(:level_of_help) { "controlled" }
 
     it "shows no domestic abuse option" do
       expect(page).not_to have_content "Domestic abuse"

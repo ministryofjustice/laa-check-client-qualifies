@@ -9,11 +9,7 @@ class CaseDetailsSection
     end
 
     def steps(estimate)
-      [level_of_help, matter_type, asylum_support(estimate)].compact
-    end
-
-    def level_of_help
-      :level_of_help if FeatureFlags.enabled?(:controlled)
+      [:level_of_help, matter_type, asylum_support(estimate)].compact
     end
 
     def matter_type

@@ -20,6 +20,6 @@ RSpec.describe "cw_selection", type: :feature do
 
   it "lets me start a new check" do
     click_on "Start another eligibility check"
-    expect(page).to have_content "About your client"
+    expect(page).to have_content "What level of help does your client need?"
   end
 end

@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe CfeService do
-  describe ".call", :controlled_flag do
+  describe ".call" do
     context "when there is a full set of data" do
       let(:session_data) { FactoryBot.build(:full_session) }
       let(:api_response) { { foo: :bar } }

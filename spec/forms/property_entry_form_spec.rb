@@ -2,8 +2,10 @@ require "rails_helper"
 
 RSpec.describe "property_entry", type: :feature do
   let(:assessment_code) { :assessment_code }
+  let(:session) { { "level_of_help" => "controlled" } }
 
   before do
+    set_session(assessment_code, session)
     visit "estimates/#{assessment_code}/build_estimates/property_entry"
   end
 
@@ -24,9 +26,9 @@ RSpec.describe "property_entry", type: :feature do
   end
 
   context "when client has a partner" do
+    let(:session) { { "level_of_help" => "controlled", "partner" => true } }
+
     before do
-      set_session(assessment_code, "partner" => true)
-      visit "estimates/#{assessment_code}/build_estimates/property_entry"
       fill_in "client-property-entry-form-house-value-field", with: "100000"
       fill_in "client-property-entry-form-percentage-owned-field", with: "10"
     end
@@ -50,9 +52,9 @@ RSpec.describe "property_entry", type: :feature do
   end
 
   context "when client has a mortgage" do
+    let(:session) { { "level_of_help" => "controlled", "property_owned" => "with_mortgage" } }
+
     before do
-      set_session(assessment_code, "property_owned" => "with_mortgage")
-      visit "estimates/#{assessment_code}/build_estimates/property_entry"
       fill_in "client-property-entry-form-house-value-field", with: "100000"
       fill_in "client-property-entry-form-percentage-owned-field", with: "10"
     end
@@ -70,10 +72,7 @@ RSpec.describe "property_entry", type: :feature do
   end
 
   context "when this is an upper tribunal matter" do
-    before do
-      set_session(assessment_code, "proceeding_type" => "IM030")
-      visit "estimates/#{assessment_code}/build_estimates/property_entry"
-    end
+    let(:session) { { "level_of_help" => "controlled", "proceeding_type" => "IM030" } }
 
     it "shows no SMOD checkbox" do
       expect(page).not_to have_content(I18n.t("generic.dispute"))

@@ -51,7 +51,7 @@ RSpec.describe Cfe::SubmitIrregularIncomeService do
       end
     end
 
-    context "when there is data for a controlled check", :controlled_flag do
+    context "when there is data for a controlled check" do
       let(:session_data) do
         {
           "student_finance_value" => 100,

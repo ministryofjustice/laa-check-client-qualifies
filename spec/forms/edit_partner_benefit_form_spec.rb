@@ -10,13 +10,14 @@ RSpec.describe "partner_benefits/new", type: :feature do
     )
 
     set_session(assessment_code, "partner_benefits" => [
-      {
-        "id" => benefit_id,
-        "benefit_frequency" => "every_week",
-        "benefit_amount" => 1,
-        "benefit_type" => "A",
-      },
-    ])
+                                   {
+                                     "id" => benefit_id,
+                                     "benefit_frequency" => "every_week",
+                                     "benefit_amount" => 1,
+                                     "benefit_type" => "A",
+                                   },
+                                 ],
+                                 "level_of_help" => "controlled")
     visit "estimates/#{assessment_code}/partner_benefits/#{benefit_id}/edit"
   end
 

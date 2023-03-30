@@ -16,6 +16,7 @@ RSpec.describe "Number fields" do
     let(:dependant_details_header) { I18n.t("estimate_flow.dependant_details.legend") }
 
     before do
+      set_session(:foo, "level_of_help" => "controlled")
       visit estimate_build_estimate_path(:foo, :dependant_details)
       choose "Yes", name: "dependant_details_form[child_dependants]"
       choose "No", name: "dependant_details_form[adult_dependants]"
@@ -41,6 +42,7 @@ RSpec.describe "Number fields" do
 
   describe "Money fields" do
     before do
+      set_session(:foo, "level_of_help" => "controlled")
       visit "estimates/foo/build_estimates/employment"
       fill_in "employment-form-gross-income-field", with: "5,000"
       fill_in "employment-form-income-tax-field", with: "1000"
