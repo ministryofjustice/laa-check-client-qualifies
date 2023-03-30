@@ -50,7 +50,7 @@ googleTagManager:
   containerId: GTM-WJ98FR4
 
 cfe:
-  host: http://main-check-financial-partner.check-financial-eligibility-partner-uat.svc.cluster.local
+  host: https://lep-77-improve-partn-check-financial-partner-uat.cloud-platform.service.justice.gov.uk
 
 featureFlags:
   sentry: ENABLED
