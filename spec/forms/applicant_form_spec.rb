@@ -39,6 +39,10 @@ RSpec.describe "applicant", type: :feature do
     expect(page).to have_content "Is your client likely to be the applicant in a domestic abuse matter?"
   end
 
+  it "shows domestic abuse guidance" do
+    expect(page).to have_content "Guidance on domestic abuse or violence"
+  end
+
   context "when level of help is explicitly set to 'controlled'" do
     before do
       set_session(assessment_code, { "level_of_help" => "controlled" })
@@ -48,11 +52,19 @@ RSpec.describe "applicant", type: :feature do
     it "hides domestic abuse question" do
       expect(page).not_to have_content "Is your client likely to be the applicant in a domestic abuse matter?"
     end
+
+    it "hides domestic abuse guidance" do
+      expect(page).not_to have_content "Guidance on domestic abuse or violence"
+    end
   end
 
   context "when asylum and immigration feature flag is enabled", :asylum_and_immigration_flag do
     it "hides domestic abuse question" do
       expect(page).not_to have_content "Is your client likely to be the applicant in a domestic abuse matter?"
+    end
+
+    it "hides domestic abuse guidance" do
+      expect(page).not_to have_content "Guidance on domestic abuse or violence"
     end
   end
 end
