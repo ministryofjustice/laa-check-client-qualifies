@@ -3,7 +3,7 @@ class ApplicantForm
   include ActiveModel::Attributes
   include SessionPersistable
 
-  delegate :level_of_help, to: :check
+  delegate :level_of_help, :use_legacy_proceeding_type?, to: :check
 
   PROCEEDING_TYPES = { domestic_abuse: "DA001", other: "SE003" }.freeze
   EMPLOYED_STATUSES = %i[in_work receiving_statutory_pay].freeze
@@ -18,7 +18,7 @@ class ApplicantForm
   validates :legacy_proceeding_type,
             presence: true,
             inclusion: { in: PROCEEDING_TYPES.values, allow_nil: true },
-            if: -> { !FeatureFlags.enabled?(:asylum_and_immigration) && level_of_help != "controlled" }
+            if: :use_legacy_proceeding_type?
 
   attribute :over_60, :boolean
   validates :over_60, inclusion: { in: [true, false] }
