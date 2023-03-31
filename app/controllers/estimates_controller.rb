@@ -6,7 +6,7 @@ class EstimatesController < ApplicationController
   end
 
   def create
-    session_data["api_response"] = CfeService.call(session_data)
+    write_session_data("api_response" => CfeService.call(session_data))
     redirect_to estimate_path(assessment_code)
   end
 

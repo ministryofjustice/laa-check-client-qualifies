@@ -12,8 +12,8 @@ class BenefitsController < EstimateFlowController
     @model = model_class.new(params.require(model_class.name.underscore).permit(*model_class::EDITABLE_ATTRIBUTES))
     if @model.valid?
       @model.id = SecureRandom.uuid
-      session_data[benefit_session_key] ||= []
-      session_data[benefit_session_key] << @model.attributes
+      existing_data = session_data[benefit_session_key] || []
+      write_session_data(benefit_session_key => (existing_data + [@model.attributes]))
       redirect_to flow_path(step_name)
     else
       track_validation_error
@@ -34,8 +34,10 @@ class BenefitsController < EstimateFlowController
     @model = model_class.new(benefit_attributes)
     @model.assign_attributes(params.require(model_class.name.underscore).permit(*model_class::EDITABLE_ATTRIBUTES))
     if @model.valid?
-      index = session_data[benefit_session_key].index(benefit_attributes)
-      session_data[benefit_session_key][index] = @model.attributes
+      benefit_data = session_data[benefit_session_key] || []
+      index = benefit_data.index(benefit_attributes)
+      benefit_data[index] = @model.attributes
+      write_session_data(benefit_session_key => benefit_data)
       redirect_to flow_path(step_name)
     else
       track_validation_error
@@ -44,7 +46,9 @@ class BenefitsController < EstimateFlowController
   end
 
   def destroy
-    session_data[benefit_session_key].delete_if { _1["id"] == params["id"] }
+    benefit_data = session_data[benefit_session_key] || []
+    benefit_data.delete_if { _1["id"] == params["id"] }
+    write_session_data(benefit_session_key => benefit_data)
     redirect_to post_destroy_path
   end
 
@@ -55,7 +59,7 @@ class BenefitsController < EstimateFlowController
       if @form.add_benefit
         redirect_to new_path
       else
-        session_data.merge!(@form.session_attributes)
+        write_session_data(@form.session_attributes)
         redirect_to next_step_path @estimate
       end
     else

@@ -4,7 +4,7 @@ class BuildEstimatesController < EstimateFlowController
 
     if @form.valid?
       track_choices(@form)
-      session_data.merge!(@form.session_attributes)
+      write_session_data(@form.session_attributes)
       estimate = load_estimate
 
       next_step = StepsHelper.next_step_for(estimate, step)
