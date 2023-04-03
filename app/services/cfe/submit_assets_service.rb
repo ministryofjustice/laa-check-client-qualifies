@@ -16,7 +16,7 @@ module Cfe
       if asset_form.property_value.positive?
         second_property = {
           value: asset_form.property_value,
-          outstanding_mortgage: asset_form.property_mortgage.strip,
+          outstanding_mortgage: asset_form.property_mortgage.to_s.strip.to_f,
           percentage_owned: asset_form.property_percentage_owned,
           subject_matter_of_dispute: (asset_form.property_in_dispute? && smod_applicable?) || false,
         }
@@ -32,7 +32,7 @@ module Cfe
                            end
         main_home = {
           value: property_entry_form.house_value,
-          outstanding_mortgage: (property_entry_form.mortgage.strip if property_form.owned_with_mortgage?) || 0,
+          outstanding_mortgage: (property_entry_form.mortgage.to_s.strip.to_f if property_form.owned_with_mortgage?) || 0,
           percentage_owned:,
           subject_matter_of_dispute: (property_entry_form.house_in_dispute && smod_applicable?) || false,
         }
@@ -41,7 +41,7 @@ module Cfe
         partner_property_entry_form = PartnerPropertyEntryForm.from_session(@session_data)
         main_home = {
           value: partner_property_entry_form.house_value,
-          outstanding_mortgage: (partner_property_entry_form.mortgage.strip if partner_property_form.owned_with_mortgage?) || 0,
+          outstanding_mortgage: (partner_property_entry_form.mortgage.to_s.strip.to_f if partner_property_form.owned_with_mortgage?) || 0,
           percentage_owned: partner_property_entry_form.percentage_owned,
           subject_matter_of_dispute: false,
         }

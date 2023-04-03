@@ -25,7 +25,7 @@ RSpec.describe "Certificated check without partner", type: :feature do
       expect(content).to eq({
         "properties" => {
           "main_home" => {
-            "outstanding_mortgage" => "1.0",
+            "outstanding_mortgage" => 1.0,
             "percentage_owned" => 1,
             "shared_with_housing_assoc" => false,
             "subject_matter_of_dispute" => false,
