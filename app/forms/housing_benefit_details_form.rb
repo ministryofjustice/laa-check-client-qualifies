@@ -2,6 +2,7 @@ class HousingBenefitDetailsForm
   include ActiveModel::Model
   include ActiveModel::Attributes
   include SessionPersistable
+  include NumberValidatable
 
   ATTRIBUTES = %i[housing_benefit_value housing_benefit_frequency].freeze
 

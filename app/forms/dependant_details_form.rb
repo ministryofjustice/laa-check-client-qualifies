@@ -2,6 +2,7 @@ class DependantDetailsForm
   include ActiveModel::Model
   include ActiveModel::Attributes
   include SessionPersistable
+  include NumberValidatable
 
   FORM_ATTRIBUTES = {
     child_dependants: :child_dependants_count,
