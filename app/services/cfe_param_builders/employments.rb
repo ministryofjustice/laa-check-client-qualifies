@@ -11,13 +11,13 @@ module CfeParamBuilders
           receiving_only_statutory_sick_or_maternity_pay: applicant_form.employment_status == "receiving_statutory_pay",
           payments: Array.new(number_of_payments(employment_form)) do |index|
             {
-              gross: (employment_form.gross_income * multiplier(employment_form)).round(2),
-              tax: (-1 * employment_form.income_tax * multiplier(employment_form)).round(2),
-              national_insurance: (-1 * employment_form.national_insurance * multiplier(employment_form)).round(2),
+              gross: (employment_form.gross_income.to_f * multiplier(employment_form)).round(2),
+              tax: (-1 * employment_form.income_tax.to_f * multiplier(employment_form)).round(2),
+              national_insurance: (-1 * employment_form.national_insurance.to_f * multiplier(employment_form)).round(2),
               client_id: "id-#{index}",
               date: Date.current - period(employment_form, index),
               benefits_in_kind: 0,
-              net_employment_income: ((employment_form.gross_income - employment_form.income_tax - employment_form.national_insurance) * multiplier(employment_form)).round(2),
+              net_employment_income: ((employment_form.gross_income.to_f - employment_form.income_tax.to_f - employment_form.national_insurance.to_f) * multiplier(employment_form)).round(2),
             }
           end,
         },
