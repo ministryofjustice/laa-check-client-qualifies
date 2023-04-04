@@ -24,7 +24,7 @@ RSpec.describe "Controlled other income", type: :feature do
       irregular_transactions = stub_request(:post, %r{irregular_incomes\z}).with do |request|
         expected_payload = {
           payments: [
-            { income_type: "unspecified_source", frequency: "quarterly", amount: "500.0" },
+            { income_type: "unspecified_source", frequency: "quarterly", amount: 500.0 },
           ],
         }
         request.body == expected_payload.to_json
@@ -74,8 +74,8 @@ RSpec.describe "Controlled other income", type: :feature do
       irregular_transactions = stub_request(:post, %r{irregular_incomes\z}).with do |request|
         expected_payload = {
           payments: [
-            { income_type: "student_loan", frequency: "annual", amount: "100.0" },
-            { income_type: "unspecified_source", frequency: "monthly", amount: "500.0" },
+            { income_type: "student_loan", frequency: "annual", amount: 100.0 },
+            { income_type: "unspecified_source", frequency: "monthly", amount: 500.0 },
           ],
         }
         request.body == expected_payload.to_json

@@ -38,7 +38,7 @@ RSpec.describe "Certificated check without partner", type: :feature do
     create_partner_stub = stub_request(:post, %r{partner_financials\z}).with do |request|
       content = JSON.parse(request.body)
       expect(content["partner"]).to eq({ "date_of_birth" => "1973-02-15", "employed" => true })
-      expect(content["irregular_incomes"]).to eq([{ "income_type" => "unspecified_source", "frequency" => "quarterly", "amount" => "100.0" }])
+      expect(content["irregular_incomes"]).to eq([{ "income_type" => "unspecified_source", "frequency" => "quarterly", "amount" => 100.0 }])
       expect(content.dig("employments", 0, "payments", 0)).to eq({ "gross" => 1.0,
                                                                    "tax" => -0.0,
                                                                    "national_insurance" => -0.0,

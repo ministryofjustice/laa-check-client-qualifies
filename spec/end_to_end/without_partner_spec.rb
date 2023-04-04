@@ -46,7 +46,7 @@ RSpec.describe "Certificated check without partner", type: :feature do
     create_irregular_transactions_stub = stub_request(:post, %r{irregular_incomes\z}).with do |request|
       expected_payload = {
         payments: [
-          { income_type: "student_loan", frequency: "annual", amount: "100.0" },
+          { income_type: "student_loan", frequency: "annual", amount: 100.0 },
         ],
       }
       request.body == expected_payload.to_json
