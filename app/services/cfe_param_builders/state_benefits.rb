@@ -11,14 +11,14 @@ module CfeParamBuilders
         return [] if form.benefits.nil?
 
         form.benefits.map do |benefit|
-          build_benefit(benefit.benefit_frequency, benefit.benefit_amount, benefit.benefit_type)
+          build_benefit(benefit.benefit_frequency, benefit.benefit_amount.to_f, benefit.benefit_type)
         end
       end
 
       def housing_benefit(form)
         return [] unless form
 
-        [build_benefit(form.housing_benefit_frequency, form.housing_benefit_value, HOUSING_BENEFIT_TYPE)]
+        [build_benefit(form.housing_benefit_frequency, form.housing_benefit_value.to_f, HOUSING_BENEFIT_TYPE)]
       end
 
       def build_benefit(frequency, value, type)
