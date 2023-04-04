@@ -33,13 +33,13 @@ RSpec.describe "Certificated check without partner", type: :feature do
     create_employments_stub = stub_request(:post, %r{employments\z}).with do |request|
       content = JSON.parse(request.body)
       expect(content.dig("employment_income", 0, "payments", 0)).to eq({
-        "gross" => "1.0",
-        "tax" => "-0.0",
-        "national_insurance" => "-0.0",
+        "gross" => 1.0,
+        "tax" => -0.0,
+        "national_insurance" => -0.0,
         "client_id" => "id-0",
         "date" => "2023-02-15",
         "benefits_in_kind" => 0,
-        "net_employment_income" => "1.0",
+        "net_employment_income" => 1.0,
       })
     end
 

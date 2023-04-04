@@ -39,13 +39,13 @@ RSpec.describe "Certificated check without partner", type: :feature do
       content = JSON.parse(request.body)
       expect(content["partner"]).to eq({ "date_of_birth" => "1973-02-15", "employed" => true })
       expect(content["irregular_incomes"]).to eq([{ "income_type" => "unspecified_source", "frequency" => "quarterly", "amount" => "100.0" }])
-      expect(content.dig("employments", 0, "payments", 0)).to eq({ "gross" => "1.0",
-                                                                   "tax" => "-0.0",
-                                                                   "national_insurance" => "-0.0",
+      expect(content.dig("employments", 0, "payments", 0)).to eq({ "gross" => 1.0,
+                                                                   "tax" => -0.0,
+                                                                   "national_insurance" => -0.0,
                                                                    "client_id" => "id-0",
                                                                    "date" => "2023-02-15",
                                                                    "benefits_in_kind" => 0,
-                                                                   "net_employment_income" => "1.0" })
+                                                                   "net_employment_income" => 1.0 })
       expect(content["regular_transactions"]).to eq(
         [{ "operation" => "credit", "category" => "friends_or_family", "frequency" => "weekly", "amount" => "200.0" }],
       )
