@@ -64,9 +64,9 @@ RSpec.describe "Certificated check without partner", type: :feature do
     create_benefits_stub = stub_request(:post, %r{state_benefits\z}).with do |request|
       content = JSON.parse(request.body)
       expect(content.dig("state_benefits", 0, "name")).to eq "A"
-      expect(content.dig("state_benefits", 0, "payments", 0)).to eq({ "date" => "2023-02-15", "amount" => "1.0", "client_id" => "" })
+      expect(content.dig("state_benefits", 0, "payments", 0)).to eq({ "date" => "2023-02-15", "amount" => 1.0, "client_id" => "" })
       expect(content.dig("state_benefits", 1, "name")).to eq "housing_benefit"
-      expect(content.dig("state_benefits", 1, "payments", 0)).to eq({ "date" => "2023-02-15", "amount" => "1.0", "client_id" => "" })
+      expect(content.dig("state_benefits", 1, "payments", 0)).to eq({ "date" => "2023-02-15", "amount" => 1.0, "client_id" => "" })
     end
 
     create_vehicles_stub = stub_request(:post, %r{vehicles\z}).with do |request|
