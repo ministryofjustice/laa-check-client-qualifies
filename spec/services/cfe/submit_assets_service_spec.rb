@@ -55,6 +55,44 @@ RSpec.describe Cfe::SubmitAssetsService do
       end
     end
 
+    context "when there is a full set of data, which includes property mortgage as a string including a trailing white space" do
+      let(:session_data) do
+        {
+          "property_owned" => "with_mortgage",
+          "house_value" => 234_234,
+          "mortgage" => 223_123,
+          "percentage_owned" => 80,
+          "house_in_dispute" => false,
+          "joint_ownership" => true,
+          "joint_percentage_owned" => 11,
+          "property_value" => 123,
+          "property_mortgage" => "2313 ",
+          "property_percentage_owned" => 54,
+          "savings" => 0,
+          "investments" => 0,
+          "valuables" => 0,
+          "in_dispute" => %w[savings investments valuables],
+        }
+      end
+
+      it "calls CFE with outstanding property mortgage converted to a float" do
+        expect(mock_connection).to receive(:create_properties).with(
+          cfe_assessment_id,
+          { additional_properties: [{ outstanding_mortgage: 2313, # this is converted to a float in submit_assests_service.rb
+                                      percentage_owned: 54,
+                                      shared_with_housing_assoc: false,
+                                      subject_matter_of_dispute: false,
+                                      value: 123 }],
+            main_home: { outstanding_mortgage: 223_123,
+                         percentage_owned: 91,
+                         shared_with_housing_assoc: false,
+                         subject_matter_of_dispute: false,
+                         value: 234_234 } },
+        )
+        described_class.call(mock_connection, cfe_assessment_id, session_data)
+      end
+    end
+
     context "when the client is asylum supported" do
       let(:session_data) do
         {
