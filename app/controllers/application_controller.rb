@@ -9,14 +9,17 @@ private
   end
 
   # When the session is redis-backed, numeric values get silently turned into strings.
-  # To counter this, we store session data as a JSON string
+  # Since we can't trust the store with a hash, we give it a string instead, that
+  # contains serialised data. Unfortunately, we can't use JSON, because it turns
+  # decimal values into strings, so we use XML
   def session_data
-    session[assessment_id] ||= "{}"
-    JSON.parse(session[assessment_id])
+    session[assessment_id] ||= {}.to_xml
+    ret = Hash.from_trusted_xml(session[assessment_id])["hash"]
+    ret.is_a?(Hash) ? ret : {}
   end
 
   def write_session_data(new_data)
-    session[assessment_id] = session_data.merge(new_data).to_json
+    session[assessment_id] = session_data.merge(new_data).to_xml
   end
 
   def track_page_view(page: page_name)
