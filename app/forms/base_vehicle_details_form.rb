@@ -2,6 +2,7 @@ class BaseVehicleDetailsForm
   include ActiveModel::Model
   include ActiveModel::Attributes
   include SessionPersistable
+  include NumberValidatable
 
   BASE_ATTRIBUTES = %i[vehicle_finance
                        vehicle_pcp

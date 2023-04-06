@@ -2,6 +2,7 @@ class BaseAssetsForm
   include ActiveModel::Model
   include ActiveModel::Attributes
   include SessionPersistable
+  include NumberValidatable
 
   ASSETS_DECIMAL_ATTRIBUTES = %i[savings investments valuables].freeze
   ASSETS_PROPERTY_ATTRIBUTES = %i[property_value property_mortgage].freeze
