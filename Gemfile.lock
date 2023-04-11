@@ -467,6 +467,7 @@ DEPENDENCIES
   rack_session_access
   rails (~> 7.0.4)
   redis-rails
+  rexml
   rspec
   rspec-rails
   rubocop-govuk
