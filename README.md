@@ -66,7 +66,7 @@ yarn build:css
 
 We test with [RSpec](https://rspec.info/) and enforce 100% line and branch coverage with [SimpleCov](https://www.learnhowtoprogram.com/ruby-and-rails/authentication-and-authorization/simplecov).
 
-You can run tests with the command: 
+You can run tests with the command:
 
 ```
 bundle exec rspec
@@ -154,6 +154,21 @@ We use Grover to save pages as PDF files for download, which in turn uses Puppet
 ```bash
 MULTI_THREAD=1 bundle exec rails s
 ```
+
+## Retrieving user-entered data for a given check
+
+User-entered values are stored in the session. However, rather than retrieve values directly from the session, most places retrieve them from associated
+model objects and helpers, of which there is a hierarchy:
+
+**NavigationHelper** contains methods that directly interrogate a session object for a few specific attributes that affect navigation flow through the form.
+It knows how answers to certain questions affect the relevance of certain other questions.
+
+**StepsHelper** uses NavigationHelper to determine which screens, or steps, should be displayed for a given check, based on the answers provided so far.
+
+**Flow::Handler** knows, for any given step, which Form object to populate to back the HTML form displayed on screen
+
+**Check** provides access to all _relevant_ data for a given check. For any given attribute it uses StepsHelper and Flow::Handler to determine whether,
+given the other answers given, the attribute is relevant. If not, when asked for that attribute it will return `nil`. Otherwise it will return that attribute.
 
 ## Deploying to UAT/Staging/Production
 
