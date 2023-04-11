@@ -7,11 +7,11 @@ class ControlledWorkDocumentSelectionsController < ApplicationController
   def create
     @form = ControlledWorkDocumentSelection.new(params[:controlled_work_document_selection]&.permit(:form_type))
     if @form.valid?
-      # TODO: Pick a document template based on @form.form_type and populate it
-      # with appropriate session data rather than using a static PDF
-      send_data File.open(Rails.root.join("lib/cw1-form.pdf")),
-                filename: "cw1-form.pdf",
-                type: "application/pdf"
+      ControlledWorkDocumentPopulationService.call(session_data, @form) do |file|
+        send_data file,
+                  filename: "controlled-work-form-#{assessment_code}.pdf",
+                  type: "application/pdf"
+      end
     else
       @check = Check.new(session_data)
       render :new
