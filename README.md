@@ -162,10 +162,10 @@ MULTI_THREAD=1 bundle exec rails s
 User-entered values are stored in the session. However, rather than retrieve values directly from the session, most places retrieve them from associated
 model objects and helpers, of which there is a hierarchy:
 
-**NavigationHelper** contains methods that directly interrogate a session object for a few specific attributes that affect navigation flow through the form.
+**StepsLogic** contains methods that directly interrogate a session object for a few specific attributes that affect navigation flow through the form.
 It knows how answers to certain questions affect the relevance of certain other questions.
 
-**StepsHelper** uses NavigationHelper to determine which screens, or steps, should be displayed for a given check, based on the answers provided so far.
+**StepsHelper** uses StepsLogic to determine which screens, or steps, should be displayed for a given check, based on the answers provided so far.
 
 **Flow::Handler** knows, for any given step, which Form object to populate to back the HTML form displayed on screen
 

@@ -5,7 +5,7 @@ class ApplicantDetailsSection
     end
 
     def steps_for(session_data)
-      if NavigationHelper.asylum_supported?(session_data)
+      if StepsLogic.asylum_supported?(session_data)
         []
       else
         steps(session_data).map { [_1] }
@@ -17,7 +17,7 @@ class ApplicantDetailsSection
     end
 
     def dependant_details(session_data)
-      :dependant_details unless NavigationHelper.passported?(session_data)
+      :dependant_details unless StepsLogic.passported?(session_data)
     end
   end
 end

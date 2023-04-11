@@ -5,7 +5,7 @@ class IncomeSection
     end
 
     def steps_for(session_data)
-      if NavigationHelper.passported?(session_data) || NavigationHelper.asylum_supported?(session_data)
+      if StepsLogic.passported?(session_data) || StepsLogic.asylum_supported?(session_data)
         []
       else
         employment_steps(session_data) + housing_benefit_steps(session_data) + other_steps
@@ -15,7 +15,7 @@ class IncomeSection
   private
 
     def employment_steps(session_data)
-      NavigationHelper.employed?(session_data) ? [[:employment]] : []
+      StepsLogic.employed?(session_data) ? [[:employment]] : []
     end
 
     def other_steps
@@ -23,7 +23,7 @@ class IncomeSection
     end
 
     def housing_benefit_steps(session_data)
-      NavigationHelper.housing_benefit?(session_data) ? [%i[housing_benefit housing_benefit_details]] : [%i[housing_benefit]]
+      StepsLogic.housing_benefit?(session_data) ? [%i[housing_benefit housing_benefit_details]] : [%i[housing_benefit]]
     end
   end
 end

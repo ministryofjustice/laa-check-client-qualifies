@@ -17,7 +17,7 @@ class CaseDetailsSection
     end
 
     def asylum_support(session_data)
-      :asylum_support if NavigationHelper.upper_tribunal?(session_data)
+      :asylum_support if StepsLogic.upper_tribunal?(session_data)
     end
   end
 end
