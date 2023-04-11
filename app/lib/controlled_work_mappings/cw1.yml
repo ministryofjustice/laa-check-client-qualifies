@@ -1,0 +1,599 @@
+# This file defines the mappings used to prepopulate a CW1 PDF form with the answers given by a user to CCQ's questions
+# combined with the output from CFE.
+
+# Each mapping has the following elements:
+# **name** - the name of a field in the PDF
+# **type** - what sort of field this is (either `text` or `checkbox`)
+# **source** - whether the relevant data comes from the user's answers or CFE's output (either `answers` or `result`)
+# **attribute** - if `source` is `answers` then the attribute on the Check object that contains the value to include.
+#                 If it is `result` then the dot-separated path of the CFE payload output
+# **checked_value** - the value to give a checkbox field to indicate that it is checked
+mappings:
+  - name: Title
+    type: text
+    source: static
+  - name: Initials
+    type: text
+    source: static
+  - name: Surname
+    type: text
+    source: static
+  - name: First name
+    type: text
+    source: static
+  - name: Surname at birth
+    type: text
+    source: static
+  - name: National Insurance no
+    type: text
+    source: static
+  - name: Current address
+    type: text
+    source: static
+  - name: Place of birth 1
+    type: text
+    source: static
+  - name: Place of birth 2
+    type: text
+    source: static
+  - name: Job
+    type: text
+    source: static
+  - name: Postcode
+    type: text
+    source: static
+  - name: Comb1
+    type: text
+    source: static
+  - name: Comb11
+    type: text
+    source: static
+  - name: Comb2
+    type: text
+    source: static
+  - name: Address of provider
+    type: text
+    source: static
+  - name: Name of provider 1
+    type: text
+    source: static
+  - name: Name of provider 2
+    type: text
+    source: static
+  - name: Postcode_2
+    type: text
+    source: static
+  - name: DX with exchange
+    type: text
+    source: static
+  - name: Telephone number
+    type: text
+    source: static
+  - name: Contract number
+    type: text
+    source: static
+  - name: 3 Type of case eg family
+    type: text
+    source: static
+  - name: undefined_10
+    type: text
+    source: static
+  - name: undefined_11
+    type: text
+    source: static
+  - name: Other property 1
+    type: text
+    source: static
+  - name: Other property 2
+    type: text
+    source: static
+  - name: undefined_14
+    type: text
+    source: static
+  - name: undefined_15
+    type: text
+    source: static
+  - name: undefined_16
+    type: text
+    source: static
+  - name: Other property
+    type: text
+    source: static
+  - name: undefined_17
+    type: text
+    source: static
+  - name: undefined_18
+    type: text
+    source: static
+  - name: undefined_19
+    type: text
+    source: static
+  - name: undefined_20
+    type: text
+    source: static
+  - name: undefined_23
+    type: text
+    source: static
+  - name: undefined_24
+    type: text
+    source: static
+  - name: undefined_25
+    type: text
+    source: static
+  - name: undefined_21
+    type: text
+    source: static
+  - name: undefined_22
+    type: text
+    source: static
+  - name: undefined_26
+    type: text
+    source: static
+  - name: undefined_27
+    type: text
+    source: static
+  - name: Other property 1_2
+    type: text
+    source: static
+  - name: Other property 2_2
+    type: text
+    source: static
+  - name: undefined_30
+    type: text
+    source: static
+  - name: undefined_31
+    type: text
+    source: static
+  - name: undefined_32
+    type: text
+    source: static
+  - name: undefined_33
+    type: text
+    source: static
+  - name: undefined_34
+    type: text
+    source: static
+  - name: undefined_35
+    type: text
+    source: static
+  - name: undefined_36
+    type: text
+    source: static
+  - name: undefined_37
+    type: text
+    source: static
+  - name: undefined_38
+    type: text
+    source: static
+  - name: undefined_39
+    type: text
+    source: static
+  - name: undefined_40
+    type: text
+    source: static
+  - name: undefined_41
+    type: text
+    source: static
+  - name: undefined_42
+    type: text
+    source: static
+  - name: undefined_43
+    type: text
+    source: static
+  - name: undefined_44
+    type: text
+    source: static
+  - name: undefined_45
+    type: text
+    source: static
+  - name: undefined_46
+    type: text
+    source: static
+  - name: undefined_47
+    type: text
+    source: static
+  - name: undefined_48
+    type: text
+    source: static
+  - name: undefined_49
+    type: text
+    source: static
+  - name: undefined_50
+    type: text
+    source: static
+  - name: undefined_51
+    type: text
+    source: static
+  - name: undefined_52
+    type: text
+    source: static
+  - name: undefined_53
+    type: text
+    source: static
+  - name: undefined_54
+    type: text
+    source: static
+  - name: undefined_55
+    type: text
+    source: static
+  - name: undefined_56
+    type: text
+    source: static
+  - name: undefined_57
+    type: text
+    source: static
+  - name: undefined_58
+    type: text
+    source: static
+  - name: undefined_59
+    type: text
+    source: static
+  - name: undefined_60
+    type: text
+    source: static
+  - name: undefined_61
+    type: text
+    source: static
+  - name: undefined_62
+    type: text
+    source: static
+  - name: undefined_63
+    type: text
+    source: static
+  - name: undefined_64
+    type: text
+    source: static
+  - name: undefined_65
+    type: text
+    source: static
+  - name: undefined_66
+    type: text
+    source: static
+  - name: undefined_67
+    type: text
+    source: static
+  - name: undefined_68
+    type: text
+    source: static
+  - name: undefined_69
+    type: text
+    source: static
+  - name: undefined_70
+    type: text
+    source: static
+  - name: undefined_71
+    type: text
+    source: static
+  - name: undefined_72
+    type: text
+    source: static
+  - name: undefined_73
+    type: text
+    source: static
+  - name: undefined_74
+    type: text
+    source: static
+  - name: undefined_75
+    type: text
+    source: static
+  - name: Evidence Evidence given in support of means Yes you will need to complete No the evidence checklist on page 11 If no please record justification or exceptional circumstance
+    type: text
+    source: static
+  - name: contracted provider on this matter If so please state when
+    type: text
+    source: static
+  - name: Signed
+    type: text
+    source: static
+  - name: Date
+    type: text
+    source: static
+  - name: Signed_2
+    type: text
+    source: static
+  - name: Date_2
+    type: text
+    source: static
+  - name: Text2
+    type: text
+    source: static
+  - name: Time Spent 1
+    type: text
+    source: static
+  - name: Time Spent 2
+    type: text
+    source: static
+  - name: Time Spent 3
+    type: text
+    source: static
+  - name: Time Spent 4
+    type: text
+    source: static
+  - name: Time Spent 5
+    type: text
+    source: static
+  - name: Number 1
+    type: text
+    source: static
+  - name: Number 2
+    type: text
+    source: static
+  - name: Total Profit Costs
+    type: text
+    source: static
+  - name: Vat
+    type: text
+    source: static
+  - name: undefined_80
+    type: text
+    source: static
+  - name: undefined_81
+    type: text
+    source: static
+  - name: undefined_82
+    type: text
+    source: static
+  - name: undefined_83
+    type: text
+    source: static
+  - name: undefined_84
+    type: text
+    source: static
+  - name: undefined_85
+    type: text
+    source: static
+  - name: undefined_86
+    type: text
+    source: static
+  - name: undefined_87
+    type: text
+    source: static
+  - name: undefined_88
+    type: text
+    source: static
+  - name: Dated
+    type: text
+    source: static
+  - name: Signed_3
+    type: text
+    source: static
+  - name: Name
+    type: text
+    source: static
+  - name: Text48
+    type: text
+    source: static
+  - name: eg bank statements
+    type: text
+    source: static
+  - name: undefined_89
+    type: text
+    source: static
+  - name: Check Box1
+    type: checkbox
+    source: static
+    checked_value: "Yes"
+  - name: Check Box2
+    type: checkbox
+    source: static
+    checked_value: "Yes"
+  - name: Check Box3
+    type: checkbox
+    source: static
+    checked_value: "Yes"
+  - name: Check Box4
+    type: checkbox
+    source: static
+    checked_value: "Yes"
+  - name: Check Box5
+    type: checkbox
+    source: static
+    checked_value: "Yes"
+  - name: Check Box6
+    type: checkbox
+    source: static
+    checked_value: "Yes"
+  - name: Check Box7
+    type: checkbox
+    source: static
+    checked_value: "Yes"
+  - name: Check Box8
+    type: checkbox
+    source: static
+    checked_value: "Yes"
+  - name: Check Box10
+    type: checkbox
+    source: static
+    checked_value: "Yes"
+  - name: Check Box11
+    type: checkbox
+    source: static
+    checked_value: "Yes"
+  - name: Check Box13
+    type: checkbox
+    source: static
+    checked_value: "Yes"
+  - name: Check Box14
+    type: checkbox
+    source: static
+    checked_value: "Yes"
+  - name: Check Box15
+    type: checkbox
+    source: static
+    checked_value: "Yes"
+  - name: Check Box16
+    type: checkbox
+    source: static
+    checked_value: "Yes"
+  - name: Check Box17
+    type: checkbox
+    source: static
+    checked_value: "Yes"
+  - name: Check Box18
+    type: checkbox
+    source: static
+    checked_value: "Yes"
+  - name: Check Box19
+    type: checkbox
+    source: static
+    checked_value: "Yes"
+  - name: Check Box20
+    type: checkbox
+    source: static
+    checked_value: "Yes"
+  - name: Check Box22
+    type: checkbox
+    source: static
+    checked_value: "Yes"
+  - name: Check Box24
+    type: checkbox
+    source: static
+    checked_value: "Yes"
+  - name: Check Box25
+    type: checkbox
+    source: static
+    checked_value: "Yes"
+  - name: Check Box26
+    type: checkbox
+    source: static
+    checked_value: "Yes"
+  - name: Check Box28
+    type: checkbox
+    source: static
+    checked_value: "Yes"
+  - name: Check Box29
+    type: checkbox
+    source: static
+    checked_value: "Yes"
+  - name: Check Box32
+    type: checkbox
+    source: static
+    checked_value: "Yes"
+  - name: Check Box34
+    type: checkbox
+    source: static
+    checked_value: "Yes"
+  - name: Check Box35
+    type: checkbox
+    source: static
+    checked_value: "Yes"
+  - name: Check Box36
+    type: checkbox
+    source: static
+    checked_value: "Yes"
+  - name: Check Box37
+    type: checkbox
+    source: static
+    checked_value: "Yes"
+  - name: Check Box38
+    type: checkbox
+    source: static
+    checked_value: "Yes"
+  - name: Check Box39
+    type: checkbox
+    source: static
+    checked_value: "Yes"
+  - name: Check Box40
+    type: checkbox
+    source: static
+    checked_value: "Yes"
+  - name: Check Box61
+    type: checkbox
+    source: static
+    checked_value: "Yes"
+  - name: Check Box62
+    type: checkbox
+    source: static
+    checked_value: "Yes"
+  - name: Check Box63
+    type: checkbox
+    source: static
+    checked_value: "Yes"
+  - name: Check Box64
+    type: checkbox
+    source: static
+    checked_value: "Yes"
+  - name: Check Box65
+    type: checkbox
+    source: static
+    checked_value: "Yes"
+  - name: Check Box66
+    type: checkbox
+    source: static
+    checked_value: "Yes"
+  - name: Check Box67
+    type: checkbox
+    source: static
+    checked_value: "Yes"
+  - name: Check Box70
+    type: checkbox
+    source: static
+    checked_value: "Yes"
+  - name: Check Box71
+    type: checkbox
+    source: static
+    checked_value: "Yes"
+  - name: Go to question 2
+    type: checkbox
+    source: static
+    checked_value: "Yes_2"
+  - name: Please provide details of both clients and partners means
+    type: checkbox
+    source: static
+    checked_value: "Yes_3"
+  - name: Go to question 5
+    type: checkbox
+    source: static
+    checked_value: "Yes_4"
+  - name: Please complete Part A Capital Subject matter of dispute
+    type: checkbox
+    source: static
+    checked_value: "Yes_5"
+  - name: undefined_12
+    type: checkbox
+    source: static
+    checked_value: "Yes_6"
+  - name: undefined_13
+    type: checkbox
+    source: static
+    checked_value: "Yes_7"
+  - name: undefined_28
+    type: checkbox
+    source: static
+    checked_value: "Yes_8"
+  - name: undefined_29
+    type: checkbox
+    source: static
+    checked_value: "Yes_9"
+  - name: Check Box12
+    type: checkbox
+    source: static
+    checked_value: "Yes"
+  - name: Check Box21
+    type: checkbox
+    source: static
+    checked_value: "Yes"
+  - name: the evidence checklist on
+    type: checkbox
+    source: static
+    checked_value: "Yes_11"
+  - name: I have not already received legal help or family help lower from a solicitor or
+    type: checkbox
+    source: static
+    checked_value: "On"
+  - name: I have already received legal help or family help lower from a solicitor or
+    type: checkbox
+    source: static
+    checked_value: "On"
+  - name: Yes_12
+    type: checkbox
+    source: static
+    checked_value: "On"
+  - name: No This evidence must be retained on the file
+    type: checkbox
+    source: static
+    checked_value: "On"
+  - name: Was an application for legal representation made in this matter
+    type: checkbox
+    source: static
+    checked_value: "Yes_14"
