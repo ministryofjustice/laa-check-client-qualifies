@@ -9,7 +9,7 @@ class PartnerCapitalSection
     end
 
     def steps_for(session_data)
-      if !NavigationHelper.partner?(session_data)
+      if !StepsLogic.partner?(session_data)
         []
       else
         ([property_steps(session_data)] + [vehicle_steps(session_data)] + TAIL_STEPS.map { |step| [step] }).freeze
@@ -17,9 +17,9 @@ class PartnerCapitalSection
     end
 
     def property_steps(session_data)
-      if NavigationHelper.owns_property?(session_data)
+      if StepsLogic.owns_property?(session_data)
         []
-      elsif NavigationHelper.partner_owns_property?(session_data)
+      elsif StepsLogic.partner_owns_property?(session_data)
         PROPERTY_STEPS
       else
         %i[partner_property]
@@ -27,9 +27,9 @@ class PartnerCapitalSection
     end
 
     def vehicle_steps(session_data)
-      return [] if NavigationHelper.controlled?(session_data)
+      return [] if StepsLogic.controlled?(session_data)
 
-      NavigationHelper.partner_owns_vehicle?(session_data) ? VEHICLE_STEPS : %i[partner_vehicle]
+      StepsLogic.partner_owns_vehicle?(session_data) ? VEHICLE_STEPS : %i[partner_vehicle]
     end
   end
 end

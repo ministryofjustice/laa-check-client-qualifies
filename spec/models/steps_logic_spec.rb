@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe NavigationHelper do
+RSpec.describe StepsLogic do
   describe "#employed?" do
     it "returns false if the client is asylum supported" do
       session_data = {

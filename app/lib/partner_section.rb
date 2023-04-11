@@ -5,9 +5,9 @@ class PartnerSection
     end
 
     def steps_for(session_data)
-      if !NavigationHelper.partner?(session_data)
+      if !StepsLogic.partner?(session_data)
         []
-      elsif NavigationHelper.passported?(session_data)
+      elsif StepsLogic.passported?(session_data)
         %i[partner_details].map { [_1] }
       else
         %i[partner_details partner_dependant_details].map { [_1] }

@@ -1,7 +1,7 @@
-class NavigationHelper
+class StepsLogic
   # The methods in this helper need to consider not just whether a given attribute is set, but also whether
   # or not other elements of the session render the form invalid. While in most cases we rely on the Check
-  # model to do this thinking for us, Check relies on StepsHelper which in turn relies on NavigationHelper
+  # model to do this thinking for us, Check relies on StepsHelper which in turn relies on StepsLogic
   class << self
     def controlled?(session_data)
       session_data["level_of_help"] == LevelOfHelpForm::LEVELS_OF_HELP[:controlled]

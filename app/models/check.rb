@@ -16,9 +16,9 @@ class Check
   def method_missing(attribute, *args, &block)
     step, form_class = Flow::Handler::CLASSES.find { |_, v| v.session_keys.include?(attribute.to_s) }
     return super unless form_class
-    return unless StepsHelper.valid_step?(@session_data, step)
+    return unless StepsHelper.valid_step?(session_data, step)
 
-    form_class.from_session(@session_data).send(attribute.to_s.gsub(/^partner_/, ""))
+    form_class.from_session(session_data).send(attribute.to_s.gsub(/^partner_/, ""))
   end
 
   def respond_to_missing?(attribute, include_private = false)
@@ -27,12 +27,11 @@ class Check
     super
   end
 
-  def level_of_help
-    session_data.fetch("level_of_help", LevelOfHelpForm::LEVELS_OF_HELP[:certificated])
-  end
+  # The below are convenience methods that answer commonly-asked questions about the state of the
+  # current session that are not directly values contained within the session
 
   def controlled?
-    level_of_help == LevelOfHelpForm::LEVELS_OF_HELP[:controlled]
+    StepsLogic.controlled?(session_data)
   end
 
   def smod_applicable?
@@ -40,10 +39,10 @@ class Check
   end
 
   def use_legacy_proceeding_type?
-    !controlled? && !FeatureFlags.enabled?(:asylum_and_immigration)
+    !controlled? && !StepsHelper.valid_step?(session_data, :matter_type)
   end
 
   def upper_tribunal?
-    NavigationHelper.upper_tribunal?(@session_data)
+    StepsLogic.upper_tribunal?(session_data)
   end
 end
