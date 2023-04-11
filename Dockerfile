@@ -59,6 +59,20 @@ RUN chown -R appuser:appgroup /app
 
 USER 1000
 
+# Build PDFTK
+FROM ghcr.io/graalvm/graalvm-ce:22.2.0 as pdftkbuilder
+RUN gu install native-image
+WORKDIR /build
+RUN curl https://gitlab.com/api/v4/projects/5024297/packages/generic/pdftk-java/v3.3.3/pdftk-all.jar --output pdftk-all.jar \
+	&& curl https://gitlab.com/pdftk-java/pdftk/-/raw/v3.3.3/META-INF/native-image/reflect-config.json --output reflect-config.json \
+	&& curl https://gitlab.com/pdftk-java/pdftk/-/raw/v3.3.3/META-INF/native-image/resource-config.json --output resource-config.json \
+	&& native-image --static -jar pdftk-all.jar \
+        -H:Name=pdftk \
+        -H:ResourceConfigurationFiles='resource-config.json' \
+        -H:ReflectionConfigurationFiles='reflect-config.json' \
+        -H:GenerateDebugInfo=0
+
+
 # Build runtime image
 FROM ruby:3.1.3-alpine as production
 
@@ -92,9 +106,10 @@ ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 # Install latest version of Puppeteer that works with Chromium 108
 RUN yarn add puppeteer@19.2.0
 
-# Copy files generated in the builder image
+# Copy files generated in the builder images
 COPY --from=builder /app /app
 COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
+COPY --from=pdftkbuilder /build/pdftk /usr/bin/pdftk
 
 USER 1000
 
