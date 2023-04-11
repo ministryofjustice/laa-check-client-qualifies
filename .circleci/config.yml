@@ -128,6 +128,12 @@ jobs:
           name: Install Puppeteer with Chromium
           command: |
             yarn add puppeteer@19.2.0
+      - run:
+          name: Install PDFTK
+          command: |
+            sudo add-apt-repository --yes ppa:malteworld/ppa || true
+            sudo apt update --allow-unauthenticated || true
+            sudo apt install pdftk --allow-unauthenticated || true
       - *setup_database
       - run:
           name: Run tests
