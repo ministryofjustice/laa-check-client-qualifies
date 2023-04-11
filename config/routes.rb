@@ -34,4 +34,6 @@ Rails.application.routes.draw do
   resource :accessibility, only: :show
 
   get "/health-including-dependents", to: "status#health"
+  get "/populate_session", to: "session#populate"
+  get "/view_session", to: "session#show"
 end
