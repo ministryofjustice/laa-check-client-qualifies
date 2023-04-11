@@ -1,5 +1,13 @@
+# This model can be interrogated to return all and only _relevant_ data from the session.
+# That is to say, you can call `check.gross_income`, and this will return the value
+# the user has entered for the client's gross income IF the client is employed AND
+# does not receive a passporting benefit AND does not receive Asylum Support.
+
+# The methods to call are not defined explicitly, but rather are inferred using the
+# `method_missing` method, in which method calls are delegated to the appropriate
+# form object but only if the form is associated with a valid step in the flow.
 class Check
-  def initialize(session_data)
+  def initialize(session_data = {})
     @session_data = session_data
   end
 
