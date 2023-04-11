@@ -7,7 +7,7 @@ class ControlledWorkDocumentSelectionsController < ApplicationController
   def create
     @form = ControlledWorkDocumentSelection.new(params[:controlled_work_document_selection]&.permit(:form_type))
     if @form.valid?
-      ControlledWorkDocumentPopulationService.call(session_data, @form) do |file|
+      ControlledWorkDocumentPopulationService.call(session_data, @form.form_type) do |file|
         send_data file,
                   filename: "controlled-work-form-#{assessment_code}.pdf",
                   type: "application/pdf"
