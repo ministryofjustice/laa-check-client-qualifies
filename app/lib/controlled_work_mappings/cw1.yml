@@ -3,597 +3,501 @@
 
 # Each mapping has the following elements:
 # **name** - the name of a field in the PDF
-# **type** - what sort of field this is (either `text` or `checkbox`)
-# **source** - whether the relevant data comes from the user's answers or CFE's output (either `answers` or `result`)
-# **attribute** - if `source` is `answers` then the attribute on the Check object that contains the value to include.
-#                 If it is `result` then the dot-separated path of the CFE payload output
+# **type** - what sort of field this is (either `text`,  `checkbox` or `boolean_radio)
+# **value_type** - where to read the value from (either `attribute` or `money_attribute`)
+# **attribute** - if `source` is `user` then the attribute on the model object that contains the value to include.
+#                 If it is `cfe` then the dot-separated path of the CFE payload output
 # **checked_value** - the value to give a checkbox field to indicate that it is checked
-mappings:
-  - name: Title
-    type: text
-    source: static
-  - name: Initials
-    type: text
-    source: static
-  - name: Surname
-    type: text
-    source: static
-  - name: First name
-    type: text
-    source: static
-  - name: Surname at birth
-    type: text
-    source: static
-  - name: National Insurance no
-    type: text
-    source: static
-  - name: Current address
-    type: text
-    source: static
-  - name: Place of birth 1
-    type: text
-    source: static
-  - name: Place of birth 2
-    type: text
-    source: static
-  - name: Job
-    type: text
-    source: static
-  - name: Postcode
-    type: text
-    source: static
-  - name: Comb1
-    type: text
-    source: static
-  - name: Comb11
-    type: text
-    source: static
-  - name: Comb2
-    type: text
-    source: static
-  - name: Address of provider
-    type: text
-    source: static
-  - name: Name of provider 1
-    type: text
-    source: static
-  - name: Name of provider 2
-    type: text
-    source: static
-  - name: Postcode_2
-    type: text
-    source: static
-  - name: DX with exchange
-    type: text
-    source: static
-  - name: Telephone number
-    type: text
-    source: static
-  - name: Contract number
-    type: text
-    source: static
-  - name: 3 Type of case eg family
-    type: text
-    source: static
-  - name: undefined_10
-    type: text
-    source: static
-  - name: undefined_11
-    type: text
-    source: static
-  - name: Other property 1
-    type: text
-    source: static
-  - name: Other property 2
-    type: text
-    source: static
-  - name: undefined_14
-    type: text
-    source: static
-  - name: undefined_15
-    type: text
-    source: static
-  - name: undefined_16
-    type: text
-    source: static
-  - name: Other property
-    type: text
-    source: static
-  - name: undefined_17
-    type: text
-    source: static
-  - name: undefined_18
-    type: text
-    source: static
-  - name: undefined_19
-    type: text
-    source: static
-  - name: undefined_20
-    type: text
-    source: static
-  - name: undefined_23
-    type: text
-    source: static
-  - name: undefined_24
-    type: text
-    source: static
-  - name: undefined_25
-    type: text
-    source: static
-  - name: undefined_21
-    type: text
-    source: static
-  - name: undefined_22
-    type: text
-    source: static
-  - name: undefined_26
-    type: text
-    source: static
-  - name: undefined_27
-    type: text
-    source: static
-  - name: Other property 1_2
-    type: text
-    source: static
-  - name: Other property 2_2
-    type: text
-    source: static
-  - name: undefined_30
-    type: text
-    source: static
-  - name: undefined_31
-    type: text
-    source: static
-  - name: undefined_32
-    type: text
-    source: static
-  - name: undefined_33
-    type: text
-    source: static
-  - name: undefined_34
-    type: text
-    source: static
-  - name: undefined_35
-    type: text
-    source: static
-  - name: undefined_36
-    type: text
-    source: static
-  - name: undefined_37
-    type: text
-    source: static
-  - name: undefined_38
-    type: text
-    source: static
-  - name: undefined_39
-    type: text
-    source: static
-  - name: undefined_40
-    type: text
-    source: static
-  - name: undefined_41
-    type: text
-    source: static
-  - name: undefined_42
-    type: text
-    source: static
-  - name: undefined_43
-    type: text
-    source: static
-  - name: undefined_44
-    type: text
-    source: static
-  - name: undefined_45
-    type: text
-    source: static
-  - name: undefined_46
-    type: text
-    source: static
-  - name: undefined_47
-    type: text
-    source: static
-  - name: undefined_48
-    type: text
-    source: static
-  - name: undefined_49
-    type: text
-    source: static
-  - name: undefined_50
-    type: text
-    source: static
-  - name: undefined_51
-    type: text
-    source: static
-  - name: undefined_52
-    type: text
-    source: static
-  - name: undefined_53
-    type: text
-    source: static
-  - name: undefined_54
-    type: text
-    source: static
-  - name: undefined_55
-    type: text
-    source: static
-  - name: undefined_56
-    type: text
-    source: static
-  - name: undefined_57
-    type: text
-    source: static
-  - name: undefined_58
-    type: text
-    source: static
-  - name: undefined_59
-    type: text
-    source: static
-  - name: undefined_60
-    type: text
-    source: static
-  - name: undefined_61
-    type: text
-    source: static
-  - name: undefined_62
-    type: text
-    source: static
-  - name: undefined_63
-    type: text
-    source: static
-  - name: undefined_64
-    type: text
-    source: static
-  - name: undefined_65
-    type: text
-    source: static
-  - name: undefined_66
-    type: text
-    source: static
-  - name: undefined_67
-    type: text
-    source: static
-  - name: undefined_68
-    type: text
-    source: static
-  - name: undefined_69
-    type: text
-    source: static
-  - name: undefined_70
-    type: text
-    source: static
-  - name: undefined_71
-    type: text
-    source: static
-  - name: undefined_72
-    type: text
-    source: static
-  - name: undefined_73
-    type: text
-    source: static
-  - name: undefined_74
-    type: text
-    source: static
-  - name: undefined_75
-    type: text
-    source: static
-  - name: Evidence Evidence given in support of means Yes you will need to complete No the evidence checklist on page 11 If no please record justification or exceptional circumstance
-    type: text
-    source: static
-  - name: contracted provider on this matter If so please state when
-    type: text
-    source: static
-  - name: Signed
-    type: text
-    source: static
-  - name: Date
-    type: text
-    source: static
-  - name: Signed_2
-    type: text
-    source: static
-  - name: Date_2
-    type: text
-    source: static
-  - name: Text2
-    type: text
-    source: static
-  - name: Time Spent 1
-    type: text
-    source: static
-  - name: Time Spent 2
-    type: text
-    source: static
-  - name: Time Spent 3
-    type: text
-    source: static
-  - name: Time Spent 4
-    type: text
-    source: static
-  - name: Time Spent 5
-    type: text
-    source: static
-  - name: Number 1
-    type: text
-    source: static
-  - name: Number 2
-    type: text
-    source: static
-  - name: Total Profit Costs
-    type: text
-    source: static
-  - name: Vat
-    type: text
-    source: static
-  - name: undefined_80
-    type: text
-    source: static
-  - name: undefined_81
-    type: text
-    source: static
-  - name: undefined_82
-    type: text
-    source: static
-  - name: undefined_83
-    type: text
-    source: static
-  - name: undefined_84
-    type: text
-    source: static
-  - name: undefined_85
-    type: text
-    source: static
-  - name: undefined_86
-    type: text
-    source: static
-  - name: undefined_87
-    type: text
-    source: static
-  - name: undefined_88
-    type: text
-    source: static
-  - name: Dated
-    type: text
-    source: static
-  - name: Signed_3
-    type: text
-    source: static
-  - name: Name
-    type: text
-    source: static
-  - name: Text48
-    type: text
-    source: static
-  - name: eg bank statements
-    type: text
-    source: static
-  - name: undefined_89
-    type: text
-    source: static
-  - name: Check Box1
-    type: checkbox
-    source: static
-    checked_value: "Yes"
-  - name: Check Box2
-    type: checkbox
-    source: static
-    checked_value: "Yes"
-  - name: Check Box3
-    type: checkbox
-    source: static
-    checked_value: "Yes"
-  - name: Check Box4
-    type: checkbox
-    source: static
-    checked_value: "Yes"
-  - name: Check Box5
-    type: checkbox
-    source: static
-    checked_value: "Yes"
-  - name: Check Box6
-    type: checkbox
-    source: static
-    checked_value: "Yes"
-  - name: Check Box7
-    type: checkbox
-    source: static
-    checked_value: "Yes"
-  - name: Check Box8
-    type: checkbox
-    source: static
-    checked_value: "Yes"
-  - name: Check Box10
-    type: checkbox
-    source: static
-    checked_value: "Yes"
-  - name: Check Box11
-    type: checkbox
-    source: static
-    checked_value: "Yes"
-  - name: Check Box13
-    type: checkbox
-    source: static
-    checked_value: "Yes"
-  - name: Check Box14
-    type: checkbox
-    source: static
-    checked_value: "Yes"
-  - name: Check Box15
-    type: checkbox
-    source: static
-    checked_value: "Yes"
-  - name: Check Box16
-    type: checkbox
-    source: static
-    checked_value: "Yes"
-  - name: Check Box17
-    type: checkbox
-    source: static
-    checked_value: "Yes"
-  - name: Check Box18
-    type: checkbox
-    source: static
-    checked_value: "Yes"
-  - name: Check Box19
-    type: checkbox
-    source: static
-    checked_value: "Yes"
-  - name: Check Box20
-    type: checkbox
-    source: static
-    checked_value: "Yes"
-  - name: Check Box22
-    type: checkbox
-    source: static
-    checked_value: "Yes"
-  - name: Check Box24
-    type: checkbox
-    source: static
-    checked_value: "Yes"
-  - name: Check Box25
-    type: checkbox
-    source: static
-    checked_value: "Yes"
-  - name: Check Box26
-    type: checkbox
-    source: static
-    checked_value: "Yes"
-  - name: Check Box28
-    type: checkbox
-    source: static
-    checked_value: "Yes"
-  - name: Check Box29
-    type: checkbox
-    source: static
-    checked_value: "Yes"
-  - name: Check Box32
-    type: checkbox
-    source: static
-    checked_value: "Yes"
-  - name: Check Box34
-    type: checkbox
-    source: static
-    checked_value: "Yes"
-  - name: Check Box35
-    type: checkbox
-    source: static
-    checked_value: "Yes"
-  - name: Check Box36
-    type: checkbox
-    source: static
-    checked_value: "Yes"
-  - name: Check Box37
-    type: checkbox
-    source: static
-    checked_value: "Yes"
-  - name: Check Box38
-    type: checkbox
-    source: static
-    checked_value: "Yes"
-  - name: Check Box39
-    type: checkbox
-    source: static
-    checked_value: "Yes"
-  - name: Check Box40
-    type: checkbox
-    source: static
-    checked_value: "Yes"
-  - name: Check Box61
-    type: checkbox
-    source: static
-    checked_value: "Yes"
-  - name: Check Box62
-    type: checkbox
-    source: static
-    checked_value: "Yes"
-  - name: Check Box63
-    type: checkbox
-    source: static
-    checked_value: "Yes"
-  - name: Check Box64
-    type: checkbox
-    source: static
-    checked_value: "Yes"
-  - name: Check Box65
-    type: checkbox
-    source: static
-    checked_value: "Yes"
-  - name: Check Box66
-    type: checkbox
-    source: static
-    checked_value: "Yes"
-  - name: Check Box67
-    type: checkbox
-    source: static
-    checked_value: "Yes"
-  - name: Check Box70
-    type: checkbox
-    source: static
-    checked_value: "Yes"
-  - name: Check Box71
-    type: checkbox
-    source: static
-    checked_value: "Yes"
-  - name: Go to question 2
-    type: checkbox
-    source: static
-    checked_value: "Yes_2"
-  - name: Please provide details of both clients and partners means
-    type: checkbox
-    source: static
-    checked_value: "Yes_3"
-  - name: Go to question 5
-    type: checkbox
-    source: static
-    checked_value: "Yes_4"
-  - name: Please complete Part A Capital Subject matter of dispute
-    type: checkbox
-    source: static
-    checked_value: "Yes_5"
-  - name: undefined_12
-    type: checkbox
-    source: static
-    checked_value: "Yes_6"
-  - name: undefined_13
-    type: checkbox
-    source: static
-    checked_value: "Yes_7"
-  - name: undefined_28
-    type: checkbox
-    source: static
-    checked_value: "Yes_8"
-  - name: undefined_29
-    type: checkbox
-    source: static
-    checked_value: "Yes_9"
-  - name: Check Box12
-    type: checkbox
-    source: static
-    checked_value: "Yes"
-  - name: Check Box21
-    type: checkbox
-    source: static
-    checked_value: "Yes"
-  - name: the evidence checklist on
-    type: checkbox
-    source: static
-    checked_value: "Yes_11"
-  - name: I have not already received legal help or family help lower from a solicitor or
-    type: checkbox
-    source: static
-    checked_value: "On"
-  - name: I have already received legal help or family help lower from a solicitor or
-    type: checkbox
-    source: static
-    checked_value: "On"
-  - name: Yes_12
-    type: checkbox
-    source: static
-    checked_value: "On"
-  - name: No This evidence must be retained on the file
-    type: checkbox
-    source: static
-    checked_value: "On"
-  - name: Was an application for legal representation made in this matter
-    type: checkbox
-    source: static
-    checked_value: "Yes_14"
+# **yes_value** - the value to give a boolean radio field to indicate that 'Yes' is selected
+# **no_value** - the value to give a boolean radio field to indicate that 'No' is selected
+
+# "The client is directly or indirectly in receipt of S.4 or S.95 Asylum Support (Immigration and Asylum category work only):"
+- name: Go to question 2
+  type: boolean_radio
+  value_type: attribute
+  attribute: asylum_support
+  yes_value: "Yes_2"
+  no_value: "No"
+
+# "The client has a partner whose means are to be aggregated:"
+- name: Please provide details of both clients and partners means
+  type: boolean_radio
+  value_type: attribute
+  attribute: partner
+  yes_value: "Yes_3"
+  no_value: "No_2"
+
+# "The client's assets (held in sole name or jointly held) have been claimed by the opponent:"
+- name: Please complete Part A Capital Subject matter of dispute
+  type: boolean_radio
+  value_type: attribute
+  attribute: smod_assets?
+  yes_value: "Yes_5"
+  no_value: "No_4"
+
+# Main home / current market value (SMOD)
+- name: undefined_10
+  type: text
+  value_type: money_from_cfe_payload
+  cfe_payload_location: assessment.capital.capital_items.properties.main_home.value
+  skip_unless: house_in_dispute
+
+# Main home / outstanding mortgage (SMOD)
+- name: undefined_11
+  type: text
+  value_type: money_from_cfe_payload
+  cfe_payload_location: assessment.capital.capital_items.properties.main_home.outstanding_mortgage
+  skip_unless: house_in_dispute
+
+# Other property / current market value (SMOD)
+- name: Other property 1
+  type: text
+  value_type: money_from_cfe_payload
+  cfe_payload_location: assessment.capital.capital_items.properties.additional_properties.0.value
+  skip_unless: additional_property_in_dispute?
+
+# Other property / outstanding mortgage (SMOD)
+- name: Other property 2
+  type: text
+  value_type: money_from_cfe_payload
+  cfe_payload_location: assessment.capital.capital_items.properties.additional_properties.0.outstanding_mortgage
+  skip_unless: additional_property_in_dispute?
+
+# Main home / client's share of property for assessment (SMOD)
+- name: undefined_14
+  type: text
+  value_type: attribute
+  attribute: main_home_percentage_owned
+  skip_unless: house_in_dispute
+
+# Other property / client's share of property for assessment (SMOD)
+- name: undefined_15
+  type: text
+  value_type: attribute
+  attribute: property_percentage_owned
+  skip_unless: additional_property_in_dispute?
+
+# Main home / total net equity (SMOD)
+- name: undefined_16
+  type: text
+  value_type: money_from_cfe_payload
+  cfe_payload_location: assessment.capital.capital_items.properties.main_home.net_value
+  skip_unless: house_in_dispute
+
+# Other property / total net equity (SMOD)
+- name: Other property
+  type: text
+  value_type: money_from_cfe_payload
+  cfe_payload_location: assessment.capital.capital_items.properties.additional_properties.0.net_value
+  skip_unless: additional_property_in_dispute?
+
+# Main home / client's share of total net equity (SMOD)
+- name: undefined_17
+  type: text
+  value_type: money_from_cfe_payload
+  cfe_payload_location: assessment.capital.capital_items.properties.main_home.net_equity
+  skip_unless: house_in_dispute
+
+# Other property / client's share of total net equity (SMOD)
+- name: undefined_18
+  type: text
+  value_type: money_from_cfe_payload
+  cfe_payload_location: assessment.capital.capital_items.properties.additional_properties.0.net_equity
+  skip_unless: additional_property_in_dispute?
+
+# Main home / final assessed amount of client's equity (SMOD)
+- name: undefined_19
+  type: text
+  value_type: money_from_cfe_payload
+  cfe_payload_location: assessment.capital.capital_items.properties.main_home.assessed_equity
+  skip_unless: house_in_dispute
+
+# Other property / final assessed amount of client's equity (SMOD)
+- name: undefined_20
+  type: text
+  value_type: money_from_cfe_payload
+  cfe_payload_location: assessment.capital.capital_items.properties.additional_properties.0.assessed_equity
+  skip_unless: additional_property_in_dispute?
+
+# Savings (SMOD)
+- name: undefined_21
+  type: text
+  value_type: money_attribute
+  attribute: savings
+  skip_unless: savings_in_dispute?
+
+# Investments (SMOD)
+- name: undefined_22
+  type: text
+  value_type: money_attribute
+  attribute: investments
+  skip_unless: investments_in_dispute?
+
+# Valuables (SMOD)
+- name: undefined_23
+  type: text
+  value_type: money_attribute
+  attribute: valuables
+  skip_unless: valuables_in_dispute?
+
+# Total capital part A (SMOD)
+- name: undefined_25
+  type: text
+  value_type: money_attribute
+  attribute: smod_total
+  skip_unless: smod_assets?
+
+  # Main home / current market value (non-SMOD)
+- name: undefined_26
+  type: text
+  value_type: money_from_cfe_payload
+  cfe_payload_location: assessment.capital.capital_items.properties.main_home.value
+  skip_if: house_in_dispute
+  skip_unless: client_capital_relevant?
+
+# Main home / outstanding mortgage (non-SMOD)
+- name: undefined_27
+  type: text
+  value_type: money_from_cfe_payload
+  cfe_payload_location: assessment.capital.capital_items.properties.main_home.outstanding_mortgage
+  skip_if: house_in_dispute
+  skip_unless: client_capital_relevant?
+
+# Other property / current market value (non-SMOD)
+- name: Other property 1_2
+  type: text
+  value_type: money_attribute
+  attribute: additional_non_smod_properties_value
+  skip_unless: client_capital_relevant?
+
+# Other property / outstanding mortgage (non-SMOD)
+- name: Other property 1_2
+  type: text
+  value_type: money_attribute
+  attribute: additional_non_smod_properties_mortgage
+  skip_unless: client_capital_relevant?
+
+# Main home / client's share of property for assessment (non-SMOD)
+- name: undefined_30
+  type: text
+  value_type: attribute
+  attribute: main_home_percentage_owned
+  skip_if: house_in_dispute
+  skip_unless: client_capital_relevant?
+
+# Other property / client's share of property for assessment (non-SMOD)
+- name: undefined_31
+  type: text
+  value_type: money_attribute
+  attribute: additional_non_smod_properties_percentage_owned
+  skip_unless: client_capital_relevant?
+
+# Main home / total net equity (non-SMOD)
+- name: undefined_32
+  type: text
+  value_type: money_from_cfe_payload
+  cfe_payload_location: assessment.capital.capital_items.properties.main_home.net_value
+  skip_if: house_in_dispute
+  skip_unless: client_capital_relevant?
+
+# Other property / total net equity (non-SMOD)
+- name: undefined_33
+  type: text
+  value_type: money_attribute
+  attribute: additional_non_smod_properties_net_value
+  skip_unless: client_capital_relevant?
+
+# Main home / client's share of total net equity (non-SMOD)
+- name: undefined_34
+  type: text
+  value_type: money_from_cfe_payload
+  cfe_payload_location: assessment.capital.capital_items.properties.main_home.net_equity
+  skip_if: house_in_dispute
+  skip_unless: client_capital_relevant?
+
+# Other property / client's share of total net equity (non-SMOD)
+- name: undefined_35
+  type: text
+  value_type: money_attribute
+  attribute: additional_non_smod_properties_net_equity
+  skip_unless: client_capital_relevant?
+
+# Main home / final assessed amount of client's equity (non-SMOD)
+- name: undefined_36
+  type: text
+  value_type: money_from_cfe_payload
+  cfe_payload_location: assessment.capital.capital_items.properties.main_home.assessed_equity
+  skip_if: house_in_dispute
+  skip_unless: client_capital_relevant?
+
+# Other property / final assessed amount of client's equity (non-SMOD)
+- name: undefined_37
+  type: text
+  value_type: money_attribute
+  attribute: additional_non_smod_properties_assessed_equity
+  skip_unless: client_capital_relevant?
+
+# Savings (non-SMOD)
+- name: undefined_38
+  type: text
+  value_type: money_attribute
+  attribute: savings
+  skip_if: savings_in_dispute?
+
+# Partner savings (non-SMOD)
+- name: undefined_39
+  type: text
+  value_type: money_attribute
+  attribute: partner_savings
+
+# Investments (non-SMOD)
+- name: undefined_40
+  type: text
+  value_type: money_attribute
+  attribute: investments
+  skip_if: investments_in_dispute?
+
+# Partner investments (non-SMOD)
+- name: undefined_41
+  type: text
+  value_type: money_attribute
+  attribute: partner_investments
+
+# Valuables (non-SMOD)
+- name: undefined_42
+  type: text
+  value_type: money_attribute
+  attribute: valuables
+  skip_if: valuables_in_dispute?
+
+# Valuables (non-SMOD)
+- name: undefined_43
+  type: text
+  value_type: money_attribute
+  attribute: partner_valuables
+
+# Total capital part A (non-SMOD)
+- name: undefined_46
+  type: text
+  value_type: money_attribute
+  attribute: non_smod_total
+  skip_unless: client_capital_relevant?
+
+# Total of all capital assets (Part A and Part B)
+- name: undefined_47
+  type: text
+  value_type: money_from_cfe_payload
+  cfe_payload_location: result_summary.capital.combined_assessed_capital
+  skip_unless: client_capital_relevant?
+
+# The client is directly or indirectly in receipt of [passporting benefit] - Yes
+- name: Check Box12
+  type: checkbox
+  value_type: attribute
+  attribute: passporting
+  checked_value: "Yes"
+
+# The client is directly or indirectly in receipt of [passporting benefit] - No
+- name: Check Box21
+  type: checkbox
+  value_type: attribute
+  attribute: not_passporting
+  checked_value: "Yes"
+  skip_if: asylum_support
+
+# Gross monthly earnings / Client
+- name: undefined_48
+  type: text
+  value_type: money_from_cfe_payload
+  cfe_payload_location: result_summary.disposable_income.employment_income.gross_income
+  skip_unless: client_income_relevant?
+
+# Gross monthly earnings / Partner
+- name: undefined_49
+  type: text
+  value_type: money_from_cfe_payload
+  cfe_payload_location: result_summary.partner_disposable_income.employment_income.gross_income
+  skip_unless: partner_income_relevant?
+
+# Other income / Client
+- name: undefined_50
+  type: text
+  value_type: money_attribute
+  attribute: client_non_employment_income
+  skip_unless: client_income_relevant?
+
+# Other income / Partner
+- name: undefined_51
+  type: text
+  value_type: money_attribute
+  attribute: partner_non_employment_income
+  skip_unless: partner_income_relevant?
+
+# Total gross income / Client
+- name: undefined_52
+  type: text
+  value_type: money_from_cfe_payload
+  cfe_payload_location: result_summary.gross_income.total_gross_income
+  skip_unless: client_income_relevant?
+
+# Total gross income / Partner
+- name: undefined_53
+  type: text
+  value_type: money_from_cfe_payload
+  cfe_payload_location: result_summary.partner_gross_income.total_gross_income
+  skip_unless: partner_income_relevant?
+
+# Total gross income  Client and Partner
+- name: undefined_54
+  type: text
+  value_type: money_from_cfe_payload
+  cfe_payload_location: result_summary.gross_income.combined_total_gross_income
+  skip_unless: client_income_relevant?
+
+# Mortgage instalment / Client
+- name: undefined_55
+  type: text
+  value_type: money_attribute
+  attribute: client_mortgage
+  skip_unless: client_income_relevant?
+
+# Mortgage instalment / Partner
+- name: undefined_56
+  type: text
+  value_type: money_attribute
+  attribute: partner_mortgage
+  skip_unless: partner_income_relevant?
+
+# Rent / Client
+- name: undefined_57
+  type: text
+  value_type: money_attribute
+  attribute: client_rent
+  skip_unless: client_income_relevant?
+
+# Rent / Partner
+- name: undefined_58
+  type: text
+  value_type: money_attribute
+  attribute: partner_rent
+  skip_unless: partner_income_relevant?
+
+# Dependents' allowances / Partner
+- name: undefined_59
+  type: text
+  value_type: money_from_cfe_payload
+  cfe_payload_location: result_summary.disposable_income.partner_allowance
+  skip_unless: client_income_relevant?
+
+# Dependents' allowances / Aged 15 or under
+- name: undefined_60
+  type: text
+  value_type: money_attribute
+  attribute: client_and_partner_under_16_dependant_allowance
+  skip_unless: client_income_relevant?
+
+# Dependents' allowances / Aged 16 or over
+- name: undefined_61
+  type: text
+  value_type: money_attribute
+  attribute: client_and_partner_16_plus_dependant_allowance
+  skip_unless: client_income_relevant?
+
+# Tax and national insurance / Client
+- name: undefined_62
+  type: text
+  value_type: money_attribute
+  attribute: client_tax_and_national_insurance
+  skip_unless: client_income_relevant?
+
+# Tax and national insurance / Partner
+- name: undefined_63
+  type: text
+  value_type: money_attribute
+  attribute: partner_tax_and_national_insurance
+  skip_unless: partner_income_relevant?
+
+# Standard allowance for employment expense / Client
+- name: undefined_64
+  type: text
+  value_type: money_attribute
+  attribute: client_employment_deduction
+  skip_unless: client_income_relevant?
+
+# Standard allowance for employment expense / Client
+- name: undefined_65
+  type: text
+  value_type: money_attribute
+  attribute: partner_employment_deduction
+  skip_unless: partner_income_relevant?
+
+# Maintenance allowance / Client
+- name: undefined_66
+  type: text
+  value_type: money_from_cfe_payload
+  cfe_payload_location: result_summary.disposable_income.maintenance_allowance
+  skip_unless: client_income_relevant?
+
+# Maintenance allowance / Partner
+- name: undefined_67
+  type: text
+  value_type: money_from_cfe_payload
+  cfe_payload_location: result_summary.partner_disposable_income.maintenance_allowance
+  skip_unless: partner_income_relevant?
+
+# Childcare costs
+- name: undefined_68
+  type: text
+  value_type: money_attribute
+  attribute: combined_childcare_costs
+  skip_unless: client_income_relevant?
+
+
+# Payment of income contribution order / Client
+- name: undefined_69
+  type: text
+  value_type: money_from_cfe_payload
+  cfe_payload_location: assessment.disposable_income.monthly_equivalents.all_sources.legal_aid
+  skip_unless: client_income_relevant?
+
+# Payment of income contribution order / Partner
+- name: undefined_70
+  type: text
+  value_type: money_from_cfe_payload
+  cfe_payload_location: assessment.partner_disposable_income.monthly_equivalents.all_sources.legal_aid
+  skip_unless: partner_income_relevant?
+
+# Total allowances / Client
+- name: undefined_71
+  type: text
+  value_type: money_from_cfe_payload
+  cfe_payload_location: result_summary.disposable_income.total_outgoings_and_allowances
+  skip_unless: client_income_relevant?
+
+# Total allowances / Partner
+- name: undefined_72
+  type: text
+  value_type: money_from_cfe_payload
+  cfe_payload_location: result_summary.partner_disposable_income.total_outgoings_and_allowances
+  skip_unless: partner_income_relevant?
+
+# Total monthly disposable income / Client
+- name: undefined_73
+  type: text
+  value_type: money_from_cfe_payload
+  cfe_payload_location: result_summary.disposable_income.total_disposable_income
+  skip_unless: client_income_relevant?
+
+# Total monthly disposable income / Partner
+- name: undefined_74
+  type: text
+  value_type: money_from_cfe_payload
+  cfe_payload_location: result_summary.partner_disposable_income.total_disposable_income
+  skip_unless: partner_income_relevant?
+
+# Total monthly disposable income Client and partner
+- name: undefined_75
+  type: text
+  value_type: money_from_cfe_payload
+  cfe_payload_location: result_summary.disposable_income.combined_total_disposable_income
+  skip_unless: client_income_relevant?
