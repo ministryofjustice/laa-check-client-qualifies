@@ -1,5 +1,38 @@
+# This model presents the session data for a check in a way that enables ControlledWorkDocumentValueMappingService
+# to access all the values specified by any given "mapping". These mappings either specify a direct attribute
+# or a "CFE payload path".
+
+# In the former case, the attribute is either one that the `Check` superclass makes available (i.e. it's
+# an attribute that's available in the session, with Check's extra logic to make sure that it's
+# an attribute associated with a screen that is relevant to the check), or its an attribute that's defined
+# explicitly as a method below
+
+# In the latter case, the "path" specifies the location in the "api_response" hash that we expect to find
+# in the session, which contains all the information CFE returned when we asked it to perform an
+# eligibility calculation for this check
 class ControlledWorkDocumentContent < Check
   include ActionView::Helpers::NumberHelper
+
+  def from_cfe_payload(path)
+    path_parts = path.split(".").map { _1.to_i.to_s == _1 ? _1.to_i : _1 }
+    value = session_data.dig("api_response", *path_parts)
+    format(value)
+  end
+
+  def from_attribute(attribute)
+    format(send(attribute))
+  end
+
+private
+
+  def format(value)
+    return unless value
+    return value unless value.is_a?(Numeric)
+
+    precision = value.round == value ? 0 : 2
+
+    number_with_precision(value, precision:, delimiter: ",")
+  end
 
   def smod_assets?
     house_in_dispute || vehicle_in_dispute || in_dispute.present?
@@ -27,16 +60,6 @@ class ControlledWorkDocumentContent < Check
     else
       percentage_owned || partner_percentage_owned
     end
-  end
-
-  def money_from_cfe_payload(path)
-    path_parts = path.split(".").map { _1.to_i.to_s == _1 ? _1.to_i : _1 }
-    value = session_data.dig("api_response", *path_parts)
-    money(value)
-  end
-
-  def money_attribute(attribute)
-    money(send(attribute))
   end
 
   def smod_total
@@ -92,15 +115,6 @@ class ControlledWorkDocumentContent < Check
     !passporting
   end
 
-  def money(value)
-    return unless value
-    return value if value.is_a?(String)
-
-    precision = value.round == value ? 0 : 2
-
-    number_with_precision(value, precision:, delimiter: ",")
-  end
-
   def client_non_employment_income
     non_employment_income
   end
@@ -153,8 +167,6 @@ class ControlledWorkDocumentContent < Check
     (session_data.dig("api_response", "assessment", "disposable_income", "childcare_allowance") || 0) +
       (session_data.dig("api_response", "assessment", "partner_disposable_income", "childcare_allowance") || 0)
   end
-
-private
 
   def additional_non_smod_properties_sum(attribute)
     additional_non_smod_properties.sum { _1[attribute] }
