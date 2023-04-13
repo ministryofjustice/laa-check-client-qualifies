@@ -71,7 +71,7 @@ RSpec.describe Cfe::SubmitAssetsService do
 
     context "when there are no homes" do
       let(:session_data) do
-        FactoryBot.build(:basic_session,
+        FactoryBot.build(:minimal_complete_session,
                          :with_no_main_home,
                          :with_zero_capital_assets)
       end
@@ -84,7 +84,7 @@ RSpec.describe Cfe::SubmitAssetsService do
 
     context "when there is a second property but no main home" do
       let(:session_data) do
-        FactoryBot.build(:basic_session,
+        FactoryBot.build(:minimal_complete_session,
                          :with_no_main_home,
                          :with_zero_capital_assets,
                          property_value: 100_000,
@@ -120,7 +120,7 @@ RSpec.describe Cfe::SubmitAssetsService do
 
     context "when there is a SMOD second property" do
       let(:session_data) do
-        FactoryBot.build(:basic_session,
+        FactoryBot.build(:minimal_complete_session,
                          :with_no_main_home,
                          :with_zero_capital_assets,
                          property_value: 100_000,
@@ -157,7 +157,7 @@ RSpec.describe Cfe::SubmitAssetsService do
 
     context "when main property is owned outright" do
       let(:session_data) do
-        FactoryBot.build(:basic_session,
+        FactoryBot.build(:minimal_complete_session,
                          :with_main_home,
                          :with_zero_capital_assets,
                          property_owned: "outright",
@@ -183,7 +183,7 @@ RSpec.describe Cfe::SubmitAssetsService do
 
     context "when main property is owned outright and disputed" do
       let(:session_data) do
-        FactoryBot.build(:basic_session,
+        FactoryBot.build(:minimal_complete_session,
                          :with_main_home,
                          :with_zero_capital_assets,
                          property_owned: "outright",
@@ -210,7 +210,7 @@ RSpec.describe Cfe::SubmitAssetsService do
 
     context "when main property is owned outright by partner" do
       let(:session_data) do
-        FactoryBot.build(:basic_session,
+        FactoryBot.build(:minimal_complete_session,
                          :with_partner_owned_main_home,
                          :with_zero_capital_assets,
                          partner_house_value: 100_000,
@@ -237,7 +237,7 @@ RSpec.describe Cfe::SubmitAssetsService do
 
     context "when main property is owned with mortgage by partner" do
       let(:session_data) do
-        FactoryBot.build(:basic_session,
+        FactoryBot.build(:minimal_complete_session,
                          :with_partner_owned_main_home,
                          :with_zero_capital_assets,
                          partner_house_value: 100_000,
@@ -265,7 +265,7 @@ RSpec.describe Cfe::SubmitAssetsService do
 
     context "when main property is owned outright between client and partner" do
       let(:session_data) do
-        FactoryBot.build(:basic_session,
+        FactoryBot.build(:minimal_complete_session,
                          :with_main_home,
                          :with_zero_capital_assets,
                          property_owned: "outright",
@@ -294,7 +294,7 @@ RSpec.describe Cfe::SubmitAssetsService do
 
     context "when assets marked as SMOD, but SMOD does not apply" do
       let(:session_data) do
-        FactoryBot.build(:basic_session,
+        FactoryBot.build(:minimal_complete_session,
                          :with_main_home,
                          :with_zero_capital_assets,
                          savings: 100,

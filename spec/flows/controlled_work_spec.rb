@@ -1,13 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Controlled work flag", :controlled_flag, type: :feature do
-  it "adds a new screen" do
-    start_assessment
-    fill_in_provider_users_screen
-    fill_in_level_of_help_screen(choice: "Civil certificated or licensed legal work")
-    confirm_screen("applicant")
-  end
-
+RSpec.describe "Controlled work flow", type: :feature do
   it "skips the vehicle screens on a controlled work check" do
     start_assessment
     fill_in_forms_until(:level_of_help)

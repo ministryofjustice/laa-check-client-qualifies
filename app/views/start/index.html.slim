@@ -1,45 +1,32 @@
 .govuk-grid-column-two-thirds
+  - ChangeLogs.for_banner.each do |change_log|
+    = render "change_logs/banner", change_log:
+
   h1.govuk-heading-xl = t("service.name")
 
-  - if FeatureFlags.enabled?(:controlled)
-    p.govuk-body = t(".opening_paragraphs")[0]
-  - else
-    - t(".opening_paragraphs").each
-      p.govuk-body = _1
-    ul.govuk-list.govuk-list--bullet
-      - unless FeatureFlags.enabled?(:asylum_and_immigration)
-        li = t(".unacceptable_case_type_upper_tribunal")
-      li = t(".unacceptable_case_type_controlled_work")
-
-    p.govuk-body = t(".merits")
+  p.govuk-body = t(".opening_paragraph")
 
   .govuk-inset-text = t(".only_for_legal_aid_providers_html",
                          link: link_to(t(".check_if_you_can_get_legal_aid"), "https://www.gov.uk/check-legal-aid"))
 
-  - if FeatureFlags.enabled?(:controlled)
-    h2.govuk-heading-m = t(".case_types")
-    p.govuk-body = t(".case_types_intro")
+  h2.govuk-heading-m = t(".case_types")
+  p.govuk-body = t(".case_types_intro")
+  ul.govuk-list.govuk-list--bullet
+    - t(".valid_case_types").each
+      li = _1
+  - unless FeatureFlags.enabled?(:asylum_and_immigration)
+    p.govuk-body = t(".invalid_case_types_intro")
     ul.govuk-list.govuk-list--bullet
-      - t(".valid_case_types").each
+      - t(".invalid_case_types").each
         li = _1
-    - unless FeatureFlags.enabled?(:asylum_and_immigration)
-      p.govuk-body = t(".invalid_case_types_intro")
-      ul.govuk-list.govuk-list--bullet
-        - t(".invalid_case_types").each
-          li = _1
-    h2.govuk-heading-m = t(".client_types")
-    p.govuk-body = t(".unacceptable_client_explanation")
-    ul.govuk-list.govuk-list--bullet
-      - t(".unacceptable_client_types").each
-        li = _1
-    h2.govuk-heading-m = t(".service_function")
-    - t(".service_function_paragraphs").each
-      p.govuk-body = _1
-  - else
-    p class="govuk-body" = t(".unacceptable_client_explanation")
-    ul class="govuk-list govuk-list--bullet"
-      - t(".unacceptable_client_types").each
-        li = _1
+  h2.govuk-heading-m = t(".client_types")
+  p.govuk-body = t(".unacceptable_client_explanation")
+  ul.govuk-list.govuk-list--bullet
+    - t(".unacceptable_client_types").each
+      li = _1
+  h2.govuk-heading-m = t(".service_function")
+  - t(".service_function_paragraphs").each
+    p.govuk-body = _1
 
   h2 class="govuk-heading-m" = t(".before_start_heading")
 
@@ -55,3 +42,15 @@
     class: "govuk-button govuk-button--start govuk-!-margin-top-2",
     role: "button",
     id: "start"
+
+  - if ChangeLogs.occurred.any?
+    hr
+    p.govuk-body
+      = t(".last_updated", date: ChangeLogs.last_updated_at)
+      button.change-log-toggle.hidden.govuk-body [data-change-log-role="toggle"
+                                                  data-show-text=t(".show_all_updates")
+                                                  data-hide-text=t(".hide_all_updates")
+                                                  aria-label="Toggle update history"]
+
+    - ChangeLogs.occurred.each do |change_log|
+      = render "change_logs/log_item", change_log:

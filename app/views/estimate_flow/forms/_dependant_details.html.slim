@@ -1,3 +1,6 @@
+- suffix = FeatureFlags.enabled?(:dependance_allowance_increase) ? "" : "_legacy"
+- income_exclusion_key = "#{@estimate.level_of_help}_income_exclusion#{suffix}"
+
 = form_for(@form, url: wizard_path, method: :put) do |form|
   = form.govuk_error_summary t("generic.error_summary_title")
 
@@ -14,7 +17,8 @@
                           tag.ul(class: "govuk-list govuk-list--bullet") do \
                             (t("estimate_flow.#{i18n_key}.child_dependants.#{@estimate.level_of_help}_exclusions").map do |exclusion| \
                               tag.li(exclusion, class: "govuk-hint") \
-                            end).join.html_safe \
+                            end).join.html_safe + \
+                            tag.li(t("estimate_flow.dependant_details.child_dependants.#{income_exclusion_key}"), class: "govuk-hint") \
                           end \
                         },
           legend: { text: t("estimate_flow.#{i18n_key}.child_dependants.legend") } do
@@ -37,7 +41,8 @@
                               tag.li(t("estimate_flow.#{i18n_key}.adult_dependants.the_partner"), class: "govuk-hint") + \
                               (t("estimate_flow.#{i18n_key}.adult_dependants.#{@estimate.level_of_help}_exclusions").map do |exclusion| \
                                 tag.li(exclusion, class: "govuk-hint") \
-                              end).join.html_safe \
+                              end).join.html_safe + \
+                            tag.li(t("estimate_flow.dependant_details.adult_dependants.#{income_exclusion_key}"), class: "govuk-hint") \
                             end \
                           },
             legend: { text: t("estimate_flow.#{i18n_key}.adult_dependants.legend") } do
@@ -58,7 +63,8 @@
                             tag.ul(class: "govuk-list govuk-list--bullet") do \
                               (t("estimate_flow.#{i18n_key}.adult_dependants.#{@estimate.level_of_help}_exclusions").map do |exclusion| \
                                 tag.li(exclusion, class: "govuk-hint") \
-                              end).join.html_safe \
+                              end).join.html_safe + \
+                              tag.li(t("estimate_flow.dependant_details.adult_dependants.#{income_exclusion_key}"), class: "govuk-hint") \
                             end \
                           },
             legend: { text: t("estimate_flow.#{i18n_key}.adult_dependants.legend") } do

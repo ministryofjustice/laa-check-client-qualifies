@@ -54,8 +54,8 @@ cfe:
 
 featureFlags:
   sentry: ENABLED
-  controlled: ENABLED
   asylumAndImmigration: ENABLED
+  cwForms: ENABLED
 
 postgresql:
   enabled: true
@@ -75,6 +75,8 @@ postgresql:
     enabled: false
 
 geckoboard:
-  metricsDataset: "ccq_metrics_uat"
+  metricsDataset: "ccq_monthly_metrics_uat"
+  allMetricsDataset: "ccq_all_metrics_uat"
   validationsDataset: "ccq_validations_uat"
+  lastPagesDataset: "ccq_last_pages_uat"
   enabled: not_enabled

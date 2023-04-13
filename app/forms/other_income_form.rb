@@ -2,6 +2,7 @@ class OtherIncomeForm
   include ActiveModel::Model
   include ActiveModel::Attributes
   include SessionPersistable
+  include NumberValidatable
 
   REGULAR_INCOME_TYPES = %i[friends_or_family maintenance property_or_lodger pension].freeze
   IRREGULAR_INCOME_TYPES = %i[student_finance other].freeze

@@ -35,14 +35,9 @@ class EstimateModel
     attribute attr, :boolean
   end
 
-  attribute :property_owned, :string
-  attribute :partner_property_owned, :string
-  attribute :proceeding_type, :string
-  attribute :employment_status, :string
-  attribute :partner_employment_status, :string
-
-  # TODO: This should not be defaulted after :controlled flag removed
-  attribute :level_of_help, :string, default: "certificated"
+  ESTIMATE_STRINGS.each do |attr|
+    attribute attr, :string
+  end
 
   def owns_property?
     %i[with_mortgage outright].map(&:to_s).include? property_owned

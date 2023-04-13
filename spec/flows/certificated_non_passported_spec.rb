@@ -4,6 +4,7 @@ RSpec.describe "Certificated, non-passported flow", type: :feature do
   it "allows me a direct route to the check answers page" do
     start_assessment
     fill_in_provider_users_screen
+    fill_in_level_of_help_screen
     fill_in_applicant_screen
     fill_in_dependant_details_screen
     fill_in_housing_benefit_screen

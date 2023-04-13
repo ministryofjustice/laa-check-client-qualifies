@@ -3,16 +3,18 @@ $govuk-new-link-styles: true;
 $govuk-assets-path: "/";
 
 @import "govuk-frontend/govuk/all";
-// can only import this single component as moj/all
-// tries to import govuk/base which exists as _base.scss but the pipeline can't find it
-// components list doesn't seem to include badge anyway?
+// Import required moj components individually, as "moj/all"
+// tries to import govuk/base which exists as _base.scss but the pipeline can't find it.
+// Also, components list doesn't seem to include badge anyway?
 @import "@ministryofjustice/frontend/moj/components/badge/badge";
+@import "@ministryofjustice/frontend/moj/components/banner/banner";
 
 @import "panel-grey.scss";
 @import "sidebar";
 @import "results";
 @import "print";
 @import "width";
+@import "change-logs";
 
 // NOTE: suggestions input component not yet part of GOV.UK frontend
 // https://github.com/alphagov/govuk-frontend/pull/2453

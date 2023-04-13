@@ -47,7 +47,7 @@ RSpec.describe Cfe::SubmitVehicleService do
 
     context "when vehicle marked as SMOD, but SMOD does not apply" do
       let(:session_data) do
-        FactoryBot.build(:basic_session,
+        FactoryBot.build(:minimal_complete_session,
                          :with_vehicle,
                          vehicle_in_dispute: true,
                          proceeding_type: "IM030")

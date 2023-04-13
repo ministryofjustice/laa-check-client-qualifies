@@ -13,7 +13,7 @@ require "pry-rescue/rspec" if Rails.env.development?
 Capybara.register_driver :headless_chrome do |app|
   options = Selenium::WebDriver::Chrome::Options.new
   options.add_argument("--headless")
-  Capybara::Selenium::Driver.new(app, browser: :chrome, capabilities: options)
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options:)
 end
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -80,16 +80,16 @@ RSpec.configure do |config|
     WebMock.disable_net_connect!(allow_localhost: true, allow: ALLOWED_HOSTS)
   end
 
-  config.around(:each, :controlled_flag) do |example|
-    Flipper.enable(:controlled)
-    example.run
-    Flipper.disable(:controlled)
-  end
-
   config.around(:each, :asylum_and_immigration_flag) do |example|
     Flipper.enable(:asylum_and_immigration)
     example.run
     Flipper.disable(:asylum_and_immigration)
+  end
+
+  config.around(:each, :cw_forms_flag) do |example|
+    Flipper.enable(:cw_forms)
+    example.run
+    Flipper.disable(:cw_forms)
   end
 
   config.include ActiveSupport::Testing::TimeHelpers

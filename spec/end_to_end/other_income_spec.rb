@@ -62,7 +62,7 @@ RSpec.describe "Controlled other income", type: :feature do
     end
   end
 
-  context "when the check is for controlled work", :controlled_flag do
+  context "when the check is for controlled work" do
     before do
       start_assessment
       fill_in_forms_until(:level_of_help)

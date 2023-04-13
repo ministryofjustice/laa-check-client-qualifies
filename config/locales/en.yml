@@ -393,6 +393,10 @@ en:
               blank: Enter value of payments left on the vehicle
               greater_than: Payments left on the vehicle must be more than 0
               not_a_number: Payments left on the vehicle must be a number
+        controlled_work_document_selection:
+          attributes:
+            form_type:
+              blank: Select which form you need
   service:
     name: Check if your client qualifies for legal aid
     email: eligibility@justice.gov.uk
@@ -527,6 +531,9 @@ en:
       certificated_guidance:
         text: Guide to determining certificated work
         link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf
+      mental_health_guidance:
+        text: Means assessment section of Mental Health guidance
+        link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1143984/Mental_Health_Guidance_-_Contract_management_-_GOV.UK_2023.pdf
       certificated_hint: This includes full representation and family help (higher)
     asylum_support:
       question: Does your client get Asylum Support?
@@ -683,20 +690,24 @@ en:
         the_partner:  your client's partner
         certificated_exclusions:
           - anyone who owns any property, vehicles or other assets valued at over £8,000 in total
-          - anyone with over £307.64 income every month (any income below this will be deducted from the dependants allowance if an application is made)
+        certificated_income_exclusion_legacy: anyone with over £307.64 income every month (any income below this will be deducted from the dependants allowance if an application is made)
+        certificated_income_exclusion: anyone with over £338.90 income every month (any income below this will be deducted from the dependants allowance if an application is made)
         controlled_exclusions:
           - anyone who owns any property, vehicles or other assets valued at over £8,000 in total
-          - anyone with over £307.64 income every month (any income below this should be deducted from the dependants allowance when you complete the relevant controlled work form)
+        controlled_income_exclusion_legacy: anyone with over £307.64 income every month (any income below this should be deducted from the dependants allowance when you complete the relevant controlled work form)
+        controlled_income_exclusion: anyone with over £338.90 income every month (any income below this should be deducted from the dependants allowance when you complete the relevant controlled work form)
       child_dependants:
         legend: Does your client have any child dependants?
         label: How many?
         hint: "A child dependant is one who lives with your client and depends on them for financial support. For example, your client’s child or another child relative who lives in their household. Do not include any:"
         certificated_exclusions:
           - foster child
-          - child with over £307.64 income every month (any income below this will be deducted from the dependants allowance if an application is made)
+        certificated_income_exclusion_legacy: child with over £307.64 income every month (any income below this will be deducted from the dependants allowance if an application is made)
+        certificated_income_exclusion: child with over £338.90 income every month (any income below this will be deducted from the dependants allowance if an application is made)
         controlled_exclusions:
           - foster child
-          - child with over £307.64 income every month (any income below this should be deducted from the dependants allowance when you complete the relevant controlled work form)
+        controlled_income_exclusion_legacy: child with over £307.64 income every month (any income below this should be deducted from the dependants allowance when you complete the relevant controlled work form)
+        controlled_income_exclusion: child with over £338.90 income every month (any income below this should be deducted from the dependants allowance when you complete the relevant controlled work form)
       second_caption: "A dependant:"
       second_caption_bullets:
         - is someone who lives with your client and depends on them for financial support
@@ -721,11 +732,9 @@ en:
         certificated_exclusions:
           - anyone who owns any property, vehicles or other assets valued at over £8,000 in total
           - any adult you've listed as a dependant of the client
-          - anyone with over £307.64 income every month (any income below this will be deducted from the dependants allowance if an application is made)
         controlled_exclusions:
           - anyone who owns any property, vehicles or other assets valued at over £8,000 in total
           - any adult you've listed as a dependant of the client
-          - anyone with over £307.64 income every month (any income below this should be deducted from the dependants allowance when you complete the relevant controlled work form)
       child_dependants:
         legend: Does the partner have any child dependants?
         label: How many?
@@ -733,11 +742,9 @@ en:
         certificated_exclusions:
           - foster child
           - child you’ve listed as a dependant of the client
-          - child with over £307.64 income every month (any income below this will be deducted from the dependants allowance if an application is made)
         controlled_exclusions:
           - foster child
           - child you’ve listed as a dependant of the client
-          - child with over £307.64 income every month (any income below this should be deducted from the dependants allowance when you complete the relevant controlled work form)
       second_caption: "A dependant:"
       second_caption_bullets:
         - is someone who lives with the partner and depends on them for financial support
@@ -1182,9 +1189,9 @@ en:
         adult_dependants_count: Number of adult dependants
         child_dependants: Has child dependants
         child_dependants_count: Number of child dependants
-      employment: Employment
+      employment: Pay
       employment_fields:
-        gross_income: Gross income
+        gross_income: Gross pay
         income_tax: Income tax
         national_insurance: National Insurance
         frequency: Frequency
@@ -1223,12 +1230,12 @@ en:
         vehicle_value: Estimated value
         vehicle_in_regular_use: In regular use
         vehicle_over_3_years_ago: Bought over 3 years ago
-        vehicle_pcp: Outstanding finance on vehicle?
-        vehicle_finance: Payments left on vehicle
+        vehicle_pcp: Payments left on vehicle
+        vehicle_finance: Value of payments left
       property: Home client lives in
       partner_property: Home client lives in
       partner_property_fields:
-        partner_property_owned: Owns the home they live it
+        partner_property_owned: Owns the home they live in
         partner_property_owned_options:
           outright: "Yes"
           with_mortgage: "Yes"
@@ -1271,9 +1278,9 @@ en:
         savings: Savings
         investments: Investments
         valuables: Valuables
-      partner_employment: Partner's employment
+      partner_employment: Partner's pay
       partner_employment_fields:
-        partner_gross_income: Gross income
+        partner_gross_income: Gross pay
         partner_income_tax: Income tax
         partner_national_insurance: National Insurance
         partner_frequency: Frequency
@@ -1310,8 +1317,8 @@ en:
         partner_vehicle_value: Estimated value
         partner_vehicle_in_regular_use: In regular use
         partner_vehicle_over_3_years_ago: Bought over 3 years ago
-        partner_vehicle_pcp: Outstanding finance on vehicle?
-        partner_vehicle_finance: Payments left on vehicle
+        partner_vehicle_pcp: Payments left on vehicle
+        partner_vehicle_finance: Value of payments left
       partner_other: Partner's other assets
       partner_other_fields:
         partner_property_value: "Additional property or holiday home: value"
@@ -1528,6 +1535,7 @@ en:
       client_assessed_capital: Disposable capital
       partner_assessed_capital: Disposable capital
       start_another_check: Start another eligibility check
+      continue_to_cw: Continue to CW forms
       print_page: Print this page
       save_as_pdf: Save this page as a PDF
       total_capital: Total capital
@@ -1583,6 +1591,27 @@ en:
           first_certificated: The calculations below assess the value of any property and vehicles the client owns.
           first_controlled: The calculations below assess the value of any property the client owns.
           second: The assessed values are used to calculate the total disposable capital for your client.
+      controlled_cw_next_steps:
+        intro_paragraphs:
+          - You will need to complete the relevant controlled work form and keep for your records, along with any evidence provided by your client. Your client’s file may be audited and assessed by the LAA at a later date.
+          - You can download a controlled work form with the answers you gave included, or complete the form yourself.
+        prefilled_header: Download a controlled work form with your answers included
+        prefilled_bullets:
+          - Choose which form to download on the next page. The answers you gave here will be included.
+          - Add your client’s personal details and any other questions not already filled in.
+          - Get your client to sign the form.
+          - Keep the form, with any evidence provided by your client, for your records.
+        manual_header:  Complete a controlled work form yourself
+        manual_instruction: Download a <a href='https://www.gov.uk/government/collections/controlled-work-application-forms' target='_blank' rel='noreferrer noopener'>controlled work application form</a>. Some of these can be filled in on a computer.
+      ineligible_explanation:
+        text: Your %{subject} %{value_type} exceeds the upper limit. This means %{outcome} not qualify for legal aid.
+        subject_no_partner: client’s
+        subject_with_partner: client and their partner’s combined
+        gross_income: total monthly income
+        outcome_no_partner: they do
+        outcome_with_partner: your client does
+        disposable_income: disposable monthly income
+        capital: disposable capital
     limits_table:
       calculation_information: We’ve used the information you provided to compare your client’s income and outgoings. This allows us to calculate their monthly disposable income.
       regulations_html: "All the regulations referred to on this page can be found in the <a href='http://www.legislation.gov.uk/all?title=Civil%20Legal%20Aid%20%28Financial%20Resources%20'>Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 and subsequent amendments</a>."
@@ -1646,12 +1675,7 @@ en:
         - 'find out what information we use to <a href="https://www.gov.uk/guidance/civil-legal-aid-means-testing">check who can get civil legal aid</a>'
   start:
     index:
-      opening_paragraphs:
-        - Use this service to find out if your client is likely to get civil legal aid, based on their financial situation.
-        - "This must be for a case that would be civil certificated or licensed legal work. It cannot be for a case that would be:"
-      unacceptable_case_type_upper_tribunal: in the Immigration and Asylum Chamber of the Upper Tribunal
-      unacceptable_case_type_controlled_work: controlled work
-      merits: This service cannot tell you if the merits or the type of case put it in scope for civil legal aid. You will have to make an application to find this out.
+      opening_paragraph: Use this service to find out if your client is likely to get civil legal aid, based on their financial situation.
       only_for_legal_aid_providers_html: You can only use this service if you give legal advice or provide legal services. %{link} as an individual.
       check_if_you_can_get_legal_aid: Check if you can get legal aid
       unacceptable_client_explanation: "You cannot use this service if your client (or their partner) is:"
@@ -1683,6 +1707,9 @@ en:
         - savings and investments
         - assets, like property and vehicles
       start_button: Start now
+      last_updated: Last updated %{date}
+      show_all_updates: + show all updates
+      hide_all_updates: "- hide all updates"
   cookie_banner:
     title: Cookies on
     essential_cookies: We use some essential cookies to make this service work.
@@ -1785,4 +1812,36 @@ en:
       - Council tax rebate
       - Energy Bills Support Scheme (EBSS)
       - Payments for those who are not served by mains gas
+  change_logs:
+    dependant_allowance:
+      banner:
+        header: Changes to dependant and partner allowances
+        prior_text: "On 10 April 2023 some allowances used to estimate if a client is likely to meet the financial criteria for legal aid will change:"
+        live_text: "On 10 April 2023 some allowances used to estimate if a client is likely to meet the financial criteria for legal aid changed:"
+        prior_bullets:
+          - partner allowance increases to £211.32 (currently £191.41)
+          - dependant allowance increases to £338.90 (currently £307.64)
+        live_bullets:
+          - partner allowance increased to £211.32 (was £191.41)
+          - dependant allowance increased to £338.90 (was £307.64)
+      history:
+        text: "Changes to dependant and partner allowances: "
+        bullets:
+          - partner allowance increased to £211.32 (was £191.41)
+          - dependant allowance increased to £338.90 (was £307.64)
+  controlled_work_document_selections:
+    new:
+      title: Which controlled work (CW) form do you need?
+      explainers:
+        - Your answers from previous pages will be included in the CW form you select to download.
+        - After you download the form, you will need to add your client’s details and any other information needed on that form.
+        - Once complete, get your client to sign the form and keep it, with any evidence provided by your client, for your records.
+      option:
+        cw1: CW1 - legal help, help at court or family help (lower)
+        cw2: CW2 (IMM) - immigration
+        cw1_and_2: CW1&2 - mental health
+        cw5: CW5 - help with family mediation
+        civ_means_7: CIV Means 7 - family mediation
+      download: Download the pre-populated form
+      start_another_check: Start another eligibility check
 

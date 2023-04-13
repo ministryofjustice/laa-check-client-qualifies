@@ -4,10 +4,11 @@ class CalculationResult
 
   include ActionView::Helpers::NumberHelper
 
-  attr_accessor :level_of_help
+  attr_reader :level_of_help
 
-  def initialize(api_response)
-    @api_response = api_response
+  def initialize(session_data)
+    @api_response = session_data["api_response"].deep_symbolize_keys
+    @level_of_help = session_data.fetch("level_of_help", "certificated")
   end
 
   def decision
@@ -24,6 +25,10 @@ class CalculationResult
 
   def calculated?(section)
     api_response.dig(:result_summary, section, :proceeding_types).none? { _1[:result] == "pending" }
+  end
+
+  def ineligible?(section)
+    api_response.dig(:result_summary, section, :proceeding_types).all? { _1[:result] == "ineligible" }
   end
 
   def capital_contribution
@@ -71,12 +76,7 @@ class CalculationResult
   end
 
   def partner_assessed_capital
-    # If the pensioner_capital_disregard is applied, it is applied by CFE in full even when the disregard is
-    # greater than the client's total capital value. This can lead to the CFE 'assessed capital' figure
-    # being a negative number, which is unsuitable for display to the end user.
-    # Therefore we must correct the CFE result to display a zero if it comes back negative.
-    cfe_result = api_response.dig(:result_summary, :partner_capital, :assessed_capital)
-    monetise([cfe_result, 0].compact.max)
+    monetise(api_response.dig(:result_summary, :partner_capital, :total_capital_with_smod))
   end
 
   def client_income_rows
@@ -323,10 +323,17 @@ private
 
   def vehicle_rows(prefix:)
     vehicles = capital_items(:vehicles, prefix)
-    {
-      value: monetise(vehicles.sum(0) { _1.fetch(:value) }),
-      outstanding_payments: monetise(-vehicles.sum(0) { _1.fetch(:loan_amount_outstanding) }),
-      disregards: monetise(-vehicles.sum(0) { _1.fetch(:disregards_and_deductions) }),
-    }
+    vehicle = vehicles.first
+    if vehicle[:in_regular_use]
+      {
+        value: monetise(vehicle[:value]),
+        outstanding_payments: monetise(-vehicle[:loan_amount_outstanding]),
+        disregards: monetise(-vehicle[:disregards_and_deductions]),
+      }
+    else
+      {
+        value: monetise(vehicle[:value]),
+      }
+    end
   end
 end

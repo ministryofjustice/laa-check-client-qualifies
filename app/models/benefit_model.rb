@@ -2,6 +2,7 @@ class BenefitModel
   include ActiveModel::Model
   include ActiveModel::Attributes
   include SessionPersistable
+  include NumberValidatable
 
   FREQUENCY_OPTIONS = %w[every_week every_two_weeks every_four_weeks monthly].freeze
 

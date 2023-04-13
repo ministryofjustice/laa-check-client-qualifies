@@ -11,7 +11,7 @@ RSpec.describe "Certificated check without partner", type: :feature do
       headers: { "Content-Type" => "application/json" },
     )
     stubbed_assessment_call = stub_request(:post, %r{assessments\z}).with do |request|
-      expect(request.body).to eq({ submission_date: "2023-02-15" }.to_json)
+      expect(request.body).to eq({ submission_date: "2023-02-15", level_of_help: "certificated" }.to_json)
     end
     create_assessment_stub = stubbed_assessment_call.to_return(
       body: { assessment_id: "assessment_id" }.to_json,
@@ -115,6 +115,7 @@ RSpec.describe "Certificated check without partner", type: :feature do
     # This test explicitly asserts what screens are visited in what order
     start_assessment
     fill_in_provider_users_screen
+    fill_in_level_of_help_screen
     fill_in_applicant_screen(employed: "Employed and in work")
     fill_in_dependant_details_screen(child_dependants: "Yes", child_dependants_count: 1)
     fill_in_employment_screen

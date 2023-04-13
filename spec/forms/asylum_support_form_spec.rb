@@ -3,8 +3,10 @@ require "rails_helper"
 RSpec.describe "asylum_support", type: :feature do
   let(:asylum_support_header) { I18n.t("estimate_flow.asylum_support.question") }
   let(:assessment_code) { :assessment_code }
+  let(:level_of_help) { "certificated" }
 
   before do
+    set_session(assessment_code, "level_of_help" => level_of_help)
     visit "estimates/#{assessment_code}/build_estimates/asylum_support"
   end
 
@@ -20,11 +22,12 @@ RSpec.describe "asylum_support", type: :feature do
     expect(session_contents["asylum_support"]).to eq true
   end
 
+  it "has no extra piece of guidance" do
+    expect(page).not_to have_content "Guide to determining controlled work"
+  end
+
   context "when in a controlled work context" do
-    before do
-      set_session(assessment_code, "level_of_help" => "controlled")
-      visit "estimates/#{assessment_code}/build_estimates/asylum_support"
-    end
+    let(:level_of_help) { "controlled" }
 
     it "has an extra piece of guidance" do
       expect(page).to have_content "Guide to determining controlled work"

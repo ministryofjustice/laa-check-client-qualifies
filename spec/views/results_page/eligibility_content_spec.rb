@@ -1,12 +1,15 @@
 require "rails_helper"
 
 RSpec.describe "estimates/show.html.slim" do
-  describe "Eligibility content", :controlled_flag do
-    let(:calculation_result) { CalculationResult.new(api_response).tap { _1.level_of_help = level_of_help } }
+  describe "Eligibility content" do
+    let(:calculation_result) { CalculationResult.new(session_data) }
     let(:estimate) { EstimateModel.from_session(session_data) }
 
     let(:session_data) do
-      {}.with_indifferent_access
+      {
+        api_response:,
+        level_of_help:,
+      }.with_indifferent_access
     end
 
     before do
@@ -21,7 +24,7 @@ RSpec.describe "estimates/show.html.slim" do
       let(:api_response) { FactoryBot.build(:api_result, eligible: "eligible") }
 
       it "show eligible" do
-        expect(rendered).to include "Your client is likely to qualify for civil legal aid"
+        expect(page_text).to include "Your client is likely to qualify for civil legal aid"
       end
     end
 
@@ -30,7 +33,7 @@ RSpec.describe "estimates/show.html.slim" do
       let(:api_response) { FactoryBot.build(:api_result, eligible: "eligible") }
 
       it "shows eligibility message" do
-        expect(rendered).to include "Your client is likely to qualify for civil legal aid, for controlled work and family mediation"
+        expect(page_text).to include "Your client is likely to qualify for civil legal aid, for controlled work and family mediation"
       end
     end
 
@@ -39,16 +42,48 @@ RSpec.describe "estimates/show.html.slim" do
       let(:api_response) { FactoryBot.build(:api_result, eligible: "contribution_required") }
 
       it "show eligible" do
-        expect(rendered).to include "Your client is likely to qualify for civil legal aid"
+        expect(page_text).to include "Your client is likely to qualify for civil legal aid"
       end
     end
 
     context "when not eligible" do
       let(:level_of_help) { "certificated" }
-      let(:api_response) { FactoryBot.build(:api_result, eligible: "ineligible") }
+      let(:api_response) do
+        FactoryBot.build(
+          :api_result,
+          eligible: "ineligible",
+          result_summary: {
+            overall_result: {
+              result: "ineligible",
+            },
+            gross_income: {
+              proceeding_types: [
+                { "ccms_code": "SE013",
+                  "client_involvement_type": "I",
+                  "upper_threshold": 2657.0,
+                  "lower_threshold": 0.0,
+                  "result": "ineligible" },
+              ],
+            },
+            disposable_income: {
+              proceeding_types: [
+                { "result": "pending" },
+              ],
+            },
+            capital: {
+              proceeding_types: [
+                { "result": "pending" },
+              ],
+            },
+          },
+        )
+      end
 
       it "show ineligible" do
-        expect(rendered).to include("Your client is not likely to qualify for civil legal aid")
+        expect(page_text).to include(
+          "Your client’s total monthly income exceeds the upper limit. This means they do not qualify for legal aid.",
+        )
+        expect(page_text).to include("Your client is not likely to qualify for civil legal aid")
       end
     end
   end

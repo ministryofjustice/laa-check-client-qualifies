@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "estimates/show.html.slim" do
   describe "Result panel content" do
-    let(:calculation_result) { CalculationResult.new(api_response).tap { _1.level_of_help = level_of_help } }
+    let(:calculation_result) { CalculationResult.new(session_data) }
     let(:api_response) { FactoryBot.build(:api_result, eligible: "eligible") }
     let(:estimate) { EstimateModel.from_session(session_data) }
 
@@ -11,6 +11,7 @@ RSpec.describe "estimates/show.html.slim" do
         level_of_help:,
         proceeding_type:,
         asylum_support:,
+        api_response:,
       }.with_indifferent_access
     end
 

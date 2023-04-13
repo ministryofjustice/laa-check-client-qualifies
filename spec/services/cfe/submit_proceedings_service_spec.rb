@@ -23,7 +23,7 @@ RSpec.describe Cfe::SubmitProceedingsService do
       end
     end
 
-    context "when there is a controlled flag and the work is controlled", :controlled_flag do
+    context "when there is a controlled flag and the work is controlled" do
       let(:session_data) do
         {
           "level_of_help" => "controlled",
@@ -42,7 +42,7 @@ RSpec.describe Cfe::SubmitProceedingsService do
       end
     end
 
-    context "when the a&i flag is on", :controlled_flag, :asylum_and_immigration_flag do
+    context "when the a&i flag is on", :asylum_and_immigration_flag do
       let(:session_data) do
         {
           "level_of_help" => "controlled",

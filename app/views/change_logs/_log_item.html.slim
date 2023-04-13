@@ -1,0 +1,3 @@
+.change-log-item data-change-log-role="item"
+  h2.govuk-heading-s = Date.parse(change_log[:change_on]).strftime("%-d %B %Y")
+  = render "change_logs/history_texts/#{change_log[:key]}"

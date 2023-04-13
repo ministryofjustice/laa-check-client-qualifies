@@ -1,6 +1,46 @@
 FactoryBot.define do
-  factory :basic_session, class: Hash do
+  factory :minimal_complete_session, class: Hash do
     initialize_with { attributes.transform_keys(&:to_s) }
+
+    level_of_help { "certificated" }
+    legacy_proceeding_type { "SE003" }
+    over_60 { false }
+    employment_status { "unemployed" }
+    partner { false }
+    passporting { false }
+    child_dependants { false }
+    child_dependants_count { nil }
+    adult_dependants { false }
+    adult_dependants_count { nil }
+    housing_benefit { false }
+    add_benefit { false }
+    friends_or_family_value { 0 }
+    friends_or_family_frequency { "" }
+    maintenance_value { 0 }
+    maintenance_frequency { "" }
+    property_or_lodger_value { 0 }
+    property_or_lodger_frequency { "" }
+    pension_value { 0 }
+    pension_frequency { "" }
+    student_finance_value { 0 }
+    other_value { 0 }
+    housing_payments_value { 0 }
+    housing_payments_frequency { "" }
+    childcare_payments_value { 0 }
+    childcare_payments_frequency { "" }
+    maintenance_payments_value { 0 }
+    maintenance_payments_frequency { "" }
+    legal_aid_payments_value { 0 }
+    legal_aid_payments_frequency { "" }
+    property_owned { "none" }
+    vehicle_owned { false }
+    property_value { 0 }
+    property_mortgage { 0 }
+    property_percentage_owned { nil }
+    savings { 0 }
+    investments { 0 }
+    valuables { 0 }
+    in_dispute { [] }
 
     trait :with_main_home do
       property_owned { "outright" }
@@ -9,6 +49,42 @@ FactoryBot.define do
       percentage_owned { 100 }
       house_in_dispute { false }
       joint_ownership { false }
+    end
+
+    trait :with_employment do
+      employment_status { "in_work" }
+      frequency { "monthly" }
+      gross_income { 1543 }
+      income_tax { 223 }
+      national_insurance { 112 }
+    end
+
+    trait :with_other_income do
+      friends_or_family_value { 40 }
+      friends_or_family_frequency { "every_week" }
+      maintenance_value { 125 }
+      maintenance_frequency { "every_two_weeks" }
+      property_or_lodger_value { 155 }
+      property_or_lodger_frequency { "every_four_weeks" }
+      pension_value { 1234 }
+      pension_frequency { "monthly" }
+      student_finance_value { 359 }
+      other_value { 259 }
+    end
+
+    trait :with_outgoings do
+      housing_payments_value { 555 }
+      housing_payments_frequency { "monthly" }
+      childcare_payments_value { 333 }
+      childcare_payments_frequency { "every_four_weeks" }
+      maintenance_payments_value { 222 }
+      maintenance_payments_frequency { "every_two_weeks" }
+      legal_aid_payments_value { 56 }
+      legal_aid_payments_frequency { "every_week" }
+    end
+
+    trait :with_partner do
+      partner { true }
     end
 
     trait :with_partner_owned_main_home do

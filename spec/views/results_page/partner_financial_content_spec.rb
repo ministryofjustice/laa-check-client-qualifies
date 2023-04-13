@@ -2,8 +2,12 @@ require "rails_helper"
 
 RSpec.describe "estimates/show.html.slim" do
   describe "Partner financial content" do
-    let(:calculation_result) { CalculationResult.new(api_response).tap { _1.level_of_help = "certificated" } }
-    let(:estimate) { EstimateModel.from_session({ "partner" => true }) }
+    let(:calculation_result) { CalculationResult.new(session_data) }
+    let(:estimate) { EstimateModel.from_session(session_data) }
+    let(:session_data) do
+      { "partner" => true, "api_response" => api_response, "level_of_help" => "certificated" }
+    end
+    let(:vehicle_in_regular_use) { true }
     let(:api_response) do
       FactoryBot.build(
         :api_result,
@@ -67,6 +71,7 @@ RSpec.describe "estimates/show.html.slim" do
             total_vehicle: 3_000,
             total_liquid: 3676,
             total_non_liquid: 5353,
+            total_capital_with_smod: 30_000,
             proceeding_types: [
               { upper_threshold: 2657.0,
                 result: "eligible" },
@@ -116,6 +121,7 @@ RSpec.describe "estimates/show.html.slim" do
                   loan_amount_outstanding: 234,
                   disregards_and_deductions: 144,
                   assessed_value: 3,
+                  in_regular_use: vehicle_in_regular_use,
                 },
               ],
               liquid: [],
@@ -205,9 +211,18 @@ RSpec.describe "estimates/show.html.slim" do
       expect(page_text).to include "Assessed vehicle value £3,000.00"
       expect(page_text).to include "Savings £3,676.00"
       expect(page_text).to include "Investments and valuables £5,353.00"
-      expect(page_text).to include "Disposable capital £0.00"
+      expect(page_text).to include "Disposable capital £30,000.00"
       expect(page_text).to include "Total assessed disposable capital £0.00"
       expect(page_text).to include "Disposable capital upper limit £2,657.00"
+    end
+
+    context "when the vehicle is not in regular use" do
+      let(:vehicle_in_regular_use) { false }
+
+      it "does not show additional vehicle rows" do
+        expect(page_text).not_to include "Outstanding payments -£234.00"
+        expect(page_text).not_to include "Disregards and deductions -£144.00"
+      end
     end
   end
 end

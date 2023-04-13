@@ -84,26 +84,27 @@ RSpec.describe "Accessibility" do
     end
 
     StepsHelper.all_possible_steps.each do |step|
-      it "has no AXE-detectable accessibility issues on #{step} step" do
-        visit estimate_build_estimate_path(estimate_id, step)
+      %w[controlled certificated].each do |level_of_help|
+        it "has no AXE-detectable accessibility issues on #{step} step when level of help is #{level_of_help}" do
+          set_session(estimate_id, { "level_of_help" => level_of_help })
+          visit estimate_build_estimate_path(estimate_id, step)
 
-        # govuk components deliberately break ARIA rules by putting 'aria-expanded' attributes on inputs
-        # C.F. https://github.com/alphagov/govuk-frontend/issues/979
-        expect(page).to be_axe_clean.skipping("aria-allowed-attr")
+          # govuk components deliberately break ARIA rules by putting 'aria-expanded' attributes on inputs
+          # C.F. https://github.com/alphagov/govuk-frontend/issues/979
+          expect(page).to be_axe_clean.skipping("aria-allowed-attr")
+        end
       end
     end
   end
 
   describe "Results page" do
     let(:estimate_id) { SecureRandom.uuid }
-    let(:calculation_result) do
-      CalculationResult.new(build(:api_result)).tap { _1.level_of_help = "certificated" }
-    end
+    let(:api_result) { build(:api_result) }
     let(:mock_connection) do
       instance_double(CfeConnection, create_applicant: nil,
                                      create_assessment_id: nil,
                                      create_proceeding_types: nil,
-                                     api_result: calculation_result)
+                                     api_result:)
     end
 
     before do
@@ -114,22 +115,24 @@ RSpec.describe "Accessibility" do
     end
 
     it "has no AXE-detectable accessibility issues" do
-      expect(page).to be_axe_clean
+      # govuk accordions deliberately break ARIA rules by putting 'aria-labelledBy' without a role
+      # C.F. https://github.com/alphagov/govuk-frontend/issues/2472#issuecomment-1398629391
+      expect(page).to be_axe_clean.skipping("aria-allowed-attr")
     end
   end
 
   describe "Print results page" do
     let(:estimate_id) { SecureRandom.uuid }
-    let(:calculation_result) do
-      CalculationResult.new(build(:api_result)).tap { _1.level_of_help = level_of_help }
-    end
+    let(:api_result) { build(:api_result) }
 
     before do
       travel_to arbitrary_fixed_time
-      allow(CfeService).to receive(:call).and_return(calculation_result)
+      allow(CfeService).to receive(:call).and_return(api_result)
       visit check_answers_estimate_path estimate_id
       click_on "Submit"
       click_on "Print this page"
+      windows = page.driver.browser.window_handles
+      page.driver.browser.switch_to.window(windows.last)
     end
 
     context "when assessing controlled work" do
