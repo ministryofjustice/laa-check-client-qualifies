@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe ControlledWorkDocumentValueMappingService do
   it "raises an error if it encounters an unknown mapping type" do
-    mappings = [{ name: "foo", type: "typo", value_type: "attribute", attribute: "bar" }]
+    mappings = [{ name: "foo", type: "typo", value_type: "from_attribute", attribute: "bar" }]
     session_data = {}
     expect { described_class.call(session_data, mappings) }.to raise_error "Unknown mapping type typo for mapping foo"
   end
@@ -14,19 +14,19 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
   end
 
   it "retrieves values from the session based on mappings" do
-    mappings = [{ name: "foo", type: "text", value_type: "attribute", attribute: "level_of_help" }]
+    mappings = [{ name: "foo", type: "text", value_type: "from_attribute", attribute: "level_of_help" }]
     session_data = { "level_of_help" => "controlled" }
     expect(described_class.call(session_data, mappings)["foo"]).to eq "controlled"
   end
 
   it "respects 'skip_if'" do
-    mappings = [{ name: "foo", type: "text", value_type: "attribute", attribute: "level_of_help", skip_if: "partner" }]
+    mappings = [{ name: "foo", type: "text", value_type: "from_attribute", attribute: "level_of_help", skip_if: "partner" }]
     session_data = { "level_of_help" => "controlled", "partner" => true }
     expect(described_class.call(session_data, mappings)["foo"]).to eq nil
   end
 
   it "respects 'skip_unless'" do
-    mappings = [{ name: "foo", type: "text", value_type: "attribute", attribute: "level_of_help", skip_unless: "partner" }]
+    mappings = [{ name: "foo", type: "text", value_type: "from_attribute", attribute: "level_of_help", skip_unless: "partner" }]
     session_data = { "level_of_help" => "controlled", "partner" => false }
     expect(described_class.call(session_data, mappings)["foo"]).to eq nil
   end
