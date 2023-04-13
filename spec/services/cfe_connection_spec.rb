@@ -6,8 +6,6 @@ end
 
 RSpec.describe CfeConnection do
   let(:connection) { described_class.new }
-  let(:host) { "https://check-financial-eligibility-partner-staging.cloud-platform.service.justice.gov.uk" }
-  let(:root_url) { "#{host}/assessments" }
 
   it "reformats raised errors" do
     faraday_client = instance_double("MockableFaradayClient")
@@ -29,7 +27,7 @@ RSpec.describe CfeConnection do
     it "calls CFE with payload provided" do
       key = explicit_key || endpoint
       method_name = "create_#{endpoint}"
-      stub = stub_request(:post, "#{root_url}/#{assessment_id}/#{endpoint}").with(body: { key => payload }.to_json)
+      stub = stub_request(:post, %r{#{Regexp.compile(endpoint.to_s)}\z}).with(body: { key => payload }.to_json)
       connection.send(method_name, assessment_id, payload)
       expect(stub).to have_been_requested
     end
@@ -41,7 +39,7 @@ RSpec.describe CfeConnection do
 
     it "calls CFE with payload provided" do
       method_name = "create_#{endpoint}"
-      stub = stub_request(:post, "#{root_url}/#{assessment_id}/#{endpoint}").with(body: payload.to_json)
+      stub = stub_request(:post, %r{#{Regexp.compile(endpoint.to_s)}\z}).with(body: payload.to_json)
       connection.send(method_name, assessment_id, payload)
       expect(stub).to have_been_requested
     end
@@ -87,7 +85,7 @@ RSpec.describe CfeConnection do
     let(:body) { "body" }
 
     it "calls CFE and returns what it receives" do
-      stub_request(:get, "#{host}/state_benefit_type").to_return(body:)
+      stub_request(:get, %r{state_benefit_type\z}).to_return(body:)
       expect(connection.state_benefit_types).to eq body
     end
 
@@ -101,7 +99,7 @@ RSpec.describe CfeConnection do
 
   describe "status" do
     it "returns what CFE provides" do
-      stub_request(:get, "#{host}/healthcheck")
+      stub_request(:get, %r{healthcheck\z})
          .to_return(status: 200, body: { checks: { database: true } }.to_json, headers: { "Content-Type" => "application/json" })
       expect(connection.status).to eq({ database: true })
     end
@@ -112,7 +110,7 @@ RSpec.describe CfeConnection do
     let(:payload) { { "foo" => "bar" } }
 
     it "returns what CFE provides" do
-      stub_request(:get, "#{root_url}/#{assessment_id}")
+      stub_request(:get, %r{assessment_id\z})
         .to_return(status: 200, body: payload.to_json, headers: { "Content-Type" => "application/json" })
       result = connection.api_result(assessment_id)
       expect(result).to eq(payload)
@@ -125,7 +123,7 @@ RSpec.describe CfeConnection do
     let(:input_payload) { { foo: "bar" } }
 
     it "returns what CFE provides" do
-      stub_request(:post, root_url)
+      stub_request(:post, %r{assessments\z})
         .with(body: input_payload.to_json)
         .to_return(status: 200, body: output_payload.to_json, headers: { "Content-Type" => "application/json" })
       expect(connection.create_assessment_id(input_payload)).to eq(assessment_id)
