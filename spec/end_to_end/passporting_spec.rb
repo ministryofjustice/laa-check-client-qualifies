@@ -32,8 +32,8 @@ RSpec.describe "Certificated passported check", type: :feature do
       expect(content).to eq({
         "vehicles" => [
           {
-            "value" => "1.0",
-            "loan_amount_outstanding" => "5.0",
+            "value" => 1.0,
+            "loan_amount_outstanding" => 5.0,
             "date_of_purchase" => "2021-02-15",
             "in_regular_use" => false,
             "subject_matter_of_dispute" => false,
@@ -45,7 +45,7 @@ RSpec.describe "Certificated passported check", type: :feature do
     create_capitals_stub = stub_request(:post, %r{capitals\z}).with do |request|
       expected_payload = {
         "bank_accounts": [],
-        "non_liquid_capital": [{ "value": "800.0", "description": "Non Liquid Asset", "subject_matter_of_dispute": false }],
+        "non_liquid_capital": [{ "value": 800.0, "description": "Non Liquid Asset", "subject_matter_of_dispute": false }],
       }
       request.body == expected_payload.to_json
     end

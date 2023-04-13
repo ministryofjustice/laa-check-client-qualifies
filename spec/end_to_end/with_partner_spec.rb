@@ -25,11 +25,11 @@ RSpec.describe "Certificated check without partner", type: :feature do
       expect(content).to eq({
         "properties" => {
           "main_home" => {
-            "outstanding_mortgage" => "1.0",
+            "outstanding_mortgage" => 1.0,
             "percentage_owned" => 1,
             "shared_with_housing_assoc" => false,
             "subject_matter_of_dispute" => false,
-            "value" => "1.0",
+            "value" => 1.0,
           },
         },
       })
@@ -38,23 +38,23 @@ RSpec.describe "Certificated check without partner", type: :feature do
     create_partner_stub = stub_request(:post, %r{partner_financials\z}).with do |request|
       content = JSON.parse(request.body)
       expect(content["partner"]).to eq({ "date_of_birth" => "1973-02-15", "employed" => true })
-      expect(content["irregular_incomes"]).to eq([{ "income_type" => "unspecified_source", "frequency" => "quarterly", "amount" => "100.0" }])
-      expect(content.dig("employments", 0, "payments", 0)).to eq({ "gross" => "1.0",
-                                                                   "tax" => "-0.0",
-                                                                   "national_insurance" => "-0.0",
+      expect(content["irregular_incomes"]).to eq([{ "income_type" => "unspecified_source", "frequency" => "quarterly", "amount" => 100.0 }])
+      expect(content.dig("employments", 0, "payments", 0)).to eq({ "gross" => 1.0,
+                                                                   "tax" => 0.0,
+                                                                   "national_insurance" => 0.0,
                                                                    "client_id" => "id-0",
                                                                    "date" => "2023-02-15",
                                                                    "benefits_in_kind" => 0,
-                                                                   "net_employment_income" => "1.0" })
+                                                                   "net_employment_income" => 1.0 })
       expect(content["regular_transactions"]).to eq(
-        [{ "operation" => "credit", "category" => "friends_or_family", "frequency" => "weekly", "amount" => "200.0" }],
+        [{ "operation" => "credit", "category" => "friends_or_family", "frequency" => "weekly", "amount" => 200.0 }],
       )
       expect(content["state_benefits"].length).to eq 2
       expect(content["capitals"]).to eq({
-        "bank_accounts" => [], "non_liquid_capital" => [{ "value" => "700.0", "description" => "Non Liquid Asset", "subject_matter_of_dispute" => false }]
+        "bank_accounts" => [], "non_liquid_capital" => [{ "value" => 700.0, "description" => "Non Liquid Asset", "subject_matter_of_dispute" => false }]
       })
       expect(content["vehicles"]).to eq(
-        [{ "value" => "1.0", "loan_amount_outstanding" => 0, "date_of_purchase" => "2021-02-15", "in_regular_use" => false, "subject_matter_of_dispute" => false }],
+        [{ "value" => 1.0, "loan_amount_outstanding" => 0, "date_of_purchase" => "2021-02-15", "in_regular_use" => false, "subject_matter_of_dispute" => false }],
       )
       expect(content["dependants"]).to eq(
         [{ "date_of_birth" => "2012-02-15", "in_full_time_education" => true, "relationship" => "child_relative", "monthly_income" => 0, "assets_value" => 0 }],
