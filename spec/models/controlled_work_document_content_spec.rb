@@ -1,20 +1,7 @@
 require "rails_helper"
 
 RSpec.describe ControlledWorkDocumentContent do
-  describe "#main_home_percentage_owned" do
-    it "takes into account partner percentage owned" do
-      session_data = {
-        "property_owned" => "outright",
-        "partner" => true,
-        "joint_ownership" => true,
-        "percentage_owned" => 53,
-        "joint_percentage_owned" => 25,
-      }
-      expect(described_class.new(session_data).main_home_percentage_owned).to eq 78
-    end
-  end
-
-  describe "#money_from_cfe_payload" do
+  describe "#from_cfe_payload" do
     it "can handle paths with numbers in them" do
       session_data = {
         "api_response" => {
@@ -25,13 +12,26 @@ RSpec.describe ControlledWorkDocumentContent do
           ],
         },
       }
-      expect(described_class.new(session_data).money_from_cfe_payload("foo.1.bar")).to eq "56"
+      expect(described_class.new(session_data).from_cfe_payload("foo.1.bar")).to eq "56"
+    end
+  end
+
+  describe "#main_home_percentage_owned" do
+    it "takes into account partner percentage owned" do
+      session_data = {
+        "property_owned" => "outright",
+        "partner" => true,
+        "joint_ownership" => true,
+        "percentage_owned" => 53,
+        "joint_percentage_owned" => 25,
+      }
+      expect(described_class.new(session_data).from_attribute(:main_home_percentage_owned)).to eq "78"
     end
   end
 
   describe "#smod_total" do
     it "returns a reminder to populate this when CFE can provide it" do
-      expect(described_class.new.smod_total).to eq "TODO"
+      expect(described_class.new.from_attribute(:smod_total)).to eq "TODO"
     end
   end
 
@@ -57,7 +57,7 @@ RSpec.describe ControlledWorkDocumentContent do
           },
         },
       }
-      expect(described_class.new(session_data).additional_non_smod_properties_percentage_owned).to eq 50
+      expect(described_class.new(session_data).from_attribute(:additional_non_smod_properties_percentage_owned)).to eq "50"
     end
 
     it "returns nil if it differs" do
@@ -69,7 +69,7 @@ RSpec.describe ControlledWorkDocumentContent do
           },
         },
       }
-      expect(described_class.new(session_data).additional_non_smod_properties_percentage_owned).to eq nil
+      expect(described_class.new(session_data).from_attribute(:additional_non_smod_properties_percentage_owned)).to eq nil
     end
 
     it "ignores client capital if client additional home is SMOD" do
@@ -82,17 +82,7 @@ RSpec.describe ControlledWorkDocumentContent do
           },
         },
       }
-      expect(described_class.new(session_data).additional_non_smod_properties_percentage_owned).to eq 51
-    end
-
-    describe "#money" do
-      it "keeps whole numbers whole" do
-        expect(described_class.new.money(3_000)).to eq "3,000"
-      end
-
-      it "keeps decimals to 2 places" do
-        expect(described_class.new.money(3_000.1)).to eq "3,000.10"
-      end
+      expect(described_class.new(session_data).from_attribute(:additional_non_smod_properties_percentage_owned)).to eq "51"
     end
   end
 
@@ -106,7 +96,7 @@ RSpec.describe ControlledWorkDocumentContent do
         "api_response" => {
           "result_summary" => {
             "disposable_income" => {
-              "net_housing_costs" => 43,
+              "net_housing_costs" => 43.2,
             },
             "partner_disposable_income" => {
               "net_housing_costs" => 44,
@@ -118,25 +108,25 @@ RSpec.describe ControlledWorkDocumentContent do
 
     describe "#client_mortgage" do
       it "returns housing costs" do
-        expect(described_class.new(session_data).client_mortgage).to eq 43
+        expect(described_class.new(session_data).from_attribute(:client_mortgage)).to eq "43.20"
       end
     end
 
     describe "#partner_mortgage" do
       it "returns housing costs" do
-        expect(described_class.new(session_data).partner_mortgage).to eq 44
+        expect(described_class.new(session_data).from_attribute(:partner_mortgage)).to eq "44"
       end
     end
 
     describe "#client_rent" do
       it "returns zero" do
-        expect(described_class.new(session_data).client_rent).to eq 0
+        expect(described_class.new(session_data).from_attribute(:client_rent)).to eq "0"
       end
     end
 
     describe "#partner_rent" do
       it "returns zero" do
-        expect(described_class.new(session_data).partner_rent).to eq 0
+        expect(described_class.new(session_data).from_attribute(:partner_rent)).to eq "0"
       end
     end
   end
@@ -149,7 +139,7 @@ RSpec.describe ControlledWorkDocumentContent do
         "api_response" => {
           "result_summary" => {
             "disposable_income" => {
-              "net_housing_costs" => 43,
+              "net_housing_costs" => 43.2,
             },
             "partner_disposable_income" => {
               "net_housing_costs" => 44,
@@ -161,25 +151,25 @@ RSpec.describe ControlledWorkDocumentContent do
 
     describe "#client_mortgage" do
       it "returns zero" do
-        expect(described_class.new(session_data).client_mortgage).to eq 0
+        expect(described_class.new(session_data).from_attribute(:client_mortgage)).to eq "0"
       end
     end
 
     describe "#partner_mortgage" do
       it "returns zero" do
-        expect(described_class.new(session_data).partner_mortgage).to eq 0
+        expect(described_class.new(session_data).from_attribute(:partner_mortgage)).to eq "0"
       end
     end
 
     describe "#client_rent" do
       it "returns housing costs" do
-        expect(described_class.new(session_data).client_rent).to eq 43
+        expect(described_class.new(session_data).from_attribute(:client_rent)).to eq "43.20"
       end
     end
 
     describe "#partner_rent" do
       it "returns housing costs" do
-        expect(described_class.new(session_data).partner_rent).to eq 44
+        expect(described_class.new(session_data).from_attribute(:partner_rent)).to eq "44"
       end
     end
   end
