@@ -44,7 +44,6 @@ class EstimatesController < ApplicationController
         left: "1cm",
         right: "1cm",
       },
-      vision_deficiency: "deuteranopia",
       emulate_media: "print",
       launch_args: ["--font-render-hinting=medium", "--no-sandbox"],
       display_url: request.url.split("/estimates").first,
