@@ -44,12 +44,9 @@ class EstimatesController < ApplicationController
         left: "1cm",
         right: "1cm",
       },
-      timezone: "Europe/London",
       vision_deficiency: "deuteranopia",
       emulate_media: "print",
-      launch_args: ["--font-render-hinting=medium", "--lang=en-GB", "--no-sandbox"],
-      extra_http_headers: { "Accept-Language": "en_GB" },
-      geolocation: { latitude: 51.49969, longitude: -0.134728 },
+      launch_args: ["--font-render-hinting=medium", "--no-sandbox"],
       display_url: request.url.split("/estimates").first,
     }
 
