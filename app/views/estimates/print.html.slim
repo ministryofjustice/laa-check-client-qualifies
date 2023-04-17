@@ -11,9 +11,10 @@
         br
         = t(".agency")
 
-  h2.govuk-body-m
+  span.govuk-body-m
     => t(".date")
     strong = Date.current.strftime("%d %B %Y")
+    br
 
   button.govuk-button.govuk-button--secondary data-module="govuk-button" onclick="javascript:window.print()" = t(".print_this_page")
 
@@ -26,7 +27,7 @@
       p.govuk-body = t("estimates.show.next_steps_without_apply_paragraph_1")
     - else
       p.govuk-body = t("estimates.show.next_steps_paragraph_1")
-    p.govuk-body = t("estimates.show.next_steps_paragraph_2")
+      p.govuk-body = t("estimates.show.next_steps_paragraph_2")
 
     h2.govuk-heading-m = t("estimates.show.evidence_needed")
     = render "evidence"
