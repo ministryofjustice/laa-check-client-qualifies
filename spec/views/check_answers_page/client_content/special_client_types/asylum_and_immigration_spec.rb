@@ -13,7 +13,7 @@ RSpec.describe "estimates/check_answers.html.slim" do
   describe "immigration and asylum proceedings", :asylum_and_immigration_flag do
     let(:session_data) do
       build(:minimal_complete_session,
-            level_of_help: "controlled",
+            level_of_help:,
             legacy_proceeding_type: nil,
             proceeding_type:,
             asylum_support:)
@@ -23,21 +23,33 @@ RSpec.describe "estimates/check_answers.html.slim" do
       let(:proceeding_type) { "IM030" }
       let(:asylum_support) { true }
 
-      it "renders the correct case matter type" do
-        expect(page_text).to include("Type of matterImmigration in the Upper Tribunal")
-      end
+      context "when level of help is controlled" do
+        let(:level_of_help) { "controlled" }
 
-      context "and asylum support is true" do
-        it "renders the correct content" do
-          expect(page_text).to include("Receives asylum supportYes")
+        it "renders the correct case matter type" do
+          expect(page_text).to include("Type of matterImmigration in the First-tier Tribunal")
+        end
+
+        context "and asylum support is true" do
+          it "renders the correct content" do
+            expect(page_text).to include("Receives asylum supportYes")
+          end
+        end
+
+        context "and asylum support is false" do
+          let(:asylum_support) { false }
+
+          it "renders the correct content" do
+            expect(page_text).to include("Receives asylum supportNo")
+          end
         end
       end
 
-      context "and asylum support is false" do
-        let(:asylum_support) { false }
+      context "when level of help is certificated" do
+        let(:level_of_help) { "certificated" }
 
-        it "renders the correct content" do
-          expect(page_text).to include("Receives asylum supportNo")
+        it "renders the correct case matter type" do
+          expect(page_text).to include("Type of matterImmigration in the Upper Tribunal")
         end
       end
     end
@@ -46,21 +58,33 @@ RSpec.describe "estimates/check_answers.html.slim" do
       let(:proceeding_type) { "IA031" }
       let(:asylum_support) { true }
 
-      it "renders the correct case matter type" do
-        expect(page_text).to include("Type of matterAsylum in the Upper Tribunal")
-      end
+      context "when level of help is controlled" do
+        let(:level_of_help) { "controlled" }
 
-      context "and asylum support is true" do
-        it "renders the correct content" do
-          expect(page_text).to include("Receives asylum supportYes")
+        it "renders the correct case matter type" do
+          expect(page_text).to include("Type of matterAnother immigration or asylum matter")
         end
-      end
 
-      context "and asylum support is false" do
-        let(:asylum_support) { false }
+        context "and asylum support is true" do
+          it "renders the correct content" do
+            expect(page_text).to include("Receives asylum supportYes")
+          end
+        end
 
-        it "renders the correct content" do
-          expect(page_text).to include("Receives asylum supportNo")
+        context "and asylum support is false" do
+          let(:asylum_support) { false }
+
+          it "renders the correct content" do
+            expect(page_text).to include("Receives asylum supportNo")
+          end
+        end
+
+        context "when level of help is certificated" do
+          let(:level_of_help) { "certificated" }
+
+          it "renders the correct case matter type" do
+            expect(page_text).to include("Type of matterAsylum in the Upper Tribunal")
+          end
         end
       end
     end
