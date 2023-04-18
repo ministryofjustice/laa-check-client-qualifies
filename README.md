@@ -169,8 +169,8 @@ It knows how answers to certain questions affect the relevance of certain other 
 
 **Flow::Handler** knows, for any given step, which Form object to populate to back the HTML form displayed on screen
 
-**Check** provides access to all _relevant_ data for a given check. For any given attribute it uses StepsHelper and Flow::Handler to determine whether,
-given the other answers given, the attribute is relevant. If not, when asked for that attribute it will return `nil`. Otherwise it will return that attribute.
+**Check** provides access to all _relevant_ data for a check. For any attribute it uses StepsHelper and Flow::Handler to determine whether,
+given the other answers supplied, the attribute is relevant. If not, when asked for that attribute it will return `nil`. Otherwise it will return that attribute.
 
 ## Deploying to UAT/Staging/Production
 
