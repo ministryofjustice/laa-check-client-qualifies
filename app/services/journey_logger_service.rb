@@ -1,7 +1,7 @@
 class JourneyLoggerService
   class << self
-    def call(assessment_id, calculation_result, estimate)
-      attributes = build_attributes(calculation_result, estimate)
+    def call(assessment_id, calculation_result, check)
+      attributes = build_attributes(calculation_result, check)
       CompletedUserJourney.transaction do
         if (journey = CompletedUserJourney.find_by(assessment_id:))
           journey.update!(attributes)
@@ -13,16 +13,16 @@ class JourneyLoggerService
       ErrorService.call(e)
     end
 
-    def build_attributes(calculation_result, estimate)
+    def build_attributes(calculation_result, check)
       {
         completed: Date.current,
-        certificated: !estimate.controlled?,
-        partner: estimate.partner || false,
-        person_over_60: estimate.over_60 || (estimate.partner && estimate.partner_over_60) || false,
-        passported: estimate.passporting || false,
-        main_dwelling_owned: estimate.owns_property? || estimate.partner_owns_property? || false,
-        vehicle_owned: estimate.vehicle_owned || estimate.partner && estimate.partner_vehicle_owned || false,
-        smod_assets: estimate.any_smod_assets? || false,
+        certificated: !check.controlled?,
+        partner: check.partner || false,
+        person_over_60: check.over_60 || check.partner_over_60 || false,
+        passported: check.passporting || false,
+        main_dwelling_owned: check.owns_property? || check.partner_owns_property? || false,
+        vehicle_owned: check.vehicle_owned || check.partner_vehicle_owned || false,
+        smod_assets: (check.smod_applicable? && (check.house_in_dispute || check.vehicle_in_dispute || check.in_dispute.any?)) || false,
         outcome: calculation_result.decision,
         capital_contribution: calculation_result.raw_capital_contribution&.positive? || false,
         income_contribution: calculation_result.raw_income_contribution&.positive? || false,

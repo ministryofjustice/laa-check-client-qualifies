@@ -69,6 +69,6 @@ private
   end
 
   def track_completed_journey(calculation_result)
-    JourneyLoggerService.call(assessment_id, calculation_result, @estimate)
+    JourneyLoggerService.call(assessment_id, calculation_result, @check)
   end
 end
