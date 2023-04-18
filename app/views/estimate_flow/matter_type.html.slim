@@ -10,7 +10,6 @@
 
     h2.govuk-heading-s = t(".immigration_and_asylum_header")
     - if @estimate.controlled?
-      p.govuk-body = t(".immigration_and_asylum_controlled_paragraph")
 
       = govuk_details(summary_text: t(".immigration_header_controlled"))
         p.govuk-body = t(".immigration_controlled_paragraph_one")
