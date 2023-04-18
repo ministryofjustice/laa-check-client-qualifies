@@ -1,4 +1,4 @@
-- if ENV["GOOGLE_TAG_MANAGER_ID"].present? && cookies[CookiesController::COOKIE_CHOICE_NAME] == "accepted"
+- if enable_google_analytics(cookies)
   /! Google Tag Manager (noscript)
   noscript
     iframe[src="https://www.googletagmanager.com/ns.html?id=#{ENV["GOOGLE_TAG_MANAGER_ID"]}"

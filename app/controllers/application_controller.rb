@@ -23,7 +23,7 @@ private
 
   def track(event_type, page:)
     AnalyticsService.call(event_type:,
-                          browser_id: cookies[BROWSER_ID_COOKIE],
+                          cookies:,
                           assessment_code:,
                           page:)
   end

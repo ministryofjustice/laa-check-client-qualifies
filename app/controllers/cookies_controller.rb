@@ -2,6 +2,7 @@ class CookiesController < ApplicationController
   before_action :track_page_view, only: :show
 
   COOKIE_CHOICE_NAME = :optional_cookie_choice
+  NO_ANALYTICS_MODE = :no_analytics_mode
   def update
     choice = params[:cookies] == "accept" ? "accepted" : "rejected"
     cookies[COOKIE_CHOICE_NAME] = { value: choice, expires: 1.year, httponly: true, secure: Rails.env.production? }
@@ -11,6 +12,11 @@ class CookiesController < ApplicationController
   end
 
   def show; end
+
+  def no_analytics_mode
+    cookies[NO_ANALYTICS_MODE] = { value: "true", httponly: true, secure: Rails.env.production? }
+    redirect_to root_path
+  end
 
 private
 
