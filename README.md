@@ -62,7 +62,7 @@ yarn build
 yarn build:css
 ```
 
-To change settings for you local development environment. Copy your `.env.sample` file to a new file and rename it to `.env.development`. 
+To change settings for your local development environment, copy your `.env.sample` file to a new file and rename it to `.env.development`. 
 
 ## Tests
 
