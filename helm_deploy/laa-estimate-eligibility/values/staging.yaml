@@ -49,7 +49,7 @@ googleTagManager:
   containerId: GTM-WJ98FR4
 
 cfe:
-  host: http://check-financial-eligibility-partner-check-financial-partner.check-financial-eligibility-partner-staging.svc.cluster.local
+  host: http://cfe-civil.cfe-civil-staging.svc.cluster.local
 
 featureFlags:
   sentry: ENABLED
