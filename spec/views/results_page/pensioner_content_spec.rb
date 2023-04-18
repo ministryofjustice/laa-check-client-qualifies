@@ -40,6 +40,28 @@ RSpec.describe "estimates/show.html.slim" do
       end
     end
 
+    context "when client has a partner and only the partner has had pensioner disregard applied" do
+      let(:api_response) do
+        FactoryBot.build(
+          :api_result,
+          partner: true,
+          result_summary: build(
+            :result_summary,
+            capital: build(:capital_summary,
+                           pensioner_disregard_applied: 0,
+                           total_capital_with_smod: 456),
+            partner_capital: build(:capital_summary,
+                                   pensioner_disregard_applied: 234,
+                                   total_capital_with_smod: 567),
+          ),
+        )
+      end
+
+      it "shows the separate pensioner disregard table" do
+        expect(rendered).to include '<caption class="govuk-table__caption govuk-table__caption--m">Pensioner disregard'
+      end
+    end
+
     context "when client has no partner and has had pensioner disregard applied" do
       let(:api_response) do
         FactoryBot.build(
