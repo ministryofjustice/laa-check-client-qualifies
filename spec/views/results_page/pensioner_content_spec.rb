@@ -38,6 +38,11 @@ RSpec.describe "estimates/show.html.slim" do
       it "shows a separate pensioner disregard table" do
         expect(rendered).to include '<caption class="govuk-table__caption govuk-table__caption--m">Pensioner disregard'
       end
+
+      it "sums up client and partner values for the separate pensioner disregard table" do
+        # 123 + 234 = 357. 456 + 567 = 1023.
+        expect(page_text).to include("Total client and partner disposable capital £1,023.00 Pensioner disregard -£357.00")
+      end
     end
 
     context "when client has a partner and only the partner has had pensioner disregard applied" do
