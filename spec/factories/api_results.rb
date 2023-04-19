@@ -3,59 +3,8 @@ FactoryBot.define do
     initialize_with { attributes }
 
     success { true }
-    result_summary do
-      {
-        overall_result: {
-          result: "ineligible",
-        },
-        gross_income: {
-          proceeding_types: [
-            { "ccms_code": "SE013",
-              "client_involvement_type": "I",
-              "upper_threshold": 2657.0,
-              "lower_threshold": 0.0,
-              "result": "eligible" },
-          ],
-        },
-        disposable_income: {
-          proceeding_types: [
-            { "ccms_code": "SE013",
-              "client_involvement_type": "I",
-              "upper_threshold": 2657.0,
-              "lower_threshold": 0.0,
-              "result": "eligible" },
-          ],
-        },
-        capital: {
-          pensioner_capital_disregard: 0,
-          subject_matter_of_dispute_disregard: 0,
-          pensioner_disregard_applied: 123,
-          proceeding_types: [
-            { "ccms_code": "SE013",
-              "client_involvement_type": "I",
-              "upper_threshold": 2657.0,
-              "lower_threshold": 0.0,
-              "result": "eligible" },
-          ],
-          total_capital: 0,
-          disputed_non_property_disregard: 0,
-        },
-      }
-    end
-    assessment do
-      {
-        capital: {
-          capital_items: {
-            properties: {
-              additional_properties: [],
-            },
-            vehicles: [],
-            liquid: [],
-            non_liquid: [],
-          },
-        },
-      }
-    end
+    result_summary { build(:result_summary) }
+    assessment { build(:assessment) }
 
     transient do
       eligible { "ineligible" }
@@ -81,20 +30,11 @@ FactoryBot.define do
       end
 
       if evaluator.partner
-        api_result.fetch(:result_summary).merge!(
-          {
-            partner_capital: api_result.dig(:result_summary, :capital),
-            partner_gross_income: api_result.dig(:result_summary, :gross_income),
-            partner_disposable_income: api_result.dig(:result_summary, :disposable_income),
-          },
-        )
-        api_result.fetch(:assessment).merge!(
-          {
-            partner_capital: api_result.dig(:assessment, :capital),
-            partner_gross_income: api_result.dig(:assessment, :gross_income),
-            partner_disposable_income: api_result.dig(:assessment, :disposable_income),
-          },
-        )
+        %i[capital gross_income disposable_income].each do |subsection|
+          %i[assessment result_summary].each do |section|
+            api_result.fetch(section)[:"partner_#{subsection}"] ||= api_result.dig(section, subsection).dup
+          end
+        end
       end
     end
   end
@@ -110,5 +50,62 @@ FactoryBot.define do
     smod_allowance { 0 }
     main_home_equity_disregard { 0 }
     percentage_owned { 100.0 }
+  end
+
+  factory :proceeding_type, class: Hash do
+    initialize_with { attributes }
+    ccms_code { "SE013" }
+    client_involvement_type { "I" }
+    upper_threshold { 2657.0 }
+    lower_threshold { 0.0 }
+    result { "eligible" }
+  end
+
+  factory :result_summary, class: Hash do
+    initialize_with { attributes }
+    overall_result do
+      { result: "ineligible" }
+    end
+
+    gross_income { build(:gross_income_summary) }
+    disposable_income { build(:disposable_income_summary) }
+    capital { build(:capital_summary) }
+  end
+
+  factory :gross_income_summary, class: Hash do
+    initialize_with { attributes }
+    proceeding_types { [build(:proceeding_type)] }
+  end
+
+  factory :disposable_income_summary, class: Hash do
+    initialize_with { attributes }
+    proceeding_types { [build(:proceeding_type)] }
+  end
+
+  factory :capital_summary, class: Hash do
+    initialize_with { attributes }
+    proceeding_types { [build(:proceeding_type)] }
+    pensioner_capital_disregard { 0 }
+    subject_matter_of_dispute_disregard { 0 }
+    pensioner_disregard_applied { 123 }
+    total_capital { 0 }
+    total_capital_with_smod { 0 }
+    disputed_non_property_disregard { 0 }
+  end
+
+  factory :assessment, class: Hash do
+    initialize_with { attributes }
+    capital do
+      {
+        capital_items: {
+          properties: {
+            additional_properties: [],
+          },
+          vehicles: [],
+          liquid: [],
+          non_liquid: [],
+        },
+      }
+    end
   end
 end

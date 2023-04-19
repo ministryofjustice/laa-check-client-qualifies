@@ -1153,10 +1153,13 @@ en:
       about_the_case_fields:
         proceeding_type: Type of matter
         proceeding_type_options:
-          IM030: "Immigration in the Upper Tribunal"
-          IA031: "Asylum in the Upper Tribunal"
-          SE003: "Another legal matter"
-          DA001: "Domestic abuse"
+          IM030_certificated: Immigration in the Upper Tribunal
+          IM030_controlled: Immigration in the First-tier Tribunal
+          IA031_certificated: Asylum in the Upper Tribunal
+          IA031_controlled: Another immigration or asylum matter
+          SE003_certificated: Another legal matter
+          SE003_controlled: Another legal matter
+          DA001_certificated: Domestic abuse
           not_provided: "Not provided"
       about_your_client: About your client
       about_partner: About your client's partner
