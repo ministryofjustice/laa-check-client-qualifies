@@ -60,7 +60,7 @@ RSpec.describe ControlledWorkDocumentContent do
       expect(described_class.new(session_data).from_attribute(:additional_non_smod_properties_percentage_owned)).to eq "50"
     end
 
-    it "returns nil if it differs" do
+    it "returns 'unknown' if it differs" do
       session_data = {
         "api_response" => {
           "assessment" => {
@@ -69,7 +69,7 @@ RSpec.describe ControlledWorkDocumentContent do
           },
         },
       }
-      expect(described_class.new(session_data).from_attribute(:additional_non_smod_properties_percentage_owned)).to eq nil
+      expect(described_class.new(session_data).from_attribute(:additional_non_smod_properties_percentage_owned)).to eq "Unknown"
     end
 
     it "ignores client capital if client additional home is SMOD" do

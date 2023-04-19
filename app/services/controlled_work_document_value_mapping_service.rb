@@ -10,9 +10,9 @@
 # source - where to get the value from (either `from_attribute` or `from_cfe_payload`)
 # attribute - if `source` is `from_attribute` then the attribute on the model object that contains the value to include.
 # cfe_payload_location - if `source` is `from_cfe_payload` then this is the dot-separated path to the relevant value in the CFE payload
-# checked_value - if `type` is `checkbox` this is the value to indicate that it is checked
-# yes_value - if `type` is `boolean_radio` this is the value to indicate that 'Yes' is selected
-# no_value - if `type` is `boolean_radio` this is the value to indicate that 'No' is selected
+# checked_value - if `type` is `checkbox` this is the value that the field must be set to in order to mark it as checked
+# yes_value - if `type` is `boolean_radio` this is the value that the field must be set to in order to mark "Yes" as selected
+# no_value - if `type` is `boolean_radio` this is the value that the field must be set to in order to mark "No" as selected
 class ControlledWorkDocumentValueMappingService
   class << self
     def call(session_data, mappings)
