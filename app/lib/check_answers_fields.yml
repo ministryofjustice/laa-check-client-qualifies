@@ -41,6 +41,7 @@ sections:
             type: select
             screen: matter_type
             change_link: true
+            alt_attribute: level_of_help
       - screen: asylum_support
         label: asylum_support
         fields:
