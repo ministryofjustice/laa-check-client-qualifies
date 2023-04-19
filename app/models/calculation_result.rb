@@ -88,7 +88,8 @@ class CalculationResult
   end
 
   def pensioner_disregard_applied?
-    api_response.dig(:result_summary, :capital, :pensioner_disregard_applied).positive?
+    api_response.dig(:result_summary, :capital, :pensioner_disregard_applied).positive? ||
+      api_response.dig(:result_summary, :partner_capital, :pensioner_disregard_applied)&.positive?
   end
 
   def smod_applied?
