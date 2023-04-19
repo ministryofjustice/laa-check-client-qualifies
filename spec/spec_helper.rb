@@ -15,15 +15,15 @@
 require "simplecov"
 require "rack_session_access/capybara"
 
-SimpleCov.start "rails" do
-  # no database (yet) so this file is never loaded
-  add_filter "app/models/application_record.rb"
-  add_filter "app/mailers/exception_alert_mailer.rb"
-  add_filter "app/lib/exception_notifier/templated_notifier.rb"
+unless ENV.fetch("COVERAGE", "true") == "false"
+  SimpleCov.start "rails" do
+    add_filter "app/mailers/exception_alert_mailer.rb"
+    add_filter "app/lib/exception_notifier/templated_notifier.rb"
 
-  enable_coverage :branch
-  primary_coverage :branch
-  minimum_coverage branch: 100, line: 100
+    enable_coverage :branch
+    primary_coverage :branch
+    minimum_coverage branch: 100, line: 100
+  end
 end
 
 # This is needed to allow webmock to capture requests from non-VCR tests
