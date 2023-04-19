@@ -1,0 +1,21 @@
+services:
+  cfe:
+    image: ${CFE_IMAGE:-754256621582.dkr.ecr.eu-west-2.amazonaws.com/laa-eligibility-platform/cfe-civil-ecr:latest}
+    ports:
+      - "8080:3000"
+    depends_on:
+      - cfe_db
+    environment:
+      SECRET_KEY_BASE: CHANGE_ME
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_HOST: cfe_db
+      POSTGRES_DATABASE: cfe
+      RAILS_ENV: production
+      LEGAL_FRAMEWORK_API_HOST: https://legal-framework-api-staging.cloud-platform.service.justice.gov.uk
+ 
+  cfe_db:
+    image: postgres:14.0-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres

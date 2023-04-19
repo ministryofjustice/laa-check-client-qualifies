@@ -16,10 +16,26 @@ executors:
           PGHOST: localhost
           PGUSER: user
           TZ: "Europe/London"
+          CFE_HOST: http://localhost:3000
       - image: cimg/postgres:10.18
         environment:
           POSTGRES_USER: user
           POSTGRES_DB: ccq_test
+      - image: $CFE_ECR_ENDPOINT
+        environment:
+          SECRET_KEY_BASE: CHANGE_ME
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_HOST: cfe_db
+          POSTGRES_DATABASE: cfe
+          RAILS_ENV: production
+          LEGAL_FRAMEWORK_API_HOST: https://legal-framework-api-staging.cloud-platform.service.justice.gov.uk
+      - image: cimg/postgres:10.18
+        name: cfe_db
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+ 
   cloud-platform-executor:
     docker:
       - image: ministryofjustice/cloud-platform-tools:2.1
@@ -145,6 +161,12 @@ jobs:
           name: Run tests
           command: |
             bundle exec rake spec
+      - run:
+          name: Run integration tests
+          environment:
+            COVERAGE: false
+          command: |
+            COVERAGE=false bundle exec rspec -t integration spec/**/**_spec.rb
       - store_artifacts:
           path: coverage
       - slack/notify:
