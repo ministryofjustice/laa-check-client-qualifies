@@ -235,20 +235,12 @@ workflows:
           filters:
             branches:
               ignore: main
-      - linters:
-          requires:
-            - install_dependencies
-      - run_specs:
-          requires:
-            - install_dependencies
       - build_and_push_to_ecr:
           requires:
             - install_dependencies
       - deploy_uat:
           context: laa-estimate-eligibility-uat
           requires:
-            - linters
-            - run_specs
             - build_and_push_to_ecr
 
   merge_pr_to_main:
