@@ -19,6 +19,7 @@ class ControlledWorkDocumentPopulationService
 
     TEMPLATES = {
       "cw1" => "lib/cw1-form.pdf",
+      "cw1_and_2" => "lib/cw1-and-2-form.pdf",
     }.freeze
 
     def template_path(form_type)
