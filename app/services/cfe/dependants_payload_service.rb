@@ -1,6 +1,6 @@
 module Cfe
-  class SubmitDependantsService < BaseService
-    def call(cfe_assessment_id)
+  class DependantsPayloadService < BaseService
+    def call
       return unless relevant_form?(:dependant_details)
 
       details_form = DependantDetailsForm.from_session(@session_data)
@@ -9,7 +9,7 @@ module Cfe
       adults = CfeParamBuilders::Dependants.adults(dependants: details_form.adult_dependants,
                                                    count: details_form.adult_dependants_count)
       dependants = children + adults
-      cfe_connection.create_dependants(cfe_assessment_id, dependants) if dependants.any?
+      payload[:dependants] = dependants
     end
   end
 end

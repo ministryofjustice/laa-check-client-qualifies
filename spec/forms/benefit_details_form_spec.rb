@@ -4,9 +4,7 @@ RSpec.describe "benefits_details", type: :feature do
   let(:assessment_code) { :assessment_code }
 
   before do
-    allow(CfeConnection).to receive(:connection).and_return(
-      instance_double(CfeConnection, state_benefit_types: []),
-    )
+    allow(CfeConnection).to receive(:state_benefit_types).and_return([])
     set_session(assessment_code, "level_of_help" => "controlled")
     visit "estimates/#{assessment_code}/build_estimates/benefit_details"
   end

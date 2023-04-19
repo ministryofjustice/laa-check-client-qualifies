@@ -1,9 +1,8 @@
 require "rails_helper"
 
-RSpec.describe Cfe::SubmitIrregularIncomeService do
+RSpec.describe Cfe::IrregularIncomePayloadService do
   let(:service) { described_class }
-  let(:cfe_assessment_id) { SecureRandom.uuid }
-  let(:mock_connection) { instance_double(CfeConnection) }
+  let(:payload) { {} }
 
   describe ".call" do
     context "when there is no relevant data" do
@@ -14,9 +13,9 @@ RSpec.describe Cfe::SubmitIrregularIncomeService do
         }
       end
 
-      it "makes no call" do
-        expect(mock_connection).not_to receive(:create_irregular_incomes)
-        service.call(mock_connection, cfe_assessment_id, session_data)
+      it "adds no payments to the payload" do
+        service.call(session_data, payload)
+        expect(payload.dig(:irregular_incomes, :payments)).to eq([])
       end
     end
 
@@ -27,9 +26,9 @@ RSpec.describe Cfe::SubmitIrregularIncomeService do
         }
       end
 
-      it "makes no call" do
-        expect(mock_connection).not_to receive(:create_irregular_incomes)
-        service.call(mock_connection, cfe_assessment_id, session_data)
+      it "adds no payments to the payload" do
+        service.call(session_data, payload)
+        expect(payload.dig(:irregular_incomes, :payments)).to be_nil
       end
     end
 
@@ -41,13 +40,12 @@ RSpec.describe Cfe::SubmitIrregularIncomeService do
         }
       end
 
-      it "sends it to CFE" do
-        expect(mock_connection).to receive(:create_irregular_incomes).with(
-          cfe_assessment_id,
+      it "adds data to the payload" do
+        service.call(session_data, payload)
+        expect(payload.dig(:irregular_incomes, :payments)).to eq(
           [{ amount: 100, frequency: "annual", income_type: "student_loan" },
            { amount: 200, frequency: "quarterly", income_type: "unspecified_source" }],
         )
-        service.call(mock_connection, cfe_assessment_id, session_data)
       end
     end
 
@@ -60,13 +58,12 @@ RSpec.describe Cfe::SubmitIrregularIncomeService do
         }
       end
 
-      it "sends it to CFE with an appropriate frequency" do
-        expect(mock_connection).to receive(:create_irregular_incomes).with(
-          cfe_assessment_id,
+      it "uses an appropriate frequency" do
+        service.call(session_data, payload)
+        expect(payload.dig(:irregular_incomes, :payments)).to eq(
           [{ amount: 100, frequency: "annual", income_type: "student_loan" },
            { amount: 200, frequency: "monthly", income_type: "unspecified_source" }],
         )
-        service.call(mock_connection, cfe_assessment_id, session_data)
       end
     end
   end

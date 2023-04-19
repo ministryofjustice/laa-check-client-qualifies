@@ -11,39 +11,26 @@ RSpec.describe CfeService do
 
       before do
         travel_to arbitrary_fixed_time
-        allow(CfeConnection).to receive(:connection).and_return(mock_connection)
       end
 
       it "sends all required information to CFE endpoints and returns the result" do
-        allow(mock_connection).to receive(:create_assessment_id).and_return(assessment_id)
+        expect(Cfe::ApplicantPayloadService).to receive(:call)
+        expect(Cfe::AssessmentPayloadService).to receive(:call)
+        expect(Cfe::AssetsPayloadService).to receive(:call)
+        expect(Cfe::BenefitsPayloadService).to receive(:call)
+        expect(Cfe::DependantsPayloadService).to receive(:call)
+        expect(Cfe::EmploymentIncomePayloadService).to receive(:call)
+        expect(Cfe::IrregularIncomePayloadService).to receive(:call)
+        expect(Cfe::PartnerPayloadService).to receive(:call)
+        expect(Cfe::ProceedingsPayloadService).to receive(:call)
+        expect(Cfe::RegularTransactionsPayloadService).to receive(:call)
+        expect(Cfe::VehiclePayloadService).to receive(:call)
 
-        expect(mock_connection).to receive(:create_dependants)
-        expect(mock_connection).to receive(:create_proceeding_types)
-        expect(mock_connection).to receive(:create_employments)
-        expect(mock_connection).to receive(:create_state_benefits)
-        expect(mock_connection).to receive(:create_irregular_incomes)
-        expect(mock_connection).to receive(:create_vehicles)
-        expect(mock_connection).to receive(:create_capitals)
-        expect(mock_connection).to receive(:create_properties)
-        expect(mock_connection).to receive(:create_regular_transactions)
-        expect(mock_connection).to receive(:create_applicant)
-        expect(mock_connection).to receive(:create_partner_financials)
-
-        allow(mock_connection).to receive(:api_result).with(assessment_id).and_return(api_response)
+        allow(CfeConnection).to receive(:assess).and_return api_response
 
         result = described_class.call(session_data)
         expect(result).to eq api_response
       end
-    end
-  end
-
-  describe ".create_assessment_id" do
-    let(:mock_connection) { instance_double(CfeConnection) }
-    let(:session_data) { {} }
-
-    it "does not include level of help in payload if none is specified" do
-      expect(mock_connection).to receive(:create_assessment_id).with({ submission_date: Date.current })
-      described_class.create_assessment_id(mock_connection, session_data)
     end
   end
 end

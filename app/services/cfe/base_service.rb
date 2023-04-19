@@ -1,17 +1,17 @@
 module Cfe
   class BaseService
-    def self.call(cfe_connection, cfe_assessment_id, session_data)
-      new(cfe_connection, session_data).call(cfe_assessment_id)
+    def self.call(session_data, payload)
+      new(session_data, payload).call
     end
 
-    def initialize(cfe_connection, session_data)
-      @cfe_connection = cfe_connection
+    def initialize(session_data, payload)
       @session_data = session_data
+      @payload = payload
     end
 
-  protected
+  private
 
-    attr_reader :cfe_connection
+    attr_reader :payload
 
     def check
       @check ||= Check.new(@session_data)

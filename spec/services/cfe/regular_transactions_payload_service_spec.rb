@@ -1,9 +1,8 @@
 require "rails_helper"
 
-RSpec.describe Cfe::SubmitRegularTransactionsService do
+RSpec.describe Cfe::RegularTransactionsPayloadService do
   let(:service) { described_class }
-  let(:cfe_assessment_id) { SecureRandom.uuid }
-  let(:mock_connection) { instance_double(CfeConnection) }
+  let(:payload) { {} }
 
   describe ".call" do
     context "when there a full set of relevant data" do
@@ -30,9 +29,9 @@ RSpec.describe Cfe::SubmitRegularTransactionsService do
         }
       end
 
-      it "calls CFE appropriately" do
-        expect(mock_connection).to receive(:create_regular_transactions).with(
-          cfe_assessment_id,
+      it "adds an appropriate payload" do
+        service.call(session_data, payload)
+        expect(payload[:regular_transactions]).to eq(
           [{ amount: 45,
              category: :friends_or_family,
              frequency: :weekly,
@@ -66,7 +65,6 @@ RSpec.describe Cfe::SubmitRegularTransactionsService do
              frequency: :monthly,
              operation: :debit }],
         )
-        service.call(mock_connection, cfe_assessment_id, session_data)
       end
     end
 
@@ -84,9 +82,9 @@ RSpec.describe Cfe::SubmitRegularTransactionsService do
         }
       end
 
-      it "makes no call" do
-        expect(mock_connection).not_to receive(:create_regular_transactions)
-        service.call(mock_connection, cfe_assessment_id, session_data)
+      it "adds no payments" do
+        service.call(session_data, payload)
+        expect(payload[:regular_transactions]).to eq([])
       end
     end
 
@@ -97,9 +95,9 @@ RSpec.describe Cfe::SubmitRegularTransactionsService do
         }
       end
 
-      it "sends nothing to CFE" do
-        expect(mock_connection).not_to receive(:create_partner_financials)
-        described_class.call(mock_connection, cfe_assessment_id, session_data)
+      it "adds nothing to the payment" do
+        service.call(session_data, payload)
+        expect(payload[:regular_transactions]).to be_nil
       end
     end
   end

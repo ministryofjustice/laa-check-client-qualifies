@@ -1,26 +1,19 @@
 class CfeService
   class << self
     def call(session_data)
-      cfe_connection = CfeConnection.connection
-      cfe_assessment_id = create_assessment_id(cfe_connection, session_data)
-      Cfe::SubmitDependantsService.call(cfe_connection, cfe_assessment_id, session_data)
-      Cfe::SubmitProceedingsService.call(cfe_connection, cfe_assessment_id, session_data)
-      Cfe::SubmitEmploymentIncomeService.call(cfe_connection, cfe_assessment_id, session_data)
-      Cfe::SubmitBenefitsService.call(cfe_connection, cfe_assessment_id, session_data)
-      Cfe::SubmitIrregularIncomeService.call(cfe_connection, cfe_assessment_id, session_data)
-      Cfe::SubmitVehicleService.call(cfe_connection, cfe_assessment_id, session_data)
-      Cfe::SubmitAssetsService.call(cfe_connection, cfe_assessment_id, session_data)
-      Cfe::SubmitRegularTransactionsService.call(cfe_connection, cfe_assessment_id, session_data)
-      Cfe::SubmitApplicantService.call(cfe_connection, cfe_assessment_id, session_data)
-      Cfe::SubmitPartnerService.call(cfe_connection, cfe_assessment_id, session_data)
-      cfe_connection.api_result(cfe_assessment_id)
-    end
-
-    def create_assessment_id(cfe_connection, session_data)
-      attributes = { submission_date: Time.zone.today }
-      form = LevelOfHelpForm.from_session(session_data)
-      attributes[:level_of_help] = form.level_of_help if form.level_of_help.present?
-      cfe_connection.create_assessment_id(attributes)
+      payload = {}
+      Cfe::AssessmentPayloadService.call(session_data, payload)
+      Cfe::DependantsPayloadService.call(session_data, payload)
+      Cfe::ProceedingsPayloadService.call(session_data, payload)
+      Cfe::EmploymentIncomePayloadService.call(session_data, payload)
+      Cfe::BenefitsPayloadService.call(session_data, payload)
+      Cfe::IrregularIncomePayloadService.call(session_data, payload)
+      Cfe::VehiclePayloadService.call(session_data, payload)
+      Cfe::AssetsPayloadService.call(session_data, payload)
+      Cfe::RegularTransactionsPayloadService.call(session_data, payload)
+      Cfe::ApplicantPayloadService.call(session_data, payload)
+      Cfe::PartnerPayloadService.call(session_data, payload)
+      CfeConnection.assess(payload)
     end
   end
 end

@@ -4,9 +4,7 @@ RSpec.describe "Download result", type: :feature do
   let(:api_response) { FactoryBot.build(:api_result, eligible: "eligible") }
 
   it "gives me a download option" do
-    allow(CfeConnection).to receive(:connection).and_return(
-      instance_double(CfeConnection, state_benefit_types: []),
-    )
+    allow(CfeConnection).to receive(:state_benefit_types).and_return([])
 
     allow(CfeService).to receive(:call).and_return(api_response)
 

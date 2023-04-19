@@ -1,19 +1,6 @@
 require "rails_helper"
 
 RSpec.describe "Controlled other income", type: :feature do
-  before do
-    stub_request(:post, %r{assessments\z}).to_return(
-      body: { assessment_id: "assessment_id" }.to_json,
-      headers: { "Content-Type" => "application/json" },
-    )
-    stub_request(:post, %r{proceeding_types\z})
-    stub_request(:post, %r{applicant\z})
-    stub_request(:get, %r{assessments/assessment_id\z}).to_return(
-      body: FactoryBot.build(:api_result, eligible: "eligible").to_json,
-      headers: { "Content-Type" => "application/json" },
-    )
-  end
-
   context "when the check is for certificated work" do
     before do
       start_assessment
@@ -21,24 +8,21 @@ RSpec.describe "Controlled other income", type: :feature do
     end
 
     it "sends the right data to CFE for certificated work - in particular ther other income frequency" do
-      irregular_transactions = stub_request(:post, %r{irregular_incomes\z}).with do |request|
-        expected_payload = {
-          payments: [
-            { income_type: "unspecified_source", frequency: "quarterly", amount: 500.0 },
-          ],
-        }
-        request.body == expected_payload.to_json
-      end
+      assessment_stub = stub_request(:post, %r{v6/assessments\z}).with { |request|
+        parsed = JSON.parse(request.body)
+        payments = [
+          { "income_type" => "unspecified_source", "frequency" => "quarterly", "amount" => 500.0 },
+        ]
+        regular_transactions = [
+          { "operation" => "credit", "category" => "friends_or_family", "frequency" => "weekly", "amount" => 200.0 },
+          { "operation" => "credit", "category" => "maintenance_in", "frequency" => "two_weekly", "amount" => 300.0 },
+        ]
 
-      regular_transactions = stub_request(:post, %r{regular_transactions\z}).with do |request|
-        expected_payload = {
-          "regular_transactions": [
-            { "operation": "credit", "category": "friends_or_family", "frequency": "weekly", "amount": 200.0 },
-            { "operation": "credit", "category": "maintenance_in", "frequency": "two_weekly", "amount": 300.0 },
-          ],
-        }
-        request.body == expected_payload.to_json
-      end
+        parsed.dig("irregular_incomes", "payments") == payments && parsed["regular_transactions"] == regular_transactions
+      }.to_return(
+        body: FactoryBot.build(:api_result, eligible: "eligible").to_json,
+        headers: { "Content-Type" => "application/json" },
+      )
 
       fill_in "other-income-form-pension-value-field", with: "0"
       fill_in "other-income-form-property-or-lodger-value-field", with: "0"
@@ -57,8 +41,7 @@ RSpec.describe "Controlled other income", type: :feature do
       fill_in_client_capital_screens
       click_on "Submit"
 
-      expect(regular_transactions).to have_been_requested
-      expect(irregular_transactions).to have_been_requested
+      expect(assessment_stub).to have_been_requested
     end
   end
 
@@ -71,25 +54,21 @@ RSpec.describe "Controlled other income", type: :feature do
     end
 
     it "sends the right data to CFE for controlled work - in particular ther other income frequency" do
-      irregular_transactions = stub_request(:post, %r{irregular_incomes\z}).with do |request|
-        expected_payload = {
-          payments: [
-            { income_type: "student_loan", frequency: "annual", amount: 100.0 },
-            { income_type: "unspecified_source", frequency: "monthly", amount: 500.0 },
-          ],
-        }
-        request.body == expected_payload.to_json
-      end
-
-      regular_transactions = stub_request(:post, %r{regular_transactions\z}).with do |request|
-        expected_payload = {
-          "regular_transactions": [
-            { "operation": "credit", "category": "friends_or_family", "frequency": "weekly", "amount": 200.0 },
-            { "operation": "credit", "category": "maintenance_in", "frequency": "two_weekly", "amount": 300.0 },
-          ],
-        }
-        request.body == expected_payload.to_json
-      end
+      assessment_stub = stub_request(:post, %r{v6/assessments\z}).with { |request|
+        parsed = JSON.parse(request.body)
+        payments = [
+          { "income_type" => "student_loan", "frequency" => "annual", "amount" => 100.0 },
+          { "income_type" => "unspecified_source", "frequency" => "monthly", "amount" => 500.0 },
+        ]
+        regular_transactions = [
+          { "operation" => "credit", "category" => "friends_or_family", "frequency" => "weekly", "amount" => 200.0 },
+          { "operation" => "credit", "category" => "maintenance_in", "frequency" => "two_weekly", "amount" => 300.0 },
+        ]
+        parsed.dig("irregular_incomes", "payments") == payments && parsed["regular_transactions"] == regular_transactions
+      }.to_return(
+        body: FactoryBot.build(:api_result, eligible: "eligible").to_json,
+        headers: { "Content-Type" => "application/json" },
+      )
 
       fill_in "other-income-form-pension-value-field", with: "0"
       fill_in "other-income-form-property-or-lodger-value-field", with: "0"
@@ -109,8 +88,7 @@ RSpec.describe "Controlled other income", type: :feature do
       fill_in_assets_screen
       click_on "Submit"
 
-      expect(regular_transactions).to have_been_requested
-      expect(irregular_transactions).to have_been_requested
+      expect(assessment_stub).to have_been_requested
     end
   end
 end

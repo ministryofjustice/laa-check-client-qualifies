@@ -59,7 +59,7 @@ private
   ].freeze
 
   def cfe_benefit_list
-    CfeConnection.connection.state_benefit_types
+    CfeConnection.state_benefit_types
   end
 
   def benefits_valid?

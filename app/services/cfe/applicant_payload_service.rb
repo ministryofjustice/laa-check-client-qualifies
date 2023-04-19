@@ -1,6 +1,6 @@
 module Cfe
-  class SubmitApplicantService < BaseService
-    def call(cfe_assessment_id)
+  class ApplicantPayloadService < BaseService
+    def call
       applicant_form = ApplicantForm.from_session(@session_data)
       asylum_support_form = AsylumSupportForm.from_session(@session_data)
 
@@ -17,7 +17,7 @@ module Cfe
                     base_attributes
                   end
 
-      cfe_connection.create_applicant(cfe_assessment_id, applicant)
+      payload[:applicant] = applicant
     end
   end
 end

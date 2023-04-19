@@ -1,19 +1,21 @@
 module Cfe
-  class SubmitPartnerService < BaseService
-    def call(cfe_assessment_id)
+  class PartnerPayloadService < BaseService
+    def call
       return unless relevant_form?(:partner_details)
 
       @partner_details_form = PartnerDetailsForm.from_session(@session_data)
-      cfe_connection.create_partner_financials cfe_assessment_id,
-                                               partner:,
-                                               irregular_incomes:,
-                                               employments:,
-                                               regular_transactions:,
-                                               state_benefits:,
-                                               additional_properties:,
-                                               capitals:,
-                                               dependants:,
-                                               vehicles:
+      partner_financials = {
+        partner:,
+        irregular_incomes:,
+        employments:,
+        regular_transactions:,
+        state_benefits:,
+        additional_properties:,
+        capitals:,
+        dependants:,
+        vehicles:,
+      }
+      payload[:partner] = partner_financials
     end
 
     def partner

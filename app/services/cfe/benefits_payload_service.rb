@@ -1,13 +1,13 @@
 module Cfe
-  class SubmitBenefitsService < BaseService
-    def call(cfe_assessment_id)
+  class BenefitsPayloadService < BaseService
+    def call
       benefits_form = BenefitDetailsForm.from_session(@session_data) if relevant_form?(:benefit_details)
       housing_benefit_details_form = HousingBenefitDetailsForm.from_session(@session_data) if relevant_form?(:housing_benefit_details)
       return if benefits_form&.benefits.blank? && !housing_benefit_details_form
 
       state_benefits = CfeParamBuilders::StateBenefits.call(benefits_form, housing_benefit_details_form)
 
-      cfe_connection.create_state_benefits(cfe_assessment_id, state_benefits)
+      payload[:state_benefits] = state_benefits
     end
   end
 end

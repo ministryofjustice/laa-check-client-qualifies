@@ -45,9 +45,7 @@ RSpec.describe "Certificated, non-passported flow", type: :feature do
   end
 
   it "asks for benefit details if relevant" do
-    allow(CfeConnection).to receive(:connection).and_return(
-      instance_double(CfeConnection, state_benefit_types: []),
-    )
+    allow(CfeConnection).to receive(:state_benefit_types).and_return([])
 
     start_assessment
     fill_in_forms_until(:benefits)
