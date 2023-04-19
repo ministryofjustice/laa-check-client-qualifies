@@ -11,12 +11,12 @@ RSpec.describe JourneyLoggerService do
     it "handles errors without crashing" do
       expect(ErrorService).to receive(:call)
       allow(CompletedUserJourney).to receive(:create!).and_raise "Error!"
-      expect { described_class.call(assessment_id, calculation_result, check) }.not_to raise_error
+      expect { described_class.call(assessment_id, calculation_result, check, {}) }.not_to raise_error
     end
 
     context "with minimal data" do
       it "saves the right details to the database" do
-        described_class.call(assessment_id, calculation_result, check)
+        described_class.call(assessment_id, calculation_result, check, {})
         output = CompletedUserJourney.find_by(assessment_id:)
         expect(output.certificated).to eq false
         expect(output.partner).to eq false
@@ -28,6 +28,11 @@ RSpec.describe JourneyLoggerService do
         expect(output.outcome).to eq "ineligible"
         expect(output.capital_contribution).to eq false
         expect(output.income_contribution).to eq false
+      end
+
+      it "skips saving in no-analytics mode" do
+        described_class.call(assessment_id, calculation_result, check, { no_analytics_mode: true })
+        expect(CompletedUserJourney.count).to eq 0
       end
     end
 
@@ -55,7 +60,7 @@ RSpec.describe JourneyLoggerService do
       end
 
       it "saves the right details to the database" do
-        described_class.call(assessment_id, calculation_result, check)
+        described_class.call(assessment_id, calculation_result, check, {})
         output = CompletedUserJourney.find_by(assessment_id:)
         expect(output.certificated).to eq true
         expect(output.partner).to eq true
@@ -78,7 +83,7 @@ RSpec.describe JourneyLoggerService do
       end
 
       it "correctly tracks this" do
-        described_class.call(assessment_id, calculation_result, check)
+        described_class.call(assessment_id, calculation_result, check, {})
         output = CompletedUserJourney.find_by(assessment_id:)
         expect(output.passported).to eq true
       end
@@ -95,7 +100,7 @@ RSpec.describe JourneyLoggerService do
       end
 
       it "correctly identifies that there are no smod assets" do
-        described_class.call(assessment_id, calculation_result, check)
+        described_class.call(assessment_id, calculation_result, check, {})
         output = CompletedUserJourney.find_by(assessment_id:)
         expect(output.smod_assets).to eq false
       end
@@ -106,7 +111,7 @@ RSpec.describe JourneyLoggerService do
 
       it "updates an existing record" do
         existing_record = FactoryBot.create(:completed_user_journey, assessment_id:, partner: true)
-        described_class.call(assessment_id, calculation_result, check)
+        described_class.call(assessment_id, calculation_result, check, {})
         expect(existing_record.reload.partner).to eq false
       end
     end
