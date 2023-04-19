@@ -262,7 +262,7 @@
   attribute: valuables
   skip_if: valuables_in_dispute?
 
-# Valuables (non-SMOD)
+# Partner valuables (non-SMOD)
 - name: undefined_43
   type: text
   source: from_attribute
