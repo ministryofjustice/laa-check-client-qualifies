@@ -1,5 +1,8 @@
 class ChoiceAnalyticsService
-  def self.call(form, assessment_code, browser_id)
+  def self.call(form, assessment_code, cookies)
+    return if cookies[CookiesController::NO_ANALYTICS_MODE]
+
+    browser_id = cookies[ApplicationController::BROWSER_ID_COOKIE]
     # For the most part, our analytics data should _only_ contain information
     # about the pages viewed by users, not the content of any forms they make.
 

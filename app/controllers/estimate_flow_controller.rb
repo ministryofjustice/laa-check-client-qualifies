@@ -32,6 +32,6 @@ protected
   end
 
   def track_choices(form)
-    ChoiceAnalyticsService.call(form, assessment_code, cookies[BROWSER_ID_COOKIE])
+    ChoiceAnalyticsService.call(form, assessment_code, cookies)
   end
 end

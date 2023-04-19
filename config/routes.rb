@@ -34,4 +34,5 @@ Rails.application.routes.draw do
   resource :accessibility, only: :show
 
   get "/health-including-dependents", to: "status#health"
+  get "/no-analytics", to: "cookies#no_analytics_mode"
 end
