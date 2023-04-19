@@ -52,5 +52,17 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       }
       expect(result).to include(representative_sample)
     end
+
+    it "can successfully populate CW1_AND_2MH form fields" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_and_2.yml")).map(&:with_indifferent_access)
+      result = described_class.call(session_data, mappings)
+      representative_sample = {
+        "CheckBox17" => "1", # Passported applicant
+        "FillText5" => "250,000", # client main home value
+        "FillText6" => "90,000", # client main home mortgage
+        "FillText34" => "110,000", # client main home net equity
+      }
+      expect(result).to include(representative_sample)
+    end
   end
 end

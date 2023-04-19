@@ -1,0 +1,361 @@
+# This file defines the mappings used to prepopulate a CW1/2MH PDF form with the answers given by a user to CCQ's questions
+# combined with the output from CFE.
+
+# The mappings conform to the format described in ControlledWorkDocumentValueMappingService
+
+
+# "The client has a partner whose means are to be aggregated:"
+- name: CheckBox17
+  type: boolean_radio
+  source: from_attribute
+  attribute: partner
+  yes_value: "1"
+  no_value: "Off"
+
+# Main home / current market value (non-SMOD)
+- name: FillText5
+  type: text
+  source: from_cfe_payload
+  cfe_payload_location: assessment.capital.capital_items.properties.main_home.value
+  skip_if: house_in_dispute
+  skip_unless: client_capital_relevant?
+
+# Other property / current market value (non-SMOD)
+- name: FillText27
+  type: text
+  source: from_attribute
+  attribute: additional_non_smod_properties_value
+  skip_unless: client_capital_relevant?
+
+# Main home / outstanding mortgage (non-SMOD)
+- name: FillText6
+  type: text
+  source: from_cfe_payload
+  cfe_payload_location: assessment.capital.capital_items.properties.main_home.outstanding_mortgage
+  skip_if: house_in_dispute
+  skip_unless: client_capital_relevant?
+
+# Other property / outstanding mortgage (non-SMOD)
+- name: FillText28
+  type: text
+  source: from_attribute
+  attribute: additional_non_smod_properties_mortgage
+  skip_unless: client_capital_relevant?
+
+# Main home / client's share of property for assessment (non-SMOD)
+- name: FillText29
+  type: text
+  source: from_attribute
+  attribute: main_home_percentage_owned
+  skip_if: house_in_dispute
+  skip_unless: client_capital_relevant?
+
+# Other property / client's share of property for assessment (non-SMOD)
+- name: FillText62
+  type: text
+  source: from_attribute
+  attribute: additional_non_smod_properties_percentage_owned
+  skip_unless: client_capital_relevant?
+
+# Main home / total net equity (non-SMOD)
+- name: FillText30
+  type: text
+  source: from_cfe_payload
+  cfe_payload_location: assessment.capital.capital_items.properties.main_home.net_value
+  skip_if: house_in_dispute
+  skip_unless: client_capital_relevant?
+
+# Other property / total net equity (non-SMOD)
+- name: FillText33
+  type: text
+  source: from_attribute
+  attribute: additional_non_smod_properties_net_value
+  skip_unless: client_capital_relevant?
+
+# Main home / client's share of total net equity (non-SMOD)
+- name: FillText34
+  type: text
+  source: from_cfe_payload
+  cfe_payload_location: assessment.capital.capital_items.properties.main_home.net_equity
+  skip_if: house_in_dispute
+  skip_unless: client_capital_relevant?
+
+# Other property / client's share of total net equity (non-SMOD)
+- name: FillText40
+  type: text
+  source: from_attribute
+  attribute: additional_non_smod_properties_net_equity
+  skip_unless: client_capital_relevant?
+
+# Main home / final assessed amount of client's equity (non-SMOD)
+- name: FillText104
+  type: text
+  source: from_cfe_payload
+  cfe_payload_location: assessment.capital.capital_items.properties.main_home.assessed_equity
+  skip_if: house_in_dispute
+  skip_unless: client_capital_relevant?
+
+# Other property / final assessed amount of client's equity (non-SMOD)
+- name: FillText47
+  type: text
+  source: from_attribute
+  attribute: additional_non_smod_properties_assessed_equity
+  skip_unless: client_capital_relevant?
+
+# Client savings (non-SMOD)
+- name: FillText110
+  type: text
+  source: from_attribute
+  attribute: savings
+  skip_if: savings_in_dispute?
+
+# Partner savings (non-SMOD)
+- name: FillText107
+  type: text
+  source: from_attribute
+  attribute: partner_savings
+
+# Client investments (non-SMOD)
+- name: FillText111
+  type: text
+  source: from_attribute
+  attribute: investments
+  skip_if: investments_in_dispute?
+
+# Partner investments (non-SMOD)
+- name: FillText108
+  type: text
+  source: from_attribute
+  attribute: partner_investments
+
+# Client valuables (non-SMOD)
+- name: FillText105
+  type: text
+  source: from_attribute
+  attribute: valuables
+  skip_if: valuables_in_dispute?
+
+# Partner valuables (non-SMOD)
+- name: FillText109
+  type: text
+  source: from_attribute
+  attribute: partner_valuables
+
+# Total capital part A (SMOD)
+- name: FillText127
+  type: text
+  source: from_attribute
+  attribute: non_smod_total
+  skip_unless: client_capital_relevant?
+
+# The client is directly or indirectly in receipt of [passporting benefit] - Yes
+- name: CheckBox68
+  type: checkbox
+  source: from_attribute
+  attribute: passporting
+  checked_value: "1"
+
+# The client is directly or indirectly in receipt of [passporting benefit] - No
+- name: CheckBox69
+  type: checkbox
+  source: from_attribute
+  attribute: not_passporting
+  checked_value: "1"
+  skip_if: asylum_support
+
+# Gross monthly earnings / Client
+- name: FillText82
+  type: text
+  source: from_cfe_payload
+  cfe_payload_location: result_summary.disposable_income.employment_income.gross_income
+  skip_unless: client_income_relevant?
+
+# Gross monthly earnings / Partner
+- name: FillText83
+  type: text
+  source: from_cfe_payload
+  cfe_payload_location: result_summary.partner_disposable_income.employment_income.gross_income
+  skip_unless: partner_income_relevant?
+
+# Other income / Client
+- name: FillText84
+  type: text
+  source: from_attribute
+  attribute: client_non_employment_income
+  skip_unless: client_income_relevant?
+
+# Other income / Partner
+- name: FillText85
+  type: text
+  source: from_attribute
+  attribute: partner_non_employment_income
+  skip_unless: partner_income_relevant?
+    
+# Total gross income / Client
+- name: FillText86
+  type: text
+  source: from_cfe_payload
+  cfe_payload_location: result_summary.gross_income.total_gross_income
+  skip_unless: client_income_relevant?
+
+# Total gross income / Partner
+- name: FillText36
+  type: text
+  source: from_cfe_payload
+  cfe_payload_location: result_summary.partner_gross_income.total_gross_income
+  skip_unless: partner_income_relevant?
+
+# Total gross income  Client and Partner
+- name: FillText43
+  type: text
+  source: from_cfe_payload
+  cfe_payload_location: result_summary.gross_income.combined_total_gross_income
+  skip_unless: client_income_relevant?    
+    
+# Mortgage instalment / Client
+- name: FillText120
+  type: text
+  source: from_attribute
+  attribute: client_mortgage
+  skip_unless: client_income_relevant?
+
+# Mortgage instalment / Partner
+- name: FillText121
+  type: text
+  source: from_attribute
+  attribute: partner_mortgage
+  skip_unless: partner_income_relevant?
+
+# Rent / Client
+- name: FillText122
+  type: text
+  source: from_attribute
+  attribute: client_rent
+  skip_unless: client_income_relevant?
+
+# Rent / Partner
+- name: FillText123
+  type: text
+  source: from_attribute
+  attribute: partner_rent
+  skip_unless: partner_income_relevant?
+
+# Dependents' allowances / Partner
+- name: FillText44
+  type: text
+  source: from_cfe_payload
+  cfe_payload_location: result_summary.disposable_income.partner_allowance
+  skip_unless: client_income_relevant?
+
+# Dependents' allowances / Aged 15 or under
+- name: FillText48
+  type: text
+  source: from_attribute
+  attribute: client_and_partner_under_16_dependant_allowance
+  skip_unless: client_income_relevant?
+
+# Dependents' allowances / Aged 16 or over
+- name: FillText49
+  type: text
+  source: from_attribute
+  attribute: client_and_partner_16_plus_dependant_allowance
+  skip_unless: client_income_relevant?
+
+# Tax and national insurance / Client
+- name: FillText63
+  type: text
+  source: from_attribute
+  attribute: client_tax_and_national_insurance
+  skip_unless: client_income_relevant?
+
+# Tax and national insurance / Partner
+- name: FillText64
+  type: text
+  source: from_attribute
+  attribute: partner_tax_and_national_insurance
+  skip_unless: partner_income_relevant?
+
+# Standard allowance for employment expense / Client
+- name: FillText50
+  type: text
+  source: from_attribute
+  attribute: client_employment_deduction
+  skip_unless: client_income_relevant?
+
+# Standard allowance for employment expense / Partner
+- name: FillText112
+  type: text
+  source: from_attribute
+  attribute: partner_employment_deduction
+  skip_unless: partner_income_relevant?
+
+# Maintenance allowance / Client
+- name: FillText113
+  type: text
+  source: from_cfe_payload
+  cfe_payload_location: result_summary.disposable_income.maintenance_allowance
+  skip_unless: client_income_relevant?
+
+# Maintenance allowance / Partner
+- name: FillText114
+  type: text
+  source: from_cfe_payload
+  cfe_payload_location: result_summary.partner_disposable_income.maintenance_allowance
+  skip_unless: partner_income_relevant?
+
+# Childcare costs
+- name: FillText115
+  type: text
+  source: from_attribute
+  attribute: combined_childcare_costs
+  skip_unless: client_income_relevant?
+
+
+# Payment of income contribution order / Client
+- name: FillText124
+  type: text
+  source: from_cfe_payload
+  cfe_payload_location: assessment.disposable_income.monthly_equivalents.all_sources.legal_aid
+  skip_unless: client_income_relevant?
+
+# Payment of income contribution order / Partner
+- name: FillText125
+  type: text
+  source: from_cfe_payload
+  cfe_payload_location: assessment.partner_disposable_income.monthly_equivalents.all_sources.legal_aid
+  skip_unless: partner_income_relevant?
+
+# Total allowances / Client
+- name: FillText116
+  type: text
+  source: from_cfe_payload
+  cfe_payload_location: result_summary.disposable_income.total_outgoings_and_allowances
+  skip_unless: client_income_relevant?
+
+# Total allowances / Partner
+- name: FillText117
+  type: text
+  source: from_cfe_payload
+  cfe_payload_location: result_summary.partner_disposable_income.total_outgoings_and_allowances
+  skip_unless: partner_income_relevant?
+
+# Total monthly disposable income / Client
+- name: FillText118
+  type: text
+  source: from_cfe_payload
+  cfe_payload_location: result_summary.disposable_income.total_disposable_income
+  skip_unless: client_income_relevant?
+
+# Total monthly disposable income / Partner
+- name: FillText51
+  type: text
+  source: from_cfe_payload
+  cfe_payload_location: result_summary.partner_disposable_income.total_disposable_income
+  skip_unless: partner_income_relevant?
+
+# Total monthly disposable income Client and partner
+- name: FillText119
+  type: text
+  source: from_cfe_payload
+  cfe_payload_location: result_summary.disposable_income.combined_total_disposable_income
+  skip_unless: client_income_relevant?
