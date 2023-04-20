@@ -828,7 +828,7 @@ en:
         instruction: Enter amount
       student_finance:
         label: Student finance
-        hint: This includes any type of student loan, grant or bursary. Enter 0 if this does not apply
+        hint: This includes any type of student loan, grant or bursary. Do not include any tuition fee loans. Enter 0 if this does not apply
         certificated_instruction: Enter amount received this academic year
         controlled_instruction: Enter amount received this academic year
       other:
@@ -865,7 +865,7 @@ en:
         instruction: Enter amount
       student_finance:
         label: Student finance
-        hint: This includes any type of student loan, grant or bursary. Enter 0 if this does not apply.
+        hint: This includes any type of student loan, grant or bursary. Do not include any tuition fee loans. Enter 0 if this does not apply.
         certificated_instruction: Enter amount received this academic year
         controlled_instruction: Enter amount received this academic year
       other:
