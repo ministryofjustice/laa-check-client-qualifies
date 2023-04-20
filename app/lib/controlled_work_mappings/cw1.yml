@@ -135,8 +135,8 @@
 # Total capital part A (SMOD)
 - name: undefined_25
   type: text
-  source: from_attribute
-  attribute: smod_total
+  source: from_cfe_payload
+  cfe_payload_location: result_summary.capital.combined_disputed_capital
   skip_unless: smod_assets?
 
   # Main home / current market value (non-SMOD)
@@ -271,8 +271,8 @@
 # Total capital part A (non-SMOD)
 - name: undefined_46
   type: text
-  source: from_attribute
-  attribute: non_smod_total
+  source: from_cfe_payload
+  cfe_payload_location: result_summary.capital.combined_non_disputed_capital
   skip_unless: client_capital_relevant?
 
 # Total of all capital assets (Part A and Part B)

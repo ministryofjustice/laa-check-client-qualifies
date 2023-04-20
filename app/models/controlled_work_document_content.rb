@@ -62,14 +62,6 @@ private
     end
   end
 
-  def smod_total
-    "TODO"
-  end
-
-  def non_smod_total
-    "TODO"
-  end
-
   def additional_non_smod_properties_value
     additional_non_smod_properties_sum "value"
   end
