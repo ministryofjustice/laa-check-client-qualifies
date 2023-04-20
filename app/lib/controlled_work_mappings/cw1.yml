@@ -416,7 +416,7 @@
   attribute: client_employment_deduction
   skip_unless: client_income_relevant?
 
-# Standard allowance for employment expense / Client
+# Standard allowance for employment expense / Partner
 - name: undefined_65
   type: text
   source: from_attribute
