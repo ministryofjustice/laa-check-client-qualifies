@@ -29,12 +29,6 @@ RSpec.describe ControlledWorkDocumentContent do
     end
   end
 
-  describe "#smod_total" do
-    it "returns a reminder to populate this when CFE can provide it" do
-      expect(described_class.new.from_attribute(:smod_total)).to eq "TODO"
-    end
-  end
-
   describe "#additional_non_smod_properties_percentage_owned" do
     def make_capital(percentage_owned)
       {
