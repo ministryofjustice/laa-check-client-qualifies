@@ -109,6 +109,14 @@ private
     !passporting
   end
 
+  def no_partner
+    !partner
+  end
+
+  def no_asylum_support
+    !asylum_support
+  end
+
   def client_non_employment_income
     non_employment_income
   end
