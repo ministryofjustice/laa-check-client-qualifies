@@ -52,5 +52,17 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       }
       expect(result).to include(representative_sample)
     end
+
+    it "can successfully populate CIVMEANS7 form fields" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/civ_means_7.yml")).map(&:with_indifferent_access)
+      result = described_class.call(session_data, mappings)
+      representative_sample = {
+        "CheckBox21" => "1", # Client not passported
+        "FillText36" => "110,000", # Client's share of total net equity
+        "FillText57" => "90,000", # Main home / outstanding mortgage
+        "FillText56" => "250,000", # Main home / current market value
+      }
+      expect(result).to include(representative_sample)
+    end
   end
 end
