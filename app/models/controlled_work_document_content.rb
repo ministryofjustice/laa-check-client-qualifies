@@ -109,6 +109,10 @@ private
     !passporting
   end
 
+  def no_partner
+    !partner
+  end
+
   def client_non_employment_income
     non_employment_income
   end

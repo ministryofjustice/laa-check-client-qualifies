@@ -3,14 +3,19 @@
 
 # The mappings conform to the format described in ControlledWorkDocumentValueMappingService
 
-
-# "The client has a partner whose means are to be aggregated:"
+# "The client has a partner whose means are to be aggregated:" - Yes
 - name: CheckBox17
-  type: boolean_radio
+  type: checkbox
   source: from_attribute
   attribute: partner
-  yes_value: "1"
-  no_value: "Off"
+  checked_value: 1
+
+# "The client has a partner whose means are to be aggregated:" - No
+- name: CheckBox19
+  type: checkbox
+  source: from_attribute
+  attribute: no_partner
+  checked_value: 1
 
 # Main home / current market value (non-SMOD)
 - name: FillText5
