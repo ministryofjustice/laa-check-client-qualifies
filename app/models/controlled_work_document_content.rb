@@ -38,6 +38,10 @@ private
     house_in_dispute || vehicle_in_dispute || in_dispute.present?
   end
 
+  def no_smod_assets?
+    house_in_dispute || vehicle_in_dispute || in_dispute.present? == true ? false : true
+  end
+
   def additional_property_in_dispute?
     in_dispute.include? "property"
   end
@@ -113,6 +117,10 @@ private
 
   def not_passporting
     !passporting
+  end
+
+  def no_partner
+    !partner
   end
 
   def client_non_employment_income
