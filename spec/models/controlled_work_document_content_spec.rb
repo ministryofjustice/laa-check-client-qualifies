@@ -14,6 +14,15 @@ RSpec.describe ControlledWorkDocumentContent do
       }
       expect(described_class.new(session_data).from_cfe_payload("foo.1.bar")).to eq "56"
     end
+
+    it "zeroes out negative values" do
+      session_data = {
+        "api_response" => {
+          "foo" => -33.1,
+        },
+      }
+      expect(described_class.new(session_data).from_cfe_payload("foo")).to eq "0"
+    end
   end
 
   describe "#main_home_percentage_owned" do
