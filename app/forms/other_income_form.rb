@@ -29,7 +29,7 @@ class OtherIncomeForm
                                    if: -> { send(value_attribute).to_i.positive? }
   end
 
-  delegate :level_of_help, to: :estimate
+  delegate :level_of_help, to: :check
 
   def frequencies
     valid_frequencies = level_of_help == "controlled" ? VALID_FREQUENCIES - %w[total] : VALID_FREQUENCIES

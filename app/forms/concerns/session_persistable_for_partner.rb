@@ -7,9 +7,12 @@ module SessionPersistableForPartner
 
   class_methods do
     def attributes_from_session(session_data)
-      session_keys = self::ATTRIBUTES.map(&:to_s).map { "partner_#{_1}" }
       session_attributes = session_data.slice(*session_keys)
       session_attributes.transform_keys { _1.gsub("partner_", "") }
+    end
+
+    def session_keys
+      self::ATTRIBUTES.map { "partner_#{_1}" }
     end
   end
 

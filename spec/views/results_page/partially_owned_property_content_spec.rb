@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "estimates/show.html.slim" do
   describe "Partially owned property content" do
     let(:calculation_result) { CalculationResult.new(session_data) }
-    let(:estimate) { EstimateModel.from_session({}) }
+    let(:check) { Check.new({}) }
     let(:session_data) { { api_response: }.with_indifferent_access }
     let(:api_response) do
       FactoryBot.build(
@@ -45,7 +45,7 @@ RSpec.describe "estimates/show.html.slim" do
 
     before do
       assign(:model, calculation_result)
-      assign(:estimate, estimate)
+      assign(:check, check)
       params[:id] = :id
       render template: "estimates/show"
     end

@@ -9,8 +9,8 @@ private
     new_estimate_check_benefits_answer_path(assessment_code)
   end
 
-  def next_step_path(model)
-    next_step = next_check_answer_step :benefits, model
+  def next_step_path
+    next_step = next_check_answer_step :benefits
     if next_step.present?
       flow_path next_step
     else

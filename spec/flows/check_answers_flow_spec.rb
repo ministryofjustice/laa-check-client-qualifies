@@ -59,4 +59,19 @@ RSpec.describe "Check answers", type: :feature do
     fill_in_dependant_details_screen
     confirm_screen("check_answers")
   end
+
+  it "can handle a switch from certificated domestic abuse to controlled", :asylum_and_immigration_flag do
+    start_assessment
+    fill_in_forms_until(:level_of_help)
+    fill_in_level_of_help_screen(choice: "Civil certificated or licensed legal work")
+    fill_in_matter_type_screen(choice: "Domestic abuse")
+    fill_in_forms_until(:check_answers)
+    within "#section-level_of_help-header" do
+      click_on "Change"
+    end
+    fill_in_level_of_help_screen(choice: "Civil controlled work or family mediation")
+    # The previous choice of proceeding type is no longer valid
+    fill_in_matter_type_screen(choice: "Another category of law")
+    confirm_screen("check_answers")
+  end
 end

@@ -1,14 +1,13 @@
 class BenefitsController < EstimateFlowController
   skip_before_action :setup_wizard, only: %i[edit update destroy]
+  before_action :load_check, only: %i[new create edit update add]
 
   def new
     @model = model_class.new
-    @estimate = load_estimate
     track_page_view
   end
 
   def create
-    @estimate = load_estimate
     @model = model_class.new(params.require(model_class.name.underscore).permit(*model_class::EDITABLE_ATTRIBUTES))
     if @model.valid?
       @model.id = SecureRandom.uuid
@@ -22,14 +21,12 @@ class BenefitsController < EstimateFlowController
   end
 
   def edit
-    @estimate = load_estimate
     benefit_attributes = session_data[benefit_session_key].find { _1["id"] == params[:id] }
     @model = model_class.new(benefit_attributes)
     track_page_view
   end
 
   def update
-    @estimate = load_estimate
     benefit_attributes = session_data[benefit_session_key].find { _1["id"] == params[:id] }
     @model = model_class.new(benefit_attributes)
     @model.assign_attributes(params.require(model_class.name.underscore).permit(*model_class::EDITABLE_ATTRIBUTES))
@@ -50,13 +47,12 @@ class BenefitsController < EstimateFlowController
 
   def add
     @form = Flow::Handler.model_from_params(step_name, params, session_data)
-    @estimate = load_estimate
     if @form.valid?
       if @form.add_benefit
         redirect_to new_path
       else
         session_data.merge!(@form.session_attributes)
-        redirect_to next_step_path @estimate
+        redirect_to next_step_path
       end
     else
       track_validation_error
@@ -86,8 +82,8 @@ private
     new_estimate_benefit_path(assessment_code)
   end
 
-  def next_step_path(model)
-    flow_path StepsHelper.next_step_for(model, step_name)
+  def next_step_path
+    flow_path StepsHelper.next_step_for(session_data, step_name)
   end
 
   def post_destroy_path

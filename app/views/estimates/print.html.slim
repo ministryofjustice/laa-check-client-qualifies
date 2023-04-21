@@ -22,7 +22,7 @@
 
   - if @model.level_of_help == "certificated"
     h2.govuk-heading-m = t("estimates.show.what_happens_next")
-    - if @estimate.upper_tribunal?
+    - if @check.upper_tribunal?
       p.govuk-body = t("estimates.show.next_steps_without_apply_paragraph_1")
     - else
       p.govuk-body = t("estimates.show.next_steps_paragraph_1")

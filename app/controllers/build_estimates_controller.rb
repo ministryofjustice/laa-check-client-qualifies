@@ -5,16 +5,13 @@ class BuildEstimatesController < EstimateFlowController
     if @form.valid?
       track_choices(@form)
       session_data.merge!(@form.session_attributes)
-      estimate = load_estimate
-
-      next_step = StepsHelper.next_step_for(estimate, step)
+      next_step = StepsHelper.next_step_for(session_data, step)
       if next_step
         redirect_to wizard_path next_step
       else
         redirect_to_finish_wizard
       end
     else
-      @estimate = load_estimate
       track_validation_error
       render_wizard
     end
