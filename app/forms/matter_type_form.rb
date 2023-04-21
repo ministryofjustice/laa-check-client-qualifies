@@ -8,7 +8,16 @@ class MatterTypeForm
   ATTRIBUTES = %i[proceeding_type].freeze
 
   attribute :proceeding_type
-  validates :proceeding_type,
-            presence: true,
-            inclusion: { in: PROCEEDING_TYPES.values, allow_nil: true }
+  validates :proceeding_type, presence: true
+
+  validate :proceeding_type_valid?
+
+  def proceeding_type_valid?
+    valid = if check.controlled?
+              proceeding_type.in?(PROCEEDING_TYPES.slice(:immigration, :asylum, :other).values)
+            else
+              proceeding_type.in?(PROCEEDING_TYPES.values)
+            end
+    errors.add(:proceeding_type, :blank) unless valid
+  end
 end
