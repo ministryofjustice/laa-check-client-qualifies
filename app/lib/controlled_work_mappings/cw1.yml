@@ -384,15 +384,15 @@
 # Dependents' allowances / Aged 15 or under
 - name: undefined_60
   type: text
-  source: from_attribute
-  attribute: client_and_partner_under_16_dependant_allowance
+  source: from_cfe_payload
+  cfe_payload_location: result_summary.disposable_income.dependant_allowance_under_16
   skip_unless: client_income_relevant?
 
 # Dependents' allowances / Aged 16 or over
 - name: undefined_61
   type: text
-  source: from_attribute
-  attribute: client_and_partner_16_plus_dependant_allowance
+  source: from_cfe_payload
+  cfe_payload_location: result_summary.disposable_income.dependant_allowance_over_16
   skip_unless: client_income_relevant?
 
 # Tax and national insurance / Client

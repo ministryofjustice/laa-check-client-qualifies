@@ -133,14 +133,6 @@ private
     main_home_owned? ? 0 : net_housing_costs("partner_")
   end
 
-  def client_and_partner_under_16_dependant_allowance
-    "TODO"
-  end
-
-  def client_and_partner_16_plus_dependant_allowance
-    "TODO"
-  end
-
   def client_tax_and_national_insurance
     tax_and_national_insurance
   end
