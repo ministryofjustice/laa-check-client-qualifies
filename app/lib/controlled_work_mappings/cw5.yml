@@ -1,0 +1,67 @@
+# This file defines the mappings used to prepopulate a CW5 PDF form with the answers given by a user to CCQ's questions
+# combined with the output from CFE.
+
+# The mappings conform to the format described in ControlledWorkDocumentValueMappingService
+
+# "The client has a partner whose means are to be aggregated: - Yes"
+- name: CheckBox4
+  type: checkbox
+  source: from_attribute
+  attribute: partner
+  checked_value: "1"
+
+# "The client has a partner whose means are to be aggregated: - No"
+- name: CheckBox1
+  type: checkbox
+  source: from_attribute
+  attribute: no_partner
+  checked_value: "1"
+
+
+# # "The client's assets (held in sole name or jointly held) have been claimed by the opponent:"
+# - name: CheckBox2
+#   type: boolean_radio
+#   source: from_attribute
+#   attribute: smod_assets?
+#   yes_value: "1"
+#   no_value: "Off"
+
+# # Main home - Current market value (SMOD)
+# - name: FillText27
+#   type: text
+#   source: from_cfe_payload
+#   cfe_payload_location: assessment.capital.capital_items.properties.main_home.value
+#   skip_unless: house_in_dispute
+
+# # Main home - Outstanding Mortgage/secured loan (SMOD)
+# - name: FillText28
+#   type: text
+#   source: from_cfe_payload
+#   cfe_payload_location: assessment.capital.capital_items.properties.main_home.outstanding_mortgage
+#   skip_unless: house_in_dispute
+
+# # Other property - Current market value (SMOD)
+# - name: FillText29
+#   type: text
+#   source: from_cfe_payload
+#   cfe_payload_location: assessment.capital.capital_items.properties.additional_properties.0.value
+#   skip_unless: additional_property_in_dispute?
+
+# # Other property - Outstanding mortgage/secured loan (SMOD)
+# - name: FillText30
+#   type: text
+#   source: from_cfe_payload
+#   cfe_payload_location: assessment.capital.capital_items.properties.additional_properties.0.outstanding_mortgage
+#   skip_unless: additional_property_in_dispute?
+
+# # Main home / "Client's share of property for assessment?" (SMOD)
+# - name: FillText16
+#   type: text
+#   source: from_attribute
+#   attribute: main_home_percentage_owned
+#   skip_unless: house_in_dispute
+
+
+# -------------------------------
+
+
