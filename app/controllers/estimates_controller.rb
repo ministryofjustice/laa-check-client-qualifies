@@ -47,7 +47,7 @@ class EstimatesController < ApplicationController
       emulate_media: "screen",
       launch_args: ["--font-render-hinting=medium", "--no-sandbox"],
       display_url: request.url.split("/estimates").first,
-      execute_script: "document.querySelector('button').style.display = 'none'",
+      execute_script: "document.querySelectorAll('button').forEach(el => el.style.display = 'none')",
     }
 
     pdf = Grover.new(html, **grover_options).to_pdf
