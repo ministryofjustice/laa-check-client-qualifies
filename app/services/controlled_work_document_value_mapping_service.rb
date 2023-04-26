@@ -9,6 +9,7 @@
 # type - what sort of field this is (either `text`,  `checkbox` or `boolean_radio` (i.e. "Yes" and "No" radio buttons))
 # source - where to get the value from (either `from_attribute` or `from_cfe_payload`)
 # attribute - if `source` is `from_attribute` then the attribute on the model object that contains the value to include.
+# modifier - optional modifier to be used with methods in content model to return relevant data, such as if a property is non_smod
 # cfe_payload_location - if `source` is `from_cfe_payload` then this is the dot-separated path to the relevant value in the CFE payload
 # checked_value - if `type` is `checkbox` this is the value that the field must be set to in order to mark it as checked
 # yes_value - if `type` is `boolean_radio` this is the value that the field must be set to in order to mark "Yes" as selected
@@ -39,7 +40,7 @@ class ControlledWorkDocumentValueMappingService
 
       case mapping[:source]
       when "from_attribute"
-        content.from_attribute(mapping[:attribute])
+        content.from_attribute(mapping[:attribute], mapping[:modifier])
       when "from_cfe_payload"
         content.from_cfe_payload(mapping[:cfe_payload_location])
       else

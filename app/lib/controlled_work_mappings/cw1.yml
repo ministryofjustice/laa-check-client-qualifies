@@ -159,14 +159,16 @@
 - name: Other property 1_2
   type: text
   source: from_attribute
-  attribute: additional_non_smod_properties_value
+  attribute: additional_properties_value
+  modifier: non_smod
   skip_unless: client_capital_relevant?
 
 # Other property / outstanding mortgage (non-SMOD)
 - name: Other property 1_2
   type: text
   source: from_attribute
-  attribute: additional_non_smod_properties_mortgage
+  attribute: additional_properties_mortgage
+  modifier: non_smod
   skip_unless: client_capital_relevant?
 
 # Main home / client's share of property for assessment (non-SMOD)
@@ -181,7 +183,8 @@
 - name: undefined_31
   type: text
   source: from_attribute
-  attribute: additional_non_smod_properties_percentage_owned
+  attribute: additional_properties_percentage_owned
+  modifier: non_smod
   skip_unless: client_capital_relevant?
 
 # Main home / total net equity (non-SMOD)
@@ -196,7 +199,8 @@
 - name: undefined_33
   type: text
   source: from_attribute
-  attribute: additional_non_smod_properties_net_value
+  attribute: additional_properties_net_value
+  modifier: non_smod
   skip_unless: client_capital_relevant?
 
 # Main home / client's share of total net equity (non-SMOD)
@@ -211,7 +215,8 @@
 - name: undefined_35
   type: text
   source: from_attribute
-  attribute: additional_non_smod_properties_net_equity
+  attribute: additional_properties_net_equity
+  modifier: non_smod
   skip_unless: client_capital_relevant?
 
 # Main home / final assessed amount of client's equity (non-SMOD)
@@ -226,7 +231,8 @@
 - name: undefined_37
   type: text
   source: from_attribute
-  attribute: additional_non_smod_properties_assessed_equity
+  attribute: additional_properties_assessed_equity
+  modifier: non_smod
   skip_unless: client_capital_relevant?
 
 # Savings (non-SMOD)

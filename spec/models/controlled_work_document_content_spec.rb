@@ -38,7 +38,7 @@ RSpec.describe ControlledWorkDocumentContent do
     end
   end
 
-  describe "#additional_non_smod_properties_percentage_owned" do
+  describe "#additional_properties_percentage_owned" do
     def make_capital(percentage_owned)
       {
         "capital_items" => {
@@ -51,41 +51,102 @@ RSpec.describe ControlledWorkDocumentContent do
       }
     end
 
-    it "returns the percentage owned if it's always the same" do
-      session_data = {
-        "api_response" => {
-          "assessment" => {
-            "capital" => make_capital(50),
-            "partner_capital" => make_capital(50),
+    context "when the modifier is non_smod" do
+      let(:modifier) { "non_smod" }
+
+      it "returns the percentage owned if it's always the same" do
+        session_data = {
+          "api_response" => {
+            "assessment" => {
+              "capital" => make_capital(50),
+              "partner_capital" => make_capital(50),
+            },
           },
-        },
-      }
-      expect(described_class.new(session_data).from_attribute(:additional_non_smod_properties_percentage_owned)).to eq "50"
+        }
+        expect(described_class.new(session_data).from_attribute(:additional_properties_percentage_owned, modifier)).to eq "50"
+      end
+
+      it "returns 'unknown' if it differs" do
+        session_data = {
+          "api_response" => {
+            "assessment" => {
+              "capital" => make_capital(50),
+              "partner_capital" => make_capital(51),
+            },
+          },
+        }
+        expect(described_class.new(session_data).from_attribute(:additional_properties_percentage_owned, modifier)).to eq "Unknown"
+      end
+
+      it "ignores client capital if client additional home is SMOD" do
+        session_data = {
+          "in_dispute" => %w[property],
+          "api_response" => {
+            "assessment" => {
+              "capital" => make_capital(50),
+              "partner_capital" => make_capital(51),
+            },
+          },
+        }
+        expect(described_class.new(session_data).from_attribute(:additional_properties_percentage_owned, modifier)).to eq "51"
+      end
     end
 
-    it "returns 'unknown' if it differs" do
-      session_data = {
-        "api_response" => {
-          "assessment" => {
-            "capital" => make_capital(50),
-            "partner_capital" => make_capital(51),
+    context "when no modifier is passed" do
+      it "returns the percentage owned if it's always the same" do
+        session_data = {
+          "api_response" => {
+            "assessment" => {
+              "capital" => make_capital(50),
+              "partner_capital" => make_capital(50),
+            },
           },
-        },
-      }
-      expect(described_class.new(session_data).from_attribute(:additional_non_smod_properties_percentage_owned)).to eq "Unknown"
+        }
+        expect(described_class.new(session_data).from_attribute(:additional_properties_percentage_owned)).to eq "50"
+      end
+
+      it "returns 'unknown' if it differs" do
+        session_data = {
+          "api_response" => {
+            "assessment" => {
+              "capital" => make_capital(50),
+              "partner_capital" => make_capital(51),
+            },
+          },
+        }
+        expect(described_class.new(session_data).from_attribute(:additional_properties_percentage_owned)).to eq "Unknown"
+      end
+
+      it "does not ignore client capital if client additional home is SMOD" do
+        session_data = {
+          "in_dispute" => %w[property],
+          "api_response" => {
+            "assessment" => {
+              "capital" => make_capital(50),
+              "partner_capital" => make_capital(51),
+            },
+          },
+        }
+        expect(described_class.new(session_data).from_attribute(:additional_properties_percentage_owned)).to eq "Unknown"
+      end
     end
 
-    it "ignores client capital if client additional home is SMOD" do
-      session_data = {
-        "in_dispute" => %w[property],
-        "api_response" => {
-          "assessment" => {
-            "capital" => make_capital(50),
-            "partner_capital" => make_capital(51),
+    context "with an invalid modifier" do
+      let(:modifier) { "modifier" }
+
+      it "returns an error" do
+        session_data = {
+          "in_dispute" => %w[property],
+          "api_response" => {
+            "assessment" => {
+              "capital" => make_capital(50),
+              "partner_capital" => make_capital(51),
+            },
           },
-        },
-      }
-      expect(described_class.new(session_data).from_attribute(:additional_non_smod_properties_percentage_owned)).to eq "51"
+        }
+
+        expect { described_class.new(session_data).from_attribute(:additional_properties_percentage_owned, modifier) }.to raise_error "Invalid modifier in YML"
+      end
     end
   end
 

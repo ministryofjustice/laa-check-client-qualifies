@@ -50,14 +50,14 @@
   - name: FillText61
     type: text
     source: from_attribute
-    attribute: additional_non_smod_properties_value
+    attribute: additional_properties_value
     skip_unless: client_capital_relevant?
 
 # Other property / outstanding mortgage
   - name: FillText65
     type: text
     source: from_attribute
-    attribute: additional_non_smod_properties_mortgage
+    attribute: additional_properties_mortgage
     skip_unless: client_capital_relevant?
 
 # Main Home - Client's share of property for assessment?
@@ -71,7 +71,7 @@
   - name: FillText62
     type: text
     source: from_attribute
-    attribute: additional_non_smod_properties_percentage_owned
+    attribute: additional_properties_percentage_owned
     skip_unless: client_capital_relevant?
 
 # Main Home - Total Net Equity (i.e. current market value minus mortgage disregard)
@@ -85,7 +85,7 @@
   - name: FillText68
     type: text
     source: from_attribute
-    attribute: additional_non_smod_properties_net_value
+    attribute: additional_properties_net_value
     skip_unless: client_capital_relevant?
 
 # Main Home - Client's share of Total Net Equity
@@ -99,7 +99,7 @@
   - name: FillText70
     type: text
     source: from_attribute
-    attribute: additional_non_smod_properties_net_equity
+    attribute: additional_properties_net_equity
     skip_unless: client_capital_relevant?
 
 # Main Home - Final assessed amount of Client's equity 
@@ -113,7 +113,7 @@
   - name: FillText72
     type: text
     source: from_attribute
-    attribute: additional_non_smod_properties_assessed_equity
+    attribute: additional_properties_assessed_equity
     skip_unless: client_capital_relevant?
 
 # Client - Savings (bank, building society, etc)
