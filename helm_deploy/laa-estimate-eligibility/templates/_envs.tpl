@@ -94,5 +94,17 @@ env:
     value:  {{ .Values.geckoboard.validationsDataset }}
   - name: GECKOBOARD_ENABLED
     value: {{ .Values.geckoboard.enabled }}
+  - name: BLAZER_USERNAME
+    value: 'blazer'
+  - name: BLAZER_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: kube-secrets
+        key: blazer-password
+  - name: BLAZER_DATABASE_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: kube-secrets
+        key: blazer-database-password
 
 {{- end }}

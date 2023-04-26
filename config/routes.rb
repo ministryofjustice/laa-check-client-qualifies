@@ -35,4 +35,6 @@ Rails.application.routes.draw do
 
   get "/health-including-dependents", to: "status#health"
   get "/no-analytics", to: "cookies#no_analytics_mode"
+
+  mount Blazer::Engine, at: "data"
 end
