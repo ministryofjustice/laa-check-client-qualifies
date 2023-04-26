@@ -2,5 +2,83 @@
   = t(".title")
 .govuk-grid-column-two-thirds
   = render "shared/heading", header_text: t(".title")
-  - t(".paragraphs").each do |paragraph|
+
+  h2.govuk-heading-m = t(".what_we_collect_heading")
+  - t(".collect_section_html").each do |paragraph|
     p.govuk-body = paragraph
+  ul.govuk-list.govuk-list--bullet
+    - t(".privacy_bullets_one_html").each do |bullet|
+      li = bullet
+
+  p.govuk-body = t(".with_consent_html")
+  ul.govuk-list.govuk-list--bullet
+    - t(".privacy_bullets_two").each do |bullet|
+      li = bullet
+
+  - t(".ga_section_html").each do |paragraph|
+    p.govuk-body = paragraph
+
+  h2.govuk-heading-m = t(".why_heading")
+  p.govuk-body = t(".why_collect")
+  ul.govuk-list.govuk-list--bullet
+    - t(".why_bullets").each do |bullet|
+      li = bullet
+
+  - t(".why_we_do_section").each do |paragraph|
+    p.govuk-body = paragraph
+  ul.govuk-list.govuk-list--bullet
+    - t(".why_we_do_bullets").each do |bullet|
+      li = bullet
+
+  h2.govuk-heading-m = t(".why_heading")
+  - t(".legal_basis_section").each do |paragraph|
+    p.govuk-body = paragraph
+
+  h2.govuk-heading-m = t(".what_we_do_heading")
+  - t(".what_we_do_section").each do |paragraph|
+    p.govuk-body = paragraph
+  ul.govuk-list.govuk-list--bullet
+    - t(".what_we_do_bullets").each do |bullet|
+      li = bullet
+
+  h2.govuk-heading-m = t(".how_long_heading")
+  - t(".how_long_section").each do |paragraph|
+    p.govuk-body = paragraph
+
+  h2.govuk-heading-m = t(".where_stored_heading")
+  p.govuk-body = t(".where_stored")
+
+  h2.govuk-heading-m = t(".how_stored_heading")
+  p.govuk-body = t(".how_stored")
+
+  h2.govuk-heading-m = t(".links_heading")
+  - t(".links_section").each do |paragraph|
+    p.govuk-body = paragraph
+  ul.govuk-list.govuk-list--bullet
+    - t(".links_bullets").each do |bullet|
+      li = bullet
+
+  h2.govuk-heading-m = t(".contact_heading")
+  p.govuk-body = t(".contact")
+  ul.govuk-list.govuk-list--bullet
+    - t(".contact_bullets").each do |bullet|
+      li = bullet
+
+  p.govuk-body = t(".further_contact")
+  p.govuk-body = t(".dpo_email")
+  ul.govuk-list class="address"
+    - t(".dpo_address").each do |line|
+      li = line
+  p.govuk-body = t(".dpo_role")
+
+  p.govuk-body = t(".ico_section")
+  ul.govuk-list class="address"
+    - t(".ico_contact_html").each do |line|
+      li = line
+  ul.govuk-list
+    - t(".ico_address").each do |line|
+      li = line
+
+  h2.govuk-heading-m = t(".changes_heading")
+  p.govuk-body = t(".changes_text")
+  p.govuk-body = t(".last_updated")
