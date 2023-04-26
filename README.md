@@ -63,6 +63,8 @@ yarn build
 yarn build:css
 ```
 
+To change settings for your local development environment, copy your `.env.sample` file to a new file and rename it to `.env.development`. 
+
 ## Tests
 
 We test with [RSpec](https://rspec.info/) and enforce 100% line and branch coverage with [SimpleCov](https://www.learnhowtoprogram.com/ruby-and-rails/authentication-and-authorization/simplecov).

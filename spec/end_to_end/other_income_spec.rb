@@ -24,7 +24,7 @@ RSpec.describe "Controlled other income", type: :feature do
       irregular_transactions = stub_request(:post, %r{irregular_incomes\z}).with do |request|
         expected_payload = {
           payments: [
-            { income_type: "unspecified_source", frequency: "quarterly", amount: "500.0" },
+            { income_type: "unspecified_source", frequency: "quarterly", amount: 500.0 },
           ],
         }
         request.body == expected_payload.to_json
@@ -33,8 +33,8 @@ RSpec.describe "Controlled other income", type: :feature do
       regular_transactions = stub_request(:post, %r{regular_transactions\z}).with do |request|
         expected_payload = {
           "regular_transactions": [
-            { "operation": "credit", "category": "friends_or_family", "frequency": "weekly", "amount": "200.0" },
-            { "operation": "credit", "category": "maintenance_in", "frequency": "two_weekly", "amount": "300.0" },
+            { "operation": "credit", "category": "friends_or_family", "frequency": "weekly", "amount": 200.0 },
+            { "operation": "credit", "category": "maintenance_in", "frequency": "two_weekly", "amount": 300.0 },
           ],
         }
         request.body == expected_payload.to_json
@@ -74,8 +74,8 @@ RSpec.describe "Controlled other income", type: :feature do
       irregular_transactions = stub_request(:post, %r{irregular_incomes\z}).with do |request|
         expected_payload = {
           payments: [
-            { income_type: "student_loan", frequency: "annual", amount: "100.0" },
-            { income_type: "unspecified_source", frequency: "monthly", amount: "500.0" },
+            { income_type: "student_loan", frequency: "annual", amount: 100.0 },
+            { income_type: "unspecified_source", frequency: "monthly", amount: 500.0 },
           ],
         }
         request.body == expected_payload.to_json
@@ -84,8 +84,8 @@ RSpec.describe "Controlled other income", type: :feature do
       regular_transactions = stub_request(:post, %r{regular_transactions\z}).with do |request|
         expected_payload = {
           "regular_transactions": [
-            { "operation": "credit", "category": "friends_or_family", "frequency": "weekly", "amount": "200.0" },
-            { "operation": "credit", "category": "maintenance_in", "frequency": "two_weekly", "amount": "300.0" },
+            { "operation": "credit", "category": "friends_or_family", "frequency": "weekly", "amount": 200.0 },
+            { "operation": "credit", "category": "maintenance_in", "frequency": "two_weekly", "amount": 300.0 },
           ],
         }
         request.body == expected_payload.to_json

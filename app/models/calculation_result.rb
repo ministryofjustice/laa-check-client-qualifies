@@ -88,7 +88,8 @@ class CalculationResult
   end
 
   def pensioner_disregard_applied?
-    api_response.dig(:result_summary, :capital, :pensioner_disregard_applied).positive?
+    api_response.dig(:result_summary, :capital, :pensioner_disregard_applied).positive? ||
+      api_response.dig(:result_summary, :partner_capital, :pensioner_disregard_applied)&.positive?
   end
 
   def smod_applied?
@@ -171,9 +172,10 @@ class CalculationResult
   end
 
   def pensioner_disregard_rows
-    total_capital = api_response.dig(:result_summary, :capital, :total_capital) +
-      api_response.dig(:result_summary, :partner_capital, :total_capital)
-    disregarded = api_response.dig(:result_summary, :capital, :pensioner_disregard_applied)
+    total_capital = api_response.dig(:result_summary, :capital, :total_capital_with_smod) +
+      api_response.dig(:result_summary, :partner_capital, :total_capital_with_smod)
+    disregarded = api_response.dig(:result_summary, :capital, :pensioner_disregard_applied) +
+      api_response.dig(:result_summary, :partner_capital, :pensioner_disregard_applied)
     {
       total_capital: monetise(total_capital),
       pensioner_capital_disregard: monetise(-disregarded),

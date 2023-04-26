@@ -14,6 +14,15 @@ RSpec.describe ControlledWorkDocumentContent do
       }
       expect(described_class.new(session_data).from_cfe_payload("foo.1.bar")).to eq "56"
     end
+
+    it "zeroes out negative values" do
+      session_data = {
+        "api_response" => {
+          "foo" => -33.1,
+        },
+      }
+      expect(described_class.new(session_data).from_cfe_payload("foo")).to eq "0"
+    end
   end
 
   describe "#main_home_percentage_owned" do
@@ -26,12 +35,6 @@ RSpec.describe ControlledWorkDocumentContent do
         "joint_percentage_owned" => 25,
       }
       expect(described_class.new(session_data).from_attribute(:main_home_percentage_owned)).to eq "78"
-    end
-  end
-
-  describe "#smod_total" do
-    it "returns a reminder to populate this when CFE can provide it" do
-      expect(described_class.new.from_attribute(:smod_total)).to eq "TODO"
     end
   end
 

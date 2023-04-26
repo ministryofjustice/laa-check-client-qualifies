@@ -29,9 +29,11 @@ private
     return unless value
     return value unless value.is_a?(Numeric)
 
-    precision = value.round == value ? 0 : 2
+    non_negative_value = [value, 0].max
 
-    number_with_precision(value, precision:, delimiter: ",")
+    precision = non_negative_value.round == non_negative_value ? 0 : 2
+
+    number_with_precision(non_negative_value, precision:, delimiter: ",")
   end
 
   def smod_assets?
@@ -64,14 +66,6 @@ private
     else
       percentage_owned || partner_percentage_owned
     end
-  end
-
-  def smod_total
-    "TODO"
-  end
-
-  def non_smod_total
-    "TODO"
   end
 
   def additional_non_smod_properties_value
@@ -118,7 +112,7 @@ private
   def not_passporting
     !passporting
   end
-
+  
   def no_partner
     !partner
   end
@@ -145,14 +139,6 @@ private
 
   def partner_rent
     main_home_owned? ? 0 : net_housing_costs("partner_")
-  end
-
-  def client_and_partner_under_16_dependant_allowance
-    "TODO"
-  end
-
-  def client_and_partner_16_plus_dependant_allowance
-    "TODO"
   end
 
   def client_tax_and_national_insurance

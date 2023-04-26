@@ -52,4 +52,10 @@ module ApplicationHelper
       estimate_build_estimate_path(assessment_code, step)
     end
   end
+
+  def enable_google_analytics(cookies)
+    ENV["GOOGLE_TAG_MANAGER_ID"].present? &&
+      cookies[CookiesController::COOKIE_CHOICE_NAME] == "accepted" &&
+      !cookies[CookiesController::NO_ANALYTICS_MODE]
+  end
 end
