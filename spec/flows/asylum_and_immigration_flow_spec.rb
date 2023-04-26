@@ -1,14 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Asylum and immigration flag", :asylum_and_immigration_flag, type: :feature do
-  it "adds a new matter type screen" do
-    start_assessment
-    fill_in_forms_until(:level_of_help)
-    fill_in_level_of_help_screen
-    fill_in_matter_type_screen(choice: "Another category of law")
-    confirm_screen("applicant")
-  end
-
+RSpec.describe "Asylum and immigration flow", type: :feature do
   it "adds an asylum support question screen for immigration matter type" do
     start_assessment
     fill_in_forms_until(:matter_type)

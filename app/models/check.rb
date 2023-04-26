@@ -38,10 +38,6 @@ class Check
     !upper_tribunal?
   end
 
-  def use_legacy_proceeding_type?
-    !controlled? && !StepsHelper.valid_step?(session_data, :matter_type)
-  end
-
   def upper_tribunal?
     StepsLogic.upper_tribunal?(session_data)
   end

@@ -3,7 +3,6 @@ FactoryBot.define do
     initialize_with { attributes.transform_keys(&:to_s) }
 
     level_of_help { "certificated" }
-    legacy_proceeding_type { "SE003" }
     over_60 { false }
     employment_status { "unemployed" }
     partner { false }
@@ -124,7 +123,6 @@ FactoryBot.define do
 
     level_of_help { "certificated" }
     proceeding_type { nil }
-    legacy_proceeding_type { "SE003" }
     over_60 { false }
     employment_status { "receiving_statutory_pay" }
     partner { true }

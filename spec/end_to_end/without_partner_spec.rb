@@ -116,6 +116,7 @@ RSpec.describe "Certificated check without partner", type: :feature do
     start_assessment
     fill_in_provider_users_screen
     fill_in_level_of_help_screen
+    fill_in_matter_type_screen
     fill_in_applicant_screen(employed: "Employed and in work")
     fill_in_dependant_details_screen(child_dependants: "Yes", child_dependants_count: 1)
     fill_in_employment_screen

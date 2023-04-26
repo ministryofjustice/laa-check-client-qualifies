@@ -10,11 +10,10 @@ RSpec.describe "estimates/check_answers.html.slim" do
     render template: "estimates/check_answers"
   end
 
-  describe "immigration and asylum proceedings", :asylum_and_immigration_flag do
+  describe "immigration and asylum proceedings" do
     let(:session_data) do
       build(:minimal_complete_session,
             level_of_help:,
-            legacy_proceeding_type: nil,
             proceeding_type:,
             asylum_support:)
     end

@@ -64,8 +64,6 @@ env:
         key: url
   - name: SENTRY_FEATURE_FLAG
     value: {{ .Values.featureFlags.sentry }}
-  - name: ASYLUM_AND_IMMIGRATION_FEATURE_FLAG
-    value: {{ .Values.featureFlags.asylumAndImmigration }}
   - name: CW_FORMS_FEATURE_FLAG
     value: {{ .Values.featureFlags.cwForms }}
   - name: HOUSEHOLD_SECTION_FEATURE_FLAG

@@ -80,12 +80,6 @@ RSpec.configure do |config|
     WebMock.disable_net_connect!(allow_localhost: true, allow: ALLOWED_HOSTS)
   end
 
-  config.around(:each, :asylum_and_immigration_flag) do |example|
-    Flipper.enable(:asylum_and_immigration)
-    example.run
-    Flipper.disable(:asylum_and_immigration)
-  end
-
   config.around(:each, :cw_forms_flag) do |example|
     Flipper.enable(:cw_forms)
     example.run
