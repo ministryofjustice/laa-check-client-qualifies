@@ -549,7 +549,7 @@ en:
     matter_type:
       title: Which type of matter is this?
       immigration_controlled: Legal representation for an immigration matter (First-tier Tribunal)
-      asylum_controlled: Legal help for an immigration or asylum matter, or help at court or legal representation for an asylum matter (First-tier Tribunal)
+      asylum_controlled: Legal help or help at court for an immigration or asylum matter, or legal representation for an asylum matter (First-tier Tribunal)
       immigration_certificated: Immigration (Upper Tribunal)
       asylum_certificated: Asylum (Upper Tribunal)
       other: Another category of law
@@ -572,17 +572,15 @@ en:
       asylum_certificated_paragraph_two_html: Guidance for this is in paragraphs 24 to 30, 32(1) and 32A(1) of Part 1 of Schedule 1 to the <a href='https://www.legislation.gov.uk/ukpga/2012/10/schedule/1' target='_blank' rel='noreferrer noopener'>Legal Aid, Sentencing and Punishment of Offenders Act 2012</a> (LASPO).
       domestic_abuse_header: Domestic abuse
       domestic_abuse_paragraph: This must be for legal representation for a domestic abuse matter (injunction or other order for protection from harm, or committal for breach), FGM protection order, or forced marriage protection order.
-      immigration_and_asylum_controlled_paragraph: These must be for matters in the Immigration and Asylum Chamber of the First-tier Tribunal.
       immigration_header_controlled: Legal representation for an immigration matter
       immigration_controlled_paragraph_one: This must be for legal representation for an immigration matter in the Immigration and Asylum Chamber of the First-tier Tribunal.
       immigration_controlled_paragraph_two_html: Guidance for this is in paragraphs 25 to 29, 32(1), 32A(1) of Part 1 of Schedule 1 to the <a href='https://www.legislation.gov.uk/ukpga/2012/10/schedule/1' target='_blank' rel='noreferrer noopener'>Legal Aid, Sentencing and Punishment of Offenders Act 2012</a> (LASPO).
-      asylum_header_controlled: Legal help for an immigration or asylum matter, or help at court or legal representation for an asylum matter
-      asylum_controlled_paragraph_one: "This must be for a matter in the Immigration and Asylum Chamber of the First-tier Tribunal, covering:"
+      asylum_header_controlled: Legal help or help at court for an immigration or asylum matter, or legal representation for an asylum matter
+      asylum_controlled_paragraph_one: "This covers:"
       asylum_controlled_bullets:
-        - legal help for an immigration matter
-        - legal help for an asylum matter
-        - help at court for an asylum matter
-        - legal representation for an asylum matter
+        - legal help for an immigration or asylum matter
+        - help at court for an immigration or asylum matter
+        - legal representation for an asylum matter in the Immigration and Asylum Chamber of the First-tier Tribunal
       asylum_controlled_paragraph_two_html: Guidance for this is in paragraphs 24 to 30, 32(1) and 32A(1) of Part 1 of Schedule 1 to the <a href='https://www.legislation.gov.uk/ukpga/2012/10/schedule/1' target='_blank' rel='noreferrer noopener'>Legal Aid, Sentencing and Punishment of Offenders Act 2012</a> (LASPO).
       select_a_matter_type: Select a matter type
     partner:
@@ -830,7 +828,7 @@ en:
         instruction: Enter amount
       student_finance:
         label: Student finance
-        hint: This includes any type of student loan, grant or bursary. Enter 0 if this does not apply
+        hint: This includes any type of student loan, grant or bursary. Do not include any tuition fee loans. Enter 0 if this does not apply
         certificated_instruction: Enter amount received this academic year
         controlled_instruction: Enter amount received this academic year
       other:
@@ -867,7 +865,7 @@ en:
         instruction: Enter amount
       student_finance:
         label: Student finance
-        hint: This includes any type of student loan, grant or bursary. Enter 0 if this does not apply.
+        hint: This includes any type of student loan, grant or bursary. Do not include any tuition fee loans. Enter 0 if this does not apply.
         certificated_instruction: Enter amount received this academic year
         controlled_instruction: Enter amount received this academic year
       other:
@@ -1155,10 +1153,13 @@ en:
       about_the_case_fields:
         proceeding_type: Type of matter
         proceeding_type_options:
-          IM030: "Immigration in the Upper Tribunal"
-          IA031: "Asylum in the Upper Tribunal"
-          SE003: "Another legal matter"
-          DA001: "Domestic abuse"
+          IM030_certificated: Immigration in the Upper Tribunal
+          IM030_controlled: Immigration in the First-tier Tribunal
+          IA031_certificated: Asylum in the Upper Tribunal
+          IA031_controlled: Another immigration or asylum matter
+          SE003_certificated: Another legal matter
+          SE003_controlled: Another legal matter
+          DA001_certificated: Domestic abuse
           not_provided: "Not provided"
       about_your_client: About your client
       about_partner: About your client's partner

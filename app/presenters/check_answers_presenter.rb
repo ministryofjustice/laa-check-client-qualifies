@@ -8,6 +8,6 @@ class CheckAnswersPresenter
   end
 
   def level_of_help
-    EstimateModel.from_session(@session_data).level_of_help
+    Check.new(@session_data).level_of_help
   end
 end

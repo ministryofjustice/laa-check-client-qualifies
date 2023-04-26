@@ -78,7 +78,7 @@ private
 
   def create_record(assessment_id, record_type, record_data)
     url = "/assessments/#{assessment_id}/#{record_type}"
-    response = cfe_connection.post url, record_data
+    response = cfe_connection.post url, format_json(record_data)
     validate_api_response(response, url)
   end
 
@@ -104,6 +104,15 @@ private
       faraday.response :json
 
       faraday.adapter :net_http_persistent
+    end
+  end
+
+  def format_json(hash)
+    # BigDecimal#as_json returns a string, and we want numbers to be sent to
+    # CFE as numbers. So we seek out all decimals and convert them to floats
+    # as we build the payload.
+    hash.deep_transform_values do |value|
+      value.is_a?(BigDecimal) ? value.to_f : value
     end
   end
 end

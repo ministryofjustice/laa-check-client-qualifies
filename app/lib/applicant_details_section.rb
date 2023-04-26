@@ -4,20 +4,20 @@ class ApplicantDetailsSection
       %i[applicant dependant_details]
     end
 
-    def steps_for(estimate)
-      if estimate.asylum_support_and_upper_tribunal?
+    def steps_for(session_data)
+      if StepsLogic.asylum_supported?(session_data)
         []
       else
-        steps(estimate).map { [_1] }
+        steps(session_data).map { [_1] }
       end
     end
 
-    def steps(estimate)
-      [:applicant, dependant_details(estimate)].compact
+    def steps(session_data)
+      [:applicant, dependant_details(session_data)].compact
     end
 
-    def dependant_details(estimate)
-      :dependant_details unless estimate.passporting
+    def dependant_details(session_data)
+      :dependant_details unless StepsLogic.passported?(session_data)
     end
   end
 end

@@ -50,9 +50,10 @@
                     screen_to_link_to: (field.screen_to_link_to if change_links),
                     disputed_asset: field.disputed?
         - when "select"
+          - value_key = "#{field.value || 'not_provided'}#{"_#{field.alt_value}" if field.alt_value}"
           = render "check_answer",
                     label_text: t("estimates.check_answers.#{field.label}"),
-                    value_text: t("estimates.check_answers.#{field.label}_options.#{field.value || 'not_provided'}"),
+                    value_text: t("estimates.check_answers.#{field.label}_options.#{value_key}"),
                     screen_to_link_to: (field.screen_to_link_to if change_links),
                     disputed_asset: field.disputed?
         - when "money_with_frequency"

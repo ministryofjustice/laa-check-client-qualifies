@@ -1,9 +1,9 @@
 - content_for :page_title
   = t(".heading")
 - content_for :back do
-  = back_link(:partner_property_entry, @estimate, @back_buttons_invoke_browser_back_behaviour)
+  = back_link(:partner_property_entry, @check, @back_buttons_invoke_browser_back_behaviour)
 .govuk-grid-column-two-thirds
   = render "estimate_flow/forms/property_entry", i18n_key: "partner_property_entry",
-          show_smod_content: false, show_joint_ownership: false, show_mortgage: @estimate.partner_property_owned == "with_mortgage"
+          show_smod_content: false, show_joint_ownership: false, show_mortgage: @check.partner_property_owned == "with_mortgage"
 
-= render "partner_property_sidebar", level_of_help: @estimate.level_of_help
+= render "partner_property_sidebar", level_of_help: @check.level_of_help

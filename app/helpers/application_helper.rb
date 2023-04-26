@@ -34,10 +34,10 @@ module ApplicationHelper
     number_with_precision(current_value, precision: 0, delimiter: ",")
   end
 
-  def back_link(step, estimate, mimic_browser_back)
+  def back_link(step, check, mimic_browser_back)
     link = if mimic_browser_back
              "javascript:history.back()"
-           elsif (previous_step = StepsHelper.previous_step_for(estimate, step))
+           elsif (previous_step = StepsHelper.previous_step_for(check.session_data, step))
              estimate_build_estimate_path(params[:estimate_id], previous_step)
            else
              provider_users_path
@@ -51,5 +51,11 @@ module ApplicationHelper
     else
       estimate_build_estimate_path(assessment_code, step)
     end
+  end
+
+  def enable_google_analytics(cookies)
+    ENV["GOOGLE_TAG_MANAGER_ID"].present? &&
+      cookies[CookiesController::COOKIE_CHOICE_NAME] == "accepted" &&
+      !cookies[CookiesController::NO_ANALYTICS_MODE]
   end
 end

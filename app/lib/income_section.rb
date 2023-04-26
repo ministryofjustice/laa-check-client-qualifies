@@ -4,26 +4,26 @@ class IncomeSection
       %i[employment housing_benefit housing_benefit_details benefits other_income outgoings]
     end
 
-    def steps_for(estimate)
-      if estimate.passporting || estimate.asylum_support_and_upper_tribunal?
+    def steps_for(session_data)
+      if StepsLogic.passported?(session_data) || StepsLogic.asylum_supported?(session_data)
         []
       else
-        employment_steps(estimate) + housing_benefit_steps(estimate) + other_steps
+        employment_steps(session_data) + housing_benefit_steps(session_data) + other_steps
       end
     end
 
   private
 
-    def employment_steps(estimate)
-      estimate.employed? ? [[:employment]] : []
+    def employment_steps(session_data)
+      StepsLogic.employed?(session_data) ? [[:employment]] : []
     end
 
     def other_steps
       %i[benefits other_income outgoings].map { [_1] }
     end
 
-    def housing_benefit_steps(estimate)
-      estimate.housing_benefit ? [%i[housing_benefit housing_benefit_details]] : [%i[housing_benefit]]
+    def housing_benefit_steps(session_data)
+      StepsLogic.housing_benefit?(session_data) ? [%i[housing_benefit housing_benefit_details]] : [%i[housing_benefit]]
     end
   end
 end

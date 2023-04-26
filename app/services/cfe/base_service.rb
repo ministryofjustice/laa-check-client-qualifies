@@ -13,12 +13,12 @@ module Cfe
 
     attr_reader :cfe_connection
 
-    def estimate
-      @estimate ||= EstimateModel.from_session(@session_data)
+    def check
+      @check ||= Check.new(@session_data)
     end
 
     def relevant_form?(form_name)
-      StepsHelper.valid_step?(estimate, form_name)
+      StepsHelper.valid_step?(@session_data, form_name)
     end
   end
 end

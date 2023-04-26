@@ -4,10 +4,10 @@ class PartnerSection
       %i[partner_details partner_dependant_details]
     end
 
-    def steps_for(estimate)
-      if !estimate.partner || estimate.asylum_support_and_upper_tribunal?
+    def steps_for(session_data)
+      if !StepsLogic.partner?(session_data)
         []
-      elsif estimate.passporting
+      elsif StepsLogic.passported?(session_data)
         %i[partner_details].map { [_1] }
       else
         %i[partner_details partner_dependant_details].map { [_1] }

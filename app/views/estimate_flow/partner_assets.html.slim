@@ -1,14 +1,13 @@
 - content_for :page_title
   = t(".legend")
 - content_for :back do
-  = back_link(:partner_assets, @estimate, @back_buttons_invoke_browser_back_behaviour)
-
+  = back_link(:partner_assets, @check, @back_buttons_invoke_browser_back_behaviour)
 .govuk-grid-column-two-thirds
   = render "estimate_flow/forms/assets", i18n_key: "partner_assets", show_smod_content: false
 
-  - translation_text = @estimate.controlled? ? "controlled" : "certificated"
+  - translation_text = @check.controlled? ? "controlled" : "certificated"
 = render "shared/question_sidebar", \
-  level_of_help: @estimate.level_of_help,
+  level_of_help: @check.level_of_help,
   links: { t("estimate_flow.assets.guidance.#{translation_text}.text") => t("estimate_flow.assets.guidance.#{translation_text}.link"), \
     t("estimate_flow.assets.other_property_guidance.text") => t("estimate_flow.assets.other_property_guidance.#{translation_text}.link"), \
   }
