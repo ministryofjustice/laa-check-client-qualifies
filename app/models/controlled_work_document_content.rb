@@ -39,7 +39,7 @@ private
   end
 
   def no_smod_assets?
-    house_in_dispute || vehicle_in_dispute || in_dispute.present? == true ? false : true
+    !smod_assets?
   end
 
   def additional_property_in_dispute?
