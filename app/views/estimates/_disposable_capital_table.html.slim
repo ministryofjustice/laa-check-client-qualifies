@@ -1,6 +1,6 @@
 - subtotal_rows ||= []
+h2 class="govuk-heading-#{caption_size}" = caption.to_s
 = govuk_table do |table|
-  - table.caption(size: caption_size, text: caption)
   - table.body do |body|
     - rows.each do |key, amount|
       - text = header_with_hint("estimates.show.#{person}_capital_types.#{key}.text", "estimates.show.#{person}_capital_types.#{key}.hint")
@@ -17,4 +17,4 @@
     - if assessed_capital
       - body.row(classes: %w[solid-top-border]) do |row|
         - row.cell(header: true, text: t("estimates.show.client_assessed_capital"))
-        - row.cell(header: true, text: assessed_capital, numeric: true)
+        - row.cell(classes: %w[govuk-!-font-weight-bold], text: assessed_capital, numeric: true)

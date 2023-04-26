@@ -80,7 +80,7 @@ private
     # If there are 2 additional properties and a different percentage of each is owned,
     # we can't necessarily give a sensible figure here, so mark it as such
     percentages = additional_non_smod_properties.map { _1["percentage_owned"] }
-    return "Unknown" unless percentages.uniq.length == 1
+    return "Unknown" if percentages.uniq.length > 1
 
     percentages.first
   end
