@@ -62,7 +62,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
         "FillText11" => "250,000", # client main home value non-SMOD
         "FillText14" => "90,000", # client main home mortgage non-SMOD
         "FillText20" => "110,000", # client main home net equity non-SMOD
-        "FillText24" => "100,000", # client final assessed amount of equity fro main home non-SMOD
+        "FillText24" => "100,000", # client final assessed amount of equity for main home non-SMOD
       }
       expect(result).to include(representative_sample)
     end

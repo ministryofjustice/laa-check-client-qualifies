@@ -277,8 +277,8 @@
 # Total capital part B (non-SMOD)
 - name: FillText118
   type: text
-  source: from_attribute
-  attribute: non_smod_total
+  source: from_cfe_payload
+  cfe_payload_location: result_summary.capital.combined_non_disputed_capital
   skip_unless: client_capital_relevant?
 
 # Total of all capital assets (Part A and Part B)
@@ -391,15 +391,15 @@
 # Dependents' allowances / Aged 15 or under
 - name: FillText40
   type: text
-  source: from_attribute
-  attribute: client_and_partner_under_16_dependant_allowance
+  source: from_cfe_payload
+  cfe_payload_location: result_summary.disposable_income.dependant_allowance_under_16
   skip_unless: client_income_relevant?
 
 # Dependents' allowances / Aged 16 or over
 - name: FillText41
   type: text
-  source: from_attribute
-  attribute: client_and_partner_16_plus_dependant_allowance
+  source: from_cfe_payload
+  cfe_payload_location: result_summary.disposable_income.dependant_allowance_over_16
   skip_unless: client_income_relevant?
 
 # Tax and national insurance / Client
