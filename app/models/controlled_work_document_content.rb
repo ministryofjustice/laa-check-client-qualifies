@@ -112,7 +112,7 @@ private
   def not_passporting
     !passporting
   end
-  
+
   def no_partner
     !partner
   end
