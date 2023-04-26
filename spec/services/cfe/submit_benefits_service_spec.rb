@@ -33,6 +33,7 @@ RSpec.describe Cfe::SubmitBenefitsService do
 
       let(:session_data) do
         {
+          "receives_benefits" => true,
           "benefits" => [
             { "benefit_amount" => "100",
               "benefit_type" => "Child benefit",
@@ -61,6 +62,7 @@ RSpec.describe Cfe::SubmitBenefitsService do
 
       let(:session_data) do
         {
+          "receives_benefits" => true,
           "benefits" => [
             { "benefit_amount" => "100",
               "benefit_type" => "Child benefit",
@@ -86,6 +88,7 @@ RSpec.describe Cfe::SubmitBenefitsService do
 
       let(:session_data) do
         {
+          "receives_benefits" => true,
           "benefits" => [
             { "benefit_amount" => "100",
               "benefit_type" => "Child benefit",
@@ -111,6 +114,7 @@ RSpec.describe Cfe::SubmitBenefitsService do
 
       let(:session_data) do
         {
+          "receives_benefits" => true,
           "benefits" => [
             { "benefit_amount" => "100",
               "benefit_type" => "Child benefit",

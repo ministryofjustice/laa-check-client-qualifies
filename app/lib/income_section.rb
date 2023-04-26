@@ -1,14 +1,14 @@
 class IncomeSection
   class << self
     def all_steps
-      %i[employment housing_benefit housing_benefit_details benefits other_income outgoings]
+      %i[employment housing_benefit housing_benefit_details benefits benefit_details other_income outgoings]
     end
 
     def steps_for(session_data)
       if StepsLogic.passported?(session_data) || StepsLogic.asylum_supported?(session_data)
         []
       else
-        employment_steps(session_data) + housing_benefit_steps(session_data) + other_steps
+        employment_steps(session_data) + housing_benefit_steps(session_data) + other_steps(session_data)
       end
     end
 
@@ -18,8 +18,12 @@ class IncomeSection
       StepsLogic.employed?(session_data) ? [[:employment]] : []
     end
 
-    def other_steps
-      %i[benefits other_income outgoings].map { [_1] }
+    def other_steps(session_data)
+      benefit_steps(session_data) + %i[other_income outgoings].map { [_1] }
+    end
+
+    def benefit_steps(session_data)
+      StepsLogic.benefits?(session_data) ? [%i[benefits benefit_details]] : [%i[benefits]]
     end
 
     def housing_benefit_steps(session_data)

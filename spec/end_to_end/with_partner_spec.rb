@@ -76,8 +76,7 @@ RSpec.describe "Certificated check without partner", type: :feature do
     fill_in_partner_housing_benefit_screen(choice: "Yes")
     fill_in_partner_housing_benefit_details_screen
     fill_in_partner_benefits_screen(choice: "Yes")
-    fill_in_add_partner_benefit_screen
-    fill_in_partner_benefits_screen
+    fill_in_partner_benefit_details_screen
     fill_in_partner_other_income_screen(values: { friends_or_family: "200", other: "100" }, frequencies: { friends_or_family: "Every week" })
     fill_in_partner_outgoings_screen
     fill_in_partner_property_screen(choice: "Yes, with a mortgage or loan")

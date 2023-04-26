@@ -1,0 +1,10 @@
+.add-another-template-area {
+  display: none;
+}
+.add-another-heading {
+  display: flex;
+  align-items: center;
+  button.govuk-button {
+    margin-left: 20px;
+  }
+}

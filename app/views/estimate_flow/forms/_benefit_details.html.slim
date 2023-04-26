@@ -1,0 +1,20 @@
+. data-module="add-another"
+  .add-another-template-area data-add-another-role="template"
+    = render "benefit_section", removeable: true, model: BenefitModel.new
+
+  = form_for(@form, url: wizard_path, method: :put) do |form|
+    = form.govuk_error_summary t("generic.error_summary_title")
+    = render "shared/heading",
+              pre_header_text: t("estimate_flow.#{i18n_key}.caption"),
+              header_text: t("estimate_flow.#{i18n_key}.heading")
+    . data-add-another-role="sectionList"
+      - @form.benefits.each_with_index do |benefit, index|
+        = render "benefit_section", removeable: index.positive?, model: benefit, counter: index + 1
+    .govuk-button-group
+      button.govuk-button.govuk-button--secondary type="button" data-add-another-role="add" = t("estimate_flow.benefit_details.add")
+
+    = form.govuk_submit t("generic.save_and_continue")
+
+datalist#suggestions
+  - @form.benefit_list.each
+    = tag.option(_1)

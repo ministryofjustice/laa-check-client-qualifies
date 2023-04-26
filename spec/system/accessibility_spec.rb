@@ -89,6 +89,9 @@ RSpec.describe "Accessibility" do
 
     before do
       travel_to arbitrary_fixed_time
+      allow(CfeConnection).to receive(:connection).and_return(
+        instance_double(CfeConnection, state_benefit_types: []),
+      )
     end
 
     StepsHelper.all_possible_steps.each do |step|

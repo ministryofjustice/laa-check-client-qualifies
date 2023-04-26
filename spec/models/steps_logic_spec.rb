@@ -13,6 +13,17 @@ RSpec.describe StepsLogic do
     end
   end
 
+  describe "#benefits?" do
+    it "returns false if the client is passported" do
+      session_data = {
+        "passporting" => true,
+        "receives_benefits" => true,
+      }
+
+      expect(described_class.benefits?(session_data)).to eq false
+    end
+  end
+
   describe "#housing_benefit?" do
     it "returns false if the client is passported" do
       session_data = {
@@ -43,6 +54,17 @@ RSpec.describe StepsLogic do
       }
 
       expect(described_class.partner_employed?(session_data)).to eq false
+    end
+  end
+
+  describe "#partner_benefits?" do
+    it "returns false if the client is passported" do
+      session_data = {
+        "passporting" => true,
+        "partner_receives_benefits" => true,
+      }
+
+      expect(described_class.partner_benefits?(session_data)).to eq false
     end
   end
 

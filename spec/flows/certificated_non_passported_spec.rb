@@ -52,8 +52,7 @@ RSpec.describe "Certificated, non-passported flow", type: :feature do
     start_assessment
     fill_in_forms_until(:benefits)
     fill_in_benefits_screen(choice: "Yes")
-    fill_in_add_benefit_screen
-    fill_in_benefits_screen
+    fill_in_benefit_details_screen
     confirm_screen("other_income")
   end
 

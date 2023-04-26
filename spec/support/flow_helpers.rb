@@ -74,23 +74,15 @@ end
 
 def fill_in_benefits_screen(choice: "No", screen_name: :benefits)
   confirm_screen screen_name
-  choose choice, name: "#{screen_name}_form[add_benefit]"
+  choose choice, name: "#{screen_name}_form[receives_benefits]"
   click_on "Save and continue"
 end
 
-def fill_in_add_benefit_screen(model_name: :benefit, benefit_type: "A")
-  confirm_screen "new"
-  fill_in "#{model_name}_model[benefit_type]", with: benefit_type
-  fill_in "#{model_name}_model[benefit_amount]", with: "1"
-  choose "Every week"
-  click_on "Save and continue"
-end
-
-def fill_in_edit_benefit_screen(model_name: :benefit, benefit_type: "A")
-  confirm_screen "edit"
-  fill_in "#{model_name}_model[benefit_type]", with: benefit_type
-  fill_in "#{model_name}_model[benefit_amount]", with: "1"
-  choose "Every week"
+def fill_in_benefit_details_screen(benefit_type: "A", screen_name: :benefit_details)
+  confirm_screen screen_name
+  fill_in "1-type", with: benefit_type
+  fill_in "1-amount", with: "1"
+  choose "1-frequency-every_week"
   click_on "Save and continue"
 end
 
@@ -198,12 +190,8 @@ def fill_in_partner_benefits_screen(choice: "No")
   fill_in_benefits_screen(screen_name: :partner_benefits, choice:)
 end
 
-def fill_in_add_partner_benefit_screen(benefit_type: "A")
-  fill_in_add_benefit_screen(model_name: :partner_benefit, benefit_type:)
-end
-
-def fill_in_edit_partner_benefit_screen(benefit_type: "A")
-  fill_in_edit_benefit_screen(model_name: :partner_benefit, benefit_type:)
+def fill_in_partner_benefit_details_screen(benefit_type: "A")
+  fill_in_benefit_details_screen(benefit_type:, screen_name: :partner_benefit_details)
 end
 
 def fill_in_partner_other_income_screen(values: {}, frequencies: {})
