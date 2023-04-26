@@ -11,9 +11,10 @@
         br
         = t(".agency")
 
-  h2.govuk-body-m
+  span.govuk-body-m
     => t(".date")
     strong = Date.current.strftime("%d %B %Y")
+    br
 
   button.govuk-button.govuk-button--secondary data-module="govuk-button" onclick="javascript:window.print()" = t(".print_this_page")
 

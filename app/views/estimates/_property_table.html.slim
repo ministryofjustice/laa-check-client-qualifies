@@ -1,5 +1,5 @@
+h2 class="govuk-heading-#{caption_size}" = t("estimates.show.#{person}_#{type}")
 = govuk_table do |table|
-  - table.caption(size: caption_size, text: t("estimates.show.#{person}_#{type}"))
   - table.body do |body|
     - case data[:type]
     - when :fully_owned
@@ -13,7 +13,7 @@
           - row.cell(text: value, numeric: true)
       - body.row(classes: %w[solid-top-border]) do |row|
         - row.cell(header: true, text: t("estimates.show.property_rows.equity.text"))
-        - row.cell(header: true, text: assessed_value, numeric: true)
+        - row.cell(classes: %w[govuk-!-font-weight-bold], text: assessed_value, numeric: true)
     - when :partially_owned
       - data[:upper_rows].each do |key, value|
         - text_key = key == :value && type == :additional_property ? "alt_text" : "text"
@@ -32,7 +32,7 @@
           - row.cell(text: value, numeric: true)
       - body.row(classes: %w[solid-top-border]) do |row|
         - row.cell(header: true, text: t("estimates.show.property_rows.equity.text"))
-        - row.cell(header: true, text: assessed_value, numeric: true)
+        - row.cell(classes: %w[govuk-!-font-weight-bold], text: assessed_value, numeric: true)
     - when :partially_owned_minimal
       - data[:rows].each do |key, value|
         ruby:
@@ -46,4 +46,4 @@
         - row.cell(header: true, text: header_with_hint("estimates.show.property_rows.equity.text",
                                                         "estimates.show.property_rows.equity.partial_#{person}_hint",
                                                         hint_args: { percentage: data[:percentage_owned].round }))
-        - row.cell(header: true, text: assessed_value, numeric: true)
+        - row.cell(classes: %w[govuk-!-font-weight-bold], text: assessed_value, numeric: true)
