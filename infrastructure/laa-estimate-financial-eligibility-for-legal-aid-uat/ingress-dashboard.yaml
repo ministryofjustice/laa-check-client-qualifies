@@ -94,11 +94,11 @@ data:
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "sum(rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace = \"$namespace\", path !~\"/socket.io/.*\", ingress = \"$ingress\"}[5m]))",
+              "expr": "sum(increase(nginx_ingress_controller_request_duration_seconds_count{exported_namespace = \"$namespace\", path !~\"/socket.io/.*\", ingress = \"$ingress\"}[1m])/2)",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
-              "legendFormat": "req / s",
+              "legendFormat": "req / m",
               "refId": "A",
               "step": 60
             }
@@ -189,7 +189,7 @@ data:
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "avg(rate(nginx_ingress_controller_request_duration_seconds_sum{exported_namespace = \"$namespace\", path !~\"/socket.io/.*\", ingress = \"$ingress\"}[5m]) / rate(nginx_ingress_controller_request_duration_seconds_count{exported_namespace = \"$namespace\", path !~\"/socket.io/.*\", ingress = \"$ingress\"}[5m]) > 0)",
+              "expr": "avg(increase(nginx_ingress_controller_request_duration_seconds_sum{exported_namespace = \"$namespace\", path !~\"/socket.io/.*\", ingress = \"$ingress\"}[1m]) / increase(nginx_ingress_controller_request_duration_seconds_count{exported_namespace = \"$namespace\", path !~\"/socket.io/.*\", ingress = \"$ingress\"}[1m]) > 0)/2",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
@@ -286,7 +286,7 @@ data:
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "sum(rate(nginx_ingress_controller_requests{exported_namespace = \"$namespace\", path !~\"/socket.io/.*\", ingress = \"$ingress\"}[5m])) by (status)",
+              "expr": "sum by (status) (increase(nginx_ingress_controller_requests{exported_namespace = \"$namespace\", path !~\"/socket.io/.*\", ingress = \"$ingress\"}[1m]))/2",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
@@ -385,7 +385,7 @@ data:
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "sum by(status) (increase(nginx_ingress_controller_requests{exported_namespace=\"$namespace\", path!~\"/socket.io/.*\", ingress=\"$ingress\", status=~\"4..|5..\"}[1m]))",
+              "expr": "sum by(status) (increase(nginx_ingress_controller_requests{exported_namespace=\"$namespace\", path!~\"/socket.io/.*\", ingress=\"$ingress\", status=~\"4..|5..\"}[1m])) /2",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
@@ -584,7 +584,7 @@ data:
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "histogram_quantile(0.95, sum(rate(nginx_ingress_controller_request_duration_seconds_bucket{exported_namespace = \"$namespace\", path !~\"/socket.io/.*\", ingress = \"$ingress\"}[5m])) by (le))",
+              "expr": "histogram_quantile(0.95, sum by (le) (increase(nginx_ingress_controller_request_duration_seconds_bucket{exported_namespace = \"$namespace\", path !~\"/socket.io/.*\", ingress = \"$ingress\"}[1m]))/2)",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
@@ -597,7 +597,7 @@ data:
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "histogram_quantile(0.90, sum(rate(nginx_ingress_controller_request_duration_seconds_bucket{exported_namespace = \"$namespace\", path !~\"/socket.io/.*\",ingress = \"$ingress\"}[5m])) by (le))",
+              "expr": "histogram_quantile(0.90, sum by (le) (increase(nginx_ingress_controller_request_duration_seconds_bucket{exported_namespace = \"$namespace\", path !~\"/socket.io/.*\",ingress = \"$ingress\"}[1m]))/2)",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
@@ -610,7 +610,7 @@ data:
                 "type": "prometheus",
                 "uid": "prometheus"
               },
-              "expr": "histogram_quantile(0.75, sum(rate(nginx_ingress_controller_request_duration_seconds_bucket{exported_namespace = \"$namespace\", path !~\"/socket.io/.*\", ingress = \"$ingress\"}[5m])) by (le))",
+              "expr": "histogram_quantile(0.75, sum by (le) (increase(nginx_ingress_controller_request_duration_seconds_bucket{exported_namespace = \"$namespace\", path !~\"/socket.io/.*\", ingress = \"$ingress\"}[1m]))/2)",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 2,
