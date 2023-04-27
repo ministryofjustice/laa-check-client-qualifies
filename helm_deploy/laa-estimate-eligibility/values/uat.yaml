@@ -57,6 +57,7 @@ featureFlags:
   asylumAndImmigration: ENABLED
   cwForms: ENABLED
   householdSection: ENABLED
+  specialApplicantGroups: ENABLED
 
 postgresql:
   enabled: true
