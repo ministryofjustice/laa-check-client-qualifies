@@ -15,7 +15,7 @@ def fill_in_level_of_help_screen(choice: "Civil certificated or licensed legal w
   click_on "Save and continue"
 end
 
-def fill_in_matter_type_screen(choice: "nother category of law")
+def fill_in_matter_type_screen(choice: "Another category of law")
   confirm_screen "matter_type"
   choose choice
   click_on "Save and continue"
