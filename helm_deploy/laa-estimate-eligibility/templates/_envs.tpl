@@ -68,6 +68,8 @@ env:
     value: {{ .Values.featureFlags.asylumAndImmigration }}
   - name: CW_FORMS_FEATURE_FLAG
     value: {{ .Values.featureFlags.cwForms }}
+  - name: HOUSEHOLD_SECTION_FEATURE_FLAG
+    value: {{ .Values.featureFlags.householdSection }}
   - name: NOTIFICATIONS_API_KEY
     valueFrom:
       secretKeyRef:
