@@ -224,7 +224,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "rate(container_cpu_usage_seconds_total{namespace='$namespace',container='api'}[5m])",
+              "expr": "increase(container_cpu_usage_seconds_total{namespace='$namespace',container='api'}[1m])/2",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "{{pod}}",
@@ -330,14 +330,14 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "avg by(pod_name) (rate(container_network_receive_bytes_total{namespace='$namespace'}[$__rate_interval]))/1024",
+              "expr": "avg by(pod_name) (increase(container_network_receive_bytes_total{namespace='$namespace'}[1m))/2",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "Avg Bytes Recv/sec",
               "refId": "A"
             },
             {
-              "expr": "avg by(pod_name) (rate(container_network_transmit_bytes_total{namespace='$namespace'}[$__rate_interval]))/1024",
+              "expr": "avg by(pod_name) (increase(container_network_transmit_bytes_total{namespace='$namespace'}[1m]))/2",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "Avg Bytes Sent/sec",
