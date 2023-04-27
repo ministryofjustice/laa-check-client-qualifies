@@ -6,7 +6,9 @@
     = form.govuk_error_summary t("generic.error_summary_title")
     = render "shared/heading",
               pre_header_text: t("estimate_flow.#{i18n_key}.caption"),
-              header_text: t("estimate_flow.#{i18n_key}.heading")
+              header_text: t("estimate_flow.#{i18n_key}.heading"),
+              post_header_text: t("estimate_flow.#{i18n_key}.hint")
+      = render "shared/disregarded_benefits_details"
     . data-add-another-role="sectionList"
       - @form.benefits.each_with_index do |benefit, index|
         = render "benefit_section", removeable: index.positive?, model: benefit, counter: index + 1

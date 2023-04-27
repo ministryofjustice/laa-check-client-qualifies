@@ -778,23 +778,22 @@ en:
     benefit_details:
       caption: Your client's finances
       heading: Add benefit details
+      hint: Add details of any benefits your client receives. Do not include Housing Benefit or any other disregarded benefits.
       benefit: Benefit
       suggestions: Suggestion
-      benefit_type: Benefit type
+      benefit_type: Benefit name
+      benefit_type_hint: Enter the name of a benefit, or select one from the suggestions that appear when you start to enter the name.
       enter_amount: Enter amount
       select_frequency: Select frequency
       add: Add another benefit
     partner_benefits:
       caption: The partner's finances
       legend: Does the partner get any other benefits?
-      added_heading: You have added %{count} %{benefit}
       benefit: benefit
-      edit: Change
-      remove: Remove
-      add_more_hint: Add details of any benefits the partner gets, for example, Child Benefit, tax credits or Asylum Support payments. After you’ve added one you can add more. Do not include Housing Benefit, State Pension, government Cost of Living Payments, or any other disregarded benefits.
     partner_benefit_details:
       caption: The partner's finances
       heading: Add benefit details
+      hint: Add details of any benefits the partner receives. Do not include Housing Benefit or any other disregarded benefits.
     other_income:
       caption: Your client's finances
       heading: Other income

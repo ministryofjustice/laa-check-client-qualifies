@@ -15,11 +15,12 @@
     - id_pattern = model.errors.messages[:benefit_type].any? ? "benefit-details-form-benefits-ID-benefit-type-field-error" : "ID-type"
     label.govuk-label [for=id_pattern.gsub("ID", counter.to_s)
                        data-add-another-for-pattern=id_pattern] = t("estimate_flow.benefit_details.benefit_type")
+    .govuk-hint
+      = t("estimate_flow.benefit_details.benefit_type_hint")
     - if model.errors.messages[:benefit_type].any?
       p.govuk-error-message
         span.govuk-visually-hidden = t("generic.error_prefix")
-        - model.errors.messages[:benefit_type].each
-          = _1
+        = model.errors.messages[:benefit_type].first
     input.govuk-input.govuk-input--width-20 [autocomplete="off"
                                              data-suggestions="suggestions"
                                              data-module="govuk-input"
@@ -38,8 +39,7 @@
     - if model.errors.messages[:benefit_amount].any?
       p.govuk-error-message
         span.govuk-visually-hidden = t("generic.error_prefix")
-        - model.errors.messages[:benefit_amount].each
-          = _1
+        = model.errors.messages[:benefit_amount].first
     .govuk-input__wrapper
       span.govuk-input__prefix aria-hidden="true" = BuildEstimatesHelper::POUND
       input.govuk-input.govuk-input--width-5 [pattern="[0-9].*"
@@ -62,8 +62,7 @@
       - if model.errors.messages[:benefit_frequency].any?
         p.govuk-error-message
           span.govuk-visually-hidden = t("generic.error_prefix")
-          - model.errors.messages[:benefit_frequency].each
-            = _1
+          = model.errors.messages[:benefit_frequency].first
       .govuk-radios data-module="govuk-radios"
         - model.benefit_options.each_with_index do |value_label_pair, index|
           .govuk-radios__item
