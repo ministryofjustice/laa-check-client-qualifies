@@ -1917,4 +1917,11 @@ en:
         civ_means_7: CIV Means 7 - family mediation
       download: Download the pre-populated form
       start_another_check: Start another eligibility check
+  feature_flags:
+    index:
+      feature_flags: Feature flags
+      time_based: Time-based
+      static: Static
+      flag: Flag
+      enabled: Enabled?
 

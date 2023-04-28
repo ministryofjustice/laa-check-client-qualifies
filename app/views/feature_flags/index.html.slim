@@ -1,0 +1,32 @@
+.govuk-grid-column-two-thirds
+  h1.govuk-heading-xl = t(".feature_flags")
+  = govuk_table do |table|
+    ruby:
+      table.caption(size: "m", text: t(".time_based"))
+      table.body do |body|
+        body.row do |row|
+          row.cell(text: t(".flag"), header: true)
+          row.cell(text: t(".enabled"), header: true)
+        end
+        FeatureFlags.time_dependant.each do |flag|
+          body.row do |row|
+            row.cell(text: flag)
+            row.cell(text: FeatureFlags.enabled?(flag) ? t("generic.yes_choice") : t("generic.no_choice"))
+          end
+        end
+      end
+  = govuk_table do |table|
+    ruby:
+      table.caption(size: "m", text: t(".static"))
+      table.body do |body|
+        body.row do |row|
+          row.cell(text: t(".flag"), header: true)
+          row.cell(text: t(".enabled"), header: true)
+        end
+        FeatureFlags.static.each do |flag|
+          body.row do |row|
+            row.cell(text: flag)
+            row.cell(text: FeatureFlags.enabled?(flag) ? t("generic.yes_choice") : t("generic.no_choice"))
+          end
+        end
+      end
