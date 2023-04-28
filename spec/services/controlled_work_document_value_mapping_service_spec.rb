@@ -52,5 +52,16 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       }
       expect(result).to include(representative_sample)
     end
+
+    it "can successfully populate a CW2 IMM form" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw2.yml")).map(&:with_indifferent_access)
+      result = described_class.call(session_data, mappings)
+      representative_sample = {
+        "CheckBox69" => 1, # Not passporting
+        "CheckBox64" => 1, # Not asylum supported
+        "FillText44" => "250,000", # Property worth £250,000
+      }
+      expect(result).to include(representative_sample)
+    end
   end
 end

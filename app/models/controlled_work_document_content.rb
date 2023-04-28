@@ -13,14 +13,16 @@
 class ControlledWorkDocumentContent < Check
   include ActionView::Helpers::NumberHelper
 
+  VALID_PROPERTY_TYPES = %w[non_smod all].freeze
+
   def from_cfe_payload(path)
     path_parts = path.split(".").map { _1.to_i.to_s == _1 ? _1.to_i : _1 }
     value = session_data.dig("api_response", *path_parts)
     format(value)
   end
 
-  def from_attribute(attribute)
-    format(send(attribute))
+  def from_attribute(*args)
+    format(send(*args.compact))
   end
 
 private
@@ -41,18 +43,26 @@ private
   end
 
   def additional_property_in_dispute?
+    return if in_dispute.nil?
+
     in_dispute.include? "property"
   end
 
   def savings_in_dispute?
+    return if in_dispute.nil?
+
     in_dispute.include? "savings"
   end
 
   def investments_in_dispute?
+    return if in_dispute.nil?
+
     in_dispute.include? "investments"
   end
 
   def valuables_in_dispute?
+    return if in_dispute.nil?
+
     in_dispute.include? "valuables"
   end
 
@@ -64,33 +74,33 @@ private
     end
   end
 
-  def additional_non_smod_properties_value
-    additional_non_smod_properties_sum "value"
+  def additional_properties_value(*modifier)
+    additional_properties_sum("value", *modifier)
   end
 
-  def additional_non_smod_properties_mortgage
-    additional_non_smod_properties_sum "outstanding_mortgage"
+  def additional_properties_mortgage(*modifier)
+    additional_properties_sum("outstanding_mortgage", *modifier)
   end
 
-  def additional_non_smod_properties_percentage_owned
+  def additional_properties_percentage_owned(*modifier)
     # If there are 2 additional properties and a different percentage of each is owned,
     # we can't necessarily give a sensible figure here, so mark it as such
-    percentages = additional_non_smod_properties.map { _1["percentage_owned"] }
+    percentages = additional_properties(*modifier).map { _1["percentage_owned"] }
     return "Unknown" if percentages.uniq.length > 1
 
     percentages.first
   end
 
-  def additional_non_smod_properties_net_value
-    additional_non_smod_properties_sum "net_value"
+  def additional_properties_net_value(*modifier)
+    additional_properties_sum("net_value", *modifier)
   end
 
-  def additional_non_smod_properties_net_equity
-    additional_non_smod_properties_sum "net_equity"
+  def additional_properties_net_equity(*modifier)
+    additional_properties_sum("net_equity", *modifier)
   end
 
-  def additional_non_smod_properties_assessed_equity
-    additional_non_smod_properties_sum "assessed_equity"
+  def additional_properties_assessed_equity(*modifier)
+    additional_properties_sum("assessed_equity", *modifier)
   end
 
   def client_capital_relevant?
@@ -107,6 +117,14 @@ private
 
   def not_passporting
     !passporting
+  end
+
+  def no_partner
+    !partner
+  end
+
+  def no_asylum_support
+    !asylum_support
   end
 
   def client_non_employment_income
@@ -154,15 +172,24 @@ private
       (session_data.dig("api_response", "assessment", "partner_disposable_income", "childcare_allowance") || 0)
   end
 
-  def additional_non_smod_properties_sum(attribute)
-    additional_non_smod_properties.sum { _1[attribute] }
+  def additional_properties_sum(attribute, *modifier)
+    additional_properties(*modifier).sum { _1[attribute] }
   end
 
-  def additional_non_smod_properties
-    @additional_non_smod_properties ||= [
-      (session_data.dig("api_response", "assessment", "capital", "capital_items", "properties", "additional_properties") unless additional_property_in_dispute?),
-      session_data.dig("api_response", "assessment", "partner_capital", "capital_items", "properties", "additional_properties"),
-    ].flatten.compact
+  def additional_properties(property_type = "all")
+    raise "Invalid modifier in YML" unless VALID_PROPERTY_TYPES.include?(property_type)
+
+    if property_type == "non_smod"
+      [
+        (session_data.dig("api_response", "assessment", "capital", "capital_items", "properties", "additional_properties") unless additional_property_in_dispute?),
+        session_data.dig("api_response", "assessment", "partner_capital", "capital_items", "properties", "additional_properties"),
+      ].flatten.compact
+    else
+      [
+        session_data.dig("api_response", "assessment", "capital", "capital_items", "properties", "additional_properties"),
+        session_data.dig("api_response", "assessment", "partner_capital", "capital_items", "properties", "additional_properties"),
+      ].flatten.compact
+    end
   end
 
   def non_employment_income(summary_section_prefix = "")
