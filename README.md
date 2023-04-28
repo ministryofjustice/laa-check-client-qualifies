@@ -158,6 +158,12 @@ We use Grover to save pages as PDF files for download, which in turn uses Puppet
 MULTI_THREAD=1 bundle exec rails s
 ```
 
+### Data analysis
+
+We use Blazer for our Cloud Platform environments.
+You can access the UI at `/data`, with username "blazer" and a password that is stored in 1Password alongside the other secrets for any given environment.
+Blazer has readonly access to the database so it can't accidentally be used to overwrite real data.
+
 ## Retrieving user-entered data for a given check
 
 User-entered values are stored in the session. However, rather than retrieve values directly from the session, most places retrieve them from associated
@@ -199,5 +205,7 @@ Secrets have been stored for each environment using `kubectl create secret`. The
 * notifications-api-key
 * secret-key-base
 * geckoboard-api-key
+* blazer-password
+* blazer-database-password
 
-The current values for these are available as secure notes in LastPass for each environment, should they be lost from Kubernetes.
+The current values for these are available as secure notes in 1Password for each environment, should they be lost from Kubernetes.
