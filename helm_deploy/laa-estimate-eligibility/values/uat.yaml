@@ -41,6 +41,7 @@ securityContext:
 ingress:
   annotations:
     external-dns.alpha.kubernetes.io/aws-weight: "100"
+    nginx.ingress.kubernetes.io/enable-modsecurity: "true"
 
 notifications:
   errorMessageTemplateId: b8879191-e4bb-4f10-831a-7d9bd2b078f1

@@ -34,6 +34,7 @@ ingress:
   annotations:
     external-dns.alpha.kubernetes.io/set-identifier: "check-client-qualifies-laa-estimate-eligibility-laa-estimate-financial-eligibility-for-legal-aid-production-green"
     external-dns.alpha.kubernetes.io/aws-weight: "100"
+    nginx.ingress.kubernetes.io/enable-modsecurity: "true"
 
 deploy:
   host: check-your-client-qualifies-for-legal-aid.cloud-platform.service.justice.gov.uk
