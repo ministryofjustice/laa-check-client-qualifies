@@ -18,6 +18,7 @@
   attribute: partner
   yes_value: "Yes_3"
   no_value: "No_2"
+  skip_if: asylum_support
 
 # "The client's assets (held in sole name or jointly held) have been claimed by the opponent:"
 - name: Please complete Part A Capital Subject matter of dispute
@@ -26,6 +27,7 @@
   attribute: smod_assets?
   yes_value: "Yes_5"
   no_value: "No_4"
+  skip_if: asylum_support
 
 # Main home / current market value (SMOD)
 - name: undefined_10

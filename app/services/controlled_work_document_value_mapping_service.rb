@@ -18,7 +18,11 @@ class ControlledWorkDocumentValueMappingService
   class << self
     def call(session_data, mappings)
       content = ControlledWorkDocumentContent.new(session_data)
-      mappings.map { [_1[:name], convert(_1, content)] }.to_h
+      mappings.reject { skip?(_1, content) }.map { [_1[:name], convert(_1, content)] }.to_h
+    end
+
+    def skip?(mapping, content)
+      (mapping[:skip_unless] && !content.send(mapping[:skip_unless])) || (mapping[:skip_if] && content.send(mapping[:skip_if]))
     end
 
     def convert(mapping, content)
@@ -35,9 +39,6 @@ class ControlledWorkDocumentValueMappingService
     end
 
     def value(mapping, content)
-      return if mapping[:skip_unless] && !content.send(mapping[:skip_unless])
-      return if mapping[:skip_if] && content.send(mapping[:skip_if])
-
       case mapping[:source]
       when "from_attribute"
         content.from_attribute(mapping[:attribute], mapping[:modifier])

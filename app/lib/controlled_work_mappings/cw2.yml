@@ -16,6 +16,7 @@
     source: from_attribute
     attribute: no_partner
     checked_value: 1
+    skip_if: asylum_support
 
 # The client is directly or indirectly in receipt of NASS payment (Immigration and Asylum category work only) - Yes checkbox
   - name: CheckBox63
@@ -174,6 +175,7 @@
     source: from_attribute
     attribute: not_passporting
     checked_value: 1
+    skip_if: asylum_support
     
 # Client - Gross monthly earnings
   - name: FillText82
