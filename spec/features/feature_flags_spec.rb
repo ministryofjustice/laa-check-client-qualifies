@@ -8,7 +8,7 @@ RSpec.describe "Feature flags" do
     allow(FeatureFlags).to receive(:enabled?).with(:time_dependant_flag).and_return(false)
   end
 
-  scenario "I accept cookies via the banner" do
+  scenario "I see all public feature flags" do
     visit feature_flags_path
     expect(page).to have_content "static_flag Yes"
     expect(page).to have_content "time_dependant_flag No"
