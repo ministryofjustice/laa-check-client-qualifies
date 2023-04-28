@@ -236,5 +236,29 @@ RSpec.describe ControlledWorkDocumentContent do
         expect(described_class.new(session_data).from_attribute(:partner_rent)).to eq "44"
       end
     end
+
+    describe "assets in dispute" do
+      context "when in_dispute is nil" do
+        session_data = {
+          "in_dispute" => nil,
+        }
+
+        it "additional_property_in_dispute returns false" do
+          expect(described_class.new(session_data).from_attribute(:additional_property_in_dispute?)).to be_falsey
+        end
+
+        it "savings_in_dispute returns false" do
+          expect(described_class.new(session_data).from_attribute(:savings_in_dispute?)).to be_falsey
+        end
+
+        it "investments_in_dispute returns false" do
+          expect(described_class.new(session_data).from_attribute(:investments_in_dispute?)).to be_falsey
+        end
+
+        it "valuables_in_dispute returns false" do
+          expect(described_class.new(session_data).from_attribute(:valuables_in_dispute?)).to be_falsey
+        end
+      end
+    end
   end
 end

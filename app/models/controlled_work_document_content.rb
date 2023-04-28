@@ -43,18 +43,26 @@ private
   end
 
   def additional_property_in_dispute?
+    return if in_dispute.nil?
+
     in_dispute.include? "property"
   end
 
   def savings_in_dispute?
+    return if in_dispute.nil?
+
     in_dispute.include? "savings"
   end
 
   def investments_in_dispute?
+    return if in_dispute.nil?
+
     in_dispute.include? "investments"
   end
 
   def valuables_in_dispute?
+    return if in_dispute.nil?
+
     in_dispute.include? "valuables"
   end
 
