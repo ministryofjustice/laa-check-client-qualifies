@@ -31,12 +31,20 @@ class CalculationResult
     api_response.dig(:result_summary, section, :proceeding_types).all? { _1[:result] == "ineligible" }
   end
 
+  def raw_capital_contribution
+    api_response.dig(:result_summary, :overall_result, :capital_contribution)
+  end
+
   def capital_contribution
-    monetise(api_response.dig(:result_summary, :overall_result, :capital_contribution))
+    monetise(raw_capital_contribution)
+  end
+
+  def raw_income_contribution
+    api_response.dig(:result_summary, :overall_result, :income_contribution)
   end
 
   def income_contribution
-    monetise(api_response.dig(:result_summary, :overall_result, :income_contribution))
+    monetise(raw_income_contribution)
   end
 
   def gross_income

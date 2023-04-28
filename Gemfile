@@ -96,6 +96,7 @@ group :test do
   gem "webmock", require: false
   gem "axe-core-rspec"
   gem "rack_session_access"
+  gem "database_cleaner"
 end
 
 gem "govuk-components"

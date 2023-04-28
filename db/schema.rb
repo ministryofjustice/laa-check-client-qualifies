@@ -80,4 +80,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_26_104843) do
     t.datetime "updated_at", null: false
     t.index ["creator_id"], name: "index_blazer_queries_on_creator_id"
   end
+
+  create_table "completed_user_journeys", force: :cascade do |t|
+    t.string "assessment_id", null: false
+    t.boolean "certificated", null: false
+    t.boolean "partner", null: false
+    t.boolean "person_over_60", null: false
+    t.boolean "passported", null: false
+    t.boolean "main_dwelling_owned", null: false
+    t.boolean "vehicle_owned", null: false
+    t.boolean "smod_assets", null: false
+    t.string "outcome", null: false
+    t.boolean "capital_contribution", null: false
+    t.boolean "income_contribution", null: false
+    t.date "completed"
+    t.index ["assessment_id"], name: "index_completed_user_journeys_on_assessment_id", unique: true
+  end
 end

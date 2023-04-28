@@ -41,4 +41,12 @@ class Check
   def upper_tribunal?
     StepsLogic.upper_tribunal?(session_data)
   end
+
+  def owns_property?
+    StepsLogic.owns_property?(session_data)
+  end
+
+  def partner_owns_property?
+    StepsLogic.partner_owns_property?(session_data)
+  end
 end

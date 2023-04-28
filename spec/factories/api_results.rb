@@ -12,6 +12,7 @@ FactoryBot.define do
       additional_property { nil }
       over_60 { false }
       partner { false }
+      overall_result { nil }
     end
 
     after(:build) do |api_result, evaluator|
@@ -35,6 +36,10 @@ FactoryBot.define do
             api_result.fetch(section)[:"partner_#{subsection}"] ||= api_result.dig(section, subsection).dup
           end
         end
+      end
+
+      if evaluator.overall_result
+        api_result.fetch(:result_summary)[:overall_result].merge!(evaluator.overall_result)
       end
     end
   end

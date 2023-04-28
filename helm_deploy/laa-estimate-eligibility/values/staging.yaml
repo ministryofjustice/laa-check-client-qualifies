@@ -62,4 +62,5 @@ geckoboard:
   allMetricsDataset: "ccq_all_metrics_staging"
   lastPagesDataset: "ccq_last_pages_staging"
   validationsDataset: "ccq_validations_staging"
+  journeysDataset: "ccq_journeys_staging"
   enabled: not_enabled

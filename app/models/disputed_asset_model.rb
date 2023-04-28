@@ -33,6 +33,6 @@ class DisputedAssetModel
 private
 
   def owns_property?
-    %i[with_mortgage outright].map(&:to_s).include? property_owned
+    PropertyForm::OWNED_OPTIONS.map(&:to_s).include? property_owned
   end
 end
