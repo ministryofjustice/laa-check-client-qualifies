@@ -9,7 +9,6 @@ module MatterTypeHelper
     else
       {
         t("estimate_flow.level_of_help.controlled_guidance.text") => t("estimate_flow.level_of_help.controlled_guidance.link"),
-        t("estimate_flow.matter_type.tribunal_guidance.text") => t("estimate_flow.matter_type.tribunal_guidance.controlled_link"),
       }
     end
   end
