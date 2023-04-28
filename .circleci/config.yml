@@ -71,6 +71,7 @@ references:
 
 orbs:
   browser-tools: circleci/browser-tools@1.4.0
+  slack: circleci/slack@4.5.2
 
 jobs:
   install_dependencies:
@@ -116,6 +117,11 @@ jobs:
             - node_modules
             - app/assets/builds
             - .bundle/config
+      - slack/notify:
+          channel: eligibility-alerts-uat
+          event: fail
+          template: basic_fail_1
+          branch_pattern: main
   run_specs:
     executor: test-executor
     steps:
@@ -141,6 +147,11 @@ jobs:
             bundle exec rake spec
       - store_artifacts:
           path: coverage
+      - slack/notify:
+          channel: eligibility-alerts-uat
+          event: fail
+          template: basic_fail_1
+          branch_pattern: main
   linters:
     executor: basic-executor
     steps:
@@ -159,6 +170,11 @@ jobs:
           name: Slim Lint
           command: |
             bundle exec slim-lint **/*.slim
+      - slack/notify:
+          channel: eligibility-alerts-uat
+          event: fail
+          template: basic_fail_1
+          branch_pattern: main
 
   build_and_push_to_ecr:
     executor: cloud-platform-executor
@@ -167,6 +183,10 @@ jobs:
       - setup_remote_docker
       - *build_docker_image
       - *push_to_ecr
+      - slack/notify:
+          channel: eligibility-alerts-uat
+          event: fail
+          template: basic_fail_1
 
   clean_up_ecr:
     executor: cloud-platform-executor
@@ -177,6 +197,10 @@ jobs:
           name: Delete old images from ECR repo
           command: |
             ./bin/delete_ecr_images
+      - slack/notify:
+          channel: eligibility-alerts-uat
+          event: fail
+          template: basic_fail_1
 
   deploy_uat:
     executor: cloud-platform-executor
@@ -188,7 +212,11 @@ jobs:
       - deploy:
           name: Deploy LAA Check-your-client-qualifies-for-legal-aid service to UAT
           command: |
-            ./bin/uat_deployment 
+            ./bin/uat_deployment
+      - slack/notify:
+          channel: eligibility-alerts-uat
+          event: fail
+          template: basic_fail_1
 
   deploy_staging:
     executor: cloud-platform-executor
@@ -205,7 +233,11 @@ jobs:
                           --namespace=${K8S_NAMESPACE} \
                           --values ./helm_deploy/laa-estimate-eligibility/values/staging.yaml \
                           --set image.repository="$ECR_ENDPOINT" \
-                          --set image.tag="${CIRCLE_SHA1}"  
+                          --set image.tag="${CIRCLE_SHA1}"
+      - slack/notify:
+          channel: eligibility-alerts-staging
+          event: fail
+          template: basic_fail_1
 
   deploy_production:
     executor: cloud-platform-executor
@@ -222,7 +254,11 @@ jobs:
                           --namespace=${K8S_NAMESPACE} \
                           --values ./helm_deploy/laa-estimate-eligibility/values/production.yaml \
                           --set image.repository="$ECR_ENDPOINT" \
-                          --set image.tag="${CIRCLE_SHA1}"  
+                          --set image.tag="${CIRCLE_SHA1}"
+      - slack/notify:
+          channel: eligibility-alerts-production
+          event: fail
+          template: basic_fail_1
 
   deploy_infrastructure_uat:
     executor: cloud-platform-executor
@@ -233,6 +269,10 @@ jobs:
           name: Deploy LAA Check-your-client-qualifies-for-legal-aid service's /infrastructure to UAT
           command: |
             kubectl apply --record=false -f ./infrastructure/laa-estimate-financial-eligibility-for-legal-aid-uat/
+      - slack/notify:
+          channel: eligibility-alerts-uat
+          event: fail
+          template: basic_fail_1
 
 workflows:
   open_new_pr:
