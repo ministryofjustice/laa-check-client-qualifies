@@ -76,6 +76,14 @@ RSpec.describe "Accessibility" do
     end
   end
 
+  describe "Feature flags page" do
+    before { visit "/feature-flags" }
+
+    it "has no AXE-detectable accessibility issues" do
+      expect(page).to be_axe_clean
+    end
+  end
+
   describe "Estimate steps" do
     let(:estimate_id) { SecureRandom.uuid }
 
