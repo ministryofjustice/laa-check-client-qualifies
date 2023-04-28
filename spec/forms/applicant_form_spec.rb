@@ -3,6 +3,9 @@ require "rails_helper"
 RSpec.describe "applicant", type: :feature do
   let(:assessment_code) { :assessment_code }
   let(:level_of_help) { "certificated" }
+  let(:partner_question_placement_hint) do
+    "You will be asked questions about the partner after you have answered questions about your client"
+  end
 
   before do
     set_session(assessment_code, "level_of_help" => level_of_help)
@@ -32,5 +35,15 @@ RSpec.describe "applicant", type: :feature do
     expect(session_contents["partner"]).to eq true
     expect(session_contents["employment_status"]).to eq "in_work"
     expect(session_contents["passporting"]).to eq true
+  end
+
+  it "shows a hint about partner ordering" do
+    expect(page).to have_content partner_question_placement_hint
+  end
+
+  context "when the household section flag is enabled", :household_section_flag do
+    it "does not show the redundant hint" do
+      expect(page).not_to have_content partner_question_placement_hint
+    end
   end
 end

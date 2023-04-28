@@ -29,7 +29,7 @@
       = form.govuk_radio_button :partner,
               true,
               label: { text: t("generic.yes_choice") },
-              hint: { text: t(".partner.rb_hint") },
+              hint: { text: (t(".partner.rb_hint") unless FeatureFlags.enabled?(:household_section)) },
               link_errors: true
       = form.govuk_radio_button :partner, false, label: { text: t("generic.no_choice") }
 
