@@ -15,7 +15,7 @@ def fill_in_level_of_help_screen(choice: "Civil certificated or licensed legal w
   click_on "Save and continue"
 end
 
-def fill_in_matter_type_screen(choice: "Another legal matter")
+def fill_in_matter_type_screen(choice: "Another category of law")
   confirm_screen "matter_type"
   choose choice
   click_on "Save and continue"
@@ -29,10 +29,6 @@ end
 
 def fill_in_applicant_screen(choices = {})
   confirm_screen "applicant"
-
-  if page.text.include?("Is your client likely to be the applicant in a domestic abuse matter?")
-    choose choices.fetch(:legacy_proceeding_type, "No"), name: "applicant_form[legacy_proceeding_type]"
-  end
 
   choose choices.fetch(:over_60, "No"), name: "applicant_form[over_60]"
   choose choices.fetch(:partner, "No"), name: "applicant_form[partner]"

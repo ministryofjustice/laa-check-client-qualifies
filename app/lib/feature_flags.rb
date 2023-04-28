@@ -4,7 +4,7 @@ class FeatureFlags
     dependance_allowance_increase: "2023-04-10",
   }.freeze
 
-  FLIPPER_FLAGS = %i[sentry asylum_and_immigration cw_forms household_section special_applicant_groups].freeze
+  FLIPPER_FLAGS = %i[sentry cw_forms household_section special_applicant_groups].freeze
 
   class << self
     def enabled?(flag)

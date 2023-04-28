@@ -9,11 +9,7 @@ class CaseDetailsSection
     end
 
     def steps(session_data)
-      [:level_of_help, matter_type, asylum_support(session_data)].compact
-    end
-
-    def matter_type
-      :matter_type if FeatureFlags.enabled?(:asylum_and_immigration)
+      [:level_of_help, :matter_type, asylum_support(session_data)].compact
     end
 
     def asylum_support(session_data)

@@ -5,6 +5,7 @@ RSpec.describe "Certificated, non-passported flow", type: :feature do
     start_assessment
     fill_in_provider_users_screen
     fill_in_level_of_help_screen
+    fill_in_matter_type_screen
     fill_in_applicant_screen
     fill_in_dependant_details_screen
     fill_in_housing_benefit_screen

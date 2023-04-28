@@ -52,9 +52,6 @@ sections:
       - label: client_details
         screen: applicant
         fields:
-        - attribute: legacy_proceeding_type
-          type: select
-          skip_unless: use_legacy_proceeding_type?
         - attribute: over_60
           type: boolean
         - attribute: partner

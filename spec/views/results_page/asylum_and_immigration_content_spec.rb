@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "estimates/show.html.slim" do
-  describe "Result panel content", :asylum_and_immigration_flag do
+  describe "Result panel content" do
     let(:calculation_result) { CalculationResult.new(session_data) }
     let(:api_response) { FactoryBot.build(:api_result, eligible: "eligible") }
     let(:check) { Check.new(session_data) }

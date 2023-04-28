@@ -32,8 +32,6 @@ en:
               inclusion: Select yes if your client receives a passporting benefit or if they are named on their partner's passporting benefit
             over_60:
               inclusion: Select yes if your client is aged 60 or over
-            legacy_proceeding_type:
-              blank: Select yes if your client is likely to be an applicant in a domestic abuse case
             partner:
               inclusion: Select yes if the client has a partner
         dependant_details_form:
@@ -519,7 +517,7 @@ en:
       controlled_chambers:
         - the Health, Education and Social Care Chamber of the First-tier Tribunal under the Mental Health Act 1983 or paragraph 5(2) of the Schedule to the Repatriation of Prisoners Act 1984
         - the Mental Health Review Tribunal for Wales
-      asylum_and_immigration_chamber: the Immigration and Asylum Chamber of the First tier Tribunal
+        - the Immigration and Asylum Chamber of the First tier Tribunal
       certificated_header: Civil certificated or licensed legal work
       certificated_explanation: This includes full representation and family help (higher).
       select_a_level: Select a level of help
@@ -621,15 +619,6 @@ en:
             - is an opponent in the case
             - has a contrary interest in the case - this means they want a different outcome to your client
         hint: This is a spouse, someone with whom they are in a civil relationship, a cohabiter or someone they share their finances with. They cannot be the opponent in any legal proceedings.
-      legacy_proceeding_type:
-        legend: Is your client likely to be the applicant in a domestic abuse matter?
-        hint: Upper eligibility limits are waived if your client is an applicant in a domestic abuse matter. Refer to our guidance on domestic abuse or violence for more information.
-        domestic_abuse:
-          label: 'Yes'
-          hint: ""
-        other:
-          label: 'No'
-          hint: ""
       domestic_abuse_guidance:
         text: Guidance on domestic abuse or violence
         link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=13
@@ -1157,10 +1146,12 @@ en:
           IM030_controlled: Immigration in the First-tier Tribunal
           IA031_certificated: Asylum in the Upper Tribunal
           IA031_controlled: Another immigration or asylum matter
-          SE003_certificated: Another legal matter
-          SE003_controlled: Another legal matter
+          SE003_certificated: Another category of law
+          SE003_controlled: Another category of law
           DA001_certificated: Domestic abuse
           not_provided: "Not provided"
+          not_provided_controlled: "Not provided"
+          not_provided_certificated: "Not provided"
       about_your_client: About your client
       about_partner: About your client's partner
       asylum_support: Asylum support
@@ -1171,11 +1162,6 @@ en:
       heading: Check your answers
       client_details: Your client's details
       client_details_fields:
-        legacy_proceeding_type: Applicant in a domestic abuse case
-        legacy_proceeding_type_options:
-          DA001: "Yes"
-          SE003: "No"
-          not_provided: "No"
         over_60: Over 60 years old
         partner: Has a partner
         employment_status: Employment status
@@ -1688,10 +1674,6 @@ en:
       valid_case_types:
         - controlled work (including legal help)  or family mediation
         - civil certificated or licensed legal work
-      invalid_case_types_intro: "It cannot be for a case that would be in the:"
-      invalid_case_types:
-        - Immigration and Asylum Chamber of the Upper Tribunal
-        - First-tier Tribunal (Immigration and Asylum)
       client_types: Client types
       service_function: What this service will help you assess
       service_function_paragraphs:

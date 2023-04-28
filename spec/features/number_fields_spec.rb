@@ -77,7 +77,7 @@ RSpec.describe "Number fields" do
 
   describe "Money fields" do
     before do
-      set_session(:foo, "level_of_help" => "controlled")
+      set_session(:foo, "level_of_help" => "controlled", "proceeding_type" => "SE003")
       visit "estimates/foo/build_estimates/employment"
       fill_in "employment-form-gross-income-field", with: "5,000"
       fill_in "employment-form-income-tax-field", with: "1000"

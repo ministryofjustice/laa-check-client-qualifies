@@ -9,14 +9,6 @@
 
     = form.govuk_error_summary t("generic.error_summary_title")
 
-    - if @check.use_legacy_proceeding_type?
-      = form.govuk_collection_radio_buttons :legacy_proceeding_type,
-              ApplicantForm::PROCEEDING_TYPES.to_a,
-              :last,
-              ->(pair) { t(".legacy_proceeding_type.#{pair[0]}.label") },
-              legend: { text: t(".legacy_proceeding_type.legend") },
-              hint: { text: t(".legacy_proceeding_type.hint") }
-
     = form.govuk_collection_radio_buttons :over_60,
                                           yes_no_options, :first, :last,
                                           legend: { text: t(".over_60.legend") },

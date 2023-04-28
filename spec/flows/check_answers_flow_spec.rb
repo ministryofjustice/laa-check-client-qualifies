@@ -60,7 +60,7 @@ RSpec.describe "Check answers", type: :feature do
     confirm_screen("check_answers")
   end
 
-  it "can handle a switch from certificated domestic abuse to controlled", :asylum_and_immigration_flag do
+  it "can handle a switch from certificated domestic abuse to controlled" do
     start_assessment
     fill_in_forms_until(:level_of_help)
     fill_in_level_of_help_screen(choice: "Civil certificated or licensed legal work")

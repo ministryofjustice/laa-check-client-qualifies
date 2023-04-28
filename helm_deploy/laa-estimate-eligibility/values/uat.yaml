@@ -54,7 +54,6 @@ cfe:
 
 featureFlags:
   sentry: ENABLED
-  asylumAndImmigration: ENABLED
   cwForms: ENABLED
   householdSection: ENABLED
   specialApplicantGroups: ENABLED

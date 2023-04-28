@@ -51,7 +51,7 @@ RSpec.describe Cfe::SubmitApplicantService do
       end
     end
 
-    context "when a&I flag is enabled", :asylum_and_immigration_flag do
+    context "when a&I proceeding type is used" do
       let(:session_data) do
         {
           proceeding_type: "IM030",
