@@ -247,7 +247,7 @@ GEM
     pdf-forms (1.4.0)
       cliver (~> 0.3.2)
       safe_shell (>= 1.0.3, < 2.0)
-    pg (1.4.6)
+    pg (1.5.3)
     propshaft (0.7.0)
       actionpack (>= 7.0.0)
       activesupport (>= 7.0.0)
@@ -481,7 +481,7 @@ DEPENDENCIES
   grover
   jsbundling-rails
   pdf-forms
-  pg (~> 1.4)
+  pg (~> 1.5)
   propshaft
   pry-nav
   pry-rescue
