@@ -41,7 +41,7 @@ RSpec.describe "estimates/show.html.slim" do
 
       it "sums up client and partner values for the separate pensioner disregard table" do
         # 123 + 234 = 357. 456 + 567 = 1023.
-        expect(page_text).to include("Total client and partner disposable capital £1,023.00 Pensioner disregard -£357.00")
+        expect(page_text).to include("Total client and partner disposable capital£1,023.00Pensioner disregard-£357.00")
       end
     end
 
@@ -80,11 +80,11 @@ RSpec.describe "estimates/show.html.slim" do
       end
 
       it "shows pensioner disregard in the main capital table" do
-        expect(rendered).to include '<th class="govuk-table__header">Pensioner disregard'
+        expect(rendered).to include '<th class="govuk-table__header" scope="row">Pensioner disregard'
       end
 
       it "shows client pensioner disregard" do
-        expect(page_text).to include "Pensioner disregardApplied to total capital up to a maximum of £100,000 -£123.00"
+        expect(page_text).to include "Pensioner disregardApplied to total capital up to a maximum of £100,000-£123.00"
       end
     end
 
@@ -110,8 +110,8 @@ RSpec.describe "estimates/show.html.slim" do
       end
 
       it "shows disposable capital sums separately" do
-        expect(page_text).to include("Disposable capital £456.00")
-        expect(page_text).to include("Disposable capital £567.00")
+        expect(page_text).to include("Disposable capital£456.00")
+        expect(page_text).to include("Disposable capital£567.00")
       end
     end
   end

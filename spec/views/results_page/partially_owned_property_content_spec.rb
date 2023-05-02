@@ -51,20 +51,20 @@ RSpec.describe "estimates/show.html.slim" do
     end
 
     it "shows partially owned main property content" do
-      expect(page_text).to include "Home client lives in Home worth £1.00"
-      expect(page_text).to include "Outstanding mortgage -£2.00"
-      expect(page_text).to include "Deductions3% of property value deducted for cost of sale -£34.00"
-      expect(page_text).to include "50% share of home equity £30.00"
-      expect(page_text).to include "Disputed asset disregard -£5.00"
-      expect(page_text).to include "Other disregardsApplied to the home equity and capped at £100,000 -£3.00"
-      expect(page_text).to include "Assessed value £2.00"
+      expect(page_text).to include "Home client lives inHome worth£1.00"
+      expect(page_text).to include "Outstanding mortgage-£2.00"
+      expect(page_text).to include "Deductions3% of property value deducted for cost of sale-£34.00"
+      expect(page_text).to include "50% share of home equity£30.00"
+      expect(page_text).to include "Disputed asset disregard-£5.00"
+      expect(page_text).to include "Other disregardsApplied to the home equity and capped at £100,000-£3.00"
+      expect(page_text).to include "Assessed value£2.00"
     end
 
     it "shows partially owned additional property content" do
-      expect(page_text).to include "Client's additional property Value £1.00"
-      expect(page_text).to include "Outstanding mortgage -£3.00"
-      expect(page_text).to include "Deductions3% of property value deducted for cost of sale -£35.00"
-      expect(page_text).to include "Assessed valueClient’s 50% share of home equity £2.00"
+      expect(page_text).to include "Client's additional propertyValue£1.00"
+      expect(page_text).to include "Outstanding mortgage-£3.00"
+      expect(page_text).to include "Deductions3% of property value deducted for cost of sale-£35.00"
+      expect(page_text).to include "Assessed valueClient’s 50% share of home equity£2.00"
     end
   end
 end

@@ -172,56 +172,56 @@ RSpec.describe "estimates/show.html.slim" do
     end
 
     it "shows income content" do
-      expect(page_text).to include "Employment income £1,000.00"
-      expect(page_text).to include "Benefits receivedThis does not include Housing Benefit £56.00"
-      expect(page_text).to include "Financial help from friends and family £100.00"
-      expect(page_text).to include "Maintenance payments from a former partner £200.00"
-      expect(page_text).to include "Income from a property or lodger £300.00"
-      expect(page_text).to include "Pension £400.00"
-      expect(page_text).to include "Student finance £50.00"
-      expect(page_text).to include "Other sources £111.00"
-      expect(page_text).to include "Total client and partner monthly income £40,000.00"
-      expect(page_text).to include "Monthly income upper limit £2,657.00"
+      expect(page_text).to include "Employment income£1,000.00"
+      expect(page_text).to include "Benefits receivedThis does not include Housing Benefit£56.00"
+      expect(page_text).to include "Financial help from friends and family£100.00"
+      expect(page_text).to include "Maintenance payments from a former partner£200.00"
+      expect(page_text).to include "Income from a property or lodger£300.00"
+      expect(page_text).to include "Pension£400.00"
+      expect(page_text).to include "Student finance£50.00"
+      expect(page_text).to include "Other sources£111.00"
+      expect(page_text).to include "Total client and partner monthly income£40,000.00"
+      expect(page_text).to include "Monthly income upper limit£2,657.00"
     end
 
     it "shows outgoings content" do
       expect(page_text).to match(/Housing payments(.+)£500.00/)
       expect(page_text).to match(/Childcare payments(.+)£848.00/)
-      expect(page_text).to include "Maintenance payments to a former partner £498.00"
-      expect(page_text).to include "Payments towards legal aid in a criminal case £41.79"
-      expect(page_text).to include "Income tax £5.00"
-      expect(page_text).to include "National Insurance £10.00"
-      expect(page_text).to include "Employment expensesA fixed allowance if the partner is employed £3.34"
-      expect(page_text).to include "Dependants allowanceA fixed allowance deducted for each dependant the partner has £13.00"
-      expect(page_text).to include "Total client and partner monthly outgoings £5,483.00"
-      expect(page_text).to include "Assessed disposable monthly incomeTotal monthly income minus total monthly outgoings £12,345.00"
-      expect(page_text).to include "Disposable monthly income upper limit £2,657.00"
+      expect(page_text).to include "Maintenance payments to a former partner£498.00"
+      expect(page_text).to include "Payments towards legal aid in a criminal case£41.79"
+      expect(page_text).to include "Income tax£5.00"
+      expect(page_text).to include "National Insurance£10.00"
+      expect(page_text).to include "Employment expensesA fixed allowance if the partner is employed£3.34"
+      expect(page_text).to include "Dependants allowanceA fixed allowance deducted for each dependant the partner has£13.00"
+      expect(page_text).to include "Total client and partner monthly outgoings£5,483.00"
+      expect(page_text).to include "Assessed disposable monthly incomeTotal monthly income minus total monthly outgoings£12,345.00"
+      expect(page_text).to include "Disposable monthly income upper limit£2,657.00"
     end
 
     it "shows capital content" do
-      expect(page_text).to include "Partner's additional property Value £51.00"
-      expect(page_text).to include "Outstanding mortgage -£52.00"
-      expect(page_text).to include "Deductions3% of property value deducted for cost of sale -£534.00"
-      expect(page_text).to include "Assessed value £52.00"
-      expect(page_text).to include "Partner's vehicle Value £587.00"
-      expect(page_text).to include "Outstanding payments -£234.00"
-      expect(page_text).to include "Disregards and deductions -£144.00"
-      expect(page_text).to include "Assessed value £3.00"
-      expect(page_text).to include "Partner's disposable capital Assessed property value £0.00"
-      expect(page_text).to include "Assessed vehicle value £3,000.00"
-      expect(page_text).to include "Savings £3,676.00"
-      expect(page_text).to include "Investments and valuables £5,353.00"
-      expect(page_text).to include "Disposable capital £30,000.00"
-      expect(page_text).to include "Total assessed disposable capital £0.00"
-      expect(page_text).to include "Disposable capital upper limit £2,657.00"
+      expect(page_text).to include "Partner's additional propertyValue£51.00"
+      expect(page_text).to include "Outstanding mortgage-£52.00"
+      expect(page_text).to include "Deductions3% of property value deducted for cost of sale-£534.00"
+      expect(page_text).to include "Assessed value£52.00"
+      expect(page_text).to include "Partner's vehicleValue£587.00"
+      expect(page_text).to include "Outstanding payments-£234.00"
+      expect(page_text).to include "Disregards and deductions-£144.00"
+      expect(page_text).to include "Assessed value£3.00"
+      expect(page_text).to include "Partner's disposable capitalAssessed property value£0.00"
+      expect(page_text).to include "Assessed vehicle value£3,000.00"
+      expect(page_text).to include "Savings£3,676.00"
+      expect(page_text).to include "Investments and valuables£5,353.00"
+      expect(page_text).to include "Disposable capital£30,000.00"
+      expect(page_text).to include "Total assessed disposable capital£0.00"
+      expect(page_text).to include "Disposable capital upper limit£2,657.00"
     end
 
     context "when the vehicle is not in regular use" do
       let(:vehicle_in_regular_use) { false }
 
       it "does not show additional vehicle rows" do
-        expect(page_text).not_to include "Outstanding payments -£234.00"
-        expect(page_text).not_to include "Disregards and deductions -£144.00"
+        expect(page_text).not_to include "Outstanding payments-£234.00"
+        expect(page_text).not_to include "Disregards and deductions-£144.00"
       end
     end
   end

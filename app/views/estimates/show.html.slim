@@ -36,19 +36,19 @@
   h2.govuk-heading-m = t(".#{@model.level_of_help}_how_calculated")
   = govuk_accordion do |accordion|
     - key = @model.level_of_help == "certificated" && !@check.upper_tribunal? ? ".upper_and_lower_limits_calculation_header" : ".upper_limits_calculation_header"
-    - accordion.section(heading_text: t(key))
+    - accordion.with_section(heading_text: t(key))
       = render "limits_table", caption_size: "m"
 
     - if @model.calculated?(:gross_income)
-      - accordion.section(heading_text: t(".income_calculation"))
+      - accordion.with_section(heading_text: t(".income_calculation"))
         = render "income_table", caption_size: "m"
 
     - if @model.calculated?(:disposable_income)
-      - accordion.section(heading_text: t(".outgoings_calculation"))
+      - accordion.with_section(heading_text: t(".outgoings_calculation"))
         = render "outgoings_table", caption_size: "m"
 
     - if @model.calculated?(:capital)
-      - accordion.section(heading_text: t(".capital_calculation"))
+      - accordion.with_section(heading_text: t(".capital_calculation"))
         = render "capital_table", caption_size: "m"
 
 .govuk-button-group

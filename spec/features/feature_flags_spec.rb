@@ -10,7 +10,7 @@ RSpec.describe "Feature flags" do
 
   scenario "I see all public feature flags" do
     visit feature_flags_path
-    expect(page).to have_content "static_flag Yes"
-    expect(page).to have_content "time_dependant_flag No"
+    expect(page).to have_content "static_flagYes"
+    expect(page).to have_content "time_dependant_flagNo"
   end
 end
