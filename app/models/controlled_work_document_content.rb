@@ -1,6 +1,6 @@
 # This model presents the session data for a check in a way that enables ControlledWorkDocumentValueMappingService
 # to access all the values specified by any given "mapping". These mappings either specify a direct attribute
-# or a "CFE payload path".
+# or a method in this model.
 
 # In the former case, the attribute is either one that the `Check` superclass makes available (i.e. it's
 # an attribute that's available in the session, with Check's extra logic to make sure that it's
@@ -11,96 +11,64 @@
 # in the session, which contains all the information CFE returned when we asked it to perform an
 # eligibility calculation for this check
 class ControlledWorkDocumentContent < Check
-  include ActionView::Helpers::NumberHelper
-
-  VALID_PROPERTY_TYPES = %w[non_smod all].freeze
-
   def from_cfe_payload(path)
     path_parts = path.split(".").map { _1.to_i.to_s == _1 ? _1.to_i : _1 }
-    value = session_data.dig("api_response", *path_parts)
-    format(value)
+    session_data.dig("api_response", *path_parts)
   end
 
-  def from_attribute(*args)
-    format(send(*args.compact))
-  end
-
-private
-
-  def format(value)
-    return unless value
-    return value unless value.is_a?(Numeric)
-
-    non_negative_value = [value, 0].max
-
-    precision = non_negative_value.round == non_negative_value ? 0 : 2
-
-    number_with_precision(non_negative_value, precision:, delimiter: ",")
-  end
-
-  def smod_assets?
-    house_in_dispute || vehicle_in_dispute || in_dispute.present?
-  end
-
-  def additional_property_in_dispute?
-    return if in_dispute.nil?
-
-    in_dispute.include? "property"
-  end
-
-  def savings_in_dispute?
-    return if in_dispute.nil?
-
-    in_dispute.include? "savings"
-  end
-
-  def investments_in_dispute?
-    return if in_dispute.nil?
-
-    in_dispute.include? "investments"
-  end
-
-  def valuables_in_dispute?
-    return if in_dispute.nil?
-
-    in_dispute.include? "valuables"
-  end
-
-  def main_home_percentage_owned
-    if joint_ownership
-      percentage_owned + joint_percentage_owned
+  def asylum_support?
+    if asylum_support.nil?
+      false
     else
-      percentage_owned || partner_percentage_owned
+      asylum_support
     end
   end
 
-  def additional_properties_value(*modifier)
-    additional_properties_sum("value", *modifier)
+  def aggregate_partner?
+    partner unless asylum_support?
   end
 
-  def additional_properties_mortgage(*modifier)
-    additional_properties_sum("outstanding_mortgage", *modifier)
+  def not_passporting?
+    !passporting unless asylum_support?
   end
 
-  def additional_properties_percentage_owned(*modifier)
-    # If there are 2 additional properties and a different percentage of each is owned,
-    # we can't necessarily give a sensible figure here, so mark it as such
-    percentages = additional_properties(*modifier).map { _1["percentage_owned"] }
-    return "Unknown" if percentages.uniq.length > 1
-
-    percentages.first
+  def no_partner?
+    !partner unless asylum_support?
   end
 
-  def additional_properties_net_value(*modifier)
-    additional_properties_sum("net_value", *modifier)
+  def no_asylum_support?
+    !asylum_support
   end
 
-  def additional_properties_net_equity(*modifier)
-    additional_properties_sum("net_equity", *modifier)
+  def smod_assets?
+    return if asylum_support?
+    return false unless house_in_dispute || vehicle_in_dispute || in_dispute.present?
+
+    house_in_dispute || vehicle_in_dispute || in_dispute.present?
   end
 
-  def additional_properties_assessed_equity(*modifier)
-    additional_properties_sum("assessed_equity", *modifier)
+  def assets_not_in_dispute?
+    in_dispute.nil?
+  end
+
+  def additional_property_in_dispute?
+    in_dispute.include? "property" unless assets_not_in_dispute?
+  end
+
+  def house_in_dispute?
+    house_in_dispute
+  end
+
+  def savings_in_dispute?
+    in_dispute.include? "savings" unless assets_not_in_dispute?
+  end
+
+  def investments_in_dispute?
+    in_dispute.include? "investments" unless assets_not_in_dispute?
+  end
+
+  def valuables_in_dispute?
+    in_dispute.include? "valuables" unless assets_not_in_dispute?
   end
 
   def client_capital_relevant?
@@ -115,81 +83,361 @@ private
     Steps::Helper.valid_step?(session_data, :partner_other_income)
   end
 
-  def not_passporting
-    !passporting
+  def smod_main_home_value
+    from_cfe_payload("assessment.capital.capital_items.properties.main_home.value") if house_in_dispute?
   end
 
-  def no_partner
-    !partner
+  def smod_main_home_outstanding_mortgage
+    from_cfe_payload("assessment.capital.capital_items.properties.main_home.outstanding_mortgage") if house_in_dispute?
   end
 
-  def no_asylum_support
-    !asylum_support
+  def smod_additional_properties_value
+    from_cfe_payload("assessment.capital.capital_items.properties.additional_properties.0.value") if additional_property_in_dispute?
+  end
+
+  def smod_additional_properties_outstanding_mortgage
+    from_cfe_payload("assessment.capital.capital_items.properties.additional_properties.0.outstanding_mortgage") if additional_property_in_dispute?
+  end
+
+  def smod_main_home_percentage_owned
+    return unless house_in_dispute?
+
+    if joint_ownership
+      percentage_owned + joint_percentage_owned
+    else
+      percentage_owned || partner_percentage_owned
+    end
+  end
+
+  def smod_main_home_net_value
+    from_cfe_payload("assessment.capital.capital_items.properties.main_home.net_value") if house_in_dispute?
+  end
+
+  def smod_additional_properties_net_value
+    from_cfe_payload("assessment.capital.capital_items.properties.additional_properties.0.net_value") if additional_property_in_dispute?
+  end
+
+  def smod_main_home_net_equity
+    from_cfe_payload("assessment.capital.capital_items.properties.main_home.net_equity") if house_in_dispute?
+  end
+
+  def smod_additional_properties_net_equity
+    from_cfe_payload("assessment.capital.capital_items.properties.additional_properties.0.net_equity") if additional_property_in_dispute?
+  end
+
+  def smod_main_home_assessed_equity
+    from_cfe_payload("assessment.capital.capital_items.properties.main_home.assessed_equity") if house_in_dispute?
+  end
+
+  def smod_additional_properties_assessed_equity
+    from_cfe_payload("assessment.capital.capital_items.properties.additional_properties.0.assessed_equity") if additional_property_in_dispute?
+  end
+
+  def smod_additional_properties_percentage_owned
+    from_cfe_payload("assessment.capital.capital_items.properties.additional_properties.0.percentage_owned") if additional_property_in_dispute?
+  end
+
+  def smod_savings
+    savings if savings_in_dispute?
+  end
+
+  def smod_investments
+    investments if investments_in_dispute?
+  end
+
+  def smod_valuables
+    valuables if investments_in_dispute?
+  end
+
+  def smod_total_capital
+    from_cfe_payload("result_summary.capital.combined_disputed_capital") if smod_assets?
+  end
+
+  def non_smod_main_home_value
+    return if house_in_dispute?
+
+    main_home_value
+  end
+
+  def main_home_value
+    from_cfe_payload("assessment.capital.capital_items.properties.main_home.value") if client_capital_relevant?
+  end
+
+  def non_smod_main_home_net_value
+    return if house_in_dispute?
+
+    main_home_net_value
+  end
+
+  def main_home_net_value
+    from_cfe_payload("assessment.capital.capital_items.properties.main_home.net_value") if client_capital_relevant?
+  end
+
+  def non_smod_main_home_outstanding_mortgage
+    return if house_in_dispute?
+
+    main_home_outstanding_mortgage
+  end
+
+  def main_home_outstanding_mortgage
+    from_cfe_payload("assessment.capital.capital_items.properties.main_home.outstanding_mortgage") if client_capital_relevant?
+  end
+
+  def non_smod_main_home_percentage_owned
+    return if house_in_dispute?
+
+    main_home_percentage_owned
+  end
+
+  def main_home_percentage_owned
+    return unless client_capital_relevant?
+
+    if joint_ownership
+      percentage_owned + joint_percentage_owned
+    else
+      percentage_owned || partner_percentage_owned
+    end
+  end
+
+  def non_smod_main_home_net_equity
+    return if house_in_dispute?
+
+    main_home_net_equity
+  end
+
+  def main_home_net_equity
+    from_cfe_payload("assessment.capital.capital_items.properties.main_home.net_equity") if client_capital_relevant?
+  end
+
+  def non_smod_main_home_assessed_equity
+    return if house_in_dispute?
+
+    main_home_assessed_equity
+  end
+
+  def main_home_assessed_equity
+    from_cfe_payload("assessment.capital.capital_items.properties.main_home.assessed_equity") if client_capital_relevant?
+  end
+
+  def non_smod_additional_properties_value
+    return if additional_property_in_dispute?
+
+    additional_properties_value
+  end
+
+  def additional_properties_value
+    additional_properties_sum("value") if client_capital_relevant?
+  end
+
+  def non_smod_additional_properties_mortgage
+    return if additional_property_in_dispute?
+
+    additional_properties_mortgage
+  end
+
+  def additional_properties_mortgage
+    additional_properties_sum("outstanding_mortgage") if client_capital_relevant?
+  end
+
+  def non_smod_additional_properties_percentage_owned
+    return if additional_property_in_dispute?
+
+    additional_properties_percentage_owned
+  end
+
+  def additional_properties_percentage_owned
+    # If there are 2 additional properties and a different percentage of each is owned,
+    # we can't necessarily give a sensible figure here, so mark it as such
+    return unless client_capital_relevant?
+
+    percentages = additional_properties.map { _1["percentage_owned"] }
+    return "Unknown" if percentages.uniq.length > 1
+
+    percentages.first
+  end
+
+  def non_smod_additional_properties_net_value
+    return if additional_property_in_dispute?
+
+    additional_properties_net_value
+  end
+
+  def additional_properties_net_value
+    additional_properties_sum("net_value") if client_capital_relevant?
+  end
+
+  def non_smod_additional_properties_net_equity
+    return if additional_property_in_dispute?
+
+    additional_properties_net_equity
+  end
+
+  def additional_properties_net_equity
+    additional_properties_sum("net_equity") if client_capital_relevant?
+  end
+
+  def non_smod_additional_properties_assessed_equity
+    return if additional_property_in_dispute?
+
+    additional_properties_assessed_equity
+  end
+
+  def additional_properties_assessed_equity
+    additional_properties_sum("assessed_equity") if client_capital_relevant?
+  end
+
+  def additional_properties_sum(attribute)
+    additional_properties.sum { _1[attribute] }
+  end
+
+  def additional_properties
+    [
+      session_data.dig("api_response", "assessment", "capital", "capital_items", "properties", "additional_properties"),
+      session_data.dig("api_response", "assessment", "partner_capital", "capital_items", "properties", "additional_properties"),
+    ].flatten.compact
+  end
+
+  def non_smod_client_savings
+    savings unless savings_in_dispute?
+  end
+
+  def non_smod_client_investments
+    investments unless investments_in_dispute?
+  end
+
+  def non_smod_client_valuables
+    valuables unless valuables_in_dispute?
+  end
+
+  def combined_non_disputed_capital
+    from_cfe_payload("result_summary.capital.combined_non_disputed_capital") if client_capital_relevant?
+  end
+
+  def combined_assessed_capital
+    from_cfe_payload("result_summary.capital.combined_assessed_capital") if client_capital_relevant?
   end
 
   def client_non_employment_income
-    non_employment_income
+    non_employment_income if client_capital_relevant?
   end
 
   def partner_non_employment_income
-    non_employment_income("partner_")
+    non_employment_income("partner_") if partner_income_relevant?
+  end
+
+  def client_total_income
+    from_cfe_payload("result_summary.gross_income.total_gross_income") if client_income_relevant?
+  end
+
+  def partner_total_income
+    from_cfe_payload("result_summary.partner_gross_income.total_gross_income") if partner_income_relevant?
+  end
+
+  def total_combined_income
+    from_cfe_payload("result_summary.gross_income.combined_total_gross_income") if client_income_relevant?
   end
 
   def client_mortgage
+    return unless client_income_relevant?
+
     main_home_owned? ? net_housing_costs : 0
   end
 
   def client_rent
+    return unless client_income_relevant?
+
     main_home_owned? ? 0 : net_housing_costs
   end
 
   def partner_mortgage
+    return unless partner_income_relevant?
+
     main_home_owned? ? net_housing_costs("partner_") : 0
   end
 
   def partner_rent
+    return unless partner_income_relevant?
+
     main_home_owned? ? 0 : net_housing_costs("partner_")
   end
 
+  def client_gross_income
+    from_cfe_payload("result_summary.disposable_income.employment_income.gross_income") if client_income_relevant?
+  end
+
+  def partner_gross_income
+    from_cfe_payload("result_summary.partner_disposable_income.employment_income.gross_income") if partner_income_relevant?
+  end
+
+  def partner_allowance
+    from_cfe_payload("result_summary.disposable_income.partner_allowance") if client_income_relevant?
+  end
+
+  def dependants_u16_allowance
+    from_cfe_payload("result_summary.disposable_income.dependant_allowance_under_16") if client_income_relevant?
+  end
+
+  def dependants_u18_allowance
+    from_cfe_payload("result_summary.disposable_income.dependant_allowance_over_16") if client_income_relevant?
+  end
+
   def client_tax_and_national_insurance
-    tax_and_national_insurance
+    tax_and_national_insurance if client_income_relevant?
   end
 
   def partner_tax_and_national_insurance
-    tax_and_national_insurance "partner_"
+    tax_and_national_insurance "partner_" if partner_income_relevant?
   end
 
   def client_employment_deduction
-    employment_deduction
+    employment_deduction if client_income_relevant?
+  end
+
+  def client_maintenance_allowance
+    from_cfe_payload("result_summary.disposable_income.maintenance_allowance") if client_income_relevant?
+  end
+
+  def partner_maintenance_allowance
+    from_cfe_payload("result_summary.partner_disposable_income.maintenance_allowance") if partner_income_relevant?
   end
 
   def partner_employment_deduction
-    employment_deduction "partner_"
+    employment_deduction "partner_" if partner_income_relevant?
   end
 
   def combined_childcare_costs
+    return unless client_income_relevant?
+
     (session_data.dig("api_response", "assessment", "disposable_income", "childcare_allowance") || 0) +
       (session_data.dig("api_response", "assessment", "partner_disposable_income", "childcare_allowance") || 0)
   end
 
-  def additional_properties_sum(attribute, *modifier)
-    additional_properties(*modifier).sum { _1[attribute] }
+  def client_legal_aid_contribution
+    from_cfe_payload("assessment.disposable_income.monthly_equivalents.all_sources.legal_aid") if client_income_relevant?
   end
 
-  def additional_properties(property_type = "all")
-    raise "Invalid modifier in YML" unless VALID_PROPERTY_TYPES.include?(property_type)
+  def partner_legal_aid_contribution
+    from_cfe_payload("assessment.partner_disposable_income.monthly_equivalents.all_sources.legal_aid") if partner_income_relevant?
+  end
 
-    if property_type == "non_smod"
-      [
-        (session_data.dig("api_response", "assessment", "capital", "capital_items", "properties", "additional_properties") unless additional_property_in_dispute?),
-        session_data.dig("api_response", "assessment", "partner_capital", "capital_items", "properties", "additional_properties"),
-      ].flatten.compact
-    else
-      [
-        session_data.dig("api_response", "assessment", "capital", "capital_items", "properties", "additional_properties"),
-        session_data.dig("api_response", "assessment", "partner_capital", "capital_items", "properties", "additional_properties"),
-      ].flatten.compact
-    end
+  def client_total_allowances
+    from_cfe_payload("result_summary.disposable_income.total_outgoings_and_allowances") if client_income_relevant?
+  end
+
+  def partner_total_allowances
+    from_cfe_payload("result_summary.partner_disposable_income.total_outgoings_and_allowances") if partner_income_relevant?
+  end
+
+  def client_disposable_income
+    from_cfe_payload("result_summary.disposable_income.total_disposable_income") if client_income_relevant?
+  end
+
+  def partner_disposable_income
+    from_cfe_payload("result_summary.partner_disposable_income.total_disposable_income") if partner_income_relevant?
+  end
+
+  def combined_disposable_income
+    from_cfe_payload("result_summary.disposable_income.combined_total_disposable_income") if client_income_relevant?
   end
 
   def non_employment_income(summary_section_prefix = "")
