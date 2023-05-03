@@ -4,14 +4,14 @@ class FeatureFlags
     dependance_allowance_increase: { from: "2023-04-10", public: true },
   }.freeze
 
-  FLIPPER_FLAGS = %i[sentry cw_forms household_section special_applicant_groups].freeze
+  STATIC_FLAGS = %i[sentry cw_forms household_section special_applicant_groups].freeze
 
   class << self
     def enabled?(flag)
       if ENABLED_AFTER_DATE.key?(flag)
         Time.current.beginning_of_day >= ENABLED_AFTER_DATE.dig(flag, :from)
-      elsif FLIPPER_FLAGS.include?(flag)
-        Flipper.enabled?(flag)
+      elsif STATIC_FLAGS.include?(flag)
+        ENV["#{flag.to_s.upcase}_FEATURE_FLAG"]&.casecmp("enabled")&.zero?
       else
         raise "Unrecognised flag '#{flag}'"
       end
@@ -22,7 +22,7 @@ class FeatureFlags
     end
 
     def static
-      FLIPPER_FLAGS
+      STATIC_FLAGS
     end
   end
 end

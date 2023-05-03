@@ -140,15 +140,17 @@ or
 
 ### Feature flags
 
-We use Flipper to manage feature flags.
-While our flagging requirements are simple we set desired flag values in env vars and transfer them to Flipper's file-based data store in an initializer.
-To add a new feature flag, set a `"#{flag_name.upcase}_FEATURE_FLAG"` env var in all environments where you want the flag enabled.
-Then add `flag_name` to the list of flags Flipper should read from in `app/lib/feature_flags.rb`.
+For "static" feature flags we set the flag values in env vars.
+To add a new feature flag, set a `"#{flag_name.upcase}_FEATURE_FLAG"` env var with value `"ENABLED"` in all environments where you want the flag enabled.
+Then add `flag_name` to the list of flags  in `app/lib/feature_flags.rb`.
 
 To use the feature flag in your code, just call `FeatureFlags.enabled?(:flag_name)`.
 
-In tests, you can temporarily enable a feature flag with `Flipper.enable(:flag_name)`.
-However, flags are _not_ reset between specs, so to avoid polluting other tests use an `around` block and call `Flipper.disable(:flag_name)` once the test has run.
+In tests, you can temporarily enable a feature flag by setting the ENV value.
+However, flags are _not_ reset between specs, so to avoid polluting other tests use an `around` block and change the ENV value back once the test has run.
+
+We also have time-dependent flags, defined in `app/lib/feature_flags.rb`, which default to disabled but also have a date associated.
+They will be enabled _on_ the associated date.
 
 ### Saving as PDF
 
