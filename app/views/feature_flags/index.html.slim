@@ -2,31 +2,31 @@
   h1.govuk-heading-xl = t(".feature_flags")
   = govuk_table do |table|
     ruby:
-      table.caption(size: "m", text: t(".time_based"))
-      table.body do |body|
-        body.row do |row|
-          row.cell(text: t(".flag"), header: true)
-          row.cell(text: t(".enabled"), header: true)
+      table.with_caption(size: "m", text: t(".time_based"))
+      table.with_body do |body|
+        body.with_row do |row|
+          row.with_cell(text: t(".flag"), header: true)
+          row.with_cell(text: t(".enabled"), header: true)
         end
         FeatureFlags.time_dependant.each do |flag|
-          body.row do |row|
-            row.cell(text: flag)
-            row.cell(text: FeatureFlags.enabled?(flag) ? t("generic.yes_choice") : t("generic.no_choice"))
+          body.with_row do |row|
+            row.with_cell(text: flag)
+            row.with_cell(text: FeatureFlags.enabled?(flag) ? t("generic.yes_choice") : t("generic.no_choice"))
           end
         end
       end
   = govuk_table do |table|
     ruby:
-      table.caption(size: "m", text: t(".static"))
-      table.body do |body|
-        body.row do |row|
-          row.cell(text: t(".flag"), header: true)
-          row.cell(text: t(".enabled"), header: true)
+      table.with_caption(size: "m", text: t(".static"))
+      table.with_body do |body|
+        body.with_row do |row|
+          row.with_cell(text: t(".flag"), header: true)
+          row.with_cell(text: t(".enabled"), header: true)
         end
         FeatureFlags.static.each do |flag|
-          body.row do |row|
-            row.cell(text: flag)
-            row.cell(text: FeatureFlags.enabled?(flag) ? t("generic.yes_choice") : t("generic.no_choice"))
+          body.with_row do |row|
+            row.with_cell(text: flag)
+            row.with_cell(text: FeatureFlags.enabled?(flag) ? t("generic.yes_choice") : t("generic.no_choice"))
           end
         end
       end

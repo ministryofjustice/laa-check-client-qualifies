@@ -63,27 +63,27 @@
 
   - if @model.pensioner_disregard_applied?
     = govuk_table do |table|
-      - table.caption(size: caption_size, text: t("estimates.show.pensioner_disregard"))
-      - table.body do |body|
-        - body.row do |row|
-          - row.cell(classes: %w[no-bottom-border], text: t("estimates.show.pensioner_disregard_caption"))
-          - row.cell(classes: %w[no-bottom-border], text: "")
+      - table.with_caption(size: caption_size, text: t("estimates.show.pensioner_disregard"))
+      - table.with_body do |body|
+        - body.with_row do |row|
+          - row.with_cell(classes: %w[no-bottom-border], text: t("estimates.show.pensioner_disregard_caption"))
+          - row.with_cell(classes: %w[no-bottom-border], text: "")
         - @model.pensioner_disregard_rows.each do |type, amount|
-          - body.row do |row|
-            - row.cell(header: true, text: t("estimates.show.pensioner_disregard_types.#{type}.text"))
-            - row.cell(numeric: true, text: amount)
-        - body.row(classes: %w[solid-top-border]) do |row|
-          - row.cell(header: true, text: t("estimates.show.pensioner_disregard_types.assessed_capital.text"))
-          - row.cell(numeric: true, header: true, text: @model.total_assessed_capital)
+          - body.with_row do |row|
+            - row.with_cell(header: true, text: t("estimates.show.pensioner_disregard_types.#{type}.text"))
+            - row.with_cell(numeric: true, text: amount)
+        - body.with_row(classes: %w[solid-top-border]) do |row|
+          - row.with_cell(header: true, text: t("estimates.show.pensioner_disregard_types.assessed_capital.text"))
+          - row.with_cell(numeric: true, header: true, text: @model.total_assessed_capital)
 
 h2 class="govuk-heading-#{caption_size}" = t("estimates.show.total")
 = govuk_table do |table|
-  - table.body do |body|
-    - body.row(classes: %w[solid-top-border]) do |row|
-      - row.cell(header: true, text: t("estimates.show.total_assessed_capital"))
-      - row.cell(classes: %w[govuk-!-font-weight-bold], text: @model.total_assessed_capital, numeric: true)
-    - body.row(classes: %w[solid-bottom-border]) do |row|
-      - row.cell(classes: %w[govuk-!-font-weight-regular], header: true, text: t("estimates.show.capital_upper_threshold"))
-      - row.cell(text: @model.capital_upper_threshold, numeric: true)
+  - table.with_body do |body|
+    - body.with_row(classes: %w[solid-top-border]) do |row|
+      - row.with_cell(header: true, text: t("estimates.show.total_assessed_capital"))
+      - row.with_cell(classes: %w[govuk-!-font-weight-bold], text: @model.total_assessed_capital, numeric: true)
+    - body.with_row(classes: %w[solid-bottom-border]) do |row|
+      - row.with_cell(classes: %w[govuk-!-font-weight-regular], header: true, text: t("estimates.show.capital_upper_threshold"))
+      - row.with_cell(text: @model.capital_upper_threshold, numeric: true)
 
 = render "ineligible_explanation", value_type: :capital
