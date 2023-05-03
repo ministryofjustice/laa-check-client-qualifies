@@ -82,6 +82,12 @@ RSpec.configure do |config|
     Flipper.disable(:cw_forms)
   end
 
+  config.around(:each, :household_section_flag) do |example|
+    Flipper.enable(:household_section)
+    example.run
+    Flipper.disable(:household_section)
+  end
+
   config.before(:suite) do
     DatabaseCleaner.clean_with :truncation
   end
