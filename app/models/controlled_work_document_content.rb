@@ -104,15 +104,15 @@ private
   end
 
   def client_capital_relevant?
-    StepsHelper.valid_step?(session_data, :assets)
+    Steps::Helper.valid_step?(session_data, :assets)
   end
 
   def client_income_relevant?
-    StepsHelper.valid_step?(session_data, :other_income)
+    Steps::Helper.valid_step?(session_data, :other_income)
   end
 
   def partner_income_relevant?
-    StepsHelper.valid_step?(session_data, :partner_other_income)
+    Steps::Helper.valid_step?(session_data, :partner_other_income)
   end
 
   def not_passporting

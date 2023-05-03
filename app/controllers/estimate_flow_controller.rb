@@ -2,7 +2,7 @@ class EstimateFlowController < ApplicationController
   include Wicked::Wizard
   before_action :load_check
 
-  steps(*StepsHelper.all_possible_steps)
+  steps(*Steps::Helper.all_possible_steps)
 
   def show
     track_page_view
@@ -21,7 +21,7 @@ protected
   end
 
   def next_check_answer_step(step)
-    StepsHelper.remaining_steps_for(session_data, step)
+    Steps::Helper.remaining_steps_for(session_data, step)
       .drop_while { |thestep|
         Flow::Handler.model_from_session(thestep, session_data).valid?
       }.first

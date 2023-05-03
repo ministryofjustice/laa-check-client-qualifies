@@ -51,7 +51,7 @@ module CheckAnswers
 
     def build_field(field_data, label_set, parent_screen)
       relevant_screen = (field_data[:screen] || field_data[:related_screen] || parent_screen).to_sym
-      return unless StepsHelper.valid_step?(@model.session_data, relevant_screen)
+      return unless Steps::Helper.valid_step?(@model.session_data, relevant_screen)
       return if field_data[:skip_unless].present? && !@model.send(field_data[:skip_unless])
 
       label = field_data.fetch(:label, field_data.fetch(:attribute))
@@ -65,7 +65,7 @@ module CheckAnswers
     end
 
     def benefits_fields
-      if StepsHelper.valid_step?(@model.session_data, :benefits)
+      if Steps::Helper.valid_step?(@model.session_data, :benefits)
         benefits_fields_common(session_key: "benefits")
       else
         []
@@ -73,7 +73,7 @@ module CheckAnswers
     end
 
     def partner_benefits_fields
-      if StepsHelper.valid_step?(@model.session_data, :partner_benefits)
+      if Steps::Helper.valid_step?(@model.session_data, :partner_benefits)
         benefits_fields_common(session_key: "partner_benefits")
       else
         []

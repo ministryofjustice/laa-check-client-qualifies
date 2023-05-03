@@ -4,7 +4,7 @@
 
 # This file also contains some very simple rules around when _not_ to show a particular field.
 # Note that it doesn't comment on rules around which sections and subsections to skip, as
-# that is determined by the StepsHelper logic.
+# that is determined by the Steps::Helper logic.
 
 # DATA TYPES:
 # ==========

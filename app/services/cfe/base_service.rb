@@ -18,7 +18,7 @@ module Cfe
     end
 
     def relevant_form?(form_name)
-      StepsHelper.valid_step?(@session_data, form_name)
+      Steps::Helper.valid_step?(@session_data, form_name)
     end
   end
 end
