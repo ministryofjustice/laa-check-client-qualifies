@@ -9,11 +9,11 @@ module Steps
         if Steps::Logic.asylum_supported?(session_data)
           []
         else
-          steps(session_data).map { Steps::Group.new(_1) }
+          groups(session_data).map { Steps::Group.new(_1) }
         end
       end
 
-      def steps(session_data)
+      def groups(session_data)
         [:applicant, dependant_details(session_data)].compact
       end
 
