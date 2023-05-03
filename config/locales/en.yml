@@ -783,7 +783,7 @@ en:
       suggestions: Suggestion
       benefit_type: Benefit name
       benefit_type_hint: Enter the name of a benefit, or select one from the suggestions that appear when you start to enter the name.
-      enter_amount: Enter amount
+      enter_amount: Enter benefit amount
       select_frequency: Select frequency
       add: Add another benefit
     partner_benefits:
