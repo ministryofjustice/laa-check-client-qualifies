@@ -22,8 +22,8 @@ RSpec.describe FeatureFlags do
   end
 
   describe ".static" do
-    it "returns all flipper flags" do
-      expect(described_class.static).to eq FeatureFlags::FLIPPER_FLAGS
+    it "returns all static flags" do
+      expect(described_class.static).to eq FeatureFlags::STATIC_FLAGS
     end
   end
 

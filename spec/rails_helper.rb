@@ -77,15 +77,15 @@ RSpec.configure do |config|
   end
 
   config.around(:each, :cw_forms_flag) do |example|
-    Flipper.enable(:cw_forms)
+    ENV["CW_FORMS_FEATURE_FLAG"] = "enabled"
     example.run
-    Flipper.disable(:cw_forms)
+    ENV["CW_FORMS_FEATURE_FLAG"] = "disabled"
   end
 
   config.around(:each, :household_section_flag) do |example|
-    Flipper.enable(:household_section)
+    ENV["HOUSEHOLD_SECTION_FEATURE_FLAG"] = "enabled"
     example.run
-    Flipper.disable(:household_section)
+    ENV["HOUSEHOLD_SECTION_FEATURE_FLAG"] = "disabled"
   end
 
   config.before(:suite) do
