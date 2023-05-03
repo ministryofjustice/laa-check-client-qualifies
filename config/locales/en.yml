@@ -115,23 +115,13 @@ en:
               not_a_number: Housing Benefit must be a number
         benefits_form:
           attributes:
-            add_benefit:
+            receives_benefits:
               inclusion: Select yes if your client gets any other benefits
         partner_benefits_form:
           attributes:
-            add_benefit:
+            receives_benefits:
               inclusion: Select yes if the partner gets any other benefits
         benefit_model:
-          attributes:
-            benefit_frequency:
-              inclusion: Select the frequency
-            benefit_amount:
-              blank: Enter the amount
-              greater_than: Amount must be more than 0
-              not_a_number: Amount must be a number
-            benefit_type:
-              blank: Enter the benefit name
-        partner_benefit_model:
           attributes:
             benefit_frequency:
               inclusion: Select the frequency
@@ -409,6 +399,7 @@ en:
     unemployed: Unemployed
     back: Back
     error_summary_title: There is a problem
+    error_prefix: "Error:"
     save_and_continue: Save and continue
     submit: Submit
     check_box_divider: or
@@ -502,6 +493,7 @@ en:
     benefits:
       hint: For example, Child Benefit, tax credits or Asylum Support payments. Do not include Housing Benefit, State Pension, government Cost of Living Payments, or any other disregarded benefits.
     download_name: Legal aid eligibility assessment
+    remove: Remove
   estimate_flow:
     level_of_help:
       title: What level of help does your client need?
@@ -783,17 +775,25 @@ en:
         monthly: Every month
       added_heading: You have added %{count} %{benefit}
       benefit: benefit
-      edit: Change
-      remove: Remove
-      add_more_hint: Add details of any benefits your client gets, for example, Child Benefit, tax credits or Asylum Support payments. After you’ve added one you can add more. Do not include Housing Benefit, State Pension, government Cost of Living Payments, or any other disregarded benefits.
+    benefit_details:
+      caption: Your client's finances
+      heading: Add benefit details
+      hint: Add details of any benefits your client receives. Do not include Housing Benefit or any other disregarded benefits.
+      benefit: Benefit
+      suggestions: Suggestion
+      benefit_type: Benefit name
+      benefit_type_hint: Enter the name of a benefit, or select one from the suggestions that appear when you start to enter the name.
+      enter_amount: Enter benefit amount
+      select_frequency: Select frequency
+      add: Add another benefit
     partner_benefits:
       caption: The partner's finances
       legend: Does the partner get any other benefits?
-      added_heading: You have added %{count} %{benefit}
       benefit: benefit
-      edit: Change
-      remove: Remove
-      add_more_hint: Add details of any benefits the partner gets, for example, Child Benefit, tax credits or Asylum Support payments. After you’ve added one you can add more. Do not include Housing Benefit, State Pension, government Cost of Living Payments, or any other disregarded benefits.
+    partner_benefit_details:
+      caption: The partner's finances
+      heading: Add benefit details
+      hint: Add details of any benefits the partner receives. Do not include Housing Benefit or any other disregarded benefits.
     other_income:
       caption: Your client's finances
       heading: Other income
@@ -1106,28 +1106,6 @@ en:
         hint: Include any outstanding payments on loans, hire purchase (HP) or personal contract purchase (PCP) agreements
       vehicle_finance:
         input: Enter the value of payments left
-  benefits:
-    new:
-      caption: Your client's finances
-      heading: Add benefit details
-    edit:
-      caption: Your client's finances
-      heading: Edit benefit details
-    form:
-      type: Benefit name
-      amount: Enter amount
-      frequency: Select frequency
-  partner_benefits:
-    new:
-      caption: The partner's finances
-      heading: Add benefit details
-    edit:
-      caption: The partner's finances
-      heading: Edit benefit details
-    form:
-      type: Benefit name
-      amount: Enter amount
-      frequency: Select frequency
   estimates:
     check_answers:
       level_of_help: Level of help your client needs

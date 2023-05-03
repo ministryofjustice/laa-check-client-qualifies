@@ -46,7 +46,7 @@ module Cfe
     end
 
     def state_benefits
-      benefits_form = PartnerBenefitsForm.from_session(@session_data) if relevant_form?(:partner_benefits)
+      benefits_form = PartnerBenefitDetailsForm.from_session(@session_data) if relevant_form?(:partner_benefit_details)
       housing_benefit_details_form = PartnerHousingBenefitDetailsForm.from_session(@session_data) if relevant_form?(:partner_housing_benefit_details)
       return [] if benefits_form&.benefits.blank? && !housing_benefit_details_form
 

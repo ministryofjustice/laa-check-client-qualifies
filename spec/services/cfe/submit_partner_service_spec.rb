@@ -23,6 +23,7 @@ RSpec.describe Cfe::SubmitPartnerService, :partner_flag do
           "partner_housing_payments_frequency" => "every_week",
           "partner_friends_or_family_value" => 100,
           "partner_friends_of_family_value" => "every_week",
+          "partner_receives_benefits" => true,
           "partner_benefits" => [
             "benefit_type" => "Child benefit",
             "benefit_frequency" => "every_week",

@@ -33,6 +33,12 @@ class StepsLogic
       ApplicantForm::EMPLOYED_STATUSES.map(&:to_s).include? session_data["employment_status"]
     end
 
+    def benefits?(session_data)
+      return false if asylum_supported?(session_data) || passported?(session_data)
+
+      session_data["receives_benefits"]
+    end
+
     def housing_benefit?(session_data)
       return false if asylum_supported?(session_data) || passported?(session_data)
 
@@ -57,6 +63,12 @@ class StepsLogic
       return false if passported?(session_data) || !partner?(session_data)
 
       ApplicantForm::EMPLOYED_STATUSES.map(&:to_s).include? session_data["partner_employment_status"]
+    end
+
+    def partner_benefits?(session_data)
+      return false if passported?(session_data) || !partner?(session_data)
+
+      session_data["partner_receives_benefits"]
     end
 
     def partner_housing_benefit?(session_data)

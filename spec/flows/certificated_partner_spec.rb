@@ -43,8 +43,7 @@ RSpec.describe "Certificated, non-passported flow with partner", type: :feature 
 
     fill_in_forms_until(:partner_benefits)
     fill_in_partner_benefits_screen(choice: "Yes")
-    fill_in_add_partner_benefit_screen
-    fill_in_partner_benefits_screen
+    fill_in_partner_benefit_details_screen
     confirm_screen("partner_other_income")
   end
 

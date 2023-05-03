@@ -9,20 +9,6 @@ Rails.application.routes.draw do
   resources :estimates, only: %i[new create show] do
     resources :build_estimates, only: %i[show update]
     resources :check_answers, only: %i[show update]
-    resources :benefits, except: %i[index show] do
-      collection { post :add }
-    end
-    resources :partner_benefits, except: %i[index show] do
-      collection { post :add }
-    end
-
-    resources :check_benefits_answers, except: %i[index show] do
-      collection { post :add }
-    end
-
-    resources :check_partner_benefits_answers, except: %i[index show] do
-      collection { post :add }
-    end
 
     member { get :print, :check_answers, :download }
 

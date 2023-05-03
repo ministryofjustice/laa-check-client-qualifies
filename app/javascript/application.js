@@ -5,14 +5,14 @@ import Rails from '@rails/ujs';
 // https://github.com/alphagov/govuk-frontend/pull/2453
 import Input from "./suggestions"
 import initChangeLogs from "./change-logs";
+import initAddAnother from "./add-another";
 
-const $inputs = document.querySelectorAll('[data-module="govuk-input"]')
-if ($inputs) {
-  for (let i = 0; i < $inputs.length; i++) {
-    new Input($inputs[i]).init()
-  }
-}
+initChangeLogs();
+initAddAnother();
+
+document.querySelectorAll('[data-module="govuk-input"]').forEach((input) => {
+  new Input(input).init()
+});
 
 Rails.start();
 initAll();
-initChangeLogs();

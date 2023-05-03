@@ -1,7 +1,11 @@
 const initChangeLogs = () => {
+  const toggle = document.querySelector('[data-change-log-role="toggle"]')
+  if (!toggle) {
+    return;
+  }
+
   hideItems();
 
-  const toggle = document.querySelector('[data-change-log-role="toggle"]')
   toggle.classList.remove(HIDDEN);
   putToggleInCollapsedState(toggle);
 

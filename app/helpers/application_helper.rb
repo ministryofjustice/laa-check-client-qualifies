@@ -20,11 +20,15 @@ module ApplicationHelper
 
   def decimal_as_money_string(form, field)
     current_value = form.object.attributes[field.to_s]
-    return current_value if current_value.is_a?(String)
+    as_money_string(current_value)
+  end
 
-    precision = current_value&.round == current_value ? 0 : 2
+  def as_money_string(value)
+    return value if value.is_a?(String)
 
-    number_with_precision(current_value, precision:, delimiter: ",")
+    precision = value&.round == value ? 0 : 2
+
+    number_with_precision(value, precision:, delimiter: ",")
   end
 
   def integer_field_value(form, field)
@@ -43,14 +47,6 @@ module ApplicationHelper
              provider_users_path
            end
     link_to t("generic.back"), link, class: "govuk-back-link"
-  end
-
-  def flow_path(assessment_code, step, check_answers: false)
-    if check_answers
-      estimate_check_answer_path(assessment_code, step)
-    else
-      estimate_build_estimate_path(assessment_code, step)
-    end
   end
 
   def enable_google_analytics(cookies)
