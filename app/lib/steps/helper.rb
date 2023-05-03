@@ -37,7 +37,7 @@ module Steps
       end
 
       def step_groups_for(session_data)
-        all_sections.map { |section| section.steps_for(session_data) }.reduce(:+)
+        all_sections.map { |section| section.grouped_steps_for(session_data) }.reduce(:+)
       end
 
       def all_sections

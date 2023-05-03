@@ -5,7 +5,7 @@ module Steps
         %i[partner_employment partner_housing_benefit partner_housing_benefit_details partner_benefits partner_benefit_details partner_other_income partner_outgoings]
       end
 
-      def steps_for(session_data)
+      def grouped_steps_for(session_data)
         if Steps::Logic.passported?(session_data) || !Steps::Logic.partner?(session_data)
           []
         else

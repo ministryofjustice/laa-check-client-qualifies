@@ -5,7 +5,7 @@ module Steps
         %i[partner_details partner_dependant_details]
       end
 
-      def steps_for(session_data)
+      def grouped_steps_for(session_data)
         if !Steps::Logic.partner?(session_data)
           []
         else

@@ -5,7 +5,7 @@ module Steps
         %i[level_of_help matter_type asylum_support]
       end
 
-      def steps_for(session_data)
+      def grouped_steps_for(session_data)
         groups(session_data).map { Steps::Group.new(_1) }
       end
 

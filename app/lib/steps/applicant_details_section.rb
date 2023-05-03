@@ -5,7 +5,7 @@ module Steps
         %i[applicant dependant_details]
       end
 
-      def steps_for(session_data)
+      def grouped_steps_for(session_data)
         if Steps::Logic.asylum_supported?(session_data)
           []
         else

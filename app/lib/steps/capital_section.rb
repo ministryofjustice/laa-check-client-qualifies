@@ -9,7 +9,7 @@ module Steps
         (PROPERTY_STEPS + VEHICLE_STEPS + TAIL_STEPS).freeze
       end
 
-      def steps_for(session_data)
+      def grouped_steps_for(session_data)
         return [] if Steps::Logic.asylum_supported?(session_data)
 
         [property_steps(session_data),
