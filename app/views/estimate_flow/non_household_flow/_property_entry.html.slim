@@ -1,0 +1,13 @@
+- content_for :page_title
+  = t("estimate_flow.property_entry.non_household_flow.heading")
+- content_for :back
+  = back_link(:property_entry, @check, @back_buttons_invoke_browser_back_behaviour)
+
+.govuk-grid-column-two-thirds
+  = render "estimate_flow/non_household_flow/forms/property_entry",
+          i18n_key: "property_entry",
+          show_smod_content: @check.smod_applicable?,
+          show_joint_ownership: @check.partner.present?,
+          show_mortgage: @form.owned_with_mortgage?
+
+= render "property_sidebar", level_of_help: @check.level_of_help, smod_applicable: @check.smod_applicable?

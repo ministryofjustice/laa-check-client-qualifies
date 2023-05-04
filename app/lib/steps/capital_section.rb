@@ -18,6 +18,8 @@ module Steps
       end
 
       def property_steps(session_data)
+        return if FeatureFlags.enabled?(:household_section)
+
         Steps::Group.new(*(Steps::Logic.owns_property?(session_data) ? PROPERTY_STEPS : %i[property]))
       end
 

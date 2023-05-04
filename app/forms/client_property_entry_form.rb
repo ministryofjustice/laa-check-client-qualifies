@@ -7,7 +7,7 @@ class ClientPropertyEntryForm < BasePropertyEntryForm
   validates :house_in_dispute, inclusion: { in: [true, false] }, allow_nil: false, if: :smod_applicable?
 
   attribute :joint_ownership, :boolean
-  validates :joint_ownership, inclusion: { in: [true, false] }, allow_nil: false, if: -> { partner }
+  validates :joint_ownership, inclusion: { in: [true, false] }, allow_nil: false, if: -> { partner && !FeatureFlags.enabled?(:household_section) }
 
   attribute :joint_percentage_owned, :fully_validatable_integer
   validates :joint_percentage_owned,
@@ -16,6 +16,10 @@ class ClientPropertyEntryForm < BasePropertyEntryForm
             if: -> { joint_ownership }
 
   validate :total_ownership_cannot_exceed_one_hundred, if: -> { joint_ownership }
+
+  def owned_with_mortgage?
+    property_owned == "with_mortgage"
+  end
 
 private
 

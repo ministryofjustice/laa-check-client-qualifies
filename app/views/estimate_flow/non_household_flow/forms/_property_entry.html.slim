@@ -2,8 +2,8 @@
 
   = form.govuk_error_summary t("generic.error_summary_title")
   = render "shared/heading",
-           pre_header_text: t("estimate_flow.#{i18n_key}.caption"),
-           header_text: t("estimate_flow.#{i18n_key}.heading")
+           pre_header_text: t("estimate_flow.#{i18n_key}.non_household_flow.caption"),
+           header_text: t("estimate_flow.#{i18n_key}.non_household_flow.heading")
 
   = render "shared/money_input_with_hint",
            form:,
@@ -29,15 +29,15 @@
 
   - if show_joint_ownership
     = form.govuk_radio_buttons_fieldset :joint_ownership,
-            hint: { text: t("estimate_flow.#{i18n_key}.joint_ownership.hint") },
-            legend: { text: t("estimate_flow.#{i18n_key}.joint_ownership.legend") } do
+            hint: { text: t("estimate_flow.#{i18n_key}.non_household_flow.joint_ownership.hint") },
+            legend: { text: t("estimate_flow.#{i18n_key}.non_household_flow.joint_ownership.legend") } do
       = form.govuk_radio_button :joint_ownership, true,
               label: { text: t("generic.yes_choice") } do
         = render "shared/percentage_input",
                 form:,
                 field: :joint_percentage_owned,
                 width: 3,
-                label_text: t("estimate_flow.#{i18n_key}.joint_percentage_owned.input"),
+                label_text: t("estimate_flow.#{i18n_key}.non_household_flow.joint_percentage_owned.input"),
                 size: "m"
 
       = form.govuk_radio_button :joint_ownership, false,

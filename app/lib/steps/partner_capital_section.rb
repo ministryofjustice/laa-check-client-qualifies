@@ -20,6 +20,7 @@ module Steps
       end
 
       def property_steps(session_data)
+        return if FeatureFlags.enabled?(:household_section)
         return if Steps::Logic.owns_property?(session_data)
 
         if Steps::Logic.partner_owns_property?(session_data)
