@@ -1,12 +1,12 @@
 module Cfe
-  class SubmitIrregularIncomeService < BaseService
-    def call(cfe_assessment_id)
+  class IrregularIncomePayloadService < BaseService
+    def call
       return unless relevant_form?(:other_income)
 
       form = OtherIncomeForm.from_session(@session_data)
 
       payments = CfeParamBuilders::IrregularIncome.call(form)
-      cfe_connection.create_irregular_incomes(cfe_assessment_id, payments) if payments.any?
+      payload[:irregular_incomes] = { payments: }
     end
   end
 end

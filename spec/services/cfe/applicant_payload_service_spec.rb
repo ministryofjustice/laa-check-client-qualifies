@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Cfe::SubmitApplicantService do
+RSpec.describe Cfe::ApplicantPayloadService do
   let(:service) { described_class }
   let(:session_data) do
     {
@@ -10,17 +10,15 @@ RSpec.describe Cfe::SubmitApplicantService do
       partner: false,
     }.with_indifferent_access
   end
-
-  let(:cfe_assessment_id) { SecureRandom.uuid }
-  let(:mock_connection) { instance_double(CfeConnection) }
+  let(:payload) { {} }
 
   describe ".call" do
     context "when client is under 60" do
       let(:over_60) { false }
 
-      it "makes a successful call" do
-        expect(mock_connection).to receive(:create_applicant).with(
-          cfe_assessment_id,
+      it "populates the payload appropriately" do
+        service.call(session_data, payload)
+        expect(payload[:applicant]).to eq(
           {
             date_of_birth: 50.years.ago.to_date,
             employed: false,
@@ -28,17 +26,15 @@ RSpec.describe Cfe::SubmitApplicantService do
             receives_qualifying_benefit: false,
           },
         )
-
-        service.call(mock_connection, cfe_assessment_id, session_data)
       end
     end
 
     context "when client is over 60" do
       let(:over_60) { true }
 
-      it "makes a successful call" do
-        expect(mock_connection).to receive(:create_applicant).with(
-          cfe_assessment_id,
+      it "populates the payload appropriately" do
+        service.call(session_data, payload)
+        expect(payload[:applicant]).to eq(
           {
             date_of_birth: 70.years.ago.to_date,
             employed: false,
@@ -46,8 +42,6 @@ RSpec.describe Cfe::SubmitApplicantService do
             receives_qualifying_benefit: false,
           },
         )
-
-        service.call(mock_connection, cfe_assessment_id, session_data)
       end
     end
 
@@ -59,9 +53,9 @@ RSpec.describe Cfe::SubmitApplicantService do
         }.with_indifferent_access
       end
 
-      it "makes a successful call" do
-        expect(mock_connection).to receive(:create_applicant).with(
-          cfe_assessment_id,
+      it "populates the payload appropriately" do
+        service.call(session_data, payload)
+        expect(payload[:applicant]).to eq(
           {
             date_of_birth: 50.years.ago.to_date,
             employed: false,
@@ -70,8 +64,6 @@ RSpec.describe Cfe::SubmitApplicantService do
             receives_asylum_support: true,
           },
         )
-
-        service.call(mock_connection, cfe_assessment_id, session_data)
       end
     end
   end

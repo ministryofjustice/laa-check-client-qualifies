@@ -1,6 +1,6 @@
 module Cfe
-  class SubmitProceedingsService < BaseService
-    def call(cfe_assessment_id)
+  class ProceedingsPayloadService < BaseService
+    def call
       matter_type_form = MatterTypeForm.from_session(@session_data)
       proceeding_types = [
         {
@@ -9,7 +9,7 @@ module Cfe
         },
       ]
 
-      cfe_connection.create_proceeding_types(cfe_assessment_id, proceeding_types)
+      payload[:proceeding_types] = proceeding_types
     end
   end
 end

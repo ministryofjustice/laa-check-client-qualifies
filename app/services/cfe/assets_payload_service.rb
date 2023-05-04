@@ -1,8 +1,8 @@
 module Cfe
-  class SubmitAssetsService < BaseService
+  class AssetsPayloadService < BaseService
     delegate :smod_applicable?, to: :check
 
-    def call(cfe_assessment_id)
+    def call
       return unless relevant_form?(:assets)
 
       asset_form = ClientAssetsForm.from_session(@session_data)
@@ -10,7 +10,7 @@ module Cfe
       capitals = CfeParamBuilders::Capitals.call(asset_form, assets_in_dispute:)
 
       if capitals[:bank_accounts].any? || capitals[:non_liquid_capital].any?
-        cfe_connection.create_capitals cfe_assessment_id, capitals
+        payload[:capitals] = capitals
       end
 
       if asset_form.property_value.positive?
@@ -47,12 +47,12 @@ module Cfe
         }
       end
 
-      create_properties(cfe_assessment_id, main_home, second_property) if main_home.present? || second_property.present?
+      create_properties(main_home, second_property) if main_home.present? || second_property.present?
     end
 
   private
 
-    def create_properties(assessment_id, main_property, second_property)
+    def create_properties(main_property, second_property)
       main_home = main_property ||
         {
           value: 0,
@@ -62,7 +62,7 @@ module Cfe
         }
       properties = { main_home: main_home.merge(shared_with_housing_assoc: false) }
       properties[:additional_properties] = [second_property.merge(shared_with_housing_assoc: false)] if second_property
-      cfe_connection.create_properties(assessment_id, properties)
+      payload[:properties] = properties
     end
   end
 end

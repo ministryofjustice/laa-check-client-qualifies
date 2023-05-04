@@ -1,8 +1,7 @@
 require "rails_helper"
 
-RSpec.describe Cfe::SubmitVehicleService do
-  let(:cfe_assessment_id) { SecureRandom.uuid }
-  let(:mock_connection) { instance_double(CfeConnection) }
+RSpec.describe Cfe::VehiclePayloadService do
+  let(:payload) { {} }
 
   describe ".call" do
     context "when there is vehicle data" do
@@ -18,16 +17,15 @@ RSpec.describe Cfe::SubmitVehicleService do
         }
       end
 
-      it "calls CFE appropriately" do
-        expect(mock_connection).to receive(:create_vehicles).with(
-          cfe_assessment_id,
+      it "sets the payload appropriately" do
+        described_class.call(session_data, payload)
+        expect(payload[:vehicles]).to eq(
           [{ date_of_purchase: 4.years.ago.to_date,
              in_regular_use: false,
              loan_amount_outstanding: 4445,
              subject_matter_of_dispute: true,
              value: 5556 }],
         )
-        described_class.call(mock_connection, cfe_assessment_id, session_data)
       end
     end
 
@@ -39,9 +37,9 @@ RSpec.describe Cfe::SubmitVehicleService do
         }
       end
 
-      it "does not call CFE" do
-        expect(mock_connection).not_to receive(:create_vehicles)
-        described_class.call(mock_connection, cfe_assessment_id, session_data)
+      it "does not set the payload" do
+        described_class.call(session_data, payload)
+        expect(payload[:vehicles]).to be_nil
       end
     end
 
@@ -53,11 +51,9 @@ RSpec.describe Cfe::SubmitVehicleService do
                          proceeding_type: "IM030")
       end
 
-      it "does not tell CFE about SMOD" do
-        expect(mock_connection).to receive(:create_vehicles) do |_cfe_assessment_id, params|
-          expect(params.dig(0, :subject_matter_of_dispute)).to eq false
-        end
-        described_class.call(mock_connection, cfe_assessment_id, session_data)
+      it "does not add SMOD to the payload" do
+        described_class.call(session_data, payload)
+        expect(payload.dig(:vehicles, 0, :subject_matter_of_dispute)).to eq false
       end
     end
   end

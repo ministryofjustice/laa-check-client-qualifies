@@ -1,10 +1,13 @@
 require "rails_helper"
 
-RSpec.describe Cfe::SubmitAssetsService do
-  let(:cfe_assessment_id) { SecureRandom.uuid }
-  let(:mock_connection) { instance_double(CfeConnection) }
-
+RSpec.describe Cfe::AssetsPayloadService do
   describe ".call" do
+    let(:payload) { {} }
+
+    before do
+      described_class.call(session_data, payload)
+    end
+
     context "when there is a full set of data" do
       let(:session_data) do
         {
@@ -25,9 +28,8 @@ RSpec.describe Cfe::SubmitAssetsService do
         }
       end
 
-      it "calls CFE appropriately" do
-        expect(mock_connection).to receive(:create_capitals).with(
-          cfe_assessment_id,
+      it "populates the payload appropriately" do
+        expect(payload[:capitals]).to eq(
           { bank_accounts: [{ description: "Liquid Asset",
                               subject_matter_of_dispute: true,
                               value: 553 }],
@@ -38,8 +40,7 @@ RSpec.describe Cfe::SubmitAssetsService do
                                    subject_matter_of_dispute: true,
                                    value: 665 }] },
         )
-        expect(mock_connection).to receive(:create_properties).with(
-          cfe_assessment_id,
+        expect(payload[:properties]).to eq(
           { additional_properties: [{ outstanding_mortgage: 1313,
                                       percentage_owned: 44,
                                       shared_with_housing_assoc: false,
@@ -51,7 +52,6 @@ RSpec.describe Cfe::SubmitAssetsService do
                          subject_matter_of_dispute: false,
                          value: 234_234 } },
         )
-        described_class.call(mock_connection, cfe_assessment_id, session_data)
       end
     end
 
@@ -63,9 +63,8 @@ RSpec.describe Cfe::SubmitAssetsService do
         }
       end
 
-      it "does not call CFE" do
-        expect(mock_connection).not_to receive(:create_capitals)
-        described_class.call(mock_connection, cfe_assessment_id, session_data)
+      it "does not populate the payload" do
+        expect(payload[:capitals]).to eq nil
       end
     end
 
@@ -76,9 +75,8 @@ RSpec.describe Cfe::SubmitAssetsService do
                          :with_zero_capital_assets)
       end
 
-      it "does not call CFE" do
-        expect(mock_connection).not_to receive(:create_capitals)
-        described_class.call(mock_connection, cfe_assessment_id, session_data)
+      it "does not populate the payload" do
+        expect(payload[:properties]).to eq nil
       end
     end
 
@@ -92,9 +90,8 @@ RSpec.describe Cfe::SubmitAssetsService do
                          property_percentage_owned: 100)
       end
 
-      it "calls CFE with a fake main home" do
-        expect(mock_connection).to receive(:create_properties).with(
-          cfe_assessment_id,
+      it "adds a fake main home to the payload" do
+        expect(payload[:properties]).to eq(
           {
             additional_properties: [
               {
@@ -114,7 +111,6 @@ RSpec.describe Cfe::SubmitAssetsService do
             },
           },
         )
-        described_class.call(mock_connection, cfe_assessment_id, session_data)
       end
     end
 
@@ -129,9 +125,8 @@ RSpec.describe Cfe::SubmitAssetsService do
                          in_dispute: %w[property])
       end
 
-      it "calls CFE with the right SMOD value" do
-        expect(mock_connection).to receive(:create_properties).with(
-          cfe_assessment_id,
+      it "populates the payload with the right SMOD value" do
+        expect(payload[:properties]).to eq(
           {
             additional_properties: [
               {
@@ -151,7 +146,6 @@ RSpec.describe Cfe::SubmitAssetsService do
             },
           },
         )
-        described_class.call(mock_connection, cfe_assessment_id, session_data)
       end
     end
 
@@ -164,9 +158,8 @@ RSpec.describe Cfe::SubmitAssetsService do
                          house_value: 100_000)
       end
 
-      it "calls CFE with appropriate details including zero mortgage" do
-        expect(mock_connection).to receive(:create_properties).with(
-          cfe_assessment_id,
+      it "populates the payload with appropriate details including zero mortgage" do
+        expect(payload[:properties]).to eq(
           {
             main_home: {
               outstanding_mortgage: 0,
@@ -177,7 +170,6 @@ RSpec.describe Cfe::SubmitAssetsService do
             },
           },
         )
-        described_class.call(mock_connection, cfe_assessment_id, session_data)
       end
     end
 
@@ -191,9 +183,8 @@ RSpec.describe Cfe::SubmitAssetsService do
                          house_value: 100_000)
       end
 
-      it "calls CFE with appropriate flag" do
-        expect(mock_connection).to receive(:create_properties).with(
-          cfe_assessment_id,
+      it "populates the payload with appropriate flag" do
+        expect(payload[:properties]).to eq(
           {
             main_home: {
               outstanding_mortgage: 0,
@@ -204,7 +195,6 @@ RSpec.describe Cfe::SubmitAssetsService do
             },
           },
         )
-        described_class.call(mock_connection, cfe_assessment_id, session_data)
       end
     end
 
@@ -218,9 +208,8 @@ RSpec.describe Cfe::SubmitAssetsService do
                          partner_percentage_owned: 100)
       end
 
-      it "calls CFE with appropriate details based on partner ownership" do
-        expect(mock_connection).to receive(:create_properties).with(
-          cfe_assessment_id,
+      it "populates the payload with appropriate details based on partner ownership" do
+        expect(payload[:properties]).to eq(
           {
             main_home: {
               outstanding_mortgage: 0,
@@ -231,7 +220,6 @@ RSpec.describe Cfe::SubmitAssetsService do
             },
           },
         )
-        described_class.call(mock_connection, cfe_assessment_id, session_data)
       end
     end
 
@@ -246,9 +234,8 @@ RSpec.describe Cfe::SubmitAssetsService do
                          partner_percentage_owned: 100)
       end
 
-      it "calls CFE with appropriate details based on partner ownership" do
-        expect(mock_connection).to receive(:create_properties).with(
-          cfe_assessment_id,
+      it "populates the payload with appropriate details based on partner ownership" do
+        expect(payload[:properties]).to eq(
           {
             main_home: {
               outstanding_mortgage: 50_000,
@@ -259,7 +246,6 @@ RSpec.describe Cfe::SubmitAssetsService do
             },
           },
         )
-        described_class.call(mock_connection, cfe_assessment_id, session_data)
       end
     end
 
@@ -275,9 +261,8 @@ RSpec.describe Cfe::SubmitAssetsService do
                          house_value: 100_000)
       end
 
-      it "sums the ownership percentages when talking to CFE" do
-        expect(mock_connection).to receive(:create_properties).with(
-          cfe_assessment_id,
+      it "sums the ownership percentages" do
+        expect(payload[:properties]).to eq(
           {
             main_home: {
               outstanding_mortgage: 0,
@@ -288,7 +273,6 @@ RSpec.describe Cfe::SubmitAssetsService do
             },
           },
         )
-        described_class.call(mock_connection, cfe_assessment_id, session_data)
       end
     end
 
@@ -303,14 +287,9 @@ RSpec.describe Cfe::SubmitAssetsService do
                          proceeding_type: "IM030")
       end
 
-      it "does not tell CFE about SMOD" do
-        expect(mock_connection).to receive(:create_properties) do |_cfe_assessment_id, params|
-          expect(params.dig(:main_home, :subject_matter_of_dispute)).to eq false
-        end
-        expect(mock_connection).to receive(:create_capitals) do |_cfe_assessment_id, params|
-          expect(params.dig(:bank_accounts, 0, :subject_matter_of_dispute)).to eq false
-        end
-        described_class.call(mock_connection, cfe_assessment_id, session_data)
+      it "does not include SMOD in the payload" do
+        expect(payload.dig(:properties, :main_home, :subject_matter_of_dispute)).to eq false
+        expect(payload.dig(:capitals, :bank_accounts, 0, :subject_matter_of_dispute)).to eq false
       end
     end
   end

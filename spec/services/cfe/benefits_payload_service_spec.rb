@@ -1,12 +1,9 @@
 require "rails_helper"
 
-RSpec.describe Cfe::SubmitBenefitsService do
+RSpec.describe Cfe::BenefitsPayloadService do
   let(:arbitrary_fixed_time) { Time.zone.local(2022, 10, 24, 9) }
-
   let(:service) { described_class }
-
-  let(:cfe_assessment_id) { SecureRandom.uuid }
-  let(:mock_connection) { instance_double(CfeConnection) }
+  let(:payload) { {} }
 
   before do
     travel_to arbitrary_fixed_time
@@ -42,9 +39,9 @@ RSpec.describe Cfe::SubmitBenefitsService do
         }
       end
 
-      it "makes a successful call" do
-        expect(mock_connection).to receive(:create_state_benefits).with(cfe_assessment_id, translated)
-        service.call(mock_connection, cfe_assessment_id, session_data)
+      it "populates the payload" do
+        service.call(session_data, payload)
+        expect(payload[:state_benefits]).to eq translated
       end
     end
 
@@ -71,9 +68,9 @@ RSpec.describe Cfe::SubmitBenefitsService do
         }
       end
 
-      it "makes a successful call" do
-        expect(mock_connection).to receive(:create_state_benefits).with(cfe_assessment_id, translated)
-        service.call(mock_connection, cfe_assessment_id, session_data)
+      it "populates the payload" do
+        service.call(session_data, payload)
+        expect(payload[:state_benefits]).to eq translated
       end
     end
 
@@ -97,9 +94,9 @@ RSpec.describe Cfe::SubmitBenefitsService do
         }
       end
 
-      it "makes a successful call" do
-        expect(mock_connection).to receive(:create_state_benefits).with(cfe_assessment_id, translated)
-        service.call(mock_connection, cfe_assessment_id, session_data)
+      it "populates the payload" do
+        service.call(session_data, payload)
+        expect(payload[:state_benefits]).to eq translated
       end
     end
 
@@ -123,9 +120,9 @@ RSpec.describe Cfe::SubmitBenefitsService do
         }
       end
 
-      it "makes a successful call" do
-        expect(mock_connection).to receive(:create_state_benefits).with(cfe_assessment_id, translated)
-        service.call(mock_connection, cfe_assessment_id, session_data)
+      it "populates the payload" do
+        service.call(session_data, payload)
+        expect(payload[:state_benefits]).to eq translated
       end
     end
 
@@ -146,9 +143,9 @@ RSpec.describe Cfe::SubmitBenefitsService do
         }
       end
 
-      it "makes a successful call" do
-        expect(mock_connection).to receive(:create_state_benefits).with(cfe_assessment_id, translated)
-        service.call(mock_connection, cfe_assessment_id, session_data)
+      it "populates the payload" do
+        service.call(session_data, payload)
+        expect(payload[:state_benefits]).to eq translated
       end
     end
 
@@ -159,9 +156,9 @@ RSpec.describe Cfe::SubmitBenefitsService do
         }
       end
 
-      it "makes no call to CFE" do
-        expect(mock_connection).not_to receive(:create_state_benefits)
-        service.call(mock_connection, cfe_assessment_id, session_data)
+      it "does not populate the payload" do
+        service.call(session_data, payload)
+        expect(payload[:state_benefits]).to be_nil
       end
     end
   end

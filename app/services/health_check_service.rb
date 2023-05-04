@@ -19,7 +19,7 @@ class HealthCheckService
   def self.cfe_healthy?
     # We expect this call to return a hash with at least one key, and every value should be `true`.
     # This shows that every part of itself that CFE considers important is currently healthy.
-    healths_collection = CfeConnection.connection.status
+    healths_collection = CfeConnection.status
     healths_collection.keys.length.positive? && healths_collection.values.all?
   end
 end

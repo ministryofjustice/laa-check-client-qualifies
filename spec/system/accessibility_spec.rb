@@ -89,9 +89,7 @@ RSpec.describe "Accessibility" do
 
     before do
       travel_to arbitrary_fixed_time
-      allow(CfeConnection).to receive(:connection).and_return(
-        instance_double(CfeConnection, state_benefit_types: []),
-      )
+      allow(CfeConnection).to receive(:state_benefit_types).and_return([])
     end
 
     StepsHelper.all_possible_steps.each do |step|
@@ -111,15 +109,9 @@ RSpec.describe "Accessibility" do
   describe "Results page" do
     let(:estimate_id) { SecureRandom.uuid }
     let(:api_result) { build(:api_result) }
-    let(:mock_connection) do
-      instance_double(CfeConnection, create_applicant: nil,
-                                     create_assessment_id: nil,
-                                     create_proceeding_types: nil,
-                                     api_result:)
-    end
 
     before do
-      allow(CfeConnection).to receive(:connection).and_return(mock_connection)
+      allow(CfeService).to receive(:call).and_return(api_result)
       start_assessment
       fill_in_forms_until(:check_answers)
       click_on "Submit"
