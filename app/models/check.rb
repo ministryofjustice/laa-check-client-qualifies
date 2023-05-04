@@ -18,7 +18,12 @@ class Check
     return super unless form_class
     return unless Steps::Helper.valid_step?(session_data, step)
 
-    form_class.from_session(session_data).send(attribute.to_s.gsub(/^partner_/, ""))
+    method_name = if form_class::PREFIX
+                    attribute.to_s.gsub(%r{^#{form_class::PREFIX}}, "")
+                  else
+                    attribute
+                  end
+    form_class.from_session(session_data).send(method_name)
   end
 
   def respond_to_missing?(attribute, include_private = false)

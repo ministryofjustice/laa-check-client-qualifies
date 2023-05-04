@@ -3,6 +3,7 @@
 module SessionPersistable
   extend ActiveSupport::Concern
 
+  PREFIX = nil
   included do
     attr_reader :check
   end

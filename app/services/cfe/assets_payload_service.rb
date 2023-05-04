@@ -13,14 +13,22 @@ module Cfe
         payload[:capitals] = capitals
       end
 
-      if asset_form.property_value&.positive?
-        second_property = {
-          value: asset_form.property_value,
-          outstanding_mortgage: asset_form.property_mortgage,
-          percentage_owned: asset_form.property_percentage_owned,
-          subject_matter_of_dispute: (asset_form.property_in_dispute? && smod_applicable?) || false,
-        }
-      end
+      second_property = if relevant_form?(:additional_property_details)
+                          additional_property = AdditionalPropertyDetailsForm.from_session(@session_data)
+                          {
+                            value: additional_property.house_value,
+                            outstanding_mortgage: (additional_property.mortgage if additional_property.owned_with_mortgage?) || 0,
+                            percentage_owned: additional_property.percentage_owned,
+                            subject_matter_of_dispute: (additional_property.house_in_dispute && smod_applicable?) || false,
+                          }
+                        elsif !FeatureFlags.enabled?(:household_section) && asset_form.property_value&.positive?
+                          {
+                            value: asset_form.property_value,
+                            outstanding_mortgage: asset_form.property_mortgage,
+                            percentage_owned: asset_form.property_percentage_owned,
+                            subject_matter_of_dispute: (asset_form.property_in_dispute? && smod_applicable?) || false,
+                          }
+                        end
 
       if relevant_form?(:property_entry)
         property_entry_form = ClientPropertyEntryForm.from_session(@session_data)

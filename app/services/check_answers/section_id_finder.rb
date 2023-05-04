@@ -19,6 +19,8 @@ module CheckAnswers
       vehicle: "subsection-vehicles-header",
       vehicle_details: "subsection-vehicles-header",
       assets: "subsection-other-header",
+      additional_property: "subsection-other-header",
+      additional_property_details: "subsection-other-header",
       partner_details: "subsection-partner_details-header",
       partner_dependant_details: "subsection-partner_dependant_details-header",
       partner_employment: "section-partner_employment-header",
