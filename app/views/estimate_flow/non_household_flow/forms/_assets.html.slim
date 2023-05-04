@@ -19,12 +19,12 @@
             field: :property_mortgage,
             width: 5,
             label_text: t("estimate_flow.#{i18n_key}.non_household_flow.property.mortgage.label")
-    = form.govuk_text_field :property_percentage_owned,
+    = render "shared/percentage_input",
+            form:,
+            field: :property_percentage_owned,
             width: 5,
-            suffix_text: "%",
-            value: integer_field_value(form, :property_percentage_owned),
-            label: { text: t("estimate_flow.#{i18n_key}.non_household_flow.property.percentage_owned.input") },
-            hint: { text: t("estimate_flow.#{i18n_key}.non_household_flow.property.percentage_owned.input_hint") }
+            label_text: t("estimate_flow.#{i18n_key}.non_household_flow.property.percentage_owned.input"),
+            hint_text: t("estimate_flow.#{i18n_key}.non_household_flow.property.percentage_owned.input_hint")
 
     - if show_smod_content
       .govuk-form-group
