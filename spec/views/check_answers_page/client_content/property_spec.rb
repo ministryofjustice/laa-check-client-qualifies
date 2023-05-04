@@ -33,8 +33,6 @@ RSpec.describe "estimates/check_answers.html.slim" do
           expect(text).to include("Estimated value£200,000.00")
           expect(text).to include("Outstanding mortgage£5,000.00")
           expect(text).to include("Percentage share owned50")
-          expect(text).to include("Joint owned with partnerNo")
-          expect(text).to include("Percentage share owned by partnerNot applicable")
         end
 
         context "when is smod" do
@@ -46,7 +44,7 @@ RSpec.describe "estimates/check_answers.html.slim" do
         end
       end
 
-      context "when home is owned outright" do
+      context "when home is owned outright and there is no partner" do
         let(:session_data) do
           build(:minimal_complete_session,
                 property_owned: "outright",
@@ -55,6 +53,30 @@ RSpec.describe "estimates/check_answers.html.slim" do
                 percentage_owned: 50,
                 house_in_dispute: false,
                 joint_ownership: nil,
+                partner: false,
+                joint_percentage_owned: nil)
+        end
+
+        it "renders content" do
+          expect(text).to include("Owns the home they live inYes")
+          expect(text).to include("Estimated value£200,000.00")
+          expect(text).to include("Outstanding mortgageNot applicable")
+          expect(text).to include("Percentage share owned50")
+          expect(text).not_to include("Joint owned with partner")
+          expect(text).not_to include("Percentage share owned by partner")
+        end
+      end
+
+      context "when home is owned outright and there is a partner" do
+        let(:session_data) do
+          build(:minimal_complete_session,
+                property_owned: "outright",
+                house_value: 200_000,
+                mortgage: nil,
+                percentage_owned: 50,
+                house_in_dispute: false,
+                joint_ownership: false,
+                partner: true,
                 joint_percentage_owned: nil)
         end
 
@@ -64,7 +86,30 @@ RSpec.describe "estimates/check_answers.html.slim" do
           expect(text).to include("Outstanding mortgageNot applicable")
           expect(text).to include("Percentage share owned50")
           expect(text).to include("Joint owned with partnerNo")
-          expect(text).to include("Percentage share owned by partnerNot applicable")
+          expect(text).not_to include("Percentage share owned by partner")
+        end
+      end
+
+      context "when home is owned outright with partner" do
+        let(:session_data) do
+          build(:minimal_complete_session,
+                partner: true,
+                property_owned: "outright",
+                house_value: 200_000,
+                mortgage: nil,
+                percentage_owned: 50,
+                house_in_dispute: false,
+                joint_ownership: true,
+                joint_percentage_owned: 25)
+        end
+
+        it "renders content" do
+          expect(text).to include("Owns the home they live inYes")
+          expect(text).to include("Estimated value£200,000.00")
+          expect(text).to include("Outstanding mortgageNot applicable")
+          expect(text).to include("Percentage share owned50")
+          expect(text).to include("Joint owned with partnerYes")
+          expect(text).to include("Percentage share owned by partner25")
         end
       end
 

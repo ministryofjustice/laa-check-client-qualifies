@@ -152,9 +152,11 @@ sections:
           - type: boolean
             attribute: joint_ownership
             screen: property_entry
+            skip_unless: partner
           - type: number
             attribute: joint_percentage_owned
             screen: property_entry
+            skip_unless: joint_ownership
       - label: vehicles
         screen: vehicle
         fields:
