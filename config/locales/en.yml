@@ -274,19 +274,19 @@ en:
           attributes:
             valuables:
               blank: Enter the value of items worth £500 or more, or if this does not apply enter 0
-              below_500: Valuable items must be £500 or more, if this does not apply enter 0
-              not_a_number: Value of items worth £500 or more must be a number, if this does not apply enter 0
+              below_500: Valuable items must be £500 or more. Enter 0 if this does not apply.
+              not_a_number: Value of items worth £500 or more must be a number. Enter 0 if this does not apply.
             investments:
-              blank: Enter the total value of investments, if this does not apply enter 0
-              not_a_number: Total value of investments must be a number, if this does not apply enter 0
+              blank: Enter the total value of investments. Enter 0 if this does not apply.
+              not_a_number: Total value of investments must be a number. Enter 0 if this does not apply.
             savings:
-              blank: Enter the total amount of savings, if this does not apply enter 0
-              not_a_number: Total amount of savings must be a number, if this does not apply enter 0
+              blank: Enter the total amount of money in bank accounts. Enter 0 if this does not apply.
+              not_a_number: Total amount of money in bank accounts must be a number. Enter 0 if this does not apply.
             property_value:
-              blank: Enter the estimated value of the additional property, holiday home, or land, if this does not apply enter 0
+              blank: Enter the estimated value of the additional property, holiday home, or land. Enter 0 if this does not apply.
               not_a_number: Estimated value of the additional property, holiday home, or land must be a number, or enter 0 if this does not apply
             property_mortgage:
-              blank: Enter the outstanding mortgage on the additional property, holiday home or land, if this does not apply enter 0
+              blank: Enter the outstanding mortgage on the additional property, holiday home or land. Enter 0 if this does not apply.
               not_a_number: Outstanding mortgage on the additional property, holiday home, or land must be a number, or enter 0 if this does not apply
             property_percentage_owned:
               blank: Enter the share the partner owns of the additional property, holiday home, or land
