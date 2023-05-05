@@ -1,0 +1,10 @@
+- content_for :page_title
+  = t("estimate_flow.vehicle_details.heading")
+- content_for :back do
+  = back_link(:vehicle_details, @check, @back_buttons_invoke_browser_back_behaviour)
+.govuk-grid-column-two-thirds
+  = render "estimate_flow/non_household_flow/forms/vehicle_details", i18n_key: "vehicle_details", show_smod_content: @check.smod_applicable?
+
+= render "shared/question_sidebar",
+         level_of_help: @check.level_of_help,
+         links: vehicle_links(@check.smod_applicable?)

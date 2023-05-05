@@ -31,7 +31,7 @@ module Steps
       end
 
       def vehicle_steps(session_data)
-        return if Steps::Logic.controlled?(session_data)
+        return if Steps::Logic.controlled?(session_data) || FeatureFlags.enabled?(:household_section)
 
         Steps::Group.new(*(Steps::Logic.partner_owns_vehicle?(session_data) ? VEHICLE_STEPS : %i[partner_vehicle]))
       end
