@@ -7,7 +7,7 @@ class CheckAnswersController < EstimateFlowController
     if @form.valid?
       track_choices(@form)
       session_data.merge!(@form.session_attributes)
-      if StepsHelper.last_step_in_group?(session_data, step)
+      if Steps::Helper.last_step_in_group?(session_data, step)
         next_step = next_check_answer_step(step)
         if next_step
           redirect_to wizard_path next_step
@@ -15,7 +15,7 @@ class CheckAnswersController < EstimateFlowController
           redirect_to check_answers_estimate_path(assessment_code, anchor:)
         end
       else
-        redirect_to wizard_path StepsHelper.next_step_for(session_data, step)
+        redirect_to wizard_path Steps::Helper.next_step_for(session_data, step)
       end
     else
       track_validation_error

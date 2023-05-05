@@ -92,7 +92,7 @@ RSpec.describe "Accessibility" do
       allow(CfeConnection).to receive(:state_benefit_types).and_return([])
     end
 
-    StepsHelper.all_possible_steps.each do |step|
+    Steps::Helper.all_possible_steps.each do |step|
       %w[controlled certificated].each do |level_of_help|
         it "has no AXE-detectable accessibility issues on #{step} step when level of help is #{level_of_help}" do
           set_session(estimate_id, { "level_of_help" => level_of_help })
