@@ -14,43 +14,44 @@
                      class=("govuk-form-group--error" if model.errors.messages[:benefit_type].any?)]
     - id_pattern = model.errors.messages[:benefit_type].any? ? "benefit-details-form-benefits-ID-benefit-type-field-error" : "ID-type"
     label.govuk-label [for=id_pattern.gsub("ID", counter.to_s)
-                       data-add-another-for-pattern=id_pattern] = t("estimate_flow.benefit_details.benefit_type")
+                       data-add-another-dynamic-elements="for:#{id_pattern}"] = t("estimate_flow.benefit_details.benefit_type")
     .govuk-hint
       = t("estimate_flow.benefit_details.benefit_type_hint")
     - if model.errors.messages[:benefit_type].any?
       p.govuk-error-message
         span.govuk-visually-hidden = t("generic.error_prefix")
         = model.errors.messages[:benefit_type].first
-    input.govuk-input.govuk-input--width-20 [autocomplete="off"
-                                             data-suggestions="suggestions"
-                                             data-module="govuk-input"
-                                             type="text"
-                                             name="benefit_model[benefits][#{counter}][benefit_type]"
-                                             value=model.benefit_type
-                                             id=id_pattern.gsub("ID", counter.to_s)
-                                             data-add-another-id-pattern=id_pattern
-                                             data-add-another-name-pattern="benefit_model[benefits][ID][benefit_type]"
-                                             class=("govuk-input--error" if model.errors.messages[:benefit_type].any?)]
+    input.govuk-input.govuk-input--width-20 [
+      autocomplete="off"
+      data-suggestions="suggestions"
+      data-module="govuk-input"
+      type="text"
+      name="benefit_model[benefits][#{counter}][benefit_type]"
+      value=model.benefit_type
+      id=id_pattern.gsub("ID", counter.to_s)
+      data-add-another-dynamic-elements="id:#{id_pattern},name:benefit_model[benefits][ID][benefit_type]"
+      class=("govuk-input--error" if model.errors.messages[:benefit_type].any?)
+    ]
 
   .govuk-form-group class=("govuk-form-group--error" if model.errors.messages[:benefit_amount].any?)
     - id_pattern = model.errors.messages[:benefit_amount].any? ? "benefit-details-form-benefits-ID-benefit-amount-field-error" : "ID-amount"
     label.govuk-label [for=id_pattern.gsub("ID", counter.to_s)
-                       data-add-another-for-pattern=id_pattern] = t("estimate_flow.benefit_details.enter_amount")
+                       data-add-another-dynamic-elements="for:#{id_pattern}"] = t("estimate_flow.benefit_details.enter_amount")
     - if model.errors.messages[:benefit_amount].any?
       p.govuk-error-message
         span.govuk-visually-hidden = t("generic.error_prefix")
         = model.errors.messages[:benefit_amount].first
     .govuk-input__wrapper
       span.govuk-input__prefix aria-hidden="true" = BuildEstimatesHelper::POUND
-      input.govuk-input.govuk-input--width-5 [pattern="[0-9].*"
-                                              inputmode="decimal"
-                                              type="text"
-                                              name="benefit_model[benefits][#{counter}][benefit_amount]"
-                                              data-add-another-name-pattern="benefit_model[benefits][ID][benefit_amount]"
-                                              data-add-another-id-pattern=id_pattern
-                                              id=id_pattern.gsub("ID", counter.to_s)
-                                              value=as_money_string(model.benefit_amount)
-                                              class=("govuk-input--error" if model.errors.messages[:benefit_amount].any?)]
+      input.govuk-input.govuk-input--width-5 [
+        inputmode="decimal"
+        type="text"
+        name="benefit_model[benefits][#{counter}][benefit_amount]"
+        data-add-another-dynamic-elements="id:#{id_pattern},name:benefit_model[benefits][ID][benefit_amount]"
+        id=id_pattern.gsub("ID", counter.to_s)
+        value=as_money_string(model.benefit_amount)
+        class=("govuk-input--error" if model.errors.messages[:benefit_amount].any?)
+      ]
   .govuk-form-group class=("govuk-form-group--error" if model.errors.messages[:benefit_frequency].any?)
     fieldset.govuk-fieldset
       legend.govuk-fieldset__legend.govuk-fieldset__legend--save_and_continue = t("estimate_flow.benefit_details.select_frequency")
@@ -58,7 +59,7 @@
              autocomplete="off"
              type="hidden"
              name="benefit_model[benefits][#{counter}][benefit_frequency]"
-             data-add-another-name-pattern="benefit_model[benefits][ID][benefit_frequency]"]
+             data-add-another-dynamic-elements="name:benefit_model[benefits][ID][benefit_frequency]"]
       - if model.errors.messages[:benefit_frequency].any?
         p.govuk-error-message
           span.govuk-visually-hidden = t("generic.error_prefix")
@@ -72,13 +73,14 @@
                            else
                              "ID-frequency-#{value_label_pair[0]}"
                            end
-            input.govuk-radios__input [type="radio"
-                                       value=value_label_pair[0]
-                                       name="benefit_model[benefits][#{counter}][benefit_frequency]"
-                                       checked=(model.benefit_frequency == value_label_pair[0])
-                                       data-add-another-name-pattern="benefit_model[benefits][ID][benefit_frequency]"
-                                       data-add-another-id-pattern=id_pattern
-                                       id= id_pattern.gsub("ID", counter.to_s)]
+            input.govuk-radios__input [
+              type="radio"
+              value=value_label_pair[0]
+              name="benefit_model[benefits][#{counter}][benefit_frequency]"
+              checked=(model.benefit_frequency == value_label_pair[0])
+              data-add-another-dynamic-elements="id:#{id_pattern},name:benefit_model[benefits][ID][benefit_frequency]"
+              id= id_pattern.gsub("ID", counter.to_s)
+            ]
             label.govuk-label.govuk-radios__label [for=id_pattern.gsub("ID", counter.to_s)
-                                                   data-add-another-for-pattern=id_pattern]
+                                                   data-add-another-dynamic-elements="for:#{id_pattern}"]
               = value_label_pair[1]

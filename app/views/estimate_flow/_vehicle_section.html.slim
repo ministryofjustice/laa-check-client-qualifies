@@ -1,0 +1,230 @@
+- counter ||= nil
+. data-add-another-role="section"
+  - if removeable
+    .add-another-heading
+      h2.govuk-heading-m
+        = t("estimate_flow.vehicles_details.vehicle")
+        span< data-add-another-role="counter" = counter
+      button.govuk-button.govuk-button--secondary type="button" data-add-another-role="remove" id="remove-#{counter}" = t("generic.remove")
+
+  / VEHICLE VALUE
+  .govuk-form-group class=("govuk-form-group--error" if model.errors.messages[:vehicle_value].any?)
+    - id_pattern = model.errors.messages[:vehicle_value].any? ? "vehicles-details-form-vehicles-ID-vehicle-value-field-error" : "ID-value"
+    label.govuk-label.govuk-label--m [for=id_pattern.gsub("ID", counter.to_s)
+                       data-add-another-dynamic-elements="for:#{id_pattern}"] = t("estimate_flow.vehicles_details.vehicle_value.input")
+    .govuk-hint = t("estimate_flow.vehicles_details.vehicle_value.input_hint")
+    - if model.errors.messages[:vehicle_value].any?
+      p.govuk-error-message
+        span.govuk-visually-hidden = t("generic.error_prefix")
+        = model.errors.messages[:vehicle_value].first
+    .govuk-input__wrapper
+      span.govuk-input__prefix aria-hidden="true" = BuildEstimatesHelper::POUND
+      input.govuk-input.govuk-input--width-5 [
+        inputmode="decimal"
+        type="text"
+        name="vehicle_model[vehicles][#{counter}][vehicle_value]"
+        data-add-another-dynamic-elements="id:#{id_pattern},name:vehicle_model[vehicles][ID][vehicle_value]"
+        id=id_pattern.gsub("ID", counter.to_s)
+        value=as_money_string(model.vehicle_value)
+        class=("govuk-input--error" if model.errors.messages[:vehicle_value].any?)
+      ]
+
+  / VEHICLE FINANCE
+  .govuk-form-group class=("govuk-form-group--error" if model.errors.messages[:vehicle_pcp].any?)
+    ruby:
+      radio_id_pattern = model.errors.messages[:vehicle_pcp].any? ? "vehicles-details-form-vehicles-ID-vehicle-pcp-field-error" : "ID-pcp"
+      radio_id = radio_id_pattern.gsub("ID", counter.to_s)
+      radio_false_id_pattern = "ID-pcp-false"
+      radio_false_id = radio_false_id_pattern.gsub("ID", counter.to_s)
+      radio_name_pattern = "vehicle_model[vehicles][ID][vehicle_pcp]"
+      radio_name = radio_name_pattern.gsub("ID", counter.to_s)
+      conditional_reveal_pattern = "conditional-reveal-ID"
+      conditional_reveal_id = conditional_reveal_pattern.gsub("ID", counter.to_s)
+      dynamic_elements = "id:#{radio_id_pattern},name:#{radio_name_pattern},data-aria-controls:#{conditional_reveal_pattern}"
+    fieldset.govuk-fieldset
+      legend.govuk-fieldset__legend.govuk-fieldset__legend--m = t("estimate_flow.vehicles_details.vehicle_pcp.legend")
+      .govuk-hint = t("estimate_flow.vehicles_details.vehicle_pcp.hint")
+      input [value=""
+             autocomplete="off"
+             type="hidden"
+             name=radio_name
+             data-add-another-dynamic-elements="name:#{radio_name_pattern}"]
+      - if model.errors.messages[:vehicle_pcp].any?
+        p.govuk-error-message
+          span.govuk-visually-hidden = t("generic.error_prefix")
+          = model.errors.messages[:vehicle_pcp].first
+      .govuk-radios data-module="govuk-radios"
+        .govuk-radios__item
+          input.govuk-radios__input [
+            id=radio_id
+            type="radio"
+            value="true"
+            data-aria-controls=conditional_reveal_id
+            data-add-another-dynamic-elements=dynamic_elements
+            data-add-another-name-pattern=radio_name_pattern
+            data-add-another-id-pattern=radio_id_pattern
+            name=radio_name
+            checked=model.vehicle_pcp
+          ]
+          label.govuk-label.govuk-radios__label [for=radio_id
+                                                  data-add-another-dynamic-elements="for:#{radio_id_pattern}"] = t("generic.yes_choice")
+        .govuk-radios__conditional.govuk-radios__conditional--hidden [id=conditional_reveal_id
+                                                                      data-add-another-dynamic-elements="id:#{conditional_reveal_pattern}"]
+          .govuk-form-group class=("govuk-form-group--error" if model.errors.messages[:vehicle_finance].any?)
+            ruby:
+              id_pattern = if model.errors.messages[:vehicle_finance].any?
+                             "vehicles-details-form-vehicles-ID-vehicle-finance-field-error"
+                           else
+                             "ID-finance"
+                           end
+            label.govuk-label [
+              for=id_pattern.gsub("ID", counter.to_s)
+              data-add-another-dynamic-elements="for:#{id_pattern}"
+            ] = t("estimate_flow.vehicles_details.vehicle_finance.input")
+            - if model.errors.messages[:vehicle_finance].any?
+              p.govuk-error-message
+                span.govuk-visually-hidden = t("generic.error_prefix")
+                = model.errors.messages[:vehicle_finance].first
+            .govuk-input__wrapper
+              span.govuk-input__prefix aria-hidden="true" = BuildEstimatesHelper::POUND
+              input.govuk-input.govuk-input--width-5 [
+                inputmode="decimal"
+                type="text"
+                name="vehicle_model[vehicles][#{counter}][vehicle_finance]"
+                data-add-another-dynamic-elements="id:#{id_pattern},name:vehicle_model[vehicles][ID][vehicle_finance]"
+                id=id_pattern.gsub("ID", counter.to_s)
+                value=as_money_string(model.vehicle_finance)
+                class=("govuk-input--error" if model.errors.messages[:vehicle_finance].any?)
+              ]
+        .govuk-radios__item
+          input.govuk-radios__input [id=radio_false_id
+                                     type="radio"
+                                     value="false"
+                                     data-add-another-dynamic-elements="name:#{radio_name_pattern},id:#{radio_false_id_pattern}"
+                                     name=radio_name
+                                     checked=(model.vehicle_pcp == false)]
+          label.govuk-label.govuk-radios__label [for=radio_false_id
+                                                 data-add-another-dynamic-elements="for:#{radio_false_id_pattern}"] = t("generic.no_choice")
+
+  / VEHICLE AGE
+  .govuk-form-group class=("govuk-form-group--error" if model.errors.messages[:vehicle_over_3_years_ago].any?)
+    ruby:
+      radio_id_pattern = if model.errors.messages[:vehicle_over_3_years_ago].any?
+                           "vehicles-details-form-vehicles-ID-vehicle-over-3-years-ago-field-error"
+                         else
+                           "ID-over-3-years-ago"
+                         end
+      radio_id = radio_id_pattern.gsub("ID", counter.to_s)
+      radio_false_id_pattern = "ID-over-3-years-ago-false"
+      radio_false_id = radio_false_id_pattern.gsub("ID", counter.to_s)
+      radio_name_pattern = "vehicle_model[vehicles][ID][vehicle_over_3_years_ago]"
+      radio_name = radio_name_pattern.gsub("ID", counter.to_s)
+    fieldset.govuk-fieldset
+      legend.govuk-fieldset__legend.govuk-fieldset__legend--m = t("estimate_flow.vehicles_details.vehicle_over_3_years_ago.legend")
+      .govuk-hint = t("estimate_flow.vehicles_details.vehicle_over_3_years_ago.hint")
+      input [value=""
+             autocomplete="off"
+             type="hidden"
+             name=radio_name
+             data-add-another-dynamic-elements="name:#{radio_name_pattern}"]
+      - if model.errors.messages[:vehicle_over_3_years_ago].any?
+        p.govuk-error-message
+          span.govuk-visually-hidden = t("generic.error_prefix")
+          = model.errors.messages[:vehicle_over_3_years_ago].first
+      .govuk-radios data-module="govuk-radios"
+        .govuk-radios__item
+          input.govuk-radios__input [
+            id=radio_id
+            type="radio"
+            value="true"
+            data-add-another-dynamic-elements="id:#{radio_id_pattern},name:#{radio_name_pattern}"
+            data-add-another-name-pattern=radio_name_pattern
+            data-add-another-id-pattern=radio_id_pattern
+            name=radio_name
+            checked=model.vehicle_over_3_years_ago
+          ]
+          label.govuk-label.govuk-radios__label [for=radio_id
+                                                 data-add-another-dynamic-elements="for:#{radio_id_pattern}"] = t("generic.yes_choice")
+        .govuk-radios__item
+          input.govuk-radios__input [id=radio_false_id
+                                     type="radio"
+                                     value="false"
+                                     data-add-another-dynamic-elements="name:#{radio_name_pattern},id:#{radio_false_id_pattern}"
+                                     name=radio_name
+                                     checked=(model.vehicle_over_3_years_ago == false)]
+          label.govuk-label.govuk-radios__label [for=radio_false_id
+                                                 data-add-another-dynamic-elements="for:#{radio_false_id_pattern}"] = t("generic.no_choice")
+
+  / VEHICLE USAGE
+  .govuk-form-group class=("govuk-form-group--error" if model.errors.messages[:vehicle_in_regular_use].any?)
+    ruby:
+      radio_id_pattern = if model.errors.messages[:vehicle_over_3_years_ago].any?
+                           "vehicles-details-form-vehicles-ID-vehicle-in-regular-use-field-error"
+                         else
+                           "ID-in-regular-use"
+                         end
+      radio_id = radio_id_pattern.gsub("ID", counter.to_s)
+      radio_false_id_pattern = "ID-in-regular-use-false"
+      radio_false_id = radio_false_id_pattern.gsub("ID", counter.to_s)
+      radio_name_pattern = "vehicle_model[vehicles][ID][vehicle_in_regular_use]"
+      radio_name = radio_name_pattern.gsub("ID", counter.to_s)
+    fieldset.govuk-fieldset
+      legend.govuk-fieldset__legend.govuk-fieldset__legend--m = t("estimate_flow.vehicles_details.vehicle_in_regular_use.legend")
+      .govuk-hint = t("estimate_flow.vehicles_details.vehicle_in_regular_use.hint")
+      .govuk-radios data-module="govuk-radios"
+        input [value=""
+             autocomplete="off"
+             type="hidden"
+             name=radio_name
+             data-add-another-dynamic-elements="name:#{radio_name_pattern}"]
+        - if model.errors.messages[:vehicle_in_regular_use].any?
+          p.govuk-error-message
+            span.govuk-visually-hidden = t("generic.error_prefix")
+            = model.errors.messages[:vehicle_in_regular_use].first
+        .govuk-radios__item
+          input.govuk-radios__input [
+            id=radio_id
+            type="radio"
+            value="true"
+            data-add-another-dynamic-elements="id:#{radio_id_pattern},name:#{radio_name_pattern}"
+            data-add-another-name-pattern=radio_name_pattern
+            data-add-another-id-pattern=radio_id_pattern
+            name=radio_name
+            checked=model.vehicle_in_regular_use
+          ]
+          label.govuk-label.govuk-radios__label [for=radio_id
+                                                 data-add-another-dynamic-elements="for:#{radio_id_pattern}"] = t("generic.yes_choice")
+        .govuk-radios__item
+          input.govuk-radios__input [id=radio_false_id
+                                     type="radio"
+                                     value="false"
+                                     data-add-another-dynamic-elements="name:#{radio_name_pattern},id:#{radio_false_id_pattern}"
+                                     name=radio_name
+                                     checked=(model.vehicle_in_regular_use == false)]
+          label.govuk-label.govuk-radios__label [for=radio_false_id
+                                                 data-add-another-dynamic-elements="for:#{radio_false_id_pattern}"] = t("generic.no_choice")
+
+  / VEHICLE SMOD
+  - if @check.smod_applicable?
+    .govuk-form-group
+      ruby:
+        id_pattern = "ID-smod"
+        id = id_pattern.gsub("ID", counter.to_s)
+        name_pattern = "vehicle_model[vehicles][ID][vehicle_in_dispute]"
+        name = name_pattern.gsub("ID", counter.to_s)
+      .govuk-checkboxes__item
+        input [name=name
+               data-add-another-dynamic-elements="name:#{name_pattern}"
+               type="hidden"
+               value="0"
+               autocomplete="off"]
+        input.govuk-checkboxes__input [id=id
+                                       type="checkbox"
+                                       value="true"
+                                       name=name
+                                       data-add-another-dynamic-elements="name:#{name_pattern},id:#{id_pattern}"
+                                       checked=model.vehicle_in_dispute]
+        label.govuk-label.govuk-checkboxes__label [for=id
+                                                   data-add-another-dynamic-elements="for:#{id_pattern}"]
+          = t("estimate_flow.vehicles_details.vehicle_in_dispute")
+    = render "smod_help"

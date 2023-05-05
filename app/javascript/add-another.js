@@ -1,4 +1,5 @@
 import Input from "./suggestions"
+import { Radios } from "govuk-frontend";
 
 /* This method assumes that there will be zero or more sections of HTML on the page structured as follows:
 <div data-module="add-another">
@@ -39,6 +40,7 @@ const addAnother = (addAnotherContainer) => {
   const counter = sections.length + 1;
   setUpSection(newSection, counter)
   addAnotherContainer.querySelector('[data-add-another-role="sectionList"]').append(newSection);
+  setUpRadios(newSection);
 };
 
 const setUpSection = (newSection, counter) => {
@@ -85,19 +87,17 @@ const setNumbering = (section, counter) => {
   if (counterElement) {
     counterElement.innerHTML = counter
   }
-  section.querySelectorAll('input, label, select, textarea').forEach((element) => {
-    if (element.dataset.addAnotherForPattern) {
-      element.setAttribute("for", element.dataset.addAnotherForPattern.replace("ID", counter))
-    }
-
-    if (element.dataset.addAnotherIdPattern) {
-      element.setAttribute("id", element.dataset.addAnotherIdPattern.replace("ID", counter))
-    }
-
-    if (element.dataset.addAnotherNamePattern) {
-      element.setAttribute("name", element.dataset.addAnotherNamePattern.replace("ID", counter))
-    }
+  section.querySelectorAll('[data-add-another-dynamic-elements]').forEach((element) => {
+    element.dataset.addAnotherDynamicElements.split(",").forEach((pairString) => {
+      const parts = pairString.split(":");
+      element.setAttribute(parts[0], parts[1].replace("ID", counter))
+    });
   })
+}
+
+const setUpRadios = (newSection) => {
+  const radios = new Radios(newSection);
+  radios.init();
 }
 
 export default initAddAnother;

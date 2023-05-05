@@ -1,5 +1,6 @@
+- legend = @check.partner ? t("estimate_flow.vehicle.vehicle_owned.legend_with_partner") : t("estimate_flow.vehicle.vehicle_owned.legend")
 - content_for :page_title
-  = t("estimate_flow.vehicle.vehicle_owned.legend")
+  = legend
 - content_for :back do
   = back_link(:vehicle, @check, @back_buttons_invoke_browser_back_behaviour)
 .govuk-grid-column-two-thirds
@@ -8,8 +9,8 @@
     span.govuk-caption-l = t("estimate_flow.vehicle.caption")
     = form.govuk_collection_radio_buttons :vehicle_owned,
         yes_no_options, :first, :last,
-        legend: { text: t("estimate_flow.vehicle.vehicle_owned.legend"), size: "xl", tag: "h1" },
-        hint: { text: t("estimate_flow.vehicle.vehicle_owned.hint"), class: "govuk-!-margin-bottom-5" }
+        legend: { text: legend, size: "xl", tag: "h1" },
+        hint: { text: (t("estimate_flow.vehicle.vehicle_owned.hint") unless @check.partner), class: "govuk-!-margin-bottom-5" }
 
     = form.govuk_submit t("generic.save_and_continue")
 
