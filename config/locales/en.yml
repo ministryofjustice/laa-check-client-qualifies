@@ -1019,7 +1019,7 @@ en:
       legend: Partner assets
       hints:
         - Enter 0 for any that do not apply.
-        - Do not enter any assets if you listed them as owned by the client on the previous page.
+        - Do not enter any assets if you listed them as owned by your client on the previous page.
       non_household_flow:
         hint: Enter 0 for any that do not apply. Do not enter any assets if you listed them as owned by the client.
         property:
