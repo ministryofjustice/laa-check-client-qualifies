@@ -60,6 +60,12 @@ module Steps
         session_data["partner_property_owned"]&.in?(PropertyForm::OWNED_OPTIONS.map(&:to_s))
       end
 
+      def partner_owns_additional_property?(session_data)
+        return false unless partner?(session_data)
+
+        session_data["partner_additional_property_owned"]&.in?(PropertyForm::OWNED_OPTIONS.map(&:to_s))
+      end
+
       def partner_owns_vehicle?(session_data)
         partner?(session_data) && session_data["partner_vehicle_owned"]
       end

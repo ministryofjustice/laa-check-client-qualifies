@@ -56,6 +56,18 @@ module Cfe
     end
 
     def additional_properties
+      return legacy_additional_properties unless relevant_form?(:partner_additional_property_details)
+
+      additional_property = PartnerAdditionalPropertyDetailsForm.from_session(@session_data)
+      [{
+        value: additional_property.house_value,
+        outstanding_mortgage: (additional_property.mortgage if additional_property.owned_with_mortgage?) || 0,
+        percentage_owned: additional_property.percentage_owned,
+        shared_with_housing_assoc: false,
+      }]
+    end
+
+    def legacy_additional_properties
       form = PartnerAssetsForm.from_session(@session_data)
       return [] unless form.property_value&.positive?
 

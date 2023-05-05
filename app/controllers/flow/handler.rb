@@ -34,6 +34,8 @@ module Flow
       partner_assets: PartnerAssetsForm,
       additional_property: AdditionalPropertyForm,
       additional_property_details: AdditionalPropertyDetailsForm,
+      partner_additional_property: PartnerAdditionalPropertyForm,
+      partner_additional_property_details: PartnerAdditionalPropertyDetailsForm,
     }.freeze
 
     class << self

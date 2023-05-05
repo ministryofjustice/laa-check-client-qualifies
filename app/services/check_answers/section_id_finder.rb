@@ -35,6 +35,8 @@ module CheckAnswers
       partner_vehicle: "subsection-partner_vehicles-header",
       partner_vehicle_details: "subsection-partner_vehicles-header",
       partner_assets: "subsection-partner_other-header",
+      partner_additional_property: "subsection-partner_other-header",
+      partner_additional_property_details: "subsection-partner_other-header",
     }.freeze
 
     def self.call(step)

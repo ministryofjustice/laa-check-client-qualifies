@@ -46,6 +46,17 @@ RSpec.describe Steps::Logic do
     end
   end
 
+  describe "#partner_owns_additional_property?" do
+    it "returns false if the client has no partner" do
+      session_data = {
+        "partner" => false,
+        "partner_property_owned" => true,
+      }
+
+      expect(described_class.partner_owns_additional_property?(session_data)).to eq false
+    end
+  end
+
   describe "#partner_employed?" do
     it "returns false if the client has no partner" do
       session_data = {

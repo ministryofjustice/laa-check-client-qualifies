@@ -19,6 +19,8 @@ RSpec.describe "Household section flow", :household_section_flag, type: :feature
     fill_in_property_entry_screen
     fill_in_additional_property_screen(choice: "Yes, owned outright")
     fill_in_additional_property_details_screen
+    fill_in_partner_additional_property_screen(choice: "Yes, owned outright")
+    fill_in_partner_additional_property_details_screen
     confirm_screen("check_answers")
   end
 

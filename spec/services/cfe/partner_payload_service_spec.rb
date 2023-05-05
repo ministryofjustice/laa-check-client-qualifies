@@ -144,5 +144,47 @@ RSpec.describe Cfe::PartnerPayloadService, :partner_flag do
         expect(payload[:partner]).to be_nil
       end
     end
+
+    context "when in household flow", :household_section_flag do
+      let(:session_data) do
+        {
+          "partner" => true,
+          "passporting" => true,
+          "partner_savings" => 0,
+          "partner_investments" => 0,
+          "partner_valuables" => 0,
+          "partner_additional_property_owned" => ownership_status,
+          "partner_additional_house_value" => 100_000,
+          "partner_additional_mortgage" => 50_000,
+          "partner_additional_percentage_owned" => 100,
+        }
+      end
+
+      context "with outright-owned second property" do
+        let(:ownership_status) { "outright" }
+
+        it "adds details to the payload" do
+          described_class.call(session_data, payload)
+          partner = payload[:partner]
+          expect(partner[:additional_properties]).to eq([{ outstanding_mortgage: 0,
+                                                           percentage_owned: 100,
+                                                           shared_with_housing_assoc: false,
+                                                           value: 100_000 }])
+        end
+      end
+
+      context "with mortgaged second property" do
+        let(:ownership_status) { "with_mortgage" }
+
+        it "adds details to the payload" do
+          described_class.call(session_data, payload)
+          partner = payload[:partner]
+          expect(partner[:additional_properties]).to eq([{ outstanding_mortgage: 50_000,
+                                                           percentage_owned: 100,
+                                                           shared_with_housing_assoc: false,
+                                                           value: 100_000 }])
+        end
+      end
+    end
   end
 end
