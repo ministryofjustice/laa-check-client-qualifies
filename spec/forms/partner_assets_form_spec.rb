@@ -13,9 +13,9 @@ RSpec.describe "partner_assets", type: :feature do
     within ".govuk-error-summary__list" do
       expect(page.text).to eq [
         "Enter the estimated value of the additional property, holiday home, or land. Enter 0 if this does not apply.",
-        "Enter the total amount of money in bank accounts. Enter 0 if this does not apply.",
+        "Enter total of all money in bank accounts. Enter 0 if this does not apply.",
         "Enter the total value of investments. Enter 0 if this does not apply.",
-        "Enter the value of items worth £500 or more, or if this does not apply enter 0",
+        "Enter the value of items worth £500 or more. Enter 0 if this does not apply.",
       ].join
     end
   end
@@ -50,9 +50,9 @@ RSpec.describe "partner_assets", type: :feature do
       click_on "Save and continue"
       within ".govuk-error-summary__list" do
         expect(page.text).to eq [
-          "Enter the total amount of money in bank accounts. Enter 0 if this does not apply.",
+          "Enter total of all money in bank accounts. Enter 0 if this does not apply.",
           "Enter the total value of investments. Enter 0 if this does not apply.",
-          "Enter the value of items worth £500 or more, or if this does not apply enter 0",
+          "Enter the value of items worth £500 or more. Enter 0 if this does not apply.",
         ].join
       end
     end
