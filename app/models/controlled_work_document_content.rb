@@ -33,7 +33,7 @@ class ControlledWorkDocumentContent < Check
   end
 
   def no_asylum_support?
-    !asylum_support
+    !asylum_support unless asylum_support.nil?
   end
 
   def smod_assets?
