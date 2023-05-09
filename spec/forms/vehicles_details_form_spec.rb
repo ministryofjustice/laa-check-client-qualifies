@@ -13,9 +13,9 @@ RSpec.describe "vehicles_details", type: :feature do
   end
 
   it "saves what I enter to the session" do
-    fill_in "1-value", with: "123"
+    fill_in "1-vehicle-value", with: "123"
     choose "Yes", name: "vehicle_model[items][1][vehicle_pcp]"
-    fill_in "1-finance", with: "456"
+    fill_in "1-vehicle-finance", with: "456"
     choose "Yes", name: "vehicle_model[items][1][vehicle_over_3_years_ago]"
     choose "Yes", name: "vehicle_model[items][1][vehicle_in_regular_use]"
     check "This asset is a subject matter of dispute", id: "1-smod"

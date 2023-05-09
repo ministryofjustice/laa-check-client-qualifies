@@ -1,0 +1,53 @@
+/ Required:
+/ errors
+/ model_name
+/ form_name
+/ field_name
+/ legend
+/ value
+/ counter
+
+/ Optional:
+/ hint
+/ Block with conditional reveal content for 'Yes' choice
+ruby:
+  radio_name_pattern = "#{model_name}[items][ID][#{field_name}]"
+  radio_name = radio_name_pattern.gsub("ID", counter.to_s)
+  conditional_reveal_pattern = "conditional-reveal-ID-#{field_name.dasherize}" if block_given?
+  hint ||= nil
+  yes_id_pattern = errors.any? ? "#{form_name.dasherize}-items-ID-#{field_name.dasherize}-field-error" : "ID-#{field_name.dasherize}"
+.govuk-form-group class=("govuk-form-group--error" if errors.any?)
+  fieldset.govuk-fieldset
+    legend.govuk-fieldset__legend.govuk-fieldset__legend--m = legend
+    - if hint
+      .govuk-hint = hint
+    input [value=""
+            autocomplete="off"
+            type="hidden"
+            name=radio_name
+            data-add-another-dynamic-elements="name:#{radio_name_pattern}"]
+    - if errors.any?
+      p.govuk-error-message
+        span.govuk-visually-hidden = t("generic.error_prefix")
+        = errors.first
+    .govuk-radios data-module="govuk-radios"
+      = render "shared/add_another/radio_item",
+                id_pattern: yes_id_pattern,
+                name_pattern: radio_name_pattern,
+                counter:,
+                value: "true",
+                checked: value,
+                label: t("generic.yes_choice"),
+                conditional_reveal_pattern:
+      - if block_given?
+        .govuk-radios__conditional.govuk-radios__conditional--hidden [id=conditional_reveal_pattern.gsub("ID", counter.to_s)
+                                                                      data-add-another-dynamic-elements="id:#{conditional_reveal_pattern}"]
+          = yield
+
+      = render "shared/add_another/radio_item",
+                id_pattern: "ID-#{field_name.dasherize}-false",
+                name_pattern: radio_name_pattern,
+                counter:,
+                value: "false",
+                checked: value == false,
+                label: t("generic.no_choice")
