@@ -23,7 +23,7 @@ en:
             employment_status:
               inclusion: Select if the partner is currently employed
             over_60:
-              inclusion: Select yes if the partner is over 60 years old
+              inclusion: Select yes if the partner is aged 60 or over
         applicant_form:
           attributes:
             employment_status:
@@ -654,8 +654,8 @@ en:
           - other assets, including property
       partner_heading: Tell us about the partner
       partner_over_60:
-        legend: Is the partner over 60 years old?
-        hint: Clients with partners over 60 may have some of their capital excluded from a financial eligibility assessment.
+        legend: Is the partner aged 60 or over?
+        hint: Clients with partners aged 60 or over may have some of their capital excluded from a financial eligibility assessment.
       partner_employed:
         legend: What is the partner's employment status?
         hint: "You cannot use this service if your client or their partner is self-employed or in the armed forces."
@@ -1224,7 +1224,7 @@ en:
         joint_percentage_owned: Percentage share owned by partner
       partner_details: Partner's details
       partner_details_fields:
-        partner_over_60: Partner is over 60 years old
+        partner_over_60: Partner is aged 60 or over
         partner_employment_status: Partner employment status
         partner_employment_status_options:
           in_work: Employed and in work
