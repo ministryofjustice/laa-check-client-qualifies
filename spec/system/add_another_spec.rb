@@ -15,16 +15,16 @@ RSpec.describe "Add another JS" do
 
   it "lets me add multiple vehicles" do
     fill_in "1-value", with: "123"
-    choose "No", name: "vehicle_model[vehicles][1][vehicle_pcp]"
-    choose "No", name: "vehicle_model[vehicles][1][vehicle_over_3_years_ago]"
-    choose "No", name: "vehicle_model[vehicles][1][vehicle_in_regular_use]"
+    choose "No", name: "vehicle_model[items][1][vehicle_pcp]"
+    choose "No", name: "vehicle_model[items][1][vehicle_over_3_years_ago]"
+    choose "No", name: "vehicle_model[items][1][vehicle_in_regular_use]"
     click_on "Add another vehicle"
 
     fill_in "2-value", with: "789"
-    choose "Yes", name: "vehicle_model[vehicles][2][vehicle_pcp]"
+    choose "Yes", name: "vehicle_model[items][2][vehicle_pcp]"
     fill_in "2-finance", with: "456"
-    choose "Yes", name: "vehicle_model[vehicles][2][vehicle_over_3_years_ago]"
-    choose "Yes", name: "vehicle_model[vehicles][2][vehicle_in_regular_use]"
+    choose "Yes", name: "vehicle_model[items][2][vehicle_over_3_years_ago]"
+    choose "Yes", name: "vehicle_model[items][2][vehicle_in_regular_use]"
     check "This asset is a subject matter of dispute", id: "2-smod"
     click_on "Save and continue"
 
@@ -45,21 +45,21 @@ RSpec.describe "Add another JS" do
 
   it "lets me remove a vehicle" do
     fill_in "1-value", with: "123"
-    choose "No", name: "vehicle_model[vehicles][1][vehicle_pcp]"
-    choose "No", name: "vehicle_model[vehicles][1][vehicle_over_3_years_ago]"
-    choose "No", name: "vehicle_model[vehicles][1][vehicle_in_regular_use]"
+    choose "No", name: "vehicle_model[items][1][vehicle_pcp]"
+    choose "No", name: "vehicle_model[items][1][vehicle_over_3_years_ago]"
+    choose "No", name: "vehicle_model[items][1][vehicle_in_regular_use]"
 
     click_on "Add another vehicle"
     fill_in "2-value", with: "456"
-    choose "No", name: "vehicle_model[vehicles][2][vehicle_pcp]"
-    choose "Yes", name: "vehicle_model[vehicles][2][vehicle_over_3_years_ago]"
-    choose "Yes", name: "vehicle_model[vehicles][2][vehicle_in_regular_use]"
+    choose "No", name: "vehicle_model[items][2][vehicle_pcp]"
+    choose "Yes", name: "vehicle_model[items][2][vehicle_over_3_years_ago]"
+    choose "Yes", name: "vehicle_model[items][2][vehicle_in_regular_use]"
 
     click_on "Add another vehicle"
     fill_in "3-value", with: "789"
-    choose "No", name: "vehicle_model[vehicles][3][vehicle_pcp]"
-    choose "No", name: "vehicle_model[vehicles][3][vehicle_over_3_years_ago]"
-    choose "No", name: "vehicle_model[vehicles][3][vehicle_in_regular_use]"
+    choose "No", name: "vehicle_model[items][3][vehicle_pcp]"
+    choose "No", name: "vehicle_model[items][3][vehicle_over_3_years_ago]"
+    choose "No", name: "vehicle_model[items][3][vehicle_in_regular_use]"
 
     click_on "Save and continue"
 

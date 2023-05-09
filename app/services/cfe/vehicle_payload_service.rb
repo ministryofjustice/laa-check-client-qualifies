@@ -10,7 +10,7 @@ module Cfe
 
     def multiple_vehicle_details
       model = VehiclesDetailsForm.from_session(@session_data)
-      CfeParamBuilders::Vehicles.call(model.vehicles, smod_applicable: check.smod_applicable?)
+      CfeParamBuilders::Vehicles.call(model.items, smod_applicable: check.smod_applicable?)
     end
 
     def single_vehicle_details

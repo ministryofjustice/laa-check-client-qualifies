@@ -14,10 +14,10 @@ RSpec.describe "vehicles_details", type: :feature do
 
   it "saves what I enter to the session" do
     fill_in "1-value", with: "123"
-    choose "Yes", name: "vehicle_model[vehicles][1][vehicle_pcp]"
+    choose "Yes", name: "vehicle_model[items][1][vehicle_pcp]"
     fill_in "1-finance", with: "456"
-    choose "Yes", name: "vehicle_model[vehicles][1][vehicle_over_3_years_ago]"
-    choose "Yes", name: "vehicle_model[vehicles][1][vehicle_in_regular_use]"
+    choose "Yes", name: "vehicle_model[items][1][vehicle_over_3_years_ago]"
+    choose "Yes", name: "vehicle_model[items][1][vehicle_in_regular_use]"
     check "This asset is a subject matter of dispute", id: "1-smod"
     click_on "Save and continue"
     expect(session_contents.dig("vehicles", 0, "vehicle_value")).to eq 123

@@ -9,7 +9,7 @@
 
   / VEHICLE VALUE
   .govuk-form-group class=("govuk-form-group--error" if model.errors.messages[:vehicle_value].any?)
-    - id_pattern = model.errors.messages[:vehicle_value].any? ? "vehicles-details-form-vehicles-ID-vehicle-value-field-error" : "ID-value"
+    - id_pattern = model.errors.messages[:vehicle_value].any? ? "vehicles-details-form-items-ID-vehicle-value-field-error" : "ID-value"
     label.govuk-label.govuk-label--m [for=id_pattern.gsub("ID", counter.to_s)
                        data-add-another-dynamic-elements="for:#{id_pattern}"] = t("estimate_flow.vehicles_details.vehicle_value.input")
     .govuk-hint = t("estimate_flow.vehicles_details.vehicle_value.input_hint")
@@ -22,8 +22,8 @@
       input.govuk-input.govuk-input--width-5 [
         inputmode="decimal"
         type="text"
-        name="vehicle_model[vehicles][#{counter}][vehicle_value]"
-        data-add-another-dynamic-elements="id:#{id_pattern},name:vehicle_model[vehicles][ID][vehicle_value]"
+        name="vehicle_model[items][#{counter}][vehicle_value]"
+        data-add-another-dynamic-elements="id:#{id_pattern},name:vehicle_model[items][ID][vehicle_value]"
         id=id_pattern.gsub("ID", counter.to_s)
         value=as_money_string(model.vehicle_value)
         class=("govuk-input--error" if model.errors.messages[:vehicle_value].any?)
@@ -32,11 +32,11 @@
   / VEHICLE FINANCE
   .govuk-form-group class=("govuk-form-group--error" if model.errors.messages[:vehicle_pcp].any?)
     ruby:
-      radio_id_pattern = model.errors.messages[:vehicle_pcp].any? ? "vehicles-details-form-vehicles-ID-vehicle-pcp-field-error" : "ID-pcp"
+      radio_id_pattern = model.errors.messages[:vehicle_pcp].any? ? "vehicles-details-form-items-ID-vehicle-pcp-field-error" : "ID-pcp"
       radio_id = radio_id_pattern.gsub("ID", counter.to_s)
       radio_false_id_pattern = "ID-pcp-false"
       radio_false_id = radio_false_id_pattern.gsub("ID", counter.to_s)
-      radio_name_pattern = "vehicle_model[vehicles][ID][vehicle_pcp]"
+      radio_name_pattern = "vehicle_model[items][ID][vehicle_pcp]"
       radio_name = radio_name_pattern.gsub("ID", counter.to_s)
       conditional_reveal_pattern = "conditional-reveal-ID"
       conditional_reveal_id = conditional_reveal_pattern.gsub("ID", counter.to_s)
@@ -73,7 +73,7 @@
           .govuk-form-group class=("govuk-form-group--error" if model.errors.messages[:vehicle_finance].any?)
             ruby:
               id_pattern = if model.errors.messages[:vehicle_finance].any?
-                             "vehicles-details-form-vehicles-ID-vehicle-finance-field-error"
+                             "vehicles-details-form-items-ID-vehicle-finance-field-error"
                            else
                              "ID-finance"
                            end
@@ -90,8 +90,8 @@
               input.govuk-input.govuk-input--width-5 [
                 inputmode="decimal"
                 type="text"
-                name="vehicle_model[vehicles][#{counter}][vehicle_finance]"
-                data-add-another-dynamic-elements="id:#{id_pattern},name:vehicle_model[vehicles][ID][vehicle_finance]"
+                name="vehicle_model[items][#{counter}][vehicle_finance]"
+                data-add-another-dynamic-elements="id:#{id_pattern},name:vehicle_model[items][ID][vehicle_finance]"
                 id=id_pattern.gsub("ID", counter.to_s)
                 value=as_money_string(model.vehicle_finance)
                 class=("govuk-input--error" if model.errors.messages[:vehicle_finance].any?)
@@ -110,14 +110,14 @@
   .govuk-form-group class=("govuk-form-group--error" if model.errors.messages[:vehicle_over_3_years_ago].any?)
     ruby:
       radio_id_pattern = if model.errors.messages[:vehicle_over_3_years_ago].any?
-                           "vehicles-details-form-vehicles-ID-vehicle-over-3-years-ago-field-error"
+                           "vehicles-details-form-items-ID-vehicle-over-3-years-ago-field-error"
                          else
                            "ID-over-3-years-ago"
                          end
       radio_id = radio_id_pattern.gsub("ID", counter.to_s)
       radio_false_id_pattern = "ID-over-3-years-ago-false"
       radio_false_id = radio_false_id_pattern.gsub("ID", counter.to_s)
-      radio_name_pattern = "vehicle_model[vehicles][ID][vehicle_over_3_years_ago]"
+      radio_name_pattern = "vehicle_model[items][ID][vehicle_over_3_years_ago]"
       radio_name = radio_name_pattern.gsub("ID", counter.to_s)
     fieldset.govuk-fieldset
       legend.govuk-fieldset__legend.govuk-fieldset__legend--m = t("estimate_flow.vehicles_details.vehicle_over_3_years_ago.legend")
@@ -159,14 +159,14 @@
   .govuk-form-group class=("govuk-form-group--error" if model.errors.messages[:vehicle_in_regular_use].any?)
     ruby:
       radio_id_pattern = if model.errors.messages[:vehicle_over_3_years_ago].any?
-                           "vehicles-details-form-vehicles-ID-vehicle-in-regular-use-field-error"
+                           "vehicles-details-form-items-ID-vehicle-in-regular-use-field-error"
                          else
                            "ID-in-regular-use"
                          end
       radio_id = radio_id_pattern.gsub("ID", counter.to_s)
       radio_false_id_pattern = "ID-in-regular-use-false"
       radio_false_id = radio_false_id_pattern.gsub("ID", counter.to_s)
-      radio_name_pattern = "vehicle_model[vehicles][ID][vehicle_in_regular_use]"
+      radio_name_pattern = "vehicle_model[items][ID][vehicle_in_regular_use]"
       radio_name = radio_name_pattern.gsub("ID", counter.to_s)
     fieldset.govuk-fieldset
       legend.govuk-fieldset__legend.govuk-fieldset__legend--m = t("estimate_flow.vehicles_details.vehicle_in_regular_use.legend")
@@ -210,7 +210,7 @@
       ruby:
         id_pattern = "ID-smod"
         id = id_pattern.gsub("ID", counter.to_s)
-        name_pattern = "vehicle_model[vehicles][ID][vehicle_in_dispute]"
+        name_pattern = "vehicle_model[items][ID][vehicle_in_dispute]"
         name = name_pattern.gsub("ID", counter.to_s)
       .govuk-checkboxes__item
         input [name=name

@@ -12,7 +12,7 @@
       = render "shared/heading",
                header_text: t("estimate_flow.vehicles_details.heading")
       . data-add-another-role="sectionList"
-        - @form.vehicles.each_with_index do |vehicle, index|
+        - @form.items.each_with_index do |vehicle, index|
           = render "vehicle_section", removeable: index.positive?, model: vehicle, counter: index + 1
       .govuk-button-group
         button.govuk-button.govuk-button--secondary type="button" data-add-another-role="add" = t("estimate_flow.vehicles_details.add")
