@@ -189,12 +189,12 @@
 # Dependents Aged 15 and under
   - name: FillText48
     type: text
-    source: dependants_u16_allowance
+    source: dependants_allowance_under_16
 
 # Dependents Aged 16 or over
   - name: FillText49
     type: text
-    source: dependants_u18_allowance
+    source: dependants_allowance_over_16
 
 # Client - Tax and National Insurance
   - name: FillText63

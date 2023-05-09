@@ -71,9 +71,14 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw2.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
+        "CheckBox13" => 1, # Has a partner
         "CheckBox69" => 1, # Not passporting
-        "CheckBox64" => 1, # Not asylum supported
+        "CheckBox64" => 1, # Asylum support not given and defaults to 'no' option
         "FillText44" => "250,000", # Property worth £250,000
+        "FillText2" => "111", # Savings
+        "FillText6" => "222", # Investments
+        "FillText11" => "555", # Valuables
+        "FillText66" => "50", # joint percentage owned
       }
       expect(result).to include(representative_sample)
     end
@@ -114,9 +119,25 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
         :minimal_complete_session,
         :with_asylum_support,
         valuables: 555,
-        in_dispute: %w[valuables],
+        savings: 111,
+        investments: 222,
+        in_dispute: %w[valuables savings investments],
         api_response: FactoryBot.build(:api_result).with_indifferent_access,
       )
+    end
+
+    it "can successfully populate CW1 form fields" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1.yml")).map(&:with_indifferent_access)
+      result = described_class.call(session_data, mappings)
+      representative_sample = {
+        "Check Box21" => nil, # Not passporting
+        "Go to question 2" => "Yes_2", # Asylum supported
+        "Please complete Part A Capital Subject matter of dispute" => nil, # SMOD not relevant
+        "undefined_42" => nil, # Valuables not relevant
+        "undefined_40" => nil, # Investments not relevant
+        "undefined_38" => nil, # Savings not relevant
+      }
+      expect(result).to include(representative_sample)
     end
 
     it "can successfully populate a CW2 IMM form" do

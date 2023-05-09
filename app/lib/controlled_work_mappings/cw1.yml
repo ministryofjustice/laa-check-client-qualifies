@@ -282,12 +282,12 @@
 # Dependents' allowances / Aged 15 or under
 - name: undefined_60
   type: text
-  source: dependants_u16_allowance
+  source: dependants_allowance_under_16
 
 # Dependents' allowances / Aged 16 or over
 - name: undefined_61
   type: text
-  source: dependants_u18_allowance
+  source: dependants_allowance_over_16
 
 # Tax and national insurance / Client
 - name: undefined_62
