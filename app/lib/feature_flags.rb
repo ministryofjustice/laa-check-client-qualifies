@@ -1,7 +1,6 @@
 class FeatureFlags
   ENABLED_AFTER_DATE = {
     example_2125_flag: { from: "2125-01-01", public: false },
-    dependance_allowance_increase: { from: "2023-04-10", public: true },
   }.freeze
 
   STATIC_FLAGS = %i[sentry cw_forms household_section special_applicant_groups].freeze

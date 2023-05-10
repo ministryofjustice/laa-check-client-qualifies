@@ -1,0 +1,27 @@
+- content_for :page_title
+  = t("estimate_flow.partner_details.partner_heading")
+- content_for :back do
+  = back_link(:partner_details, @check, @back_buttons_invoke_browser_back_behaviour)
+
+.govuk-grid-column-two-thirds
+
+  = form_for(@form, url: wizard_path, method: :put) do |form|
+
+    = form.govuk_error_summary t("generic.error_summary_title")
+
+    = render "shared/heading", header_text: t("estimate_flow.partner_details.partner_heading")
+
+    = form.govuk_collection_radio_buttons :over_60,
+            yes_no_options, :first, :last,
+            legend: { text: t("estimate_flow.partner_details.partner_over_60.legend") },
+            hint: { text: t("estimate_flow.partner_details.partner_over_60.hint") }
+
+    - unless @check.passporting
+      = form.govuk_collection_radio_buttons :employment_status, employment_options, :first, :last,
+                  legend: { text: t("estimate_flow.partner_details.partner_employed.legend") },
+                  hint: { text: t("estimate_flow.partner_details.partner_employed.hint") }
+
+    = form.govuk_submit t("generic.save_and_continue")
+= render "shared/question_sidebar",
+        level_of_help: @check.level_of_help,
+        links: {}

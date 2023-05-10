@@ -23,7 +23,7 @@ en:
             employment_status:
               inclusion: Select if the partner is currently employed
             over_60:
-              inclusion: Select yes if the partner is over 60 years old
+              inclusion: Select yes if the partner is aged 60 or over
         applicant_form:
           attributes:
             employment_status:
@@ -273,25 +273,25 @@ en:
         partner_assets_form:
           attributes:
             valuables:
-              blank: Enter the value of items worth £500 or more, or if this does not apply enter 0
-              below_500: Valuable items must be £500 or more, if this does not apply enter 0
-              not_a_number: Value of items worth £500 or more must be a number, if this does not apply enter 0
+              blank: Enter the value of items worth £500 or more. Enter 0 if this does not apply.
+              below_500: Valuable items must be £500 or more. Enter 0 if this does not apply.
+              not_a_number: Value of items worth £500 or more must be a number. Enter 0 if this does not apply.
             investments:
-              blank: Enter the total value of investments, if this does not apply enter 0
-              not_a_number: Total value of investments must be a number, if this does not apply enter 0
+              blank: Enter the total value of investments. Enter 0 if this does not apply.
+              not_a_number: Total value of investments must be a number. Enter 0 if this does not apply.
             savings:
-              blank: Enter the total amount of savings, if this does not apply enter 0
-              not_a_number: Total amount of savings must be a number, if this does not apply enter 0
+              blank: Enter total of all money in bank accounts. Enter 0 if this does not apply.
+              not_a_number: Total of all money in bank accounts must be a number. Enter 0 if this does not apply.
             property_value:
-              blank: Enter the estimated value of the additional property, holiday home, or land, if this does not apply enter 0
-              not_a_number: Estimated value of the additional property, holiday home, or land must be a number, or enter 0 if this does not apply
+              blank: Enter the estimated value of the additional property, holiday home, or land. Enter 0 if this does not apply.
+              not_a_number: Estimated value of the additional property, holiday home, or land must be a number. Enter 0 if this does not apply.
             property_mortgage:
-              blank: Enter the outstanding mortgage on the additional property, holiday home or land, if this does not apply enter 0
-              not_a_number: Outstanding mortgage on the additional property, holiday home, or land must be a number, or enter 0 if this does not apply
+              blank: Enter the outstanding mortgage on the additional property, holiday home or land. Enter 0 if this does not apply.
+              not_a_number: Outstanding mortgage on the additional property, holiday home, or land must be a number. Enter 0 if this does not apply.
             property_percentage_owned:
               blank: Enter the share the partner owns of the additional property, holiday home, or land
               greater_than: Share the partner owns must be greater than 0
-              not_a_number: Share the partner owns of the additional property, holiday home, or land must be a number, or enter 0 if this does not apply
+              not_a_number: Share the partner owns of the additional property, holiday home, or land must be a number. Enter 0 if this does not apply.
               less_than_or_equal_to: Share the partner owns must be between 1 and 100
         property_form:
           attributes:
@@ -635,25 +635,27 @@ en:
         income_tax: Income tax
         national_insurance: National Insurance
     partner_details:
-      partner_heading: You've completed the client section
-      client_partner: You told us your client has a partner
-      ask_details: We will now ask for some details about your client's partner to help us get an accurate financial picture of them.
-      list_title: "You will need information from the partner about any:"
-      non_passported_types_of_information:
-        - dependants
-        - employment
-        - benefits
-        - other income
-        - outgoings, like housing costs, maintenance payments and childcare costs
-      passported_types_of_information:
-        - savings and investments
-        - other assets including property and vehicles
-      controlled_passported_types_of_information:
-        - savings and investments
-        - other assets, including property
+      non_household_flow:
+        partner_heading: You've completed the client section
+        client_partner: You told us your client has a partner
+        ask_details: We will now ask for some details about your client's partner to help us get an accurate financial picture of them.
+        list_title: "You will need information from the partner about any:"
+        non_passported_types_of_information:
+          - dependants
+          - employment
+          - benefits
+          - other income
+          - outgoings, like housing costs, maintenance payments and childcare costs
+        passported_types_of_information:
+          - savings and investments
+          - other assets including property and vehicles
+        controlled_passported_types_of_information:
+          - savings and investments
+          - other assets, including property
+      partner_heading: Tell us about the partner
       partner_over_60:
-        legend: Is the partner over 60 years old?
-        hint: Clients with partners over 60 may have some of their capital excluded from a financial eligibility assessment.
+        legend: Is the partner aged 60 or over?
+        hint: Clients with partners aged 60 or over may have some of their capital excluded from a financial eligibility assessment.
       partner_employed:
         legend: What is the partner's employment status?
         hint: "You cannot use this service if your client or their partner is self-employed or in the armed forces."
@@ -668,11 +670,9 @@ en:
         the_partner:  your client's partner
         certificated_exclusions:
           - anyone who owns any property, vehicles or other assets valued at over £8,000 in total
-        certificated_income_exclusion_legacy: anyone with over £307.64 income every month (any income below this will be deducted from the dependants allowance if an application is made)
         certificated_income_exclusion: anyone with over £338.90 income every month (any income below this will be deducted from the dependants allowance if an application is made)
         controlled_exclusions:
           - anyone who owns any property, vehicles or other assets valued at over £8,000 in total
-        controlled_income_exclusion_legacy: anyone with over £307.64 income every month (any income below this should be deducted from the dependants allowance when you complete the relevant controlled work form)
         controlled_income_exclusion: anyone with over £338.90 income every month (any income below this should be deducted from the dependants allowance when you complete the relevant controlled work form)
       child_dependants:
         legend: Does your client have any child dependants?
@@ -680,11 +680,9 @@ en:
         hint: "A child dependant is one who lives with your client and depends on them for financial support. For example, your client’s child or another child relative who lives in their household. Do not include any:"
         certificated_exclusions:
           - foster child
-        certificated_income_exclusion_legacy: child with over £307.64 income every month (any income below this will be deducted from the dependants allowance if an application is made)
         certificated_income_exclusion: child with over £338.90 income every month (any income below this will be deducted from the dependants allowance if an application is made)
         controlled_exclusions:
           - foster child
-        controlled_income_exclusion_legacy: child with over £307.64 income every month (any income below this should be deducted from the dependants allowance when you complete the relevant controlled work form)
         controlled_income_exclusion: child with over £338.90 income every month (any income below this should be deducted from the dependants allowance when you complete the relevant controlled work form)
       second_caption: "A dependant:"
       second_caption_bullets:
@@ -1015,29 +1013,54 @@ en:
     partner_assets:
       caption: The partner's finances
       legend: Partner assets
-      hint: Enter 0 for any that do not apply. Do not enter any assets if you listed them as owned by the client.
-      property:
-        label: Additional property, holiday home or land
-        hint: This can be the sole property owned if not their main dwelling even if the property is abroad or not providing an income. Enter 0 if this does not apply.
-        value:
-          label: Estimated value
-        mortgage:
-          label: Outstanding mortgage
-        percentage_owned:
-          input: The share the partner owns
-          input_hint: ""
+      hints:
+        - Enter 0 for any that do not apply.
+        - Do not enter any assets if you listed them as owned by your client on the previous page.
+      non_household_flow:
+        hint: Enter 0 for any that do not apply. Do not enter any assets if you listed them as owned by the client.
+        property:
+          label: Additional property, holiday home or land
+          hint: This can be the sole property owned if not their main dwelling even if the property is abroad or not providing an income. Enter 0 if this does not apply.
+          value:
+            label: Estimated value
+          mortgage:
+            label: Outstanding mortgage
+          percentage_owned:
+            input: The share the partner owns
+            input_hint: ""
+        savings:
+          label: Savings
+          hint: For example, money in current or savings accounts, ISAs, or child accounts the partner is a signatory on. Do not include any government Cost of Living Payments owed to the partner. Enter 0 if this does not apply.
+          input: Total of all savings
+        investments:
+          label: Investments
+          hint: For example, shares in a public limited company, unit trusts or capital bonds. Enter 0 if this does not apply.
+          input: Total of all investments
+        valuables:
+          label: Valuable items worth £500 or more
+          certificated_hint: For example, jewellery, art, antiques or caravan or similar. Enter 0 if this does not apply.
+          controlled_hint: For example, any vehicle that is not in regular use, jewellery, art, antiques or caravan or similar. Enter 0 if this does not apply.
+          input: Total of all valuable items
       savings:
-        label: Savings
-        hint: For example, money in current or savings accounts, ISAs, or child accounts the partner is a signatory on. Do not include any government Cost of Living Payments owed to the partner. Enter 0 if this does not apply.
-        input: Total of all savings
+        label: Money in bank accounts
+        hints:
+          - For example, money in current or savings accounts, ISAs, or child accounts the partner is a signatory on. Do not include any government Cost of Living Payments owed to the partner. 
+          - Enter 0 if this does not apply.
+        input: Total of all money in bank accounts
       investments:
         label: Investments
-        hint: For example, shares in a public limited company, unit trusts or capital bonds. Enter 0 if this does not apply.
+        hints:
+          - For example, shares in a public limited company, unit trusts or capital bonds.
+          - Enter 0 if this does not apply.
         input: Total of all investments
       valuables:
         label: Valuable items worth £500 or more
-        certificated_hint: For example, jewellery, art, antiques or caravan or similar. Enter 0 if this does not apply.
-        controlled_hint: For example, any vehicle that is not in regular use, jewellery, art, antiques or caravan or similar. Enter 0 if this does not apply.
+        certificated_hints:
+          - For example, jewellery, art, antiques or caravan or similar.
+          - Enter 0 if this does not apply.
+        controlled_hints:
+          - For example, any vehicle that is not in regular use, jewellery, art, antiques or caravan or similar.
+          - Enter 0 if this does not apply.
         input: Total of all valuable items
       guidance:
         text: Guidance on assets
@@ -1222,7 +1245,7 @@ en:
         joint_percentage_owned: Percentage share owned by partner
       partner_details: Partner's details
       partner_details_fields:
-        partner_over_60: Partner is over 60 years old
+        partner_over_60: Partner is aged 60 or over
         partner_employment_status: Partner employment status
         partner_employment_status_options:
           in_work: Employed and in work
@@ -1380,6 +1403,7 @@ en:
         - Asylum Support reference number
         - type of Asylum Support
         - date payment of current Asylum Support started
+      legislation_header: Relevant legislation and guidance
       upper_and_lower_limits_calculation_header: Upper limits, lower limits and exemptions
       upper_limits_calculation_header: Upper limits
       income_calculation: Income calculation
@@ -1576,14 +1600,16 @@ en:
         outcome_with_partner: your client does
         disposable_income: disposable monthly income
         capital: disposable capital
+    legislation_table:
+      paragraph_1_html: This calculation was made using the rules for controlled work in <a href="https://www.legislation.gov.uk/uksi/2013/480/contents" target='_blank' rel='noreferrer noopener'>The Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 (opens in new tab)</a> and the <a href="https://www.legislation.gov.uk/all?title=Civil%20Legal%20Aid%20%28Financial%20Resources%20" target='_blank' rel='noreferrer noopener' aria-label="Link opens a search page which includes a list of amendments to The Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 (opens in new tab)">amendments to these Regulations (opens in new tab)</a>.
+      paragraph_2_html: Guidance on determining financial eligibility for controlled work and family mediation can be found in the <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf" target='_blank' rel='noreferrer noopener'>guide to determining controlled work (opens in new tab)</a>.
     limits_table:
       calculation_information: We’ve used the information you provided to compare your client’s income and outgoings. This allows us to calculate their monthly disposable income.
-      regulations_html: "All the regulations referred to on this page can be found in the <a href='http://www.legislation.gov.uk/all?title=Civil%20Legal%20Aid%20%28Financial%20Resources%20'>Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 and subsequent amendments</a>."
       limits_heading: Limits
       outgoings_explanation: "For some outgoings, you may see figures that differ from what you entered. This is because some outgoing amounts are capped or disregarded in certain situations. For example:"
       list:
-        - Childcare costs will display as £0 if your client is not employed or a student (Regulation 27 of the Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013).
-        - Housing costs are capped at £545 per month if your client is single and does not have any dependants (Regulation 28(7)).
+        - Childcare costs will display as £0 if your client is not employed or a student (<a href="https://www.legislation.gov.uk/uksi/2013/480/regulation/27" target='_blank' rel='noreferrer noopener'>Regulation 27 of the Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 (opens in new tab)</a>).
+        - Housing costs are capped at £545 per month if your client is single and does not have any dependants (<a href="https://www.legislation.gov.uk/uksi/2013/480/regulation/28" target='_blank' rel='noreferrer noopener'>Regulation 28(7) of the Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 (opens in new tab)</a>).
         - If your client’s gross income is above the applicable upper gross income limit, they will not qualify for legal aid. If this occurs, our service will not perform disposable income or disposable capital calculations. Any figures you entered in the outgoings or capital sections may either display as £0, or not at all.
       certificated_last_item: If your client’s income or capital is between the applicable upper and lower income limits, they may qualify for legal aid but may have to make a monthly or lump sum contribution towards the cost of their case.
       upper_and_lower_monetary_limits: "These limits are:"

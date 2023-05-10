@@ -1,11 +1,11 @@
 p.govuk-body = t(".calculation_information")
-p.govuk-body = t(".regulations_html")
 h2.govuk-heading-m = t(".limits_heading")
 p.govuk-body = t(".outgoings_explanation")
+
 - lower_limits = @model.level_of_help == "certificated" && !@check.upper_tribunal?
 - upper_limit_could_be_waived = @model.level_of_help == "certificated" && !@check.upper_tribunal?
 - t(".list").each do |reason|
-    p.govuk-body = reason
+    p.govuk-body == reason
 - if lower_limits
   p.govuk-body = t(".certificated_last_item")
 
