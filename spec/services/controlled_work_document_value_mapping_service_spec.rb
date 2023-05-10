@@ -82,6 +82,20 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       }
       expect(result).to include(representative_sample)
     end
+
+    it "can successfully populate CW5 form fields" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw5.yml")).map(&:with_indifferent_access)
+      result = described_class.call(session_data, mappings)
+      representative_sample = {
+        "CheckBox4" => "1", # client has partner
+        "CheckBox1" => nil, # client does not have partner
+        "FillText11" => "250,000", # client main home value non-SMOD
+        "FillText14" => "90,000", # client main home mortgage non-SMOD
+        "FillText20" => "110,000", # client main home net equity non-SMOD
+        "FillText24" => "100,000", # client final assessed amount of equity for main home non-SMOD
+      }
+      expect(result).to include(representative_sample)
+    end
   end
 
   context "with disputed main home and additional property" do
