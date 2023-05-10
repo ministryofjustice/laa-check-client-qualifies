@@ -6,370 +6,273 @@
 # Does the client have a partner whose means are to be aggregated? - Yes checkbox
   - name: CheckBox13
     type: checkbox
-    source: from_attribute
-    attribute: partner
+    source: aggregate_partner?
     checked_value: 1
 
 # Does the client have a partner whose means are to be aggregated? - No checkbox
   - name: CheckBox18
     type: checkbox
-    source: from_attribute
-    attribute: no_partner
+    source: no_partner?
     checked_value: 1
-    skip_if: asylum_support
 
 # The client is directly or indirectly in receipt of NASS payment (Immigration and Asylum category work only) - Yes checkbox
   - name: CheckBox63
     type: checkbox
-    source: from_attribute
-    attribute: asylum_support
+    source: asylum_support?
     checked_value: 1
 
 # The client is directly or indirectly in receipt of NASS payment (Immigration and Asylum category work only) - No checkbox
   - name: CheckBox64
     type: checkbox
-    source: from_attribute
-    attribute: no_asylum_support
+    source: no_asylum_support?
     checked_value: 1
 
 # Main home / current market value
   - name: FillText44
     type: text
-    source: from_cfe_payload
-    cfe_payload_location: assessment.capital.capital_items.properties.main_home.value
-    skip_unless: client_capital_relevant?
-
+    source: main_home_value
 
 # Main home / outstanding mortgage
   - name: FillText60
     type: text
-    source: from_cfe_payload
-    cfe_payload_location: assessment.capital.capital_items.properties.main_home.outstanding_mortgage
-    skip_unless: client_capital_relevant?
+    source: main_home_outstanding_mortgage
 
 # Other property / current market value
   - name: FillText61
     type: text
-    source: from_attribute
-    attribute: additional_properties_value
-    skip_unless: client_capital_relevant?
+    source: additional_properties_value
 
 # Other property / outstanding mortgage
   - name: FillText65
     type: text
-    source: from_attribute
-    attribute: additional_properties_mortgage
-    skip_unless: client_capital_relevant?
+    source: additional_properties_mortgage
 
 # Main Home - Client's share of property for assessment?
   - name: FillText66
     type: text
-    source: from_attribute
-    attribute: main_home_percentage_owned
-    skip_unless: client_capital_relevant?
+    source: main_home_percentage_owned
 
 # Other Property - Client's share of property for assessment?
   - name: FillText62
     type: text
-    source: from_attribute
-    attribute: additional_properties_percentage_owned
-    skip_unless: client_capital_relevant?
+    source: additional_properties_percentage_owned
 
 # Main Home - Total Net Equity (i.e. current market value minus mortgage disregard)
   - name: FillText67
     type: text
-    source: from_cfe_payload
-    cfe_payload_location: assessment.capital.capital_items.properties.main_home.net_value
-    skip_unless: client_capital_relevant?
+    source: main_home_net_value
 
 # Other Property - Total Net Equity (i.e. current market value minus mortgage disregard)
   - name: FillText68
     type: text
-    source: from_attribute
-    attribute: additional_properties_net_value
-    skip_unless: client_capital_relevant?
+    source: additional_properties_net_value
 
 # Main Home - Client's share of Total Net Equity
   - name: FillText69
     type: text
-    source: from_cfe_payload
-    cfe_payload_location: assessment.capital.capital_items.properties.main_home.net_equity
-    skip_unless: client_capital_relevant?
+    source: main_home_net_equity
 
 # Other Property - Client's share of Total Net Equity
   - name: FillText70
     type: text
-    source: from_attribute
-    attribute: additional_properties_net_equity
-    skip_unless: client_capital_relevant?
+    source: additional_properties_net_equity
 
 # Main Home - Final assessed amount of Client's equity 
   - name: FillText71
     type: text
-    source: from_cfe_payload
-    cfe_payload_location: assessment.capital.capital_items.properties.main_home.assessed_equity
-    skip_unless: client_capital_relevant?
+    source: main_home_assessed_equity
 
 # Other Property - Final assessed amount of Client's equity
   - name: FillText72
     type: text
-    source: from_attribute
-    attribute: additional_properties_assessed_equity
-    skip_unless: client_capital_relevant?
+    source: additional_properties_assessed_equity
 
 # Client - Savings (bank, building society, etc)
   - name: FillText2
     type: text
-    source: from_attribute
-    attribute: savings
+    source: savings
 
 # Partner - Savings (bank, building society, etc)
   - name: FillText37
     type: text
-    source: from_attribute
-    attribute: partner_savings
+    source: partner_savings
 
 # Client - Investments (shares, insurance policies, etc)
   - name: FillText6
     type: text
-    source: from_attribute
-    attribute: investments
+    source: investments
 
 # Partner - Investments (shares, insurance policies, etc)
   - name: FillText38
     type: text
-    source: from_attribute
-    attribute: partner_investments
+    source: partner_investments
 
 # Client - Valuable items (boat, caravan, jewellery, etc)
   - name: FillText11
     type: text
-    source: from_attribute
-    attribute: valuables
+    source: valuables
 
 # Partner - Valuable items (boat, caravan, jewellery, etc)
   - name: FillText39
     type: text
-    source: from_attribute
-    attribute: partner_valuables
+    source: partner_valuables
 
 # Total Capital
   - name: FillText43
     type: text
-    source: from_cfe_payload
-    cfe_payload_location: result_summary.capital.combined_assessed_capital
-    skip_unless: client_capital_relevant?
+    source: combined_assessed_capital
 
 # The client is directly or indirectly in receipt of Income Support, Income-based Jobseeker's Allowance, 
 # Income-related Employment and Support Allowance, Guarantee Credit or Universal Credit - Yes option
   - name: CheckBox68
     type: checkbox
-    source: from_attribute
-    attribute: passporting
+    source: passporting
     checked_value: 1
 
 # The client is directly or indirectly in receipt of Income Support, Income-based Jobseeker's Allowance, 
 # Income-related Employment and Support Allowance, Guarantee Credit or Universal Credit - No option
   - name: CheckBox69
     type: checkbox
-    source: from_attribute
-    attribute: not_passporting
+    source: not_passporting?
     checked_value: 1
-    skip_if: asylum_support
     
 # Client - Gross monthly earnings
   - name: FillText82
     type: text
-    source: from_cfe_payload
-    cfe_payload_location: result_summary.disposable_income.employment_income.gross_income
-    skip_unless: client_income_relevant?
+    source: client_gross_income
 
 # Partner - Gross monthly earnings
   - name: FillText83
     type: text
-    source: from_cfe_payload
-    cfe_payload_location: result_summary.partner_disposable_income.employment_income.gross_income
-    skip_unless: partner_income_relevant?
+    source: partner_gross_income
 
 # Client - Other income (including child benefit, pensions, maintenance, dividends, tax credits, benefits in kind, etc)
   - name: FillText84
     type: text
-    source: from_attribute
-    attribute: client_non_employment_income
-    skip_unless: client_income_relevant?
+    source: client_non_employment_income
 
 # Partner - Other income (including child benefit, pensions, maintenance, dividends, tax credits, benefits in kind, etc)
   - name: FillText85
     type: text
-    source: from_attribute
-    attribute: partner_non_employment_income
-    skip_unless: partner_income_relevant?
+    source: partner_non_employment_income
 
 # Client - Total gross income
   - name: FillText86
     type: text
-    source: from_cfe_payload
-    cfe_payload_location: result_summary.gross_income.total_gross_income
-    skip_unless: client_income_relevant?
+    source: client_total_income
 
 # Partner - Total gross income
   - name: FillText90
     type: text
-    source: from_cfe_payload
-    cfe_payload_location: result_summary.partner_gross_income.total_gross_income
-    skip_unless: partner_income_relevant?
+    source: partner_total_income
 
 # Total gross income (Client and Partner)
   - name: FillText93
     type: text
-    source: from_cfe_payload
-    cfe_payload_location: result_summary.gross_income.combined_total_gross_income
-    skip_unless: client_income_relevant?
+    source: total_combined_income
 
 # Client - Housing Costs - Mortgage instalment
   - name: FillText120
     type: text
-    source: from_attribute
-    attribute: client_mortgage
-    skip_unless: client_income_relevant?
+    source: client_mortgage
 
 # Client - Housing Costs - Rent
   - name: FillText122
     type: text
-    source: from_attribute
-    attribute: client_rent
-    skip_unless: client_income_relevant?
+    source: client_rent
 
 # Dependent's allowances - Partner
   - name: FillText100
     type: text
-    source: from_cfe_payload
-    cfe_payload_location: result_summary.disposable_income.partner_allowance
-    skip_unless: client_income_relevant?
+    source: partner_allowance
 
 # Dependents Aged 15 and under
   - name: FillText48
     type: text
-    source: from_cfe_payload
-    cfe_payload_location: result_summary.disposable_income.dependant_allowance_under_16
-    skip_unless: client_income_relevant?
+    source: dependants_allowance_under_16
 
 # Dependents Aged 16 or over
   - name: FillText49
     type: text
-    source: from_cfe_payload
-    cfe_payload_location: result_summary.disposable_income.dependant_allowance_over_16
-    skip_unless: client_income_relevant?
+    source: dependants_allowance_over_16
 
 # Client - Tax and National Insurance
   - name: FillText63
     type: text
-    source: from_attribute
-    attribute: client_tax_and_national_insurance
-    skip_unless: client_income_relevant?
+    source: client_tax_and_national_insurance
 
 # Client - Standard allowance for employment expenses
   - name: FillText50
     type: text
-    source: from_attribute
-    attribute: client_employment_deduction
-    skip_unless: client_income_relevant?
+    source: client_employment_deduction
 
 # Client - Maintenance payments actually being made
   - name: FillText113
     type: text
-    source: from_cfe_payload
-    cfe_payload_location: result_summary.disposable_income.maintenance_allowance
-    skip_unless: client_income_relevant?
+    source: client_maintenance_allowance
 
 # Childcare costs because of work/self employment
   - name: FillText115
     type: text
-    source: from_attribute
-    attribute: combined_childcare_costs
-    skip_unless: client_income_relevant?
+    source: combined_childcare_costs
 
 # Client - Payment of income contribution order (criminal legal aid)
   - name: FillText124
     type: text
-    source: from_cfe_payload
-    cfe_payload_location: assessment.disposable_income.monthly_equivalents.all_sources.legal_aid
-    skip_unless: client_income_relevant?
+    source: client_legal_aid_contribution
 
 # Client - Total Allowances
   - name: FillText116
     type: text
-    source: from_cfe_payload
-    cfe_payload_location: result_summary.disposable_income.total_outgoings_and_allowances
-    skip_unless: client_income_relevant?
+    source: client_total_allowances
 
 # Client - Total monthly disposable income
   - name: FillText118
     type: text
-    source: from_cfe_payload
-    cfe_payload_location: result_summary.disposable_income.total_disposable_income
-    skip_unless: client_income_relevant?
+    source: client_disposable_income
 
 # Partner - Housing Costs - Mortgage instalment
   - name: FillText121
     type: text
-    source: from_attribute
-    attribute: partner_mortgage
-    skip_unless: partner_income_relevant?
+    source: partner_mortgage
 
 # Partner - Housing Costs - Rent
   - name: FillText123
     type: text
-    source: from_attribute
-    attribute: partner_rent
-    skip_unless: partner_income_relevant?
+    source: partner_rent
 
 # Partner - Tax and National Insurance
   - name: FillText64
     type: text
-    source: from_attribute
-    attribute: partner_tax_and_national_insurance
-    skip_unless: partner_income_relevant?
+    source: partner_tax_and_national_insurance
 
 # Partner - Standard allowance for employment expenses
   - name: FillText112
     type: text
-    source: from_attribute
-    attribute: partner_employment_deduction
-    skip_unless: partner_income_relevant?
+    source: partner_employment_deduction
 
 # Partner - Maintenance payments actually being made
   - name: FillText114
     type: text
-    source: from_cfe_payload
-    cfe_payload_location: result_summary.partner_disposable_income.maintenance_allowance
-    skip_unless: partner_income_relevant?
+    source: partner_maintenance_allowance
 
 # Partner - Payment of income contribution order (criminal legal aid)
   - name: FillText125
     type: text
-    source: from_cfe_payload
-    cfe_payload_location: assessment.partner_disposable_income.monthly_equivalents.all_sources.legal_aid
-    skip_unless: partner_income_relevant?
+    source: partner_legal_aid_contribution
 
 # Partner - Total Allowances
   - name: FillText117
     type: text
-    source: from_cfe_payload
-    cfe_payload_location: result_summary.partner_disposable_income.total_outgoings_and_allowances
-    skip_unless: partner_income_relevant?
+    source: partner_total_allowances
 
 # Partner - Total monthly disposable income
   - name: FillText51
     type: text
-    source: from_cfe_payload
-    cfe_payload_location: result_summary.partner_disposable_income.total_disposable_income
-    skip_unless: partner_income_relevant?
+    source: partner_disposable_income
 
 # Total monthly disposable income (Client and Partner)
   - name: FillText119
     type: text
-    source: from_cfe_payload
-    cfe_payload_location: result_summary.disposable_income.combined_total_disposable_income
-    skip_unless: client_income_relevant?
+    source: combined_disposable_income
     

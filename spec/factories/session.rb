@@ -41,6 +41,30 @@ FactoryBot.define do
     valuables { 0 }
     in_dispute { [] }
 
+    trait :with_asylum_support do
+      proceeding_type { "IM030" }
+      asylum_support { true }
+    end
+
+    trait :with_main_home_in_dispute do
+      property_owned { "outright" }
+      house_value { 213_213 }
+      mortgage { 111_222 }
+      percentage_owned { 100 }
+      house_in_dispute { true }
+      joint_ownership { false }
+    end
+
+    trait :with_joint_owned_main_home_in_dispute do
+      property_owned { "outright" }
+      house_value { 213_213 }
+      mortgage { 111_222 }
+      percentage_owned { 100 }
+      house_in_dispute { true }
+      joint_ownership { true }
+      joint_percentage_owned { 50 }
+    end
+
     trait :with_main_home do
       property_owned { "outright" }
       house_value { 234_234 }
