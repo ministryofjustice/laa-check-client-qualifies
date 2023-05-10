@@ -22,6 +22,7 @@ class ControlledWorkDocumentPopulationService
       "cw2" => "lib/cw2imm-form.pdf",
       "cw5" => "lib/cw5-form.pdf",
       "cw1_and_2" => "lib/cw1-and-2-form.pdf",
+      "civ_means_7" => "lib/civ-means-7-form.pdf",
     }.freeze
 
     def template_path(form_type)
