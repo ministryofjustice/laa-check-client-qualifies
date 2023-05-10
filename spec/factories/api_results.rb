@@ -55,6 +55,7 @@ FactoryBot.define do
     smod_allowance { 0 }
     main_home_equity_disregard { 0 }
     percentage_owned { 100.0 }
+    net_value { 110_000 }
   end
 
   factory :proceeding_type, class: Hash do
