@@ -19,12 +19,13 @@
              label_text: t("estimate_flow.#{i18n_key}.mortgage.input"),
              hint_text: t("estimate_flow.#{i18n_key}.mortgage.input_hint")
 
-  = form.govuk_text_field :percentage_owned,
-                            width: 3,
-                            suffix_text: "%",
-                            value: integer_field_value(form, :percentage_owned),
-                            label: { text: t("estimate_flow.#{i18n_key}.percentage_owned.input"), size: "m" },
-                            hint: { text: t("estimate_flow.#{i18n_key}.percentage_owned.input_hint") }
+  = render "shared/percentage_input",
+           form:,
+           field: :percentage_owned,
+           width: 3,
+           label_text: t("estimate_flow.#{i18n_key}.percentage_owned.input"),
+           size: "m",
+           hint_text: t("estimate_flow.#{i18n_key}.percentage_owned.input_hint")
 
   - if show_joint_ownership
     = form.govuk_radio_buttons_fieldset :joint_ownership,
@@ -32,11 +33,12 @@
             legend: { text: t("estimate_flow.#{i18n_key}.joint_ownership.legend") } do
       = form.govuk_radio_button :joint_ownership, true,
               label: { text: t("generic.yes_choice") } do
-        = form.govuk_text_field :joint_percentage_owned,
+        = render "shared/percentage_input",
+                form:,
+                field: :joint_percentage_owned,
                 width: 3,
-                suffix_text: "%",
-                value: integer_field_value(form, :joint_percentage_owned),
-                label: { text: t("estimate_flow.#{i18n_key}.joint_percentage_owned.input"), size: "m" }
+                label_text: t("estimate_flow.#{i18n_key}.joint_percentage_owned.input"),
+                size: "m"
 
       = form.govuk_radio_button :joint_ownership, false,
               label: { text: t("generic.no_choice") }
