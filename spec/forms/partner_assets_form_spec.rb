@@ -12,10 +12,10 @@ RSpec.describe "partner_assets", type: :feature do
     click_on "Save and continue"
     within ".govuk-error-summary__list" do
       expect(page.text).to eq [
-        "Enter the estimated value of the additional property, holiday home, or land, if this does not apply enter 0",
-        "Enter the total amount of savings, if this does not apply enter 0",
-        "Enter the total value of investments, if this does not apply enter 0",
-        "Enter the value of items worth £500 or more, or if this does not apply enter 0",
+        "Enter the estimated value of the additional property, holiday home, or land. Enter 0 if this does not apply.",
+        "Enter total of all money in bank accounts. Enter 0 if this does not apply.",
+        "Enter the total value of investments. Enter 0 if this does not apply.",
+        "Enter the value of items worth £500 or more. Enter 0 if this does not apply.",
       ].join
     end
   end
@@ -24,7 +24,7 @@ RSpec.describe "partner_assets", type: :feature do
     fill_in "partner_assets_form[valuables]", with: "456"
     click_on "Save and continue"
     within ".govuk-error-summary__list" do
-      expect(page.text).to include("Valuable items must be £500 or more, if this does not apply enter 0")
+      expect(page.text).to include("Valuable items must be £500 or more. Enter 0 if this does not apply")
     end
   end
 
@@ -43,5 +43,29 @@ RSpec.describe "partner_assets", type: :feature do
     expect(session_contents["partner_valuables"]).to eq 4560
     expect(session_contents["partner_property_mortgage"]).to eq 567
     expect(session_contents["partner_property_percentage_owned"]).to eq 50
+  end
+
+  context "when the household flow is enabled", :household_section_flag do
+    it "shows appropriate error messages if form left blank" do
+      click_on "Save and continue"
+      within ".govuk-error-summary__list" do
+        expect(page.text).to eq [
+          "Enter total of all money in bank accounts. Enter 0 if this does not apply.",
+          "Enter the total value of investments. Enter 0 if this does not apply.",
+          "Enter the value of items worth £500 or more. Enter 0 if this does not apply.",
+        ].join
+      end
+    end
+
+    it "stores the chosen values in the session" do
+      fill_in "partner_assets_form[savings]", with: "234"
+      fill_in "partner_assets_form[investments]", with: "345"
+      fill_in "partner_assets_form[valuables]", with: "4560"
+      click_on "Save and continue"
+
+      expect(session_contents["partner_savings"]).to eq 234
+      expect(session_contents["partner_investments"]).to eq 345
+      expect(session_contents["partner_valuables"]).to eq 4560
+    end
   end
 end

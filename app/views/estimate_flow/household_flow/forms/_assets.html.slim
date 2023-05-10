@@ -1,0 +1,61 @@
+= form_for(@form, url: wizard_path, method: :put) do |form|
+
+  = form.govuk_error_summary t("generic.error_summary_title")
+  = render "shared/heading",
+             pre_header_text: t("estimate_flow.#{i18n_key}.caption"),
+             header_text: t("estimate_flow.#{i18n_key}.legend"),
+             post_header_texts: hints
+  = form.govuk_fieldset legend: { text: t("estimate_flow.#{i18n_key}.savings.label") } do
+
+    - t("estimate_flow.#{i18n_key}.savings.hints").each
+      .govuk-hint = _1
+
+    = render "shared/cost_of_living"
+
+    = render "shared/money_input",
+          form:,
+          field: :savings,
+          width: 5,
+          label_text: t("estimate_flow.#{i18n_key}.savings.input")
+
+    - if show_smod_content
+      .govuk-form-group
+        = form.govuk_check_box :in_dispute, "savings",
+          label: { text: t("generic.dispute") }
+
+  = form.govuk_fieldset legend: { text: t("estimate_flow.#{i18n_key}.investments.label") } do
+
+    - t("estimate_flow.#{i18n_key}.investments.hints").each
+      .govuk-hint = _1
+
+    = render "shared/money_input",
+            form:,
+            field: :investments,
+            width: 5,
+            label_text: t("estimate_flow.#{i18n_key}.investments.input")
+
+    - if show_smod_content
+      .govuk-form-group
+        = form.govuk_check_box :in_dispute, "investments",
+          label: { text: t("generic.dispute") }
+
+  = form.govuk_fieldset legend: { text: t("estimate_flow.#{i18n_key}.valuables.label") } do
+
+    - t("estimate_flow.#{i18n_key}.valuables.#{@check.level_of_help}_hints").each
+      .govuk-hint = _1
+
+    = render "shared/money_input",
+              form:,
+              field: :valuables,
+              width: 5,
+              label_text: t("estimate_flow.#{i18n_key}.valuables.input")
+
+    - if show_smod_content
+      .govuk-form-group
+        = form.govuk_check_box :in_dispute, "valuables",
+          label: { text: t("generic.dispute") }
+
+  - if show_smod_content
+    = render "smod_help"
+
+  = form.govuk_submit t("generic.save_and_continue")

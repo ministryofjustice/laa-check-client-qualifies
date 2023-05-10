@@ -9,7 +9,9 @@ class BaseAssetsForm
   BASE_ATTRIBUTES = (ASSETS_DECIMAL_ATTRIBUTES + ASSETS_PROPERTY_ATTRIBUTES + [:property_percentage_owned]).freeze
 
   attribute :property_value, :gbp
-  validates :property_value, numericality: { greater_than_or_equal_to: 0, allow_nil: true }, presence: true
+  validates :property_value, numericality: { greater_than_or_equal_to: 0, allow_nil: true },
+                             presence: true,
+                             if: -> { !FeatureFlags.enabled?(:household_section) }
 
   attribute :property_mortgage, :gbp
   validates :property_mortgage, numericality: { greater_than_or_equal_to: 0, allow_nil: true }, presence: true,
