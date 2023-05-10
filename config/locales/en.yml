@@ -1403,6 +1403,7 @@ en:
         - Asylum Support reference number
         - type of Asylum Support
         - date payment of current Asylum Support started
+      legislation_header: Relevant legislation and guidance
       upper_and_lower_limits_calculation_header: Upper limits, lower limits and exemptions
       upper_limits_calculation_header: Upper limits
       income_calculation: Income calculation
@@ -1599,14 +1600,16 @@ en:
         outcome_with_partner: your client does
         disposable_income: disposable monthly income
         capital: disposable capital
+    legislation_table:
+      paragraph_1_html: This calculation was made using the rules for controlled work in <a href="https://www.legislation.gov.uk/uksi/2013/480/contents" target='_blank' rel='noreferrer noopener'>The Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 (opens in new tab)</a> and the <a href="https://www.legislation.gov.uk/all?title=Civil%20Legal%20Aid%20%28Financial%20Resources%20" target='_blank' rel='noreferrer noopener' aria-label="Link opens a search page which includes a list of amendments to The Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 (opens in new tab)">amendments to these Regulations (opens in new tab)</a>.
+      paragraph_2_html: Guidance on determining financial eligibility for controlled work and family mediation can be found in the <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf" target='_blank' rel='noreferrer noopener'>guide to determining controlled work (opens in new tab)</a>.
     limits_table:
       calculation_information: We’ve used the information you provided to compare your client’s income and outgoings. This allows us to calculate their monthly disposable income.
-      regulations_html: "All the regulations referred to on this page can be found in the <a href='http://www.legislation.gov.uk/all?title=Civil%20Legal%20Aid%20%28Financial%20Resources%20'>Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 and subsequent amendments</a>."
       limits_heading: Limits
       outgoings_explanation: "For some outgoings, you may see figures that differ from what you entered. This is because some outgoing amounts are capped or disregarded in certain situations. For example:"
       list:
-        - Childcare costs will display as £0 if your client is not employed or a student (Regulation 27 of the Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013).
-        - Housing costs are capped at £545 per month if your client is single and does not have any dependants (Regulation 28(7)).
+        - Childcare costs will display as £0 if your client is not employed or a student (<a href="https://www.legislation.gov.uk/uksi/2013/480/regulation/27" target='_blank' rel='noreferrer noopener'>Regulation 27 of the Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 (opens in new tab)</a>).
+        - Housing costs are capped at £545 per month if your client is single and does not have any dependants (<a href="https://www.legislation.gov.uk/uksi/2013/480/regulation/28" target='_blank' rel='noreferrer noopener'>Regulation 28(7) of the Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 (opens in new tab)</a>).
         - If your client’s gross income is above the applicable upper gross income limit, they will not qualify for legal aid. If this occurs, our service will not perform disposable income or disposable capital calculations. Any figures you entered in the outgoings or capital sections may either display as £0, or not at all.
       certificated_last_item: If your client’s income or capital is between the applicable upper and lower income limits, they may qualify for legal aid but may have to make a monthly or lump sum contribution towards the cost of their case.
       upper_and_lower_monetary_limits: "These limits are:"
