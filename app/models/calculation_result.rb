@@ -116,6 +116,13 @@ class CalculationResult
     outgoing_rows(prefix: "partner_")
   end
 
+  def household_outgoing_rows
+    data = { housing_costs: api_response.dig(:result_summary, :disposable_income, :net_housing_costs) }
+    dependants_allowance = api_response.dig(:result_summary, :disposable_income, :dependant_allowance)
+    data[:dependants_allowance] = dependants_allowance if dependants_allowance&.positive?
+    data.transform_values { |v| monetise(v) }
+  end
+
   def client_owns_main_home?
     capital_items(:properties).dig(:main_home, :value)&.positive?
   end
@@ -151,6 +158,17 @@ class CalculationResult
 
   def client_vehicle_rows
     vehicle_rows(prefix: "")
+  end
+
+  def display_household_vehicles
+    capital_items(:vehicles, "").map do |vehicle|
+      if vehicle[:in_regular_use]
+        vehicle.reject { |key| %i[included_in_assessment date_of_purchase].include?(key) }
+            .transform_values { |value| value.is_a?(Numeric) ? monetise(value) : value }
+      else
+        { value: monetise(vehicle[:value]) }
+      end
+    end
   end
 
   def partner_vehicle_rows
@@ -203,6 +221,10 @@ class CalculationResult
   end
 
   def client_vehicle_assessed_value
+    monetise(capital_items(:vehicles).sum(0) { _1.fetch(:assessed_value) })
+  end
+
+  def household_vehicle_assessed_value
     monetise(capital_items(:vehicles).sum(0) { _1.fetch(:assessed_value) })
   end
 
@@ -269,8 +291,12 @@ private
     dependants_allowance = api_response.dig(:result_summary, :"#{prefix}disposable_income", :dependant_allowance)
     partner_allowance = api_response.dig(:result_summary, :"#{prefix}disposable_income", :partner_allowance)
 
-    data[:dependants_allowance] = dependants_allowance if dependants_allowance&.positive?
+    data[:dependants_allowance] = dependants_allowance if dependants_allowance&.positive? && !FeatureFlags.enabled?(:household_section)
     data[:partner_allowance] = partner_allowance if partner_allowance&.positive?
+
+    if FeatureFlags.enabled?(:household_section)
+      data.except!(:housing_costs)
+    end
     data.transform_values { |v| monetise(v) }
   end
 
