@@ -23,7 +23,7 @@ en:
             employment_status:
               inclusion: Select if the partner is currently employed
             over_60:
-              inclusion: Select yes if the partner is over 60 years old
+              inclusion: Select yes if the partner is aged 60 or over
         applicant_form:
           attributes:
             employment_status:
@@ -635,25 +635,27 @@ en:
         income_tax: Income tax
         national_insurance: National Insurance
     partner_details:
-      partner_heading: You've completed the client section
-      client_partner: You told us your client has a partner
-      ask_details: We will now ask for some details about your client's partner to help us get an accurate financial picture of them.
-      list_title: "You will need information from the partner about any:"
-      non_passported_types_of_information:
-        - dependants
-        - employment
-        - benefits
-        - other income
-        - outgoings, like housing costs, maintenance payments and childcare costs
-      passported_types_of_information:
-        - savings and investments
-        - other assets including property and vehicles
-      controlled_passported_types_of_information:
-        - savings and investments
-        - other assets, including property
+      non_household_flow:
+        partner_heading: You've completed the client section
+        client_partner: You told us your client has a partner
+        ask_details: We will now ask for some details about your client's partner to help us get an accurate financial picture of them.
+        list_title: "You will need information from the partner about any:"
+        non_passported_types_of_information:
+          - dependants
+          - employment
+          - benefits
+          - other income
+          - outgoings, like housing costs, maintenance payments and childcare costs
+        passported_types_of_information:
+          - savings and investments
+          - other assets including property and vehicles
+        controlled_passported_types_of_information:
+          - savings and investments
+          - other assets, including property
+      partner_heading: Tell us about the partner
       partner_over_60:
-        legend: Is the partner over 60 years old?
-        hint: Clients with partners over 60 may have some of their capital excluded from a financial eligibility assessment.
+        legend: Is the partner aged 60 or over?
+        hint: Clients with partners aged 60 or over may have some of their capital excluded from a financial eligibility assessment.
       partner_employed:
         legend: What is the partner's employment status?
         hint: "You cannot use this service if your client or their partner is self-employed or in the armed forces."
@@ -1222,7 +1224,7 @@ en:
         joint_percentage_owned: Percentage share owned by partner
       partner_details: Partner's details
       partner_details_fields:
-        partner_over_60: Partner is over 60 years old
+        partner_over_60: Partner is aged 60 or over
         partner_employment_status: Partner employment status
         partner_employment_status_options:
           in_work: Employed and in work
