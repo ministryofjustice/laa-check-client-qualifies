@@ -1,0 +1,327 @@
+# This file defines the fields to show on the 'check answers' page,
+# since that page mostly comprises a bunch of very repetitive
+# line items that only vary in terms of what particular attribute is being summarised.
+
+# This file also contains some very simple rules around when _not_ to show a particular field.
+# Note that it doesn't comment on rules around which sections and subsections to skip, as
+# that is determined by the Steps::Helper logic.
+
+# DATA TYPES:
+# ==========
+
+# SECTIONS
+# A section always has a label, which is used to construct the I18n key for its title.
+# It has a screen IF the section header should have a 'change' link to that screen next to it.
+# It also has zero or more subsections
+
+# SUBSECTIONS
+# A subsection has a label IF it has a visible title
+# It has a screen if this differs from the parent section screen
+# It also has zero or more fields
+
+# FIELDS
+# A field has a type, which is one of boolean, money, select, number or money_with_frequency.
+# This determines which partial is rendered
+# It has an attribute, which determines the key used to store the relevant value in the session
+# The attribute is also used to construct the I18n key
+# It has a screen if the relevant screen differs from the parent subsection screen
+# It may have a `change_link` attribute if this should display a "change" link to its screen
+# 'money_with_frequency' fields also have an 'alt_attribute' which describes which number to display.
+sections:
+  - label: level_of_help
+    screen: level_of_help
+    subsections:
+      - fields:
+        - attribute: level_of_help
+          type: select
+  - label: about_the_case
+    screen: matter_type
+    subsections:
+      - fields:
+          - attribute: proceeding_type
+            type: select
+            alt_attribute: level_of_help
+      - label: asylum_support
+        fields:
+          - attribute: asylum_support
+            screen: asylum_support
+            type: boolean
+  - label: about_your_client
+    subsections:
+      - label: client_details
+        screen: applicant
+        fields:
+        - attribute: over_60
+          type: boolean
+        - attribute: partner
+          type: boolean
+        - attribute: employment_status
+          type: select
+        - attribute: passporting
+          type: boolean
+      - label: client_dependant_details
+        screen: dependant_details
+        fields:
+        - attribute: child_dependants
+          type: boolean
+        - attribute: child_dependants_count
+          type: number
+          skip_unless: child_dependants
+        - attribute: adult_dependants
+          type: boolean
+        - attribute: adult_dependants_count
+          type: number
+          skip_unless: adult_dependants
+  - label: employment
+    screen: employment
+    subsections:
+      - fields:
+        - attribute: frequency
+          type: select
+        - attribute: gross_income
+          type: money
+        - attribute: income_tax
+          type: money
+        - attribute: national_insurance
+          type: money
+  - label: other_income
+    subsections:
+      - label: housing_benefit
+        screen: housing_benefit
+        fields:
+          - attribute: housing_benefit
+            type: boolean
+          - attribute: housing_benefit_value
+            type: money_with_frequency
+            alt_attribute: housing_benefit_frequency
+            skip_unless: housing_benefit
+      - label: benefits
+        screen: benefits
+      - label: other_income
+        screen: other_income
+        fields:
+          - attribute: friends_or_family_value
+            type: money_with_frequency
+            alt_attribute: friends_or_family_frequency
+          - attribute: maintenance_value
+            type: money_with_frequency
+            alt_attribute: maintenance_frequency
+          - attribute: property_or_lodger_value
+            type: money_with_frequency
+            alt_attribute: property_or_lodger_frequency
+          - attribute: pension_value
+            type: money_with_frequency
+            alt_attribute: pension_frequency
+          - attribute: student_finance_value
+            type: money
+          - attribute: other_value
+            type: money
+  - label: outgoings
+    screen: outgoings
+    subsections:
+      - fields:
+          - attribute: housing_payments_value
+            type: money_with_frequency
+            alt_attribute: housing_payments_frequency
+          - attribute: childcare_payments_value
+            type: money_with_frequency
+            alt_attribute: childcare_payments_frequency
+          - attribute: maintenance_payments_value
+            type: money_with_frequency
+            alt_attribute: maintenance_payments_frequency
+          - attribute: legal_aid_payments_value
+            type: money_with_frequency
+            alt_attribute: legal_aid_payments_frequency
+  - label: assets
+    subsections:
+      - label: property
+        screen: property
+        fields:
+          - type: select
+            attribute: property_owned
+          - type: money
+            attribute: house_value
+            screen: property_entry
+          - type: money
+            attribute: mortgage
+            screen: property_entry
+          - type: number
+            attribute: percentage_owned
+            screen: property_entry
+          - type: boolean
+            attribute: joint_ownership
+            screen: property_entry
+            skip_unless: partner
+          - type: number
+            attribute: joint_percentage_owned
+            screen: property_entry
+            skip_unless: joint_ownership
+      - label: vehicles
+        screen: vehicle
+        fields:
+          - type: boolean
+            attribute: vehicle_owned
+          - type: money
+            attribute: vehicle_value
+            screen: vehicle_details
+          - type: boolean
+            attribute: vehicle_pcp
+            screen: vehicle_details
+          - type: money
+            attribute: vehicle_finance
+            skip_unless: vehicle_pcp
+            screen: vehicle_details
+          - type: boolean
+            attribute: vehicle_over_3_years_ago
+            screen: vehicle_details
+          - type: boolean
+            attribute: vehicle_in_regular_use
+            screen: vehicle_details
+      - label: other
+        screen: assets
+        fields:
+          - attribute: property_value
+            type: money
+          - attribute: property_mortgage
+            type: money
+          - attribute: property_percentage_owned
+            label: property_percentage_owned_html
+            type: number
+          - attribute: savings
+            type: money
+          - attribute: investments
+            type: money
+          - attribute: valuables
+            type: money
+  - label: about_partner
+    subsections:
+      - label: partner_details
+        screen: partner_details
+        fields:
+        - attribute: partner_over_60
+          type: boolean
+        - attribute: partner_employment_status
+          type: select
+      - label: partner_dependant_details
+        screen: partner_dependant_details
+        fields:
+        - attribute: partner_child_dependants
+          type: boolean
+        - attribute: partner_child_dependants_count
+          type: number
+          skip_unless: partner_child_dependants
+        - attribute: partner_adult_dependants
+          type: boolean
+        - attribute: partner_adult_dependants_count
+          type: number
+          skip_unless: partner_adult_dependants
+  - label: partner_employment
+    screen: partner_employment
+    subsections:
+      - fields:
+        - attribute: partner_frequency
+          type: select
+        - attribute: partner_gross_income
+          type: money
+        - attribute: partner_income_tax
+          type: money
+        - attribute: partner_national_insurance
+          type: money
+  - label: partner_other_income
+    subsections:
+      - label: partner_housing_benefit
+        screen: partner_housing_benefit
+        fields:
+          - attribute: partner_housing_benefit
+            type: boolean
+          - attribute: partner_housing_benefit_value
+            type: money_with_frequency
+            alt_attribute: partner_housing_benefit_frequency
+            skip_unless: partner_housing_benefit
+      - label: partner_benefits
+        screen: partner_benefits
+      - label: partner_other_income
+        screen: partner_other_income
+        fields:
+          - attribute: partner_friends_or_family_value
+            type: money_with_frequency
+            alt_attribute: partner_friends_or_family_frequency
+          - attribute: partner_maintenance_value
+            type: money_with_frequency
+            alt_attribute: partner_maintenance_frequency
+          - attribute: partner_property_or_lodger_value
+            type: money_with_frequency
+            alt_attribute: partner_property_or_lodger_frequency
+          - attribute: partner_pension_value
+            type: money_with_frequency
+            alt_attribute: partner_pension_frequency
+          - attribute: partner_student_finance_value
+            type: money
+          - attribute: partner_other_value
+            type: money
+  - label: partner_outgoings
+    screen: partner_outgoings
+    subsections:
+      - fields:
+          - attribute: partner_housing_payments_value
+            type: money_with_frequency
+            alt_attribute: partner_housing_payments_frequency
+          - attribute: partner_childcare_payments_value
+            type: money_with_frequency
+            alt_attribute: partner_childcare_payments_frequency
+          - attribute: partner_maintenance_payments_value
+            type: money_with_frequency
+            alt_attribute: partner_maintenance_payments_frequency
+          - attribute: partner_legal_aid_payments_value
+            type: money_with_frequency
+            alt_attribute: partner_legal_aid_payments_frequency
+  - label: partner_assets
+    subsections:
+      - label: partner_property
+        screen: partner_property
+        fields:
+          - type: select
+            attribute: partner_property_owned
+          - type: money
+            attribute: partner_house_value
+          - type: money
+            attribute: partner_mortgage
+          - type: number
+            attribute: partner_percentage_owned
+      - label: partner_vehicles
+        screen: partner_vehicle
+        fields:
+          - type: boolean
+            attribute: partner_vehicle_owned
+          - type: money
+            attribute: partner_vehicle_value
+            screen: partner_vehicle_details
+          - type: boolean
+            attribute: partner_vehicle_pcp
+            screen: partner_vehicle_details
+          - type: money
+            attribute: partner_vehicle_finance
+            screen: partner_vehicle_details
+            skip_unless: partner_vehicle_pcp
+          - type: boolean
+            attribute: partner_vehicle_over_3_years_ago
+            screen: partner_vehicle_details
+          - type: boolean
+            attribute: partner_vehicle_in_regular_use
+            screen: partner_vehicle_details
+      - label: partner_other
+        screen: partner_assets
+        fields:
+          - attribute: partner_property_value
+            type: money
+          - attribute: partner_property_mortgage
+            type: money
+          - attribute: partner_property_percentage_owned
+            label: partner_property_percentage_owned_html
+            type: number
+          - attribute: partner_savings
+            type: money
+          - attribute: partner_investments
+            type: money
+          - attribute: partner_valuables
+            type: money
