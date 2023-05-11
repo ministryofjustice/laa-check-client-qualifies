@@ -13,7 +13,7 @@ module Cfe
         payload[:capitals] = capitals
       end
 
-      if asset_form.property_value.positive?
+      if asset_form.property_value&.positive?
         second_property = {
           value: asset_form.property_value,
           outstanding_mortgage: asset_form.property_mortgage,

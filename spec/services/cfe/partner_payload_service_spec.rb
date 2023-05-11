@@ -81,7 +81,6 @@ RSpec.describe Cfe::PartnerPayloadService, :partner_flag do
           "partner_friends_or_family_value" => 0,
           "partner_benefits" => [],
           "partner_housing_benefit" => false,
-          "partner_property_value" => 0,
           "partner_savings" => 0,
           "partner_investments" => 0,
           "partner_vehicle_owned" => false,

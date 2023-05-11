@@ -57,7 +57,7 @@ module Cfe
 
     def additional_properties
       form = PartnerAssetsForm.from_session(@session_data)
-      return [] unless form.property_value.positive?
+      return [] unless form.property_value&.positive?
 
       [{
         value: form.property_value,

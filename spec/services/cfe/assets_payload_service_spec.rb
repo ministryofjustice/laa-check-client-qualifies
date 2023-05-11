@@ -292,5 +292,20 @@ RSpec.describe Cfe::AssetsPayloadService do
         expect(payload.dig(:capitals, :bank_accounts, 0, :subject_matter_of_dispute)).to eq false
       end
     end
+
+    context "when there is no additional property data" do
+      let(:session_data) do
+        {
+          "savings" => 553,
+          "investments" => 345,
+          "valuables" => 665,
+          "in_dispute" => %w[savings investments valuables],
+        }
+      end
+
+      it "does not additional property data" do
+        expect(payload[:properties]).to eq(nil)
+      end
+    end
   end
 end
