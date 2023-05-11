@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "estimates/check_answers.html.slim", :household_section_flag do
+RSpec.describe "estimates/check_answers.html.slim" do
   let(:answers) { CheckAnswersPresenter.new(session_data) }
 
   before do
@@ -10,23 +10,21 @@ RSpec.describe "estimates/check_answers.html.slim", :household_section_flag do
     render template: "estimates/check_answers"
   end
 
-  describe "partner sections" do
+  describe "client sections" do
     let(:text) { page_text }
 
-    context "when there is partner employment information" do
+    context "when employment" do
       let(:session_data) do
         build(:minimal_complete_session,
-              :with_partner,
-              employment_status: "unemployed",
-              partner_employment_status:,
-              partner_frequency: "monthly",
-              partner_gross_income: 1_500,
-              partner_income_tax: 200,
-              partner_national_insurance: 100)
+              employment_status:,
+              frequency: "monthly",
+              gross_income: 1_500,
+              income_tax: 200,
+              national_insurance: 100)
       end
 
-      context "when the partner is employed and in work" do
-        let(:partner_employment_status) { "in_work" }
+      context "when the client is employed and in work" do
+        let(:employment_status) { "in_work" }
 
         it "renders content" do
           expect(text).to include("Employment statusEmployed and in work")
@@ -37,21 +35,16 @@ RSpec.describe "estimates/check_answers.html.slim", :household_section_flag do
         end
       end
 
-      context "when the partner is employed but on statuatory sick/maternity pay" do
-        let(:partner_employment_status) { "receiving_statutory_pay" }
+      context "when the client is employed but on statuatory sick/maternity pay" do
+        let(:employment_status) { "receiving_statutory_pay" }
 
         it "renders content" do
           expect(text).to include("Employment statusEmployed and on Statutory Sick Pay or Statutory Maternity Pay")
         end
       end
 
-      context "when the partner is unemployed" do
-        let(:session_data) do
-          build(:minimal_complete_session,
-                :with_partner,
-                :with_employment,
-                partner_employment_status: "unemployed")
-        end
+      context "when the client is unemployed" do
+        let(:session_data) { build(:minimal_complete_session) }
 
         it "renders content" do
           expect(text).to include("Employment statusUnemployed")

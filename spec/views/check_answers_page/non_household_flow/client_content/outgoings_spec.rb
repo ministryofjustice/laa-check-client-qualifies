@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "estimates/check_answers.html.slim", :household_section_flag do
+RSpec.describe "estimates/check_answers.html.slim" do
   let(:answers) { CheckAnswersPresenter.new(session_data) }
 
   before do

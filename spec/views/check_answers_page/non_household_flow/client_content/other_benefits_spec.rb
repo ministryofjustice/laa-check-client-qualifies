@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "estimates/check_answers.html.slim", :household_section_flag do
+RSpec.describe "estimates/check_answers.html.slim" do
   let(:answers) { CheckAnswersPresenter.new(session_data) }
 
   before do
@@ -10,16 +10,14 @@ RSpec.describe "estimates/check_answers.html.slim", :household_section_flag do
     render template: "estimates/check_answers"
   end
 
-  describe "partner sections" do
+  describe "client sections" do
     let(:text) { page_text }
 
-    context "when there are other partner benefits" do
+    context "when other benefits" do
       context "when there are multiple other benefits" do
         let(:session_data) do
           build(:minimal_complete_session,
-                :with_partner,
-                benefits: [],
-                partner_benefits: [
+                benefits: [
                   { "id" => "cd858b1f-d90a-4d7e-a1e9-5215f2a15c57",
                     "benefit_type" => "Child Benefit",
                     "benefit_amount" => 100,
@@ -39,8 +37,8 @@ RSpec.describe "estimates/check_answers.html.slim", :household_section_flag do
                 ])
         end
 
-        it "renders content" do
-          expect(text).to include("Gets benefitsYes")
+        it "renders the correct benefits content" do
+          expect(text).to include("Gets other benefitsYes")
           expect(text).to include("Child Benefit£100.00Every 2 weeks")
           expect(text).to include("Tax Credit£50.00Every week")
           expect(text).to include("State Pension Credit£40.00Every 4 weeks")
@@ -48,11 +46,11 @@ RSpec.describe "estimates/check_answers.html.slim", :household_section_flag do
         end
       end
 
-      context "when there are no other partner benefits" do
-        let(:session_data) { build(:minimal_complete_session, :with_partner, benefits: [], partner_benefits: []) }
+      context "when there are no other benefits" do
+        let(:session_data) { build(:minimal_complete_session, benefits: []) }
 
         it "renders content" do
-          expect(text).to include("Gets benefitsNo")
+          expect(text).to include("Gets other benefitsNo")
         end
       end
     end

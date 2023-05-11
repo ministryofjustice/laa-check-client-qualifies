@@ -41,6 +41,7 @@ module CheckAnswers
     }.freeze
 
     def self.call(step)
+      # TODO: Modify for household flow
       IDS.fetch(step)
     end
   end

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "estimates/check_answers.html.slim", :household_section_flag do
+RSpec.describe "estimates/check_answers.html.slim" do
   let(:answers) { CheckAnswersPresenter.new(session_data) }
 
   before do
@@ -10,23 +10,24 @@ RSpec.describe "estimates/check_answers.html.slim", :household_section_flag do
     render template: "estimates/check_answers"
   end
 
-  describe "client sections" do
+  describe "partner sections" do
     let(:text) { page_text }
 
-    context "when other income" do
-      context "when multiple other incomes" do
+    context "when there is partner other income" do
+      context "when there are multiple other incomes" do
         let(:session_data) do
           build(:minimal_complete_session,
-                friends_or_family_value: 50,
-                friends_or_family_frequency: "every_week",
-                maintenance_value: 100,
-                maintenance_frequency: "every_two_weeks",
-                property_or_lodger_value: 150,
-                property_or_lodger_frequency: "every_four_weeks",
-                pension_value: 1_000,
-                pension_frequency: "monthly",
-                student_finance_value: 350,
-                other_value: 200)
+                :with_partner,
+                partner_friends_or_family_value: 50,
+                partner_friends_or_family_frequency: "every_week",
+                partner_maintenance_value: 100,
+                partner_maintenance_frequency: "every_two_weeks",
+                partner_property_or_lodger_value: 150,
+                partner_property_or_lodger_frequency: "every_four_weeks",
+                partner_pension_value: 1_000,
+                partner_pension_frequency: "monthly",
+                partner_student_finance_value: 350,
+                partner_other_value: 200)
         end
 
         it "renders content" do
@@ -39,19 +40,21 @@ RSpec.describe "estimates/check_answers.html.slim", :household_section_flag do
         end
       end
 
-      context "when no other income" do
+      context "when there is no other partner income" do
         let(:session_data) do
           build(:minimal_complete_session,
-                friends_or_family_value: 0,
-                friends_or_family_frequency: "",
-                maintenance_value: 0,
-                maintenance_frequency: "",
-                property_or_lodger_value: 0,
-                property_or_lodger_frequency: "",
-                pension_value: 0,
-                pension_frequency: "",
-                student_finance_value: 0,
-                other_value: 0)
+                :with_partner,
+                :with_other_income,
+                partner_friends_or_family_value: 0.0,
+                partner_friends_or_family_frequency: "",
+                partner_maintenance_value: 0.0,
+                partner_maintenance_frequency: "",
+                partner_property_or_lodger_value: 0.0,
+                partner_property_or_lodger_frequency: "",
+                partner_pension_value: 0.0,
+                partner_pension_frequency: "",
+                partner_student_finance_value: 0.0,
+                partner_other_value: 0.0)
         end
 
         it "renders content" do

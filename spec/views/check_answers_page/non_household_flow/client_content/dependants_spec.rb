@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "estimates/check_answers.html.slim", :household_section_flag do
+RSpec.describe "estimates/check_answers.html.slim" do
   let(:answers) { CheckAnswersPresenter.new(session_data) }
 
   before do
@@ -24,9 +24,9 @@ RSpec.describe "estimates/check_answers.html.slim", :household_section_flag do
         end
 
         it "renders content" do
-          expect(text).to include("Have child dependantsYes")
+          expect(text).to include("Has child dependantsYes")
           expect(text).to include("Number of child dependants1")
-          expect(text).to include("Have adult dependantsYes")
+          expect(text).to include("Has adult dependantsYes")
           expect(text).to include("Number of adult dependants2")
         end
       end
@@ -39,8 +39,8 @@ RSpec.describe "estimates/check_answers.html.slim", :household_section_flag do
         end
 
         it "renders content" do
-          expect(text).to include("Have child dependantsNo")
-          expect(text).to include("Have adult dependantsNo")
+          expect(text).to include("Has child dependantsNo")
+          expect(text).to include("Has adult dependantsNo")
         end
       end
     end
