@@ -807,6 +807,11 @@ en:
       heading: Add Housing Benefit details
       housing_benefit_value: Enter amount
       housing_benefit_frequency: Select frequency
+    housing_costs:
+      caption: housing
+      heading: housing cost
+      value: Enter amount
+      frequency: Select frequency
     partner_housing_benefit:
       caption: The partner's finances
       housing_benefit_received:

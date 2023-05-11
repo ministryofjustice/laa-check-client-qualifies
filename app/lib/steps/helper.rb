@@ -48,6 +48,7 @@ module Steps
          PartnerSection,
          PartnerIncomeSection,
          PartnerCapitalSection,
+         HousingCostsSection,
          PropertySection]
       end
 

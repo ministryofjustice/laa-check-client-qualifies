@@ -18,8 +18,20 @@ RSpec.describe "outgoings", type: :feature do
   context "when level of help is 'controlled'" do
     let(:level_of_help) { "controlled" }
 
-    it "shows alternative guidance" do
-      expect(page).to have_content "Guidance on determining disposable income"
+    context "when household flow is switched off" do
+      it "shows alternative guidance" do
+        expect(page).to have_content "Guidance on determining disposable income"
+      end
+
+      it "asks for housing payments" do
+        expect(page).to have_content "Housing payments"
+      end
+    end
+
+    context "when household flow is switched on", :household_section_flag do
+      it "does not ask for housing payments" do
+        expect(page).not_to have_content "Housing payments"
+      end
     end
   end
 

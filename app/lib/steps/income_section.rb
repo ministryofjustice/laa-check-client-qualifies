@@ -24,6 +24,8 @@ module Steps
       end
 
       def housing_benefit_steps(session_data)
+        return if FeatureFlags.enabled?(:household_section)
+
         Steps::Group.new(*(Steps::Logic.housing_benefit?(session_data) ? %i[housing_benefit housing_benefit_details] : %i[housing_benefit]))
       end
 
