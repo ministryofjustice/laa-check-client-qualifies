@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "estimates/check_answers.html.slim", :household_section_flag do
+RSpec.describe "estimates/check_answers.html.slim" do
   let(:answers) { CheckAnswersPresenter.new(session_data) }
 
   before do
@@ -18,6 +18,8 @@ RSpec.describe "estimates/check_answers.html.slim", :household_section_flag do
         let(:session_data) do
           build(:minimal_complete_session,
                 :with_partner,
+                partner_housing_payments_value: 500,
+                partner_housing_payments_frequency: "monthly",
                 partner_childcare_payments_value: 300,
                 partner_childcare_payments_frequency: "every_four_weeks",
                 partner_maintenance_payments_value: 200,
@@ -27,6 +29,7 @@ RSpec.describe "estimates/check_answers.html.slim", :household_section_flag do
         end
 
         it "renders content" do
+          expect(text).to include("Housing payments£500.00Monthly")
           expect(text).to include("Childcare payments£300.00Every 4 weeks")
           expect(text).to include("Maintenance payments£200.00Every 2 weeks")
           expect(text).to include("Legal aid payments£50.00Every week")
@@ -38,6 +41,8 @@ RSpec.describe "estimates/check_answers.html.slim", :household_section_flag do
           build(:minimal_complete_session,
                 :with_partner,
                 :with_outgoings,
+                partner_housing_payments_value: 0.0,
+                partner_housing_payments_frequency: "",
                 partner_childcare_payments_value: 0.0,
                 partner_childcare_payments_frequency: "",
                 partner_maintenance_payments_value: 0.0,
@@ -47,6 +52,7 @@ RSpec.describe "estimates/check_answers.html.slim", :household_section_flag do
         end
 
         it "renders content" do
+          expect(text).to include("Housing paymentsNot applicable")
           expect(text).to include("Childcare paymentsNot applicable")
           expect(text).to include("Maintenance paymentsNot applicable")
           expect(text).to include("Legal aid paymentsNot applicable")

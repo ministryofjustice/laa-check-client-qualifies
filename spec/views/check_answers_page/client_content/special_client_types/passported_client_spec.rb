@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "estimates/check_answers.html.slim" do
+RSpec.describe "estimates/check_answers.html.slim", :household_section_flag do
   let(:answers) { CheckAnswersPresenter.new(session_data) }
 
   before do
@@ -17,15 +17,13 @@ RSpec.describe "estimates/check_answers.html.slim" do
 
     context "without a partner" do
       it "renders sections" do
-        expect(text).to include(t("estimates.check_answers.about_your_client"))
+        expect(text).to include(t("estimates.check_answers.client_details"))
         expect(text).to include(t("estimates.check_answers.assets"))
       end
 
       it "does not render sections" do
-        expect(text).not_to include(t("estimates.check_answers.client_dependant_details"))
-        expect(text).not_to include(t("estimates.check_answers.employment_fields.gross_income"))
+        expect(text).not_to include(t("estimates.check_answers.client_pay_fields.gross_income"))
         expect(text).not_to include(t("estimates.check_answers.benefits"))
-        expect(text).not_to include(t("estimates.check_answers.housing_benefit"))
         expect(text).not_to include(t("estimates.check_answers.other_income"))
       end
 
@@ -34,26 +32,23 @@ RSpec.describe "estimates/check_answers.html.slim" do
       end
     end
 
-    context "with a partner who owns the main home" do
-      let(:session_data) { build(:minimal_complete_session, :with_partner_owned_main_home, passporting: true) }
+    context "with a partner" do
+      let(:session_data) { build(:minimal_complete_session, partner: true, passporting: true) }
 
       it "renders partner sections" do
-        expect(text).to include(t("estimates.check_answers.about_partner"))
+        expect(text).to include(t("estimates.check_answers.partner_details"))
         expect(text).to include(t("estimates.check_answers.partner_assets"))
       end
 
       it "does not render partner sections" do
-        expect(text).not_to include(t("estimates.check_answers.partner_dependant_details"))
-        expect(text).not_to include(t("estimates.check_answers.partner_employment_fields.partner_gross_income"))
+        expect(text).not_to include(t("estimates.check_answers.partner_pay_fields.partner_gross_income"))
         expect(text).not_to include(t("estimates.check_answers.partner_benefits"))
-        expect(text).not_to include(t("estimates.check_answers.partner_housing_benefit"))
         expect(text).not_to include(t("estimates.check_answers.partner_other_income"))
       end
 
       it "renders the content" do
         expect(text).to include("Receives a passporting benefitYes")
         expect(text).to include("Has a partnerYes")
-        expect(text).to include("Partner employment statusNot provided")
       end
     end
   end
