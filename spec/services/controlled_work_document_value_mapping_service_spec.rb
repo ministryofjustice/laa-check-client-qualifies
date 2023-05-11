@@ -125,6 +125,20 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       }
       expect(result).to include(representative_sample)
     end
+
+    it "can successfully populate CW5 form fields" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw5.yml")).map(&:with_indifferent_access)
+      result = described_class.call(session_data, mappings)
+      representative_sample = {
+        "CheckBox46" => "1", # Not passporting
+        "CheckBox2" => "1", # SMOD
+        "CheckBox1" => "1", # No partner
+        "FillText11" => nil, # Non smod value is nil
+        "FillText27" => "250,000.11", # SMOD home worth £250,000
+        "FillText29" => "100,000.22", # SMOD other property worth £100,000
+      }
+      expect(result).to include(representative_sample)
+    end
   end
 
   context "with asylum_support" do
