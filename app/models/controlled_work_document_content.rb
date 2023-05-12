@@ -283,7 +283,7 @@ class ControlledWorkDocumentContent < Check
   end
 
   def client_non_employment_income
-    non_employment_income if client_capital_relevant?
+    non_employment_income if client_income_relevant?
   end
 
   def partner_non_employment_income
