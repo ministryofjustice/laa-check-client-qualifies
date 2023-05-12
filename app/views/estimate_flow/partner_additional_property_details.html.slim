@@ -26,11 +26,12 @@
               label_text: t(".mortgage.input"),
               hint_text: t(".mortgage.input_hint")
 
-    = form.govuk_text_field :percentage_owned,
-                            width: 3,
-                            suffix_text: "%",
-                            value: integer_field_value(form, :percentage_owned),
-                            label: { text: t(".percentage_owned.input"), size: "m" }
+    = render "shared/percentage_input",
+              form:,
+              field: :percentage_owned,
+              width: 3,
+              label_text: t(".percentage_owned.input"),
+              size: "m"
 
     = form.govuk_submit t("generic.save_and_continue")
 
