@@ -38,7 +38,7 @@ RSpec.describe "estimates/check_answers.html.slim", :household_section_flag do
           let(:vehicle_in_dispute) { false }
 
           it "renders content" do
-            expect(text).to include("Client or partner has a vehicleYes")
+            expect(text).to include("Client has a vehicleYes")
             expect(text).to include("Estimated value£3,000.00")
             expect(text).to include("In regular useNo")
             expect(text).to include("Bought over 3 years agoNo")
@@ -64,7 +64,7 @@ RSpec.describe "estimates/check_answers.html.slim", :household_section_flag do
           let(:vehicle_in_dispute) { false }
 
           it "renders content correctly" do
-            expect(text).to include("Client or partner has a vehicleYes")
+            expect(text).to include("Client has a vehicleYes")
             expect(text).to include("Estimated value£2,000.00")
             expect(text).to include("In regular useYes")
             expect(text).to include("Bought over 3 years agoYes")
@@ -83,7 +83,7 @@ RSpec.describe "estimates/check_answers.html.slim", :household_section_flag do
           let(:vehicle_in_dispute) { nil }
 
           it "renders content" do
-            expect(text).to include("Client or partner has a vehicleNo")
+            expect(text).to include("Client has a vehicleNo")
           end
         end
       end
