@@ -24,6 +24,10 @@ module Steps
         !asylum_supported?(session_data) && session_data["property_owned"]&.in?(PropertyForm::OWNED_OPTIONS.map(&:to_s))
       end
 
+      def owns_additional_property?(session_data)
+        !asylum_supported?(session_data) && session_data["additional_property_owned"]&.in?(AdditionalPropertyForm::OWNED_OPTIONS.map(&:to_s))
+      end
+
       def owns_vehicle?(session_data)
         !asylum_supported?(session_data) && session_data["vehicle_owned"]
       end

@@ -32,6 +32,8 @@ module Flow
       partner_vehicle: PartnerVehicleForm,
       partner_vehicle_details: PartnerVehicleDetailsForm,
       partner_assets: PartnerAssetsForm,
+      additional_property: AdditionalPropertyForm,
+      additional_property_details: AdditionalPropertyDetailsForm,
     }.freeze
 
     class << self

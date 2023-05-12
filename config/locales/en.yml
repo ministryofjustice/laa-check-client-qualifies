@@ -301,6 +301,10 @@ en:
           attributes:
             property_owned:
               inclusion: Select yes if the partner owns the home the client lives in
+        additional_property_form:
+          attributes:
+            property_owned:
+              inclusion: Select if your client owns any other property
         provider_user:
           attributes:
             blank: Select yes if you give legal advice or provide legal services
@@ -341,6 +345,21 @@ en:
               within_range: The percentage that the partner owns must be between 1 and 100
               not_a_number: The percentage that the partner owns must be a number
               not_an_integer: The percentage that the partner owns must be a whole number
+        additional_property_details_form:
+          attributes:
+            house_value:
+              blank: Enter how much the property is worth
+              greater_than: Your client's property must be worth more than 0
+              not_a_number: How much your client's property is worth must be a number
+            mortgage:
+              blank: Enter how much is left to pay on the mortgage
+              greater_than: The amount left to pay on the mortgage must be more than 0
+              not_a_number: The amount left to pay on the mortgage must be a number
+            percentage_owned:
+              blank: Enter the percentage share that they own of the property
+              within_range: The percentage that they own of the property must be between 1 and 100
+              not_a_number: The percentage that they own of the property must be a number between 1 and 100
+              not_an_integer: The percentage that they own of the property must be a whole number
         vehicle_form:
           attributes:
             vehicle_owned:
@@ -948,6 +967,10 @@ en:
       non_household_flow:
         caption: The partner's finances
       legend: Does the partner own the home the client lives in?
+    additional_property:
+      legend: Does your client own any other property, a holiday home or land?
+      hint: This can be the sole property owned if not the home the client lives in, even if the property is abroad or not providing an income.
+      partner_hint: If your client and their partner share other property, a holiday home or land, include this here.
     vehicle:
       caption: Your client's finances
       vehicle_owned:
@@ -1125,6 +1148,17 @@ en:
       percentage_owned:
         input: What percentage of the home your client lives in does the partner own?
         input_hint: The partner's name must be on the property deeds, lease, freehold or mortgage.
+    additional_property_details:
+      heading: Client’s other property, holiday home or land
+      hint: If your client and their partner share other property, a holiday home or land, include this here
+      house_value:
+        input: How much is the property, holiday home or land worth?
+      mortgage:
+        input: How much is left to pay on the mortgage?
+        input_hint: Check the statement from the mortgage provider or lender and include any other loans secured against the property
+      percentage_owned:
+        input: What percentage share does your client own?
+        input_hint: If the property, holiday home or land is shared with the partner, add the percentage the client and partner own together. We do not need to know what percentage each of them owns.
     vehicle_details:
       caption: Your client's finances
       heading: About the vehicle

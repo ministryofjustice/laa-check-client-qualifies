@@ -6,15 +6,13 @@ class BasePropertyEntryForm
 
   BASE_ATTRIBUTES = %i[house_value mortgage percentage_owned].freeze
 
-  delegate :property_owned, to: :check
-
   attribute :house_value, :gbp
   validates :house_value, numericality: { greater_than: 0, allow_nil: true }, presence: true
 
   attribute :mortgage, :gbp
   validates :mortgage,
             numericality: { greater_than: 0, allow_nil: true },
-            presence: { if: -> { property_owned == "with_mortgage" } }
+            presence: { if: -> { owned_with_mortgage? } }
 
   attribute :percentage_owned, :fully_validatable_integer
   validates :percentage_owned,

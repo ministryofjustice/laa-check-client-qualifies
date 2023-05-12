@@ -55,6 +55,59 @@ RSpec.describe Cfe::AssetsPayloadService do
       end
     end
 
+    context "when in the household flow", :household_section_flag do
+      context "when an additional property is owned with a mortgage" do
+        let(:session_data) do
+          {
+            "additional_property_owned" => "with_mortgage",
+            "additional_house_value" => 123,
+            "additional_mortgage" => 1313,
+            "additional_percentage_owned" => 44,
+            "additional_house_in_dispute" => true,
+            "savings" => 0,
+            "investments" => 0,
+            "valuables" => 0,
+            "in_dispute" => [],
+          }
+        end
+
+        it "populates the payload with content from the standalone additional property screens" do
+          expect(payload[:properties][:additional_properties]).to eq(
+            [{ outstanding_mortgage: 1313,
+               percentage_owned: 44,
+               shared_with_housing_assoc: false,
+               subject_matter_of_dispute: true,
+               value: 123 }],
+          )
+        end
+      end
+
+      context "when an additional property is owned outright" do
+        let(:session_data) do
+          {
+            "additional_property_owned" => "outright",
+            "additional_house_value" => 123,
+            "additional_percentage_owned" => 44,
+            "additional_house_in_dispute" => false,
+            "savings" => 0,
+            "investments" => 0,
+            "valuables" => 0,
+            "in_dispute" => [],
+          }
+        end
+
+        it "populates the payload with content from the standalone additional property screens" do
+          expect(payload[:properties][:additional_properties]).to eq(
+            [{ outstanding_mortgage: 0,
+               percentage_owned: 44,
+               shared_with_housing_assoc: false,
+               subject_matter_of_dispute: false,
+               value: 123 }],
+          )
+        end
+      end
+    end
+
     context "when the client is asylum supported" do
       let(:session_data) do
         {
