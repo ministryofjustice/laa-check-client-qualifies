@@ -18,6 +18,14 @@ module Steps
         end
       end
 
+      def all_steps_for_current_feature_flags
+        if FeatureFlags.enabled?(:household_section)
+          all_steps
+        else
+          []
+        end
+      end
+
       def grouped_steps_for(session_data)
         return [] unless FeatureFlags.enabled?(:household_section)
         return [] if Steps::Logic.asylum_supported?(session_data)
