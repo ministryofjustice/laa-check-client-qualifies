@@ -1494,7 +1494,8 @@ en:
           unemployed: Unemployed
           not_provided: Not provided
         passporting: Receives a passporting benefit
-      dependants: Dependants
+      dependants: Client dependants
+      dependants_with_partner: Dependants
       household_dependants: Client and partner dependants
       household_dependants_fields:
         adult_dependants: Have adult dependants
@@ -1578,17 +1579,21 @@ en:
         partner_savings: Money in bank accounts
         partner_investments: Investments
         partner_valuables: Valuables
-      household_vehicles: Vehicles
+      household_vehicles: Client vehicles
+      household_vehicles_with_partner: Vehicles
       household_vehicles_fields:
         vehicle: Vehicle %{number}
-        vehicle_owned: Client or partner has a vehicle
+        vehicle_owned: Client has a vehicle
+        vehicle_owned_with_partner: Client or partner has a vehicle
         vehicle_value: Estimated value
         vehicle_in_regular_use: In regular use
         vehicle_over_3_years_ago: Bought over 3 years ago
         vehicle_pcp: Payments left on vehicle
         vehicle_finance: Value of payments left
-      housing_and_property: Housing and property
-      housing_costs: Housing costs
+      housing_and_property: Client housing and property
+      housing_and_property_with_partner: Housing and property
+      housing_costs: Client housing costs
+      housing_costs_with_partner: Housing costs
       housing_costs_fields:
         housing_payments_value: Housing payments
         housing_benefit: Gets Housing Benefit

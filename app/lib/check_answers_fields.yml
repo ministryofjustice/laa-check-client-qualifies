@@ -61,8 +61,10 @@ sections:
           type: boolean
   - label: dependants
     screen: dependant_details
+    partner_dependant_wording: true
     subsections:
       - label: household_dependants
+        skip_header_unless_partner: true
         fields:
         - attribute: child_dependants
           type: boolean
@@ -197,12 +199,15 @@ sections:
           - attribute: partner_valuables
             type: money
   - label: household_vehicles
+    partner_dependant_wording: true
     screen: vehicle
     subsections:
       - something: here
   - label: housing_and_property
+    partner_dependant_wording: true
     subsections:
       - label: housing_costs
+        partner_dependant_wording: true
         # TODO: This screen will change in EL-861
         screen: housing_benefit
         fields:
