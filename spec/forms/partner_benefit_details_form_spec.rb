@@ -17,7 +17,7 @@ RSpec.describe "partner_benefit_details", type: :feature do
 
   it "saves what I enter to the session" do
     fill_in "1-type", with: "A"
-    fill_in "1-amount", with: "1"
+    fill_in "1-benefit-amount", with: "1"
     choose "1-frequency-every_week"
     click_on "Save and continue"
     expect(session_contents.dig("partner_benefits", 0, "benefit_type")).to eq "A"

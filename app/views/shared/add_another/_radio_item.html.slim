@@ -1,0 +1,32 @@
+/ Required:
+/ id_pattern
+/ name_pattern
+/ counter
+/ value
+/ checked
+/ label
+
+/ Optional
+/ conditional_reveal_pattern
+ruby:
+  conditional_reveal_pattern ||= nil
+  conditional_reveal_id = conditional_reveal_pattern.gsub("ID", counter.to_s) if conditional_reveal_pattern
+  id = id_pattern.gsub("ID", counter.to_s)
+  name = name_pattern.gsub("ID", counter.to_s)
+  dynamic_elements = if conditional_reveal_pattern
+                      "id:#{id_pattern},name:#{name_pattern},data-aria-controls:#{conditional_reveal_pattern}"
+                     else
+                       "id:#{id_pattern},name:#{name_pattern}"
+                     end
+
+.govuk-radios__item
+  input.govuk-radios__input [
+    id=id
+    type="radio"
+    value=value
+    data-aria-controls=conditional_reveal_id
+    data-add-another-dynamic-elements=dynamic_elements
+    name=name
+    checked=checked
+  ]
+  label.govuk-label.govuk-radios__label [for=id data-add-another-dynamic-elements="for:#{id_pattern}"] = label

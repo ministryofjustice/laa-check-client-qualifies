@@ -81,7 +81,7 @@ end
 def fill_in_benefit_details_screen(benefit_type: "A", screen_name: :benefit_details)
   confirm_screen screen_name
   fill_in "1-type", with: benefit_type
-  fill_in "1-amount", with: "1"
+  fill_in "1-benefit-amount", with: "1"
   choose "1-frequency-every_week"
   click_on "Save and continue"
 end

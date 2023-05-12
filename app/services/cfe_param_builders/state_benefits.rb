@@ -8,9 +8,9 @@ module CfeParamBuilders
       end
 
       def general_benefits(form)
-        return [] if form&.benefits.nil?
+        return [] if form&.items.nil?
 
-        form.benefits.map do |benefit|
+        form.items.map do |benefit|
           build_benefit(benefit.benefit_frequency, benefit.benefit_amount, benefit.benefit_type)
         end
       end

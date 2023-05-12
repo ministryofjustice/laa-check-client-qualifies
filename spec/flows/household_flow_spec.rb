@@ -12,8 +12,8 @@ RSpec.describe "Household section flow", :household_section_flag, type: :feature
     fill_in_forms_until(:partner_outgoings)
     fill_in_partner_outgoings_screen
     # partner property screen is skipped
-    confirm_screen("partner_vehicle")
-    fill_in_partner_vehicle_screen
+    # partner vehicle screen is skipped
+    confirm_screen("partner_assets")
     fill_in_partner_assets_screen
     fill_in_property_screen(choice: "Yes, owned outright")
     fill_in_property_entry_screen
@@ -30,5 +30,12 @@ RSpec.describe "Household section flow", :household_section_flag, type: :feature
     fill_in_matter_type_screen(choice: "Asylum")
     fill_in_asylum_support_screen(choice: "Yes")
     confirm_screen("check_answers")
+  end
+
+  it "uses new vehicle details screen" do
+    start_assessment
+    fill_in_forms_until(:vehicle)
+    fill_in_vehicle_screen(choice: "Yes")
+    confirm_screen "vehicles_details"
   end
 end

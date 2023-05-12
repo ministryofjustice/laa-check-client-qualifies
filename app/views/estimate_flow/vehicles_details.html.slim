@@ -1,0 +1,24 @@
+- content_for :page_title
+  = t("estimate_flow.vehicles_details.heading")
+- content_for :back do
+  = back_link(:vehicle_details, @check, @back_buttons_invoke_browser_back_behaviour)
+.govuk-grid-column-two-thirds
+  . data-module="add-another"
+    .add-another-template-area data-add-another-role="template"
+      = render "vehicle_section", removeable: true, model: VehicleModel.new
+
+    = form_for(@form, url: wizard_path, method: :put) do |form|
+      = form.govuk_error_summary t("generic.error_summary_title")
+      = render "shared/heading",
+               header_text: t("estimate_flow.vehicles_details.heading")
+      . data-add-another-role="sectionList"
+        - @form.items.each_with_index do |vehicle, index|
+          = render "vehicle_section", removeable: index.positive?, model: vehicle, counter: index + 1
+      .govuk-button-group
+        button.govuk-button.govuk-button--secondary type="button" data-add-another-role="add" = t("estimate_flow.vehicles_details.add")
+
+      = form.govuk_submit t("generic.save_and_continue")
+
+= render "shared/question_sidebar",
+         level_of_help: @check.level_of_help,
+         links: vehicle_links(@check.smod_applicable?)

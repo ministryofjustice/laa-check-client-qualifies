@@ -3,7 +3,7 @@ module Cfe
     def call
       benefits_form = BenefitDetailsForm.from_session(@session_data) if relevant_form?(:benefit_details)
       housing_benefit_details_form = HousingBenefitDetailsForm.from_session(@session_data) if relevant_form?(:housing_benefit_details)
-      return if benefits_form&.benefits.blank? && !housing_benefit_details_form
+      return if benefits_form&.items.blank? && !housing_benefit_details_form
 
       state_benefits = CfeParamBuilders::StateBenefits.call(benefits_form, housing_benefit_details_form)
 

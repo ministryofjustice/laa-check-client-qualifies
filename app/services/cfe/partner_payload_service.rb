@@ -50,7 +50,7 @@ module Cfe
     def state_benefits
       benefits_form = PartnerBenefitDetailsForm.from_session(@session_data) if relevant_form?(:partner_benefit_details)
       housing_benefit_details_form = PartnerHousingBenefitDetailsForm.from_session(@session_data) if relevant_form?(:partner_housing_benefit_details)
-      return [] if benefits_form&.benefits.blank? && !housing_benefit_details_form
+      return [] if benefits_form&.items.blank? && !housing_benefit_details_form
 
       CfeParamBuilders::StateBenefits.call(benefits_form, housing_benefit_details_form)
     end
@@ -88,7 +88,7 @@ module Cfe
       return [] unless relevant_form?(:partner_vehicle_details)
 
       details_model = PartnerVehicleDetailsForm.from_session(@session_data)
-      CfeParamBuilders::Vehicles.call(details_model)
+      CfeParamBuilders::Vehicles.call([details_model])
     end
 
     def dependants

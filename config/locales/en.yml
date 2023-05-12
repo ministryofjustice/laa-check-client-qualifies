@@ -419,6 +419,22 @@ en:
               blank: Enter value of payments left on the vehicle
               greater_than: Payments left on the vehicle must be more than 0
               not_a_number: Payments left on the vehicle must be a number
+        vehicle_model:
+          attributes:
+            vehicle_in_regular_use:
+              inclusion: Select yes if the vehicle is in regular use
+            vehicle_value:
+              blank: Enter the estimated value of the vehicle
+              greater_than: The estimated value of the vehicle must be more than
+              not_a_number: The estimated value of the vehicle must be a number
+            vehicle_over_3_years_ago:
+              inclusion: Select yes if the vehicle was bought over 3 years ago
+            vehicle_pcp:
+              inclusion: Select yes if there are payments left on the vehicle
+            vehicle_finance:
+              blank: Enter the value of payments left on the vehicle
+              greater_than: The value of payments left on the vehicle must be more than 0
+              not_a_number: The value of payments left on the vehicle must be a number
         controlled_work_document_selection:
           attributes:
             form_type:
@@ -999,6 +1015,7 @@ en:
       caption: Your client's finances
       vehicle_owned:
         legend: Does your client own a vehicle?
+        legend_with_partner: Does your client or their partner own a vehicle?
         hint: "This includes cars, vans and motorcycles"
       guidance:
         text: Guidance on vehicles
@@ -1228,6 +1245,25 @@ en:
         hint: Include any outstanding payments on loans, hire purchase (HP) or personal contract purchase (PCP) agreements
       vehicle_finance:
         input: Enter the value of payments left
+    vehicles_details:
+      heading: Tell us about the vehicle
+      vehicle: Vehicle
+      add: Add another vehicle
+      vehicle_value:
+        input: What is the estimated value of the vehicle?
+        input_hint: You can use car valuation websites to find this out. If you got more than one valuation, use the highest.
+      vehicle_in_regular_use:
+        legend: Is the vehicle in regular use?
+        hint: This means the vehicle is used at least once every 2 weeks for things like work, shopping or driving children to school
+      vehicle_over_3_years_ago:
+        legend: Was the vehicle bought over 3 years ago?
+        hint: ""
+      vehicle_pcp:
+        legend: Are there any payments left on the vehicle?
+        hint: Include any outstanding payments on loans, hire purchase (HP) or personal contract purchase (PCP) agreements
+      vehicle_finance:
+        input: Enter the value of payments left
+      vehicle_in_dispute: This asset is a subject matter of dispute
   estimates:
     check_answers:
       level_of_help: Level of help your client needs

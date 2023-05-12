@@ -18,6 +18,7 @@ module CheckAnswers
       property_entry: "subsection-property-header",
       vehicle: "subsection-vehicles-header",
       vehicle_details: "subsection-vehicles-header",
+      vehicles_details: "subsection-vehicles-header",
       assets: "subsection-other-header",
       additional_property: "subsection-other-header",
       additional_property_details: "subsection-other-header",
