@@ -42,6 +42,10 @@ class ControlledWorkDocumentContent < Check
     house_in_dispute || vehicle_in_dispute || in_dispute.present?
   end
 
+  def no_smod_assets?
+    !smod_assets?
+  end
+
   def additional_property_in_dispute?
     in_dispute.include? "property" unless asylum_support?
   end
