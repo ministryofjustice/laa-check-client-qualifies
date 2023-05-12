@@ -5,6 +5,10 @@ module Steps
         all_sections.map(&:all_steps).reduce(:+).uniq
       end
 
+      def all_steps_for_current_feature_flags
+        all_sections.map(&:all_steps_for_current_feature_flags).reduce(:+).uniq
+      end
+
       def next_step_for(session_data, step)
         remaining_steps_for(session_data, step).first
       end

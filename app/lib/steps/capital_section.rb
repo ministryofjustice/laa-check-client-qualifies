@@ -9,6 +9,14 @@ module Steps
         (PROPERTY_STEPS + VEHICLE_STEPS + TAIL_STEPS).freeze
       end
 
+      def all_steps_for_current_feature_flags
+        if FeatureFlags.enabled?(:household_section)
+          %i[vehicle vehicles_details assets].freeze
+        else
+          (PROPERTY_STEPS + %i[vehicle vehicle_details] + TAIL_STEPS).freeze
+        end
+      end
+
       def grouped_steps_for(session_data)
         return [] if Steps::Logic.asylum_supported?(session_data)
 

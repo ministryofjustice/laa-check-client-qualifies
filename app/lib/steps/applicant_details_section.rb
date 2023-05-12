@@ -5,6 +5,10 @@ module Steps
         %i[applicant dependant_details]
       end
 
+      def all_steps_for_current_feature_flags
+        all_steps
+      end
+
       def grouped_steps_for(session_data)
         if Steps::Logic.asylum_supported?(session_data)
           []
