@@ -928,8 +928,11 @@ en:
       guidance_on_outgoings: Guidance on outgoings (need link)
       link_to_guidance_on_outgoings: "#TODO: To be defined"
     property:
-      caption: Your client's finances
+      non_household_flow:
+        caption: Your client's finances
       legend: Does your client own the home they live in?
+      legend_with_partner: Does your client or their partner own the home the client lives in?
+      hint: If the client is in prison, or temporarily away from where they normally live for another reason, this means the home the client normally lives in
       property_owned:
         outright: Yes, owned outright
         with_mortgage: Yes, with a mortgage or loan
@@ -942,7 +945,8 @@ en:
         controlled:
           link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=23"
     partner_property:
-      caption: The partner's finances
+      non_household_flow:
+        caption: The partner's finances
       legend: Does the partner own the home the client lives in?
     vehicle:
       caption: Your client's finances
@@ -1088,13 +1092,16 @@ en:
         text: Guidance on assets
         link: "#"
     property_entry:
-      heading: About their home
-      caption: Your client's finances
-      joint_ownership:
-        legend: Is the property joint owned with their partner?
-        hint: By joint owned we mean the client and partner can own different shares of the property. The property does not automatically go to the other owners if you die. You can pass your share of the property in your will.
-      joint_percentage_owned:
-        input: What percentage does the partner own?
+      heading: The home your client lives in
+      hint: If you make an application for civil legal aid, the property's value may be excluded from the financial assessment if your client has left their former matrimonial home because of domestic abuse
+      non_household_flow:
+        heading: About their home
+        caption: Your client's finances
+        joint_ownership:
+          legend: Is the property joint owned with their partner?
+          hint: By joint owned we mean the client and partner can own different shares of the property. The property does not automatically go to the other owners if you die. You can pass your share of the property in your will.
+        joint_percentage_owned:
+          input: What percentage does the partner own?
       house_value:
         input: How much is the home they live in worth?
         input_hint: You can use property websites to find the estimated value
@@ -1104,9 +1111,11 @@ en:
       percentage_owned:
         input: What percentage of the home do they own?
         input_hint: Your client's name must be on the property deeds, lease, freehold or mortgage
+        input_hint_with_partner: Add the percentage the client and partner own together. We do not need to know what percentage each of them owns.
     partner_property_entry:
-      heading: About the home the client lives in
-      caption: The partner's finances
+      non_household_flow:
+        heading: About the home the client lives in
+        caption: The partner's finances
       house_value:
         input: How much is the home the client lives in worth?
         input_hint: You can use property websites to find the estimated value.

@@ -23,7 +23,6 @@ module Cfe
       end
 
       if relevant_form?(:property_entry)
-        property_form = PropertyForm.from_session(@session_data)
         property_entry_form = ClientPropertyEntryForm.from_session(@session_data)
         percentage_owned = if property_entry_form.joint_ownership
                              property_entry_form.percentage_owned + property_entry_form.joint_percentage_owned
@@ -32,16 +31,15 @@ module Cfe
                            end
         main_home = {
           value: property_entry_form.house_value,
-          outstanding_mortgage: (property_entry_form.mortgage if property_form.owned_with_mortgage?) || 0,
+          outstanding_mortgage: (property_entry_form.mortgage if property_entry_form.owned_with_mortgage?) || 0,
           percentage_owned:,
           subject_matter_of_dispute: (property_entry_form.house_in_dispute && smod_applicable?) || false,
         }
       elsif relevant_form?(:partner_property_entry)
-        partner_property_form = PartnerPropertyForm.from_session(@session_data)
         partner_property_entry_form = PartnerPropertyEntryForm.from_session(@session_data)
         main_home = {
           value: partner_property_entry_form.house_value,
-          outstanding_mortgage: (partner_property_entry_form.mortgage if partner_property_form.owned_with_mortgage?) || 0,
+          outstanding_mortgage: (partner_property_entry_form.mortgage if partner_property_entry_form.owned_with_mortgage?) || 0,
           percentage_owned: partner_property_entry_form.percentage_owned,
           subject_matter_of_dispute: false,
         }

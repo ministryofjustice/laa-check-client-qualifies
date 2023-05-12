@@ -2,7 +2,7 @@ module Steps
   class Helper
     class << self
       def all_possible_steps
-        all_sections.map(&:all_steps).reduce(:+)
+        all_sections.map(&:all_steps).reduce(:+).uniq
       end
 
       def next_step_for(session_data, step)
@@ -41,7 +41,14 @@ module Steps
       end
 
       def all_sections
-        [CaseDetailsSection, ApplicantDetailsSection, IncomeSection, CapitalSection, PartnerSection, PartnerIncomeSection, PartnerCapitalSection]
+        [CaseDetailsSection,
+         ApplicantDetailsSection,
+         IncomeSection,
+         CapitalSection,
+         PartnerSection,
+         PartnerIncomeSection,
+         PartnerCapitalSection,
+         PropertySection]
       end
 
       def remaining_steps(steps, step)

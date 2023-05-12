@@ -1,8 +1,4 @@
-- content_for :page_title
-  = t(".legend")
-- content_for :back
-  = back_link(:property, @check, @back_buttons_invoke_browser_back_behaviour)
-
-.govuk-grid-column-two-thirds
-  = render "estimate_flow/forms/property", i18n_key: "property"
-= render "property_sidebar", level_of_help: @check.level_of_help, smod_applicable: @check.smod_applicable?
+- if FeatureFlags.enabled?(:household_section)
+  = render "estimate_flow/household_flow/property"
+- else
+  = render "estimate_flow/non_household_flow/property"
