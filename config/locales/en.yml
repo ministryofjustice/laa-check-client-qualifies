@@ -428,7 +428,7 @@ en:
               greater_than: The estimated value of the vehicle must be more than
               not_a_number: The estimated value of the vehicle must be a number
             vehicle_over_3_years_ago:
-              inclusion: Select yes if the client bought the vehicle over 3 years ago
+              inclusion: Select yes if the vehicle was bought over 3 years ago
             vehicle_pcp:
               inclusion: Select yes if there are payments left on the vehicle
             vehicle_finance:
@@ -1256,7 +1256,7 @@ en:
         legend: Is the vehicle in regular use?
         hint: This means the vehicle is used at least once every 2 weeks for things like work, shopping or driving children to school
       vehicle_over_3_years_ago:
-        legend: Did your client buy the vehicle over 3 years ago?
+        legend: Was the vehicle bought over 3 years ago?
         hint: ""
       vehicle_pcp:
         legend: Are there any payments left on the vehicle?
