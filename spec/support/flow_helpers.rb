@@ -243,6 +243,14 @@ def fill_in_additional_property_details_screen
   fill_in_property_entry_screen(screen_name: :additional_property_details, form_name: :additional_property_details)
 end
 
+def fill_in_partner_additional_property_screen(choice: "No")
+  fill_in_property_screen(screen_name: :partner_additional_property, choice:)
+end
+
+def fill_in_partner_additional_property_details_screen
+  fill_in_property_entry_screen(screen_name: :partner_additional_property_details, form_name: :partner_additional_property_details)
+end
+
 def confirm_screen(expected)
   path = page.current_path
   expect(path).to end_with expected.to_s
