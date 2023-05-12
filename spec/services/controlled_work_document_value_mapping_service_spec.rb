@@ -96,6 +96,18 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       }
       expect(result).to include(representative_sample)
     end
+
+    it "can successfully populate CIVMEANS7 form non-SMOD fields" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/civ_means_7.yml")).map(&:with_indifferent_access)
+      result = described_class.call(session_data, mappings)
+      representative_sample = {
+        "CheckBox21" => "1", # Client not passported
+        "FillText36" => "110,000", # Client's share of total net equity
+        "FillText57" => "90,000", # Main home / outstanding mortgage
+        "FillText56" => "250,000", # Main home / current market value
+      }
+      expect(result).to include(representative_sample)
+    end
   end
 
   context "with disputed main home and additional property" do
@@ -136,6 +148,21 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
         "FillText11" => nil, # Non smod value is nil
         "FillText27" => "250,000.11", # SMOD home worth £250,000
         "FillText29" => "100,000.22", # SMOD other property worth £100,000
+      }
+      expect(result).to include(representative_sample)
+    end
+
+    it "can successfully populate CIVMEANS7 form SMOD fields" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/civ_means_7.yml")).map(&:with_indifferent_access)
+      result = described_class.call(session_data, mappings)
+      representative_sample = {
+        "CheckBox21" => "1", # Client not passported
+        "FillText36" => nil, # Client's share of total net equity (non-SMOD)
+        "FillText57" => nil, # Main home / outstanding mortgage (non-SMOD)
+        "FillText56" => nil, # Main home / current market value (non-SMOD)
+        "FillText105" => "250,000.11", # Main home / current market value (SMOD)
+        "FillText106" => "90,000", # Main home / outstanding mortgage (SMOD)
+        "FillText102" => "110,000", # total net equity (SMOD)
       }
       expect(result).to include(representative_sample)
     end
