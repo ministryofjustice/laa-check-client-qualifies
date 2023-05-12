@@ -5,6 +5,10 @@ module Steps
         %i[level_of_help matter_type asylum_support]
       end
 
+      def all_steps_for_current_feature_flags
+        all_steps
+      end
+
       def grouped_steps_for(session_data)
         groups(session_data).map { Steps::Group.new(_1) }
       end

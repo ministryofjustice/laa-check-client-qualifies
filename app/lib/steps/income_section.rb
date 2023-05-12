@@ -5,6 +5,10 @@ module Steps
         %i[employment housing_benefit housing_benefit_details benefits benefit_details other_income outgoings]
       end
 
+      def all_steps_for_current_feature_flags
+        all_steps
+      end
+
       def grouped_steps_for(session_data)
         if Steps::Logic.passported?(session_data) || Steps::Logic.asylum_supported?(session_data)
           []
