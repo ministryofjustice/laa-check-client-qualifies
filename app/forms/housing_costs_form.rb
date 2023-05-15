@@ -10,7 +10,7 @@ class HousingCostsForm
   attribute :housing_payments, :gbp
   validates :housing_payments, numericality: { greater_than: 0, allow_nil: true }, presence: true
 
-  attribute :housing_payments_frequency, :gbp
+  attribute :housing_payments_frequency, :string
   validates :housing_payments_frequency, inclusion: { in: HOUSING_PAYMENT_FREQUENCIES, allow_nil: false }
 
   attribute :housing_benefit_value, :gbp
@@ -31,12 +31,9 @@ class HousingCostsForm
     # need to add the right translation path
   end
 
-  def owns_home_outright?
-  end
+  def owns_home_outright?; end
 
-  def owns_home_with_mortgage?
-  end
+  def owns_home_with_mortgage?; end
 
-  def rents_home?
-  end
+  def rents_home?; end
 end
