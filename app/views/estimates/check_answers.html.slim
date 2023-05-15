@@ -1,7 +1,9 @@
 - content_for :page_title
   = t(".heading")
 - content_for :back
-  = back_link(:check_answers, @check, true)
+  = link_to t("generic.back"),
+            estimate_build_estimate_path(params[:id], Steps::Helper.last_step(@check&.session_data)),
+            class: "govuk-back-link"
 
 .govuk-grid-column-two-thirds
   = render "shared/heading", header_text: t(".heading")
