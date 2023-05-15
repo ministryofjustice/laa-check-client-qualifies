@@ -1,0 +1,10 @@
+.change-link {
+  display: inline-block;
+  width: 55px;
+}
+
+.accommodating-change-link {
+  display: inline-block;
+  min-width: calc(100% - 65px);
+  margin-right: 10px;
+}
