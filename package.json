@@ -7,7 +7,7 @@
     "esbuild": "^0.17.18",
     "govuk-frontend": "^4.6.0",
     "jquery": "^3.7.0",
-    "puppeteer": "^20.1.1",
+    "puppeteer": "^20.2.0",
     "sass": "^1.62.1"
   },
   "scripts": {
