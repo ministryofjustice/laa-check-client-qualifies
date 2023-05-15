@@ -46,7 +46,7 @@ VALID_MONEY_VALUES = [
   },
 ].freeze
 
-RSpec.describe "Number fields" do
+RSpec.describe "Number fields", :household_section_flag do
   describe "Integer fields" do
     let(:dependant_details_header) { I18n.t("estimate_flow.dependant_details.legend") }
 
