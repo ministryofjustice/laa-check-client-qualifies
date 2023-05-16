@@ -1570,12 +1570,12 @@ en:
         partner_legal_aid_payments_value: Legal aid payments
       assets: Client assets
       assets_fields:
-        savings: Savings
+        savings: Money in bank accounts
         investments: Investments
         valuables: Valuables
       partner_assets: Partner assets
       partner_assets_fields:
-        partner_savings: Savings
+        partner_savings: Money in bank accounts
         partner_investments: Investments
         partner_valuables: Valuables
       household_vehicles: Vehicles
@@ -1604,7 +1604,7 @@ en:
         house_value: Estimated value
         mortgage: Outstanding mortgage
         percentage_owned: Percentage share owned
-      client_additional_property: Client additional property
+      client_additional_property: Client other property
       client_additional_property_fields:
         additional_property_owned: Owns other property
         additional_property_owned_options:
@@ -1615,7 +1615,7 @@ en:
         additional_house_value: Estimated value
         additional_mortgage: Outstanding mortgage
         additional_percentage_owned: Percentage share owned
-      partner_additional_property: Partner additional property
+      partner_additional_property: Partner other property
       partner_additional_property_fields:
         partner_additional_property_owned: Owns other property
         partner_additional_property_owned_options:
