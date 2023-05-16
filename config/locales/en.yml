@@ -1565,6 +1565,7 @@ en:
         other: ""
       outgoings_calculation: Outgoings calculation
       client_outgoings: Client's monthly outgoings
+      household_outgoings: Household monthly outgoings
       partner_outgoings: Partner's monthly outgoings
       client_outgoing_types:
         housing_costs: Housing payments
@@ -1586,6 +1587,9 @@ en:
         income_tax: ""
         dependants_allowance: A fixed allowance deducted for each dependant your client has
         partner_allowance: A fixed allowance if your client has a partner
+      household_outgoing_hints:
+        housing_costs: Housing costs minus any Housing Benefit payments the household gets
+        dependants_allowance: A fixed allowance deducted for each dependant in the household
       partner_outgoing_hints:
         housing_costs: Net housing costs minus any Housing Benefit payments the partner receives
         childcare_payments: This figure will show as £0.00 unless the partner and your client are employed or receiving student finance
@@ -1606,7 +1610,7 @@ en:
           text: Assessed vehicle value
           hint: ""
         liquid:
-          text: Savings
+          text: Money in bank accounts
           hint: ""
         non_liquid:
           text: Investments and valuables
@@ -1619,7 +1623,7 @@ en:
           text: Assessed vehicle value
           hint: ""
         liquid:
-          text: Savings
+          text: Money in bank accounts
           hint: ""
         non_liquid:
           text: Investments and valuables
@@ -1690,13 +1694,16 @@ en:
       assessed_value: Amount included in calculation
       client_disposable_capital: Client's disposable capital
       partner_disposable_capital: Partner's disposable capital
-      vehicles: Client's vehicle
+      legacy_vehicles: Client's vehicle
+      vehicles: Vehicle %{number}
       partner_vehicles: Partner's vehicle
       vehicle:
         value: Value
         outstanding_payments: Outstanding payments
         disregards: Disregards and deductions
         assessed_value: Assessed value
+        loan_amount_outstanding: Outstanding payments
+        disregards_and_deductions: Disregards and deductions
       total_assessed_capital: Total assessed disposable capital
       client_additional_property: Client's additional property
       partner_additional_property: Partner's additional property
