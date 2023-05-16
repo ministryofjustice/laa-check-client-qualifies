@@ -25,7 +25,7 @@ RSpec.describe "estimates/check_answers.html.slim", :household_section_flag do
           end
 
           it "renders content" do
-            expect(text).to include("Savings£50.00")
+            expect(text).to include("Money in bank accounts£50.00")
             expect(text).to include("Investments£60.00")
             expect(text).to include("Valuables£550.00")
             expect(text).not_to include("Disputed asset")
@@ -42,7 +42,7 @@ RSpec.describe "estimates/check_answers.html.slim", :household_section_flag do
           end
 
           it "renders content" do
-            expect(text).to include("Savings£0.00")
+            expect(text).to include("Money in bank accounts£0.00")
             expect(text).to include("Investments£0.00")
             expect(text).to include("Valuables£0.00")
           end
