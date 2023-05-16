@@ -28,6 +28,7 @@ module Metrics
       ineligible: { outcome: "ineligible" },
       capital_contribution: { outcome: "contribution_required", capital_contribution: true },
       income_contribution: { outcome: "contribution_required", income_contribution: true },
+      form_downloaded: { form_downloaded: true },
     }.freeze
 
     def metric_dataset_definition

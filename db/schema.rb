@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_26_104843) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_16_083704) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -94,6 +94,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_26_104843) do
     t.boolean "capital_contribution", null: false
     t.boolean "income_contribution", null: false
     t.date "completed"
+    t.boolean "form_downloaded", default: false
     t.index ["assessment_id"], name: "index_completed_user_journeys_on_assessment_id", unique: true
   end
+
 end
