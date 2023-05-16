@@ -47,7 +47,7 @@ class ControlledWorkDocumentContent < Check
   end
 
   def additional_property_in_dispute?
-    in_dispute.include? "property" unless asylum_support?
+    additional_house_in_dispute || in_dispute.include?("property") unless asylum_support?
   end
 
   def savings_in_dispute?
