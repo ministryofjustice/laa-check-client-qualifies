@@ -101,7 +101,7 @@ RSpec.describe "estimates/check_answers.html.slim", :household_section_flag do
           let(:in_dispute) { [] }
 
           it "renders the content correctly" do
-            expect(text).to include("Savings£50.00")
+            expect(text).to include("Money in bank accounts£50.00")
             expect(text).to include("Investments£60.00")
             expect(text).to include("Valuables£550.00")
           end
@@ -110,7 +110,7 @@ RSpec.describe "estimates/check_answers.html.slim", :household_section_flag do
             let(:in_dispute) { %w[savings investments valuables] }
 
             it "renders content" do
-              expect(page_text_within("#savings")).to include("Disputed asset")
+              expect(page_text_within("#money-in-bank-accounts")).to include("Disputed asset")
               expect(page_text_within("#investments")).to include("Disputed asset")
               expect(page_text_within("#valuables")).to include("Disputed asset")
             end
@@ -126,7 +126,7 @@ RSpec.describe "estimates/check_answers.html.slim", :household_section_flag do
           end
 
           it "renders content" do
-            expect(text).to include("Savings£0.00")
+            expect(text).to include("Money in bank accounts£0.00")
             expect(text).to include("Investments£0.00")
             expect(text).to include("Valuables£0.00")
           end
