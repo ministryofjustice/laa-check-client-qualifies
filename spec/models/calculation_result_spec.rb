@@ -53,4 +53,30 @@ RSpec.describe CalculationResult do
       expect(described_class.new("api_response" => data).client_additional_property_data[:rows].keys).to include(:transaction_allowance)
     end
   end
+
+  describe "#display_household_vehicles" do
+    it "only returns the :value key when vehicle :in_regular_use is false" do
+      data = FactoryBot.build(:api_result)
+
+      expect(described_class.new("api_response" => data).display_household_vehicles.last).not_to include(:assessed_value,
+                                                                                                         :disregards_and_deductions,
+                                                                                                         :loan_amount_outstanding,
+                                                                                                         :in_regular_use)
+      expect(described_class.new("api_response" => data).display_household_vehicles.last).to include(:value)
+      expect(described_class.new("api_response" => data).display_household_vehicles.first).not_to include(:date_of_purchase)
+      expect(described_class.new("api_response" => data).display_household_vehicles.first).not_to include(:included_in_assessment)
+    end
+
+    it "shows other keys when in_regular_use is true" do
+      data = FactoryBot.build(:api_result)
+
+      expect(described_class.new("api_response" => data).display_household_vehicles.first).to include(:value,
+                                                                                                      :assessed_value,
+                                                                                                      :disregards_and_deductions,
+                                                                                                      :loan_amount_outstanding,
+                                                                                                      :in_regular_use)
+      expect(described_class.new("api_response" => data).display_household_vehicles.first).not_to include(:date_of_purchase)
+      expect(described_class.new("api_response" => data).display_household_vehicles.first).not_to include(:included_in_assessment)
+    end
+  end
 end
