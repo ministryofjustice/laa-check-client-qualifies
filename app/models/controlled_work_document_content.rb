@@ -39,7 +39,7 @@ class ControlledWorkDocumentContent < Check
   def smod_assets?
     return if asylum_support?
 
-    house_in_dispute || vehicle_in_dispute || in_dispute.present?
+    any_smod_assets?
   end
 
   def no_smod_assets?
