@@ -55,7 +55,6 @@ module Steps
            IncomeSection,
            PartnerIncomeSection,
            OutgoingsSection,
-           # AssetsSection,
            CapitalSection,
            PartnerCapitalSection,
            PropertySection]
