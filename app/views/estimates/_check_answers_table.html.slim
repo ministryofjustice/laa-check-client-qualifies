@@ -1,10 +1,10 @@
 - @answers.sections.each do |section|
   .govuk-grid-row  id="section-#{section.label}-header"
     .govuk-grid-column-full
-      h2.govuk-heading-l.accommodating-change-link id="#{section.label}-section"
+      h2.govuk-heading-l id="#{section.label}-section" class=("accommodating-change-link" if section.screen.present? && change_links)
         = t("estimates.check_answers.#{section.label}")
       - if section.screen.present? && change_links
-        p.change-link
+        p.change-link.beside-large-header
           = link_to t("generic.change"),
                     estimate_check_answer_path(params[:id], section.screen),
                     class: "govuk-link govuk-!-font-size-19"
@@ -13,10 +13,10 @@
     - if subsection.label
       .govuk-grid-row id="subsection-#{subsection.label}-header"
         .govuk-grid-column-full
-          h2.govuk-heading-m.accommodating-change-link
+          h2.govuk-heading-m class=("accommodating-change-link" if subsection.screen.present? && change_links)
             = t("estimates.check_answers.#{subsection.label}")
           - if subsection.screen.present? && change_links
-            p.change-link
+            p.change-link.beside-medium-header
               = link_to t("generic.change"),
                         estimate_check_answer_path(params[:id], subsection.screen),
                         class: "govuk-link govuk-!-font-size-19"
