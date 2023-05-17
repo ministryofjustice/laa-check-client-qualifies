@@ -10,15 +10,15 @@ module Steps
       end
 
       def all_steps_for_current_feature_flags
-        if FeatureFlags.enabled?(:household_section)
-          %i[partner_assets].freeze
-        else
+        # if FeatureFlags.enabled?(:household_section)
+        #   %i[partner_assets].freeze
+        # else
           all_steps
-        end
+        # end
       end
 
       def grouped_steps_for(session_data)
-        if !Steps::Logic.partner?(session_data)
+        if !Steps::Logic.partner?(session_data) || FeatureFlags.enabled?(:household_section)
           []
         else
           [property_steps(session_data),

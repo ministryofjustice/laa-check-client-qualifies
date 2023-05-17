@@ -6,12 +6,20 @@ module Steps
       end
 
       def all_steps_for_current_feature_flags
-        all_steps
+        if FeatureFlags.enabled?(:household_section)
+          []
+        else
+          all_steps
+        end
       end
 
       def grouped_steps_for(session_data)
         if !Steps::Logic.partner?(session_data)
           []
+        elsif FeatureFlags.enabled?(:household_section)
+          [
+            dependants(session_data),
+          ].compact
         else
           [
             Steps::Group.new(:partner_details),

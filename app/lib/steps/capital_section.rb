@@ -2,7 +2,7 @@ module Steps
   class CapitalSection
     PROPERTY_STEPS = %i[property property_entry].freeze
     VEHICLE_STEPS = %i[vehicle vehicle_details vehicles_details].freeze
-    TAIL_STEPS = %i[assets].freeze
+    TAIL_STEPS = %i[assets partner_assets].freeze
 
     class << self
       def all_steps
@@ -20,9 +20,14 @@ module Steps
       def grouped_steps_for(session_data)
         return [] if Steps::Logic.asylum_supported?(session_data)
 
-        [property_steps(session_data),
-         vehicle_steps(session_data),
-         Steps::Group.new(*TAIL_STEPS)].compact
+        if FeatureFlags.enabled?(:household_section)
+          [Steps::Group.new(*TAIL_STEPS),
+           vehicle_steps(session_data)].compact
+        else
+          [property_steps(session_data),
+           vehicle_steps(session_data),
+           Steps::Group.new(*TAIL_STEPS)].compact
+        end
       end
 
       def property_steps(session_data)

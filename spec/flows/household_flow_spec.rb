@@ -8,9 +8,9 @@ RSpec.describe "Household section flow", :household_section_flag, type: :feature
     fill_in_forms_until(:outgoings)
     fill_in_outgoings_screen
     # property screen is skipped
-    confirm_screen("vehicle")
+    # confirm_screen("vehicle")
     fill_in_forms_until(:partner_details)
-    fill_in_partner_details_screen
+    fill_in_partner_details_screen(employed: "Employed and in work")
     # partner dependants screen is skipped
     confirm_screen("partner_housing_benefit")
     fill_in_forms_until(:partner_outgoings)
