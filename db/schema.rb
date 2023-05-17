@@ -96,6 +96,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_18_104144) do
     t.date "completed"
     t.boolean "form_downloaded", default: false
     t.boolean "asylum_support"
+    t.string "matter_type"
     t.index ["assessment_id"], name: "index_completed_user_journeys_on_assessment_id", unique: true
   end
 
