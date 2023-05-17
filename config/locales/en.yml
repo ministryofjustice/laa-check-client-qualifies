@@ -774,7 +774,8 @@ en:
         exclusions_controlled:
           - anyone who owns any property, vehicles or other assets valued at over £8,000 in total
           - anyone with over £338.90 income every month (any income below this should be deducted from the dependants allowance when you complete the relevant controlled work form)
-      how_many: How many?
+      how_many_child: How many child dependants are there?
+      how_many_adult: How many adult dependants are there?
       guidance:
         text: Guidance on dependants
         certificated:

@@ -36,7 +36,7 @@
         = form.govuk_text_field :child_dependants_count,
             width: 5,
             value: integer_field_value(form, :child_dependants_count),
-            label: { text: t("estimate_flow.dependant_details.how_many") }
+            label: { text: t("estimate_flow.dependant_details.how_many_child") }
       = form.govuk_radio_button :child_dependants, false,
               label: { text: t("generic.no_choice") }
 
@@ -48,7 +48,7 @@
         = form.govuk_text_field :adult_dependants_count,
             width: 5,
             value: integer_field_value(form, :adult_dependants_count),
-            label: { text: t("estimate_flow.dependant_details.how_many") }
+            label: { text: t("estimate_flow.dependant_details.how_many_adult") }
       = form.govuk_radio_button :adult_dependants, false,
               label: { text: t("generic.no_choice") }
 
