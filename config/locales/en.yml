@@ -810,8 +810,11 @@ en:
     housing_costs:
       caption: housing
       heading: Housing costs
-      heading_hint: Enter the housing costs for the home the client lives in.
-      heading_partner_hint: If the client and partner live separately, do not include the partner’s housing costs.
+      heading_hint: 
+        - "Enter the housing costs for the home the client lives in."
+      heading_hint_partner: 
+        - "Enter the housing costs for the home the client lives in."
+        - "If the client and partner live separately, do not include the partner’s housing costs."
       housing_payments:
         label: Housing payments
         hint_paragraph:
@@ -835,6 +838,12 @@ en:
         hint_paragraph_continued: 
           - "Enter the full amount, whoever claims it."
           - "Enter 0 if this does not apply."
+      value: Enter amount
+      frequency: Select frequency
+    housing_exit:
+      caption: housing
+      heading: What are the mortgage or loan payments for the home your client lives in?
+      heading_hint: Enter the full amount due, whoever pays it.
       value: Enter amount
       frequency: Select frequency
     partner_housing_benefit:

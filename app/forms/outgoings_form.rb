@@ -17,11 +17,22 @@ class OutgoingsForm
     attribute value_attribute, :gbp
     attribute frequency_attribute, :string
 
-    validates value_attribute, presence: true, numericality: { greater_than_or_equal_to: 0, allow_nil: true }, unless: :housing_payments_value?
-    validates frequency_attribute, presence: true,
-                                   inclusion: { in: VALID_FREQUENCIES, allow_nil: false },
-                                   if: -> { send(value_attribute).to_i.positive? },
-                                   unless: :housing_payments_frequency?
+    if payment_type == :housing_payments
+      validates value_attribute, presence: true, numericality: { greater_than_or_equal_to: 0, allow_nil: true }, unless: :house_section_enabled?
+    else
+      validates value_attribute, presence: true, numericality: { greater_than_or_equal_to: 0, allow_nil: true }
+    end
+
+    if payment_type == :housing_payments
+      validates frequency_attribute, presence: true,
+                                     inclusion: { in: VALID_FREQUENCIES, allow_nil: false },
+                                     if: -> { send(value_attribute).to_i.positive? },
+                                     unless: :house_section_enabled?
+    else
+      validates frequency_attribute, presence: true,
+                                     inclusion: { in: VALID_FREQUENCIES, allow_nil: false },
+                                     if: -> { send(value_attribute).to_i.positive? }
+    end
   end
 
   delegate :level_of_help, to: :check
@@ -31,11 +42,7 @@ class OutgoingsForm
     valid_frequencies.map { [_1, I18n.t("estimate_flow.outgoings.frequencies.#{_1}")] }
   end
 
-  def housing_payments_value?
-    FeatureFlags.enabled?(:household_section) && (valid_attribute == :housing_payments_value)
-  end
-
-  def housing_payments_frequency?
-    FeatureFlags.enabled?(:household_section) && (valid_frequency == :housing_payments_frequency)
+  def house_section_enabled?
+    FeatureFlags.enabled?(:household_section)
   end
 end

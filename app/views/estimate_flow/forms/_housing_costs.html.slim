@@ -1,10 +1,17 @@
 = form_for(@form, url: wizard_path, method: :put) do |form|
   = form.govuk_error_summary t("generic.error_summary_title")
+
+  ruby:
+    partner_key = if @check.partner
+                    "heading_hint_partner"
+                  else
+                    "heading_hint"
+                  end
+
   = render "shared/heading",
           pre_header_text: t("estimate_flow.#{i18n_key}.caption"),
           header_text: t("estimate_flow.#{i18n_key}.heading"),
-          post_header_text: t("estimate_flow.#{i18n_key}.heading_hint"),
-          post_header_texts: (t("estimate_flow.#{i18n_key}.heading_partner_hint") if @check.partner)
+          post_header_texts: t("estimate_flow.#{i18n_key}.#{partner_key}")
   h2.govuk-heading-m class="govuk-!-margin-bottom-2"
      = t("estimate_flow.#{i18n_key}.housing_payments.label")
   p.govuk-caption-m class="govuk-!-margin-bottom-4"
