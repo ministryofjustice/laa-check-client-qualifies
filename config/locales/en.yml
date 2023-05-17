@@ -840,7 +840,7 @@ en:
           - "Enter 0 if this does not apply."
       value: Enter amount
       frequency: Select frequency
-    housing_exit:
+    mortgage_or_loan_payment:
       caption: housing
       heading: What are the mortgage or loan payments for the home your client lives in?
       heading_hint: Enter the full amount due, whoever pays it.

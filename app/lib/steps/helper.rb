@@ -48,8 +48,7 @@ module Steps
          PartnerSection,
          PartnerIncomeSection,
          PartnerCapitalSection,
-         PropertySection,
-         HousingCostsSection]
+         PropertySection]
       end
 
       def remaining_steps(steps, step)

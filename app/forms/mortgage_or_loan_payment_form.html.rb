@@ -1,4 +1,4 @@
-class HousingExitForm
+class MortgageOrLoanPaymentForm
   include ActiveModel::Model
   include ActiveModel::Attributes
   include SessionPersistable

@@ -34,7 +34,7 @@ module Flow
       partner_vehicle_details: PartnerVehicleDetailsForm,
       partner_assets: PartnerAssetsForm,
       housing_costs: HousingCostsForm,
-      housing_exit: HousingExitForm,
+      mortgage_or_loan_payment: MortgageOrLoanPaymentForm,
       additional_property: AdditionalPropertyForm,
       additional_property_details: AdditionalPropertyDetailsForm,
       partner_additional_property: PartnerAdditionalPropertyForm,

@@ -3,7 +3,7 @@
 - content_for :back do
   = back_link(:housing_costs, @check, @back_buttons_invoke_browser_back_behaviour)
 .govuk-grid-column-two-thirds
-  = render "estimate_flow/forms/housing_exit", i18n_key: "housing_exit"
+  = render "estimate_flow/forms/mortgage_or_loan_payment.html", i18n_key: "mortgage_or_loan_payment"
 
 = render "shared/question_sidebar",
         level_of_help: @check.level_of_help,
