@@ -2,11 +2,11 @@
   = t(".title")
 = render "shared/heading", header_text: t(".title")
 p.govuk-body
-  == t(".paragraph_1", service_name: link_to(t("service.name"), root_path, class: "govuk-link"))
+  = t(".paragraph_1_html", service_name: link_to(t("service.name"), root_path, class: "govuk-link"))
 p.govuk-body
   = t(".paragraph_2", service_name: t("service.name"))
 p.govuk-body
-  == t(".paragraph_3", how_to_manage: link_to(t(".how_to_manage"),
+  = t(".paragraph_3_html", how_to_manage: link_to(t(".how_to_manage"),
                                       "https://ico.org.uk/for-the-public/online/cookies",
                                       class: "govuk-link"))
 h2.govuk-heading-l class="govuk-!-margin-top-6"

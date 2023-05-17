@@ -1,7 +1,10 @@
 html dir="ltr" lang="en-GB" class="govuk-template"
   head
     = render "layouts/analytics_head"
-    title == [yield(:page_title).presence, t("service.name"), "GOV.UK"].compact.join(" | ")
+    title
+      = yield(:page_title)
+      = " | " if content_for?(:page_title)
+      = t("service.name_for_page_title")
 
     = csrf_meta_tags
     = csp_meta_tag

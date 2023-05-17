@@ -10,7 +10,7 @@
       li = bullet
   p.govuk-body = t(".p1_extra_text")
   p.govuk-body = t(".p1_extra_html")
-  = render "list", paragraphs: t(".paragraphs")
+  = render "list", key: "accessibilities.show.headed_paragraph"
 
   h2.govuk-heading-m = t(".p12_heading")
   p.govuk-body = t(".p12_html")
@@ -21,9 +21,9 @@
   h2.govuk-heading-m = t(".p14_heading")
   p.govuk-body = t(".p14_html")
 
-  = render "list", paragraphs: t(".paragraphs2")
+  = render "list", key: "accessibilities.show.headed_paragraph2"
 
   h3.govuk-heading-s = t(".p31_heading")
   p.govuk-body = t(".p31_html")
 
-  = render "list", paragraphs: t(".paragraphs4")
+  = render "list", key: "accessibilities.show.headed_paragraph4"

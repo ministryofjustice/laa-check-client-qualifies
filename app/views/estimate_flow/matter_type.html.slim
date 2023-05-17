@@ -12,24 +12,24 @@
     - if @check.controlled?
       = govuk_details(summary_text: t(".immigration_header_controlled"))
         p.govuk-body = t(".immigration_controlled_paragraph_one")
-        p.govuk-body == t(".immigration_controlled_paragraph_two_html")
+        p.govuk-body = t(".immigration_controlled_paragraph_two_html")
 
       = govuk_details(summary_text: t(".asylum_header_controlled"))
         p.govuk-body = t(".asylum_controlled_paragraph_one")
         ul.govuk-list.govuk-list--bullet
           - t(".asylum_controlled_bullets").each do |bullet|
             li = bullet
-        p.govuk-body == t(".asylum_controlled_paragraph_two_html")
+        p.govuk-body = t(".asylum_controlled_paragraph_two_html")
     - else
       p.govuk-body = t(".immigration_and_asylum_certificated_paragraph")
 
       = govuk_details(summary_text: t(".immigration_header_certificated"))
         p.govuk-body = t(".immigration_certificated_paragraph_one")
-        p.govuk-body == t(".immigration_certificated_paragraph_two_html")
+        p.govuk-body = t(".immigration_certificated_paragraph_two_html")
 
       = govuk_details(summary_text: t(".asylum_header_certificated"))
         p.govuk-body = t(".asylum_certificated_paragraph_one")
-        p.govuk-body == t(".asylum_certificated_paragraph_two_html")
+        p.govuk-body = t(".asylum_certificated_paragraph_two_html")
 
       h2.govuk-heading-s = t(".domestic_abuse_header")
       p.govuk-body = t(".domestic_abuse_paragraph")
