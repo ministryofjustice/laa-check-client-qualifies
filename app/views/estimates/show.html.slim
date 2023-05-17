@@ -5,7 +5,7 @@
     = t(".likely_to_qualify")
 
 - content_for :back do
-  = link_to t("generic.back"), "javascript:history.back()", class: "govuk-back-link"
+  = link_to t("generic.back"), check_answers_estimate_path(params[:id]), class: "govuk-back-link"
 
 .govuk-panel.panel-blue.govuk-panel--confirmation class="govuk-!-text-align-left govuk-!-margin-bottom-9"
   .govuk-panel__body
