@@ -7,4 +7,4 @@
 
 = render "shared/question_sidebar",
         level_of_help: @check.level_of_help,
-         links: {}
+         links: outgoings_links(@check.level_of_help)
