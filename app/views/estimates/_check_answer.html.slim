@@ -1,4 +1,3 @@
-- screen_to_link_to ||= nil
 .govuk-summary-list__row
   dt.govuk-summary-list__key
     = label_text
@@ -7,8 +6,6 @@
     = value_text
 
   dd.govuk-summary-list__actions
-    - if screen_to_link_to
-      = link_to(t("generic.change"), estimate_check_answer_path(params[:id], screen_to_link_to), class: "govuk-link")
-    - elsif disputed_asset
+    - if disputed_asset
       span.moj-badge.moj-badge--blue.moj-badge--large
         = t("generic.disputed_asset")

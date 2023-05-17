@@ -2,7 +2,7 @@ module CheckAnswers
   class SectionListerService
     Section = Struct.new(:label, :screen, :subsections, keyword_init: true)
     Subsection = Struct.new(:label, :screen, :fields, keyword_init: true)
-    Field = Struct.new(:label, :type, :value, :screen_to_link_to, :alt_value, :disputed?, keyword_init: true)
+    Field = Struct.new(:label, :type, :value, :alt_value, :disputed?, keyword_init: true)
 
     SUBSECTION_SPECIAL_CASES = %i[benefits partner_benefits].freeze
 
@@ -50,7 +50,7 @@ module CheckAnswers
     end
 
     def build_field(field_data, label_set, parent_screen)
-      relevant_screen = (field_data[:screen] || field_data[:related_screen] || parent_screen).to_sym
+      relevant_screen = (field_data[:screen] || parent_screen).to_sym
       return unless Steps::Helper.valid_step?(@model.session_data, relevant_screen)
       return if field_data[:skip_unless].present? && !@model.send(field_data[:skip_unless])
 
@@ -60,7 +60,6 @@ module CheckAnswers
                 type: field_data[:type],
                 value: @session_data[field_data[:attribute]],
                 disputed?: @disputed_asset_model.disputed?(field_data.fetch(:attribute)),
-                screen_to_link_to: (relevant_screen if field_data[:change_link]),
                 alt_value: @session_data[field_data[:alt_attribute]])
     end
 
