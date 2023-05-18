@@ -12,4 +12,5 @@ class CompletedUserJourney < ApplicationRecord
   attribute :income_contribution, :boolean
   attribute :completed, :date
   attribute :form_downloaded, :boolean
+  attribute :asylum_support, :boolean
 end

@@ -29,6 +29,8 @@ module Metrics
       capital_contribution: { outcome: "contribution_required", capital_contribution: true },
       income_contribution: { outcome: "contribution_required", income_contribution: true },
       form_downloaded: { form_downloaded: true },
+      asylum_support: { asylum_support: true },
+      no_asylum_support: { asylum_support: false },
     }.freeze
 
     def metric_dataset_definition
