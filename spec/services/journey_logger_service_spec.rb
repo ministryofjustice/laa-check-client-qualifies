@@ -6,7 +6,7 @@ RSpec.describe JourneyLoggerService do
     let(:calculation_result) { CalculationResult.new("api_response" => api_result) }
     let(:api_result) { FactoryBot.build(:api_result) }
     let(:check) { Check.new(session_data) }
-    let(:session_data) { { level_of_help: "controlled" }.with_indifferent_access }
+    let(:session_data) { { level_of_help: "controlled", proceeding_type: "IA031" }.with_indifferent_access }
 
     it "handles errors without crashing" do
       expect(ErrorService).to receive(:call)
@@ -29,6 +29,7 @@ RSpec.describe JourneyLoggerService do
         expect(output.capital_contribution).to eq false
         expect(output.income_contribution).to eq false
         expect(output.asylum_support).to eq false
+        expect(output.matter_type).to eq "asylum"
       end
 
       it "skips saving in no-analytics mode" do
