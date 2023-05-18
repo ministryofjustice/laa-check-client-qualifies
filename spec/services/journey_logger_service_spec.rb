@@ -28,7 +28,7 @@ RSpec.describe JourneyLoggerService do
         expect(output.outcome).to eq "ineligible"
         expect(output.capital_contribution).to eq false
         expect(output.income_contribution).to eq false
-        expect(output.asylum_support).to eq nil
+        expect(output.asylum_support).to eq false
       end
 
       it "skips saving in no-analytics mode" do

@@ -28,7 +28,7 @@ class JourneyLoggerService
         outcome: calculation_result.decision,
         capital_contribution: calculation_result.raw_capital_contribution&.positive? || false,
         income_contribution: calculation_result.raw_income_contribution&.positive? || false,
-        asylum_support: check.asylum_support,
+        asylum_support: check.asylum_support || false,
       }
     end
   end
