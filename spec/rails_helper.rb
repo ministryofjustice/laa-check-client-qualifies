@@ -1,9 +1,19 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require "spec_helper"
+require "unused_i18n_key_checker"
 ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
+
+module I18nRegistry
+  def lookup(locale, key, scope = [], options = {})
+    UnusedI18nKeyChecker.log(key)
+    super
+  end
+end
+
+I18n::Backend::Simple.include I18nRegistry
 
 # Add additional requires below this line. Rails is not loaded until this point!
 require "rspec/rails"
@@ -93,6 +103,10 @@ RSpec.configure do |config|
   end
   config.after(:suite) do
     DatabaseCleaner.clean_with :truncation
+  end
+
+  config.after(:suite) do
+    UnusedI18nKeyChecker.check_unused_keys(ignore_stems: ["activemodel.errors"])
   end
 
   config.include ActiveSupport::Testing::TimeHelpers
