@@ -100,5 +100,19 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
         expect(payload[:regular_transactions]).to be_nil
       end
     end
+
+    context "when the 'household flow' feature flag is active", :household_section_flag do
+      let(:session_data) do
+        {
+          "housing_payments_value" => nil,
+          "housing_payments_frequency" => nil,
+        }
+      end
+
+      it "does not send the housing payments deductions, as they are in another screen" do
+        service.call(session_data, payload)
+        expect(payload[:regular_transactions]).to eq([])
+      end
+    end
   end
 end

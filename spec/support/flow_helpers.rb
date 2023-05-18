@@ -103,7 +103,7 @@ end
 
 def fill_in_outgoings_screen(screen_name: :outgoings)
   confirm_screen screen_name.to_s
-  fill_in "#{screen_name}_form[housing_payments_value]", with: "0"
+  fill_in "#{screen_name}_form[housing_payments_value]", with: "0" if page.body.include?("housing_payments_value")
   fill_in "#{screen_name}_form[childcare_payments_value]", with: "0"
   fill_in "#{screen_name}_form[maintenance_payments_value]", with: "0"
   fill_in "#{screen_name}_form[legal_aid_payments_value]", with: "0"
@@ -122,6 +122,22 @@ def fill_in_property_entry_screen(screen_name: :property_entry, form_name: :clie
   fill_in "#{form_name}_form[mortgage]", with: "1" if page.text.include?("How much is left to pay on the mortgage?")
   fill_in "#{form_name}_form[percentage_owned]", with: "1"
   choose "No", name: "#{form_name}_form[joint_ownership]" if page.text.include?("Is the property joint owned with their partner?")
+  click_on "Save and continue"
+end
+
+def fill_in_housing_costs_screen(screen_name: :housing_costs, form_name: :housing_costs)
+  confirm_screen screen_name
+  fill_in "#{form_name}_form[housing_payments]", with: "0"
+  choose "Every month", name: "#{form_name}_form[housing_payments_frequency]"
+  fill_in "#{form_name}_form[housing_benefit_value]", with: "0"
+  choose "Every month", name: "#{form_name}_form[housing_benefit_frequency]"
+  click_on "Save and continue"
+end
+
+def fill_in_mortgage_or_loan_payment_screen(screen_name: :mortgage_or_loan_payment, form_name: :mortgage_or_loan_payment)
+  confirm_screen screen_name
+  fill_in "#{form_name}_form[housing_payments]", with: "0"
+  choose "Every month", name: "#{form_name}_form[housing_payments_frequency]"
   click_on "Save and continue"
 end
 
