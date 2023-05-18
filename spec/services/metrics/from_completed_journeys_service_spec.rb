@@ -58,6 +58,8 @@ RSpec.describe Metrics::FromCompletedJourneysService do
       it_behaves_like "an aggregator", "vehicle", vehicle_owned: true
       it_behaves_like "an aggregator", "smod", smod_assets: true
       it_behaves_like "an aggregator", "form_downloaded", form_downloaded: true
+      it_behaves_like "an aggregator", "asylum_support", asylum_support: true
+      it_behaves_like "an aggregator", "no_asylum_support", asylum_support: false
       it_behaves_like "an aggregator", "eligible", outcome: "eligible"
       it_behaves_like "an aggregator", "ineligible", outcome: "ineligible"
       it_behaves_like "an aggregator", "capital_contribution", outcome: "contribution_required", capital_contribution: true
