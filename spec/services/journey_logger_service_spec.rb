@@ -6,7 +6,7 @@ RSpec.describe JourneyLoggerService do
     let(:calculation_result) { CalculationResult.new("api_response" => api_result) }
     let(:api_result) { FactoryBot.build(:api_result) }
     let(:check) { Check.new(session_data) }
-    let(:session_data) { { level_of_help: "controlled" }.with_indifferent_access }
+    let(:session_data) { { level_of_help: "controlled", proceeding_type: "IA031" }.with_indifferent_access }
 
     it "handles errors without crashing" do
       expect(ErrorService).to receive(:call)
@@ -28,6 +28,8 @@ RSpec.describe JourneyLoggerService do
         expect(output.outcome).to eq "ineligible"
         expect(output.capital_contribution).to eq false
         expect(output.income_contribution).to eq false
+        expect(output.asylum_support).to eq false
+        expect(output.matter_type).to eq "asylum"
       end
 
       it "skips saving in no-analytics mode" do
@@ -96,6 +98,7 @@ RSpec.describe JourneyLoggerService do
           proceeding_type: "IM030",
           property_owned: "with_mortgage",
           house_in_dispute: true,
+          asylum_support: false,
         }.with_indifferent_access
       end
 
@@ -103,6 +106,23 @@ RSpec.describe JourneyLoggerService do
         described_class.call(assessment_id, calculation_result, check, {})
         output = CompletedUserJourney.find_by(assessment_id:)
         expect(output.smod_assets).to eq false
+        expect(output.asylum_support).to eq false
+      end
+
+      context "when asylum supported" do
+        let(:session_data) do
+          {
+            level_of_help: "certificated",
+            proceeding_type: "IM030",
+            asylum_support: true,
+          }.with_indifferent_access
+        end
+
+        it "tracks asylum support" do
+          described_class.call(assessment_id, calculation_result, check, {})
+          output = CompletedUserJourney.find_by(assessment_id:)
+          expect(output.asylum_support).to eq true
+        end
       end
     end
 

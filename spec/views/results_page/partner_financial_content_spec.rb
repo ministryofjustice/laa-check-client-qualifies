@@ -209,7 +209,7 @@ RSpec.describe "estimates/show.html.slim" do
       expect(page_text).to include "Assessed value£3.00"
       expect(page_text).to include "Partner's disposable capitalAssessed property value£0.00"
       expect(page_text).to include "Assessed vehicle value£3,000.00"
-      expect(page_text).to include "Savings£3,676.00"
+      expect(page_text).to include "Money in bank accounts£3,676.00"
       expect(page_text).to include "Investments and valuables£5,353.00"
       expect(page_text).to include "Disposable capital£30,000.00"
       expect(page_text).to include "Total assessed disposable capital£0.00"

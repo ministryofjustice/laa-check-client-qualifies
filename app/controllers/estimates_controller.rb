@@ -1,5 +1,5 @@
 class EstimatesController < ApplicationController
-  before_action :load_check, only: %i[show print download]
+  before_action :load_check, only: %i[check_answers show print download]
 
   def new
     redirect_to estimate_build_estimate_path SecureRandom.uuid, Steps::Helper.first_step

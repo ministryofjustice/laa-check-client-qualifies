@@ -4,6 +4,7 @@ RSpec.describe "estimates/show.html.slim" do
   describe "Client financial content" do
     let(:calculation_result) { CalculationResult.new(session_data) }
     let(:session_data) { { api_response: }.with_indifferent_access }
+    let(:dependant_allowance) { 13.0 }
     let(:check) { Check.new(session_data) }
     let(:vehicle_in_regular_use) { true }
     let(:api_response) do
@@ -31,7 +32,7 @@ RSpec.describe "estimates/show.html.slim" do
               fixed_employment_deduction: -3.34,
             },
             net_housing_costs: 500.0,
-            dependant_allowance: 13.0,
+            dependant_allowance:,
             partner_allowance: 858.34,
             combined_total_outgoings_and_allowances: 5483.0,
             combined_total_disposable_income: 12_345.0,
@@ -84,6 +85,13 @@ RSpec.describe "estimates/show.html.slim" do
                   value: 587,
                   loan_amount_outstanding: 234,
                   disregards_and_deductions: 144,
+                  assessed_value: 3,
+                  in_regular_use: vehicle_in_regular_use,
+                },
+                {
+                  value: 3333,
+                  loan_amount_outstanding: 1111,
+                  disregards_and_deductions: 2222,
                   assessed_value: 3,
                   in_regular_use: vehicle_in_regular_use,
                 },
@@ -176,11 +184,11 @@ RSpec.describe "estimates/show.html.slim" do
       expect(page_text).to include "Client's vehicleValue£587.00"
       expect(page_text).to include "Outstanding payments-£234.00"
       expect(page_text).to include "Disregards and deductions-£144.00"
-      expect(page_text).to include "Assessed value£3.00"
+      expect(page_text).to include "Assessed value£6.00"
       expect(page_text).to include "Client's disposable capital"
       expect(page_text).to include "Assessed property valueTotal of home client lives in and any additional property£0.00"
       expect(page_text).to include "Assessed vehicle value£3,000.00"
-      expect(page_text).to include "Savings£3,676.00Investments and valuables£5,353.00"
+      expect(page_text).to include "Money in bank accounts£3,676.00Investments and valuables£5,353.00"
       expect(page_text).to include "Total capital£12,000.00"
       expect(page_text).to include "Pensioner disregardApplied to remaining capital after disputed asset disregard has been applied, and up to a maximum of £100,000-£3,000.00"
       expect(page_text).to include "Disputed asset disregardEqual to the assessed value of all assets marked as disputed and capped at £100,000-£1,000.00"
@@ -194,6 +202,53 @@ RSpec.describe "estimates/show.html.slim" do
       it "does not show additional vehicle rows" do
         expect(page_text).not_to include "Outstanding payments -£234.00"
         expect(page_text).not_to include "Disregards and deductions -£144.00"
+      end
+    end
+
+    describe "when household_section feature flag is enabled", :household_section_flag do
+      context "when dependants allowance is not positive figure" do
+        let(:dependant_allowance) { 0 }
+
+        it "does not display the dependants allowance field" do
+          expect(page_text).not_to include "Dependants allowance"
+        end
+      end
+
+      context "when dependants allowance is nil" do
+        let(:dependant_allowance) { nil }
+
+        it "does not display the dependants allowance field" do
+          expect(page_text).not_to include "Dependants allowance"
+        end
+      end
+
+      context "when the vehicle is not in regular use" do
+        let(:vehicle_in_regular_use) { false }
+
+        it "does not show additional vehicle rows" do
+          expect(page_text).to include "Vehicle 1"
+          expect(page_text).to include "Value£587.00"
+          expect(page_text).to include "Assessed value£6.00"
+          expect(page_text).not_to include "Outstanding payments"
+          expect(page_text).not_to include "Disregards and deductions"
+          expect(page_text).to include "Vehicle 2"
+        end
+      end
+
+      context "when the vehicle is in regular use" do
+        let(:vehicle_in_regular_use) { true }
+
+        it "shows relevant additional vehicle rows" do
+          expect(page_text).to include "Vehicle 1"
+          expect(page_text).to include "Value£587.00"
+          expect(page_text).to include "Outstanding payments£234.00"
+          expect(page_text).to include "Disregards and deductions£144.00"
+          expect(page_text).to include "Vehicle 2"
+          expect(page_text).to include "Value£3,333.00"
+          expect(page_text).to include "Assessed value£6.00"
+          expect(page_text).to include "Outstanding payments£1,111.00"
+          expect(page_text).to include "Disregards and deductions£2,222.00"
+        end
       end
     end
   end

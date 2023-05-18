@@ -24,10 +24,17 @@ module Metrics
       property: { main_dwelling_owned: true },
       vehicle: { vehicle_owned: true },
       smod: { smod_assets: true },
+      immigration_matter: { matter_type: "immigration" },
+      asylum_matter: { matter_type: "asylum" },
+      domestic_abuse_matter: { matter_type: "domestic_abuse" },
+      other_matter: { matter_type: "other" },
       eligible: { outcome: "eligible" },
       ineligible: { outcome: "ineligible" },
       capital_contribution: { outcome: "contribution_required", capital_contribution: true },
       income_contribution: { outcome: "contribution_required", income_contribution: true },
+      form_downloaded: { form_downloaded: true },
+      asylum_support: { asylum_support: true },
+      no_asylum_support: { asylum_support: false },
     }.freeze
 
     def metric_dataset_definition

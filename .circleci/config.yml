@@ -20,6 +20,37 @@ executors:
         environment:
           POSTGRES_USER: user
           POSTGRES_DB: ccq_test
+  e2e-executor:
+    resource_class: small
+    docker:
+      - image: cimg/ruby:3.1.3-browsers
+        environment:
+          VCR_RECORD_MODE: none
+          COVERAGE: true
+          RAILS_ENV: test
+          PGHOST: localhost
+          PGUSER: user
+          TZ: "Europe/London"
+          CFE_HOST: http://localhost:3000
+      - image: cimg/postgres:10.18
+        environment:
+          POSTGRES_USER: user
+          POSTGRES_DB: ccq_test
+      - image: $CFE_ECR_ENDPOINT
+        environment:
+          SECRET_KEY_BASE: can_be_anything
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_HOST: cfe_db
+          POSTGRES_DATABASE: cfe
+          RAILS_ENV: production
+          LEGAL_FRAMEWORK_API_HOST: https://legal-framework-api-staging.cloud-platform.service.justice.gov.uk
+      - image: cimg/postgres:14.8
+        name: cfe_db
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+
   cloud-platform-executor:
     docker:
       - image: ministryofjustice/cloud-platform-tools:2.1
@@ -152,6 +183,23 @@ jobs:
           event: fail
           template: basic_fail_1
           branch_pattern: main
+
+  end2end_tests:
+    executor: e2e-executor
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ./
+      - *setup_database
+      - run:
+          name: Prepare for test run
+          command: |
+            bundle exec rake test:prepare
+      - run:
+          name: Run CFE End to End tests
+          command: |
+            COVERAGE=false bundle exec rspec -t end2end --format documentation spec/**/**_spec.rb
+
   linters:
     executor: basic-executor
     steps:
@@ -287,6 +335,9 @@ workflows:
       - run_specs:
           requires:
             - install_dependencies
+      - end2end_tests:
+          requires:
+            - install_dependencies
       - build_and_push_to_ecr:
           requires:
             - install_dependencies
@@ -295,6 +346,7 @@ workflows:
           requires:
             - linters
             - run_specs
+            - end2end_tests
             - build_and_push_to_ecr
 
   merge_pr_to_main:
@@ -312,17 +364,22 @@ workflows:
       - build_and_push_to_ecr:
           requires:
             - install_dependencies
+      - end2end_tests:
+          requires:
+            - install_dependencies
       - deploy_uat:
           name: deploy_main_uat
           context: laa-estimate-eligibility-uat
           requires:
             - run_specs
+            - end2end_tests
             - linters
             - build_and_push_to_ecr
       - deploy_staging:
           context: laa-estimate-eligibility-staging
           requires:
             - run_specs
+            - end2end_tests
             - linters
             - build_and_push_to_ecr
           filters:
@@ -333,6 +390,7 @@ workflows:
           context: laa-estimate-eligibility-production
           requires:
             - run_specs
+            - end2end_tests
             - linters
             - build_and_push_to_ecr
           filters:

@@ -445,6 +445,7 @@ en:
     user_survey_link: https://eu.surveymonkey.com/r/ccq1
     beta: Beta
     beta_message_html: This is a new service - your <a href="%{user_survey_link}" target="_blank">feedback</a> will help us improve it
+    beta_message_short: This is a new service
   generic:
     yes_choice: "Yes"
     no_choice: "No"
@@ -564,6 +565,7 @@ en:
         - the Health, Education and Social Care Chamber of the First-tier Tribunal under the Mental Health Act 1983 or paragraph 5(2) of the Schedule to the Repatriation of Prisoners Act 1984
         - the Mental Health Review Tribunal for Wales
         - the Immigration and Asylum Chamber of the First tier Tribunal
+      mental_health_html: The <a href='https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1143984/Mental_Health_Guidance_-_Contract_management_-_GOV.UK_2023.pdf' target='_blank' rel='noreferrer noopener'>LAA contract management mental health guidance (opens in new tab)</a> explains when a means assessment is not needed for controlled work matters that will potentially involve proceedings before the Mental Health Tribunal (known as non-means, non-MHT matter starts).
       certificated_header: Civil certificated or licensed legal work
       certificated_explanation: This includes full representation and family help (higher).
       select_a_level: Select a level of help
@@ -714,34 +716,67 @@ en:
         legend: What is the partner's employment status?
         hint: "You cannot use this service if your client or their partner is self-employed or in the armed forces."
     dependant_details:
-      caption: About your client
-      legend: Your client's dependants
-      adult_dependants:
-        label: How many?
-        legend: Does your client have any adult dependants?
-        hints:
-          - "An adult dependant is any adult relative who lives with your client and depends on them for financial support. Do not include:"
-        the_partner:  your client's partner
-        certificated_exclusions:
-          - anyone who owns any property, vehicles or other assets valued at over £8,000 in total
-        certificated_income_exclusion: anyone with over £338.90 income every month (any income below this will be deducted from the dependants allowance if an application is made)
-        controlled_exclusions:
-          - anyone who owns any property, vehicles or other assets valued at over £8,000 in total
-        controlled_income_exclusion: anyone with over £338.90 income every month (any income below this should be deducted from the dependants allowance when you complete the relevant controlled work form)
+      non_household_flow:
+        caption: About your client
+        legend: Your client's dependants
+        adult_dependants:
+          label: How many?
+          legend: Does your client have any adult dependants?
+          hints:
+            - "An adult dependant is any adult relative who lives with your client and depends on them for financial support. Do not include:"
+          the_partner:  your client's partner
+          certificated_exclusions:
+            - anyone who owns any property, vehicles or other assets valued at over £8,000 in total
+          certificated_income_exclusion: anyone with over £338.90 income every month (any income below this will be deducted from the dependants allowance if an application is made)
+          controlled_exclusions:
+            - anyone who owns any property, vehicles or other assets valued at over £8,000 in total
+          controlled_income_exclusion: anyone with over £338.90 income every month (any income below this should be deducted from the dependants allowance when you complete the relevant controlled work form)
+        child_dependants:
+          legend: Does your client have any child dependants?
+          label: How many?
+          hint: "A child dependant is one who lives with your client and depends on them for financial support. For example, your client’s child or another child relative who lives in their household. Do not include any:"
+          certificated_exclusions:
+            - foster child
+          certificated_income_exclusion: child with over £338.90 income every month (any income below this will be deducted from the dependants allowance if an application is made)
+          controlled_exclusions:
+            - foster child
+          controlled_income_exclusion: child with over £338.90 income every month (any income below this should be deducted from the dependants allowance when you complete the relevant controlled work form)
+        second_caption: "A dependant:"
+        second_caption_bullets:
+          - is someone who lives with your client and depends on them for financial support
+          - can be an adult or a child
+      legend: Tell us about your client's dependants
+      legend_with_partner: Tell us about your client and their partner's dependants
       child_dependants:
         legend: Does your client have any child dependants?
-        label: How many?
-        hint: "A child dependant is one who lives with your client and depends on them for financial support. For example, your client’s child or another child relative who lives in their household. Do not include any:"
-        certificated_exclusions:
-          - foster child
-        certificated_income_exclusion: child with over £338.90 income every month (any income below this will be deducted from the dependants allowance if an application is made)
-        controlled_exclusions:
-          - foster child
-        controlled_income_exclusion: child with over £338.90 income every month (any income below this should be deducted from the dependants allowance when you complete the relevant controlled work form)
-      second_caption: "A dependant:"
-      second_caption_bullets:
-        - is someone who lives with your client and depends on them for financial support
-        - can be an adult or a child
+        legend_with_partner: Does your client or their partner have any child dependants?
+        summary: What we mean by child dependants
+        paragraph_1: A child dependant is one who lives with your client and depends on them for financial support. For example, your client’s child or another child relative who lives in their household.
+        paragraph_1_with_partner: A child dependant is one who lives with your client and depends on them or their partner for financial support. For example, your client’s or their partner’s child or another child relative who lives in their household.
+        paragraphs:
+          - A child dependant must be either under school leaving age, in full-time education, or undergoing training for a trade, profession or vocation.
+          - "Do not include:"
+        exclusions_certificated:
+          - foster children
+          - any child with over £338.90 income every month (any income below this will be deducted from the dependants allowance if an application is made)
+        exclusions_controlled:
+          - foster children
+          - any child with over £338.90 income every month (any income below this should be deducted from the dependants allowance when you complete the relevant controlled work form)
+      adult_dependants:
+        legend: Does your client have any adult dependants?
+        legend_with_partner: Does your client or their partner have any adult dependants?
+        summary: What we mean by adult dependants
+        paragraph: An adult dependant is any adult relative who lives in the same household and is financially dependant on your client.
+        paragraph_with_partner: An adult dependant is any adult relative who lives in the same household and is financially dependant on your client or their partner.
+        exclude: "Do not include:"
+        exclusions_certificated:
+          - anyone who owns any property, vehicles or other assets valued at over £8,000 in total
+          - anyone with over £338.90 income every month (any income below this will be deducted from the dependants allowance if an application is made)
+        exclusions_controlled:
+          - anyone who owns any property, vehicles or other assets valued at over £8,000 in total
+          - anyone with over £338.90 income every month (any income below this should be deducted from the dependants allowance when you complete the relevant controlled work form)
+      how_many_child: How many child dependants are there?
+      how_many_adult: How many adult dependants are there?
       guidance:
         text: Guidance on dependants
         certificated:
@@ -1606,6 +1641,7 @@ en:
         other: ""
       outgoings_calculation: Outgoings calculation
       client_outgoings: Client's monthly outgoings
+      household_outgoings: Household monthly outgoings
       partner_outgoings: Partner's monthly outgoings
       client_outgoing_types:
         housing_costs: Housing payments
@@ -1627,6 +1663,9 @@ en:
         income_tax: ""
         dependants_allowance: A fixed allowance deducted for each dependant your client has
         partner_allowance: A fixed allowance if your client has a partner
+      household_outgoing_hints:
+        housing_costs: Housing costs minus any Housing Benefit payments the household gets
+        dependants_allowance: A fixed allowance deducted for each dependant in the household
       partner_outgoing_hints:
         housing_costs: Net housing costs minus any Housing Benefit payments the partner receives
         childcare_payments: This figure will show as £0.00 unless the partner and your client are employed or receiving student finance
@@ -1647,7 +1686,7 @@ en:
           text: Assessed vehicle value
           hint: ""
         liquid:
-          text: Savings
+          text: Money in bank accounts
           hint: ""
         non_liquid:
           text: Investments and valuables
@@ -1660,7 +1699,7 @@ en:
           text: Assessed vehicle value
           hint: ""
         liquid:
-          text: Savings
+          text: Money in bank accounts
           hint: ""
         non_liquid:
           text: Investments and valuables
@@ -1731,13 +1770,16 @@ en:
       assessed_value: Amount included in calculation
       client_disposable_capital: Client's disposable capital
       partner_disposable_capital: Partner's disposable capital
-      vehicles: Client's vehicle
+      legacy_vehicles: Client's vehicle
+      vehicles: Vehicle %{number}
       partner_vehicles: Partner's vehicle
       vehicle:
         value: Value
         outstanding_payments: Outstanding payments
         disregards: Disregards and deductions
         assessed_value: Assessed value
+        loan_amount_outstanding: Outstanding payments
+        disregards_and_deductions: Disregards and deductions
       total_assessed_capital: Total assessed disposable capital
       client_additional_property: Client's additional property
       partner_additional_property: Partner's additional property
