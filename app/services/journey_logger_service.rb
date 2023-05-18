@@ -24,7 +24,7 @@ class JourneyLoggerService
         passported: check.passporting || false,
         main_dwelling_owned: check.owns_property? || check.partner_owns_property? || false,
         vehicle_owned: check.vehicle_owned || check.partner_vehicle_owned || false,
-        smod_assets: (check.smod_applicable? && (check.house_in_dispute || check.vehicle_in_dispute || check.in_dispute.any?)) || false,
+        smod_assets: check.any_smod_assets?,
         outcome: calculation_result.decision,
         capital_contribution: calculation_result.raw_capital_contribution&.positive? || false,
         income_contribution: calculation_result.raw_income_contribution&.positive? || false,

@@ -4,6 +4,8 @@ class BaseAddAnotherForm
 
   attr_accessor :items
 
+  PREFIX = nil
+
   # Children must define ITEM_MODEL, ATTRIBUTES and SESSION_KEY constants
   SESSION_KEY = nil
   ITEM_MODEL = nil

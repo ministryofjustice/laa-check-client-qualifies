@@ -20,4 +20,20 @@ RSpec.describe Check do
       expect { described_class.new.nonsense }.to raise_error NoMethodError
     end
   end
+
+  describe "#any_smod_assets?", :household_section_flag do
+    it "returns true if there's a SMOD vehicle" do
+      check = described_class.new(
+        {
+          "vehicle_owned" => true,
+          "vehicles" => [
+            {
+              "vehicle_in_dispute" => true,
+            },
+          ],
+        },
+      )
+      expect(check.any_smod_assets?).to eq true
+    end
+  end
 end
