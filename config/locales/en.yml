@@ -816,7 +816,7 @@ en:
         - "If the client and partner live separately, do not include the partner’s housing costs."
       housing_payments:
         label: Housing payments
-        hint_paragraph:
+        hint_paragraphs:
           - "For example, rent, mortgage or board and lodgings."
           - "Enter the full amount due, whoever pays it."
           - "Do not make any deductions for Housing Benefit."
@@ -825,16 +825,13 @@ en:
           - "Enter 0 if this does not apply."
       housing_benefits:
         label: Housing Benefit
-        hint_paragraph:
+        hint_paragraphs:
           - "Enter any Housing Benefit claimed for the home the client lives in."
           - "Include any Housing Benefit paid:"
-        hint_bullet_1:
-          - "to the client"
-        hint_bullet_2_partner:
-          - "to the partner"
-        hint_bullet_3:
-          - "to a landlord"
-        hint_paragraph_continued: 
+        hint_bullet_1: "to the client"
+        hint_bullet_2_partner: "to the partner"
+        hint_bullet_3: "to a landlord"
+        hint_paragraphs_continued: 
           - "Enter the full amount, whoever claims it."
           - "Enter 0 if this does not apply."
       value: Enter amount

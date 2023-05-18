@@ -5,7 +5,6 @@ class MortgageOrLoanPaymentForm
   include NumberValidatable
 
   ATTRIBUTES = %i[housing_payments housing_payments_frequency].freeze
-  HOUSING_PAYMENT_FREQUENCIES = %w[every_week every_two_weeks every_four_weeks monthly total].freeze
 
   delegate :level_of_help, :partner, to: :check
 
@@ -15,11 +14,11 @@ class MortgageOrLoanPaymentForm
   attribute :housing_payments_frequency, :string
   validates :housing_payments_frequency,
             presence: true,
-            inclusion: { in: HOUSING_PAYMENT_FREQUENCIES, allow_nil: false },
-            if: -> { send(:housing_payments_frequency).to_i.positive? }
+            inclusion: { in: OutgoingsForm::VALID_FREQUENCIES, allow_nil: false },
+            if: -> { housing_payments_frequency.to_i.positive? }
 
   def housing_payment_frequencies
-    valid_frequencies = level_of_help == "controlled" ? HOUSING_PAYMENT_FREQUENCIES - %w[total] : HOUSING_PAYMENT_FREQUENCIES
+    valid_frequencies = level_of_help == "controlled" ? OutgoingsForm::VALID_FREQUENCIES - %w[total] : OutgoingsForm::VALID_FREQUENCIES
     valid_frequencies.map { [_1, I18n.t("estimate_flow.outgoings.frequencies.#{_1}")] }
   end
 end

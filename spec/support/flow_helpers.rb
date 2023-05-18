@@ -125,19 +125,19 @@ def fill_in_property_entry_screen(screen_name: :property_entry, form_name: :clie
   click_on "Save and continue"
 end
 
-def fill_in_housing_costs_screen(screen_name: :housing_costs, form_name: :housing_costs)
-  confirm_screen screen_name
-  fill_in "#{form_name}_form[housing_payments]", with: "0"
-  choose "Every month", name: "#{form_name}_form[housing_payments_frequency]"
-  fill_in "#{form_name}_form[housing_benefit_value]", with: "0"
-  choose "Every month", name: "#{form_name}_form[housing_benefit_frequency]"
+def fill_in_housing_costs_screen
+  confirm_screen :housing_costs
+  fill_in "housing_costs_form[housing_payments]", with: "0"
+  choose "Every month", name: "housing_costs_form[housing_payments_frequency]"
+  fill_in "housing_costs_form[housing_benefit_value]", with: "0"
+  choose "Every month", name: "housing_costs_form[housing_benefit_frequency]"
   click_on "Save and continue"
 end
 
-def fill_in_mortgage_or_loan_payment_screen(screen_name: :mortgage_or_loan_payment, form_name: :mortgage_or_loan_payment)
-  confirm_screen screen_name
-  fill_in "#{form_name}_form[housing_payments]", with: "0"
-  choose "Every month", name: "#{form_name}_form[housing_payments_frequency]"
+def fill_in_mortgage_or_loan_payment_screen
+  confirm_screen :mortgage_or_loan_payment
+  fill_in "mortgage_or_loan_payment_form[housing_payments]", with: "0"
+  choose "Every month", name: "mortgage_or_loan_payment_form[housing_payments_frequency]"
   click_on "Save and continue"
 end
 

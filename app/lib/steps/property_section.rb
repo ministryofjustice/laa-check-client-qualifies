@@ -3,11 +3,11 @@ module Steps
     PROPERTY_STEPS = %i[property property_entry].freeze
     ADDITIONAL_PROPERTY_STEPS = %i[additional_property additional_property_details].freeze
     ADDITIONAL_PARTNER_PROPERTY_STEPS = %i[partner_additional_property partner_additional_property_details].freeze
-    HOUSING_COSTS = %i[housing_costs mortgage_or_loan_payment].freeze
+    HOUSING_COSTS_STEPS = %i[housing_costs mortgage_or_loan_payment].freeze
 
     class << self
       def all_steps
-        PROPERTY_STEPS + ADDITIONAL_PROPERTY_STEPS + ADDITIONAL_PARTNER_PROPERTY_STEPS + HOUSING_COSTS
+        PROPERTY_STEPS + ADDITIONAL_PROPERTY_STEPS + ADDITIONAL_PARTNER_PROPERTY_STEPS + HOUSING_COSTS_STEPS
       end
 
       def grouped_steps_for(session_data)
