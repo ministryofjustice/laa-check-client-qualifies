@@ -445,6 +445,7 @@ en:
     user_survey_link: https://eu.surveymonkey.com/r/ccq1
     beta: Beta
     beta_message_html: This is a new service - your <a href="%{user_survey_link}" target="_blank">feedback</a> will help us improve it
+    beta_message_short: This is a new service
   generic:
     yes_choice: "Yes"
     no_choice: "No"
