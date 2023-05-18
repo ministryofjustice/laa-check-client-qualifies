@@ -11,9 +11,16 @@ module Steps
         else
           [
             Steps::Group.new(:partner_details),
-            (Steps::Group.new(:partner_dependant_details) unless Steps::Logic.passported?(session_data)),
+            dependants(session_data),
           ].compact
         end
+      end
+
+      def dependants(session_data)
+        return if Steps::Logic.passported?(session_data)
+        return if FeatureFlags.enabled?(:household_section)
+
+        Steps::Group.new(:partner_dependant_details)
       end
     end
   end
