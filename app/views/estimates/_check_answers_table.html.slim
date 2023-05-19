@@ -1,11 +1,10 @@
 - @answers.sections.each do |section|
   .govuk-grid-row  id="section-#{section.label}-header"
-    .govuk-grid-column-two-thirds
-      h2.govuk-heading-l id="#{section.label}-section"
+    .govuk-grid-column-full
+      h2.govuk-heading-l id="#{section.label}-section" class=("accommodating-change-link" if section.screen.present? && change_links)
         = t("estimates.check_answers.#{section.label}")
-    .govuk-grid-column-one-third
       - if section.screen.present? && change_links
-        p class="govuk-!-text-align-right"
+        p.change-link.beside-large-header
           = link_to t("generic.change"),
                     estimate_check_answer_path(params[:id], section.screen),
                     class: "govuk-link govuk-!-font-size-19"
@@ -13,12 +12,11 @@
   - section.subsections.each do |subsection|
     - if subsection.label
       .govuk-grid-row id="subsection-#{subsection.label}-header"
-        .govuk-grid-column-two-thirds
-          h2.govuk-heading-m
+        .govuk-grid-column-full
+          h2.govuk-heading-m class=("accommodating-change-link" if subsection.screen.present? && change_links)
             = t("estimates.check_answers.#{subsection.label}")
-        .govuk-grid-column-one-third
           - if subsection.screen.present? && change_links
-            p class="govuk-!-text-align-right"
+            p.change-link.beside-medium-header
               = link_to t("generic.change"),
                         estimate_check_answer_path(params[:id], subsection.screen),
                         class: "govuk-link govuk-!-font-size-19"
@@ -35,26 +33,22 @@
           = render "check_answer",
                     label_text: t("estimates.check_answers.#{field.label}"),
                     value_text: yes_no_boolean(field.value),
-                    screen_to_link_to: (field.screen_to_link_to if change_links),
                     disputed_asset: field.disputed?
         - when "number"
           = render "check_answer",
                     label_text: t("estimates.check_answers.#{field.label}"),
                     value_text: field.value || t("generic.not_applicable"),
-                    screen_to_link_to: (field.screen_to_link_to if change_links),
                     disputed_asset: field.disputed?
         - when "no_or_number"
           = render "check_answer",
                     label_text: t("estimates.check_answers.#{field.label}"),
                     value_text: t("estimates.check_answers.#{field.label}_options.#{field.value || 'not_provided'}"),
-                    screen_to_link_to: (field.screen_to_link_to if change_links),
                     disputed_asset: field.disputed?
         - when "select"
           - value_key = "#{field.value || 'not_provided'}#{"_#{field.alt_value}" if field.alt_value}"
           = render "check_answer",
                     label_text: t("estimates.check_answers.#{field.label}"),
                     value_text: t("estimates.check_answers.#{field.label}_options.#{value_key}"),
-                    screen_to_link_to: (field.screen_to_link_to if change_links),
                     disputed_asset: field.disputed?
         - when "money_with_frequency"
           - alt_value = field.alt_value if field.value&.to_f&.positive?

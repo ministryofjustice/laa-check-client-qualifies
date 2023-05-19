@@ -1,0 +1,20 @@
+.change-link {
+  display: inline-block;
+  width: 55px;
+
+  &.beside-large-header {
+    margin-bottom: 20px;
+  }
+
+  &.beside-medium-header {
+    margin-bottom: 15px;
+  }
+}
+
+.accommodating-change-link {
+  display: inline-block;
+  min-width: calc(100% - 65px);
+  margin-right: 10px;
+
+  margin-bottom: 10px;
+}

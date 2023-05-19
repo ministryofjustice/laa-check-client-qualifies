@@ -35,17 +35,16 @@ sections:
         - attribute: level_of_help
           type: select
   - label: about_the_case
+    screen: matter_type
     subsections:
       - fields:
           - attribute: proceeding_type
             type: select
-            screen: matter_type
-            change_link: true
             alt_attribute: level_of_help
-      - screen: asylum_support
-        label: asylum_support
+      - label: asylum_support
         fields:
           - attribute: asylum_support
+            screen: asylum_support
             type: boolean
   - label: about_your_client
     subsections:
@@ -296,20 +295,20 @@ sections:
             attribute: partner_vehicle_owned
           - type: money
             attribute: partner_vehicle_value
-            related_screen: partner_vehicle_details
+            screen: partner_vehicle_details
           - type: boolean
             attribute: partner_vehicle_pcp
-            related_screen: partner_vehicle_details
+            screen: partner_vehicle_details
           - type: money
             attribute: partner_vehicle_finance
-            related_screen: partner_vehicle_details
+            screen: partner_vehicle_details
             skip_unless: partner_vehicle_pcp
           - type: boolean
             attribute: partner_vehicle_over_3_years_ago
-            related_screen: partner_vehicle_details
+            screen: partner_vehicle_details
           - type: boolean
             attribute: partner_vehicle_in_regular_use
-            related_screen: partner_vehicle_details
+            screen: partner_vehicle_details
       - label: partner_other
         screen: partner_assets
         fields:

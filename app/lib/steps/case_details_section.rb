@@ -6,15 +6,15 @@ module Steps
       end
 
       def grouped_steps_for(session_data)
-        groups(session_data).map { Steps::Group.new(_1) }
+        groups(session_data).map { Steps::Group.new(*_1) }
       end
 
       def groups(session_data)
-        [:level_of_help, :matter_type, asylum_support(session_data)].compact
+        [%i[level_of_help], matter_type_group(session_data)].compact
       end
 
-      def asylum_support(session_data)
-        :asylum_support if Steps::Logic.upper_tribunal?(session_data)
+      def matter_type_group(session_data)
+        Steps::Logic.upper_tribunal?(session_data) ? %i[matter_type asylum_support] : %i[matter_type]
       end
     end
   end
