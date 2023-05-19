@@ -97,7 +97,19 @@ RSpec.configure do |config|
   end
 
   config.after(:suite) do
-    UnusedI18nKeyChecker.check_unused_keys(ignore_stems: ["activemodel.errors"])
+    UnusedI18nKeyChecker.check_unused_keys(
+      # These are parts of the translation file where we know the test suite doesn't cover all useable text
+      ignore: [
+        "activemodel.errors",
+        "estimates.check_answers.employment_fields.frequency_options",
+        "estimates.check_answers.partner_employment_fields.partner_frequency_options",
+        "estimates.show.controlled_",
+        "estimates.show.property_rows.main_home_disregard.text",
+        "estimates.show.property_rows.equity.partial_partner_hint",
+        "estimates.show.capital_header.partner.first_controlled",
+        "estimates.show.ineligible_explanation",
+      ],
+    )
   end
 
   config.include ActiveSupport::Testing::TimeHelpers

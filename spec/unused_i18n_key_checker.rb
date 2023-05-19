@@ -6,18 +6,18 @@ class UnusedI18nKeyChecker
     @used_keys << key.to_s unless @used_keys.include?(key.to_s)
   end
 
-  def self.check_unused_keys(ignore_stems: [])
+  def self.check_unused_keys(ignore: [])
     return unless ENV["CHECK_UNUSED_KEYS"]
 
     mappings = YAML.load_file(Rails.root.join("config/locales/en.yml"))
     defined_keys = define_keys(mappings["en"])
     not_ignored_defined_keys = defined_keys.reject do |defined_key|
-      ignore_stems.any? { defined_key.starts_with?(_1) }
+      ignore.any? { defined_key.starts_with?(_1) }
     end
 
-    unused_keys = not_ignored_defined_keys - Arra(@used_keys)
+    unused_keys = not_ignored_defined_keys - Array(@used_keys)
 
-    puts "\nObsolete i18n keys detected:\n#{unused_keys.join("\n")}" if unused_keys.any?
+    raise "Obsolete i18n keys detected:\n#{unused_keys.join("\n")}" if unused_keys.any?
   end
 
   def self.define_keys(mappings, prefix = nil)

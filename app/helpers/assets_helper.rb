@@ -8,7 +8,7 @@ module AssetsHelper
               first_links
             else
               first_links.merge({
-                t("estimate_flow.assets.disregarded_capital_guidance.text") => t("estimate_flow.assets.disregarded_capital_guidance.certificated.link"),
+                t("estimate_flow.assets.disregarded_capital_guidance.text") => t("estimate_flow.assets.disregarded_capital_guidance.link"),
               })
             end
 

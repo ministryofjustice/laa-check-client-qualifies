@@ -6,10 +6,6 @@ en:
           attributes:
             level_of_help:
               blank: Select the level of help your client needs
-        tribunal_form:
-          attributes:
-            upper_tribunal:
-              inclusion: Select yes if the case relates to proceedings in the Immigration and Asylum chamber of either the First-tier or Upper Tribunal
         asylum_support_form:
           attributes:
             asylum_support:
@@ -462,7 +458,6 @@ en:
   service:
     name: Check if your client qualifies for legal aid
     name_for_page_title: Check if your client qualifies for legal aid | GOV.UK
-    email: eligibility@justice.gov.uk
     user_survey_link: https://eu.surveymonkey.com/r/ccq1
     beta: Beta
     beta_message_html: This is a new service - your <a href="%{user_survey_link}" target="_blank">feedback</a> will help us improve it
@@ -477,10 +472,7 @@ en:
     error_summary_title: There is a problem
     error_prefix: "Error:"
     save_and_continue: Save and continue
-    submit: Submit
-    check_box_divider: or
     change: Change
-    date: Date
     level_of_help:
       text: Level of help
       certificated: Civil certificated or licensed legal work
@@ -512,8 +504,7 @@ en:
       controlled:
         link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=20"
     disregarded_benefits:
-      text: Disregarded benefits
-      text_with_col: Government Cost of Living Payments and disregarded benefits
+      text: Government Cost of Living Payments and disregarded benefits
       cost_of_living:
         text: Government Cost of Living Payments
         list:
@@ -604,7 +595,6 @@ en:
       mental_health_guidance:
         text: Means assessment section of Mental Health guidance
         link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1143984/Mental_Health_Guidance_-_Contract_management_-_GOV.UK_2023.pdf
-      certificated_hint: This includes full representation and family help (higher)
     asylum_support:
       question: Does your client get Asylum Support?
       help_text_1: This means Asylum Support as defined in Section 4 or Section 95 of the Immigration and Asylum Act 1999.
@@ -652,13 +642,6 @@ en:
         - legal representation for an asylum matter in the Immigration and Asylum Chamber of the First-tier Tribunal
       asylum_controlled_paragraph_two_html: Guidance for this is in paragraphs 24 to 30, 32(1) and 32A(1) of Part 1 of Schedule 1 to the <a href='https://www.legislation.gov.uk/ukpga/2012/10/schedule/1' target='_blank' rel='noreferrer noopener'>Legal Aid, Sentencing and Punishment of Offenders Act 2012</a> (LASPO).
       select_a_matter_type: Select a matter type
-    partner:
-      partner_guidance:
-        text: "Guidance on partners"
-        link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=17
-      caption: About your client
-      legend: Does your client have a partner?
-      hint: This is a spouse, someone with whom they are in a civil relationship, a cohabiter or someone they share their finances with. They cannot be the opponent in any legal proceedings.
     applicant:
       passporting_guidance:
         text: Guidance on passporting
@@ -676,7 +659,6 @@ en:
       caption: About your client
       partner:
         rb_hint: You will be asked questions about the partner after you have answered questions about your client
-        caption: About your client
         legend: Does your client have a partner?
         hint_text: "A partner is someone your client is:"
         hint_list:
@@ -689,10 +671,6 @@ en:
             - is separated from the client in a way that is likely to be permanent
             - is an opponent in the case
             - has a contrary interest in the case - this means they want a different outcome to your client
-        hint: This is a spouse, someone with whom they are in a civil relationship, a cohabiter or someone they share their finances with. They cannot be the opponent in any legal proceedings.
-      domestic_abuse_guidance:
-        text: Guidance on domestic abuse or violence
-        link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=13
       over_60:
         legend: Is your client aged 60 or over?
         hint: Clients aged 60 or over may have some of their capital excluded from a financial eligibility assessment.
@@ -813,7 +791,6 @@ en:
       adult_dependants:
         legend: Does the partner have any adult dependants?
         label: How many?
-        no_partner_hint: An adult dependant is any adult relative who lives with your client and depends on them for financial support. Do not include anyone who owns any property, vehicles or other assets valued at over £8,000 in total.
         hints:
           - An adult dependant is any adult relative who lives with the partner and depends on them for financial support.
           - "Do not include:"
@@ -926,14 +903,11 @@ en:
         every_two_weeks: Every 2 weeks
         every_four_weeks: Every 4 weeks
         monthly: Every month
-      added_heading: You have added %{count} %{benefit}
-      benefit: benefit
     benefit_details:
       caption: Your client's finances
       heading: Add benefit details
       hint: Add details of any benefits your client receives. Do not include Housing Benefit or any other disregarded benefits.
       benefit: Benefit
-      suggestions: Suggestion
       benefit_type: Benefit name
       benefit_type_hint: Enter the name of a benefit, or select one from the suggestions that appear when you start to enter the name.
       enter_amount: Enter benefit amount
@@ -943,7 +917,6 @@ en:
       caption: The partner's finances
       legend: Does the partner get any benefits?
       legend_non_household: Does the partner get any other benefits?
-      benefit: benefit
     partner_benefit_details:
       caption: The partner's finances
       heading: Add benefit details
@@ -1085,8 +1058,6 @@ en:
           - Enter 0 if this does not apply
       enter_amount: Enter amount
       enter_frequency: Select frequency
-      guidance_on_outgoings: Guidance on outgoings (need link)
-      link_to_guidance_on_outgoings: "#TODO: To be defined"
     property:
       non_household_flow:
         caption: Your client's finances
@@ -1097,7 +1068,6 @@ en:
         outright: Yes, owned outright
         with_mortgage: Yes, with a mortgage or loan
         none: "No"
-        legend: Does your client and/or their partner own the home they live in?
       properties_guidance:
         text: Guidance on properties
         certificated:
@@ -1131,14 +1101,10 @@ en:
       vehicle_owned:
         legend: Does the partner own a vehicle?
         hint: "This includes cars, vans and motorcycles. Do not add any vehicle you've listed as the client’s vehicle."
-      guidance:
-        text: Guidance on vehicles
-        link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=55"
     assets:
       caption: Your client's finances
       legend: Client assets
       hint: Enter 0 for any that do not apply
-      partner_hint: Enter 0 for any that do not apply.
       partner_second_hint: If any of these assets are owned by both the client and partner, enter the full value here. Do not enter them again on the partner questions that follow.
       non_household_flow:
         property:
@@ -1196,10 +1162,7 @@ en:
           link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=47"
       disregarded_capital_guidance:
         text: Guidance on disregarded capital
-        certificated:
-          link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=70"
-        controlled:
-          link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=20"
+        link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=70"
       other_property_guidance:
         text: Guidance on properties owned that are not the 'main house'
         certificated:
@@ -1258,9 +1221,6 @@ en:
           - For example, any vehicle that is not in regular use, jewellery, art, antiques or caravan or similar.
           - Enter 0 if this does not apply.
         input: Total of all valuable items
-      guidance:
-        text: Guidance on assets
-        link: "#"
     property_entry:
       heading: The home your client lives in
       hint: If you make an application for civil legal aid, the property's value may be excluded from the financial assessment if your client has left their former matrimonial home because of domestic abuse
@@ -1890,7 +1850,6 @@ en:
         dependants_allowance: A fixed allowance deducted for each dependant the partner has
         partner_allowance: ""
       capital_calculation: Capital calculation
-      client_capital: Client's capital
       client_capital_types:
         property:
           text: Assessed property value
@@ -1931,15 +1890,9 @@ en:
           hint: Equal to the assessed value of all assets marked as disputed and capped at £100,000
           alt_hint: Equal to the assessed value of all assets marked as disputed and capped at £100,000
       pensioner_disregard_types:
-        total_capital:
-          text: Total client and partner disposable capital
-          hint: ""
-        pensioner_capital_disregard:
-          text: Pensioner disregard
-          hint: ""
-        assessed_capital:
-          text: Total assessed disposable capital
-          hint: ""
+        total_capital: Total client and partner disposable capital
+        pensioner_capital_disregard: Pensioner disregard
+        assessed_capital: Total assessed disposable capital
       gross_monthly_income: Total monthly income
       gross_with_partner: Total client and partner monthly income
       gross_income_upper_threshold: Monthly income upper limit
@@ -1949,12 +1902,10 @@ en:
       disposable_income_hint: Total monthly income minus total monthly outgoings
       disposable_income_upper_threshold: Disposable monthly income upper limit
       client_assessed_capital: Disposable capital
-      partner_assessed_capital: Disposable capital
       start_another_check: Start another eligibility check
       continue_to_cw: Continue to CW forms
       print_page: Print this page
       save_as_pdf: Save this page as a PDF
-      total_capital: Total capital
       client_main_home: Home client lives in
       property_rows:
         value:
@@ -1980,7 +1931,6 @@ en:
           text: Assessed value
           partial_partner_hint: Partner’s %{percentage}% share of home equity
           partial_client_hint: Client’s %{percentage}% share of home equity
-      assessed_value: Amount included in calculation
       client_disposable_capital: Client's disposable capital
       partner_disposable_capital: Partner's disposable capital
       legacy_vehicles: Client's vehicle
@@ -1998,7 +1948,6 @@ en:
       partner_additional_property: Partner's additional property
       capital_upper_threshold: Disposable capital upper limit
       total: Total
-      capped_contributions: "Capital contributions will be limited to the likely costs of the case when the capital contribution figure stated exceeds that amount."
       pensioner_disregard: Pensioner disregard
       pensioner_disregard_caption: Applied to the total of the client and partner's disposable capital, and capped at £100,000.
       capital_header:
