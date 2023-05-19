@@ -201,19 +201,6 @@ sections:
       - something: here
   - label: housing_and_property
     subsections:
-      - label: housing_costs
-        # TODO: This screen will change in EL-861
-        screen: housing_benefit
-        fields:
-          - attribute: housing_payments_value
-            type: money_with_frequency
-            alt_attribute: housing_payments_frequency
-          - attribute: housing_benefit
-            type: boolean
-          - attribute: housing_benefit_value
-            type: money_with_frequency
-            alt_attribute: housing_benefit_frequency
-            skip_unless: housing_benefit
       - label: property
         screen: property
         fields:
@@ -226,6 +213,24 @@ sections:
             skip_unless: property_owned_with_mortgage?
           - type: number
             attribute: percentage_owned
+      - label: housing_costs
+        screen: housing_costs
+        fields:
+          - attribute: housing_payments_value
+            type: money_with_frequency
+            alt_attribute: housing_payments_frequency
+          - attribute: housing_benefit
+            type: boolean
+          - attribute: housing_benefit_value
+            type: money_with_frequency
+            alt_attribute: housing_benefit_frequency
+            skip_unless: housing_benefit
+      - label: mortgage_or_loan_payment
+        screen: mortgage_or_loan_payment
+        fields:
+          - attribute: housing_payments_value
+            type: money_with_frequency
+            alt_attribute: housing_payments_frequency
       - label: client_additional_property
         screen: additional_property
         fields:

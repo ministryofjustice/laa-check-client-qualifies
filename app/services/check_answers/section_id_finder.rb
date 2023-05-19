@@ -45,7 +45,6 @@ module CheckAnswers
       benefit_details: "subsection-benefits-header",
       other_income: "subsection-other_income-header",
       partner_details: "section-partner_details-header",
-      partner_dependant_details: "section-dependants-header", # TODO: Remove this in EL-853
       partner_employment: "subsection-partner_pay-header",
       partner_benefits: "subsection-partner_benefits-header",
       partner_benefit_details: "subsection-partner_benefits-header",
@@ -58,8 +57,6 @@ module CheckAnswers
       vehicles_details: "section-household_vehicles-header",
       housing_benefit: "subsection-housing_costs-header",
       housing_benefit_details: "subsection-housing_costs-header",
-      partner_housing_benefit: "subsection-housing_costs-header", # TODO: Remove this in EL-861
-      partner_housing_benefit_details: "subsection-housing_costs-header", # TODO: Remove this in EL-861
       property: "subsection-property-header",
       property_entry: "subsection-property-header",
       housing_costs: "subsection-housing_costs-header",

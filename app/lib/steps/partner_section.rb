@@ -6,6 +6,8 @@ module Steps
       end
 
       def all_steps_for_current_feature_flags
+        return %i[partner_details] if FeatureFlags.enabled?(:household_section)
+
         all_steps
       end
 
