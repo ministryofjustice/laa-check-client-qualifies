@@ -37,7 +37,7 @@
       = render "controlled_work_next_steps"
     - else
       p.govuk-body = t("estimates.show.controlled_next_steps_paragraph_1")
-      p.govuk-body == t("estimates.show.controlled_next_steps_paragraph_2")
+      p.govuk-body = t("estimates.show.controlled_next_steps_paragraph_2_html")
 
     h2.govuk-heading-m = t("estimates.show.evidence_needed")
     p.govuk-body = t("estimates.show.evidence_needed_explainer")
