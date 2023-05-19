@@ -1,5 +1,7 @@
 class UnusedI18nKeyChecker
   def self.log(key)
+    return unless ENV["CHECK_UNUSED_KEYS"]
+
     @used_keys ||= []
     @used_keys << key.to_s unless @used_keys.include?(key.to_s)
   end
@@ -13,7 +15,7 @@ class UnusedI18nKeyChecker
       ignore_stems.any? { defined_key.starts_with?(_1) }
     end
 
-    unused_keys = not_ignored_defined_keys - @used_keys
+    unused_keys = not_ignored_defined_keys - Arra(@used_keys)
 
     puts "\nObsolete i18n keys detected:\n#{unused_keys.join("\n")}" if unused_keys.any?
   end
@@ -33,3 +35,12 @@ class UnusedI18nKeyChecker
     keys
   end
 end
+
+module I18nRegistry
+  def lookup(locale, key, scope = [], options = {})
+    UnusedI18nKeyChecker.log(key)
+    super
+  end
+end
+
+I18n::Backend::Simple.include I18nRegistry
