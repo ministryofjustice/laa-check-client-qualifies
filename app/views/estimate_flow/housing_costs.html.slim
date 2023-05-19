@@ -38,16 +38,11 @@
       - t("estimate_flow.housing_costs.housing_benefits.hint_paragraphs").each
         p.govuk-hint = _1
 
-    - if @check.partner
-      ul.govuk-list.govuk-list--bullet
-       li.govuk-hint = t("estimate_flow.housing_costs.housing_benefits.hint_bullet_1")
-       li.govuk-hint = t("estimate_flow.housing_costs.housing_benefits.hint_bullet_2_partner")
-       li.govuk-hint = t("estimate_flow.housing_costs.housing_benefits.hint_bullet_3")
-
-    - unless @check.partner
-      ul.govuk-list.govuk-list--bullet
-       li.govuk-hint = t("estimate_flow.housing_costs.housing_benefits.hint_bullet_1")
-       li.govuk-hint = t("estimate_flow.housing_costs.housing_benefits.hint_bullet_3")
+    ul.govuk-list.govuk-list--bullet
+      li.govuk-hint = t("estimate_flow.housing_costs.housing_benefits.hint_bullet_1")
+      - if @check.partner
+        li.govuk-hint = t("estimate_flow.housing_costs.housing_benefits.hint_bullet_2_partner")
+      li.govuk-hint = t("estimate_flow.housing_costs.housing_benefits.hint_bullet_3")
 
     p.govuk-hint
       - t("estimate_flow.housing_costs.housing_benefits.hint_paragraphs_continued").each
