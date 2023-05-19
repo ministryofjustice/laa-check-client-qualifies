@@ -11,7 +11,7 @@ RSpec.describe "Household section flow", :household_section_flag, type: :feature
     confirm_screen("vehicle")
     fill_in_forms_until(:partner_details)
     fill_in_partner_details_screen
-    # partner dependants screen is skipped
+    # partner dependants and housing benefits screens are skipped
     confirm_screen("partner_benefits")
     fill_in_forms_until(:partner_outgoings)
     fill_in_partner_outgoings_screen

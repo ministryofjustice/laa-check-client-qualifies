@@ -16,11 +16,11 @@
     = render "shared/heading",
             header_text: t("estimate_flow.housing_costs.heading"),
             post_header_texts: t("estimate_flow.housing_costs.#{partner_key}")
-    h2.govuk-heading-m class="govuk-!-margin-bottom-2"
+    h2.govuk-heading-m
       = t("estimate_flow.housing_costs.housing_payments.label")
-    p.govuk-caption-m class="govuk-!-margin-bottom-4"
+    p.govuk-hint
       - t("estimate_flow.housing_costs.housing_payments.hint_paragraphs").each
-        p.govuk-caption-m class="govuk-!-margin-bottom-2" = _1
+        p.govuk-hint = _1
 
     = render "shared/money_input",
             form:,
@@ -32,21 +32,26 @@
                                           :first,
                                           :last,
                                           legend: -> { tag.p(t("estimate_flow.housing_costs.frequency")) }
-    h2.govuk-heading-m class="govuk-!-margin-bottom-2"
+    h2.govuk-heading-m
       = t("estimate_flow.housing_costs.housing_benefits.label")
-    p.govuk-caption-m class="govuk-!-margin-bottom-4"
+    p.govuk-hint
       - t("estimate_flow.housing_costs.housing_benefits.hint_paragraphs").each
-        p.govuk-caption-m class="govuk-!-margin-bottom-2" = _1
-    ul.govuk-list.govuk-list--bullet class="govuk-hint govuk-!-margin-top-0 govuk-!-margin-bottom-0"
-      li = t("estimate_flow.housing_costs.housing_benefits.hint_bullet_1")
-    ul.govuk-list.govuk-list--bullet class="govuk-hint govuk-!-margin-top-1 govuk-!-margin-bottom-0"
+        p.govuk-hint = _1
+
     - if @check.partner
-      li = t("estimate_flow.housing_costs.housing_benefits.hint_bullet_2_partner")
-    ul.govuk-list.govuk-list--bullet class="govuk-hint govuk-!-margin-top-1 govuk-!-margin-bottom-4"
-      li = t("estimate_flow.housing_costs.housing_benefits.hint_bullet_3")
-    p.govuk-caption-m class="govuk-!-margin-bottom-4"
+      ul.govuk-list.govuk-list--bullet
+       li.govuk-hint = t("estimate_flow.housing_costs.housing_benefits.hint_bullet_1")
+       li.govuk-hint = t("estimate_flow.housing_costs.housing_benefits.hint_bullet_2_partner")
+       li.govuk-hint = t("estimate_flow.housing_costs.housing_benefits.hint_bullet_3")
+
+    - unless @check.partner
+      ul.govuk-list.govuk-list--bullet
+       li.govuk-hint = t("estimate_flow.housing_costs.housing_benefits.hint_bullet_1")
+       li.govuk-hint = t("estimate_flow.housing_costs.housing_benefits.hint_bullet_3")
+
+    p.govuk-hint
       - t("estimate_flow.housing_costs.housing_benefits.hint_paragraphs_continued").each
-        p.govuk-caption-m class="govuk-!-margin-bottom-2" = _1
+        p.govuk-hint = _1
     = render "shared/money_input",
             form:,
             field: :housing_benefit_value,
