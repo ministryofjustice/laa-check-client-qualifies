@@ -334,6 +334,26 @@ en:
               within_range: The percentage must be between 1 and 100
               cannot_exceed_100: Total percentage cannot exceed 100%
               not_a_number: The percentage must be a number between 1 and 100
+        housing_costs_form:
+          attributes:
+            housing_payments:
+              blank: Enter the housing payments amount. Enter 0 if this does not apply.
+              not_a_number: Housing payments must be a number. Enter 0 if this does not apply.
+            housing_benefit_value:
+              blank: Enter the Housing Benefit amount. Enter 0 if this does not apply.
+              not_a_number: Housing Benefit must be a number. Enter 0 if this does not apply. 
+            housing_payments_frequency:
+              blank: Select frequency of housing payments.
+            housing_benefit_frequency:
+              blank: Select frequency of Housing Benefit.
+        mortgage_or_loan_payment_form:
+          attributes:
+            housing_payments:
+              blank: Enter the mortgage or loan payments amount.
+              not_a_number: Mortgage or loan payments must be a number.
+              greater_than: Mortgage or loan payments must be more than 0. 
+            housing_payments_frequency:
+              blank: Select frequency of mortgage payments.
         partner_property_entry_form:
           attributes:
             house_value:
