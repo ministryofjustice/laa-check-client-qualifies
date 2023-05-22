@@ -4,18 +4,18 @@ class MortgageOrLoanPaymentForm
   include SessionPersistable
   include NumberValidatable
 
-  ATTRIBUTES = %i[housing_payments housing_payments_frequency].freeze
+  ATTRIBUTES = %i[housing_loan_payments housing_payments_loan_frequency].freeze
 
   delegate :level_of_help, :partner, to: :check
 
-  attribute :housing_payments, :gbp
-  validates :housing_payments, numericality: { greater_than: 0, allow_nil: true }, presence: true
+  attribute :housing_loan_payments, :gbp
+  validates :housing_loan_payments, numericality: { greater_than: 0, allow_nil: true }, presence: true
 
-  attribute :housing_payments_frequency, :string
-  validates :housing_payments_frequency,
+  attribute :housing_payments_loan_frequency, :string
+  validates :housing_payments_loan_frequency,
             presence: true,
             inclusion: { in: OutgoingsForm::VALID_FREQUENCIES, allow_nil: false },
-            if: -> { housing_payments.to_i.positive? }
+            if: -> { housing_loan_payments.to_i.positive? }
 
   def housing_payment_frequencies
     valid_frequencies = level_of_help == "controlled" ? OutgoingsForm::VALID_FREQUENCIES - %w[total] : OutgoingsForm::VALID_FREQUENCIES

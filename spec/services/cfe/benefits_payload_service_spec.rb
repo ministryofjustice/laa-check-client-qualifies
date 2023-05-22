@@ -149,6 +149,31 @@ RSpec.describe Cfe::BenefitsPayloadService do
       end
     end
 
+    context "when in the household flow", :household_section_flag do
+      context "when it is housing_benefit data" do
+        let(:translated) do
+          [{ name: "housing_benefit",
+             payments:
+          [{ date: Date.new(2022, 10, 24), amount: 100.to_d, client_id: "" },
+           { date: Date.new(2022, 9, 24), amount: 100.to_d, client_id: "" },
+           { date: Date.new(2022, 8, 24), amount: 100.to_d, client_id: "" }] }]
+        end
+
+        let(:session_data) do
+          {
+            "housing_benefit" => true,
+            "housing_benefit_value" => "100",
+            "housing_benefit_frequency" => "monthly",
+          }
+        end
+
+        it "populates the payload" do
+          service.call(session_data, payload)
+          expect(payload[:state_benefits]).to eq translated
+        end
+      end
+    end
+
     context "when the client is passported" do
       let(:session_data) do
         {

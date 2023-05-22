@@ -15,11 +15,11 @@ RSpec.describe "mortgage_or_loan_payment", type: :feature do
   end
 
   it "stores my housing payments responses in the session" do
-    fill_in "mortgage-or-loan-payment-form-housing-payments-field", with: "1000"
+    fill_in "mortgage-or-loan-payment-form-housing-loan-payments-field", with: "1000"
     choose "Every month"
     click_on "Save and continue"
 
-    expect(session_contents["housing_payments"]).to eq 1000
-    expect(session_contents["housing_payments_frequency"]).to eq "monthly"
+    expect(session_contents["housing_loan_payments"]).to eq 1000
+    expect(session_contents["housing_payments_loan_frequency"]).to eq "monthly"
   end
 end

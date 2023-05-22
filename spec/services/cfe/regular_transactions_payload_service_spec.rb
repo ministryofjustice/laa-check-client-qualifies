@@ -100,5 +100,45 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
         expect(payload[:regular_transactions]).to be_nil
       end
     end
+
+    context "when in the household flow", :household_section_flag do
+      context "when client or their partner do not own their home" do
+        let(:session_data) do
+          {
+            "housing_payments" => 12,
+            "housing_payments_frequency" => "monthly",
+          }
+        end
+
+        it "populates the payload with content from the housing costs screen" do
+          service.call(session_data, payload)
+          expect(payload[:regular_transactions]).to eq(
+            [{ amount: 12,
+               category: :rent_or_mortgage,
+               frequency: :monthly,
+               operation: :debit }],
+          )
+        end
+      end
+
+      # context "when client or their partner do own their home with mortgage or loan" do
+      #   let(:session_data) do
+      #     {
+      #       "housing_loan_payments" => 12,
+      #       "housing_payments_loan_frequency" => "monthly",
+      #     }
+      #   end
+
+      #   it "populates the payload with content from the mortgage or loan screen" do
+      #     service.call(session_data, payload)
+      #     expect(payload[:regular_transactions]).to eq(
+      #       [{ amount: 12,
+      #          category: :rent_or_mortgage,
+      #          frequency: :monthly,
+      #          operation: :debit }],
+      #     )
+      #   end
+      # end
+    end
   end
 end

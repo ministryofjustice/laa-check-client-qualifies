@@ -10,10 +10,10 @@
             post_header_text: t("estimate_flow.mortgage_or_loan_payment.heading_hint")
     = render "shared/money_input",
             form:,
-            field: :housing_payments,
+            field: :housing_loan_payments,
             width: 10,
             label_text: t("estimate_flow.mortgage_or_loan_payment.value")
-    = form.govuk_collection_radio_buttons :housing_payments_frequency,
+    = form.govuk_collection_radio_buttons :housing_payments_loan_frequency,
                                           @form.housing_payment_frequencies,
                                           :first,
                                           :last,

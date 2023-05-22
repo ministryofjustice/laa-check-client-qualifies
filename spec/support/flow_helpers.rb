@@ -136,8 +136,8 @@ end
 
 def fill_in_mortgage_or_loan_payment_screen
   confirm_screen :mortgage_or_loan_payment
-  fill_in "mortgage_or_loan_payment_form[housing_payments]", with: "0"
-  choose "Every month", name: "mortgage_or_loan_payment_form[housing_payments_frequency]"
+  fill_in "mortgage_or_loan_payment_form[housing_loan_payments]", with: "100"
+  choose "Every month", name: "mortgage_or_loan_payment_form[housing_payments_loan_frequency]"
   click_on "Save and continue"
 end
 

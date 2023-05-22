@@ -32,9 +32,9 @@ RSpec.describe "housing_costs", type: :feature do
 
     it "shows 'Total in last 3 months' radio" do
       fill_in "housing-costs-form-housing-payments-field", with: "20"
-      choose "Every 2 weeks", name: "housing_costs_form[housing_payments_frequency]"
-      fill_in "housing-costs-form-housing-benefit-value-field", with: "40"
       choose "Total in last 3 months", name: "housing_costs_form[housing_payments_frequency]"
+      fill_in "housing-costs-form-housing-benefit-value-field", with: "40"
+      choose "Every 2 weeks", name: "housing_costs_form[housing_benefit_frequency]"
       click_on "Save and continue"
 
       expect(session_contents["housing_payments_frequency"]).to eq "total"
