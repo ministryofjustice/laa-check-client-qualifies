@@ -221,6 +221,7 @@ sections:
             screen: property_entry
       - label: housing_costs
         screen: housing_costs
+        partner_dependant_wording: true
         fields:
           - attribute: housing_payments
             type: money_with_frequency
