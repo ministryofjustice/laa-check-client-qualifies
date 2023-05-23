@@ -1,0 +1,25 @@
+- content_for :page_title
+  = t(".heading")
+- content_for :back do
+  = back_link(:housing_costs, @check, @back_buttons_invoke_browser_back_behaviour)
+.govuk-grid-column-two-thirds
+  = form_for(@form, url: wizard_path, method: :put) do |form|
+    = form.govuk_error_summary t("generic.error_summary_title")
+    = render "shared/heading",
+            header_text: t("estimate_flow.mortgage_or_loan_payment.heading"),
+            post_header_text: t("estimate_flow.mortgage_or_loan_payment.heading_hint")
+    = render "shared/money_input",
+            form:,
+            field: :housing_loan_payments,
+            width: 10,
+            label_text: t("estimate_flow.mortgage_or_loan_payment.value")
+    = form.govuk_collection_radio_buttons :housing_payments_loan_frequency,
+                                          @form.housing_payment_frequencies,
+                                          :first,
+                                          :last,
+                                          legend: -> { tag.p(t("estimate_flow.mortgage_or_loan_payment.frequency")) }
+    = form.govuk_submit t("generic.save_and_continue")
+
+= render "shared/question_sidebar",
+        level_of_help: @check.level_of_help,
+         links: housing_costs_links(@check.level_of_help)

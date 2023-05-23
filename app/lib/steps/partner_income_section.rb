@@ -33,6 +33,8 @@ module Steps
       end
 
       def housing_benefit_steps(session_data)
+        return if FeatureFlags.enabled?(:household_section)
+
         steps = if Steps::Logic.partner_housing_benefit?(session_data)
                   %i[partner_housing_benefit partner_housing_benefit_details]
                 else

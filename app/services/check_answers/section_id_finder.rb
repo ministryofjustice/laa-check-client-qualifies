@@ -38,6 +38,8 @@ module CheckAnswers
       partner_assets: "subsection-partner_other-header",
       partner_additional_property: "subsection-partner_other-header",
       partner_additional_property_details: "subsection-partner_other-header",
+      housing_costs: "subsection-housing_costs-header",
+      mortgage_or_loan_payment: "subsection-mortgage_or_loan_payment-header",
     }.freeze
 
     def self.call(step)
