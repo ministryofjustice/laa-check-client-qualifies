@@ -1686,12 +1686,12 @@ en:
       housing_and_property: Housing and property
       housing_costs: Housing costs
       housing_costs_fields:
-        housing_payments_value: Housing payments
+        housing_payments: Housing payments
         housing_benefit: Gets Housing Benefit
         housing_benefit_value: Housing Benefit amount
       mortgage_or_loan_payment: Housing costs
       mortgage_or_loan_payment_fields:
-        housing_payments_value: Mortgage or loan payments
+        housing_loan_payments: Mortgage or loan payments
       property: Home client lives in
       property_fields:
         property_owned: Owns the home they live in
