@@ -149,6 +149,19 @@ RSpec.describe Cfe::BenefitsPayloadService do
       end
     end
 
+    context "when the client is passported" do
+      let(:session_data) do
+        {
+          "passporting" => true,
+        }
+      end
+
+      it "does not populate the payload" do
+        service.call(session_data, payload)
+        expect(payload[:state_benefits]).to be_nil
+      end
+    end
+
     context "when in the household flow", :household_section_flag do
       context "when it is housing_benefit data" do
         let(:translated) do
@@ -172,18 +185,45 @@ RSpec.describe Cfe::BenefitsPayloadService do
           expect(payload[:state_benefits]).to eq translated
         end
       end
-    end
 
-    context "when the client is passported" do
-      let(:session_data) do
-        {
-          "passporting" => true,
-        }
+      context "when it is Child benefit data" do
+        let(:translated) do
+          [{ name: "Child benefit",
+             payments:
+           [{ date: Date.new(2022, 10, 24), amount: 100.to_d, client_id: "" },
+            { date: Date.new(2022, 9, 24), amount: 100.to_d, client_id: "" },
+            { date: Date.new(2022, 8, 24), amount: 100.to_d, client_id: "" }] }]
+        end
+
+        let(:session_data) do
+          {
+            "receives_benefits" => true,
+            "benefits" => [
+              { "benefit_amount" => "100",
+                "benefit_type" => "Child benefit",
+                "benefit_frequency" => "monthly" },
+            ],
+            "housing_benefit_value" => "0",
+          }
+        end
+
+        it "populates the payload" do
+          service.call(session_data, payload)
+          expect(payload[:state_benefits]).to eq translated
+        end
       end
 
-      it "does not populate the payload" do
-        service.call(session_data, payload)
-        expect(payload[:state_benefits]).to be_nil
+      context "when the client is passported" do
+        let(:session_data) do
+          {
+            "passporting" => true,
+          }
+        end
+
+        it "does not populate the payload" do
+          service.call(session_data, payload)
+          expect(payload[:state_benefits]).to be_nil
+        end
       end
     end
   end

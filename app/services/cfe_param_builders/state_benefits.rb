@@ -16,7 +16,7 @@ module CfeParamBuilders
       end
 
       def housing_benefit(form)
-        return [] unless form
+        return [] unless form && form.housing_benefit_value.positive?
 
         [build_benefit(form.housing_benefit_frequency, form.housing_benefit_value, HOUSING_BENEFIT_TYPE)]
       end

@@ -105,7 +105,24 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
       context "when client or their partner do not own their home" do
         let(:session_data) do
           {
-            "housing_payments" => 12,
+            "property_owned" => "none",
+            "friends_or_family_value" => 45,
+            "friends_or_family_frequency" => "every_week",
+            "maintenance_value" => 56,
+            "maintenance_frequency" => "every_two_weeks",
+            "property_or_lodger_value" => 67,
+            "property_or_lodger_frequency" => "every_four_weeks",
+            "pension_value" => 78,
+            "pension_frequency" => "monthly",
+            "student_finance_value" => 89,
+            "other_value" => 9,
+            "childcare_payments_value" => 23,
+            "childcare_payments_frequency" => "every_two_weeks",
+            "maintenance_payments_value" => 34,
+            "maintenance_payments_frequency" => "total",
+            "legal_aid_payments_value" => 46,
+            "legal_aid_payments_frequency" => "monthly",
+            "housing_payments" => 120,
             "housing_payments_frequency" => "monthly",
           }
         end
@@ -113,7 +130,35 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
         it "populates the payload with content from the housing costs screen" do
           service.call(session_data, payload)
           expect(payload[:regular_transactions]).to eq(
-            [{ amount: 12,
+            [{ amount: 45,
+               category: :friends_or_family,
+               frequency: :weekly,
+               operation: :credit },
+             { amount: 56,
+               category: :maintenance_in,
+               frequency: :two_weekly,
+               operation: :credit },
+             { amount: 67,
+               category: :property_or_lodger,
+               frequency: :four_weekly,
+               operation: :credit },
+             { amount: 78,
+               category: :pension,
+               frequency: :monthly,
+               operation: :credit },
+             { amount: 23,
+               category: :child_care,
+               frequency: :two_weekly,
+               operation: :debit },
+             { amount: 34,
+               category: :maintenance_out,
+               frequency: :three_monthly,
+               operation: :debit },
+             { amount: 46,
+               category: :legal_aid,
+               frequency: :monthly,
+               operation: :debit },
+             { amount: 120,
                category: :rent_or_mortgage,
                frequency: :monthly,
                operation: :debit }],
@@ -121,24 +166,53 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
         end
       end
 
-      # context "when client or their partner do own their home with mortgage or loan" do
-      #   let(:session_data) do
-      #     {
-      #       "housing_loan_payments" => 12,
-      #       "housing_payments_loan_frequency" => "monthly",
-      #     }
-      #   end
+      context "when client or their partner do own their home with mortgage or loan" do
+        let(:session_data) do
+          {
+            "property_owned" => "with_mortgage",
+            "housing_loan_payments" => 140,
+            "housing_payments_loan_frequency" => "monthly",
+          }
+        end
 
-      #   it "populates the payload with content from the mortgage or loan screen" do
-      #     service.call(session_data, payload)
-      #     expect(payload[:regular_transactions]).to eq(
-      #       [{ amount: 12,
-      #          category: :rent_or_mortgage,
-      #          frequency: :monthly,
-      #          operation: :debit }],
-      #     )
-      #   end
-      # end
+        it "populates the payload with content from the mortgage or loan screen" do
+          service.call(session_data, payload)
+          expect(payload[:regular_transactions]).to eq(
+            [{ amount: 140,
+               category: :rent_or_mortgage,
+               frequency: :monthly,
+               operation: :debit }],
+          )
+        end
+      end
+
+      context "when client or their partner do own their home outright" do
+        let(:session_data) do
+          {
+            "property_owned" => "outright",
+          }
+        end
+
+        it "populates the payload with content from the mortgage or loan screen" do
+          service.call(session_data, payload)
+          expect(payload[:regular_transactions]).to eq(
+            [],
+          )
+        end
+      end
+
+      context "when the applicant is passported" do
+        let(:session_data) do
+          {
+            "passporting" => true,
+          }
+        end
+
+        it "adds nothing to the payment" do
+          service.call(session_data, payload)
+          expect(payload[:regular_transactions]).to be_nil
+        end
+      end
     end
   end
 end
