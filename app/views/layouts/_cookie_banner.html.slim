@@ -25,7 +25,7 @@
           .govuk-grid-column-two-thirds
             .govuk-cookie-banner__content
               p.govuk-body
-                == t("cookie_banner.accepted", change_link: link_to(t("cookie_banner.change"), cookies_path, class: "govuk-link"))
+                = t("cookie_banner.accepted_html", change_link: link_to(t("cookie_banner.change"), cookies_path, class: "govuk-link"))
 
         .govuk-button-group
           a href=request.env["PATH_INFO"] role="button" draggable="false" class="govuk-button" data-module="govuk-button"
@@ -37,7 +37,7 @@
           .govuk-grid-column-two-thirds
             .govuk-cookie-banner__content
               p.govuk-body
-                == t("cookie_banner.rejected", change_link: link_to(t("cookie_banner.change"), cookies_path, class: "govuk-link"))
+                = t("cookie_banner.rejected_html", change_link: link_to(t("cookie_banner.change"), cookies_path, class: "govuk-link"))
 
         .govuk-button-group
           a href=request.env["PATH_INFO"] role="button" draggable="false" class="govuk-button" data-module="govuk-button"

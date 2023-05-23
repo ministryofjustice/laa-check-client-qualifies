@@ -461,6 +461,7 @@ en:
               blank: Select which form you need
   service:
     name: Check if your client qualifies for legal aid
+    name_for_page_title: Check if your client qualifies for legal aid | GOV.UK
     email: eligibility@justice.gov.uk
     user_survey_link: https://eu.surveymonkey.com/r/ccq1
     beta: Beta
@@ -1615,7 +1616,7 @@ en:
       certificated_how_calculated: How we calculated whether your client is likely to be financially eligible for civil certificated legal aid work
       controlled_how_calculated: How we calculated whether your client is likely to be financially eligible for civil controlled legal aid work
       controlled_next_steps_paragraph_1: You will need to complete the relevant controlled work form and keep for your records, along with any evidence provided by your client. Your client’s file may be audited and assessed by the LAA at a later date.
-      controlled_next_steps_paragraph_2: "You can find the forms at: <a href='https://www.gov.uk/government/collections/controlled-work-application-forms' target='_blank' rel='noreferrer noopener'>Controlled work application forms</a>."
+      controlled_next_steps_paragraph_2_html: "You can find the forms at: <a href='https://www.gov.uk/government/collections/controlled-work-application-forms' target='_blank' rel='noreferrer noopener'>Controlled work application forms</a>."
       controlled_types_of_evidence:
         - bank statements covering the most recent month
         - evidence of any benefits or financial support your client received from the government, local authorities or third parties dated in the last 6 months
@@ -1828,7 +1829,7 @@ en:
           - Get your client to sign the form.
           - Keep the form, with any evidence provided by your client, for your records.
         manual_header:  Complete a controlled work form yourself
-        manual_instruction: Download a <a href='https://www.gov.uk/government/collections/controlled-work-application-forms' target='_blank' rel='noreferrer noopener'>controlled work application form</a>. Some of these can be filled in on a computer.
+        manual_instruction_html: Download a <a href='https://www.gov.uk/government/collections/controlled-work-application-forms' target='_blank' rel='noreferrer noopener'>controlled work application form</a>. Some of these can be filled in on a computer.
       ineligible_explanation:
         text: Your %{subject} %{value_type} exceeds the upper limit. This means %{outcome} not qualify for legal aid.
         subject_no_partner: client’s
@@ -1845,7 +1846,7 @@ en:
       calculation_information: We’ve used the information you provided to compare your client’s income and outgoings. This allows us to calculate their monthly disposable income.
       limits_heading: Limits
       outgoings_explanation: "For some outgoings, you may see figures that differ from what you entered. This is because some outgoing amounts are capped or disregarded in certain situations. For example:"
-      list:
+      list_html:
         - Childcare costs will display as £0 if your client is not employed or a student (<a href="https://www.legislation.gov.uk/uksi/2013/480/regulation/27" target='_blank' rel='noreferrer noopener'>Regulation 27 of the Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 (opens in new tab)</a>).
         - Housing costs are capped at £545 per month if your client is single and does not have any dependants (<a href="https://www.legislation.gov.uk/uksi/2013/480/regulation/28" target='_blank' rel='noreferrer noopener'>Regulation 28(7) of the Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 (opens in new tab)</a>).
         - If your client’s gross income is above the applicable upper gross income limit, they will not qualify for legal aid. If this occurs, our service will not perform disposable income or disposable capital calculations. Any figures you entered in the outgoings or capital sections may either display as £0, or not at all.
@@ -1942,15 +1943,15 @@ en:
     reject: Reject additional cookies
     view: View cookies
     change: change your cookie settings
-    accepted: You’ve accepted additional cookies. You can %{change_link} at any time.
-    rejected: You’ve rejected additional cookies. You can %{change_link} at any time.
+    accepted_html: You’ve accepted additional cookies. You can %{change_link} at any time.
+    rejected_html: You’ve rejected additional cookies. You can %{change_link} at any time.
     hide: Hide cookie message
   cookies:
     show:
       title: Cookies
-      paragraph_1: "%{service_name} puts small files (known as ‘cookies’) on your computer."
+      paragraph_1_html: "%{service_name} puts small files (known as ‘cookies’) on your computer."
       paragraph_2: These cookies are used across the %{service_name} website.
-      paragraph_3: Find out %{how_to_manage} from the Information Commissioner's Office.
+      paragraph_3_html: Find out %{how_to_manage} from the Information Commissioner's Office.
       how_to_manage: how to manage cookies
       essential_cookies: Essential cookies (strictly necessary)
       essential_cookie_explainer: We use an essential cookie to remember when you accept or reject cookies on our website, and another to remember your answers as you complete the eligibility form.
@@ -2092,10 +2093,10 @@ en:
         - listen to most of the website using a screen reader (including the most recent versions of JAWS, NVDA and VoiceOver)
       p1_extra_text: We’ve also made the website text as simple as possible to understand.
       p1_extra_html: "<a href='https://mcmw.abilitynet.org.uk/'>AbilityNet</a> has advice on making your device easier to use if you have a disability."
-      paragraphs:
-        - heading: How accessible this website is
-          text:
-            - "This website is fully compliant with levels A, AA and AAA of the Web Content Accessibility Guidelines – WCAG 2.1."
+      headed_paragraph:
+        heading: How accessible this website is
+        text_html:
+          - "This website is fully compliant with levels A, AA and AAA of the Web Content Accessibility Guidelines – WCAG 2.1."
       p12_heading: Reporting accessibility problems with this website
       p12_html: "We’re always looking to improve the accessibility of this website. If you find any problems not listed on this page or think we’re not meeting accessibility requirements, contact us by email at eligibility@justice.gov.uk."
       p13_heading: Enforcement procedure
@@ -2104,17 +2105,17 @@ en:
       p13_html: If you’re not happy with how we respond to your complaint, <a rel="external" href="https://www.equalityadvisoryservice.com/">contact the Equality Advisory and Support Service (<abbr title="Equality Advisory and Support Service">EASS</abbr>)</a>.
       p14_heading: Contacting us
       p14_html: "Contact us by email at eligibility@justice.gov.uk."
-      paragraphs2:
-        - heading: Technical information about this website’s accessibility
-          text:
-            - "The Legal Aid Agency is committed to making its websites accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018."
+      headed_paragraph2:
+        heading: Technical information about this website’s accessibility
+        text_html:
+          - "The Legal Aid Agency is committed to making its websites accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018."
       p31_heading: Compliance status
       p31_html: This website is fully compliant with the <a href="https://www.w3.org/TR/WCAG21/">Web Content Accessibility Guidelines version 2.1</a> AA Standard.
-      paragraphs4:
-        - heading: Preparation of this accessibility statement
-          text:
-            - This statement was prepared on 12 December 2022. It was last reviewed on 10 January 2023.
-            - This website was last tested on 4 January 2023. The test was carried out by <a href="https://digitalaccessibilitycentre.org">Digital Accessibility Centre (DAC)</a>.
+      headed_paragraph4:
+        heading: Preparation of this accessibility statement
+        text_html:
+          - This statement was prepared on 12 December 2022. It was last reviewed on 10 January 2023.
+          - This website was last tested on 4 January 2023. The test was carried out by <a href="https://digitalaccessibilitycentre.org">Digital Accessibility Centre (DAC)</a>.
   cost_of_living_details:
     header: Government Cost of Living Payments
     text: Government Cost of Living Payments are disregarded from the financial eligibility calculation, for example
