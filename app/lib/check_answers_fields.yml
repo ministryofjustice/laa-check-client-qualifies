@@ -208,11 +208,13 @@ sections:
             attribute: property_owned
           - type: money
             attribute: house_value
+            screen: property_entry
           - type: money
             attribute: mortgage
             skip_unless: property_owned_with_mortgage?
           - type: number
             attribute: percentage_owned
+            screen: property_entry
       - label: housing_costs
         screen: housing_costs
         fields:
@@ -235,11 +237,13 @@ sections:
             attribute: additional_property_owned
           - type: money
             attribute: additional_house_value
+            screen: additional_property_details
           - type: money
             attribute: additional_mortgage
             skip_unless: additional_property_owned_with_mortgage?
           - type: number
             attribute: additional_percentage_owned
+            screen: additional_property_details
       - label: partner_additional_property
         screen: partner_additional_property
         fields:
@@ -247,8 +251,10 @@ sections:
             attribute: partner_additional_property_owned
           - type: money
             attribute: partner_additional_house_value
+            screen: partner_additional_property_details
           - type: money
             attribute: partner_additional_mortgage
             skip_unless: partner_additional_property_owned_with_mortgage?
           - type: number
             attribute: partner_additional_percentage_owned
+            screen: partner_additional_property_details

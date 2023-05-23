@@ -1687,7 +1687,6 @@ en:
       housing_costs: Housing costs
       housing_costs_fields:
         housing_payments: Housing payments
-        housing_benefit: Gets Housing Benefit
         housing_benefit_value: Housing Benefit amount
       mortgage_or_loan_payment: Housing costs
       mortgage_or_loan_payment_fields:
