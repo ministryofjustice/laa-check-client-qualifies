@@ -3,13 +3,13 @@ module Steps
     class << self
       def all_steps
         %i[partner_details
-        partner_employment
-        partner_housing_benefit
-        partner_housing_benefit_details
-        partner_benefits
-        partner_benefit_details
-        partner_other_income
-        partner_outgoings]
+           partner_employment
+           partner_housing_benefit
+           partner_housing_benefit_details
+           partner_benefits
+           partner_benefit_details
+           partner_other_income
+           partner_outgoings]
       end
 
       def all_steps_for_current_feature_flags

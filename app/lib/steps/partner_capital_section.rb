@@ -11,7 +11,7 @@ module Steps
 
       def all_steps_for_current_feature_flags
         if FeatureFlags.enabled?(:household_section)
-          %i[partner_assets].freeze
+          []
         else
           all_steps
         end
@@ -21,7 +21,7 @@ module Steps
         if !Steps::Logic.partner?(session_data)
           []
         elsif FeatureFlags.enabled?(:household_section) && !Steps::Logic.passported?(session_data)
-          [Steps::Group.new(:partner_assets)].compact
+          []
         else
           [property_steps(session_data),
            vehicle_steps(session_data),
