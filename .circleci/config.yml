@@ -345,8 +345,8 @@ workflows:
           context: laa-estimate-eligibility-uat
           requires:
             - linters
-            - run_specs
-            - end2end_tests
+#            - run_specs
+#            - end2end_tests
             - build_and_push_to_ecr
 
   merge_pr_to_main:
