@@ -9,7 +9,7 @@
     = form.govuk_error_summary t("generic.error_summary_title")
 
     = render "shared/household_tag"
-    - if FeatureFlags.enabled?(:special_applicant_groups)
+    - if FeatureFlags.enabled?(:special_applicant_groups) && @check.partner
       = form.govuk_collection_radio_buttons :property_owned, property_options, :first, :last,
                                             legend: { text: t(legend_key), size: "xl", tag: "h1" },
                                             hint: lambda { \
