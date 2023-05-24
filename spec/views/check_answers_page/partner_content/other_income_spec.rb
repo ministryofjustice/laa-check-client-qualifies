@@ -58,10 +58,10 @@ RSpec.describe "estimates/check_answers.html.slim", :household_section_flag do
         end
 
         it "renders content" do
-          expect(text).to include("Financial helpNot applicable")
-          expect(text).to include("Maintenance payments from a former partnerNot applicable")
-          expect(text).to include("Income from a property or lodgerNot applicable")
-          expect(text).to include("PensionNot applicable")
+          expect(text).to include("Financial help£0.00")
+          expect(text).to include("Maintenance payments from a former partner£0.00")
+          expect(text).to include("Income from a property or lodger£0.00")
+          expect(text).to include("Pension£0.00")
           expect(text).to include("Student finance£0.00")
           expect(text).to include("Other sources£0.00")
         end

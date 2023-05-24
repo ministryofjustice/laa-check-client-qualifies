@@ -55,7 +55,7 @@
           - alt_value = field.alt_value if field.value&.to_f&.positive?
           = render "money_and_frequency_check_answer",
                     label_text: t("estimates.check_answers#{modifier}.#{field.label}"),
-                    value: (field.value if field.value&.to_f&.positive?),
+                    value: field.value,
                     frequency: t("estimates.check_answers#{modifier}.frequency_options.#{alt_value || 'not_applicable'}")
         - when "benefit"
           = render "money_and_frequency_check_answer",
