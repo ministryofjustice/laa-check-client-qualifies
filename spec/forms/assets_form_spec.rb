@@ -83,4 +83,18 @@ RSpec.describe "assets", type: :feature do
       expect(session_contents["valuables"]).to eq 4560
     end
   end
+
+  context "when special applicant groups enabled", :special_applicant_groups_flag, :household_section_flag do
+    it "shows content about special applicants" do
+      expect(page).to have_content "Clients who are bankrupt"
+    end
+
+    context "when the check is certificated" do
+      let(:session) { { "level_of_help" => "certificated" } }
+
+      it "shows appropriate links" do
+        expect(page).to have_content "Guidance on bankrupt clients"
+      end
+    end
+  end
 end

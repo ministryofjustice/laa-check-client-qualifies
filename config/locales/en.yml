@@ -1165,6 +1165,16 @@ en:
       legend: Client assets
       hint: Enter 0 for any that do not apply
       partner_second_hint: If any of these assets are owned by both the client and partner, enter the full value here. Do not enter them again on the partner questions that follow.
+      bankrupt_title: Clients who are bankrupt
+      bankrupt_text: If your client is bankrupt, any capital assets vested in the trustee in bankruptcy will not be included in the capital assessment.
+      prison_title: Clients in prison
+      prison_text: If your client is in prison, include the balance of any private, spends or savings accounts as money in bank accounts.
+      prisoner_guidance:
+        text: Guidance on clients who are prisoners
+        link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1157030/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_certificated_work_May_2023__002_.pdf#page=96
+      bankrupt_guidance:
+        text: Guidance on bankrupt clients
+        link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1157030/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_certificated_work_May_2023__002_.pdf#page=84
       non_household_flow:
         property:
           label: Additional property, holiday home or land
@@ -1234,6 +1244,14 @@ en:
       hints:
         - Enter 0 for any that do not apply.
         - Do not enter any assets if you listed them as owned by your client on the previous page.
+      bankrupt_title: Partners who are bankrupt
+      bankrupt_text: If the partner is bankrupt, any capital assets vested in the trustee in bankruptcy will not be included in the capital assessment.
+      prison_title: Partners in prison
+      prison_text: If the partner is in prison, include the balance of any private, spends or savings accounts as money in bank accounts.
+      prisoner_guidance:
+        text: Guidance on clients with partners who are prisoners
+      bankrupt_guidance:
+        text: Guidance on clients with partners who are bankrupt
       non_household_flow:
         hint: Enter 0 for any that do not apply. Do not enter any assets if you listed them as owned by the client.
         property:

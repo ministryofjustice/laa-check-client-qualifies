@@ -2,9 +2,10 @@ require "rails_helper"
 
 RSpec.describe "partner_assets", type: :feature do
   let(:assessment_code) { :assessment_code }
+  let(:level_of_help) { "controlled" }
 
   before do
-    set_session(assessment_code, "level_of_help" => "controlled")
+    set_session(assessment_code, "level_of_help" => level_of_help)
     visit "estimates/#{assessment_code}/build_estimates/partner_assets"
   end
 
@@ -66,6 +67,20 @@ RSpec.describe "partner_assets", type: :feature do
       expect(session_contents["partner_savings"]).to eq 234
       expect(session_contents["partner_investments"]).to eq 345
       expect(session_contents["partner_valuables"]).to eq 4560
+    end
+  end
+
+  context "when special applicant groups enabled", :special_applicant_groups_flag, :household_section_flag do
+    it "shows content about special applicants" do
+      expect(page).to have_content "Partners in prison"
+    end
+
+    context "when the check is certificated" do
+      let(:level_of_help) { "certificated" }
+
+      it "shows appropriate links" do
+        expect(page).to have_content "Guidance on clients with partners who are prisoners"
+      end
     end
   end
 end
