@@ -10,18 +10,21 @@ module Steps
       end
 
       def all_steps_for_current_feature_flags
-        if FeatureFlags.enabled?(:household_section)
-          []
-        else
-          all_steps
-        end
+        all_steps
+        # #   check if this is still required as removed this section from hh flow in helper.rb
+        # if FeatureFlags.enabled?(:household_section)
+        #   []
+        # else
+        #   all_steps
+        # end
       end
 
       def grouped_steps_for(session_data)
         if !Steps::Logic.partner?(session_data)
           []
-        elsif FeatureFlags.enabled?(:household_section) && !Steps::Logic.passported?(session_data)
-          []
+        # #   check if this is still required as removed this section from hh flow in helper.rb
+        # elsif FeatureFlags.enabled?(:household_section) && !Steps::Logic.passported?(session_data)
+        #   []
         else
           [property_steps(session_data),
            vehicle_steps(session_data),

@@ -6,11 +6,13 @@ module Steps
       end
 
       def all_steps_for_current_feature_flags
-        if FeatureFlags.enabled?(:household_section)
-          []
-        else
-          all_steps
-        end
+        # this is not called in the helper when the hosuehold feature flag is enabled
+        # if FeatureFlags.enabled?(:household_section)
+        #   []
+        # else
+        #   all_steps
+        # end
+        all_steps
       end
 
       def grouped_steps_for(session_data)

@@ -56,7 +56,6 @@ module Steps
            PartnerIncomeSection,
            OutgoingsSection,
            CapitalSection,
-           PartnerCapitalSection,
            PropertySection]
         else
           [CaseDetailsSection,
