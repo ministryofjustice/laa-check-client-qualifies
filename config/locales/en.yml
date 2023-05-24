@@ -664,13 +664,20 @@ en:
         hint_list:
           - married to
           - in a civil partnership with
-          - living with as if they are married or in a civil partnership
+        last_hint_no_special_applicants: living with as if they are married or in a civil partnership
+        last_hint: living with as if they are married or in a civil partnership, or living separately due to financial or practical reasons, for example one of them is in prison, getting hospital care, or another reason
         partner_additional:
           hint_text: "Do not include anyone who:"
           hint_list:
             - is separated from the client in a way that is likely to be permanent
             - is an opponent in the case
             - has a contrary interest in the case - this means they want a different outcome to your client
+      domestic_abuse_guidance:
+        text: Guidance on domestic abuse or violence
+        link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=13
+      prisoner_guidance:
+        text: Guidance on prisoners
+        link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=96
       over_60:
         legend: Is your client aged 60 or over?
         hint: Clients aged 60 or over may have some of their capital excluded from a financial eligibility assessment.
