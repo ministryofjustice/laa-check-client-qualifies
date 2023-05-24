@@ -3,7 +3,7 @@
   = form.govuk_error_summary t("generic.error_summary_title")
 
   = render "shared/heading",
-            pre_header_text: t("estimate_flow.#{i18n_key}.caption"),
+            pre_header_text: (t("estimate_flow.#{i18n_key}.caption") unless FeatureFlags.enabled?(:household_section)),
             header_text: t("estimate_flow.#{i18n_key}.heading"),
             post_header_text: t("estimate_flow.#{i18n_key}.second_caption"),
             tag: (:partner if partner)

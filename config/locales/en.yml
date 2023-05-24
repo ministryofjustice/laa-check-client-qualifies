@@ -116,11 +116,11 @@ en:
         benefits_form:
           attributes:
             receives_benefits:
-              inclusion: Select yes if your client gets any other benefits
+              inclusion: Select yes if your client gets any benefits
         partner_benefits_form:
           attributes:
             receives_benefits:
-              inclusion: Select yes if the partner gets any other benefits
+              inclusion: Select yes if the partner gets any benefits
         benefit_model:
           attributes:
             benefit_frequency:
@@ -919,7 +919,8 @@ en:
       housing_benefit_frequency: Select frequency
     benefits:
       caption: Your client's finances
-      legend: Does your client get any other benefits?
+      legend: Does your client get any  benefits?
+      legend_non_household: Does your client get any other benefits?
       frequencies:
         every_week: Every week
         every_two_weeks: Every 2 weeks
@@ -940,7 +941,8 @@ en:
       add: Add another benefit
     partner_benefits:
       caption: The partner's finances
-      legend: Does the partner get any other benefits?
+      legend: Does the partner get any benefits?
+      legend_non_household: Does the partner get any other benefits?
       benefit: benefit
     partner_benefit_details:
       caption: The partner's finances
@@ -948,7 +950,8 @@ en:
       hint: Add details of any benefits the partner receives. Do not include Housing Benefit or any other disregarded benefits.
     other_income:
       caption: Your client's finances
-      heading: Other income
+      heading: Your client's other income
+      heading_non_household: Other income
       second_caption: Enter 0 for any that do not apply
       friends_or_family:
         label: Financial help from friends or family
@@ -985,7 +988,8 @@ en:
         total: Total in last 3 months
     partner_other_income:
       caption: The partner's finances
-      heading: Other income
+      heading: The partner's other income
+      heading_non_household: Other income
       second_caption: Do not add any income you've listed as other income for the client. Enter 0 for any that do not apply.
       friends_or_family:
         label: Financial help from friends or family
@@ -1015,7 +1019,8 @@ en:
         controlled_instruction: Enter amount received in the last month
       enter_frequency: Select frequency
     outgoings:
-      heading: Outgoings and deductions
+      heading: Your client's outgoings and deductions
+      heading_non_household: Outgoings and deductions
       caption: Your client's finances
       second_caption: Enter 0 for any that do not apply
       housing_payments:
@@ -1055,7 +1060,8 @@ en:
           text: Guidance on determining disposable income
           link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=15
     partner_outgoings:
-      heading: "Outgoings and deductions"
+      heading: The partner's outgoings and deductions
+      heading_non_household: Outgoings and deductions
       caption: The partner's finances
       second_caption: Do not add any outgoings you've listed as outgoings for the client. Enter 0 for any that do not apply.
       housing_payments:

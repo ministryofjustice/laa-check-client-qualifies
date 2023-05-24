@@ -10,6 +10,6 @@ RSpec.describe "benefits", type: :feature do
 
   it "shows an error message if no value is entered" do
     click_on "Save and continue"
-    expect(page).to have_content "Select yes if your client gets any other benefits"
+    expect(page).to have_content "Select yes if your client gets any benefits"
   end
 end

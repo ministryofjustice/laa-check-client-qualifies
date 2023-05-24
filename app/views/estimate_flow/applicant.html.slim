@@ -5,7 +5,9 @@
 
 .govuk-grid-column-two-thirds
   = form_for(@form, url: wizard_path, method: :put) do |form|
-    = render "shared/heading", pre_header_text: t(".caption"), header_text: t(".heading")
+    = render "shared/heading",
+             pre_header_text: (t(".caption") unless FeatureFlags.enabled?(:household_section)),
+             header_text: t(".heading")
 
     = form.govuk_error_summary t("generic.error_summary_title")
 
