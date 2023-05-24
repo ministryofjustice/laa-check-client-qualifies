@@ -1363,6 +1363,197 @@ en:
       vehicle_in_dispute: This asset is a subject matter of dispute
   estimates:
     check_answers:
+      non_household:
+        level_of_help: Level of help your client needs
+        level_of_help_fields:
+          level_of_help: Level of help
+          level_of_help_options:
+            controlled: Civil controlled work or family mediation
+            certificated: Civil certificated or licensed legal work
+            not_provided: Not provided
+        about_the_case: Case details
+        about_the_case_fields:
+          proceeding_type: Type of matter
+          proceeding_type_options:
+            IM030_certificated: Immigration in the Upper Tribunal
+            IM030_controlled: Immigration in the First-tier Tribunal
+            IA031_certificated: Asylum in the Upper Tribunal
+            IA031_controlled: Another immigration or asylum matter
+            SE003_certificated: Another category of law
+            SE003_controlled: Another category of law
+            DA001_certificated: Domestic abuse
+            not_provided: "Not provided"
+            not_provided_controlled: "Not provided"
+            not_provided_certificated: "Not provided"
+        about_your_client: About your client
+        about_partner: About your client's partner
+        asylum_support: Asylum support
+        asylum_support_fields:
+          asylum_support: Receives asylum support
+        client_dependant_details: Your client's dependants
+        partner_dependant_details: Partner's dependants
+        heading: Check your answers
+        client_details: Your client's details
+        client_details_fields:
+          over_60: Over 60 years old
+          partner: Has a partner
+          employment_status: Employment status
+          employment_status_options:
+            in_work: Employed and in work
+            receiving_statutory_pay: Employed and on Statutory Sick Pay or Statutory Maternity Pay
+            unemployed: Unemployed
+            not_provided: Not provided
+          passporting: Receives a passporting benefit
+        client_dependant_details_fields:
+          adult_dependants: Has adult dependants
+          adult_dependants_count: Number of adult dependants
+          child_dependants: Has child dependants
+          child_dependants_count: Number of child dependants
+        employment: Pay
+        employment_fields:
+          gross_income: Gross pay
+          income_tax: Income tax
+          national_insurance: National Insurance
+          frequency: Frequency
+          frequency_options:
+            total: Total in last 3 months
+            week: Every week
+            two_weeks: Every 2 weeks
+            four_weeks: Every 4 weeks
+            monthly: Every month
+            not_provided: Not provided
+        benefits: Other benefits
+        benefits_fields:
+          receives_benefits: Gets other benefits
+        housing_benefit: Housing Benefit
+        housing_benefit_fields:
+          housing_benefit_value: Housing Benefit
+          housing_benefit: Receives Housing Benefit
+        other_income: Client's other income
+        other_income_fields:
+          friends_or_family_value: Financial help
+          maintenance_value: Maintenance payments from a former partner
+          property_or_lodger_value: Income from a property or lodger
+          pension_value: Pension
+          student_finance_value: Student finance
+          other_value: Other sources
+        outgoings: Your client's outgoings
+        outgoings_fields:
+          housing_payments_value: Housing payments
+          childcare_payments_value: Childcare payments
+          maintenance_payments_value: Maintenance payments
+          legal_aid_payments_value: Legal aid payments
+        assets: Client assets
+        vehicles: Client's vehicle
+        vehicles_fields:
+          vehicle_owned: Owns a vehicle
+          vehicle_value: Estimated value
+          vehicle_in_regular_use: In regular use
+          vehicle_over_3_years_ago: Bought over 3 years ago
+          vehicle_pcp: Payments left on vehicle
+          vehicle_finance: Value of payments left
+        property: Home client lives in
+        partner_property: Home client lives in
+        partner_property_fields:
+          partner_property_owned: Owns the home they live in
+          partner_property_owned_options:
+            outright: "Yes"
+            with_mortgage: "Yes"
+            none: "No"
+            not_provided: Not provided
+          partner_house_value: Estimated value
+          partner_mortgage: Outstanding mortgage
+          partner_percentage_owned: Percentage share owned
+        property_fields:
+          property_owned: Owns the home they live in
+          property_owned_options:
+            outright: "Yes"
+            with_mortgage: "Yes"
+            none: "No"
+            not_provided: Not provided
+          house_value: Estimated value
+          mortgage: Outstanding mortgage
+          percentage_owned: Percentage share owned
+          joint_ownership: Joint owned with partner
+          joint_percentage_owned: Percentage share owned by partner
+        partner_details: Partner's details
+        partner_details_fields:
+          partner_over_60: Partner is over 60 years old
+          partner_employment_status: Partner employment status
+          partner_employment_status_options:
+            in_work: Employed and in work
+            receiving_statutory_pay: Employed and on Statutory Sick Pay or Statutory Maternity Pay
+            unemployed: Unemployed
+            not_provided: Not provided
+        partner_dependant_details_fields:
+          partner_child_dependants: Partner has child dependants
+          partner_child_dependants_count: Number of partner child dependants
+          partner_adult_dependants: Partner has adult dependants
+          partner_adult_dependants_count: Number of partner adult dependants
+        other: Client's other assets
+        other_fields:
+          property_value: "Additional property or holiday home: value"
+          property_mortgage: "Additional property or holiday home: outstanding mortgage"
+          property_percentage_owned_html: "Additional property or holiday home: &#37; owned"
+          savings: Savings
+          investments: Investments
+          valuables: Valuables
+        partner_employment: Partner's pay
+        partner_employment_fields:
+          partner_gross_income: Gross pay
+          partner_income_tax: Income tax
+          partner_national_insurance: National Insurance
+          partner_frequency: Frequency
+          partner_frequency_options:
+            total: Total in last 3 months
+            week: Every week
+            two_weeks: Every 2 weeks
+            four_weeks: Every 4 weeks
+            monthly: Every month
+            not_provided: Not provided
+        partner_benefits: Other benefits
+        partner_housing_benefit: Housing Benefit
+        partner_housing_benefit_fields:
+          partner_housing_benefit_value: Housing Benefit
+          partner_housing_benefit: Receives housing benefit
+        partner_other_income: Partner's other income
+        partner_other_income_fields:
+          partner_friends_or_family_value: Financial help
+          partner_maintenance_value: Maintenance payments from a former partner
+          partner_property_or_lodger_value: Income from a property or lodger
+          partner_pension_value: Pension
+          partner_student_finance_value: Student finance
+          partner_other_value: Other sources
+        partner_outgoings: Partner's outgoings
+        partner_outgoings_fields:
+          partner_housing_payments_value: Housing payments
+          partner_childcare_payments_value: Childcare payments
+          partner_maintenance_payments_value: Maintenance payments
+          partner_legal_aid_payments_value: Legal aid payments
+        partner_assets: Partner's assets
+        partner_vehicles: Partner's vehicle
+        partner_vehicles_fields:
+          partner_vehicle_owned: Owns a vehicle
+          partner_vehicle_value: Estimated value
+          partner_vehicle_in_regular_use: In regular use
+          partner_vehicle_over_3_years_ago: Bought over 3 years ago
+          partner_vehicle_pcp: Payments left on vehicle
+          partner_vehicle_finance: Value of payments left
+        partner_other: Partner's other assets
+        partner_other_fields:
+          partner_property_value: "Additional property or holiday home: value"
+          partner_property_mortgage: "Additional property or holiday home: outstanding mortgage"
+          partner_property_percentage_owned_html: "Additional property or holiday home: &#37; owned"
+          partner_savings: Savings
+          partner_investments: Investments
+          partner_valuables: Valuables
+        frequency_options:
+          every_week: Every week
+          every_two_weeks: Every 2 weeks
+          every_four_weeks: Every 4 weeks
+          monthly: Monthly
+          not_applicable: Not applicable
+      heading: Check your answers
       level_of_help: Level of help your client needs
       level_of_help_fields:
         level_of_help: Level of help
@@ -1384,15 +1575,11 @@ en:
           not_provided: "Not provided"
           not_provided_controlled: "Not provided"
           not_provided_certificated: "Not provided"
-      about_your_client: About your client
       about_partner: About your client's partner
       asylum_support: Asylum support
       asylum_support_fields:
         asylum_support: Receives asylum support
-      client_dependant_details: Your client's dependants
-      partner_dependant_details: Partner's dependants
-      heading: Check your answers
-      client_details: Your client's details
+      client_details: Client details
       client_details_fields:
         over_60: Over 60 years old
         partner: Has a partner
@@ -1403,13 +1590,16 @@ en:
           unemployed: Unemployed
           not_provided: Not provided
         passporting: Receives a passporting benefit
-      client_dependant_details_fields:
-        adult_dependants: Has adult dependants
+      dependants: Dependants
+      household_dependants: Client and partner dependants
+      household_dependants_fields:
+        adult_dependants: Have adult dependants
         adult_dependants_count: Number of adult dependants
-        child_dependants: Has child dependants
+        child_dependants: Have child dependants
         child_dependants_count: Number of child dependants
-      employment: Pay
-      employment_fields:
+      client_income: Client income
+      client_pay: Client pay
+      client_pay_fields:
         gross_income: Gross pay
         income_tax: Income tax
         national_insurance: National Insurance
@@ -1421,14 +1611,10 @@ en:
           four_weeks: Every 4 weeks
           monthly: Every month
           not_provided: Not provided
-      benefits: Other benefits
+      benefits: Client benefits
       benefits_fields:
-        receives_benefits: Gets other benefits
-      housing_benefit: Housing Benefit
-      housing_benefit_fields:
-        housing_benefit_value: Housing Benefit
-        housing_benefit: Receives Housing Benefit
-      other_income: Client's other income
+        receives_benefits: Gets benefits
+      other_income: Client other income
       other_income_fields:
         friends_or_family_value: Financial help
         maintenance_value: Maintenance payments from a former partner
@@ -1436,69 +1622,18 @@ en:
         pension_value: Pension
         student_finance_value: Student finance
         other_value: Other sources
-      outgoings: Your client's outgoings
-      outgoings_fields:
-        housing_payments_value: Housing payments
-        childcare_payments_value: Childcare payments
-        maintenance_payments_value: Maintenance payments
-        legal_aid_payments_value: Legal aid payments
-      assets: Your client's assets
-      vehicles: Client's vehicle
-      vehicles_fields:
-        vehicle_owned: Owns a vehicle
-        vehicle_value: Estimated value
-        vehicle_in_regular_use: In regular use
-        vehicle_over_3_years_ago: Bought over 3 years ago
-        vehicle_pcp: Payments left on vehicle
-        vehicle_finance: Value of payments left
-      property: Home client lives in
-      partner_property: Home client lives in
-      partner_property_fields:
-        partner_property_owned: Owns the home they live in
-        partner_property_owned_options:
-          outright: "Yes"
-          with_mortgage: "Yes"
-          none: "No"
-          not_provided: Not provided
-        partner_house_value: Estimated value
-        partner_mortgage: Outstanding mortgage
-        partner_percentage_owned: Percentage share owned
-      property_fields:
-        property_owned: Owns the home they live in
-        property_owned_options:
-          outright: "Yes"
-          with_mortgage: "Yes"
-          none: "No"
-          not_provided: Not provided
-        house_value: Estimated value
-        mortgage: Outstanding mortgage
-        percentage_owned: Percentage share owned
-        joint_ownership: Joint owned with partner
-        joint_percentage_owned: Percentage share owned by partner
-      partner_details: Partner's details
+      partner_details: Partner details
       partner_details_fields:
-        partner_over_60: Partner is aged 60 or over
-        partner_employment_status: Partner employment status
+        partner_over_60: Over 60 years old
+        partner_employment_status: Employment status
         partner_employment_status_options:
           in_work: Employed and in work
           receiving_statutory_pay: Employed and on Statutory Sick Pay or Statutory Maternity Pay
           unemployed: Unemployed
           not_provided: Not provided
-      partner_dependant_details_fields:
-        partner_child_dependants: Partner has child dependants
-        partner_child_dependants_count: Number of partner child dependants
-        partner_adult_dependants: Partner has adult dependants
-        partner_adult_dependants_count: Number of partner adult dependants
-      other: Client's other assets
-      other_fields:
-        property_value: "Additional property or holiday home: value"
-        property_mortgage: "Additional property or holiday home: outstanding mortgage"
-        property_percentage_owned_html: "Additional property or holiday home: &#37; owned"
-        savings: Savings
-        investments: Investments
-        valuables: Valuables
-      partner_employment: Partner's pay
-      partner_employment_fields:
+      partner_income: Partner income
+      partner_pay: Partner pay
+      partner_pay_fields:
         partner_gross_income: Gross pay
         partner_income_tax: Income tax
         partner_national_insurance: National Insurance
@@ -1510,12 +1645,8 @@ en:
           four_weeks: Every 4 weeks
           monthly: Every month
           not_provided: Not provided
-      partner_benefits: Other benefits
-      partner_housing_benefit: Housing Benefit
-      partner_housing_benefit_fields:
-        partner_housing_benefit_value: Housing Benefit
-        partner_housing_benefit: Receives housing benefit
-      partner_other_income: Partner's other income
+      partner_benefits: Partner benefits
+      partner_other_income: Partner other income
       partner_other_income_fields:
         partner_friends_or_family_value: Financial help
         partner_maintenance_value: Maintenance payments from a former partner
@@ -1523,29 +1654,76 @@ en:
         partner_pension_value: Pension
         partner_student_finance_value: Student finance
         partner_other_value: Other sources
-      partner_outgoings: Partner's outgoings
+      outgoings: Client outgoings
+      outgoings_fields:
+        childcare_payments_value: Childcare payments
+        maintenance_payments_value: Maintenance payments
+        legal_aid_payments_value: Legal aid payments
+      partner_outgoings: Partner outgoings
       partner_outgoings_fields:
-        partner_housing_payments_value: Housing payments
         partner_childcare_payments_value: Childcare payments
         partner_maintenance_payments_value: Maintenance payments
         partner_legal_aid_payments_value: Legal aid payments
-      partner_assets: Partner's assets
-      partner_vehicles: Partner's vehicle
-      partner_vehicles_fields:
-        partner_vehicle_owned: Owns a vehicle
-        partner_vehicle_value: Estimated value
-        partner_vehicle_in_regular_use: In regular use
-        partner_vehicle_over_3_years_ago: Bought over 3 years ago
-        partner_vehicle_pcp: Payments left on vehicle
-        partner_vehicle_finance: Value of payments left
-      partner_other: Partner's other assets
-      partner_other_fields:
-        partner_property_value: "Additional property or holiday home: value"
-        partner_property_mortgage: "Additional property or holiday home: outstanding mortgage"
-        partner_property_percentage_owned_html: "Additional property or holiday home: &#37; owned"
-        partner_savings: Savings
+      assets: Client assets
+      assets_fields:
+        savings: Money in bank accounts
+        investments: Investments
+        valuables: Valuables
+      partner_assets: Partner assets
+      partner_assets_fields:
+        partner_savings: Money in bank accounts
         partner_investments: Investments
         partner_valuables: Valuables
+      household_vehicles: Vehicles
+      household_vehicles_fields:
+        vehicle: Vehicle %{number}
+        vehicle_owned: Client or partner has a vehicle
+        vehicle_value: Estimated value
+        vehicle_in_regular_use: In regular use
+        vehicle_over_3_years_ago: Bought over 3 years ago
+        vehicle_pcp: Payments left on vehicle
+        vehicle_finance: Value of payments left
+      housing_and_property: Housing and property
+      housing_costs: Housing costs
+      housing_costs_fields:
+        housing_payments: Housing payments
+        housing_benefit_value: Housing Benefit amount
+      mortgage_or_loan_payment: Housing costs
+      mortgage_or_loan_payment_fields:
+        housing_loan_payments: Mortgage or loan payments
+      property: Home client lives in
+      property_fields:
+        property_owned: Owns the home they live in
+        property_owned_options:
+          outright: "Yes, owned outright"
+          with_mortgage: "Yes, with a mortgage or loan"
+          none: "No"
+          not_provided: Not provided
+        house_value: Estimated value
+        mortgage: Outstanding mortgage
+        percentage_owned: Percentage share owned
+      client_additional_property: Client other property
+      client_additional_property_fields:
+        additional_property_owned: Owns other property
+        additional_property_owned_options:
+          outright: "Yes, owned outright"
+          with_mortgage: "Yes, with a mortgage or loan"
+          none: "No"
+          not_provided: Not provided
+        additional_house_value: Estimated value
+        additional_mortgage: Outstanding mortgage
+        additional_percentage_owned: Percentage share owned
+      partner_additional_property: Partner other property
+      partner_additional_property_fields:
+        partner_additional_property_owned: Owns other property
+        partner_additional_property_owned_options:
+          outright: "Yes, owned outright"
+          with_mortgage: "Yes, with a mortgage or loan"
+          none: "No"
+          not_provided: Not provided
+        partner_additional_house_value: Estimated value
+        partner_additional_mortgage: Outstanding mortgage
+        partner_additional_percentage_owned: Percentage share owned
       frequency_options:
         every_week: Every week
         every_two_weeks: Every 2 weeks

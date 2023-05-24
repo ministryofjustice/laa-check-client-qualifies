@@ -14,9 +14,14 @@ class Check
   attr_reader :session_data
 
   def method_missing(attribute, *args, &block)
-    step, form_class = Flow::Handler::CLASSES.find { |_, v| v.session_keys.include?(attribute.to_s) }
-    return super unless form_class
-    return unless Steps::Helper.valid_step?(session_data, step)
+    # A given attribute could be found in one of multiple different form classes
+    pairs = Flow::Handler::CLASSES.select { |_, v| v.session_keys.include?(attribute.to_s) }
+    return super if pairs.none?
+
+    # 0 or 1 of the matching form classes will be valid at any one time
+    step, form_class = pairs.find { |k, _| Steps::Helper.valid_step?(session_data, k) }
+
+    return unless step
 
     method_name = if form_class::PREFIX
                     attribute.to_s.gsub(%r{^#{form_class::PREFIX}}, "")
@@ -64,5 +69,17 @@ class Check
       additional_house_in_dispute ||
       vehicles&.any?(&:vehicle_in_dispute) ||
       false
+  end
+
+  def property_owned_with_mortgage?
+    property_owned == "with_mortgage"
+  end
+
+  def additional_property_owned_with_mortgage?
+    additional_property_owned == "with_mortgage"
+  end
+
+  def partner_additional_property_owned_with_mortgage?
+    partner_additional_property_owned == "with_mortgage"
   end
 end

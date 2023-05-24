@@ -5,6 +5,14 @@ module Steps
         %i[partner_employment partner_housing_benefit partner_housing_benefit_details partner_benefits partner_benefit_details partner_other_income partner_outgoings]
       end
 
+      def all_steps_for_current_feature_flags
+        if FeatureFlags.enabled?(:household_section)
+          %i[partner_employment partner_benefits partner_benefit_details partner_other_income partner_outgoings]
+        else
+          all_steps
+        end
+      end
+
       def grouped_steps_for(session_data)
         if Steps::Logic.passported?(session_data) || !Steps::Logic.partner?(session_data)
           []

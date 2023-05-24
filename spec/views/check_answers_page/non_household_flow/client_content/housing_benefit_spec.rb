@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "estimates/check_answers.html.slim", :household_section_flag do
+RSpec.describe "estimates/check_answers.html.slim" do
   let(:answers) { CheckAnswersPresenter.new(session_data) }
 
   before do
@@ -13,18 +13,18 @@ RSpec.describe "estimates/check_answers.html.slim", :household_section_flag do
   describe "client sections" do
     context "when housing benefit" do
       context "when client has housing benefit" do
-        let(:session_data) { build(:minimal_complete_session, housing_benefit_value: 400, housing_benefit_frequency: "every_week") }
+        let(:session_data) { build(:minimal_complete_session, housing_benefit: true) }
 
         it "renders content" do
-          expect(page_text).to include("Housing Benefit amount£400.00Every week")
+          expect(page_text).to include("Receives Housing BenefitYes")
         end
       end
 
       context "when client does not have housing benefit" do
-        let(:session_data) { build(:minimal_complete_session, housing_benefit_value: 0) }
+        let(:session_data) { build(:minimal_complete_session, housing_benefit: false) }
 
         it "renders content" do
-          expect(page_text).to include("Housing Benefit amountNot applicable")
+          expect(page_text).to include("Receives Housing BenefitNo")
         end
       end
     end

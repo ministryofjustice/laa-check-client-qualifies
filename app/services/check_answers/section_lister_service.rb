@@ -4,14 +4,14 @@ module CheckAnswers
     Subsection = Struct.new(:label, :screen, :fields, keyword_init: true)
     Field = Struct.new(:label, :type, :value, :alt_value, :disputed?, keyword_init: true)
 
-    SUBSECTION_SPECIAL_CASES = %i[benefits partner_benefits].freeze
+    SUBSECTION_SPECIAL_CASES = %i[benefits partner_benefits household_vehicles].freeze
 
     def self.call(session_data)
       new(session_data).call
     end
 
     def call
-      data = YAML.load_file(Rails.root.join("app/lib/check_answers_fields.yml")).with_indifferent_access
+      data = YAML.load_file(section_yaml).with_indifferent_access
       data[:sections].map { build_section(_1) }.select { _1.subsections.any? }
     end
 
@@ -59,7 +59,7 @@ module CheckAnswers
       Field.new(label: "#{label_set}_fields.#{label}",
                 type: field_data[:type],
                 value: @session_data[field_data[:attribute]],
-                disputed?: @disputed_asset_model.disputed?(field_data.fetch(:attribute)),
+                disputed?: @model.smod_applicable? && @disputed_asset_model.disputed?(field_data.fetch(:attribute)),
                 alt_value: @session_data[field_data[:alt_attribute]])
     end
 
@@ -95,6 +95,43 @@ module CheckAnswers
                    type: "boolean",
                    value: true)] + line_items
       end
+    end
+
+    def household_vehicles_fields
+      if Steps::Helper.valid_step?(@model.session_data, :vehicles_details)
+        line_items = @session_data["vehicles"].each_with_index.map do |vehicle, index|
+          fields_for_vehicle(vehicle, index)
+        end
+        [Field.new(label: "household_vehicles_fields.vehicle_owned",
+                   type: "boolean",
+                   value: true)] + line_items.flatten
+      elsif Steps::Helper.valid_step?(@model.session_data, :vehicle)
+        [Field.new(label: "household_vehicles_fields.vehicle_owned",
+                   type: "boolean",
+                   value: false)]
+      else
+        []
+      end
+    end
+
+    def fields_for_vehicle(vehicle, index)
+      [
+        Field.new(label: "household_vehicles_fields.vehicle", type: "header", value: index + 1, disputed?: @model.smod_applicable? && vehicle["vehicle_in_dispute"]),
+        Field.new(label: "household_vehicles_fields.vehicle_value", type: "money", value: vehicle["vehicle_value"]),
+        Field.new(label: "household_vehicles_fields.vehicle_pcp", type: "boolean", value: vehicle["vehicle_pcp"]),
+        (Field.new(label: "household_vehicles_fields.vehicle_finance", type: "money", value: vehicle["vehicle_finance"]) if vehicle["vehicle_pcp"]),
+        Field.new(label: "household_vehicles_fields.vehicle_over_3_years_ago", type: "boolean", value: vehicle["vehicle_over_3_years_ago"]),
+        Field.new(label: "household_vehicles_fields.vehicle_in_regular_use", type: "boolean", value: vehicle["vehicle_in_regular_use"]),
+      ].compact
+    end
+
+    def section_yaml
+      path = if FeatureFlags.enabled?(:household_section)
+               "app/lib/check_answers_fields.yml"
+             else
+               "app/lib/non_household_check_answers_fields.yml"
+             end
+      Rails.root.join(path)
     end
   end
 end

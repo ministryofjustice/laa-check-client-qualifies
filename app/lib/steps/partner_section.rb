@@ -5,6 +5,12 @@ module Steps
         %i[partner_details partner_dependant_details]
       end
 
+      def all_steps_for_current_feature_flags
+        return %i[partner_details] if FeatureFlags.enabled?(:household_section)
+
+        all_steps
+      end
+
       def grouped_steps_for(session_data)
         if !Steps::Logic.partner?(session_data)
           []

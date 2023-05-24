@@ -1,8 +1,9 @@
+- modifier = FeatureFlags.enabled?(:household_section) ? "" : ".non_household"
 - @answers.sections.each do |section|
   .govuk-grid-row  id="section-#{section.label}-header"
     .govuk-grid-column-full
       h2.govuk-heading-l id="#{section.label}-section" class=("accommodating-change-link" if section.screen.present? && change_links)
-        = t("estimates.check_answers.#{section.label}")
+        = t("estimates.check_answers#{modifier}.#{section.label}")
       - if section.screen.present? && change_links
         p.change-link.beside-large-header
           = link_to t("generic.change"),
@@ -14,7 +15,7 @@
       .govuk-grid-row id="subsection-#{subsection.label}-header"
         .govuk-grid-column-full
           h2.govuk-heading-m class=("accommodating-change-link" if subsection.screen.present? && change_links)
-            = t("estimates.check_answers.#{subsection.label}")
+            = t("estimates.check_answers#{modifier}.#{subsection.label}")
           - if subsection.screen.present? && change_links
             p.change-link.beside-medium-header
               = link_to t("generic.change"),
@@ -26,47 +27,58 @@
         - case field.type
         - when "money"
           = render "money_check_answer",
-                    label_text: t("estimates.check_answers.#{field.label}"),
+                    label_text: t("estimates.check_answers#{modifier}.#{field.label}"),
                     value_text: field.value,
                     disputed_asset: field.disputed?
         - when "boolean"
           = render "check_answer",
-                    label_text: t("estimates.check_answers.#{field.label}"),
+                    label_text: t("estimates.check_answers#{modifier}.#{field.label}"),
                     value_text: yes_no_boolean(field.value),
                     disputed_asset: field.disputed?
         - when "number"
           = render "check_answer",
-                    label_text: t("estimates.check_answers.#{field.label}"),
+                    label_text: t("estimates.check_answers#{modifier}.#{field.label}"),
                     value_text: field.value || t("generic.not_applicable"),
                     disputed_asset: field.disputed?
         - when "no_or_number"
           = render "check_answer",
-                    label_text: t("estimates.check_answers.#{field.label}"),
-                    value_text: t("estimates.check_answers.#{field.label}_options.#{field.value || 'not_provided'}"),
+                    label_text: t("estimates.check_answers#{modifier}.#{field.label}"),
+                    value_text: t("estimates.check_answers#{modifier}.#{field.label}_options.#{field.value || 'not_provided'}"),
                     disputed_asset: field.disputed?
         - when "select"
           - value_key = "#{field.value || 'not_provided'}#{"_#{field.alt_value}" if field.alt_value}"
           = render "check_answer",
-                    label_text: t("estimates.check_answers.#{field.label}"),
-                    value_text: t("estimates.check_answers.#{field.label}_options.#{value_key}"),
+                    label_text: t("estimates.check_answers#{modifier}.#{field.label}"),
+                    value_text: t("estimates.check_answers#{modifier}.#{field.label}_options.#{value_key}"),
                     disputed_asset: field.disputed?
         - when "money_with_frequency"
           - alt_value = field.alt_value if field.value&.to_f&.positive?
           = render "money_and_frequency_check_answer",
-                    label_text: t("estimates.check_answers.#{field.label}"),
+                    label_text: t("estimates.check_answers#{modifier}.#{field.label}"),
                     value: (field.value if field.value&.to_f&.positive?),
-                    frequency: t("estimates.check_answers.frequency_options.#{alt_value || 'not_applicable'}")
+                    frequency: t("estimates.check_answers#{modifier}.frequency_options.#{alt_value || 'not_applicable'}")
         - when "benefit"
           = render "money_and_frequency_check_answer",
                     label_text: field.label,
                     value: field.value,
-                    frequency: t("estimates.check_answers.frequency_options.#{field.alt_value}"),
+                    frequency: t("estimates.check_answers#{modifier}.frequency_options.#{field.alt_value}"),
                     disputed_asset: false
         - when "partner_benefit"
           = render "money_and_frequency_check_answer",
                     label_text: field.label,
                     value: field.value,
-                    frequency: t("estimates.check_answers.frequency_options.#{field.alt_value}"),
+                    frequency: t("estimates.check_answers#{modifier}.frequency_options.#{field.alt_value}"),
                     disputed_asset: false
+        - when "header"
+          .govuk-summary-list__row.no-bottom-border
+            dt.govuk-summary-list__key
+              . class="govuk-!-margin-top-5 govuk-!-margin-bottom-3"
+                = t("estimates.check_answers.#{field.label}", number: field.value)
+            dd.govuk-summary-list__value
+            dd.govuk-summary-list__actions
+              - if field.disputed?
+                span.moj-badge.moj-badge--blue.moj-badge--large
+                  = t("generic.disputed_asset")
+
         - else
           - raise "Unknown field_type #{field.type}"

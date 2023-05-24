@@ -10,6 +10,14 @@ module Steps
         PROPERTY_STEPS + ADDITIONAL_PROPERTY_STEPS + ADDITIONAL_PARTNER_PROPERTY_STEPS + HOUSING_COSTS_STEPS
       end
 
+      def all_steps_for_current_feature_flags
+        if FeatureFlags.enabled?(:household_section)
+          all_steps
+        else
+          []
+        end
+      end
+
       def grouped_steps_for(session_data)
         return [] unless FeatureFlags.enabled?(:household_section)
         return [] if Steps::Logic.asylum_supported?(session_data)
@@ -27,11 +35,9 @@ module Steps
       end
 
       def housing_costs_property_group(session_data)
-        return if Steps::Logic.passported?(session_data)
-
         steps = if Steps::Logic.owns_property_with_mortgage_or_loan?(session_data)
                   %i[mortgage_or_loan_payment]
-                elsif !Steps::Logic.owns_property_outright?(session_data)
+                elsif !Steps::Logic.owns_property_outright?(session_data) && !Steps::Logic.passported?(session_data)
                   %i[housing_costs]
                 end
         Steps::Group.new(*steps)
