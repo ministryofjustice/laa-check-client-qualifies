@@ -24,7 +24,12 @@ module CheckAnswers
     end
 
     def build_section(section_data)
-      Section.new(label: section_data[:label],
+      label = if section_data[:partner_dependant_wording] && @model.partner
+                "#{section_data[:label]}_with_partner"
+              else
+                section_data[:label]
+              end
+      Section.new(label:,
                   screen: section_data[:screen],
                   subsections: build_subsections(section_data))
     end
@@ -34,7 +39,14 @@ module CheckAnswers
     end
 
     def build_subsection(subsection_data, section_data)
-      Subsection.new(label: subsection_data[:label],
+      label = if subsection_data[:skip_header_unless_partner] && !@model.partner
+                nil
+              elsif subsection_data[:partner_dependant_wording] && @model.partner
+                "#{subsection_data[:label]}_with_partner"
+              else
+                subsection_data[:label]
+              end
+      Subsection.new(label:,
                      screen: subsection_data[:screen],
                      fields: build_fields(subsection_data[:fields],
                                           subsection_data[:screen] || section_data[:screen],
@@ -98,15 +110,16 @@ module CheckAnswers
     end
 
     def household_vehicles_fields
+      label = @model.partner ? "household_vehicles_fields.vehicle_owned_with_partner" : "household_vehicles_fields.vehicle_owned"
       if Steps::Helper.valid_step?(@model.session_data, :vehicles_details)
         line_items = @session_data["vehicles"].each_with_index.map do |vehicle, index|
           fields_for_vehicle(vehicle, index)
         end
-        [Field.new(label: "household_vehicles_fields.vehicle_owned",
+        [Field.new(label:,
                    type: "boolean",
                    value: true)] + line_items.flatten
       elsif Steps::Helper.valid_step?(@model.session_data, :vehicle)
-        [Field.new(label: "household_vehicles_fields.vehicle_owned",
+        [Field.new(label:,
                    type: "boolean",
                    value: false)]
       else

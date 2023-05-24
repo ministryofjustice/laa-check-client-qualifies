@@ -10,8 +10,8 @@
     - else
       . class="govuk-!-margin-bottom-1"
         | &pound;
-        = format_money(value).presence
-      = frequency
+        = format_money(value)
+      = frequency if value.to_f.positive?
 
   dd.govuk-summary-list__actions
     - if link

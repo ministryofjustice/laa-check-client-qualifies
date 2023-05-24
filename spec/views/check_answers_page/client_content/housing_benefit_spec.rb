@@ -24,7 +24,7 @@ RSpec.describe "estimates/check_answers.html.slim", :household_section_flag do
         let(:session_data) { build(:minimal_complete_session, housing_benefit_value: 0) }
 
         it "renders content" do
-          expect(page_text).to include("Housing Benefit amountNot applicable")
+          expect(page_text).to include("Housing Benefit amount£0.00")
         end
       end
     end
