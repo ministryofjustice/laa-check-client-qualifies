@@ -2,7 +2,7 @@ module Steps
   class PartnerCapitalSection
     PROPERTY_STEPS = %i[partner_property partner_property_entry].freeze
     VEHICLE_STEPS = %i[partner_vehicle partner_vehicle_details].freeze
-    TAIL_STEPS = %i[partner_assets].freeze
+    TAIL_STEPS = %i[partner_details partner_assets].freeze
 
     class << self
       def all_steps
@@ -11,7 +11,7 @@ module Steps
 
       def all_steps_for_current_feature_flags
         if FeatureFlags.enabled?(:household_section)
-          %i[partner_assets].freeze
+          []
         else
           all_steps
         end
@@ -19,6 +19,8 @@ module Steps
 
       def grouped_steps_for(session_data)
         if !Steps::Logic.partner?(session_data)
+          []
+        elsif FeatureFlags.enabled?(:household_section) && !Steps::Logic.passported?(session_data)
           []
         else
           [property_steps(session_data),

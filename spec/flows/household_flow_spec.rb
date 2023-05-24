@@ -7,24 +7,57 @@ RSpec.describe "Household section flow", :household_section_flag, type: :feature
     fill_in_applicant_screen(partner: "Yes")
     fill_in_forms_until(:outgoings)
     fill_in_outgoings_screen
-    # property screen is skipped
-    confirm_screen("vehicle")
-    fill_in_forms_until(:partner_details)
-    fill_in_partner_details_screen
-    # partner dependants and housing benefits screens are skipped
-    confirm_screen("partner_benefits")
+    # # property screen is skipped
+    # confirm_screen("vehicle")
+    # fill_in_forms_until(:partner_details)
+    # fill_in_partner_details_screen
+    # # partner dependants and housing benefits screens are skipped
+    # confirm_screen("partner_benefits")
     fill_in_forms_until(:partner_outgoings)
     fill_in_partner_outgoings_screen
     # partner property screen is skipped
     # partner vehicle screen is skipped
+    confirm_screen("assets")
+    fill_in_assets_screen
     confirm_screen("partner_assets")
     fill_in_partner_assets_screen
-    confirm_screen("property")
-    fill_in_property_screen(choice: "Yes, with a mortgage or loan")
+    fill_in_vehicle_screen(choice: "Yes")
+    fill_in_vehicles_details_screen
+    fill_in_property_screen(choice: "Yes, owned outright")
     fill_in_property_entry_screen
-    confirm_screen("mortgage_or_loan_payment")
-    fill_in_mortgage_or_loan_payment_screen
-    confirm_screen("additional_property")
+    fill_in_additional_property_screen(choice: "Yes, owned outright")
+    fill_in_additional_property_details_screen
+    fill_in_partner_additional_property_screen(choice: "Yes, owned outright")
+    fill_in_partner_additional_property_details_screen
+    confirm_screen("check_answers")
+    # confirm_screen("partner_assets")
+    # fill_in_partner_assets_screen
+    # confirm_screen("property")
+    # fill_in_property_screen(choice: "Yes, with a mortgage or loan")
+    # fill_in_property_entry_screen
+    # confirm_screen("mortgage_or_loan_payment")
+    # fill_in_mortgage_or_loan_payment_screen
+    # confirm_screen("additional_property")
+    # fill_in_additional_property_screen(choice: "Yes, owned outright")
+    # fill_in_additional_property_details_screen
+    # fill_in_partner_additional_property_screen(choice: "Yes, owned outright")
+    # fill_in_partner_additional_property_details_screen
+    # confirm_screen("check_answers")
+  end
+
+  it "includes partner_details in the flow when applicant is passported" do
+    start_assessment
+    fill_in_forms_until(:applicant)
+    fill_in_applicant_screen(partner: "Yes", passporting: "Yes")
+    confirm_screen("partner_details") # confirm with Kate if this is where we should show partner details if passported.
+    fill_in_partner_details_screen
+    fill_in_vehicle_screen
+    confirm_screen("assets")
+    fill_in_assets_screen
+    confirm_screen("partner_assets")
+    fill_in_partner_assets_screen
+    fill_in_property_screen(choice: "Yes, owned outright")
+    fill_in_property_entry_screen
     fill_in_additional_property_screen(choice: "Yes, owned outright")
     fill_in_additional_property_details_screen
     fill_in_partner_additional_property_screen(choice: "Yes, owned outright")
