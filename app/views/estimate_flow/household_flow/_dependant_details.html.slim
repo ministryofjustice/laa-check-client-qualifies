@@ -26,7 +26,8 @@
     = form.govuk_error_summary t("generic.error_summary_title")
 
     = render "shared/heading",
-            header_text: t(legend_key)
+            header_text: t(legend_key),
+            tag: (:household if @check.partner)
 
     = form.govuk_radio_buttons_fieldset :child_dependants,
             hint: -> { content_for(:child_dependants_hint) },

@@ -4,6 +4,13 @@ ruby:
   post_header_text ||= nil
   post_header_texts ||= [post_header_text].compact
   end_block = yield
+  tag ||= nil
+
+- case tag
+- when :partner
+  .govuk-tag.govuk-tag--purple = t("generic.tags.partner")
+- when :household
+  .govuk-tag.govuk-tag--orange = t("generic.tags.household")
 
 - if pre_header_text
   span.govuk-caption-l = pre_header_text
