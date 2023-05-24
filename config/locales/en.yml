@@ -1119,7 +1119,9 @@ en:
         caption: Your client's finances
       legend: Does your client own the home they live in?
       legend_with_partner: Does your client or their partner own the home the client lives in?
-      hint: If the client is in prison, or temporarily away from where they normally live for another reason, this means the home the client normally lives in
+      details_title: Clients in prison
+      legacy_hint: If the client is in prison, or temporarily away from where they normally live for another reason, this means the home the client normally lives in
+      hint: If your client is in prison but their partner lives in a property either of them owns, include this as the main dwelling and any housing costs the partner pays.
       property_owned:
         outright: Yes, owned outright
         with_mortgage: Yes, with a mortgage or loan
