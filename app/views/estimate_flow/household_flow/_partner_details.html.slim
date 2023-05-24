@@ -9,7 +9,7 @@
 
     = form.govuk_error_summary t("generic.error_summary_title")
 
-    = render "shared/heading", header_text: t("estimate_flow.partner_details.partner_heading")
+    = render "shared/heading", header_text: t("estimate_flow.partner_details.partner_heading"), tag: :partner
 
     = form.govuk_collection_radio_buttons :over_60,
             yes_no_options, :first, :last,

@@ -15,7 +15,8 @@
 
     = render "shared/heading",
             header_text: t("estimate_flow.housing_costs.heading"),
-            post_header_texts: t("estimate_flow.housing_costs.#{partner_key}")
+            post_header_texts: t("estimate_flow.housing_costs.#{partner_key}"),
+            tag: :household
     h2.govuk-heading-m
       = t("estimate_flow.housing_costs.housing_payments.label")
     p.govuk-hint

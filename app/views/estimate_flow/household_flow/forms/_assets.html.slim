@@ -1,10 +1,12 @@
+- partner ||= false
 = form_for(@form, url: wizard_path, method: :put) do |form|
 
   = form.govuk_error_summary t("generic.error_summary_title")
   = render "shared/heading",
              pre_header_text: t("estimate_flow.#{i18n_key}.caption"),
              header_text: t("estimate_flow.#{i18n_key}.legend"),
-             post_header_texts: hints
+             post_header_texts: hints,
+             tag: (:partner if partner)
   = form.govuk_fieldset legend: { text: t("estimate_flow.#{i18n_key}.savings.label") } do
 
     - t("estimate_flow.#{i18n_key}.savings.hints").each

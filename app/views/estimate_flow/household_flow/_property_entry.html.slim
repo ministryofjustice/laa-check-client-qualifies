@@ -9,7 +9,8 @@
     = form.govuk_error_summary t("generic.error_summary_title")
     = render "shared/heading",
              header_text: t("estimate_flow.property_entry.heading"),
-             post_header_text: t("estimate_flow.property_entry.hint")
+             post_header_text: t("estimate_flow.property_entry.hint"),
+             tag: :household
 
     = render "shared/money_input_with_hint",
             form:,
