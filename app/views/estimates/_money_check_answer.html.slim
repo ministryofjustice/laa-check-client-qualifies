@@ -7,7 +7,7 @@
     - if value_text.nil?
       = t("generic.not_applicable")
     - else
-      = "&pound;".html_safe + format_money(value_text).presence
+      = "&pound;".html_safe + format_money(value_text)
 
   dd.govuk-summary-list__actions
     - if disputed_asset

@@ -49,10 +49,10 @@ RSpec.describe "estimates/check_answers.html.slim" do
         end
 
         it "renders content" do
-          expect(text).to include("Housing paymentsNot applicable")
-          expect(text).to include("Childcare paymentsNot applicable")
-          expect(text).to include("Maintenance paymentsNot applicable")
-          expect(text).to include("Legal aid paymentsNot applicable")
+          expect(text).to include("Housing payments£0.00")
+          expect(text).to include("Childcare payments£0.00")
+          expect(text).to include("Maintenance payments£0.00")
+          expect(text).to include("Legal aid payments£0.00")
         end
       end
     end
