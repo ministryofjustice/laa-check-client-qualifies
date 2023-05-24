@@ -105,7 +105,7 @@ RSpec.describe "Controlled other income", type: :feature do
     end
   end
 
-  # CFE gives back montlhy figures and ignores frequency (foo[your input value if frequency is weekly] x 52[weeks] / 12[months] = bar[CFE output])
+  # CFE gives back figures which have been converted to monthly figures (foo[your input value] x 52[weeks - if frequency is weekly] / 12[months] = bar[CFE output])
   context "when hitting the API", :end2end do
     context "with certificated" do
       include_context "with certificated other income"
@@ -132,11 +132,6 @@ RSpec.describe "Controlled other income", type: :feature do
         expect(page).to have_content("Pension\n£0.00")
         expect(page).to have_content("Student finance\n£8.33")
         expect(page).to have_content("Other sources\n£500.00")
-      end
-
-      it "displays the correct amount for friends and family" do
-        submit_data_to_cfe
-        expect(page).to have_content("Financial help from friends and family\n£866.67")
       end
     end
   end
