@@ -111,14 +111,29 @@ RSpec.describe "Controlled other income", type: :feature do
     context "with certificated" do
       include_context "with certificated other income"
 
-      it "displays the correct amount for friends and family" do
+      it "renders content" do
         submit_data_to_cfe
-        expect(page).to have_content("Financial help from friends and family\n£866.67")
+        expect(page).to have_content("Pension£0")
+        expect(page).to have_content("Income from a property or lodger£0")
+        expect(page).to have_content("Financial help£200.00Every week")
+        expect(page).to have_content("Maintenance payments from a former partner£300.00Every 2 weeks")
+        expect(page).to have_content("Student finance£0")
+        expect(page).to have_content("Other sources£500.00")
       end
     end
 
     context "with controlled" do
       include_context "with controlled other income"
+
+      it "renders content" do
+        submit_data_to_cfe
+        expect(page).to have_content("Pension£0")
+        expect(page).to have_content("Income from a property or lodger£0")
+        expect(page).to have_content("Financial help£200.00Every week")
+        expect(page).to have_content("Maintenance payments from a former partner£300.00Every 2 weeks")
+        expect(page).to have_content("Student finance£100.00")
+        expect(page).to have_content("Other sources£500.00")
+      end
 
       it "displays the correct amount for friends and family" do
         submit_data_to_cfe
