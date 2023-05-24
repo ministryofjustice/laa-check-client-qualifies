@@ -6,12 +6,6 @@ module Steps
       end
 
       def all_steps_for_current_feature_flags
-        # this is not called in the helper when the hosuehold feature flag is enabled
-        # if FeatureFlags.enabled?(:household_section)
-        #   []
-        # else
-        #   all_steps
-        # end
         all_steps
       end
 
@@ -28,7 +22,6 @@ module Steps
 
       def dependants(session_data)
         return if Steps::Logic.passported?(session_data)
-        return if FeatureFlags.enabled?(:household_section)
 
         Steps::Group.new(:partner_dependant_details)
       end
