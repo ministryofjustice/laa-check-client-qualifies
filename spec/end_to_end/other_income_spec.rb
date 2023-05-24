@@ -113,12 +113,12 @@ RSpec.describe "Controlled other income", type: :feature do
 
       it "renders content" do
         submit_data_to_cfe
-        expect(page).to have_content("Pension£0")
-        expect(page).to have_content("Income from a property or lodger£0")
-        expect(page).to have_content("Financial help£200.00Every week")
-        expect(page).to have_content("Maintenance payments from a former partner£300.00Every 2 weeks")
-        expect(page).to have_content("Student finance£0")
-        expect(page).to have_content("Other sources£500.00")
+        expect(page).to have_content("Financial help from friends or family\n£200.00Every week")
+        expect(page).to have_content("Maintenance payments from a former partner\n£300.00Every 2 weeks")
+        expect(page).to have_content("Income from a property or lodger\n£0")
+        expect(page).to have_content("Pension\n£0")
+        expect(page).to have_content("Student finance\n£0")
+        expect(page).to have_content("Income from other sources\n£500.00")
       end
     end
 
@@ -127,12 +127,12 @@ RSpec.describe "Controlled other income", type: :feature do
 
       it "renders content" do
         submit_data_to_cfe
-        expect(page).to have_content("Pension£0")
-        expect(page).to have_content("Income from a property or lodger£0")
-        expect(page).to have_content("Financial help£200.00Every week")
-        expect(page).to have_content("Maintenance payments from a former partner£300.00Every 2 weeks")
-        expect(page).to have_content("Student finance£100.00")
-        expect(page).to have_content("Other sources£500.00")
+        expect(page).to have_content("Financial help from friends or family\n£200.00Every week")
+        expect(page).to have_content("Maintenance payments from a former partner\n£300.00Every 2 weeks")
+        expect(page).to have_content("Income from a property or lodger\n£0")
+        expect(page).to have_content("Pension\n£0")
+        expect(page).to have_content("Student finance\n£100")
+        expect(page).to have_content("Income from other sources\n£500.00")
       end
 
       it "displays the correct amount for friends and family" do
