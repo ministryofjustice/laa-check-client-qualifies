@@ -570,6 +570,9 @@ en:
       hint: For example, Child Benefit, tax credits or Asylum Support payments. Do not include Housing Benefit, State Pension, government Cost of Living Payments, or any other disregarded benefits.
     download_name: Legal aid eligibility assessment
     remove: Remove
+    tags:
+      partner: Partner
+      household: Household
   estimate_flow:
     level_of_help:
       title: What level of help does your client need?

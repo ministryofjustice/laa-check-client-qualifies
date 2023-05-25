@@ -1,3 +1,4 @@
+- partner ||= false
 . data-module="add-another"
   .add-another-template-area data-add-another-role="template"
     = render "benefit_section", removeable: true, model: BenefitModel.new
@@ -7,7 +8,8 @@
     = render "shared/heading",
               pre_header_text: t("estimate_flow.#{i18n_key}.caption"),
               header_text: t("estimate_flow.#{i18n_key}.heading"),
-              post_header_text: t("estimate_flow.#{i18n_key}.hint")
+              post_header_text: t("estimate_flow.#{i18n_key}.hint"),
+              tag: (:partner if partner)
       = render "shared/disregarded_benefits_details"
     . data-add-another-role="sectionList"
       - @form.items.each_with_index do |benefit, index|

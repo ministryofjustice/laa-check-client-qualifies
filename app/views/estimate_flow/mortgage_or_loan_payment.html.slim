@@ -7,7 +7,8 @@
     = form.govuk_error_summary t("generic.error_summary_title")
     = render "shared/heading",
             header_text: t("estimate_flow.mortgage_or_loan_payment.heading"),
-            post_header_text: t("estimate_flow.mortgage_or_loan_payment.heading_hint")
+            post_header_text: t("estimate_flow.mortgage_or_loan_payment.heading_hint"),
+            tag: :household
     = render "shared/money_input",
             form:,
             field: :housing_loan_payments,

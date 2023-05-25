@@ -6,7 +6,7 @@
 .govuk-grid-column-two-thirds
   = form_for(@form, url: wizard_path, method: :put) do |form|
     = form.govuk_error_summary t("generic.error_summary_title")
-    span.govuk-caption-l = t("estimate_flow.vehicle.caption")
+    = render "shared/household_tag"
     = form.govuk_collection_radio_buttons :vehicle_owned,
         yes_no_options, :first, :last,
         legend: { text: legend, size: "xl", tag: "h1" },

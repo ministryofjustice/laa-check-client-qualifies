@@ -9,7 +9,8 @@
     = form.govuk_error_summary t("generic.error_summary_title")
     = render "shared/heading",
              header_text: t(".heading"),
-             post_header_text: (t(".hint") if @check.partner)
+             post_header_text: t(".hint"),
+             tag: :partner
 
     = render "shared/money_input",
             form:,
