@@ -2,8 +2,8 @@
 = form_for(@form, url: wizard_path, method: :put) do |form|
   = form.govuk_error_summary t("generic.error_summary_title")
   = render "shared/heading",
-            pre_header_text: t("estimate_flow.#{i18n_key}.caption"),
-            header_text: t("estimate_flow.#{i18n_key}.heading"),
+            pre_header_text: (t("estimate_flow.#{i18n_key}.caption") unless FeatureFlags.enabled?(:household_section)),
+            header_text: t("estimate_flow.#{i18n_key}.heading#{'_non_household' unless FeatureFlags.enabled?(:household_section)}"),
             post_header_text: t("estimate_flow.#{i18n_key}.second_caption"),
             tag: (:partner if partner)
   - OtherIncomeForm::REGULAR_INCOME_TYPES.each do |type|
