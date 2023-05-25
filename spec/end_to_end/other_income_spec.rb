@@ -105,24 +105,33 @@ RSpec.describe "Controlled other income", type: :feature do
     end
   end
 
-  # Note - this is an incomplete test, it is just a 'proof of concept' for the end2end tests
-  # in terms of the structure and how the existing end2end tests can re-use 98% of the code
+  # CFE gives back figures which have been converted to monthly figures (foo[your input value] x 52[weeks - if frequency is weekly] / 12[months] = bar[CFE output])
   context "when hitting the API", :end2end do
     context "with certificated" do
       include_context "with certificated other income"
 
-      it "displays the correct amount for friends and family" do
+      it "renders content" do
         submit_data_to_cfe
         expect(page).to have_content("Financial help from friends and family\n£866.67")
+        expect(page).to have_content("Maintenance payments from a former partner\n£650.00")
+        expect(page).to have_content("Income from a property or lodger\n£0.00")
+        expect(page).to have_content("Pension\n£0.00")
+        expect(page).to have_content("Student finance\n£0.00")
+        expect(page).to have_content("Other sources\n£166.67")
       end
     end
 
     context "with controlled" do
       include_context "with controlled other income"
 
-      it "displays the correct amount for friends and family" do
+      it "renders content" do
         submit_data_to_cfe
         expect(page).to have_content("Financial help from friends and family\n£866.67")
+        expect(page).to have_content("Maintenance payments from a former partner\n£650.00")
+        expect(page).to have_content("Income from a property or lodger\n£0.00")
+        expect(page).to have_content("Pension\n£0.00")
+        expect(page).to have_content("Student finance\n£8.33")
+        expect(page).to have_content("Other sources\n£500.00")
       end
     end
   end
