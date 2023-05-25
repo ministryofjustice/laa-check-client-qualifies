@@ -1122,6 +1122,7 @@ en:
       details_title: Clients in prison
       legacy_hint: If the client is in prison, or temporarily away from where they normally live for another reason, this means the home the client normally lives in
       hint: If your client is in prison but their partner lives in a property either of them owns, include this as the main dwelling and any housing costs the partner pays.
+      generic_hint: If your client is temporarily away from where they normally live, this means the home the client normally lives in.
       property_owned:
         outright: Yes, owned outright
         with_mortgage: Yes, with a mortgage or loan

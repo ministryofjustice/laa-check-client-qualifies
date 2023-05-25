@@ -13,6 +13,7 @@
       = form.govuk_collection_radio_buttons :property_owned, property_options, :first, :last,
                                             legend: { text: t(legend_key), size: "xl", tag: "h1" },
                                             hint: lambda { \
+                                                        tag.p(t("estimate_flow.property.generic_hint"), class: "govuk-hint") + \
                                                         govuk_details(summary_text: t("estimate_flow.property.details_title"),\
                                                         text: t("estimate_flow.property.hint")) \
                                                        }
