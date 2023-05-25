@@ -1,5 +1,4 @@
-- key = "text_with_col"
-= govuk_details(summary_text: t("generic.disregarded_benefits.#{key}")) do
+= govuk_details(summary_text: t("generic.disregarded_benefits.text")) do
   - types = (%i[cost_of_living disregarded] + %i[disability low_income other])
   - types.each do |benefit_type|
     b = t("generic.disregarded_benefits.#{benefit_type}.text")

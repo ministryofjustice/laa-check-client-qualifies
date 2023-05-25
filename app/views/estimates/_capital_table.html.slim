@@ -85,10 +85,10 @@
           - row.with_cell(classes: %w[no-bottom-border], text: "")
         - @model.pensioner_disregard_rows.each do |type, amount|
           - body.with_row do |row|
-            - row.with_cell(header: true, text: t("estimates.show.pensioner_disregard_types.#{type}.text"))
+            - row.with_cell(header: true, text: t("estimates.show.pensioner_disregard_types.#{type}"))
             - row.with_cell(numeric: true, text: amount)
         - body.with_row(classes: %w[solid-top-border]) do |row|
-          - row.with_cell(header: true, text: t("estimates.show.pensioner_disregard_types.assessed_capital.text"))
+          - row.with_cell(header: true, text: t("estimates.show.pensioner_disregard_types.assessed_capital"))
           - row.with_cell(numeric: true, header: true, text: @model.total_assessed_capital)
 
 h2 class="govuk-heading-#{caption_size}" = t("estimates.show.total")

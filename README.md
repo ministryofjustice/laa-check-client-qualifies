@@ -181,6 +181,13 @@ It knows how answers to certain questions affect the relevance of certain other 
 **Check** provides access to all _relevant_ data for a check. For any attribute it uses Steps::Helper and Flow::Handler to determine whether,
 given the other answers supplied, the attribute is relevant. If not, when asked for that attribute it will return `nil`. Otherwise it will return that attribute.
 
+## I18n
+
+We keep all user-facing content strings in locale files. In particular, `config/locales/en.yml` contains nearly every piece of text on the site.
+ We have a utility to help identify obsolete content built into our test suite.
+You can run `CHECK_UNUSED_KEYS=true bundle exec rspec` and it will print out, at the end of the test run, all keys found in `en.yml` that don't get looked up by the test suite.
+Using this periodically can help remove stale content from that file.
+
 ## Deploying to UAT/Staging/Production
 
 The service uses `helm` to deploy to Cloud Platform Environments via CircleCI. This can be installed using:
