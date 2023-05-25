@@ -2,9 +2,10 @@ require "rails_helper"
 
 RSpec.describe "employment", type: :feature do
   let(:assessment_code) { :assessment_code }
+  let(:level_of_help) { "controlled" }
 
   before do
-    set_session(assessment_code, "level_of_help" => "controlled")
+    set_session(assessment_code, "level_of_help" => level_of_help)
     visit "estimates/#{assessment_code}/build_estimates/employment"
   end
 
@@ -33,5 +34,19 @@ RSpec.describe "employment", type: :feature do
     expect(session_contents["income_tax"]).to eq 50
     expect(session_contents["national_insurance"]).to eq 40
     expect(session_contents["frequency"]).to eq "monthly"
+  end
+
+  context "when the special applicant flag is enabled", :special_applicant_groups_flag do
+    it "shows special applicant content" do
+      expect(page).to have_content "Clients in prison"
+    end
+
+    context "when level of help is certificated" do
+      let(:level_of_help) { "certificated" }
+
+      it "shows guidance" do
+        expect(page).to have_content "Guidance on police officer applicants"
+      end
+    end
   end
 end

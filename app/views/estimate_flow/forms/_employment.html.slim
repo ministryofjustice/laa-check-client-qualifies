@@ -7,6 +7,30 @@
             header_text: t("estimate_flow.#{i18n_key}.heading"),
             post_header_text: t("estimate_flow.#{i18n_key}.second_caption"),
             tag: (:partner if partner)
+
+  - if FeatureFlags.enabled?(:special_applicant_groups)
+    = govuk_details(summary_text: t("estimate_flow.#{i18n_key}.police_officer_heading"))
+      p.govuk-text = t("estimate_flow.#{i18n_key}.police_officer_hint")
+      ul.govuk-list.govuk-list--bullet
+        - t("estimate_flow.#{i18n_key}.police_officer_inclusions").map
+          li.govuk_text = _1
+
+    = govuk_details(summary_text: t("estimate_flow.#{i18n_key}.prisoner_heading"))
+      p.govuk-text = t("estimate_flow.#{i18n_key}.prisoner_hint")
+      ul.govuk-list.govuk-list--bullet
+        - t("estimate_flow.#{i18n_key}.prisoner_inclusions").map
+          li.govuk_text = _1
+
+    = govuk_details(summary_text: t("estimate_flow.#{i18n_key}.foreign_resident_heading"))
+      - t("estimate_flow.#{i18n_key}.foreign_resident_hints").each
+        p.govuk-text = _1
+
+    = govuk_details(summary_text: t("estimate_flow.#{i18n_key}.armed_forces_heading"))
+      p.govuk-text = t("estimate_flow.#{i18n_key}.armed_forces_hint")
+      ul.govuk-list.govuk-list--bullet
+        - t("estimate_flow.#{i18n_key}.armed_forces_inclusions").map
+          li.govuk_text = _1
+
   = form.govuk_radio_buttons_fieldset(:frequency,
                                       legend: { text: t("estimate_flow.#{i18n_key}.frequency.input") },
                                       hint: { text: t("estimate_flow.employment.frequency.hint") })
