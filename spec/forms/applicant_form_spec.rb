@@ -46,4 +46,19 @@ RSpec.describe "applicant", type: :feature do
       expect(page).not_to have_content partner_question_placement_hint
     end
   end
+
+  context "when the special applicant group flag is enabled", :special_applicant_groups_flag do
+    it "shows help text about prisons" do
+      expect(page).to have_content "for example one of them is in prison"
+      expect(page).to have_content "Guidance on prisoners"
+    end
+
+    context "when the level of help is controlled" do
+      let(:level_of_help) { "controlled" }
+
+      it "does not show guidance link" do
+        expect(page).not_to have_content "Guidance on prisoners"
+      end
+    end
+  end
 end
