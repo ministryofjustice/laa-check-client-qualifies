@@ -26,6 +26,8 @@ module Steps
       end
 
       def partner_details(session_data)
+        return unless Steps::Logic.partner?(session_data)
+
         :partner_details if Steps::Logic.passported?(session_data) && FeatureFlags.enabled?(:household_section)
       end
     end

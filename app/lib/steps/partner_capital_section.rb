@@ -2,11 +2,11 @@ module Steps
   class PartnerCapitalSection
     PROPERTY_STEPS = %i[partner_property partner_property_entry].freeze
     VEHICLE_STEPS = %i[partner_vehicle partner_vehicle_details].freeze
-    TAIL_STEPS = %i[partner_details partner_assets].freeze
+    ASSET_STEPS = %i[partner_assets].freeze
 
     class << self
       def all_steps
-        (PROPERTY_STEPS + VEHICLE_STEPS + TAIL_STEPS).freeze
+        (PROPERTY_STEPS + VEHICLE_STEPS + ASSET_STEPS).freeze
       end
 
       def all_steps_for_current_feature_flags
