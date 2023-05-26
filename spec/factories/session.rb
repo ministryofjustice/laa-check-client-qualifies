@@ -263,4 +263,206 @@ FactoryBot.define do
     partner_investments { 997 }
     partner_valuables { 234 }
   end
+
+  factory :instant_controlled_session, class: Hash do
+    initialize_with { attributes.transform_keys(&:to_s) }
+
+    level_of_help { "controlled" }
+    proceeding_type { "IM030" }
+    asylum_support { false }
+    over_60 { false }
+    employment_status { "in_work" }
+    partner { true }
+    passporting { false }
+    child_dependants { false }
+    child_dependants_count { nil }
+    adult_dependants { false }
+    adult_dependants_count { nil }
+    frequency { "week" }
+    gross_income { 1.0 }
+    income_tax { 0.0 }
+    national_insurance { 0.0 }
+    receives_benefits { true }
+    benefits do
+      [{ "benefit_type" => "Benefit", "benefit_amount" => 1.0, "benefit_frequency" => "every_week" }]
+    end
+    friends_or_family_value { 0.0 }
+    friends_or_family_frequency { "every_week" }
+    maintenance_value { 0.0 }
+    maintenance_frequency { "every_week" }
+    property_or_lodger_value { 0.0 }
+    property_or_lodger_frequency { "every_week" }
+    pension_value { 0.0 }
+    pension_frequency { "every_week" }
+    student_finance_value { 0.0 }
+    other_value { 0.0 }
+    housing_payments_value { nil }
+    housing_payments_frequency { nil }
+    childcare_payments_value { 0.0 }
+    childcare_payments_frequency { "every_week" }
+    maintenance_payments_value { 0.0 }
+    maintenance_payments_frequency { "every_week" }
+    legal_aid_payments_value { 0.0 }
+    legal_aid_payments_frequency { "every_week" }
+    property_value { nil }
+    property_mortgage { nil }
+    property_percentage_owned { nil }
+    savings { 0.0 }
+    investments { 0.0 }
+    valuables { 0.0 }
+    in_dispute { [] }
+    partner_over_60 { false }
+    partner_employment_status { "in_work" }
+    partner_frequency { "week" }
+    partner_gross_income { 1.0 }
+    partner_income_tax { 0.0 }
+    partner_national_insurance { 0.0 }
+    partner_receives_benefits { true }
+    partner_benefits do
+      [{ "benefit_type" => "Benefit", "benefit_amount" => 1.0, "benefit_frequency" => "every_week" }]
+    end
+    partner_friends_or_family_value { 0.0 }
+    partner_friends_or_family_frequency { "every_week" }
+    partner_maintenance_value { 0.0 }
+    partner_maintenance_frequency { "every_week" }
+    partner_property_or_lodger_value { 0.0 }
+    partner_property_or_lodger_frequency { "every_week" }
+    partner_pension_value { 0.0 }
+    partner_pension_frequency { "every_week" }
+    partner_student_finance_value { 0.0 }
+    partner_other_value { 0.0 }
+    partner_housing_payments_value { nil }
+    partner_housing_payments_frequency { nil }
+    partner_childcare_payments_value { 0.0 }
+    partner_childcare_payments_frequency { "every_week" }
+    partner_maintenance_payments_value { 0.0 }
+    partner_maintenance_payments_frequency { "every_week" }
+    partner_legal_aid_payments_value { 0.0 }
+    partner_legal_aid_payments_frequency { "every_week" }
+    partner_property_value { nil }
+    partner_property_mortgage { nil }
+    partner_property_percentage_owned { nil }
+    partner_savings { 0.0 }
+    partner_investments { 0.0 }
+    partner_valuables { 0.0 }
+    property_owned { "outright" }
+    house_value { 1.0 }
+    mortgage { nil }
+    percentage_owned { 1 }
+    house_in_dispute { nil }
+    joint_ownership { nil }
+    joint_percentage_owned { nil }
+    additional_property_owned { "outright" }
+    additional_house_value { 1.0 }
+    additional_mortgage { nil }
+    additional_percentage_owned { 1 }
+    additional_house_in_dispute { nil }
+    partner_additional_property_owned { "outright" }
+    partner_additional_house_value { 1.0 }
+    partner_additional_mortgage { nil }
+    partner_additional_percentage_owned { 1 }
+  end
+
+  factory :instant_certificated_session, class: Hash do
+    initialize_with { attributes.transform_keys(&:to_s) }
+
+    level_of_help { "certificated" }
+    proceeding_type { "IM030" }
+    asylum_support { false }
+    over_60 { false }
+    employment_status { "in_work" }
+    partner { true }
+    passporting { false }
+    child_dependants { false }
+    child_dependants_count { nil }
+    adult_dependants { false }
+    adult_dependants_count { nil }
+    frequency { "week" }
+    gross_income { 1.0 }
+    income_tax { 0.0 }
+    national_insurance { 0.0 }
+    receives_benefits { true }
+    benefits do
+      [{ "benefit_type" => "Benefit", "benefit_amount" => 1.0, "benefit_frequency" => "every_week" }]
+    end
+    friends_or_family_value { 0.0 }
+    friends_or_family_frequency { "every_week" }
+    maintenance_value { 0.0 }
+    maintenance_frequency { "every_week" }
+    property_or_lodger_value { 0.0 }
+    property_or_lodger_frequency { "every_week" }
+    pension_value { 0.0 }
+    pension_frequency { "every_week" }
+    student_finance_value { 0.0 }
+    other_value { 0.0 }
+    housing_payments_value { nil }
+    housing_payments_frequency { nil }
+    childcare_payments_value { 0.0 }
+    childcare_payments_frequency { "every_week" }
+    maintenance_payments_value { 0.0 }
+    maintenance_payments_frequency { "every_week" }
+    legal_aid_payments_value { 0.0 }
+    legal_aid_payments_frequency { "every_week" }
+    property_value { nil }
+    property_mortgage { nil }
+    property_percentage_owned { nil }
+    savings { 0.0 }
+    investments { 0.0 }
+    valuables { 0.0 }
+    in_dispute { [] }
+    partner_over_60 { false }
+    partner_employment_status { "in_work" }
+    partner_frequency { "week" }
+    partner_gross_income { 1.0 }
+    partner_income_tax { 0.0 }
+    partner_national_insurance { 0.0 }
+    partner_receives_benefits { true }
+    partner_benefits do
+      [{ "benefit_type" => "Benefit", "benefit_amount" => 1.0, "benefit_frequency" => "every_week" }]
+    end
+    partner_friends_or_family_value { 0.0 }
+    partner_friends_or_family_frequency { "every_week" }
+    partner_maintenance_value { 0.0 }
+    partner_maintenance_frequency { "every_week" }
+    partner_property_or_lodger_value { 0.0 }
+    partner_property_or_lodger_frequency { "every_week" }
+    partner_pension_value { 0.0 }
+    partner_pension_frequency { "every_week" }
+    partner_student_finance_value { 0.0 }
+    partner_other_value { 0.0 }
+    partner_housing_payments_value { nil }
+    partner_housing_payments_frequency { nil }
+    partner_childcare_payments_value { 0.0 }
+    partner_childcare_payments_frequency { "every_week" }
+    partner_maintenance_payments_value { 0.0 }
+    partner_maintenance_payments_frequency { "every_week" }
+    partner_legal_aid_payments_value { 0.0 }
+    partner_legal_aid_payments_frequency { "every_week" }
+    partner_property_value { nil }
+    partner_property_mortgage { nil }
+    partner_property_percentage_owned { nil }
+    partner_savings { 0.0 }
+    partner_investments { 0.0 }
+    partner_valuables { 0.0 }
+    property_owned { "outright" }
+    house_value { 1.0 }
+    mortgage { nil }
+    percentage_owned { 1 }
+    house_in_dispute { nil }
+    joint_ownership { nil }
+    joint_percentage_owned { nil }
+    additional_property_owned { "outright" }
+    additional_house_value { 1.0 }
+    additional_mortgage { nil }
+    additional_percentage_owned { 1 }
+    additional_house_in_dispute { nil }
+    partner_additional_property_owned { "outright" }
+    partner_additional_house_value { 1.0 }
+    partner_additional_mortgage { nil }
+    partner_additional_percentage_owned { 1 }
+    vehicle_owned { true }
+    vehicles do
+      [{ "vehicle_value" => 1.0, "vehicle_pcp" => false, "vehicle_finance" => nil, "vehicle_over_3_years_ago" => false, "vehicle_in_regular_use" => false, "vehicle_in_dispute" => nil }]
+    end
+  end
 end
