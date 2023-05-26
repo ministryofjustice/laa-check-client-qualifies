@@ -49,14 +49,24 @@ module Steps
       end
 
       def all_sections
-        [CaseDetailsSection,
-         ApplicantDetailsSection,
-         IncomeSection,
-         CapitalSection,
-         PartnerSection,
-         PartnerIncomeSection,
-         PartnerCapitalSection,
-         PropertySection]
+        if FeatureFlags.enabled?(:household_section)
+          [CaseDetailsSection,
+           ApplicantDetailsSection,
+           IncomeSection,
+           PartnerIncomeSection,
+           OutgoingsSection,
+           CapitalSection,
+           PropertySection]
+        else
+          [CaseDetailsSection,
+           ApplicantDetailsSection,
+           IncomeSection,
+           CapitalSection,
+           PartnerSection,
+           PartnerIncomeSection,
+           PartnerCapitalSection,
+           PropertySection]
+        end
       end
 
       def remaining_steps(steps, step)

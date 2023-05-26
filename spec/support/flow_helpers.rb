@@ -157,6 +157,15 @@ def fill_in_vehicle_details_screen(screen_name: :vehicle_details, form_name: :cl
   click_on "Save and continue"
 end
 
+def fill_in_vehicles_details_screen(vehicle_finance: "0")
+  fill_in "vehicle_model[items][1][vehicle_value]", with: "1234"
+  choose (vehicle_finance == "0" ? "No" : "Yes"), name: "vehicle_model[items][1][vehicle_pcp]"
+  choose "No", name: "vehicle_model[items][1][vehicle_over_3_years_ago]"
+  choose "No", name: "vehicle_model[items][1][vehicle_in_regular_use]"
+  fill_in "vehicle_model[items][1][vehicle_finance]", with: vehicle_finance
+  click_on "Save and continue"
+end
+
 def fill_in_assets_screen(screen_name: :assets, form_name: :client_assets, values: {})
   confirm_screen screen_name
   fill_in "#{form_name}_form[property_value]", with: values.fetch(:property, "0") if page.body.include?("property_value")
@@ -182,7 +191,7 @@ end
 def fill_in_partner_details_screen(choices = {})
   confirm_screen "partner_details"
   choose choices.fetch(:over_60, "No"), name: "partner_details_form[over_60]"
-  choose choices.fetch(:employed, "Unemployed"), name: "partner_details_form[employment_status]"
+  choose choices.fetch(:employed, "Unemployed"), name: "partner_details_form[employment_status]" if page.text.include?("What is the partner's employment status?")
   click_on "Save and continue"
 end
 

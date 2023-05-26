@@ -6,8 +6,6 @@ module Steps
       end
 
       def all_steps_for_current_feature_flags
-        return %i[partner_details] if FeatureFlags.enabled?(:household_section)
-
         all_steps
       end
 
@@ -24,7 +22,6 @@ module Steps
 
       def dependants(session_data)
         return if Steps::Logic.passported?(session_data)
-        return if FeatureFlags.enabled?(:household_section)
 
         Steps::Group.new(:partner_dependant_details)
       end
