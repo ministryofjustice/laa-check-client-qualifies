@@ -4,6 +4,7 @@ RSpec.describe "partner_other_income", type: :feature do
   let(:assessment_code) { :assessment_code }
 
   before do
+    set_session(assessment_code, {})
     visit "estimates/#{assessment_code}/build_estimates/partner_other_income"
   end
 

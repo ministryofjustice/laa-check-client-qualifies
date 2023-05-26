@@ -2,7 +2,9 @@ class EstimatesController < ApplicationController
   before_action :load_check, only: %i[check_answers show print download]
 
   def new
-    redirect_to estimate_build_estimate_path SecureRandom.uuid, Steps::Helper.first_step
+    new_assessment_code = SecureRandom.uuid
+    session[assessment_id(new_assessment_code)] = {}
+    redirect_to estimate_build_estimate_path new_assessment_code, Steps::Helper.first_step
   end
 
   def create

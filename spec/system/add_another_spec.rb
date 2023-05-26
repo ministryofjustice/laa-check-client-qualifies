@@ -1,11 +1,13 @@
 require "rails_helper"
 
-RSpec.describe "Add another JS" do
+RSpec.describe "Add another JS", :household_section_flag do
   let(:assessment_code) { :assessment_code }
 
   before do
     driven_by(:headless_chrome)
-    visit "estimates/#{assessment_code}/build_estimates/vehicles_details"
+    start_assessment
+    fill_in_forms_until(:vehicle)
+    fill_in_vehicle_screen(choice: "Yes")
   end
 
   it "shows an error message if no value is entered" do
@@ -63,11 +65,7 @@ RSpec.describe "Add another JS" do
 
     click_on "Save and continue"
 
-    expect(session_contents.dig("vehicles", 0, "vehicle_value")).to eq 123
-    expect(session_contents.dig("vehicles", 1, "vehicle_value")).to eq 456
-    expect(session_contents.dig("vehicles", 2, "vehicle_value")).to eq 789
-
-    visit "estimates/#{assessment_code}/build_estimates/vehicles_details"
+    click_on "Back"
 
     click_on "remove-2"
 
