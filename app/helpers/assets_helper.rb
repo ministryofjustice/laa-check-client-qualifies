@@ -20,10 +20,9 @@ module AssetsHelper
   end
 
   def partner_assets_links(check)
-    translation_text = check.controlled? ? "controlled" : "certificated"
     links = {
-      t("estimate_flow.assets.guidance.#{translation_text}.text") => t("estimate_flow.assets.guidance.#{translation_text}.link"), \
-      t("estimate_flow.assets.other_property_guidance.text") => t("estimate_flow.assets.other_property_guidance.#{translation_text}.link"), \
+      t("estimate_flow.assets.guidance.#{check.level_of_help}.text") => t("estimate_flow.assets.guidance.#{check.level_of_help}.link"), \
+      t("estimate_flow.assets.other_property_guidance.text") => t("estimate_flow.assets.other_property_guidance.#{check.level_of_help}.link"), \
     }
 
     return links unless FeatureFlags.enabled?(:special_applicant_groups) && !check.controlled?
