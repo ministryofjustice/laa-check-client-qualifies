@@ -5,6 +5,7 @@ RSpec.describe "level_of_help", type: :feature do
   let(:assessment_code) { "assessment-code" }
 
   before do
+    set_session(assessment_code, {})
     visit "estimates/#{assessment_code}/build_estimates/level_of_help"
   end
 

@@ -2384,4 +2384,17 @@ en:
       static: Static
       flag: Flag
       enabled: Enabled?
+  missing_session:
+    title: You cannot access this page
+    intro: "You cannot access this eligibility check for one of the following reasons:"
+    bullets:
+      - It was started on a different device to the one you're using
+      - It was started over 3 weeks ago
+      - It was started in an incognito window
+      - Cookies were cleared in the browser the check was started in
+    subheading_1: Checks started on another device
+    subsection_1: You may still be able to access it using the device you used before. Otherwise, you'll need to start a new check
+    subheading_2: How to share results
+    subsection_2: To share the results of a check, save the result declaration as a PDF. You can do this on the results page at the end of the check.
+    cta: Start a new eligibility check
 

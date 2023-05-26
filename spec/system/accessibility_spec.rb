@@ -85,18 +85,20 @@ RSpec.describe "Accessibility" do
   end
 
   describe "Estimate steps" do
-    let(:estimate_id) { SecureRandom.uuid }
-
     before do
       travel_to arbitrary_fixed_time
       allow(CfeConnection).to receive(:state_benefit_types).and_return([])
     end
 
-    Steps::Helper.all_possible_steps.each do |step|
-      %w[controlled certificated].each do |level_of_help|
-        it "has no AXE-detectable accessibility issues on #{step} step when level of help is #{level_of_help}" do
-          set_session(estimate_id, { "level_of_help" => level_of_help })
-          visit estimate_build_estimate_path(estimate_id, step)
+    %w[controlled certificated].each do |level_of_help|
+      it "has no AXE-detectable accessibility issues on any page" do
+        start_assessment
+        fill_in_provider_users_screen
+        fill_in_level_of_help_screen choice: level_of_help
+        assessment_code = current_path.split("/").reverse.second
+
+        Steps::Helper.all_possible_steps.each do |step|
+          visit estimate_build_estimate_path(assessment_code, step)
 
           # govuk components deliberately break ARIA rules by putting 'aria-expanded' attributes on inputs
           # C.F. https://github.com/alphagov/govuk-frontend/issues/979
@@ -125,13 +127,14 @@ RSpec.describe "Accessibility" do
   end
 
   describe "Print results page" do
-    let(:estimate_id) { SecureRandom.uuid }
     let(:api_result) { build(:api_result) }
 
     before do
       travel_to arbitrary_fixed_time
       allow(CfeService).to receive(:call).and_return(api_result)
-      visit check_answers_estimate_path estimate_id
+
+      start_assessment
+      fill_in_forms_until(:check_answers)
       click_on "Submit"
       click_on "Print this page"
       windows = page.driver.browser.window_handles

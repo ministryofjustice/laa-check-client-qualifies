@@ -4,6 +4,7 @@ RSpec.describe "cw_selection", type: :feature do
   let(:assessment_code) { :assessment_code }
 
   before do
+    set_session(assessment_code, { "level_of_help" => "controlled" })
     visit "estimates/#{assessment_code}/controlled_work_document_selections/new"
   end
 
