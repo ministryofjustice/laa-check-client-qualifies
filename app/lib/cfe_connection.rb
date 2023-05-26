@@ -28,7 +28,7 @@ class CfeConnection
     end
 
     def cfe_connection
-      @cfe_connection ||= Faraday.new(url: CFE_HOST, headers: { "Accept" => "application/json" }) do |faraday|
+      @cfe_connection ||= Faraday.new(url: CFE_HOST, headers: { "Accept" => "application/json", "User-Agent" => user_agent_string }) do |faraday|
         faraday.request :json
 
         # retry 502 errors from CFE requests. Some 502 requests don't return valid JSOn so we get Faraday::ParsingError
@@ -53,6 +53,12 @@ class CfeConnection
       hash.deep_transform_values do |value|
         value.is_a?(BigDecimal) ? value.to_f : value
       end
+    end
+
+    def user_agent_string
+      commit_hash = `git rev-parse --short HEAD`.chomp
+      environment_name = ENV.fetch("CFE_ENVIRONMENT_NAME", "local")
+      "ccq/#{commit_hash} (#{environment_name})"
     end
   end
 end

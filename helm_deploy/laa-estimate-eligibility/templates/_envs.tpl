@@ -57,6 +57,8 @@ env:
     value: {{ .Values.googleTagManager.containerId }}
   - name: CFE_HOST
     value: {{ .Values.cfe.host }}
+  - name: CFE_ENVIRONMENT_NAME
+    value: {{ .Values.cfe.environment_name }}
   - name: REDIS_URL
     valueFrom:
       secretKeyRef:

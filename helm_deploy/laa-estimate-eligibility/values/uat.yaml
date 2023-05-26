@@ -52,6 +52,7 @@ googleTagManager:
 
 cfe:
   host: http://main-cfe-civil.cfe-civil-uat.svc.cluster.local
+  environment_name: uat
 
 featureFlags:
   sentry: ENABLED
