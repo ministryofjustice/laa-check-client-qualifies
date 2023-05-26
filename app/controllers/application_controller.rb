@@ -43,7 +43,13 @@ private
     "#{action_name}_#{controller_name}"
   end
 
+  # The session cookie doesn't get set until a session value gets set
+  # This presents a problem as we use the session cookie value
+  # to generate the assessment id from the assessment code.
+  # Particularly in the test environment, which uses a new session for every
+  # spec, this presents a problem. So we solve this by ensuring we
+  # set a session value right away to trigger the session cookie creation
   def force_setting_of_session_cookie
-    session["arbitrary_key"] = "arbitrary_value"
+    session["arbitrary_key"] ||= ""
   end
 end
