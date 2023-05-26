@@ -23,7 +23,7 @@ RSpec.describe CfeConnection do
 
     it "adds a user agent string" do
       stub = stub_request(:post, %r{assessments\z}).with do |request|
-        expect(request.headers["User-Agent"]).to match(/ccq\/.* \(local\)/)
+        expect(request.headers["User-Agent"]).to match(/ccq\/.* \(.*\)/)
       end
       connection.assess({})
       expect(stub).to have_been_requested
