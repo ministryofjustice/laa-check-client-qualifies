@@ -51,6 +51,7 @@ googleTagManager:
 
 cfe:
   host: http://cfe-civil.cfe-civil-staging.svc.cluster.local
+  environment_name: staging
 
 featureFlags:
   sentry: ENABLED
