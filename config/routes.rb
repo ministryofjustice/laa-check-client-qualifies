@@ -22,6 +22,7 @@ Rails.application.routes.draw do
 
   get "/health-including-dependents", to: "status#health"
   get "/no-analytics", to: "cookies#no_analytics_mode"
+  get "instant-:session_type", to: "instant_sessions#create"
 
   mount Blazer::Engine, at: "data"
 end
