@@ -3,7 +3,7 @@
   "private": "true",
   "dependencies": {
     "@ministryofjustice/frontend": "^1.6.6",
-    "@rails/ujs": "^7.0.4",
+    "@rails/ujs": "^7.0.5",
     "esbuild": "^0.17.19",
     "govuk-frontend": "^4.6.0",
     "jquery": "^3.7.0",
