@@ -1,74 +1,84 @@
 - partner ||= false
-= form_for(@form, url: wizard_path, method: :put) do |form|
+. data-module="add-another"
+  .add-another-template-area data-add-another-role="template"
+    = render "bank_account_section", removeable: true, model: BankAccountModel.new
 
-  = form.govuk_error_summary t("generic.error_summary_title")
-  = render "shared/heading",
-             header_text: t("estimate_flow.#{i18n_key}.legend"),
-             post_header_texts: hints,
-             tag: (:partner if partner)
+  = form_for(@form, url: wizard_path, method: :put) do |form|
 
-  - if FeatureFlags.enabled?(:special_applicant_groups)
-    /! the check below needs to be amended to include a check that ‘Self-employment income' has been selected (EL-942/EL-945)
-    - if FeatureFlags.enabled?(:self_employed)
-      = govuk_details(summary_text: t("estimate_flow.#{i18n_key}.business_capital_title"))
+    = form.govuk_error_summary t("generic.error_summary_title")
+    = render "shared/heading",
+            header_text: t("estimate_flow.#{i18n_key}.legend"),
+            post_header_texts: hints,
+            tag: (:partner if partner)
+
+    - if FeatureFlags.enabled?(:special_applicant_groups)
+      /! the check below needs to be amended to include a check that ‘Self-employment income' has been selected (EL-942/EL-945)
+      - if FeatureFlags.enabled?(:self_employed)
+        = govuk_details(summary_text: t("estimate_flow.#{i18n_key}.business_capital_title"))
         p.govuk-text = t("estimate_flow.#{i18n_key}.business_capital_text")
         p.govuk-text = t("estimate_flow.#{i18n_key}.business_capital_text_html")
-    = govuk_details(summary_text: t("estimate_flow.#{i18n_key}.bankrupt_title"))
+      = govuk_details(summary_text: t("estimate_flow.#{i18n_key}.bankrupt_title"))
       p.govuk-text = t("estimate_flow.#{i18n_key}.bankrupt_text")
-    = govuk_details(summary_text: t("estimate_flow.#{i18n_key}.prison_title"))
+      = govuk_details(summary_text: t("estimate_flow.#{i18n_key}.prison_title"))
       p.govuk-text = t("estimate_flow.#{i18n_key}.prison_text")
 
-  = form.govuk_fieldset legend: { text: t("estimate_flow.#{i18n_key}.savings.label") } do
+    = form.govuk_fieldset legend: { text: t("estimate_flow.#{i18n_key}.savings.label") } do
 
-    - t("estimate_flow.#{i18n_key}.savings.hints").each
+      - t("estimate_flow.#{i18n_key}.savings.hints").each
       .govuk-hint = _1
 
-    = render "shared/cost_of_living"
+      = render "shared/cost_of_living"
 
-    = render "shared/money_input",
-          form:,
-          field: :savings,
-          width: 5,
-          label_text: t("estimate_flow.#{i18n_key}.savings.input")
+      = render "shared/money_input",
+              form:,
+              field: :savings,
+              width: 5,
+              label_text: t("estimate_flow.#{i18n_key}.savings.input")
 
-    - if show_smod_content
-      .govuk-form-group
-        = form.govuk_check_box :in_dispute, "savings",
-          label: { text: t("generic.dispute") }
+      - if show_smod_content
+        .govuk-form-group
+          = form.govuk_check_box :in_dispute, "savings",
+                  label: { text: t("generic.dispute") }
 
-  = form.govuk_fieldset legend: { text: t("estimate_flow.#{i18n_key}.investments.label") } do
+      . data-add-another-role="sectionList"
+      / - @form.items.each_with_index do |assets, index|
+          = render "bank_account_section", removeable: index.positive?, model: assets, counter: index + 1
+      .govuk-button-group
+        button.govuk-button.govuk-button--secondary type="button" data-add-another-role="add" = t("estimate_flow.assets.savings.add")
 
-    - t("estimate_flow.#{i18n_key}.investments.hints").each
+    = form.govuk_fieldset legend: { text: t("estimate_flow.#{i18n_key}.investments.label") } do
+
+      - t("estimate_flow.#{i18n_key}.investments.hints").each
       .govuk-hint = _1
 
-    = render "shared/money_input",
-            form:,
-            field: :investments,
-            width: 5,
-            label_text: t("estimate_flow.#{i18n_key}.investments.input")
+      = render "shared/money_input",
+              form:,
+              field: :investments,
+              width: 5,
+              label_text: t("estimate_flow.#{i18n_key}.investments.input")
 
-    - if show_smod_content
-      .govuk-form-group
-        = form.govuk_check_box :in_dispute, "investments",
-          label: { text: t("generic.dispute") }
+      - if show_smod_content
+        .govuk-form-group
+          = form.govuk_check_box :in_dispute, "investments",
+                  label: { text: t("generic.dispute") }
 
-  = form.govuk_fieldset legend: { text: t("estimate_flow.#{i18n_key}.valuables.label") } do
+    = form.govuk_fieldset legend: { text: t("estimate_flow.#{i18n_key}.valuables.label") } do
 
-    - t("estimate_flow.#{i18n_key}.valuables.#{@check.level_of_help}_hints").each
+      - t("estimate_flow.#{i18n_key}.valuables.#{@check.level_of_help}_hints").each
       .govuk-hint = _1
 
-    = render "shared/money_input",
+      = render "shared/money_input",
               form:,
               field: :valuables,
               width: 5,
               label_text: t("estimate_flow.#{i18n_key}.valuables.input")
 
+      - if show_smod_content
+        .govuk-form-group
+          = form.govuk_check_box :in_dispute, "valuables",
+                  label: { text: t("generic.dispute") }
+
     - if show_smod_content
-      .govuk-form-group
-        = form.govuk_check_box :in_dispute, "valuables",
-          label: { text: t("generic.dispute") }
+      = render "smod_help"
 
-  - if show_smod_content
-    = render "smod_help"
-
-  = form.govuk_submit t("generic.save_and_continue")
+    = form.govuk_submit t("generic.save_and_continue")

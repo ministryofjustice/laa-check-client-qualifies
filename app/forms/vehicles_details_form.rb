@@ -1,7 +1,7 @@
 class VehiclesDetailsForm < BaseAddAnotherForm
   SESSION_KEY = "vehicles".freeze
   ITEM_MODEL = VehicleModel
-  ATTRIBUTES = %i[vehicles].freeze
+  ADD_ANOTHER_ATTRIBUTES = %i[vehicles].freeze
   alias_attribute :vehicles, :items
 
   class << self

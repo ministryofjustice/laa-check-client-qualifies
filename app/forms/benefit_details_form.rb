@@ -1,7 +1,7 @@
 class BenefitDetailsForm < BaseAddAnotherForm
   SESSION_KEY = "benefits".freeze
   ITEM_MODEL = BenefitModel
-  ATTRIBUTES = %i[benefits].freeze
+  ADD_ANOTHER_ATTRIBUTES = %i[benefits].freeze
   alias_attribute :benefits, :items
 
   def benefit_list

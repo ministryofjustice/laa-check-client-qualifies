@@ -6,10 +6,10 @@ class BaseAddAnotherForm
 
   PREFIX = nil
 
-  # Children must define ITEM_MODEL, ATTRIBUTES and SESSION_KEY constants
+  # Children must define ITEM_MODEL, ADD_ANOTHER_ATTRIBUTES and SESSION_KEY constants
   SESSION_KEY = nil
   ITEM_MODEL = nil
-  ATTRIBUTES = nil
+  ADD_ANOTHER_ATTRIBUTES = nil
 
   validate :items_valid?
 

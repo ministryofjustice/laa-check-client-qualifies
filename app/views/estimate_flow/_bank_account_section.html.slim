@@ -1,0 +1,43 @@
+- counter ||= nil
+. data-add-another-role="section"
+  - if removeable
+    .add-another-heading
+      h2.govuk-heading-m
+        = t("estimate_flow.assets.savings.bank_account")
+        span< data-add-another-role="counter" = counter
+      button.govuk-button.govuk-button--secondary type="button" data-add-another-role="remove" id="remove-#{counter}" = t("generic.remove")
+
+  / BANK ACCOUNT VALUE
+  = render "shared/add_another/money_field",
+           errors: model.errors.messages[:bank_account_value],
+           form_name: "base_assets_form",
+           model_name: "bank_account_model",
+           field_name: "bank_account_value",
+           counter:,
+           label: t("estimate_flow.assets.savings.input"),
+           value: model.bank_account_value,
+           label_size: ""
+
+  / BANK ACCOUNT SMOD
+  - if @check.smod_applicable?
+    .govuk-form-group
+      ruby:
+        id_pattern = "ID-smod"
+        id = id_pattern.gsub("ID", counter.to_s)
+        name_pattern = "bank_account_model[items][ID][bank_account_in_dispute]"
+        name = name_pattern.gsub("ID", counter.to_s)
+      .govuk-checkboxes__item
+        input [name=name
+               data-add-another-dynamic-elements="name:#{name_pattern}"
+               type="hidden"
+               value="0"
+               autocomplete="off"]
+        input.govuk-checkboxes__input [id=id
+                                       type="checkbox"
+                                       value="true"
+                                       name=name
+                                       data-add-another-dynamic-elements="name:#{name_pattern},id:#{id_pattern}"
+                                       checked=model.bank_account_in_dispute]
+        label.govuk-label.govuk-checkboxes__label [for=id
+                                                   data-add-another-dynamic-elements="for:#{id_pattern}"]
+          = t("generic.dispute")
