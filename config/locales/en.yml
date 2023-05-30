@@ -1833,6 +1833,7 @@ en:
       next_steps_paragraph_2: You may need to provide evidence of your client's eligibility as part of your application.
       evidence_needed: Evidence you might need
       evidence_needed_explainer: Depending on your client's financial situation, you may need to provide items from this general list.
+      evidence_needed_explainer_partner: Depending on your client and their partner's financial situation, you may need to provide items from this general list.
       types_of_evidence:
         - bank statements covering the last 3 months
         - evidence of any benefits or financial support your client received from the government, local authorities or third parties dated in the last 6 months
@@ -1845,6 +1846,7 @@ en:
       certificated_how_calculated: How we calculated whether your client is likely to be financially eligible for civil certificated legal aid work
       controlled_how_calculated: How we calculated whether your client is likely to be financially eligible for civil controlled legal aid work
       controlled_next_steps_paragraph_1: You will need to complete the relevant controlled work form and keep for your records, along with any evidence provided by your client. Your client’s file may be audited and assessed by the LAA at a later date.
+      controlled_next_steps_paragraph_1_partner: You will need to complete the relevant controlled work form and keep for your records, along with any evidence provided by your client and their partner. Your client’s file may be audited and assessed by the LAA at a later date.
       controlled_next_steps_paragraph_2_html: "You can find the forms at: <a href='https://www.gov.uk/government/collections/controlled-work-application-forms' target='_blank' rel='noreferrer noopener'>Controlled work application forms</a>."
       controlled_types_of_evidence:
         - bank statements covering the most recent month
@@ -1853,6 +1855,13 @@ en:
         - evidence of housing payments such as a mortgage statement, rent book or receipts (if your client's housing payments are more than a third of their total income)
         - receipts for childcare payments (if these exceed £600 a month or a pro-rata amount if your client is employed part time)
         - evidence of the value of any capital held by your client if you believe it necessary to collect
+      controlled_types_of_evidence_partner:
+        - bank statements covering the most recent month
+        - evidence of any benefits or financial support they received from the government, local authorities or third parties dated in the last 6 months
+        - wage slips covering the most recent month (if your client or their partner are employed)
+        - evidence of housing payments such as a mortgage statement, rent book or receipts (if housing payments are more than a third of their total income)
+        - receipts for childcare payments (if these exceed £600 a month or a pro-rata amount if your client or their partner are employed part time)
+        - evidence of the value of any capital held by your client and their partner if you believe it necessary to collect
       controlled_asylum_types_of_evidence:
         - confirmation from the Home Office or Migrant Help that the individual is in receipt of support (dated in the last 6 months)
         - completed LAA Asylum Support enquiry form
@@ -2039,6 +2048,9 @@ en:
       controlled_cw_next_steps:
         intro_paragraphs:
           - You will need to complete the relevant controlled work form and keep for your records, along with any evidence provided by your client. Your client’s file may be audited and assessed by the LAA at a later date.
+          - You can download a controlled work form with the answers you gave included, or complete the form yourself.
+        intro_paragraphs_partner:
+          - You will need to complete the relevant controlled work form and keep for your records, along with any evidence provided by your client and their partner. Your client’s file may be audited and assessed by the LAA at a later date.
           - You can download a controlled work form with the answers you gave included, or complete the form yourself.
         prefilled_header: Download a controlled work form with your answers included
         prefilled_bullets:
