@@ -10,7 +10,7 @@ class ChangeLogs
     end
 
     def last_updated_at
-      occurred.map { Date.parse(_1[:change_on]) }.max.strftime("%-d %B %Y") 
+      occurred.map { Date.parse(_1[:change_on]) }.max.strftime("%-d %B %Y")
     end
 
     def occurred
