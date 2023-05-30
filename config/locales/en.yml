@@ -2374,6 +2374,11 @@ en:
         bullets:
           - partner allowance increased to £211.32 (was £191.41)
           - dependant allowance increased to £338.90 (was £307.64)
+    household_flow:
+      history:
+        text: "Changes to simplify the question flow for clients who have a partner: "
+        bullets:
+          - Introduction of household questions (for dependants, housing costs, property and vehicles).
   controlled_work_document_selections:
     new:
       title: Which controlled work (CW) form do you need?
