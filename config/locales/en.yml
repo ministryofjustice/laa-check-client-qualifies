@@ -2143,10 +2143,18 @@ en:
       opening_paragraph: Use this service to find out if your client is likely to get civil legal aid, based on their financial situation.
       only_for_legal_aid_providers_html: You can only use this service if you give legal advice or provide legal services. %{link} as an individual.
       check_if_you_can_get_legal_aid: Check if you can get legal aid
-      unacceptable_client_explanation: "You cannot use this service if your client (or their partner) is:"
-      unacceptable_client_types:
+      partner_living_outside_uk_html: If your client or their partner live outside the UK, you should <a href='https://www.bankofengland.co.uk/boeapps/database/Rates.asp?Travel=NIxIRx&into=GBP' target='_blank'>convert their financial information into Sterling</a> before completing this check.
+      unacceptable_client_explanation: You cannot use this service if your client (or their partner) is self-employed
+      unacceptable_client_heading_company_director: "Company directors"
+      unacceptable_client_explanation_company_director: "You cannot use this service for a certificated check if your client (or their partner) is a self-employed director."
+      legacy_unacceptable_client_explanation: "You cannot use this service if your client (or their partner) is:"
+      legacy_unacceptable_client_types:
         - self employed
         - in the armed forces
+      unacceptable_client_heading_under_18: "Clients under 18"
+      unacceptable_client_explanation_under_18_html: 
+        - For controlled work, the finances of applicants under 18 are only assessed if they are maintained or cared for by somebody who can also be included in the means assessment. Page 32 of the <a href='https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1157029/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_controlled_work_and_family_mediation_May_2023.pdf#page=32' target='_blank'>Lord Chancellor’s guidance (opens in a new tab)</a> has more details about how to assess a child’s means.
+        - For certificated work, see page 94 of the <a href='https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1157030/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_certificated_work_May_2023__002_.pdf#page=94' target='_blank'>Lord Chancellor’s guidance (opens in a new tab)</a> for more details about when and how to assess a child’s means.
       case_types: Case types
       case_types_intro: "This must be for a case that would be:"
       valid_case_types:
