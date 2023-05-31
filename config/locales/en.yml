@@ -2378,7 +2378,7 @@ en:
       history:
         text: "Changes to simplify the question flow for clients who have a partner: "
         bullets:
-          - Introduction of household questions (for dependants, housing costs, property and vehicles).
+          - introduction of household questions (for dependants, housing costs, property and vehicles)
   controlled_work_document_selections:
     new:
       title: Which controlled work (CW) form do you need?
