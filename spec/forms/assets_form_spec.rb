@@ -87,6 +87,7 @@ RSpec.describe "assets", type: :feature do
   context "when special applicant groups enabled", :special_applicant_groups_flag, :household_section_flag do
     it "shows content about special applicants" do
       expect(page).to have_content "Clients who are bankrupt"
+      expect(page).to have_content "Clients in prison"
     end
 
     context "when the check is certificated" do
@@ -94,6 +95,21 @@ RSpec.describe "assets", type: :feature do
 
       it "shows appropriate links" do
         expect(page).to have_content "Guidance on bankrupt clients"
+      end
+    end
+  end
+
+  context "when special applicant groups not enabled" do
+    it "shows no content about special applicants" do
+      expect(page).not_to have_content "Clients who are bankrupt"
+      expect(page).not_to have_content "Clients in prison"
+    end
+
+    context "when the check is certificated" do
+      let(:session) { { "level_of_help" => "certificated" } }
+
+      it "hides irrelevant links" do
+        expect(page).not_to have_content "Guidance on bankrupt clients"
       end
     end
   end
