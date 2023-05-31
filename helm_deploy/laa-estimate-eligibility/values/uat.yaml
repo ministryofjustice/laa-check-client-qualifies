@@ -56,7 +56,7 @@ cfe:
 
 featureFlags:
   sentry: ENABLED
-  cwForms: ENABLED
+  cwForms: NOT_ENABLED
   householdSection: ENABLED
   specialApplicantGroups: NOT_ENABLED
 
