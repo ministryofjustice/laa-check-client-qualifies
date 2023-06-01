@@ -20,7 +20,7 @@
     - else
       = form.govuk_collection_radio_buttons :property_owned, property_options, :first, :last,
                                             legend: { text: t(legend_key), size: "xl", tag: "h1" },
-                                            hint: { text: t("estimate_flow.property.legacy_hint") }
+                                            hint: { text: t("estimate_flow.property.generic_hint") }
 
     = form.govuk_submit t("generic.save_and_continue")
 = render "property_sidebar", level_of_help: @check.level_of_help, smod_applicable: @check.smod_applicable?
