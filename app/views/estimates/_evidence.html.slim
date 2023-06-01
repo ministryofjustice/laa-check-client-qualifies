@@ -8,9 +8,9 @@
             - t("estimates.show.controlled_asylum_subtypes_of_evidence").each do |subevidence|
               li = subevidence
 - elsif @model.level_of_help == "controlled"
-  p.govuk-body = t("estimates.show.evidence_needed_explainer")
+  p.govuk-body = t("estimates.show.evidence_needed_explainer#{'_partner' if @check.partner}")
   ul.govuk-list.govuk-list--bullet
-    - t("estimates.show.controlled_types_of_evidence").each do |evidence|
+    - t("estimates.show.controlled_types_of_evidence#{'_partner' if @check.partner}").each do |evidence|
       li = evidence
 - else
   p.govuk-body = t("estimates.show.evidence_needed_explainer")

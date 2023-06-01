@@ -36,7 +36,7 @@
     - if FeatureFlags.enabled?(:cw_forms)
       = render "controlled_work_next_steps"
     - else
-      p.govuk-body = t("estimates.show.controlled_next_steps_paragraph_1")
+      p.govuk-body = t("estimates.show.controlled_next_steps_paragraph_1#{'_partner' if @check.partner}")
       p.govuk-body = t("estimates.show.controlled_next_steps_paragraph_2_html")
 
     h2.govuk-heading-m = t("estimates.show.evidence_needed")

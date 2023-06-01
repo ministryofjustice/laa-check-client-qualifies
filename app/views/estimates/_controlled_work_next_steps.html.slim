@@ -1,5 +1,9 @@
-- t("estimates.show.controlled_cw_next_steps.intro_paragraphs").each do |para|
-  p.govuk-body = para
+- if @check.partner
+  - t("estimates.show.controlled_cw_next_steps.intro_paragraphs_partner").each do |para|
+    p.govuk-body = para
+- else
+  - t("estimates.show.controlled_cw_next_steps.intro_paragraphs").each do |para|
+    p.govuk-body = para
 
 h3.govuk-heading-s = t("estimates.show.controlled_cw_next_steps.prefilled_header")
 ol.govuk-list.govuk-list--number
