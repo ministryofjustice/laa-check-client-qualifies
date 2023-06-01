@@ -56,9 +56,9 @@ cfe:
 
 featureFlags:
   sentry: ENABLED
-  cwForms: NOT_ENABLED
-  householdSection: NOT_ENABLED
-  specialApplicantGroups: NOT_ENABLED
+  cwForms: ENABLED
+  householdSection: ENABLED
+  specialApplicantGroups: ENABLED
 
 postgresql:
   enabled: true
