@@ -7,10 +7,11 @@
              post_header_texts: hints,
              tag: (:partner if partner)
 
-  = govuk_details(summary_text: t("estimate_flow.#{i18n_key}.bankrupt_title"))
-    p.govuk-text = t("estimate_flow.#{i18n_key}.bankrupt_text")
-  = govuk_details(summary_text: t("estimate_flow.#{i18n_key}.prison_title"))
-    p.govuk-text = t("estimate_flow.#{i18n_key}.prison_text")
+  - if FeatureFlags.enabled?(:special_applicant_groups)
+    = govuk_details(summary_text: t("estimate_flow.#{i18n_key}.bankrupt_title"))
+      p.govuk-text = t("estimate_flow.#{i18n_key}.bankrupt_text")
+    = govuk_details(summary_text: t("estimate_flow.#{i18n_key}.prison_title"))
+      p.govuk-text = t("estimate_flow.#{i18n_key}.prison_text")
 
   = form.govuk_fieldset legend: { text: t("estimate_flow.#{i18n_key}.savings.label") } do
 
