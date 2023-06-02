@@ -915,6 +915,7 @@ en:
           - "If your client is paying board and lodgings, enter the portion of the costs that relates to lodgings or, if you are unsure, 50% of the total costs."
           - "If your client is paying all or part of their ex-partner's housing costs for the former matrimonial home, do not include this here - add it as maintenance payments to a former partner instead."
           - "Enter 0 if this does not apply."
+        instruction: Enter amount of housing payments
       housing_benefits:
         label: Housing Benefit
         hint_paragraphs:
@@ -926,7 +927,7 @@ en:
         hint_paragraphs_continued: 
           - "Enter the full amount, whoever claims it."
           - "Enter 0 if this does not apply."
-      value: Enter amount
+        instruction: Enter amount of housing benefit
       frequency: Select frequency
       guidance_on_housing_costs:
         certificated:
@@ -985,24 +986,24 @@ en:
       friends_or_family:
         label: Financial help from friends or family
         hint: For example, money from a family member for rent or bills. Enter 0 if this does not apply
-        instruction: Enter amount
+        instruction: Enter amount of financial help from friends or family
       maintenance:
         label: Maintenance payments from a former partner
         hint: This includes child maintenance. Enter 0 if this does not apply
-        instruction: Enter amount
+        instruction: Enter amount of maintenance payments from a former partner
       property_or_lodger:
         label: Income from a property or lodger
         hint: Enter 0 if this does not apply
-        instruction: Enter amount
+        instruction: Enter amount of income from a property or lodger
       pension:
         label: Pension
         hint: Include State Pension, workplace and personal pensions. Enter 0 if this does not apply
-        instruction: Enter amount
+        instruction: Enter amount of pension
       student_finance:
         label: Student finance
         hint: This includes any type of student loan, grant or bursary. Do not include any tuition fee loans. Enter 0 if this does not apply
-        certificated_instruction: Enter amount received this academic year
-        controlled_instruction: Enter amount received this academic year
+        certificated_instruction: Enter amount of student finance
+        controlled_instruction: Enter amount of student finance
       other:
         label: Income from other sources
         hint: Include any other income your client received. Do not include any government Cost of Living Payments. Enter 0 if this does not apply
@@ -1023,24 +1024,24 @@ en:
       friends_or_family:
         label: Financial help from friends or family
         hint: For example, money from a family member for rent or bills. Enter 0 if this does not apply.
-        instruction: Enter amount
+        instruction: Enter amount of financial help from friends or family
       maintenance:
         label: Maintenance payments from a former partner
         hint: This includes child maintenance. Enter 0 if this does not apply.
-        instruction: Enter amount
+        instruction: Enter amount of maintenance payments from a former partner
       property_or_lodger:
         label: Income from a property or lodger
         hint: "Enter 0 if this does not apply"
-        instruction: Enter amount
+        instruction: Enter amount of income from a property or lodger
       pension:
         label: Pension
         hint: Include State Pension, workplace and personal pensions. Enter 0 if this does not apply.
-        instruction: Enter amount
+        instruction: Enter amount of pension
       student_finance:
         label: Student finance
         hint: This includes any type of student loan, grant or bursary. Do not include any tuition fee loans. Enter 0 if this does not apply.
-        certificated_instruction: Enter amount received this academic year
-        controlled_instruction: Enter amount received this academic year
+        certificated_instruction: Enter amount of student finance
+        controlled_instruction: Enter amount of student finance
       other:
         label: Income from other sources
         hint: Include any other income the partner received. Do not include any government Cost of Living Payments. Enter 0 if this does not apply.
@@ -1065,14 +1066,17 @@ en:
           - "For example, to a childminder, nanny or nursery. Enter 0 if this does not apply."
         partner_hint: This figure will show as £0.00 unless both your client and their partner are employed or receiving student finance.
         no_partner_hint: This figure will show as £0.00 unless your client is employed or receiving student finance.
+        instruction: Enter amount of childcare payments
       maintenance_payments:
         label: Maintenance payments to a former partner
         hints:
           - "This includes child maintenance. If your client is paying all or part of their ex-partner’s housing costs in the former matrimonial home, include this. Enter 0 if this does not apply."
+        instruction: Enter amount of maintenance payments from a former partner
       legal_aid_payments:
         label: Payments towards legal aid in a criminal case
         hints:
           - "Enter 0 if this does not apply"
+        instruction: Enter amount paid towards legal aid in a criminal case
       enter_amount: Enter amount
       enter_frequency: Select frequency
       frequencies:
@@ -1100,18 +1104,22 @@ en:
           - "If your client's partner is paying all or part of their ex-partner’s housing costs in the former matrimonial home, do not include this here - add it as maintenance payments to a former partner instead."
           - "If your client's partner is paying board and lodgings, enter the portion of the costs that relates to lodgings or, if you are unsure, 50% of the total costs."
           - Enter 0 if this does not apply.
+        instruction: Enter amount
       childcare_payments:
         label: Childcare payments
         hints:
           - "For example, to a childminder, nanny or nursery. Enter 0 if this does not apply"
+        instruction: Enter amount of childcare payments
       maintenance_payments:
         label: Maintenance payments to a former partner
         hints:
           - "This includes child maintenance. Enter 0 if this does not apply"
+        instruction: Enter amount of maintenance payments from a former partner
       legal_aid_payments:
         label: Payments towards legal aid in a criminal case
         hints:
           - Enter 0 if this does not apply
+        instruction: Enter amount paid towards legal aid in a criminal case
       enter_amount: Enter amount
       enter_frequency: Select frequency
     property:

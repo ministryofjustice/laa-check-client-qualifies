@@ -24,7 +24,7 @@
             form:,
             field: :"#{type}_value",
             width: 10,
-            label_text: t("estimate_flow.#{i18n_key}.enter_amount")
+            label_text: t("estimate_flow.#{i18n_key}.#{type}.instruction")
     = form.govuk_collection_radio_buttons :"#{type}_frequency",
                                           @form.frequencies,
                                           :first,
