@@ -1,5 +1,5 @@
 .govuk-grid-column-two-thirds
-  - ChangeLogs.for_banner.each do |change_log|
+  - ChangeLogs.for_banner_display.each do |change_log|
     = render "change_logs/banner", change_log:
 
   h1.govuk-heading-xl = t("service.name")
