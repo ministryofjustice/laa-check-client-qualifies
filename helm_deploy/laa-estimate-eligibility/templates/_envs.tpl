@@ -72,6 +72,8 @@ env:
     value: {{ .Values.featureFlags.householdSection }}
   - name: SPECIAL_APPLICANT_GROUPS_FEATURE_FLAG
     value: {{ .Values.featureFlags.specialApplicantGroups }}
+  - name: SELF_EMPLOYED_FEATURE_FLAG
+    value: {{ .Values.featureFlags.selfEmployed }}
   - name: NOTIFICATIONS_API_KEY
     valueFrom:
       secretKeyRef:
