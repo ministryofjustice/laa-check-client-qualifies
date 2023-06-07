@@ -61,4 +61,22 @@ RSpec.describe "applicant", type: :feature do
       end
     end
   end
+
+  context "when the self-employed flag is enabled", :self_employed_flag do
+    context "when level of help is controlled" do
+      let(:level_of_help) { "controlled" }
+
+      it "does not render the employment question" do
+        expect(page).not_to have_content "What is your client's employment status?"
+      end
+    end
+
+    context "when level of help is certificated" do
+      let(:level_of_help) { "certificated" }
+
+      it "does not render the employment question" do
+        expect(page).not_to have_content "What is your client's employment status?"
+      end
+    end
+  end
 end
