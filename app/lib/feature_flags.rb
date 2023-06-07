@@ -3,7 +3,7 @@ class FeatureFlags
     example_2125_flag: { from: "2125-01-01", public: false },
   }.freeze
 
-  STATIC_FLAGS = %i[sentry cw_forms household_section special_applicant_groups].freeze
+  STATIC_FLAGS = %i[sentry cw_forms household_section special_applicant_groups self_employed].freeze
 
   class << self
     def enabled?(flag)
