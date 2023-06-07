@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.shared_context "with passported attributes" do
+RSpec.shared_context "with passported attributes", :household_section_flag do
   before do
     start_assessment
     fill_in_forms_until(:applicant)
@@ -21,28 +21,6 @@ RSpec.shared_context "with passported attributes" do
     click_on "Submit"
   end
 end
-
-# RSpec.shared_context "with non-passported attributes" do
-#   before do
-#     start_assessment
-#     fill_in_forms_until(:applicant)
-#   end
-#
-#   def submit_data_to_cfe
-#     choose "No", name: "applicant_form[over_60]"
-#     choose "No", name: "applicant_form[partner]"
-#     choose "Unemployed", name: "applicant_form[employment_status]"
-#     choose "No", name: "applicant_form[passporting]"
-#     click_on "Save and continue"
-#     fill_in_forms_until(:assets)
-#     fill_in_assets_screen(values: { valuables: "800" })
-#     fill_in_forms_until(:vehicle)
-#     fill_in_vehicle_screen(choice: "Yes")
-#     fill_in_vehicles_details_screen(vehicle_finance: "5")
-#     fill_in_forms_until(:check_answers)
-#     click_on "Submit"
-#   end
-# end
 
 RSpec.describe "passported check", type: :feature do
   context "with stubbing" do
@@ -93,8 +71,9 @@ RSpec.describe "passported check", type: :feature do
       it "renders content" do
         submit_data_to_cfe
         expect(page).to have_content("Your client is likely to qualify for civil legal aid")
-        expect(page).to have_content("Assessed property value\n£0.00")
-        expect(page).to have_content("Total assessed disposable capital\n£0.00")
+        expect(page).to have_content("Assessed property value")
+        expect(page).to have_content("Total of home client lives in and any additional property\n£0.00")
+        expect(page).to have_content("Total assessed disposable capital£2,034.00") # 800 non liquid and 1234 from vehicle
         expect(page).not_to have_content("Income calculation")
         expect(page).not_to have_content("Outgoings calculation")
       end
