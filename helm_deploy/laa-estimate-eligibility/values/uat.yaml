@@ -59,7 +59,7 @@ featureFlags:
   cwForms: ENABLED
   householdSection: ENABLED
   specialApplicantGroups: ENABLED
-  selfEmployed: NOT_ENABLED
+  selfEmployed: ENABLED
 
 postgresql:
   enabled: true
