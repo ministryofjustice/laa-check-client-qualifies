@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Household section flow", :household_section_flag, type: :feature do
+RSpec.describe "Household section flow", type: :feature do
   it "runs through a full non-passported application with a partner" do
     start_assessment
     fill_in_forms_until(:applicant)

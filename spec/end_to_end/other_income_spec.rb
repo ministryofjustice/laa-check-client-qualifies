@@ -67,7 +67,6 @@ RSpec.describe "Controlled other income", type: :feature do
             { "operation" => "credit", "category" => "friends_or_family", "frequency" => "weekly", "amount" => 200.0 },
             { "operation" => "credit", "category" => "maintenance_in", "frequency" => "two_weekly", "amount" => 300.0 },
           ]
-
           parsed.dig("irregular_incomes", "payments") == payments && parsed["regular_transactions"] == regular_transactions
         }.to_return(
           body: FactoryBot.build(:api_result, eligible: "eligible").to_json,

@@ -16,11 +16,10 @@ RSpec.describe Cfe::AssetsPayloadService do
           "mortgage" => 123_123,
           "percentage_owned" => 80,
           "house_in_dispute" => false,
-          "joint_ownership" => true,
-          "joint_percentage_owned" => 11,
-          "property_value" => 123,
-          "property_mortgage" => 1313,
-          "property_percentage_owned" => 44,
+          "additional_property_owned" => "with_mortgage",
+          "additional_house_value" => 123,
+          "additional_mortgage" => 1313,
+          "additional_percentage_owned" => 44,
           "savings" => 553,
           "investments" => 345,
           "valuables" => 665,
@@ -47,7 +46,7 @@ RSpec.describe Cfe::AssetsPayloadService do
                                       subject_matter_of_dispute: false,
                                       value: 123 }],
             main_home: { outstanding_mortgage: 123_123,
-                         percentage_owned: 91,
+                         percentage_owned: 80,
                          shared_with_housing_assoc: false,
                          subject_matter_of_dispute: false,
                          value: 234_234 } },
@@ -55,56 +54,54 @@ RSpec.describe Cfe::AssetsPayloadService do
       end
     end
 
-    context "when in the household flow", :household_section_flag do
-      context "when an additional property is owned with a mortgage" do
-        let(:session_data) do
-          {
-            "additional_property_owned" => "with_mortgage",
-            "additional_house_value" => 123,
-            "additional_mortgage" => 1313,
-            "additional_percentage_owned" => 44,
-            "additional_house_in_dispute" => true,
-            "savings" => 0,
-            "investments" => 0,
-            "valuables" => 0,
-            "in_dispute" => [],
-          }
-        end
-
-        it "populates the payload with content from the standalone additional property screens" do
-          expect(payload[:properties][:additional_properties]).to eq(
-            [{ outstanding_mortgage: 1313,
-               percentage_owned: 44,
-               shared_with_housing_assoc: false,
-               subject_matter_of_dispute: true,
-               value: 123 }],
-          )
-        end
+    context "when an additional property is owned with a mortgage" do
+      let(:session_data) do
+        {
+          "additional_property_owned" => "with_mortgage",
+          "additional_house_value" => 123,
+          "additional_mortgage" => 1313,
+          "additional_percentage_owned" => 44,
+          "additional_house_in_dispute" => true,
+          "savings" => 0,
+          "investments" => 0,
+          "valuables" => 0,
+          "in_dispute" => [],
+        }
       end
 
-      context "when an additional property is owned outright" do
-        let(:session_data) do
-          {
-            "additional_property_owned" => "outright",
-            "additional_house_value" => 123,
-            "additional_percentage_owned" => 44,
-            "additional_house_in_dispute" => false,
-            "savings" => 0,
-            "investments" => 0,
-            "valuables" => 0,
-            "in_dispute" => [],
-          }
-        end
+      it "populates the payload with content from the standalone additional property screens" do
+        expect(payload[:properties][:additional_properties]).to eq(
+          [{ outstanding_mortgage: 1313,
+             percentage_owned: 44,
+             shared_with_housing_assoc: false,
+             subject_matter_of_dispute: true,
+             value: 123 }],
+        )
+      end
+    end
 
-        it "populates the payload with content from the standalone additional property screens" do
-          expect(payload[:properties][:additional_properties]).to eq(
-            [{ outstanding_mortgage: 0,
-               percentage_owned: 44,
-               shared_with_housing_assoc: false,
-               subject_matter_of_dispute: false,
-               value: 123 }],
-          )
-        end
+    context "when an additional property is owned outright" do
+      let(:session_data) do
+        {
+          "additional_property_owned" => "outright",
+          "additional_house_value" => 123,
+          "additional_percentage_owned" => 44,
+          "additional_house_in_dispute" => false,
+          "savings" => 0,
+          "investments" => 0,
+          "valuables" => 0,
+          "in_dispute" => [],
+        }
+      end
+
+      it "populates the payload with content from the standalone additional property screens" do
+        expect(payload[:properties][:additional_properties]).to eq(
+          [{ outstanding_mortgage: 0,
+             percentage_owned: 44,
+             shared_with_housing_assoc: false,
+             subject_matter_of_dispute: false,
+             value: 123 }],
+        )
       end
     end
 
@@ -138,9 +135,10 @@ RSpec.describe Cfe::AssetsPayloadService do
         FactoryBot.build(:minimal_complete_session,
                          :with_no_main_home,
                          :with_zero_capital_assets,
-                         property_value: 100_000,
-                         property_mortgage: 0,
-                         property_percentage_owned: 100)
+                         additional_property_owned: "with_mortgage",
+                         additional_house_value: 100_000,
+                         additional_mortgage: 0,
+                         additional_percentage_owned: 100)
       end
 
       it "adds a fake main home to the payload" do
@@ -172,10 +170,10 @@ RSpec.describe Cfe::AssetsPayloadService do
         FactoryBot.build(:minimal_complete_session,
                          :with_no_main_home,
                          :with_zero_capital_assets,
-                         property_value: 100_000,
-                         property_mortgage: 0,
-                         property_percentage_owned: 100,
-                         in_dispute: %w[property])
+                         additional_property_owned: "outright",
+                         additional_house_value: 100_000,
+                         additional_house_in_dispute: true,
+                         additional_percentage_owned: 100)
       end
 
       it "populates the payload with the right SMOD value" do
@@ -245,84 +243,6 @@ RSpec.describe Cfe::AssetsPayloadService do
               shared_with_housing_assoc: false,
               value: 100_000,
               subject_matter_of_dispute: true,
-            },
-          },
-        )
-      end
-    end
-
-    context "when main property is owned outright by partner" do
-      let(:session_data) do
-        FactoryBot.build(:minimal_complete_session,
-                         :with_partner_owned_main_home,
-                         :with_zero_capital_assets,
-                         partner_house_value: 100_000,
-                         partner_property_owned: "outright",
-                         partner_percentage_owned: 100)
-      end
-
-      it "populates the payload with appropriate details based on partner ownership" do
-        expect(payload[:properties]).to eq(
-          {
-            main_home: {
-              outstanding_mortgage: 0,
-              percentage_owned: 100,
-              shared_with_housing_assoc: false,
-              subject_matter_of_dispute: false,
-              value: 100_000,
-            },
-          },
-        )
-      end
-    end
-
-    context "when main property is owned with mortgage by partner" do
-      let(:session_data) do
-        FactoryBot.build(:minimal_complete_session,
-                         :with_partner_owned_main_home,
-                         :with_zero_capital_assets,
-                         partner_house_value: 100_000,
-                         partner_property_owned: "with_mortgage",
-                         partner_mortgage: 50_000,
-                         partner_percentage_owned: 100)
-      end
-
-      it "populates the payload with appropriate details based on partner ownership" do
-        expect(payload[:properties]).to eq(
-          {
-            main_home: {
-              outstanding_mortgage: 50_000,
-              percentage_owned: 100,
-              shared_with_housing_assoc: false,
-              subject_matter_of_dispute: false,
-              value: 100_000,
-            },
-          },
-        )
-      end
-    end
-
-    context "when main property is owned outright between client and partner" do
-      let(:session_data) do
-        FactoryBot.build(:minimal_complete_session,
-                         :with_main_home,
-                         :with_zero_capital_assets,
-                         property_owned: "outright",
-                         joint_ownership: true,
-                         joint_percentage_owned: 30,
-                         percentage_owned: 40,
-                         house_value: 100_000)
-      end
-
-      it "sums the ownership percentages" do
-        expect(payload[:properties]).to eq(
-          {
-            main_home: {
-              outstanding_mortgage: 0,
-              percentage_owned: 70,
-              shared_with_housing_assoc: false,
-              subject_matter_of_dispute: false,
-              value: 100_000,
             },
           },
         )

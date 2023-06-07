@@ -29,8 +29,6 @@ RSpec.describe "partner_outgoings", type: :feature do
   end
 
   it "stores my responses in the session" do
-    fill_in "partner-outgoings-form-housing-payments-value-field", with: "100"
-    choose "Every month", name: "partner_outgoings_form[housing_payments_frequency]"
     fill_in "partner-outgoings-form-childcare-payments-value-field", with: "200"
     choose "Every month", name: "partner_outgoings_form[childcare_payments_frequency]"
     fill_in "partner-outgoings-form-legal-aid-payments-value-field", with: "300"
@@ -40,8 +38,6 @@ RSpec.describe "partner_outgoings", type: :feature do
 
     click_on "Save and continue"
 
-    expect(session_contents["partner_housing_payments_value"]).to eq 100
-    expect(session_contents["partner_housing_payments_frequency"]).to eq "monthly"
     expect(session_contents["partner_childcare_payments_value"]).to eq 200
     expect(session_contents["partner_childcare_payments_frequency"]).to eq "monthly"
     expect(session_contents["partner_legal_aid_payments_value"]).to eq 300

@@ -43,9 +43,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
         savings: 111,
         investments: 222,
         valuables: 555,
-        joint_ownership: true,
         percentage_owned: 25,
-        joint_percentage_owned: 25,
         api_response: FactoryBot.build(:api_result, main_home: FactoryBot.build(:property_api_result, value: 250_000)).with_indifferent_access,
       )
     end
@@ -62,7 +60,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
         "undefined_42" => "555", # Valuables
         "undefined_40" => "222", # Investments
         "undefined_38" => "111", # Savings
-        "undefined_30" => "50", # joint percentage owned
+        "undefined_30" => "25", # Percentage owned
       }
       expect(result).to include(representative_sample)
     end
@@ -78,7 +76,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
         "FillText2" => "111", # Savings
         "FillText6" => "222", # Investments
         "FillText11" => "555", # Valuables
-        "FillText66" => "50", # joint percentage owned
+        "FillText66" => "25", # Percentage owned
       }
       expect(result).to include(representative_sample)
     end
@@ -243,55 +241,6 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
         "Other property 1" => "200,000", # SMOD investments
         "undefined_15" => "75", # SMOD investments
         "Other property 2" => "120,000", # SMOD investments
-      }
-      expect(result).to include(representative_sample)
-    end
-  end
-
-  context "with joint owned property in dispute" do
-    let(:session_data) do
-      FactoryBot.build(
-        :minimal_complete_session,
-        :with_joint_owned_main_home_in_dispute,
-        :with_partner,
-        in_dispute: %w[property],
-        percentage_owned: 25,
-        joint_percentage_owned: 25,
-        api_response: FactoryBot.build(:api_result,
-                                       main_home: FactoryBot.build(:property_api_result, value: 250_000),
-                                       additional_property: FactoryBot.build(:property_api_result,
-                                                                             outstanding_mortgage: 120_000,
-                                                                             percentage_owned: 75)).with_indifferent_access,
-      )
-    end
-
-    it "can successfully populate CW1 form fields" do
-      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1.yml")).map(&:with_indifferent_access)
-      result = described_class.call(session_data, mappings)
-      representative_sample = {
-        "Check Box21" => "Yes", # Not passporting
-        "Go to question 2" => "No", # Asylum supported not given
-        "Please complete Part A Capital Subject matter of dispute" => "Yes_5", # SMOD
-        "Please provide details of both clients and partners means" => "Yes_3", # Has a partner
-        "undefined_26" => nil, # Non SMOD Property value
-        "undefined_10" => "250,000", # SMOD Property worth £250,000
-        "Other property 1" => "200,000", # additional property value
-        "undefined_15" => "75", # additional property percentage
-        "Other property 2" => "120,000", # additional property mortgage
-        "undefined_14" => "50", # joint perecentage owned (main home)
-      }
-      expect(result).to include(representative_sample)
-    end
-
-    it "can successfully populate CW1_AND_2MH form fields" do
-      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_and_2.yml")).map(&:with_indifferent_access)
-      result = described_class.call(session_data, mappings)
-      representative_sample = {
-        "CheckBox17" => 1, # client has partner
-        "CheckBox19" => nil, # client does not have partner
-        "FillText5" => "250,000", # client main home value
-        "FillText6" => "90,000", # client main home mortgage
-        "FillText34" => "110,000", # client main home net equity
       }
       expect(result).to include(representative_sample)
     end

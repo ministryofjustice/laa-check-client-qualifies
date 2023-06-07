@@ -45,13 +45,12 @@ RSpec.describe "Certificated check without partner", type: :feature do
       expect(parsed["regular_transactions"]).to eq(
         [
           { "operation" => "credit", "category" => "friends_or_family", "frequency" => "weekly", "amount" => 200.0 },
+          { "operation" => "debit", "category" => "rent_or_mortgage", "frequency" => "monthly", "amount" => 100.0 },
         ],
       )
 
       expect(parsed.dig("state_benefits", 0, "name")).to eq "A"
       expect(parsed.dig("state_benefits", 0, "payments", 0)).to eq({ "date" => "2023-02-15", "amount" => 1.0, "client_id" => "" })
-      expect(parsed.dig("state_benefits", 1, "name")).to eq "housing_benefit"
-      expect(parsed.dig("state_benefits", 1, "payments", 0)).to eq({ "date" => "2023-02-15", "amount" => 1.0, "client_id" => "" })
 
       expect(parsed["vehicles"]).to eq([{
         "value" => 1.0,
@@ -92,17 +91,17 @@ RSpec.describe "Certificated check without partner", type: :feature do
     fill_in_applicant_screen(employed: "Employed and in work")
     fill_in_dependant_details_screen(child_dependants: "Yes", child_dependants_count: 1)
     fill_in_employment_screen
-    fill_in_housing_benefit_screen(choice: "Yes")
-    fill_in_housing_benefit_details_screen
     fill_in_benefits_screen(choice: "Yes")
     fill_in_benefit_details_screen
     fill_in_other_income_screen(values: { friends_or_family: "200", student_finance: "100" }, frequencies: { friends_or_family: "Every week" })
     fill_in_outgoings_screen
+    fill_in_assets_screen(values: { valuables: "700" })
+    fill_in_vehicle_screen(choice: "Yes")
+    fill_in_vehicles_details_screen(vehicle_finance: "5")
     fill_in_property_screen(choice: "Yes, with a mortgage or loan")
     fill_in_property_entry_screen
-    fill_in_vehicle_screen(choice: "Yes")
-    fill_in_vehicle_details_screen(vehicle_finance: "5")
-    fill_in_assets_screen(values: { valuables: "700" })
+    fill_in_mortgage_or_loan_payment_screen(amount: "100")
+    fill_in_additional_property_screen
     click_on "Submit"
 
     expect(stub).to have_been_requested

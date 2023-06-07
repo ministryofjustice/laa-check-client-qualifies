@@ -1,4 +1,60 @@
-- if FeatureFlags.enabled?(:household_section)
-  = render "estimate_flow/household_flow/dependant_details"
-- else
-  = render "estimate_flow/non_household_flow/dependant_details"
+- legend_key = @check.partner ? "estimate_flow.dependant_details.legend_with_partner" : "estimate_flow.dependant_details.legend"
+- content_for :page_title
+  = t(legend_key)
+- content_for :back do
+  = back_link(:dependant_details, @check, @back_buttons_invoke_browser_back_behaviour)
+
+- content_for :child_dependants_hint
+  = govuk_details(summary_text: t("estimate_flow.dependant_details.child_dependants.summary")) do
+    p.govuk-text = t("estimate_flow.dependant_details.child_dependants.paragraph_1#{'_with_partner' if @check.partner}")
+    - t("estimate_flow.dependant_details.child_dependants.paragraphs").each do |paragraph|
+      p.govuk-text = paragraph
+    ul.govuk-list.govuk-list--bullet
+      - t("estimate_flow.dependant_details.child_dependants.exclusions_#{@check.level_of_help}").each do |bullet|
+        li = bullet
+
+- content_for :adult_dependants_hint
+  = govuk_details(summary_text: t("estimate_flow.dependant_details.adult_dependants.summary")) do
+    p.govuk-text = t("estimate_flow.dependant_details.adult_dependants.paragraph#{'_with_partner' if @check.partner}")
+    p.govuk-text = t("estimate_flow.dependant_details.adult_dependants.exclude")
+    ul.govuk-list.govuk-list--bullet
+      - t("estimate_flow.dependant_details.adult_dependants.exclusions_#{@check.level_of_help}").each do |bullet|
+        li = bullet
+
+.govuk-grid-column-two-thirds
+  = form_for(@form, url: wizard_path, method: :put) do |form|
+    = form.govuk_error_summary t("generic.error_summary_title")
+
+    = render "shared/heading",
+            header_text: t(legend_key),
+            tag: :household
+
+    = form.govuk_radio_buttons_fieldset :child_dependants,
+            hint: -> { content_for(:child_dependants_hint) },
+            legend: { text: t("estimate_flow.dependant_details.child_dependants.legend#{'_with_partner' if @check.partner}") } do
+      = form.govuk_radio_button :child_dependants, true,
+              label: { text: t("generic.yes_choice") } do
+        = form.govuk_text_field :child_dependants_count,
+            width: 5,
+            value: integer_field_value(form, :child_dependants_count),
+            label: { text: t("estimate_flow.dependant_details.how_many_child") }
+      = form.govuk_radio_button :child_dependants, false,
+              label: { text: t("generic.no_choice") }
+
+    = form.govuk_radio_buttons_fieldset :adult_dependants,
+            hint: -> { content_for(:adult_dependants_hint) },
+            legend: { text: t("estimate_flow.dependant_details.adult_dependants.legend#{'_with_partner' if @check.partner}") } do
+      = form.govuk_radio_button :adult_dependants, true,
+              label: { text: t("generic.yes_choice") } do
+        = form.govuk_text_field :adult_dependants_count,
+            width: 5,
+            value: integer_field_value(form, :adult_dependants_count),
+            label: { text: t("estimate_flow.dependant_details.how_many_adult") }
+      = form.govuk_radio_button :adult_dependants, false,
+              label: { text: t("generic.no_choice") }
+
+    = form.govuk_submit t("generic.save_and_continue")
+
+= render "shared/question_sidebar",
+          level_of_help: @check.level_of_help,
+          links: dependants_links(@check.level_of_help)

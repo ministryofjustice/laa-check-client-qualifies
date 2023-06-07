@@ -4,10 +4,8 @@
   = back_link(:benefits, @check, @back_buttons_invoke_browser_back_behaviour)
 
 .govuk-grid-column-two-thirds
-  - unless FeatureFlags.enabled?(:household_section)
-    span.govuk-caption-l = t(".caption")
   = render "estimate_flow/forms/benefits",
-           legend: { text: t(".legend#{'_non_household' unless FeatureFlags.enabled?(:household_section)}"),
+           legend: { text: t(".legend"),
                      size: "xl",
                      tag: "h1" }
 

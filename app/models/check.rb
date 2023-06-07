@@ -56,15 +56,10 @@ class Check
     Steps::Logic.owns_property?(session_data)
   end
 
-  def partner_owns_property?
-    Steps::Logic.partner_owns_property?(session_data)
-  end
-
   def any_smod_assets?
     return false unless smod_applicable?
 
     house_in_dispute ||
-      vehicle_in_dispute ||
       in_dispute.present? ||
       additional_house_in_dispute ||
       vehicles&.any?(&:vehicle_in_dispute) ||

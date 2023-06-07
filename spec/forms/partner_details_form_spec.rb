@@ -2,7 +2,6 @@ require "rails_helper"
 
 RSpec.describe "partner_details", type: :feature do
   let(:assessment_code) { :assessment_code }
-  let(:intro_paragraph) { "We will now ask for some details about your client's partner to help us get an accurate financial picture of them." }
   let(:employment_question) { "What is the partner's employment status?" }
   let(:session) { { "level_of_help" => "controlled" } }
 
@@ -17,7 +16,6 @@ RSpec.describe "partner_details", type: :feature do
   end
 
   it "has some long-form copy and questions about employment" do
-    expect(page).to have_content intro_paragraph
     expect(page).to have_content employment_question
   end
 
@@ -35,12 +33,6 @@ RSpec.describe "partner_details", type: :feature do
 
     it "does not ask about employment" do
       expect(page).not_to have_content employment_question
-    end
-  end
-
-  context "when the household flow is switched on", :household_section_flag do
-    it "does not show the intro paragraph" do
-      expect(page).not_to have_content intro_paragraph
     end
   end
 end

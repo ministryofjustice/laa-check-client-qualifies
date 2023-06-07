@@ -7,8 +7,8 @@ RSpec.describe "Controlled work flow", type: :feature do
     fill_in_level_of_help_screen(choice: "Civil controlled work or family mediation")
     fill_in_forms_until(:applicant)
     fill_in_applicant_screen(partner: "Yes")
-    fill_in_forms_until(:partner_property)
-    fill_in_partner_property_screen
-    confirm_screen("partner_assets")
+    fill_in_forms_until(:partner_assets)
+    fill_in_partner_assets_screen
+    confirm_screen("property")
   end
 end

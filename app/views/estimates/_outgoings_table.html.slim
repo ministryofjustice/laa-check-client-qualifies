@@ -13,13 +13,12 @@ p.govuk-body = t("estimates.show.period_conversion_hint")
       - @model.partner_outgoing_rows.each do |outgoing_type, money_amount|
         = render "outgoings_row", body:, outgoing_type:, money_amount:, person: :partner
 
-- if FeatureFlags.enabled?(:household_section)
-  h2.govuk-heading-m = t("estimates.show.household_outgoings")
-  p.govuk-body = t("estimates.show.period_conversion_hint")
-  = govuk_table do |table|
-    - table.with_body do |body|
-      - @model.household_outgoing_rows.each do |outgoing_type, money_amount|
-        = render "outgoings_row", body:, outgoing_type:, money_amount:, person: :household
+h2.govuk-heading-m = t("estimates.show.household_outgoings")
+p.govuk-body = t("estimates.show.period_conversion_hint")
+= govuk_table do |table|
+  - table.with_body do |body|
+    - @model.household_outgoing_rows.each do |outgoing_type, money_amount|
+      = render "outgoings_row", body:, outgoing_type:, money_amount:, person: :household
 
 h2 class="govuk-heading-#{caption_size}" = t("estimates.show.total")
 = govuk_table do |table|

@@ -18,10 +18,10 @@ RSpec.describe "dependant_details", type: :feature do
     choose "Yes", name: "dependant_details_form[adult_dependants]"
 
     within(find("fieldset", text: /adult dependants/)) do
-      fill_in "How many?", with: "1"
+      fill_in "How many adult dependants are there?", with: "1"
     end
     within(find("fieldset", text: /child dependants/)) do
-      fill_in "How many?", with: "2"
+      fill_in "How many child dependants are there?", with: "2"
     end
     click_on "Save and continue"
 

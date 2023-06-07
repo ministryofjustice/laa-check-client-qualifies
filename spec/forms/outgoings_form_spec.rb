@@ -18,20 +18,8 @@ RSpec.describe "outgoings", type: :feature do
   context "when level of help is 'controlled'" do
     let(:level_of_help) { "controlled" }
 
-    context "when household flow is switched off" do
-      it "shows alternative guidance" do
-        expect(page).to have_content "Guidance on determining disposable income"
-      end
-
-      it "asks for housing payments" do
-        expect(page).to have_content "Housing payments"
-      end
-    end
-
-    context "when household flow is switched on", :household_section_flag do
-      it "does not ask for housing payments" do
-        expect(page).not_to have_content "Housing payments"
-      end
+    it "shows alternative guidance" do
+      expect(page).to have_content "Guidance on determining disposable income"
     end
   end
 
@@ -41,8 +29,6 @@ RSpec.describe "outgoings", type: :feature do
   end
 
   it "stores my responses in the session" do
-    fill_in "outgoings-form-housing-payments-value-field", with: "100"
-    choose "Every month", name: "outgoings_form[housing_payments_frequency]"
     fill_in "outgoings-form-childcare-payments-value-field", with: "200"
     choose "Every month", name: "outgoings_form[childcare_payments_frequency]"
     fill_in "outgoings-form-legal-aid-payments-value-field", with: "300"
@@ -52,8 +38,6 @@ RSpec.describe "outgoings", type: :feature do
 
     click_on "Save and continue"
 
-    expect(session_contents["housing_payments_value"]).to eq 100
-    expect(session_contents["housing_payments_frequency"]).to eq "monthly"
     expect(session_contents["childcare_payments_value"]).to eq 200
     expect(session_contents["childcare_payments_frequency"]).to eq "monthly"
     expect(session_contents["legal_aid_payments_value"]).to eq 300

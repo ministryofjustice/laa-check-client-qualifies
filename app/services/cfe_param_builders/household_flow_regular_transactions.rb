@@ -46,7 +46,7 @@ module CfeParamBuilders
     def self.build_housing_payments(housing_form)
       case housing_form
       when MortgageOrLoanPaymentForm
-        return [] unless housing_form.housing_loan_payments.to_i.positive?
+        return [] if housing_form.housing_loan_payments.to_i.zero?
 
         [
           {
@@ -57,7 +57,7 @@ module CfeParamBuilders
           },
         ]
       when HousingCostsForm
-        return [] unless housing_form.housing_payments.to_i.positive?
+        return [] if housing_form.housing_payments.to_i.zero?
 
         [
           {

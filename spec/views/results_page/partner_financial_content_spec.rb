@@ -46,7 +46,7 @@ RSpec.describe "estimates/show.html.slim" do
               national_insurance: -10.0,
               fixed_employment_deduction: -3.34,
             },
-            net_housing_costs: 500.0,
+            net_housing_costs: 0.0,
             dependant_allowance: 13.0,
             partner_allowance: 858.34,
           },
@@ -68,7 +68,6 @@ RSpec.describe "estimates/show.html.slim" do
             pensioner_capital_disregard: 3_000,
             total_capital: 12_000,
             total_property: 0.0,
-            total_vehicle: 3_000,
             total_liquid: 3676,
             total_non_liquid: 5353,
             total_capital_with_smod: 30_000,
@@ -115,15 +114,7 @@ RSpec.describe "estimates/show.html.slim" do
                   },
                 ],
               },
-              vehicles: [
-                {
-                  value: 587,
-                  loan_amount_outstanding: 234,
-                  disregards_and_deductions: 144,
-                  assessed_value: 3,
-                  in_regular_use: vehicle_in_regular_use,
-                },
-              ],
+              vehicles: [],
               liquid: [],
               non_liquid: [],
             },
@@ -185,14 +176,12 @@ RSpec.describe "estimates/show.html.slim" do
     end
 
     it "shows outgoings content" do
-      expect(page_text).to match(/Housing payments(.+)£500.00/)
       expect(page_text).to match(/Childcare payments(.+)£848.00/)
       expect(page_text).to include "Maintenance payments to a former partner£498.00"
       expect(page_text).to include "Payments towards legal aid in a criminal case£41.79"
       expect(page_text).to include "Income tax£5.00"
       expect(page_text).to include "National Insurance£10.00"
       expect(page_text).to include "Employment expensesA fixed allowance if the partner is employed£3.34"
-      expect(page_text).to include "Dependants allowanceA fixed allowance deducted for each dependant the partner has£13.00"
       expect(page_text).to include "Total client and partner monthly outgoings£5,483.00"
       expect(page_text).to include "Assessed disposable monthly incomeTotal monthly income minus total monthly outgoings£12,345.00"
       expect(page_text).to include "Disposable monthly income upper limit£2,657.00"
@@ -203,26 +192,12 @@ RSpec.describe "estimates/show.html.slim" do
       expect(page_text).to include "Outstanding mortgage-£52.00"
       expect(page_text).to include "Deductions3% of property value deducted for cost of sale-£534.00"
       expect(page_text).to include "Assessed value£52.00"
-      expect(page_text).to include "Partner's vehicleValue£587.00"
-      expect(page_text).to include "Outstanding payments-£234.00"
-      expect(page_text).to include "Disregards and deductions-£144.00"
-      expect(page_text).to include "Assessed value£3.00"
       expect(page_text).to include "Partner's disposable capitalAssessed property value£0.00"
-      expect(page_text).to include "Assessed vehicle value£3,000.00"
       expect(page_text).to include "Money in bank accounts£3,676.00"
       expect(page_text).to include "Investments and valuables£5,353.00"
       expect(page_text).to include "Disposable capital£30,000.00"
       expect(page_text).to include "Total assessed disposable capital£0.00"
       expect(page_text).to include "Disposable capital upper limit£2,657.00"
-    end
-
-    context "when the vehicle is not in regular use" do
-      let(:vehicle_in_regular_use) { false }
-
-      it "does not show additional vehicle rows" do
-        expect(page_text).not_to include "Outstanding payments-£234.00"
-        expect(page_text).not_to include "Disregards and deductions-£144.00"
-      end
     end
   end
 end

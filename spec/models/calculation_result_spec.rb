@@ -71,10 +71,8 @@ RSpec.describe CalculationResult do
       data = FactoryBot.build(:api_result)
 
       expect(described_class.new("api_response" => data).display_household_vehicles.first).to include(:value,
-                                                                                                      :assessed_value,
                                                                                                       :disregards_and_deductions,
-                                                                                                      :loan_amount_outstanding,
-                                                                                                      :in_regular_use)
+                                                                                                      :loan_amount_outstanding)
       expect(described_class.new("api_response" => data).display_household_vehicles.first).not_to include(:date_of_purchase)
       expect(described_class.new("api_response" => data).display_household_vehicles.first).not_to include(:included_in_assessment)
     end

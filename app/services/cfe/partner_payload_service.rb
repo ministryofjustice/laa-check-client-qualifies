@@ -12,8 +12,8 @@ module Cfe
         state_benefits:,
         additional_properties:,
         capitals:,
-        dependants:,
-        vehicles:,
+        dependants: [],
+        vehicles: [],
       }
       payload[:partner] = partner_financials
     end
@@ -44,19 +44,18 @@ module Cfe
 
       outgoings_form = PartnerOutgoingsForm.from_session(@session_data)
       income_form = PartnerOtherIncomeForm.from_session(@session_data)
-      CfeParamBuilders::RegularTransactions.call(income_form, outgoings_form)
+      CfeParamBuilders::PartnerRegularTransactions.call(income_form, outgoings_form)
     end
 
     def state_benefits
       benefits_form = PartnerBenefitDetailsForm.from_session(@session_data) if relevant_form?(:partner_benefit_details)
-      housing_benefit_details_form = PartnerHousingBenefitDetailsForm.from_session(@session_data) if relevant_form?(:partner_housing_benefit_details)
-      return [] if benefits_form&.items.blank? && !housing_benefit_details_form
+      return [] if benefits_form&.items.blank?
 
-      CfeParamBuilders::StateBenefits.call(benefits_form, housing_benefit_details_form)
+      CfeParamBuilders::StateBenefits.call(benefits_form)
     end
 
     def additional_properties
-      return legacy_additional_properties unless relevant_form?(:partner_additional_property_details)
+      return [] unless relevant_form?(:partner_additional_property_details)
 
       additional_property = PartnerAdditionalPropertyDetailsForm.from_session(@session_data)
       [{
@@ -67,39 +66,9 @@ module Cfe
       }]
     end
 
-    def legacy_additional_properties
-      form = PartnerAssetsForm.from_session(@session_data)
-      return [] unless form.property_value&.positive?
-
-      [{
-        value: form.property_value,
-        outstanding_mortgage: form.property_mortgage,
-        percentage_owned: form.property_percentage_owned,
-        shared_with_housing_assoc: false,
-      }]
-    end
-
     def capitals
       assets_form = PartnerAssetsForm.from_session(@session_data)
       CfeParamBuilders::Capitals.call(assets_form)
-    end
-
-    def vehicles
-      return [] unless relevant_form?(:partner_vehicle_details)
-
-      details_model = PartnerVehicleDetailsForm.from_session(@session_data)
-      CfeParamBuilders::Vehicles.call([details_model])
-    end
-
-    def dependants
-      return [] unless relevant_form?(:partner_dependant_details)
-
-      details_form = PartnerDependantDetailsForm.from_session(@session_data)
-      children = CfeParamBuilders::Dependants.children(dependants: details_form.child_dependants,
-                                                       count: details_form.child_dependants_count)
-      adults = CfeParamBuilders::Dependants.adults(dependants: details_form.adult_dependants,
-                                                   count: details_form.adult_dependants_count)
-      children + adults
     end
   end
 end

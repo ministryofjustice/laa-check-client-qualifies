@@ -54,30 +54,14 @@ module Steps
         session_data["receives_benefits"]
       end
 
-      def housing_benefit?(session_data)
-        return false if asylum_supported?(session_data) || passported?(session_data)
-
-        session_data["housing_benefit"]
-      end
-
       def partner?(session_data)
         !asylum_supported?(session_data) && session_data["partner"]
-      end
-
-      def partner_owns_property?(session_data)
-        return false unless partner?(session_data) && !owns_property?(session_data)
-
-        session_data["partner_property_owned"]&.in?(PropertyForm::OWNED_OPTIONS.map(&:to_s))
       end
 
       def partner_owns_additional_property?(session_data)
         return false unless partner?(session_data)
 
         session_data["partner_additional_property_owned"]&.in?(PropertyForm::OWNED_OPTIONS.map(&:to_s))
-      end
-
-      def partner_owns_vehicle?(session_data)
-        partner?(session_data) && session_data["partner_vehicle_owned"]
       end
 
       def partner_employed?(session_data)
@@ -90,12 +74,6 @@ module Steps
         return false if passported?(session_data) || !partner?(session_data)
 
         session_data["partner_receives_benefits"]
-      end
-
-      def partner_housing_benefit?(session_data)
-        return false if passported?(session_data) || !partner?(session_data)
-
-        session_data["partner_housing_benefit"]
       end
     end
   end

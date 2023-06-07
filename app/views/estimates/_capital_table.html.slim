@@ -23,21 +23,13 @@
            data: @model.client_additional_property_data,
            assessed_value: @model.client_additional_property_assessed_equity
 
-- if !FeatureFlags.enabled?(:household_section) && @model.vehicle_owned?
-  = render "vehicle_table",
-          caption_size:,
-          caption: t("estimates.show.legacy_vehicles"),
-          rows: @model.client_vehicle_rows,
-          assessed_value: @model.client_vehicle_assessed_value
-
-- if FeatureFlags.enabled?(:household_section) && @model.vehicle_owned?
+- if @model.vehicle_owned?
   - @model.display_household_vehicles.each_with_index do |vehicle, index|
     - count = index + 1
     h2 class="govuk-heading-m" = t("estimates.show.vehicles", number: count).to_s
     = govuk_table do |table|
       - table.with_body do |body|
         - vehicle.each do |key, value|
-          - next if %i[assessed_value in_regular_use].include?(key)
           - body.with_row do |row|
             - row.with_cell(header: true, text: t("estimates.show.vehicle.#{key}"))
             - row.with_cell(text: value, numeric: true)
@@ -52,13 +44,6 @@
            type: :additional_property,
            data: @model.partner_additional_property_data,
            assessed_value: @model.partner_additional_property_assessed_equity
-
-- if @model.partner_vehicle_owned?
-  = render "vehicle_table",
-          caption_size:,
-          caption: t("estimates.show.partner_vehicles"),
-          rows: @model.partner_vehicle_rows,
-          assessed_value: @model.partner_vehicle_assessed_value
 
 = render "disposable_capital_table",
         caption_size:,

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "additional_property_details", :household_section_flag, type: :feature do
+RSpec.describe "additional_property_details", type: :feature do
   let(:assessment_code) { :assessment_code }
   let(:session) { { "level_of_help" => "controlled" } }
 

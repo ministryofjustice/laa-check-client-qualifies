@@ -152,27 +152,14 @@ class CalculationResult
     capital_items(:vehicles).any?
   end
 
-  def partner_vehicle_owned?
-    partner_capital_items(:vehicles)&.any?
-  end
-
-  def client_vehicle_rows
-    vehicle_rows(prefix: "")
-  end
-
   def display_household_vehicles
     capital_items(:vehicles, "").map do |vehicle|
       if vehicle[:in_regular_use]
-        vehicle.reject { |key| %i[included_in_assessment date_of_purchase].include?(key) }
-            .transform_values { |value| value.is_a?(Numeric) ? monetise(value) : value }
+        vehicle.slice(:value, :loan_amount_outstanding, :disregards_and_deductions, :assessed_value).transform_values { monetise(_1) }
       else
         { value: monetise(vehicle[:value]) }
       end
     end
-  end
-
-  def partner_vehicle_rows
-    vehicle_rows(prefix: "partner_")
   end
 
   def client_capital_rows
@@ -220,16 +207,8 @@ class CalculationResult
     monetise(partner_capital_items(:properties)[:additional_properties].first.fetch(:assessed_equity))
   end
 
-  def client_vehicle_assessed_value
-    monetise(capital_items(:vehicles).sum(0) { _1.fetch(:assessed_value) })
-  end
-
   def household_vehicle_assessed_value
     monetise(capital_items(:vehicles).sum(0) { _1.fetch(:assessed_value) })
-  end
-
-  def partner_vehicle_assessed_value
-    monetise(partner_capital_items(:vehicles).sum(0) { _1.fetch(:assessed_value) })
   end
 
 private
@@ -280,7 +259,6 @@ private
 
   def outgoing_rows(prefix:)
     data = {
-      housing_costs: api_response.dig(:result_summary, :"#{prefix}disposable_income", :net_housing_costs),
       childcare_payments: disposable_income_value(:child_care, prefix),
       maintenance_out: disposable_income_value(:maintenance_out, prefix),
       legal_aid: disposable_income_value(:legal_aid, prefix),
@@ -288,15 +266,10 @@ private
       national_insurance: employment_deduction(:national_insurance, prefix),
       employment_expenses: employment_deduction(:fixed_employment_deduction, prefix),
     }
-    dependants_allowance = api_response.dig(:result_summary, :"#{prefix}disposable_income", :dependant_allowance)
     partner_allowance = api_response.dig(:result_summary, :"#{prefix}disposable_income", :partner_allowance)
 
-    data[:dependants_allowance] = dependants_allowance if dependants_allowance&.positive? && !FeatureFlags.enabled?(:household_section)
     data[:partner_allowance] = partner_allowance if partner_allowance&.positive?
 
-    if FeatureFlags.enabled?(:household_section)
-      data.except!(:housing_costs)
-    end
     data.transform_values { |v| monetise(v) }
   end
 
@@ -353,22 +326,6 @@ private
       {
         type: :fully_owned,
         rows: monetised,
-      }
-    end
-  end
-
-  def vehicle_rows(prefix:)
-    vehicles = capital_items(:vehicles, prefix)
-    vehicle = vehicles.first
-    if vehicle[:in_regular_use]
-      {
-        value: monetise(vehicle[:value]),
-        outstanding_payments: monetise(-vehicle[:loan_amount_outstanding]),
-        disregards: monetise(-vehicle[:disregards_and_deductions]),
-      }
-    else
-      {
-        value: monetise(vehicle[:value]),
       }
     end
   end

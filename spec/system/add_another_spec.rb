@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Add another JS", :household_section_flag do
+RSpec.describe "Add another JS" do
   let(:assessment_code) { :assessment_code }
 
   before do

@@ -7,7 +7,7 @@ RSpec.describe "Check answers", type: :feature do
     fill_in_applicant_screen(employed: "Unemployed")
     fill_in_forms_until(:check_answers)
     confirm_screen("check_answers")
-    within "#subsection-client_details-header" do
+    within "#section-client_details-header" do
       click_on "Change"
     end
     fill_in_applicant_screen(employed: "Employed and in work")
@@ -20,16 +20,16 @@ RSpec.describe "Check answers", type: :feature do
     fill_in_forms_until(:applicant)
     fill_in_applicant_screen(passporting: "Yes")
     fill_in_forms_until(:check_answers)
-    within "#subsection-client_details-header" do
+    within "#section-client_details-header" do
       click_on "Change"
     end
     fill_in_applicant_screen(passporting: "No", employed: "Employed and in work")
     fill_in_dependant_details_screen
     fill_in_employment_screen
-    fill_in_housing_benefit_screen
     fill_in_benefits_screen
     fill_in_other_income_screen
     fill_in_outgoings_screen
+    fill_in_housing_costs_screen
     confirm_screen("check_answers")
   end
 
@@ -37,26 +37,26 @@ RSpec.describe "Check answers", type: :feature do
     start_assessment
     fill_in_forms_until(:vehicle)
     fill_in_vehicle_screen(choice: "Yes")
-    fill_in_vehicle_details_screen
+    fill_in_vehicles_details_screen
     fill_in_forms_until(:check_answers)
     confirm_screen("check_answers")
-    within "#subsection-vehicles-header" do
+    within "#section-household_vehicles-header" do
       click_on "Change"
     end
     fill_in_vehicle_screen(choice: "Yes")
-    fill_in_vehicle_details_screen
+    fill_in_vehicles_details_screen
     confirm_screen("check_answers")
   end
 
   it "behaves as expected when there are validation errors" do
     start_assessment
     fill_in_forms_until(:check_answers)
-    within "#subsection-client_dependant_details-header" do
+    within "#section-assets-header" do
       click_on "Change"
     end
-    fill_in_dependant_details_screen(child_dependants: "Yes", child_dependants_count: "")
-    confirm_screen("dependant_details")
-    fill_in_dependant_details_screen
+    fill_in_assets_screen(values: { savings: "" })
+    confirm_screen("assets")
+    fill_in_assets_screen
     confirm_screen("check_answers")
   end
 

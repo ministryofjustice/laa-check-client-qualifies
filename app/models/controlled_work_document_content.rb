@@ -93,11 +93,7 @@ class ControlledWorkDocumentContent < Check
   def smod_main_home_percentage_owned
     return unless house_in_dispute
 
-    if joint_ownership
-      percentage_owned + joint_percentage_owned
-    else
-      percentage_owned || partner_percentage_owned
-    end
+    percentage_owned
   end
 
   def smod_main_home_net_value
@@ -173,11 +169,7 @@ class ControlledWorkDocumentContent < Check
   end
 
   def main_home_percentage_owned
-    if joint_ownership
-      percentage_owned + joint_percentage_owned
-    else
-      percentage_owned || partner_percentage_owned
-    end
+    percentage_owned
   end
 
   def non_smod_main_home_net_equity
@@ -408,7 +400,7 @@ class ControlledWorkDocumentContent < Check
   end
 
   def main_home_owned?
-    percentage_owned.present? || partner_percentage_owned.present?
+    percentage_owned.present?
   end
 
   def tax_and_national_insurance(summary_section_prefix = "")

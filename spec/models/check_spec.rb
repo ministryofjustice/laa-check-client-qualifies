@@ -21,7 +21,7 @@ RSpec.describe Check do
     end
   end
 
-  describe "#any_smod_assets?", :household_section_flag do
+  describe "#any_smod_assets?" do
     it "returns true if there's a SMOD vehicle" do
       check = described_class.new(
         {
