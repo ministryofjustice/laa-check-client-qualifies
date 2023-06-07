@@ -1953,6 +1953,12 @@ en:
         text: "Changes to simplify the question flow for clients who have a partner: "
         bullets:
           - introduction of household questions (for dependants, housing costs, property and vehicles)
+    special_applicants:
+      history:
+        text: "Changes to support clients who have specific circumstances:"
+        bullets:
+          - self-employed clients, prisoners, police officers, members of HM Forces, clients who are bankrupt and clients who live outside the UK
+          - self-employed directors (for certificated work only) are not currently supported
   controlled_work_document_selections:
     new:
       title: Which controlled work (CW) form do you need?

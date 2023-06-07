@@ -1,6 +1,8 @@
 class ChangeLogs
   UPDATES = [
     { key: :household_flow, change_on: "2023-6-6" },
+    # N.B. Date below is TBC
+    { key: :special_applicants, change_on: "2023-6-7" },
   ].freeze
 
   BANNERS = [
@@ -19,7 +21,7 @@ class ChangeLogs
     end
 
     def occurred
-      CHANGE_LOG.select { Time.current.beginning_of_day >= _1[:change_on] }
+      CHANGE_LOG.select { Time.current.beginning_of_day >= _1[:change_on] }.sort_by { _1[:change_on] }.reverse
     end
   end
 end
