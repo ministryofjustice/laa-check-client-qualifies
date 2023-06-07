@@ -23,13 +23,16 @@
     p.govuk-body
       - t(".unacceptable_client_explanation_under_18_html").each
         p.govuk-body = _1
+    - if FeatureFlags.enabled?(:self_employed)
+      h3.govuk-heading-s = t(".unacceptable_client_heading_company_director")
+      p.govuk-body = t(".unacceptable_client_explanation_company_director")
+    - else
+      p.govuk-body = t(".unacceptable_client_explanation")
 
-    h3.govuk-heading-s = t(".unacceptable_client_heading_company_director")
-    p.govuk-body = t(".unacceptable_client_explanation_company_director")
   - else
-    p.govuk-body = t(".unacceptable_client_explanation_old_version")
+    p.govuk-body = t(".legacy_unacceptable_client_explanation")
     ul.govuk-list.govuk-list--bullet
-      - t(".unacceptable_client_types_old_version").each
+      - t(".legacy_unacceptable_client_types").each
         li = _1
   h2.govuk-heading-m = t(".service_function")
   - t(".service_function_paragraphs").each
