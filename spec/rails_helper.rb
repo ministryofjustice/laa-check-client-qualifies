@@ -95,6 +95,12 @@ RSpec.configure do |config|
     ENV["SPECIAL_APPLICANT_GROUPS_FEATURE_FLAG"] = "disabled"
   end
 
+  config.around(:each, :self_employed_flag) do |example|
+    ENV["SELF_EMPLOYED_FEATURE_FLAG"] = "enabled"
+    example.run
+    ENV["SELF_EMPLOYED_FEATURE_FLAG"] = "disabled"
+  end
+
   config.before(:suite) do
     DatabaseCleaner.clean_with :truncation
   end
