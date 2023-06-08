@@ -170,10 +170,10 @@
 # Savings (non-SMOD)
 - name: FillText110
   type: text
-  source: non_smod_client_savings #check this not sure if correct
+  source: non_smod_client_savings
 
 # Partner savings (non-SMOD)
-- name: FillText114ß
+- name: FillText114
   type: text
   source: partner_savings
 
