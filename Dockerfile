@@ -22,7 +22,8 @@ RUN apk add --update --no-cache tzdata && \
 # build-base: dependencies for bundle
 # yarn: node package manager
 # postgresql-dev: postgres driver and libraries
-RUN apk add --no-cache build-base yarn postgresql13-dev
+# git: to allow us to create the VERSION file
+RUN apk add --no-cache build-base yarn postgresql13-dev git
 
 # Install gems defined in Gemfile
 COPY .ruby-version Gemfile Gemfile.lock ./
