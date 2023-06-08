@@ -71,8 +71,6 @@ env:
   - name: HOUSEHOLD_SECTION_FEATURE_FLAG
     value: {{ .Values.featureFlags.householdSection }}
   - name: SPECIAL_APPLICANT_GROUPS_FEATURE_FLAG
-    value: {{ .Values.featureFlags.selfEmployed }}
-  - name: SELF_EMPLOYED_FEATURE_FLAG
     value: {{ .Values.featureFlags.specialApplicantGroups }}
   - name: SELF_EMPLOYED_FEATURE_FLAG
     value: {{ .Values.featureFlags.selfEmployed }}
