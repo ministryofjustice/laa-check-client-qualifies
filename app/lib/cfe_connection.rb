@@ -59,10 +59,10 @@ class CfeConnection
       commit_hash = if File.exist?(Rails.root.join("VERSION"))
                       File.read(Rails.root.join("VERSION"))
                     else
-                      `git rev-parse --short HEAD`.chomp
+                      `git rev-parse --short HEAD`
                     end
       environment_name = ENV.fetch("CFE_ENVIRONMENT_NAME", "local")
-      "ccq/#{commit_hash} (#{environment_name})"
+      "ccq/#{commit_hash.chomp} (#{environment_name})"
     end
   end
 end
