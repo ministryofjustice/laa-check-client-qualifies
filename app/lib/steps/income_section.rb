@@ -2,7 +2,7 @@ module Steps
   class IncomeSection
     class << self
       def all_steps
-        %i[employment_status employment housing_benefit housing_benefit_details benefits benefit_details other_income outgoings]
+        %i[employment_status employment benefits benefit_details other_income]
       end
 
       def grouped_steps_for(session_data)

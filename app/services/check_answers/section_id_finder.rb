@@ -22,8 +22,6 @@ module CheckAnswers
       partner_assets: "section-partner_assets-header",
       vehicle: "section-household_vehicles-header",
       vehicles_details: "section-household_vehicles-header",
-      housing_benefit: "subsection-housing_costs-header",
-      housing_benefit_details: "subsection-housing_costs-header",
       property: "subsection-property-header",
       property_entry: "subsection-property-header",
       housing_costs: "subsection-housing_costs-header",
