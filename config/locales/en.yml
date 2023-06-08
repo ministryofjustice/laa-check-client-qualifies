@@ -1957,8 +1957,8 @@ en:
       history:
         text: "Changes to support clients who have specific circumstances:"
         bullets:
-          - self-employed clients, prisoners, police officers, members of HM Forces, clients who are bankrupt and clients who live outside the UK
-          - self-employed directors (for certificated work only) are not currently supported
+          - prisoners, police officers, members of HM Forces, clients who are bankrupt and clients who live outside the UK
+          - clarification on when the finances of applicants under 18 are assessed
   controlled_work_document_selections:
     new:
       title: Which controlled work (CW) form do you need?
