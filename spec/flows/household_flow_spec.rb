@@ -57,7 +57,6 @@ RSpec.describe "Household section flow", type: :feature do
     fill_in_vehicles_details_screen
     fill_in_property_screen(choice: "Yes, with a mortgage or loan")
     fill_in_property_entry_screen
-    fill_in_mortgage_or_loan_payment_screen
     fill_in_additional_property_screen(choice: "Yes, owned outright")
     fill_in_additional_property_details_screen
     fill_in_partner_additional_property_screen(choice: "Yes, owned outright")
@@ -74,7 +73,6 @@ RSpec.describe "Household section flow", type: :feature do
     fill_in_vehicles_details_screen
     fill_in_property_screen(choice: "Yes, with a mortgage or loan")
     fill_in_property_entry_screen
-    fill_in_mortgage_or_loan_payment_screen
     fill_in_additional_property_screen(choice: "Yes, owned outright")
     fill_in_additional_property_details_screen
     confirm_screen("check_answers")
