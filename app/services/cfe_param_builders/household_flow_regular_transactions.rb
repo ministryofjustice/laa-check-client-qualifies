@@ -37,7 +37,7 @@ module CfeParamBuilders
         {
           operation:,
           category: cfe_name,
-          frequency: CFE_FREQUENCIES[form.send("#{local_name}_frequency")],
+          frequency: CFE_FREQUENCIES.fetch(form.send("#{local_name}_frequency")),
           amount: form.send("#{local_name}_value"),
         }
       end
@@ -46,20 +46,24 @@ module CfeParamBuilders
     def self.build_housing_payments(housing_form)
       case housing_form
       when MortgageOrLoanPaymentForm
+        return [] unless housing_form.housing_loan_payments.to_i.positive?
+
         [
           {
             operation: :debit,
             category: :rent_or_mortgage,
-            frequency: CFE_FREQUENCIES[housing_form.housing_payments_loan_frequency],
+            frequency: CFE_FREQUENCIES.fetch(housing_form.housing_payments_loan_frequency),
             amount: housing_form.housing_loan_payments,
           },
         ]
       when HousingCostsForm
+        return [] unless housing_form.housing_payments.to_i.positive?
+
         [
           {
             operation: :debit,
             category: :rent_or_mortgage,
-            frequency: CFE_FREQUENCIES[housing_form.housing_payments_frequency],
+            frequency: CFE_FREQUENCIES.fetch(housing_form.housing_payments_frequency),
             amount: housing_form.housing_payments,
           },
         ]
