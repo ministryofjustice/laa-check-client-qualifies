@@ -8,6 +8,11 @@
              tag: (:partner if partner)
 
   - if FeatureFlags.enabled?(:special_applicant_groups)
+    /! the check below needs to be amended to include a check that ‘Self-employment income' has been selected (EL-942/EL-945)
+    - if FeatureFlags.enabled?(:self_employed)
+      = govuk_details(summary_text: t("estimate_flow.#{i18n_key}.business_capital_title"))
+        p.govuk-text = t("estimate_flow.#{i18n_key}.business_capital_text")
+        p.govuk-text = t("estimate_flow.#{i18n_key}.business_capital_text_html")
     = govuk_details(summary_text: t("estimate_flow.#{i18n_key}.bankrupt_title"))
       p.govuk-text = t("estimate_flow.#{i18n_key}.bankrupt_text")
     = govuk_details(summary_text: t("estimate_flow.#{i18n_key}.prison_title"))

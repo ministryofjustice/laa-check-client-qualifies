@@ -337,7 +337,8 @@ en:
               not_a_number: Housing payments must be a number. Enter 0 if this does not apply.
             housing_benefit_value:
               blank: Enter the Housing Benefit amount. Enter 0 if this does not apply.
-              not_a_number: Housing Benefit must be a number. Enter 0 if this does not apply. 
+              not_a_number: Housing Benefit must be a number. Enter 0 if this does not apply.
+              exceeds_costs: Housing benefit cannot be higher than housing costs
             housing_payments_frequency:
               blank: Select frequency of housing payments.
             housing_benefit_frequency:
@@ -1165,6 +1166,9 @@ en:
       legend: Client assets
       hint: Enter 0 for any that do not apply
       partner_second_hint: If any of these assets are owned by both the client and partner, enter the full value here. Do not enter them again on the partner questions that follow.
+      business_capital_title: Business capital for self-employed clients
+      business_capital_text: This service does not currently collect or include the value of any business capital held by your client or their partner. However the LAA may collect and include this when you make an application.
+      business_capital_text_html: See the <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1157030/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_certificated_work_May_2023__002_.pdf#page=86" target='_blank' rel='noreferrer noopener'>Lord Chancellor’s guidance</a> for more information on when and how it may be assessed at application stage.
       bankrupt_title: Clients who are bankrupt
       bankrupt_text: If your client is bankrupt, any capital assets vested in the trustee in bankruptcy will not be included in the capital assessment.
       prison_title: Clients in prison
@@ -1244,6 +1248,9 @@ en:
       hints:
         - Enter 0 for any that do not apply.
         - Do not enter any assets if you listed them as owned by your client on the previous page.
+      business_capital_title: Business capital for self-employed clients
+      business_capital_text: This service does not currently collect or include the value of any business capital held by your client or their partner. However the LAA may collect and include this when you make an application.
+      business_capital_text_html: See the <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1157030/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_certificated_work_May_2023__002_.pdf#page=86" target='_blank' rel='noreferrer noopener'>Lord Chancellor’s guidance (opens in new tab)</a> for more information on when and how it may be assessed at application stage.
       bankrupt_title: Partners who are bankrupt
       bankrupt_text: If the partner is bankrupt, any capital assets vested in the trustee in bankruptcy will not be included in the capital assessment.
       prison_title: Partners in prison

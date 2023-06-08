@@ -166,6 +166,36 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
         end
       end
 
+      context "when client does not own their home but has no housing costs" do
+        let(:session_data) do
+          {
+            "property_owned" => "none",
+            "housing_payments" => 0,
+          }
+        end
+
+        it "does not include rent or mortgage in the payload" do
+          service.call(session_data, payload)
+          expect(payload[:regular_transactions]).to eq(
+            [],
+          )
+        end
+      end
+
+      context "when there is an invalid frequency" do
+        let(:session_data) do
+          {
+            "property_owned" => "none",
+            "housing_payments" => 1,
+            "housing_payments_frequency" => "invalid",
+          }
+        end
+
+        it "raises an error" do
+          expect { service.call(session_data, payload) }.to raise_error("key not found: \"invalid\"")
+        end
+      end
+
       context "when client or their partner do own their home with mortgage or loan" do
         let(:session_data) do
           {
@@ -182,6 +212,23 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
                category: :rent_or_mortgage,
                frequency: :monthly,
                operation: :debit }],
+          )
+        end
+      end
+
+      context "when client owns their home with mortgage but it has zero payments" do
+        let(:session_data) do
+          {
+            "property_owned" => "with_mortgage",
+            "housing_loan_payments" => 0,
+            "housing_payments_loan_frequency" => "monthly",
+          }
+        end
+
+        it "does not populate the payload with content from the mortgage or loan screen" do
+          service.call(session_data, payload)
+          expect(payload[:regular_transactions]).to eq(
+            [],
           )
         end
       end

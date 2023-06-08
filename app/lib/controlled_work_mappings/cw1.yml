@@ -122,7 +122,7 @@
   source: non_smod_additional_properties_value
 
 # Other property / outstanding mortgage (non-SMOD)
-- name: Other property 1_2
+- name: Other property 2_2
   type: text
   source: non_smod_additional_properties_mortgage
 
