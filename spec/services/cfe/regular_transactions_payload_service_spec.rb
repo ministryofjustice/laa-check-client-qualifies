@@ -216,6 +216,23 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
         end
       end
 
+      context "when client owns their home with mortgage but it has zero payments" do
+        let(:session_data) do
+          {
+            "property_owned" => "with_mortgage",
+            "housing_loan_payments" => 0,
+            "housing_payments_loan_frequency" => "monthly",
+          }
+        end
+
+        it "does not populate the payload with content from the mortgage or loan screen" do
+          service.call(session_data, payload)
+          expect(payload[:regular_transactions]).to eq(
+            [],
+          )
+        end
+      end
+
       context "when client or their partner do own their home outright" do
         let(:session_data) do
           {
