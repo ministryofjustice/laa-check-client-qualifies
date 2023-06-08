@@ -39,6 +39,9 @@ RUN bundler -v && \
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile --check-files --prod
 
+# make the git commit hash available to the app so it can describe its current version
+RUN git rev-parse --short HEAD > ./VERSION
+
 # Copy all files to /app (except what is defined in .dockerignore)
 COPY . .
 
@@ -85,8 +88,7 @@ RUN apk add --update --no-cache tzdata && \
     echo "Europe/London" > /etc/timezone
 
 # libpq: required to run postgres
-# git: used by the app to report its version to CFE
-RUN apk add --no-cache libpq postgresql-client git
+RUN apk add --no-cache libpq postgresql-client
 
 # Install Chromium and Puppeteer for PDF generation
 # Installs latest Chromium package available on Alpine (Chromium 108)
