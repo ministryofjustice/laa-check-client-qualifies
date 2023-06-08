@@ -97,12 +97,22 @@ RSpec.describe "assets", type: :feature do
         expect(page).to have_content "Guidance on bankrupt clients"
       end
     end
+
+    context "when self_employed flag enabled", :self_employed_flag do
+      it "shows content about self-employed applicants" do
+        expect(page).to have_content "Business capital for self-employed clients"
+      end
+    end
   end
 
-  context "when special applicant groups not enabled" do
+  context "when no flags are enabled" do
     it "shows no content about special applicants" do
       expect(page).not_to have_content "Clients who are bankrupt"
       expect(page).not_to have_content "Clients in prison"
+    end
+
+    it "shows no content for self-employed applicants" do
+      expect(page).not_to have_content "Business capital for self-employed clients"
     end
 
     context "when the check is certificated" do
