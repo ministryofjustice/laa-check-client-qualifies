@@ -55,7 +55,7 @@ RSpec.describe ControlledWorkDocumentContent do
         expect(described_class.new(session_data).additional_properties_percentage_owned).to eq 50
       end
 
-      it "returns 'unknown' if it differs" do
+      it "returns nil if it differs" do
         session_data = {
           "api_response" => {
             "assessment" => {
@@ -64,7 +64,7 @@ RSpec.describe ControlledWorkDocumentContent do
             },
           },
         }
-        expect(described_class.new(session_data).additional_properties_percentage_owned).to eq "Unknown"
+        expect(described_class.new(session_data).additional_properties_percentage_owned).to eq nil
       end
 
       it "returns nil if client's additional property is smod" do
