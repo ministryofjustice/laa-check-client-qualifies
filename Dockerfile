@@ -40,7 +40,6 @@ RUN bundler -v && \
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile --check-files --prod
 
-
 # Copy all files to /app (except what is defined in .dockerignore)
 COPY . .
 
