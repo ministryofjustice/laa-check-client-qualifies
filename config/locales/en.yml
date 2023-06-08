@@ -1678,6 +1678,12 @@ en:
         child_dependants: Have child dependants
         child_dependants_count: Number of child dependants
       client_income: Client income
+      client_employment: Client employment
+      client_employment_fields:
+        employment_status: Employment status
+        employment_status_options:
+          in_work: Employed or self-employed
+          unemployed: Unemployed
       client_pay: Client pay
       client_pay_fields:
         gross_income: Gross pay

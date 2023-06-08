@@ -82,4 +82,12 @@ class Check
   def partner_additional_property_owned_with_mortgage?
     partner_additional_property_owned == "with_mortgage"
   end
+
+  def self_employed_flag_disabled?
+    !self_employed_flag_enabled?
+  end
+
+  def self_employed_flag_enabled?
+    FeatureFlags.enabled?(:self_employed)
+  end
 end
