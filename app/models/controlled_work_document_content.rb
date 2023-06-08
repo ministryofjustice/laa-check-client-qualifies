@@ -222,7 +222,7 @@ class ControlledWorkDocumentContent < Check
     return unless client_capital_relevant?
 
     percentages = additional_properties.map { _1["percentage_owned"] }
-    return "Unknown" if percentages.uniq.length > 1
+    return if percentages.uniq.length > 1
 
     percentages.first
   end
