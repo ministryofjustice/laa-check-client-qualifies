@@ -337,7 +337,8 @@ en:
               not_a_number: Housing payments must be a number. Enter 0 if this does not apply.
             housing_benefit_value:
               blank: Enter the Housing Benefit amount. Enter 0 if this does not apply.
-              not_a_number: Housing Benefit must be a number. Enter 0 if this does not apply. 
+              not_a_number: Housing Benefit must be a number. Enter 0 if this does not apply.
+              exceeds_costs: Housing benefit cannot be higher than housing costs
             housing_payments_frequency:
               blank: Select frequency of housing payments.
             housing_benefit_frequency:
