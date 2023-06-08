@@ -2,12 +2,16 @@ module Steps
   class IncomeSection
     class << self
       def all_steps
-        %i[employment housing_benefit housing_benefit_details benefits benefit_details other_income outgoings]
+        %i[employment_status employment housing_benefit housing_benefit_details benefits benefit_details other_income outgoings]
       end
 
       def all_steps_for_current_feature_flags
         if FeatureFlags.enabled?(:household_section)
-          %i[employment benefits benefit_details other_income].freeze
+          if FeatureFlags.enabled?(:self_employed)
+            %i[employment_status employment benefits benefit_details other_income].freeze
+          else
+            %i[employment benefits benefit_details other_income].freeze
+          end
         else
           all_steps
         end
@@ -17,7 +21,8 @@ module Steps
         if Steps::Logic.passported?(session_data) || Steps::Logic.asylum_supported?(session_data)
           []
         elsif FeatureFlags.enabled?(:household_section)
-          [employment_steps(session_data),
+          [employment_status_step,
+           employment_steps(session_data),
            benefit_steps(session_data),
            Steps::Group.new(:other_income)].compact
         else
@@ -33,6 +38,12 @@ module Steps
 
       def employment_steps(session_data)
         Steps::Group.new(:employment) if Steps::Logic.employed?(session_data)
+      end
+
+      def employment_status_step
+        return unless FeatureFlags.enabled?(:self_employed)
+
+        Steps::Group.new(:employment_status)
       end
 
       def housing_benefit_steps(session_data)
