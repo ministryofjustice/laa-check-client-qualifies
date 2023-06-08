@@ -40,11 +40,12 @@ RUN bundler -v && \
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile --check-files --prod
 
-# make the git commit hash available to the app so it can describe its current version
-RUN git rev-parse --short HEAD > ./VERSION
 
 # Copy all files to /app (except what is defined in .dockerignore)
 COPY . .
+
+# make the git commit hash available to the app so it can describe its current version
+RUN git rev-parse --short HEAD > ./VERSION
 
 # Precompile assets
 RUN RAILS_ENV=production SECRET_KEY_BASE=required-to-run-but-not-used \
@@ -54,6 +55,7 @@ RUN RAILS_ENV=production SECRET_KEY_BASE=required-to-run-but-not-used \
 RUN rm -rf node_modules log/* tmp/* /tmp && \
     rm -rf /usr/local/bundle/cache && \
     rm -rf .env && \
+    rm -rf .git && \
     find /usr/local/bundle/gems -name "*.c" -delete && \
     find /usr/local/bundle/gems -name "*.h" -delete && \
     find /usr/local/bundle/gems -name "*.o" -delete && \

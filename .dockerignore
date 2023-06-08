@@ -1,7 +1,6 @@
 *.log
 .byebug_history
 .env
-.git
 .github
 .yarn-integrity
 config/master.key
