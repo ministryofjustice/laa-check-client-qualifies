@@ -56,7 +56,7 @@ sections:
           type: boolean
         - attribute: employment_status
           type: select
-          skip_unless: self_employed_flag_disabled?
+          skip_if: self_employed_flag_enabled?
         - attribute: passporting
           type: boolean
   - label: dependants

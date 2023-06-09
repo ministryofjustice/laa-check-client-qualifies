@@ -32,16 +32,9 @@ def fill_in_applicant_screen(choices = {})
 
   choose choices.fetch(:over_60, "No"), name: "applicant_form[over_60]"
   choose choices.fetch(:partner, "No"), name: "applicant_form[partner]"
-  choose choices.fetch(:employed, "Unemployed"), name: "applicant_form[employment_status]"
-  choose choices.fetch(:passporting, "No"), name: "applicant_form[passporting]"
-  click_on "Save and continue"
-end
-
-def fill_in_applicant_screen_no_employment_question(choices = {})
-  confirm_screen "applicant"
-
-  choose choices.fetch(:over_60, "No"), name: "applicant_form[over_60]"
-  choose choices.fetch(:partner, "No"), name: "applicant_form[partner]"
+  if page.text.include?("What is your client's employment status?")
+    choose choices.fetch(:employed, "Unemployed"), name: "applicant_form[employment_status]"
+  end
   choose choices.fetch(:passporting, "No"), name: "applicant_form[passporting]"
   click_on "Save and continue"
 end
