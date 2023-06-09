@@ -31,6 +31,6 @@ RSpec.describe "matter_type", type: :feature do
   it "stores the chosen value in the session" do
     choose "Another category of law"
     click_on "Save and continue"
-    expect(session_contents["proceeding_type"]).to eq "SE003"
+    expect(session_contents["matter_type"]).to eq "other"
   end
 end

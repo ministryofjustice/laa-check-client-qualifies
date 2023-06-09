@@ -8,7 +8,7 @@ RSpec.describe Cfe::ProceedingsPayloadService do
     let(:session_data) do
       {
         "level_of_help" => "controlled",
-        "proceeding_type" => "bar",
+        "matter_type" => "other",
       }
     end
 
@@ -16,7 +16,7 @@ RSpec.describe Cfe::ProceedingsPayloadService do
       service.call(session_data, payload)
       expect(payload[:proceeding_types]).to eq(
         [{
-          ccms_code: "bar",
+          ccms_code: "SE003",
           client_involvement_type: "A",
         }],
       )

@@ -46,7 +46,7 @@ RSpec.describe "property_entry", type: :feature do
   end
 
   context "when this is an upper tribunal matter" do
-    let(:session) { { "level_of_help" => "controlled", "proceeding_type" => "IM030" } }
+    let(:session) { { "level_of_help" => "controlled", "matter_type" => "immigration" } }
 
     it "shows no SMOD checkbox" do
       expect(page).not_to have_content(I18n.t("generic.dispute"))

@@ -48,7 +48,7 @@ RSpec.describe Cfe::ApplicantPayloadService do
     context "when a&I proceeding type is used" do
       let(:session_data) do
         {
-          proceeding_type: "IM030",
+          matter_type: "immigration",
           asylum_support: true,
         }.with_indifferent_access
       end

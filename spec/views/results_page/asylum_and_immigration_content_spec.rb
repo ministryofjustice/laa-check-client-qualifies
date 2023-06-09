@@ -9,7 +9,7 @@ RSpec.describe "estimates/show.html.slim" do
     let(:session_data) do
       {
         level_of_help:,
-        proceeding_type:,
+        matter_type:,
         asylum_support:,
         api_response:,
       }.with_indifferent_access
@@ -28,7 +28,7 @@ RSpec.describe "estimates/show.html.slim" do
       let(:level_of_help) { "controlled" }
 
       context "when immigration" do
-        let(:proceeding_type) { "IM030" }
+        let(:matter_type) { "immigration" }
 
         context "when receiving asylum support" do
           let(:asylum_support) { true }
@@ -53,7 +53,7 @@ RSpec.describe "estimates/show.html.slim" do
       end
 
       context "when asylum" do
-        let(:proceeding_type) { "IA031" }
+        let(:matter_type) { "asylum" }
 
         context "when receiving asylum support" do
           let(:asylum_support) { true }
@@ -74,7 +74,7 @@ RSpec.describe "estimates/show.html.slim" do
       let(:level_of_help) { "certificated" }
 
       context "when immigration" do
-        let(:proceeding_type) { "IM030" }
+        let(:matter_type) { "immigration" }
 
         context "when receiving asylum support" do
           let(:asylum_support) { true }
@@ -111,7 +111,7 @@ RSpec.describe "estimates/show.html.slim" do
       end
 
       context "when asylum" do
-        let(:proceeding_type) { "IA031" }
+        let(:matter_type) { "asylum" }
 
         context "when receiving asylum support" do
           let(:asylum_support) { true }

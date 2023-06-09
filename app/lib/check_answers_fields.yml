@@ -38,7 +38,7 @@ sections:
     screen: matter_type
     subsections:
       - fields:
-          - attribute: proceeding_type
+          - attribute: matter_type
             type: select
             alt_attribute: level_of_help
       - label: asylum_support

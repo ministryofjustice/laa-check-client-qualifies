@@ -14,12 +14,12 @@ RSpec.describe "estimates/check_answers.html.slim" do
     let(:session_data) do
       build(:minimal_complete_session,
             level_of_help:,
-            proceeding_type:,
+            matter_type:,
             asylum_support:)
     end
 
     context "when provider chooses immigration first tier tribunal" do
-      let(:proceeding_type) { "IM030" }
+      let(:matter_type) { "immigration" }
       let(:asylum_support) { true }
 
       context "when level of help is controlled" do
@@ -54,7 +54,7 @@ RSpec.describe "estimates/check_answers.html.slim" do
     end
 
     context "when provider chooses asylum in first tier tribunal" do
-      let(:proceeding_type) { "IA031" }
+      let(:matter_type) { "asylum" }
       let(:asylum_support) { true }
 
       context "when level of help is controlled" do

@@ -9,7 +9,7 @@ module Steps
       end
 
       def upper_tribunal?(session_data)
-        session_data["proceeding_type"].in?(MatterTypeForm::PROCEEDING_TYPES.slice(:immigration, :asylum).values)
+        session_data["matter_type"].in?(%w[immigration asylum])
       end
 
       def asylum_supported?(session_data)

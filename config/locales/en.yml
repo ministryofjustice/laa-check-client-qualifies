@@ -12,7 +12,7 @@ en:
               inclusion: Select if your client receives section 4 or section 95 Asylum Support
         matter_type_form:
           attributes:
-            proceeding_type:
+            matter_type:
               blank: Select what type of matter this is
         partner_details_form:
           attributes:
@@ -1130,15 +1130,15 @@ en:
           not_provided: Not provided
       about_the_case: Case details
       about_the_case_fields:
-        proceeding_type: Type of matter
-        proceeding_type_options:
-          IM030_certificated: Immigration in the Upper Tribunal
-          IM030_controlled: Immigration in the First-tier Tribunal
-          IA031_certificated: Asylum in the Upper Tribunal
-          IA031_controlled: Another immigration or asylum matter
-          SE003_certificated: Another category of law
-          SE003_controlled: Another category of law
-          DA001_certificated: Domestic abuse
+        matter_type: Type of matter
+        matter_type_options:
+          immigration_certificated: Immigration in the Upper Tribunal
+          immigration_controlled: Immigration in the First-tier Tribunal
+          asylum_certificated: Asylum in the Upper Tribunal
+          asylum_controlled: Another immigration or asylum matter
+          other_certificated: Another category of law
+          other_controlled: Another category of law
+          domestic_abuse_certificated: Domestic abuse
           not_provided: "Not provided"
           not_provided_controlled: "Not provided"
           not_provided_certificated: "Not provided"

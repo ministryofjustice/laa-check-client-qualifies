@@ -29,12 +29,8 @@ class JourneyLoggerService
         capital_contribution: calculation_result.raw_capital_contribution&.positive? || false,
         income_contribution: calculation_result.raw_income_contribution&.positive? || false,
         asylum_support: check.asylum_support || false,
-        matter_type: build_matter_type(check),
+        matter_type: check.matter_type,
       }
-    end
-
-    def build_matter_type(check)
-      MatterTypeForm::PROCEEDING_TYPES.invert[check.proceeding_type]
     end
   end
 end
