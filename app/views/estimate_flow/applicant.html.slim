@@ -37,9 +37,10 @@
               link_errors: true
       = form.govuk_radio_button :partner, false, label: { text: t("generic.no_choice") }
 
-    = form.govuk_collection_radio_buttons :employment_status, employment_options, :first, :last,
-                                          legend: { text: t(".employed.legend") },
-                                          hint: { text: t(".employed.hint") }
+    - unless FeatureFlags.enabled?(:self_employed)
+      = form.govuk_collection_radio_buttons :employment_status, employment_options, :first, :last,
+                                            legend: { text: t(".employed.legend") },
+                                            hint: { text: t(".employed.hint") }
 
     = form.govuk_collection_radio_buttons :passporting, yes_no_options, :first, :last,
                                           legend: { text: t(".passporting.legend") },

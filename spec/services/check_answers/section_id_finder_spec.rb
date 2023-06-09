@@ -13,5 +13,13 @@ RSpec.describe CheckAnswers::SectionIdFinder do
         expect(described_class.call(step)).to be_present
       end
     end
+
+    context "when the self-employed flag is enabled", :self_employed_flag do
+      it "returns a value for every self-employed step" do
+        Steps::Helper.all_steps_for_current_feature_flags.each do |step|
+          expect(described_class.call(step)).to be_present
+        end
+      end
+    end
   end
 end

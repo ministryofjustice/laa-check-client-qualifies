@@ -1,0 +1,24 @@
+- content_for :page_title
+  = t(".heading")
+- content_for :back do
+  = back_link(:employment_status, @check, @back_buttons_invoke_browser_back_behaviour)
+
+.govuk-grid-column-two-thirds
+  = form_for(@form, url: wizard_path, method: :put) do |form|
+    = render "shared/heading",
+             header_text: t(".heading")
+
+    = form.govuk_error_summary t("generic.error_summary_title")
+
+    = form.govuk_radio_buttons_fieldset :employment_status, legend: nil
+      = form.govuk_radio_button :employment_status, EmploymentStatusForm::EMPLOYMENT_STATUSES[:in_work],
+              label: { text: t(".in_work_including_self_employed") },
+              hint: { text: t(".in_work_including_self_employed_description_#{@check.level_of_help}") }
+      = form.govuk_radio_button :employment_status, EmploymentStatusForm::EMPLOYMENT_STATUSES[:unemployed],
+              label: { text: t(".unemployed") },
+              hint: { text: t(".unemployed_description") }
+
+    = form.govuk_submit t("generic.save_and_continue")
+= render "shared/question_sidebar", \
+           level_of_help: @check.level_of_help,
+           links: applicant_links(@check)

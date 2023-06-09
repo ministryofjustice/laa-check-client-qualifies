@@ -17,7 +17,8 @@ class ApplicantForm
 
   attribute :employment_status, :string
   validates :employment_status,
-            inclusion: { in: EMPLOYMENT_STATUSES.map(&:to_s), allow_nil: false }
+            inclusion: { in: EMPLOYMENT_STATUSES.map(&:to_s), allow_nil: false },
+            if: -> { !FeatureFlags.enabled?(:self_employed) }
 
   attribute :partner, :boolean
   validates :partner, inclusion: { in: [true, false] }

@@ -52,6 +52,10 @@ en:
               inclusion: Select yes if the partner has child dependants
             adult_dependants:
               inclusion: Select yes if the partner has adult dependants
+        employment_status_form:
+          attributes:
+            employment_status:
+              inclusion: Select an employment status
         employment_form:
           attributes:
             gross_income:
@@ -838,6 +842,13 @@ en:
       second_caption_bullets:
         - is someone who lives with the partner and depends on them for financial support
         - can be an adult or a child
+    employment_status:
+      heading: What is your client's employment status?
+      in_work_including_self_employed: Employed or self-employed
+      in_work_including_self_employed_description_controlled: Including if your client is paid in cash, is a sole trader, is a company director, is in a partnership, or gets Statutory Sick Pay or Statutory Maternity Pay
+      in_work_including_self_employed_description_certificated: Including if your client is paid in cash, is a sole trader, is in a partnership, or gets Statutory Sick Pay or Statutory Maternity Pay
+      unemployed: Unemployed
+      unemployed_description: Including anyone without employment income, for example retired clients
     employment:
       caption: Your client's finances
       heading: Your client's pay
@@ -1667,6 +1678,12 @@ en:
         child_dependants: Have child dependants
         child_dependants_count: Number of child dependants
       client_income: Client income
+      client_employment: Client employment
+      client_employment_fields:
+        employment_status: Employment status
+        employment_status_options:
+          in_work: Employed or self-employed
+          unemployed: Unemployed
       client_pay: Client pay
       client_pay_fields:
         gross_income: Gross pay

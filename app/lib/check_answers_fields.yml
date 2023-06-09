@@ -56,6 +56,7 @@ sections:
           type: boolean
         - attribute: employment_status
           type: select
+          skip_if: self_employed_flag_enabled?
         - attribute: passporting
           type: boolean
   - label: dependants
@@ -77,6 +78,12 @@ sections:
           skip_unless: adult_dependants
   - label: client_income
     subsections:
+      - label: client_employment
+        screen: employment_status
+        fields:
+          - attribute: employment_status
+            type: select
+            skip_unless: self_employed_flag_enabled?
       - label: client_pay
         screen: employment
         fields:
