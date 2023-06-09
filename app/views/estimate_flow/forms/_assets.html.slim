@@ -41,8 +41,8 @@
                   label: { text: t("generic.dispute") }
 
       . data-add-another-role="sectionList"
-      / - @form.items.each_with_index do |assets, index|
-          = render "bank_account_section", removeable: index.positive?, model: assets, counter: index + 1
+      - @form.items.each_with_index do |assets, index|
+        = render "bank_account_section", removeable: index.positive?, model: assets, counter: index + 1
       .govuk-button-group
         button.govuk-button.govuk-button--secondary type="button" data-add-another-role="add" = t("estimate_flow.assets.savings.add")
 

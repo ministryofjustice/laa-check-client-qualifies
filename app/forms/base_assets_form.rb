@@ -1,7 +1,7 @@
 class BaseAssetsForm < BaseAddAnotherForm
   include ActiveModel::Model
   include ActiveModel::Attributes
-  include SessionPersistable
+  # include SessionPersistable
   include NumberValidatable
 
   BASE_ATTRIBUTES = %i[savings investments valuables].freeze
