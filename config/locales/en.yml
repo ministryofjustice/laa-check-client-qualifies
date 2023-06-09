@@ -953,7 +953,7 @@ en:
           link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1157029/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_controlled_work_and_family_mediation_May_2023.pdf#page=16"
     mortgage_or_loan_payment:
       heading: What are the mortgage or loan payments for the home your client lives in?
-      heading_hint: Enter the full amount due, whoever pays it.
+      heading_hint: Enter the full amount due, whoever pays it. Enter 0 if this does not apply.
       value: Enter amount
       frequency: Select frequency
     partner_housing_benefit:
