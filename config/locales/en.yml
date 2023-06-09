@@ -1374,6 +1374,20 @@ en:
       evidence_needed: Evidence you might need
       evidence_needed_explainer: Depending on your client's financial situation, you may need to provide items from this general list.
       evidence_needed_explainer_partner: Depending on your client and their partner's financial situation, you may need to provide items from this general list.
+      legacy_types_of_evidence:
+        - bank statements covering the last 3 months
+        - evidence of any benefits or financial support your client received from the government, local authorities or third parties dated in the last 6 months
+        - wage slips covering the last 3 months (if your client is employed)
+        - evidence of housing payments such as a mortgage statement, rent book or receipts
+        - receipts for childcare payments
+        - documentation showing the value of any assets held by your client
+        - a property valuation (if your client owns a property)
+        - evidence of any claims against your client's assets
+      self_employed_evidence_needed_explainer: "If the client or any partner are self-employed:"
+      self_employed_types_of_evidence:
+        - "Most recent set of trading accounts or self-assessment tax return (if the business has been trading for more than a year)"
+        - Cash books or any other documentation showing the business-related incomings and outgoings and drawings (if the business has been trading for less than a year)
+        - Latest HMRC tax calculation showing evidence of any tax and national insurance liability
       types_of_evidence:
         - bank statements covering the last 3 months
         - evidence of any benefits or financial support your client received from the government, local authorities or third parties dated in the last 6 months
@@ -1383,11 +1397,28 @@ en:
         - documentation showing the value of any assets held by your client
         - a property valuation (if your client owns a property)
         - evidence of any claims against your client's assets
+        - 3 months of Prisoner Income and Expenditure Statements (PIES) and evidence as set out above for ‘outside’ income (if the client or partner is a prisoner)
+        - If the client or any partner’s access to capital is affected by bankruptcy or a restraint or freezing order covering their assets, relevant documentation such as a copy of the bankruptcy order, a statement of assets and liabilities (if available), a copy of restraint order and any variations sought.
+        - If the client or any partner holds assets as a trustee on behalf of another person, documentary evidence of the trust arrangement.
       certificated_how_calculated: How we calculated whether your client is likely to be financially eligible for civil certificated legal aid work
       controlled_how_calculated: How we calculated whether your client is likely to be financially eligible for civil controlled legal aid work
       controlled_next_steps_paragraph_1: You will need to complete the relevant controlled work form and keep for your records, along with any evidence provided by your client. Your client’s file may be audited and assessed by the LAA at a later date.
       controlled_next_steps_paragraph_1_partner: You will need to complete the relevant controlled work form and keep for your records, along with any evidence provided by your client and their partner. Your client’s file may be audited and assessed by the LAA at a later date.
       controlled_next_steps_paragraph_2_html: "You can find the forms at: <a href='https://www.gov.uk/government/collections/controlled-work-application-forms' target='_blank' rel='noreferrer noopener'>Controlled work application forms</a>."
+      legacy_controlled_types_of_evidence:
+        - bank statements covering the most recent month
+        - evidence of any benefits or financial support your client received from the government, local authorities or third parties dated in the last 6 months
+        - wage slips covering the most recent month (if your client is employed)
+        - evidence of housing payments such as a mortgage statement, rent book or receipts (if your client's housing payments are more than a third of their total income)
+        - receipts for childcare payments (if these exceed £600 a month or a pro-rata amount if your client is employed part time)
+        - evidence of the value of any capital held by your client if you believe it necessary to collect
+      legacy_controlled_types_of_evidence_partner:
+        - bank statements covering the most recent month
+        - evidence of any benefits or financial support they received from the government, local authorities or third parties dated in the last 6 months
+        - wage slips covering the most recent month (if your client or their partner are employed)
+        - evidence of housing payments such as a mortgage statement, rent book or receipts (if housing payments are more than a third of their total income)
+        - receipts for childcare payments (if these exceed £600 a month or a pro-rata amount if your client or their partner are employed part time)
+        - evidence of the value of any capital held by your client and their partner if you believe it necessary to collect
       controlled_types_of_evidence:
         - bank statements covering the most recent month
         - evidence of any benefits or financial support your client received from the government, local authorities or third parties dated in the last 6 months
@@ -1395,6 +1426,7 @@ en:
         - evidence of housing payments such as a mortgage statement, rent book or receipts (if your client's housing payments are more than a third of their total income)
         - receipts for childcare payments (if these exceed £600 a month or a pro-rata amount if your client is employed part time)
         - evidence of the value of any capital held by your client if you believe it necessary to collect
+        - Most recent bank statements or working accounts or cash book showing drawings, or most recent tax assessment or set of business accounts (if the client or partner is self-employed)
       controlled_types_of_evidence_partner:
         - bank statements covering the most recent month
         - evidence of any benefits or financial support they received from the government, local authorities or third parties dated in the last 6 months
@@ -1402,6 +1434,7 @@ en:
         - evidence of housing payments such as a mortgage statement, rent book or receipts (if housing payments are more than a third of their total income)
         - receipts for childcare payments (if these exceed £600 a month or a pro-rata amount if your client or their partner are employed part time)
         - evidence of the value of any capital held by your client and their partner if you believe it necessary to collect
+        - Most recent bank statements or working accounts or cash book showing drawings, or most recent tax assessment or set of business accounts (if the client or partner is self-employed)
       controlled_asylum_types_of_evidence:
         - confirmation from the Home Office or Migrant Help that the individual is in receipt of support (dated in the last 6 months)
         - completed LAA Asylum Support enquiry form
