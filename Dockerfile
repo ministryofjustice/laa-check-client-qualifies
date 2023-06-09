@@ -22,7 +22,8 @@ RUN apk add --update --no-cache tzdata && \
 # build-base: dependencies for bundle
 # yarn: node package manager
 # postgresql-dev: postgres driver and libraries
-RUN apk add --no-cache build-base yarn postgresql13-dev
+# git: to allow us to create the VERSION file
+RUN apk add --no-cache build-base yarn postgresql13-dev git
 
 # Install gems defined in Gemfile
 COPY .ruby-version Gemfile Gemfile.lock ./
@@ -42,6 +43,9 @@ RUN yarn install --frozen-lockfile --check-files --prod
 # Copy all files to /app (except what is defined in .dockerignore)
 COPY . .
 
+# make the git commit hash available to the app so it can describe its current version
+RUN git rev-parse --short HEAD > ./VERSION
+
 # Precompile assets
 RUN RAILS_ENV=production SECRET_KEY_BASE=required-to-run-but-not-used \
     bundle exec rails assets:precompile
@@ -50,6 +54,7 @@ RUN RAILS_ENV=production SECRET_KEY_BASE=required-to-run-but-not-used \
 RUN rm -rf node_modules log/* tmp/* /tmp && \
     rm -rf /usr/local/bundle/cache && \
     rm -rf .env && \
+    rm -rf .git && \
     find /usr/local/bundle/gems -name "*.c" -delete && \
     find /usr/local/bundle/gems -name "*.h" -delete && \
     find /usr/local/bundle/gems -name "*.o" -delete && \
@@ -85,8 +90,7 @@ RUN apk add --update --no-cache tzdata && \
     echo "Europe/London" > /etc/timezone
 
 # libpq: required to run postgres
-# git: used by the app to report its version to CFE
-RUN apk add --no-cache libpq postgresql-client git
+RUN apk add --no-cache libpq postgresql-client
 
 # Install Chromium and Puppeteer for PDF generation
 # Installs latest Chromium package available on Alpine (Chromium 108)
