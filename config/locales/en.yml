@@ -348,7 +348,7 @@ en:
             housing_loan_payments:
               blank: Enter the mortgage or loan payments amount.
               not_a_number: Mortgage or loan payments must be a number.
-              greater_than: Mortgage or loan payments must be more than 0. 
+              greater_than: Mortgage or loan payments must be 0 or more.
             housing_payments_loan_frequency:
               blank: Select frequency of mortgage payments.
         partner_property_entry_form:

@@ -9,7 +9,7 @@ class MortgageOrLoanPaymentForm
   delegate :level_of_help, :partner, to: :check
 
   attribute :housing_loan_payments, :gbp
-  validates :housing_loan_payments, numericality: { greater_than: 0, allow_nil: true }, presence: true
+  validates :housing_loan_payments, numericality: { greater_than_or_equal_to: 0, allow_nil: true }, presence: true
 
   attribute :housing_payments_loan_frequency, :string
   validates :housing_payments_loan_frequency,
