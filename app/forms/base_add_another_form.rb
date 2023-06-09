@@ -16,14 +16,23 @@ class BaseAddAnotherForm
   class << self
     def from_session(session_data)
       form = new
-      form.items = session_data[self::SESSION_KEY]&.map do |attributes|
-        self::ITEM_MODEL.from_session(attributes).tap { add_session_attributes(_1, session_data) }
+
+      if form.items.nil?
+        new(attributes_from_session(session_data))
+      else
+        form.items = session_data[self::SESSION_KEY]&.map do |attributes|
+          self::ITEM_MODEL.from_session(attributes).tap { add_session_attributes(_1, session_data) }
+        end
       end
 
       if form.items.blank?
         form.items = [self::ITEM_MODEL.new.tap { add_session_attributes(_1, session_data) }]
       end
       form
+    end
+
+    def attributes_from_session(session_data)
+      session_data.slice(*session_keys)
     end
 
     def from_params(params, session_data)
