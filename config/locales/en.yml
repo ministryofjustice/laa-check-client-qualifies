@@ -566,6 +566,21 @@ en:
       partner: Partner
       household: Household
   estimate_flow:
+    aria_label:
+      friends_or_family_value: Enter amount of financial help from friends or family
+      maintenance_value: Enter amount of maintenance payments from a former partner
+      property_or_lodger_value: Enter amount of income from a property or lodger
+      pension_value: Enter amount of pension
+      controlled_student_finance_value: Enter amount of student finance
+      student_finance_value: Enter amount of student finance
+      other_value: Enter amount of income received from other sources in the last 3 months
+      controlled_other_value: Enter amount of income received from other sources in the last month
+      childcare_payments_value: Enter amount of childcare payments
+      maintenance_payments_value: Enter amount of maintenance payments to a former partner
+      legal_aid_payments_value: Enter amount paid towards legal aid in a criminal case
+      housing_payments_value: Enter amount of housing payments
+      housing_payments: Enter amount of housing payments
+      housing_benefit_value: Enter the amount of housing benefit
     level_of_help:
       title: What level of help does your client need?
       controlled_header: Civil controlled work or family mediation

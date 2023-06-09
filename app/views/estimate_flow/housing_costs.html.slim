@@ -27,7 +27,8 @@
             form:,
             field: :housing_payments,
             width: 10,
-            label_text: t("estimate_flow.housing_costs.value")
+            label_text: t("estimate_flow.housing_costs.value"),
+            set_aria: true
     = form.govuk_collection_radio_buttons :housing_payments_frequency,
                                           @form.housing_payment_frequencies,
                                           :first,
@@ -52,7 +53,8 @@
             form:,
             field: :housing_benefit_value,
             width: 10,
-            label_text: t("estimate_flow.housing_costs.value")
+            label_text: t("estimate_flow.housing_costs.value"),
+            set_aria: true
     = form.govuk_collection_radio_buttons :housing_benefit_frequency,
                                           @form.frequencies,
                                           :first,
