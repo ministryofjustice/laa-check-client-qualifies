@@ -182,8 +182,8 @@ RSpec.describe "estimates/show.html.slim" do
       expect(page_text).to include "Deductions3% of property value deducted for cost of sale-£534.00"
       expect(page_text).to include "Assessed value£52.00"
       expect(page_text).to include "Vehicle 1Value£587.00"
-      expect(page_text).to include "Outstanding payments£234.00"
-      expect(page_text).to include "Disregards and deductions£144.00"
+      expect(page_text).to include "Outstanding payments-£234.00"
+      expect(page_text).to include "Disregards and deductions-£144.00"
       expect(page_text).to include "Assessed value£6.00"
       expect(page_text).to include "Client's disposable capital"
       expect(page_text).to include "Assessed property valueTotal of home client lives in and any additional property£0.00"
@@ -200,8 +200,8 @@ RSpec.describe "estimates/show.html.slim" do
       let(:vehicle_in_regular_use) { false }
 
       it "does not show additional vehicle rows" do
-        expect(page_text).not_to include "Outstanding payments -£234.00"
-        expect(page_text).not_to include "Disregards and deductions -£144.00"
+        expect(page_text).not_to include "Outstanding payments"
+        expect(page_text).not_to include "Disregards and deductions"
       end
     end
 
@@ -227,13 +227,13 @@ RSpec.describe "estimates/show.html.slim" do
       it "shows relevant additional vehicle rows" do
         expect(page_text).to include "Vehicle 1"
         expect(page_text).to include "Value£587.00"
-        expect(page_text).to include "Outstanding payments£234.00"
-        expect(page_text).to include "Disregards and deductions£144.00"
+        expect(page_text).to include "Outstanding payments-£234.00"
+        expect(page_text).to include "Disregards and deductions-£144.00"
         expect(page_text).to include "Vehicle 2"
         expect(page_text).to include "Value£3,333.00"
         expect(page_text).to include "Assessed value£6.00"
-        expect(page_text).to include "Outstanding payments£1,111.00"
-        expect(page_text).to include "Disregards and deductions£2,222.00"
+        expect(page_text).to include "Outstanding payments-£1,111.00"
+        expect(page_text).to include "Disregards and deductions-£2,222.00"
       end
     end
   end
