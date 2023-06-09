@@ -58,7 +58,7 @@ RSpec.describe "estimates/show.html.slim" do
             },
             gross_income: {
               proceeding_types: [
-                { "ccms_code": "SE013",
+                { "ccms_code": "SE003",
                   "client_involvement_type": "I",
                   "upper_threshold": 2657.0,
                   "lower_threshold": 0.0,

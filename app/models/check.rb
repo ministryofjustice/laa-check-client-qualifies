@@ -84,6 +84,7 @@ class Check
 
   def immigration_matter?
     if controlled?
+      # For controlled work, "immigration_legal_help" is treated like "asylum"
       immigration_or_asylum_type == "immigration_clr"
     else
       matter_type == "immigration"
