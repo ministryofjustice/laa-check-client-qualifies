@@ -15,7 +15,7 @@ RSpec.describe "partner_details", type: :feature do
     expect(page).to have_css(".govuk-error-summary__list")
   end
 
-  it "has some long-form copy and questions about employment" do
+  it "has a question about employment" do
     expect(page).to have_content employment_question
   end
 
