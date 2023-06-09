@@ -40,12 +40,27 @@ sections:
       - fields:
           - attribute: matter_type
             type: select
-            alt_attribute: level_of_help
       - label: asylum_support
         fields:
           - attribute: asylum_support
             screen: asylum_support
             type: boolean
+            skip_if: controlled?
+  - label: about_the_case
+    screen: immigration_or_asylum
+    subsections:
+      - fields:
+          - attribute: immigration_or_asylum
+            type: boolean
+          - attribute: immigration_or_asylum_type
+            screen: immigration_or_asylum_type
+            type: select
+      - label: asylum_support
+        fields:
+          - attribute: asylum_support
+            screen: asylum_support
+            type: boolean
+            skip_unless: controlled?
   - label: client_details
     screen: applicant
     subsections:

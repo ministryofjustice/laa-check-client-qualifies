@@ -18,6 +18,12 @@ module BuildEstimatesHelper
     [:none, I18n.t("estimate_flow.property.property_owned.none")],
   ].freeze
 
+  IMMIGRATION_OR_ASYLUM_TYPE_OPTIONS = [
+    [:immigration_clr, I18n.t("estimate_flow.immigration_or_asylum_type.immigration_clr")],
+    [:immigration_legal_help, I18n.t("estimate_flow.immigration_or_asylum_type.immigration_legal_help")],
+    [:asylum, I18n.t("estimate_flow.immigration_or_asylum_type.asylum")],
+  ].freeze
+
   def property_options
     PROPERTY_OPTIONS
   end
@@ -28,5 +34,9 @@ module BuildEstimatesHelper
 
   def employment_options
     EMPLOYMENT_OPTIONS
+  end
+
+  def immigration_or_asylum_type_options
+    IMMIGRATION_OR_ASYLUM_TYPE_OPTIONS
   end
 end

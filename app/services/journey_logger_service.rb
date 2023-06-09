@@ -29,8 +29,18 @@ class JourneyLoggerService
         capital_contribution: calculation_result.raw_capital_contribution&.positive? || false,
         income_contribution: calculation_result.raw_income_contribution&.positive? || false,
         asylum_support: check.asylum_support || false,
-        matter_type: check.matter_type,
+        matter_type: matter_type(check),
       }
+    end
+
+    def matter_type(check)
+      if !check.controlled?
+        check.matter_type
+      elsif !check.immigration_or_asylum
+        "other"
+      else
+        check.immigration_or_asylum_type
+      end
     end
   end
 end

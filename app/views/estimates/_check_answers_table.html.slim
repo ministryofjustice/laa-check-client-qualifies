@@ -45,10 +45,9 @@
                     value_text: t("estimates.check_answers.#{field.label}_options.#{field.value || 'not_provided'}"),
                     disputed_asset: field.disputed?
         - when "select"
-          - value_key = "#{field.value || 'not_provided'}#{"_#{field.alt_value}" if field.alt_value}"
           = render "check_answer",
                     label_text: t("estimates.check_answers.#{field.label}"),
-                    value_text: t("estimates.check_answers.#{field.label}_options.#{value_key}"),
+                    value_text: t("estimates.check_answers.#{field.label}_options.#{field.value || 'not_provided'}"),
                     disputed_asset: field.disputed?
         - when "money_with_frequency"
           - alt_value = field.alt_value if field.value&.to_f&.positive?

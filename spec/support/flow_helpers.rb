@@ -21,6 +21,18 @@ def fill_in_matter_type_screen(choice: "Another category of law")
   click_on "Save and continue"
 end
 
+def fill_in_immigration_or_asylum_screen(choice: "No")
+  confirm_screen "immigration_or_asylum"
+  choose choice
+  click_on "Save and continue"
+end
+
+def fill_in_immigration_or_asylum_type_screen(choice: "Asylum")
+  confirm_screen "immigration_or_asylum_type"
+  choose choice
+  click_on "Save and continue"
+end
+
 def fill_in_asylum_support_screen(choice: "No")
   confirm_screen "asylum_support"
   choose choice

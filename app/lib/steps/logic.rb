@@ -9,7 +9,11 @@ module Steps
       end
 
       def upper_tribunal?(session_data)
-        session_data["matter_type"].in?(%w[immigration asylum])
+        if controlled?(session_data)
+          session_data["immigration_or_asylum"]
+        else
+          session_data["matter_type"].in?(%w[immigration asylum])
+        end
       end
 
       def asylum_supported?(session_data)

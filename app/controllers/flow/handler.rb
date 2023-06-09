@@ -4,6 +4,8 @@ module Flow
       level_of_help: LevelOfHelpForm,
       asylum_support: AsylumSupportForm,
       matter_type: MatterTypeForm,
+      immigration_or_asylum: ImmigrationOrAsylumForm,
+      immigration_or_asylum_type: ImmigrationOrAsylumTypeForm,
       applicant: ApplicantForm,
       dependant_details: DependantDetailsForm,
       employment_status: EmploymentStatusForm,

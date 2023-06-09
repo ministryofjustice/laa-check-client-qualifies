@@ -52,7 +52,7 @@ table class="govuk-table"
         td class="govuk-table__cell"
           = t(".capital_lower_limit")
       td class="govuk-table__cell"
-        - if @check.matter_type == "immigration"
+        - if @check.immigration_matter?
           = t(".controlled_immigration_capital_upper_limit")
         - else
           = t(".capital_upper_limit")

@@ -2,15 +2,37 @@ module Cfe
   class ProceedingsPayloadService < BaseService
     PROCEEDING_TYPES = { "immigration" => "IM030", "asylum" => "IA031", "other" => "SE003", "domestic_abuse" => "DA001" }.freeze
     def call
-      matter_type_form = MatterTypeForm.from_session(@session_data)
-      proceeding_types = [
+      payload[:proceeding_types] = if relevant_form?(:matter_type)
+                                     payload_from_matter_type
+                                   else
+                                     payload_from_immigration_and_asylum_choices
+                                   end
+    end
+
+    def payload_from_matter_type
+      [
         {
-          ccms_code: PROCEEDING_TYPES.fetch(matter_type_form.matter_type),
+          ccms_code: PROCEEDING_TYPES.fetch(check.matter_type),
           client_involvement_type: "A",
         },
       ]
+    end
 
-      payload[:proceeding_types] = proceeding_types
+    def payload_from_immigration_and_asylum_choices
+      ccms_code = if !check.immigration_or_asylum
+                    PROCEEDING_TYPES["other"]
+                  elsif check.immigration_or_asylum_type == "immigration_clr"
+                    PROCEEDING_TYPES["immigration"]
+                  else
+                    PROCEEDING_TYPES["asylum"]
+                  end
+
+      [
+        {
+          ccms_code:,
+          client_involvement_type: "A",
+        },
+      ]
     end
   end
 end

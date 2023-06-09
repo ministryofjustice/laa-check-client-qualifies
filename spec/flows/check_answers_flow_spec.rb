@@ -70,8 +70,7 @@ RSpec.describe "Check answers", type: :feature do
       click_on "Change"
     end
     fill_in_level_of_help_screen(choice: "Civil controlled work or family mediation")
-    # The previous choice of proceeding type is no longer valid
-    fill_in_matter_type_screen(choice: "Another category of law")
+    fill_in_immigration_or_asylum_screen
     confirm_screen("check_answers")
   end
 end

@@ -24,7 +24,7 @@ module Metrics
       property: { main_dwelling_owned: true },
       vehicle: { vehicle_owned: true },
       smod: { smod_assets: true },
-      immigration_matter: { matter_type: "immigration" },
+      immigration_matter: { matter_type: %w[immigration immigration_clr immigration_legal_help] },
       asylum_matter: { matter_type: "asylum" },
       domestic_abuse_matter: { matter_type: "domestic_abuse" },
       other_matter: { matter_type: "other" },

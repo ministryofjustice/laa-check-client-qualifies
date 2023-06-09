@@ -9,39 +9,27 @@
     = render "shared/heading", header_text: t(".title")
 
     h2.govuk-heading-s = t(".immigration_and_asylum_header")
-    - if @check.controlled?
-      = govuk_details(summary_text: t(".immigration_header_controlled"))
-        p.govuk-body = t(".immigration_controlled_paragraph_one")
-        p.govuk-body = t(".immigration_controlled_paragraph_two_html")
 
-      = govuk_details(summary_text: t(".asylum_header_controlled"))
-        p.govuk-body = t(".asylum_controlled_paragraph_one")
-        ul.govuk-list.govuk-list--bullet
-          - t(".asylum_controlled_bullets").each do |bullet|
-            li = bullet
-        p.govuk-body = t(".asylum_controlled_paragraph_two_html")
-    - else
-      p.govuk-body = t(".immigration_and_asylum_certificated_paragraph")
+    p.govuk-body = t(".immigration_and_asylum_certificated_paragraph")
 
-      = govuk_details(summary_text: t(".immigration_header_certificated"))
-        p.govuk-body = t(".immigration_certificated_paragraph_one")
-        p.govuk-body = t(".immigration_certificated_paragraph_two_html")
+    = govuk_details(summary_text: t(".immigration_header_certificated"))
+      p.govuk-body = t(".immigration_certificated_paragraph_one")
+      p.govuk-body = t(".immigration_certificated_paragraph_two_html")
 
-      = govuk_details(summary_text: t(".asylum_header_certificated"))
-        p.govuk-body = t(".asylum_certificated_paragraph_one")
-        p.govuk-body = t(".asylum_certificated_paragraph_two_html")
+    = govuk_details(summary_text: t(".asylum_header_certificated"))
+      p.govuk-body = t(".asylum_certificated_paragraph_one")
+      p.govuk-body = t(".asylum_certificated_paragraph_two_html")
 
-      h2.govuk-heading-s = t(".domestic_abuse_header")
-      p.govuk-body = t(".domestic_abuse_paragraph")
+    h2.govuk-heading-s = t(".domestic_abuse_header")
+    p.govuk-body = t(".domestic_abuse_paragraph")
 
     = form.govuk_radio_buttons_fieldset :matter_type, legend: { text: t(".select_a_matter_type") }
       = form.govuk_radio_button :matter_type, "immigration",
-              label: { text: t(".immigration_#{@check.level_of_help}") }
+              label: { text: t(".immigration") }
       = form.govuk_radio_button :matter_type, "asylum",
-              label: { text: t(".asylum_#{@check.level_of_help}") }
-      - if @check.level_of_help != "controlled"
-        = form.govuk_radio_button :matter_type, "domestic_abuse",
-                label: { text: t(".domestic_abuse") }, hint: { text: t(".domestic_abuse_hint") }
+              label: { text: t(".asylum") }
+      = form.govuk_radio_button :matter_type, "domestic_abuse",
+              label: { text: t(".domestic_abuse") }, hint: { text: t(".domestic_abuse_hint") }
       = form.govuk_radio_divider
 
       = form.govuk_radio_button :matter_type, "other",
@@ -51,4 +39,4 @@
 
 = render "shared/question_sidebar",
         level_of_help: @check.level_of_help,
-        links: matter_type_links(@check.level_of_help)
+        links: matter_type_links

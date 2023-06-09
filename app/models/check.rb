@@ -81,4 +81,12 @@ class Check
   def self_employed_flag_enabled?
     FeatureFlags.enabled?(:self_employed)
   end
+
+  def immigration_matter?
+    if controlled?
+      immigration_or_asylum_type == "immigration_clr"
+    else
+      matter_type == "immigration"
+    end
+  end
 end

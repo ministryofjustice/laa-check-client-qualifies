@@ -225,7 +225,8 @@ FactoryBot.define do
     initialize_with { attributes.transform_keys(&:to_s) }
 
     level_of_help { "controlled" }
-    matter_type { "immigration" }
+    immigration_or_asylum { "true" }
+    immigration_or_asylum_type { "immigration_clr" }
     asylum_support { false }
     over_60 { false }
     employment_status { "in_work" }
