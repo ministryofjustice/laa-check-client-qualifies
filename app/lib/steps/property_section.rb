@@ -26,12 +26,14 @@ module Steps
       end
 
       def housing_costs_property_group(session_data)
+        return if Steps::Logic.passported?(session_data)
+
         steps = if Steps::Logic.owns_property_with_mortgage_or_loan?(session_data)
                   %i[mortgage_or_loan_payment]
-                elsif !Steps::Logic.owns_property_outright?(session_data) && !Steps::Logic.passported?(session_data)
+                elsif !Steps::Logic.owns_property_outright?(session_data)
                   %i[housing_costs]
                 end
-        Steps::Group.new(*steps)
+        Steps::Group.new(*steps) if steps
       end
 
       def additional_property_steps(session_data)
