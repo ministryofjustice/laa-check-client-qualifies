@@ -25,40 +25,6 @@ RSpec.describe "property_entry", type: :feature do
     expect(session_contents["house_in_dispute"]).to eq true
   end
 
-  context "when client has a partner" do
-    let(:session) { { "level_of_help" => "controlled", "partner" => true } }
-
-    context "when not in the household flow" do
-      before do
-        fill_in "client-property-entry-form-house-value-field", with: "100000"
-        fill_in "client-property-entry-form-percentage-owned-field", with: "10"
-      end
-
-      it "allows me to specify joint ownership" do
-        choose "Yes"
-        fill_in "client-property-entry-form-joint-percentage-owned-field", with: "20"
-        click_on "Save and continue"
-
-        expect(session_contents["joint_ownership"]).to eq true
-        expect(session_contents["joint_percentage_owned"]).to eq 20
-      end
-
-      it "errors if total ownership is over 100%" do
-        choose "Yes"
-        fill_in "client-property-entry-form-joint-percentage-owned-field", with: "95"
-        click_on "Save and continue"
-
-        expect(page).to have_css(".govuk-error-summary__list")
-      end
-    end
-
-    context "when in the household flow", :household_section_flag do
-      it "does not ask the joint ownership question" do
-        expect(page).not_to have_content "Is the property joint owned with their partner?"
-      end
-    end
-  end
-
   context "when client has a mortgage" do
     let(:session) { { "level_of_help" => "controlled", "property_owned" => "with_mortgage" } }
 

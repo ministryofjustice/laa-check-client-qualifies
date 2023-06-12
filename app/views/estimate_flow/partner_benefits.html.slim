@@ -4,12 +4,9 @@
   = back_link(:partner_benefits, @check, @back_buttons_invoke_browser_back_behaviour)
 
 .govuk-grid-column-two-thirds
-  - if FeatureFlags.enabled?(:household_section)
-    = render "shared/partner_tag"
-  - else
-    span.govuk-caption-l = t(".caption")
+  = render "shared/partner_tag"
   = render "estimate_flow/forms/benefits",
-           legend: { text: t(".legend#{'_non_household' unless FeatureFlags.enabled?(:household_section)}"),
+           legend: { text: t(".legend"),
                      size: "xl",
                      tag: "h1" }
 

@@ -68,8 +68,6 @@ env:
     value: {{ .Values.featureFlags.sentry }}
   - name: CW_FORMS_FEATURE_FLAG
     value: {{ .Values.featureFlags.cwForms }}
-  - name: HOUSEHOLD_SECTION_FEATURE_FLAG
-    value: {{ .Values.featureFlags.householdSection }}
   - name: SPECIAL_APPLICANT_GROUPS_FEATURE_FLAG
     value: {{ .Values.featureFlags.specialApplicantGroups }}
   - name: SELF_EMPLOYED_FEATURE_FLAG

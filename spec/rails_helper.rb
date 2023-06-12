@@ -83,12 +83,6 @@ RSpec.configure do |config|
     ENV["CW_FORMS_FEATURE_FLAG"] = "disabled"
   end
 
-  config.around(:each, :household_section_flag) do |example|
-    ENV["HOUSEHOLD_SECTION_FEATURE_FLAG"] = "enabled"
-    example.run
-    ENV["HOUSEHOLD_SECTION_FEATURE_FLAG"] = "disabled"
-  end
-
   config.around(:each, :special_applicant_groups_flag) do |example|
     ENV["SPECIAL_APPLICANT_GROUPS_FEATURE_FLAG"] = "enabled"
     example.run

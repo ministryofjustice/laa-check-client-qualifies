@@ -2,9 +2,10 @@ require "rails_helper"
 
 RSpec.describe "vehicles_details", type: :feature do
   let(:assessment_code) { :assessment_code }
+  let(:session_data) { {} }
 
   before do
-    set_session(assessment_code, {})
+    set_session(assessment_code, session_data)
     visit "estimates/#{assessment_code}/build_estimates/vehicles_details"
   end
 
@@ -27,5 +28,13 @@ RSpec.describe "vehicles_details", type: :feature do
     expect(session_contents.dig("vehicles", 0, "vehicle_over_3_years_ago")).to eq true
     expect(session_contents.dig("vehicles", 0, "vehicle_in_regular_use")).to eq true
     expect(session_contents.dig("vehicles", 0, "vehicle_in_dispute")).to eq true
+  end
+
+  context "when this is an immigration check" do
+    let(:session_data) { { "level_of_help" => "controlled", "proceeding_type" => "IM030" } }
+
+    it "does not show SMOD guidance" do
+      expect(page).not_to have_content "Guidance on subject matter of dispute"
+    end
   end
 end

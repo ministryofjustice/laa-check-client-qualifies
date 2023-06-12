@@ -37,16 +37,6 @@ RSpec.describe "applicant", type: :feature do
     expect(session_contents["passporting"]).to eq true
   end
 
-  it "shows a hint about partner ordering" do
-    expect(page).to have_content partner_question_placement_hint
-  end
-
-  context "when the household section flag is enabled", :household_section_flag do
-    it "does not show the redundant hint" do
-      expect(page).not_to have_content partner_question_placement_hint
-    end
-  end
-
   context "when the special applicant group flag is enabled", :special_applicant_groups_flag do
     it "shows help text about prisons" do
       expect(page).to have_content "for example one of them is in prison"

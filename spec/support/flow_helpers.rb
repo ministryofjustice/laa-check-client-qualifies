@@ -129,22 +129,21 @@ def fill_in_property_entry_screen(screen_name: :property_entry, form_name: :clie
   fill_in "#{form_name}_form[house_value]", with: "1"
   fill_in "#{form_name}_form[mortgage]", with: "1" if page.text.include?("How much is left to pay on the mortgage?")
   fill_in "#{form_name}_form[percentage_owned]", with: "1"
-  choose "No", name: "#{form_name}_form[joint_ownership]" if page.text.include?("Is the property joint owned with their partner?")
   click_on "Save and continue"
 end
 
-def fill_in_housing_costs_screen
+def fill_in_housing_costs_screen(housing_payments: "0", housing_benefit: "0")
   confirm_screen :housing_costs
-  fill_in "housing_costs_form[housing_payments]", with: "0"
+  fill_in "housing_costs_form[housing_payments]", with: housing_payments
   choose "Every month", name: "housing_costs_form[housing_payments_frequency]"
-  fill_in "housing_costs_form[housing_benefit_value]", with: "0"
+  fill_in "housing_costs_form[housing_benefit_value]", with: housing_benefit
   choose "Every month", name: "housing_costs_form[housing_benefit_frequency]"
   click_on "Save and continue"
 end
 
-def fill_in_mortgage_or_loan_payment_screen
+def fill_in_mortgage_or_loan_payment_screen(amount: "100")
   confirm_screen :mortgage_or_loan_payment
-  fill_in "mortgage_or_loan_payment_form[housing_loan_payments]", with: "100"
+  fill_in "mortgage_or_loan_payment_form[housing_loan_payments]", with: amount
   choose "Every month", name: "mortgage_or_loan_payment_form[housing_payments_loan_frequency]"
   click_on "Save and continue"
 end
@@ -155,18 +154,8 @@ def fill_in_vehicle_screen(choice: "No", screen_name: :vehicle)
   click_on "Save and continue"
 end
 
-def fill_in_vehicle_details_screen(screen_name: :vehicle_details, form_name: :client_vehicle_details, vehicle_finance: "0")
-  confirm_screen screen_name
-  fill_in "#{form_name}_form[vehicle_value]", with: "1"
-  choose (vehicle_finance == "0" ? "No" : "Yes"), name: "#{form_name}_form[vehicle_pcp]"
-  choose "No", name: "#{form_name}_form[vehicle_over_3_years_ago]"
-  choose "No", name: "#{form_name}_form[vehicle_in_regular_use]"
-  fill_in "#{form_name}_form[vehicle_finance]", with: vehicle_finance
-  click_on "Save and continue"
-end
-
 def fill_in_vehicles_details_screen(vehicle_finance: "0")
-  fill_in "vehicle_model[items][1][vehicle_value]", with: "1234"
+  fill_in "vehicle_model[items][1][vehicle_value]", with: "1"
   choose (vehicle_finance == "0" ? "No" : "Yes"), name: "vehicle_model[items][1][vehicle_pcp]"
   choose "No", name: "vehicle_model[items][1][vehicle_over_3_years_ago]"
   choose "No", name: "vehicle_model[items][1][vehicle_in_regular_use]"
@@ -203,20 +192,8 @@ def fill_in_partner_details_screen(choices = {})
   click_on "Save and continue"
 end
 
-def fill_in_partner_dependant_details_screen(options = {})
-  fill_in_dependant_details_screen(options.merge(screen_name: :partner_dependant_details))
-end
-
 def fill_in_partner_employment_screen
   fill_in_employment_screen(screen_name: :partner_employment)
-end
-
-def fill_in_partner_housing_benefit_screen(choice: "No")
-  fill_in_housing_benefit_screen(choice:, screen_name: :partner_housing_benefit)
-end
-
-def fill_in_partner_housing_benefit_details_screen
-  fill_in_housing_benefit_details_screen(screen_name: :partner_housing_benefit_details)
 end
 
 def fill_in_partner_benefits_screen(choice: "No")
@@ -235,36 +212,17 @@ def fill_in_partner_outgoings_screen
   fill_in_outgoings_screen(screen_name: :partner_outgoings)
 end
 
-def fill_in_partner_property_screen(choice: "No")
-  fill_in_property_screen(screen_name: :partner_property, choice:)
-end
-
-def fill_in_partner_property_entry_screen
-  fill_in_property_entry_screen(screen_name: :partner_property_entry, form_name: :partner_property_entry)
-end
-
-def fill_in_partner_vehicle_screen(choice: "No")
-  fill_in_vehicle_screen(screen_name: :partner_vehicle, choice:)
-end
-
-def fill_in_partner_vehicle_details_screen
-  fill_in_vehicle_details_screen(screen_name: :partner_vehicle_details, form_name: :partner_vehicle_details)
-end
-
 def fill_in_partner_assets_screen(values: {})
   fill_in_assets_screen(screen_name: :partner_assets, form_name: :partner_assets, values:)
 end
 
 def fill_in_partner_income_screens
-  fill_in_partner_housing_benefit_screen
   fill_in_partner_benefits_screen
   fill_in_partner_other_income_screen
   fill_in_partner_outgoings_screen
 end
 
 def fill_in_partner_capital_screens
-  fill_in_partner_property_screen
-  fill_in_partner_vehicle_screen
   fill_in_partner_assets_screen
 end
 

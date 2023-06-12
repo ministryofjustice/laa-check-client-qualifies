@@ -140,12 +140,7 @@ module CheckAnswers
     end
 
     def section_yaml
-      path = if FeatureFlags.enabled?(:household_section)
-               "app/lib/check_answers_fields.yml"
-             else
-               "app/lib/non_household_check_answers_fields.yml"
-             end
-      Rails.root.join(path)
+      Rails.root.join("app/lib/check_answers_fields.yml")
     end
   end
 end

@@ -27,7 +27,7 @@ module CfeParamBuilders
          value: form.valuables,
          description: "Non Liquid Asset",
          subject_matter_of_dispute: assets_in_dispute.include?("valuables"),
-       }].select { _1[:value]&.positive? }
+       }].select { _1[:value].to_i.positive? }
     end
   end
 end

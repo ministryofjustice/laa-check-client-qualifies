@@ -1,5 +1,5 @@
 module CfeParamBuilders
-  class RegularTransactions
+  class PartnerRegularTransactions
     def self.call(income_form, outgoings_form)
       income = build_payments(CFE_INCOME_TRANSLATIONS, income_form, :credit)
 
@@ -24,7 +24,6 @@ module CfeParamBuilders
     }.freeze
 
     CFE_OUTGOINGS_TRANSLATIONS = {
-      rent_or_mortgage: :housing_payments,
       child_care: :childcare_payments,
       maintenance_out: :maintenance_payments,
       legal_aid: :legal_aid_payments,

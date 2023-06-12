@@ -44,7 +44,7 @@ RSpec.describe "passported check", type: :feature do
           "employed" => false,
         })
         expect(parsed["vehicles"]).to eq([{
-          "value" => 1234.0,
+          "value" => 1.0,
           "loan_amount_outstanding" => 5.0,
           "date_of_purchase" => "2021-02-15",
           "in_regular_use" => false,
@@ -73,7 +73,7 @@ RSpec.describe "passported check", type: :feature do
         expect(page).to have_content("Your client is likely to qualify for civil legal aid")
         expect(page).to have_content("Assessed property value")
         expect(page).to have_content("Total of home client lives in and any additional property\n£0.00")
-        expect(page).to have_content("Total assessed disposable capital£2,034.00") # 800 non liquid and 1234 from vehicle
+        expect(page).to have_content("Total assessed disposable capital£801.00") # 800 non liquid and 1 from vehicle
         expect(page).not_to have_content("Income calculation")
         expect(page).not_to have_content("Outgoings calculation")
       end

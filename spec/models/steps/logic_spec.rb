@@ -24,33 +24,10 @@ RSpec.describe Steps::Logic do
     end
   end
 
-  describe "#housing_benefit?" do
-    it "returns false if the client is passported" do
-      session_data = {
-        "passporting" => true,
-        "housing_benefit" => true,
-      }
-
-      expect(described_class.housing_benefit?(session_data)).to eq false
-    end
-  end
-
-  describe "#partner_owns_property?" do
-    it "returns false if the client has no partner" do
-      session_data = {
-        "partner" => false,
-        "partner_property_owned" => true,
-      }
-
-      expect(described_class.partner_owns_property?(session_data)).to eq false
-    end
-  end
-
   describe "#partner_owns_additional_property?" do
     it "returns false if the client has no partner" do
       session_data = {
         "partner" => false,
-        "partner_property_owned" => true,
       }
 
       expect(described_class.partner_owns_additional_property?(session_data)).to eq false
@@ -76,17 +53,6 @@ RSpec.describe Steps::Logic do
       }
 
       expect(described_class.partner_benefits?(session_data)).to eq false
-    end
-  end
-
-  describe "#partner_housing_benefit?" do
-    it "returns false if the client is passported" do
-      session_data = {
-        "passporting" => true,
-        "partner_housing_benefit" => true,
-      }
-
-      expect(described_class.partner_housing_benefit?(session_data)).to eq false
     end
   end
 end

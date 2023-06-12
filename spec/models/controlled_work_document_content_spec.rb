@@ -16,19 +16,6 @@ RSpec.describe ControlledWorkDocumentContent do
     end
   end
 
-  describe "#main_home_percentage_owned" do
-    it "takes into account partner percentage owned" do
-      session_data = {
-        "property_owned" => "outright",
-        "partner" => true,
-        "joint_ownership" => true,
-        "percentage_owned" => 53,
-        "joint_percentage_owned" => 25,
-      }
-      expect(described_class.new(session_data).main_home_percentage_owned).to eq 78
-    end
-  end
-
   context "when there are percentages" do
     def make_capital(percentage_owned)
       {
@@ -87,7 +74,6 @@ RSpec.describe ControlledWorkDocumentContent do
       {
         "property_owned" => "outright",
         "partner" => true,
-        "joint_ownership" => false,
         "percentage_owned" => 100,
         "api_response" => {
           "result_summary" => {

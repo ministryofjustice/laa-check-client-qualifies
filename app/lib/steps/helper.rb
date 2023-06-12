@@ -5,10 +5,6 @@ module Steps
         all_sections.map(&:all_steps).reduce(:+).uniq
       end
 
-      def all_steps_for_current_feature_flags
-        all_sections.map(&:all_steps_for_current_feature_flags).reduce(:+).uniq
-      end
-
       def next_step_for(session_data, step)
         remaining_steps_for(session_data, step).first
       end
@@ -49,24 +45,13 @@ module Steps
       end
 
       def all_sections
-        if FeatureFlags.enabled?(:household_section)
-          [CaseDetailsSection,
-           ApplicantDetailsSection,
-           IncomeSection,
-           PartnerIncomeSection,
-           OutgoingsSection,
-           CapitalSection,
-           PropertySection]
-        else
-          [CaseDetailsSection,
-           ApplicantDetailsSection,
-           IncomeSection,
-           CapitalSection,
-           PartnerSection,
-           PartnerIncomeSection,
-           PartnerCapitalSection,
-           PropertySection]
-        end
+        [CaseDetailsSection,
+         ApplicantDetailsSection,
+         IncomeSection,
+         PartnerSection,
+         OutgoingsSection,
+         AssetsAndVehiclesSection,
+         PropertySection]
       end
 
       def remaining_steps(steps, step)

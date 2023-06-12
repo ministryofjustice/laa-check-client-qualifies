@@ -36,6 +36,7 @@ RSpec.describe Cfe::BenefitsPayloadService do
               "benefit_type" => "Child benefit",
               "benefit_frequency" => "every_week" },
           ],
+          "housing_benefit_value" => 0,
         }
       end
 
@@ -65,6 +66,7 @@ RSpec.describe Cfe::BenefitsPayloadService do
               "benefit_type" => "Child benefit",
               "benefit_frequency" => "every_two_weeks" },
           ],
+          "housing_benefit_value" => 0,
         }
       end
 
@@ -91,6 +93,7 @@ RSpec.describe Cfe::BenefitsPayloadService do
               "benefit_type" => "Child benefit",
               "benefit_frequency" => "every_four_weeks" },
           ],
+          "housing_benefit_value" => 0,
         }
       end
 
@@ -117,29 +120,7 @@ RSpec.describe Cfe::BenefitsPayloadService do
               "benefit_type" => "Child benefit",
               "benefit_frequency" => "monthly" },
           ],
-        }
-      end
-
-      it "populates the payload" do
-        service.call(session_data, payload)
-        expect(payload[:state_benefits]).to eq translated
-      end
-    end
-
-    context "when it is housing_benefit data" do
-      let(:translated) do
-        [{ name: "housing_benefit",
-           payments:
-         [{ date: Date.new(2022, 10, 24), amount: 100.to_d, client_id: "" },
-          { date: Date.new(2022, 9, 24), amount: 100.to_d, client_id: "" },
-          { date: Date.new(2022, 8, 24), amount: 100.to_d, client_id: "" }] }]
-      end
-
-      let(:session_data) do
-        {
-          "housing_benefit" => true,
-          "housing_benefit_value" => "100",
-          "housing_benefit_frequency" => "monthly",
+          "housing_benefit_value" => 0,
         }
       end
 
@@ -162,68 +143,52 @@ RSpec.describe Cfe::BenefitsPayloadService do
       end
     end
 
-    context "when in the household flow", :household_section_flag do
-      context "when it is housing_benefit data" do
-        let(:translated) do
-          [{ name: "housing_benefit",
-             payments:
+    context "when it is housing_benefit data" do
+      let(:translated) do
+        [{ name: "housing_benefit",
+           payments:
+        [{ date: Date.new(2022, 10, 24), amount: 100.to_d, client_id: "" },
+         { date: Date.new(2022, 9, 24), amount: 100.to_d, client_id: "" },
+         { date: Date.new(2022, 8, 24), amount: 100.to_d, client_id: "" }] }]
+      end
+
+      let(:session_data) do
+        {
+          "housing_benefit_value" => "100",
+          "housing_benefit_frequency" => "monthly",
+        }
+      end
+
+      it "populates the payload" do
+        service.call(session_data, payload)
+        expect(payload[:state_benefits]).to eq translated
+      end
+    end
+
+    context "when it is Child benefit data" do
+      let(:translated) do
+        [{ name: "Child benefit",
+           payments:
           [{ date: Date.new(2022, 10, 24), amount: 100.to_d, client_id: "" },
            { date: Date.new(2022, 9, 24), amount: 100.to_d, client_id: "" },
            { date: Date.new(2022, 8, 24), amount: 100.to_d, client_id: "" }] }]
-        end
-
-        let(:session_data) do
-          {
-            "housing_benefit" => true,
-            "housing_benefit_value" => "100",
-            "housing_benefit_frequency" => "monthly",
-          }
-        end
-
-        it "populates the payload" do
-          service.call(session_data, payload)
-          expect(payload[:state_benefits]).to eq translated
-        end
       end
 
-      context "when it is Child benefit data" do
-        let(:translated) do
-          [{ name: "Child benefit",
-             payments:
-           [{ date: Date.new(2022, 10, 24), amount: 100.to_d, client_id: "" },
-            { date: Date.new(2022, 9, 24), amount: 100.to_d, client_id: "" },
-            { date: Date.new(2022, 8, 24), amount: 100.to_d, client_id: "" }] }]
-        end
-
-        let(:session_data) do
-          {
-            "receives_benefits" => true,
-            "benefits" => [
-              { "benefit_amount" => "100",
-                "benefit_type" => "Child benefit",
-                "benefit_frequency" => "monthly" },
-            ],
-            "housing_benefit_value" => "0",
-          }
-        end
-
-        it "populates the payload" do
-          service.call(session_data, payload)
-          expect(payload[:state_benefits]).to eq translated
-        end
+      let(:session_data) do
+        {
+          "receives_benefits" => true,
+          "benefits" => [
+            { "benefit_amount" => "100",
+              "benefit_type" => "Child benefit",
+              "benefit_frequency" => "monthly" },
+          ],
+          "housing_benefit_value" => "0",
+        }
       end
 
-      context "when the client is passported" do
-        let(:session_data) do
-          {
-            "passporting" => true,
-          }
-        end
-
-        it "does not populate the payload" do
-          service.call(session_data, payload)
-          expect(payload[:state_benefits]).to be_nil
-        end
+      it "populates the payload" do
+        service.call(session_data, payload)
+        expect(payload[:state_benefits]).to eq translated
       end
     end
   end

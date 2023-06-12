@@ -1,8 +1,0 @@
-= form_for(@form, url: wizard_path, method: :put) do |form|
-
-  = form.govuk_error_summary t("generic.error_summary_title")
-  span.govuk-caption-l = t("estimate_flow.#{i18n_key}.non_household_flow.caption")
-  = form.govuk_collection_radio_buttons :property_owned, property_options, :first, :last,
-                                        legend: { text: t("estimate_flow.#{i18n_key}.legend"), size: "xl", tag: "h1" }
-
-  = form.govuk_submit t("generic.save_and_continue")

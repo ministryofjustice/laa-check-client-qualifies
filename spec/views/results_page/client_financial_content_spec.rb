@@ -164,7 +164,7 @@ RSpec.describe "estimates/show.html.slim" do
       expect(page_text).to include "Income tax£5.00"
       expect(page_text).to include "National Insurance£10.00"
       expect(page_text).to include "Employment expensesA fixed allowance if your client is employed£3.34"
-      expect(page_text).to include "Dependants allowanceA fixed allowance deducted for each dependant your client has£13.00"
+      expect(page_text).to include "Dependants allowanceA fixed allowance deducted for each dependant in the household£13.00"
       expect(page_text).to include "Partner allowanceA fixed allowance if your client has a partner£858.34"
       expect(page_text).to include "Total monthly outgoings£5,483"
       expect(page_text).to include "Assessed disposable monthly incomeTotal monthly income minus total monthly outgoings£12,345.00"
@@ -181,9 +181,9 @@ RSpec.describe "estimates/show.html.slim" do
       expect(page_text).to include "Outstanding mortgage-£52.00"
       expect(page_text).to include "Deductions3% of property value deducted for cost of sale-£534.00"
       expect(page_text).to include "Assessed value£52.00"
-      expect(page_text).to include "Client's vehicleValue£587.00"
-      expect(page_text).to include "Outstanding payments-£234.00"
-      expect(page_text).to include "Disregards and deductions-£144.00"
+      expect(page_text).to include "Vehicle 1Value£587.00"
+      expect(page_text).to include "Outstanding payments£234.00"
+      expect(page_text).to include "Disregards and deductions£144.00"
       expect(page_text).to include "Assessed value£6.00"
       expect(page_text).to include "Client's disposable capital"
       expect(page_text).to include "Assessed property valueTotal of home client lives in and any additional property£0.00"
@@ -205,50 +205,35 @@ RSpec.describe "estimates/show.html.slim" do
       end
     end
 
-    describe "when household_section feature flag is enabled", :household_section_flag do
-      context "when dependants allowance is not positive figure" do
-        let(:dependant_allowance) { 0 }
+    context "when dependants allowance is not positive figure" do
+      let(:dependant_allowance) { 0 }
 
-        it "does not display the dependants allowance field" do
-          expect(page_text).not_to include "Dependants allowance"
-        end
+      it "does not display the dependants allowance field" do
+        expect(page_text).not_to include "Dependants allowance"
       end
+    end
 
-      context "when dependants allowance is nil" do
-        let(:dependant_allowance) { nil }
+    context "when dependants allowance is nil" do
+      let(:dependant_allowance) { nil }
 
-        it "does not display the dependants allowance field" do
-          expect(page_text).not_to include "Dependants allowance"
-        end
+      it "does not display the dependants allowance field" do
+        expect(page_text).not_to include "Dependants allowance"
       end
+    end
 
-      context "when the vehicle is not in regular use" do
-        let(:vehicle_in_regular_use) { false }
+    context "when the vehicle is in regular use" do
+      let(:vehicle_in_regular_use) { true }
 
-        it "does not show additional vehicle rows" do
-          expect(page_text).to include "Vehicle 1"
-          expect(page_text).to include "Value£587.00"
-          expect(page_text).to include "Assessed value£6.00"
-          expect(page_text).not_to include "Outstanding payments"
-          expect(page_text).not_to include "Disregards and deductions"
-          expect(page_text).to include "Vehicle 2"
-        end
-      end
-
-      context "when the vehicle is in regular use" do
-        let(:vehicle_in_regular_use) { true }
-
-        it "shows relevant additional vehicle rows" do
-          expect(page_text).to include "Vehicle 1"
-          expect(page_text).to include "Value£587.00"
-          expect(page_text).to include "Outstanding payments£234.00"
-          expect(page_text).to include "Disregards and deductions£144.00"
-          expect(page_text).to include "Vehicle 2"
-          expect(page_text).to include "Value£3,333.00"
-          expect(page_text).to include "Assessed value£6.00"
-          expect(page_text).to include "Outstanding payments£1,111.00"
-          expect(page_text).to include "Disregards and deductions£2,222.00"
-        end
+      it "shows relevant additional vehicle rows" do
+        expect(page_text).to include "Vehicle 1"
+        expect(page_text).to include "Value£587.00"
+        expect(page_text).to include "Outstanding payments£234.00"
+        expect(page_text).to include "Disregards and deductions£144.00"
+        expect(page_text).to include "Vehicle 2"
+        expect(page_text).to include "Value£3,333.00"
+        expect(page_text).to include "Assessed value£6.00"
+        expect(page_text).to include "Outstanding payments£1,111.00"
+        expect(page_text).to include "Disregards and deductions£2,222.00"
       end
     end
   end

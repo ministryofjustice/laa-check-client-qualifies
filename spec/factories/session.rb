@@ -52,17 +52,6 @@ FactoryBot.define do
       mortgage { 111_222 }
       percentage_owned { 100 }
       house_in_dispute { true }
-      joint_ownership { false }
-    end
-
-    trait :with_joint_owned_main_home_in_dispute do
-      property_owned { "outright" }
-      house_value { 213_213 }
-      mortgage { 111_222 }
-      percentage_owned { 100 }
-      house_in_dispute { true }
-      joint_ownership { true }
-      joint_percentage_owned { 50 }
     end
 
     trait :with_main_home do
@@ -71,7 +60,6 @@ FactoryBot.define do
       mortgage { 123_123 }
       percentage_owned { 100 }
       house_in_dispute { false }
-      joint_ownership { false }
     end
 
     trait :with_employment do
@@ -110,27 +98,15 @@ FactoryBot.define do
       partner { true }
     end
 
-    trait :with_partner_owned_main_home do
-      partner { true }
-      property_owned { "none" }
-      partner_property_owned { "with_mortgage" }
-      partner_house_value { 234_234 }
-      partner_mortgage { 123_123 }
-      partner_percentage_owned { 100 }
-    end
-
     trait :with_no_main_home do
       property_owned { "none" }
-      partner_property_owned { "none" }
     end
 
     trait :with_vehicle do
       vehicle_owned { true }
-      vehicle_value { "1000.0" }
-      vehicle_pcp { false }
-      vehicle_over_3_years_ago { false }
-      vehicle_in_regular_use { false }
-      vehicle_in_dispute { false }
+      vehicles do
+        [{ "vehicle_value" => 1.0, "vehicle_pcp" => false, "vehicle_finance" => nil, "vehicle_over_3_years_ago" => false, "vehicle_in_regular_use" => false, "vehicle_in_dispute" => nil }]
+      end
     end
 
     trait :with_zero_capital_assets do
@@ -194,15 +170,10 @@ FactoryBot.define do
     mortgage { 123_123 }
     percentage_owned { 80 }
     house_in_dispute { false }
-    joint_ownership { true }
-    joint_percentage_owned { 11 }
     vehicle_owned { true }
-    vehicle_value { 5556 }
-    vehicle_pcp { true }
-    vehicle_finance { 4445 }
-    vehicle_over_3_years_ago { true }
-    vehicle_in_regular_use { false }
-    vehicle_in_dispute { true }
+    vehicles do
+      [{ "vehicle_value" => 1.0, "vehicle_pcp" => false, "vehicle_finance" => nil, "vehicle_over_3_years_ago" => false, "vehicle_in_regular_use" => false, "vehicle_in_dispute" => nil }]
+    end
     property_value { 123 }
     property_mortgage { 1313 }
     property_percentage_owned { 44 }
@@ -220,9 +191,6 @@ FactoryBot.define do
     partner_gross_income { 1414 }
     partner_income_tax { 44 }
     partner_national_insurance { 55 }
-    partner_housing_benefit { true }
-    partner_housing_benefit_value { 2424 }
-    partner_housing_benefit_frequency { "every_week" }
     partner_benefits do
       [
         { "id" => "a7b72db5-2c4d-4f04-a7c8-4b5adae1bfa0",
@@ -242,23 +210,12 @@ FactoryBot.define do
     partner_pension_frequency { "total" }
     partner_student_finance_value { 776 }
     partner_other_value { 335 }
-    partner_housing_payments_value { 86 }
-    partner_housing_payments_frequency { "every_four_weeks" }
     partner_childcare_payments_value { 14 }
     partner_childcare_payments_frequency { "every_two_weeks" }
     partner_maintenance_payments_value { 87 }
     partner_maintenance_payments_frequency { "monthly" }
     partner_legal_aid_payments_value { 117 }
     partner_legal_aid_payments_frequency { "every_week" }
-    partner_vehicle_owned { true }
-    partner_vehicle_value { 887 }
-    partner_vehicle_pcp { true }
-    partner_vehicle_finance { 355 }
-    partner_vehicle_over_3_years_ago { false }
-    partner_vehicle_in_regular_use { true }
-    partner_property_value { 11_266 }
-    partner_property_mortgage { 300 }
-    partner_property_percentage_owned { 44 }
     partner_savings { 548 }
     partner_investments { 997 }
     partner_valuables { 234 }
@@ -331,17 +288,12 @@ FactoryBot.define do
     partner_pension_frequency { "every_week" }
     partner_student_finance_value { 0.0 }
     partner_other_value { 0.0 }
-    partner_housing_payments_value { nil }
-    partner_housing_payments_frequency { nil }
     partner_childcare_payments_value { 0.0 }
     partner_childcare_payments_frequency { "every_week" }
     partner_maintenance_payments_value { 0.0 }
     partner_maintenance_payments_frequency { "every_week" }
     partner_legal_aid_payments_value { 0.0 }
     partner_legal_aid_payments_frequency { "every_week" }
-    partner_property_value { nil }
-    partner_property_mortgage { nil }
-    partner_property_percentage_owned { nil }
     partner_savings { 0.0 }
     partner_investments { 0.0 }
     partner_valuables { 0.0 }
@@ -350,8 +302,6 @@ FactoryBot.define do
     mortgage { nil }
     percentage_owned { 1 }
     house_in_dispute { nil }
-    joint_ownership { nil }
-    joint_percentage_owned { nil }
     additional_property_owned { "outright" }
     additional_house_value { 1.0 }
     additional_mortgage { nil }
@@ -430,17 +380,12 @@ FactoryBot.define do
     partner_pension_frequency { "every_week" }
     partner_student_finance_value { 0.0 }
     partner_other_value { 0.0 }
-    partner_housing_payments_value { nil }
-    partner_housing_payments_frequency { nil }
     partner_childcare_payments_value { 0.0 }
     partner_childcare_payments_frequency { "every_week" }
     partner_maintenance_payments_value { 0.0 }
     partner_maintenance_payments_frequency { "every_week" }
     partner_legal_aid_payments_value { 0.0 }
     partner_legal_aid_payments_frequency { "every_week" }
-    partner_property_value { nil }
-    partner_property_mortgage { nil }
-    partner_property_percentage_owned { nil }
     partner_savings { 0.0 }
     partner_investments { 0.0 }
     partner_valuables { 0.0 }
@@ -449,8 +394,6 @@ FactoryBot.define do
     mortgage { nil }
     percentage_owned { 1 }
     house_in_dispute { nil }
-    joint_ownership { nil }
-    joint_percentage_owned { nil }
     additional_property_owned { "outright" }
     additional_house_value { 1.0 }
     additional_mortgage { nil }
