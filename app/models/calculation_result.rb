@@ -155,7 +155,10 @@ class CalculationResult
   def display_household_vehicles
     capital_items(:vehicles, "").map do |vehicle|
       if vehicle[:in_regular_use]
-        vehicle.slice(:value, :loan_amount_outstanding, :disregards_and_deductions, :assessed_value).transform_values { monetise(_1) }
+        { value: monetise(vehicle[:value]),
+          loan_amount_outstanding: monetise(-1 * vehicle[:loan_amount_outstanding]),
+          disregards_and_deductions: monetise(-1 * vehicle[:disregards_and_deductions]),
+          assessed_value: monetise(vehicle[:assessed_value]) }
       else
         { value: monetise(vehicle[:value]) }
       end
