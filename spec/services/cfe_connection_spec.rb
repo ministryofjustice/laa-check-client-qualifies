@@ -28,6 +28,23 @@ RSpec.describe CfeConnection do
       connection.assess({})
       expect(stub).to have_been_requested
     end
+
+    context "when there is a version file" do
+      before do
+        allow(File).to receive(:exist?).and_call_original
+        allow(File).to receive(:exist?).with(Rails.root.join("VERSION")).and_return(true)
+        allow(File).to receive(:read).and_call_original
+        allow(File).to receive(:read).with(Rails.root.join("VERSION")).and_return("someversion")
+      end
+
+      it "adds a user agent string using a file if there is one" do
+        stub = stub_request(:post, %r{assessments\z}).with do |request|
+          expect(request.headers["User-Agent"]).to match(/ccq\/someversion \(.*\)/)
+        end
+        connection.assess({})
+        expect(stub).to have_been_requested
+      end
+    end
   end
 
   describe "state_benefit_types" do

@@ -1,7 +1,12 @@
-- size ||= nil
+ruby:
+  size ||= nil
+  set_aria ||= false
+  level ||= nil
+  checktype = level == "controlled" ? "controlled_" : nil
 = form.govuk_text_field field,
                         width:,
                         label: { text: label_text, size: },
                         prefix_text: BuildEstimatesHelper::POUND,
                         value: decimal_as_money_string(form, field),
-                        inputmode: "decimal"
+                        inputmode: "decimal",
+                        "aria-label": set_aria ? t("estimate_flow.aria_label.#{checktype}#{field}").to_s : nil

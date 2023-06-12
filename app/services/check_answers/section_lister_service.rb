@@ -65,6 +65,7 @@ module CheckAnswers
       relevant_screen = (field_data[:screen] || parent_screen).to_sym
       return unless Steps::Helper.valid_step?(@model.session_data, relevant_screen)
       return if field_data[:skip_unless].present? && !@model.send(field_data[:skip_unless])
+      return if field_data[:skip_if].present? && @model.send(field_data[:skip_if])
 
       label = field_data.fetch(:label, field_data.fetch(:attribute))
 

@@ -52,6 +52,10 @@ en:
               inclusion: Select yes if the partner has child dependants
             adult_dependants:
               inclusion: Select yes if the partner has adult dependants
+        employment_status_form:
+          attributes:
+            employment_status:
+              inclusion: Select an employment status
         employment_form:
           attributes:
             gross_income:
@@ -337,7 +341,8 @@ en:
               not_a_number: Housing payments must be a number. Enter 0 if this does not apply.
             housing_benefit_value:
               blank: Enter the Housing Benefit amount. Enter 0 if this does not apply.
-              not_a_number: Housing Benefit must be a number. Enter 0 if this does not apply. 
+              not_a_number: Housing Benefit must be a number. Enter 0 if this does not apply.
+              exceeds_costs: Housing benefit cannot be higher than housing costs
             housing_payments_frequency:
               blank: Select frequency of housing payments.
             housing_benefit_frequency:
@@ -347,7 +352,7 @@ en:
             housing_loan_payments:
               blank: Enter the mortgage or loan payments amount.
               not_a_number: Mortgage or loan payments must be a number.
-              greater_than: Mortgage or loan payments must be more than 0. 
+              greater_than: Mortgage or loan payments must be 0 or more.
             housing_payments_loan_frequency:
               blank: Select frequency of mortgage payments.
         partner_property_entry_form:
@@ -565,6 +570,21 @@ en:
       partner: Partner
       household: Household
   estimate_flow:
+    aria_label:
+      friends_or_family_value: Enter amount of financial help from friends or family
+      maintenance_value: Enter amount of maintenance payments from a former partner
+      property_or_lodger_value: Enter amount of income from a property or lodger
+      pension_value: Enter amount of pension
+      controlled_student_finance_value: Enter amount of student finance
+      student_finance_value: Enter amount of student finance
+      other_value: Enter amount of income received from other sources in the last 3 months
+      controlled_other_value: Enter amount of income received from other sources in the last month
+      childcare_payments_value: Enter amount of childcare payments
+      maintenance_payments_value: Enter amount of maintenance payments to a former partner
+      legal_aid_payments_value: Enter amount paid towards legal aid in a criminal case
+      housing_payments_value: Enter amount of housing payments
+      housing_payments: Enter amount of housing payments
+      housing_benefit_value: Enter the amount of housing benefit
     level_of_help:
       title: What level of help does your client need?
       controlled_header: Civil controlled work or family mediation
@@ -822,6 +842,13 @@ en:
       second_caption_bullets:
         - is someone who lives with the partner and depends on them for financial support
         - can be an adult or a child
+    employment_status:
+      heading: What is your client's employment status?
+      in_work_including_self_employed: Employed or self-employed
+      in_work_including_self_employed_description_controlled: Including if your client is paid in cash, is a sole trader, is a company director, is in a partnership, or gets Statutory Sick Pay or Statutory Maternity Pay
+      in_work_including_self_employed_description_certificated: Including if your client is paid in cash, is a sole trader, is in a partnership, or gets Statutory Sick Pay or Statutory Maternity Pay
+      unemployed: Unemployed
+      unemployed_description: Including anyone without employment income, for example retired clients
     employment:
       caption: Your client's finances
       heading: Your client's pay
@@ -937,7 +964,7 @@ en:
           link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1157029/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_controlled_work_and_family_mediation_May_2023.pdf#page=16"
     mortgage_or_loan_payment:
       heading: What are the mortgage or loan payments for the home your client lives in?
-      heading_hint: Enter the full amount due, whoever pays it.
+      heading_hint: Enter the full amount due, whoever pays it. Enter 0 if this does not apply.
       value: Enter amount
       frequency: Select frequency
     partner_housing_benefit:
@@ -1651,6 +1678,12 @@ en:
         child_dependants: Have child dependants
         child_dependants_count: Number of child dependants
       client_income: Client income
+      client_employment: Client employment
+      client_employment_fields:
+        employment_status: Employment status
+        employment_status_options:
+          in_work: Employed or self-employed
+          unemployed: Unemployed
       client_pay: Client pay
       client_pay_fields:
         gross_income: Gross pay

@@ -114,4 +114,15 @@ RSpec.describe "Household section flow", :household_section_flag, type: :feature
     fill_in_vehicle_screen(choice: "Yes")
     confirm_screen "vehicles_details"
   end
+
+  context "when self-employed flag is enabled", :self_employed_flag, type: :feature do
+    it "uses employment status screen" do
+      start_assessment
+      fill_in_forms_until(:applicant)
+      fill_in_applicant_screen(partner: "No", passporting: "No")
+      fill_in_dependant_details_screen
+      fill_in_employment_status_screen(choice: "Employed or self-employed")
+      confirm_screen("employment")
+    end
+  end
 end

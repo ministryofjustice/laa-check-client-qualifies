@@ -22,4 +22,11 @@ RSpec.describe "mortgage_or_loan_payment", type: :feature do
     expect(session_contents["housing_loan_payments"]).to eq 1000
     expect(session_contents["housing_payments_loan_frequency"]).to eq "monthly"
   end
+
+  it "allows me to enter 0" do
+    fill_in "mortgage-or-loan-payment-form-housing-loan-payments-field", with: "0"
+    click_on "Save and continue"
+
+    expect(session_contents["housing_loan_payments"]).to eq 0
+  end
 end

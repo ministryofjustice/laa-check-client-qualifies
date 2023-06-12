@@ -6,6 +6,7 @@ module Flow
       matter_type: MatterTypeForm,
       applicant: ApplicantForm,
       dependant_details: DependantDetailsForm,
+      employment_status: EmploymentStatusForm,
       employment: EmploymentForm,
       housing_benefit: HousingBenefitForm,
       housing_benefit_details: HousingBenefitDetailsForm,

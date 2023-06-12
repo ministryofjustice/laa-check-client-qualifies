@@ -32,7 +32,9 @@ def fill_in_applicant_screen(choices = {})
 
   choose choices.fetch(:over_60, "No"), name: "applicant_form[over_60]"
   choose choices.fetch(:partner, "No"), name: "applicant_form[partner]"
-  choose choices.fetch(:employed, "Unemployed"), name: "applicant_form[employment_status]"
+  if page.text.include?("What is your client's employment status?")
+    choose choices.fetch(:employed, "Unemployed"), name: "applicant_form[employment_status]"
+  end
   choose choices.fetch(:passporting, "No"), name: "applicant_form[passporting]"
   click_on "Save and continue"
 end
@@ -47,6 +49,12 @@ def fill_in_dependant_details_screen(options = {})
   choose adult_dependants, name: "#{screen_name}_form[adult_dependants]"
   fill_in "#{screen_name}_form[child_dependants_count]", with: options.fetch(:child_dependants_count, "0") if child_dependants == "Yes"
   fill_in "#{screen_name}_form[adult_dependants_count]", with: options.fetch(:adult_dependants_count, "0") if adult_dependants == "Yes"
+  click_on "Save and continue"
+end
+
+def fill_in_employment_status_screen(choice: "Employed or self-employed", screen_name: :employment_status)
+  confirm_screen screen_name
+  choose choice, name: "#{screen_name}_form[employment_status]"
   click_on "Save and continue"
 end
 

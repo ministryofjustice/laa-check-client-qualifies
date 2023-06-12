@@ -33,6 +33,16 @@ RSpec.describe "estimates/check_answers.html.slim", :household_section_flag do
           expect(text).to include("Income tax£200.00")
           expect(text).to include("National Insurance£100.00")
         end
+
+        context "when self-employed feature flag is enabled", :self_employed_flag do
+          it "does not show employment status in client details section" do
+            expect(page_text_within("#field-list-client_details")).not_to include "Employment"
+          end
+
+          it "shows employment status in the employment section" do
+            expect(page_text_within("#field-list-client_employment")).to include "Employment statusEmployed or self-employed"
+          end
+        end
       end
 
       context "when the client is employed but on statuatory sick/maternity pay" do

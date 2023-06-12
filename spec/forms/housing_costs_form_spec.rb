@@ -27,11 +27,21 @@ RSpec.describe "housing_costs", type: :feature do
     expect(session_contents["housing_benefit_frequency"]).to eq "every_four_weeks"
   end
 
+  it "detects if benefit exceeds costs" do
+    fill_in "housing-costs-form-housing-payments-field", with: "20"
+    choose "Every week", name: "housing_costs_form[housing_payments_frequency]"
+    fill_in "housing-costs-form-housing-benefit-value-field", with: "400"
+    choose "Every month", name: "housing_costs_form[housing_benefit_frequency]"
+    click_on "Save and continue"
+
+    expect(page).to have_text "Housing benefit cannot be higher than housing costs"
+  end
+
   context "when the level of help is certificated" do
     let(:session) { { "level_of_help" => "certificated" } }
 
     it "shows 'Total in last 3 months' radio" do
-      fill_in "housing-costs-form-housing-payments-field", with: "20"
+      fill_in "housing-costs-form-housing-payments-field", with: "2000"
       choose "Total in last 3 months", name: "housing_costs_form[housing_payments_frequency]"
       fill_in "housing-costs-form-housing-benefit-value-field", with: "40"
       choose "Every 2 weeks", name: "housing_costs_form[housing_benefit_frequency]"
