@@ -13,5 +13,5 @@ class PartnerDetailsForm
   attribute :employment_status, :string
   validates :employment_status,
             inclusion: { in: ApplicantForm::EMPLOYMENT_STATUSES.map(&:to_s), allow_nil: false },
-            if: -> { !passporting }
+            if: -> { !passporting && !FeatureFlags.enabled?(:self_employed) }
 end

@@ -67,7 +67,9 @@ module Steps
       def partner_employed?(session_data)
         return false if passported?(session_data) || !partner?(session_data)
 
-        ApplicantForm::EMPLOYED_STATUSES.map(&:to_s).include? session_data["partner_employment_status"]
+        employment_statuses = FeatureFlags.enabled?(:self_employed) ? EmploymentStatusForm::EMPLOYED_STATUSES : ApplicantForm::EMPLOYED_STATUSES
+
+        employment_statuses.map(&:to_s).include? session_data["partner_employment_status"]
       end
 
       def partner_benefits?(session_data)

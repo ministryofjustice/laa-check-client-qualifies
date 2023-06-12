@@ -18,6 +18,7 @@ module Flow
       vehicles_details: VehiclesDetailsForm,
       assets: ClientAssetsForm,
       partner_details: PartnerDetailsForm,
+      partner_employment_status: PartnerEmploymentStatusForm,
       partner_employment: PartnerEmploymentForm,
       partner_benefits: PartnerBenefitsForm,
       partner_benefit_details: PartnerBenefitDetailsForm,

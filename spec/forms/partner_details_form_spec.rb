@@ -35,4 +35,10 @@ RSpec.describe "partner_details", type: :feature do
       expect(page).not_to have_content employment_question
     end
   end
+
+  context "when the self employed flag is enabled", :self_employed_flag do
+    it "does not ask about employment" do
+      expect(page).not_to have_content employment_question
+    end
+  end
 end

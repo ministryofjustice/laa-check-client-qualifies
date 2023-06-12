@@ -124,8 +124,15 @@ sections:
           type: boolean
         - attribute: partner_employment_status
           type: select
+          skip_if: self_employed_flag_enabled?
   - label: partner_income
     subsections:
+      - label: partner_employment
+        screen: partner_employment_status
+        fields:
+          - attribute: partner_employment_status
+            type: select
+            skip_unless: self_employed_flag_enabled?
       - label: partner_pay
         screen: partner_employment
         fields:

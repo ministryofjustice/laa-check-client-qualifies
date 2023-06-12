@@ -50,6 +50,10 @@ en:
           attributes:
             employment_status:
               inclusion: Select an employment status
+        partner_employment_status_form:
+          attributes:
+            employment_status:
+              inclusion: Select an employment status
         employment_form:
           attributes:
             gross_income:
@@ -687,6 +691,13 @@ en:
       in_work_including_self_employed_description_certificated: Including if your client is paid in cash, is a sole trader, is in a partnership, or gets Statutory Sick Pay or Statutory Maternity Pay
       unemployed: Unemployed
       unemployed_description: Including anyone without employment income, for example retired clients
+    partner_employment_status:
+      heading: What is the partner's employment status?
+      in_work_including_self_employed: Employed or self-employed
+      in_work_including_self_employed_description_controlled: Including if the partner is paid in cash, is a sole trader, is a company director, is in a partnership, or gets Statutory Sick Pay or Statutory Maternity Pay
+      in_work_including_self_employed_description_certificated: Including if the partner is paid in cash, is a sole trader, is in a partnership, or gets Statutory Sick Pay or Statutory Maternity Pay
+      unemployed: Unemployed
+      unemployed_description: Including anyone without employment income, for example retired partners
     employment:
       heading: Your client's pay
       second_caption: You can find this on your client's payslips
@@ -1194,6 +1205,12 @@ en:
           unemployed: Unemployed
           not_provided: Not provided
       partner_income: Partner income
+      partner_employment: Partner employment
+      partner_employment_fields:
+        partner_employment_status: Employment status
+        partner_employment_status_options:
+          in_work: Employed or self-employed
+          unemployed: Unemployed
       partner_pay: Partner pay
       partner_pay_fields:
         partner_gross_income: Gross pay
