@@ -17,6 +17,9 @@
   ul.govuk-list.govuk-list--bullet
     - t(".valid_case_types").each
       li = _1
+
+  p.govuk-body = t(".mental_health_html")
+
   h2.govuk-heading-m = t(".client_types")
   - if FeatureFlags.enabled?(:special_applicant_groups)
     h3.govuk-heading-s = t(".unacceptable_client_heading_under_18")
