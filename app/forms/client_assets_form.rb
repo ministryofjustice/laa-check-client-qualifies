@@ -9,6 +9,10 @@ class ClientAssetsForm < BaseAssetsForm
   attribute :savings_in_dispute, array: true, default: []
 
   def self.from_params(params, _session)
+    # puts 11111111
+    # pp params
+    # puts 222222
+    # pp _session
     relevant_params = params.fetch(name.underscore, {}).permit(*self::ATTRIBUTES, in_dispute:, property_in_dispute:, valuables_in_dispute:, investments_in_dispute:, savings_in_dispute: [])
     new(relevant_params)
   end

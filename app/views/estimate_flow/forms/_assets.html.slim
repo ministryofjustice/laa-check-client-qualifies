@@ -29,20 +29,9 @@
 
       = render "shared/cost_of_living"
 
-      = render "shared/money_input",
-              form:,
-              field: :savings,
-              width: 5,
-              label_text: t("estimate_flow.#{i18n_key}.savings.input")
-
-      - if show_smod_content
-        .govuk-form-group
-          = form.govuk_check_box :in_dispute, "savings",
-                  label: { text: t("generic.dispute") }
-
       . data-add-another-role="sectionList"
-      - @form.items.each_with_index do |assets, index|
-        = render "bank_account_section", removeable: index.positive?, model: assets, counter: index + 1
+        - @form.items.each_with_index do |assets, index|
+          = render "bank_account_section", removeable: index.positive?, model: assets, counter: index + 1
       .govuk-button-group
         button.govuk-button.govuk-button--secondary type="button" data-add-another-role="add" = t("estimate_flow.assets.savings.add")
 
