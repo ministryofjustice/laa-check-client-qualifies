@@ -323,12 +323,9 @@ jobs:
           template: basic_fail_1
 
 workflows:
-  open_new_pr:
+  run_ci:
     jobs:
-      - install_dependencies:
-          filters:
-            branches:
-              ignore: main
+      - install_dependencies
       - linters:
           requires:
             - install_dependencies
@@ -347,33 +344,6 @@ workflows:
             - linters
             - run_specs
             - end2end_tests
-            - build_and_push_to_ecr
-
-  merge_pr_to_main:
-    jobs:
-      - install_dependencies:
-          filters:
-            branches:
-              only: main
-      - linters:
-          requires:
-            - install_dependencies
-      - run_specs:
-          requires:
-            - install_dependencies
-      - build_and_push_to_ecr:
-          requires:
-            - install_dependencies
-      - end2end_tests:
-          requires:
-            - install_dependencies
-      - deploy_uat:
-          name: deploy_main_uat
-          context: laa-estimate-eligibility-uat
-          requires:
-            - run_specs
-            - end2end_tests
-            - linters
             - build_and_push_to_ecr
       - deploy_staging:
           context: laa-estimate-eligibility-staging
@@ -403,6 +373,7 @@ workflows:
             branches:
               only:
                 - main
+
   nightly:
     triggers:
       - schedule:
