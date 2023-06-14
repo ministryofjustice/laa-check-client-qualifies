@@ -161,7 +161,6 @@ jobs:
           event: fail
           template: basic_fail_1
           branch_pattern: main
-
   end2end_tests:
     executor: e2e-executor
     steps:
@@ -177,7 +176,6 @@ jobs:
           name: Run CFE End to End tests
           command: |
             COVERAGE=false bundle exec rspec -t end2end --format documentation spec/**/**_spec.rb
-
   linters:
     executor: basic-executor
     steps:
@@ -232,7 +230,10 @@ jobs:
           event: fail
           template: basic_fail_1
 
-  deploy_staging:
+  deploy:
+    parameters:
+      namespace:
+        type: string
     executor: cloud-platform-executor
     steps:
       - checkout
@@ -240,16 +241,16 @@ jobs:
           docker_layer_caching: true
       - *authenticate_k8s
       - deploy:
-          name: Deploy LAA Check-your-client-qualifies-for-legal-aid service to Staging
+          name: Deploy LAA Check-your-client-qualifies-for-legal-aid service to << parameters.namespace >>
           command: |
             helm upgrade check-client-qualifies ./helm_deploy/laa-estimate-eligibility/. \
                           --install --wait \
                           --namespace=${K8S_NAMESPACE} \
-                          --values ./helm_deploy/laa-estimate-eligibility/values/staging.yaml \
+                          --values ./helm_deploy/laa-estimate-eligibility/values/<< parameters.namespace >>.yaml \
                           --set image.repository="$ECR_ENDPOINT" \
                           --set image.tag="${CIRCLE_SHA1}"
       - slack/notify:
-          channel: eligibility-alerts-staging
+          channel: eligibility-alerts-<< parameters.namespace >>
           event: fail
           template: basic_fail_1
 
@@ -323,8 +324,11 @@ workflows:
             - linters
             - run_specs
             - end2end_tests
+            - linters
             - Build and push
-      - deploy_staging:
+      - deploy:
+          name: Deploy staging
+          namespace: staging
           context: laa-estimate-eligibility-staging
           requires:
             - run_specs
@@ -335,7 +339,9 @@ workflows:
             branches:
               only:
                 - main
-      - deploy_production:
+      - deploy:
+          name: Deploy production
+          namespace: production
           context: laa-estimate-eligibility-production
           requires:
             - run_specs
