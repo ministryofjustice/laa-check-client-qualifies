@@ -1,8 +1,8 @@
 #!/bin/sh
 
-deploy() {
-#  ECR_ENDPOINT is a CircleCI environment variable
-  IMG_REPO="$ECR_ENDPOINT"
+NAMESPACE=$1
+
+deploy_dynamic() {
 # Convert the branch name into a string that can be turned into a valid URL
   RELEASE_NAME=$(echo $CIRCLE_BRANCH | tr '[:upper:]' '[:lower:]' | sed 's:^\w*\/::' | tr -s ' _/[]().' '-' | cut -c1-18 | sed 's/-$//')
 # Set the deployment host, this will add the prefix of the branch name e.g el-257-deploy-with-circleci or just main
@@ -14,12 +14,26 @@ deploy() {
   helm upgrade $RELEASE_NAME ./helm_deploy/laa-estimate-eligibility/. \
                 --install --wait \
                 --namespace=${K8S_NAMESPACE} \
-                --values ./helm_deploy/laa-estimate-eligibility/values/uat.yaml \
-                --set image.repository="$IMG_REPO" \
+                --values ./helm_deploy/laa-estimate-eligibility/values/$NAMESPACE.yaml \
+                --set image.repository="$ECR_ENDPOINT" \
                 --set image.tag="$CIRCLE_SHA1" \
                 --set ingress.annotations."external-dns\.alpha\.kubernetes\.io/set-identifier"="$IDENTIFIER" \
                 --set ingress.hosts="{$RELEASE_HOST}" \
                 --set deploy.host="$RELEASE_HOST"
 }
 
-deploy
+deploy_static() {
+  helm upgrade check-client-qualifies ./helm_deploy/laa-estimate-eligibility/. \
+                          --install --wait \
+                          --namespace=${K8S_NAMESPACE} \
+                          --values ./helm_deploy/laa-estimate-eligibility/values/$NAMESPACE.yaml \
+                          --set image.repository="$ECR_ENDPOINT" \
+                          --set image.tag="${CIRCLE_SHA1}"
+}
+
+
+if [[ "$NAMESPACE" == "uat" ]]; then
+  deploy_dynamic
+else
+  deploy_static
+fi

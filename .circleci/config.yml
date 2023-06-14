@@ -214,22 +214,6 @@ jobs:
           event: fail
           template: basic_fail_1
 
-  deploy_uat:
-    executor: cloud-platform-executor
-    steps:
-      - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
-      - *authenticate_k8s
-      - deploy:
-          name: Deploy LAA Check-your-client-qualifies-for-legal-aid service to UAT
-          command: |
-            ./bin/uat_deployment
-      - slack/notify:
-          channel: eligibility-alerts-uat
-          event: fail
-          template: basic_fail_1
-
   deploy:
     parameters:
       namespace:
@@ -243,35 +227,9 @@ jobs:
       - deploy:
           name: Deploy LAA Check-your-client-qualifies-for-legal-aid service to << parameters.namespace >>
           command: |
-            helm upgrade check-client-qualifies ./helm_deploy/laa-estimate-eligibility/. \
-                          --install --wait \
-                          --namespace=${K8S_NAMESPACE} \
-                          --values ./helm_deploy/laa-estimate-eligibility/values/<< parameters.namespace >>.yaml \
-                          --set image.repository="$ECR_ENDPOINT" \
-                          --set image.tag="${CIRCLE_SHA1}"
+            ./bin/deploy << parameters.namespace >>
       - slack/notify:
           channel: eligibility-alerts-<< parameters.namespace >>
-          event: fail
-          template: basic_fail_1
-
-  deploy_production:
-    executor: cloud-platform-executor
-    steps:
-      - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
-      - *authenticate_k8s
-      - deploy:
-          name: Deploy LAA Check-your-client-qualifies-for-legal-aid service to Production
-          command: |
-            helm upgrade check-client-qualifies ./helm_deploy/laa-estimate-eligibility/. \
-                          --install --wait \
-                          --namespace=${K8S_NAMESPACE} \
-                          --values ./helm_deploy/laa-estimate-eligibility/values/production.yaml \
-                          --set image.repository="$ECR_ENDPOINT" \
-                          --set image.tag="${CIRCLE_SHA1}"
-      - slack/notify:
-          channel: eligibility-alerts-production
           event: fail
           template: basic_fail_1
 
@@ -318,7 +276,9 @@ workflows:
             branches:
               only:
                 - main
-      - deploy_uat:
+      - deploy:
+          name: Deploy UAT
+          namespace: uat
           context: laa-estimate-eligibility-uat
           requires:
             - linters
