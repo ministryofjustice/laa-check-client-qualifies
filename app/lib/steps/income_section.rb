@@ -2,7 +2,7 @@ module Steps
   class IncomeSection
     class << self
       def all_steps
-        %i[employment_status employment benefits benefit_details other_income]
+        %i[employment_status employment income benefits benefit_details other_income]
       end
 
       def grouped_steps_for(session_data)
@@ -19,7 +19,8 @@ module Steps
     private
 
       def employment_steps(session_data)
-        Steps::Group.new(:employment) if Steps::Logic.employed?(session_data)
+        key = FeatureFlags.enabled?(:self_employed) ? :income : :employment
+        Steps::Group.new(key) if Steps::Logic.employed?(session_data)
       end
 
       def employment_status_step

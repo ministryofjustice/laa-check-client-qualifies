@@ -1,5 +1,5 @@
 module CfeParamBuilders
-  class Employments
+  class EmploymentIncomes
     def self.call(employment_form, applicant_form)
       # CFE wants to infer frequency of payment from gaps between payments.
       # So we use our knowledge of frequency to generate three appropriately-spaced,

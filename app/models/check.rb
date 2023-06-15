@@ -92,4 +92,8 @@ class Check
       matter_type == "immigration"
     end
   end
+
+  def employed?
+    Steps::Logic.employed?(session_data)
+  end
 end

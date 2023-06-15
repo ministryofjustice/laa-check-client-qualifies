@@ -95,6 +95,25 @@ en:
               greater_than: Income tax must be 0 or more
             frequency:
               blank: Select how frequently the partner receives employment income
+        income_model:
+          attributes:
+            income_frequency:
+              inclusion: Select the frequency
+            income_type:
+              inclusion: Select the income type
+            gross_income:
+              blank: Enter the income amount
+              greater_than: Income amount must be more than 0
+              not_a_number: Income amount must be a number
+              net_income_must_be_positive: Income amount must be more than income tax and National Insurance combined
+            income_tax:
+              blank: Enter the income tax amount
+              greater_than: Income tax amount must be more than 0
+              not_a_number: Income tax amount must be a number
+            national_insurance:
+              blank: Enter the National Insurance amount
+              greater_than: National Insurance amount must be more than 0
+              not_a_number: National Insurance amount must be a number
         housing_benefit_form:
           attributes:
             housing_benefit:
@@ -500,6 +519,7 @@ en:
     tags:
       partner: Partner
       household: Household
+    or: or
   estimate_flow:
     aria_label:
       friends_or_family_value: Enter amount of financial help from friends or family
@@ -706,6 +726,84 @@ en:
       in_work_including_self_employed_description_certificated: Including if the partner is paid in cash, is a sole trader, is in a partnership, or gets Statutory Sick Pay or Statutory Maternity Pay
       unemployed: Unemployed
       unemployed_description: Including anyone without employment income, for example retired partners
+    income:
+      heading: Your client's employment income
+      hint: You can find this on your client's payslips
+      police_officer_heading: Clients who are police officers
+      police_officer_hint: "If your client is a police officer, the salary entered should include:"
+      police_officer_inclusions:
+        - any rent or force housing allowance the client gets
+        - any police compensatory grant the client gets
+      prisoner_heading: Clients in prison
+      prisoner_hint: "If your client is in prison, include any income they get from:"
+      prisoner_inclusions:
+        - the pre-release employment scheme
+        - outside employment where they are participating in a ‘working out’ scheme
+        - employment when released on temporary licence
+      foreign_resident_heading: Clients living outside the UK
+      foreign_resident_hints:
+        - If your client lives outside the UK, include all income tax payments they made.
+        - Only include UK National Insurance contributions.
+      armed_forces_heading: Clients in HM Forces
+      armed_forces_hint: "If your client is a member of HM Forces, include any of the following they get in the gross salary you enter:"
+      armed_forces_inclusions:
+        - Local Overseas Allowance
+        - Excess Rent Allowance
+        - London Allowance
+        - Overseas Child Benefit
+      select_type: What type of employment income is this?
+      types:
+        employment: A salary or wage
+        employment_controlled_hint: Including if your client is a self-employed company director or in a partnership and is paid as an employee
+        employment_certificated_hint: ""
+        statutory_pay: Statutory Sick Pay or Statutory Maternity Pay
+        statutory_pay_controlled_hint: ""
+        statutory_pay_certificated_hint: ""
+        self_employment: Self-employment income
+        self_employment_controlled_hint: For example, payment in cash, drawings or dividends or bonuses paid from a company account, and the value of any benefits in kind
+        self_employment_certificated_hint: For example, payment in cash, adjusted net profit or drawings
+      select_frequency: When does your client normally get this income?
+      frequency_controlled_hint: We’ll use this to calculate their monthly income. If they do not get income regularly, tell us how much they got in the last 3 months.
+      frequency_certificated_hint: We’ll use this to calculate their monthly income. If they do not get income regularly, tell us how much they got in the last 3 months, or in the last year.
+      frequencies:
+        every_week: Every week
+        every_two_weeks: Every 2 weeks
+        every_four_weeks: Every 4 weeks
+        monthly: Every month
+        three_months: Total in last 3 months
+        year: Total in the last year
+      gross_income: Income before any deductions
+      self_employed_clients:
+        hint_header: Self-employed clients, including clients paid in cash
+        controlled:
+          paragraph_1: If your client is self-employed, enter their drawings, dividends, bonuses or any benefits in kind from their business as their income.
+          paragraph_2: If your client is paid in cash, their drawings will be any money taken out of their earnings for personal use.
+        certificated:
+          first_paragraphs:
+            - If your client is a sole-trader, enter the taxable income figure from their latest self-assessment tax return, or the monthly net profit figure from their most recent set of accounts.
+            - "If these figures are unavailable, or the latest accounts are more than 18 months old:"
+          first_bullets:
+            - if turnover is less than £15,000, use your client’s estimate of their net profit
+            - if turnover is £15,000 or more, ask your client to provide the average net profit figure based on the previous 6 months' trading
+            - if the drawings exceed the declared net profits of the business, or the business is making a loss, use the value of any monthly drawings for personal use made by your client
+          second_paragraphs:
+            - If your client is in a partnership, enter the value of your client’s share of the taxable income figure from their latest self-assessment tax return, or their share of the business’ net profit from their most recent set of accounts.
+            - "If these figures are unavailable, or the latest accounts are more than 18 months old:"
+          second_bullets:
+            - if turnover is less than £15,000, use your client’s estimate of their share of net profit
+            - if turnover is £15,000 or more, ask your client to provide their share of the average net profit figure based on the previous 6 months' trading
+            - if the drawings exceed the declared net profits of the business, or the business is making a loss, use the value of any monthly drawings for personal use made by your client
+          last_paragraph: If your client is paid in cash, enter any money taken out of their earnings for personal use.
+      income_tax: Income tax
+      national_insurance: National insurance
+      add: Add another employment income
+      income: Income
+      police_guidance:
+        text: Guidance on police officer applicants
+        link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1157030/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_certificated_work_May_2023__002_.pdf#page=95
+    partner_income:
+      police_guidance:
+        text: Guidance on clients with police officer partners
     employment:
       heading: Your client's pay
       second_caption: You can find this on your client's payslips
@@ -739,9 +837,6 @@ en:
         - Excess Rent Allowance
         - London Allowance
         - Overseas Child Benefit
-      police_guidance:
-        text: Guidance on police officer applicants
-        link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1157030/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_certificated_work_May_2023__002_.pdf#page=95
     partner_employment:
       heading: The partner's pay
       second_caption: You can find this on the partner's payslips.
@@ -769,8 +864,6 @@ en:
         - Excess Rent Allowance
         - London Allowance
         - Overseas Child Benefit
-      police_guidance:
-        text: Guidance on clients with police officer partners
     housing_costs:
       heading: Housing costs
       heading_hint:
@@ -1193,6 +1286,26 @@ en:
           four_weeks: Every 4 weeks
           monthly: Every month
           not_provided: Not provided
+      client_employment_income: Client employment income
+      income_fields:
+        income_type: Income type
+        income_type_options:
+          employment: Salary or wage
+          statutory_pay: Statutory Sick Pay or Statutory Maternity Pay
+          self_employment: Self-employment income
+        income_frequency: Frequency
+        income_frequency_options:
+          year: Total in last year
+          three_months: Total in last 3 months
+          every_week: Every week
+          every_two_weeks: Every 2 weeks
+          every_four_weeks: Every 4 weeks
+          monthly: Every month
+          not_provided: Not provided
+        gross_income: Gross income
+        income_tax: Income tax
+        national_insurance: National Insurance
+        additional_income: Additional employment income %{number}
       benefits: Client benefits
       benefits_fields:
         receives_benefits: Gets benefits

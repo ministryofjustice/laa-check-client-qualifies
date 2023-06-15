@@ -4,7 +4,15 @@ module CheckAnswers
     Subsection = Struct.new(:label, :screen, :fields, keyword_init: true)
     Field = Struct.new(:label, :type, :value, :alt_value, :disputed?, :label_variable, keyword_init: true)
 
-    SUBSECTION_SPECIAL_CASES = %i[benefits partner_benefits household_vehicles assets partner_assets].freeze
+    SUBSECTION_SPECIAL_CASES = %i[
+      client_employment_income
+      partner_employment_income
+      benefits
+      partner_benefits
+      household_vehicles
+      assets
+      partner_assets
+    ].freeze
 
     def self.call(session_data)
       new(session_data).call
@@ -76,6 +84,14 @@ module CheckAnswers
                 alt_value: @session_data[field_data[:alt_attribute]])
     end
 
+    def client_employment_income_fields
+      if Steps::Helper.valid_step?(@model.session_data, :income)
+        income_fields(@session_data["incomes"])
+      else
+        []
+      end
+    end
+
     def benefits_fields
       if Steps::Helper.valid_step?(@model.session_data, :benefits)
         benefits_fields_common(session_key: "benefits")
@@ -90,6 +106,23 @@ module CheckAnswers
       else
         []
       end
+    end
+
+    def income_fields(data)
+      return [] if data.blank?
+
+      sets = data.each_with_index.map do |income, index|
+        [
+          (Field.new(label: "income_fields.additional_income", type: "header", value: index) if index.positive?),
+          Field.new(label: "income_fields.income_type", type: "select", value: income["income_type"]),
+          Field.new(label: "income_fields.income_frequency", type: "select", value: income["income_frequency"]),
+          Field.new(label: "income_fields.gross_income", type: "money", value: income["gross_income"]),
+          Field.new(label: "income_fields.income_tax", type: "money", value: income["income_tax"]),
+          Field.new(label: "income_fields.national_insurance", type: "money", value: income["national_insurance"]),
+        ].compact
+      end
+
+      sets.flatten
     end
 
     def benefits_fields_common(session_key:)

@@ -36,7 +36,7 @@ module Cfe
       return [] unless relevant_form?(:partner_employment)
 
       form = instantiate_form(PartnerEmploymentForm)
-      CfeParamBuilders::Employments.call(form, @partner_details_form)
+      CfeParamBuilders::EmploymentIncomes.call(form, @partner_details_form)
     end
 
     def regular_transactions

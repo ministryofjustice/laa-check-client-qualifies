@@ -120,7 +120,7 @@ RSpec.describe "Household section flow", type: :feature do
       fill_in_applicant_screen(partner: "No", passporting: "No")
       fill_in_dependant_details_screen
       fill_in_employment_status_screen(choice: "Employed or self-employed")
-      confirm_screen("employment")
+      confirm_screen("income")
     end
   end
 end

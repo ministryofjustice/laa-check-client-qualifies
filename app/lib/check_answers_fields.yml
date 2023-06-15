@@ -110,6 +110,8 @@ sections:
           type: money
         - attribute: national_insurance
           type: money
+      - label: client_employment_income
+        screen: income
       - label: benefits
         screen: benefits
       - label: other_income
