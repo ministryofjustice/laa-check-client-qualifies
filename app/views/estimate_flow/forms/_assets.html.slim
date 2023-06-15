@@ -48,7 +48,7 @@
 
       - if show_smod_content
         .govuk-form-group
-          = form.govuk_check_box :in_dispute, "investments",
+          = form.govuk_check_box :investments_in_dispute, true, 0,
                   label: { text: t("generic.dispute") }
 
     = form.govuk_fieldset legend: { text: t("estimate_flow.#{i18n_key}.valuables.label") } do
@@ -64,7 +64,7 @@
 
       - if show_smod_content
         .govuk-form-group
-          = form.govuk_check_box :in_dispute, "valuables",
+          = form.govuk_check_box :valuables_in_dispute, true, 0,
                   label: { text: t("generic.dispute") }
 
     - if show_smod_content

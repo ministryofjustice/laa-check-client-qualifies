@@ -3,7 +3,17 @@ class BaseAssetsForm < BaseAddAnotherForm
   include ActiveModel::Attributes
   include NumberValidatable
 
-  BASE_ATTRIBUTES = %i[savings investments valuables].freeze
+  BASE_ATTRIBUTES = %i[investments valuables].freeze
+
+  ATTRIBUTES = (BASE_ATTRIBUTES + %i[investments_in_dispute valuables_in_dispute]).freeze
+
+  delegate :smod_applicable?, to: :check
+
+  attribute :investments_in_dispute, :boolean
+  validates :investments_in_dispute, inclusion: { in: [true, false] }, allow_nil: false, if: :smod_applicable?
+
+  attribute :valuables_in_dispute, :boolean
+  validates :valuables_in_dispute, inclusion: { in: [true, false] }, allow_nil: false, if: :smod_applicable?
 
   SESSION_KEY = "savings".freeze
   ITEM_MODEL = BankAccountModel
