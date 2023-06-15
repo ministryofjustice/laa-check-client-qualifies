@@ -72,6 +72,8 @@ env:
     value: {{ .Values.featureFlags.specialApplicantGroups }}
   - name: SELF_EMPLOYED_FEATURE_FLAG
     value: {{ .Values.featureFlags.selfEmployed }}
+  - name: FEATURE_FLAG_OVERRIDES
+    value: {{ .Values.featureFlags.overrides }}
   - name: NOTIFICATIONS_API_KEY
     valueFrom:
       secretKeyRef:
