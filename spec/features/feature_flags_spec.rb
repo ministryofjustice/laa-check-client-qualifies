@@ -1,6 +1,12 @@
 require "rails_helper"
 
 RSpec.describe "Feature flags" do
+  around do |example|
+    ENV["FEATURE_FLAG_PASSWORD"] = "password"
+    example.run
+    ENV["FEATURE_FLAG_PASSWORD"] = nil
+  end
+
   context "when in readonly mode" do
     before do
       allow(FeatureFlags).to receive(:static).and_return(%i[static_flag])
@@ -17,7 +23,7 @@ RSpec.describe "Feature flags" do
     end
 
     scenario "I cannot view the form to edit feature flags" do
-      page.driver.browser.basic_authorize("flags", "")
+      page.driver.browser.basic_authorize("flags", "password")
       visit edit_feature_flag_path("sentry")
       expect(page).to have_current_path "/"
     end
@@ -30,8 +36,13 @@ RSpec.describe "Feature flags" do
       ENV["FEATURE_FLAG_OVERRIDES"] = nil
     end
 
+    scenario "I can't access the edit screen without a password" do
+      visit edit_feature_flag_path("sentry")
+      expect(page).to have_content "HTTP Basic: Access denied."
+    end
+
     scenario "I edit a feature flag" do
-      page.driver.browser.basic_authorize("flags", "")
+      page.driver.browser.basic_authorize("flags", "password")
       visit feature_flags_path
       expect(page).to have_content "sentryNo"
       expect(FeatureFlags.enabled?(:sentry)).to eq false

@@ -1,5 +1,5 @@
 class FeatureFlagsController < ApplicationController
-  http_basic_authenticate_with name: "flags", password: ENV.fetch("FEATURE_FLAGS_PASSWORD", SecureRandom.uuid), except: :index
+  before_action :authenticate, except: :index
   before_action :check_flags_overrideable, only: %i[edit update]
 
   def index; end
@@ -18,5 +18,14 @@ private
 
   def check_flags_overrideable
     redirect_to root_path unless FeatureFlags.overrideable?
+  end
+
+  def authenticate
+    return true if authenticate_with_http_basic do |username, password|
+      username == "flags" && password == ENV.fetch("FEATURE_FLAG_PASSWORD", SecureRandom.uuid)
+    end
+
+    request_http_basic_authentication
+    false
   end
 end
