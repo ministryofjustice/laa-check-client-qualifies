@@ -52,7 +52,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
-        "Check Box21" => "Yes", # Not passporting
+        "Check Box12" => "No", # Not passporting
         "Go to question 2" => "No", # Asylum supported not given
         "Please complete Part A Capital Subject matter of dispute" => "No_4", # No SMOD
         "Please provide details of both clients and partners means" => "Yes_3", # Has a partner
@@ -125,7 +125,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
-        "Check Box21" => "Yes", # Not passporting
+        "Check Box12" => "No", # Not passporting
         "Go to question 2" => "No", # Asylum supported not given
         "Please complete Part A Capital Subject matter of dispute" => "Yes_5", # SMOD
         "Please provide details of both clients and partners means" => "No_2", # No partner
@@ -183,7 +183,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
-        "Check Box21" => nil, # Not passporting
+        "Check Box12" => nil, # Passporting not relevant
         "Go to question 2" => "Yes_2", # Asylum supported
         "Please complete Part A Capital Subject matter of dispute" => nil, # SMOD not relevant
         "undefined_42" => nil, # Valuables not relevant
@@ -229,7 +229,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
-        "Check Box21" => "Yes", # Not passporting
+        "Check Box12" => "No", # Not passporting
         "Go to question 2" => "No", # Asylum supported not given
         "Please complete Part A Capital Subject matter of dispute" => "Yes_5", # SMOD
         "Please provide details of both clients and partners means" => "Yes_3", # Has a partner
