@@ -161,7 +161,6 @@ jobs:
           event: fail
           template: basic_fail_1
           branch_pattern: main
-
   end2end_tests:
     executor: e2e-executor
     steps:
@@ -177,7 +176,6 @@ jobs:
           name: Run CFE End to End tests
           command: |
             COVERAGE=false bundle exec rspec -t end2end --format documentation spec/**/**_spec.rb
-
   linters:
     executor: basic-executor
     steps:
@@ -216,7 +214,10 @@ jobs:
           event: fail
           template: basic_fail_1
 
-  deploy_uat:
+  deploy:
+    parameters:
+      namespace:
+        type: string
     executor: cloud-platform-executor
     steps:
       - checkout
@@ -224,53 +225,11 @@ jobs:
           docker_layer_caching: true
       - *authenticate_k8s
       - deploy:
-          name: Deploy LAA Check-your-client-qualifies-for-legal-aid service to UAT
+          name: Deploy LAA Check-your-client-qualifies-for-legal-aid service to << parameters.namespace >>
           command: |
-            ./bin/uat_deployment
+            ./bin/deploy << parameters.namespace >>
       - slack/notify:
-          channel: eligibility-alerts-uat
-          event: fail
-          template: basic_fail_1
-
-  deploy_staging:
-    executor: cloud-platform-executor
-    steps:
-      - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
-      - *authenticate_k8s
-      - deploy:
-          name: Deploy LAA Check-your-client-qualifies-for-legal-aid service to Staging
-          command: |
-            helm upgrade check-client-qualifies ./helm_deploy/laa-estimate-eligibility/. \
-                          --install --wait \
-                          --namespace=${K8S_NAMESPACE} \
-                          --values ./helm_deploy/laa-estimate-eligibility/values/staging.yaml \
-                          --set image.repository="$ECR_ENDPOINT" \
-                          --set image.tag="${CIRCLE_SHA1}"
-      - slack/notify:
-          channel: eligibility-alerts-staging
-          event: fail
-          template: basic_fail_1
-
-  deploy_production:
-    executor: cloud-platform-executor
-    steps:
-      - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
-      - *authenticate_k8s
-      - deploy:
-          name: Deploy LAA Check-your-client-qualifies-for-legal-aid service to Production
-          command: |
-            helm upgrade check-client-qualifies ./helm_deploy/laa-estimate-eligibility/. \
-                          --install --wait \
-                          --namespace=${K8S_NAMESPACE} \
-                          --values ./helm_deploy/laa-estimate-eligibility/values/production.yaml \
-                          --set image.repository="$ECR_ENDPOINT" \
-                          --set image.tag="${CIRCLE_SHA1}"
-      - slack/notify:
-          channel: eligibility-alerts-production
+          channel: eligibility-alerts-<< parameters.namespace >>
           event: fail
           template: basic_fail_1
 
@@ -317,14 +276,19 @@ workflows:
             branches:
               only:
                 - main
-      - deploy_uat:
+      - deploy:
+          name: Deploy UAT
+          namespace: uat
           context: laa-estimate-eligibility-uat
           requires:
             - linters
             - run_specs
             - end2end_tests
+            - linters
             - Build and push
-      - deploy_staging:
+      - deploy:
+          name: Deploy staging
+          namespace: staging
           context: laa-estimate-eligibility-staging
           requires:
             - run_specs
@@ -335,7 +299,9 @@ workflows:
             branches:
               only:
                 - main
-      - deploy_production:
+      - deploy:
+          name: Deploy production
+          namespace: production
           context: laa-estimate-eligibility-production
           requires:
             - run_specs
