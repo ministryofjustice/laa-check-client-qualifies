@@ -60,7 +60,8 @@ class Check
     return false unless smod_applicable?
 
     house_in_dispute ||
-      in_dispute.present? ||
+      investments_in_dispute ||
+      valuables_in_dispute ||
       additional_house_in_dispute ||
       vehicles&.any?(&:vehicle_in_dispute) ||
       false

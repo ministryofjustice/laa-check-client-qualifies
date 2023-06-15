@@ -27,10 +27,6 @@ class BaseAddAnotherForm
     end
 
     def from_params(params, session_data)
-      puts 66666666666
-      puts 66666666666
-      puts 66666666666
-      binding.pry
       form = new
       form.items = params.dig(self::ITEM_MODEL.name.underscore, "items").values.map do |attributes|
         self::ITEM_MODEL.from_session(attributes).tap { add_session_attributes(_1, session_data) }
@@ -54,7 +50,6 @@ class BaseAddAnotherForm
 private
 
   def items_valid?
-    # binding.pry
     return if items.all?(&:valid?)
 
     items.each_with_index do |item, index|

@@ -25,15 +25,11 @@ module SessionPersistable
     end
 
     def attributes_from_session(session_data)
-      session_data.slice(*session_attribute_keys)
+      session_data.slice(*session_keys)
     end
 
     def attributes_from_params(params)
       params.fetch(name.underscore, {}).permit(*self::ATTRIBUTES)
-    end
-
-    def session_attribute_keys
-      self::ATTRIBUTES.map(&:to_s)
     end
 
     def session_keys
