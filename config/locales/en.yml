@@ -628,7 +628,8 @@ en:
         hint: Clients aged 60 or over may have some of their capital excluded from a financial eligibility assessment.
       employed:
         legend: What is your client's employment status?
-        hint: "You cannot use this service if your client, or their partner, is self-employed or in the armed forces."
+        hint: "You cannot use this service if your client, or their partner, is self-employed."
+        hint_no_special_applicants: "You cannot use this service if your client, or their partner, is self-employed or in the armed forces."
       passporting:
         legend: Does your client receive a passporting benefit?
         partner_hint: Also select yes if your client is named on their partner’s passporting benefit claim.
@@ -651,7 +652,8 @@ en:
         hint: Clients with partners aged 60 or over may have some of their capital excluded from a financial eligibility assessment.
       partner_employed:
         legend: What is the partner's employment status?
-        hint: "You cannot use this service if your client or their partner is self-employed or in the armed forces."
+        hint: "You cannot use this service if your client or their partner is self-employed."
+        hint_no_special_applicants: "You cannot use this service if your client or their partner is self-employed or in the armed forces."
     dependant_details:
       legend: Tell us about your client's dependants
       legend_with_partner: Tell us about your client and their partner's dependants
@@ -1953,6 +1955,12 @@ en:
         text: "Changes to simplify the question flow for clients who have a partner: "
         bullets:
           - introduction of household questions (for dependants, housing costs, property and vehicles)
+    special_applicants:
+      history:
+        text: "Additional guidance added to support clients in specific circumstances:"
+        bullets:
+          - prisoners, police officers, members of HM Forces, clients who are bankrupt and clients who live outside the UK
+          - clarification on when the finances of applicants under 18 are assessed
   controlled_work_document_selections:
     new:
       title: Which controlled work (CW) form do you need?

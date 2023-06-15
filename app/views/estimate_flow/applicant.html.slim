@@ -36,9 +36,10 @@
       = form.govuk_radio_button :partner, false, label: { text: t("generic.no_choice") }
 
     - unless FeatureFlags.enabled?(:self_employed)
+      - hint_key = FeatureFlags.enabled?(:special_applicant_groups) ? "hint" : "hint_no_special_applicants"
       = form.govuk_collection_radio_buttons :employment_status, employment_options, :first, :last,
                                             legend: { text: t(".employed.legend") },
-                                            hint: { text: t(".employed.hint") }
+                                            hint: { text: t(".employed.#{hint_key}") }
 
     = form.govuk_collection_radio_buttons :passporting, yes_no_options, :first, :last,
                                           legend: { text: t(".passporting.legend") },
