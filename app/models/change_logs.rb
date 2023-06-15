@@ -20,7 +20,7 @@ class ChangeLogs
     end
 
     def occurred
-      CHANGE_LOG.select { Time.current.beginning_of_day >= _1[:change_on] }.sort_by { _1[:change_on] }.reverse
+      CHANGE_LOG.select { Time.current.beginning_of_day >= _1[:change_on] }.sort_by { _1[:change_on].to_date }.reverse
     end
   end
 end
