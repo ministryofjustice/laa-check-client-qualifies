@@ -52,7 +52,7 @@ def fill_in_dependant_details_screen(options = {})
   click_on "Save and continue"
 end
 
-def fill_in_employment_status_screen(choice: "Employed or self-employed", screen_name: :employment_status)
+def fill_in_employment_status_screen(choice: "Unemployed", screen_name: :employment_status)
   confirm_screen screen_name
   choose choice, name: "#{screen_name}_form[employment_status]"
   click_on "Save and continue"
@@ -194,6 +194,10 @@ end
 
 def fill_in_partner_employment_screen
   fill_in_employment_screen(screen_name: :partner_employment)
+end
+
+def fill_in_partner_employment_status_screen(choice: "Unemployed")
+  fill_in_employment_status_screen(screen_name: :partner_employment_status, choice:)
 end
 
 def fill_in_partner_benefits_screen(choice: "No")

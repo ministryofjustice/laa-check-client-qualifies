@@ -16,7 +16,7 @@
             legend: { text: t("estimate_flow.partner_details.partner_over_60.legend") },
             hint: { text: t("estimate_flow.partner_details.partner_over_60.hint") }
 
-    - unless @check.passporting
+    - if !@check.passporting && !FeatureFlags.enabled?(:self_employed)
       = form.govuk_collection_radio_buttons :employment_status, employment_options, :first, :last,
                   legend: { text: t("estimate_flow.partner_details.partner_employed.legend") },
                   hint: { text: t("estimate_flow.partner_details.partner_employed.hint") }

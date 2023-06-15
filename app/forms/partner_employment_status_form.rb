@@ -1,0 +1,3 @@
+class PartnerEmploymentStatusForm < EmploymentStatusForm
+  include SessionPersistableForPartner
+end

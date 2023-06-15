@@ -12,6 +12,7 @@ module CheckAnswers
       benefit_details: "subsection-benefits-header",
       other_income: "subsection-other_income-header",
       partner_details: "section-partner_details-header",
+      partner_employment_status: "subsection-partner_employment-header",
       partner_employment: "subsection-partner_pay-header",
       partner_benefits: "subsection-partner_benefits-header",
       partner_benefit_details: "subsection-partner_benefits-header",

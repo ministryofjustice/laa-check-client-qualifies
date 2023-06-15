@@ -3,6 +3,7 @@ module Steps
     class << self
       def all_steps
         %i[partner_details
+           partner_employment_status
            partner_employment
            partner_benefits
            partner_benefit_details
@@ -17,6 +18,7 @@ module Steps
           [Steps::Group.new(:partner_details)]
         else
           [Steps::Group.new(:partner_details),
+           employment_status_step,
            employment_steps(session_data),
            benefit_steps(session_data),
            Steps::Group.new(:partner_other_income)].compact
@@ -24,6 +26,10 @@ module Steps
       end
 
     private
+
+      def employment_status_step
+        Steps::Group.new(:partner_employment_status) if FeatureFlags.enabled?(:self_employed)
+      end
 
       def employment_steps(session_data)
         Steps::Group.new(:partner_employment) if Steps::Logic.partner_employed?(session_data)

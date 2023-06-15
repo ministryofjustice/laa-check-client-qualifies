@@ -58,7 +58,7 @@ featureFlags:
   sentry: ENABLED
   cwForms: ENABLED
   specialApplicantGroups: ENABLED
-  selfEmployed: NOT_ENABLED
+  selfEmployed: ENABLED
 
 postgresql:
   enabled: true
