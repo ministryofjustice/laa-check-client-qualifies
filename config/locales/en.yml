@@ -1148,7 +1148,7 @@ en:
         immigration_or_asylum_type: Type of matter
         immigration_or_asylum_type_options:
           immigration_clr: Immigration – CLR in the First-tier Tribunal
-          immigration_legal_help: Immigration – Legal help or help at court
+          immigration_legal_help: Immigration – legal help or help at court
           asylum: Asylum
       asylum_support: Asylum support
       asylum_support_fields:
