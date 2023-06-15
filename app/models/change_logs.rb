@@ -1,8 +1,7 @@
 class ChangeLogs
   UPDATES = [
     { key: :household_flow, change_on: "2023-6-6" },
-    # N.B. Date below is TBC
-    { key: :special_applicants, change_on: "2023-6-7" },
+    { key: :special_applicants, change_on: "2023-6-15" },
   ].freeze
 
   BANNERS = [
