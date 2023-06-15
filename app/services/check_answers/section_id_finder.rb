@@ -3,6 +3,8 @@ module CheckAnswers
     IDS = {
       level_of_help: "section-level_of_help-header",
       matter_type: "section-about_the_case-header",
+      immigration_or_asylum: "section-about_the_case-header",
+      immigration_or_asylum_type: "section-about_the_case-header",
       asylum_support: "subsection-asylum_support-header",
       applicant: "section-client_details-header",
       dependant_details: "section-dependants-header",

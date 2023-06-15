@@ -56,7 +56,7 @@ RSpec.describe "estimates/show.html.slim" do
             disputed_non_property_disregard: 0,
             pensioner_disregard_applied: 0,
             proceeding_types: [
-              { "ccms_code": "SE013",
+              { "ccms_code": "SE003",
                 "client_involvement_type": "I",
                 "upper_threshold": 2657.0,
                 "lower_threshold": 0.0,

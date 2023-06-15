@@ -3,7 +3,6 @@ class ApplicantForm
   include ActiveModel::Attributes
   include SessionPersistable
 
-  PROCEEDING_TYPES = { domestic_abuse: "DA001", other: "SE003" }.freeze
   EMPLOYED_STATUSES = %i[in_work receiving_statutory_pay].freeze
   EMPLOYMENT_STATUSES = (EMPLOYED_STATUSES + %i[unemployed]).freeze
 

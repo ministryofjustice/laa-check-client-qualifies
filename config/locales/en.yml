@@ -12,8 +12,16 @@ en:
               inclusion: Select if your client receives section 4 or section 95 Asylum Support
         matter_type_form:
           attributes:
-            proceeding_type:
+            matter_type:
               blank: Select what type of matter this is
+        immigration_or_asylum_form:
+          attributes:
+            immigration_or_asylum:
+              inclusion: Select yes if this is an immigration or asylum matter
+        immigration_or_asylum_type_form:
+          attributes:
+            immigration_or_asylum_type:
+              blank: Select what type of immigration or asylum matter this is
         partner_details_form:
           attributes:
             employment_status:
@@ -551,10 +559,8 @@ en:
       tribunal_guidance_link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf
     matter_type:
       title: Which type of matter is this?
-      immigration_controlled: Legal representation for an immigration matter (First-tier Tribunal)
-      asylum_controlled: Legal help or help at court for an immigration or asylum matter, or legal representation for an asylum matter (First-tier Tribunal)
-      immigration_certificated: Immigration (Upper Tribunal)
-      asylum_certificated: Asylum (Upper Tribunal)
+      immigration: Immigration (Upper Tribunal)
+      asylum: Asylum (Upper Tribunal)
       other: Another category of law
       domestic_abuse: Domestic abuse
       domestic_abuse_hint: Upper eligibility limits are waived if your client is an applicant in a domestic abuse matter
@@ -574,17 +580,18 @@ en:
       asylum_certificated_paragraph_two_html: Guidance for this is in paragraphs 24 to 30, 32(1) and 32A(1) of Part 1 of Schedule 1 to the <a href='https://www.legislation.gov.uk/ukpga/2012/10/schedule/1' target='_blank' rel='noreferrer noopener'>Legal Aid, Sentencing and Punishment of Offenders Act 2012</a> (LASPO).
       domestic_abuse_header: Domestic abuse
       domestic_abuse_paragraph: This must be for legal representation for a domestic abuse matter (injunction or other order for protection from harm, or committal for breach), FGM protection order, or forced marriage protection order.
-      immigration_header_controlled: Legal representation for an immigration matter
-      immigration_controlled_paragraph_one: This must be for legal representation for an immigration matter in the Immigration and Asylum Chamber of the First-tier Tribunal.
-      immigration_controlled_paragraph_two_html: Guidance for this is in paragraphs 25 to 29, 32(1), 32A(1) of Part 1 of Schedule 1 to the <a href='https://www.legislation.gov.uk/ukpga/2012/10/schedule/1' target='_blank' rel='noreferrer noopener'>Legal Aid, Sentencing and Punishment of Offenders Act 2012</a> (LASPO).
-      asylum_header_controlled: Legal help or help at court for an immigration or asylum matter, or legal representation for an asylum matter
-      asylum_controlled_paragraph_one: "This covers:"
-      asylum_controlled_bullets:
-        - legal help for an immigration or asylum matter
-        - help at court for an immigration or asylum matter
-        - legal representation for an asylum matter in the Immigration and Asylum Chamber of the First-tier Tribunal
-      asylum_controlled_paragraph_two_html: Guidance for this is in paragraphs 24 to 30, 32(1) and 32A(1) of Part 1 of Schedule 1 to the <a href='https://www.legislation.gov.uk/ukpga/2012/10/schedule/1' target='_blank' rel='noreferrer noopener'>Legal Aid, Sentencing and Punishment of Offenders Act 2012</a> (LASPO).
       select_a_matter_type: Select a matter type
+    immigration_or_asylum:
+      title: Is this an immigration or asylum matter?
+    immigration_or_asylum_type:
+      title: What type of immigration or asylum matter is this?
+      hint_html: Guidance for these matters is in paragraphs 24 to 30, 32(1) and 32A(1) of Part 1 of Schedule 1 to the <a href="https://www.legislation.gov.uk/ukpga/2012/10/schedule/1" target="_blank" rel="noreferrer noopener">Legal Aid, Sentencing and Punishment of Offenders Act 2012</a> (LASPO).
+      immigration_clr: Immigration - controlled legal representation (CLR) in the First-tier Tribunal
+      immigration_legal_help: Immigration - legal help or help at court
+      asylum: Asylum - legal help, help at court, or controlled legal representation (CLR) in the First-tier Tribunal
+      legacy_case_guidance:
+        text: Guidance on legacy case Appeals and Reviews in the Upper Tribunal
+        link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1157029/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_controlled_work_and_family_mediation_May_2023.pdf#page=3
     applicant:
       passporting_guidance:
         text: Guidance on passporting
@@ -1130,18 +1137,19 @@ en:
           not_provided: Not provided
       about_the_case: Case details
       about_the_case_fields:
-        proceeding_type: Type of matter
-        proceeding_type_options:
-          IM030_certificated: Immigration in the Upper Tribunal
-          IM030_controlled: Immigration in the First-tier Tribunal
-          IA031_certificated: Asylum in the Upper Tribunal
-          IA031_controlled: Another immigration or asylum matter
-          SE003_certificated: Another category of law
-          SE003_controlled: Another category of law
-          DA001_certificated: Domestic abuse
+        matter_type: Type of matter
+        matter_type_options:
+          immigration: Immigration in the Upper Tribunal
+          asylum: Asylum in the Upper Tribunal
+          other: Another category of law
+          domestic_abuse: Domestic abuse
           not_provided: "Not provided"
-          not_provided_controlled: "Not provided"
-          not_provided_certificated: "Not provided"
+        immigration_or_asylum: Immigration or asylum
+        immigration_or_asylum_type: Type of matter
+        immigration_or_asylum_type_options:
+          immigration_clr: Immigration – CLR in the First-tier Tribunal
+          immigration_legal_help: Immigration – legal help or help at court
+          asylum: Asylum
       asylum_support: Asylum support
       asylum_support_fields:
         asylum_support: Receives asylum support

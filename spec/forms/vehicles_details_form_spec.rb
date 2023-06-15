@@ -31,7 +31,7 @@ RSpec.describe "vehicles_details", type: :feature do
   end
 
   context "when this is an immigration check" do
-    let(:session_data) { { "level_of_help" => "controlled", "proceeding_type" => "IM030" } }
+    let(:session_data) { { "level_of_help" => "controlled", "immigration_or_asylum" => true, "immigration_or_asylum_type" => "immigration_clr" } }
 
     it "does not show SMOD guidance" do
       expect(page).not_to have_content "Guidance on subject matter of dispute"

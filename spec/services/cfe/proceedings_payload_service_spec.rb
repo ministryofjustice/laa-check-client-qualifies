@@ -5,21 +5,94 @@ RSpec.describe Cfe::ProceedingsPayloadService do
   let(:payload) { {} }
 
   describe ".call" do
-    let(:session_data) do
-      {
-        "level_of_help" => "controlled",
-        "proceeding_type" => "bar",
-      }
+    context "when checking a certificated case" do
+      let(:session_data) do
+        {
+          "level_of_help" => "certificated",
+          "matter_type" => "other",
+        }
+      end
+
+      it "uses the relevant proceeding type" do
+        service.call(session_data, payload)
+        expect(payload[:proceeding_types]).to eq(
+          [{
+            ccms_code: "SE003",
+            client_involvement_type: "A",
+          }],
+        )
+      end
     end
 
-    it "uses the specified proceeding type" do
-      service.call(session_data, payload)
-      expect(payload[:proceeding_types]).to eq(
-        [{
-          ccms_code: "bar",
-          client_involvement_type: "A",
-        }],
-      )
+    context "when checking a controlled non-immigration/asylum case" do
+      let(:session_data) do
+        {
+          "level_of_help" => "controlled",
+          "immigration_or_asylum" => false,
+        }
+      end
+
+      it "uses the 'other' proceeding type" do
+        service.call(session_data, payload)
+        expect(payload[:proceeding_types]).to eq(
+          [{
+            ccms_code: "SE003",
+            client_involvement_type: "A",
+          }],
+        )
+      end
+    end
+
+    context "when checking a controlled immigration/asylum case" do
+      let(:session_data) do
+        {
+          "level_of_help" => "controlled",
+          "immigration_or_asylum" => true,
+          "immigration_or_asylum_type" => immigration_or_asylum_type,
+        }
+      end
+
+      context "when immigration or asylum type is CLR" do
+        let(:immigration_or_asylum_type) { "immigration_clr" }
+
+        it "uses the 'immigration' proceeding type" do
+          service.call(session_data, payload)
+          expect(payload[:proceeding_types]).to eq(
+            [{
+              ccms_code: "IM030",
+              client_involvement_type: "A",
+            }],
+          )
+        end
+      end
+
+      context "when immigration or asylum type is legal help" do
+        let(:immigration_or_asylum_type) { "immigration_legal_help" }
+
+        it "uses the 'immigration' proceeding type" do
+          service.call(session_data, payload)
+          expect(payload[:proceeding_types]).to eq(
+            [{
+              ccms_code: "IA031",
+              client_involvement_type: "A",
+            }],
+          )
+        end
+      end
+
+      context "when immigration or asylum type is asylum" do
+        let(:immigration_or_asylum_type) { "asylum" }
+
+        it "uses the 'immigration' proceeding type" do
+          service.call(session_data, payload)
+          expect(payload[:proceeding_types]).to eq(
+            [{
+              ccms_code: "IA031",
+              client_involvement_type: "A",
+            }],
+          )
+        end
+      end
     end
   end
 end

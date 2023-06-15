@@ -6,7 +6,7 @@ RSpec.describe JourneyLoggerService do
     let(:calculation_result) { CalculationResult.new("api_response" => api_result) }
     let(:api_result) { FactoryBot.build(:api_result) }
     let(:check) { Check.new(session_data) }
-    let(:session_data) { { level_of_help: "controlled", proceeding_type: "IA031" }.with_indifferent_access }
+    let(:session_data) { { level_of_help: "controlled", immigration_or_asylum: true, immigration_or_asylum_type: "asylum" }.with_indifferent_access }
 
     it "handles errors without crashing" do
       expect(ErrorService).to receive(:call)
@@ -95,7 +95,7 @@ RSpec.describe JourneyLoggerService do
       let(:session_data) do
         {
           level_of_help: "certificated",
-          proceeding_type: "IM030",
+          matter_type: "immigration",
           property_owned: "with_mortgage",
           house_in_dispute: true,
           asylum_support: false,
@@ -113,7 +113,7 @@ RSpec.describe JourneyLoggerService do
         let(:session_data) do
           {
             level_of_help: "certificated",
-            proceeding_type: "IM030",
+            matter_type: "immigration",
             asylum_support: true,
           }.with_indifferent_access
         end

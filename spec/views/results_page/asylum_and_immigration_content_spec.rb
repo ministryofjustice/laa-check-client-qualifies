@@ -6,17 +6,6 @@ RSpec.describe "estimates/show.html.slim" do
     let(:api_response) { FactoryBot.build(:api_result, eligible: "eligible") }
     let(:check) { Check.new(session_data) }
 
-    let(:session_data) do
-      {
-        level_of_help:,
-        proceeding_type:,
-        asylum_support:,
-        api_response:,
-      }.with_indifferent_access
-    end
-
-    let(:asylum_support) { nil }
-
     before do
       assign(:model, calculation_result)
       assign(:check, check)
@@ -25,10 +14,20 @@ RSpec.describe "estimates/show.html.slim" do
     end
 
     context "when viewing controlled work" do
-      let(:level_of_help) { "controlled" }
+      let(:session_data) do
+        {
+          level_of_help: "controlled",
+          immigration_or_asylum: true,
+          immigration_or_asylum_type:,
+          asylum_support:,
+          api_response:,
+        }.with_indifferent_access
+      end
+
+      let(:asylum_support) { nil }
 
       context "when immigration" do
-        let(:proceeding_type) { "IM030" }
+        let(:immigration_or_asylum_type) { "immigration_clr" }
 
         context "when receiving asylum support" do
           let(:asylum_support) { true }
@@ -53,7 +52,7 @@ RSpec.describe "estimates/show.html.slim" do
       end
 
       context "when asylum" do
-        let(:proceeding_type) { "IA031" }
+        let(:immigration_or_asylum_type) { "asylum" }
 
         context "when receiving asylum support" do
           let(:asylum_support) { true }
@@ -71,10 +70,17 @@ RSpec.describe "estimates/show.html.slim" do
     end
 
     context "when viewing certificated work" do
-      let(:level_of_help) { "certificated" }
+      let(:session_data) do
+        {
+          level_of_help: "certificated",
+          matter_type:,
+          asylum_support:,
+          api_response:,
+        }.with_indifferent_access
+      end
 
       context "when immigration" do
-        let(:proceeding_type) { "IM030" }
+        let(:matter_type) { "immigration" }
 
         context "when receiving asylum support" do
           let(:asylum_support) { true }
@@ -111,7 +117,7 @@ RSpec.describe "estimates/show.html.slim" do
       end
 
       context "when asylum" do
-        let(:proceeding_type) { "IA031" }
+        let(:matter_type) { "asylum" }
 
         context "when receiving asylum support" do
           let(:asylum_support) { true }

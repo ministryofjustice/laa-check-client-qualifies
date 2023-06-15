@@ -1,0 +1,21 @@
+- content_for :page_title
+  = t(".title")
+- content_for :back do
+  = back_link(:immigration_or_asylum_type, @check, @back_buttons_invoke_browser_back_behaviour)
+
+.govuk-grid-column-two-thirds
+   = form_for(@form, url: wizard_path, method: :put) do |form|
+    = form.govuk_error_summary t("generic.error_summary_title")
+
+    = form.govuk_collection_radio_buttons :immigration_or_asylum_type, immigration_or_asylum_type_options, :first, :last,
+                                            legend: { text: t(".title"), size: "xl", tag: "h1" },
+                                            hint: { text: t(".hint_html") }
+
+    = form.govuk_submit t("generic.save_and_continue")
+
+= render "shared/question_sidebar",
+        level_of_help: @check.level_of_help,
+        links: { t("estimate_flow.level_of_help.controlled_guidance.text") => \
+                   t("estimate_flow.level_of_help.controlled_guidance.link"),
+                 t(".legacy_case_guidance.text") => \
+                   t(".legacy_case_guidance.link") }

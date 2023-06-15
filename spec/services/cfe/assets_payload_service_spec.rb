@@ -108,7 +108,7 @@ RSpec.describe Cfe::AssetsPayloadService do
     context "when the client is asylum supported" do
       let(:session_data) do
         {
-          "proceeding_type" => "IM030",
+          "matter_type" => "immigration",
           "asylum_support" => true,
         }
       end
@@ -257,7 +257,7 @@ RSpec.describe Cfe::AssetsPayloadService do
                          savings: 100,
                          house_in_dispute: true,
                          in_dispute: %w[savings],
-                         proceeding_type: "IM030")
+                         matter_type: "immigration")
       end
 
       it "does not include SMOD in the payload" do

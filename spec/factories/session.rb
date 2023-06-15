@@ -42,7 +42,7 @@ FactoryBot.define do
     in_dispute { [] }
 
     trait :with_asylum_support do
-      proceeding_type { "IM030" }
+      matter_type { "immigration" }
       asylum_support { true }
     end
 
@@ -122,7 +122,7 @@ FactoryBot.define do
     initialize_with { attributes.transform_keys(&:to_s) }
 
     level_of_help { "certificated" }
-    proceeding_type { nil }
+    matter_type { "other" }
     over_60 { false }
     employment_status { "receiving_statutory_pay" }
     partner { true }
@@ -225,7 +225,8 @@ FactoryBot.define do
     initialize_with { attributes.transform_keys(&:to_s) }
 
     level_of_help { "controlled" }
-    proceeding_type { "IM030" }
+    immigration_or_asylum { "true" }
+    immigration_or_asylum_type { "immigration_clr" }
     asylum_support { false }
     over_60 { false }
     employment_status { "in_work" }
@@ -317,7 +318,7 @@ FactoryBot.define do
     initialize_with { attributes.transform_keys(&:to_s) }
 
     level_of_help { "certificated" }
-    proceeding_type { "IM030" }
+    matter_type { "immigration" }
     asylum_support { false }
     over_60 { false }
     employment_status { "in_work" }
