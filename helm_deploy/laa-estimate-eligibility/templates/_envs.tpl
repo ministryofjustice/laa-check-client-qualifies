@@ -112,5 +112,10 @@ env:
       secretKeyRef:
         name: kube-secrets
         key: blazer-database-password
+  - name: FEATURE_FLAGS_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: kube-secrets
+        key: feature-flags-password
 
 {{- end }}

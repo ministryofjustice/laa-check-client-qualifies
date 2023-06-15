@@ -5,6 +5,7 @@ RSpec.describe "Feature flags" do
     before do
       allow(FeatureFlags).to receive(:static).and_return(%i[static_flag])
       allow(FeatureFlags).to receive(:time_dependant).and_return(%i[time_dependant_flag])
+      allow(FeatureFlags).to receive(:enabled?).and_return(false)
       allow(FeatureFlags).to receive(:enabled?).with(:static_flag).and_return(true)
       allow(FeatureFlags).to receive(:enabled?).with(:time_dependant_flag).and_return(false)
     end
@@ -13,6 +14,12 @@ RSpec.describe "Feature flags" do
       visit feature_flags_path
       expect(page).to have_content "static_flagYes"
       expect(page).to have_content "time_dependant_flagNo"
+    end
+
+    scenario "I cannot view the form to edit feature flags" do
+      page.driver.browser.basic_authorize("flags", "")
+      visit edit_feature_flag_path("sentry")
+      expect(page).to have_current_path "/"
     end
   end
 
@@ -24,6 +31,7 @@ RSpec.describe "Feature flags" do
     end
 
     scenario "I edit a feature flag" do
+      page.driver.browser.basic_authorize("flags", "")
       visit feature_flags_path
       expect(page).to have_content "sentryNo"
       expect(FeatureFlags.enabled?(:sentry)).to eq false
