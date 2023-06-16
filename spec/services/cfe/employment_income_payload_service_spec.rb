@@ -106,7 +106,7 @@ RSpec.describe Cfe::EmploymentIncomePayloadService do
                         tax: -20,
                         national_insurance: -3 } },
             { receiving_only_statutory_sick_or_maternity_pay: true,
-              income: { frequency: "annual",
+              income: { frequency: "annually",
                         gross: 100,
                         benefits_in_kind: 0,
                         tax: -0.0,
@@ -118,7 +118,7 @@ RSpec.describe Cfe::EmploymentIncomePayloadService do
       it "populates the self-employment payload" do
         expect(payload[:self_employment]).to eq(
           [
-            { income: { frequency: "quarterly", gross: 500, tax: -100, national_insurance: -0 } },
+            { income: { frequency: "three_monthly", gross: 500, tax: -100, national_insurance: -0 } },
           ],
         )
       end

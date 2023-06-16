@@ -1,14 +1,14 @@
 class CfeParamBuilders::Employment
-  class << self
-    FREQUENCY_TRANSLATIONS = {
-      "every_week" => "weekly",
-      "every_two_weeks" => "two_weekly",
-      "every_four_weeks" => "four_weekly",
-      "monthly" => "monthly",
-      "three_months" => "quarterly",
-      "year" => "annual",
-    }.freeze
+  FREQUENCY_TRANSLATIONS = {
+    "every_week" => "weekly",
+    "every_two_weeks" => "two_weekly",
+    "every_four_weeks" => "four_weekly",
+    "monthly" => "monthly",
+    "three_months" => "three_monthly",
+    "year" => "annually",
+  }.freeze
 
+  class << self
     def call(income_form)
       income_form.items.reject { _1.income_type == "self_employment" }.map do |item|
         {
