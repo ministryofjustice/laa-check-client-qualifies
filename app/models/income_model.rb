@@ -27,7 +27,7 @@ class IncomeModel
 
   validate :net_income_must_be_positive
 
-  attr_accessor :controlled
+  attr_accessor :controlled, :partner
 
   def relevant_frequency_options
     return STANDARD_FREQUENCY_OPTIONS + [THREE_MONTHS] if controlled
@@ -45,7 +45,8 @@ class IncomeModel
 
   def income_type_options
     check_type = controlled ? "controlled" : "certificated"
-    TYPE_OPTIONS.map { [_1, I18n.t("estimate_flow.income.types.#{_1}"), I18n.t("estimate_flow.income.types.#{_1}_#{check_type}_hint")] }
+    section = partner ? "partner_income" : "income"
+    TYPE_OPTIONS.map { [_1, I18n.t("estimate_flow.income.types.#{_1}"), I18n.t("estimate_flow.#{section}.types.#{_1}_#{check_type}_hint")] }
   end
 
 private

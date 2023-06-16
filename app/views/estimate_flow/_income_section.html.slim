@@ -20,7 +20,7 @@
 
   = render "shared/add_another/radio_field",
            errors: model.errors.messages[:income_frequency],
-           legend: t("estimate_flow.income.select_frequency"),
+           legend: t("estimate_flow.#{i18n_key}.select_frequency"),
            model_name: "income_model",
            field_name: "income_frequency",
            options: model.income_frequency_options,
@@ -39,22 +39,22 @@
            label: t("estimate_flow.income.gross_income"),
            value: model.gross_income,
            label_size: "m"
-    = govuk_details(summary_text: t("estimate_flow.income.self_employed_clients.hint_header")) do
+    = govuk_details(summary_text: t("estimate_flow.#{i18n_key}.self_employed_people.hint_header")) do
       - if model.controlled
-        p.govuk-body = t("estimate_flow.income.self_employed_clients.controlled.paragraph_1")
-        p.govuk-body = t("estimate_flow.income.self_employed_clients.controlled.paragraph_2")
+        p.govuk-body = t("estimate_flow.#{i18n_key}.self_employed_people.controlled.paragraph_1")
+        p.govuk-body = t("estimate_flow.#{i18n_key}.self_employed_people.controlled.paragraph_2")
       - else
-        - t("estimate_flow.income.self_employed_clients.certificated.first_paragraphs").each
+        - t("estimate_flow.#{i18n_key}.self_employed_people.certificated.first_paragraphs").each
           p.govuk-body = _1
         ul.govuk-list.govuk-list--bullet
-          - t("estimate_flow.income.self_employed_clients.certificated.first_bullets").each
+          - t("estimate_flow.#{i18n_key}.self_employed_people.certificated.first_bullets").each
             li.govuk-body = _1
-        - t("estimate_flow.income.self_employed_clients.certificated.second_paragraphs").each
+        - t("estimate_flow.#{i18n_key}.self_employed_people.certificated.second_paragraphs").each
           p.govuk-body = _1
         ul.govuk-list.govuk-list--bullet
-          - t("estimate_flow.income.self_employed_clients.certificated.second_bullets").each
+          - t("estimate_flow.#{i18n_key}.self_employed_people.certificated.second_bullets").each
             li.govuk-body = _1
-        p.govuk-body = t("estimate_flow.income.self_employed_clients.certificated.last_paragraph")
+        p.govuk-body = t("estimate_flow.#{i18n_key}.self_employed_people.certificated.last_paragraph")
 
   = render "shared/add_another/money_field",
            errors: model.errors.messages[:income_tax],

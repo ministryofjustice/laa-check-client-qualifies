@@ -161,6 +161,8 @@ sections:
           type: money
         - attribute: partner_national_insurance
           type: money
+      - label: partner_employment_income
+        screen: partner_income
       - label: partner_benefits
         screen: partner_benefits
       - label: partner_other_income

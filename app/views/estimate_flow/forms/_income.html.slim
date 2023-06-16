@@ -1,7 +1,7 @@
 - partner ||= false
 . data-module="add-another"
   .add-another-template-area data-add-another-role="template"
-    = render "income_section", removeable: true, model: @form.blank_model
+    = render "income_section", i18n_key:, removeable: true, model: @form.blank_model
 
   = form_for(@form, url: wizard_path, method: :put) do |form|
     = form.govuk_error_summary t("generic.error_summary_title")
@@ -33,7 +33,7 @@
             li.govuk_text = _1
     . data-add-another-role="sectionList"
       - @form.items.each_with_index do |income, index|
-        = render "income_section", removeable: index.positive?, model: income, counter: index + 1
+        = render "income_section", i18n_key:, removeable: index.positive?, model: income, counter: index + 1
     .govuk-button-group
       button.govuk-button.govuk-button--secondary type="button" data-add-another-role="add" = t("estimate_flow.income.add")
 

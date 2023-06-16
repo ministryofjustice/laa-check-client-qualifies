@@ -221,6 +221,10 @@ def fill_in_partner_employment_status_screen(choice: "Unemployed")
   fill_in_employment_status_screen(screen_name: :partner_employment_status, choice:)
 end
 
+def fill_in_partner_income_screen
+  fill_in_income_screen(screen_name: :partner_income)
+end
+
 def fill_in_partner_benefits_screen(choice: "No")
   fill_in_benefits_screen(screen_name: :partner_benefits, choice:)
 end
