@@ -24,4 +24,12 @@ class ApplicantForm
 
   attribute :passporting, :boolean
   validates :passporting, inclusion: { in: [true, false] }
+
+  def attributes_for_export_to_session
+    if FeatureFlags.enabled?(:self_employed)
+      attributes.except!("employment_status")
+    else
+      attributes
+    end
+  end
 end
