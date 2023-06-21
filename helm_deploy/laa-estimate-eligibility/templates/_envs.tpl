@@ -77,6 +77,11 @@ env:
       secretKeyRef:
         name: kube-secrets
         key: notifications-api-key
+  - name: WAY_OF_PREVENTING_NEW_PODS_FROM_LAUNCHING_BY_DELETING_A_HARMLESS_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: kube-secrets
+        key: foo
   - name: NOTIFICATIONS_ERROR_MESSAGE_TEMPLATE_ID
     value:  {{ .Values.notifications.errorMessageTemplateId }}
   - name: NOTIFICATIONS_RECIPIENT
