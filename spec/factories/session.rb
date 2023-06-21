@@ -36,10 +36,9 @@ FactoryBot.define do
     property_value { 0 }
     property_mortgage { 0 }
     property_percentage_owned { nil }
-    savings { 0 }
+    bank_accounts { [{ "amount" => 0, "account_in_dispute" => false }] }
     investments { 0 }
     valuables { 0 }
-    savings_in_dispute { false }
     investments_in_dispute { false }
     valuables_in_dispute { false }
 
@@ -113,10 +112,9 @@ FactoryBot.define do
 
     trait :with_zero_capital_assets do
       property_value { 0 }
-      savings { 0 }
+      bank_accounts { [{ "amount" => 0, "account_in_dispute" => false }] }
       investments { 0 }
       valuables { 0 }
-      savings_in_dispute { false }
       investments_in_dispute { false }
       valuables_in_dispute { false }
     end
@@ -181,10 +179,9 @@ FactoryBot.define do
     property_value { 123 }
     property_mortgage { 1313 }
     property_percentage_owned { 44 }
-    savings { 553 }
+    bank_accounts { [{ "amount" => 553, "account_in_dispute" => true }] }
     investments { 345 }
     valuables { 665 }
-    savings_in_dispute { true }
     investments_in_dispute { true }
     valuables_in_dispute { true }
     partner_over_60 { true }
@@ -222,7 +219,7 @@ FactoryBot.define do
     partner_maintenance_payments_frequency { "monthly" }
     partner_legal_aid_payments_value { 117 }
     partner_legal_aid_payments_frequency { "every_week" }
-    partner_savings { 548 }
+    partner_bank_accounts { [{ "amount" => 548 }] }
     partner_investments { 997 }
     partner_valuables { 234 }
   end
@@ -271,10 +268,9 @@ FactoryBot.define do
     property_value { nil }
     property_mortgage { nil }
     property_percentage_owned { nil }
-    savings { 0.0 }
+    bank_accounts { [{ "amount" => 0, "account_in_dispute" => false }] }
     investments { 0.0 }
     valuables { 0.0 }
-    savings_in_dispute { false }
     investments_in_dispute { false }
     valuables_in_dispute { false }
     partner_over_60 { false }
@@ -303,7 +299,7 @@ FactoryBot.define do
     partner_maintenance_payments_frequency { "every_week" }
     partner_legal_aid_payments_value { 0.0 }
     partner_legal_aid_payments_frequency { "every_week" }
-    partner_savings { 0.0 }
+    partner_bank_accounts { [{ "amount" => 0 }] }
     partner_investments { 0.0 }
     partner_valuables { 0.0 }
     property_owned { "outright" }
@@ -365,10 +361,9 @@ FactoryBot.define do
     property_value { nil }
     property_mortgage { nil }
     property_percentage_owned { nil }
-    savings { 0.0 }
+    bank_accounts { [{ "amount" => 0, "account_in_dispute" => false }] }
     investments { 0.0 }
     valuables { 0.0 }
-    savings_in_dispute { false }
     investments_in_dispute { false }
     valuables_in_dispute { false }
     partner_over_60 { false }
@@ -397,7 +392,7 @@ FactoryBot.define do
     partner_maintenance_payments_frequency { "every_week" }
     partner_legal_aid_payments_value { 0.0 }
     partner_legal_aid_payments_frequency { "every_week" }
-    partner_savings { 0.0 }
+    parter_bank_accounts { [{ "amount" => 0 }] }
     partner_investments { 0.0 }
     partner_valuables { 0.0 }
     property_owned { "outright" }

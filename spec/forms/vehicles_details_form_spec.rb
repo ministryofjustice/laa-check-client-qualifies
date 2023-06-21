@@ -20,7 +20,7 @@ RSpec.describe "vehicles_details", type: :feature do
     fill_in "1-vehicle-finance", with: "456"
     choose "Yes", name: "vehicle_model[items][1][vehicle_over_3_years_ago]"
     choose "Yes", name: "vehicle_model[items][1][vehicle_in_regular_use]"
-    check "This asset is a subject matter of dispute", id: "1-smod"
+    check "This asset is a subject matter of dispute", id: "1-vehicle_in_dispute"
     click_on "Save and continue"
     expect(session_contents.dig("vehicles", 0, "vehicle_value")).to eq 123
     expect(session_contents.dig("vehicles", 0, "vehicle_pcp")).to eq true

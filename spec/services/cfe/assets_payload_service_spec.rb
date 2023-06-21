@@ -20,10 +20,9 @@ RSpec.describe Cfe::AssetsPayloadService do
           "additional_house_value" => 123,
           "additional_mortgage" => 1313,
           "additional_percentage_owned" => 44,
-          "savings" => 553,
+          "bank_accounts" => [{ "amount" => 553, "account_in_dispute" => true }],
           "investments" => 345,
           "valuables" => 665,
-          "savings_in_dispute" => true,
           "investments_in_dispute" => true,
           "valuables_in_dispute" => true,
         }
@@ -64,7 +63,7 @@ RSpec.describe Cfe::AssetsPayloadService do
           "additional_mortgage" => 1313,
           "additional_percentage_owned" => 44,
           "additional_house_in_dispute" => true,
-          "savings" => 0,
+          "bank_accounts" => [{ "amount" => 0, "account_in_dispute" => false }],
           "investments" => 0,
           "valuables" => 0,
         }
@@ -88,7 +87,7 @@ RSpec.describe Cfe::AssetsPayloadService do
           "additional_house_value" => 123,
           "additional_percentage_owned" => 44,
           "additional_house_in_dispute" => false,
-          "savings" => 0,
+          "bank_accounts" => [{ "amount" => 0, "account_in_dispute" => false }],
           "investments" => 0,
           "valuables" => 0,
         }
@@ -254,9 +253,8 @@ RSpec.describe Cfe::AssetsPayloadService do
         FactoryBot.build(:minimal_complete_session,
                          :with_main_home,
                          :with_zero_capital_assets,
-                         savings: 100,
+                         bank_accounts: [{ "amount" => 123, "account_in_dispute" => true }],
                          house_in_dispute: true,
-                         savings_in_dispute: true,
                          matter_type: "immigration")
       end
 
@@ -269,7 +267,7 @@ RSpec.describe Cfe::AssetsPayloadService do
     context "when there is no additional property data" do
       let(:session_data) do
         {
-          "savings" => 553,
+          "bank_accounts" => [{ "amount" => 553, "account_in_dispute" => false }],
           "investments" => 345,
           "valuables" => 665,
         }

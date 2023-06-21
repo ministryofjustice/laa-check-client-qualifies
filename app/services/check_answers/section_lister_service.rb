@@ -2,9 +2,9 @@ module CheckAnswers
   class SectionListerService
     Section = Struct.new(:label, :screen, :subsections, keyword_init: true)
     Subsection = Struct.new(:label, :screen, :fields, keyword_init: true)
-    Field = Struct.new(:label, :type, :value, :alt_value, :disputed?, keyword_init: true)
+    Field = Struct.new(:label, :type, :value, :alt_value, :disputed?, :label_variable, keyword_init: true)
 
-    SUBSECTION_SPECIAL_CASES = %i[benefits partner_benefits household_vehicles].freeze
+    SUBSECTION_SPECIAL_CASES = %i[benefits partner_benefits household_vehicles assets partner_assets].freeze
 
     def self.call(session_data)
       new(session_data).call
@@ -137,6 +137,38 @@ module CheckAnswers
         Field.new(label: "household_vehicles_fields.vehicle_over_3_years_ago", type: "boolean", value: vehicle["vehicle_over_3_years_ago"]),
         Field.new(label: "household_vehicles_fields.vehicle_in_regular_use", type: "boolean", value: vehicle["vehicle_in_regular_use"]),
       ].compact
+    end
+
+    def assets_fields
+      return [] unless Steps::Helper.valid_step?(@model.session_data, :assets)
+
+      accounts = @model.bank_accounts.each_with_index.map do |account, index|
+        label = index.zero? ? "assets_fields.bank_account" : "assets_fields.additional_bank_account"
+        Field.new(label:,
+                  type: "money",
+                  value: account.amount,
+                  disputed?: @model.smod_applicable? && account.account_in_dispute,
+                  label_variable: (index if index.positive?))
+      end
+
+      accounts + [
+        Field.new(label: "assets_fields.investments", type: "money", value: @model.investments, disputed?: @model.smod_applicable? && @model.investments_in_dispute),
+        Field.new(label: "assets_fields.valuables", type: "money", value: @model.valuables, disputed?: @model.smod_applicable? && @model.valuables_in_dispute),
+      ]
+    end
+
+    def partner_assets_fields
+      return [] unless Steps::Helper.valid_step?(@model.session_data, :partner_assets)
+
+      accounts = @model.partner_bank_accounts.each_with_index.map do |account, index|
+        label = index.zero? ? "assets_fields.bank_account" : "assets_fields.additional_bank_account"
+        Field.new(label:, type: "money", value: account.amount, label_variable: (index if index.positive?))
+      end
+
+      accounts + [
+        Field.new(label: "assets_fields.investments", type: "money", value: @model.partner_investments),
+        Field.new(label: "assets_fields.valuables", type: "money", value: @model.partner_valuables),
+      ]
     end
 
     def section_yaml

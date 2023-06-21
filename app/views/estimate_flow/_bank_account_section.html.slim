@@ -1,0 +1,25 @@
+- counter ||= nil
+. data-add-another-role="section"
+  - if removeable
+    .add-another-heading
+      h2.govuk-heading-m
+        = t("estimate_flow.assets.additional_bank_account")
+        span< data-add-another-role="counter" data-add-another-number-from="zero" = counter
+      button.govuk-button.govuk-button--secondary type="button" data-add-another-role="remove" id="remove-#{counter}" = t("generic.remove")
+
+  = render "shared/add_another/money_field",
+           errors: model.errors.messages[:amount],
+           form_name:,
+           model_name: "bank_account_model",
+           field_name: "amount",
+           counter:,
+           label: t("estimate_flow.assets.bank_accounts.input"),
+           value: model.amount
+
+  - if model.smod_applicable
+    = render "shared/add_another/checkbox_field",
+            model_name: "bank_account_model",
+            field_name: "account_in_dispute",
+            counter:,
+            label: t("generic.dispute"),
+            value: model.account_in_dispute

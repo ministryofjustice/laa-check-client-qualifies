@@ -10,6 +10,7 @@ module AddAnotherable
   end
 
   class_methods do
+    # Override SessionPersistable to additionally instantiate `items`
     def from_session(session_data)
       form = instantiate_with_simple_attributes_from_session(session_data)
 
@@ -23,6 +24,7 @@ module AddAnotherable
       form
     end
 
+    # Override SessionPersistable to additionally instantiate `items`
     def from_params(params, session_data)
       form = instantiate_with_simple_attributes_from_params(params, session_data)
       form.items = params.dig(self::ITEM_MODEL.name.underscore, "items").values.map do |attributes|

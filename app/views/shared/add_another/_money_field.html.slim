@@ -22,6 +22,8 @@ ruby:
                      data-add-another-dynamic-elements="for:#{id_pattern}"] = label
   - if hint
     .govuk-hint = hint
+  - elsif block_given?
+    = yield
   - if errors.any?
     p.govuk-error-message
       span.govuk-visually-hidden = t("generic.error_prefix")

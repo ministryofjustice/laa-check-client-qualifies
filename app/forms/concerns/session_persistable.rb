@@ -22,11 +22,11 @@ module SessionPersistable
       instantiate_with_simple_attributes_from_params(params, session_data)
     end
 
-    def extract_attributes_from_session(session_data)
+    def extract_simple_attributes_from_session(session_data)
       session_data.slice(*session_keys)
     end
 
-    def extract_attributes_from_params(params)
+    def extract_simple_attributes_from_params(params)
       params.fetch(name.underscore, {}).permit(*self::ATTRIBUTES)
     end
 
@@ -36,12 +36,12 @@ module SessionPersistable
 
     def instantiate_with_simple_attributes_from_session(session_data)
       check = Check.new(session_data)
-      new(extract_attributes_from_session(session_data), check)
+      new(extract_simple_attributes_from_session(session_data), check)
     end
 
     def instantiate_with_simple_attributes_from_params(params, session_data)
       check = Check.new(session_data)
-      new(extract_attributes_from_params(params), check)
+      new(extract_simple_attributes_from_params(params), check)
     end
   end
 

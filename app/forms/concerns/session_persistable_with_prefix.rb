@@ -2,7 +2,7 @@ module SessionPersistableWithPrefix
   extend ActiveSupport::Concern
   include SessionPersistable
   class_methods do
-    def extract_attributes_from_session(session_data)
+    def extract_simple_attributes_from_session(session_data)
       session_attributes = session_data.slice(*session_keys)
       session_attributes.transform_keys { _1.gsub(self::PREFIX, "") }
     end

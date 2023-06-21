@@ -8,13 +8,13 @@ module CfeParamBuilders
     end
 
     def self.bank_accounts(form, smod_applicable)
-      return [] unless form.savings.positive?
-
-      [{
-        value: form.savings,
-        description: "Liquid Asset",
-        subject_matter_of_dispute: smod_applicable && form.savings_in_dispute,
-      }]
+      form.bank_accounts.select { _1.amount.positive? }.map do |bank_account|
+        {
+          value: bank_account.amount,
+          description: "Liquid Asset",
+          subject_matter_of_dispute: smod_applicable && bank_account.account_in_dispute || false,
+        }
+      end
     end
 
     def self.non_liquid_capital(form, smod_applicable)

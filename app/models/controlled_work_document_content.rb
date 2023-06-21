@@ -109,7 +109,7 @@ class ControlledWorkDocumentContent < Check
   end
 
   def smod_savings
-    savings if savings_in_dispute
+    bank_accounts&.select(&:account_in_dispute)&.sum { _1.amount.to_d }
   end
 
   def smod_investments
@@ -239,7 +239,15 @@ class ControlledWorkDocumentContent < Check
   end
 
   def non_smod_client_savings
-    savings unless savings_in_dispute
+    bank_accounts&.reject(&:account_in_dispute)&.sum { _1.amount.to_d }
+  end
+
+  def savings
+    bank_accounts&.sum { _1.amount.to_d }
+  end
+
+  def partner_savings
+    partner_bank_accounts&.sum { _1.amount.to_d }
   end
 
   def non_smod_client_investments

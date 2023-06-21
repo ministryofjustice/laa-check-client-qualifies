@@ -19,13 +19,14 @@ RSpec.describe "estimates/check_answers.html.slim" do
           let(:session_data) do
             build(:minimal_complete_session,
                   :with_partner,
-                  partner_savings: 50,
+                  partner_bank_accounts: [{ "amount" => 50 }, { "amount" => 20 }],
                   partner_investments: 60,
                   partner_valuables: 550)
           end
 
           it "renders content" do
             expect(text).to include("Money in bank accounts£50.00")
+            expect(text).to include("Additional bank account 1£20.00")
             expect(text).to include("Investments£60.00")
             expect(text).to include("Valuables£550.00")
             expect(text).not_to include("Disputed asset")
@@ -36,7 +37,7 @@ RSpec.describe "estimates/check_answers.html.slim" do
           let(:session_data) do
             build(:minimal_complete_session,
                   :with_partner,
-                  partner_savings: 0,
+                  partner_bank_accounts: [{ "amount" => 0 }],
                   partner_investments: 0,
                   partner_valuables: 0)
           end
