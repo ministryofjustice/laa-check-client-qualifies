@@ -33,8 +33,7 @@
 
     - if show_smod_content
       .govuk-form-group
-        = form.govuk_check_box :in_dispute, "savings",
-          label: { text: t("generic.dispute") }
+        = form.govuk_check_box :savings_in_dispute, true, 0, multiple: false, label: { text: t("generic.dispute") }
 
   = form.govuk_fieldset legend: { text: t("estimate_flow.#{i18n_key}.investments.label") } do
 
@@ -49,8 +48,7 @@
 
     - if show_smod_content
       .govuk-form-group
-        = form.govuk_check_box :in_dispute, "investments",
-          label: { text: t("generic.dispute") }
+        = form.govuk_check_box :investments_in_dispute, true, 0, multiple: false, label: { text: t("generic.dispute") }
 
   = form.govuk_fieldset legend: { text: t("estimate_flow.#{i18n_key}.valuables.label") } do
 
@@ -65,8 +63,7 @@
 
     - if show_smod_content
       .govuk-form-group
-        = form.govuk_check_box :in_dispute, "valuables",
-          label: { text: t("generic.dispute") }
+        = form.govuk_check_box :valuables_in_dispute, true, 0, multiple: false, label: { text: t("generic.dispute") }
 
   - if show_smod_content
     = render "smod_help"

@@ -23,7 +23,9 @@ RSpec.describe Cfe::AssetsPayloadService do
           "savings" => 553,
           "investments" => 345,
           "valuables" => 665,
-          "in_dispute" => %w[savings investments valuables],
+          "savings_in_dispute" => true,
+          "investments_in_dispute" => true,
+          "valuables_in_dispute" => true,
         }
       end
 
@@ -65,7 +67,6 @@ RSpec.describe Cfe::AssetsPayloadService do
           "savings" => 0,
           "investments" => 0,
           "valuables" => 0,
-          "in_dispute" => [],
         }
       end
 
@@ -90,7 +91,6 @@ RSpec.describe Cfe::AssetsPayloadService do
           "savings" => 0,
           "investments" => 0,
           "valuables" => 0,
-          "in_dispute" => [],
         }
       end
 
@@ -256,7 +256,7 @@ RSpec.describe Cfe::AssetsPayloadService do
                          :with_zero_capital_assets,
                          savings: 100,
                          house_in_dispute: true,
-                         in_dispute: %w[savings],
+                         savings_in_dispute: true,
                          matter_type: "immigration")
       end
 
@@ -272,7 +272,6 @@ RSpec.describe Cfe::AssetsPayloadService do
           "savings" => 553,
           "investments" => 345,
           "valuables" => 665,
-          "in_dispute" => %w[savings investments valuables],
         }
       end
 

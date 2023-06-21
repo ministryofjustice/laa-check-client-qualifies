@@ -39,7 +39,9 @@ FactoryBot.define do
     savings { 0 }
     investments { 0 }
     valuables { 0 }
-    in_dispute { [] }
+    savings_in_dispute { false }
+    investments_in_dispute { false }
+    valuables_in_dispute { false }
 
     trait :with_asylum_support do
       matter_type { "immigration" }
@@ -114,7 +116,9 @@ FactoryBot.define do
       savings { 0 }
       investments { 0 }
       valuables { 0 }
-      in_dispute { %w[] }
+      savings_in_dispute { false }
+      investments_in_dispute { false }
+      valuables_in_dispute { false }
     end
   end
 
@@ -180,7 +184,9 @@ FactoryBot.define do
     savings { 553 }
     investments { 345 }
     valuables { 665 }
-    in_dispute { %w[savings investments valuables] }
+    savings_in_dispute { true }
+    investments_in_dispute { true }
+    valuables_in_dispute { true }
     partner_over_60 { true }
     partner_employment_status { "in_work" }
     partner_child_dependants { true }
@@ -268,7 +274,9 @@ FactoryBot.define do
     savings { 0.0 }
     investments { 0.0 }
     valuables { 0.0 }
-    in_dispute { [] }
+    savings_in_dispute { false }
+    investments_in_dispute { false }
+    valuables_in_dispute { false }
     partner_over_60 { false }
     partner_employment_status { "in_work" }
     partner_frequency { "week" }
@@ -360,7 +368,9 @@ FactoryBot.define do
     savings { 0.0 }
     investments { 0.0 }
     valuables { 0.0 }
-    in_dispute { [] }
+    savings_in_dispute { false }
+    investments_in_dispute { false }
+    valuables_in_dispute { false }
     partner_over_60 { false }
     partner_employment_status { "in_work" }
     partner_frequency { "week" }

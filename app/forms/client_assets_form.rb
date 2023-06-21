@@ -1,10 +1,11 @@
 class ClientAssetsForm < BaseAssetsForm
-  ATTRIBUTES = (BASE_ATTRIBUTES + %i[in_dispute]).freeze
-  # list of assets in SMOD - property, valuables, investments
-  attribute :in_dispute, array: true, default: []
+  ATTRIBUTES = (BASE_ATTRIBUTES + %i[savings_in_dispute investments_in_dispute valuables_in_dispute]).freeze
 
-  def self.from_params(params, _session)
-    relevant_params = params.fetch(name.underscore, {}).permit(*self::ATTRIBUTES, in_dispute: [])
-    new(relevant_params)
-  end
+  delegate :smod_applicable?, to: :check
+  attribute :savings_in_dispute, :boolean
+  validates :savings_in_dispute, inclusion: { in: [true, false] }, allow_nil: false, if: :smod_applicable?
+  attribute :investments_in_dispute, :boolean
+  validates :investments_in_dispute, inclusion: { in: [true, false] }, allow_nil: false, if: :smod_applicable?
+  attribute :valuables_in_dispute, :boolean
+  validates :valuables_in_dispute, inclusion: { in: [true, false] }, allow_nil: false, if: :smod_applicable?
 end
