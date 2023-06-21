@@ -15,29 +15,41 @@ module SessionPersistable
 
   class_methods do
     def from_session(session_data)
-      check = Check.new(session_data)
-      new(attributes_from_session(session_data), check)
+      instantiate_with_simple_attributes_from_session(session_data)
     end
 
     def from_params(params, session_data)
-      check = Check.new(session_data)
-      new(attributes_from_params(params), check)
+      instantiate_with_simple_attributes_from_params(params, session_data)
     end
 
-    def attributes_from_session(session_data)
+    def extract_attributes_from_session(session_data)
       session_data.slice(*session_keys)
     end
 
-    def attributes_from_params(params)
+    def extract_attributes_from_params(params)
       params.fetch(name.underscore, {}).permit(*self::ATTRIBUTES)
     end
 
     def session_keys
       self::ATTRIBUTES.map(&:to_s)
     end
+
+    def instantiate_with_simple_attributes_from_session(session_data)
+      check = Check.new(session_data)
+      new(extract_attributes_from_session(session_data), check)
+    end
+
+    def instantiate_with_simple_attributes_from_params(params, session_data)
+      check = Check.new(session_data)
+      new(extract_attributes_from_params(params), check)
+    end
   end
 
-  def session_attributes
+  def attributes_for_export_to_session
+    simple_attributes_for_session
+  end
+
+  def simple_attributes_for_session
     attributes
   end
 end
