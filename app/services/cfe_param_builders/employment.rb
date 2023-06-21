@@ -17,11 +17,15 @@ class CfeParamBuilders::Employment
             frequency: FREQUENCY_TRANSLATIONS.fetch(item.income_frequency),
             gross: item.gross_income,
             benefits_in_kind: 0,
-            tax: item.income_tax * -1,
-            national_insurance: item.national_insurance * -1,
+            tax: express_as_negative_figure(item.income_tax),
+            national_insurance: express_as_negative_figure(item.national_insurance),
           },
         }
       end
+    end
+
+    def express_as_negative_figure(figure)
+      figure * -1
     end
   end
 end
