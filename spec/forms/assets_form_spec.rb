@@ -66,15 +66,17 @@ RSpec.describe "assets", type: :feature do
       end
 
       context "when self_employed flag enabled", :self_employed_flag do
-        it "shows content about self-employed applicants" do
-          expect(page).to have_content "Business capital for self-employed clients"
+        it "does not show content about self-employed applicants" do
+          expect(page).not_to have_content "Business capital for self-employed clients"
         end
-      end
-    end
 
-    context "when self_employed flag enabled", :self_employed_flag do
-      it "does not show content about self-employed applicants" do
-        expect(page).not_to have_content "Business capital for self-employed clients"
+        context "when client is self-employed" do
+          let(:session) { { "level_of_help" => "certificated", "employment_status" => "in_work", "incomes" => [{ "income_type" => "self_employment" }] } }
+
+          it "shows content about self-employed applicants" do
+            expect(page).to have_content "Business capital for self-employed clients"
+          end
+        end
       end
     end
   end

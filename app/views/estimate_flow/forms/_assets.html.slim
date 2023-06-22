@@ -15,8 +15,7 @@
               tag: (:partner if partner)
 
     - if FeatureFlags.enabled?(:special_applicant_groups)
-      /! TODO: the check below needs to be amended to include a check that ‘Self-employment income' has been selected (EL-943/EL-947)
-      - if FeatureFlags.enabled?(:self_employed) && !@check.controlled?
+      - if FeatureFlags.enabled?(:self_employed) && !@check.controlled? && (!partner && @check.client_self_employed?)
         = govuk_details(summary_text: t("estimate_flow.#{i18n_key}.business_capital_title"))
           p.govuk-text = t("estimate_flow.#{i18n_key}.business_capital_text")
           p.govuk-text = t("estimate_flow.#{i18n_key}.business_capital_text_html")
