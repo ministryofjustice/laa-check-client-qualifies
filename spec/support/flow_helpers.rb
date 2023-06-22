@@ -79,13 +79,13 @@ def fill_in_employment_screen(screen_name: :employment)
   click_on "Save and continue"
 end
 
-def fill_in_income_screen(screen_name: :income)
+def fill_in_income_screen(choices = {}, screen_name: :income)
   confirm_screen screen_name
-  choose "A salary or wage", name: "income_model[items][1][income_type]"
-  choose "Every week", name: "income_model[items][1][income_frequency]"
-  fill_in "income_model[items][1][gross_income]", with: "1"
-  fill_in "income_model[items][1][income_tax]", with: "0"
-  fill_in "income_model[items][1][national_insurance]", with: "0"
+  choose choices.fetch(:type, "A salary or wage"), name: "income_model[items][1][income_type]"
+  choose choices.fetch(:frequency, "Every week"), name: "income_model[items][1][income_frequency]"
+  fill_in "income_model[items][1][gross_income]", with: choices.fetch(:gross, "1")
+  fill_in "income_model[items][1][income_tax]", with: choices.fetch(:tax, "0")
+  fill_in "income_model[items][1][national_insurance]", with: choices.fetch(:ni, "0")
   click_on "Save and continue"
 end
 
