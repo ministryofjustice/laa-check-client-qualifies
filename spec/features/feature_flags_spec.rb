@@ -2,9 +2,9 @@ require "rails_helper"
 
 RSpec.describe "Feature flags" do
   around do |example|
-    ENV["FEATURE_FLAG_PASSWORD"] = "password"
+    ENV["FEATURE_FLAGS_PASSWORD"] = "password"
     example.run
-    ENV["FEATURE_FLAG_PASSWORD"] = nil
+    ENV["FEATURE_FLAGS_PASSWORD"] = nil
   end
 
   context "when in readonly mode" do

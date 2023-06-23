@@ -22,7 +22,7 @@ private
 
   def authenticate
     return true if authenticate_with_http_basic do |username, password|
-      username == "flags" && password == ENV.fetch("FEATURE_FLAG_PASSWORD", SecureRandom.uuid)
+      username == "flags" && password == ENV.fetch("FEATURE_FLAGS_PASSWORD", SecureRandom.uuid)
     end
 
     request_http_basic_authentication
