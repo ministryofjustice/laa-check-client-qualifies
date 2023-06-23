@@ -5,7 +5,7 @@ RSpec.describe Cfe::ApplicantPayloadService do
   let(:session_data) do
     {
       over_60:,
-      employed: false,
+      employment_status: "unemployed",
       passporting: false,
       partner: false,
     }.with_indifferent_access
@@ -24,6 +24,7 @@ RSpec.describe Cfe::ApplicantPayloadService do
             employed: false,
             has_partner_opponent: false,
             receives_qualifying_benefit: false,
+            receives_asylum_support: false,
           },
         )
       end
@@ -40,12 +41,13 @@ RSpec.describe Cfe::ApplicantPayloadService do
             employed: false,
             has_partner_opponent: false,
             receives_qualifying_benefit: false,
+            receives_asylum_support: false,
           },
         )
       end
     end
 
-    context "when a&I proceeding type is used" do
+    context "when a&I matter type is used and client is asylum supported" do
       let(:session_data) do
         {
           matter_type: "immigration",
@@ -62,6 +64,32 @@ RSpec.describe Cfe::ApplicantPayloadService do
             has_partner_opponent: false,
             receives_qualifying_benefit: false,
             receives_asylum_support: true,
+          },
+        )
+      end
+    end
+
+    context "when a&I matter type is used and client is not asylum supported" do
+      let(:session_data) do
+        {
+          matter_type: "immigration",
+          asylum_support: false,
+          over_60: false,
+          employment_status: "unemployed",
+          passporting: false,
+          partner: false,
+        }.with_indifferent_access
+      end
+
+      it "populates the payload appropriately" do
+        service.call(session_data, payload)
+        expect(payload[:applicant]).to eq(
+          {
+            date_of_birth: 50.years.ago.to_date,
+            employed: false,
+            has_partner_opponent: false,
+            receives_qualifying_benefit: false,
+            receives_asylum_support: false,
           },
         )
       end

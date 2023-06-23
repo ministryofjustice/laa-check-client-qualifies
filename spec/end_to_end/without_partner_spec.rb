@@ -19,6 +19,7 @@ RSpec.describe "Certificated check without partner", type: :feature do
         "employed" => true,
         "has_partner_opponent" => false,
         "receives_qualifying_benefit" => false,
+        "receives_asylum_support" => false,
       })
       expect(parsed["dependants"]).to eq([
         { "date_of_birth" => "2012-02-15",

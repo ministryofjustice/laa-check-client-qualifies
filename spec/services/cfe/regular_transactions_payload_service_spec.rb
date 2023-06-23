@@ -3,6 +3,22 @@ require "rails_helper"
 RSpec.describe Cfe::RegularTransactionsPayloadService do
   let(:service) { described_class }
   let(:payload) { {} }
+  let(:empty_session_data) do
+    {
+      "friends_or_family_value" => 0,
+      "pension_value" => 0,
+      "maintenance_value" => 0,
+      "property_or_lodger_value" => 0,
+      "housing_payments_value" => 0,
+      "childcare_payments_value" => 0,
+      "maintenance_payments_value" => 0,
+      "legal_aid_payments_value" => 0,
+      "student_finance_value" => 0,
+      "other_value" => 0,
+      "housing_payments" => 0,
+      "housing_benefit_value" => 0,
+    }
+  end
 
   describe ".call" do
     context "when there a full set of relevant data" do
@@ -24,6 +40,8 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
           "maintenance_payments_frequency" => "total",
           "legal_aid_payments_value" => 46,
           "legal_aid_payments_frequency" => "monthly",
+          "housing_payments" => 0,
+          "housing_benefit_value" => 0,
         }
       end
 
@@ -63,18 +81,7 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
     end
 
     context "when there is no relevant data" do
-      let(:session_data) do
-        {
-          "friends_or_family_value" => "0",
-          "pension_value" => "0",
-          "maintenance_value" => "0",
-          "property_or_lodger_value" => "0",
-          "housing_payments_value" => "0",
-          "childcare_payments_value" => "0",
-          "maintenance_payments_value" => "0",
-          "legal_aid_payments_value" => "0",
-        }
-      end
+      let(:session_data) { empty_session_data }
 
       it "adds no payments" do
         service.call(session_data, payload)
@@ -117,6 +124,7 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
           "legal_aid_payments_frequency" => "monthly",
           "housing_payments" => 120,
           "housing_payments_frequency" => "monthly",
+          "housing_benefit_value" => 0,
         }
       end
 
@@ -160,10 +168,10 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
 
       context "when client does not own their home but has no housing costs" do
         let(:session_data) do
-          {
+          empty_session_data.merge({
             "property_owned" => "none",
             "housing_payments" => 0,
-          }
+          })
         end
 
         it "does not include rent or mortgage in the payload" do
@@ -176,25 +184,27 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
 
       context "when there is an invalid frequency" do
         let(:session_data) do
-          {
+          empty_session_data.merge({
             "property_owned" => "none",
             "housing_payments" => 1,
             "housing_payments_frequency" => "invalid",
-          }
+          })
         end
 
         it "raises an error" do
-          expect { service.call(session_data, payload) }.to raise_error("key not found: \"invalid\"")
+          expect { service.call(session_data, payload) }.to raise_error(
+            "Invalid session detected by HousingCostsForm:\n  Housing payments frequency is not included in the list",
+          )
         end
       end
 
       context "when client or their partner do own their home with mortgage or loan" do
         let(:session_data) do
-          {
+          empty_session_data.merge({
             "property_owned" => "with_mortgage",
             "housing_loan_payments" => 140,
             "housing_payments_loan_frequency" => "monthly",
-          }
+          })
         end
 
         it "populates the payload with content from the mortgage or loan screen" do
@@ -210,11 +220,11 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
 
       context "when client owns their home with mortgage but it has zero payments" do
         let(:session_data) do
-          {
+          empty_session_data.merge({
             "property_owned" => "with_mortgage",
             "housing_loan_payments" => 0,
             "housing_payments_loan_frequency" => "monthly",
-          }
+          })
         end
 
         it "does not populate the payload with content from the mortgage or loan screen" do
@@ -227,9 +237,9 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
 
       context "when client or their partner do own their home outright" do
         let(:session_data) do
-          {
+          empty_session_data.merge({
             "property_owned" => "outright",
-          }
+          })
         end
 
         it "populates the payload with content from the mortgage or loan screen" do

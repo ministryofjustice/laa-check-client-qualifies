@@ -21,6 +21,7 @@ RSpec.describe Cfe::AssetsPayloadService do
           "additional_mortgage" => 1313,
           "additional_percentage_owned" => 44,
           "bank_accounts" => [{ "amount" => 553, "account_in_dispute" => true }],
+          "additional_house_in_dispute" => false,
           "investments" => 345,
           "valuables" => 665,
           "investments_in_dispute" => true,
@@ -66,6 +67,8 @@ RSpec.describe Cfe::AssetsPayloadService do
           "bank_accounts" => [{ "amount" => 0, "account_in_dispute" => false }],
           "investments" => 0,
           "valuables" => 0,
+          "investments_in_dispute" => false,
+          "valuables_in_dispute" => false,
         }
       end
 
@@ -90,6 +93,8 @@ RSpec.describe Cfe::AssetsPayloadService do
           "bank_accounts" => [{ "amount" => 0, "account_in_dispute" => false }],
           "investments" => 0,
           "valuables" => 0,
+          "investments_in_dispute" => false,
+          "valuables_in_dispute" => false,
         }
       end
 
@@ -136,7 +141,8 @@ RSpec.describe Cfe::AssetsPayloadService do
                          :with_zero_capital_assets,
                          additional_property_owned: "with_mortgage",
                          additional_house_value: 100_000,
-                         additional_mortgage: 0,
+                         additional_mortgage: 1,
+                         additional_house_in_dispute: false,
                          additional_percentage_owned: 100)
       end
 
@@ -145,7 +151,7 @@ RSpec.describe Cfe::AssetsPayloadService do
           {
             additional_properties: [
               {
-                outstanding_mortgage: 0.0,
+                outstanding_mortgage: 1.0,
                 percentage_owned: 100,
                 shared_with_housing_assoc: false,
                 subject_matter_of_dispute: false,
@@ -270,6 +276,8 @@ RSpec.describe Cfe::AssetsPayloadService do
           "bank_accounts" => [{ "amount" => 553, "account_in_dispute" => false }],
           "investments" => 345,
           "valuables" => 665,
+          "investments_in_dispute" => false,
+          "valuables_in_dispute" => false,
         }
       end
 

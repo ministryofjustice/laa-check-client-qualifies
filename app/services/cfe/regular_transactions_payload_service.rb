@@ -3,12 +3,12 @@ module Cfe
     def call
       return unless relevant_form?(:outgoings) || relevant_form?(:other_income) || relevant_form?(:mortgage_or_loan_payment) || relevant_form?(:housing_costs)
 
-      outgoings_form = OutgoingsForm.from_session(@session_data)
-      income_form = OtherIncomeForm.from_session(@session_data)
+      outgoings_form = instantiate_form(OutgoingsForm)
+      income_form = instantiate_form(OtherIncomeForm)
       housing_form = if relevant_form?(:mortgage_or_loan_payment)
-                       MortgageOrLoanPaymentForm.from_session(@session_data)
+                       instantiate_form(MortgageOrLoanPaymentForm)
                      elsif relevant_form?(:housing_costs)
-                       HousingCostsForm.from_session(@session_data)
+                       instantiate_form(HousingCostsForm)
                      end
 
       regular_transactions = CfeParamBuilders::HouseholdFlowRegularTransactions.call(income_form, outgoings_form, housing_form)

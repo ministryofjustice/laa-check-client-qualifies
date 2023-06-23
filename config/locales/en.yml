@@ -1678,6 +1678,11 @@ en:
       agency: Agency
       print_this_page: Print this page
       your_answers: Your answers
+    invalid_session:
+      answers_deleted: Your answers have been deleted
+      paragraph_1: We have deleted your answers. This is because the service was updated while you were using it and the answers you gave cannot be saved.
+      paragraph_2: You will need to start again.
+      start_again: Start again
   provider_users:
     show:
       provider_question: Do you give legal advice or provide legal services?

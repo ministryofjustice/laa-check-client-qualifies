@@ -3,6 +3,14 @@ require "rails_helper"
 RSpec.describe Cfe::IrregularIncomePayloadService do
   let(:service) { described_class }
   let(:payload) { {} }
+  let(:regular_income_session_data) do
+    {
+      "friends_or_family_value" => 0,
+      "maintenance_value" => 0,
+      "property_or_lodger_value" => 0,
+      "pension_value" => 0,
+    }
+  end
 
   describe ".call" do
     context "when there is no relevant data" do
@@ -10,7 +18,7 @@ RSpec.describe Cfe::IrregularIncomePayloadService do
         {
           "student_finance_value" => 0,
           "other_value" => 0,
-        }
+        }.merge(regular_income_session_data)
       end
 
       it "adds no payments to the payload" do
@@ -37,7 +45,7 @@ RSpec.describe Cfe::IrregularIncomePayloadService do
         {
           "student_finance_value" => 100,
           "other_value" => 200,
-        }
+        }.merge(regular_income_session_data)
       end
 
       it "adds data to the payload" do
@@ -55,7 +63,7 @@ RSpec.describe Cfe::IrregularIncomePayloadService do
           "student_finance_value" => 100,
           "other_value" => 200,
           "level_of_help" => "controlled",
-        }
+        }.merge(regular_income_session_data)
       end
 
       it "uses an appropriate frequency" do

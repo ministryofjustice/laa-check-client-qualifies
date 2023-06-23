@@ -41,6 +41,7 @@ RSpec.describe "passported check", type: :feature do
           "date_of_birth" => "1973-02-15",
           "has_partner_opponent" => false,
           "receives_qualifying_benefit" => true,
+          "receives_asylum_support" => false,
           "employed" => false,
         })
         expect(parsed["vehicles"]).to eq([{

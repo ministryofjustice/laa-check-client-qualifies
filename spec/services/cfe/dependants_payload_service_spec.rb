@@ -60,17 +60,6 @@ RSpec.describe Cfe::DependantsPayloadService do
       end
     end
 
-    context "when there are zero dependants" do
-      let(:dependant_boolean) { true }
-      let(:child_dependants) { 0 }
-      let(:adult_dependants) { 0 }
-
-      it "does not populate the payload" do
-        service.call(session_data, payload)
-        expect(payload[:dependants]).to eq []
-      end
-    end
-
     context "when the client is passported" do
       let(:session_data) do
         {

@@ -3,7 +3,7 @@ module Cfe
     def call
       return unless relevant_form?(:partner_details)
 
-      @partner_details_form = PartnerDetailsForm.from_session(@session_data)
+      @partner_details_form = instantiate_form(PartnerDetailsForm)
       partner_financials = {
         partner:,
         irregular_incomes:,
@@ -28,27 +28,27 @@ module Cfe
     def irregular_incomes
       return [] unless relevant_form?(:partner_other_income)
 
-      form = PartnerOtherIncomeForm.from_session(@session_data)
+      form = instantiate_form(PartnerOtherIncomeForm)
       CfeParamBuilders::IrregularIncome.call(form)
     end
 
     def employments
       return [] unless relevant_form?(:partner_employment)
 
-      form = PartnerEmploymentForm.from_session(@session_data)
+      form = instantiate_form(PartnerEmploymentForm)
       CfeParamBuilders::Employments.call(form, @partner_details_form)
     end
 
     def regular_transactions
       return [] unless relevant_form?(:partner_other_income) && relevant_form?(:partner_outgoings)
 
-      outgoings_form = PartnerOutgoingsForm.from_session(@session_data)
-      income_form = PartnerOtherIncomeForm.from_session(@session_data)
+      outgoings_form = instantiate_form(PartnerOutgoingsForm)
+      income_form = instantiate_form(PartnerOtherIncomeForm)
       CfeParamBuilders::PartnerRegularTransactions.call(income_form, outgoings_form)
     end
 
     def state_benefits
-      benefits_form = PartnerBenefitDetailsForm.from_session(@session_data) if relevant_form?(:partner_benefit_details)
+      benefits_form = instantiate_form(PartnerBenefitDetailsForm) if relevant_form?(:partner_benefit_details)
       return [] if benefits_form&.items.blank?
 
       CfeParamBuilders::StateBenefits.call(benefits_form)
@@ -57,7 +57,7 @@ module Cfe
     def additional_properties
       return [] unless relevant_form?(:partner_additional_property_details)
 
-      additional_property = PartnerAdditionalPropertyDetailsForm.from_session(@session_data)
+      additional_property = instantiate_form(PartnerAdditionalPropertyDetailsForm)
       [{
         value: additional_property.house_value,
         outstanding_mortgage: (additional_property.mortgage if additional_property.owned_with_mortgage?) || 0,
@@ -67,7 +67,7 @@ module Cfe
     end
 
     def capitals
-      assets_form = PartnerAssetsForm.from_session(@session_data)
+      assets_form = instantiate_form(PartnerAssetsForm)
       CfeParamBuilders::Capitals.call(assets_form)
     end
   end

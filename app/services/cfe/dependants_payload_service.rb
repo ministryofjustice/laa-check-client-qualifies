@@ -3,7 +3,7 @@ module Cfe
     def call
       return unless relevant_form?(:dependant_details)
 
-      details_form = DependantDetailsForm.from_session(@session_data)
+      details_form = instantiate_form(DependantDetailsForm)
       children = CfeParamBuilders::Dependants.children(dependants: details_form.child_dependants,
                                                        count: details_form.child_dependants_count)
       adults = CfeParamBuilders::Dependants.adults(dependants: details_form.adult_dependants,

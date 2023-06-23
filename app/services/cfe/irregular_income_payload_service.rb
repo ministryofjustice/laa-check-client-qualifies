@@ -3,7 +3,7 @@ module Cfe
     def call
       return unless relevant_form?(:other_income)
 
-      form = OtherIncomeForm.from_session(@session_data)
+      form = instantiate_form(OtherIncomeForm)
 
       payments = CfeParamBuilders::IrregularIncome.call(form)
       payload[:irregular_incomes] = { payments: }

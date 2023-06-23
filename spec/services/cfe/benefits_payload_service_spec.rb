@@ -37,6 +37,7 @@ RSpec.describe Cfe::BenefitsPayloadService do
               "benefit_frequency" => "every_week" },
           ],
           "housing_benefit_value" => 0,
+          "housing_payments" => 0,
         }
       end
 
@@ -67,6 +68,7 @@ RSpec.describe Cfe::BenefitsPayloadService do
               "benefit_frequency" => "every_two_weeks" },
           ],
           "housing_benefit_value" => 0,
+          "housing_payments" => 0,
         }
       end
 
@@ -94,6 +96,7 @@ RSpec.describe Cfe::BenefitsPayloadService do
               "benefit_frequency" => "every_four_weeks" },
           ],
           "housing_benefit_value" => 0,
+          "housing_payments" => 0,
         }
       end
 
@@ -121,6 +124,7 @@ RSpec.describe Cfe::BenefitsPayloadService do
               "benefit_frequency" => "monthly" },
           ],
           "housing_benefit_value" => 0,
+          "housing_payments" => 0,
         }
       end
 
@@ -154,8 +158,10 @@ RSpec.describe Cfe::BenefitsPayloadService do
 
       let(:session_data) do
         {
+          "receives_benefits" => false,
           "housing_benefit_value" => "100",
           "housing_benefit_frequency" => "monthly",
+          "housing_payments" => 0,
         }
       end
 
@@ -183,6 +189,7 @@ RSpec.describe Cfe::BenefitsPayloadService do
               "benefit_frequency" => "monthly" },
           ],
           "housing_benefit_value" => "0",
+          "housing_payments" => 0,
         }
       end
 

@@ -19,7 +19,10 @@ RSpec.describe Cfe::PartnerPayloadService do
           "partner_income_tax" => 50,
           "partner_national_insurance" => 20,
           "partner_friends_or_family_value" => 100,
-          "partner_friends_of_family_value" => "every_week",
+          "partner_friends_or_family_frequency" => "every_week",
+          "partner_maintenance_value" => 0,
+          "partner_property_or_lodger_value" => 0,
+          "partner_pension_value" => 0,
           "partner_receives_benefits" => true,
           "partner_benefits" => [
             "benefit_type" => "Child benefit",
@@ -27,6 +30,9 @@ RSpec.describe Cfe::PartnerPayloadService do
             "benefit_amount" => 45,
           ],
           "partner_bank_accounts" => [{ "amount" => 1_000 }],
+          "partner_childcare_payments_value" => 0,
+          "partner_maintenance_payments_value" => 0,
+          "partner_legal_aid_payments_value" => 0,
           "partner_investments" => 250,
           "partner_valuables" => 0,
           "partner_additional_property_owned" => "with_mortgage",
@@ -44,7 +50,7 @@ RSpec.describe Cfe::PartnerPayloadService do
         expect(partner[:employments][0][:payments].count).to eq(12)
         expect(partner[:regular_transactions]).to eq([{ amount: 100,
                                                         category: :friends_or_family,
-                                                        frequency: nil,
+                                                        frequency: :weekly,
                                                         operation: :credit }])
         expect(partner[:state_benefits][0][:payments].count).to eq(12)
         expect(partner[:additional_properties]).to eq([{ outstanding_mortgage: 50_000,
@@ -62,14 +68,21 @@ RSpec.describe Cfe::PartnerPayloadService do
         {
           "partner" => true,
           "partner_over_60" => false,
+          "partner_employment_status" => "unemployed",
           "partner_student_finance_value" => 0,
           "partner_other_value" => 0,
           "partner_friends_or_family_value" => 0,
+          "partner_maintenance_value" => 0,
+          "partner_property_or_lodger_value" => 0,
+          "partner_pension_value" => 0,
           "partner_benefits" => [],
           "partner_bank_accounts" => [{ "amount" => 0 }],
           "partner_investments" => 0,
           "partner_valuables" => 0,
           "partner_additional_property_owned" => "none",
+          "partner_childcare_payments_value" => 0,
+          "partner_maintenance_payments_value" => 0,
+          "partner_legal_aid_payments_value" => 0,
         }
       end
 
@@ -132,6 +145,7 @@ RSpec.describe Cfe::PartnerPayloadService do
       let(:session_data) do
         {
           "partner" => true,
+          "partner_over_60" => false,
           "passporting" => true,
           "partner_bank_accounts" => [{ "amount" => 0 }],
           "partner_investments" => 0,

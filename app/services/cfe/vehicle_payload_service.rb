@@ -3,7 +3,7 @@ module Cfe
     def call
       return unless relevant_form?(:vehicles_details)
 
-      model = VehiclesDetailsForm.from_session(@session_data)
+      model = instantiate_form(VehiclesDetailsForm)
       payload[:vehicles] = CfeParamBuilders::Vehicles.call(model.items, smod_applicable: check.smod_applicable?)
     end
   end

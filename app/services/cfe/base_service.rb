@@ -11,6 +11,13 @@ module Cfe
 
   private
 
+    def instantiate_form(form_class)
+      form = form_class.from_session(@session_data)
+      raise Cfe::InvalidSessionError, form unless form.valid?
+
+      form
+    end
+
     attr_reader :payload
 
     def check
