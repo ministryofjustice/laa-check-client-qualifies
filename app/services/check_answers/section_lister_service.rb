@@ -20,7 +20,7 @@ module CheckAnswers
     def initialize(session_data)
       @session_data = session_data.with_indifferent_access
       @model = Check.new(session_data)
-      @disputed_asset_model = DisputedAssetModel.from_session(session_data)
+      @disputed_property_status = DisputedPropertyStatus.from_session(session_data)
     end
 
     def build_section(section_data)
@@ -72,7 +72,7 @@ module CheckAnswers
       Field.new(label: "#{label_set}_fields.#{label}",
                 type: field_data[:type],
                 value: @session_data[field_data[:attribute]],
-                disputed?: @model.smod_applicable? && @disputed_asset_model.disputed?(field_data.fetch(:attribute)),
+                disputed?: @model.smod_applicable? && @disputed_property_status.disputed?(field_data.fetch(:attribute)),
                 alt_value: @session_data[field_data[:alt_attribute]])
     end
 

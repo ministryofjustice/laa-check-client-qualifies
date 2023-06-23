@@ -1,4 +1,4 @@
-class DisputedAssetModel
+class DisputedPropertyStatus
   include ActiveModel::Model
   include ActiveModel::Attributes
   include SessionPersistable
