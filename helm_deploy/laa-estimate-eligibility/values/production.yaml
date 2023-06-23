@@ -67,3 +67,6 @@ geckoboard:
   validationsDataset: "ccq_validations_production"
   journeysDataset: "ccq_journeys_production"
   enabled: enabled
+
+sentry:
+  cspReportEndpoint: https://o345774.ingest.sentry.io/api/4504177640275968/security/?sentry_key=217c7d14dd2e4cfa8dc62924a1bbd237
