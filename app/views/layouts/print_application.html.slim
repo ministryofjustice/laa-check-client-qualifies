@@ -23,10 +23,10 @@ html dir="ltr" lang="en-GB" class="govuk-template"
     = favicon_link_tag asset_path("images/govuk-apple-touch-icon-180x180.png"), rel: "apple-touch-icon", type: "image/png", size: "180x180"
 
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
-    = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
+    = javascript_include_tag "application", "data-turbo-track": "reload", defer: true, nonce: true
   body class="govuk-template__body"
     = render "layouts/analytics_body"
-    javascript:
+    javascript [nonce=content_security_policy_nonce]:
       document.body.className = ((document.body.className) ? document.body.className + " js-enabled" : "js-enabled");
 
     = govuk_skip_link
