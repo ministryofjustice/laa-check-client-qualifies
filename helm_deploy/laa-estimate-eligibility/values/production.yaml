@@ -69,4 +69,5 @@ geckoboard:
   enabled: enabled
 
 sentry:
+  # Despite looking very secret-y, the key here is _not_ a secret, as it will appear in every HTTP response header
   cspReportEndpoint: https://o345774.ingest.sentry.io/api/4504177640275968/security/?sentry_key=217c7d14dd2e4cfa8dc62924a1bbd237
