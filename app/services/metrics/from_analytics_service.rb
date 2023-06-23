@@ -34,8 +34,8 @@ module Metrics
           Geckoboard::NumberField.new(:controlled_checks_completed, name: "Controlled checks completed", optional: true),
           Geckoboard::NumberField.new(:certificated_checks_completed, name: "Certificated checks completed", optional: true),
           Geckoboard::NumberField.new(:completed_checks_per_user, name: "Completed checks per (analytics opted-in) user", optional: true),
-          Geckoboard::NumberField.new(:mode_completion_time_controlled, name: "Mode of time taken to complete a controlled check", optional: true),
-          Geckoboard::NumberField.new(:mode_completion_time_certificated, name: "Mode of time taken to complete a certificated check", optional: true),
+          Geckoboard::NumberField.new(:median_completion_time_controlled, name: "Median time taken to complete a controlled check", optional: true),
+          Geckoboard::NumberField.new(:median_completion_time_certificated, name: "Median time taken to complete a certificated check", optional: true),
         ],
       }
     end
@@ -53,8 +53,8 @@ module Metrics
           controlled_checks_completed: controlled_checks_completed(range),
           certificated_checks_completed: certificated_checks_completed(range),
           completed_checks_per_user: completed_checks_per_user(range),
-          mode_completion_time_controlled: mode_completion_time(:controlled, range),
-          mode_completion_time_certificated: mode_completion_time(:certificated, range),
+          median_completion_time_controlled: median_completion_time(:controlled, range),
+          median_completion_time_certificated: median_completion_time(:certificated, range),
         }
       end
     end
@@ -73,8 +73,8 @@ module Metrics
           controlled_checks_completed:,
           certificated_checks_completed:,
           completed_checks_per_user:,
-          mode_completion_time_controlled: mode_completion_time(:controlled),
-          mode_completion_time_certificated: mode_completion_time(:certificated),
+          median_completion_time_controlled: median_completion_time(:controlled),
+          median_completion_time_certificated: median_completion_time(:certificated),
         },
       ]
     end
@@ -170,7 +170,7 @@ module Metrics
             .pluck(Arel.sql("page, COUNT(DISTINCT assessment_code)"))
     end
 
-    def mode_completion_time(level_of_help, range = nil)
+    def median_completion_time(level_of_help, range = nil)
       completed_checks = level_of_help == :controlled ? controlled_checks_completed(range) : certificated_checks_completed(range)
       return if completed_checks.zero?
 
@@ -178,12 +178,12 @@ module Metrics
       end_date = range ? range.last : Time.current
       choice = "#{level_of_help}_level_of_help_chosen"
 
-      # returns the mode_completion_time in minutes
+      # returns the median_completion_time in minutes
       sql = <<~SQL
-        SELECT MODE() WITHIN GROUP (ORDER BY durations.duration_in_minutes) AS mode_completion_time
+        SELECT PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY durations.duration_in_minutes) AS median_completion_time
         FROM
           (
-            SELECT ROUND(EXTRACT(epoch FROM (completed_checks.end_time - completed_checks.start_time)) / 60) AS duration_in_minutes
+            SELECT EXTRACT(epoch FROM (completed_checks.end_time - completed_checks.start_time)) / 60 AS duration_in_minutes
             FROM
             (
               SELECT ae1.assessment_code, MIN(ae1.created_at) AS start_time, MIN(ae2.created_at) AS end_time
@@ -200,7 +200,7 @@ module Metrics
       SQL
 
       result = ActiveRecord::Base.connection.execute(ApplicationRecord.sanitize_sql([sql, { start_date:, end_date:, choice: }]))
-      result[0]["mode_completion_time"].to_f
+      result[0]["median_completion_time"].to_f
     end
 
     def relevant_events(range)
