@@ -32,8 +32,8 @@ RSpec.describe Metrics::FromAnalyticsService do
         expect(metric_dataset).to receive(:put).with([])
         expect(all_metric_dataset).to receive(:put).with([
           {
-            mode_completion_time_controlled: nil,
-            mode_completion_time_certificated: nil,
+            median_completion_time_controlled: nil,
+            median_completion_time_certificated: nil,
             certificated_checks_completed: 0,
             checks_completed: 0,
             checks_started: 0,
@@ -97,8 +97,8 @@ RSpec.describe Metrics::FromAnalyticsService do
         expect(all_metric_dataset).to receive(:put).with(
           [
             {
-              mode_completion_time_controlled: 240.0,
-              mode_completion_time_certificated: 120.0,
+              median_completion_time_controlled: 300.0,
+              median_completion_time_certificated: 2940.0,
               certificated_checks_completed: 2,
               checks_completed: 4,
               checks_started: 5,
@@ -112,8 +112,8 @@ RSpec.describe Metrics::FromAnalyticsService do
         expect(metric_dataset).to receive(:put).with(
           [
             {
-              mode_completion_time_controlled: nil,
-              mode_completion_time_certificated: 5760.0,
+              median_completion_time_controlled: nil,
+              median_completion_time_certificated: 5760.0,
               certificated_checks_completed: 1,
               checks_completed: 1,
               checks_started: 1,
@@ -123,8 +123,8 @@ RSpec.describe Metrics::FromAnalyticsService do
               date: Date.new(2023, 2, 1),
             },
             {
-              mode_completion_time_certificated: 120.0,
-              mode_completion_time_controlled: 240.0,
+              median_completion_time_certificated: 120.0,
+              median_completion_time_controlled: 300.0,
               certificated_checks_completed: 1,
               checks_completed: 3,
               checks_started: 4,
