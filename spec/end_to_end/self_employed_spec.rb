@@ -9,7 +9,7 @@ RSpec.describe "Self-employed flow", :self_employed_flag, type: :feature do
     stub = stub_request(:post, %r{assessments\z}).with { |request|
       parsed = JSON.parse(request.body)
 
-      expect(parsed["employment"]).to eq(
+      expect(parsed["employment_details"]).to eq(
         [
           {
             "income" => {
@@ -18,8 +18,8 @@ RSpec.describe "Self-employed flow", :self_employed_flag, type: :feature do
               "gross" => 1.0,
               "national_insurance" => -0.0,
               "tax" => -0.0,
+              "receiving_only_statutory_sick_or_maternity_pay" => false,
             },
-            "receiving_only_statutory_sick_or_maternity_pay" => false,
           },
         ],
       )
@@ -47,7 +47,7 @@ RSpec.describe "Self-employed flow", :self_employed_flag, type: :feature do
     stub = stub_request(:post, %r{assessments\z}).with { |request|
       parsed = JSON.parse(request.body)
 
-      expect(parsed["self_employment"]).to eq(
+      expect(parsed["self_employment_details"]).to eq(
         [
           {
             "income" => {
