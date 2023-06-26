@@ -8,8 +8,8 @@ module Cfe
         partner:,
         irregular_incomes:,
         employments:,
-        employment:,
-        self_employment:,
+        employment_details:,
+        self_employment_details:,
         regular_transactions:,
         state_benefits:,
         additional_properties:,
@@ -41,14 +41,14 @@ module Cfe
       CfeParamBuilders::EmploymentIncomes.call(form, @partner_details_form)
     end
 
-    def employment
+    def employment_details
       return [] unless relevant_form?(:partner_income)
 
       form = PartnerIncomeForm.from_session(@session_data)
       CfeParamBuilders::Employment.call(form)
     end
 
-    def self_employment
+    def self_employment_details
       return [] unless relevant_form?(:partner_income)
 
       form = PartnerIncomeForm.from_session(@session_data)

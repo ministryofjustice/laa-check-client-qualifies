@@ -78,7 +78,7 @@ RSpec.describe "Self-employed flow", :self_employed_flag, type: :feature do
     stub = stub_request(:post, %r{assessments\z}).with { |request|
       parsed = JSON.parse(request.body)
 
-      expect(parsed["partner"]["self_employment"]).to eq(
+      expect(parsed["partner"]["self_employment_details"]).to eq(
         [
           {
             "income" => {

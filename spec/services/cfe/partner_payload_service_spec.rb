@@ -190,8 +190,8 @@ RSpec.describe Cfe::PartnerPayloadService do
         let(:session_data) { { "partner_employment_status" => "unemployed", "partner" => true } }
 
         it "does not populate any payload" do
-          expect(payload[:partner][:employment]).to eq []
-          expect(payload[:partner][:self_employment]).to eq []
+          expect(payload[:partner][:employment_details]).to eq []
+          expect(payload[:partner][:self_employment_details]).to eq []
         end
       end
 
@@ -227,26 +227,26 @@ RSpec.describe Cfe::PartnerPayloadService do
         end
 
         it "populates the employment payload" do
-          expect(payload[:partner][:employment]).to eq(
+          expect(payload[:partner][:employment_details]).to eq(
             [
-              { receiving_only_statutory_sick_or_maternity_pay: false,
-                income: { frequency: "monthly",
+              { income: { frequency: "monthly",
                           gross: 100,
                           benefits_in_kind: 0,
                           tax: -20,
-                          national_insurance: -3 } },
-              { receiving_only_statutory_sick_or_maternity_pay: true,
-                income: { frequency: "annually",
+                          national_insurance: -3,
+                          receiving_only_statutory_sick_or_maternity_pay: false } },
+              { income: { frequency: "annually",
                           gross: 100,
                           benefits_in_kind: 0,
                           tax: -0.0,
-                          national_insurance: -0.0 } },
+                          national_insurance: -0.0,
+                          receiving_only_statutory_sick_or_maternity_pay: true } },
             ],
           )
         end
 
         it "populates the self-employment payload" do
-          expect(payload[:partner][:self_employment]).to eq(
+          expect(payload[:partner][:self_employment_details]).to eq(
             [
               { income: { frequency: "three_monthly", gross: 500, tax: -100, national_insurance: -0 } },
             ],
