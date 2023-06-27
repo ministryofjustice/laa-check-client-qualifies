@@ -80,6 +80,7 @@ references:
 orbs:
   browser-tools: circleci/browser-tools@1.4.0
   slack: circleci/slack@4.5.2
+  aws-cli: circleci/aws-cli@4.0.0
   aws-ecr: circleci/aws-ecr@8.2.1
 
 jobs:
@@ -199,7 +200,23 @@ jobs:
           event: fail
           template: basic_fail_1
           branch_pattern: main
-
+  build_and_push:
+    parameters:
+      image_type:
+        type: string
+    executor: aws-ecr/default
+    steps:
+      - checkout
+      - aws-cli/setup:
+          role_arn: $ECR_ROLE_TO_ASSUME
+          region: $ECR_REGION
+      - run: |
+          aws ecr get-login-password --region $ECR_REGION | docker login --username AWS --password-stdin ${AWS_ECR_REGISTRY_ID}.dkr.ecr.${ECR_REGION}.amazonaws.com
+      - aws-ecr/build-image:
+          push-image: true
+          tag: << parameters.image_type >>-${CIRCLE_SHA1}
+          region: $ECR_REGION
+          repo: $ECR_REPOSITORY
   deploy:
     parameters:
       namespace:
@@ -246,20 +263,18 @@ workflows:
       - end2end_tests:
           requires:
             - install_dependencies
-      - aws-ecr/build-and-push-image:
-          name: Build and push UAT image
-          repo: "${ECR_REPO_NAME}"
-          tag: "uat-${CIRCLE_SHA1}"
+      - build_and_push:
+          name: build_and_push_uat_image
+          image_type: "uat"
           requires:
             - install_dependencies
           filters:
             branches:
               ignore:
                 - main
-      - aws-ecr/build-and-push-image:
-          name: Build and push production image
-          repo: "${ECR_REPO_NAME}"
-          tag: "production-${CIRCLE_SHA1}"
+      - build_and_push:
+          name: build_and_push_production_image
+          image_type: "production"
           requires:
             - install_dependencies
           filters:
@@ -275,7 +290,7 @@ workflows:
             - run_specs
             - end2end_tests
             - linters
-            - Build and push UAT image
+            - build_and_push_uat_image
           filters:
             branches:
               ignore:
@@ -289,7 +304,7 @@ workflows:
             - run_specs
             - end2end_tests
             - linters
-            - Build and push production image
+            - build_and_push_production_image
           filters:
             branches:
               only:
@@ -302,7 +317,7 @@ workflows:
             - run_specs
             - end2end_tests
             - linters
-            - Build and push production image
+            - build_and_push_production_image
           filters:
             branches:
               only:
@@ -315,7 +330,7 @@ workflows:
             - run_specs
             - end2end_tests
             - linters
-            - Build and push production image
+            - build_and_push_production_image
           filters:
             branches:
               only:
