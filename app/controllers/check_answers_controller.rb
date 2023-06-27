@@ -6,7 +6,7 @@ class CheckAnswersController < EstimateFlowController
 
     if @form.valid?
       track_choices(@form)
-      session_data.merge!(@form.session_attributes)
+      session_data.merge!(@form.attributes_for_export_to_session)
       if Steps::Helper.last_step_in_group?(session_data, step)
         next_step = next_check_answer_step(step)
         if next_step

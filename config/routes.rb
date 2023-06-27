@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   resource :cookies, only: %i[show update]
   resource :privacy, as: :privacy, only: :show
   resource :accessibility, only: :show
-  resources :feature_flags, only: :index, path: "feature-flags"
+  resources :feature_flags, only: %i[index edit update], path: "feature-flags"
 
   get "/health-including-dependents", to: "status#health"
   get "/no-analytics", to: "cookies#no_analytics_mode"

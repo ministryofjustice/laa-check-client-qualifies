@@ -1,5 +1,10 @@
-class BenefitDetailsForm < BaseAddAnotherForm
-  SESSION_KEY = "benefits".freeze
+class BenefitDetailsForm
+  include ActiveModel::Model
+  include ActiveModel::Attributes
+  include SessionPersistable
+  include AddAnotherable
+
+  ITEMS_SESSION_KEY = "benefits".freeze
   ITEM_MODEL = BenefitModel
   ATTRIBUTES = %i[benefits].freeze
   alias_attribute :benefits, :items

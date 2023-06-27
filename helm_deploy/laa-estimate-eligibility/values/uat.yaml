@@ -59,6 +59,7 @@ featureFlags:
   cwForms: ENABLED
   specialApplicantGroups: ENABLED
   selfEmployed: ENABLED
+  overrides: ENABLED
 
 postgresql:
   enabled: true

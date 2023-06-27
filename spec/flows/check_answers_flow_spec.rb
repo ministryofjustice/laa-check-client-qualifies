@@ -54,7 +54,7 @@ RSpec.describe "Check answers", type: :feature do
     within "#section-assets-header" do
       click_on "Change"
     end
-    fill_in_assets_screen(values: { savings: "" })
+    fill_in_assets_screen(values: { investments: "" })
     confirm_screen("assets")
     fill_in_assets_screen
     confirm_screen("check_answers")

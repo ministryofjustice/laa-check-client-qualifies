@@ -37,7 +37,7 @@ const initAddAnother = () => {
 const addAnother = (addAnotherContainer) => {
   const newSection = addAnotherContainer.querySelector('[data-add-another-role="template"]').firstChild.cloneNode(true);
   const sections = addAnotherContainer.querySelector('[data-add-another-role="sectionList"]').querySelectorAll('[data-add-another-role="section"]');
-  const counter = sections.length + 1;
+  const counter = sections.length;
   setUpSection(newSection, counter)
   addAnotherContainer.querySelector('[data-add-another-role="sectionList"]').append(newSection);
   setUpRadios(newSection);
@@ -45,7 +45,7 @@ const addAnother = (addAnotherContainer) => {
 
 const setUpSection = (newSection, counter) => {
   setUpRemoveButton(newSection);
-  setUpTitle(newSection, counter);
+  setUpTitle(newSection, counter + 1);
   setUpSuggestions(newSection);
   setNumbering(newSection, counter);
 };
@@ -78,19 +78,19 @@ const remove = (section) => {
 
 const setNumberings = (sectionList) => {
   sectionList.querySelectorAll('[data-add-another-role="section"]').forEach((section, index) => {
-    setNumbering(section, index + 1)
+    setNumbering(section, index)
   });
 }
 
 const setNumbering = (section, counter) => {
   const counterElement = section.querySelector('[data-add-another-role="counter"]')
   if (counterElement) {
-    counterElement.innerHTML = counter
+    counterElement.innerHTML = counterElement.dataset.addAnotherNumberFrom === "zero" ? counter : counter + 1;
   }
   section.querySelectorAll('[data-add-another-dynamic-elements]').forEach((element) => {
     element.dataset.addAnotherDynamicElements.split(",").forEach((pairString) => {
       const parts = pairString.split(":");
-      element.setAttribute(parts[0], parts[1].replace("ID", counter))
+      element.setAttribute(parts[0], parts[1].replace("ID", counter + 1))
     });
   })
 }

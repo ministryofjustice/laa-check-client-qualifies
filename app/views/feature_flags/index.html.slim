@@ -7,11 +7,13 @@
         body.with_row do |row|
           row.with_cell(text: t(".flag"), header: true)
           row.with_cell(text: t(".enabled"), header: true)
+          row.with_cell(text: t(".override"), header: true) if FeatureFlags.overrideable?
         end
         FeatureFlags.time_dependant.each do |flag|
           body.with_row do |row|
             row.with_cell(text: flag)
             row.with_cell(text: FeatureFlags.enabled?(flag) ? t("generic.yes_choice") : t("generic.no_choice"))
+            row.with_cell(text: link_to(t(".override"), edit_feature_flag_path(flag))) if FeatureFlags.overrideable?
           end
         end
       end
@@ -22,11 +24,13 @@
         body.with_row do |row|
           row.with_cell(text: t(".flag"), header: true)
           row.with_cell(text: t(".enabled"), header: true)
+          row.with_cell(text: t(".override"), header: true) if FeatureFlags.overrideable?
         end
         FeatureFlags.static.each do |flag|
           body.with_row do |row|
             row.with_cell(text: flag)
             row.with_cell(text: FeatureFlags.enabled?(flag) ? t("generic.yes_choice") : t("generic.no_choice"))
+            row.with_cell(text: link_to(t(".override"), edit_feature_flag_path(flag))) if FeatureFlags.overrideable?
           end
         end
       end

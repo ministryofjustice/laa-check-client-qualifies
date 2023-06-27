@@ -72,6 +72,8 @@ env:
     value: {{ .Values.featureFlags.specialApplicantGroups }}
   - name: SELF_EMPLOYED_FEATURE_FLAG
     value: {{ .Values.featureFlags.selfEmployed }}
+  - name: FEATURE_FLAG_OVERRIDES
+    value: {{ .Values.featureFlags.overrides }}
   - name: NOTIFICATIONS_API_KEY
     valueFrom:
       secretKeyRef:
@@ -110,5 +112,10 @@ env:
       secretKeyRef:
         name: kube-secrets
         key: blazer-database-password
+  - name: FEATURE_FLAGS_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: kube-secrets
+        key: feature-flags-password
 
 {{- end }}

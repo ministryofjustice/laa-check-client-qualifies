@@ -152,6 +152,9 @@ However, flags are _not_ reset between specs, so to avoid polluting other tests 
 We also have time-dependent flags, defined in `app/lib/feature_flags.rb`, which default to disabled but also have a date associated.
 They will be enabled _on_ the associated date.
 
+When the `FEATURE_FLAG_OVERRIDES` env var is set to `enabled`, it is possible to use the `/feature-flags` endpoint to set database values that override
+env values for both static and time-based feature flags. The username is "flags" and the password is a secret stored alongside our other secrets in K8s.
+
 ### Saving as PDF
 
 We use Grover to save pages as PDF files for download, which in turn uses Puppeteer. For it to work, the app needs to make HTTP requests to the app, to load assets. This means that it only works in a multi-threaded environment. To run the app multithreadedly in development mode, set the `MULTI_THREAD` environment variable, e.g.:
@@ -216,5 +219,6 @@ Secrets have been stored for each environment using `kubectl create secret`. The
 * geckoboard-api-key
 * blazer-password
 * blazer-database-password
+* feature-flags-password
 
 The current values for these are available as secure notes in 1Password for each environment, should they be lost from Kubernetes.

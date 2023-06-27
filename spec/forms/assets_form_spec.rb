@@ -21,12 +21,12 @@ RSpec.describe "assets", type: :feature do
   end
 
   it "stores the chosen values in the session" do
-    fill_in "client_assets_form[savings]", with: "234"
+    fill_in "bank_account_model[items][1][amount]", with: "234"
     fill_in "client_assets_form[investments]", with: "345"
     fill_in "client_assets_form[valuables]", with: "4560"
     click_on "Save and continue"
 
-    expect(session_contents["savings"]).to eq 234
+    expect(session_contents["bank_accounts"][0]["amount"]).to eq 234
     expect(session_contents["investments"]).to eq 345
     expect(session_contents["valuables"]).to eq 4560
   end

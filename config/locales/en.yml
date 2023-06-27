@@ -246,10 +246,6 @@ en:
               blank: Enter the total value of investments. Enter 0 if this does not apply.
               not_a_number: The total value of all investments must be a number. Enter 0 if this does not apply.
               greater_than_or_equal_to: The total value of all investments must be 0 or more.
-            savings:
-              blank: Enter the total of all money in bank accounts. Enter 0 if this does not apply.
-              not_a_number: The total of all money in bank accounts must be a number. Enter 0 if this does not apply.
-              greater_than_or_equal_to: The total of all money in bank accounts must be 0 or more.
             property_value:
               blank: Enter the estimated value of the additional property, holiday home, or land. Enter 0 if this does not apply.
               not_a_number: The estimated value of the additional property, holiday home, or land must be a number. Enter 0 if this does not apply.
@@ -273,9 +269,6 @@ en:
             investments:
               blank: Enter the total value of investments. Enter 0 if this does not apply.
               not_a_number: Total value of investments must be a number. Enter 0 if this does not apply.
-            savings:
-              blank: Enter total of all money in bank accounts. Enter 0 if this does not apply.
-              not_a_number: Total of all money in bank accounts must be a number. Enter 0 if this does not apply.
             property_value:
               blank: Enter the estimated value of the additional property, holiday home, or land. Enter 0 if this does not apply.
               not_a_number: Estimated value of the additional property, holiday home, or land must be a number. Enter 0 if this does not apply.
@@ -287,6 +280,12 @@ en:
               greater_than: Share the partner owns must be greater than 0
               not_a_number: Share the partner owns of the additional property, holiday home, or land must be a number. Enter 0 if this does not apply.
               less_than_or_equal_to: Share the partner owns must be between 1 and 100
+        bank_account_model:
+          attributes:
+            amount:
+              blank: Enter the total of all money in bank accounts. Enter 0 if this does not apply.
+              not_a_number: The total of all money in bank accounts must be a number. Enter 0 if this does not apply.
+              greater_than_or_equal_to: The total of all money in bank accounts must be 0 or more.
         property_form:
           attributes:
             property_owned:
@@ -1000,12 +999,14 @@ en:
       bankrupt_guidance:
         text: Guidance on bankrupt clients
         link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1157030/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_certificated_work_May_2023__002_.pdf#page=84
-      savings:
+      bank_accounts:
         label: Money in bank accounts
         hints:
           - For example, money in current or savings accounts, ISAs, or child accounts your client is a signatory on. Do not include any government Cost of Living Payments owed to your client.
           - Enter 0 if this does not apply.
-        input: Total of all money in bank accounts
+        input: Total money in account
+      add_bank_account: Add another bank account
+      additional_bank_account: Additional bank account
       investments:
         label: Investments
         hints:
@@ -1053,12 +1054,10 @@ en:
         text: Guidance on clients with partners who are prisoners
       bankrupt_guidance:
         text: Guidance on clients with partners who are bankrupt
-      savings:
-        label: Money in bank accounts
+      bank_accounts:
         hints:
           - For example, money in current or savings accounts, ISAs, or child accounts the partner is a signatory on. Do not include any government Cost of Living Payments owed to the partner. 
           - Enter 0 if this does not apply.
-        input: Total of all money in bank accounts
       investments:
         label: Investments
         hints:
@@ -1255,14 +1254,11 @@ en:
         partner_legal_aid_payments_value: Legal aid payments
       assets: Client assets
       assets_fields:
-        savings: Money in bank accounts
+        bank_account: Money in bank accounts
+        additional_bank_account: Additional bank account %{variable}
         investments: Investments
         valuables: Valuables
       partner_assets: Partner assets
-      partner_assets_fields:
-        partner_savings: Money in bank accounts
-        partner_investments: Investments
-        partner_valuables: Valuables
       household_vehicles: Client vehicles
       household_vehicles_with_partner: Vehicles
       household_vehicles_fields:
@@ -1983,6 +1979,9 @@ en:
       static: Static
       flag: Flag
       enabled: Enabled?
+      override: Override
+    edit:
+      value: Override value
   missing_session:
     title: You cannot access this page
     intro: "You cannot access this eligibility check for one of the following reasons:"

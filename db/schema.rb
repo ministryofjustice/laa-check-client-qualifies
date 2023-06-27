@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_18_104144) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_15_101849) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -98,6 +98,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_18_104144) do
     t.string "matter_type"
     t.boolean "asylum_support"
     t.index ["assessment_id"], name: "index_completed_user_journeys_on_assessment_id", unique: true
+  end
+
+  create_table "feature_flag_overrides", force: :cascade do |t|
+    t.string "key"
+    t.boolean "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

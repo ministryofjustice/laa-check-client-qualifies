@@ -56,7 +56,7 @@ RSpec.describe ControlledWorkDocumentContent do
 
       it "returns nil if client's additional property is smod" do
         session_data = {
-          "in_dispute" => %w[property],
+          "additional_house_in_dispute" => true,
           "api_response" => {
             "assessment" => {
               "capital" => make_capital(50),

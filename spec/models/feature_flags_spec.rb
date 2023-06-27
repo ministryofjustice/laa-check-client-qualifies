@@ -32,4 +32,16 @@ RSpec.describe FeatureFlags do
       expect(described_class.time_dependant).not_to include(:example_2125_flag)
     end
   end
+
+  describe ".overrideable?" do
+    around do |example|
+      ENV["FEATURE_FLAG_OVERRIDES"] = "enabled"
+      example.run
+      ENV["FEATURE_FLAG_OVERRIDES"] = nil
+    end
+
+    it "returns true if the env var is set" do
+      expect(described_class.time_dependant).not_to include(:example_2125_flag)
+    end
+  end
 end
