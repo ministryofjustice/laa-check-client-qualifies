@@ -5,7 +5,7 @@
 .govuk-grid-column-two-thirds
   . data-module="add-another"
     .add-another-template-area data-add-another-role="template"
-      = render "vehicle_section", removeable: true, model: VehicleModel.new
+      = render "vehicle_section", removeable: true, model: @form.blank_model
 
     = form_for(@form, url: wizard_path, method: :put) do |form|
       = form.govuk_error_summary t("generic.error_summary_title")

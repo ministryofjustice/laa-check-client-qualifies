@@ -25,8 +25,14 @@
       - subsection.fields.each do |field|
         - case field.type
         - when "money"
+          ruby:
+            label_text = if field.label_variable
+                           t("estimates.check_answers.#{field.label}", variable: field.label_variable)
+                         else
+                           t("estimates.check_answers.#{field.label}")
+                         end
           = render "money_check_answer",
-                    label_text: t("estimates.check_answers.#{field.label}"),
+                    label_text:,
                     value_text: field.value,
                     disputed_asset: field.disputed?
         - when "boolean"

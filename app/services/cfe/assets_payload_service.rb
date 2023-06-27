@@ -6,8 +6,7 @@ module Cfe
       return unless relevant_form?(:assets)
 
       asset_form = ClientAssetsForm.from_session(@session_data)
-      assets_in_dispute = smod_applicable? ? asset_form.in_dispute : []
-      capitals = CfeParamBuilders::Capitals.call(asset_form, assets_in_dispute:)
+      capitals = CfeParamBuilders::Capitals.call(asset_form, smod_applicable: smod_applicable?)
 
       if capitals[:bank_accounts].any? || capitals[:non_liquid_capital].any?
         payload[:capitals] = capitals

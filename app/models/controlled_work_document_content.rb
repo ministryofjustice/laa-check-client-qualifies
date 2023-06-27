@@ -46,22 +46,6 @@ class ControlledWorkDocumentContent < Check
     !smod_assets?
   end
 
-  def additional_property_in_dispute?
-    additional_house_in_dispute || in_dispute.include?("property") unless asylum_support?
-  end
-
-  def savings_in_dispute?
-    in_dispute.include? "savings" unless asylum_support?
-  end
-
-  def investments_in_dispute?
-    in_dispute.include? "investments" unless asylum_support?
-  end
-
-  def valuables_in_dispute?
-    in_dispute.include? "valuables" unless asylum_support?
-  end
-
   def client_capital_relevant?
     Steps::Helper.valid_step?(session_data, :assets)
   end
@@ -83,11 +67,11 @@ class ControlledWorkDocumentContent < Check
   end
 
   def smod_additional_properties_value
-    from_cfe_payload("assessment.capital.capital_items.properties.additional_properties.0.value") if additional_property_in_dispute?
+    from_cfe_payload("assessment.capital.capital_items.properties.additional_properties.0.value") if additional_house_in_dispute
   end
 
   def smod_additional_properties_outstanding_mortgage
-    from_cfe_payload("assessment.capital.capital_items.properties.additional_properties.0.outstanding_mortgage") if additional_property_in_dispute?
+    from_cfe_payload("assessment.capital.capital_items.properties.additional_properties.0.outstanding_mortgage") if additional_house_in_dispute
   end
 
   def smod_main_home_percentage_owned
@@ -101,7 +85,7 @@ class ControlledWorkDocumentContent < Check
   end
 
   def smod_additional_properties_net_value
-    from_cfe_payload("assessment.capital.capital_items.properties.additional_properties.0.net_value") if additional_property_in_dispute?
+    from_cfe_payload("assessment.capital.capital_items.properties.additional_properties.0.net_value") if additional_house_in_dispute
   end
 
   def smod_main_home_net_equity
@@ -109,7 +93,7 @@ class ControlledWorkDocumentContent < Check
   end
 
   def smod_additional_properties_net_equity
-    from_cfe_payload("assessment.capital.capital_items.properties.additional_properties.0.net_equity") if additional_property_in_dispute?
+    from_cfe_payload("assessment.capital.capital_items.properties.additional_properties.0.net_equity") if additional_house_in_dispute
   end
 
   def smod_main_home_assessed_equity
@@ -117,23 +101,23 @@ class ControlledWorkDocumentContent < Check
   end
 
   def smod_additional_properties_assessed_equity
-    from_cfe_payload("assessment.capital.capital_items.properties.additional_properties.0.assessed_equity") if additional_property_in_dispute?
+    from_cfe_payload("assessment.capital.capital_items.properties.additional_properties.0.assessed_equity") if additional_house_in_dispute
   end
 
   def smod_additional_properties_percentage_owned
-    from_cfe_payload("assessment.capital.capital_items.properties.additional_properties.0.percentage_owned") if additional_property_in_dispute?
+    from_cfe_payload("assessment.capital.capital_items.properties.additional_properties.0.percentage_owned") if additional_house_in_dispute
   end
 
   def smod_savings
-    savings if savings_in_dispute?
+    bank_accounts&.select(&:account_in_dispute)&.sum { _1.amount.to_d }
   end
 
   def smod_investments
-    investments if investments_in_dispute?
+    investments if investments_in_dispute
   end
 
   def smod_valuables
-    valuables if valuables_in_dispute?
+    valuables if valuables_in_dispute
   end
 
   def smod_total_capital
@@ -189,7 +173,7 @@ class ControlledWorkDocumentContent < Check
   end
 
   def non_smod_additional_properties_value
-    additional_properties_value unless additional_property_in_dispute?
+    additional_properties_value unless additional_house_in_dispute
   end
 
   def additional_properties_value
@@ -197,7 +181,7 @@ class ControlledWorkDocumentContent < Check
   end
 
   def non_smod_additional_properties_mortgage
-    additional_properties_mortgage unless additional_property_in_dispute?
+    additional_properties_mortgage unless additional_house_in_dispute
   end
 
   def additional_properties_mortgage
@@ -205,7 +189,7 @@ class ControlledWorkDocumentContent < Check
   end
 
   def non_smod_additional_properties_percentage_owned
-    additional_properties_percentage_owned unless additional_property_in_dispute?
+    additional_properties_percentage_owned unless additional_house_in_dispute
   end
 
   def additional_properties_percentage_owned
@@ -220,7 +204,7 @@ class ControlledWorkDocumentContent < Check
   end
 
   def non_smod_additional_properties_net_value
-    additional_properties_net_value unless additional_property_in_dispute?
+    additional_properties_net_value unless additional_house_in_dispute
   end
 
   def additional_properties_net_value
@@ -228,7 +212,7 @@ class ControlledWorkDocumentContent < Check
   end
 
   def non_smod_additional_properties_net_equity
-    additional_properties_net_equity unless additional_property_in_dispute?
+    additional_properties_net_equity unless additional_house_in_dispute
   end
 
   def additional_properties_net_equity
@@ -236,7 +220,7 @@ class ControlledWorkDocumentContent < Check
   end
 
   def non_smod_additional_properties_assessed_equity
-    additional_properties_assessed_equity unless additional_property_in_dispute?
+    additional_properties_assessed_equity unless additional_house_in_dispute
   end
 
   def additional_properties_assessed_equity
@@ -255,15 +239,23 @@ class ControlledWorkDocumentContent < Check
   end
 
   def non_smod_client_savings
-    savings unless savings_in_dispute?
+    bank_accounts&.reject(&:account_in_dispute)&.sum { _1.amount.to_d }
+  end
+
+  def savings
+    bank_accounts&.sum { _1.amount.to_d }
+  end
+
+  def partner_savings
+    partner_bank_accounts&.sum { _1.amount.to_d }
   end
 
   def non_smod_client_investments
-    investments unless investments_in_dispute?
+    investments unless investments_in_dispute
   end
 
   def non_smod_client_valuables
-    valuables unless valuables_in_dispute?
+    valuables unless valuables_in_dispute
   end
 
   def combined_non_disputed_capital

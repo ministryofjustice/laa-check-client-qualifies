@@ -13,7 +13,7 @@ RSpec.describe "partner_assets", type: :feature do
     click_on "Save and continue"
     within ".govuk-error-summary__list" do
       expect(page.text).to eq [
-        "Enter total of all money in bank accounts. Enter 0 if this does not apply.",
+        "Enter the total of all money in bank accounts. Enter 0 if this does not apply.",
         "Enter the total value of investments. Enter 0 if this does not apply.",
         "Enter the value of items worth £500 or more. Enter 0 if this does not apply.",
       ].join
@@ -21,12 +21,12 @@ RSpec.describe "partner_assets", type: :feature do
   end
 
   it "stores the chosen values in the session" do
-    fill_in "partner_assets_form[savings]", with: "234"
+    fill_in "bank_account_model[items][1][amount]", with: "234"
     fill_in "partner_assets_form[investments]", with: "345"
     fill_in "partner_assets_form[valuables]", with: "4560"
     click_on "Save and continue"
 
-    expect(session_contents["partner_savings"]).to eq 234
+    expect(session_contents["partner_bank_accounts"][0]["amount"]).to eq 234
     expect(session_contents["partner_investments"]).to eq 345
     expect(session_contents["partner_valuables"]).to eq 4560
   end

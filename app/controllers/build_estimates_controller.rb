@@ -4,7 +4,7 @@ class BuildEstimatesController < EstimateFlowController
 
     if @form.valid?
       track_choices(@form)
-      session_data.merge!(@form.session_attributes)
+      session_data.merge!(@form.attributes_for_export_to_session)
       next_step = Steps::Helper.next_step_for(session_data, step)
       if next_step
         redirect_to wizard_path next_step

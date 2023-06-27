@@ -92,27 +92,28 @@ RSpec.describe "estimates/check_answers.html.slim" do
         context "when multiple other assets" do
           let(:session_data) do
             build(:minimal_complete_session,
-                  savings: 50,
+                  bank_accounts: [
+                    { "amount" => 50, "account_in_dispute" => savings_in_dispute },
+                    { "amount" => 30, "account_in_dispute" => savings_in_dispute },
+                  ],
                   investments: 60,
-                  valuables: 550,
-                  in_dispute:)
+                  valuables: 550)
           end
 
-          let(:in_dispute) { [] }
+          let(:savings_in_dispute) { false }
 
           it "renders the content correctly" do
             expect(text).to include("Money in bank accounts£50.00")
+            expect(text).to include("Additional bank account 1£30.00")
             expect(text).to include("Investments£60.00")
             expect(text).to include("Valuables£550.00")
           end
 
           context "when is smod" do
-            let(:in_dispute) { %w[savings investments valuables] }
+            let(:savings_in_dispute) { true }
 
             it "renders content" do
               expect(page_text_within("#money-in-bank-accounts")).to include("Disputed asset")
-              expect(page_text_within("#investments")).to include("Disputed asset")
-              expect(page_text_within("#valuables")).to include("Disputed asset")
             end
           end
         end
@@ -120,7 +121,7 @@ RSpec.describe "estimates/check_answers.html.slim" do
         context "when no other assets" do
           let(:session_data) do
             build(:minimal_complete_session,
-                  savings: 0,
+                  bank_accounts: [{ "amount" => 0 }],
                   investments: 0,
                   valuables: 0)
           end

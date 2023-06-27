@@ -177,8 +177,7 @@ end
 
 def fill_in_assets_screen(screen_name: :assets, form_name: :client_assets, values: {})
   confirm_screen screen_name
-  fill_in "#{form_name}_form[property_value]", with: values.fetch(:property, "0") if page.body.include?("property_value")
-  fill_in "#{form_name}_form[savings]", with: values.fetch(:savings, "0")
+  fill_in "bank_account_model[items][1][amount]", with: "0"
   fill_in "#{form_name}_form[investments]", with: values.fetch(:investments, "0")
   fill_in "#{form_name}_form[valuables]", with: values.fetch(:valuables, "0")
   click_on "Save and continue"
