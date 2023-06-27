@@ -73,4 +73,17 @@ RSpec.describe "Check answers", type: :feature do
     fill_in_immigration_or_asylum_screen
     confirm_screen("check_answers")
   end
+
+  it "redirects correctly from the applicant form when self employed flag is switched on", :self_employed_flag do
+    start_assessment
+    fill_in_forms_until(:employment_status)
+    fill_in_employment_status_screen
+    fill_in_forms_until(:check_answers)
+    confirm_screen("check_answers")
+    within "#section-client_details-header" do
+      click_on "Change"
+    end
+    fill_in_applicant_screen(over_60: "Yes")
+    confirm_screen("check_answers")
+  end
 end
