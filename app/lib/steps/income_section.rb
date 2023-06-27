@@ -9,7 +9,7 @@ module Steps
         if Steps::Logic.passported?(session_data) || Steps::Logic.asylum_supported?(session_data)
           []
         else
-          [employment_status_step,
+          [employment_status_step(session_data),
            employment_steps(session_data),
            benefit_steps(session_data),
            Steps::Group.new(:other_income)].compact
@@ -23,8 +23,8 @@ module Steps
         Steps::Group.new(key) if Steps::Logic.employed?(session_data)
       end
 
-      def employment_status_step
-        return unless FeatureFlags.enabled?(:self_employed)
+      def employment_status_step(session_data)
+        return unless FeatureFlags.enabled?(:self_employed, session_data)
 
         Steps::Group.new(:employment_status)
       end

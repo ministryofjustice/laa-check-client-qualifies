@@ -13,6 +13,30 @@ RSpec.describe FeatureFlags do
     end
   end
 
+  describe "global and session flags" do
+    let(:session_data) { { "feature_flags" => {} } }
+
+    context "when global flag is switched on do" do
+      around do |each|
+        ENV["SENTRY_FEATURE_FLAG"] = "enabled"
+        each.run
+        ENV["SENTRY_FEATURE_FLAG"] = "disabled"
+      end
+
+      it "defaults to global flag when the flag does not exist in the session_data" do
+        expect(described_class.enabled?(:sentry, session_data)).to eq true
+      end
+
+      context "when flag is specified in the session_data" do
+        let(:session_data) { { "feature_flags" => { "sentry" => false } } }
+
+        it "returns the value from the session_data" do
+          expect(described_class.enabled?(:sentry, session_data)).to eq false
+        end
+      end
+    end
+  end
+
   it "contains no out of date flags" do
     expect(described_class::ENABLED_AFTER_DATE.values.count { 1.month.ago > _1[:from] }).to eq 0
   end
@@ -23,7 +47,7 @@ RSpec.describe FeatureFlags do
 
   describe ".static" do
     it "returns all static flags" do
-      expect(described_class.static).to eq FeatureFlags::STATIC_FLAGS
+      expect(described_class.static).to eq FeatureFlags::STATIC_FLAGS.keys
     end
   end
 
