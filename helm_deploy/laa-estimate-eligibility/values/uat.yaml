@@ -74,8 +74,9 @@ postgresql:
     enablePostgresUser: true
     postgresPassword: postgres
   postgresqlUsername: postgres
-  persistence:
-    enabled: false
+  primary:
+    persistence:
+      enabled: false
 
 geckoboard:
   metricsDataset: "ccq_monthly_metrics_uat"
