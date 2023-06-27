@@ -1,6 +1,6 @@
 #!/bin/sh
 
-NAMESPACE=$1
+ENVIRONMENT=$1
 
 deploy_branch() {
 # Convert the branch name into a string that can be turned into a valid URL
@@ -16,24 +16,24 @@ deploy_branch() {
                 --namespace=${K8S_NAMESPACE} \
                 --values ./helm_deploy/laa-estimate-eligibility/values/uat.yaml \
                 --set image.repository="$ECR_ENDPOINT" \
-                --set image.tag="uat-$CIRCLE_SHA1" \
+                --set image.tag="branch-$CIRCLE_SHA1" \
                 --set ingress.annotations."external-dns\.alpha\.kubernetes\.io/set-identifier"="$IDENTIFIER" \
                 --set ingress.hosts="{$RELEASE_HOST}" \
                 --set deploy.host="$RELEASE_HOST"
 }
 
-deploy_standard() {
+deploy_main() {
   helm upgrade check-client-qualifies ./helm_deploy/laa-estimate-eligibility/. \
                           --install --wait \
                           --namespace=${K8S_NAMESPACE} \
-                          --values ./helm_deploy/laa-estimate-eligibility/values/$NAMESPACE.yaml \
+                          --values ./helm_deploy/laa-estimate-eligibility/values/$ENVIRONMENT.yaml \
                           --set image.repository="$ECR_ENDPOINT" \
-                          --set image.tag="production-$CIRCLE_SHA1"
+                          --set image.tag="main-$CIRCLE_SHA1"
 }
 
 
-if [[ "$NAMESPACE" == "branch" ]]; then
-  deploy_branch
+if [[ "$CIRCLE_BRANCH" == "main" ]]; then
+  deploy_main
 else
-  deploy_standard
+  deploy_branch
 fi

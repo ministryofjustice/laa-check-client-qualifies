@@ -201,9 +201,6 @@ jobs:
           template: basic_fail_1
           branch_pattern: main
   build_and_push:
-    parameters:
-      image_type:
-        type: string
     executor: aws-ecr/default
     steps:
       - checkout
@@ -212,14 +209,20 @@ jobs:
           region: $ECR_REGION
       - run: |
           aws ecr get-login-password --region $ECR_REGION | docker login --username AWS --password-stdin ${AWS_ECR_REGISTRY_ID}.dkr.ecr.${ECR_REGION}.amazonaws.com
+      - run:
+          name: Set ECR_TAG environment variable for use in next step
+          command: |
+            [[ "$CIRCLE_BRANCH" == "main" ]] && ECR_TAG="main-$CIRCLE_SHA1" || ECR_TAG="branch-$CIRCLE_SHA1"
+            echo "export ECR_TAG=$ECR_TAG" >> "$BASH_ENV"
+            source "$BASH_ENV"
       - aws-ecr/build-image:
           push-image: true
-          tag: << parameters.image_type >>-${CIRCLE_SHA1}
+          tag: $ECR_TAG
           region: $ECR_REGION
           repo: $ECR_REPOSITORY
   deploy:
     parameters:
-      namespace:
+      environment:
         type: string
     executor: cloud-platform-executor
     steps:
@@ -228,11 +231,11 @@ jobs:
           docker_layer_caching: true
       - *authenticate_k8s
       - deploy:
-          name: Deploy LAA Check-your-client-qualifies-for-legal-aid service to << parameters.namespace >>
+          name: Deploy LAA Check-your-client-qualifies-for-legal-aid service to << parameters.environment >>
           command: |
-            ./bin/deploy << parameters.namespace >>
+            ./bin/deploy << parameters.environment >>
       - slack/notify:
-          channel: eligibility-alerts-<< parameters.namespace >>
+          channel: eligibility-alerts-<< parameters.environment >>
           event: fail
           template: basic_fail_1
 
@@ -264,73 +267,40 @@ workflows:
           requires:
             - install_dependencies
       - build_and_push:
-          name: build_and_push_uat_image
-          image_type: "uat"
           requires:
             - install_dependencies
-          filters:
-            branches:
-              ignore:
-                - main
-      - build_and_push:
-          name: build_and_push_production_image
-          image_type: "production"
-          requires:
-            - install_dependencies
-          filters:
-            branches:
-              only:
-                - main
       - deploy:
-          name: Deploy branch UAT
-          namespace: branch
+          name: Deploy UAT
+          environment: uat
           context: laa-estimate-eligibility-uat
           requires:
             - linters
             - run_specs
             - end2end_tests
             - linters
-            - build_and_push_uat_image
-          filters:
-            branches:
-              ignore:
-                - main
-      - deploy:
-          name: Deploy main UAT
-          namespace: uat
-          context: laa-estimate-eligibility-uat
-          requires:
-            - linters
-            - run_specs
-            - end2end_tests
-            - linters
-            - build_and_push_production_image
-          filters:
-            branches:
-              only:
-                - main
+            - build_and_push
       - deploy:
           name: Deploy staging
-          namespace: staging
+          environment: staging
           context: laa-estimate-eligibility-staging
           requires:
             - run_specs
             - end2end_tests
             - linters
-            - build_and_push_production_image
+            - build_and_push
           filters:
             branches:
               only:
                 - main
       - deploy:
           name: Deploy production
-          namespace: production
+          environment: production
           context: laa-estimate-eligibility-production
           requires:
             - run_specs
             - end2end_tests
             - linters
-            - build_and_push_production_image
+            - build_and_push
           filters:
             branches:
               only:
