@@ -7,10 +7,17 @@ class FeatureFlags
 
   class << self
     def enabled?(flag)
+      if overrideable?
+        override = FeatureFlagOverride.find_by(key: flag)
+        if override
+          return override.value
+        end
+      end
+
       if ENABLED_AFTER_DATE.key?(flag)
         Time.current.beginning_of_day >= ENABLED_AFTER_DATE.dig(flag, :from)
       elsif STATIC_FLAGS.include?(flag)
-        ENV["#{flag.to_s.upcase}_FEATURE_FLAG"]&.casecmp("enabled")&.zero?
+        ENV["#{flag.to_s.upcase}_FEATURE_FLAG"]&.casecmp("enabled")&.zero? || false
       else
         raise "Unrecognised flag '#{flag}'"
       end
@@ -22,6 +29,10 @@ class FeatureFlags
 
     def static
       STATIC_FLAGS
+    end
+
+    def overrideable?
+      ENV["FEATURE_FLAG_OVERRIDES"]&.casecmp("enabled")&.zero?
     end
   end
 end

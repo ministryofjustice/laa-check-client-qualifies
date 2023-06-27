@@ -1979,6 +1979,9 @@ en:
       static: Static
       flag: Flag
       enabled: Enabled?
+      override: Override
+    edit:
+      value: Override value
   missing_session:
     title: You cannot access this page
     intro: "You cannot access this eligibility check for one of the following reasons:"

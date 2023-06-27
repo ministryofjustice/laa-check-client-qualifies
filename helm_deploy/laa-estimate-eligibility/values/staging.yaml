@@ -58,6 +58,7 @@ featureFlags:
   cwForms: NOT_ENABLED
   specialApplicantGroups: ENABLED
   selfEmployed: NOT_ENABLED
+  overrides: NOT_ENABLED
 
 geckoboard:
   metricsDataset: "ccq_monthly_metrics_staging"
