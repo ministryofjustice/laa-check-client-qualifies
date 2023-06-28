@@ -1604,7 +1604,7 @@ en:
         maintenance_out: ""
         legal_aid: ""
         national_insurance: ""
-        employment_expenses: A fixed allowance if your client is employed
+        employment_expenses: A fixed allowance if your client gets a salary or wage
         income_tax: ""
         partner_allowance: A fixed allowance if your client has a partner
       household_outgoing_hints:
@@ -1615,7 +1615,7 @@ en:
         maintenance_out: ""
         legal_aid: ""
         national_insurance: ""
-        employment_expenses: A fixed allowance if the partner is employed
+        employment_expenses: A fixed allowance if the partner gets a salary or wage
         income_tax: ""
         partner_allowance: ""
       capital_calculation: Capital calculation

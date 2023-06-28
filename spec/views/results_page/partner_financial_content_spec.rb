@@ -181,7 +181,7 @@ RSpec.describe "estimates/show.html.slim" do
       expect(page_text).to include "Payments towards legal aid in a criminal case£41.79"
       expect(page_text).to include "Income tax£5.00"
       expect(page_text).to include "National Insurance£10.00"
-      expect(page_text).to include "Employment expensesA fixed allowance if the partner is employed£3.34"
+      expect(page_text).to include "Employment expensesA fixed allowance if the partner gets a salary or wage£3.34"
       expect(page_text).to include "Total client and partner monthly outgoings£5,483.00"
       expect(page_text).to include "Assessed disposable monthly incomeTotal monthly income minus total monthly outgoings£12,345.00"
       expect(page_text).to include "Disposable monthly income upper limit£2,657.00"
