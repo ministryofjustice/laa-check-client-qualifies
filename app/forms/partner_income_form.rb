@@ -1,8 +1,11 @@
 class PartnerIncomeForm < IncomeForm
-  SESSION_KEY = "partner_incomes".freeze
-  PREFIX = "partner_".freeze
-  def self.add_session_attributes(form, session_data)
-    form.controlled = Steps::Logic.controlled?(session_data)
-    form.partner = true
+  include SessionPersistableForPartner
+  include AddAnotherable
+
+  ITEMS_SESSION_KEY = "partner_incomes".freeze
+
+  def self.add_extra_attributes_to_model_from_session(model, session_data)
+    model.controlled = Steps::Logic.controlled?(session_data)
+    model.partner = true
   end
 end
