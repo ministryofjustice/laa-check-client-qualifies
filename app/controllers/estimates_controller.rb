@@ -42,25 +42,11 @@ class EstimatesController < ApplicationController
       layout: "print_application",
     })
 
-    grover_options = {
-      format: "A4",
-      margin: {
-        top: "2cm",
-        bottom: "2cm",
-        left: "1cm",
-        right: "1cm",
-      },
-      emulate_media: "screen",
-      launch_args: ["--font-render-hinting=medium", "--no-sandbox"],
-      display_url: request.url.split("/estimates").first,
-      execute_script: "document.querySelectorAll('button').forEach(el => el.style.display = 'none')",
-    }
-
-    pdf = Grover.new(html, **grover_options).to_pdf
-
-    send_data pdf,
-              filename: "#{I18n.t('generic.download_name')} - #{Time.zone.now.strftime('%Y-%m-%d %H.%M.%S')}.pdf",
-              type: "application/pdf"
+    PdfService.with_pdf_data_from_html_string(html, request.url.split("/estimates").first) do |pdf_data|
+      send_data pdf_data,
+                filename: "#{I18n.t('generic.download_name')} - #{Time.zone.now.strftime('%Y-%m-%d %H.%M.%S')}.pdf",
+                type: "application/pdf"
+    end
   end
 
 private
