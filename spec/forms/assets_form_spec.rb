@@ -2,7 +2,8 @@ require "rails_helper"
 
 RSpec.describe "assets", type: :feature do
   let(:assessment_code) { :assessment_code }
-  let(:session) { { "level_of_help" => "controlled" } }
+  let(:level_of_help) { "controlled" }
+  let(:session) { { "level_of_help" => level_of_help } }
 
   before do
     set_session(assessment_code, session)
@@ -63,11 +64,17 @@ RSpec.describe "assets", type: :feature do
       it "shows appropriate links" do
         expect(page).to have_content "Guidance on bankrupt clients"
       end
+
+      context "when self_employed flag enabled", :self_employed_flag do
+        it "shows content about self-employed applicants" do
+          expect(page).to have_content "Business capital for self-employed clients"
+        end
+      end
     end
 
     context "when self_employed flag enabled", :self_employed_flag do
-      it "shows content about self-employed applicants" do
-        expect(page).to have_content "Business capital for self-employed clients"
+      it "does not show content about self-employed applicants" do
+        expect(page).not_to have_content "Business capital for self-employed clients"
       end
     end
   end
