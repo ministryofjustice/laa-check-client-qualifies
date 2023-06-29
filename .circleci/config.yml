@@ -150,6 +150,9 @@ jobs:
             sudo add-apt-repository --yes ppa:malteworld/ppa || true
             sudo apt update --allow-unauthenticated || true
             sudo apt install pdftk --allow-unauthenticated || true
+      - run:
+          name: Install exiftool
+          command: sudo apt-get install -y libimage-exiftool-perl
       - *setup_database
       - run:
           name: Run tests

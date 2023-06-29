@@ -94,6 +94,7 @@ RUN apk add --no-cache libpq postgresql-client
 
 # Install Chromium and Puppeteer for PDF generation
 # Installs latest Chromium package available on Alpine (Chromium 108)
+# Also install exiftool for PDF metadata editing
 RUN apk add --no-cache \
         chromium \
         nss \
@@ -102,7 +103,8 @@ RUN apk add --no-cache \
         ca-certificates \
         ttf-freefont \
         nodejs \
-        yarn
+        yarn \
+        exiftool
 
 # Tell Puppeteer to skip installing Chrome. We'll be using the installed package.
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true

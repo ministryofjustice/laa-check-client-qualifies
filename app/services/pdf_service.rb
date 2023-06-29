@@ -16,12 +16,16 @@ class PdfService
     def with_pdf_data_from_html_string(html_string, display_url)
       Tempfile.open("pdf") do |file|
         pdf_data = Grover.new(html_string, **GROVER_OPTIONS.merge(display_url:)).to_pdf
-        file.write(pdf_data.force_encoding('UTF-8'))
+        file.write(pdf_data.force_encoding("UTF-8"))
         file.rewind
 
-        # TODO: modify the file metadata with pdftk`
+        # Grover doesn't set the language metadata so we adjust that manually
+        `exiftool #{file.path} -Language="en-GB"`
 
-        yield file.read
+        # To pick up the change in metadata we need to re-open the file
+        File.open(file.path) do |reopened_file|
+          yield reopened_file.read
+        end
       end
     end
   end
