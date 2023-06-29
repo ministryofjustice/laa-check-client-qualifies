@@ -21,6 +21,7 @@ see https://stackoverflow.com/questions/71262775/how-do-i-ensure-assets-are-pres
   - postgres
   - yarn
   - pdftk [Mac installer](https://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/pdftk_server-2.02-mac_osx-10.11-setup.pkg)
+  - exiftool (Available with `brew install exiftool`)
 
 ## Setting up the app
 
