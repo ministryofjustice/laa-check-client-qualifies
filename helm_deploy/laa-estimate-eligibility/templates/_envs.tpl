@@ -117,5 +117,7 @@ env:
       secretKeyRef:
         name: kube-secrets
         key: feature-flags-password
+  - name: CSP_REPORT_ENDPOINT
+    value: {{ .Values.sentry.cspReportEndpoint }}
 
 {{- end }}

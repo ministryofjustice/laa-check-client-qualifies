@@ -67,3 +67,7 @@ geckoboard:
   validationsDataset: "ccq_validations_staging"
   journeysDataset: "ccq_journeys_staging"
   enabled: not_enabled
+
+sentry:
+  # Despite looking very secret-y, the key here is _not_ a secret, as it will appear in every HTTP response header
+  cspReportEndpoint: https://o345774.ingest.sentry.io/api/6763263/security/?sentry_key=fda2f0cddce3417c87e4df62f3611e76
