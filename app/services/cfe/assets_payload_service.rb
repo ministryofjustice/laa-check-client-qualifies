@@ -5,14 +5,14 @@ module Cfe
     def call
       return unless relevant_form?(:assets)
 
-      asset_form = ClientAssetsForm.from_session(@session_data)
+      asset_form = instantiate_form(ClientAssetsForm)
       capitals = CfeParamBuilders::Capitals.call(asset_form, smod_applicable: smod_applicable?)
 
       if capitals[:bank_accounts].any? || capitals[:non_liquid_capital].any?
         payload[:capitals] = capitals
       end
       second_property = if relevant_form?(:additional_property_details)
-                          additional_property = AdditionalPropertyDetailsForm.from_session(@session_data)
+                          additional_property = instantiate_form(AdditionalPropertyDetailsForm)
                           {
                             value: additional_property.house_value,
                             outstanding_mortgage: (additional_property.mortgage if additional_property.owned_with_mortgage?) || 0,
@@ -22,7 +22,7 @@ module Cfe
                         end
 
       if relevant_form?(:property_entry)
-        property_entry_form = ClientPropertyEntryForm.from_session(@session_data)
+        property_entry_form = instantiate_form(ClientPropertyEntryForm)
         main_home = {
           value: property_entry_form.house_value,
           outstanding_mortgage: (property_entry_form.mortgage if property_entry_form.owned_with_mortgage?) || 0,

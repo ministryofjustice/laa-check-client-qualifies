@@ -10,6 +10,9 @@ class EstimatesController < ApplicationController
   def create
     session_data["api_response"] = CfeService.call(session_data)
     redirect_to estimate_path(assessment_code)
+  rescue Cfe::InvalidSessionError => e
+    ErrorService.call(e)
+    render :invalid_session
   end
 
   def show

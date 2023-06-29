@@ -3,6 +3,9 @@ require "rails_helper"
 RSpec.describe Cfe::EmploymentIncomePayloadService do
   let(:session_data) do
     {
+      "over_60" => false,
+      "passporting" => false,
+      "partner" => false,
       "employment_status" => "in_work",
       "frequency" => frequency,
       "gross_income" => gross_income,
@@ -10,7 +13,7 @@ RSpec.describe Cfe::EmploymentIncomePayloadService do
       "income_tax" => 10,
     }
   end
-  let(:gross_income) { 12 }
+  let(:gross_income) { 120 }
   let(:payload) { {} }
 
   describe ".call" do
