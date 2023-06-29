@@ -80,6 +80,7 @@ references:
 orbs:
   browser-tools: circleci/browser-tools@1.4.0
   slack: circleci/slack@4.5.2
+  aws-cli: circleci/aws-cli@4.0.0
   aws-ecr: circleci/aws-ecr@8.2.1
 
 jobs:
@@ -199,24 +200,29 @@ jobs:
           event: fail
           template: basic_fail_1
           branch_pattern: main
-
-  clean_up_ecr:
-    executor: cloud-platform-executor
+  build_and_push:
+    executor: aws-ecr/default
     steps:
       - checkout
-      - setup_remote_docker
+      - aws-cli/setup:
+          role_arn: $ECR_ROLE_TO_ASSUME
+          region: $ECR_REGION
+      - run: |
+          aws ecr get-login-password --region $ECR_REGION | docker login --username AWS --password-stdin ${AWS_ECR_REGISTRY_ID}.dkr.ecr.${ECR_REGION}.amazonaws.com
       - run:
-          name: Delete old images from ECR repo
+          name: Set ECR_TAG environment variable for use in next step
           command: |
-            ./bin/delete_ecr_images
-      - slack/notify:
-          channel: eligibility-alerts-uat
-          event: fail
-          template: basic_fail_1
-
+            [[ "$CIRCLE_BRANCH" == "main" ]] && ECR_TAG="main-$CIRCLE_SHA1" || ECR_TAG="branch-$CIRCLE_SHA1"
+            echo "export ECR_TAG=$ECR_TAG" >> "$BASH_ENV"
+            source "$BASH_ENV"
+      - aws-ecr/build-image:
+          push-image: true
+          tag: $ECR_TAG
+          region: $ECR_REGION
+          repo: $ECR_REPOSITORY
   deploy:
     parameters:
-      namespace:
+      environment:
         type: string
     executor: cloud-platform-executor
     steps:
@@ -225,11 +231,11 @@ jobs:
           docker_layer_caching: true
       - *authenticate_k8s
       - deploy:
-          name: Deploy LAA Check-your-client-qualifies-for-legal-aid service to << parameters.namespace >>
+          name: Deploy LAA Check-your-client-qualifies-for-legal-aid service to << parameters.environment >>
           command: |
-            ./bin/deploy << parameters.namespace >>
+            ./bin/deploy << parameters.environment >>
       - slack/notify:
-          channel: eligibility-alerts-<< parameters.namespace >>
+          channel: eligibility-alerts-<< parameters.environment >>
           event: fail
           template: basic_fail_1
 
@@ -260,54 +266,41 @@ workflows:
       - end2end_tests:
           requires:
             - install_dependencies
-      - aws-ecr/build-and-push-image:
-          name: Build and push
-          repo: "${ECR_REPO_NAME}"
-          tag: "${CIRCLE_SHA1}"
+      - build_and_push:
           requires:
             - install_dependencies
-      - aws-ecr/build-and-push-image:
-          name: Build and push latest tag
-          repo: "${ECR_REPO_NAME}"
-          tag: "latest"
-          requires:
-            - install_dependencies
-          filters:
-            branches:
-              only:
-                - main
       - deploy:
           name: Deploy UAT
-          namespace: uat
+          environment: uat
           context: laa-estimate-eligibility-uat
           requires:
             - linters
             - run_specs
             - end2end_tests
             - linters
-            - Build and push
+            - build_and_push
       - deploy:
           name: Deploy staging
-          namespace: staging
+          environment: staging
           context: laa-estimate-eligibility-staging
           requires:
             - run_specs
             - end2end_tests
             - linters
-            - Build and push latest tag
+            - build_and_push
           filters:
             branches:
               only:
                 - main
       - deploy:
           name: Deploy production
-          namespace: production
+          environment: production
           context: laa-estimate-eligibility-production
           requires:
             - run_specs
             - end2end_tests
             - linters
-            - Build and push latest tag
+            - build_and_push
           filters:
             branches:
               only:
@@ -318,13 +311,3 @@ workflows:
             branches:
               only:
                 - main
-
-  nightly:
-    triggers:
-      - schedule:
-          cron: "0 4 * * *"
-          filters:
-            branches:
-              only: main
-    jobs:
-      - clean_up_ecr
