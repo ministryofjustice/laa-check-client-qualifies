@@ -3,6 +3,7 @@ class ControlledWorkDocumentSelectionsController < ApplicationController
     track_page_view(page: :cw_form_selection)
     @form = ControlledWorkDocumentSelection.new
     @check = Check.new(session_data)
+    @model = CalculationResult.new(session_data)
   end
 
   def create
@@ -18,6 +19,7 @@ class ControlledWorkDocumentSelectionsController < ApplicationController
     else
       track_validation_error(page: :cw_form_selection)
       @check = Check.new(session_data)
+      @model = CalculationResult.new(session_data)
       render :new
     end
   end
