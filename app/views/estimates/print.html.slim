@@ -16,7 +16,7 @@
     strong = Date.current.strftime("%d %B %Y")
     br
 
-  button.govuk-button.govuk-button--secondary data-module="govuk-button" onclick="javascript:window.print()" = t(".print_this_page")
+  button.govuk-button.govuk-button--secondary data-module="govuk-button" data-trigger="print" = t(".print_this_page")
 
   = render "shared/heading", header_text: t("service.name")
   = render "result_panel_content"
