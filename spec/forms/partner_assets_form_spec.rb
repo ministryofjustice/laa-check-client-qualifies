@@ -51,21 +51,21 @@ RSpec.describe "partner_assets", type: :feature do
       it "shows appropriate links" do
         expect(page).to have_content "Guidance on clients with partners who are prisoners"
       end
-    end
 
-    context "when self_employed flag enabled", :self_employed_flag do
-      context "when client is self-employed" do
-        let(:session) do
-          {
-            "level_of_help" => level_of_help,
-            "partner" => true,
-            "partner_employment_status" => "in_work",
-            "partner_incomes" => [{ "income_type" => "self_employment" }],
-          }
-        end
+      context "when self_employed flag enabled", :self_employed_flag do
+        context "when client is self-employed" do
+          let(:session) do
+            {
+              "level_of_help" => level_of_help,
+              "partner" => true,
+              "partner_employment_status" => "in_work",
+              "partner_incomes" => [{ "income_type" => "self_employment" }],
+            }
+          end
 
-        it "shows content about self-employed applicants" do
-          expect(page).to have_content "Business capital for self-employed clients"
+          it "shows content about self-employed applicants" do
+            expect(page).to have_content "Business capital for self-employed clients"
+          end
         end
       end
     end

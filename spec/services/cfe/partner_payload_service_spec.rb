@@ -4,6 +4,27 @@ RSpec.describe Cfe::PartnerPayloadService do
   describe ".call" do
     let(:service) { described_class }
     let(:payload) { {} }
+    let(:minimal_partner_info) do
+      {
+        "partner" => true,
+        "partner_over_60" => false,
+        "partner_employment_status" => "unemployed",
+        "partner_student_finance_value" => 0,
+        "partner_other_value" => 0,
+        "partner_friends_or_family_value" => 0,
+        "partner_maintenance_value" => 0,
+        "partner_property_or_lodger_value" => 0,
+        "partner_pension_value" => 0,
+        "partner_benefits" => [],
+        "partner_bank_accounts" => [{ "amount" => 0 }],
+        "partner_investments" => 0,
+        "partner_valuables" => 0,
+        "partner_additional_property_owned" => "none",
+        "partner_childcare_payments_value" => 0,
+        "partner_maintenance_payments_value" => 0,
+        "partner_legal_aid_payments_value" => 0,
+      }
+    end
 
     context "with lots of partner info" do
       let(:session_data) do
@@ -63,27 +84,7 @@ RSpec.describe Cfe::PartnerPayloadService do
     end
 
     context "with minimal partner info" do
-      let(:session_data) do
-        {
-          "partner" => true,
-          "partner_over_60" => false,
-          "partner_employment_status" => "unemployed",
-          "partner_student_finance_value" => 0,
-          "partner_other_value" => 0,
-          "partner_friends_or_family_value" => 0,
-          "partner_maintenance_value" => 0,
-          "partner_property_or_lodger_value" => 0,
-          "partner_pension_value" => 0,
-          "partner_benefits" => [],
-          "partner_bank_accounts" => [{ "amount" => 0 }],
-          "partner_investments" => 0,
-          "partner_valuables" => 0,
-          "partner_additional_property_owned" => "none",
-          "partner_childcare_payments_value" => 0,
-          "partner_maintenance_payments_value" => 0,
-          "partner_legal_aid_payments_value" => 0,
-        }
-      end
+      let(:session_data) { minimal_partner_info }
 
       it "constructs a valid payload" do
         described_class.call(session_data, payload)
@@ -186,8 +187,8 @@ RSpec.describe Cfe::PartnerPayloadService do
     context "when the self-employed feature flag is enabled", :self_employed_flag do
       before { described_class.call(session_data, payload) }
 
-      context "when the client is not employed" do
-        let(:session_data) { { "partner_employment_status" => "unemployed", "partner" => true } }
+      context "when the partner is not employed" do
+        let(:session_data) { minimal_partner_info.merge({ "partner_employment_status" => "unemployed" }) }
 
         it "does not populate any payload" do
           expect(payload[:partner][:employment_details]).to eq []
@@ -197,8 +198,7 @@ RSpec.describe Cfe::PartnerPayloadService do
 
       context "when the partner has employments" do
         let(:session_data) do
-          {
-            "partner" => true,
+          minimal_partner_info.merge({
             "partner_employment_status" => "in_work",
             "partner_incomes" => [
               {
@@ -223,7 +223,7 @@ RSpec.describe Cfe::PartnerPayloadService do
                 "national_insurance" => 0,
               },
             ],
-          }
+          })
         end
 
         it "populates the employment payload" do
