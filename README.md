@@ -21,7 +21,6 @@ see https://stackoverflow.com/questions/71262775/how-do-i-ensure-assets-are-pres
   - postgres
   - yarn
   - pdftk
-  - exiftool
 
 ## Setting up the app
 
@@ -39,12 +38,6 @@ You will be prompted on the command line to start the server with something like
 
 ```
 brew services start postgresql@14
-```
-
-Next install exiftool:
-
-```
-brew install exiftool
 ```
 
 You will also need pdftk. There is a [Mac installer](https://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/pdftk_server-2.02-mac_osx-10.11-setup.pkg) for convenience.

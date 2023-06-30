@@ -112,6 +112,7 @@ GEM
       selenium-webdriver
     chartkick (5.0.1)
     cliver (0.3.2)
+    cmdparse (3.0.7)
     coderay (1.1.3)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
@@ -172,6 +173,7 @@ GEM
     faraday-retry (2.2.0)
       faraday (~> 2.0)
     geckoboard-ruby (0.4.0)
+    geom2d (0.3.1)
     globalid (1.1.0)
       activesupport (>= 5.0)
     govuk-components (4.0.0)
@@ -190,6 +192,10 @@ GEM
       combine_pdf (~> 1.0)
       nokogiri (~> 1.0)
     hashdiff (1.0.1)
+    hexapdf (0.32.2)
+      cmdparse (~> 3.0, >= 3.0.3)
+      geom2d (~> 0.3)
+      openssl (>= 2.2.1)
     html-attributes-utils (1.0.0)
       activesupport (>= 6.1.4.4)
     i18n (1.14.1)
@@ -238,6 +244,7 @@ GEM
       racc (~> 1.4)
     notifications-ruby-client (5.4.0)
       jwt (>= 1.5, < 3)
+    openssl (3.1.0)
     pagy (6.0.3)
     parallel (1.23.0)
     parser (3.2.2.3)
@@ -483,6 +490,7 @@ DEPENDENCIES
   govuk_design_system_formbuilder
   govuk_notify_rails (~> 2.2.0)
   grover
+  hexapdf
   jsbundling-rails
   pdf-forms
   pg (~> 1.5)
