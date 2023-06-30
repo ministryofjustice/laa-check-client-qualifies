@@ -14,5 +14,9 @@ document.querySelectorAll('[data-module="govuk-input"]').forEach((input) => {
   new Input(input).init()
 });
 
+document.querySelectorAll('[data-trigger="print"]').forEach((button) => {
+  button.addEventListener('click', () => window.print());
+});
+
 Rails.start();
 initAll();
