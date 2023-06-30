@@ -2,9 +2,29 @@ require "rails_helper"
 
 RSpec.describe Cfe::PartnerPayloadService do
   describe ".call" do
-    let(:arbitrary_fixed_time) { Time.zone.local(2022, 10, 24, 9, 0, 0) }
     let(:service) { described_class }
     let(:payload) { {} }
+    let(:minimal_partner_info) do
+      {
+        "partner" => true,
+        "partner_over_60" => false,
+        "partner_employment_status" => "unemployed",
+        "partner_student_finance_value" => 0,
+        "partner_other_value" => 0,
+        "partner_friends_or_family_value" => 0,
+        "partner_maintenance_value" => 0,
+        "partner_property_or_lodger_value" => 0,
+        "partner_pension_value" => 0,
+        "partner_benefits" => [],
+        "partner_bank_accounts" => [{ "amount" => 0 }],
+        "partner_investments" => 0,
+        "partner_valuables" => 0,
+        "partner_additional_property_owned" => "none",
+        "partner_childcare_payments_value" => 0,
+        "partner_maintenance_payments_value" => 0,
+        "partner_legal_aid_payments_value" => 0,
+      }
+    end
 
     context "with lots of partner info" do
       let(:session_data) do
@@ -64,27 +84,7 @@ RSpec.describe Cfe::PartnerPayloadService do
     end
 
     context "with minimal partner info" do
-      let(:session_data) do
-        {
-          "partner" => true,
-          "partner_over_60" => false,
-          "partner_employment_status" => "unemployed",
-          "partner_student_finance_value" => 0,
-          "partner_other_value" => 0,
-          "partner_friends_or_family_value" => 0,
-          "partner_maintenance_value" => 0,
-          "partner_property_or_lodger_value" => 0,
-          "partner_pension_value" => 0,
-          "partner_benefits" => [],
-          "partner_bank_accounts" => [{ "amount" => 0 }],
-          "partner_investments" => 0,
-          "partner_valuables" => 0,
-          "partner_additional_property_owned" => "none",
-          "partner_childcare_payments_value" => 0,
-          "partner_maintenance_payments_value" => 0,
-          "partner_legal_aid_payments_value" => 0,
-        }
-      end
+      let(:session_data) { minimal_partner_info }
 
       it "constructs a valid payload" do
         described_class.call(session_data, payload)
@@ -180,6 +180,77 @@ RSpec.describe Cfe::PartnerPayloadService do
                                                            percentage_owned: 100,
                                                            shared_with_housing_assoc: false,
                                                            value: 100_000 }])
+        end
+      end
+    end
+
+    context "when the self-employed feature flag is enabled", :self_employed_flag do
+      before { described_class.call(session_data, payload) }
+
+      context "when the partner is not employed" do
+        let(:session_data) { minimal_partner_info.merge({ "partner_employment_status" => "unemployed" }) }
+
+        it "does not populate any payload" do
+          expect(payload[:partner][:employment_details]).to eq []
+          expect(payload[:partner][:self_employment_details]).to eq []
+        end
+      end
+
+      context "when the partner has employments" do
+        let(:session_data) do
+          minimal_partner_info.merge({
+            "partner_employment_status" => "in_work",
+            "partner_incomes" => [
+              {
+                "income_type" => "employment",
+                "income_frequency" => "monthly",
+                "gross_income" => 100,
+                "income_tax" => 20,
+                "national_insurance" => 3,
+              },
+              {
+                "income_type" => "statutory_pay",
+                "income_frequency" => "year",
+                "gross_income" => 100,
+                "income_tax" => 0,
+                "national_insurance" => 0,
+              },
+              {
+                "income_type" => "self_employment",
+                "income_frequency" => "three_months",
+                "gross_income" => 500,
+                "income_tax" => 100,
+                "national_insurance" => 0,
+              },
+            ],
+          })
+        end
+
+        it "populates the employment payload" do
+          expect(payload[:partner][:employment_details]).to eq(
+            [
+              { income: { frequency: "monthly",
+                          gross: 100,
+                          benefits_in_kind: 0,
+                          tax: -20,
+                          national_insurance: -3,
+                          receiving_only_statutory_sick_or_maternity_pay: false } },
+              { income: { frequency: "annually",
+                          gross: 100,
+                          benefits_in_kind: 0,
+                          tax: -0.0,
+                          national_insurance: -0.0,
+                          receiving_only_statutory_sick_or_maternity_pay: true } },
+            ],
+          )
+        end
+
+        it "populates the self-employment payload" do
+          expect(payload[:partner][:self_employment_details]).to eq(
+            [
+              { income: { frequency: "three_monthly", gross: 500, tax: -100, national_insurance: -0 } },
+            ],
+          )
         end
       end
     end

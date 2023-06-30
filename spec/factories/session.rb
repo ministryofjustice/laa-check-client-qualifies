@@ -282,6 +282,9 @@ FactoryBot.define do
     partner_gross_income { 1.0 }
     partner_income_tax { 0.0 }
     partner_national_insurance { 0.0 }
+    partner_incomes do
+      [{ "income_type" => "employment", "gross_income" => 1.0, "income_tax" => 0, "national_insurance" => 0, "income_frequency" => "every_week" }]
+    end
     partner_receives_benefits { true }
     partner_benefits do
       [{ "benefit_type" => "Benefit", "benefit_amount" => 1.0, "benefit_frequency" => "every_week" }]
@@ -378,6 +381,9 @@ FactoryBot.define do
     partner_gross_income { 1.0 }
     partner_income_tax { 0.0 }
     partner_national_insurance { 0.0 }
+    partner_incomes do
+      [{ "income_type" => "employment", "gross_income" => 1.0, "income_tax" => 0, "national_insurance" => 0, "income_frequency" => "every_week" }]
+    end
     partner_receives_benefits { true }
     partner_benefits do
       [{ "benefit_type" => "Benefit", "benefit_amount" => 1.0, "benefit_frequency" => "every_week" }]

@@ -17,6 +17,6 @@ RSpec.describe "Self-employment flow", :self_employed_flag, type: :feature do
     fill_in_forms_until(:partner_details)
     fill_in_partner_details_screen
     fill_in_partner_employment_status_screen(choice: "Employed or self-employed")
-    confirm_screen("partner_employment")
+    confirm_screen("partner_income")
   end
 end

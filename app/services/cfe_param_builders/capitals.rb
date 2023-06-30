@@ -8,7 +8,7 @@ module CfeParamBuilders
     end
 
     def self.bank_accounts(form, smod_applicable)
-      form.bank_accounts.select { _1.amount.positive? }.map do |bank_account|
+      form.bank_accounts.select { _1.amount.to_i.positive? }.map do |bank_account|
         {
           value: bank_account.amount,
           description: "Liquid Asset",

@@ -773,7 +773,7 @@ en:
         three_months: Total in last 3 months
         year: Total in the last year
       gross_income: Income before any deductions
-      self_employed_clients:
+      self_employed_people:
         hint_header: Self-employed clients, including clients paid in cash
         controlled:
           paragraph_1: If your client is self-employed, enter their drawings, dividends, bonuses or any benefits in kind from their business as their income.
@@ -806,6 +806,59 @@ en:
         text: Guidance on police officer applicants
         link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1157030/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_certificated_work_May_2023__002_.pdf#page=95
     partner_income:
+      heading: The partner's employment income
+      hint: You can find this on the partner's payslips.
+      police_officer_heading: Partners who are police officers
+      police_officer_hint: "If the partner is a police officer, the salary entered should include:"
+      police_officer_inclusions:
+        - any rent or force housing allowance the partner gets
+        - any police compensatory grant the partner gets
+      prisoner_heading: Partners in prison
+      prisoner_hint: "If the partner is in prison, include any income they get from:"
+      prisoner_inclusions:
+        - the pre-release employment scheme
+        - outside employment where they are participating in a ‘working out’ scheme
+        - employment when released on temporary licence
+      foreign_resident_heading: Partners living outside the UK
+      foreign_resident_hints:
+        - If the partner lives outside the UK, include all income tax payments they made.
+        - Only include UK National Insurance contributions.
+      armed_forces_heading: Partners in HM Forces
+      armed_forces_hint: "If the partner is a member of HM Forces, include any of the following they get in the gross salary you enter:"
+      armed_forces_inclusions:
+        - Local Overseas Allowance
+        - Excess Rent Allowance
+        - London Allowance
+        - Overseas Child Benefit
+      types:
+        employment_controlled_hint: Including if the partner is a self-employed company director or in a partnership and is paid as an employee
+        employment_certificated_hint: ""
+        statutory_pay_controlled_hint: ""
+        statutory_pay_certificated_hint: ""
+        self_employment_controlled_hint: For example, payment in cash, drawings or dividends or bonuses paid from a company account, and the value of any benefits in kind
+        self_employment_certificated_hint: For example, payment in cash, adjusted net profit or drawings
+      select_frequency: When does the partner normally get this income?
+      self_employed_people:
+        hint_header: Self-employed partners, including partners paid in cash
+        controlled:
+          paragraph_1: If the partner is self-employed, enter their drawings, dividends, bonuses or any benefits in kind from their business as their income.
+          paragraph_2: If the partner is paid in cash, their drawings will be any money taken out of their earnings for personal use.
+        certificated:
+          first_paragraphs:
+            - If the partner is a sole-trader, enter the taxable income figure from their latest self-assessment tax return, or the monthly net profit figure from their most recent set of accounts.
+            - "If these figures are unavailable, or the latest accounts are more than 18 months old:"
+          first_bullets:
+            - if turnover is less than £15,000, use the partner’s estimate of their net profit
+            - if turnover is £15,000 or more, ask the partner to provide the average net profit figure based on the previous 6 months' trading
+            - if the drawings exceed the declared net profits of the business, or the business is making a loss, use the value of any monthly drawings for personal use made by the partner
+          second_paragraphs:
+            - If the client’s partner is in a partnership, enter the value of their share of the taxable income figure from their latest self-assessment tax return, or their share of the business’ net profit from their most recent set of accounts.
+            - "If these figures are unavailable, or the latest accounts are more than 18 months old:"
+          second_bullets:
+            - if turnover is less than £15,000, use the partner’s estimate of their share of net profit
+            - if turnover is £15,000 or more, ask the partner to provide their share of the average net profit figure based on the previous 6 months' trading
+            - if the drawings exceed the declared net profits of the business, or the business is making a loss, use the value of any monthly drawings for personal use made by the partner
+          last_paragraph: If the partner is paid in cash, enter any money taken out of their earnings for personal use.
       police_guidance:
         text: Guidance on clients with police officer partners
     employment:
@@ -1350,6 +1403,7 @@ en:
           four_weeks: Every 4 weeks
           monthly: Every month
           not_provided: Not provided
+      partner_employment_income: Partner employment income
       partner_benefits: Partner benefits
       partner_other_income: Partner other income
       partner_other_income_fields:

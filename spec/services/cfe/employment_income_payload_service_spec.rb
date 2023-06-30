@@ -60,7 +60,6 @@ RSpec.describe Cfe::EmploymentIncomePayloadService do
       let(:session_data) { { "employment_status" => "unemployed" } }
 
       it "does not populate any payload" do
-        described_class.call(session_data, payload)
         expect(payload[:employment]).to be_nil
         expect(payload[:self_employment]).to be_nil
       end

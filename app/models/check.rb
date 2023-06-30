@@ -100,4 +100,8 @@ class Check
   def client_self_employed?
     incomes && incomes.any? { _1.income_type == "self_employment" }
   end
+
+  def partner_self_employed?
+    partner_incomes && partner_incomes.any? { _1.income_type == "self_employment" }
+  end
 end

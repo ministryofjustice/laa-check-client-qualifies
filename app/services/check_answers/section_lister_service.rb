@@ -92,6 +92,14 @@ module CheckAnswers
       end
     end
 
+    def partner_employment_income_fields
+      if Steps::Helper.valid_step?(@model.session_data, :partner_income)
+        income_fields(@session_data["partner_incomes"])
+      else
+        []
+      end
+    end
+
     def benefits_fields
       if Steps::Helper.valid_step?(@model.session_data, :benefits)
         benefits_fields_common(session_key: "benefits")

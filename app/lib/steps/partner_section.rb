@@ -33,7 +33,8 @@ module Steps
       end
 
       def employment_steps(session_data)
-        Steps::Group.new(:partner_employment) if Steps::Logic.partner_employed?(session_data)
+        key = FeatureFlags.enabled?(:self_employed) ? :partner_income : :partner_employment
+        Steps::Group.new(key) if Steps::Logic.partner_employed?(session_data)
       end
 
       def benefit_steps(session_data)
