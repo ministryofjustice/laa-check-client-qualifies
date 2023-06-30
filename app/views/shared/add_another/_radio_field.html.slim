@@ -1,0 +1,43 @@
+- legend_size ||= nil
+- hint ||= nil
+.govuk-form-group class=("govuk-form-group--error" if errors.any?)
+  fieldset.govuk-fieldset
+    legend.govuk-fieldset__legend.govuk-fieldset__legend--save_and_continue class=("govuk-fieldset__legend--#{legend_size}" if legend_size)
+      = legend
+    - if hint
+      .govuk-hint = hint
+    input [value=""
+            autocomplete="off"
+            type="hidden"
+            name="#{model_name}[items][#{counter}][#{field_name}]"
+            data-add-another-dynamic-elements="name:#{model_name}[items][ID][#{field_name}]"]
+    - if errors.any?
+      p.govuk-error-message
+        span.govuk-visually-hidden = t("generic.error_prefix")
+        = errors.first
+    .govuk-radios data-module="govuk-radios"
+      - options.each_with_index do |value_label_pair, index|
+        - if value_label_pair == :divider
+          .govuk-radios__divider = t("generic.or")
+        - else
+          .govuk-radios__item
+            ruby:
+              id_pattern = if errors.any? && index.zero?
+                             "#{form_name.dasherize}-items-ID-#{field_name.dasherize}-field-error"
+                           else
+                             "ID-frequency-#{value_label_pair[0]}"
+                           end
+            input.govuk-radios__input [
+              type="radio"
+              value=value_label_pair[0]
+              name="#{model_name}[items][#{counter}][#{field_name}]"
+              checked=(value == value_label_pair[0])
+              data-add-another-dynamic-elements="id:#{id_pattern},name:#{model_name}[items][ID][#{field_name}]"
+              id= id_pattern.gsub("ID", counter.to_s)
+            ]
+            label.govuk-label.govuk-radios__label [for=id_pattern.gsub("ID", counter.to_s)
+                                                    data-add-another-dynamic-elements="for:#{id_pattern}"]
+              = value_label_pair[1]
+            - if value_label_pair[2].present?
+              .govuk-hint.govuk-radios__hint
+                = value_label_pair[2]
