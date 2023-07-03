@@ -77,3 +77,6 @@ check_schedules:
 #   url: <%= ENV["BLAZER_UPLOADS_URL"] %>
 #   schema: uploads
 #   data_source: main
+
+# override content security policy
+override_csp: true
