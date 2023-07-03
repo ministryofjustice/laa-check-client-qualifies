@@ -404,7 +404,7 @@ FactoryBot.define do
     partner_maintenance_payments_frequency { "every_week" }
     partner_legal_aid_payments_value { 0.0 }
     partner_legal_aid_payments_frequency { "every_week" }
-    parter_bank_accounts { [{ "amount" => 0 }] }
+    partner_bank_accounts { [{ "amount" => 0 }] }
     partner_investments { 0.0 }
     partner_valuables { 0.0 }
     property_owned { "outright" }
