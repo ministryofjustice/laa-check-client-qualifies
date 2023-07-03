@@ -57,7 +57,7 @@ googleTagManager:
   containerId: GTM-WJ98FR4
 
 cfe:
-  host: http://main-cfe-civil.cfe-civil-uat.svc.cluster.local
+  host: http://cfe-civil.cfe-civil-production.svc.cluster.local
   environment_name: uat
 
 featureFlags:
