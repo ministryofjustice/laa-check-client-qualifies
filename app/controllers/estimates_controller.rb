@@ -42,7 +42,7 @@ class EstimatesController < ApplicationController
       layout: "print_application",
     })
 
-    PdfService.with_pdf_data_from_html_string(html, request.url.split("/estimates").first) do |pdf_data|
+    PdfService.with_pdf_data_from_html_string(html, request.base_url) do |pdf_data|
       send_data pdf_data,
                 filename: "#{I18n.t('generic.download_name')} - #{Time.zone.now.strftime('%Y-%m-%d %H.%M.%S')}.pdf",
                 type: "application/pdf"
