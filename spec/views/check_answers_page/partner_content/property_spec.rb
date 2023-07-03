@@ -33,7 +33,7 @@ RSpec.describe "estimates/check_answers.html.slim" do
         it "renders content" do
           expect(text).to include("Owns other propertyYes, owned outright")
           expect(text).to include("Estimated value£100,000.00")
-          expect(text).to include("Percentage share owned100")
+          expect(text).to include("Percentage share owned100%")
         end
       end
 
@@ -45,7 +45,7 @@ RSpec.describe "estimates/check_answers.html.slim" do
           expect(text).to include("Owns other propertyYes, with a mortgage or loan")
           expect(text).to include("Estimated value£100,000.00")
           expect(text).to include("Outstanding mortgage£2,000.00")
-          expect(text).to include("Percentage share owned100")
+          expect(text).to include("Percentage share owned100%")
         end
       end
     end

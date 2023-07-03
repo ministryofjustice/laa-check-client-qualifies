@@ -20,7 +20,7 @@
 # It also has zero or more fields
 
 # FIELDS
-# A field has a type, which is one of boolean, money, select, number or money_with_frequency.
+# A field has a type, which is one of boolean, money, select, number, percentage or money_with_frequency.
 # This determines which partial is rendered
 # It has an attribute, which determines the key used to store the relevant value in the session
 # The attribute is also used to construct the I18n key
@@ -249,7 +249,7 @@ sections:
           - type: money
             attribute: mortgage
             skip_unless: property_owned_with_mortgage?
-          - type: number
+          - type: percentage
             attribute: percentage_owned
             screen: property_entry
       - label: housing_costs
@@ -279,7 +279,7 @@ sections:
           - type: money
             attribute: additional_mortgage
             skip_unless: additional_property_owned_with_mortgage?
-          - type: number
+          - type: percentage
             attribute: additional_percentage_owned
             screen: additional_property_details
       - label: partner_additional_property
@@ -293,6 +293,6 @@ sections:
           - type: money
             attribute: partner_additional_mortgage
             skip_unless: partner_additional_property_owned_with_mortgage?
-          - type: number
+          - type: percentage
             attribute: partner_additional_percentage_owned
             screen: partner_additional_property_details
