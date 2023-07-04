@@ -45,6 +45,10 @@
                     label_text: t("estimates.check_answers.#{field.label}"),
                     value_text: field.value || t("generic.not_applicable"),
                     disputed_asset: field.disputed?
+        - when "percentage"
+          = render "check_answer",
+                    label_text: t("estimates.check_answers.#{field.label}"),
+                    value_text: (field.value ? "#{field.value}%" : t("generic.not_applicable"))
         - when "no_or_number"
           = render "check_answer",
                     label_text: t("estimates.check_answers.#{field.label}"),

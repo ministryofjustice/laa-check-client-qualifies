@@ -30,7 +30,7 @@ RSpec.describe "estimates/check_answers.html.slim" do
           expect(text).to include("Owns the home they live inYes")
           expect(text).to include("Estimated value£200,000.00")
           expect(text).to include("Outstanding mortgage£5,000.00")
-          expect(text).to include("Percentage share owned50")
+          expect(text).to include("Percentage share owned50%")
         end
 
         context "when is smod" do
@@ -55,7 +55,7 @@ RSpec.describe "estimates/check_answers.html.slim" do
         it "renders content" do
           expect(text).to include("Owns the home they live inYes")
           expect(text).to include("Estimated value£200,000.00")
-          expect(text).to include("Percentage share owned50")
+          expect(text).to include("Percentage share owned50%")
         end
       end
 
@@ -96,7 +96,7 @@ RSpec.describe "estimates/check_answers.html.slim" do
         it "renders content" do
           expect(text).to include("Owns other propertyYes, owned outright")
           expect(text).to include("Estimated value£100,000.00")
-          expect(text).to include("Percentage share owned100")
+          expect(text).to include("Percentage share owned100%")
         end
 
         context "when smod" do
@@ -116,7 +116,7 @@ RSpec.describe "estimates/check_answers.html.slim" do
           expect(text).to include("Owns other propertyYes, with a mortgage or loan")
           expect(text).to include("Estimated value£100,000.00")
           expect(text).to include("Outstanding mortgage£2,000.00")
-          expect(text).to include("Percentage share owned100")
+          expect(text).to include("Percentage share owned100%")
         end
       end
     end
