@@ -6,7 +6,14 @@ class FeatureFlags
   # the values of some feature flags will come from the session and not the env variables.
   # "global" - feature flag value should be derived from the env variable
   # "session" - feature flag value should be derived from the session_data of the check
-  STATIC_FLAGS = { sentry: "global", cw_forms: "global", special_applicant_groups: "session", self_employed: "session", public_beta: "global" }.freeze
+  STATIC_FLAGS = {
+    example: "session",
+    sentry: "global",
+    cw_forms: "global",
+    special_applicant_groups: "session",
+    self_employed: "session",
+    public_beta: "global",
+  }.freeze
 
   class << self
     def enabled?(flag, session_data = nil)
