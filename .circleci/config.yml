@@ -179,6 +179,7 @@ jobs:
             COVERAGE=false bundle exec rspec -t end2end --format documentation spec/**/**_spec.rb
   linters:
     executor: basic-executor
+    resource_class: medium
     steps:
       - checkout
       - attach_workspace:
