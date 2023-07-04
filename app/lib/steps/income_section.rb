@@ -19,7 +19,7 @@ module Steps
     private
 
       def employment_steps(session_data)
-        key = FeatureFlags.enabled?(:self_employed) ? :income : :employment
+        key = FeatureFlags.enabled?(:self_employed, session_data) ? :income : :employment
         Steps::Group.new(key) if Steps::Logic.employed?(session_data)
       end
 

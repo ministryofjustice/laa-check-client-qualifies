@@ -12,8 +12,8 @@ RSpec.describe "Feature flags" do
       allow(FeatureFlags).to receive(:static).and_return(%i[static_flag])
       allow(FeatureFlags).to receive(:time_dependant).and_return(%i[time_dependant_flag])
       allow(FeatureFlags).to receive(:enabled?).and_return(false)
-      allow(FeatureFlags).to receive(:enabled?).with(:static_flag).and_return(true)
-      allow(FeatureFlags).to receive(:enabled?).with(:time_dependant_flag).and_return(false)
+      allow(FeatureFlags).to receive(:enabled?).with(:static_flag, without_session_data: true).and_return(true)
+      allow(FeatureFlags).to receive(:enabled?).with(:time_dependant_flag, without_session_data: true).and_return(false)
     end
 
     scenario "I see all public feature flags" do
@@ -45,19 +45,19 @@ RSpec.describe "Feature flags" do
       page.driver.browser.basic_authorize("flags", "password")
       visit feature_flags_path
       expect(page).to have_content "sentryNo"
-      expect(FeatureFlags.enabled?(:sentry)).to eq false
+      expect(FeatureFlags.enabled?(:sentry, without_session_data: true)).to eq false
 
       visit edit_feature_flag_path("sentry")
       choose "Yes"
       click_on "Save and continue"
       expect(page).to have_content "sentryYes"
-      expect(FeatureFlags.enabled?(:sentry)).to eq true
+      expect(FeatureFlags.enabled?(:sentry, without_session_data: true)).to eq true
 
       visit edit_feature_flag_path("sentry")
       choose "No"
       click_on "Save and continue"
       expect(page).to have_content "sentryNo"
-      expect(FeatureFlags.enabled?(:sentry)).to eq false
+      expect(FeatureFlags.enabled?(:sentry, without_session_data: true)).to eq false
     end
   end
 

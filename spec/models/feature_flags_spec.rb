@@ -4,12 +4,12 @@ RSpec.describe FeatureFlags do
   describe "example_2125_flag flag" do
     it "returns false before it comes into effect" do
       travel_to "2124-12-31"
-      expect(described_class.enabled?(:example_2125_flag)).to eq false
+      expect(described_class.enabled?(:example_2125_flag, without_session_data: true)).to eq false
     end
 
     it "returns true when it comes into effect" do
       travel_to "2125-01-01"
-      expect(described_class.enabled?(:example_2125_flag)).to eq true
+      expect(described_class.enabled?(:example_2125_flag, without_session_data: true)).to eq true
     end
   end
 
@@ -42,7 +42,11 @@ RSpec.describe FeatureFlags do
   end
 
   it "errors on unrecognised flags" do
-    expect { described_class.enabled?(:unknown_flag) }.to raise_error "Unrecognised flag 'unknown_flag'"
+    expect { described_class.enabled?(:unknown_flag, without_session_data: true) }.to raise_error "Unrecognised flag 'unknown_flag'"
+  end
+
+  it "errors when there is no session_data and without_session_data is not set to true" do
+    expect { described_class.enabled?(:sentry) }.to raise_error "Pass in session_data or set without_session_data to true"
   end
 
   describe ".static" do

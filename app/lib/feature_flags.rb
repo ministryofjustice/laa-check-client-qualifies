@@ -16,7 +16,11 @@ class FeatureFlags
   }.freeze
 
   class << self
-    def enabled?(flag, session_data = nil)
+    def enabled?(flag, session_data = nil, without_session_data: false)
+      if session_data.nil? && !without_session_data
+        raise "Pass in session_data or set without_session_data to true"
+      end
+
       if session_data && session_data["feature_flags"]&.key?(flag.to_s)
         return session_data["feature_flags"][flag.to_s]
       end
