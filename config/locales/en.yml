@@ -2140,6 +2140,9 @@ en:
         - Your answers from previous pages will be included in the CW form you select to download.
         - After you download the form, you will need to add your client’s details and any other information needed on that form.
         - Once complete, get your client to sign the form and keep it, with any evidence provided by your client, for your records.
+      banner:
+        heading: 60 or over disregard (also known as the pensioner disregard)
+        body: Your client is eligible for the 60 or over disregard (also known as the pensioner disregard). CW forms do not have a field to record this in the financial eligibility section. We will correctly apply this to your client’s capital. You do not need to make any changes to the form.
       option:
         cw1: CW1 - legal help, help at court or family help (lower)
         cw2: CW2 (IMM) - immigration
