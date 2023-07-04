@@ -20,7 +20,7 @@ see https://stackoverflow.com/questions/71262775/how-do-i-ensure-assets-are-pres
 - System dependencies
   - postgres
   - yarn
-  - pdftk [Mac installer](https://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/pdftk_server-2.02-mac_osx-10.11-setup.pkg)
+  - pdftk
 
 ## Setting up the app
 
@@ -39,6 +39,8 @@ You will be prompted on the command line to start the server with something like
 ```
 brew services start postgresql@14
 ```
+
+You will also need pdftk. There is a [Mac installer](https://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/pdftk_server-2.02-mac_osx-10.11-setup.pkg) for convenience.
 
 If you are running Ruby version 3.1.3, then [Bundler](https://bundler.io/) should already be installed. You may run into an error here if you are not using the correct Ruby version:
 
