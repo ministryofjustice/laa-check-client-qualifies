@@ -148,9 +148,9 @@ Then add `flag_name` to the list of flags  in `app/lib/feature_flags.rb`.
 
 When adding a `flag_name` to the list of static flags, you will need to decide if this is a `"global"` flag i.e. always taken from the env var and not the session, or a `"session"` flag i.e. taken from the `session_data` of the check. 
 
-We introduced this as a way of making our feature flags 'backwards compatible' - if a user check is underway during the switch-on of a flag, their user journey will not be affected and they can continue through their check with the flag value that was set at the beginning of their journey.
+We introduced this as a way of making our feature flags 'backwards compatible' - if a user check is underway during the switch-on of a flag, their user journey will not be affected by any flag-related changes. This is because we use their `session_data` to determine the value of the flag that was set at the start of their check. 
 
-To use the feature flag in your code, just call `FeatureFlags.enabled?(:flag_name)`. There is an optional `session_data` argument which you must use if you wish to derive the flag value from the `session_data`. Usage is `FeatureFlags.enabled?(:flag_name, session_data)`.
+To use the feature flag in your code, call `FeatureFlags.enabled?(:flag_name, session_data)`. For cases where you are not able to pass in `session_data` e.g. on the start page, call `FeatureFlags.enabled?(:flag_name, without_session_data: true)`.
 
 In tests, you can temporarily enable a feature flag by setting the ENV value.
 However, flags are _not_ reset between specs, so to avoid polluting other tests use an `around` block and change the ENV value back once the test has run.
