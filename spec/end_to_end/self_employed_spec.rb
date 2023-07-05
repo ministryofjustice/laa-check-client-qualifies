@@ -153,7 +153,7 @@ RSpec.describe "Self-employed flow", :self_employed_flag, type: :feature do
     context "when completing an employed check" do
       include_context "with a check containing employment data"
 
-      it "sends the right employment data to CFE" do
+      it "shows appropriate monthly income data on the results page" do
         click_on "Submit"
 
         expect(page).to have_content "Client's monthly income\nAll figures have been converted into a monthly amount.\nEmployment income\n£1,733.33"
@@ -166,7 +166,7 @@ RSpec.describe "Self-employed flow", :self_employed_flag, type: :feature do
     context "when completing a self-employed check" do
       include_context "with a check containing self-employment data"
 
-      it "sends the right self-employment data to CFE" do
+      it "shows appropriate monthly income data on the results page" do
         click_on "Submit"
 
         expect(page).to have_content "Client's monthly income\nAll figures have been converted into a monthly amount.\nEmployment income\n£758.33"
@@ -179,7 +179,7 @@ RSpec.describe "Self-employed flow", :self_employed_flag, type: :feature do
     context "when completing a partner-employed check" do
       include_context "with a check containing partner employment data"
 
-      it "sends the right partner employment data to CFE" do
+      it "shows appropriate monthly income data on the results page" do
         click_on "Submit"
 
         expect(page).to have_content "Partner's monthly income\nAll figures have been converted into a monthly amount.\nEmployment income\n£1,250.00"
