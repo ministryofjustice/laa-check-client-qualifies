@@ -190,7 +190,7 @@ RSpec.describe "estimates/show.html.slim" do
       expect(page_text).to include "Assessed vehicle value£3,000.00"
       expect(page_text).to include "Money in bank accounts£3,676.00Investments and valuables£5,353.00"
       expect(page_text).to include "Total capital£12,000.00"
-      expect(page_text).to include "Pensioner disregardApplied to remaining capital after disputed asset disregard has been applied, and up to a maximum of £100,000-£3,000.00"
+      expect(page_text).to include "60 or over disregard (also known as pensioner disregard)Applied to remaining capital after disputed asset disregard has been applied, and up to a maximum of £100,000-£3,000.00"
       expect(page_text).to include "Disputed asset disregardEqual to the assessed value of all assets marked as disputed and capped at £100,000-£1,000.00"
       expect(page_text).to include "TotalTotal assessed disposable capital£0.00"
       expect(page_text).to include "Disposable capital upper limit£2,657.00"

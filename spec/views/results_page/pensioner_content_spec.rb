@@ -36,12 +36,12 @@ RSpec.describe "estimates/show.html.slim" do
       end
 
       it "shows a separate pensioner disregard table" do
-        expect(rendered).to include '<caption class="govuk-table__caption govuk-table__caption--m">Pensioner disregard'
+        expect(rendered).to include '<caption class="govuk-table__caption govuk-table__caption--m">60 or over disregard (also known as pensioner disregard)'
       end
 
       it "sums up client and partner values for the separate pensioner disregard table" do
         # 123 + 234 = 357. 456 + 567 = 1023.
-        expect(page_text).to include("Total client and partner disposable capital£1,023.00Pensioner disregard-£357.00")
+        expect(page_text).to include("Total client and partner disposable capital£1,023.0060 or over disregard (also known as pensioner disregard)-£357.00")
       end
     end
 
@@ -63,7 +63,7 @@ RSpec.describe "estimates/show.html.slim" do
       end
 
       it "shows the separate pensioner disregard table" do
-        expect(rendered).to include '<caption class="govuk-table__caption govuk-table__caption--m">Pensioner disregard'
+        expect(rendered).to include '<caption class="govuk-table__caption govuk-table__caption--m">60 or over disregard (also known as pensioner disregard)'
       end
     end
 
@@ -80,11 +80,11 @@ RSpec.describe "estimates/show.html.slim" do
       end
 
       it "shows pensioner disregard in the main capital table" do
-        expect(rendered).to include '<th class="govuk-table__header" scope="row">Pensioner disregard'
+        expect(rendered).to include '<th class="govuk-table__header" scope="row">60 or over disregard (also known as pensioner disregard)'
       end
 
       it "shows client pensioner disregard" do
-        expect(page_text).to include "Pensioner disregardApplied to total capital up to a maximum of £100,000-£123.00"
+        expect(page_text).to include "60 or over disregard (also known as pensioner disregard)Applied to total capital up to a maximum of £100,000-£123.00"
       end
     end
 
@@ -106,7 +106,7 @@ RSpec.describe "estimates/show.html.slim" do
       end
 
       it "shows no separate pensioner disregard table" do
-        expect(rendered).not_to include '<caption class="govuk-table__caption govuk-table__caption--m">Pensioner disregard'
+        expect(rendered).not_to include '<caption class="govuk-table__caption govuk-table__caption--m">60 or over disregard (also known as pensioner disregard)'
       end
 
       it "shows disposable capital sums separately" do
