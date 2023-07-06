@@ -21,7 +21,7 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
   end
 
   describe ".call" do
-    context "when there a full set of relevant data" do
+    context "when there a full set of income and outgoings data" do
       let(:session_data) do
         {
           "friends_or_family_value" => 45,
@@ -86,6 +86,38 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
       it "adds no payments" do
         service.call(session_data, payload)
         expect(payload[:regular_transactions]).to eq([])
+      end
+    end
+
+    context "when there is benefits data" do
+      let(:session_data) do
+        empty_session_data.merge(
+          "receives_benefits" => true,
+          "benefits" => [
+            { "benefit_type" => "Child Benefit",
+              "benefit_amount" => 100,
+              "benefit_frequency" => "every_two_weeks" },
+            { "benefit_type" => "Tax Credit",
+              "benefit_amount" => 50,
+              "benefit_frequency" => "every_week" },
+          ],
+        )
+      end
+
+      it "adds benefit payments" do
+        service.call(session_data, payload)
+        expect(payload[:regular_transactions]).to eq(
+          [
+            { amount: 100,
+              category: "benefits",
+              frequency: :two_weekly,
+              operation: :credit },
+            { amount: 50,
+              category: "benefits",
+              frequency: :weekly,
+              operation: :credit },
+          ],
+        )
       end
     end
 
