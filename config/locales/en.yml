@@ -1115,6 +1115,12 @@ en:
           link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=57"
         controlled:
           link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=23"
+      additional_properties_guidance:
+        text: Guidance on properties owned that are not the 'main house'
+        certificated:
+          link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=58"
+        controlled:
+          link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=23"
     additional_property:
       legend: Does your client own any other property, a holiday home or land?
       hint: This can be the sole property owned if not the home the client lives in, even if the property is abroad or not providing an income.

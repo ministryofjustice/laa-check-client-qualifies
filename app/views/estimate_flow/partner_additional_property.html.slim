@@ -12,4 +12,4 @@
                                           hint: -> { t(".hints").map { tag.p(_1, class: "govuk-hint") }.join.html_safe }
 
     = form.govuk_submit t("generic.save_and_continue")
-= render "property_sidebar", level_of_help: @check.level_of_help, smod_applicable: false
+= render "additional_property_sidebar", level_of_help: @check.level_of_help, smod_applicable: false
