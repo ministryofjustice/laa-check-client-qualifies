@@ -165,6 +165,12 @@ We use Grover to save pages as PDF files for download, which in turn uses Puppet
 MULTI_THREAD=1 bundle exec rails s
 ```
 
+### PDF Accessibility 
+
+When generating PDFs from an eligibility check, we found that the iOS screenreader, was having difficulty announcing the numbers in our tables. To combat this, we created the `pdf_friendly_numeric_table_cell` method which uses the `govuk-!-text-align-right` override class, instead of using the `numeric: true` class (for a cell with a number in it). 
+
+Call this method (with the relevant arguments, for this method’s parameters) anytime you want to create a table cell with a number in it, for the use in a PDF.
+
 ### Data analysis
 
 We use Blazer for our Cloud Platform environments.
