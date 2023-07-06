@@ -124,7 +124,8 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
           "legal_aid_payments_frequency" => "monthly",
           "housing_payments" => 120,
           "housing_payments_frequency" => "monthly",
-          "housing_benefit_value" => 0,
+          "housing_benefit_value" => 119,
+          "housing_benefit_frequency" => "monthly",
         }
       end
 
@@ -162,7 +163,11 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
            { amount: 120,
              category: :rent_or_mortgage,
              frequency: :monthly,
-             operation: :debit }],
+             operation: :debit },
+           { amount: 119,
+             category: :housing_benefit,
+             frequency: :monthly,
+             operation: :credit }],
         )
       end
 
