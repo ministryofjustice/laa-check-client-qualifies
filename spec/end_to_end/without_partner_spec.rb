@@ -142,6 +142,8 @@ RSpec.describe "Certificated check without partner", type: :feature do
        "Total assessed disposable capital£701.00"].each do |line|
         expect(page).to have_content line
       end
+
+      expect(page).not_to have_content "Partner"
     end
   end
 end
