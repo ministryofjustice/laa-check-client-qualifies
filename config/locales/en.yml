@@ -2133,6 +2133,14 @@ en:
         bullets:
           - prisoners, police officers, members of HM Forces, clients who are bankrupt and clients who live outside the UK
           - clarification on when the finances of applicants under 18 are assessed
+    cw_forms:
+      text: "When a controlled work check is completed, this service will add the results to a downloadable PDF for the civil controlled work forms that collect a client’s financial information:"
+      bullets:
+        - "CW1: financial eligibility for legal aid clients"
+        - "CW1&2MH: legal help and controlled legal representation (mental health)"
+        - "CW2IMM: controlled legal representation (Immigration)"
+        - "CW5: financial eligibility form for clients wanting family mediation"
+        - "CIVMEANS7: financial assessment for family mediation"
   controlled_work_document_selections:
     new:
       title: Which controlled work (CW) form do you need?

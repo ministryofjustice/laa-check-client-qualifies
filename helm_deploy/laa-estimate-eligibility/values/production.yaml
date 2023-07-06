@@ -55,7 +55,7 @@ cfe:
 
 featureFlags:
   sentry: ENABLED
-  cwForms: NOT_ENABLED
+  cwForms: ENABLED
   specialApplicantGroups: ENABLED
   selfEmployed: NOT_ENABLED
   overrides: NOT_ENABLED
