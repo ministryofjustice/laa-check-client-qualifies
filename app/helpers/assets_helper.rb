@@ -2,7 +2,6 @@ module AssetsHelper
   def assets_links(level_of_help, smod_applicable)
     links = {
       t("estimate_flow.assets.guidance.#{level_of_help}.text") => t("estimate_flow.assets.guidance.#{level_of_help}.link"),
-      t("estimate_flow.assets.other_property_guidance.text") => t("estimate_flow.assets.other_property_guidance.#{level_of_help}.link"),
     }
 
     if level_of_help == "certificated"
@@ -21,8 +20,7 @@ module AssetsHelper
 
   def partner_assets_links(check)
     links = {
-      t("estimate_flow.assets.guidance.#{check.level_of_help}.text") => t("estimate_flow.assets.guidance.#{check.level_of_help}.link"), \
-      t("estimate_flow.assets.other_property_guidance.text") => t("estimate_flow.assets.other_property_guidance.#{check.level_of_help}.link"), \
+      t("estimate_flow.assets.guidance.#{check.level_of_help}.text") => t("estimate_flow.assets.guidance.#{check.level_of_help}.link"),
     }
 
     return links unless FeatureFlags.enabled?(:special_applicant_groups) && !check.controlled?
