@@ -2187,8 +2187,8 @@ en:
       title: Help
       get_help: Get help to use this service
       contact: "Contact our customer services team if you need help doing things online, or want support with legal aid administration or training:"
-      telephone: 0300 200 2020
-      webchat_html: on <a href="https://legalaidlearning.justice.gov.uk/totara/dashboard/index.php?id=34" target="_blank" rel="noreferrer noopener">our training website</a>
+      telephone: "telephone: 0300 200 2020"
+      webchat_html: "webchat: on <a href='https://legalaidlearning.justice.gov.uk/totara/dashboard/index.php?id=34' target='_blank' rel='noreferrer noopener'>our training website</a>"
       problems_html: If you are having technical problems, for example you are seeing error messages, email <a href="mailto:online-support@justice.gov.uk">online-support@justice.gov.uk</a>.
       find_out_more: Find out more about legal aid and your options
       unable: "If you are unable to use this service because you do not give legal advice or provide legal services, you can:"
