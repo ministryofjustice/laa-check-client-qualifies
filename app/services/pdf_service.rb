@@ -9,6 +9,10 @@ class PdfService
     },
     prefer_css_page_size: true,
     print_background: true,
+    viewport: {
+      width: 2400,
+      height: 4800,
+    },
     emulate_media: "screen",
     launch_args: ["--font-render-hinting=medium", "--no-sandbox", "--force-renderer-accessibility"],
     execute_script: "document.querySelectorAll('button').forEach(el => el.style.display = 'none')",

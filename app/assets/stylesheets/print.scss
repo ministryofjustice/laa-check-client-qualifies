@@ -33,3 +33,9 @@
                               // regardless of class-based button styles
   }
 }
+// Grover/pupetteer has a bug https://github.com/puppeteer/puppeteer/issues/4125
+// this ensures that the bug does not cause the titles in H1 and H2 elements to
+// split on the characters 'fi'
+.no-ligatures{
+  font-variant-ligatures: none;
+}
