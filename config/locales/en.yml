@@ -1183,7 +1183,7 @@ en:
           - jewellery (but not wedding, engagement or eternity rings)
           - art
           - antiques
-          - caravans (if it isn’t the client’s main residence)
+          - caravans (if it is not the client’s main residence)
           - musical instruments, unless your client is a professional musician
         controlled_details_bullets_1_addendum: any vehicle not in regular use
         details_subheader_2: "Do not include things like:"
@@ -1236,7 +1236,7 @@ en:
           - jewellery (but not wedding, engagement or eternity rings)
           - art
           - antiques
-          - caravans (if it isn’t the client’s main residence)
+          - caravans (if it is not the client’s main residence)
           - musical instruments, unless the partner is a professional musician
     property_entry:
       heading: The home your client lives in
