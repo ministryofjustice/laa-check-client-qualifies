@@ -1228,7 +1228,8 @@ en:
       hint: If you make an application for civil legal aid, the property's value may be excluded from the financial assessment if your client has left their former matrimonial home because of domestic abuse
       house_value:
         input: How much is the home they live in worth?
-        input_hint: You can use property websites to find the estimated value
+        input_hint_certificated: You can use property websites to find the estimated value. If you have more than one valuation, use the highest. Keep a record of where the valuation is from for evidence, as it may be checked if you make an application for legal aid.
+        input_hint_controlled: You can use property websites to find the estimated value. If you have more than one valuation, use the highest. Keep a record of where the valuation is from for evidence, as it may be checked at file audit or assessment stage.
       mortgage:
         input: How much is left to pay on the mortgage?
         input_hint: Check the statement from the mortgage provider or lender and include any other loans secured against the property
@@ -1263,7 +1264,7 @@ en:
       add: Add another vehicle
       vehicle_value:
         input: What is the estimated value of the vehicle?
-        input_hint: You can use car valuation websites to find this out. If you got more than one valuation, use the highest.
+        input_hint: You can use car valuation websites to find this out. If you have more than one valuation, use the highest. Keep a record of where the valuation is from for evidence, as it may be checked if you make an application for legal aid.
       vehicle_in_regular_use:
         legend: Is the vehicle in regular use?
         hint: This means the vehicle is used at least once every 2 weeks for things like work, shopping or driving children to school
