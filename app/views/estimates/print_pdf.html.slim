@@ -10,8 +10,10 @@
         li = t(".legal_aid")
         li = t(".agency")
 
-  span.govuk-body-m style="list-style-type: none; margin: 0;"
-    li = t(".date") + Date.current.strftime(" %d %B %Y")
+  li style="list-style-type: none; margin: 0;"
+    span.govuk-body-m
+      => t(".date")
+      strong = Date.current.strftime("%d %B %Y")
 
   button.govuk-button.govuk-button--secondary data-module="govuk-button" data-trigger="print" = t(".print_this_page")
 
