@@ -55,10 +55,11 @@ cfe:
 
 featureFlags:
   sentry: ENABLED
-  cwForms: NOT_ENABLED
+  cwForms: ENABLED
   specialApplicantGroups: ENABLED
   selfEmployed: NOT_ENABLED
   overrides: NOT_ENABLED
+  publicBeta: NOT_ENABLED
 
 geckoboard:
   metricsDataset: "ccq_monthly_metrics_staging"

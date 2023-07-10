@@ -1877,7 +1877,8 @@ en:
       only_for_legal_aid_providers_html: You can only use this service if you give legal advice or provide legal services. %{link} as an individual.
       check_if_you_can_get_legal_aid: Check if you can get legal aid
       partner_living_outside_uk_html: If your client or their partner live outside the UK, you should <a href='https://www.bankofengland.co.uk/boeapps/database/Rates.asp?Travel=NIxIRx&into=GBP' target='_blank'>convert their financial information into Sterling</a> before completing this check.
-      unacceptable_client_explanation: You cannot use this service if your client (or their partner) is self-employed
+      self_employment: Self-employment
+      unacceptable_client_explanation: You cannot use this service if your client (or their partner) is self-employed.
       unacceptable_client_heading_company_director: "Company directors"
       unacceptable_client_explanation_company_director: "You cannot use this service for a certificated check if your client (or their partner) is a self-employed director."
       legacy_unacceptable_client_explanation: "You cannot use this service if your client (or their partner) is:"
@@ -1885,7 +1886,7 @@ en:
         - self employed
         - in the armed forces
       unacceptable_client_heading_under_18: "Clients under 18"
-      unacceptable_client_explanation_under_18_html: 
+      unacceptable_client_explanation_under_18_html:
         - For controlled work, the finances of applicants under 18 are only assessed if they are maintained or cared for by somebody who can also be included in the means assessment. Page 32 of the <a href='https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1157029/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_controlled_work_and_family_mediation_May_2023.pdf#page=32' target='_blank'>Lord Chancellor’s guidance (opens in a new tab)</a> has more details about how to assess a child’s means.
         - For certificated work, see page 94 of the <a href='https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1157030/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_certificated_work_May_2023__002_.pdf#page=94' target='_blank'>Lord Chancellor’s guidance (opens in a new tab)</a> for more details about when and how to assess a child’s means.
       case_types: Case types
@@ -2133,6 +2134,14 @@ en:
         bullets:
           - prisoners, police officers, members of HM Forces, clients who are bankrupt and clients who live outside the UK
           - clarification on when the finances of applicants under 18 are assessed
+    cw_forms:
+      text: "When a controlled work check is completed, this service will add the results to a downloadable PDF for the civil controlled work forms that collect a client’s financial information:"
+      bullets:
+        - "CW1: financial eligibility for legal aid clients"
+        - "CW1&2MH: legal help and controlled legal representation (mental health)"
+        - "CW2IMM: controlled legal representation (Immigration)"
+        - "CW5: financial eligibility form for clients wanting family mediation"
+        - "CIVMEANS7: financial assessment for family mediation"
   controlled_work_document_selections:
     new:
       title: Which controlled work (CW) form do you need?
@@ -2174,4 +2183,18 @@ en:
     subheading_2: How to share results
     subsection_2: To share the results of a check, save the result declaration as a PDF. You can do this on the results page at the end of the check.
     cta: Start a new eligibility check
+  helps:
+    show:
+      title: Help
+      get_help: Get help to use this service
+      contact: "Contact our customer services team if you need help doing things online, or want support with legal aid administration or training:"
+      telephone: "telephone: 0300 200 2020"
+      webchat_html: "webchat: on <a href='https://legalaidlearning.justice.gov.uk/totara/dashboard/index.php?id=34' target='_blank' rel='noreferrer noopener'>our training website (opens in new tab)</a>"
+      problems_html: If you are having technical problems, for example you are seeing error messages, email <a href="mailto:online-support@justice.gov.uk">online-support@justice.gov.uk</a>.
+      find_out_more: Find out more about legal aid and your options
+      unable: "If you are unable to use this service because you do not give legal advice or provide legal services, you can:"
+      individual_html: <a href="https://www.gov.uk/check-legal-aid" target="_blank" rel="noreferrer noopener">check if you can get legal aid (opens in new tab)</a> as an individual
+      cla_html: check if you can get free and confidential advice from <a href="https://www.gov.uk/civil-legal-advice" target="_blank" rel="noreferrer noopener">Civil Legal Advice (opens in new tab)</a>
+      find_out_more_html: find out more about <a href="https://www.gov.uk/legal-aid" target="_blank" rel="noreferrer noopener">legal aid (opens in new tab)</a>
+      information_html: find out what information we use to <a href="https://www.gov.uk/guidance/civil-legal-aid-means-testing" target="_blank" rel="noreferrer noopener">check who can get civil legal aid (opens in new tab)</a>
 
