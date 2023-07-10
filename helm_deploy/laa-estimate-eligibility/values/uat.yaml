@@ -66,6 +66,7 @@ featureFlags:
   specialApplicantGroups: ENABLED
   selfEmployed: ENABLED
   overrides: ENABLED
+  publicBeta: ENABLED
 
 postgresql:
   enabled: true

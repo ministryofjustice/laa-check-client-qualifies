@@ -1,0 +1,20 @@
+- content_for :page_title
+  = t(".title")
+
+.govuk-grid-column-two-thirds
+  = render "shared/heading", header_text: t(".title")
+
+  h2.govuk-heading-m = t(".get_help")
+  p.govuk-body = t(".contact")
+  ul.govuk-list.govuk-list--bullet
+    li = t(".telephone")
+    li = t(".webchat_html")
+  p.govuk-body = t(".problems_html")
+
+  h2.govuk-heading-m = t(".find_out_more")
+  p.govuk-body = t(".unable")
+  ul.govuk-list.govuk-list--bullet
+    li = t(".individual_html")
+    li = t(".cla_html")
+    li = t(".find_out_more_html")
+    li = t(".information_html")
