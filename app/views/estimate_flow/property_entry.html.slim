@@ -17,7 +17,7 @@
             field: :house_value,
             width: 10,
             label_text: t("estimate_flow.property_entry.house_value.input"),
-            hint_text: t("estimate_flow.property_entry.house_value.input_hint")
+            hint_text: t("estimate_flow.property_entry.house_value.input_hint_#{@check.level_of_help}")
     - if @form.owned_with_mortgage?
       = render "shared/money_input_with_hint",
               form:,
