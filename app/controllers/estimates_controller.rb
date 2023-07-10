@@ -38,7 +38,7 @@ class EstimatesController < ApplicationController
     @model = CalculationResult.new(session_data)
     @answers = CheckAnswersPresenter.new(session_data)
     html = render_to_string({
-      template: "estimates/print",
+      template: "estimates/print_pdf",
       layout: "print_application",
     })
 

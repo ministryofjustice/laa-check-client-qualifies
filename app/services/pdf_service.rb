@@ -8,6 +8,7 @@ class PdfService
       right: "1cm",
     },
     emulate_media: "screen",
+    print_background: true,
     launch_args: ["--font-render-hinting=medium", "--no-sandbox"],
     execute_script: "document.querySelectorAll('button').forEach(el => el.style.display = 'none')",
   }.freeze

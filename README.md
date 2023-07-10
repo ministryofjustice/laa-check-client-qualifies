@@ -167,9 +167,11 @@ MULTI_THREAD=1 bundle exec rails s
 
 ### PDF Accessibility 
 
-When generating PDFs from an eligibility check, we found that the iOS screenreader, was having difficulty announcing the numbers in our tables. To combat this, we created the `pdf_friendly_numeric_table_cell` method which uses the `govuk-!-text-align-right` override class, instead of using the `numeric: true` class (for a cell with a number in it). 
+When generating PDFs from an eligibility check, we found that the iOS screenreader, was having difficulty announcing the numbers in our tables and also focussing on `<h2>` and `<p>` html elements on a mobile/tablet screen.
 
-Call this method (with the relevant arguments, for this method’s parameters) anytime you want to create a table cell with a number in it, for the use in a PDF.
+To combat difficulty announcing numbers, we created the `pdf_friendly_numeric_table_cell` method which uses the `govuk-!-text-align-right` override class, instead of using the `numeric: true` class (for a cell with a number in it). Call this method (with the relevant arguments, for this method’s parameters) anytime you want to create a table cell with a number in it, for the use in a PDF.
+
+To combat focussing on elements on a mobile/tablet, we replaced `<p>` html elements with `<li>` and nested `<h2>` html elements into `<ul>`structure. In addition we have removed the `<li>` stylings for those not using screen readers. 
 
 ### Data analysis
 
