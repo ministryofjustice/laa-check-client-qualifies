@@ -7,11 +7,15 @@ footer.govuk-footer.no-print role="contentinfo"
 
         h2.govuk-visually-hidden = t("layouts.application.footer.support")
         ul.govuk-footer__inline-list
-          li.govuk-footer__inline-list-item
-            = link_to t("layouts.application.footer.help"), "https://www.gov.uk/help", class: "govuk-footer__link"
+          - if FeatureFlags.enabled?(:public_beta)
+            li.govuk-footer__inline-list-item
+              = link_to t("layouts.application.footer.help"), help_path, class: "govuk-footer__link"
+          - else
+            li.govuk-footer__inline-list-item
+              = link_to t("layouts.application.footer.help"), "https://www.gov.uk/help", class: "govuk-footer__link"
 
-          li.govuk-footer__inline-list-item
-            = link_to t("layouts.application.footer.contact"), "mailto:eligibility@justice.gov.uk", class: "govuk-footer__link"
+            li.govuk-footer__inline-list-item
+              = link_to t("layouts.application.footer.contact"), "mailto:eligibility@justice.gov.uk", class: "govuk-footer__link"
 
           li.govuk-footer__inline-list-item
             = link_to t("layouts.application.footer.cookies"), cookies_path, class: "govuk-footer__link"
