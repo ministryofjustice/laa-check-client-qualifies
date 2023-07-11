@@ -1115,6 +1115,12 @@ en:
           link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=57"
         controlled:
           link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=23"
+      additional_properties_guidance:
+        text: Guidance on properties owned that are not the 'main house'
+        certificated:
+          link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=58"
+        controlled:
+          link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=23"
     additional_property:
       legend: Does your client own any other property, a holiday home or land?
       hint: This can be the sole property owned if not the home the client lives in, even if the property is abroad or not providing an income.
@@ -1166,11 +1172,28 @@ en:
       valuables:
         label: Valuable items worth £500 or more
         certificated_hints:
-          - For example, jewellery, art, antiques or caravan or similar.
+          - If you have more than one valuation for any of these valuable items, use the highest. Keep a record of where the valuation is from for evidence, as it may be checked if you make an application for legal aid.
           - Enter 0 if this does not apply.
         controlled_hints:
-          - For example, any vehicle that is not in regular use, jewellery, art, antiques or caravan or similar.
+          - If you have more than one valuation for any of these valuable items, use the highest. Keep a record of where the valuation is from for evidence, as it may be checked at file audit or assessment stage.
           - Enter 0 if this does not apply.
+        details_header: What valuable items to include
+        details_subheader_1: "Include things like:"
+        details_bullets_1:
+          - jewellery (but not wedding, engagement or eternity rings)
+          - art
+          - antiques
+          - a caravan (if it is not the client’s main residence)
+          - musical instruments, unless your client is a professional musician
+        controlled_details_bullets_1_addendum: any vehicle not in regular use
+        details_subheader_2: "Do not include things like:"
+        details_bullets_2:
+          - wedding, engagement and eternity rings
+          - furniture and appliances
+          - televisions
+          - mobile phones, laptops and other devices
+          - clothing
+          - equipment or tools used for work
         input: Total of all valuable items
       guidance:
         controlled:
@@ -1182,12 +1205,6 @@ en:
       disregarded_capital_guidance:
         text: Guidance on disregarded capital
         link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=70"
-      other_property_guidance:
-        text: Guidance on properties owned that are not the 'main house'
-        certificated:
-          link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=59"
-        controlled:
-          link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=23"
     partner_assets:
       legend: Partner assets
       hints:
@@ -1215,14 +1232,12 @@ en:
           - Enter 0 if this does not apply.
         input: Total of all investments
       valuables:
-        label: Valuable items worth £500 or more
-        certificated_hints:
-          - For example, jewellery, art, antiques or caravan or similar.
-          - Enter 0 if this does not apply.
-        controlled_hints:
-          - For example, any vehicle that is not in regular use, jewellery, art, antiques or caravan or similar.
-          - Enter 0 if this does not apply.
-        input: Total of all valuable items
+        details_bullets_1:
+          - jewellery (but not wedding, engagement or eternity rings)
+          - art
+          - antiques
+          - a caravan (if it is not the client’s main residence)
+          - musical instruments, unless the partner is a professional musician
     property_entry:
       heading: The home your client lives in
       hint: If you make an application for civil legal aid, the property's value may be excluded from the financial assessment if your client has left their former matrimonial home because of domestic abuse
