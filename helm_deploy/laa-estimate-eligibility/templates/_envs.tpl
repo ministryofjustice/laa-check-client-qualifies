@@ -68,8 +68,6 @@ env:
     value: {{ .Values.featureFlags.sentry }}
   - name: CW_FORMS_FEATURE_FLAG
     value: {{ .Values.featureFlags.cwForms }}
-  - name: SPECIAL_APPLICANT_GROUPS_FEATURE_FLAG
-    value: {{ .Values.featureFlags.specialApplicantGroups }}
   - name: SELF_EMPLOYED_FEATURE_FLAG
     value: {{ .Values.featureFlags.selfEmployed }}
   - name: PUBLIC_BETA_FEATURE_FLAG

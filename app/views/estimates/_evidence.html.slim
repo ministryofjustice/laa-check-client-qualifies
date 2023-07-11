@@ -1,4 +1,3 @@
-- special_applicants = FeatureFlags.enabled?(:special_applicant_groups, @check.session_data)
 - if @check.asylum_support
   ul.govuk-list.govuk-list--bullet
     - t("estimates.show.controlled_asylum_types_of_evidence").each_with_index do |evidence, index|
@@ -21,7 +20,7 @@
 - elsif FeatureFlags.enabled?(:self_employed, @check.session_data)
   p.govuk-body = t("estimates.show.evidence_needed_explainer")
   ul.govuk-list.govuk-list--bullet
-    - t("estimates.show.#{'legacy_' unless special_applicants}types_of_evidence").each do |evidence|
+    - t("estimates.show.types_of_evidence").each do |evidence|
       li.govuk-body = evidence
   p.govuk-body = t("estimates.show.self_employed_evidence_needed_explainer")
   ul.govuk-list.govuk-list--bullet
@@ -30,5 +29,5 @@
 - else
   p.govuk-body = t("estimates.show.evidence_needed_explainer")
   ul.govuk-list.govuk-list--bullet
-    - t("estimates.show.#{'legacy_' unless special_applicants}types_of_evidence").each do |evidence|
+    - t("estimates.show.types_of_evidence").each do |evidence|
       li.govuk-body = evidence
