@@ -9,6 +9,12 @@ RSpec.describe "status requests" do
       expect(response).to be_successful
       expect(response_json).to eq("alive" => true)
     end
+
+    it "returns false if there is a problem reading from the database" do
+      allow(AnalyticsEvent).to receive(:count).and_raise(PG::UndefinedTable)
+      get("/status")
+      expect(response).not_to be_successful
+    end
   end
 
   describe "GET /health-including-dependents" do

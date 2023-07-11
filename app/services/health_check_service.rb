@@ -1,6 +1,6 @@
 class HealthCheckService
-  def self.call
-    database_healthy? && short_term_persistence_healthy? && cfe_healthy?
+  def self.call(check_cfe:)
+    database_healthy? && short_term_persistence_healthy? && (!check_cfe || cfe_healthy?)
   rescue StandardError
     false
   end
