@@ -1,6 +1,8 @@
 class PartnerAdditionalPropertyDetailsForm < AdditionalPropertyDetailsForm
   PREFIX = "partner_additional_".freeze
 
+  ITEMS_SESSION_KEY = "partner_additional_property".freeze
+
   ATTRIBUTES = %i[house_value mortgage percentage_owned].freeze
 
   delegate :partner_additional_property_owned, to: :check
