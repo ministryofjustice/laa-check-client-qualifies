@@ -92,7 +92,6 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
   gem "capybara-selenium"
-  gem "vcr", require: false
   gem "webmock", require: false
   gem "axe-core-rspec"
   gem "rack_session_access"

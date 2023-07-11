@@ -429,7 +429,6 @@ GEM
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.4.2)
-    vcr (6.2.0)
     view_component (3.0.0)
       activesupport (>= 5.2.0, < 8.0)
       concurrent-ruby (~> 1.0)
@@ -514,7 +513,6 @@ DEPENDENCIES
   slim-rails
   slim_lint
   tzinfo-data
-  vcr
   web-console
   webdrivers
   webmock
