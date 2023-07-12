@@ -240,7 +240,8 @@ jobs:
           channel: eligibility-alerts-<< parameters.environment >>
           event: fail
           template: basic_fail_1
-      - jira/notify
+      - jira/notify:
+          issue_regexp: '[A-z]{2,30}-[0-9]+'  # override default to make prefix case-insensitive
 
   deploy_infrastructure_uat:
     executor: cloud-platform-executor
