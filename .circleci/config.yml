@@ -240,9 +240,6 @@ jobs:
           channel: eligibility-alerts-<< parameters.environment >>
           event: fail
           template: basic_fail_1
-      - jira/notify:
-          issue_regexp: '[A-z]{2,30}-[0-9]+'  # override default to make prefix case-insensitive
-
   deploy_infrastructure_uat:
     executor: cloud-platform-executor
     steps:
@@ -277,6 +274,9 @@ workflows:
           name: Deploy UAT
           environment: uat
           context: laa-estimate-eligibility-uat
+          post-steps:
+            - jira/notify:
+              issue_regexp: '[A-z]{2,30}-[0-9]+'  # override default to make prefix case-insensitive
           requires:
             - linters
             - run_specs
@@ -287,6 +287,9 @@ workflows:
           name: Deploy staging
           environment: staging
           context: laa-estimate-eligibility-staging
+          post-steps:
+            - jira/notify:
+              issue_regexp: '[A-z]{2,30}-[0-9]+'  # override default to make prefix case-insensitive
           requires:
             - run_specs
             - end2end_tests
@@ -300,6 +303,9 @@ workflows:
           name: Deploy production
           environment: production
           context: laa-estimate-eligibility-production
+          post-steps:
+            - jira/notify:
+              issue_regexp: '[A-z]{2,30}-[0-9]+'  # override default to make prefix case-insensitive
           requires:
             - run_specs
             - end2end_tests
