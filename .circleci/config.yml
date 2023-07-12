@@ -78,10 +78,11 @@ references:
         bundle exec rake db:migrate
 
 orbs:
-  browser-tools: circleci/browser-tools@1.4.0
-  slack: circleci/slack@4.5.2
   aws-cli: circleci/aws-cli@4.0.0
   aws-ecr: circleci/aws-ecr@8.2.1
+  browser-tools: circleci/browser-tools@1.4.0
+  jira: circleci/jira@1.0.5
+  slack: circleci/slack@4.5.2
 
 jobs:
   install_dependencies:
@@ -239,6 +240,7 @@ jobs:
           channel: eligibility-alerts-<< parameters.environment >>
           event: fail
           template: basic_fail_1
+      - jira/notify
 
   deploy_infrastructure_uat:
     executor: cloud-platform-executor
