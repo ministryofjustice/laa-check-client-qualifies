@@ -241,7 +241,7 @@ jobs:
           event: fail
           template: basic_fail_1
       - jira/notify:
-          issue_regexp: '[A-z]{2,30}-[0-9]+'  # override default to make prefix case-insensitive
+          scan_commit_body: true
   deploy_infrastructure_uat:
     executor: cloud-platform-executor
     steps:
