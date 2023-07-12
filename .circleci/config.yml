@@ -81,7 +81,7 @@ orbs:
   aws-cli: circleci/aws-cli@4.0.0
   aws-ecr: circleci/aws-ecr@8.2.1
   browser-tools: circleci/browser-tools@1.4.0
-  jira: circleci/jira@1.0.5
+  jira: circleci/jira@1.3.1
   slack: circleci/slack@4.5.2
 
 jobs:
@@ -240,6 +240,8 @@ jobs:
           channel: eligibility-alerts-<< parameters.environment >>
           event: fail
           template: basic_fail_1
+      - jira/notify:
+          issue_regexp: '[A-z]{2,30}-[0-9]+'  # override default to make prefix case-insensitive
   deploy_infrastructure_uat:
     executor: cloud-platform-executor
     steps:
@@ -274,9 +276,6 @@ workflows:
           name: Deploy UAT
           environment: uat
           context: laa-estimate-eligibility-uat
-          post-steps:
-            - jira/notify:
-              issue_regexp: '[A-z]{2,30}-[0-9]+'  # override default to make prefix case-insensitive
           requires:
             - linters
             - run_specs
@@ -287,9 +286,6 @@ workflows:
           name: Deploy staging
           environment: staging
           context: laa-estimate-eligibility-staging
-          post-steps:
-            - jira/notify:
-              issue_regexp: '[A-z]{2,30}-[0-9]+'  # override default to make prefix case-insensitive
           requires:
             - run_specs
             - end2end_tests
@@ -303,9 +299,6 @@ workflows:
           name: Deploy production
           environment: production
           context: laa-estimate-eligibility-production
-          post-steps:
-            - jira/notify:
-              issue_regexp: '[A-z]{2,30}-[0-9]+'  # override default to make prefix case-insensitive
           requires:
             - run_specs
             - end2end_tests
