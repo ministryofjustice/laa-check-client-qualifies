@@ -9,59 +9,88 @@ module ResultsHelper
 
   def pdf_friendly_h1(text, is_pdf)
     if is_pdf
-      "<h2 class=\"govuk-heading-l\"><li>#{text}</li></h1>"
+      tag.h2(class: "govuk-heading-l", style: "color: red; list-style-type: none; margin: 0; padding-bottom: 10px; font-variant-ligatures: none;") do
+        tag.li(text)
+      end
     else
-      "<h1 class=\"govuk-heading-xl\">#{text}</h1>"
+      tag.h1(text, class: "govuk-heading-l")
     end
   end
 
   def pdf_friendly_h2(text, size, is_pdf, additional_style, additional_class)
     if is_pdf
-      "<h2 class=\"govuk-heading-#{size} #{additional_class}\" style=\"list-style-type: none; margin: 0; padding-bottom: 10; font-variant-ligatures: none; #{additional_style};\"><li>#{text}</li></h2>"
+      tag.h2(class: "govuk-heading-#{size} #{additional_class}", style: "color: red; list-style-type: none; margin: 0; padding-bottom: 10px; font-variant-ligatures: none; #{additional_style}") do
+        tag.li(text)
+      end
     else
-      "<h2 class=\"govuk-heading-#{size} #{additional_class}\" style=\"#{additional_style}\">#{text}</h2>"
+      tag.h2(text, class: "govuk-heading-#{size} #{additional_class}", style: additional_style)
     end
   end
 
-  def pdf_friendly_h3(text, size, is_pdf, additional_style, additional_class)
+  def pdf_friendly_h3(text, is_pdf)
     if is_pdf
-      "<h3 class=\"govuk-heading-#{size} #{additional_class}\" style=\"list-style-type: none; margin: 0; padding-bottom: 10; font-variant-ligatures: none; #{additional_style};\"><li>#{text}</li></h3>"
+      tag.h3(class: "govuk-heading-s", style: "color: red; list-style-type: none; margin: 0; padding-bottom: 10px; font-variant-ligatures: none;") do
+        tag.li(text)
+      end
     else
-      "<h3 class=\"govuk-heading-#{size} #{additional_class}\" style=\"#{additional_style}\">#{text}</h3>"
+      tag.h3(text, class: "govuk-heading-s")
     end
   end
 
   def pdf_friendly_p_element(text, is_pdf, additional_class)
     if is_pdf
-      "<ul class=\"govuk-list #{additional_class}\" style=\"list-style-type: none; margin: 0; padding-bottom: 10;\"><li>#{text}</li></ul>"
+      tag.ul(class: "govuk-list #{additional_class}", style: "color: red; list-style-type: none; margin: 0; padding-bottom: 10px; font-variant-ligatures: none;") do
+        tag.li(text)
+      end
     else
-      "<p class=\"govuk-body #{additional_class}\">#{text}</p>"
+      tag.p(text, class: "govuk-body #{additional_class}")
     end
   end
 
   def pdf_friendly_paragraphs(text, is_pdf)
     if is_pdf
-      modified_pdf_sentences = text.map { |sentence| "<ul class=\"govuk-list\" style=\"list-style-type: none; margin: 0; padding-bottom: 5;\"><li>#{sentence}</li></ul>" }
+      modified_pdf_sentences = text.map do |sentence|
+        tag.ul(class: "govuk-list", style: "color: red; list-style-type: none; margin: 0; padding-bottom: 5;") do
+          tag.li(sentence)
+        end
+      end
       modified_pdf_sentences.join("")
     else
-      modified_screen_sentences = text.map { |sentence| "<p class=\"govuk-body\">#{sentence}</p>" }
+      modified_screen_sentences = text.map do |sentence|
+        tag.p(class: "govuk-body") do
+          tag.p(sentence)
+        end
+      end
       modified_screen_sentences.join("")
     end
   end
 
   def pdf_friendly_logo(legal_aid, agency, is_pdf)
     if is_pdf
-      "<span class=\"gem-c-organisation-logo__name\" style=\"list-style-type: none; margin: 0;\"><li>#{legal_aid}</li><li>#{agency}</li></span>"
+      tag.span(class: "gem-c-organisation-logo__name", style: "color: red; list-style-type: none; margin: 0;") do
+        concat tag.li(legal_aid)
+        concat tag.li(agency)
+      end
     else
-      "<span class=\"gem-c-organisation-logo__name\">#{legal_aid}<br>#{agency}</span>"
+      tag.span(class: "gem-c-organisation-logo__name") do
+        concat tag.span(legal_aid)
+        concat tag.br(agency)
+      end
     end
   end
 
   def pdf_friendly_date(date, date_now, is_pdf)
     if is_pdf
-      "<li style=\"list-style-type: none; margin: 0;\"><span class=\"govuk-body-m\">#{date}<strong> #{date_now}</strong></span></li>"
+      tag.li(style: "list-style-type: none; margin: 0;") do
+        concat tag.span(date, class: "govuk-body-m")
+        concat tag.span(" #{date_now}", class: "govuk-body-m govuk-!-font-weight-bold")
+      end
     else
-      "<span class=\"govuk-body-m\">#{date}<strong> #{date_now}</strong><br></span>"
+      tag.span(class: "govuk-body-m") do
+        concat tag.span(date)
+        concat tag.strong(" #{date_now}")
+        concat tag.br
+      end
     end
   end
 end

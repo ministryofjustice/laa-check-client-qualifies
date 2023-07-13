@@ -38,7 +38,7 @@
     = render "evidence"
 
   - if @model.calculated?(:gross_income) || @model.calculated?(:disposable_income) || @model.calculated?(:capital)
-    == pdf_friendly_h2(html_escape(t("estimates.show.#{@model.level_of_help}_how_calculated")), "m", @is_pdf, nil, nil)
+    == pdf_friendly_h2(t("estimates.show.#{@model.level_of_help}_how_calculated"), "m", @is_pdf, nil, nil)
 
   - if @model.calculated?(:gross_income)
     == pdf_friendly_h2(t("estimates.show.income_calculation"), "m", @is_pdf, nil, nil)
