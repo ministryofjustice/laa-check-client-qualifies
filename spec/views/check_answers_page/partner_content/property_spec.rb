@@ -19,9 +19,12 @@ RSpec.describe "estimates/check_answers.html.slim" do
         build(:minimal_complete_session,
               partner: true,
               partner_additional_property_owned:,
-              partner_additional_house_value: 100_000,
-              partner_additional_mortgage:,
-              partner_additional_percentage_owned: 100)
+              partner_additional_properties: [{
+                "house_value" => 100_000,
+                "percentage_owned" => 100,
+                "mortgage" => partner_additional_mortgage,
+                "house_in_dispute" => true,
+              }])
       end
 
       let(:text) { page_text_within("#field-list-partner_additional_property") }

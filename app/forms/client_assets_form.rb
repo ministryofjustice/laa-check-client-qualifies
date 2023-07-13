@@ -26,7 +26,7 @@ class ClientAssetsForm
   validate :positive_valuables_must_be_over_500
 
   class << self
-    def add_extra_attributes_to_model_from_session(bank_account_model, session_data)
+    def add_extra_attributes_to_model_from_session(bank_account_model, session_data, _)
       check = Check.new(session_data)
       bank_account_model.smod_applicable = check.smod_applicable?
     end

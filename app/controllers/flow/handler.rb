@@ -16,7 +16,7 @@ module Flow
       other_income: OtherIncomeForm,
       outgoings: OutgoingsForm,
       property: PropertyForm,
-      property_entry: ClientPropertyEntryForm,
+      property_entry: PropertyEntryForm,
       vehicle: VehicleForm,
       vehicles_details: VehiclesDetailsForm,
       assets: ClientAssetsForm,

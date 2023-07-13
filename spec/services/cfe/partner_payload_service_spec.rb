@@ -56,9 +56,11 @@ RSpec.describe Cfe::PartnerPayloadService do
           "partner_investments" => 250,
           "partner_valuables" => 0,
           "partner_additional_property_owned" => "with_mortgage",
-          "partner_additional_house_value" => 100_000,
-          "partner_additional_mortgage" => 50_000,
-          "partner_additional_percentage_owned" => 100,
+          "partner_additional_properties" => [{
+            "house_value" => 100_000,
+            "mortgage" => 50_000,
+            "percentage_owned" => 100,
+          }],
         }
       end
 
@@ -152,9 +154,11 @@ RSpec.describe Cfe::PartnerPayloadService do
           "partner_investments" => 0,
           "partner_valuables" => 0,
           "partner_additional_property_owned" => ownership_status,
-          "partner_additional_house_value" => 100_000,
-          "partner_additional_mortgage" => 50_000,
-          "partner_additional_percentage_owned" => 100,
+          "partner_additional_properties" => [{
+            "house_value" => 100_000,
+            "mortgage" => 50_000,
+            "percentage_owned" => 100,
+          }],
         }
       end
 

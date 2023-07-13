@@ -81,10 +81,12 @@ RSpec.describe "estimates/check_answers.html.slim" do
       let(:session_data) do
         build(:minimal_complete_session,
               additional_property_owned:,
-              additional_house_value: 100_000,
-              additional_mortgage:,
-              additional_percentage_owned: 100,
-              additional_house_in_dispute:)
+              additional_properties: [{
+                "house_value" => 100_000,
+                "percentage_owned" => 100,
+                "mortgage" => 2_000,
+                "house_in_dispute" => true,
+              }])
       end
 
       let(:text) { page_text_within("#field-list-client_additional_property") }
@@ -118,6 +120,82 @@ RSpec.describe "estimates/check_answers.html.slim" do
           expect(text).to include("Outstanding mortgage£2,000.00")
           expect(text).to include("Percentage share owned100%")
         end
+      end
+    end
+
+    context "when multiple additional properties with mortgages" do
+      let(:session_data) do
+        build(:minimal_complete_session,
+              additional_property_owned: "with_mortgage",
+              additional_properties: [
+                {
+                  "house_value" => 100_000,
+                  "percentage_owned" => 100,
+                  "mortgage" => 2_000,
+                  "house_in_dispute" => true,
+                },
+                {
+                  "house_value" => 99_999,
+                  "percentage_owned" => 99,
+                  "inline_owned_with_mortgage" => true,
+                  "mortgage" => 999,
+                  "house_in_dispute" => true,
+                },
+              ])
+      end
+
+      let(:text) { page_text_within("#field-list-client_additional_property") }
+
+      it "renders content" do
+        lines = [
+          "Owns other propertyYes, with a mortgage or loanDisputed asset",
+          "Estimated value£100,000.00",
+          "Outstanding mortgage£2,000.00",
+          "Percentage share owned100%",
+          "Other property 2Disputed asset",
+          "Estimated value£99,999.00",
+          "Outstanding mortgage on the propertyYes",
+          "Value of outstanding mortgage£999.00",
+          "Percentage share owned99%",
+        ]
+        lines.each { expect(text).to include(_1) }
+        expect(text).to eq lines.join
+      end
+    end
+
+    context "when multiple additional properties without mortgages" do
+      let(:session_data) do
+        build(:minimal_complete_session,
+              additional_property_owned: "outright",
+              additional_properties: [
+                {
+                  "house_value" => 100_000,
+                  "percentage_owned" => 100,
+                  "house_in_dispute" => false,
+                },
+                {
+                  "house_value" => 99_999,
+                  "percentage_owned" => 99,
+                  "inline_owned_with_mortgage" => false,
+                  "house_in_dispute" => false,
+                },
+              ])
+      end
+
+      let(:text) { page_text_within("#field-list-client_additional_property") }
+
+      it "renders content" do
+        lines = [
+          "Owns other propertyYes, owned outright",
+          "Estimated value£100,000.00",
+          "Percentage share owned100%",
+          "Other property 2",
+          "Estimated value£99,999.00",
+          "Outstanding mortgage on the propertyNo",
+          "Percentage share owned99%",
+        ]
+        lines.each { expect(text).to include(_1) }
+        expect(text).to eq lines.join
       end
     end
   end

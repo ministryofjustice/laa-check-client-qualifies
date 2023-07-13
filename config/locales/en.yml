@@ -320,7 +320,7 @@ en:
         provider_user:
           attributes:
             blank: Select yes if you give legal advice or provide legal services
-        client_property_entry_form:
+        property_entry_form:
           attributes:
             house_value:
               blank: Enter how much the home they live in is worth
@@ -356,31 +356,18 @@ en:
               greater_than: Mortgage or loan payments must be 0 or more.
             housing_payments_loan_frequency:
               blank: Select frequency of mortgage payments.
-        additional_property_details_form:
+        additional_property_model:
           attributes:
             house_value:
               blank: Enter how much the property is worth
-              greater_than: Your client's property must be worth more than 0
-              not_a_number: How much your client's property is worth must be a number
+              greater_than: The property must be worth more than 0
+              not_a_number: How much the property is worth must be a number
             mortgage:
-              blank: Enter how much is left to pay on the mortgage
-              greater_than: The amount left to pay on the mortgage must be more than 0
-              not_a_number: The amount left to pay on the mortgage must be a number
-            percentage_owned:
-              blank: Enter the percentage share that they own of the property
-              within_range: The percentage that they own of the property must be between 1 and 100
-              not_a_number: The percentage that they own of the property must be a number between 1 and 100
-              not_an_integer: The percentage that they own of the property must be a whole number
-        partner_additional_property_details_form:
-          attributes:
-            house_value:
-              blank: Enter how much the property is worth
-              greater_than: The partner's property must be worth more than 0
-              not_a_number: How much the partner's property is worth must be a number
-            mortgage:
-              blank: Enter how much is left to pay on the mortgage
-              greater_than: The amount left to pay on the mortgage must be more than 0
-              not_a_number: The amount left to pay on the mortgage must be a number
+              blank: Enter the outstanding mortgage on the property, holiday home or land
+              greater_than: Outstanding mortgage cannot be 0
+              not_a_number: Outstanding mortgage must be a number
+            inline_owned_with_mortgage:
+              inclusion: Select yes if there is an outstanding mortgage on the property, holiday home or land
             percentage_owned:
               blank: Enter the percentage share that they own of the property
               within_range: The percentage that they own of the property must be between 1 and 100
@@ -1251,14 +1238,18 @@ en:
     additional_property_details:
       heading: Client’s other property, holiday home or land
       hint: If your client and their partner share other property, a holiday home or land, include this here
+      additional_property: Other property, holiday home or land
       house_value:
         input: How much is the property, holiday home or land worth?
       mortgage:
+        radio_label: Is there an outstanding mortgage on the property, holiday home or land?
+        conditional_reveal_label: Enter the value of the outstanding mortgage
         input: How much is left to pay on the mortgage?
-        input_hint: Check the statement from the mortgage provider or lender and include any other loans secured against the property
+        hint: Check the statement from the mortgage provider or lender and include any other loans secured against the property
       percentage_owned:
         input: What percentage share does your client own?
-        input_hint: If the property, holiday home or land is shared with the partner, add the percentage the client and partner own together. We do not need to know what percentage each of them owns.
+        hint: If the property, holiday home or land is shared with the partner, add the percentage the client and partner own together. We do not need to know what percentage each of them owns.
+      add: Add another property, holiday home or land
     partner_additional_property_details:
       heading: The partner's other property, holiday home or land
       hint: Do not add property, a holiday home or land you’ve already told us about
@@ -1475,27 +1466,20 @@ en:
         mortgage: Outstanding mortgage
         percentage_owned: Percentage share owned
       client_additional_property: Client other property
-      client_additional_property_fields:
+      additional_property_fields:
         additional_property_owned: Owns other property
         additional_property_owned_options:
           outright: "Yes, owned outright"
           with_mortgage: "Yes, with a mortgage or loan"
           none: "No"
           not_provided: Not provided
-        additional_house_value: Estimated value
-        additional_mortgage: Outstanding mortgage
-        additional_percentage_owned: Percentage share owned
+        house_value: Estimated value
+        mortgage: Outstanding mortgage
+        owned_with_mortgage: Outstanding mortgage on the property
+        inline_mortgage: Value of outstanding mortgage
+        percentage_owned: Percentage share owned
+        other_property: Other property %{number}
       partner_additional_property: Partner other property
-      partner_additional_property_fields:
-        partner_additional_property_owned: Owns other property
-        partner_additional_property_owned_options:
-          outright: "Yes, owned outright"
-          with_mortgage: "Yes, with a mortgage or loan"
-          none: "No"
-          not_provided: Not provided
-        partner_additional_house_value: Estimated value
-        partner_additional_mortgage: Outstanding mortgage
-        partner_additional_percentage_owned: Percentage share owned
       frequency_options:
         every_week: Every week
         every_two_weeks: Every 2 weeks

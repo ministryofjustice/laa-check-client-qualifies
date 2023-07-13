@@ -313,15 +313,14 @@ FactoryBot.define do
     mortgage { nil }
     percentage_owned { 1 }
     house_in_dispute { nil }
-    additional_property_owned { "outright" }
-    additional_house_value { 1.0 }
-    additional_mortgage { nil }
-    additional_percentage_owned { 1 }
-    additional_house_in_dispute { nil }
-    partner_additional_property_owned { "outright" }
-    partner_additional_house_value { 1.0 }
-    partner_additional_mortgage { nil }
-    partner_additional_percentage_owned { 1 }
+    additional_property_owned { "with_mortgage" }
+    additional_properties do
+      [{ "house_value" => 1.0, "mortgage" => 1.0, "percentage_owned" => 1, "house_in_dispute" => false }]
+    end
+    partner_additional_property_owned { "with_mortgage" }
+    partner_additional_properties do
+      [{ "house_value" => 1.0, "mortgage" => 1.0, "percentage_owned" => 1 }]
+    end
   end
 
   factory :instant_certificated_session, class: Hash do
@@ -412,15 +411,14 @@ FactoryBot.define do
     mortgage { nil }
     percentage_owned { 1 }
     house_in_dispute { nil }
-    additional_property_owned { "outright" }
-    additional_house_value { 1.0 }
-    additional_mortgage { nil }
-    additional_percentage_owned { 1 }
-    additional_house_in_dispute { nil }
-    partner_additional_property_owned { "outright" }
-    partner_additional_house_value { 1.0 }
-    partner_additional_mortgage { nil }
-    partner_additional_percentage_owned { 1 }
+    additional_property_owned { "with_mortgage" }
+    additional_properties do
+      [{ "house_value" => 1.0, "mortgage" => 1.0, "percentage_owned" => 1, "house_in_dispute" => false }]
+    end
+    partner_additional_property_owned { "with_mortgage" }
+    partner_additional_properties do
+      [{ "house_value" => 1.0, "mortgage" => 1.0, "percentage_owned" => 1 }]
+    end
     vehicle_owned { true }
     vehicles do
       [{ "vehicle_value" => 1.0, "vehicle_pcp" => false, "vehicle_finance" => nil, "vehicle_over_3_years_ago" => false, "vehicle_in_regular_use" => false, "vehicle_in_dispute" => nil }]
