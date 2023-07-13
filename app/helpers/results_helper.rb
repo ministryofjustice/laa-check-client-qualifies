@@ -7,11 +7,11 @@ module ResultsHelper
     ).html_safe
   end
 
-  def pdf_friendly_h1(text, additional_style, is_pdf)
+  def pdf_friendly_h1(text, is_pdf)
     if is_pdf
-      "<h1 class=\"govuk-heading-xl #{additional_style}\"><li>#{text}</li></h1>"
+      "<h2 class=\"govuk-heading-l\"><li>#{text}</li></h1>"
     else
-      "<h1 class=\"govuk-heading-xl #{additional_style}\">#{text}</h1>"
+      "<h1 class=\"govuk-heading-xl\">#{text}</h1>"
     end
   end
 
