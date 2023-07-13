@@ -95,7 +95,7 @@ RSpec.describe "Results page variations", :end2end, :self_employed_flag, type: :
 
     key_lines = ["Your client is likely to qualify financially for civil legal aid",
                  "Investments and valuables\n£102,000.00",
-                 "Pensioner disregard\nApplied to total capital up to a maximum of £100,000\n-£100,000.00",
+                 "60 or over disregard (also known as pensioner disregard)\nApplied to total capital up to a maximum of £100,000\n-£100,000.00",
                  "Total assessed disposable capital£2,000.00"]
 
     key_lines.each { expect(page).to have_content _1 }
