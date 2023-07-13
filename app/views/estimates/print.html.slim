@@ -6,15 +6,9 @@
 .govuk-grid-column-full
   .gem-c-organisation-logo
     .gem-c-organisation-logo__container
-      span.gem-c-organisation-logo__name
-        = t(".legal_aid")
-        br
-        = t(".agency")
+      == pdf_friendly_logo(t(".legal_aid"), t(".agency"), @is_pdf)
 
-  span.govuk-body-m
-    => t(".date")
-    strong = Date.current.strftime("%d %B %Y")
-    br
+  == pdf_friendly_date(t(".date"), Date.current.strftime("%d %B %Y"), @is_pdf)
 
   button.govuk-button.govuk-button--secondary data-module="govuk-button" data-trigger="print" = t(".print_this_page")
 
@@ -22,43 +16,43 @@
   = render "result_panel_content"
 
   - if @model.level_of_help == "certificated"
-    h2.govuk-heading-m = t("estimates.show.what_happens_next")
+    == pdf_friendly_h2(t("estimates.show.what_happens_next"), "m", @is_pdf, nil, nil)
     - if @check.upper_tribunal?
-      p.govuk-body = t("estimates.show.next_steps_without_apply_paragraph_1")
+      == pdf_friendly_p_element(t("estimates.show.next_steps_without_apply_paragraph_1"), @is_pdf, nil)
     - else
-      p.govuk-body = t("estimates.show.next_steps_paragraph_1")
-    p.govuk-body = t("estimates.show.next_steps_paragraph_2")
+      == pdf_friendly_p_element(t("estimates.show.next_steps_paragraph_1"), @is_pdf, nil)
+    == pdf_friendly_p_element(t("estimates.show.next_steps_paragraph_2"), @is_pdf, nil)
 
-    h2.govuk-heading-m = t("estimates.show.evidence_needed")
+    == pdf_friendly_h2(t("estimates.show.evidence_needed"), "m", @is_pdf, nil, nil)
     = render "evidence"
   - elsif @model.level_of_help == "controlled" && @model.decision == "eligible"
-    h2.govuk-heading-m = t("estimates.show.what_happens_next")
+    == pdf_friendly_h2(t("estimates.show.what_happens_next"), "m", @is_pdf, nil, nil)
     - if FeatureFlags.enabled?(:cw_forms)
       = render "controlled_work_next_steps"
     - else
-      p.govuk-body = t("estimates.show.controlled_next_steps_paragraph_1#{'_partner' if @check.partner}")
-      p.govuk-body = t("estimates.show.controlled_next_steps_paragraph_2_html")
+      == pdf_friendly_p_element(t("estimates.show.controlled_next_steps_paragraph_1#{'_partner' if @check.partner}"), @is_pdf, nil)
+      == pdf_friendly_p_element(t("estimates.show.controlled_next_steps_paragraph_2_html"), @is_pdf, nil)
 
-    h2.govuk-heading-m = t("estimates.show.evidence_needed")
-    p.govuk-body = t("estimates.show.evidence_needed_explainer")
+    == pdf_friendly_h2(t("estimates.show.evidence_needed"), "m", @is_pdf, nil, nil)
+    == pdf_friendly_p_element(t("estimates.show.evidence_needed_explainer"), @is_pdf, nil)
     = render "evidence"
 
   - if @model.calculated?(:gross_income) || @model.calculated?(:disposable_income) || @model.calculated?(:capital)
-    h2.govuk-heading-m = t("estimates.show.#{@model.level_of_help}_how_calculated")
+    == pdf_friendly_h2(t("estimates.show.#{@model.level_of_help}_how_calculated"), "m", @is_pdf, nil, nil)
 
   - if @model.calculated?(:gross_income)
-    h2.govuk-heading-m = t("estimates.show.income_calculation")
+    == pdf_friendly_h2(t("estimates.show.income_calculation"), "m", @is_pdf, nil, nil)
     = render "income_table", caption_size: "s"
 
   - if @model.calculated?(:disposable_income)
-    h2.govuk-heading-m = t("estimates.show.outgoings_calculation")
+    == pdf_friendly_h2(t("estimates.show.outgoings_calculation"), "m", @is_pdf, nil, nil)
     = render "outgoings_table", caption_size: "s"
 
   - if @model.calculated?(:capital)
-    h2.govuk-heading-m = t("estimates.show.capital_calculation")
+    == pdf_friendly_h2(t("estimates.show.capital_calculation"), "m", @is_pdf, nil, nil)
     = render "capital_table", caption_size: "s"
 
-  h2.govuk-heading-l class="govuk-!-margin-bottom-9 govuk-!-margin-top-9" = t(".your_answers")
+  == pdf_friendly_h2(t(".your_answers"), "l", @is_pdf, nil, "govuk-!-margin-bottom-9 govuk-!-margin-top-9")
   = render "check_answers_table", change_links: false
 
   button.govuk-button.govuk-button--secondary data-module="govuk-button" data-trigger="print" = t(".print_this_page")

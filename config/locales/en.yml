@@ -1849,12 +1849,6 @@ en:
       agency: Agency
       print_this_page: Print this page
       your_answers: Your answers
-    print_pdf:
-      date: "Date:"
-      legal_aid: Legal Aid
-      agency: Agency
-      print_this_page: Print this page
-      your_answers: Your answers
     invalid_session:
       answers_deleted: Your answers have been deleted
       paragraph_1: We have deleted your answers. This is because the service was updated while you were using it and the answers you gave cannot be saved.

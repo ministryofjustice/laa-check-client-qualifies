@@ -12,7 +12,11 @@ ruby:
   = render "shared/household_tag"
 
 - if header_text
-  h1.govuk-heading-xl class=("govuk-!-margin-bottom-3" if post_header_texts.any?) = header_text
+    - if @is_pdf == true
+      h1.govuk-heading-xl style="list-style-type: none;" class=("govuk-!-margin-bottom-3" if post_header_texts.any?)
+        li = header_text
+    - else
+      h1.govuk-heading-xl class=("govuk-!-margin-bottom-3" if post_header_texts.any?) = header_text
 
 - post_header_texts.each do |text|
   - is_last = text == post_header_texts.last && end_block.blank?
