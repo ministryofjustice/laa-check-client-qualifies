@@ -70,8 +70,8 @@ RSpec.describe "Feature flags" do
 
     scenario "I have session feature flags set in the session" do
       visit "estimates/new"
-      expect(session_contents[:feature_flags]).to include({ "example" => true })
-      expect(session_contents[:feature_flags]).not_to include({ "sentry" => false })
+      expect(session_contents["feature_flags"]).to include({ "example" => true })
+      expect(session_contents["feature_flags"]).not_to include({ "sentry" => false })
     end
   end
 end
