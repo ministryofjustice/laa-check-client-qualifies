@@ -316,6 +316,7 @@ workflows:
             - jira/notify:
                 job_type: deployment
                 environment: Production
+                environment_type: production
           filters:
             branches:
               only:
