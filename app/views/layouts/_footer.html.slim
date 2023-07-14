@@ -7,7 +7,7 @@ footer.govuk-footer.no-print role="contentinfo"
 
         h2.govuk-visually-hidden = t("layouts.application.footer.support")
         ul.govuk-footer__inline-list
-          - if FeatureFlags.enabled?(:public_beta)
+          - if FeatureFlags.enabled?(:public_beta, without_session_data: true)
             li.govuk-footer__inline-list-item
               = link_to t("layouts.application.footer.help"), help_path, class: "govuk-footer__link"
           - else

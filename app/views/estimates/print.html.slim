@@ -33,7 +33,7 @@
     = render "evidence"
   - elsif @model.level_of_help == "controlled" && @model.decision == "eligible"
     h2.govuk-heading-m = t("estimates.show.what_happens_next")
-    - if FeatureFlags.enabled?(:cw_forms)
+    - if FeatureFlags.enabled?(:cw_forms, @check.session_data)
       = render "controlled_work_next_steps"
     - else
       p.govuk-body = t("estimates.show.controlled_next_steps_paragraph_1#{'_partner' if @check.partner}")

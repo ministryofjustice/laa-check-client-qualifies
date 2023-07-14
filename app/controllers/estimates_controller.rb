@@ -3,7 +3,7 @@ class EstimatesController < ApplicationController
 
   def new
     new_assessment_code = SecureRandom.uuid
-    session[assessment_id(new_assessment_code)] = {}
+    session[assessment_id(new_assessment_code)] = { "feature_flags" => load_session_derived_flags }
     redirect_to estimate_build_estimate_path new_assessment_code, Steps::Helper.first_step
   end
 
@@ -61,5 +61,14 @@ private
 
   def track_completed_journey(calculation_result)
     JourneyLoggerService.call(assessment_id, calculation_result, @check, cookies)
+  end
+
+  def load_session_derived_flags
+    feature_flags = {}
+    FeatureFlags::STATIC_FLAGS.select { |_, v| v == "session" }.map do |flag|
+      feature_flags[flag.first.to_s] = FeatureFlags.enabled?(flag.first, without_session_data: true)
+    end
+
+    feature_flags
   end
 end
