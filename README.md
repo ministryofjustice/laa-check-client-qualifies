@@ -228,3 +228,12 @@ Secrets have been stored for each environment using `kubectl create secret`. The
 * feature-flags-password
 
 The current values for these are available as secure notes in 1Password for each environment, should they be lost from Kubernetes.
+
+## Branch naming
+
+We name our branches to start with the Jira ticket ID, followed by a short description of the work.
+
+Due to case-sensitivity in the integration between CircleCi and Jira, the Jira ticket ID needs to be uppercase so that it exactly matches how it is on Jira.
+For example:
+❌ el-123-add-new-feature
+✅ EL-123-add-new-feature
