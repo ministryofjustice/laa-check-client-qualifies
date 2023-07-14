@@ -10,8 +10,8 @@ Rails.application.configure do
     policy.font_src    :self, :https, :data
     policy.img_src     :self, :https, :data
     policy.object_src  :none
-    policy.script_src  :self, :https
-    policy.style_src   :self, :https
+    policy.script_src  :self, :https, :report_sample
+    policy.style_src   :self, :https, :report_sample
     # Specify URI for violation reports
     policy.report_uri(ENV["CSP_REPORT_ENDPOINT"]) if ENV["CSP_REPORT_ENDPOINT"].present?
   end

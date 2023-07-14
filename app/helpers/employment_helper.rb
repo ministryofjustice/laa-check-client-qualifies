@@ -1,6 +1,6 @@
 module EmploymentHelper
   def employment_links(check, partner: false)
-    return {} unless FeatureFlags.enabled?(:special_applicant_groups)
+    return {} unless FeatureFlags.enabled?(:special_applicant_groups, check.session_data)
 
     if check.controlled?
       {

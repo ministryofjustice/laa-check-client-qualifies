@@ -146,7 +146,11 @@ For "static" feature flags we set the flag values in env vars.
 To add a new feature flag, set a `"#{flag_name.upcase}_FEATURE_FLAG"` env var with value `"ENABLED"` in all environments where you want the flag enabled.
 Then add `flag_name` to the list of flags  in `app/lib/feature_flags.rb`.
 
-To use the feature flag in your code, just call `FeatureFlags.enabled?(:flag_name)`.
+When adding a `flag_name` to the list of static flags, you will need to decide if this is a `"global"` flag i.e. always taken from the env var and not the session, or a `"session"` flag i.e. taken from the `session_data` of the check. 
+
+We introduced this as a way of making our feature flags 'backwards compatible' - if a user check is underway during the switch-on of a flag, their user journey will not be affected by any flag-related changes. This is because we use their `session_data` to determine the value of the flag that was set at the start of their check. 
+
+To use the feature flag in your code, call `FeatureFlags.enabled?(:flag_name, session_data)`. For cases where you are not able to pass in `session_data` e.g. on the start page, call `FeatureFlags.enabled?(:flag_name, without_session_data: true)`.
 
 In tests, you can temporarily enable a feature flag by setting the ENV value.
 However, flags are _not_ reset between specs, so to avoid polluting other tests use an `around` block and change the ENV value back once the test has run.

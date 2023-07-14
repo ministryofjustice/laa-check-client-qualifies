@@ -619,7 +619,7 @@ en:
         controlled:
           link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=5
       pensioner_guidance:
-        text: "Guidance on Pensioner disregards"
+        text: "Guidance on 60 or over disregard (pensioner disregard)"
         certificated:
           link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=71
         controlled:
@@ -1115,6 +1115,12 @@ en:
           link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=57"
         controlled:
           link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=23"
+      additional_properties_guidance:
+        text: Guidance on properties owned that are not the 'main house'
+        certificated:
+          link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=58"
+        controlled:
+          link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=23"
     additional_property:
       legend: Does your client own any other property, a holiday home or land?
       hint: This can be the sole property owned if not the home the client lives in, even if the property is abroad or not providing an income.
@@ -1166,11 +1172,28 @@ en:
       valuables:
         label: Valuable items worth £500 or more
         certificated_hints:
-          - For example, jewellery, art, antiques or caravan or similar.
+          - If you have more than one valuation for any of these valuable items, use the highest. Keep a record of where the valuation is from for evidence, as it may be checked if you make an application for legal aid.
           - Enter 0 if this does not apply.
         controlled_hints:
-          - For example, any vehicle that is not in regular use, jewellery, art, antiques or caravan or similar.
+          - If you have more than one valuation for any of these valuable items, use the highest. Keep a record of where the valuation is from for evidence, as it may be checked at file audit or assessment stage.
           - Enter 0 if this does not apply.
+        details_header: What valuable items to include
+        details_subheader_1: "Include things like:"
+        details_bullets_1:
+          - jewellery (but not wedding, engagement or eternity rings)
+          - art
+          - antiques
+          - a caravan (if it is not the client’s main residence)
+          - musical instruments, unless your client is a professional musician
+        controlled_details_bullets_1_addendum: any vehicle not in regular use
+        details_subheader_2: "Do not include things like:"
+        details_bullets_2:
+          - wedding, engagement and eternity rings
+          - furniture and appliances
+          - televisions
+          - mobile phones, laptops and other devices
+          - clothing
+          - equipment or tools used for work
         input: Total of all valuable items
       guidance:
         controlled:
@@ -1182,12 +1205,6 @@ en:
       disregarded_capital_guidance:
         text: Guidance on disregarded capital
         link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=70"
-      other_property_guidance:
-        text: Guidance on properties owned that are not the 'main house'
-        certificated:
-          link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=59"
-        controlled:
-          link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=23"
     partner_assets:
       legend: Partner assets
       hints:
@@ -1215,20 +1232,19 @@ en:
           - Enter 0 if this does not apply.
         input: Total of all investments
       valuables:
-        label: Valuable items worth £500 or more
-        certificated_hints:
-          - For example, jewellery, art, antiques or caravan or similar.
-          - Enter 0 if this does not apply.
-        controlled_hints:
-          - For example, any vehicle that is not in regular use, jewellery, art, antiques or caravan or similar.
-          - Enter 0 if this does not apply.
-        input: Total of all valuable items
+        details_bullets_1:
+          - jewellery (but not wedding, engagement or eternity rings)
+          - art
+          - antiques
+          - a caravan (if it is not the client’s main residence)
+          - musical instruments, unless the partner is a professional musician
     property_entry:
       heading: The home your client lives in
       hint: If you make an application for civil legal aid, the property's value may be excluded from the financial assessment if your client has left their former matrimonial home because of domestic abuse
       house_value:
         input: How much is the home they live in worth?
-        input_hint: You can use property websites to find the estimated value
+        input_hint_certificated: You can use property websites to find the estimated value. If you have more than one valuation, use the highest. Keep a record of where the valuation is from for evidence, as it may be checked if you make an application for legal aid.
+        input_hint_controlled: You can use property websites to find the estimated value. If you have more than one valuation, use the highest. Keep a record of where the valuation is from for evidence, as it may be checked at file audit or assessment stage.
       mortgage:
         input: How much is left to pay on the mortgage?
         input_hint: Check the statement from the mortgage provider or lender and include any other loans secured against the property
@@ -1263,7 +1279,7 @@ en:
       add: Add another vehicle
       vehicle_value:
         input: What is the estimated value of the vehicle?
-        input_hint: You can use car valuation websites to find this out. If you got more than one valuation, use the highest.
+        input_hint: You can use car valuation websites to find this out. If you have more than one valuation, use the highest. Keep a record of where the valuation is from for evidence, as it may be checked if you make an application for legal aid.
       vehicle_in_regular_use:
         legend: Is the vehicle in regular use?
         hint: This means the vehicle is used at least once every 2 weeks for things like work, shopping or driving children to school
@@ -1706,7 +1722,7 @@ en:
           hint: ""
           alt_hint: ""
         pensioner_capital_disregard:
-          text: Pensioner disregard
+          text: 60 or over disregard (also known as pensioner disregard)
           hint: Applied to total capital up to a maximum of £100,000
           alt_hint: Applied to remaining capital after disputed asset disregard has been applied, and up to a maximum of £100,000
         smod_non_property_disregard:
@@ -1715,7 +1731,7 @@ en:
           alt_hint: Equal to the assessed value of all assets marked as disputed and capped at £100,000
       pensioner_disregard_types:
         total_capital: Total client and partner disposable capital
-        pensioner_capital_disregard: Pensioner disregard
+        pensioner_capital_disregard: 60 or over disregard (also known as pensioner disregard)
         assessed_capital: Total assessed disposable capital
       gross_monthly_income: Total monthly income
       gross_with_partner: Total client and partner monthly income
@@ -1768,7 +1784,7 @@ en:
       partner_additional_property: Partner's additional property
       capital_upper_threshold: Disposable capital upper limit
       total: Total
-      pensioner_disregard: Pensioner disregard
+      pensioner_disregard: 60 or over disregard (also known as pensioner disregard)
       pensioner_disregard_caption: Applied to the total of the client and partner's disposable capital, and capped at £100,000.
       capital_header:
         partner:

@@ -1,7 +1,7 @@
 module Cfe
   class EmploymentIncomePayloadService < BaseService
     def call
-      if FeatureFlags.enabled?(:self_employed)
+      if FeatureFlags.enabled?(:self_employed, @session_data)
         income_payload
       else
         employment_payload

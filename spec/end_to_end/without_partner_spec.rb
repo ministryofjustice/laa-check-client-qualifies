@@ -80,11 +80,9 @@ RSpec.describe "Certificated check without partner", type: :feature do
           [
             { "operation" => "credit", "category" => "friends_or_family", "frequency" => "weekly", "amount" => 200.0 },
             { "operation" => "debit", "category" => "rent_or_mortgage", "frequency" => "monthly", "amount" => 100.0 },
+            { "operation" => "credit", "category" => "benefits", "frequency" => "weekly", "amount" => 1.0 },
           ],
         )
-
-        expect(parsed.dig("state_benefits", 0, "name")).to eq "A"
-        expect(parsed.dig("state_benefits", 0, "payments", 0)).to eq({ "date" => "2023-02-15", "amount" => 1.0, "client_id" => "" })
 
         expect(parsed["vehicles"]).to eq([{
           "value" => 1.0,

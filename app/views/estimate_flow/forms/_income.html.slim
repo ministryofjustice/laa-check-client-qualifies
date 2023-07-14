@@ -9,7 +9,7 @@
               header_text: t("estimate_flow.#{i18n_key}.heading"),
               post_header_text: t("estimate_flow.#{i18n_key}.hint"),
               tag: (:partner if partner)
-    - if FeatureFlags.enabled?(:special_applicant_groups)
+    - if FeatureFlags.enabled?(:special_applicant_groups, @check.session_data)
       = govuk_details(summary_text: t("estimate_flow.#{i18n_key}.police_officer_heading"))
         p.govuk-text = t("estimate_flow.#{i18n_key}.police_officer_hint")
         ul.govuk-list.govuk-list--bullet

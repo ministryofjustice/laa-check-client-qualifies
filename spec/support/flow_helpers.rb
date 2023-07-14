@@ -131,12 +131,15 @@ def fill_in_other_income_screen(screen_name: :other_income, values: {}, frequenc
   click_on "Save and continue"
 end
 
-def fill_in_outgoings_screen(screen_name: :outgoings)
+def fill_in_outgoings_screen(screen_name: :outgoings, values: {}, frequencies: {})
   confirm_screen screen_name.to_s
   fill_in "#{screen_name}_form[housing_payments_value]", with: "0" if page.body.include?("housing_payments_value")
-  fill_in "#{screen_name}_form[childcare_payments_value]", with: "0"
-  fill_in "#{screen_name}_form[maintenance_payments_value]", with: "0"
-  fill_in "#{screen_name}_form[legal_aid_payments_value]", with: "0"
+  fill_in "#{screen_name}_form[childcare_payments_value]", with: values.fetch(:childcare, "0")
+  fill_in "#{screen_name}_form[maintenance_payments_value]", with: values.fetch(:maintenance, "0")
+  fill_in "#{screen_name}_form[legal_aid_payments_value]", with: values.fetch(:legal_aid, "0")
+  frequencies.each do |k, v|
+    choose v, name: "#{screen_name}_form[#{k}_payments_frequency]"
+  end
   click_on "Save and continue"
 end
 
@@ -185,11 +188,17 @@ def fill_in_vehicles_details_screen(vehicle_finance: "0")
   click_on "Save and continue"
 end
 
-def fill_in_assets_screen(screen_name: :assets, form_name: :client_assets, values: {})
+def fill_in_assets_screen(screen_name: :assets, form_name: :client_assets, values: {}, disputed: [])
   confirm_screen screen_name
   fill_in "bank_account_model[items][1][amount]", with: "0"
   fill_in "#{form_name}_form[investments]", with: values.fetch(:investments, "0")
   fill_in "#{form_name}_form[valuables]", with: values.fetch(:valuables, "0")
+
+  disputed.each do |disputed_item|
+    check "This asset is a subject matter of dispute",
+          id: "#{form_name.to_s.dasherize}-form-#{disputed_item}-in-dispute-true-field"
+  end
+
   click_on "Save and continue"
 end
 

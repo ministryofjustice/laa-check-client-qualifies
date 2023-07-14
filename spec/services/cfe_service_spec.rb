@@ -17,7 +17,6 @@ RSpec.describe CfeService do
         expect(Cfe::ApplicantPayloadService).to receive(:call)
         expect(Cfe::AssessmentPayloadService).to receive(:call)
         expect(Cfe::AssetsPayloadService).to receive(:call)
-        expect(Cfe::BenefitsPayloadService).to receive(:call)
         expect(Cfe::DependantsPayloadService).to receive(:call)
         expect(Cfe::EmploymentIncomePayloadService).to receive(:call)
         expect(Cfe::IrregularIncomePayloadService).to receive(:call)
