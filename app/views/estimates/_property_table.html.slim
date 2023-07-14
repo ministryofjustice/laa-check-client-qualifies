@@ -1,4 +1,4 @@
-= pdf_friendly_h2(t("estimates.show.#{person}_#{type}"), caption_size.to_s, @is_pdf, nil, nil)
+= pdf_friendly_h2(t("estimates.show.#{person}_#{type}"), caption_size.to_s, @is_pdf)
 = govuk_table do |table|
   - table.with_body do |body|
     - case data[:type]

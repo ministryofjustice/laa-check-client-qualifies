@@ -19,15 +19,15 @@ module ResultsHelper
     end
   end
 
-  def pdf_friendly_h2(text, size, is_pdf, additional_style, additional_class)
+  def pdf_friendly_h2(text, size, is_pdf, additional_class = nil)
     if is_pdf
-      tag.h2(class: "govuk-heading-#{size} #{additional_class}", style: "font-variant-ligatures: none; #{additional_style}") do
+      tag.h2(class: "govuk-heading-#{size} #{additional_class}", style: "font-variant-ligatures: none;") do
         tag.ul(style: "list-style-type: none; margin: 0; padding: 0;") do
           tag.li(text)
         end
       end
     else
-      tag.h2(text, class: "govuk-heading-#{size} #{additional_class}", style: additional_style)
+      tag.h2(text, class: "govuk-heading-#{size} #{additional_class}")
     end
   end
 
@@ -63,42 +63,40 @@ module ResultsHelper
       safe_join(modified_pdf_sentences)
     else
       modified_screen_sentences = text.map do |sentence|
-        tag.p(class: "govuk-body") do
-          tag.p(sentence)
-        end
+        tag.p(sentence, class: "govuk-body")
       end
       safe_join(modified_screen_sentences)
     end
   end
 
-  def pdf_friendly_logo(legal_aid, agency, is_pdf)
+  def pdf_friendly_logo(is_pdf)
     if is_pdf
       tag.span(class: "gem-c-organisation-logo__name") do
         tag.ul(style: "list-style-type: none; margin: 0; padding: 0;") do
-          concat tag.li(legal_aid)
-          concat tag.li(agency)
+          concat tag.li(I18n.t("estimates.print.legal_aid"))
+          concat tag.li(I18n.t("estimates.print.agency"))
         end
       end
     else
       tag.span(class: "gem-c-organisation-logo__name") do
-        concat tag.span(legal_aid)
-        concat tag.br(agency)
+        concat tag.span(I18n.t("estimates.print.legal_aid"))
+        concat tag.br(I18n.t("estimates.print.agency"))
       end
     end
   end
 
-  def pdf_friendly_date(date, date_now, is_pdf)
+  def pdf_friendly_date(is_pdf)
     if is_pdf
       tag.ul(style: "list-style-type: none; margin: 0; padding: 0;") do
         tag.li(style: "") do
-          concat tag.span(date, class: "govuk-body-m")
-          concat tag.span(" #{date_now}", class: "govuk-body-m govuk-!-font-weight-bold")
+          concat tag.span(I18n.t("estimates.print.date"), class: "govuk-body-m")
+          concat tag.span(" #{Date.current.strftime('%d %B %Y')}", class: "govuk-body-m govuk-!-font-weight-bold")
         end
       end
     else
       tag.span(class: "govuk-body-m") do
-        concat tag.span(date)
-        concat tag.strong(" #{date_now}")
+        concat tag.span(I18n.t("estimates.print.date"))
+        concat tag.strong(" #{Date.current.strftime('%d %B %Y')}")
         concat tag.br
       end
     end

@@ -1,9 +1,9 @@
-- link = "accommodating-change-link"
+- css = "accommodating-change-link"
 - @answers.sections.each do |section|
   .govuk-grid-row  id="section-#{section.label}-header"
     .govuk-grid-column-full
       - text = "estimates.check_answers.#{section.label}"
-      = pdf_friendly_h2(t(text.to_s), "l", @is_pdf, nil, (link.to_s if section.screen.present? && change_links))
+      = pdf_friendly_h2(t(text.to_s), "l", @is_pdf, (css.to_s if section.screen.present? && change_links))
       - if section.screen.present? && change_links
         p.change-link.beside-large-header
           = link_to t("generic.change"),
@@ -15,7 +15,7 @@
       .govuk-grid-row id="subsection-#{subsection.label}-header"
         .govuk-grid-column-full
           - text = "estimates.check_answers.#{subsection.label}"
-          = pdf_friendly_h2(t(text.to_s), "m", @is_pdf, nil, ("accommodating-change-link" if subsection.screen.present? && change_links))
+          = pdf_friendly_h2(t(text.to_s), "m", @is_pdf, ("accommodating-change-link" if subsection.screen.present? && change_links))
           - if subsection.screen.present? && change_links
             p.change-link.beside-medium-header
               = link_to t("generic.change"),

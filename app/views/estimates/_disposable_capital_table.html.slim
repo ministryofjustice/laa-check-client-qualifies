@@ -1,5 +1,5 @@
 - subtotal_rows ||= []
-= pdf_friendly_h2(caption.to_s, caption_size.to_s, @is_pdf, nil, nil)
+= pdf_friendly_h2(caption.to_s, caption_size.to_s, @is_pdf)
 = govuk_table do |table|
   - table.with_body do |body|
     - rows.each do |key, amount|
