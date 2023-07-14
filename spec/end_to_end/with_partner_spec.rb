@@ -53,9 +53,11 @@ RSpec.describe "Certificated check with partner", type: :feature do
                                                                      "benefits_in_kind" => 0,
                                                                      "net_employment_income" => 1.0 })
         expect(content["regular_transactions"]).to eq(
-          [{ "operation" => "credit", "category" => "friends_or_family", "frequency" => "weekly", "amount" => 200.0 }],
+          [
+            { "operation" => "credit", "category" => "friends_or_family", "frequency" => "weekly", "amount" => 200.0 },
+            { "operation" => "credit", "category" => "benefits", "frequency" => "weekly", "amount" => 1.0 },
+          ],
         )
-        expect(content["state_benefits"].length).to eq 1
         expect(content["capitals"]).to eq({
           "bank_accounts" => [], "non_liquid_capital" => [{ "value" => 700.0, "description" => "Non Liquid Asset", "subject_matter_of_dispute" => false }]
         })

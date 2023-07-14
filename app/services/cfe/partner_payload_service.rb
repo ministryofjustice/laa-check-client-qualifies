@@ -11,7 +11,6 @@ module Cfe
         employment_details:,
         self_employment_details:,
         regular_transactions:,
-        state_benefits:,
         additional_properties:,
         capitals:,
         dependants: [],
@@ -60,14 +59,8 @@ module Cfe
 
       outgoings_form = instantiate_form(PartnerOutgoingsForm)
       income_form = instantiate_form(PartnerOtherIncomeForm)
-      CfeParamBuilders::PartnerRegularTransactions.call(income_form, outgoings_form)
-    end
-
-    def state_benefits
       benefits_form = instantiate_form(PartnerBenefitDetailsForm) if relevant_form?(:partner_benefit_details)
-      return [] if benefits_form&.items.blank?
-
-      CfeParamBuilders::StateBenefits.call(benefits_form)
+      CfeParamBuilders::RegularTransactions.call(income_form, outgoings_form, benefits_form)
     end
 
     def additional_properties
