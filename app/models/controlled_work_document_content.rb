@@ -230,7 +230,17 @@ class ControlledWorkDocumentContent < Check
   def additional_properties_sum(attribute, smod: nil)
     return unless client_capital_relevant?
 
-    additional_properties.select { smod.nil? || _1["subject_matter_of_dispute"] == smod }.sum { _1[attribute] }
+    group = case smod
+            when nil
+              additional_properties
+            when true
+              additional_properties.select { _1["subject_matter_of_dispute"] }
+            else
+              # We need to capture properties where `subject_matter_of_dispute` is either false OR nil
+              additional_properties.reject { _1["subject_matter_of_dispute"] }
+            end
+
+    group.sum { _1[attribute] }
   end
 
   def additional_properties
