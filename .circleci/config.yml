@@ -286,6 +286,7 @@ workflows:
             - jira/notify:
                 job_type: deployment
                 environment: UAT
+                environment_type: testing
       - deploy:
           name: Deploy staging
           environment: staging
@@ -299,6 +300,7 @@ workflows:
             - jira/notify:
                 job_type: deployment
                 environment: Staging
+                environment_type: staging
           filters:
             branches:
               only:
