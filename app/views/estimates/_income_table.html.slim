@@ -1,6 +1,6 @@
-== pdf_friendly_h2(t("estimates.show.client_income"), "m", @is_pdf, nil, nil)
+= pdf_friendly_h2(t("estimates.show.client_income"), "m", @is_pdf, nil, nil)
 
-== pdf_friendly_p_element(t("estimates.show.period_conversion_hint"), @is_pdf, nil)
+= pdf_friendly_p_element(t("estimates.show.period_conversion_hint"), @is_pdf, nil)
 
 = govuk_table do |table|
   - table.with_body do |body|
@@ -8,15 +8,15 @@
       = render "income_row", body:, income_type:, money_amount:
 
 - if @model.has_partner?
-  == pdf_friendly_h2(t("estimates.show.partner_income"), "m", @is_pdf, nil, nil)
+  = pdf_friendly_h2(t("estimates.show.partner_income"), "m", @is_pdf, nil, nil)
 
-  == pdf_friendly_p_element(t("estimates.show.period_conversion_hint"), @is_pdf, nil)
+  = pdf_friendly_p_element(t("estimates.show.period_conversion_hint"), @is_pdf, nil)
   = govuk_table do |table|
     - table.with_body do |body|
       - @model.partner_income_rows.each do |income_type, money_amount|
         = render "income_row", body:, income_type:, money_amount:
 
-== pdf_friendly_h2(t("estimates.show.total"), "m", @is_pdf, nil, "govuk-heading-#{caption_size}")
+= pdf_friendly_h2(t("estimates.show.total"), "m", @is_pdf, nil, "govuk-heading-#{caption_size}")
 = govuk_table do |table|
   - table.with_body do |body|
     - body.with_row(classes: %w[solid-top-border]) do |row|

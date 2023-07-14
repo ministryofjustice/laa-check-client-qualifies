@@ -1,6 +1,6 @@
-== pdf_friendly_h2(t("estimates.show.client_outgoings"), "m", @is_pdf, nil, nil)
+= pdf_friendly_h2(t("estimates.show.client_outgoings"), "m", @is_pdf, nil, nil)
 
-== pdf_friendly_p_element(t("estimates.show.period_conversion_hint"), @is_pdf, nil)
+= pdf_friendly_p_element(t("estimates.show.period_conversion_hint"), @is_pdf, nil)
 
 = govuk_table do |table|
   - table.with_body do |body|
@@ -8,25 +8,25 @@
       = render "outgoings_row", body:, outgoing_type:, money_amount:, person: :client
 
 - if @model.has_partner?
-  == pdf_friendly_h2(t("estimates.show.partner_outgoings"), "m", @is_pdf, nil, nil)
+  = pdf_friendly_h2(t("estimates.show.partner_outgoings"), "m", @is_pdf, nil, nil)
 
-  == pdf_friendly_p_element(t("estimates.show.period_conversion_hint"), @is_pdf, nil)
+  = pdf_friendly_p_element(t("estimates.show.period_conversion_hint"), @is_pdf, nil)
 
   = govuk_table do |table|
     - table.with_body do |body|
       - @model.partner_outgoing_rows.each do |outgoing_type, money_amount|
         = render "outgoings_row", body:, outgoing_type:, money_amount:, person: :partner
 
-== pdf_friendly_h2(t("estimates.show.household_outgoings"), "m", @is_pdf, nil, nil)
+= pdf_friendly_h2(t("estimates.show.household_outgoings"), "m", @is_pdf, nil, nil)
 
-== pdf_friendly_p_element(t("estimates.show.period_conversion_hint"), @is_pdf, nil)
+= pdf_friendly_p_element(t("estimates.show.period_conversion_hint"), @is_pdf, nil)
 
 = govuk_table do |table|
   - table.with_body do |body|
     - @model.household_outgoing_rows.each do |outgoing_type, money_amount|
       = render "outgoings_row", body:, outgoing_type:, money_amount:, person: :household
 
-== pdf_friendly_h2(t("estimates.show.total"), caption_size.to_s, @is_pdf, nil, nil)
+= pdf_friendly_h2(t("estimates.show.total"), caption_size.to_s, @is_pdf, nil, nil)
 
 = govuk_table do |table|
   - table.with_body do |body|

@@ -1,14 +1,14 @@
 - if @check.partner
-  == pdf_friendly_paragraphs(t("estimates.show.controlled_cw_next_steps.intro_paragraphs_partner"), @is_pdf)
+  = pdf_friendly_paragraphs(t("estimates.show.controlled_cw_next_steps.intro_paragraphs_partner"), @is_pdf)
 - else
-  == pdf_friendly_paragraphs(t("estimates.show.controlled_cw_next_steps.intro_paragraphs"), @is_pdf)
+  = pdf_friendly_paragraphs(t("estimates.show.controlled_cw_next_steps.intro_paragraphs"), @is_pdf)
 
-== pdf_friendly_h3(t("estimates.show.controlled_cw_next_steps.prefilled_header"), @is_pdf)
+= pdf_friendly_h3(t("estimates.show.controlled_cw_next_steps.prefilled_header"), @is_pdf)
 
 ol.govuk-list.govuk-list--number
   - t("estimates.show.controlled_cw_next_steps.prefilled_bullets").each do |bullet|
     li = bullet
 
-== pdf_friendly_h3(t("estimates.show.controlled_cw_next_steps.manual_header"), @is_pdf)
+= pdf_friendly_h3(t("estimates.show.controlled_cw_next_steps.manual_header"), @is_pdf)
 
-== pdf_friendly_p_element(t("estimates.show.controlled_cw_next_steps.manual_instruction_html"), @is_pdf, nil)
+= pdf_friendly_p_element(t("estimates.show.controlled_cw_next_steps.manual_instruction_html"), @is_pdf, nil)

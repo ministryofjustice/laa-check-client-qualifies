@@ -37,7 +37,7 @@
 - if @model.vehicle_owned?
   - @model.display_household_vehicles.each_with_index do |vehicle, index|
     - count = index + 1
-    == pdf_friendly_h2(t("estimates.show.vehicles", number: count).to_s, "m", @is_pdf, nil, nil)
+    = pdf_friendly_h2(t("estimates.show.vehicles", number: count).to_s, "m", @is_pdf, nil, nil)
     = govuk_table do |table|
       - table.with_body do |body|
         - vehicle.each do |key, value|
@@ -87,7 +87,7 @@
           - row.with_cell(header: true, text: t("estimates.show.pensioner_disregard_types.assessed_capital"))
           - row.with_cell(numeric: true, header: true, text: @model.total_assessed_capital)
 
-== pdf_friendly_h2(t("estimates.show.total"), caption_size.to_s, @is_pdf, nil, nil)
+= pdf_friendly_h2(t("estimates.show.total"), caption_size.to_s, @is_pdf, nil, nil)
 = govuk_table do |table|
   - table.with_body do |body|
     - body.with_row(classes: %w[solid-top-border]) do |row|

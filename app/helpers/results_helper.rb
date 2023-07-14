@@ -54,14 +54,14 @@ module ResultsHelper
           tag.li(sentence)
         end
       end
-      modified_pdf_sentences.join("")
+      safe_join(modified_pdf_sentences)
     else
       modified_screen_sentences = text.map do |sentence|
         tag.p(class: "govuk-body") do
           tag.p(sentence)
         end
       end
-      modified_screen_sentences.join("")
+      safe_join(modified_screen_sentences)
     end
   end
 

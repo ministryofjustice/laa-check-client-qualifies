@@ -16,7 +16,7 @@ RSpec.describe "Download result", type: :feature do
   end
 
   context "when a doing a controlled check" do
-    it "gives me a download option" do
+    it "gives me a download option", :cw_forms_flag do
       allow(CfeConnection).to receive(:state_benefit_types).and_return([])
 
       allow(CfeService).to receive(:call).and_return(api_response)
