@@ -78,10 +78,11 @@ references:
         bundle exec rake db:migrate
 
 orbs:
-  browser-tools: circleci/browser-tools@1.4.0
-  slack: circleci/slack@4.5.2
   aws-cli: circleci/aws-cli@4.0.0
   aws-ecr: circleci/aws-ecr@8.2.1
+  browser-tools: circleci/browser-tools@1.4.0
+  jira: circleci/jira@1.3.1
+  slack: circleci/slack@4.5.2
 
 jobs:
   install_dependencies:
@@ -221,6 +222,8 @@ jobs:
           tag: $ECR_TAG
           region: $ECR_REGION
           repo: $ECR_REPOSITORY
+      - jira/notify:
+          job_type: build
   deploy:
     parameters:
       environment:
@@ -239,7 +242,6 @@ jobs:
           channel: eligibility-alerts-<< parameters.environment >>
           event: fail
           template: basic_fail_1
-
   deploy_infrastructure_uat:
     executor: cloud-platform-executor
     steps:
@@ -280,6 +282,10 @@ workflows:
             - end2end_tests
             - linters
             - build_and_push
+          post-steps:
+            - jira/notify:
+                job_type: deployment
+                environment: UAT
       - deploy:
           name: Deploy staging
           environment: staging
@@ -289,6 +295,10 @@ workflows:
             - end2end_tests
             - linters
             - build_and_push
+          post-steps:
+            - jira/notify:
+                job_type: deployment
+                environment: Staging
           filters:
             branches:
               only:
@@ -302,6 +312,10 @@ workflows:
             - end2end_tests
             - linters
             - build_and_push
+          post-steps:
+            - jira/notify:
+                job_type: deployment
+                environment: Production
           filters:
             branches:
               only:
