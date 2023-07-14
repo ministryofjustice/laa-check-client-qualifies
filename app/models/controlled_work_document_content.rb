@@ -105,7 +105,7 @@ class ControlledWorkDocumentContent < Check
   end
 
   def smod_additional_properties_percentage_owned
-    additional_properties_percentage_owned(properties: additional_properties.select { _1["subject_matter_of_dispute"] })
+    additional_properties_percentage_owned(properties: combined_additional_properties.select { _1["subject_matter_of_dispute"] })
   end
 
   def smod_savings
@@ -189,10 +189,10 @@ class ControlledWorkDocumentContent < Check
   end
 
   def non_smod_additional_properties_percentage_owned
-    additional_properties_percentage_owned(properties: additional_properties.reject { _1["subject_matter_of_dispute"] })
+    additional_properties_percentage_owned(properties: combined_additional_properties.reject { _1["subject_matter_of_dispute"] })
   end
 
-  def additional_properties_percentage_owned(properties: additional_properties)
+  def additional_properties_percentage_owned(properties: combined_additional_properties)
     # If there are 2 additional properties and a different percentage of each is owned,
     # we can't necessarily give a sensible figure here, so mark it as such
     return unless client_capital_relevant?
@@ -232,18 +232,18 @@ class ControlledWorkDocumentContent < Check
 
     group = case smod
             when nil
-              additional_properties
+              combined_additional_properties
             when true
-              additional_properties.select { _1["subject_matter_of_dispute"] }
+              combined_additional_properties.select { _1["subject_matter_of_dispute"] }
             else
               # We need to capture properties where `subject_matter_of_dispute` is either false OR nil
-              additional_properties.reject { _1["subject_matter_of_dispute"] }
+              combined_additional_properties.reject { _1["subject_matter_of_dispute"] }
             end
 
-    group.sum { _1[attribute] }
+    group.sum { _1[attribute] || 0 }
   end
 
-  def additional_properties
+  def combined_additional_properties
     [
       session_data.dig("api_response", "assessment", "capital", "capital_items", "properties", "additional_properties"),
       session_data.dig("api_response", "assessment", "partner_capital", "capital_items", "properties", "additional_properties"),
