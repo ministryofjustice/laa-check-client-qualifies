@@ -36,17 +36,15 @@ RSpec.describe "employment", type: :feature do
     expect(session_contents["frequency"]).to eq "monthly"
   end
 
-  context "when the special applicant flag is enabled", :special_applicant_groups_flag do
-    it "shows special applicant content" do
-      expect(page).to have_content "Clients in prison"
-    end
+  it "shows special applicant content" do
+    expect(page).to have_content "Clients in prison"
+  end
 
-    context "when level of help is certificated" do
-      let(:level_of_help) { "certificated" }
+  context "when level of help is certificated" do
+    let(:level_of_help) { "certificated" }
 
-      it "shows guidance" do
-        expect(page).to have_content "Guidance on police officer applicants"
-      end
+    it "shows guidance" do
+      expect(page).to have_content "Guidance on police officer applicants"
     end
   end
 end
