@@ -2141,6 +2141,14 @@ en:
         - "CW2IMM: controlled legal representation (Immigration)"
         - "CW5: financial eligibility form for clients wanting family mediation"
         - "CIVMEANS7: financial assessment for family mediation"
+    mtr_phase_1:
+      header: Changes for clients aged under 18
+      para_1: "From 3 August 2023, clients aged under 18 will not need a means assessment for controlled work matters unless (one of the following applies):"
+      bullets:
+        - their means are aggregated with another person’s, like a parent or guardian
+        - they get regular income, like payment from a job
+        - they have capital worth more than £2,500
+      para_2: "For certificated work matters, clients aged under 18 do not need a means test."
   controlled_work_document_selections:
     new:
       title: Which controlled work (CW) form do you need?
