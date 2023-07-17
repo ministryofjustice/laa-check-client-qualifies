@@ -18,5 +18,12 @@ document.querySelectorAll('[data-trigger="print"]').forEach((button) => {
   button.addEventListener('click', () => window.print());
 });
 
+document.querySelectorAll('a[data-behaviour="browser-back"]').forEach((link) => {
+  link.addEventListener('click', (event) => {
+    event.preventDefault();
+    history.back();
+  });
+});
+
 Rails.start();
 initAll();

@@ -39,14 +39,14 @@ module ApplicationHelper
   end
 
   def back_link(step, check, mimic_browser_back)
-    link = if mimic_browser_back
-             "javascript:history.back()"
-           elsif (previous_step = Steps::Helper.previous_step_for(check.session_data, step))
+    previous_step = Steps::Helper.previous_step_for(check.session_data, step)
+
+    link = if previous_step
              estimate_build_estimate_path(params[:estimate_id], previous_step)
            else
              provider_users_path
            end
-    link_to t("generic.back"), link, class: "govuk-back-link"
+    link_to t("generic.back"), link, class: "govuk-back-link", data: { behaviour: ("browser-back" if mimic_browser_back) }
   end
 
   def enable_google_analytics(cookies)
