@@ -46,7 +46,6 @@ ingress:
     external-dns.alpha.kubernetes.io/aws-weight: "100"
     nginx.ingress.kubernetes.io/enable-modsecurity: "true"
     nginx.ingress.kubernetes.io/modsecurity-snippet: |
-     SecRuleEngine On
      SecDefaultAction "phase:2,pass,log,tag:github_team=laa-estimate-eligibility"
 
 deploy:
