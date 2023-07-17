@@ -120,6 +120,6 @@ env:
   - name: CSP_REPORT_ENDPOINT
     value: {{ .Values.sentry.cspReportEndpoint }}
   - name: PRIMARY_HOST
-    value: {{ .Values.sentry.app.primaryHost }}
+    value: {{ .Values.app.primaryHost }}
 
 {{- end }}
