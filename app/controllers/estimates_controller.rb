@@ -1,4 +1,5 @@
 class EstimatesController < ApplicationController
+  before_action :redirect_to_primary_host, only: :new
   before_action :load_check, only: %i[check_answers show print download]
 
   def new

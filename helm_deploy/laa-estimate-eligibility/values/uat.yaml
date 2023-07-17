@@ -98,3 +98,7 @@ geckoboard:
 sentry:
   # Despite looking very secret-y, the key here is _not_ a secret, as it will appear in every HTTP response header
   cspReportEndpoint: https://o345774.ingest.sentry.io/api/6747538/security/?sentry_key=53f41c70bd59430cbf0855fd6f79cf86
+
+app:
+  # TODO: Remove this before merging EL-1022. This is purely to aid UAT
+  primaryHost: main-check-client-qualifies-legal-aid-uat.cloud-platform.service.justice.gov.uk
