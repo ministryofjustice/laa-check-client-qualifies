@@ -37,18 +37,16 @@ RSpec.describe "applicant", type: :feature do
     expect(session_contents["passporting"]).to eq true
   end
 
-  context "when the special applicant group flag is enabled", :special_applicant_groups_flag do
-    it "shows help text about prisons" do
-      expect(page).to have_content "for example one of them is in prison"
-      expect(page).to have_content "Guidance on prisoners"
-    end
+  it "shows help text about prisons" do
+    expect(page).to have_content "for example one of them is in prison"
+    expect(page).to have_content "Guidance on prisoners"
+  end
 
-    context "when the level of help is controlled" do
-      let(:level_of_help) { "controlled" }
+  context "when the level of help is controlled" do
+    let(:level_of_help) { "controlled" }
 
-      it "does not show guidance link" do
-        expect(page).not_to have_content "Guidance on prisoners"
-      end
+    it "does not show guidance link" do
+      expect(page).not_to have_content "Guidance on prisoners"
     end
   end
 

@@ -10,7 +10,6 @@ class FeatureFlags
     example: "session",
     sentry: "global",
     cw_forms: "global",
-    special_applicant_groups: "session",
     self_employed: "session",
     public_beta: "global",
   }.freeze

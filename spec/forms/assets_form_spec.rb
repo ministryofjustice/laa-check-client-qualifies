@@ -52,51 +52,36 @@ RSpec.describe "assets", type: :feature do
     end
   end
 
-  context "when special applicant groups enabled", :special_applicant_groups_flag do
-    it "shows content about special applicants" do
-      expect(page).to have_content "Clients who are bankrupt"
-      expect(page).to have_content "Clients in prison"
+  it "shows content about special applicants" do
+    expect(page).to have_content "Clients who are bankrupt"
+    expect(page).to have_content "Clients in prison"
+  end
+
+  context "when the check is certificated" do
+    let(:session) { { "level_of_help" => "certificated" } }
+
+    it "shows appropriate links" do
+      expect(page).to have_content "Guidance on bankrupt clients"
     end
 
-    context "when the check is certificated" do
-      let(:session) { { "level_of_help" => "certificated" } }
-
-      it "shows appropriate links" do
-        expect(page).to have_content "Guidance on bankrupt clients"
+    context "when self_employed flag enabled", :self_employed_flag do
+      it "does not show content about self-employed applicants" do
+        expect(page).not_to have_content "Business capital for self-employed clients"
       end
 
-      context "when self_employed flag enabled", :self_employed_flag do
-        it "does not show content about self-employed applicants" do
-          expect(page).not_to have_content "Business capital for self-employed clients"
-        end
+      context "when client is self-employed" do
+        let(:session) { { "level_of_help" => "certificated", "employment_status" => "in_work", "incomes" => [{ "income_type" => "self_employment" }] } }
 
-        context "when client is self-employed" do
-          let(:session) { { "level_of_help" => "certificated", "employment_status" => "in_work", "incomes" => [{ "income_type" => "self_employment" }] } }
-
-          it "shows content about self-employed applicants" do
-            expect(page).to have_content "Business capital for self-employed clients"
-          end
+        it "shows content about self-employed applicants" do
+          expect(page).to have_content "Business capital for self-employed clients"
         end
       end
     end
   end
 
-  context "when no flags are enabled" do
-    it "shows no content about special applicants" do
-      expect(page).not_to have_content "Clients who are bankrupt"
-      expect(page).not_to have_content "Clients in prison"
-    end
-
+  context "when self-employed flag is not enabled" do
     it "shows no content for self-employed applicants" do
       expect(page).not_to have_content "Business capital for self-employed clients"
-    end
-
-    context "when the check is certificated" do
-      let(:session) { { "level_of_help" => "certificated" } }
-
-      it "hides irrelevant links" do
-        expect(page).not_to have_content "Guidance on bankrupt clients"
-      end
     end
   end
 end
