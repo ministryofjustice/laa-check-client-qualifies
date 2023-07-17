@@ -46,8 +46,6 @@ env:
     value: 'true'
   - name: RAILS_LOG_TO_STDOUT
     value: 'true'
-  - name: HOST
-    value: {{ .Values.deploy.host }}
   - name: SENTRY_DSN
     valueFrom:
       secretKeyRef:
