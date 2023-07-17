@@ -14,16 +14,15 @@
               post_header_texts: hints,
               tag: (:partner if partner)
 
-    - if FeatureFlags.enabled?(:special_applicant_groups, @check.session_data)
-      - if FeatureFlags.enabled?(:self_employed, @check.session_data) && !@check.controlled? && \
-        ((partner && @check.partner_self_employed?) || (!partner && @check.client_self_employed?))
-        = govuk_details(summary_text: t("estimate_flow.#{i18n_key}.business_capital_title"))
-          p.govuk-text = t("estimate_flow.#{i18n_key}.business_capital_text")
-          p.govuk-text = t("estimate_flow.#{i18n_key}.business_capital_text_html")
-      = govuk_details(summary_text: t("estimate_flow.#{i18n_key}.bankrupt_title"))
-        p.govuk-text = t("estimate_flow.#{i18n_key}.bankrupt_text")
-      = govuk_details(summary_text: t("estimate_flow.#{i18n_key}.prison_title"))
-        p.govuk-text = t("estimate_flow.#{i18n_key}.prison_text")
+    - if FeatureFlags.enabled?(:self_employed, @check.session_data) && !@check.controlled? && \
+      ((partner && @check.partner_self_employed?) || (!partner && @check.client_self_employed?))
+      = govuk_details(summary_text: t("estimate_flow.#{i18n_key}.business_capital_title"))
+        p.govuk-text = t("estimate_flow.#{i18n_key}.business_capital_text")
+        p.govuk-text = t("estimate_flow.#{i18n_key}.business_capital_text_html")
+    = govuk_details(summary_text: t("estimate_flow.#{i18n_key}.bankrupt_title"))
+      p.govuk-text = t("estimate_flow.#{i18n_key}.bankrupt_text")
+    = govuk_details(summary_text: t("estimate_flow.#{i18n_key}.prison_title"))
+      p.govuk-text = t("estimate_flow.#{i18n_key}.prison_text")
 
     h2.govuk-heading-m = t("estimate_flow.assets.bank_accounts.label")
 

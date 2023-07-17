@@ -631,7 +631,6 @@ en:
         hint_list:
           - married to
           - in a civil partnership with
-        last_hint_no_special_applicants: living with as if they are married or in a civil partnership
         last_hint: living with as if they are married or in a civil partnership, or living separately due to financial or practical reasons, for example one of them is in prison, getting hospital care, or another reason
         partner_additional:
           hint_text: "Do not include anyone who:"
@@ -648,7 +647,6 @@ en:
       employed:
         legend: What is your client's employment status?
         hint: "You cannot use this service if your client, or their partner, is self-employed."
-        hint_no_special_applicants: "You cannot use this service if your client, or their partner, is self-employed or in the armed forces."
       passporting:
         legend: Does your client receive a passporting benefit?
         partner_hint: Also select yes if your client is named on their partner’s passporting benefit claim.
@@ -672,7 +670,6 @@ en:
       partner_employed:
         legend: What is the partner's employment status?
         hint: "You cannot use this service if your client or their partner is self-employed."
-        hint_no_special_applicants: "You cannot use this service if your client or their partner is self-employed or in the armed forces."
     dependant_details:
       legend: Tell us about your client's dependants
       legend_with_partner: Tell us about your client and their partner's dependants
@@ -1102,7 +1099,6 @@ en:
       legend: Does your client own the home they live in?
       legend_with_partner: Does your client or their partner own the home the client lives in?
       details_title: Clients in prison
-      legacy_hint: If the client is in prison, or temporarily away from where they normally live for another reason, this means the home the client normally lives in
       hint: If your client is in prison but their partner lives in a property either of them owns, include this as the main dwelling and any housing costs the partner pays.
       generic_hint: If your client is temporarily away from where they normally live, this means the home the client normally lives in.
       property_owned:
@@ -1559,15 +1555,6 @@ en:
       evidence_needed: Evidence you might need
       evidence_needed_explainer: Depending on your client's financial situation, you may need to provide items from this general list.
       evidence_needed_explainer_partner: Depending on your client and their partner's financial situation, you may need to provide items from this general list.
-      legacy_types_of_evidence:
-        - bank statements covering the last 3 months
-        - evidence of any benefits or financial support your client received from the government, local authorities or third parties dated in the last 6 months
-        - wage slips covering the last 3 months (if your client is employed)
-        - evidence of housing payments such as a mortgage statement, rent book or receipts
-        - receipts for childcare payments
-        - documentation showing the value of any assets held by your client
-        - a property valuation (if your client owns a property)
-        - evidence of any claims against your client's assets
       self_employed_evidence_needed_explainer: "If the client or any partner are self-employed:"
       self_employed_types_of_evidence:
         - "Most recent set of trading accounts or self-assessment tax return (if the business has been trading for more than a year)"
@@ -1897,10 +1884,6 @@ en:
       unacceptable_client_explanation: You cannot use this service if your client (or their partner) is self-employed.
       unacceptable_client_heading_company_director: "Company directors"
       unacceptable_client_explanation_company_director: "You cannot use this service for a certificated check if your client (or their partner) is a self-employed director."
-      legacy_unacceptable_client_explanation: "You cannot use this service if your client (or their partner) is:"
-      legacy_unacceptable_client_types:
-        - self employed
-        - in the armed forces
       unacceptable_client_heading_under_18: "Clients under 18"
       unacceptable_client_explanation_under_18_html:
         - For controlled work, the finances of applicants under 18 are only assessed if they are maintained or cared for by somebody who can also be included in the means assessment. Page 32 of the <a href='https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1157029/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_controlled_work_and_family_mediation_May_2023.pdf#page=32' target='_blank'>Lord Chancellor’s guidance (opens in a new tab)</a> has more details about how to assess a child’s means.
