@@ -71,8 +71,11 @@ RSpec.describe Cfe::PartnerPayloadService do
         expect(partner[:regular_transactions]).to eq([{ amount: 100,
                                                         category: :friends_or_family,
                                                         frequency: :weekly,
+                                                        operation: :credit },
+                                                      { amount: 45,
+                                                        category: "benefits",
+                                                        frequency: :weekly,
                                                         operation: :credit }])
-        expect(partner[:state_benefits][0][:payments].count).to eq(12)
         expect(partner[:additional_properties]).to eq([{ outstanding_mortgage: 50_000,
                                                          percentage_owned: 100,
                                                          shared_with_housing_assoc: false,
@@ -93,7 +96,6 @@ RSpec.describe Cfe::PartnerPayloadService do
         expect(partner[:irregular_incomes]).to eq([])
         expect(partner[:employments]).to eq([])
         expect(partner[:regular_transactions]).to eq([])
-        expect(partner[:state_benefits]).to eq([])
         expect(partner[:additional_properties]).to eq([])
         expect(partner[:capitals]).to eq({ bank_accounts: [],
                                            non_liquid_capital: [] })
@@ -120,7 +122,6 @@ RSpec.describe Cfe::PartnerPayloadService do
         expect(partner[:irregular_incomes]).to eq([])
         expect(partner[:employments]).to eq([])
         expect(partner[:regular_transactions]).to eq([])
-        expect(partner[:state_benefits]).to eq([])
         expect(partner[:additional_properties]).to eq([])
         expect(partner[:capitals]).to eq({ bank_accounts: [],
                                            non_liquid_capital: [] })

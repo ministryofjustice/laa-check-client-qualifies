@@ -35,6 +35,8 @@ ingress:
     external-dns.alpha.kubernetes.io/set-identifier: "check-client-qualifies-laa-estimate-eligibility-laa-estimate-financial-eligibility-for-legal-aid-staging-green"
     external-dns.alpha.kubernetes.io/aws-weight: "100"
     nginx.ingress.kubernetes.io/enable-modsecurity: "true"
+    nginx.ingress.kubernetes.io/modsecurity-snippet: |
+     SecDefaultAction "phase:2,pass,log,tag:github_team=laa-estimate-eligibility"
 
 deploy:
   host: check-your-client-qualifies-for-legal-aid-staging.cloud-platform.service.justice.gov.uk
@@ -56,7 +58,6 @@ cfe:
 featureFlags:
   sentry: ENABLED
   cwForms: ENABLED
-  specialApplicantGroups: ENABLED
   selfEmployed: NOT_ENABLED
   overrides: NOT_ENABLED
   publicBeta: NOT_ENABLED

@@ -16,11 +16,10 @@
             legend: { text: t("estimate_flow.partner_details.partner_over_60.legend") },
             hint: { text: t("estimate_flow.partner_details.partner_over_60.hint") }
 
-    - if !@check.passporting && !FeatureFlags.enabled?(:self_employed)
-      - hint_key = FeatureFlags.enabled?(:special_applicant_groups) ? "hint" : "hint_no_special_applicants"
+    - if !@check.passporting && !FeatureFlags.enabled?(:self_employed, @check.session_data)
       = form.govuk_collection_radio_buttons :employment_status, employment_options, :first, :last,
                   legend: { text: t("estimate_flow.partner_details.partner_employed.legend") },
-                  hint: { text: t("estimate_flow.partner_details.partner_employed.#{hint_key}") }
+                  hint: { text: t("estimate_flow.partner_details.partner_employed.hint") }
 
     = form.govuk_submit t("generic.save_and_continue")
 = render "shared/question_sidebar",

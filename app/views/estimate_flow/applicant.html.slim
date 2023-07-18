@@ -8,7 +8,7 @@
   ul.govuk-list.govuk-list--bullet
     - t(".partner.hint_list").each
       li.govuk-hint = _1
-    li.govuk-hint = t(".partner.last_hint#{'_no_special_applicants' unless FeatureFlags.enabled?(:special_applicant_groups)}")
+    li.govuk-hint = t(".partner.last_hint")
   p.govuk-hint = t(".partner.partner_additional.hint_text")
   ul.govuk-list.govuk-list--bullet
     - t(".partner.partner_additional.hint_list").each
@@ -35,11 +35,10 @@
               link_errors: true
       = form.govuk_radio_button :partner, false, label: { text: t("generic.no_choice") }
 
-    - unless FeatureFlags.enabled?(:self_employed)
-      - hint_key = FeatureFlags.enabled?(:special_applicant_groups) ? "hint" : "hint_no_special_applicants"
+    - unless FeatureFlags.enabled?(:self_employed, @check.session_data)
       = form.govuk_collection_radio_buttons :employment_status, employment_options, :first, :last,
                                             legend: { text: t(".employed.legend") },
-                                            hint: { text: t(".employed.#{hint_key}") }
+                                            hint: { text: t(".employed.hint") }
 
     = form.govuk_collection_radio_buttons :passporting, yes_no_options, :first, :last,
                                           legend: { text: t(".passporting.legend") },

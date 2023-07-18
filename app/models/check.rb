@@ -81,7 +81,7 @@ class Check
   end
 
   def self_employed_flag_enabled?
-    FeatureFlags.enabled?(:self_employed)
+    FeatureFlags.enabled?(:self_employed, session_data)
   end
 
   def immigration_matter?

@@ -23,7 +23,7 @@
     = render "evidence"
 - elsif @model.level_of_help == "controlled" && @model.decision == "eligible"
   h2.govuk-heading-m = t(".what_happens_next")
-  - if FeatureFlags.enabled?(:cw_forms)
+  - if FeatureFlags.enabled?(:cw_forms, @check.session_data)
     = render "controlled_work_next_steps"
   - else
     p.govuk-body = t(".controlled_next_steps_paragraph_1#{'_partner' if @check.partner}")
@@ -54,7 +54,7 @@
         = render "capital_table", caption_size: "m"
 
 .govuk-button-group
-  - if @model.level_of_help == "controlled" && @model.decision == "eligible" && FeatureFlags.enabled?(:cw_forms)
+  - if @model.level_of_help == "controlled" && @model.decision == "eligible" && FeatureFlags.enabled?(:cw_forms, @check.session_data)
     = link_to t(".continue_to_cw"), new_estimate_controlled_work_document_selection_path(params[:id]), class: "govuk-button", data: { module: "govuk-button" }
   - else
     = link_to t(".start_another_check"), new_estimate_path, class: "govuk-button", data: { module: "govuk-button" }

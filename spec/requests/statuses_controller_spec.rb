@@ -9,33 +9,44 @@ RSpec.describe "status requests" do
       expect(response).to be_successful
       expect(response_json).to eq("alive" => true)
     end
-  end
-
-  describe "GET /health-including-dependents" do
-    it "is successful and alive returns true by default" do
-      stub_request(:get, %r{healthcheck\z})
-         .to_return(status: 200, body: { checks: { database: true } }.to_json, headers: { "Content-Type" => "application/json" })
-      get("/health-including-dependents")
-      expect(response).to be_successful
-      expect(response_json).to eq("healthy" => true)
-    end
 
     it "returns false if there is a problem reading from the database" do
       allow(AnalyticsEvent).to receive(:count).and_raise(PG::UndefinedTable)
-      get("/health-including-dependents")
+      get("/status")
       expect(response).not_to be_successful
     end
+  end
 
-    it "returns false if there is a problem writing to the cache" do
-      allow(Rails.cache).to receive(:write).and_return(false)
-      get("/health-including-dependents")
-      expect(response).not_to be_successful
-    end
+  describe "GET /health-including-dependents" do
+    context "when CFE is healthy" do
+      before do
+        stub_request(:get, %r{healthcheck\z})
+         .to_return(status: 200, body: { checks: { database: true } }.to_json, headers: { "Content-Type" => "application/json" })
+      end
 
-    it "returns false if there is a problem reading from the cache" do
-      allow(Rails.cache).to receive(:read).and_return(nil)
-      get("/health-including-dependents")
-      expect(response).not_to be_successful
+      it "is successful and alive returns true by default" do
+        get("/health-including-dependents")
+        expect(response).to be_successful
+        expect(response_json).to eq("healthy" => true)
+      end
+
+      it "returns false if there is a problem reading from the database" do
+        allow(AnalyticsEvent).to receive(:count).and_raise(PG::UndefinedTable)
+        get("/health-including-dependents")
+        expect(response).not_to be_successful
+      end
+
+      it "returns false if there is a problem writing to the cache" do
+        allow(Rails.cache).to receive(:write).and_return(false)
+        get("/health-including-dependents")
+        expect(response).not_to be_successful
+      end
+
+      it "returns false if there is a problem reading from the cache" do
+        allow(Rails.cache).to receive(:read).and_return(nil)
+        get("/health-including-dependents")
+        expect(response).not_to be_successful
+      end
     end
 
     it "returns false if there is a problem reported by CFE" do

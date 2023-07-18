@@ -1,13 +1,17 @@
 module CfeParamBuilders
-  class HouseholdFlowRegularTransactions
-    def self.call(income_form, outgoings_form, housing_form)
+  class RegularTransactions
+    def self.call(income_form, outgoings_form, benefit_details_form = nil, housing_form = nil)
       income = build_payments(CFE_INCOME_TRANSLATIONS, income_form, :credit)
 
       outgoings = build_payments(CFE_OUTGOINGS_TRANSLATIONS, outgoings_form, :debit)
 
       housing = build_housing_payments(housing_form)
 
-      income + outgoings + housing
+      benefits = build_benefits(benefit_details_form)
+
+      housing_benefit = build_housing_benefits(housing_form)
+
+      income + outgoings + housing + benefits + housing_benefit
     end
 
     CFE_FREQUENCIES = {
@@ -70,6 +74,32 @@ module CfeParamBuilders
       else
         []
       end
+    end
+
+    def self.build_benefits(benefit_details_form)
+      return [] unless benefit_details_form
+
+      benefit_details_form.items.map do |benefit|
+        {
+          operation: :credit,
+          category: "benefits",
+          frequency: CFE_FREQUENCIES.fetch(benefit.benefit_frequency),
+          amount: benefit.benefit_amount,
+        }
+      end
+    end
+
+    def self.build_housing_benefits(housing_form)
+      return [] unless housing_form.is_a?(HousingCostsForm) && housing_form.housing_benefit_value.positive?
+
+      [
+        {
+          operation: :credit,
+          category: :housing_benefit,
+          frequency: CFE_FREQUENCIES.fetch(housing_form.housing_benefit_frequency),
+          amount: housing_form.housing_benefit_value,
+        },
+      ]
     end
   end
 end

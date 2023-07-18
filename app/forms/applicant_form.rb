@@ -3,6 +3,8 @@ class ApplicantForm
   include ActiveModel::Attributes
   include SessionPersistable
 
+  delegate :session_data, to: :check
+
   EMPLOYED_STATUSES = %i[in_work receiving_statutory_pay].freeze
   EMPLOYMENT_STATUSES = (EMPLOYED_STATUSES + %i[unemployed]).freeze
 
@@ -17,7 +19,7 @@ class ApplicantForm
   attribute :employment_status, :string
   validates :employment_status,
             inclusion: { in: EMPLOYMENT_STATUSES.map(&:to_s), allow_nil: false },
-            if: -> { !FeatureFlags.enabled?(:self_employed) }
+            if: -> { !FeatureFlags.enabled?(:self_employed, session_data) }
 
   attribute :partner, :boolean
   validates :partner, inclusion: { in: [true, false] }
@@ -26,7 +28,7 @@ class ApplicantForm
   validates :passporting, inclusion: { in: [true, false] }
 
   def attributes_for_export_to_session
-    if FeatureFlags.enabled?(:self_employed)
+    if FeatureFlags.enabled?(:self_employed, session_data)
       attributes.except!("employment_status")
     else
       attributes

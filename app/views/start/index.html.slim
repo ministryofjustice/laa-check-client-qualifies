@@ -9,8 +9,7 @@
   .govuk-inset-text = t(".only_for_legal_aid_providers_html",
                          link: link_to(t(".check_if_you_can_get_legal_aid"), "https://www.gov.uk/check-legal-aid"))
 
-  - if FeatureFlags.enabled?(:special_applicant_groups)
-    p.govuk-body = t(".partner_living_outside_uk_html")
+  p.govuk-body = t(".partner_living_outside_uk_html")
 
   h2.govuk-heading-m = t(".case_types")
   p.govuk-body = t(".case_types_intro")
@@ -21,23 +20,17 @@
   p.govuk-body = t(".mental_health_html")
 
   h2.govuk-heading-m = t(".client_types")
-  - if FeatureFlags.enabled?(:special_applicant_groups)
-    - unless FeatureFlags.enabled?(:self_employed)
-      h3.govuk-heading-s = t(".self_employment")
-      p.govuk-body = t(".unacceptable_client_explanation")
-    h3.govuk-heading-s = t(".unacceptable_client_heading_under_18")
-    p.govuk-body
-      - t(".unacceptable_client_explanation_under_18_html").each
-        p.govuk-body = _1
-    - if FeatureFlags.enabled?(:self_employed)
-      h3.govuk-heading-s = t(".unacceptable_client_heading_company_director")
-      p.govuk-body = t(".unacceptable_client_explanation_company_director")
+  - unless FeatureFlags.enabled?(:self_employed, without_session_data: true)
+    h3.govuk-heading-s = t(".self_employment")
+    p.govuk-body = t(".unacceptable_client_explanation")
+  h3.govuk-heading-s = t(".unacceptable_client_heading_under_18")
+  p.govuk-body
+    - t(".unacceptable_client_explanation_under_18_html").each
+      p.govuk-body = _1
+  - if FeatureFlags.enabled?(:self_employed, without_session_data: true)
+    h3.govuk-heading-s = t(".unacceptable_client_heading_company_director")
+    p.govuk-body = t(".unacceptable_client_explanation_company_director")
 
-  - else
-    p.govuk-body = t(".legacy_unacceptable_client_explanation")
-    ul.govuk-list.govuk-list--bullet
-      - t(".legacy_unacceptable_client_types").each
-        li = _1
   h2.govuk-heading-m = t(".service_function")
   - t(".service_function_paragraphs").each
     p.govuk-body = _1
