@@ -13,7 +13,7 @@ class PdfService
     media_features: [{ name: "prefers-color-scheme", value: "dark" }],
     wait_until: "domcontentloaded",
     emulate_media: "screen",
-    launch_args: ["--font-render-hinting=medium", "--force-renderer-accessibility"],
+    launch_args: ["--font-render-hinting=medium", "--no-sandbox", "--force-renderer-accessibility"],
     execute_script: "document.querySelectorAll('button').forEach(el => el.style.display = 'none')",
   }.freeze
 
