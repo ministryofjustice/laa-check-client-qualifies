@@ -35,7 +35,7 @@ spec:
             initialDelaySeconds: 30
           readinessProbe:
             httpGet:
-              path: /health-including-dependents
+              path: /status
               port: http
             initialDelaySeconds: 30
           resources:

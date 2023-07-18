@@ -1,16 +1,8 @@
 class StatusController < ApplicationController
-  # This is used by the liveness check, used to see if a pod needs replacing
+  # This is used by both the liveness check, used to see if a pod needs replacing,
+  # and the readiness check, used to see if a pod is ready to start receiving traffic
   def index
-    if HealthCheckService.call(check_cfe: false)
-      render json: { alive: true }
-    else
-      render json: { alive: false }, status: :service_unavailable
-    end
-  end
-
-  # This is used by the readiness check, used to see if a pod is ready to start receiving traffic
-  def health
-    if HealthCheckService.call(check_cfe: true)
+    if HealthCheckService.call
       render json: { healthy: true }
     else
       render json: { healthy: false }, status: :service_unavailable
