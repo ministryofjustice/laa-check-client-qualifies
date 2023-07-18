@@ -27,6 +27,7 @@ class ControlledWorkDocumentPopulationService
       "cw1_and_2" => "lib/cw1-and-2-form.pdf",
       "cw1_and_2_mtr_phase_1" => "lib/cw1-and-2-form-mtr-phase-1.pdf",
       "civ_means_7" => "lib/civ-means-7-form.pdf",
+      "civ_means_7_mtr_phase_1" => "lib/civ-means-7-form-mtr-phase-1.pdf",
     }.freeze
 
     def template_path(form_key)
