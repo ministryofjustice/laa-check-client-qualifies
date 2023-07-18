@@ -18,8 +18,7 @@ deploy_branch() {
                 --set image.repository="$ECR_ENDPOINT" \
                 --set image.tag="branch-$CIRCLE_SHA1" \
                 --set ingress.annotations."external-dns\.alpha\.kubernetes\.io/set-identifier"="$IDENTIFIER" \
-                --set ingress.hosts="{$RELEASE_HOST}" \
-                --set deploy.host="$RELEASE_HOST"
+                --set ingress.hosts[0].host="$RELEASE_HOST"
 }
 
 deploy_main() {
