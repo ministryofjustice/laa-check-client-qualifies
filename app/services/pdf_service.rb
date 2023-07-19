@@ -10,7 +10,7 @@ class PdfService
     prefer_css_page_size: true,
     print_background: true,
     vision_deficiency: "deuteranopia",
-    media_features: [{ name: "prefers-color-scheme", value: "light" }],
+    media_features: [],
     emulate_media: "screen",
     launch_args: ["--font-render-hinting=medium", "--no-sandbox"],
     execute_script: "document.body.dir = 'ltr'",
