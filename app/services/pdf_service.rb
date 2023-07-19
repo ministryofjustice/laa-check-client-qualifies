@@ -9,9 +9,7 @@ class PdfService
     },
     user_agent: "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/37.0.2062.94 Chrome/37.0.2062.94 Safari/537.36",
     prefer_css_page_size: true,
-    emulate_media: "screen",
     print_background: true,
-    media_features: [],
     launch_args: ["--font-render-hinting=medium", "--no-sandbox"],
     execute_script: "document.body.style.setProperty('unicode-bidi', 'normal')",
   }.freeze
