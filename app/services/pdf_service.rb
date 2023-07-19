@@ -8,12 +8,11 @@ class PdfService
       right: "1cm",
     },
     prefer_css_page_size: true,
-    print_background: true,
-    vision_deficiency: "deuteranopia",
-    media_features: [name: "color-gamut", value: "P3"],
     emulate_media: "screen",
+    print_background: true,
+    media_features: [],
     launch_args: ["--font-render-hinting=medium", "--no-sandbox"],
-    execute_script: "document.body.dir = 'ltr'",
+    execute_script: "document.body.style.setProperty('unicode-bidi', 'normal')",
   }.freeze
 
   class << self
