@@ -61,6 +61,7 @@ featureFlags:
   selfEmployed: NOT_ENABLED
   overrides: NOT_ENABLED
   publicBeta: NOT_ENABLED
+  indexProduction: NOT_ENABLED
 
 geckoboard:
   metricsDataset: "ccq_monthly_metrics_staging"

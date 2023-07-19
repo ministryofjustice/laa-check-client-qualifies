@@ -66,6 +66,7 @@ featureFlags:
   selfEmployed: ENABLED
   overrides: ENABLED
   publicBeta: ENABLED
+  indexProduction: NOT_ENABLED
 
 postgresql:
   enabled: true
