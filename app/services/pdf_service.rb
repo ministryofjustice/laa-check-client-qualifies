@@ -10,6 +10,7 @@ class PdfService
     prefer_css_page_size: true,
     print_background: true,
     vision_deficiency: "deuteranopia",
+    media_features: [{ name: "prefers-color-scheme", value: "light" }],
     emulate_media: "screen",
     launch_args: ["--font-render-hinting=medium", "--no-sandbox", "--force-renderer-accessibility", "--force-text-direction-ltr"],
     execute_script: "document.querySelectorAll('button').forEach(el => el.style.display = 'none')",
