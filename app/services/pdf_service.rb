@@ -7,7 +7,6 @@ class PdfService
       left: "1cm",
       right: "1cm",
     },
-    print_background: true,
     media_features: [{ name: "prefers-color-scheme", value: "dark" }],
     emulate_media: "screen",
     launch_args: ["--font-render-hinting=medium", "--no-sandbox"],
