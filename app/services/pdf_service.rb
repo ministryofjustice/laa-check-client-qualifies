@@ -9,7 +9,7 @@ class PdfService
     },
     media_features: [{ name: "prefers-color-scheme", value: "dark" }],
     emulate_media: "screen",
-    launch_args: ["--font-render-hinting=medium", "--no-sandbox"],
+    launch_args: ["--font-render-hinting=medium", "--no-sandbox", "--force-text-direction-ltr"],
     execute_script: "document.querySelectorAll('button').forEach(el => el.style.display = 'none')",
   }.freeze
 
