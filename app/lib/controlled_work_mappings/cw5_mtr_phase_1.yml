@@ -200,17 +200,12 @@
   source: combined_assessed_capital
 
 # Part C
-# The client is directly or indirectly in receipt of [passporting benefit] - Yes
-- name: CheckBox45
-  type: checkbox
+# The client is directly or indirectly in receipt of [passporting benefit]
+- name: Passported
+  type: boolean_radio
   source: passporting
-  checked_value: "1"
-
-# The client is directly or indirectly in receipt of [passporting benefit] - No
-- name: CheckBox46
-  type: checkbox
-  source: not_passporting?
-  checked_value: "1"
+  yes_value: "Yes"
+  no_value: "No"
 
 # Gross monthly earnings / Client
 - name: FillText82
