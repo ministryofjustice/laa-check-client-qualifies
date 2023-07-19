@@ -43,10 +43,10 @@
         - vehicle.each do |key, value|
           - body.with_row do |row|
             - row.with_cell(header: true, text: t("estimates.show.vehicle.#{key}"))
-            - row.with_cell(text: value, numeric: true)
+            - pdf_friendly_numeric_table_cell(row, value, bold_text: false)
         - body.with_row(classes: %w[solid-top-border]) do |row|
           - row.with_cell(header: true, text: t("estimates.show.vehicle.assessed_value"))
-          - row.with_cell(classes: %w[govuk-!-font-weight-bold], text: @model.household_vehicle_assessed_value, numeric: true)
+          - pdf_friendly_numeric_table_cell(row, @model.household_vehicle_assessed_value, bold_text: true)
 
 - if @model.partner_owns_additional_property?
   = render "property_table",
@@ -82,19 +82,19 @@
         - @model.pensioner_disregard_rows.each do |type, amount|
           - body.with_row do |row|
             - row.with_cell(header: true, text: t("estimates.show.pensioner_disregard_types.#{type}"))
-            - row.with_cell(numeric: true, text: amount)
+            - pdf_friendly_numeric_table_cell(row, amount, bold_text: false)
         - body.with_row(classes: %w[solid-top-border]) do |row|
           - row.with_cell(header: true, text: t("estimates.show.pensioner_disregard_types.assessed_capital"))
-          - row.with_cell(numeric: true, header: true, text: @model.total_assessed_capital)
+          - pdf_friendly_numeric_table_cell(row, @model.total_assessed_capital, bold_text: true)
 
 = pdf_friendly_h2(t("estimates.show.total"), caption_size.to_s, @is_pdf)
 = govuk_table do |table|
   - table.with_body do |body|
     - body.with_row(classes: %w[solid-top-border]) do |row|
       - row.with_cell(header: true, text: t("estimates.show.total_assessed_capital"))
-      - row.with_cell(classes: %w[govuk-!-font-weight-bold], text: @model.total_assessed_capital, numeric: true)
+      - pdf_friendly_numeric_table_cell(row, @model.total_assessed_capital, bold_text: true)
     - body.with_row(classes: %w[solid-bottom-border]) do |row|
       - row.with_cell(classes: %w[govuk-!-font-weight-regular], header: true, text: t("estimates.show.capital_upper_threshold"))
-      - row.with_cell(text: @model.capital_upper_threshold, numeric: true)
+      - pdf_friendly_numeric_table_cell(row, @model.capital_upper_threshold, bold_text: false)
 
 = render "ineligible_explanation", value_type: :capital

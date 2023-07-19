@@ -3,4 +3,4 @@
     text = header_with_hint("estimates.show.client_outgoing_types.#{outgoing_type}",
                             "estimates.show.#{person}_outgoing_hints.#{outgoing_type}")
   - row.with_cell(header: true, text:)
-  - row.with_cell(text: money_amount, numeric: true)
+  - pdf_friendly_numeric_table_cell(row, money_amount, bold_text: false)

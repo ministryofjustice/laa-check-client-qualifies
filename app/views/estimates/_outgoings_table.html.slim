@@ -32,16 +32,16 @@
   - table.with_body do |body|
     - body.with_row(classes: %w[solid-top-border]) do |row|
       - row.with_cell(header: true, text: t("estimates.show.#{@model.has_partner? ? :outgoings_with_partner : :gross_monthly_outgoings}"))
-      - row.with_cell(classes: %w[govuk-!-font-weight-bold], text: @model.gross_outgoings, numeric: true)
+      - pdf_friendly_numeric_table_cell(row, @model.gross_outgoings, bold_text: true)
     - body.with_row do |row|
       ruby:
         text = (t("estimates.show.disposable_monthly_income") +
                 tag.div(t("estimates.show.disposable_income_hint"),
                         class: "govuk-hint govuk-!-margin-top-1 govuk-!-margin-bottom-0")).html_safe
       - row.with_cell(header: true, text:)
-      - row.with_cell(classes: %w[govuk-!-font-weight-bold], text: @model.total_disposable_income, numeric: true)
+      - pdf_friendly_numeric_table_cell(row, @model.total_disposable_income, bold_text: true)
     - body.with_row(classes: %w[solid-bottom-border]) do |row|
       - row.with_cell(classes: %w[govuk-!-font-weight-regular], header: true, text: t("estimates.show.disposable_income_upper_threshold"))
-      - row.with_cell(text: @model.disposable_income_upper_threshold, numeric: true)
+      - pdf_friendly_numeric_table_cell(row, @model.disposable_income_upper_threshold, bold_text: false)
 
 = render "ineligible_explanation", value_type: :disposable_income
