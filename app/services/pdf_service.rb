@@ -13,7 +13,7 @@ class PdfService
     media_features: [{ name: "prefers-color-scheme", value: "light" }],
     emulate_media: "screen",
     launch_args: ["--font-render-hinting=medium", "--no-sandbox", "--force-direction-ltr"],
-    execute_script: "document.querySelectorAll('button').forEach(el => el.style.display = 'none')",
+    execute_script: "document.body.dir = 'ltr'",
   }.freeze
 
   class << self
