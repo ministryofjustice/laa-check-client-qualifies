@@ -12,7 +12,7 @@ class PdfService
     vision_deficiency: "deuteranopia",
     media_features: [{ name: "prefers-color-scheme", value: "light" }],
     emulate_media: "screen",
-    launch_args: ["--font-render-hinting=medium", "--no-sandbox", "--force-direction-ltr"],
+    launch_args: ["--font-render-hinting=medium", "--no-sandbox"],
     execute_script: "document.body.dir = 'ltr'",
   }.freeze
 
