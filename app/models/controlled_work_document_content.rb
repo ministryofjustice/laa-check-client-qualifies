@@ -16,6 +16,10 @@ class ControlledWorkDocumentContent < Check
     session_data.dig("api_response", *path_parts)
   end
 
+  def means_test_required?
+    true
+  end
+
   def asylum_support?
     asylum_support || false
   end
@@ -109,7 +113,7 @@ class ControlledWorkDocumentContent < Check
   end
 
   def smod_savings
-    bank_accounts&.select(&:account_in_dispute)&.sum { _1.amount.to_d }
+    bank_accounts.select(&:account_in_dispute).sum { _1.amount.to_d } if smod_assets?
   end
 
   def smod_investments

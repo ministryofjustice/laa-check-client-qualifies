@@ -20,6 +20,7 @@ class ControlledWorkDocumentPopulationService
     end
 
     TEMPLATES = {
+      "cw1_mtr_phase_1" => "lib/cw1-form-mtr-phase-1.pdf",
       "cw1" => "lib/cw1-form.pdf",
       "cw2" => "lib/cw2imm-form.pdf",
       "cw2_mtr_phase_1" => "lib/cw2imm-form-mtr-phase-1.pdf",
