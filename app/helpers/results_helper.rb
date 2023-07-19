@@ -7,6 +7,11 @@ module ResultsHelper
     ).html_safe
   end
 
+  def pdf_friendly_numeric_table_cell(row, value, bold_text: false)
+    classes = bold_text ? "govuk-!-text-align-right govuk-!-font-weight-bold" : "govuk-!-text-align-right"
+    row.with_cell(text: value, classes:)
+  end
+
   def pdf_friendly_h1(text, is_pdf)
     if is_pdf
       tag.h2(class: "govuk-heading-l", style: "font-variant-ligatures: none;") do

@@ -7,9 +7,11 @@ class PdfService
       left: "1cm",
       right: "1cm",
     },
-    execute_script: "document.body.style.setProperty('direction', 'ltr')",
+    prefer_css_page_size: true,
     print_background: true,
-    launch_args: ["--font-render-hinting=medium", "--no-sandbox"],
+    emulate_media: "screen",
+    launch_args: ["--font-render-hinting=medium", "--no-sandbox", "--force-renderer-accessibility"],
+    execute_script: "document.querySelectorAll('button').forEach(el => el.style.display = 'none')",
   }.freeze
 
   class << self
