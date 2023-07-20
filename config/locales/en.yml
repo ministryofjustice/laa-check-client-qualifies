@@ -2090,7 +2090,7 @@ en:
         text_html:
           - "The Legal Aid Agency is committed to making its websites accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018."
       p31_heading: Compliance status
-      p31_html: This website is fully compliant with levels A, AA and AAA of the <a href="https://www.w3.org/TR/WCAG21/" target='_blank' rel='noreferrer noopener'>Web Content Accessibility Guidelines version 2.1</a> AA Standard.
+      p31_html: This website is fully compliant with levels A, AA and AAA of the <a href="https://www.w3.org/TR/WCAG21/" target='_blank' rel='noreferrer noopener'>Web Content Accessibility Guidelines version 2.1</a>.
       headed_paragraph4:
         heading: Preparation of this accessibility statement
         text_html:
