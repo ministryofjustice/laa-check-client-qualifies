@@ -134,7 +134,7 @@ end
 def fill_in_outgoings_screen(screen_name: :outgoings, values: {}, frequencies: {})
   confirm_screen screen_name.to_s
   fill_in "#{screen_name}_form[housing_payments_value]", with: "0" if page.body.include?("housing_payments_value")
-  fill_in "#{screen_name}_form[childcare_payments_value]", with: values.fetch(:childcare, "0")
+  fill_in "#{screen_name}_form[childcare_payments_value]", with: values.fetch(:childcare, "0") if page.text.include?("Childcare payments")
   fill_in "#{screen_name}_form[maintenance_payments_value]", with: values.fetch(:maintenance, "0")
   fill_in "#{screen_name}_form[legal_aid_payments_value]", with: values.fetch(:legal_aid, "0")
   frequencies.each do |k, v|
