@@ -1139,7 +1139,12 @@ en:
       bank_accounts:
         label: Money in bank accounts
         hints:
-          - For example, money in current or savings accounts, ISAs, or child accounts your client is a signatory on. Do not include any government Cost of Living Payments owed to your client.
+          - For example, money in current or savings accounts, ISAs, or child accounts your client is a signatory on.
+          - Do not include any government Cost of Living Payments owed to your client.
+          - Enter 0 if this does not apply.
+        with_partner_hints:
+          - For example, money in current or savings accounts, ISAs, or child accounts your client is a signatory on. If the client and partner share any joint bank accounts, include these.
+          - Do not include any government Cost of Living Payments owed to your client.
           - Enter 0 if this does not apply.
         input: Total money in account
       add_bank_account: Add another bank account
@@ -1149,9 +1154,20 @@ en:
         hints:
           - For example, shares in a public limited company, unit trusts or capital bonds.
           - Enter 0 if this does not apply.
+        with_partner_hints:
+          - For example, shares in a public limited company, unit trusts or capital bonds. Include any jointly owned by the client and partner.
+          - Enter 0 if this does not apply.
         input: Total of all investments
       valuables:
         label: Valuable items worth £500 or more
+        certificated_with_partner_hints:
+          - If you have more than one valuation for any of these valuable items, use the highest. Keep a record of where the valuation is from for evidence, as it may be checked if you make an application for legal aid.
+          - Include any jointly owned by the client and partner.
+          - Enter 0 if this does not apply.
+        controlled_with_partner_hints:
+          - If you have more than one valuation for any of these valuable items, use the highest. Keep a record of where the valuation is from for evidence, as it may be checked at file audit or assessment stage.
+          - Include any jointly owned by the client and partner.
+          - Enter 0 if this does not apply.
         certificated_hints:
           - If you have more than one valuation for any of these valuable items, use the highest. Keep a record of where the valuation is from for evidence, as it may be checked if you make an application for legal aid.
           - Enter 0 if this does not apply.
@@ -1204,15 +1220,26 @@ en:
         text: Guidance on clients with partners who are bankrupt
       bank_accounts:
         hints:
-          - For example, money in current or savings accounts, ISAs, or child accounts the partner is a signatory on. Do not include any government Cost of Living Payments owed to the partner. 
+          - For example, money in current or savings accounts, ISAs, or child accounts the partner is a signatory on.
+          - Do not include any joint bank accounts if you entered them as your client's assets on the previous page.
+          - Do not include any government Cost of Living Payments owed to the partner.
           - Enter 0 if this does not apply.
       investments:
         label: Investments
         hints:
           - For example, shares in a public limited company, unit trusts or capital bonds.
+          - Do not include any investments if you entered them as your client's assets on the previous page.
           - Enter 0 if this does not apply.
         input: Total of all investments
       valuables:
+        certificated_hints:
+          - If you have more than one valuation for any of these valuable items, use the highest. Keep a record of where the valuation is from for evidence, as it may be checked if you make an application for legal aid.
+          - Do not include any valuable items if you entered them as your client's assets on the previous page.
+          - Enter 0 if this does not apply.
+        controlled_hints:
+          - If you have more than one valuation for any of these valuable items, use the highest. Keep a record of where the valuation is from for evidence, as it may be checked at file audit or assessment stage.
+          - Do not include any valuable items if you entered them as your client's assets on the previous page.
+          - Enter 0 if this does not apply.
         details_bullets_1:
           - jewellery (but not wedding, engagement or eternity rings)
           - art
