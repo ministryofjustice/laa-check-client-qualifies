@@ -203,7 +203,7 @@ class CalculationResult
   end
 
   def household_vehicle_assessed_value(index)
-    monetise(capital_items(:vehicles)[0][:assessed_value])
+    monetise(capital_items(:vehicles)[index][:assessed_value])
   end
 
 private
