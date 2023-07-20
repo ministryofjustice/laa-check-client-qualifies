@@ -127,10 +127,9 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
         :with_main_home,
         house_in_dispute: true,
         additional_property_owned: "outright",
-        additional_house_in_dispute: true,
         api_response: FactoryBot.build(:api_result,
                                        main_home: FactoryBot.build(:property_api_result, value: 250_000.11),
-                                       additional_property: FactoryBot.build(:property_api_result, value: 100_000.22)).with_indifferent_access,
+                                       additional_property: FactoryBot.build(:property_api_result, value: 100_000.22, subject_matter_of_dispute: true)).with_indifferent_access,
       )
     end
 
@@ -231,14 +230,14 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
         investments: 222,
         valuables: 555,
         additional_property_owned: "outright",
-        additional_house_in_dispute: true,
         investments_in_dispute: true,
         valuables_in_dispute: true,
         api_response: FactoryBot.build(:api_result,
                                        main_home: FactoryBot.build(:property_api_result, value: 250_000),
                                        additional_property: FactoryBot.build(:property_api_result,
                                                                              outstanding_mortgage: 120_000,
-                                                                             percentage_owned: 75)).with_indifferent_access,
+                                                                             percentage_owned: 75,
+                                                                             subject_matter_of_dispute: true)).with_indifferent_access,
       )
     end
 

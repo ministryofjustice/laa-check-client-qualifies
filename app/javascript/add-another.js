@@ -30,7 +30,7 @@ const initAddAnother = () => {
       setUpRemoveButton(section);
     });
 
-    setNumberings(addAnotherContainer.querySelector('[data-add-another-role="sectionList"]'));
+    setUpSections(addAnotherContainer.querySelector('[data-add-another-role="sectionList"]'));
   });
 }
 
@@ -38,16 +38,15 @@ const addAnother = (addAnotherContainer) => {
   const newSection = addAnotherContainer.querySelector('[data-add-another-role="template"]').firstChild.cloneNode(true);
   const sections = addAnotherContainer.querySelector('[data-add-another-role="sectionList"]').querySelectorAll('[data-add-another-role="section"]');
   const counter = sections.length;
-  setUpSection(newSection, counter)
   addAnotherContainer.querySelector('[data-add-another-role="sectionList"]').append(newSection);
-  setUpRadios(newSection);
+  setUpSection(newSection, counter)
 };
 
-const setUpSection = (newSection, counter) => {
-  setUpRemoveButton(newSection);
-  setUpTitle(newSection, counter + 1);
-  setUpSuggestions(newSection);
-  setNumbering(newSection, counter);
+const setUpSection = (section, counter) => {
+  setUpRemoveButton(section);
+  setUpSuggestions(section);
+  setNumbering(section, counter);
+  setUpRadios(section);
 };
 
 const setUpRemoveButton = (section) => {
@@ -60,12 +59,8 @@ const setUpRemoveButton = (section) => {
   })
 };
 
-const setUpTitle = (newSection, counter) => {
-  newSection.querySelector('[data-add-another-role="counter"]').innerHTML = counter
-};
-
-const setUpSuggestions = (newSection) => {
-  newSection.querySelectorAll('[data-module="govuk-input"]').forEach((input) => {
+const setUpSuggestions = (section) => {
+  section.querySelectorAll('[data-module="govuk-input"]').forEach((input) => {
     new Input(input).init()
   });
 }
@@ -73,12 +68,12 @@ const setUpSuggestions = (newSection) => {
 const remove = (section) => {
   const sectionList = section.closest('[data-add-another-role="sectionList"]')
   section.remove();
-  setNumberings(sectionList);
+  setUpSections(sectionList); // Some JS triggers, in particular radio conditional reveals, must be re-initialised
 }
 
-const setNumberings = (sectionList) => {
+const setUpSections = (sectionList) => {
   sectionList.querySelectorAll('[data-add-another-role="section"]').forEach((section, index) => {
-    setNumbering(section, index)
+    setUpSection(section, index)
   });
 }
 
@@ -95,8 +90,8 @@ const setNumbering = (section, counter) => {
   })
 }
 
-const setUpRadios = (newSection) => {
-  const radios = new Radios(newSection);
+const setUpRadios = (section) => {
+  const radios = new Radios(section);
   radios.init();
 }
 

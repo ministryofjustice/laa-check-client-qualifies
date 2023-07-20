@@ -41,7 +41,7 @@ RSpec.describe CalculationResult do
         additional_property: FactoryBot.build(:property_api_result, transaction_allowance: 0),
       )
 
-      expect(described_class.new("api_response" => data).client_additional_property_data[:rows].keys).not_to include(:transaction_allowance)
+      expect(described_class.new("api_response" => data).client_additional_property_data[0][:rows].keys).not_to include(:transaction_allowance)
     end
 
     it "does shows cost of sale deduction row in situations where cost of sale deduction is not zero" do
@@ -50,7 +50,7 @@ RSpec.describe CalculationResult do
         additional_property: FactoryBot.build(:property_api_result, transaction_allowance: 1),
       )
 
-      expect(described_class.new("api_response" => data).client_additional_property_data[:rows].keys).to include(:transaction_allowance)
+      expect(described_class.new("api_response" => data).client_additional_property_data[0][:rows].keys).to include(:transaction_allowance)
     end
   end
 

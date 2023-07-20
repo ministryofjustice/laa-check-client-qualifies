@@ -12,6 +12,9 @@ module CheckAnswers
       household_vehicles
       assets
       partner_assets
+      client_additional_property
+      partner_additional_property
+
     ].freeze
 
     def self.call(session_data)
@@ -210,6 +213,43 @@ module CheckAnswers
         Field.new(label: "assets_fields.investments", type: "money", value: @model.partner_investments),
         Field.new(label: "assets_fields.valuables", type: "money", value: @model.partner_valuables),
       ]
+    end
+
+    def client_additional_property_fields
+      return [] unless Steps::Helper.valid_step?(@model.session_data, :additional_property)
+
+      additional_property_fields(@model.additional_properties, @model.additional_property_owned)
+    end
+
+    def partner_additional_property_fields
+      return [] unless Steps::Helper.valid_step?(@model.session_data, :partner_additional_property)
+
+      additional_property_fields(@model.partner_additional_properties, @model.partner_additional_property_owned)
+    end
+
+    def additional_property_fields(properties, owned)
+      return [Field.new(label: "additional_property_fields.additional_property_owned", type: "select", value: owned)] if properties.blank?
+
+      sets = properties.each_with_index.map do |model, index|
+        if index.zero?
+          [
+            Field.new(label: "additional_property_fields.additional_property_owned", type: "select", value: owned, disputed?: @model.smod_applicable? && model.house_in_dispute),
+            Field.new(label: "additional_property_fields.house_value", type: "money", value: model.house_value),
+            (Field.new(label: "additional_property_fields.mortgage", type: "money", value: model.mortgage) if model.owned_with_mortgage?),
+            Field.new(label: "additional_property_fields.percentage_owned", type: "percentage", value: model.percentage_owned),
+          ]
+        else
+          [
+            Field.new(label: "additional_property_fields.other_property", type: "header", value: index + 1, disputed?: @model.smod_applicable? && model.house_in_dispute),
+            Field.new(label: "additional_property_fields.house_value", type: "money", value: model.house_value),
+            Field.new(label: "additional_property_fields.owned_with_mortgage", type: "boolean", value: model.owned_with_mortgage?),
+            (Field.new(label: "additional_property_fields.inline_mortgage", type: "money", value: model.mortgage) if model.owned_with_mortgage?),
+            Field.new(label: "additional_property_fields.percentage_owned", type: "percentage", value: model.percentage_owned),
+          ]
+        end
+      end
+
+      sets.flatten.compact
     end
 
     def section_yaml

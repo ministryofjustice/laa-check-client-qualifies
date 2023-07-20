@@ -35,5 +35,19 @@ RSpec.describe Check do
       )
       expect(check.any_smod_assets?).to eq true
     end
+
+    it "returns true if there's a SMOD property" do
+      check = described_class.new(
+        {
+          "additional_property_owned" => "outright",
+          "additional_properties" => [
+            {
+              "house_in_dispute" => true,
+            },
+          ],
+        },
+      )
+      expect(check.any_smod_assets?).to eq true
+    end
   end
 end

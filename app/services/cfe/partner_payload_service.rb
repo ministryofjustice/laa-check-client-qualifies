@@ -66,13 +66,15 @@ module Cfe
     def additional_properties
       return [] unless relevant_form?(:partner_additional_property_details)
 
-      additional_property = instantiate_form(PartnerAdditionalPropertyDetailsForm)
-      [{
-        value: additional_property.house_value,
-        outstanding_mortgage: (additional_property.mortgage if additional_property.owned_with_mortgage?) || 0,
-        percentage_owned: additional_property.percentage_owned,
-        shared_with_housing_assoc: false,
-      }]
+      form = instantiate_form(PartnerAdditionalPropertyDetailsForm)
+      form.items.map do |model|
+        {
+          value: model.house_value,
+          outstanding_mortgage: (model.mortgage if model.owned_with_mortgage?) || 0,
+          percentage_owned: model.percentage_owned,
+          shared_with_housing_assoc: false,
+        }
+      end
     end
 
     def capitals

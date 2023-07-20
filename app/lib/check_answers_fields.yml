@@ -270,29 +270,5 @@ sections:
             alt_attribute: housing_payments_loan_frequency
       - label: client_additional_property
         screen: additional_property
-        fields:
-          - type: select
-            attribute: additional_property_owned
-          - type: money
-            attribute: additional_house_value
-            screen: additional_property_details
-          - type: money
-            attribute: additional_mortgage
-            skip_unless: additional_property_owned_with_mortgage?
-          - type: percentage
-            attribute: additional_percentage_owned
-            screen: additional_property_details
       - label: partner_additional_property
         screen: partner_additional_property
-        fields:
-          - type: select
-            attribute: partner_additional_property_owned
-          - type: money
-            attribute: partner_additional_house_value
-            screen: partner_additional_property_details
-          - type: money
-            attribute: partner_additional_mortgage
-            skip_unless: partner_additional_property_owned_with_mortgage?
-          - type: percentage
-            attribute: partner_additional_percentage_owned
-            screen: partner_additional_property_details

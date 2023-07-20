@@ -90,7 +90,7 @@ RSpec.describe "Certificated check with partner", type: :feature do
       expect(page).to have_content "Other sources\n£33.33"
       expect(page).to have_content "Partner allowance\nA fixed allowance if your client has a partner\n£211.32"
       expect(page).to have_content "Employment expenses\nA fixed allowance if the partner gets a salary or wage\n£45.00"
-      expect(page).to have_content "Partner's additional property\nValue\n£1.00Outstanding mortgage\n-£1.00Assessed value\nPartner’s 1% share of home equity\n£0.00"
+      expect(page).to have_content "Partner other property 1\nValue\n£1.00Outstanding mortgage\n-£1.00Assessed value\nPartner’s 1% share of home equity\n£0.00"
       expect(page).to have_content "Investments and valuables\n£700.00"
     end
   end
