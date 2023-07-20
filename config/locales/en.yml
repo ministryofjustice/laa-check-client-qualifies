@@ -2078,13 +2078,13 @@ en:
       p1_extra_text: We’ve also made the website text as simple as possible to understand.
       p1_extra_html: "<a href='https://mcmw.abilitynet.org.uk/' target='_blank' rel='noreferrer noopener'>AbilityNet</a> has advice on making your device easier to use if you have a disability."
       p12_heading: Reporting accessibility problems with this website
-      p12_html: "We’re always looking to improve the accessibility of this website. If you find any problems not listed on this page or think we’re not meeting accessibility requirements, contact us by email at eligibility@justice.gov.uk."
+      p12_html: "We’re always looking to improve the accessibility of this website. If you find any problems not listed on this page or think we’re not meeting accessibility requirements, contact us by email at <a href='mailto:eligibility@justice.gov.uk'>eligibility@justice.gov.uk</a>."
       p13_heading: Enforcement procedure
       p13_text:
         - "The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the ‘accessibility regulations’)."
       p13_html: If you’re not happy with how we respond to your complaint, <a rel="external" href="https://www.equalityadvisoryservice.com/" target='_blank' rel='noreferrer noopener'>contact the Equality Advisory and Support Service (<abbr title="Equality Advisory and Support Service">EASS</abbr>)</a>.
       p14_heading: Contacting us
-      p14_html: "Contact us by email at eligibility@justice.gov.uk."
+      p14_html: "Contact us by email at <a href='mailto:eligibility@justice.gov.uk'>eligibility@justice.gov.uk</a>."
       headed_paragraph2:
         heading: Technical information about this website’s accessibility
         text_html:

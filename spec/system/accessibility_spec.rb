@@ -8,8 +8,6 @@ RSpec.describe "Accessibility" do
   describe "accessibility statement" do
     before do
       visit accessibility_path
-      click_on "Reject additional cookies"
-      click_on "Hide cookie message"
     end
 
     it "has a clean accessibility page" do
