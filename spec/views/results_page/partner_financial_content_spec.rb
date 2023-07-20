@@ -188,7 +188,7 @@ RSpec.describe "estimates/show.html.slim" do
     end
 
     it "shows capital content" do
-      expect(page_text).to include "Partner's additional propertyValue£51.00"
+      expect(page_text).to include "Partner other property 1Value£51.00"
       expect(page_text).to include "Outstanding mortgage-£52.00"
       expect(page_text).to include "Deductions3% of property value deducted for cost of sale-£534.00"
       expect(page_text).to include "Assessed value£52.00"

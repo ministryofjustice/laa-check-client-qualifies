@@ -132,14 +132,6 @@ class CalculationResult
     property_data(main_home, property_type: :main)
   end
 
-  def client_owns_additional_property?
-    capital_items(:properties)[:additional_properties].present?
-  end
-
-  def partner_owns_additional_property?
-    partner_capital_items(:properties)&.dig(:additional_properties).present?
-  end
-
   def client_additional_property_data
     additional_property_data(prefix: "")
   end
@@ -292,8 +284,12 @@ private
   end
 
   def additional_property_data(prefix:)
-    additional_property = capital_items(:properties, prefix)[:additional_properties].first
-    property_data(additional_property, property_type: :additional)
+    properties = capital_items(:properties, prefix)
+    return [] unless properties
+
+    properties[:additional_properties].map do |additional_property|
+      property_data(additional_property, property_type: :additional)
+    end
   end
 
   def property_data(property, property_type:)

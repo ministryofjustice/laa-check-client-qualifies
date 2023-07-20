@@ -1751,8 +1751,8 @@ en:
         loan_amount_outstanding: Outstanding payments
         disregards_and_deductions: Disregards and deductions
       total_assessed_capital: Total assessed disposable capital
-      client_additional_property: Client's additional property
-      partner_additional_property: Partner's additional property
+      client_additional_property: Client other property %{counter}
+      partner_additional_property: Partner other property %{counter}
       capital_upper_threshold: Disposable capital upper limit
       total: Total
       pensioner_disregard: 60 or over disregard (also known as pensioner disregard)

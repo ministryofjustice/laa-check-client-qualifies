@@ -177,7 +177,7 @@ RSpec.describe "estimates/show.html.slim" do
       expect(page_text).to include "Deductions3% of property value deducted for cost of sale-£34.00"
       expect(page_text).to include "Disputed asset disregard-£5.00"
       expect(page_text).to include "Assessed value£2.00"
-      expect(page_text).to include "Client's additional propertyValue£51.00"
+      expect(page_text).to include "Client other property 1Value£51.00"
       expect(page_text).to include "Outstanding mortgage-£52.00"
       expect(page_text).to include "Deductions3% of property value deducted for cost of sale-£534.00"
       expect(page_text).to include "Assessed value£52.00"
