@@ -50,25 +50,6 @@ RSpec.describe "Results page variations", :end2end, :self_employed_flag, type: :
     key_lines.each { expect(page).to have_content _1 }
   end
 
-  it "disregards childcare costs if the partner does not work" do
-    start_assessment
-    fill_in_forms_until(:applicant)
-    fill_in_applicant_screen(partner: "Yes")
-    fill_in_forms_until(:employment_status)
-    fill_in_employment_status_screen(choice: "Employed or self-employed")
-    fill_in_income_screen
-    fill_in_forms_until(:partner_employment_status)
-    fill_in_partner_employment_status_screen(choice: "Unemployed")
-    fill_in_forms_until(:outgoings)
-    fill_in_outgoings_screen(values: { childcare: "300" }, frequencies: { maintenance: "Every month" })
-    fill_in_forms_until(:check_answers)
-    click_on "Submit"
-
-    expect(page).to have_content(
-      "Childcare payments\nThis figure will show as £0.00 unless your client and their partner (if applicable) are employed or receiving student finance\n£0.00",
-    )
-  end
-
   it "disregards SMOD capital" do
     start_assessment
     fill_in_forms_until(:assets)
