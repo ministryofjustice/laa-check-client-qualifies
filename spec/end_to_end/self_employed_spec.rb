@@ -159,7 +159,7 @@ RSpec.describe "Self-employed flow", :self_employed_flag, type: :feature do
         expect(page).to have_content "Client's monthly income\nAll figures have been converted into a monthly amount.\nEmployment income\n£1,733.33"
         expect(page).to have_content "Income tax\n£216.67"
         expect(page).to have_content "National Insurance\n£86.67"
-        expect(page).to have_content "Employment expenses\nA fixed allowance if your client gets a salary or wage\n£45.00\n"
+        expect(page).to have_content "Employment expenses\nA fixed allowance if your client gets a salary or wage\n£45.00"
       end
     end
 
@@ -172,7 +172,7 @@ RSpec.describe "Self-employed flow", :self_employed_flag, type: :feature do
         expect(page).to have_content "Client's monthly income\nAll figures have been converted into a monthly amount.\nEmployment income\n£758.33"
         expect(page).to have_content "Income tax\n£43.33"
         expect(page).to have_content "National Insurance\n£21.67"
-        expect(page).to have_content "Employment expenses\nA fixed allowance if your client gets a salary or wage\n£0.00\n"
+        expect(page).to have_content "Employment expenses\nA fixed allowance if your client gets a salary or wage\n£0.00"
       end
     end
 
@@ -185,7 +185,7 @@ RSpec.describe "Self-employed flow", :self_employed_flag, type: :feature do
         expect(page).to have_content "Partner's monthly income\nAll figures have been converted into a monthly amount.\nEmployment income\n£1,250.00"
         expect(page).to have_content "Income tax\n£100.00"
         expect(page).to have_content "National Insurance\n£67.00"
-        expect(page).to have_content "Employment expenses\nA fixed allowance if the partner gets a salary or wage\n£0.00\n"
+        expect(page).to have_content "Employment expenses\nA fixed allowance if the partner gets a salary or wage\n£0.00"
       end
     end
   end
