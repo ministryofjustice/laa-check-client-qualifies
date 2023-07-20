@@ -2,18 +2,14 @@
 
 [![repo standards badge](https://img.shields.io/badge/dynamic/json?color=blue&style=for-the-badge&logo=github&label=MoJ%20Compliant&query=%24.result&url=https%3A%2F%2Foperations-engineering-reports.cloud-platform.service.justice.gov.uk%2Fapi%2Fv1%2Fcompliant_public_repositories%2Flaa-estimate-financial-eligibility-for-legal-aid)](https://operations-engineering-reports.cloud-platform.service.justice.gov.uk/public-github-repositories.html#laa-estimate-financial-eligibility-for-legal-aid "Link to report")
 
-This is a calculator for legal aid providers to obtain a quick estimate to decide if a client is eligible for legal aid.
+This is a calculator for legal aid providers to quickly check if a client is eligible for legal aid.
 
 CCQ is effectively a front end for [CFE Civil](https://github.com/ministryofjustice/cfe-civil), which contains all eligibility logic.
 CCQ only knows about the specifics of the eligibility ruleset to the extent that this knowledge is needed in order to be able to ask the right questions.
 
-Currently CCQ only enables checks relating to civil legal aid; however a future roadmap ambition is to also provide criminal legal aid checks.
+Currently CCQ only enables checks relating to civil legal aid; however a future roadmap ambition is to also provide checks for criminal legal aid.
 
 ## Documentation for developers.
-
-The new 'propshaft' asset pipeline (specifically jsbundling-rails and cssbundling-rails gems) has a 'test:prepare'
-task that gets invoked in lots of useful places -
-see https://stackoverflow.com/questions/71262775/how-do-i-ensure-assets-are-present-with-rail-7-cssbundling-rails-jsbundling-ra
 
 ## Dependencies
 
@@ -70,7 +66,12 @@ yarn build
 yarn build:css
 ```
 
-To change settings for your local development environment, copy your `.env.sample` file to a new file and rename it to `.env.development`. 
+## Running locally
+
+To change settings for your local development environment, copy your `.env.sample` file to a new file and rename it to `.env.development`.
+
+To run the server locally, you can use `bundle exec rails s` or `bin/dev`. The latter will automatically rebuild JS and CSS every time they change,
+although it also has more verbose console output that can make debugging with `binding.p` harder.
 
 ## Tests
 
@@ -119,7 +120,7 @@ screens are filled out in what order, although they do not specify how the scree
 
 #### End-to-end tests
 
-End-to-end tests are held in `spec/end_to_end` and are RSpec `feature` specs. Each test describes a journey from start page to result screen, describing the values that are filled on each screen and, via HTTP stubs, the values that are sent to CFE when loading the result screen.
+End-to-end tests are held in `spec/end_to_end` and are RSpec `feature` specs. Each test describes a journey from start page to result screen, describing the values that are filled on each screen along the way. Some tests test, via HTTP stubs, the values that are sent to CFE when loading the result screen. Some actually send the payload to CFE and test what appears on the results screen, but these must be explicitly enabled by calling `bundle exec rspec -t end2end`
 
 There are end-to-end tests to cover the main categories of journey through the site, but the end-to-end tests are _not_ intended to be comprehensive.
 
