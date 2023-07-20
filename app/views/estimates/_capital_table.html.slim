@@ -7,6 +7,20 @@
   p class="govuk-!-margin-bottom-8"
     = t("#{text}.second")
 
+- if @model.vehicle_owned?
+  - @model.display_household_vehicles.each_with_index do |vehicle, index|
+    - count = index + 1
+    h2 class="govuk-heading-m" = t("estimates.show.vehicles", number: count).to_s
+    = govuk_table do |table|
+      - table.with_body do |body|
+        - vehicle.each do |key, value|
+          - body.with_row do |row|
+            - row.with_cell(header: true, text: t("estimates.show.vehicle.#{key}"))
+            - row.with_cell(text: value, numeric: true)
+        - body.with_row(classes: %w[solid-top-border]) do |row|
+          - row.with_cell(header: true, text: t("estimates.show.vehicle.assessed_value"))
+          - row.with_cell(classes: %w[govuk-!-font-weight-bold], text: @model.household_vehicle_assessed_value(index), numeric: true)
+
 - if @model.client_owns_main_home?
   = render "property_table",
            caption_size:,
@@ -22,21 +36,7 @@
            type: :additional_property,
            counter: index + 1,
            data: property,
-           assessed_value: @model.client_additional_property_assessed_equity
-
-- if @model.vehicle_owned?
-  - @model.display_household_vehicles.each_with_index do |vehicle, index|
-    - count = index + 1
-    h2 class="govuk-heading-m" = t("estimates.show.vehicles", number: count).to_s
-    = govuk_table do |table|
-      - table.with_body do |body|
-        - vehicle.each do |key, value|
-          - body.with_row do |row|
-            - row.with_cell(header: true, text: t("estimates.show.vehicle.#{key}"))
-            - row.with_cell(text: value, numeric: true)
-        - body.with_row(classes: %w[solid-top-border]) do |row|
-          - row.with_cell(header: true, text: t("estimates.show.vehicle.assessed_value"))
-          - row.with_cell(classes: %w[govuk-!-font-weight-bold], text: @model.household_vehicle_assessed_value, numeric: true)
+           assessed_value: @model.client_additional_property_assessed_equity(index)
 
 - @model.partner_additional_property_data.each_with_index do |property, index|
   = render "property_table",
@@ -45,7 +45,7 @@
            type: :additional_property,
            counter: index + 1,
            data: property,
-           assessed_value: @model.partner_additional_property_assessed_equity
+           assessed_value: @model.partner_additional_property_assessed_equity(index)
 
 = render "disposable_capital_table",
         caption_size:,

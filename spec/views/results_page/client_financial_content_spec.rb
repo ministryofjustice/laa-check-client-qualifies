@@ -184,7 +184,7 @@ RSpec.describe "estimates/show.html.slim" do
       expect(page_text).to include "Vehicle 1Value£587.00"
       expect(page_text).to include "Outstanding payments-£234.00"
       expect(page_text).to include "Disregards and deductions-£144.00"
-      expect(page_text).to include "Assessed value£6.00"
+      expect(page_text).to include "Assessed value£3.00"
       expect(page_text).to include "Client's disposable capital"
       expect(page_text).to include "Assessed property valueTotal of home client lives in and any additional property£0.00"
       expect(page_text).to include "Assessed vehicle value£3,000.00"
@@ -231,7 +231,7 @@ RSpec.describe "estimates/show.html.slim" do
         expect(page_text).to include "Disregards and deductions-£144.00"
         expect(page_text).to include "Vehicle 2"
         expect(page_text).to include "Value£3,333.00"
-        expect(page_text).to include "Assessed value£6.00"
+        expect(page_text).to include "Assessed value£3.00"
         expect(page_text).to include "Outstanding payments-£1,111.00"
         expect(page_text).to include "Disregards and deductions-£2,222.00"
       end

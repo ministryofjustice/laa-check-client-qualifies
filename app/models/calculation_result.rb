@@ -194,16 +194,16 @@ class CalculationResult
     monetise(capital_items(:properties).dig(:main_home, :assessed_equity))
   end
 
-  def client_additional_property_assessed_equity
-    monetise(capital_items(:properties)[:additional_properties].first.fetch(:assessed_equity))
+  def client_additional_property_assessed_equity(index)
+    monetise(capital_items(:properties)[:additional_properties][index].fetch(:assessed_equity))
   end
 
-  def partner_additional_property_assessed_equity
-    monetise(partner_capital_items(:properties)[:additional_properties].first.fetch(:assessed_equity))
+  def partner_additional_property_assessed_equity(index)
+    monetise(partner_capital_items(:properties)[:additional_properties][index].fetch(:assessed_equity))
   end
 
-  def household_vehicle_assessed_value
-    monetise(capital_items(:vehicles).sum(0) { _1.fetch(:assessed_value) })
+  def household_vehicle_assessed_value(index)
+    monetise(capital_items(:vehicles)[0][:assessed_value])
   end
 
 private
