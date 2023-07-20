@@ -24,7 +24,13 @@
     h3.govuk-heading-s = t(".self_employment")
     p.govuk-body = t(".unacceptable_client_explanation")
   h3.govuk-heading-s = t(".unacceptable_client_heading_under_18")
-  p.govuk-body
+  - if FeatureFlags.enabled?(:mtr_phase_1, without_session_data: true)
+    p.govuk-body = t(".client_under_18_para_1")
+    ul.govuk-list.govuk-list--bullet
+      - t(".client_under_18_bullets").each do |bullet|
+        li = bullet
+    p.govuk-body = t(".client_under_18_para_2")
+  - else
     - t(".unacceptable_client_explanation_under_18_html").each
       p.govuk-body = _1
   - if FeatureFlags.enabled?(:self_employed, without_session_data: true)
