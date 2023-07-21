@@ -14,6 +14,7 @@
   height: auto;
   width: auto;
   direction: ltr;
+  unicode-bidi: bidi-override;
   background: url(/crest.svg) no-repeat 6px 0;
   background-size: auto 26px;
   padding-top: 25px;
@@ -25,8 +26,6 @@
   position: relative;
   top: 3px;
   font-family: HelveticaNeue, "Helvetica Neue", Arial, Helvetica, sans-serif;
-  direction: ltr;
-  unicode-bidi: bidi-override;
 }
 
 @media print {
