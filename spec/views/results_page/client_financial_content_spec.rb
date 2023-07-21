@@ -158,7 +158,6 @@ RSpec.describe "estimates/show.html.slim" do
 
     it "shows outgoings content" do
       expect(page_text).to match(/Housing payments(.+)£500.00/)
-      expect(page_text).to match(/Childcare payments(.+)£848.00/)
       expect(page_text).to include "Maintenance payments to a former partner£498.00"
       expect(page_text).to include "Payments towards legal aid in a criminal case£41.79"
       expect(page_text).to include "Income tax£5.00"

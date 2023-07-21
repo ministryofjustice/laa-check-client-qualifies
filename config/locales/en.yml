@@ -1040,8 +1040,6 @@ en:
         label: Childcare payments
         hints:
           - "For example, to a childminder, nanny or nursery. Enter 0 if this does not apply."
-        partner_hint: This figure will show as £0.00 unless both your client and their partner are employed or receiving student finance.
-        no_partner_hint: This figure will show as £0.00 unless your client is employed or receiving student finance.
       maintenance_payments:
         label: Maintenance payments to a former partner
         hints:
@@ -1642,7 +1640,7 @@ en:
         dependants_allowance: Dependants allowance
         partner_allowance: Partner allowance
       client_outgoing_hints:
-        childcare_payments: This figure will show as £0.00 unless your client and their partner (if applicable) are employed or receiving student finance
+        childcare_payments: ""
         maintenance_out: ""
         legal_aid: ""
         national_insurance: ""
@@ -1653,7 +1651,7 @@ en:
         housing_costs: Housing costs minus any Housing Benefit payments the household gets
         dependants_allowance: A fixed allowance deducted for each dependant in the household
       partner_outgoing_hints:
-        childcare_payments: This figure will show as £0.00 unless the partner and your client are employed or receiving student finance
+        childcare_payments: ""
         maintenance_out: ""
         legal_aid: ""
         national_insurance: ""

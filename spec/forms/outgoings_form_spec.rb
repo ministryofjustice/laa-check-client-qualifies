@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe "outgoings", type: :feature do
   let(:assessment_code) { :assessment_code }
   let(:level_of_help) { "certificated" }
+  let(:childcare_payments) { "Childcare payments" }
 
   before do
     set_session(assessment_code, "level_of_help" => level_of_help)
@@ -29,8 +30,6 @@ RSpec.describe "outgoings", type: :feature do
   end
 
   it "stores my responses in the session" do
-    fill_in "outgoings-form-childcare-payments-value-field", with: "200"
-    choose "Every month", name: "outgoings_form[childcare_payments_frequency]"
     fill_in "outgoings-form-legal-aid-payments-value-field", with: "300"
     choose "Every month", name: "outgoings_form[legal_aid_payments_frequency]"
     fill_in "outgoings-form-maintenance-payments-value-field", with: "400"
@@ -38,11 +37,36 @@ RSpec.describe "outgoings", type: :feature do
 
     click_on "Save and continue"
 
-    expect(session_contents["childcare_payments_value"]).to eq 200
-    expect(session_contents["childcare_payments_frequency"]).to eq "monthly"
     expect(session_contents["legal_aid_payments_value"]).to eq 300
     expect(session_contents["legal_aid_payments_frequency"]).to eq "monthly"
     expect(session_contents["maintenance_payments_value"]).to eq 400
     expect(session_contents["maintenance_payments_frequency"]).to eq "monthly"
+  end
+
+  it "does not show childcare costs question" do
+    expect(page).not_to have_text(childcare_payments)
+  end
+
+  context "when client is eligible for childcare costs" do
+    before do
+      allow(ChildcareEligibilityService).to receive(:call).and_return true
+      visit "estimates/#{assessment_code}/build_estimates/outgoings"
+    end
+
+    it "shows childcare costs question" do
+      expect(page).to have_text(childcare_payments)
+    end
+
+    it "stores my responses in the session" do
+      fill_in "outgoings-form-childcare-payments-value-field", with: "200"
+      choose "Every month", name: "outgoings_form[childcare_payments_frequency]"
+      fill_in "outgoings-form-legal-aid-payments-value-field", with: "0"
+      fill_in "outgoings-form-maintenance-payments-value-field", with: "0"
+
+      click_on "Save and continue"
+
+      expect(session_contents["childcare_payments_value"]).to eq 200
+      expect(session_contents["childcare_payments_frequency"]).to eq "monthly"
+    end
   end
 end

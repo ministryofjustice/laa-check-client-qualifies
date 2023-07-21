@@ -18,8 +18,6 @@ RSpec.describe "estimates/check_answers.html.slim" do
         let(:session_data) do
           build(:minimal_complete_session,
                 :with_partner,
-                partner_childcare_payments_value: 300,
-                partner_childcare_payments_frequency: "every_four_weeks",
                 partner_maintenance_payments_value: 200,
                 partner_maintenance_payments_frequency: "every_two_weeks",
                 partner_legal_aid_payments_value: 50,
@@ -27,9 +25,24 @@ RSpec.describe "estimates/check_answers.html.slim" do
         end
 
         it "renders content" do
-          expect(text).to include("Childcare payments£300.00Every 4 weeks")
           expect(text).to include("Maintenance payments£200.00Every 2 weeks")
           expect(text).to include("Legal aid payments£50.00Every week")
+        end
+      end
+
+      context "when eligible for childcare outgoings" do
+        let(:session_data) do
+          build(:minimal_complete_session,
+                :with_partner,
+                partner_childcare_payments_value: 200,
+                partner_childcare_payments_frequency: "every_two_weeks",
+                child_dependants: true,
+                partner_student_finance_value: 1,
+                student_finance_value: 1)
+        end
+
+        it "shows childcare" do
+          expect(text).to include("Childcare payments£200.00Every 2 weeks")
         end
       end
 
@@ -38,8 +51,6 @@ RSpec.describe "estimates/check_answers.html.slim" do
           build(:minimal_complete_session,
                 :with_partner,
                 :with_outgoings,
-                partner_childcare_payments_value: 0.0,
-                partner_childcare_payments_frequency: "",
                 partner_maintenance_payments_value: 0.0,
                 partner_maintenance_payments_frequency: "",
                 partner_legal_aid_payments_value: 0.0,
@@ -47,7 +58,6 @@ RSpec.describe "estimates/check_answers.html.slim" do
         end
 
         it "renders content" do
-          expect(text).to include("Childcare payments£0.00")
           expect(text).to include("Maintenance payments£0.00")
           expect(text).to include("Legal aid payments£0.00")
         end

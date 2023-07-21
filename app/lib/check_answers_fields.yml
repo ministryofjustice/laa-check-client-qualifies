@@ -191,6 +191,7 @@ sections:
           - attribute: childcare_payments_value
             type: money_with_frequency
             alt_attribute: childcare_payments_frequency
+            skip_unless: eligible_for_childcare_costs?
           - attribute: maintenance_payments_value
             type: money_with_frequency
             alt_attribute: maintenance_payments_frequency
@@ -203,6 +204,7 @@ sections:
       - fields:
           - attribute: partner_childcare_payments_value
             type: money_with_frequency
+            skip_unless: eligible_for_childcare_costs?
             alt_attribute: partner_childcare_payments_frequency
           - attribute: partner_maintenance_payments_value
             type: money_with_frequency

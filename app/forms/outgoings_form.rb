@@ -17,13 +17,16 @@ class OutgoingsForm
     attribute value_attribute, :gbp
     attribute frequency_attribute, :string
 
-    validates value_attribute, presence: true, numericality: { greater_than_or_equal_to: 0, allow_nil: true }
+    validates value_attribute,
+              presence: true,
+              numericality: { greater_than_or_equal_to: 0, allow_nil: true },
+              if: -> { payment_type != :childcare_payments || eligible_for_childcare_costs? }
     validates frequency_attribute, presence: true,
                                    inclusion: { in: VALID_FREQUENCIES, allow_nil: false },
                                    if: -> { send(value_attribute).to_i.positive? }
   end
 
-  delegate :level_of_help, to: :check
+  delegate :level_of_help, :eligible_for_childcare_costs?, to: :check
 
   def frequencies
     valid_frequencies = level_of_help == "controlled" ? VALID_FREQUENCIES - %w[total] : VALID_FREQUENCIES
