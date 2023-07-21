@@ -110,7 +110,10 @@ class CalculationResult
   end
 
   def client_outgoing_rows
-    outgoing_rows(prefix: "")
+    rows = outgoing_rows(prefix: "")
+    return rows if has_partner?
+
+    rows.merge(household_outgoing_rows)
   end
 
   def partner_outgoing_rows

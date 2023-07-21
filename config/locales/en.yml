@@ -1647,6 +1647,8 @@ en:
         employment_expenses: A fixed allowance if your client gets a salary or wage
         income_tax: ""
         partner_allowance: A fixed allowance if your client has a partner
+        housing_costs: Housing costs minus any Housing Benefit payments your client gets
+        dependants_allowance: A fixed allowance deducted for each dependant your client has
       household_outgoing_hints:
         housing_costs: Housing costs minus any Housing Benefit payments the household gets
         dependants_allowance: A fixed allowance deducted for each dependant in the household
