@@ -9,6 +9,7 @@ class CalculationResult
   def initialize(session_data)
     @api_response = session_data["api_response"].deep_symbolize_keys
     @level_of_help = session_data.fetch("level_of_help", "certificated")
+    @check = Check.new(session_data)
   end
 
   def decision
@@ -261,6 +262,9 @@ private
       national_insurance: employment_deduction(:national_insurance, prefix),
       employment_expenses: employment_deduction(:fixed_employment_deduction, prefix),
     }
+
+    data.delete(:childcare_payments) unless @check.eligible_for_childcare_costs?
+
     partner_allowance = api_response.dig(:result_summary, :"#{prefix}disposable_income", :partner_allowance)
 
     data[:partner_allowance] = partner_allowance if partner_allowance&.positive?
