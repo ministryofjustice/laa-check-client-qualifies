@@ -26,6 +26,7 @@
   top: 3px;
   font-family: HelveticaNeue, "Helvetica Neue", Arial, Helvetica, sans-serif;
   direction: ltr;
+  unicode-bidi: bidi-override;
 }
 
 @media print {
