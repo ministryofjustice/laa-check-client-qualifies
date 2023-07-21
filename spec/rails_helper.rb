@@ -95,6 +95,12 @@ RSpec.configure do |config|
     ENV["PUBLIC_BETA_FEATURE_FLAG"] = "disabled"
   end
 
+  config.around(:each, :index_production_flag) do |example|
+    ENV["INDEX_PRODUCTION_FEATURE_FLAG"] = "enabled"
+    example.run
+    ENV["INDEX_PRODUCTION_FEATURE_FLAG"] = "disabled"
+  end
+
   config.before(:suite) do
     DatabaseCleaner.clean_with :truncation
   end

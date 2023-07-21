@@ -449,7 +449,7 @@ en:
       text: Government Cost of Living Payments and disregarded benefits
       cost_of_living:
         text: Government Cost of Living Payments
-        list:
+        list_html:
           - Government Cost of Living Payments are disregarded from the financial eligibility calculation, for example
           - '&nbsp;'
           - Pensioner Cost of Living Payment
@@ -461,11 +461,11 @@ en:
           - Payments for those who are not served by mains gas
       disregarded:
         text: Disregarded benefits
-        list:
+        list_html:
           - The following benefits are disregarded from the financial eligibility calculation
       disability:
         text: Carer and disability benefits
-        list:
+        list_html:
           - Attendance Allowance
           - Carer’s Allowance
           - Community Care Direct Payments
@@ -480,7 +480,7 @@ en:
           - Welsh Independent Living Grant
       low_income:
         text: Low income benefits
-        list:
+        list_html:
           - Benefit Transfer Advance (Universal Credit)
           - Budgeting Advance
           - Council Tax Reduction
@@ -490,7 +490,7 @@ en:
           - Social Fund payments
       other:
         text: Other benefits
-        list:
+        list_html:
           - Armed Forces Independence Payment
           - Foster Carers Allowance
           - Grenfell Tower Residents’ Discretionary Fund
@@ -1040,8 +1040,6 @@ en:
         label: Childcare payments
         hints:
           - "For example, to a childminder, nanny or nursery. Enter 0 if this does not apply."
-        partner_hint: This figure will show as £0.00 unless both your client and their partner are employed or receiving student finance.
-        no_partner_hint: This figure will show as £0.00 unless your client is employed or receiving student finance.
       maintenance_payments:
         label: Maintenance payments to a former partner
         hints:
@@ -1642,7 +1640,7 @@ en:
         dependants_allowance: Dependants allowance
         partner_allowance: Partner allowance
       client_outgoing_hints:
-        childcare_payments: This figure will show as £0.00 unless your client and their partner (if applicable) are employed or receiving student finance
+        childcare_payments: ""
         maintenance_out: ""
         legal_aid: ""
         national_insurance: ""
@@ -1655,7 +1653,7 @@ en:
         housing_costs: Housing costs minus any Housing Benefit payments the household gets
         dependants_allowance: A fixed allowance deducted for each dependant in the household
       partner_outgoing_hints:
-        childcare_payments: This figure will show as £0.00 unless the partner and your client are employed or receiving student finance
+        childcare_payments: ""
         maintenance_out: ""
         legal_aid: ""
         national_insurance: ""
