@@ -70,6 +70,8 @@ env:
     value: {{ .Values.featureFlags.selfEmployed }}
   - name: PUBLIC_BETA_FEATURE_FLAG
     value: {{ .Values.featureFlags.publicBeta }}
+  - name: INDEX_PRODUCTION_FEATURE_FLAG
+    value: {{ .Values.featureFlags.indexProduction }}
   - name: FEATURE_FLAG_OVERRIDES
     value: {{ .Values.featureFlags.overrides }}
   - name: NOTIFICATIONS_API_KEY

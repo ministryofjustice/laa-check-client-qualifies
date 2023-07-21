@@ -12,7 +12,12 @@ html dir="ltr" lang="en-GB" class="govuk-template"
     = tag.meta name: "viewport", content: "width=device-width, initial-scale=1"
     = tag.meta property: "og:image", content: asset_path("images/govuk-opengraph-image.png")
     = tag.meta name: "theme-color", content: "#0b0c0c"
-    = tag.meta name: "robots", content: "noindex"
+    ruby:
+      index_prod = FeatureFlags.enabled?(:index_production, without_session_data: true) ? "all" : "noindex"
+    = tag.meta name: "robots", content: index_prod.to_s
+
+    - if ENV["PRIMARY_HOST"].present?
+      link[rel="canonical" href="#{"https://#{ENV['PRIMARY_HOST']}#{url_for(only_path: true)}"}"]
 
     = favicon_link_tag asset_path("images/favicon.ico")
     = favicon_link_tag asset_path("images/govuk-mask-icon.svg"), rel: "mask-icon", type: "image/svg", color: "#0b0c0c"
