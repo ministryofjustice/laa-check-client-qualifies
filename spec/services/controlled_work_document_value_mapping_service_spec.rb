@@ -123,6 +123,18 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       expect(result).to include(representative_sample)
     end
 
+    it "can successfully populate CIVMEANS7 form (MTR Phase 1)" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/civ_means_7_mtr_phase_1.yml")).map(&:with_indifferent_access)
+      result = described_class.call(session_data, mappings)
+      representative_sample = {
+        "Passported" => "No",
+        "FillText36" => "110,000", # Client's share of total net equity
+        "FillText57" => "90,000", # Main home / outstanding mortgage
+        "FillText56" => "250,000", # Main home / current market value
+      }
+      expect(result).to include(representative_sample)
+    end
+
     it "can successfully populate CW1-and-2 form (MTR Phase 1)" do
       mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_and_2_mtr_phase_1.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
