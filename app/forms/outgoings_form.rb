@@ -26,14 +26,10 @@ class OutgoingsForm
                                    if: -> { send(value_attribute).to_i.positive? }
   end
 
-  delegate :level_of_help, to: :check
+  delegate :level_of_help, :eligible_for_childcare_costs?, to: :check
 
   def frequencies
     valid_frequencies = level_of_help == "controlled" ? VALID_FREQUENCIES - %w[total] : VALID_FREQUENCIES
     valid_frequencies.map { [_1, I18n.t("estimate_flow.outgoings.frequencies.#{_1}")] }
-  end
-
-  def eligible_for_childcare_costs?
-    @eligible_for_childcare_costs ||= ChildcareEligibilityService.call(check)
   end
 end

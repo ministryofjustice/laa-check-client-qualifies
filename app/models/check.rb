@@ -96,4 +96,8 @@ class Check
   def partner_self_employed?
     partner_incomes && partner_incomes.any? { _1.income_type == "self_employment" }
   end
+
+  def eligible_for_childcare_costs?
+    ChildcareEligibilityService.call(self)
+  end
 end
