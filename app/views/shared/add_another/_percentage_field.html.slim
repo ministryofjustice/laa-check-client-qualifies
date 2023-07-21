@@ -1,0 +1,41 @@
+/ Required:
+/ errors
+/ form_name
+/ model_name
+/ field_name
+/ counter
+/ label
+/ value
+
+/ Optional:
+/ hint
+/ label_size
+ruby:
+  hint ||= nil
+  label_size ||= nil
+  id_pattern = errors.any? ? "#{form_name.dasherize}-items-ID-#{field_name.dasherize}-field-error" : "ID-#{field_name.dasherize}"
+  name_pattern = "#{model_name}[items][ID][#{field_name}]"
+
+.govuk-form-group class=("govuk-form-group--error" if errors.any?)
+  label.govuk-label [for=id_pattern.gsub("ID", counter.to_s)
+                     class=("govuk-label--#{label_size}" if label_size)
+                     data-add-another-dynamic-elements="for:#{id_pattern}"] = label
+  - if hint
+    .govuk-hint = hint
+  - elsif block_given?
+    = yield
+  - if errors.any?
+    p.govuk-error-message
+      span.govuk-visually-hidden = t("generic.error_prefix")
+      = errors.first
+  .govuk-input__wrapper
+    input.govuk-input.govuk-input--width-3 [
+      inputmode="numeric"
+      type="text"
+      name=name_pattern.gsub("ID", counter.to_s)
+      data-add-another-dynamic-elements="id:#{id_pattern},name:#{name_pattern}"
+      id=id_pattern.gsub("ID", counter.to_s)
+      value=as_money_string(value)
+      class=("govuk-input--error" if errors.any?)
+    ]
+    span.govuk-input__suffix aria-hidden="true" = "%"

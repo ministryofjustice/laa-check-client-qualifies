@@ -52,4 +52,10 @@ private
   def force_setting_of_session_cookie
     session["arbitrary_key"] ||= ""
   end
+
+  def redirect_to_primary_host
+    return if ENV["PRIMARY_HOST"].blank? || ENV["PRIMARY_HOST"] == request.host
+
+    redirect_to [request.protocol, ENV["PRIMARY_HOST"], request.fullpath].join, allow_other_host: true
+  end
 end

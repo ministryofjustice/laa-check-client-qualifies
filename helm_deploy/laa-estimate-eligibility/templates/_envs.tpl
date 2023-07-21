@@ -46,8 +46,6 @@ env:
     value: 'true'
   - name: RAILS_LOG_TO_STDOUT
     value: 'true'
-  - name: HOST
-    value: {{ .Values.deploy.host }}
   - name: SENTRY_DSN
     valueFrom:
       secretKeyRef:
@@ -119,5 +117,7 @@ env:
         key: feature-flags-password
   - name: CSP_REPORT_ENDPOINT
     value: {{ .Values.sentry.cspReportEndpoint }}
+  - name: PRIMARY_HOST
+    value: {{ .Values.app.primaryHost }}
 
 {{- end }}

@@ -4,36 +4,6 @@
   = back_link(:partner_additional_property_details, @check, @back_buttons_invoke_browser_back_behaviour)
 
 .govuk-grid-column-two-thirds
-  = form_for(@form, url: wizard_path, method: :put) do |form|
-
-    = form.govuk_error_summary t("generic.error_summary_title")
-    = render "shared/heading",
-             header_text: t(".heading"),
-             post_header_text: t(".hint"),
-             tag: :partner
-
-    = render "shared/money_input_with_hint",
-            form:,
-            field: :house_value,
-            width: 10,
-            label_text: t(".house_value.input"),
-            hint_text: t("estimate_flow.property_entry.house_value.input_hint_#{@check.level_of_help}")
-
-    - if @form.owned_with_mortgage?
-      = render "shared/money_input_with_hint",
-              form:,
-              field: :mortgage,
-              width: 10,
-              label_text: t(".mortgage.input"),
-              hint_text: t(".mortgage.input_hint")
-
-    = render "shared/percentage_input",
-              form:,
-              field: :percentage_owned,
-              width: 3,
-              label_text: t(".percentage_owned.input"),
-              size: "m"
-
-    = form.govuk_submit t("generic.save_and_continue")
+  = render "estimate_flow/forms/additional_property_details", i18n_key: "partner_additional_property_details"
 
 = render "additional_property_sidebar", level_of_help: @check.level_of_help, smod_applicable: false

@@ -21,7 +21,6 @@ Rails.application.routes.draw do
   resource :help, only: :show
   resources :feature_flags, only: %i[index edit update], path: "feature-flags"
 
-  get "/health-including-dependents", to: "status#health"
   get "/no-analytics", to: "cookies#no_analytics_mode"
   get "instant-:session_type", to: "instant_sessions#create"
 

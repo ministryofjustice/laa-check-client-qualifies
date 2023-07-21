@@ -15,8 +15,8 @@ RSpec.describe "property_entry", type: :feature do
   end
 
   it "stores my responses in the session" do
-    fill_in "client-property-entry-form-house-value-field", with: "100000"
-    fill_in "client-property-entry-form-percentage-owned-field", with: "10"
+    fill_in "property-entry-form-house-value-field", with: "100000"
+    fill_in "property-entry-form-percentage-owned-field", with: "10"
     check "This asset is a subject matter of dispute"
     click_on "Save and continue"
 
@@ -29,12 +29,12 @@ RSpec.describe "property_entry", type: :feature do
     let(:session) { { "level_of_help" => "controlled", "property_owned" => "with_mortgage" } }
 
     before do
-      fill_in "client-property-entry-form-house-value-field", with: "100000"
-      fill_in "client-property-entry-form-percentage-owned-field", with: "10"
+      fill_in "property-entry-form-house-value-field", with: "100000"
+      fill_in "property-entry-form-percentage-owned-field", with: "10"
     end
 
     it "allows me to specify mortgage size" do
-      fill_in "client-property-entry-form-mortgage-field", with: "50000"
+      fill_in "property-entry-form-mortgage-field", with: "50000"
       click_on "Save and continue"
 
       expect(session_contents["mortgage"]).to eq 50_000

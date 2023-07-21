@@ -320,7 +320,7 @@ en:
         provider_user:
           attributes:
             blank: Select yes if you give legal advice or provide legal services
-        client_property_entry_form:
+        property_entry_form:
           attributes:
             house_value:
               blank: Enter how much the home they live in is worth
@@ -356,31 +356,18 @@ en:
               greater_than: Mortgage or loan payments must be 0 or more.
             housing_payments_loan_frequency:
               blank: Select frequency of mortgage payments.
-        additional_property_details_form:
+        additional_property_model:
           attributes:
             house_value:
               blank: Enter how much the property is worth
-              greater_than: Your client's property must be worth more than 0
-              not_a_number: How much your client's property is worth must be a number
+              greater_than: The property must be worth more than 0
+              not_a_number: How much the property is worth must be a number
             mortgage:
-              blank: Enter how much is left to pay on the mortgage
-              greater_than: The amount left to pay on the mortgage must be more than 0
-              not_a_number: The amount left to pay on the mortgage must be a number
-            percentage_owned:
-              blank: Enter the percentage share that they own of the property
-              within_range: The percentage that they own of the property must be between 1 and 100
-              not_a_number: The percentage that they own of the property must be a number between 1 and 100
-              not_an_integer: The percentage that they own of the property must be a whole number
-        partner_additional_property_details_form:
-          attributes:
-            house_value:
-              blank: Enter how much the property is worth
-              greater_than: The partner's property must be worth more than 0
-              not_a_number: How much the partner's property is worth must be a number
-            mortgage:
-              blank: Enter how much is left to pay on the mortgage
-              greater_than: The amount left to pay on the mortgage must be more than 0
-              not_a_number: The amount left to pay on the mortgage must be a number
+              blank: Enter the outstanding mortgage on the property, holiday home or land
+              greater_than: Outstanding mortgage cannot be 0
+              not_a_number: Outstanding mortgage must be a number
+            inline_owned_with_mortgage:
+              inclusion: Select yes if there is an outstanding mortgage on the property, holiday home or land
             percentage_owned:
               blank: Enter the percentage share that they own of the property
               within_range: The percentage that they own of the property must be between 1 and 100
@@ -1251,14 +1238,18 @@ en:
     additional_property_details:
       heading: Client’s other property, holiday home or land
       hint: If your client and their partner share other property, a holiday home or land, include this here
+      additional_property: Other property, holiday home or land
       house_value:
         input: How much is the property, holiday home or land worth?
       mortgage:
+        radio_label: Is there an outstanding mortgage on the property, holiday home or land?
+        conditional_reveal_label: Enter the value of the outstanding mortgage
         input: How much is left to pay on the mortgage?
-        input_hint: Check the statement from the mortgage provider or lender and include any other loans secured against the property
+        hint: Check the statement from the mortgage provider or lender and include any other loans secured against the property
       percentage_owned:
         input: What percentage share does your client own?
-        input_hint: If the property, holiday home or land is shared with the partner, add the percentage the client and partner own together. We do not need to know what percentage each of them owns.
+        hint: If the property, holiday home or land is shared with the partner, add the percentage the client and partner own together. We do not need to know what percentage each of them owns.
+      add: Add another property, holiday home or land
     partner_additional_property_details:
       heading: The partner's other property, holiday home or land
       hint: Do not add property, a holiday home or land you’ve already told us about
@@ -1475,27 +1466,20 @@ en:
         mortgage: Outstanding mortgage
         percentage_owned: Percentage share owned
       client_additional_property: Client other property
-      client_additional_property_fields:
+      additional_property_fields:
         additional_property_owned: Owns other property
         additional_property_owned_options:
           outright: "Yes, owned outright"
           with_mortgage: "Yes, with a mortgage or loan"
           none: "No"
           not_provided: Not provided
-        additional_house_value: Estimated value
-        additional_mortgage: Outstanding mortgage
-        additional_percentage_owned: Percentage share owned
+        house_value: Estimated value
+        mortgage: Outstanding mortgage
+        owned_with_mortgage: Outstanding mortgage on the property
+        inline_mortgage: Value of outstanding mortgage
+        percentage_owned: Percentage share owned
+        other_property: Other property %{number}
       partner_additional_property: Partner other property
-      partner_additional_property_fields:
-        partner_additional_property_owned: Owns other property
-        partner_additional_property_owned_options:
-          outright: "Yes, owned outright"
-          with_mortgage: "Yes, with a mortgage or loan"
-          none: "No"
-          not_provided: Not provided
-        partner_additional_house_value: Estimated value
-        partner_additional_mortgage: Outstanding mortgage
-        partner_additional_percentage_owned: Percentage share owned
       frequency_options:
         every_week: Every week
         every_two_weeks: Every 2 weeks
@@ -1767,8 +1751,8 @@ en:
         loan_amount_outstanding: Outstanding payments
         disregards_and_deductions: Disregards and deductions
       total_assessed_capital: Total assessed disposable capital
-      client_additional_property: Client's additional property
-      partner_additional_property: Partner's additional property
+      client_additional_property: Client other property %{counter}
+      partner_additional_property: Partner other property %{counter}
       capital_upper_threshold: Disposable capital upper limit
       total: Total
       pensioner_disregard: 60 or over disregard (also known as pensioner disregard)
@@ -1888,6 +1872,12 @@ en:
       unacceptable_client_explanation_under_18_html:
         - For controlled work, the finances of applicants under 18 are only assessed if they are maintained or cared for by somebody who can also be included in the means assessment. Page 32 of the <a href='https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1157029/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_controlled_work_and_family_mediation_May_2023.pdf#page=32' target='_blank'>Lord Chancellor’s guidance (opens in a new tab)</a> has more details about how to assess a child’s means.
         - For certificated work, see page 94 of the <a href='https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1157030/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_certificated_work_May_2023__002_.pdf#page=94' target='_blank'>Lord Chancellor’s guidance (opens in a new tab)</a> for more details about when and how to assess a child’s means.
+      client_under_18_para_1: "Clients aged under 18 do not need a means assessment for controlled work matters unless one of the following applies:"
+      client_under_18_bullets:
+        - their means are aggregated with another person’s, like a parent or guardian
+        - they get regular income, like payment from a job
+        - they have capital worth more than £2,500
+      client_under_18_para_2: "For certificated work matters, clients aged under 18 do not need a means test."
       case_types: Case types
       case_types_intro: "This must be for a case that would be:"
       valid_case_types:
@@ -2070,30 +2060,26 @@ en:
         - navigate most of the website using speech recognition software
         - listen to most of the website using a screen reader (including the most recent versions of JAWS, NVDA and VoiceOver)
       p1_extra_text: We’ve also made the website text as simple as possible to understand.
-      p1_extra_html: "<a href='https://mcmw.abilitynet.org.uk/'>AbilityNet</a> has advice on making your device easier to use if you have a disability."
-      headed_paragraph:
-        heading: How accessible this website is
-        text_html:
-          - "This website is fully compliant with levels A, AA and AAA of the Web Content Accessibility Guidelines – WCAG 2.1."
+      p1_extra_html: "<a href='https://mcmw.abilitynet.org.uk/' target='_blank' rel='noreferrer noopener'>AbilityNet</a> has advice on making your device easier to use if you have a disability."
       p12_heading: Reporting accessibility problems with this website
-      p12_html: "We’re always looking to improve the accessibility of this website. If you find any problems not listed on this page or think we’re not meeting accessibility requirements, contact us by email at eligibility@justice.gov.uk."
+      p12_html: "We’re always looking to improve the accessibility of this website. If you find any problems not listed on this page or think we’re not meeting accessibility requirements, contact us by email at <a href='mailto:eligibility@justice.gov.uk'>eligibility@justice.gov.uk</a>."
       p13_heading: Enforcement procedure
       p13_text:
         - "The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the ‘accessibility regulations’)."
-      p13_html: If you’re not happy with how we respond to your complaint, <a rel="external" href="https://www.equalityadvisoryservice.com/">contact the Equality Advisory and Support Service (<abbr title="Equality Advisory and Support Service">EASS</abbr>)</a>.
+      p13_html: If you’re not happy with how we respond to your complaint, <a rel="external" href="https://www.equalityadvisoryservice.com/" target='_blank' rel='noreferrer noopener'>contact the Equality Advisory and Support Service (<abbr title="Equality Advisory and Support Service">EASS</abbr>)</a>.
       p14_heading: Contacting us
-      p14_html: "Contact us by email at eligibility@justice.gov.uk."
+      p14_html: "Contact us by email at <a href='mailto:eligibility@justice.gov.uk'>eligibility@justice.gov.uk</a>."
       headed_paragraph2:
         heading: Technical information about this website’s accessibility
         text_html:
           - "The Legal Aid Agency is committed to making its websites accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018."
       p31_heading: Compliance status
-      p31_html: This website is fully compliant with the <a href="https://www.w3.org/TR/WCAG21/">Web Content Accessibility Guidelines version 2.1</a> AA Standard.
+      p31_html: This website is fully compliant with levels A, AA and AAA of the <a href="https://www.w3.org/TR/WCAG21/" target='_blank' rel='noreferrer noopener'>Web Content Accessibility Guidelines version 2.1</a>.
       headed_paragraph4:
         heading: Preparation of this accessibility statement
         text_html:
           - This statement was prepared on 12 December 2022. It was last reviewed on 10 January 2023.
-          - This website was last tested on 4 January 2023. The test was carried out by <a href="https://digitalaccessibilitycentre.org">Digital Accessibility Centre (DAC)</a>.
+          - This website was last tested on 4 January 2023. The test was carried out by <a href="https://digitalaccessibilitycentre.org" target='_blank' rel='noreferrer noopener'>Digital Accessibility Centre (DAC)</a>.
   cost_of_living_details:
     header: Government Cost of Living Payments
     text: Government Cost of Living Payments are disregarded from the financial eligibility calculation, for example
@@ -2141,6 +2127,14 @@ en:
         - "CW2IMM: controlled legal representation (Immigration)"
         - "CW5: financial eligibility form for clients wanting family mediation"
         - "CIVMEANS7: financial assessment for family mediation"
+    mtr_phase_1:
+      header: Changes for clients aged under 18
+      para_1: "From 3 August 2023, clients aged under 18 will not need a means assessment for controlled work matters unless (one of the following applies):"
+      bullets:
+        - their means are aggregated with another person’s, like a parent or guardian
+        - they get regular income, like payment from a job
+        - they have capital worth more than £2,500
+      para_2: "For certificated work matters, clients aged under 18 do not need a means test."
   controlled_work_document_selections:
     new:
       title: Which controlled work (CW) form do you need?

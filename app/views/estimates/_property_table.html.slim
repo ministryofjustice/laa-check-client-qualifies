@@ -1,4 +1,5 @@
-h2 class="govuk-heading-#{caption_size}" = t("estimates.show.#{person}_#{type}")
+- counter ||= nil
+h2 class="govuk-heading-#{caption_size}" = t("estimates.show.#{person}_#{type}", counter:)
 = govuk_table do |table|
   - table.with_body do |body|
     - case data[:type]

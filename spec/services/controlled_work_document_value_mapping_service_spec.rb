@@ -106,6 +106,18 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       }
       expect(result).to include(representative_sample)
     end
+
+    it "can successfully populate CW1-and-2 form (MTR Phase 1)" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_and_2_mtr_phase_1.yml")).map(&:with_indifferent_access)
+      result = described_class.call(session_data, mappings)
+      representative_sample = {
+        "Client has a partner whose means are to be aggregated" => "Yes",
+        "Passported" => "No",
+        "FillText6" => "90,000", # Main home / outstanding mortgage
+        "FillText5" => "250,000", # Main home / current market value
+      }
+      expect(result).to include(representative_sample)
+    end
   end
 
   context "with disputed main home and additional property" do
@@ -115,10 +127,9 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
         :with_main_home,
         house_in_dispute: true,
         additional_property_owned: "outright",
-        additional_house_in_dispute: true,
         api_response: FactoryBot.build(:api_result,
                                        main_home: FactoryBot.build(:property_api_result, value: 250_000.11),
-                                       additional_property: FactoryBot.build(:property_api_result, value: 100_000.22)).with_indifferent_access,
+                                       additional_property: FactoryBot.build(:property_api_result, value: 100_000.22, subject_matter_of_dispute: true)).with_indifferent_access,
       )
     end
 
@@ -219,14 +230,14 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
         investments: 222,
         valuables: 555,
         additional_property_owned: "outright",
-        additional_house_in_dispute: true,
         investments_in_dispute: true,
         valuables_in_dispute: true,
         api_response: FactoryBot.build(:api_result,
                                        main_home: FactoryBot.build(:property_api_result, value: 250_000),
                                        additional_property: FactoryBot.build(:property_api_result,
                                                                              outstanding_mortgage: 120_000,
-                                                                             percentage_owned: 75)).with_indifferent_access,
+                                                                             percentage_owned: 75,
+                                                                             subject_matter_of_dispute: true)).with_indifferent_access,
       )
     end
 

@@ -10,7 +10,7 @@ class VehiclesDetailsForm
   alias_attribute :vehicles, :items
 
   class << self
-    def add_extra_attributes_to_model_from_session(vehicle_model, session_data)
+    def add_extra_attributes_to_model_from_session(vehicle_model, session_data, _)
       check = Check.new(session_data)
       vehicle_model.smod_applicable = check.smod_applicable?
     end

@@ -62,12 +62,4 @@ RSpec.describe CfeConnection do
       expect(connection.state_benefit_types).to eq []
     end
   end
-
-  describe "status" do
-    it "returns what CFE provides" do
-      stub_request(:get, %r{healthcheck\z})
-         .to_return(status: 200, body: { checks: { database: true } }.to_json, headers: { "Content-Type" => "application/json" })
-      expect(connection.status).to eq({ database: true })
-    end
-  end
 end

@@ -63,21 +63,13 @@ class Check
       bank_accounts.any?(&:account_in_dispute) ||
       investments_in_dispute ||
       valuables_in_dispute ||
-      additional_house_in_dispute ||
+      additional_properties&.any?(&:house_in_dispute) ||
       vehicles&.any?(&:vehicle_in_dispute) ||
       false
   end
 
   def property_owned_with_mortgage?
     property_owned == "with_mortgage"
-  end
-
-  def additional_property_owned_with_mortgage?
-    additional_property_owned == "with_mortgage"
-  end
-
-  def partner_additional_property_owned_with_mortgage?
-    partner_additional_property_owned == "with_mortgage"
   end
 
   def self_employed_flag_enabled?

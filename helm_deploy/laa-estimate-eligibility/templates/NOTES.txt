@@ -1,4 +1,4 @@
 URL(s):
 {{- range .Values.ingress.hosts }}
-  https://{{ . }}
+  https://{{ .host }}
 {{- end }}
