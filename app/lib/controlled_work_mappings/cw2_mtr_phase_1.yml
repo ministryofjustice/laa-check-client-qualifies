@@ -1,0 +1,261 @@
+# This file defines the mappings used to prepopulate a CW2 IMM PDF form with the answers given by a user to CCQ's questions
+# combined with the output from CFE.
+
+# The mappings conform to the format described in ControlledWorkDocumentValueMappingService
+
+# Does the client have a partner whose means are to be aggregated?
+  - name: Partner
+    type: boolean_radio
+    source: aggregate_partner?
+    yes_value: "Yes"
+    no_value: "No"
+
+# The client is directly or indirectly in receipt of NASS payment (Immigration and Asylum category work only)
+  - name: In receipt os NASS payment
+    type: boolean_radio
+    source: asylum_support?
+    yes_value: "Yes"
+    no_value: "No"
+
+# Main home / current market value
+  - name: FillText44
+    type: text
+    source: main_home_value
+
+# Main home / outstanding mortgage
+  - name: FillText60
+    type: text
+    source: main_home_outstanding_mortgage
+
+# Other property / current market value
+  - name: FillText61
+    type: text
+    source: additional_properties_value
+
+# Other property / outstanding mortgage
+  - name: FillText65
+    type: text
+    source: additional_properties_mortgage
+
+# Main Home - Client's share of property for assessment?
+  - name: FillText66
+    type: text
+    source: main_home_percentage_owned
+
+# Other Property - Client's share of property for assessment?
+  - name: FillText62
+    type: text
+    source: additional_properties_percentage_owned
+
+# Main Home - Total Net Equity (i.e. current market value minus mortgage disregard)
+  - name: FillText67
+    type: text
+    source: main_home_net_value
+
+# Other Property - Total Net Equity (i.e. current market value minus mortgage disregard)
+  - name: FillText68
+    type: text
+    source: additional_properties_net_value
+
+# Main Home - Client's share of Total Net Equity
+  - name: FillText69
+    type: text
+    source: main_home_net_equity
+
+# Other Property - Client's share of Total Net Equity
+  - name: FillText70
+    type: text
+    source: additional_properties_net_equity
+
+# Main Home - Final assessed amount of Client's equity
+  - name: FillText71
+    type: text
+    source: main_home_assessed_equity
+
+# Other Property - Final assessed amount of Client's equity
+  - name: FillText72
+    type: text
+    source: additional_properties_assessed_equity
+
+# Client - Savings (bank, building society, etc)
+  - name: FillText2
+    type: text
+    source: savings
+
+# Partner - Savings (bank, building society, etc)
+  - name: FillText37
+    type: text
+    source: partner_savings
+
+# Client - Investments (shares, insurance policies, etc)
+  - name: FillText6
+    type: text
+    source: investments
+
+# Partner - Investments (shares, insurance policies, etc)
+  - name: FillText38
+    type: text
+    source: partner_investments
+
+# Client - Valuable items (boat, caravan, jewellery, etc)
+  - name: FillText11
+    type: text
+    source: valuables
+
+# Partner - Valuable items (boat, caravan, jewellery, etc)
+  - name: FillText39
+    type: text
+    source: partner_valuables
+
+# Total Capital
+  - name: FillText43
+    type: text
+    source: combined_assessed_capital
+
+# The client is directly or indirectly in receipt of Income Support, Income-based Jobseeker's Allowance,
+# Income-related Employment and Support Allowance, Guarantee Credit or Universal Credit - Yes option
+  - name: Passported
+    type: boolean_radio
+    source: passporting
+    yes_value: "Yes"
+    no_value: "No"
+
+# Client - Gross monthly earnings
+  - name: FillText82
+    type: text
+    source: client_gross_income
+
+# Partner - Gross monthly earnings
+  - name: FillText83
+    type: text
+    source: partner_gross_income
+
+# Client - Other income (including child benefit, pensions, maintenance, dividends, tax credits, benefits in kind, etc)
+  - name: FillText84
+    type: text
+    source: client_non_employment_income
+
+# Partner - Other income (including child benefit, pensions, maintenance, dividends, tax credits, benefits in kind, etc)
+  - name: FillText85
+    type: text
+    source: partner_non_employment_income
+
+# Client - Total gross income
+  - name: FillText86
+    type: text
+    source: client_total_income
+
+# Partner - Total gross income
+  - name: FillText90
+    type: text
+    source: partner_total_income
+
+# Total gross income (Client and Partner)
+  - name: FillText93
+    type: text
+    source: total_combined_income
+
+# Client - Housing Costs - Mortgage instalment
+  - name: FillText120
+    type: text
+    source: client_mortgage
+
+# Client - Housing Costs - Rent
+  - name: FillText122
+    type: text
+    source: client_rent
+
+# Dependent's allowances - Partner
+  - name: FillText100
+    type: text
+    source: partner_allowance
+
+# Dependents Aged 15 and under
+  - name: FillText48
+    type: text
+    source: dependants_allowance_under_16
+
+# Dependents Aged 16 or over
+  - name: FillText49
+    type: text
+    source: dependants_allowance_over_16
+
+# Client - Tax and National Insurance
+  - name: FillText63
+    type: text
+    source: client_tax_and_national_insurance
+
+# Client - Standard allowance for employment expenses
+  - name: FillText50
+    type: text
+    source: client_employment_deduction
+
+# Client - Maintenance payments actually being made
+  - name: FillText113
+    type: text
+    source: client_maintenance_allowance
+
+# Childcare costs because of work/self employment
+  - name: FillText115
+    type: text
+    source: combined_childcare_costs
+
+# Client - Payment of income contribution order (criminal legal aid)
+  - name: FillText124
+    type: text
+    source: client_legal_aid_contribution
+
+# Client - Total Allowances
+  - name: FillText116
+    type: text
+    source: client_total_allowances
+
+# Client - Total monthly disposable income
+  - name: FillText118
+    type: text
+    source: client_disposable_income
+
+# Partner - Housing Costs - Mortgage instalment
+  - name: FillText121
+    type: text
+    source: partner_mortgage
+
+# Partner - Housing Costs - Rent
+  - name: FillText123
+    type: text
+    source: partner_rent
+
+# Partner - Tax and National Insurance
+  - name: FillText64
+    type: text
+    source: partner_tax_and_national_insurance
+
+# Partner - Standard allowance for employment expenses
+  - name: FillText112
+    type: text
+    source: partner_employment_deduction
+
+# Partner - Maintenance payments actually being made
+  - name: FillText114
+    type: text
+    source: partner_maintenance_allowance
+
+# Partner - Payment of income contribution order (criminal legal aid)
+  - name: FillText125
+    type: text
+    source: partner_legal_aid_contribution
+
+# Partner - Total Allowances
+  - name: FillText117
+    type: text
+    source: partner_total_allowances
+
+# Partner - Total monthly disposable income
+  - name: FillText51
+    type: text
+    source: partner_disposable_income
+
+# Total monthly disposable income (Client and Partner)
+  - name: FillText119
+    type: text
+    source: combined_disposable_income
