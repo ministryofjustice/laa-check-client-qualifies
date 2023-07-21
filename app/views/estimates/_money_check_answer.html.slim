@@ -1,6 +1,5 @@
-- path ||= nil
 .govuk-summary-list__row id="#{label_text.parameterize}"
-  dt.govuk-summary-list__key
+  dt.govuk-summary-list__key.wide
     = label_text
 
   dd.govuk-summary-list__value
@@ -8,10 +7,7 @@
       = t("generic.not_applicable")
     - else
       = "&pound;".html_safe + format_money(value_text)
-
-  dd.govuk-summary-list__actions
-    - if disputed_asset
+  - if disputed_asset
+    dd.govuk-summary-list__actions
       span.moj-badge.moj-badge--blue.moj-badge--large
         = t("generic.disputed_asset")
-    - elsif path
-      = link_to(t("generic.change"), path, class: "govuk-link")

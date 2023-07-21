@@ -23,7 +23,7 @@ module Steps
       end
 
       def valid_step?(session_data, step)
-        steps_list_for(session_data).include?(step)
+        steps_list_for(session_data).include?(step.to_sym)
       end
 
       def first_step

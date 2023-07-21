@@ -1,10 +1,10 @@
 require "rails_helper"
 
 RSpec.describe "estimates/check_answers.html.slim" do
-  let(:answers) { CheckAnswersPresenter.new(session_data) }
+  let(:sections) { CheckAnswers::SectionListerService.call(session_data) }
 
   before do
-    assign(:answers, answers)
+    assign(:sections, sections)
     params[:id] = :id
     allow(view).to receive(:form_with)
     render template: "estimates/check_answers"
@@ -29,7 +29,7 @@ RSpec.describe "estimates/check_answers.html.slim" do
         let(:matter_type) { "immigration" }
 
         it "renders the correct case matter type" do
-          expect(page_text).to include("Type of matterImmigration in the Upper Tribunal")
+          expect(page_text).to include("Which type of matter is this?Immigration (Upper Tribunal)")
         end
       end
 
@@ -37,7 +37,7 @@ RSpec.describe "estimates/check_answers.html.slim" do
         let(:matter_type) { "asylum" }
 
         it "renders the correct case matter type" do
-          expect(page_text).to include("Type of matterAsylum in the Upper Tribunal")
+          expect(page_text).to include("Which type of matter is this?Asylum (Upper Tribunal)")
         end
       end
     end
@@ -56,12 +56,13 @@ RSpec.describe "estimates/check_answers.html.slim" do
         let(:asylum_support) { true }
 
         it "renders the correct case matter type" do
-          expect(page_text).to include("Type of matterImmigration – CLR in the First-tier Tribunal")
+          expect(page_text).to include("Is this an immigration or asylum matter?Yes")
+          expect(page_text).to include("What type of immigration or asylum matter is this?Immigration - controlled legal representation (CLR) in the First-tier Tribunal")
         end
 
         context "and asylum support is true" do
           it "renders the correct content" do
-            expect(page_text).to include("Receives asylum supportYes")
+            expect(page_text).to include("Does your client get asylum support?Yes")
           end
         end
 
@@ -69,7 +70,7 @@ RSpec.describe "estimates/check_answers.html.slim" do
           let(:asylum_support) { false }
 
           it "renders the correct content" do
-            expect(page_text).to include("Receives asylum supportNo")
+            expect(page_text).to include("Does your client get asylum support?No")
           end
         end
       end
@@ -79,12 +80,13 @@ RSpec.describe "estimates/check_answers.html.slim" do
         let(:asylum_support) { true }
 
         it "renders the correct case matter type" do
-          expect(page_text).to include("Type of matterAsylum")
+          expect(page_text).to include("Is this an immigration or asylum matter?Yes")
+          expect(page_text).to include("What type of immigration or asylum matter is this?Asylum - legal help, help at court, or controlled legal representation (CLR) in the First-tier Tribunal")
         end
 
         context "and asylum support is true" do
           it "renders the correct content" do
-            expect(page_text).to include("Receives asylum supportYes")
+            expect(page_text).to include("Does your client get asylum support?Yes")
           end
         end
 
@@ -92,7 +94,7 @@ RSpec.describe "estimates/check_answers.html.slim" do
           let(:asylum_support) { false }
 
           it "renders the correct content" do
-            expect(page_text).to include("Receives asylum supportNo")
+            expect(page_text).to include("Does your client get asylum support?No")
           end
         end
       end
