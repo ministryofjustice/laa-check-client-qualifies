@@ -3,7 +3,7 @@ class ChangeLogs
     { key: :household_flow, change_on: "2023-6-6" },
     { key: :special_applicants, change_on: "2023-6-15" },
     { key: :cw_forms, change_on: "2023-7-10" },
-    { key: :self_employed, change_on: "2023-7-24" },
+    { key: :self_employed, change_on: "2023-7-25" },
   ].freeze
 
   BANNERS = [
