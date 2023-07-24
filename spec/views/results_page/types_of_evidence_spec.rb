@@ -20,7 +20,7 @@ RSpec.describe "estimates/show.html.slim" do
       render template: "estimates/show"
     end
 
-    context "when eligible for certificated work with self employed and SPAG flags enabled", :special_applicant_groups_flag, :self_employed_flag do
+    context "when eligible for certificated work with self employed flag enabled", :self_employed_flag do
       let(:level_of_help) { "certificated" }
       let(:api_response) { FactoryBot.build(:api_result, eligible: "eligible") }
 
@@ -31,7 +31,7 @@ RSpec.describe "estimates/show.html.slim" do
       end
     end
 
-    context "when eligible for certificated work with only SPAG flag enabled", :special_applicant_groups_flag do
+    context "when eligible for certificated work without self employed flag enabled" do
       let(:level_of_help) { "certificated" }
       let(:api_response) { FactoryBot.build(:api_result, eligible: "eligible") }
 

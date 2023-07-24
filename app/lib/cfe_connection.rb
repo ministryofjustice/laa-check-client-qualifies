@@ -2,11 +2,6 @@ class CfeConnection
   CFE_HOST = Rails.configuration.check_financial_eligibility_host
 
   class << self
-    def status
-      response = cfe_connection.get("healthcheck")
-      response.body.deep_symbolize_keys.fetch(:checks)
-    end
-
     def state_benefit_types
       cfe_connection.get("state_benefit_type").body
     rescue StandardError

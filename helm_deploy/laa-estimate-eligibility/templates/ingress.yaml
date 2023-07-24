@@ -17,11 +17,14 @@ spec:
   tls:
   {{- range .Values.ingress.hosts }}
     - hosts:
-        - {{ . }}
+        - '{{- .host }}'
+    {{- if .secret }}
+      secretName: '{{- .secret }}'
+    {{- end }}
   {{- end }}
   rules:
   {{- range .Values.ingress.hosts }}
-    - host: {{ . }}
+    - host: '{{- .host }}'
       http:
         paths:
           - path: /

@@ -17,12 +17,13 @@ RSpec.describe ControlledWorkDocumentContent do
   end
 
   context "when there are percentages" do
-    def make_capital(percentage_owned)
+    def make_capital(percentage_owned, subject_matter_of_dispute: false)
       {
         "capital_items" => {
           "properties" => {
             "additional_properties" => [
-              { "percentage_owned" => percentage_owned },
+              { "percentage_owned" => percentage_owned,
+                "subject_matter_of_dispute" => subject_matter_of_dispute },
             ],
           },
         },
@@ -56,11 +57,9 @@ RSpec.describe ControlledWorkDocumentContent do
 
       it "returns nil if client's additional property is smod" do
         session_data = {
-          "additional_house_in_dispute" => true,
           "api_response" => {
             "assessment" => {
-              "capital" => make_capital(50),
-              "partner_capital" => make_capital(51),
+              "capital" => make_capital(50, subject_matter_of_dispute: true),
             },
           },
         }

@@ -30,14 +30,16 @@ service:
 
 ingress:
   hosts:
-    - check-your-client-qualifies-for-legal-aid-staging.cloud-platform.service.justice.gov.uk
+    - host: check-your-client-qualifies-for-legal-aid-staging.cloud-platform.service.justice.gov.uk
+      secret: false
+    - host: staging.check-your-client-qualifies-for-legal-aid.service.gov.uk
+      secret: ccq-staging-cert-secret
   annotations:
     external-dns.alpha.kubernetes.io/set-identifier: "check-client-qualifies-laa-estimate-eligibility-laa-estimate-financial-eligibility-for-legal-aid-staging-green"
     external-dns.alpha.kubernetes.io/aws-weight: "100"
     nginx.ingress.kubernetes.io/enable-modsecurity: "true"
-
-deploy:
-  host: check-your-client-qualifies-for-legal-aid-staging.cloud-platform.service.justice.gov.uk
+    nginx.ingress.kubernetes.io/modsecurity-snippet: |
+     SecDefaultAction "phase:2,pass,log,tag:github_team=laa-estimate-eligibility"
 
 postgresql:
   enabled: false
@@ -56,10 +58,10 @@ cfe:
 featureFlags:
   sentry: ENABLED
   cwForms: ENABLED
-  specialApplicantGroups: ENABLED
   selfEmployed: NOT_ENABLED
   overrides: NOT_ENABLED
   publicBeta: NOT_ENABLED
+  indexProduction: NOT_ENABLED
 
 geckoboard:
   metricsDataset: "ccq_monthly_metrics_staging"
@@ -72,3 +74,6 @@ geckoboard:
 sentry:
   # Despite looking very secret-y, the key here is _not_ a secret, as it will appear in every HTTP response header
   cspReportEndpoint: https://o345774.ingest.sentry.io/api/6763263/security/?sentry_key=fda2f0cddce3417c87e4df62f3611e76
+
+app:
+  primaryHost: ""

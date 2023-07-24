@@ -9,6 +9,7 @@ class CalculationResult
   def initialize(session_data)
     @api_response = session_data["api_response"].deep_symbolize_keys
     @level_of_help = session_data.fetch("level_of_help", "certificated")
+    @check = Check.new(session_data)
   end
 
   def decision
@@ -109,7 +110,10 @@ class CalculationResult
   end
 
   def client_outgoing_rows
-    outgoing_rows(prefix: "")
+    rows = outgoing_rows(prefix: "")
+    return rows if has_partner?
+
+    rows.merge(household_outgoing_rows)
   end
 
   def partner_outgoing_rows
@@ -130,14 +134,6 @@ class CalculationResult
   def main_home_data
     main_home = capital_items(:properties, "").fetch(:main_home)
     property_data(main_home, property_type: :main)
-  end
-
-  def client_owns_additional_property?
-    capital_items(:properties)[:additional_properties].present?
-  end
-
-  def partner_owns_additional_property?
-    partner_capital_items(:properties)&.dig(:additional_properties).present?
   end
 
   def client_additional_property_data
@@ -202,16 +198,16 @@ class CalculationResult
     monetise(capital_items(:properties).dig(:main_home, :assessed_equity))
   end
 
-  def client_additional_property_assessed_equity
-    monetise(capital_items(:properties)[:additional_properties].first.fetch(:assessed_equity))
+  def client_additional_property_assessed_equity(index)
+    monetise(capital_items(:properties)[:additional_properties][index].fetch(:assessed_equity))
   end
 
-  def partner_additional_property_assessed_equity
-    monetise(partner_capital_items(:properties)[:additional_properties].first.fetch(:assessed_equity))
+  def partner_additional_property_assessed_equity(index)
+    monetise(partner_capital_items(:properties)[:additional_properties][index].fetch(:assessed_equity))
   end
 
-  def household_vehicle_assessed_value
-    monetise(capital_items(:vehicles).sum(0) { _1.fetch(:assessed_value) })
+  def household_vehicle_assessed_value(index)
+    monetise(capital_items(:vehicles)[index][:assessed_value])
   end
 
 private
@@ -269,6 +265,9 @@ private
       national_insurance: employment_deduction(:national_insurance, prefix),
       employment_expenses: employment_deduction(:fixed_employment_deduction, prefix),
     }
+
+    data.delete(:childcare_payments) unless @check.eligible_for_childcare_costs?
+
     partner_allowance = api_response.dig(:result_summary, :"#{prefix}disposable_income", :partner_allowance)
 
     data[:partner_allowance] = partner_allowance if partner_allowance&.positive?
@@ -292,8 +291,12 @@ private
   end
 
   def additional_property_data(prefix:)
-    additional_property = capital_items(:properties, prefix)[:additional_properties].first
-    property_data(additional_property, property_type: :additional)
+    properties = capital_items(:properties, prefix)
+    return [] unless properties
+
+    properties[:additional_properties].map do |additional_property|
+      property_data(additional_property, property_type: :additional)
+    end
   end
 
   def property_data(property, property_type:)

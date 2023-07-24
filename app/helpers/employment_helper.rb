@@ -1,7 +1,5 @@
 module EmploymentHelper
   def employment_links(check, partner: false)
-    return {} unless FeatureFlags.enabled?(:special_applicant_groups, check.session_data)
-
     if check.controlled?
       {
         t("estimate_flow.income.guidance.text") => t("estimate_flow.income.guidance.controlled_link"),

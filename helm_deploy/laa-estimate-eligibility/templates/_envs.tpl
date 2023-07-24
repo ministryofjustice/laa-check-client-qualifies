@@ -46,8 +46,6 @@ env:
     value: 'true'
   - name: RAILS_LOG_TO_STDOUT
     value: 'true'
-  - name: HOST
-    value: {{ .Values.deploy.host }}
   - name: SENTRY_DSN
     valueFrom:
       secretKeyRef:
@@ -68,12 +66,12 @@ env:
     value: {{ .Values.featureFlags.sentry }}
   - name: CW_FORMS_FEATURE_FLAG
     value: {{ .Values.featureFlags.cwForms }}
-  - name: SPECIAL_APPLICANT_GROUPS_FEATURE_FLAG
-    value: {{ .Values.featureFlags.specialApplicantGroups }}
   - name: SELF_EMPLOYED_FEATURE_FLAG
     value: {{ .Values.featureFlags.selfEmployed }}
   - name: PUBLIC_BETA_FEATURE_FLAG
     value: {{ .Values.featureFlags.publicBeta }}
+  - name: INDEX_PRODUCTION_FEATURE_FLAG
+    value: {{ .Values.featureFlags.indexProduction }}
   - name: FEATURE_FLAG_OVERRIDES
     value: {{ .Values.featureFlags.overrides }}
   - name: NOTIFICATIONS_API_KEY
@@ -121,5 +119,7 @@ env:
         key: feature-flags-password
   - name: CSP_REPORT_ENDPOINT
     value: {{ .Values.sentry.cspReportEndpoint }}
+  - name: PRIMARY_HOST
+    value: {{ .Values.app.primaryHost }}
 
 {{- end }}

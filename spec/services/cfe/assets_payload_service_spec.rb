@@ -17,11 +17,13 @@ RSpec.describe Cfe::AssetsPayloadService do
           "percentage_owned" => 80,
           "house_in_dispute" => false,
           "additional_property_owned" => "with_mortgage",
-          "additional_house_value" => 123,
-          "additional_mortgage" => 1313,
-          "additional_percentage_owned" => 44,
+          "additional_properties" => [{
+            "house_value" => 123,
+            "mortgage" => 1313,
+            "percentage_owned" => 44,
+            "house_in_dispute" => false,
+          }],
           "bank_accounts" => [{ "amount" => 553, "account_in_dispute" => true }],
-          "additional_house_in_dispute" => false,
           "investments" => 345,
           "valuables" => 665,
           "investments_in_dispute" => true,
@@ -60,10 +62,12 @@ RSpec.describe Cfe::AssetsPayloadService do
       let(:session_data) do
         {
           "additional_property_owned" => "with_mortgage",
-          "additional_house_value" => 123,
-          "additional_mortgage" => 1313,
-          "additional_percentage_owned" => 44,
-          "additional_house_in_dispute" => true,
+          "additional_properties" => [{
+            "house_value" => 123,
+            "mortgage" => 1313,
+            "percentage_owned" => 44,
+            "house_in_dispute" => true,
+          }],
           "bank_accounts" => [{ "amount" => 0, "account_in_dispute" => false }],
           "investments" => 0,
           "valuables" => 0,
@@ -87,9 +91,11 @@ RSpec.describe Cfe::AssetsPayloadService do
       let(:session_data) do
         {
           "additional_property_owned" => "outright",
-          "additional_house_value" => 123,
-          "additional_percentage_owned" => 44,
-          "additional_house_in_dispute" => false,
+          "additional_properties" => [{
+            "house_value" => 123,
+            "percentage_owned" => 44,
+            "house_in_dispute" => false,
+          }],
           "bank_accounts" => [{ "amount" => 0, "account_in_dispute" => false }],
           "investments" => 0,
           "valuables" => 0,
@@ -140,10 +146,12 @@ RSpec.describe Cfe::AssetsPayloadService do
                          :with_no_main_home,
                          :with_zero_capital_assets,
                          additional_property_owned: "with_mortgage",
-                         additional_house_value: 100_000,
-                         additional_mortgage: 1,
-                         additional_house_in_dispute: false,
-                         additional_percentage_owned: 100)
+                         additional_properties: [{
+                           "house_value" => 100_000,
+                           "mortgage" => 1,
+                           "percentage_owned" => 100,
+                           "house_in_dispute" => false,
+                         }])
       end
 
       it "adds a fake main home to the payload" do
@@ -176,9 +184,11 @@ RSpec.describe Cfe::AssetsPayloadService do
                          :with_no_main_home,
                          :with_zero_capital_assets,
                          additional_property_owned: "outright",
-                         additional_house_value: 100_000,
-                         additional_house_in_dispute: true,
-                         additional_percentage_owned: 100)
+                         additional_properties: [{
+                           "house_value" => 100_000,
+                           "percentage_owned" => 100,
+                           "house_in_dispute" => true,
+                         }])
       end
 
       it "populates the payload with the right SMOD value" do

@@ -14,8 +14,8 @@ module AddAnotherable
     def from_session(session_data)
       form = instantiate_with_simple_attributes_from_session(session_data)
 
-      form.items = session_data[self::ITEMS_SESSION_KEY]&.map do |attributes|
-        self::ITEM_MODEL.from_session(attributes).tap { add_extra_attributes_to_model_from_session(_1, session_data) }
+      form.items = session_data[self::ITEMS_SESSION_KEY]&.each_with_index&.map do |attributes, index|
+        self::ITEM_MODEL.from_session(attributes).tap { add_extra_attributes_to_model_from_session(_1, session_data, index) }
       end
 
       if form.items.blank?
@@ -27,8 +27,8 @@ module AddAnotherable
     # Override SessionPersistable to additionally instantiate `items`
     def from_params(params, session_data)
       form = instantiate_with_simple_attributes_from_params(params, session_data)
-      form.items = params.dig(self::ITEM_MODEL.name.underscore, "items").values.map do |attributes|
-        self::ITEM_MODEL.from_session(attributes).tap { add_extra_attributes_to_model_from_session(_1, session_data) }
+      form.items = params.dig(self::ITEM_MODEL.name.underscore, "items").values.each_with_index.map do |attributes, index|
+        self::ITEM_MODEL.from_session(attributes).tap { add_extra_attributes_to_model_from_session(_1, session_data, index) }
       end
       form
     end
@@ -43,7 +43,7 @@ module AddAnotherable
   end
 
   def blank_model
-    self.class::ITEM_MODEL.new.tap { self.class.add_extra_attributes_to_model_from_session(_1, check.session_data) }
+    self.class::ITEM_MODEL.new.tap { self.class.add_extra_attributes_to_model_from_session(_1, check.session_data, 0) }
   end
 
 private

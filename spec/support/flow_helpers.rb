@@ -134,7 +134,7 @@ end
 def fill_in_outgoings_screen(screen_name: :outgoings, values: {}, frequencies: {})
   confirm_screen screen_name.to_s
   fill_in "#{screen_name}_form[housing_payments_value]", with: "0" if page.body.include?("housing_payments_value")
-  fill_in "#{screen_name}_form[childcare_payments_value]", with: values.fetch(:childcare, "0")
+  fill_in "#{screen_name}_form[childcare_payments_value]", with: values.fetch(:childcare, "0") if page.text.include?("Childcare payments")
   fill_in "#{screen_name}_form[maintenance_payments_value]", with: values.fetch(:maintenance, "0")
   fill_in "#{screen_name}_form[legal_aid_payments_value]", with: values.fetch(:legal_aid, "0")
   frequencies.each do |k, v|
@@ -149,11 +149,11 @@ def fill_in_property_screen(choice: "No", screen_name: :property)
   click_on "Save and continue"
 end
 
-def fill_in_property_entry_screen(screen_name: :property_entry, form_name: :client_property_entry)
-  confirm_screen screen_name
-  fill_in "#{form_name}_form[house_value]", with: "1"
-  fill_in "#{form_name}_form[mortgage]", with: "1" if page.text.include?("How much is left to pay on the mortgage?")
-  fill_in "#{form_name}_form[percentage_owned]", with: "1"
+def fill_in_property_entry_screen
+  confirm_screen :property_entry
+  fill_in "property_entry_form[house_value]", with: "1"
+  fill_in "property_entry_form[mortgage]", with: "1" if page.text.include?("How much is left to pay on the mortgage?")
+  fill_in "property_entry_form[percentage_owned]", with: "1"
   click_on "Save and continue"
 end
 
@@ -268,8 +268,12 @@ def fill_in_additional_property_screen(choice: "No")
   fill_in_property_screen(screen_name: :additional_property, choice:)
 end
 
-def fill_in_additional_property_details_screen
-  fill_in_property_entry_screen(screen_name: :additional_property_details, form_name: :additional_property_details)
+def fill_in_additional_property_details_screen(screen_name: :additional_property_details)
+  confirm_screen screen_name
+  fill_in "additional_property_model[items][1][house_value]", with: "1"
+  fill_in "additional_property_model[items][1][mortgage]", with: "1" if page.text.include?("How much is left to pay on the mortgage?")
+  fill_in "additional_property_model[items][1][percentage_owned]", with: "1"
+  click_on "Save and continue"
 end
 
 def fill_in_partner_additional_property_screen(choice: "No")
@@ -277,7 +281,7 @@ def fill_in_partner_additional_property_screen(choice: "No")
 end
 
 def fill_in_partner_additional_property_details_screen
-  fill_in_property_entry_screen(screen_name: :partner_additional_property_details, form_name: :partner_additional_property_details)
+  fill_in_additional_property_details_screen(screen_name: :partner_additional_property_details)
 end
 
 def confirm_screen(expected)

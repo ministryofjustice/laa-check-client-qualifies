@@ -61,7 +61,7 @@ RSpec.describe "estimates/show.html.slim" do
     end
 
     it "shows partially owned additional property content" do
-      expect(page_text).to include "Client's additional propertyValue£1.00"
+      expect(page_text).to include "Client other property 1Value£1.00"
       expect(page_text).to include "Outstanding mortgage-£3.00"
       expect(page_text).to include "Deductions3% of property value deducted for cost of sale-£35.00"
       expect(page_text).to include "Assessed valueClient’s 50% share of home equity£2.00"

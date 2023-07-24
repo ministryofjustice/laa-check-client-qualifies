@@ -158,13 +158,12 @@ RSpec.describe "estimates/show.html.slim" do
 
     it "shows outgoings content" do
       expect(page_text).to match(/Housing payments(.+)£500.00/)
-      expect(page_text).to match(/Childcare payments(.+)£848.00/)
       expect(page_text).to include "Maintenance payments to a former partner£498.00"
       expect(page_text).to include "Payments towards legal aid in a criminal case£41.79"
       expect(page_text).to include "Income tax£5.00"
       expect(page_text).to include "National Insurance£10.00"
       expect(page_text).to include "Employment expensesA fixed allowance if your client gets a salary or wage£3.34"
-      expect(page_text).to include "Dependants allowanceA fixed allowance deducted for each dependant in the household£13.00"
+      expect(page_text).to include "Dependants allowanceA fixed allowance deducted for each dependant your client has£13.00"
       expect(page_text).to include "Partner allowanceA fixed allowance if your client has a partner£858.34"
       expect(page_text).to include "Total monthly outgoings£5,483"
       expect(page_text).to include "Assessed disposable monthly incomeTotal monthly income minus total monthly outgoings£12,345.00"
@@ -177,14 +176,14 @@ RSpec.describe "estimates/show.html.slim" do
       expect(page_text).to include "Deductions3% of property value deducted for cost of sale-£34.00"
       expect(page_text).to include "Disputed asset disregard-£5.00"
       expect(page_text).to include "Assessed value£2.00"
-      expect(page_text).to include "Client's additional propertyValue£51.00"
+      expect(page_text).to include "Client other property 1Value£51.00"
       expect(page_text).to include "Outstanding mortgage-£52.00"
       expect(page_text).to include "Deductions3% of property value deducted for cost of sale-£534.00"
       expect(page_text).to include "Assessed value£52.00"
       expect(page_text).to include "Vehicle 1Value£587.00"
       expect(page_text).to include "Outstanding payments-£234.00"
       expect(page_text).to include "Disregards and deductions-£144.00"
-      expect(page_text).to include "Assessed value£6.00"
+      expect(page_text).to include "Assessed value£3.00"
       expect(page_text).to include "Client's disposable capital"
       expect(page_text).to include "Assessed property valueTotal of home client lives in and any additional property£0.00"
       expect(page_text).to include "Assessed vehicle value£3,000.00"
@@ -231,7 +230,7 @@ RSpec.describe "estimates/show.html.slim" do
         expect(page_text).to include "Disregards and deductions-£144.00"
         expect(page_text).to include "Vehicle 2"
         expect(page_text).to include "Value£3,333.00"
-        expect(page_text).to include "Assessed value£6.00"
+        expect(page_text).to include "Assessed value£3.00"
         expect(page_text).to include "Outstanding payments-£1,111.00"
         expect(page_text).to include "Disregards and deductions-£2,222.00"
       end

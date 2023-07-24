@@ -83,12 +83,6 @@ RSpec.configure do |config|
     ENV["CW_FORMS_FEATURE_FLAG"] = "disabled"
   end
 
-  config.around(:each, :special_applicant_groups_flag) do |example|
-    ENV["SPECIAL_APPLICANT_GROUPS_FEATURE_FLAG"] = "enabled"
-    example.run
-    ENV["SPECIAL_APPLICANT_GROUPS_FEATURE_FLAG"] = "disabled"
-  end
-
   config.around(:each, :self_employed_flag) do |example|
     ENV["SELF_EMPLOYED_FEATURE_FLAG"] = "enabled"
     example.run
@@ -99,6 +93,12 @@ RSpec.configure do |config|
     ENV["PUBLIC_BETA_FEATURE_FLAG"] = "enabled"
     example.run
     ENV["PUBLIC_BETA_FEATURE_FLAG"] = "disabled"
+  end
+
+  config.around(:each, :index_production_flag) do |example|
+    ENV["INDEX_PRODUCTION_FEATURE_FLAG"] = "enabled"
+    example.run
+    ENV["INDEX_PRODUCTION_FEATURE_FLAG"] = "disabled"
   end
 
   config.before(:suite) do

@@ -9,7 +9,7 @@ class IncomeForm
   ATTRIBUTES = %i[incomes].freeze
   alias_attribute :incomes, :items
 
-  def self.add_extra_attributes_to_model_from_session(model, session_data)
+  def self.add_extra_attributes_to_model_from_session(model, session_data, _)
     model.controlled = Steps::Logic.controlled?(session_data)
   end
 end

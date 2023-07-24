@@ -16,6 +16,10 @@ class ControlledWorkDocumentContent < Check
     session_data.dig("api_response", *path_parts)
   end
 
+  def means_test_required?
+    true
+  end
+
   def asylum_support?
     asylum_support || false
   end
@@ -67,11 +71,11 @@ class ControlledWorkDocumentContent < Check
   end
 
   def smod_additional_properties_value
-    from_cfe_payload("assessment.capital.capital_items.properties.additional_properties.0.value") if additional_house_in_dispute
+    additional_properties_sum("value", smod: true)
   end
 
   def smod_additional_properties_outstanding_mortgage
-    from_cfe_payload("assessment.capital.capital_items.properties.additional_properties.0.outstanding_mortgage") if additional_house_in_dispute
+    additional_properties_sum("outstanding_mortgage", smod: true)
   end
 
   def smod_main_home_percentage_owned
@@ -85,7 +89,7 @@ class ControlledWorkDocumentContent < Check
   end
 
   def smod_additional_properties_net_value
-    from_cfe_payload("assessment.capital.capital_items.properties.additional_properties.0.net_value") if additional_house_in_dispute
+    additional_properties_sum("net_value", smod: true)
   end
 
   def smod_main_home_net_equity
@@ -93,7 +97,7 @@ class ControlledWorkDocumentContent < Check
   end
 
   def smod_additional_properties_net_equity
-    from_cfe_payload("assessment.capital.capital_items.properties.additional_properties.0.net_equity") if additional_house_in_dispute
+    additional_properties_sum("net_equity", smod: true)
   end
 
   def smod_main_home_assessed_equity
@@ -101,15 +105,15 @@ class ControlledWorkDocumentContent < Check
   end
 
   def smod_additional_properties_assessed_equity
-    from_cfe_payload("assessment.capital.capital_items.properties.additional_properties.0.assessed_equity") if additional_house_in_dispute
+    additional_properties_sum("assessed_equity", smod: true)
   end
 
   def smod_additional_properties_percentage_owned
-    from_cfe_payload("assessment.capital.capital_items.properties.additional_properties.0.percentage_owned") if additional_house_in_dispute
+    additional_properties_percentage_owned(properties: combined_additional_properties.select { _1["subject_matter_of_dispute"] })
   end
 
   def smod_savings
-    bank_accounts&.select(&:account_in_dispute)&.sum { _1.amount.to_d }
+    bank_accounts.select(&:account_in_dispute).sum { _1.amount.to_d } if smod_assets?
   end
 
   def smod_investments
@@ -173,7 +177,7 @@ class ControlledWorkDocumentContent < Check
   end
 
   def non_smod_additional_properties_value
-    additional_properties_value unless additional_house_in_dispute
+    additional_properties_sum("value", smod: false)
   end
 
   def additional_properties_value
@@ -181,57 +185,69 @@ class ControlledWorkDocumentContent < Check
   end
 
   def non_smod_additional_properties_mortgage
-    additional_properties_mortgage unless additional_house_in_dispute
+    additional_properties_sum("outstaging_mortgage", smod: false)
   end
 
   def additional_properties_mortgage
-    additional_properties_sum("outstanding_mortgage") if client_capital_relevant?
+    additional_properties_sum("outstanding_mortgage")
   end
 
   def non_smod_additional_properties_percentage_owned
-    additional_properties_percentage_owned unless additional_house_in_dispute
+    additional_properties_percentage_owned(properties: combined_additional_properties.reject { _1["subject_matter_of_dispute"] })
   end
 
-  def additional_properties_percentage_owned
+  def additional_properties_percentage_owned(properties: combined_additional_properties)
     # If there are 2 additional properties and a different percentage of each is owned,
     # we can't necessarily give a sensible figure here, so mark it as such
     return unless client_capital_relevant?
 
-    percentages = additional_properties.map { _1["percentage_owned"] }
+    percentages = properties.map { _1["percentage_owned"] }
     return if percentages.uniq.length > 1
 
     percentages.first
   end
 
   def non_smod_additional_properties_net_value
-    additional_properties_net_value unless additional_house_in_dispute
+    additional_properties_sum("net_value", smod: false)
   end
 
   def additional_properties_net_value
-    additional_properties_sum("net_value") if client_capital_relevant?
+    additional_properties_sum("net_value")
   end
 
   def non_smod_additional_properties_net_equity
-    additional_properties_net_equity unless additional_house_in_dispute
+    additional_properties_sum("net_equity", smod: false)
   end
 
   def additional_properties_net_equity
-    additional_properties_sum("net_equity") if client_capital_relevant?
+    additional_properties_sum("net_equity")
   end
 
   def non_smod_additional_properties_assessed_equity
-    additional_properties_assessed_equity unless additional_house_in_dispute
+    additional_properties_sum("assessed_equity", smod: false)
   end
 
   def additional_properties_assessed_equity
-    additional_properties_sum("assessed_equity") if client_capital_relevant?
+    additional_properties_sum("assessed_equity")
   end
 
-  def additional_properties_sum(attribute)
-    additional_properties.sum { _1[attribute] }
+  def additional_properties_sum(attribute, smod: nil)
+    return unless client_capital_relevant?
+
+    group = case smod
+            when nil
+              combined_additional_properties
+            when true
+              combined_additional_properties.select { _1["subject_matter_of_dispute"] }
+            else
+              # We need to capture properties where `subject_matter_of_dispute` is either false OR nil
+              combined_additional_properties.reject { _1["subject_matter_of_dispute"] }
+            end
+
+    group.sum { _1[attribute] || 0 }
   end
 
-  def additional_properties
+  def combined_additional_properties
     [
       session_data.dig("api_response", "assessment", "capital", "capital_items", "properties", "additional_properties"),
       session_data.dig("api_response", "assessment", "partner_capital", "capital_items", "properties", "additional_properties"),
