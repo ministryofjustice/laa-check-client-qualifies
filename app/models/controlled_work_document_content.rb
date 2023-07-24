@@ -233,6 +233,7 @@ class ControlledWorkDocumentContent < Check
 
   def additional_properties_sum(attribute, smod: nil)
     return unless client_capital_relevant?
+    return if smod && !smod_assets?
 
     group = case smod
             when nil
