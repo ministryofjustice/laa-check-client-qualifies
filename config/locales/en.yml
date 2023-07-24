@@ -2135,6 +2135,8 @@ en:
         - they get regular income, like payment from a job
         - they have capital worth more than £2,500
       para_2: "For certificated work matters, clients aged under 18 do not need a means test."
+    self_employed:
+      text: This service now supports clients (and their partners) who are self-employed, with the exception of self-employed company directors for certificated checks.
   controlled_work_document_selections:
     new:
       title: Which controlled work (CW) form do you need?
