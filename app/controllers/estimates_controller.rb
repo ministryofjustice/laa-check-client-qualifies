@@ -38,6 +38,7 @@ class EstimatesController < ApplicationController
     track_page_view(page: :download_results)
     @model = CalculationResult.new(session_data)
     @answers = CheckAnswersPresenter.new(session_data)
+    @is_pdf = true
     html = render_to_string({
       template: "estimates/print",
       layout: "print_application",

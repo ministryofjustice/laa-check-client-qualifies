@@ -1,5 +1,7 @@
-h1.govuk-heading-l = t("estimates.show.likely_to_qualify")
-p.govuk-body = t("estimates.show.contribution_intro_paragraph")
+= pdf_friendly_h1(t("estimates.show.likely_to_qualify"), @is_pdf)
+
+= pdf_friendly_p_element(t("estimates.show.contribution_intro_paragraph"), @is_pdf, nil)
+
 ul.govuk-list--bullet
   li.govuk-body
     strong> = @model.income_contribution
@@ -7,11 +9,15 @@ ul.govuk-list--bullet
   li.govuk-body
     strong> = @model.capital_contribution
     = t("estimates.show.from_capital")
-- t("estimates.show.contribution_explanations").each do
-  p.govuk-body = _1
+
+= pdf_friendly_paragraphs(t("estimates.show.contribution_explanations"), @is_pdf)
+
 ul.govuk-list--bullet
   - t("estimates.show.also_considered").each do
     li.govuk-body = _1
-p.govuk-body = t("estimates.show.lord_chancellors_guidance")
-h2.govuk-heading-m = t("estimates.show.not_always_free")
-p.govuk-body = t("estimates.show.freeness_explanation")
+
+= pdf_friendly_p_element(t("estimates.show.lord_chancellors_guidance"), @is_pdf, nil)
+
+= pdf_friendly_h2(t("estimates.show.not_always_free"), "m", @is_pdf)
+
+= pdf_friendly_p_element(t("estimates.show.freeness_explanation"), @is_pdf, nil)
