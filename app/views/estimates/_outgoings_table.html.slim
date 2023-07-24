@@ -26,7 +26,6 @@
     - @model.household_outgoing_rows.each do |outgoing_type, money_amount|
       = render "outgoings_row", body:, outgoing_type:, money_amount:, person: :household
 
-
 = pdf_friendly_h2(t("estimates.show.total"), caption_size.to_s, @is_pdf)
 
 = govuk_table do |table|
