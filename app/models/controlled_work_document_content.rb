@@ -63,11 +63,11 @@ class ControlledWorkDocumentContent < Check
   end
 
   def smod_main_home_value
-    from_cfe_payload("assessment.capital.capital_items.properties.main_home.value") if house_in_dispute
+    main_home_value if house_in_dispute
   end
 
   def smod_main_home_outstanding_mortgage
-    from_cfe_payload("assessment.capital.capital_items.properties.main_home.outstanding_mortgage") if house_in_dispute
+    main_home_outstanding_mortgage if house_in_dispute
   end
 
   def smod_additional_properties_value
@@ -79,13 +79,11 @@ class ControlledWorkDocumentContent < Check
   end
 
   def smod_main_home_percentage_owned
-    return unless house_in_dispute
-
-    percentage_owned
+    main_home_percentage_owned if house_in_dispute
   end
 
   def smod_main_home_net_value
-    from_cfe_payload("assessment.capital.capital_items.properties.main_home.net_value") if house_in_dispute
+    main_home_net_value if house_in_dispute
   end
 
   def smod_additional_properties_net_value
@@ -93,7 +91,7 @@ class ControlledWorkDocumentContent < Check
   end
 
   def smod_main_home_net_equity
-    from_cfe_payload("assessment.capital.capital_items.properties.main_home.net_equity") if house_in_dispute
+    main_home_net_equity if house_in_dispute
   end
 
   def smod_additional_properties_net_equity
@@ -101,7 +99,7 @@ class ControlledWorkDocumentContent < Check
   end
 
   def smod_main_home_assessed_equity
-    from_cfe_payload("assessment.capital.capital_items.properties.main_home.assessed_equity") if house_in_dispute
+    main_home_assessed_equity if house_in_dispute
   end
 
   def smod_additional_properties_assessed_equity
@@ -133,7 +131,7 @@ class ControlledWorkDocumentContent < Check
   end
 
   def main_home_value
-    from_cfe_payload("assessment.capital.capital_items.properties.main_home.value") if client_capital_relevant?
+    from_cfe_payload("assessment.capital.capital_items.properties.main_home.value") if owns_property?
   end
 
   def non_smod_main_home_net_value
@@ -141,7 +139,7 @@ class ControlledWorkDocumentContent < Check
   end
 
   def main_home_net_value
-    from_cfe_payload("assessment.capital.capital_items.properties.main_home.net_value") if client_capital_relevant?
+    from_cfe_payload("assessment.capital.capital_items.properties.main_home.net_value") if owns_property?
   end
 
   def non_smod_main_home_outstanding_mortgage
@@ -149,7 +147,7 @@ class ControlledWorkDocumentContent < Check
   end
 
   def main_home_outstanding_mortgage
-    from_cfe_payload("assessment.capital.capital_items.properties.main_home.outstanding_mortgage") if client_capital_relevant?
+    from_cfe_payload("assessment.capital.capital_items.properties.main_home.outstanding_mortgage") if owns_property?
   end
 
   def non_smod_main_home_percentage_owned
@@ -157,7 +155,7 @@ class ControlledWorkDocumentContent < Check
   end
 
   def main_home_percentage_owned
-    percentage_owned
+    percentage_owned if owns_property?
   end
 
   def non_smod_main_home_net_equity
@@ -165,7 +163,7 @@ class ControlledWorkDocumentContent < Check
   end
 
   def main_home_net_equity
-    from_cfe_payload("assessment.capital.capital_items.properties.main_home.net_equity") if client_capital_relevant?
+    from_cfe_payload("assessment.capital.capital_items.properties.main_home.net_equity") if owns_property?
   end
 
   def non_smod_main_home_assessed_equity
@@ -173,7 +171,7 @@ class ControlledWorkDocumentContent < Check
   end
 
   def main_home_assessed_equity
-    from_cfe_payload("assessment.capital.capital_items.properties.main_home.assessed_equity") if client_capital_relevant?
+    from_cfe_payload("assessment.capital.capital_items.properties.main_home.assessed_equity") if owns_property?
   end
 
   def non_smod_additional_properties_value
@@ -304,19 +302,19 @@ class ControlledWorkDocumentContent < Check
   end
 
   def client_mortgage
-    (main_home_owned? ? net_housing_costs : 0) if client_income_relevant?
+    (owns_property? ? net_housing_costs : 0) if client_income_relevant?
   end
 
   def client_rent
-    (main_home_owned? ? 0 : net_housing_costs) if client_income_relevant?
+    (owns_property? ? 0 : net_housing_costs) if client_income_relevant?
   end
 
   def partner_mortgage
-    (main_home_owned? ? net_housing_costs("partner_") : 0) if partner_income_relevant?
+    (owns_property? ? net_housing_costs("partner_") : 0) if partner_income_relevant?
   end
 
   def partner_rent
-    (main_home_owned? ? 0 : net_housing_costs("partner_")) if partner_income_relevant?
+    (owns_property? ? 0 : net_housing_costs("partner_")) if partner_income_relevant?
   end
 
   def client_gross_income
@@ -406,10 +404,6 @@ class ControlledWorkDocumentContent < Check
 
   def net_housing_costs(summary_section_prefix = "")
     session_data.dig("api_response", "result_summary", "#{summary_section_prefix}disposable_income", "net_housing_costs")
-  end
-
-  def main_home_owned?
-    percentage_owned.present?
   end
 
   def tax_and_national_insurance(summary_section_prefix = "")
