@@ -1,0 +1,24 @@
+name: RuboCop
+
+on: [pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      BUNDLE_ONLY: test
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Ruby 3.1
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 3.1.3
+        bundler-cache: true
+
+    - name: Run RuboCop
+      run: bundle exec rubocop

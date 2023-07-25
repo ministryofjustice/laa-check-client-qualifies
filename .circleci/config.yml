@@ -186,10 +186,6 @@ jobs:
       - attach_workspace:
           at: ./
       - run:
-          name: Rubocop checks
-          command: |
-            bundle exec rubocop
-      - run:
           name: erb-lint checks
           command: |
             bundle exec erblint --lint-all
