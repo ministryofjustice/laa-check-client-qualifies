@@ -31,13 +31,18 @@
         li = bullet
     p.govuk-body = t(".client_under_18_para_2")
   - else
-    p.govuk-body = t(".unacceptable_client_explanation_under_18_controlled_html",
-    page_url: GuidanceLinkService.call(@check, document: "lc_guidance",
-    level_of_help: "controlled", section: "Eligibility of children", page_number: true))
+    p.govuk-body = t(".unacceptable_client_explanation_under_18_controlled_html", 
+                   page_url: GuidanceLinkService.call(document: lc_guidance:,
+                   level_of_help: "controlled", 
+                   section: "Eligibility of children", 
+                   page_number: true))
 
-    p.govuk-body = t(".unacceptable_client_explanation_under_18_certificated_html",
-    page_url: GuidanceLinkService.call(@check, document: "lc_guidance",
-    level_of_help: "controlled", section: "Eligibility of children", page_number: true))
+    p.govuk-body = t(".unacceptable_client_explanation_under_18_certificated_html"
+                   page_url: GuidanceLinkService.call(document: lc_guidance:, 
+                   level_of_help: "certificated", 
+                   section: "Eligibility of children", 
+                   page_number: true))
+
   - if FeatureFlags.enabled?(:self_employed, without_session_data: true)
     h3.govuk-heading-s = t(".unacceptable_client_heading_company_director")
     p.govuk-body = t(".unacceptable_client_explanation_company_director")
