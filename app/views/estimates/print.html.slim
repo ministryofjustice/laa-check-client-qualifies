@@ -3,7 +3,7 @@
     = t("estimates.show.not_likely_to_qualify")
   - else
     = t("estimates.show.likely_to_qualify")
-.govuk-grid-column-full
+.govuk-grid-column-full.no-ligatures
   .gem-c-organisation-logo
     .gem-c-organisation-logo__container
       = pdf_friendly_logo(@is_pdf)
@@ -12,7 +12,7 @@
 
   button.govuk-button.govuk-button--secondary data-module="govuk-button" data-trigger="print" = t(".print_this_page")
 
-  = render "shared/heading", header_text: t("service.name")
+  h2.govuk-heading-l = t("service.name")
   = render "result_panel_content"
 
   - if @model.level_of_help == "certificated"
