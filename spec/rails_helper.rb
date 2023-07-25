@@ -77,12 +77,6 @@ RSpec.configure do |config|
     WebMock.disable_net_connect!(allow_localhost: true, allow: ALLOWED_HOSTS)
   end
 
-  config.around(:each, :cw_forms_flag) do |example|
-    ENV["CW_FORMS_FEATURE_FLAG"] = "enabled"
-    example.run
-    ENV["CW_FORMS_FEATURE_FLAG"] = "disabled"
-  end
-
   config.around(:each, :self_employed_flag) do |example|
     ENV["SELF_EMPLOYED_FEATURE_FLAG"] = "enabled"
     example.run

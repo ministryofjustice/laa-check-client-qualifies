@@ -55,7 +55,6 @@ cfe:
 
 featureFlags:
   sentry: ENABLED
-  cwForms: ENABLED
   selfEmployed: ENABLED
   overrides: NOT_ENABLED
   publicBeta: NOT_ENABLED
