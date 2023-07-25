@@ -26,8 +26,13 @@
 
     h2.govuk-heading-m = t("estimate_flow.assets.bank_accounts.label")
 
-    - t("estimate_flow.#{i18n_key}.bank_accounts.hints").each do
-      .govuk-hint = _1
+    - if @check.partner && i18n_key == "assets"
+      - t("estimate_flow.#{i18n_key}.bank_accounts.with_partner_hints").each do
+        .govuk-hint = _1
+    - else
+      - t("estimate_flow.#{i18n_key}.bank_accounts.hints").each do
+        .govuk-hint = _1
+
     = render "shared/cost_of_living"
     . data-add-another-role="sectionList"
       - @form.items.each_with_index do |bank_account, index|
@@ -41,8 +46,12 @@
 
     = form.govuk_fieldset legend: { text: t("estimate_flow.#{i18n_key}.investments.label") } do
 
-      - t("estimate_flow.#{i18n_key}.investments.hints").each
-        .govuk-hint = _1
+      - if @check.partner && i18n_key == "assets"
+        - t("estimate_flow.#{i18n_key}.investments.with_partner_hints").each
+          .govuk-hint = _1
+      - else
+        - t("estimate_flow.#{i18n_key}.investments.hints").each
+          .govuk-hint = _1
 
       = render "shared/money_input",
               form:,
@@ -56,8 +65,12 @@
 
     = form.govuk_fieldset legend: { text: t("estimate_flow.assets.valuables.label") } do
 
-      - t("estimate_flow.assets.valuables.#{@check.level_of_help}_hints").each
-        .govuk-hint = _1
+      - if @check.partner && i18n_key == "assets"
+        - t("estimate_flow.assets.valuables.#{@check.level_of_help}_with_partner_hints").each
+          .govuk-hint = _1
+      - else
+        - t("estimate_flow.#{i18n_key}.valuables.#{@check.level_of_help}_hints").each
+          .govuk-hint = _1
 
       = govuk_details(summary_text: t("estimate_flow.assets.valuables.details_header")) do
         p.govuk-body = t("estimate_flow.assets.valuables.details_subheader_1")
