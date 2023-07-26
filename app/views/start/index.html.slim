@@ -17,7 +17,9 @@
     - t(".valid_case_types").each
       li = _1
 
-  p.govuk-body = t(".mental_health_html")
+  p.govuk-body = t(".mental_health_html",
+                 page_url: GuidanceLinkService.call(document: :mental_heatlh_guidance,
+                                                    section: :first_page))
 
   h2.govuk-heading-m = t(".client_types")
   - unless FeatureFlags.enabled?(:self_employed, without_session_data: true)
