@@ -33,15 +33,19 @@
   - else
     p.govuk-body = t(".unacceptable_client_explanation_under_18_controlled_html",
                    page_url: GuidanceLinkService.call(document: :lc_guidance_controlled,
-                                                      section: "Eligibility of children"),
+                                                      section: :children,
+                                                      just_the_page_number: false),
                    page_number: GuidanceLinkService.call(document: :lc_guidance_controlled,
-                                                         section: "Eligibility of children"))
+                                                         section: :children,
+                                                         just_the_page_number: true))
 
     p.govuk-body = t(".unacceptable_client_explanation_under_18_certificated_html",
                    page_url: GuidanceLinkService.call(document: :lc_guidance_certificated,
-                                                      section: "Eligibility of children"),
+                                                      section: :children,
+                                                      just_the_page_number: false),
                    page_number: GuidanceLinkService.call(document: :lc_guidance_certificated,
-                                                      section: "Eligibility of children"))
+                                                         section: :children,
+                                                         just_the_page_number: true))
 
   - if FeatureFlags.enabled?(:self_employed, without_session_data: true)
     h3.govuk-heading-s = t(".unacceptable_client_heading_company_director")
