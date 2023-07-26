@@ -90,7 +90,6 @@ group :test do
   gem "capybara"
   gem "rspec"
   gem "selenium-webdriver"
-  gem "webdrivers"
   gem "capybara-selenium"
   gem "webmock", require: false
   gem "axe-core-rspec"
