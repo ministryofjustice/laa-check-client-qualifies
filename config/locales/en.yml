@@ -545,13 +545,13 @@ en:
       certificated: Civil certificated or licensed legal work
       controlled_guidance:
         text: Guide to determining controlled work
-        link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf
+        link: "%{page_url}"
       certificated_guidance:
         text: Guide to determining certificated work
-        link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf
+        link: "%{page_url}"
       mental_health_guidance:
         text: Means assessment section of Mental Health guidance
-        link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1143984/Mental_Health_Guidance_-_Contract_management_-_GOV.UK_2023.pdf
+        link: "%{page_url}"
     asylum_support:
       question: Does your client get Asylum Support?
       help_text_1: This means Asylum Support as defined in Section 4 or Section 95 of the Immigration and Asylum Act 1999.
@@ -597,7 +597,7 @@ en:
       asylum: Asylum - legal help, help at court, or controlled legal representation (CLR) in the First-tier Tribunal
       legacy_case_guidance:
         text: Guidance on legacy case Appeals and Reviews in the Upper Tribunal
-        link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1157029/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_controlled_work_and_family_mediation_May_2023.pdf#page=3
+        link: "%{page_url}"
     applicant:
       passporting_guidance:
         text: Guidance on passporting
@@ -1792,7 +1792,7 @@ en:
         capital: disposable capital
     legislation_table:
       paragraph_1_html: This calculation was made using the rules for controlled work in <a href="https://www.legislation.gov.uk/uksi/2013/480/contents" target='_blank' rel='noreferrer noopener'>The Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 (opens in new tab)</a> and the <a href="https://www.legislation.gov.uk/all?title=Civil%20Legal%20Aid%20%28Financial%20Resources%20" target='_blank' rel='noreferrer noopener' aria-label="Link opens a search page which includes a list of amendments to The Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 (opens in new tab)">amendments to these Regulations (opens in new tab)</a>.
-      paragraph_2_html: Guidance on determining financial eligibility for controlled work and family mediation can be found in the <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf" target='_blank' rel='noreferrer noopener'>guide to determining controlled work (opens in new tab)</a>.
+      paragraph_2_html: Guidance on determining financial eligibility for controlled work and family mediation can be found in the <a href= %{page_url} target='_blank' rel='noreferrer noopener'>guide to determining controlled work (opens in new tab)</a>.
     limits_table:
       calculation_information: We’ve used the information you provided to compare your client’s income and outgoings. This allows us to calculate their monthly disposable income.
       limits_heading: Limits
