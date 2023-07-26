@@ -9,7 +9,9 @@
 
     = form.govuk_collection_radio_buttons :immigration_or_asylum_type, immigration_or_asylum_type_options, :first, :last,
                                             legend: { text: t(".title"), size: "xl", tag: "h1" },
-                                            hint: { text: t(".hint_html") }
+                                            hint: { text: t(".hint_html",
+                                                          page_url: GuidanceLinkService.call(document: :legislation,
+                                                                                             section: :LASPO_2012_immigration)) }
 
     = form.govuk_submit t("generic.save_and_continue")
 
