@@ -33,16 +33,14 @@
   - else
     p.govuk-body = t(".unacceptable_client_explanation_under_18_controlled_html",
                    page_url: GuidanceLinkService.call(document: :lc_guidance_controlled,
-                                                      section: :children,
-                                                      just_the_page_number: false),
+                                                      section: :children),
                    page_number: GuidanceLinkService.call(document: :lc_guidance_controlled,
                                                          section: :children,
                                                          just_the_page_number: true))
 
     p.govuk-body = t(".unacceptable_client_explanation_under_18_certificated_html",
                    page_url: GuidanceLinkService.call(document: :lc_guidance_certificated,
-                                                      section: :children,
-                                                      just_the_page_number: false),
+                                                      section: :children),
                    page_number: GuidanceLinkService.call(document: :lc_guidance_certificated,
                                                          section: :children,
                                                          just_the_page_number: true))
