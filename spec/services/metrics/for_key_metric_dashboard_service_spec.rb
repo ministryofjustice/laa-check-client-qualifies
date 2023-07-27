@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Metrics::FromAnalyticsService do
+RSpec.describe Metrics::ForKeyMetricDashboardService do
   describe ".call" do
     let(:client) { instance_double(Geckoboard::Client, datasets: dataset_client) }
     let(:dataset_client) { instance_double(Geckoboard::DatasetsClient) }
@@ -8,7 +8,7 @@ RSpec.describe Metrics::FromAnalyticsService do
     let(:all_metric_dataset) { instance_double(Geckoboard::Dataset) }
     let(:validation_dataset) { instance_double(Geckoboard::Dataset) }
     let(:last_page_dataset) { instance_double(Geckoboard::Dataset) }
-    let(:arbitrary_fixed_time) { "2023-3-20" }
+    let(:arbitrary_fixed_time) { "2023-7-20" }
 
     before do
       travel_to arbitrary_fixed_time
@@ -41,6 +41,8 @@ RSpec.describe Metrics::FromAnalyticsService do
             completion_rate: nil,
             controlled_checks_completed: 0,
             date: Date.current,
+            forms_downloaded: 0,
+            forms_percentage: nil,
           },
         ])
         expect(validation_dataset).to receive(:put).with([])
@@ -91,6 +93,10 @@ RSpec.describe Metrics::FromAnalyticsService do
         create :analytics_event, assessment_code: "CODE5", page: "view_results", created_at: 24.hours.ago
 
         create :analytics_event, page: "index_start"
+
+        create_list :completed_user_journey, 3, certificated: false, outcome: "eligible", form_downloaded: false, completed: 1.day.ago
+        create_list :completed_user_journey, 6, certificated: false, outcome: "ineligible", form_downloaded: false, completed: 1.day.ago
+        create_list :completed_user_journey, 2, certificated: false, outcome: "eligible", form_downloaded: true, completed: 1.day.ago
       end
 
       it "pushes appropriate numbers to Geckoboard" do
@@ -98,7 +104,7 @@ RSpec.describe Metrics::FromAnalyticsService do
           [
             {
               median_completion_time_controlled: 300.0,
-              median_completion_time_certificated: 2940.0,
+              median_completion_time_certificated: 1500.0,
               certificated_checks_completed: 2,
               checks_completed: 4,
               checks_started: 5,
@@ -106,6 +112,8 @@ RSpec.describe Metrics::FromAnalyticsService do
               completion_rate: 80,
               controlled_checks_completed: 2,
               date: Date.current,
+              forms_downloaded: 2,
+              forms_percentage: 40,
             },
           ],
         )
@@ -113,14 +121,16 @@ RSpec.describe Metrics::FromAnalyticsService do
           [
             {
               median_completion_time_controlled: nil,
-              median_completion_time_certificated: 5760.0,
+              median_completion_time_certificated: 2880.0,
               certificated_checks_completed: 1,
               checks_completed: 1,
               checks_started: 1,
               completed_checks_per_user: 1,
               completion_rate: 100,
               controlled_checks_completed: 0,
-              date: Date.new(2023, 2, 1),
+              date: Date.new(2023, 6, 1),
+              forms_downloaded: 0,
+              forms_percentage: nil,
             },
             {
               median_completion_time_certificated: 120.0,
@@ -131,7 +141,9 @@ RSpec.describe Metrics::FromAnalyticsService do
               completed_checks_per_user: 2,
               completion_rate: 75,
               controlled_checks_completed: 2,
-              date: Date.new(2023, 3, 1),
+              date: Date.new(2023, 7, 1),
+              forms_downloaded: 2,
+              forms_percentage: 40,
             },
           ],
         )
