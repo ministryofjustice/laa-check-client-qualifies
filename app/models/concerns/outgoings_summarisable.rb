@@ -32,7 +32,7 @@ module OutgoingsSummarisable
   end
 
   def partner_tax_and_national_insurance
-    tax_and_national_insurance "partner_" if partner_income_relevant? && partner_employed?
+    tax_and_national_insurance("partner_") if partner_income_relevant? && partner_employed?
   end
 
   def client_employment_deduction
@@ -83,11 +83,13 @@ private
   def tax_and_national_insurance(summary_section_prefix = "")
     tax = session_data.dig("api_response", "result_summary", "#{summary_section_prefix}disposable_income", "employment_income", "tax") || 0
     national_insurance = session_data.dig("api_response", "result_summary", "#{summary_section_prefix}disposable_income", "employment_income", "national_insurance") || 0
+    # CFE returns these figures as negative numbers, but we want positive numbers on the form
     -1 * (tax + national_insurance)
   end
 
   def employment_deduction(summary_section_prefix = "")
     deduction = session_data.dig("api_response", "result_summary", "#{summary_section_prefix}disposable_income", "employment_income", "fixed_employment_deduction") || 0
+    # CFE returns this figure as a negative number, but we want a positive number on the form
     -1 * deduction
   end
 end
