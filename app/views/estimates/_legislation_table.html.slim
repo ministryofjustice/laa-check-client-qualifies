@@ -1,2 +1,3 @@
-p.govuk-body = t(".paragraph_1_html")
+p.govuk-body = t(".paragraph_1_html", page_url: GuidanceLinkService.call(document: :legislation_CLAR_2013),
+                                      page_url_2: GuidanceLinkService.call(document: :legislation_ammendments))
 p.govuk-body = t(".paragraph_2_html", page_url: GuidanceLinkService.call(document: :lc_guidance_controlled))

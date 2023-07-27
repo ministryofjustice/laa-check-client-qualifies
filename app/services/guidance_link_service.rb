@@ -73,6 +73,9 @@ class GuidanceLinkService
           legislation_LASPO_2012_immigration: {
             page_url: "https://www.legislation.gov.uk/ukpga/2012/10/schedule/1",
           },
+          legislation_ammendments: {
+            page_url: "https://www.legislation.gov.uk/all?title=Civil%20Legal%20Aid%20%28Financial%20Resources%20",
+          },
           controlled_work_applications: {
             page_url: "https://www.gov.uk/government/collections/controlled-work-application-forms",
           },
