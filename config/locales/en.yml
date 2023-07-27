@@ -427,9 +427,9 @@ en:
     disregarded_benefits_guidance:
       text: Guidance on disregarded benefits
       certificated:
-        link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=36"
+        link: "%{page_url}"
       controlled:
-        link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=10"
+        link: "%{page_url}"
     smod:
       guidance:
         text: "Guidance on subject matter of dispute"
@@ -693,9 +693,9 @@ en:
       guidance:
         text: Guidance on dependants
         certificated:
-          link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=42
+          link: "%{page_url}"
         controlled:
-          link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=15
+          link: "%{page_url}"
     employment_status:
       heading: What is your client's employment status?
       in_work_including_self_employed: Employed or self-employed
@@ -784,11 +784,11 @@ en:
       income: Income
       guidance:
         text: Guidance on income
-        certificated_link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1157030/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_certificated_work_May_2023__002_.pdf#page=75
-        controlled_link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=11
+        certificated_link: "%{page_url}"
+        controlled_link: "%{page_url}"
       police_guidance:
         text: Guidance on police officer applicants
-        link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1157030/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_certificated_work_May_2023__002_.pdf#page=95
+        link: "%{page_url}"
     partner_income:
       heading: The partner's employment income
       hint: You can find this on the partner's payslips.
@@ -1059,10 +1059,10 @@ en:
       guidance_on_outgoings:
         certificated:
           text: Guidance on outgoings
-          link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=38"
+          link: "%{page_url}"
         controlled:
           text: Guidance on determining disposable income
-          link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=15
+          link: "%{page_url}"
     partner_outgoings:
       heading: The partner's outgoings and deductions
       second_caption: Do not add any outgoings you've listed as outgoings for the client. Enter 0 for any that do not apply.
@@ -1125,17 +1125,17 @@ en:
       partner_second_hint: If any of these assets are owned by both the client and partner, enter the full value here. Do not enter them again on the partner questions that follow.
       business_capital_title: Business capital for self-employed clients
       business_capital_text: This service does not currently collect or include the value of any business capital held by your client or their partner. However the LAA may collect and include this when you make an application.
-      business_capital_text_html: See the <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1157030/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_certificated_work_May_2023__002_.pdf#page=86" target='_blank' rel='noreferrer noopener'>Lord Chancellor’s guidance</a> for more information on when and how it may be assessed at application stage.
+      business_capital_text_html: See the <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>Lord Chancellor’s guidance</a> for more information on when and how it may be assessed at application stage.
       bankrupt_title: Clients who are bankrupt
       bankrupt_text: If your client is bankrupt, any capital assets vested in the trustee in bankruptcy will not be included in the capital assessment.
       prison_title: Clients in prison
       prison_text: If your client is in prison, include the balance of any private, spends or savings accounts as money in bank accounts.
       prisoner_guidance:
         text: Guidance on clients who are prisoners
-        link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1157030/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_certificated_work_May_2023__002_.pdf#page=96
+        link: "%{page_url}"
       bankrupt_guidance:
         text: Guidance on bankrupt clients
-        link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1157030/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_certificated_work_May_2023__002_.pdf#page=84
+        link: "%{page_url}"
       bank_accounts:
         label: Money in bank accounts
         hints:
@@ -1179,13 +1179,13 @@ en:
       guidance:
         controlled:
           text: Guidance on assets and capital, including disregarded capital
-          link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=20"
+          link: "%{page_url}"
         certificated:
           text: Guidance on assets/capital
-          link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=47"
+          link: "%{page_url}"
       disregarded_capital_guidance:
         text: Guidance on disregarded capital
-        link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=70"
+        link: "%{page_url}"
     partner_assets:
       legend: Partner assets
       hints:
@@ -1193,7 +1193,7 @@ en:
         - Do not enter any assets if you listed them as owned by your client on the previous page.
       business_capital_title: Business capital for self-employed clients
       business_capital_text: This service does not currently collect or include the value of any business capital held by your client or their partner. However the LAA may collect and include this when you make an application.
-      business_capital_text_html: See the <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1157030/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_certificated_work_May_2023__002_.pdf#page=86" target='_blank' rel='noreferrer noopener'>Lord Chancellor’s guidance (opens in new tab)</a> for more information on when and how it may be assessed at application stage.
+      business_capital_text_html: See the <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>Lord Chancellor’s guidance (opens in new tab)</a> for more information on when and how it may be assessed at application stage.
       bankrupt_title: Partners who are bankrupt
       bankrupt_text: If the partner is bankrupt, any capital assets vested in the trustee in bankruptcy will not be included in the capital assessment.
       prison_title: Partners in prison
