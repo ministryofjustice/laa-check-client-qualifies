@@ -24,20 +24,20 @@ class EstimatesController < ApplicationController
 
   def print
     @model = CalculationResult.new(session_data)
-    @answers = CheckAnswersPresenter.new session_data
+    @sections = CheckAnswers::SectionListerService.call(session_data)
     track_page_view(page: :print_results)
     render :print, layout: "print_application"
   end
 
   def check_answers
-    @answers = CheckAnswersPresenter.new session_data
+    @sections = CheckAnswers::SectionListerService.call(session_data)
     track_page_view(page: :check_answers)
   end
 
   def download
     track_page_view(page: :download_results)
     @model = CalculationResult.new(session_data)
-    @answers = CheckAnswersPresenter.new(session_data)
+    @sections = CheckAnswers::SectionListerService.call(session_data)
     @is_pdf = true
     html = render_to_string({
       template: "estimates/print",

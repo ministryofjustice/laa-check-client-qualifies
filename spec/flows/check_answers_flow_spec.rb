@@ -7,7 +7,7 @@ RSpec.describe "Check answers", type: :feature do
     fill_in_applicant_screen(employed: "Unemployed")
     fill_in_forms_until(:check_answers)
     confirm_screen("check_answers")
-    within "#section-client_details-header" do
+    within "#table-applicant" do
       click_on "Change"
     end
     fill_in_applicant_screen(employed: "Employed and in work")
@@ -20,7 +20,7 @@ RSpec.describe "Check answers", type: :feature do
     fill_in_forms_until(:applicant)
     fill_in_applicant_screen(passporting: "Yes")
     fill_in_forms_until(:check_answers)
-    within "#section-client_details-header" do
+    within "#table-applicant" do
       click_on "Change"
     end
     fill_in_applicant_screen(passporting: "No", employed: "Employed and in work")
@@ -40,7 +40,7 @@ RSpec.describe "Check answers", type: :feature do
     fill_in_vehicles_details_screen
     fill_in_forms_until(:check_answers)
     confirm_screen("check_answers")
-    within "#section-household_vehicles-header" do
+    within "#table-vehicle" do
       click_on "Change"
     end
     fill_in_vehicle_screen(choice: "Yes")
@@ -51,7 +51,7 @@ RSpec.describe "Check answers", type: :feature do
   it "behaves as expected when there are validation errors" do
     start_assessment
     fill_in_forms_until(:check_answers)
-    within "#section-assets-header" do
+    within "#table-assets" do
       click_on "Change"
     end
     fill_in_assets_screen(values: { investments: "" })
@@ -66,7 +66,7 @@ RSpec.describe "Check answers", type: :feature do
     fill_in_level_of_help_screen(choice: "Civil certificated or licensed legal work")
     fill_in_matter_type_screen(choice: "Domestic abuse")
     fill_in_forms_until(:check_answers)
-    within "#section-level_of_help-header" do
+    within "#table-level_of_help" do
       click_on "Change"
     end
     fill_in_level_of_help_screen(choice: "Civil controlled work or family mediation")
@@ -80,7 +80,7 @@ RSpec.describe "Check answers", type: :feature do
     fill_in_employment_status_screen
     fill_in_forms_until(:check_answers)
     confirm_screen("check_answers")
-    within "#section-client_details-header" do
+    within "#table-applicant" do
       click_on "Change"
     end
     fill_in_applicant_screen(over_60: "Yes")

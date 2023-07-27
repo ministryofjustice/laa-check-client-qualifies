@@ -1,10 +1,10 @@
 require "rails_helper"
 
 RSpec.describe "estimates/check_answers.html.slim" do
-  let(:answers) { CheckAnswersPresenter.new(session_data) }
+  let(:sections) { CheckAnswers::SectionListerService.call(session_data) }
 
   before do
-    assign(:answers, answers)
+    assign(:sections, sections)
     params[:id] = :id
     allow(view).to receive(:form_with)
     render template: "estimates/check_answers"
@@ -30,12 +30,14 @@ RSpec.describe "estimates/check_answers.html.slim" do
         end
 
         it "renders content" do
-          expect(text).to include("Financial help£50.00Every week")
-          expect(text).to include("Maintenance payments from a former partner£100.00Every 2 weeks")
-          expect(text).to include("Income from a property or lodger£150.00Every 4 weeks")
-          expect(text).to include("Pension£1,000.00Monthly")
-          expect(text).to include("Student finance£350.00")
-          expect(text).to include("Other sources£200.00")
+          expect_in_text(text, [
+            "Financial help from friends or family£50.00Every week",
+            "Maintenance payments from a former partner£100.00Every 2 weeks",
+            "Income from a property or lodger£150.00Every 4 weeks",
+            "Pension£1,000.00Monthly",
+            "Student finance£350.00",
+            "Income from other sources£200.00",
+          ])
         end
       end
 
@@ -55,12 +57,14 @@ RSpec.describe "estimates/check_answers.html.slim" do
         end
 
         it "renders content" do
-          expect(text).to include("Financial help£0.00")
-          expect(text).to include("Maintenance payments from a former partner£0.00")
-          expect(text).to include("Income from a property or lodger£0.00")
-          expect(text).to include("Pension£0.00")
-          expect(text).to include("Student finance£0.00")
-          expect(text).to include("Other sources£0.00")
+          expect_in_text(text, [
+            "Financial help from friends or family£0.00",
+            "Maintenance payments from a former partner£0.00",
+            "Income from a property or lodger£0.00",
+            "Pension£0.00",
+            "Student finance£0.00",
+            "Income from other sources£0.00",
+          ])
         end
       end
     end

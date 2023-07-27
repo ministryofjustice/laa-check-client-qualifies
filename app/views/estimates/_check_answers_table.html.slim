@@ -1,93 +1,58 @@
-- css = "accommodating-change-link"
-- @answers.sections.each do |section|
-  .govuk-grid-row  id="section-#{section.label}-header"
-    .govuk-grid-column-full
-      - text = "estimates.check_answers.#{section.label}"
-      = pdf_friendly_h2(t(text.to_s), "l", @is_pdf, (css.to_s if section.screen.present? && change_links))
-      - if section.screen.present? && change_links
-        p.change-link.beside-large-header
-          = link_to t("generic.change"),
-                    estimate_check_answer_path(params[:id], section.screen),
-                    class: "govuk-link govuk-!-font-size-19"
+- @sections.each do |section|
+  = pdf_friendly_h2(t("estimates.check_answers.sections.#{section.label}"), "l", @is_pdf, "govuk-!-margin-top-9")
 
   - section.subsections.each do |subsection|
     - if subsection.label
-      .govuk-grid-row id="subsection-#{subsection.label}-header"
-        .govuk-grid-column-full
-          - text = "estimates.check_answers.#{subsection.label}"
-          = pdf_friendly_h2(t(text.to_s), "m", @is_pdf, ("accommodating-change-link" if subsection.screen.present? && change_links))
-          - if subsection.screen.present? && change_links
-            p.change-link.beside-medium-header
-              = link_to t("generic.change"),
-                        estimate_check_answer_path(params[:id], subsection.screen),
-                        class: "govuk-link govuk-!-font-size-19"
+      = pdf_friendly_h2(t("estimates.check_answers.subsections.#{subsection.label}"), "m", @is_pdf)
 
-    dl class="govuk-summary-list govuk-!-margin-bottom-9" id="field-list-#{subsection.label || section.label}"
-      - subsection.fields.each do |field|
-        - case field.type
-        - when "money"
-          ruby:
-            label_text = if field.label_variable
-                           t("estimates.check_answers.#{field.label}", variable: field.label_variable)
-                         else
-                           t("estimates.check_answers.#{field.label}")
-                         end
-          = render "money_check_answer",
-                    label_text:,
-                    value_text: field.value,
-                    disputed_asset: field.disputed?
-        - when "boolean"
-          = render "check_answer",
-                    label_text: t("estimates.check_answers.#{field.label}"),
-                    value_text: yes_no_boolean(field.value),
-                    disputed_asset: field.disputed?
-        - when "number"
-          = render "check_answer",
-                    label_text: t("estimates.check_answers.#{field.label}"),
-                    value_text: field.value || t("generic.not_applicable"),
-                    disputed_asset: field.disputed?
-        - when "percentage"
-          = render "check_answer",
-                    label_text: t("estimates.check_answers.#{field.label}"),
-                    value_text: (field.value ? "#{field.value}%" : t("generic.not_applicable"))
-        - when "no_or_number"
-          = render "check_answer",
-                    label_text: t("estimates.check_answers.#{field.label}"),
-                    value_text: t("estimates.check_answers.#{field.label}_options.#{field.value || 'not_provided'}"),
-                    disputed_asset: field.disputed?
-        - when "select"
-          = render "check_answer",
-                    label_text: t("estimates.check_answers.#{field.label}"),
-                    value_text: t("estimates.check_answers.#{field.label}_options.#{field.value || 'not_provided'}"),
-                    disputed_asset: field.disputed?
-        - when "money_with_frequency"
-          - alt_value = field.alt_value if field.value&.to_f&.positive?
-          = render "money_and_frequency_check_answer",
-                    label_text: t("estimates.check_answers.#{field.label}"),
-                    value: field.value,
-                    frequency: t("estimates.check_answers.frequency_options.#{alt_value || 'not_applicable'}")
-        - when "benefit"
-          = render "money_and_frequency_check_answer",
-                    label_text: field.label,
-                    value: field.value,
-                    frequency: t("estimates.check_answers.frequency_options.#{field.alt_value}"),
-                    disputed_asset: false
-        - when "partner_benefit"
-          = render "money_and_frequency_check_answer",
-                    label_text: field.label,
-                    value: field.value,
-                    frequency: t("estimates.check_answers.frequency_options.#{field.alt_value}"),
-                    disputed_asset: false
-        - when "header"
-          .govuk-summary-list__row.no-bottom-border
-            dt.govuk-summary-list__key
-              .summary-list-subheader class="govuk-!-margin-top-5 govuk-!-margin-bottom-3"
-                = t("estimates.check_answers.#{field.label}", number: field.value)
-            dd.govuk-summary-list__value
-            dd.govuk-summary-list__actions
-              - if field.disputed?
-                span.moj-badge.moj-badge--blue.moj-badge--large
-                  = t("generic.disputed_asset")
-
-        - else
-          - raise "Unknown field_type #{field.type}"
+    - subsection.tables.each do |table|
+      .govuk-summary-card id=(table.index.to_i.positive? ? "table-#{table.screen}-#{table.index}" : "table-#{table.screen}")
+        .govuk-summary-card__title-wrapper
+          h2.govuk-summary-card__title
+            = t("estimates.check_answers.tables.#{table.screen}", variable: (table.index + 1 if table.index))
+            - if table.disputed?
+              span.moj-badge.moj-badge--blue.moj-badge--large.inline-disputed
+                = t("generic.disputed_asset")
+          - if change_links
+            - anchor = "section-#{table.index + 1}" if table.index
+            = link_to t("estimates.check_answers.change"),
+                      estimate_check_answer_path(params[:id], table.screen, anchor:),
+                      class: "change-link govuk-!-margin-top-1"
+        .govuk-summary-card__content
+          dl.govuk-summary-list
+            - table.fields.each do |field|
+              - case field.type
+              - when "money"
+                = render "money_check_answer",
+                          label_text: t("estimates.check_answers.#{field.label}", variable: field.index),
+                          value_text: field.value,
+                          disputed_asset: field.disputed?
+              - when "boolean"
+                = render "check_answer",
+                          label_text: t("estimates.check_answers.#{field.label}"),
+                          value_text: yes_no_boolean(field.value)
+              - when "number_or_text"
+                = render "check_answer",
+                          label_text: t("estimates.check_answers.#{field.label}"),
+                          value_text: field.value || t("generic.not_applicable")
+              - when "percentage"
+                = render "check_answer",
+                          label_text: t("estimates.check_answers.#{field.label}"),
+                          value_text: (field.value ? "#{field.value}%" : t("generic.not_applicable"))
+              - when "select"
+                - value_key = field.value ? "#{field.label}_options.#{field.value}" : "not_provided"
+                = render "check_answer",
+                          label_text: t("estimates.check_answers.#{field.label}"),
+                          value_text: t("estimates.check_answers.#{value_key}")
+              - when "frequency"
+                = render "check_answer",
+                          label_text: t("estimates.check_answers.#{field.label}"),
+                          value_text: t("estimates.check_answers.frequency_options.#{field.value || 'not_applicable'}")
+              - when "money_with_frequency"
+                - alt_value = field.alt_value if field.value&.to_f&.positive?
+                = render "money_and_frequency_check_answer",
+                          label_text: t("estimates.check_answers.#{field.label}"),
+                          value: field.value,
+                          frequency: t("estimates.check_answers.frequency_options.#{alt_value || 'not_applicable'}")
+              - else
+                - raise "Unknown field_type #{field.type}"
