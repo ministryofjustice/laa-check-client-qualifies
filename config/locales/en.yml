@@ -434,17 +434,17 @@ en:
       guidance:
         text: "Guidance on subject matter of dispute"
         certificated:
-          link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=68"
+          link: "%{page_url}"
         controlled:
-          link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=24"
+          link: "%{page_url}"
     smod_help: Help with subject matter of dispute
     smod_help_text: Regulation 38 (Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013) provides for a disregard of the amount or value of assets that are the subject matter of dispute (SMOD); however the total amount disregarded must not exceed £100,000. Please read the related content on subject matter of dispute (Regulation 38).
     trapped_capital:
       text: "Guidance on trapped capital"
       certificated:
-        link: "https://legalaidlearning.justice.gov.uk/course/view.php?id=186"
+        link: "%{page_url}"
       controlled:
-        link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=20"
+        link: "%{page_url}"
     disregarded_benefits:
       text: Government Cost of Living Payments and disregarded benefits
       cost_of_living:
@@ -1093,15 +1093,15 @@ en:
       properties_guidance:
         text: Guidance on properties
         certificated:
-          link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=57"
+          link: "%page_url"
         controlled:
-          link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=23"
+          link: "%page_url"
       additional_properties_guidance:
         text: Guidance on properties owned that are not the 'main house'
         certificated:
-          link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=58"
+          link: "%page_url"
         controlled:
-          link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=23"
+          link: "%page_url"
     additional_property:
       legend: Does your client own any other property, a holiday home or land?
       hint: This can be the sole property owned if not the home the client lives in, even if the property is abroad or not providing an income.
@@ -1118,7 +1118,7 @@ en:
         hint: "This includes cars, vans and motorcycles"
       guidance:
         text: Guidance on vehicles
-        link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=55"
+        link: "%{page_url}"
     assets:
       legend: Client assets
       hint: Enter 0 for any that do not apply
