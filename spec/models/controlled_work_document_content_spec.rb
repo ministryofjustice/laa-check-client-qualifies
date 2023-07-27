@@ -1,21 +1,6 @@
 require "rails_helper"
 
 RSpec.describe ControlledWorkDocumentContent do
-  describe "#from_cfe_payload" do
-    it "can handle paths with numbers in them" do
-      session_data = {
-        "api_response" => {
-          "foo" => [
-            { "bar" => 0 },
-            { "bar" => 56 },
-            { "bar" => 0 },
-          ],
-        },
-      }
-      expect(described_class.new(session_data).from_cfe_payload("foo.1.bar")).to eq 56
-    end
-  end
-
   context "when there are percentages" do
     def make_capital(percentage_owned, subject_matter_of_dispute: false)
       {
@@ -71,7 +56,7 @@ RSpec.describe ControlledWorkDocumentContent do
   context "when the main home is owned" do
     let(:session_data) do
       {
-        "property_owned" => "outright",
+        "property_owned" => "with_mortgage",
         "partner" => true,
         "percentage_owned" => 100,
         "api_response" => {
@@ -100,14 +85,14 @@ RSpec.describe ControlledWorkDocumentContent do
     end
 
     describe "#client_rent" do
-      it "returns zero" do
-        expect(described_class.new(session_data).client_rent).to eq 0
+      it "returns nil" do
+        expect(described_class.new(session_data).client_rent).to eq nil
       end
     end
 
     describe "#partner_rent" do
-      it "returns zero" do
-        expect(described_class.new(session_data).partner_rent).to eq 0
+      it "returns nil" do
+        expect(described_class.new(session_data).partner_rent).to eq nil
       end
     end
   end
@@ -132,13 +117,13 @@ RSpec.describe ControlledWorkDocumentContent do
 
     describe "#client_mortgage" do
       it "returns zero" do
-        expect(described_class.new(session_data).client_mortgage).to eq 0
+        expect(described_class.new(session_data).client_mortgage).to eq nil
       end
     end
 
     describe "#partner_mortgage" do
       it "returns zero" do
-        expect(described_class.new(session_data).partner_mortgage).to eq 0
+        expect(described_class.new(session_data).partner_mortgage).to eq nil
       end
     end
 
@@ -265,7 +250,7 @@ RSpec.describe ControlledWorkDocumentContent do
     end
   end
 
-  context "when a session with everything is created the method" do
+  context "when there is a full session of data" do
     let(:session_data) { FactoryBot.build(:full_session) }
 
     context "when asylum support exists" do
@@ -278,6 +263,12 @@ RSpec.describe ControlledWorkDocumentContent do
       describe "#smod_assets?" do
         it "returns no response" do
           expect(described_class.new(session_data).smod_assets?).to eq nil
+        end
+      end
+
+      describe "#combined_non_disputed_capital?" do
+        it "returns nil" do
+          expect(described_class.new(session_data).combined_non_disputed_capital).to eq nil
         end
       end
     end
@@ -368,16 +359,200 @@ RSpec.describe ControlledWorkDocumentContent do
     end
   end
 
-  context "when client_capital is not relevant the method" do
-    before do
-      allow(Steps::Helper).to receive(:valid_step?).and_return(false)
+  describe "#dependants_allowance_under_16" do
+    let(:session_data) do
+      {
+        child_dependants:,
+        api_response: FactoryBot.build(:api_result,
+                                       result_summary: build(:result_summary,
+                                                             disposable_income: build(:disposable_income_summary,
+                                                                                      dependant_allowance_under_16: 3))),
+      }.with_indifferent_access
     end
 
-    describe "#combined_non_disputed_capital?" do
-      let(:session_data) { FactoryBot.build(:full_session) }
+    context "when client has child dependants" do
+      let(:child_dependants) { true }
+
+      it "returns the payload value" do
+        expect(described_class.new(session_data).dependants_allowance_under_16).to eq 3
+      end
+    end
+
+    context "when client has no child dependants" do
+      let(:child_dependants) { false }
 
       it "returns nil" do
-        expect(described_class.new(session_data).combined_non_disputed_capital).to eq nil
+        expect(described_class.new(session_data).dependants_allowance_under_16).to eq nil
+      end
+    end
+  end
+
+  describe "#dependants_allowance_over_16" do
+    let(:session_data) do
+      {
+        adult_dependants:,
+        api_response: FactoryBot.build(:api_result,
+                                       result_summary: build(:result_summary,
+                                                             disposable_income: build(:disposable_income_summary,
+                                                                                      dependant_allowance_over_16: 3))),
+      }.with_indifferent_access
+    end
+
+    context "when client has adult dependants" do
+      let(:adult_dependants) { true }
+
+      it "returns the payload value" do
+        expect(described_class.new(session_data).dependants_allowance_over_16).to eq 3
+      end
+    end
+
+    context "when client has no adult dependants" do
+      let(:adult_dependants) { false }
+
+      it "returns nil" do
+        expect(described_class.new(session_data).dependants_allowance_over_16).to eq nil
+      end
+    end
+  end
+
+  describe "#client_tax_and_national_insurance" do
+    let(:session_data) do
+      {
+        employment_status:,
+        api_response: FactoryBot.build(:api_result,
+                                       result_summary: build(:result_summary,
+                                                             disposable_income: build(:disposable_income_summary,
+                                                                                      employment_income: { tax: 3 }))),
+      }.with_indifferent_access
+    end
+
+    context "when client is employed" do
+      let(:employment_status) { "in_work" }
+
+      it "returns the payload value, minused" do
+        expect(described_class.new(session_data).client_tax_and_national_insurance).to eq(-3)
+      end
+    end
+
+    context "when client is unemployed" do
+      let(:employment_status) { "unemployed" }
+
+      it "returns nil" do
+        expect(described_class.new(session_data).client_tax_and_national_insurance).to eq nil
+      end
+    end
+  end
+
+  describe "#partner_tax_and_national_insurance" do
+    let(:session_data) do
+      {
+        partner: true,
+        partner_employment_status:,
+        api_response: FactoryBot.build(:api_result,
+                                       result_summary: build(:result_summary,
+                                                             partner_disposable_income: build(:disposable_income_summary,
+                                                                                              employment_income: { tax: 3 }))),
+      }.with_indifferent_access
+    end
+
+    context "when partner is employed" do
+      let(:partner_employment_status) { "in_work" }
+
+      it "returns the payload value, minused" do
+        expect(described_class.new(session_data).partner_tax_and_national_insurance).to eq(-3)
+      end
+    end
+
+    context "when partner is unemployed" do
+      let(:partner_employment_status) { "unemployed" }
+
+      it "returns nil" do
+        expect(described_class.new(session_data).partner_tax_and_national_insurance).to eq nil
+      end
+    end
+  end
+
+  describe "#client_employment_deduction" do
+    let(:session_data) do
+      {
+        employment_status:,
+        api_response: FactoryBot.build(:api_result,
+                                       result_summary: build(:result_summary,
+                                                             disposable_income: build(:disposable_income_summary,
+                                                                                      employment_income: { fixed_employment_deduction: 3 }))),
+      }.with_indifferent_access
+    end
+
+    context "when client is employed" do
+      let(:employment_status) { "in_work" }
+
+      it "returns the payload value, minused" do
+        expect(described_class.new(session_data).client_employment_deduction).to eq(-3)
+      end
+    end
+
+    context "when client is unemployed" do
+      let(:employment_status) { "unemployed" }
+
+      it "returns nil" do
+        expect(described_class.new(session_data).client_employment_deduction).to eq nil
+      end
+    end
+  end
+
+  describe "#partner_employment_deduction" do
+    let(:session_data) do
+      {
+        partner: true,
+        partner_employment_status:,
+        api_response: FactoryBot.build(:api_result,
+                                       result_summary: build(:result_summary,
+                                                             partner_disposable_income: build(:disposable_income_summary,
+                                                                                              employment_income: { fixed_employment_deduction: 3 }))),
+      }.with_indifferent_access
+    end
+
+    context "when partner is employed" do
+      let(:partner_employment_status) { "in_work" }
+
+      it "returns the payload value, minused" do
+        expect(described_class.new(session_data).partner_employment_deduction).to eq(-3)
+      end
+    end
+
+    context "when partner is unemployed" do
+      let(:partner_employment_status) { "unemployed" }
+
+      it "returns nil" do
+        expect(described_class.new(session_data).partner_employment_deduction).to eq nil
+      end
+    end
+  end
+
+  describe "#combined_childcare_costs" do
+    let(:session_data) do
+      {
+        child_dependants:,
+        student_finance_value: 1,
+        api_response: FactoryBot.build(:api_result,
+                                       assessment: build(:assessment,
+                                                         disposable_income: { childcare_allowance: 3 })),
+      }.with_indifferent_access
+    end
+
+    context "when eligible for costs" do
+      let(:child_dependants) { true }
+
+      it "returns the payload value" do
+        expect(described_class.new(session_data).combined_childcare_costs).to eq(3)
+      end
+    end
+
+    context "when ineligible for costs" do
+      let(:child_dependants) { false }
+
+      it "returns nil" do
+        expect(described_class.new(session_data).combined_childcare_costs).to eq nil
       end
     end
   end
