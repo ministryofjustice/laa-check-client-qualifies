@@ -11,7 +11,7 @@
                                             legend: { text: t(".title"), size: "xl", tag: "h1" },
                                             hint: { text: t(".hint_html",
                                                           page_url: GuidanceLinkService.call(document: :legislation,
-                                                                                             section: :LASPO_2012_immigration)) }
+                                                                                             chapter: :LASPO_2012_immigration)) }
 
     = form.govuk_submit t("generic.save_and_continue")
 
@@ -20,8 +20,8 @@
         links: { t("estimate_flow.level_of_help.controlled_guidance.text") => \
                    t("estimate_flow.level_of_help.controlled_guidance.link",
                    page_url: GuidanceLinkService.call(document: :lc_guidance_controlled,
-                                                         section: :first_page)),
+                                                         chapter: :first_page)),
                  t(".legacy_case_guidance.text") => \
                    t(".legacy_case_guidance.link",
                    page_url: GuidanceLinkService.call(document: :lc_guidance_controlled,
-                                                         section: :legacy_guidance)) }
+                                                         chapter: :legacy_guidance)) }
