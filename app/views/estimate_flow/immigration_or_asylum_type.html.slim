@@ -10,18 +10,14 @@
     = form.govuk_collection_radio_buttons :immigration_or_asylum_type, immigration_or_asylum_type_options, :first, :last,
                                             legend: { text: t(".title"), size: "xl", tag: "h1" },
                                             hint: { text: t(".hint_html",
-                                                          page_url: GuidanceLinkService.call(document: :legislation,
-                                                                                             chapter: :LASPO_2012_immigration)) }
+                                                    page_url: GuidanceLinkService.call(document: :legislation_LASPO_2012_immigration)) }
 
     = form.govuk_submit t("generic.save_and_continue")
 
 = render "shared/question_sidebar",
         level_of_help: @check.level_of_help,
         links: { t("estimate_flow.level_of_help.controlled_guidance.text") => \
-                   t("estimate_flow.level_of_help.controlled_guidance.link",
-                   page_url: GuidanceLinkService.call(document: :lc_guidance_controlled,
-                                                         chapter: :first_page)),
+                   GuidanceLinkService.call(document: :lc_guidance_controlled),
                  t(".legacy_case_guidance.text") => \
-                   t(".legacy_case_guidance.link",
-                   page_url: GuidanceLinkService.call(document: :lc_guidance_controlled,
-                                                         chapter: :legacy_guidance)) }
+                  GuidanceLinkService.call(document: :lc_guidance_controlled,
+                                                         chapter: :legacy_guidance) }

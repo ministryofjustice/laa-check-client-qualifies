@@ -6,7 +6,7 @@ class GuidanceLinkService
       if just_the_page_number
         mapping[feature_flag].dig(document, :sections, chapter)
       elsif chapter
-        mapping[feature_flag].dig(document, :page_url) << "#page=" << mapping[feature_flag].dig(document, :sections, chapter)
+        mapping[feature_flag].dig(document, :page_url).to_s << "#page=" << mapping[feature_flag].dig(document, :sections, chapter).to_s
       else
         mapping[feature_flag].dig(document, :page_url)
       end
@@ -23,7 +23,7 @@ class GuidanceLinkService
             sections: {
               children: "32",
               legacy_guidance: "3",
-              asylum_support: "5",
+              passporting_benefit: "5",
               over_60: "29",
               dependants_allowance: "15",
               self_employed: "11",
@@ -42,7 +42,7 @@ class GuidanceLinkService
               upper_tribunal: "127",
               domestic_abuse: "13",
               passporting_benefit: "11",
-              over_60_disregard: "71",
+              over_60: "71",
               prisoner: "96",
               dependants_allowance: "42",
               self_employed: "75",
@@ -59,29 +59,23 @@ class GuidanceLinkService
               additional_property: "58",
             },
           },
-          legislation: {
-            CLAR_2013: {
-              page_url: "https://www.legislation.gov.uk/uksi/2013/480/contents",
-            },
-            LASPO_2012_immigration: {
-              page_url: "https://www.legislation.gov.uk/ukpga/2012/10/schedule/1",
-            },
-            CLAR_2013_childcare: {
-              page_url: "https://www.legislation.gov.uk/uksi/2013/480/regulation/27",
-            },
-            CLAR_2013_housing: {
-              page_url: "https://www.legislation.gov.uk/uksi/2013/480/regulation/28",
-            },
+          legislation_CLAR_2013: {
+            page_url: "https://www.legislation.gov.uk/uksi/2013/480/contents",
+          },
+          legislation_CLAR_2013_childcare: {
+            page_url: "https://www.legislation.gov.uk/uksi/2013/480/regulation/27",
+          },
+          legislation_CLAR_2013_housing: {
+            page_url: "https://www.legislation.gov.uk/uksi/2013/480/regulation/28",
+          },
+          legislation_LASPO_2012_immigration: {
+            page_url: "https://www.legislation.gov.uk/ukpga/2012/10/schedule/1",
           },
           controlled_work_applications: {
-            application_forms_on_gov_uk: {
-              page_url: "https://www.gov.uk/government/collections/controlled-work-application-forms",
-            },
+            page_url: "https://www.gov.uk/government/collections/controlled-work-application-forms",
           },
           legal_aid_learning: {
-            means_assessments_and_contributions: {
-              page_url: "https://legalaidlearning.justice.gov.uk/course/view.php?id=186",
-            },
+            page_url: "https://legalaidlearning.justice.gov.uk/course/view.php?id=186",
           },
         },
       }

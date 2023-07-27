@@ -31,14 +31,8 @@
 = render "layouts/sidebar"
   = render "shared/related_content",
            links: { t("estimate_flow.level_of_help.controlled_guidance.text") => \
-                      t("estimate_flow.level_of_help.controlled_guidance.link",
-                      page_url: GuidanceLinkService.call(document: :lc_guidance_controlled,
-                                                         chapter: :first_page)),
+                      GuidanceLinkService.call(document: :lc_guidance_controlled),
                     t("estimate_flow.level_of_help.certificated_guidance.text") => \
-                      t("estimate_flow.level_of_help.certificated_guidance.link",
-                      page_url: GuidanceLinkService.call(document: :lc_guidance_certificated,
-                                                         chapter: :first_page)),
+                      GuidanceLinkService.call(document: :lc_guidance_certificated),
                     t("estimate_flow.level_of_help.mental_health_guidance.text") => \
-                      t("estimate_flow.level_of_help.mental_health_guidance.link",
-                      page_url: GuidanceLinkService.call(document: :mental_heatlh_guidance,
-                                                         chapter: :first_page)) }
+                      GuidanceLinkService.call(document: :mental_heatlh_guidance) }
