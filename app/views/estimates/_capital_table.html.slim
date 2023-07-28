@@ -1,25 +1,36 @@
-- (@model.has_partner? ? "estimates.show.capital_header.partner" : "estimates.show.capital_header.client").tap do |text|
-  p
-    - if @model.level_of_help == "controlled"
-      = t("#{text}.first_controlled")
-    - else
-      = t("#{text}.first_certificated")
-  p class="govuk-!-margin-bottom-8"
-    = t("#{text}.second")
+- if @is_pdf == true
+    - (@model.has_partner? ? "estimates.show.capital_header.partner" : "estimates.show.capital_header.client").tap do |text|
+      ul.govuk-list style="list-style-type: none; margin: 0;"
+        li
+          - if @model.level_of_help == "controlled"
+            = t("#{text}.first_controlled")
+          - else
+            = t("#{text}.first_certificated")
+        li class="govuk-!-margin-bottom-8"
+          = t("#{text}.second")
+- else
+    - (@model.has_partner? ? "estimates.show.capital_header.partner" : "estimates.show.capital_header.client").tap do |text|
+      p
+        - if @model.level_of_help == "controlled"
+          = t("#{text}.first_controlled")
+        - else
+          = t("#{text}.first_certificated")
+      p class="govuk-!-margin-bottom-8"
+        = t("#{text}.second")
 
 - if @model.vehicle_owned?
   - @model.display_household_vehicles.each_with_index do |vehicle, index|
     - count = index + 1
-    h2 class="govuk-heading-m" = t("estimates.show.vehicles", number: count).to_s
+    = pdf_friendly_h2(t("estimates.show.vehicles", number: count).to_s, "m", @is_pdf)
     = govuk_table do |table|
       - table.with_body do |body|
         - vehicle.each do |key, value|
           - body.with_row do |row|
             - row.with_cell(header: true, text: t("estimates.show.vehicle.#{key}"))
-            - row.with_cell(text: value, numeric: true)
+            - pdf_friendly_numeric_table_cell(row, value, bold_text: false)
         - body.with_row(classes: %w[solid-top-border]) do |row|
           - row.with_cell(header: true, text: t("estimates.show.vehicle.assessed_value"))
-          - row.with_cell(classes: %w[govuk-!-font-weight-bold], text: @model.household_vehicle_assessed_value(index), numeric: true)
+          - pdf_friendly_numeric_table_cell(row, @model.household_vehicle_assessed_value(index), bold_text: true)
 
 - if @model.client_owns_main_home?
   = render "property_table",
@@ -73,19 +84,19 @@
         - @model.pensioner_disregard_rows.each do |type, amount|
           - body.with_row do |row|
             - row.with_cell(header: true, text: t("estimates.show.pensioner_disregard_types.#{type}"))
-            - row.with_cell(numeric: true, text: amount)
+            - pdf_friendly_numeric_table_cell(row, amount, bold_text: false)
         - body.with_row(classes: %w[solid-top-border]) do |row|
           - row.with_cell(header: true, text: t("estimates.show.pensioner_disregard_types.assessed_capital"))
-          - row.with_cell(numeric: true, header: true, text: @model.total_assessed_capital)
+          - pdf_friendly_numeric_table_cell(row, @model.total_assessed_capital, bold_text: true)
 
-h2 class="govuk-heading-#{caption_size}" = t("estimates.show.total")
+= pdf_friendly_h2(t("estimates.show.total"), caption_size.to_s, @is_pdf)
 = govuk_table do |table|
   - table.with_body do |body|
     - body.with_row(classes: %w[solid-top-border]) do |row|
       - row.with_cell(header: true, text: t("estimates.show.total_assessed_capital"))
-      - row.with_cell(classes: %w[govuk-!-font-weight-bold], text: @model.total_assessed_capital, numeric: true)
+      - pdf_friendly_numeric_table_cell(row, @model.total_assessed_capital, bold_text: true)
     - body.with_row(classes: %w[solid-bottom-border]) do |row|
       - row.with_cell(classes: %w[govuk-!-font-weight-regular], header: true, text: t("estimates.show.capital_upper_threshold"))
-      - row.with_cell(text: @model.capital_upper_threshold, numeric: true)
+      - pdf_friendly_numeric_table_cell(row, @model.capital_upper_threshold, bold_text: false)
 
 = render "ineligible_explanation", value_type: :capital

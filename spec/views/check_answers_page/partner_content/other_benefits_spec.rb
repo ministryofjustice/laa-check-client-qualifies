@@ -1,10 +1,10 @@
 require "rails_helper"
 
 RSpec.describe "estimates/check_answers.html.slim" do
-  let(:answers) { CheckAnswersPresenter.new(session_data) }
+  let(:sections) { CheckAnswers::SectionListerService.call(session_data) }
 
   before do
-    assign(:answers, answers)
+    assign(:sections, sections)
     params[:id] = :id
     allow(view).to receive(:form_with)
     render template: "estimates/check_answers"
@@ -19,32 +19,43 @@ RSpec.describe "estimates/check_answers.html.slim" do
           build(:minimal_complete_session,
                 :with_partner,
                 benefits: [],
+                partner_receives_benefits: true,
                 partner_benefits: [
-                  { "id" => "cd858b1f-d90a-4d7e-a1e9-5215f2a15c57",
-                    "benefit_type" => "Child Benefit",
+                  { "benefit_type" => "Child Benefit",
                     "benefit_amount" => 100,
                     "benefit_frequency" => "every_two_weeks" },
-                  { "id" => "18aeca3f-d2c3-4dbe-97da-f2c495aa19a1",
-                    "benefit_type" => "Tax Credit",
+                  { "benefit_type" => "Tax Credit",
                     "benefit_amount" => 50,
                     "benefit_frequency" => "every_week" },
-                  { "id" => "32d066d3-4e1c-4702-a00c-bbfb446176f2",
-                    "benefit_type" => "State Pension Credit",
+                  { "benefit_type" => "State Pension Credit",
                     "benefit_amount" => 40,
                     "benefit_frequency" => "every_four_weeks" },
-                  { "id" => "a2edb4ae-68af-4987-ab9e-963358855e94",
-                    "benefit_type" => "Incapacity Benefit",
+                  { "benefit_type" => "Incapacity Benefit",
                     "benefit_amount" => 60,
                     "benefit_frequency" => "monthly" },
                 ])
         end
 
         it "renders content" do
-          expect(text).to include("Gets benefitsYes")
-          expect(text).to include("Child Benefit£100.00Every 2 weeks")
-          expect(text).to include("Tax Credit£50.00Every week")
-          expect(text).to include("State Pension Credit£40.00Every 4 weeks")
-          expect(text).to include("Incapacity Benefit£60.00Monthly")
+          expect_in_text(text, [
+            "Does the partner get any benefits?Yes",
+            "Partner benefit 1 details",
+            "Benefit nameChild Benefit",
+            "Benefit amount£100.00",
+            "FrequencyEvery 2 weeks",
+            "Partner benefit 2 details",
+            "Benefit nameTax Credit",
+            "Benefit amount£50.00",
+            "FrequencyEvery week",
+            "Partner benefit 3 details",
+            "Benefit nameState Pension Credit",
+            "Benefit amount£40.00",
+            "FrequencyEvery 4 weeks",
+            "Partner benefit 4 details",
+            "Benefit nameIncapacity Benefit",
+            "Benefit amount£60.00",
+            "FrequencyMonthly",
+          ])
         end
       end
 
@@ -52,7 +63,7 @@ RSpec.describe "estimates/check_answers.html.slim" do
         let(:session_data) { build(:minimal_complete_session, :with_partner, benefits: [], partner_benefits: []) }
 
         it "renders content" do
-          expect(text).to include("Gets benefitsNo")
+          expect(text).to include("Does the partner get any benefits?No")
         end
       end
     end

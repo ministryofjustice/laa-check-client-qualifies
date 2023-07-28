@@ -1097,7 +1097,12 @@ en:
       bank_accounts:
         label: Money in bank accounts
         hints:
-          - For example, money in current or savings accounts, ISAs, or child accounts your client is a signatory on. Do not include any government Cost of Living Payments owed to your client.
+          - For example, money in current or savings accounts, ISAs, or child accounts your client is a signatory on.
+          - Do not include any government Cost of Living Payments owed to your client.
+          - Enter 0 if this does not apply.
+        with_partner_hints:
+          - For example, money in current or savings accounts, ISAs, or child accounts your client is a signatory on. If the client and partner share any joint bank accounts, include these.
+          - Do not include any government Cost of Living Payments owed to your client.
           - Enter 0 if this does not apply.
         input: Total money in account
       add_bank_account: Add another bank account
@@ -1107,9 +1112,20 @@ en:
         hints:
           - For example, shares in a public limited company, unit trusts or capital bonds.
           - Enter 0 if this does not apply.
+        with_partner_hints:
+          - For example, shares in a public limited company, unit trusts or capital bonds. Include any jointly owned by the client and partner.
+          - Enter 0 if this does not apply.
         input: Total of all investments
       valuables:
         label: Valuable items worth £500 or more
+        certificated_with_partner_hints:
+          - If you have more than one valuation for any of these valuable items, use the highest. Keep a record of where the valuation is from for evidence, as it may be checked if you make an application for legal aid.
+          - Include any jointly owned by the client and partner.
+          - Enter 0 if this does not apply.
+        controlled_with_partner_hints:
+          - If you have more than one valuation for any of these valuable items, use the highest. Keep a record of where the valuation is from for evidence, as it may be checked at file audit or assessment stage.
+          - Include any jointly owned by the client and partner.
+          - Enter 0 if this does not apply.
         certificated_hints:
           - If you have more than one valuation for any of these valuable items, use the highest. Keep a record of where the valuation is from for evidence, as it may be checked if you make an application for legal aid.
           - Enter 0 if this does not apply.
@@ -1159,15 +1175,26 @@ en:
         text: Guidance on clients with partners who are bankrupt
       bank_accounts:
         hints:
-          - For example, money in current or savings accounts, ISAs, or child accounts the partner is a signatory on. Do not include any government Cost of Living Payments owed to the partner. 
+          - For example, money in current or savings accounts, ISAs, or child accounts the partner is a signatory on.
+          - Do not include any joint bank accounts if you entered them as your client's assets on the previous page.
+          - Do not include any government Cost of Living Payments owed to the partner.
           - Enter 0 if this does not apply.
       investments:
         label: Investments
         hints:
           - For example, shares in a public limited company, unit trusts or capital bonds.
+          - Do not include any investments if you entered them as your client's assets on the previous page.
           - Enter 0 if this does not apply.
         input: Total of all investments
       valuables:
+        certificated_hints:
+          - If you have more than one valuation for any of these valuable items, use the highest. Keep a record of where the valuation is from for evidence, as it may be checked if you make an application for legal aid.
+          - Do not include any valuable items if you entered them as your client's assets on the previous page.
+          - Enter 0 if this does not apply.
+        controlled_hints:
+          - If you have more than one valuation for any of these valuable items, use the highest. Keep a record of where the valuation is from for evidence, as it may be checked at file audit or assessment stage.
+          - Do not include any valuable items if you entered them as your client's assets on the previous page.
+          - Enter 0 if this does not apply.
         details_bullets_1:
           - jewellery (but not wedding, engagement or eternity rings)
           - art
@@ -1235,210 +1262,260 @@ en:
   estimates:
     check_answers:
       heading: Check your answers
-      level_of_help: Level of help your client needs
-      level_of_help_fields:
-        level_of_help: Level of help
-        level_of_help_options:
-          controlled: Civil controlled work or family mediation
-          certificated: Civil certificated or licensed legal work
-          not_provided: Not provided
-      about_the_case: Case details
-      about_the_case_fields:
-        matter_type: Type of matter
-        matter_type_options:
-          immigration: Immigration in the Upper Tribunal
-          asylum: Asylum in the Upper Tribunal
-          other: Another category of law
-          domestic_abuse: Domestic abuse
-          not_provided: "Not provided"
-        immigration_or_asylum: Immigration or asylum
-        immigration_or_asylum_type: Type of matter
-        immigration_or_asylum_type_options:
-          immigration_clr: Immigration – CLR in the First-tier Tribunal
-          immigration_legal_help: Immigration – legal help or help at court
-          asylum: Asylum
-      asylum_support: Asylum support
-      asylum_support_fields:
-        asylum_support: Receives asylum support
-      client_details: Client details
-      client_details_fields:
-        over_60: Over 60 years old
-        partner: Has a partner
-        employment_status: Employment status
-        employment_status_options:
-          in_work: Employed and in work
-          receiving_statutory_pay: Employed and on Statutory Sick Pay or Statutory Maternity Pay
-          unemployed: Unemployed
-          not_provided: Not provided
-        passporting: Receives a passporting benefit
-      dependants: Client dependants
-      dependants_with_partner: Dependants
-      household_dependants: Client and partner dependants
-      household_dependants_fields:
-        adult_dependants: Have adult dependants
-        adult_dependants_count: Number of adult dependants
-        child_dependants: Have child dependants
-        child_dependants_count: Number of child dependants
-      client_income: Client income
-      client_employment: Client employment
-      client_employment_fields:
-        employment_status: Employment status
-        employment_status_options:
-          in_work: Employed or self-employed
-          unemployed: Unemployed
-      client_pay: Client pay
-      client_pay_fields:
-        gross_income: Gross pay
-        income_tax: Income tax
-        national_insurance: National Insurance
-        frequency: Frequency
-        frequency_options:
-          total: Total in last 3 months
-          week: Every week
-          two_weeks: Every 2 weeks
-          four_weeks: Every 4 weeks
-          monthly: Every month
-          not_provided: Not provided
-      client_employment_income: Client employment income
-      income_fields:
-        income_type: Income type
-        income_type_options:
-          employment: Salary or wage
-          statutory_pay: Statutory Sick Pay or Statutory Maternity Pay
-          self_employment: Self-employment income
-        income_frequency: Frequency
-        income_frequency_options:
-          year: Total in last year
-          three_months: Total in last 3 months
-          every_week: Every week
-          every_two_weeks: Every 2 weeks
-          every_four_weeks: Every 4 weeks
-          monthly: Every month
-          not_provided: Not provided
-        gross_income: Gross income
-        income_tax: Income tax
-        national_insurance: National Insurance
-        additional_income: Additional employment income %{number}
-      benefits: Client benefits
-      benefits_fields:
-        receives_benefits: Gets benefits
-      other_income: Client other income
-      other_income_fields:
-        friends_or_family_value: Financial help
-        maintenance_value: Maintenance payments from a former partner
-        property_or_lodger_value: Income from a property or lodger
-        pension_value: Pension
-        student_finance_value: Student finance
-        other_value: Other sources
-      partner_details: Partner details
-      partner_details_fields:
-        partner_over_60: Over 60 years old
-        partner_employment_status: Employment status
-        partner_employment_status_options:
-          in_work: Employed and in work
-          receiving_statutory_pay: Employed and on Statutory Sick Pay or Statutory Maternity Pay
-          unemployed: Unemployed
-          not_provided: Not provided
-      partner_income: Partner income
-      partner_employment: Partner employment
-      partner_employment_fields:
-        partner_employment_status: Employment status
-        partner_employment_status_options:
-          in_work: Employed or self-employed
-          unemployed: Unemployed
-      partner_pay: Partner pay
-      partner_pay_fields:
-        partner_gross_income: Gross pay
-        partner_income_tax: Income tax
-        partner_national_insurance: National Insurance
-        partner_frequency: Frequency
-        partner_frequency_options:
-          total: Total in last 3 months
-          week: Every week
-          two_weeks: Every 2 weeks
-          four_weeks: Every 4 weeks
-          monthly: Every month
-          not_provided: Not provided
-      partner_employment_income: Partner employment income
-      partner_benefits: Partner benefits
-      partner_other_income: Partner other income
-      partner_other_income_fields:
-        partner_friends_or_family_value: Financial help
-        partner_maintenance_value: Maintenance payments from a former partner
-        partner_property_or_lodger_value: Income from a property or lodger
-        partner_pension_value: Pension
-        partner_student_finance_value: Student finance
-        partner_other_value: Other sources
-      outgoings: Client outgoings
-      outgoings_fields:
-        childcare_payments_value: Childcare payments
-        maintenance_payments_value: Maintenance payments
-        legal_aid_payments_value: Legal aid payments
-      partner_outgoings: Partner outgoings
-      partner_outgoings_fields:
-        partner_childcare_payments_value: Childcare payments
-        partner_maintenance_payments_value: Maintenance payments
-        partner_legal_aid_payments_value: Legal aid payments
-      assets: Client assets
-      assets_fields:
-        bank_account: Money in bank accounts
-        additional_bank_account: Additional bank account %{variable}
-        investments: Investments
-        valuables: Valuables
-      partner_assets: Partner assets
-      household_vehicles: Client vehicles
-      household_vehicles_with_partner: Vehicles
-      household_vehicles_fields:
-        vehicle: Vehicle %{number}
-        vehicle_owned: Client has a vehicle
-        vehicle_owned_with_partner: Client or partner has a vehicle
-        vehicle_value: Estimated value
-        vehicle_in_regular_use: In regular use
-        vehicle_over_3_years_ago: Bought over 3 years ago
-        vehicle_pcp: Payments left on vehicle
-        vehicle_finance: Value of payments left
-      housing_and_property: Client housing and property
-      housing_and_property_with_partner: Housing and property
-      housing_costs: Client housing costs
-      housing_costs_with_partner: Housing costs
-      housing_costs_fields:
-        housing_payments: Housing payments
-        housing_benefit_value: Housing Benefit amount
-      mortgage_or_loan_payment: Housing costs
-      mortgage_or_loan_payment_fields:
-        housing_loan_payments: Mortgage or loan payments
-      property: Home client lives in
-      property_fields:
-        property_owned: Owns the home they live in
-        property_owned_options:
-          outright: "Yes, owned outright"
-          with_mortgage: "Yes, with a mortgage or loan"
-          none: "No"
-          not_provided: Not provided
-        house_value: Estimated value
-        mortgage: Outstanding mortgage
-        percentage_owned: Percentage share owned
-      client_additional_property: Client other property
-      additional_property_fields:
-        additional_property_owned: Owns other property
-        additional_property_owned_options:
-          outright: "Yes, owned outright"
-          with_mortgage: "Yes, with a mortgage or loan"
-          none: "No"
-          not_provided: Not provided
-        house_value: Estimated value
-        mortgage: Outstanding mortgage
-        owned_with_mortgage: Outstanding mortgage on the property
-        inline_mortgage: Value of outstanding mortgage
-        percentage_owned: Percentage share owned
-        other_property: Other property %{number}
-      partner_additional_property: Partner other property
+      change: Change
       frequency_options:
         every_week: Every week
         every_two_weeks: Every 2 weeks
         every_four_weeks: Every 4 weeks
         monthly: Monthly
+        total: Total in the last 3 months
+        three_months: Total in last 3 months
+        year: Total in the last year
         not_applicable: Not applicable
+        # TODO: Remove the below when the employment form is retired
+        week: Every week
+        two_weeks: Every 2 weeks
+        four_weeks: Every 4 weeks
+      not_provided: Not provided
+      sections:
+        level_of_help: Level of help
+        case_details: Case details
+        client_details: Client details
+        dependants: Dependants
+        client_income: Client income
+        partner_details: Partner details
+        partner_income: Partner income
+        client_outgoings: Client outgoings
+        partner_outgoings: Partner outgoings
+        client_assets: Client assets
+        partner_assets: Partner assets
+        vehicles: Vehicles
+        housing_and_property: Housing and property
+      subsections:
+        client_employment_income: Client employment income
+        client_benefits: Client benefits
+        client_other_income: Client other income
+        partner_employment_income: Partner employment income
+        partner_benefits: Partner benefits
+        partner_other_income: Partner other income
+        client_other_property: Client other property
+        partner_other_property: Partner other property
+      tables:
+        level_of_help: Level of help your client needs
+        type_of_matter: Type of matter
+        asylum_support: Asylum Support
+        matter_type: Type of matter
+        immigration_or_asylum: Type of matter
+        immigration_or_asylum_type: Type of immigration or asylum matter
+        applicant: Client details
+        dependant_details: Dependants
+        employment_status: Employment status
+        income: Client employment income %{variable}
+        employment: Client employment income
+        benefits: Client benefits
+        benefit_details: Client benefit %{variable} details
+        other_income: Client other income
+        partner_details: Partner details
+        partner_employment_status: Partner employment status
+        partner_income: Partner employment income %{variable}
+        partner_employment: Partner employment income
+        partner_benefits: Partner benefits
+        partner_benefit_details: Partner benefit %{variable} details
+        partner_other_income: Partner other income
+        outgoings: Client outgoings and deductions
+        partner_outgoings: Partner outgoings and deductions
+        assets: Client assets
+        partner_assets: Partner assets
+        vehicle: Vehicles
+        vehicles_details: Vehicle %{variable} details
+        property: Home client lives in
+        property_entry: Home client lives in details
+        housing_costs: Housing costs
+        mortgage_or_loan_payment: Housing costs
+        additional_property: Client other property
+        additional_property_details: Client other property %{variable} details
+        partner_additional_property: Partner other property
+        partner_additional_property_details: Partner other property %{variable} details
+      level_of_help_fields:
+        level_of_help: What level of help does your client need?
+        level_of_help_options:
+          certificated: Civil certificated or licensed legal work
+          controlled: Civil controlled work or family mediation
+      matter_type_fields:
+        matter_type: Which type of matter is this?
+        matter_type_options:
+          immigration: Immigration (Upper Tribunal)
+          asylum: Asylum (Upper Tribunal)
+          other: Another category of law
+          domestic_abuse: Domestic abuse
+      immigration_or_asylum_fields:
+        immigration_or_asylum: Is this an immigration or asylum matter?
+      immigration_or_asylum_type_fields:
+        immigration_or_asylum_type: What type of immigration or asylum matter is this?
+        immigration_or_asylum_type_options:
+          immigration_clr: Immigration - controlled legal representation (CLR) in the First-tier Tribunal
+          immigration_legal_help: Immigration - legal help or help at court
+          asylum: Asylum - legal help, help at court, or controlled legal representation (CLR) in the First-tier Tribunal
+      asylum_support_fields:
+        asylum_support: Does your client get asylum support?
+      applicant_fields:
+        partner: Does your client have a partner?
+        over_60: Is your client aged 60 or over?
+        employment_status: What is your client's employment status?
+        passporting: Does your client receive a passporting benefit?
+        employment_status_options:
+          in_work: Employed and in work
+          receiving_statutory_pay: Employed and on Statutory Sick Pay or Statutory Maternity Pay
+          unemployed: Unemployed
+      dependant_details_fields:
+        child_dependants_partner: Does your client or their partner have any child dependants?
+        child_dependants: Does your client have any child dependants?
+        adult_dependants_partner: Does your client or their partner have any adult dependants?
+        adult_dependants: Does your client have any adult dependants?
+        child_dependants_count: How many child dependants are there?
+        adult_dependants_count: How many adult dependants are there?
+      employment_status_fields:
+        employment_status: What is your client's employment status?
+        employment_status_options:
+          in_work: Employed or self-employed
+          unemployed: Unemployed
+      income_fields:
+        income_type: What type of employment income is this?
+        income_frequency: When does your client normally get this income?
+        gross_income: Income before any deductions
+        income_tax: Income tax
+        national_insurance: National Insurance
+        income_type_options:
+          employment: A salary or wage
+          statutory_pay: Statutory Sick Pay or Statutory Maternity Pay
+          self_employment: Self-employment income
+      employment_fields:
+        frequency: When does your client normally get paid?
+        gross_income: Income before any deductions
+        income_tax: Income tax
+        national_insurance: National Insurance
+      benefits_fields:
+        receives_benefits: Does your client get any benefits?
+      benefit_details_fields:
+        benefit_type: Benefit name
+        benefit_amount: Benefit amount
+        benefit_frequency: Frequency
+      other_income_fields:
+        friends_or_family_value: Financial help from friends or family
+        maintenance_value: Maintenance payments from a former partner
+        property_or_lodger_value: Income from a property or lodger
+        pension_value: Pension
+        student_finance_value: Student finance
+        other_value: Income from other sources
+      partner_details_fields:
+        partner_over_60: Is the partner aged 60 or over?
+        partner_employment_status: What is the partner's employment status?
+        partner_employment_status_options:
+          in_work: Employed and in work
+          receiving_statutory_pay: Employed and on Statutory Sick Pay or Statutory Maternity Pay
+          unemployed: Unemployed
+      partner_employment_status_fields:
+        partner_employment_status: What is the partner's employment status?
+        partner_employment_status_options:
+          in_work: Employed or self-employed
+          unemployed: Unemployed
+      partner_income_fields:
+        income_type: What type of employment income is this?
+        income_frequency: When does the partner normally get this income?
+        gross_income: Income before any deductions
+        income_tax: Income tax
+        national_insurance: National Insurance
+        income_type_options:
+          employment: A salary or wage
+          statutory_pay: Statutory Sick Pay or Statutory Maternity Pay
+          self_employment: Self-employment income
+      partner_employment_fields:
+        partner_frequency: When does the partner normally get paid?
+        partner_gross_income: Income before any deductions
+        partner_income_tax: Income tax
+        partner_national_insurance: National Insurance
+      partner_benefits_fields:
+        partner_receives_benefits: Does the partner get any benefits?
+      partner_benefit_details_fields:
+        benefit_type: Benefit name
+        benefit_amount: Benefit amount
+        benefit_frequency: Frequency
+      partner_other_income_fields:
+        partner_friends_or_family_value: Financial help from friends or family
+        partner_maintenance_value: Maintenance payments from a former partner
+        partner_property_or_lodger_value: Income from a property or lodger
+        partner_pension_value: Pension
+        partner_student_finance_value: Student finance
+        partner_other_value: Income from other sources
+      outgoings_fields:
+        childcare_payments_value: Childcare payments
+        maintenance_payments_value: Maintenance payments
+        legal_aid_payments_value: Legal aid payments
+      partner_outgoings_fields:
+        partner_childcare_payments_value: Childcare payments
+        partner_maintenance_payments_value: Maintenance payments
+        partner_legal_aid_payments_value: Legal aid payments
+      assets_fields:
+        amount_first: Money in bank accounts
+        amount_subsequent: Additional bank account %{variable}
+        investments: Investments
+        valuables: Valuable items worth £500 or more
+      partner_assets_fields:
+        amount_first: Money in bank accounts
+        amount_subsequent: Additional bank account %{variable}
+        partner_investments: Investments
+        partner_valuables: Valuable items worth £500 or more
+      vehicle_fields:
+        vehicle_owned: Does your client own a vehicle?
+        vehicle_owned_partner: Does your client or their partner own a vehicle?
+      vehicles_details_fields:
+        vehicle_value: What is the estimated value of the vehicle?
+        vehicle_pcp: Are there any payments left on the vehicle?
+        vehicle_finance: Value of payments left
+        vehicle_over_3_years_ago: Was the vehicle bought over 3 years ago?
+        vehicle_in_regular_use: Is the vehicle in regular use?
+      property_fields:
+        property_owned: Does your client own the home the client lives in?
+        property_owned_options:
+          outright: Yes, owned outright
+          with_mortgage: Yes, with a mortgage or loan
+          none: "No"
+        property_owned_partner: Does your client or their partner own the home the client lives in?
+        property_owned_partner_options:
+          outright: Yes, owned outright
+          with_mortgage: Yes, with a mortgage or loan
+          none: "No"
+      housing_costs_fields:
+        housing_payments: Housing payments
+        housing_benefit_value: Housing Benefit
+      mortgage_or_loan_payment_fields:
+        housing_loan_payments: What are the mortgage or loan payments for the home the client lives in?
+      property_entry_fields:
+        house_value: Estimated value
+        mortgage: Outstanding mortgage
+        percentage_owned: Percentage share owned
+      additional_property_fields:
+        additional_property_owned: Does your client own any other property, a holiday home or land?
+        additional_property_owned_options:
+          outright: Yes, owned outright
+          with_mortgage: Yes, with a mortgage or loan
+          none: "No"
+      additional_property_details_fields:
+        house_value: How much is the property, holiday home or land worth?
+        inline_owned_with_mortgage: Is there an outstanding mortgage on the property, holiday home or land?
+        mortgage: Value of outstanding mortgage
+        percentage_owned: What percentage does your client own?
+      partner_additional_property_fields:
+        partner_additional_property_owned: Does the partner own any other property, a holiday home or land?
+        partner_additional_property_owned_options:
+          outright: Yes, owned outright
+          with_mortgage: Yes, with a mortgage or loan
+          none: "No"
+      partner_additional_property_details_fields:
+        house_value: How much is the property, holiday home or land worth?
+        inline_owned_with_mortgage: Is there an outstanding mortgage on the property, holiday home or land?
+        mortgage: Value of outstanding mortgage
+        percentage_owned: What percentage does the partner own?
       submission_instructions: Now submit your eligibility check
       submission_explanation: We'll use your answers to give you an estimated result on your client's financial eligibility for legal aid.
       call_to_action: Submit eligibility check
@@ -1511,9 +1588,6 @@ en:
         - If the client or any partner holds assets as a trustee on behalf of another person, documentary evidence of the trust arrangement.
       certificated_how_calculated: How we calculated whether your client is likely to be financially eligible for civil certificated legal aid work
       controlled_how_calculated: How we calculated whether your client is likely to be financially eligible for civil controlled legal aid work
-      controlled_next_steps_paragraph_1: You will need to complete the relevant controlled work form and keep for your records, along with any evidence provided by your client. Your client’s file may be audited and assessed by the LAA at a later date.
-      controlled_next_steps_paragraph_1_partner: You will need to complete the relevant controlled work form and keep for your records, along with any evidence provided by your client and their partner. Your client’s file may be audited and assessed by the LAA at a later date.
-      controlled_next_steps_paragraph_2_html: "You can find the forms at: <a href='%{page_url}' target='_blank' rel='noreferrer noopener'>Controlled work application forms</a>."
       legacy_controlled_types_of_evidence:
         - bank statements covering the most recent month
         - evidence of any benefits or financial support your client received from the government, local authorities or third parties dated in the last 6 months
@@ -2091,6 +2165,8 @@ en:
         - they get regular income, like payment from a job
         - they have capital worth more than £2,500
       para_2: "For certificated work matters, clients aged under 18 do not need a means test."
+    self_employed:
+      text: This service now supports clients (and their partners) who are self-employed, with the exception of self-employed company directors for certificated checks.
   controlled_work_document_selections:
     new:
       title: Which controlled work (CW) form do you need?

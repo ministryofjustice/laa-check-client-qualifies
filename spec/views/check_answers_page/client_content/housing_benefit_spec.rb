@@ -1,10 +1,10 @@
 require "rails_helper"
 
 RSpec.describe "estimates/check_answers.html.slim" do
-  let(:answers) { CheckAnswersPresenter.new(session_data) }
+  let(:sections) { CheckAnswers::SectionListerService.call(session_data) }
 
   before do
-    assign(:answers, answers)
+    assign(:sections, sections)
     params[:id] = :id
     allow(view).to receive(:form_with)
     render template: "estimates/check_answers"
@@ -16,7 +16,7 @@ RSpec.describe "estimates/check_answers.html.slim" do
         let(:session_data) { build(:minimal_complete_session, housing_benefit_value: 400, housing_benefit_frequency: "every_week") }
 
         it "renders content" do
-          expect(page_text).to include("Housing Benefit amount£400.00Every week")
+          expect(page_text).to include("Housing Benefit£400.00Every week")
         end
       end
 
@@ -24,7 +24,7 @@ RSpec.describe "estimates/check_answers.html.slim" do
         let(:session_data) { build(:minimal_complete_session, housing_benefit_value: 0) }
 
         it "renders content" do
-          expect(page_text).to include("Housing Benefit amount£0.00")
+          expect(page_text).to include("Housing Benefit£0.00")
         end
       end
     end

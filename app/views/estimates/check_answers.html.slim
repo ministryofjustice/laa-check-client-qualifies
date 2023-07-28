@@ -5,18 +5,14 @@
             estimate_build_estimate_path(params[:id], Steps::Helper.last_step(@check&.session_data)),
             class: "govuk-back-link"
 
-.govuk-grid-column-two-thirds
+.govuk-grid-column-full
   = render "shared/heading", header_text: t(".heading")
 
   = render "check_answers_table", change_links: true
-  h2.govuk-heading-m = t(".submission_instructions")
+  h2.govuk-heading-m class="govuk-!-margin-top-9" = t(".submission_instructions")
   p = t(".submission_explanation")
 
   = form_with(url: estimates_path) do |form|
     = hidden_field_tag :id, params.fetch(:id)
 
     = form.govuk_submit t(".call_to_action")
-
-= render "shared/question_sidebar",
-        level_of_help: @answers.level_of_help,
-        links: {}

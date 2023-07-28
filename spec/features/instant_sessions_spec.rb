@@ -12,8 +12,8 @@ RSpec.describe "Instant sessions page" do
   scenario "I request an instant controlled session" do
     visit "instant-controlled"
     expect(page).to have_content "Check your answers"
-    expect(page).to have_content "Gross pay£1.00"
-    expect(page).to have_content "Financial help\n£0.00"
+    expect(page).to have_content "Income before any deductions£1.00"
+    expect(page).to have_content "Financial help from friends or family\n£0.00"
     click_on "Submit"
     expect(page).to have_content "Your client is likely to qualify financially for civil legal aid"
   end
@@ -21,8 +21,8 @@ RSpec.describe "Instant sessions page" do
   scenario "I request an instant certificated session" do
     visit "instant-certificated"
     expect(page).to have_content "Check your answers"
-    expect(page).to have_content "Financial help\n£0.00"
-    expect(page).to have_content "Gross pay£1.00"
+    expect(page).to have_content "Income before any deductions£1.00"
+    expect(page).to have_content "Financial help from friends or family\n£0.00"
     click_on "Submit"
     expect(page).to have_content "Your client is likely to qualify financially for civil legal aid"
   end

@@ -9,7 +9,7 @@
 .gem-c-organisation-logo__container{
   text-transform: none;
   text-decoration: none;
-  display: block;
+  // display: block;
   color: #0b0c0c;
   height: auto;
   width: auto;
@@ -32,4 +32,10 @@
     display: none !important; // In no circumstances do we want buttons to appear when the page is printed,
                               // regardless of class-based button styles
   }
+}
+// Grover/pupetteer has a bug https://github.com/puppeteer/puppeteer/issues/4125
+// this ensures that the bug does not cause the titles in H1 and H2 elements to
+// split on the characters 'fi'
+.no-ligatures{
+  font-variant-ligatures: none;
 }

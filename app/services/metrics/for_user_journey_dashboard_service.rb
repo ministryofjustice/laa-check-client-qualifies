@@ -1,5 +1,5 @@
 module Metrics
-  class FromCompletedJourneysService
+  class ForUserJourneyDashboardService
     def self.call
       return if CompletedUserJourney.none?
 

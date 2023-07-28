@@ -1,5 +1,7 @@
-h1.govuk-heading-l = t("estimates.show.controlled_likely_to_qualify")
-- t("estimates.show.controlled_eligible_paragraphs").each do
-  p.govuk-body = _1
-h2.govuk-heading-m = t("estimates.show.not_always_free")
-p.govuk-body = t("estimates.show.freeness_explanation")
+= pdf_friendly_h1(t("estimates.show.controlled_likely_to_qualify"), @is_pdf)
+
+= pdf_friendly_paragraphs(t("estimates.show.controlled_eligible_paragraphs"), @is_pdf)
+
+= pdf_friendly_h2(t("estimates.show.not_always_free"), "m", @is_pdf)
+
+= pdf_friendly_p_element(t("estimates.show.freeness_explanation"), @is_pdf, nil)
