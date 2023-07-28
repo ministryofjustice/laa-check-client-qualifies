@@ -426,25 +426,13 @@ en:
     disputed_asset: Disputed asset
     disregarded_benefits_guidance:
       text: Guidance on disregarded benefits
-      certificated:
-        link: "%{page_url}"
-      controlled:
-        link: "%{page_url}"
     smod:
       guidance:
         text: "Guidance on subject matter of dispute"
-        certificated:
-          link: "%{page_url}"
-        controlled:
-          link: "%{page_url}"
     smod_help: Help with subject matter of dispute
     smod_help_text: Regulation 38 (Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013) provides for a disregard of the amount or value of assets that are the subject matter of dispute (SMOD); however the total amount disregarded must not exceed £100,000. Please read the related content on subject matter of dispute (Regulation 38).
     trapped_capital:
       text: "Guidance on trapped capital"
-      certificated:
-        link: "%{page_url}"
-      controlled:
-        link: "%{page_url}"
     disregarded_benefits:
       text: Government Cost of Living Payments and disregarded benefits
       cost_of_living:
@@ -545,13 +533,10 @@ en:
       certificated: Civil certificated or licensed legal work
       controlled_guidance:
         text: Guide to determining controlled work
-        link: "%{page_url}"
       certificated_guidance:
         text: Guide to determining certificated work
-        link: "%{page_url}"
       mental_health_guidance:
         text: Means assessment section of Mental Health guidance
-        link: "%{page_url}"
     asylum_support:
       question: Does your client get Asylum Support?
       help_text_1: This means Asylum Support as defined in Section 4 or Section 95 of the Immigration and Asylum Act 1999.
@@ -559,10 +544,7 @@ en:
       help_text_3: Also select yes if your client is named in their partner's Asylum Support claim.
       guidance:
         text: Guidance on Asylum Support
-        controlled_link: "%{page_url}"
-        certificated_link: "%{page_url}"
       tribunal_guidance_text: Guide to determining controlled work
-      tribunal_guidance_link: "%{page_url}"
     matter_type:
       title: Which type of matter is this?
       immigration: Immigration (Upper Tribunal)
@@ -572,18 +554,16 @@ en:
       domestic_abuse_hint: Upper eligibility limits are waived if your client is an applicant in a domestic abuse matter
       domestic_abuse_guidance:
         text: Guidance on domestic abuse or violence
-        link: "%{page_url}"
       tribunal_guidance:
         text: Guidance on Upper Tribunal matters
-        certificated_link: "%{page_url}"
       immigration_and_asylum_header: Immigration and asylum matters
       immigration_and_asylum_certificated_paragraph: These must be for matters in the Immigration and Asylum Chamber of the Upper Tribunal including in relation to an appeal or review from the Immigration and Asylum Chamber of the First-tier Tribunal.
       immigration_header_certificated: Immigration (Upper Tribunal)
       immigration_certificated_paragraph_one: This must be for legal representation for an immigration matter in the Immigration and Asylum Chamber of the Upper Tribunal including in relation to an appeal or review from the Immigration and Asylum Chamber of the First-tier Tribunal.
-      immigration_certificated_paragraph_two_html: Guidance for this is in paragraphs 25 to 29, 32(1), 32A(1) of Part 1 of Schedule 1 to the <a href='%{page_url}'' target='_blank' rel='noreferrer noopener'>Legal Aid, Sentencing and Punishment of Offenders Act 2012</a> (LASPO).
+      immigration_certificated_paragraph_two_html: Guidance for this is in paragraphs 25 to 29, 32(1), 32A(1) of Part 1 of Schedule 1 to the <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>Legal Aid, Sentencing and Punishment of Offenders Act 2012</a> (LASPO).
       asylum_header_certificated: Asylum (Upper Tribunal)
       asylum_certificated_paragraph_one: This must be for legal representation for an asylum matter in the Immigration and Asylum Chamber of the Upper Tribunal including in relation to an appeal or review from the Immigration and Asylum Chamber of the First-tier Tribunal
-      asylum_certificated_paragraph_two_html: Guidance for this is in paragraphs 24 to 30, 32(1) and 32A(1) of Part 1 of Schedule 1 to the <a href='%{page_url}'' target='_blank' rel='noreferrer noopener'>Legal Aid, Sentencing and Punishment of Offenders Act 2012</a> (LASPO).
+      asylum_certificated_paragraph_two_html: Guidance for this is in paragraphs 24 to 30, 32(1) and 32A(1) of Part 1 of Schedule 1 to the <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>Legal Aid, Sentencing and Punishment of Offenders Act 2012</a> (LASPO).
       domestic_abuse_header: Domestic abuse
       domestic_abuse_paragraph: This must be for legal representation for a domestic abuse matter (injunction or other order for protection from harm, or committal for breach), FGM protection order, or forced marriage protection order.
       select_a_matter_type: Select a matter type
@@ -597,20 +577,11 @@ en:
       asylum: Asylum - legal help, help at court, or controlled legal representation (CLR) in the First-tier Tribunal
       legacy_case_guidance:
         text: Guidance on legacy case Appeals and Reviews in the Upper Tribunal
-        link: "%{page_url}"
     applicant:
       passporting_guidance:
         text: Guidance on passporting
-        certificated:
-          link: "%{page_url}"
-        controlled:
-          link: "%{page_url}"
       pensioner_guidance:
         text: "Guidance on 60 or over disregard (pensioner disregard)"
-        certificated:
-          link: "%{page_url}"
-        controlled:
-          link: "%{page_url}"
       heading: Tell us about your client
       partner:
         legend: Does your client have a partner?
@@ -627,7 +598,6 @@ en:
             - has a contrary interest in the case - this means they want a different outcome to your client
       prisoner_guidance:
         text: Guidance on prisoners
-        link: "%{page_url}"
       over_60:
         legend: Is your client aged 60 or over?
         hint: Clients aged 60 or over may have some of their capital excluded from a financial eligibility assessment.
@@ -692,10 +662,6 @@ en:
       how_many_adult: How many adult dependants are there?
       guidance:
         text: Guidance on dependants
-        certificated:
-          link: "%{page_url}"
-        controlled:
-          link: "%{page_url}"
     employment_status:
       heading: What is your client's employment status?
       in_work_including_self_employed: Employed or self-employed
@@ -784,11 +750,8 @@ en:
       income: Income
       guidance:
         text: Guidance on income
-        certificated_link: "%{page_url}"
-        controlled_link: "%{page_url}"
       police_guidance:
         text: Guidance on police officer applicants
-        link: "%{page_url}"
     partner_income:
       heading: The partner's employment income
       hint: You can find this on the partner's payslips.
@@ -1059,10 +1022,8 @@ en:
       guidance_on_outgoings:
         certificated:
           text: Guidance on outgoings
-          link: "%{page_url}"
         controlled:
           text: Guidance on determining disposable income
-          link: "%{page_url}"
     partner_outgoings:
       heading: The partner's outgoings and deductions
       second_caption: Do not add any outgoings you've listed as outgoings for the client. Enter 0 for any that do not apply.
@@ -1118,7 +1079,6 @@ en:
         hint: "This includes cars, vans and motorcycles"
       guidance:
         text: Guidance on vehicles
-        link: "%{page_url}"
     assets:
       legend: Client assets
       hint: Enter 0 for any that do not apply
@@ -1132,10 +1092,8 @@ en:
       prison_text: If your client is in prison, include the balance of any private, spends or savings accounts as money in bank accounts.
       prisoner_guidance:
         text: Guidance on clients who are prisoners
-        link: "%{page_url}"
       bankrupt_guidance:
         text: Guidance on bankrupt clients
-        link: "%{page_url}"
       bank_accounts:
         label: Money in bank accounts
         hints:
@@ -1179,13 +1137,10 @@ en:
       guidance:
         controlled:
           text: Guidance on assets and capital, including disregarded capital
-          link: "%{page_url}"
         certificated:
           text: Guidance on assets/capital
-          link: "%{page_url}"
       disregarded_capital_guidance:
         text: Guidance on disregarded capital
-        link: "%{page_url}"
     partner_assets:
       legend: Partner assets
       hints:
@@ -1792,7 +1747,7 @@ en:
         capital: disposable capital
     legislation_table:
       paragraph_1_html: This calculation was made using the rules for controlled work in <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>The Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 (opens in new tab)</a> and the <a href="%{page_url_2}" target='_blank' rel='noreferrer noopener' aria-label="Link opens a search page which includes a list of amendments to The Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 (opens in new tab)">amendments to these Regulations (opens in new tab)</a>.
-      paragraph_2_html: Guidance on determining financial eligibility for controlled work and family mediation can be found in the <a href= %{page_url} target='_blank' rel='noreferrer noopener'>guide to determining controlled work (opens in new tab)</a>.
+      paragraph_2_html: Guidance on determining financial eligibility for controlled work and family mediation can be found in the <a href= "%{page_url}" target='_blank' rel='noreferrer noopener'>guide to determining controlled work (opens in new tab)</a>.
     limits_table:
       calculation_information: We’ve used the information you provided to compare your client’s income and outgoings. This allows us to calculate their monthly disposable income.
       limits_heading: Limits
@@ -1869,8 +1824,8 @@ en:
       unacceptable_client_heading_company_director: "Company directors"
       unacceptable_client_explanation_company_director: "You cannot use this service for a certificated check if your client (or their partner) is a self-employed director."
       unacceptable_client_heading_under_18: "Clients under 18"
-      unacceptable_client_explanation_under_18_controlled_html: For controlled work, the finances of applicants under 18 are only assessed if they are maintained or cared for by somebody who can also be included in the means assessment. Page %{page_number} of the <a href=%{page_url} target='_blank'>Lord Chancellor’s guidance (opens in a new tab)</a> has more details about how to assess a child’s means.
-      unacceptable_client_explanation_under_18_certificated_html: For certificated work, see page %{page_number} of the <a href=%{page_url} target='_blank'>Lord Chancellor’s guidance (opens in a new tab)</a> for more details about when and how to assess a child’s means.
+      unacceptable_client_explanation_under_18_controlled_html: For controlled work, the finances of applicants under 18 are only assessed if they are maintained or cared for by somebody who can also be included in the means assessment. Page %{page_number} of the <a href="%{page_url}" target='_blank'>Lord Chancellor’s guidance (opens in a new tab)</a> has more details about how to assess a child’s means.
+      unacceptable_client_explanation_under_18_certificated_html: For certificated work, see page %{page_number} of the <a href="%{page_url}" target='_blank'>Lord Chancellor’s guidance (opens in a new tab)</a> for more details about when and how to assess a child’s means.
       client_under_18_para_1: "Clients aged under 18 do not need a means assessment for controlled work matters unless one of the following applies:"
       client_under_18_bullets:
         - their means are aggregated with another person’s, like a parent or guardian
@@ -1897,7 +1852,7 @@ en:
         - outgoings, like housing costs, maintenance payments and childcare costs
         - savings and investments
         - assets, like property and vehicles
-      mental_health_html: The <a href=%{page_url} target='_blank' rel='noreferrer noopener'>LAA contract management mental health guidance (opens in new tab)</a> explains when a means assessment is not needed for controlled work matters that will potentially involve proceedings before the Mental Health Tribunal (known as non-means, non-MHT matter starts).
+      mental_health_html: The <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>LAA contract management mental health guidance (opens in new tab)</a> explains when a means assessment is not needed for controlled work matters that will potentially involve proceedings before the Mental Health Tribunal (known as non-means, non-MHT matter starts).
       start_button: Start now
       last_updated: Last updated %{date}
       show_all_updates: + show all updates

@@ -17,5 +17,5 @@
 = render "shared/question_sidebar",
          level_of_help: @check.level_of_help,
          links: { t("estimate_flow.vehicle.guidance.text") => GuidanceLinkService.call(document: :lc_guidance_certificated,
-                                                                                       chapter: :vehicle),
+                                                                                       sub_section: :vehicle),
                   t("generic.trapped_capital.text") => GuidanceLinkService.call(document: :legal_aid_learning) }
