@@ -1954,7 +1954,6 @@ en:
         - their means are aggregated with another person’s, like a parent or guardian
         - they get regular income, like payment from a job
         - they have capital worth more than £2,500
-      client_under_18_para_3: "For certificated work matters, clients aged under 18 do not need a means test."
       case_types: Case types
       case_types_intro: "This must be for a case that would be:"
       valid_case_types:
