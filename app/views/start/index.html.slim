@@ -26,6 +26,7 @@
   h3.govuk-heading-s = t(".unacceptable_client_heading_under_18")
   - if FeatureFlags.enabled?(:mtr_phase_1, without_session_data: true)
     p.govuk-body = t(".client_under_18_para_1")
+    p.govuk-body = t(".client_under_18_para_2")
     ul.govuk-list.govuk-list--bullet
       - t(".client_under_18_bullets").each do |bullet|
         li = bullet
