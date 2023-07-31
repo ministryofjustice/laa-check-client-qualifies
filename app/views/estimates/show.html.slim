@@ -23,6 +23,7 @@
     = render "evidence"
 - elsif @model.level_of_help == "controlled" && @model.decision == "eligible"
   h2.govuk-heading-m = t(".what_happens_next")
+
   = render "controlled_work_next_steps"
 
   = govuk_details(summary_text: t(".evidence_needed")) do
