@@ -100,7 +100,7 @@ class GuidanceLinkService
               outgoings: 18,
               housing_costs: 19,
               assets: 22,
-              additional_properties_guidance: 23,
+              additional_properties_guidance: 25,
               properties_guidance: 25,
               smod: 27,
               over_60: 31,
