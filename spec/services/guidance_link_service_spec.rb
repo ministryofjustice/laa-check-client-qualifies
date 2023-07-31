@@ -29,12 +29,12 @@ RSpec.describe GuidanceLinkService do
     context "when MTR phase 1 is not enabled" do
       it "shows legacy LC Guidance controlled links" do
         result = described_class.call(document: :lc_guidance_controlled)
-        expect(result).to eq "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1175062/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_controlled_work_and_family_mediation__July_2023_.pdf"
+        expect(result).to eq "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1157029/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_controlled_work_and_family_mediation_May_2023.pdf"
       end
 
       it "shows legacy LC Guidance certificated links" do
         result = described_class.call(document: :lc_guidance_certificated)
-        expect(result).to eq "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1175064/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_certificated_work__July_2023_.pdf"
+        expect(result).to eq "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1157030/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_certificated_work_May_2023__002_.pdf"
       end
     end
   end

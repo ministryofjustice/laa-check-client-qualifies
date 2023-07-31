@@ -8,7 +8,7 @@ class ChangeLogs
 
   BANNERS = [
     { key: :dependant_allowance, change_on: "2023-4-10", show_from: "2023-4-4", show_until: "2023-5-4" },
-    { key: :mtr_phase_1, change_on: "2023-7-25", show_from: "2023-7-20", show_until: "2023-8-11" },
+    { key: :mtr_phase_1, change_on: "2023-8-3", show_from: "2023-7-31", show_until: "2023-8-11" },
   ].freeze
 
   CHANGE_LOG = UPDATES + BANNERS
