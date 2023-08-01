@@ -1,10 +1,10 @@
 require "rails_helper"
 
 RSpec.describe "estimates/check_answers.html.slim" do
-  let(:answers) { CheckAnswersPresenter.new(session_data) }
+  let(:sections) { CheckAnswers::SectionListerService.call(session_data) }
 
   before do
-    assign(:answers, answers)
+    assign(:sections, sections)
     params[:id] = :id
     allow(view).to receive(:form_with)
     render template: "estimates/check_answers"
@@ -27,11 +27,13 @@ RSpec.describe "estimates/check_answers.html.slim" do
         let(:employment_status) { "in_work" }
 
         it "renders content" do
-          expect(text).to include("Employment statusEmployed and in work")
-          expect(text).to include("FrequencyEvery month")
-          expect(text).to include("Gross pay£1,500.00")
-          expect(text).to include("Income tax£200.00")
-          expect(text).to include("National Insurance£100.00")
+          expect(text).to include("What is your client's employment status?Employed and in work")
+          expect_in_text(text, [
+            "When does your client normally get paid?Monthly",
+            "Income before any deductions£1,500.00",
+            "Income tax£200.00",
+            "National Insurance£100.00",
+          ])
         end
       end
 
@@ -39,7 +41,7 @@ RSpec.describe "estimates/check_answers.html.slim" do
         let(:employment_status) { "receiving_statutory_pay" }
 
         it "renders content" do
-          expect(text).to include("Employment statusEmployed and on Statutory Sick Pay or Statutory Maternity Pay")
+          expect(text).to include("What is your client's employment status?Employed and on Statutory Sick Pay or Statutory Maternity Pay")
         end
       end
 
@@ -47,7 +49,7 @@ RSpec.describe "estimates/check_answers.html.slim" do
         let(:session_data) { build(:minimal_complete_session) }
 
         it "renders content" do
-          expect(text).to include("Employment statusUnemployed")
+          expect(text).to include("What is your client's employment status?Unemployed")
         end
       end
     end
@@ -75,46 +77,28 @@ RSpec.describe "estimates/check_answers.html.slim" do
       end
 
       it "does not show employment status in client details section" do
-        expect(page_text_within("#field-list-client_details")).not_to include "Employment"
+        expect(page_text_within("#table-applicant")).not_to include "Employment"
       end
 
       it "shows employment status in the employment section" do
-        expect(page_text_within("#field-list-client_employment")).to include "Employment statusEmployed or self-employed"
+        expect(page_text_within("#table-employment_status")).to include "What is your client's employment status?Employed or self-employed"
       end
 
       it "Shows details of incomes" do
-        texts = [
-          "Income typeSalary or wage",
-          "FrequencyEvery month",
-          "Gross income£100.00",
+        expect_in_text(page_text_within("#table-income"), [
+          "What type of employment income is this?A salary or wage",
+          "When does your client normally get this income?Monthly",
+          "Income before any deductions£100.00",
           "Income tax£20.00",
           "National Insurance£3.00",
-          "Additional employment income 1",
-          "Income typeSelf-employment income",
-          "FrequencyTotal in last 3 months",
-          "Gross income£500.00",
+        ])
+        expect_in_text(page_text_within("#table-income-1"), [
+          "What type of employment income is this?Self-employment income",
+          "When does your client normally get this income?Total in last 3 months",
+          "Income before any deductions£500.00",
           "Income tax£100.00",
           "National Insurance£0.00",
-        ]
-
-        # This will fail expressively if any individual line is incorrect
-        texts.each do |text|
-          expect(page_text_within("#field-list-client_employment_income")).to include text
-        end
-
-        # This will fail if the ordering is incorrect
-        expect(page_text_within("#field-list-client_employment_income")).to eq texts.join
-      end
-
-      context "when data is incomplete" do
-        let(:session_data) do
-          build(:minimal_complete_session,
-                employment_status: "in_work")
-        end
-
-        it "does not crash" do
-          expect(Nokogiri::HTML.fragment(rendered).at_css("#field-list-client_employment_income")).to eq nil
-        end
+        ])
       end
     end
   end

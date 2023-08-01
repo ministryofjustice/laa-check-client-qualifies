@@ -4,7 +4,7 @@ RSpec.describe MetricsService do
   describe ".call" do
     context "when api key is not set" do
       it "does nothing" do
-        expect(Metrics::FromAnalyticsService).not_to receive(:call)
+        expect(Metrics::ForKeyMetricDashboardService).not_to receive(:call)
         described_class.call
       end
     end
@@ -17,8 +17,8 @@ RSpec.describe MetricsService do
       end
 
       it "calls its sub-components" do
-        expect(Metrics::FromAnalyticsService).to receive(:call)
-        expect(Metrics::FromCompletedJourneysService).to receive(:call)
+        expect(Metrics::ForKeyMetricDashboardService).to receive(:call)
+        expect(Metrics::ForUserJourneyDashboardService).to receive(:call)
         described_class.call
       end
     end

@@ -64,8 +64,6 @@ env:
         key: url
   - name: SENTRY_FEATURE_FLAG
     value: {{ .Values.featureFlags.sentry }}
-  - name: CW_FORMS_FEATURE_FLAG
-    value: {{ .Values.featureFlags.cwForms }}
   - name: SELF_EMPLOYED_FEATURE_FLAG
     value: {{ .Values.featureFlags.selfEmployed }}
   - name: PUBLIC_BETA_FEATURE_FLAG

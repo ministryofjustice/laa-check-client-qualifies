@@ -20,24 +20,12 @@ RSpec.describe "estimates/show.html.slim" do
       context "when eligible" do
         let(:eligibility) { "eligible" }
 
-        context "when feature flag is enabled", :cw_forms_flag do
-          it "shows relevant next steps content" do
-            expect(page_text).to include "You can download a controlled work form with the answers you gave included, or complete the form yourself"
-          end
-
-          it "shows a new call to action" do
-            expect(page_text).to include "Continue to CW forms"
-          end
+        it "shows relevant next steps content" do
+          expect(page_text).to include "You can download a controlled work form with the answers you gave included, or complete the form yourself"
         end
 
-        context "when feature flag is not enabled" do
-          it "does not show relevant next steps content" do
-            expect(page_text).not_to include "You can download a controlled work form with the answers you gave included, or complete the form yourself"
-          end
-
-          it "does not show a new call to action" do
-            expect(page_text).not_to include "Continue to CW forms"
-          end
+        it "shows a new call to action" do
+          expect(page_text).to include "Continue to CW forms"
         end
       end
     end

@@ -426,25 +426,13 @@ en:
     disputed_asset: Disputed asset
     disregarded_benefits_guidance:
       text: Guidance on disregarded benefits
-      certificated:
-        link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=36"
-      controlled:
-        link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=10"
     smod:
       guidance:
         text: "Guidance on subject matter of dispute"
-        certificated:
-          link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=68"
-        controlled:
-          link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=24"
     smod_help: Help with subject matter of dispute
     smod_help_text: Regulation 38 (Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013) provides for a disregard of the amount or value of assets that are the subject matter of dispute (SMOD); however the total amount disregarded must not exceed £100,000. Please read the related content on subject matter of dispute (Regulation 38).
     trapped_capital:
       text: "Guidance on trapped capital"
-      certificated:
-        link: "https://legalaidlearning.justice.gov.uk/course/view.php?id=186"
-      controlled:
-        link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=20"
     disregarded_benefits:
       text: Government Cost of Living Payments and disregarded benefits
       cost_of_living:
@@ -545,13 +533,10 @@ en:
       certificated: Civil certificated or licensed legal work
       controlled_guidance:
         text: Guide to determining controlled work
-        link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf
       certificated_guidance:
         text: Guide to determining certificated work
-        link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf
       mental_health_guidance:
         text: Means assessment section of Mental Health guidance
-        link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1143984/Mental_Health_Guidance_-_Contract_management_-_GOV.UK_2023.pdf
     asylum_support:
       question: Does your client get Asylum Support?
       help_text_1: This means Asylum Support as defined in Section 4 or Section 95 of the Immigration and Asylum Act 1999.
@@ -559,10 +544,7 @@ en:
       help_text_3: Also select yes if your client is named in their partner's Asylum Support claim.
       guidance:
         text: Guidance on Asylum Support
-        controlled_link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=5
-        certificated_link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=127
       tribunal_guidance_text: Guide to determining controlled work
-      tribunal_guidance_link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf
     matter_type:
       title: Which type of matter is this?
       immigration: Immigration (Upper Tribunal)
@@ -572,18 +554,16 @@ en:
       domestic_abuse_hint: Upper eligibility limits are waived if your client is an applicant in a domestic abuse matter
       domestic_abuse_guidance:
         text: Guidance on domestic abuse or violence
-        link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=13
       tribunal_guidance:
         text: Guidance on Upper Tribunal matters
-        certificated_link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=127
       immigration_and_asylum_header: Immigration and asylum matters
       immigration_and_asylum_certificated_paragraph: These must be for matters in the Immigration and Asylum Chamber of the Upper Tribunal including in relation to an appeal or review from the Immigration and Asylum Chamber of the First-tier Tribunal.
       immigration_header_certificated: Immigration (Upper Tribunal)
       immigration_certificated_paragraph_one: This must be for legal representation for an immigration matter in the Immigration and Asylum Chamber of the Upper Tribunal including in relation to an appeal or review from the Immigration and Asylum Chamber of the First-tier Tribunal.
-      immigration_certificated_paragraph_two_html: Guidance for this is in paragraphs 25 to 29, 32(1), 32A(1) of Part 1 of Schedule 1 to the <a href='https://www.legislation.gov.uk/ukpga/2012/10/schedule/1' target='_blank' rel='noreferrer noopener'>Legal Aid, Sentencing and Punishment of Offenders Act 2012</a> (LASPO).
+      immigration_certificated_paragraph_two_html: Guidance for this is in paragraphs 25 to 29, 32(1), 32A(1) of Part 1 of Schedule 1 to the <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>Legal Aid, Sentencing and Punishment of Offenders Act 2012</a> (LASPO).
       asylum_header_certificated: Asylum (Upper Tribunal)
       asylum_certificated_paragraph_one: This must be for legal representation for an asylum matter in the Immigration and Asylum Chamber of the Upper Tribunal including in relation to an appeal or review from the Immigration and Asylum Chamber of the First-tier Tribunal
-      asylum_certificated_paragraph_two_html: Guidance for this is in paragraphs 24 to 30, 32(1) and 32A(1) of Part 1 of Schedule 1 to the <a href='https://www.legislation.gov.uk/ukpga/2012/10/schedule/1' target='_blank' rel='noreferrer noopener'>Legal Aid, Sentencing and Punishment of Offenders Act 2012</a> (LASPO).
+      asylum_certificated_paragraph_two_html: Guidance for this is in paragraphs 24 to 30, 32(1) and 32A(1) of Part 1 of Schedule 1 to the <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>Legal Aid, Sentencing and Punishment of Offenders Act 2012</a> (LASPO).
       domestic_abuse_header: Domestic abuse
       domestic_abuse_paragraph: This must be for legal representation for a domestic abuse matter (injunction or other order for protection from harm, or committal for breach), FGM protection order, or forced marriage protection order.
       select_a_matter_type: Select a matter type
@@ -591,26 +571,17 @@ en:
       title: Is this an immigration or asylum matter?
     immigration_or_asylum_type:
       title: What type of immigration or asylum matter is this?
-      hint_html: Guidance for these matters is in paragraphs 24 to 30, 32(1) and 32A(1) of Part 1 of Schedule 1 to the <a href="https://www.legislation.gov.uk/ukpga/2012/10/schedule/1" target="_blank" rel="noreferrer noopener">Legal Aid, Sentencing and Punishment of Offenders Act 2012</a> (LASPO).
+      hint_html: Guidance for these matters is in paragraphs 24 to 30, 32(1) and 32A(1) of Part 1 of Schedule 1 to the <a href="%{page_url}" target="_blank" rel="noreferrer noopener">Legal Aid, Sentencing and Punishment of Offenders Act 2012</a> (LASPO).
       immigration_clr: Immigration - controlled legal representation (CLR) in the First-tier Tribunal
       immigration_legal_help: Immigration - legal help or help at court
       asylum: Asylum - legal help, help at court, or controlled legal representation (CLR) in the First-tier Tribunal
       legacy_case_guidance:
         text: Guidance on legacy case Appeals and Reviews in the Upper Tribunal
-        link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1157029/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_controlled_work_and_family_mediation_May_2023.pdf#page=3
     applicant:
       passporting_guidance:
         text: Guidance on passporting
-        certificated:
-          link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=11
-        controlled:
-          link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=5
       pensioner_guidance:
         text: "Guidance on 60 or over disregard (pensioner disregard)"
-        certificated:
-          link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=71
-        controlled:
-          link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=29
       heading: Tell us about your client
       partner:
         legend: Does your client have a partner?
@@ -627,7 +598,6 @@ en:
             - has a contrary interest in the case - this means they want a different outcome to your client
       prisoner_guidance:
         text: Guidance on prisoners
-        link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=96
       over_60:
         legend: Is your client aged 60 or over?
         hint: Clients aged 60 or over may have some of their capital excluded from a financial eligibility assessment.
@@ -692,10 +662,6 @@ en:
       how_many_adult: How many adult dependants are there?
       guidance:
         text: Guidance on dependants
-        certificated:
-          link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=42
-        controlled:
-          link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=15
     employment_status:
       heading: What is your client's employment status?
       in_work_including_self_employed: Employed or self-employed
@@ -784,11 +750,8 @@ en:
       income: Income
       guidance:
         text: Guidance on income
-        certificated_link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1157030/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_certificated_work_May_2023__002_.pdf#page=75
-        controlled_link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=11
       police_guidance:
         text: Guidance on police officer applicants
-        link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1157030/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_certificated_work_May_2023__002_.pdf#page=95
     partner_income:
       heading: The partner's employment income
       hint: You can find this on the partner's payslips.
@@ -937,10 +900,10 @@ en:
       guidance_on_housing_costs:
         certificated:
           text: Guidance on housing costs
-          link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1157030/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_certificated_work_May_2023__002_.pdf#page=39"
+          link: "{%page_url}"
         controlled:
           text: Guidance on housing costs
-          link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1157029/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_controlled_work_and_family_mediation_May_2023.pdf#page=16"
+          link: "{%page_url}"
     mortgage_or_loan_payment:
       heading: What are the mortgage or loan payments for the home your client lives in?
       heading_hint: Enter the full amount due, whoever pays it. Enter 0 if this does not apply.
@@ -1059,10 +1022,8 @@ en:
       guidance_on_outgoings:
         certificated:
           text: Guidance on outgoings
-          link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=38"
         controlled:
           text: Guidance on determining disposable income
-          link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=15
     partner_outgoings:
       heading: The partner's outgoings and deductions
       second_caption: Do not add any outgoings you've listed as outgoings for the client. Enter 0 for any that do not apply.
@@ -1093,15 +1054,15 @@ en:
       properties_guidance:
         text: Guidance on properties
         certificated:
-          link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=57"
+          link: "%page_url"
         controlled:
-          link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=23"
+          link: "%page_url"
       additional_properties_guidance:
         text: Guidance on properties owned that are not the 'main house'
         certificated:
-          link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=58"
+          link: "%page_url"
         controlled:
-          link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=23"
+          link: "%page_url"
     additional_property:
       legend: Does your client own any other property, a holiday home or land?
       hint: This can be the sole property owned if not the home the client lives in, even if the property is abroad or not providing an income.
@@ -1118,24 +1079,21 @@ en:
         hint: "This includes cars, vans and motorcycles"
       guidance:
         text: Guidance on vehicles
-        link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=55"
     assets:
       legend: Client assets
       hint: Enter 0 for any that do not apply
       partner_second_hint: If any of these assets are owned by both the client and partner, enter the full value here. Do not enter them again on the partner questions that follow.
       business_capital_title: Business capital for self-employed clients
       business_capital_text: This service does not currently collect or include the value of any business capital held by your client or their partner. However the LAA may collect and include this when you make an application.
-      business_capital_text_html: See the <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1157030/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_certificated_work_May_2023__002_.pdf#page=86" target='_blank' rel='noreferrer noopener'>Lord Chancellor’s guidance</a> for more information on when and how it may be assessed at application stage.
+      business_capital_text_html: See the <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>Lord Chancellor’s guidance</a> for more information on when and how it may be assessed at application stage.
       bankrupt_title: Clients who are bankrupt
       bankrupt_text: If your client is bankrupt, any capital assets vested in the trustee in bankruptcy will not be included in the capital assessment.
       prison_title: Clients in prison
       prison_text: If your client is in prison, include the balance of any private, spends or savings accounts as money in bank accounts.
       prisoner_guidance:
         text: Guidance on clients who are prisoners
-        link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1157030/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_certificated_work_May_2023__002_.pdf#page=96
       bankrupt_guidance:
         text: Guidance on bankrupt clients
-        link: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1157030/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_certificated_work_May_2023__002_.pdf#page=84
       bank_accounts:
         label: Money in bank accounts
         hints:
@@ -1195,13 +1153,10 @@ en:
       guidance:
         controlled:
           text: Guidance on assets and capital, including disregarded capital
-          link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf#page=20"
         certificated:
           text: Guidance on assets/capital
-          link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=47"
       disregarded_capital_guidance:
         text: Guidance on disregarded capital
-        link: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1045682/Lord_Chancellor_s_guidance_on.pdf#page=70"
     partner_assets:
       legend: Partner assets
       hints:
@@ -1209,7 +1164,7 @@ en:
         - Do not enter any assets if you listed them as owned by your client on the previous page.
       business_capital_title: Business capital for self-employed clients
       business_capital_text: This service does not currently collect or include the value of any business capital held by your client or their partner. However the LAA may collect and include this when you make an application.
-      business_capital_text_html: See the <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1157030/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_certificated_work_May_2023__002_.pdf#page=86" target='_blank' rel='noreferrer noopener'>Lord Chancellor’s guidance (opens in new tab)</a> for more information on when and how it may be assessed at application stage.
+      business_capital_text_html: See the <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>Lord Chancellor’s guidance (opens in new tab)</a> for more information on when and how it may be assessed at application stage.
       bankrupt_title: Partners who are bankrupt
       bankrupt_text: If the partner is bankrupt, any capital assets vested in the trustee in bankruptcy will not be included in the capital assessment.
       prison_title: Partners in prison
@@ -1307,210 +1262,260 @@ en:
   estimates:
     check_answers:
       heading: Check your answers
-      level_of_help: Level of help your client needs
-      level_of_help_fields:
-        level_of_help: Level of help
-        level_of_help_options:
-          controlled: Civil controlled work or family mediation
-          certificated: Civil certificated or licensed legal work
-          not_provided: Not provided
-      about_the_case: Case details
-      about_the_case_fields:
-        matter_type: Type of matter
-        matter_type_options:
-          immigration: Immigration in the Upper Tribunal
-          asylum: Asylum in the Upper Tribunal
-          other: Another category of law
-          domestic_abuse: Domestic abuse
-          not_provided: "Not provided"
-        immigration_or_asylum: Immigration or asylum
-        immigration_or_asylum_type: Type of matter
-        immigration_or_asylum_type_options:
-          immigration_clr: Immigration – CLR in the First-tier Tribunal
-          immigration_legal_help: Immigration – legal help or help at court
-          asylum: Asylum
-      asylum_support: Asylum support
-      asylum_support_fields:
-        asylum_support: Receives asylum support
-      client_details: Client details
-      client_details_fields:
-        over_60: Over 60 years old
-        partner: Has a partner
-        employment_status: Employment status
-        employment_status_options:
-          in_work: Employed and in work
-          receiving_statutory_pay: Employed and on Statutory Sick Pay or Statutory Maternity Pay
-          unemployed: Unemployed
-          not_provided: Not provided
-        passporting: Receives a passporting benefit
-      dependants: Client dependants
-      dependants_with_partner: Dependants
-      household_dependants: Client and partner dependants
-      household_dependants_fields:
-        adult_dependants: Have adult dependants
-        adult_dependants_count: Number of adult dependants
-        child_dependants: Have child dependants
-        child_dependants_count: Number of child dependants
-      client_income: Client income
-      client_employment: Client employment
-      client_employment_fields:
-        employment_status: Employment status
-        employment_status_options:
-          in_work: Employed or self-employed
-          unemployed: Unemployed
-      client_pay: Client pay
-      client_pay_fields:
-        gross_income: Gross pay
-        income_tax: Income tax
-        national_insurance: National Insurance
-        frequency: Frequency
-        frequency_options:
-          total: Total in last 3 months
-          week: Every week
-          two_weeks: Every 2 weeks
-          four_weeks: Every 4 weeks
-          monthly: Every month
-          not_provided: Not provided
-      client_employment_income: Client employment income
-      income_fields:
-        income_type: Income type
-        income_type_options:
-          employment: Salary or wage
-          statutory_pay: Statutory Sick Pay or Statutory Maternity Pay
-          self_employment: Self-employment income
-        income_frequency: Frequency
-        income_frequency_options:
-          year: Total in last year
-          three_months: Total in last 3 months
-          every_week: Every week
-          every_two_weeks: Every 2 weeks
-          every_four_weeks: Every 4 weeks
-          monthly: Every month
-          not_provided: Not provided
-        gross_income: Gross income
-        income_tax: Income tax
-        national_insurance: National Insurance
-        additional_income: Additional employment income %{number}
-      benefits: Client benefits
-      benefits_fields:
-        receives_benefits: Gets benefits
-      other_income: Client other income
-      other_income_fields:
-        friends_or_family_value: Financial help
-        maintenance_value: Maintenance payments from a former partner
-        property_or_lodger_value: Income from a property or lodger
-        pension_value: Pension
-        student_finance_value: Student finance
-        other_value: Other sources
-      partner_details: Partner details
-      partner_details_fields:
-        partner_over_60: Over 60 years old
-        partner_employment_status: Employment status
-        partner_employment_status_options:
-          in_work: Employed and in work
-          receiving_statutory_pay: Employed and on Statutory Sick Pay or Statutory Maternity Pay
-          unemployed: Unemployed
-          not_provided: Not provided
-      partner_income: Partner income
-      partner_employment: Partner employment
-      partner_employment_fields:
-        partner_employment_status: Employment status
-        partner_employment_status_options:
-          in_work: Employed or self-employed
-          unemployed: Unemployed
-      partner_pay: Partner pay
-      partner_pay_fields:
-        partner_gross_income: Gross pay
-        partner_income_tax: Income tax
-        partner_national_insurance: National Insurance
-        partner_frequency: Frequency
-        partner_frequency_options:
-          total: Total in last 3 months
-          week: Every week
-          two_weeks: Every 2 weeks
-          four_weeks: Every 4 weeks
-          monthly: Every month
-          not_provided: Not provided
-      partner_employment_income: Partner employment income
-      partner_benefits: Partner benefits
-      partner_other_income: Partner other income
-      partner_other_income_fields:
-        partner_friends_or_family_value: Financial help
-        partner_maintenance_value: Maintenance payments from a former partner
-        partner_property_or_lodger_value: Income from a property or lodger
-        partner_pension_value: Pension
-        partner_student_finance_value: Student finance
-        partner_other_value: Other sources
-      outgoings: Client outgoings
-      outgoings_fields:
-        childcare_payments_value: Childcare payments
-        maintenance_payments_value: Maintenance payments
-        legal_aid_payments_value: Legal aid payments
-      partner_outgoings: Partner outgoings
-      partner_outgoings_fields:
-        partner_childcare_payments_value: Childcare payments
-        partner_maintenance_payments_value: Maintenance payments
-        partner_legal_aid_payments_value: Legal aid payments
-      assets: Client assets
-      assets_fields:
-        bank_account: Money in bank accounts
-        additional_bank_account: Additional bank account %{variable}
-        investments: Investments
-        valuables: Valuables
-      partner_assets: Partner assets
-      household_vehicles: Client vehicles
-      household_vehicles_with_partner: Vehicles
-      household_vehicles_fields:
-        vehicle: Vehicle %{number}
-        vehicle_owned: Client has a vehicle
-        vehicle_owned_with_partner: Client or partner has a vehicle
-        vehicle_value: Estimated value
-        vehicle_in_regular_use: In regular use
-        vehicle_over_3_years_ago: Bought over 3 years ago
-        vehicle_pcp: Payments left on vehicle
-        vehicle_finance: Value of payments left
-      housing_and_property: Client housing and property
-      housing_and_property_with_partner: Housing and property
-      housing_costs: Client housing costs
-      housing_costs_with_partner: Housing costs
-      housing_costs_fields:
-        housing_payments: Housing payments
-        housing_benefit_value: Housing Benefit amount
-      mortgage_or_loan_payment: Housing costs
-      mortgage_or_loan_payment_fields:
-        housing_loan_payments: Mortgage or loan payments
-      property: Home client lives in
-      property_fields:
-        property_owned: Owns the home they live in
-        property_owned_options:
-          outright: "Yes, owned outright"
-          with_mortgage: "Yes, with a mortgage or loan"
-          none: "No"
-          not_provided: Not provided
-        house_value: Estimated value
-        mortgage: Outstanding mortgage
-        percentage_owned: Percentage share owned
-      client_additional_property: Client other property
-      additional_property_fields:
-        additional_property_owned: Owns other property
-        additional_property_owned_options:
-          outright: "Yes, owned outright"
-          with_mortgage: "Yes, with a mortgage or loan"
-          none: "No"
-          not_provided: Not provided
-        house_value: Estimated value
-        mortgage: Outstanding mortgage
-        owned_with_mortgage: Outstanding mortgage on the property
-        inline_mortgage: Value of outstanding mortgage
-        percentage_owned: Percentage share owned
-        other_property: Other property %{number}
-      partner_additional_property: Partner other property
+      change: Change
       frequency_options:
         every_week: Every week
         every_two_weeks: Every 2 weeks
         every_four_weeks: Every 4 weeks
         monthly: Monthly
+        total: Total in the last 3 months
+        three_months: Total in last 3 months
+        year: Total in the last year
         not_applicable: Not applicable
+        # TODO: Remove the below when the employment form is retired
+        week: Every week
+        two_weeks: Every 2 weeks
+        four_weeks: Every 4 weeks
+      not_provided: Not provided
+      sections:
+        level_of_help: Level of help
+        case_details: Case details
+        client_details: Client details
+        dependants: Dependants
+        client_income: Client income
+        partner_details: Partner details
+        partner_income: Partner income
+        client_outgoings: Client outgoings
+        partner_outgoings: Partner outgoings
+        client_assets: Client assets
+        partner_assets: Partner assets
+        vehicles: Vehicles
+        housing_and_property: Housing and property
+      subsections:
+        client_employment_income: Client employment income
+        client_benefits: Client benefits
+        client_other_income: Client other income
+        partner_employment_income: Partner employment income
+        partner_benefits: Partner benefits
+        partner_other_income: Partner other income
+        client_other_property: Client other property
+        partner_other_property: Partner other property
+      tables:
+        level_of_help: Level of help your client needs
+        type_of_matter: Type of matter
+        asylum_support: Asylum Support
+        matter_type: Type of matter
+        immigration_or_asylum: Type of matter
+        immigration_or_asylum_type: Type of immigration or asylum matter
+        applicant: Client details
+        dependant_details: Dependants
+        employment_status: Employment status
+        income: Client employment income %{variable}
+        employment: Client employment income
+        benefits: Client benefits
+        benefit_details: Client benefit %{variable} details
+        other_income: Client other income
+        partner_details: Partner details
+        partner_employment_status: Partner employment status
+        partner_income: Partner employment income %{variable}
+        partner_employment: Partner employment income
+        partner_benefits: Partner benefits
+        partner_benefit_details: Partner benefit %{variable} details
+        partner_other_income: Partner other income
+        outgoings: Client outgoings and deductions
+        partner_outgoings: Partner outgoings and deductions
+        assets: Client assets
+        partner_assets: Partner assets
+        vehicle: Vehicles
+        vehicles_details: Vehicle %{variable} details
+        property: Home client lives in
+        property_entry: Home client lives in details
+        housing_costs: Housing costs
+        mortgage_or_loan_payment: Housing costs
+        additional_property: Client other property
+        additional_property_details: Client other property %{variable} details
+        partner_additional_property: Partner other property
+        partner_additional_property_details: Partner other property %{variable} details
+      level_of_help_fields:
+        level_of_help: What level of help does your client need?
+        level_of_help_options:
+          certificated: Civil certificated or licensed legal work
+          controlled: Civil controlled work or family mediation
+      matter_type_fields:
+        matter_type: Which type of matter is this?
+        matter_type_options:
+          immigration: Immigration (Upper Tribunal)
+          asylum: Asylum (Upper Tribunal)
+          other: Another category of law
+          domestic_abuse: Domestic abuse
+      immigration_or_asylum_fields:
+        immigration_or_asylum: Is this an immigration or asylum matter?
+      immigration_or_asylum_type_fields:
+        immigration_or_asylum_type: What type of immigration or asylum matter is this?
+        immigration_or_asylum_type_options:
+          immigration_clr: Immigration - controlled legal representation (CLR) in the First-tier Tribunal
+          immigration_legal_help: Immigration - legal help or help at court
+          asylum: Asylum - legal help, help at court, or controlled legal representation (CLR) in the First-tier Tribunal
+      asylum_support_fields:
+        asylum_support: Does your client get asylum support?
+      applicant_fields:
+        partner: Does your client have a partner?
+        over_60: Is your client aged 60 or over?
+        employment_status: What is your client's employment status?
+        passporting: Does your client receive a passporting benefit?
+        employment_status_options:
+          in_work: Employed and in work
+          receiving_statutory_pay: Employed and on Statutory Sick Pay or Statutory Maternity Pay
+          unemployed: Unemployed
+      dependant_details_fields:
+        child_dependants_partner: Does your client or their partner have any child dependants?
+        child_dependants: Does your client have any child dependants?
+        adult_dependants_partner: Does your client or their partner have any adult dependants?
+        adult_dependants: Does your client have any adult dependants?
+        child_dependants_count: How many child dependants are there?
+        adult_dependants_count: How many adult dependants are there?
+      employment_status_fields:
+        employment_status: What is your client's employment status?
+        employment_status_options:
+          in_work: Employed or self-employed
+          unemployed: Unemployed
+      income_fields:
+        income_type: What type of employment income is this?
+        income_frequency: When does your client normally get this income?
+        gross_income: Income before any deductions
+        income_tax: Income tax
+        national_insurance: National Insurance
+        income_type_options:
+          employment: A salary or wage
+          statutory_pay: Statutory Sick Pay or Statutory Maternity Pay
+          self_employment: Self-employment income
+      employment_fields:
+        frequency: When does your client normally get paid?
+        gross_income: Income before any deductions
+        income_tax: Income tax
+        national_insurance: National Insurance
+      benefits_fields:
+        receives_benefits: Does your client get any benefits?
+      benefit_details_fields:
+        benefit_type: Benefit name
+        benefit_amount: Benefit amount
+        benefit_frequency: Frequency
+      other_income_fields:
+        friends_or_family_value: Financial help from friends or family
+        maintenance_value: Maintenance payments from a former partner
+        property_or_lodger_value: Income from a property or lodger
+        pension_value: Pension
+        student_finance_value: Student finance
+        other_value: Income from other sources
+      partner_details_fields:
+        partner_over_60: Is the partner aged 60 or over?
+        partner_employment_status: What is the partner's employment status?
+        partner_employment_status_options:
+          in_work: Employed and in work
+          receiving_statutory_pay: Employed and on Statutory Sick Pay or Statutory Maternity Pay
+          unemployed: Unemployed
+      partner_employment_status_fields:
+        partner_employment_status: What is the partner's employment status?
+        partner_employment_status_options:
+          in_work: Employed or self-employed
+          unemployed: Unemployed
+      partner_income_fields:
+        income_type: What type of employment income is this?
+        income_frequency: When does the partner normally get this income?
+        gross_income: Income before any deductions
+        income_tax: Income tax
+        national_insurance: National Insurance
+        income_type_options:
+          employment: A salary or wage
+          statutory_pay: Statutory Sick Pay or Statutory Maternity Pay
+          self_employment: Self-employment income
+      partner_employment_fields:
+        partner_frequency: When does the partner normally get paid?
+        partner_gross_income: Income before any deductions
+        partner_income_tax: Income tax
+        partner_national_insurance: National Insurance
+      partner_benefits_fields:
+        partner_receives_benefits: Does the partner get any benefits?
+      partner_benefit_details_fields:
+        benefit_type: Benefit name
+        benefit_amount: Benefit amount
+        benefit_frequency: Frequency
+      partner_other_income_fields:
+        partner_friends_or_family_value: Financial help from friends or family
+        partner_maintenance_value: Maintenance payments from a former partner
+        partner_property_or_lodger_value: Income from a property or lodger
+        partner_pension_value: Pension
+        partner_student_finance_value: Student finance
+        partner_other_value: Income from other sources
+      outgoings_fields:
+        childcare_payments_value: Childcare payments
+        maintenance_payments_value: Maintenance payments
+        legal_aid_payments_value: Legal aid payments
+      partner_outgoings_fields:
+        partner_childcare_payments_value: Childcare payments
+        partner_maintenance_payments_value: Maintenance payments
+        partner_legal_aid_payments_value: Legal aid payments
+      assets_fields:
+        amount_first: Money in bank accounts
+        amount_subsequent: Additional bank account %{variable}
+        investments: Investments
+        valuables: Valuable items worth £500 or more
+      partner_assets_fields:
+        amount_first: Money in bank accounts
+        amount_subsequent: Additional bank account %{variable}
+        partner_investments: Investments
+        partner_valuables: Valuable items worth £500 or more
+      vehicle_fields:
+        vehicle_owned: Does your client own a vehicle?
+        vehicle_owned_partner: Does your client or their partner own a vehicle?
+      vehicles_details_fields:
+        vehicle_value: What is the estimated value of the vehicle?
+        vehicle_pcp: Are there any payments left on the vehicle?
+        vehicle_finance: Value of payments left
+        vehicle_over_3_years_ago: Was the vehicle bought over 3 years ago?
+        vehicle_in_regular_use: Is the vehicle in regular use?
+      property_fields:
+        property_owned: Does your client own the home the client lives in?
+        property_owned_options:
+          outright: Yes, owned outright
+          with_mortgage: Yes, with a mortgage or loan
+          none: "No"
+        property_owned_partner: Does your client or their partner own the home the client lives in?
+        property_owned_partner_options:
+          outright: Yes, owned outright
+          with_mortgage: Yes, with a mortgage or loan
+          none: "No"
+      housing_costs_fields:
+        housing_payments: Housing payments
+        housing_benefit_value: Housing Benefit
+      mortgage_or_loan_payment_fields:
+        housing_loan_payments: What are the mortgage or loan payments for the home the client lives in?
+      property_entry_fields:
+        house_value: Estimated value
+        mortgage: Outstanding mortgage
+        percentage_owned: Percentage share owned
+      additional_property_fields:
+        additional_property_owned: Does your client own any other property, a holiday home or land?
+        additional_property_owned_options:
+          outright: Yes, owned outright
+          with_mortgage: Yes, with a mortgage or loan
+          none: "No"
+      additional_property_details_fields:
+        house_value: How much is the property, holiday home or land worth?
+        inline_owned_with_mortgage: Is there an outstanding mortgage on the property, holiday home or land?
+        mortgage: Value of outstanding mortgage
+        percentage_owned: What percentage does your client own?
+      partner_additional_property_fields:
+        partner_additional_property_owned: Does the partner own any other property, a holiday home or land?
+        partner_additional_property_owned_options:
+          outright: Yes, owned outright
+          with_mortgage: Yes, with a mortgage or loan
+          none: "No"
+      partner_additional_property_details_fields:
+        house_value: How much is the property, holiday home or land worth?
+        inline_owned_with_mortgage: Is there an outstanding mortgage on the property, holiday home or land?
+        mortgage: Value of outstanding mortgage
+        percentage_owned: What percentage does the partner own?
       submission_instructions: Now submit your eligibility check
       submission_explanation: We'll use your answers to give you an estimated result on your client's financial eligibility for legal aid.
       call_to_action: Submit eligibility check
@@ -1583,9 +1588,6 @@ en:
         - If the client or any partner holds assets as a trustee on behalf of another person, documentary evidence of the trust arrangement.
       certificated_how_calculated: How we calculated whether your client is likely to be financially eligible for civil certificated legal aid work
       controlled_how_calculated: How we calculated whether your client is likely to be financially eligible for civil controlled legal aid work
-      controlled_next_steps_paragraph_1: You will need to complete the relevant controlled work form and keep for your records, along with any evidence provided by your client. Your client’s file may be audited and assessed by the LAA at a later date.
-      controlled_next_steps_paragraph_1_partner: You will need to complete the relevant controlled work form and keep for your records, along with any evidence provided by your client and their partner. Your client’s file may be audited and assessed by the LAA at a later date.
-      controlled_next_steps_paragraph_2_html: "You can find the forms at: <a href='https://www.gov.uk/government/collections/controlled-work-application-forms' target='_blank' rel='noreferrer noopener'>Controlled work application forms</a>."
       legacy_controlled_types_of_evidence:
         - bank statements covering the most recent month
         - evidence of any benefits or financial support your client received from the government, local authorities or third parties dated in the last 6 months
@@ -1818,17 +1820,17 @@ en:
         disposable_income: disposable monthly income
         capital: disposable capital
     legislation_table:
-      paragraph_1_controlled_html: This calculation was made using the rules for controlled work in <a href="https://www.legislation.gov.uk/uksi/2013/480/contents" target='_blank' rel='noreferrer noopener'>The Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 (opens in new tab)</a> and the <a href="https://www.legislation.gov.uk/all?title=Civil%20Legal%20Aid%20%28Financial%20Resources%20" target='_blank' rel='noreferrer noopener' aria-label="Link opens a search page which includes a list of amendments to The Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 (opens in new tab)">amendments to these Regulations (opens in new tab)</a>.
-      paragraph_2_controlled_html: Guidance on determining financial eligibility for controlled work and family mediation can be found in the <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/983065/Lord_Chancellor_s_guidance_on_determining_controlled_work_and_family_mediation.pdf" target='_blank' rel='noreferrer noopener'>guide to determining controlled work (opens in new tab)</a>.
-      paragraph_1_certificated_html: This calculation was made using the rules for certificated work in <a href="https://www.legislation.gov.uk/uksi/2013/480/contents" target='_blank' rel='noreferrer noopener'>The Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 (opens in new tab)</a> and the <a href="https://www.legislation.gov.uk/all?title=Civil%20Legal%20Aid%20%28Financial%20Resources%20" target='_blank' rel='noreferrer noopener' aria-label="Link opens a search page which includes a list of amendments to The Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 (opens in new tab)">amendments to these Regulations (opens in new tab)</a>.
-      paragraph_2_certificated_html: Guidance on determining financial eligibility for certificated work can be found in the <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1157030/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_certificated_work_May_2023__002_.pdf" target='_blank' rel='noreferrer noopener'>guide to determining certificated work (opens in new tab)</a>.
+      paragraph_1_controlled_html: This calculation was made using the rules for controlled work in <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>The Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 (opens in new tab)</a> and the <a href="%{page_url_2}" target='_blank' rel='noreferrer noopener' aria-label="Link opens a search page which includes a list of amendments to The Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 (opens in new tab)">amendments to these Regulations (opens in new tab)</a>.
+      paragraph_2_controlled_html: Guidance on determining financial eligibility for controlled work and family mediation can be found in the <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>guide to determining controlled work (opens in new tab)</a>.
+      paragraph_1_certificated_html: This calculation was made using the rules for certificated work in <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>The Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 (opens in new tab)</a> and the <a href="%{page_url_2}" target='_blank' rel='noreferrer noopener' aria-label="Link opens a search page which includes a list of amendments to The Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 (opens in new tab)">amendments to these Regulations (opens in new tab)</a>.
+      paragraph_2_certificated_html: Guidance on determining financial eligibility for certificated work can be found in the <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>guide to determining certificated work (opens in new tab)</a>.
     limits_table:
       calculation_information: We’ve used the information you provided to compare your client’s income and outgoings. This allows us to calculate their monthly disposable income.
       limits_heading: Limits
       outgoings_explanation: "For some outgoings, you may see figures that differ from what you entered. This is because some outgoing amounts are capped or disregarded in certain situations. For example:"
       list_html:
-        - Childcare costs will display as £0 if your client is not employed or a student (<a href="https://www.legislation.gov.uk/uksi/2013/480/regulation/27" target='_blank' rel='noreferrer noopener'>Regulation 27 of the Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 (opens in new tab)</a>).
-        - Housing costs are capped at £545 per month if your client is single and does not have any dependants (<a href="https://www.legislation.gov.uk/uksi/2013/480/regulation/28" target='_blank' rel='noreferrer noopener'>Regulation 28(7) of the Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 (opens in new tab)</a>).
+        - Childcare costs will display as £0 if your client is not employed or a student (<a href="%{page_url}" target='_blank' rel='noreferrer noopener'>Regulation 27 of the Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 (opens in new tab)</a>).
+        - Housing costs are capped at £545 per month if your client is single and does not have any dependants (<a href="%{page_url_2}" target='_blank' rel='noreferrer noopener'>Regulation 28(7) of the Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 (opens in new tab)</a>).
         - If your client’s gross income is above the applicable upper gross income limit, they will not qualify for legal aid. If this occurs, our service will not perform disposable income or disposable capital calculations. Any figures you entered in the outgoings or capital sections may either display as £0, or not at all.
       certificated_last_item: If your client’s income or capital is between the applicable upper and lower income limits, they may qualify for legal aid but may have to make a monthly or lump sum contribution towards the cost of their case.
       upper_and_lower_monetary_limits: "These limits are:"
@@ -1898,15 +1900,14 @@ en:
       unacceptable_client_heading_company_director: "Company directors"
       unacceptable_client_explanation_company_director: "You cannot use this service for a certificated check if your client (or their partner) is a self-employed director."
       unacceptable_client_heading_under_18: "Clients under 18"
-      unacceptable_client_explanation_under_18_html:
-        - For controlled work, the finances of applicants under 18 are only assessed if they are maintained or cared for by somebody who can also be included in the means assessment. Page 32 of the <a href='https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1157029/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_controlled_work_and_family_mediation_May_2023.pdf#page=32' target='_blank'>Lord Chancellor’s guidance (opens in a new tab)</a> has more details about how to assess a child’s means.
-        - For certificated work, see page 94 of the <a href='https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1157030/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_certificated_work_May_2023__002_.pdf#page=94' target='_blank'>Lord Chancellor’s guidance (opens in a new tab)</a> for more details about when and how to assess a child’s means.
-      client_under_18_para_1: "Clients aged under 18 do not need a means assessment for controlled work matters unless one of the following applies:"
+      unacceptable_client_explanation_under_18_controlled_html: For controlled work, the finances of applicants under 18 are only assessed if they are maintained or cared for by somebody who can also be included in the means assessment. Page %{page_number} of the <a href="%{page_url}" target='_blank'>Lord Chancellor’s guidance (opens in a new tab)</a> has more details about how to assess a child’s means.
+      unacceptable_client_explanation_under_18_certificated_html: For certificated work, see page %{page_number} of the <a href="%{page_url}" target='_blank'>Lord Chancellor’s guidance (opens in a new tab)</a> for more details about when and how to assess a child’s means.
+      client_under_18_para_1: "Clients aged under 18 do not need a means assessment for certificated work matters or controlled legal representation (CLR) matters."
+      client_under_18_para_2: "For all other types of controlled work and family mediation matters, clients under 18 must have a full means assessment if any of the following apply:"
       client_under_18_bullets:
         - their means are aggregated with another person’s, like a parent or guardian
         - they get regular income, like payment from a job
         - they have capital worth more than £2,500
-      client_under_18_para_2: "For certificated work matters, clients aged under 18 do not need a means test."
       case_types: Case types
       case_types_intro: "This must be for a case that would be:"
       valid_case_types:
@@ -1927,7 +1928,7 @@ en:
         - outgoings, like housing costs, maintenance payments and childcare costs
         - savings and investments
         - assets, like property and vehicles
-      mental_health_html: The <a href='https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1143984/Mental_Health_Guidance_-_Contract_management_-_GOV.UK_2023.pdf' target='_blank' rel='noreferrer noopener'>LAA contract management mental health guidance (opens in new tab)</a> explains when a means assessment is not needed for controlled work matters that will potentially involve proceedings before the Mental Health Tribunal (known as non-means, non-MHT matter starts).
+      mental_health_html: The <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>LAA contract management mental health guidance (opens in new tab)</a> explains when a means assessment is not needed for controlled work matters that will potentially involve proceedings before the Mental Health Tribunal (known as non-means, non-MHT matter starts).
       start_button: Start now
       last_updated: Last updated %{date}
       show_all_updates: + show all updates
@@ -2157,12 +2158,11 @@ en:
         - "CIVMEANS7: financial assessment for family mediation"
     mtr_phase_1:
       header: Changes for clients aged under 18
-      para_1: "From 3 August 2023, clients aged under 18 will not need a means assessment for controlled work matters unless (one of the following applies):"
+      para_1: "From 3 August 2023, clients aged under 18 will not need a means assessment for certificated work matters or controlled legal representation (CLR) matters. For all other types of controlled work and family mediation matters, clients under 18 must have a full means assessment if any of the following apply:"
       bullets:
         - their means are aggregated with another person’s, like a parent or guardian
         - they get regular income, like payment from a job
         - they have capital worth more than £2,500
-      para_2: "For certificated work matters, clients aged under 18 do not need a means test."
     self_employed:
       text: This service now supports clients (and their partners) who are self-employed, with the exception of self-employed company directors for certificated checks.
   controlled_work_document_selections:

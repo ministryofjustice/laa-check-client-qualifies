@@ -1,10 +1,10 @@
 require "rails_helper"
 
 RSpec.describe "estimates/check_answers.html.slim" do
-  let(:answers) { CheckAnswersPresenter.new(session_data) }
+  let(:sections) { CheckAnswers::SectionListerService.call(session_data) }
 
   before do
-    assign(:answers, answers)
+    assign(:sections, sections)
     params[:id] = :id
     allow(view).to receive(:form_with)
     render template: "estimates/check_answers"
@@ -34,9 +34,15 @@ RSpec.describe "estimates/check_answers.html.slim" do
         let(:partner_additional_mortgage) { nil }
 
         it "renders content" do
-          expect(text).to include("Owns other propertyYes, owned outright")
-          expect(text).to include("Estimated value£100,000.00")
-          expect(text).to include("Percentage share owned100%")
+          expect(page_text_within("#table-partner_additional_property")).to include(
+            "Does the partner own any other property, a holiday home or land?Yes, owned outright",
+          )
+
+          expect_in_text(page_text_within("#table-partner_additional_property_details"), [
+            "Partner other property 1 details",
+            "How much is the property, holiday home or land worth?£100,000.00",
+            "What percentage does the partner own?100%",
+          ])
         end
       end
 
@@ -45,10 +51,16 @@ RSpec.describe "estimates/check_answers.html.slim" do
         let(:partner_additional_mortgage) { 2_000 }
 
         it "renders content" do
-          expect(text).to include("Owns other propertyYes, with a mortgage or loan")
-          expect(text).to include("Estimated value£100,000.00")
-          expect(text).to include("Outstanding mortgage£2,000.00")
-          expect(text).to include("Percentage share owned100%")
+          expect(page_text_within("#table-partner_additional_property")).to include(
+            "Does the partner own any other property, a holiday home or land?Yes, with a mortgage or loan",
+          )
+
+          expect_in_text(page_text_within("#table-partner_additional_property_details"), [
+            "Partner other property 1 details",
+            "How much is the property, holiday home or land worth?£100,000.00",
+            "Value of outstanding mortgage£2,000.00",
+            "What percentage does the partner own?100%",
+          ])
         end
       end
     end
