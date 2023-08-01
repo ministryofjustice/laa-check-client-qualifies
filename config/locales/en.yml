@@ -2029,8 +2029,7 @@ en:
       how_long_heading: How long we keep your data
       how_long_section:
         - We will only retain your data for as long as it is needed for the purposes set out on this page.
-        - All the data you provide will be deleted from our system 2 weeks after you submit it.
-        - We will retain indefinitely summary logs of interactions with the service, but these logs are fully anonymous and contain no user-provided values or figures.
+        - We will retain summary logs of interactions with the service indefinitely, but these logs are fully anonymous.
         - We will delete access log data which contain your IP address after 30 days.
       where_stored_heading: Where your data is processed and stored
       where_stored: We design, build and run our systems to make sure that your data is as safe as possible at all stages, both while it’s processed and when it’s stored. All personal data is processed in the EEA.
