@@ -40,9 +40,14 @@ html dir="ltr" lang="en-GB" class="govuk-template"
     = govuk_header(service_name: t("service.name"), homepage_url: "https://www.gov.uk")
 
     .govuk-width-container
-      = govuk_phase_banner tag: { text: t("service.beta") },
-                           text: t("service.beta_message_html", user_survey_link: t("service.user_survey_link")),
-                           html_attributes: { role: "complementary", "aria-label": "Beta notification" }
+      - if beta_pilot_url? && FeatureFlags.enabled?(:public_beta, without_session_data: true)
+        = govuk_phase_banner tag: { text: t("service.beta") },
+                            text: t("service.beta_message_pilot_html", new_service_link: t("service.new_service_link")),
+                            html_attributes: { role: "complementary", "aria-label": "Beta notification" }
+      - else
+        = govuk_phase_banner tag: { text: t("service.beta") },
+                            text: t("service.beta_message_html", user_survey_link: t("service.user_survey_link")),
+                            html_attributes: { role: "complementary", "aria-label": "Beta notification" }
 
       - if content_for?(:back)
         div role="navigation"
