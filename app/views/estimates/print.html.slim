@@ -26,6 +26,7 @@
     = pdf_friendly_h2(t("estimates.show.evidence_needed"), "m", @is_pdf)
     = render "evidence"
   - elsif @model.level_of_help == "controlled" && @model.decision == "eligible"
+
     = pdf_friendly_h2(t("estimates.show.what_happens_next"), "m", @is_pdf)
     = render "controlled_work_next_steps"
 
