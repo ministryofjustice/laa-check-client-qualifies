@@ -40,14 +40,23 @@ html dir="ltr" lang="en-GB" class="govuk-template"
     = govuk_header(service_name: t("service.name"), homepage_url: "https://www.gov.uk")
 
     .govuk-width-container
+      = govuk_phase_banner tag: { text: t("service.beta") },
+                          text: t("service.beta_message_html", user_survey_link: t("service.user_survey_link")),
+                          html_attributes: { role: "complementary", "aria-label": "Beta notification" }
+
       - if beta_pilot_url? && FeatureFlags.enabled?(:public_beta, without_session_data: true)
-        = govuk_phase_banner tag: { text: t("service.beta") },
-                            text: t("service.beta_message_pilot_html", new_service_link: t("service.new_service_link")),
-                            html_attributes: { role: "complementary", "aria-label": "Beta notification" }
-      - else
-        = govuk_phase_banner tag: { text: t("service.beta") },
-                            text: t("service.beta_message_html", user_survey_link: t("service.user_survey_link")),
-                            html_attributes: { role: "complementary", "aria-label": "Beta notification" }
+        .moj-banner role="region" aria-label="information banner, to explain that pilot phase is complete"
+            svg.moj-banner__icon[fill="currentColor"
+                                role="presentation"
+                                focusable="false"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 25 25"
+                                height="25"
+                                width="25"]
+              path d=exclamation_mark_path
+            .moj-banner__message
+              h2.govuk-heading-s = t("service.beta_message_pilot_heading")
+              p.govuk-body-m = t("service.beta_message_pilot_body_html")
 
       - if content_for?(:back)
         div role="navigation"
