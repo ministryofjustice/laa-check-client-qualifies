@@ -76,4 +76,15 @@ RSpec.describe "cw_selection", type: :feature do
       expect(page.response_headers["Content-Type"]).to eq("application/pdf")
     end
   end
+
+  context "when MTR phase 1 is not in effect" do
+    before { travel_to Date.new(2023, 6, 4) }
+
+    it "downloads an updated PDF" do
+      expect(YAML).to receive(:load_file).with(Rails.root.join("app/lib/controlled_work_mappings/cw1_and_2.yml")).and_call_original
+      choose "CW1&2 - mental health"
+      click_on "Download the pre-populated form"
+      expect(page.response_headers["Content-Type"]).to eq("application/pdf")
+    end
+  end
 end
