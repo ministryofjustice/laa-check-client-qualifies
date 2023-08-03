@@ -49,9 +49,13 @@ html dir="ltr" lang="en-GB" class="govuk-template"
           = yield :back
 
       - if beta_pilot_url? && FeatureFlags.enabled?(:public_beta, without_session_data: true)
-        .govuk-grid-column-two-thirds class="govuk-!-margin-top-2"
+        //get rid of these two for full length
+        .govuk-grid-column-two-thirds
           .govuk-grid-row class="govuk-!-padding-right-2"
-            .moj-banner role="region" aria-label="information banner, to explain that pilot phase is complete"
+
+        //Keep this for two thords screen
+
+            .moj-banner class="govuk-!-margin-top-2" role="region" aria-label="information banner, to explain that pilot phase is complete"
                 svg.moj-banner__icon[fill="currentColor"
                                     role="presentation"
                                     focusable="false"
