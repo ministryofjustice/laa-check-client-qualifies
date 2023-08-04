@@ -2165,6 +2165,8 @@ en:
         - they have capital worth more than £2,500
     self_employed:
       text: This service now supports clients (and their partners) who are self-employed, with the exception of self-employed company directors for certificated checks.
+    public_beta:
+      text: This service was launched as a public beta, available to all users. Until this date it was in a private pilot phase, available only by invitation.
   controlled_work_document_selections:
     new:
       title: Which controlled work (CW) form do you need?
