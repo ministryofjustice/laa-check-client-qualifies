@@ -56,11 +56,6 @@ module ApplicationHelper
   end
 
   def beta_pilot_url?
-    beta_pilot_urls = [
-      "https://check-your-client-qualifies-for-legal-aid.cloud-platform.service.justice.gov.uk/",
-      "https://main-check-client-qualifies-legal-aid-uat.cloud-platform.service.justice.gov.uk/",
-      "https://check-your-client-qualifies-for-legal-aid-staging.cloud-platform.service.justice.gov.uk/",
-    ]
-    beta_pilot_urls.include?(request.base_url)
+    request.base_url.include?("cloud-platform")
   end
 end
