@@ -89,6 +89,10 @@ class Check
     Steps::Logic.employed?(session_data)
   end
 
+  def partner_employed?
+    Steps::Logic.partner_employed?(session_data)
+  end
+
   def client_self_employed?
     incomes && incomes.any? { _1.income_type == "self_employment" }
   end
