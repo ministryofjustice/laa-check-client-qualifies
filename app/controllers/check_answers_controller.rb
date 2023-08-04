@@ -30,7 +30,7 @@ private
   end
 
   def anchor
-    CheckAnswers::SectionIdFinder.call(step)
+    "table-#{step}"
   end
 
   def page_name

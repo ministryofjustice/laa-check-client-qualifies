@@ -1,2 +1,4 @@
-p.govuk-body = t(".paragraph_1_#{@model.level_of_help}_html")
-p.govuk-body = t(".paragraph_2_#{@model.level_of_help}_html")
+p.govuk-body = t(".paragraph_1_#{@model.level_of_help}_html", page_url: GuidanceLinkService.call(document: :legislation_CLAR_2013),
+                                                              page_url_2: GuidanceLinkService.call(document: :legislation_ammendments))
+p.govuk-body = t(".paragraph_2_#{@model.level_of_help}_html",
+               page_url: GuidanceLinkService.call(document: :"lc_guidance_#{@model.level_of_help}"))

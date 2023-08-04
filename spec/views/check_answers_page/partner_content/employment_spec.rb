@@ -1,10 +1,10 @@
 require "rails_helper"
 
 RSpec.describe "estimates/check_answers.html.slim" do
-  let(:answers) { CheckAnswersPresenter.new(session_data) }
+  let(:sections) { CheckAnswers::SectionListerService.call(session_data) }
 
   before do
-    assign(:answers, answers)
+    assign(:sections, sections)
     params[:id] = :id
     allow(view).to receive(:form_with)
     render template: "estimates/check_answers"
@@ -29,24 +29,25 @@ RSpec.describe "estimates/check_answers.html.slim" do
         let(:partner_employment_status) { "in_work" }
 
         it "renders content" do
-          expect(text).to include("Employment statusEmployed and in work")
-          expect(text).to include("FrequencyEvery month")
-          expect(text).to include("Gross pay£1,500.00")
-          expect(text).to include("Income tax£200.00")
-          expect(text).to include("National Insurance£100.00")
+          expect_in_text(text, [
+            "When does the partner normally get paid?Monthly",
+            "Income before any deductions£1,500.00",
+            "Income tax£200.00",
+            "National Insurance£100.00",
+          ])
         end
 
         it "shows employment status in partner details section" do
-          expect(page_text_within("#field-list-partner_details")).to include "Employment"
+          expect(page_text_within("#table-partner_details")).to include "What is the partner's employment status?Employed and in work"
         end
 
         context "when self-employed feature flag is enabled", :self_employed_flag do
           it "does not show employment status in partner details section" do
-            expect(page_text_within("#field-list-partner_details")).not_to include "Employment"
+            expect(page_text_within("#table-partner_details")).not_to include "What is the partner's employment status?"
           end
 
           it "shows employment status in the employment section" do
-            expect(page_text_within("#field-list-partner_employment")).to include "Employment statusEmployed or self-employed"
+            expect(page_text_within("#table-partner_employment_status")).to include "What is the partner's employment status?Employed or self-employed"
           end
         end
       end
@@ -55,7 +56,7 @@ RSpec.describe "estimates/check_answers.html.slim" do
         let(:partner_employment_status) { "receiving_statutory_pay" }
 
         it "renders content" do
-          expect(text).to include("Employment statusEmployed and on Statutory Sick Pay or Statutory Maternity Pay")
+          expect(text).to include("What is the partner's employment status?Employed and on Statutory Sick Pay or Statutory Maternity Pay")
         end
       end
 
@@ -68,7 +69,7 @@ RSpec.describe "estimates/check_answers.html.slim" do
         end
 
         it "renders content" do
-          expect(text).to include("Employment statusUnemployed")
+          expect(text).to include("What is the partner's employment status?Unemployed")
         end
       end
     end

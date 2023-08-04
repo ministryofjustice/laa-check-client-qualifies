@@ -1,10 +1,10 @@
 require "rails_helper"
 
 RSpec.describe "estimates/check_answers.html.slim" do
-  let(:answers) { CheckAnswersPresenter.new(session_data) }
+  let(:sections) { CheckAnswers::SectionListerService.call(session_data) }
 
   before do
-    assign(:answers, answers)
+    assign(:sections, sections)
     params[:id] = :id
     allow(view).to receive(:form_with)
     render template: "estimates/check_answers"
@@ -19,12 +19,12 @@ RSpec.describe "estimates/check_answers.html.slim" do
           build(:minimal_complete_session,
                 vehicle_owned:,
                 vehicles: [{
-                  vehicle_value:,
-                  vehicle_pcp:,
-                  vehicle_finance:,
-                  vehicle_over_3_years_ago:,
-                  vehicle_in_regular_use:,
-                  vehicle_in_dispute:,
+                  "vehicle_value" => vehicle_value,
+                  "vehicle_pcp" => vehicle_pcp,
+                  "vehicle_finance" => vehicle_finance,
+                  "vehicle_over_3_years_ago" => vehicle_over_3_years_ago,
+                  "vehicle_in_regular_use" => vehicle_in_regular_use,
+                  "vehicle_in_dispute" => vehicle_in_dispute,
                 }])
         end
 
@@ -33,23 +33,26 @@ RSpec.describe "estimates/check_answers.html.slim" do
           let(:vehicle_value) { 3_000 }
           let(:vehicle_pcp) { false }
           let(:vehicle_finance) { 0 }
-          let(:vehicle_over_3_years_ago) { false }
-          let(:vehicle_in_regular_use) { false }
+          let(:vehicle_over_3_years_ago) { true }
+          let(:vehicle_in_regular_use) { true }
           let(:vehicle_in_dispute) { false }
 
           it "renders content" do
-            expect(text).to include("Client has a vehicleYes")
-            expect(text).to include("Estimated value£3,000.00")
-            expect(text).to include("In regular useNo")
-            expect(text).to include("Bought over 3 years agoNo")
-            expect(text).to include("Payments left on vehicleNo")
+            expect_in_text(text, [
+              "Does your client own a vehicle?Yes",
+              "Vehicle 1 detailsChange",
+              "What is the estimated value of the vehicle?£3,000.00",
+              "Are there any payments left on the vehicle?No",
+              "Was the vehicle bought over 3 years ago?Yes",
+              "Is the vehicle in regular use?Yes",
+            ])
           end
 
           context "when is smod" do
             let(:vehicle_in_dispute) { true }
 
             it "renders content" do
-              expect(page_text_within("#field-list-household_vehicles")).to include("Disputed asset")
+              expect(page_text_within("#table-vehicles_details")).to include("Disputed asset")
             end
           end
         end
@@ -59,17 +62,20 @@ RSpec.describe "estimates/check_answers.html.slim" do
           let(:vehicle_value) { 2_000 }
           let(:vehicle_pcp) { true }
           let(:vehicle_finance) { 100 }
-          let(:vehicle_over_3_years_ago) { true }
-          let(:vehicle_in_regular_use) { true }
+          let(:vehicle_over_3_years_ago) { false }
+          let(:vehicle_in_regular_use) { false }
           let(:vehicle_in_dispute) { false }
 
           it "renders content correctly" do
-            expect(text).to include("Client has a vehicleYes")
-            expect(text).to include("Estimated value£2,000.00")
-            expect(text).to include("In regular useYes")
-            expect(text).to include("Bought over 3 years agoYes")
-            expect(text).to include("Payments left on vehicleYes")
-            expect(text).to include("Value of payments left£100.00")
+            expect_in_text(text, [
+              "Does your client own a vehicle?Yes",
+              "Vehicle 1 detailsChange",
+              "What is the estimated value of the vehicle?£2,000.00",
+              "Are there any payments left on the vehicle?Yes",
+              "Value of payments left£100.00",
+              "Was the vehicle bought over 3 years ago?No",
+              "Is the vehicle in regular use?No",
+            ])
           end
         end
 
@@ -83,7 +89,7 @@ RSpec.describe "estimates/check_answers.html.slim" do
           let(:vehicle_in_dispute) { nil }
 
           it "renders content" do
-            expect(text).to include("Client has a vehicleNo")
+            expect(text).to include("Does your client own a vehicle?No")
           end
         end
       end
@@ -103,10 +109,13 @@ RSpec.describe "estimates/check_answers.html.slim" do
           let(:savings_in_dispute) { false }
 
           it "renders the content correctly" do
-            expect(text).to include("Money in bank accounts£50.00")
-            expect(text).to include("Additional bank account 1£30.00")
-            expect(text).to include("Investments£60.00")
-            expect(text).to include("Valuables£550.00")
+            expect_in_text(text, [
+              "Client assetsChange",
+              "Money in bank accounts£50.00",
+              "Additional bank account 1£30.00",
+              "Investments£60.00",
+              "Valuable items worth £500 or more£550.00",
+            ])
           end
 
           context "when is smod" do
@@ -127,9 +136,12 @@ RSpec.describe "estimates/check_answers.html.slim" do
           end
 
           it "renders content" do
-            expect(text).to include("Money in bank accounts£0.00")
-            expect(text).to include("Investments£0.00")
-            expect(text).to include("Valuables£0.00")
+            expect_in_text(text, [
+              "Client assetsChange",
+              "Money in bank accounts£0.00",
+              "Investments£0.00",
+              "Valuable items worth £500 or more£0.00",
+            ])
           end
         end
       end

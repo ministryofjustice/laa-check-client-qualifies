@@ -1,10 +1,10 @@
 require "rails_helper"
 
 RSpec.describe "estimates/check_answers.html.slim" do
-  let(:answers) { CheckAnswersPresenter.new(session_data) }
+  let(:sections) { CheckAnswers::SectionListerService.call(session_data) }
 
   before do
-    assign(:answers, answers)
+    assign(:sections, sections)
     params[:id] = :id
     allow(view).to receive(:form_with)
     render template: "estimates/check_answers"
@@ -27,17 +27,20 @@ RSpec.describe "estimates/check_answers.html.slim" do
         let(:house_in_dispute) { false }
 
         it "renders content" do
-          expect(text).to include("Owns the home they live inYes")
-          expect(text).to include("Estimated value£200,000.00")
-          expect(text).to include("Outstanding mortgage£5,000.00")
-          expect(text).to include("Percentage share owned50%")
+          expect_in_text(text, [
+            "Does your client own the home the client lives in?Yes, with a mortgage or loan",
+            "Home client lives in detailsChange",
+            "Estimated value£200,000.00",
+            "Outstanding mortgage£5,000.00",
+            "Percentage share owned50%",
+          ])
         end
 
         context "when is smod" do
           let(:house_in_dispute) { true }
 
           it "renders content" do
-            expect(page_text_within("#field-list-property")).to include("Disputed asset")
+            expect(page_text_within("#table-property_entry")).to include("Disputed asset")
           end
         end
       end
@@ -53,9 +56,12 @@ RSpec.describe "estimates/check_answers.html.slim" do
         end
 
         it "renders content" do
-          expect(text).to include("Owns the home they live inYes")
-          expect(text).to include("Estimated value£200,000.00")
-          expect(text).to include("Percentage share owned50%")
+          expect_in_text(text, [
+            "Does your client own the home the client lives in?Yes, owned outright",
+            "Home client lives in detailsChange",
+            "Estimated value£200,000.00",
+            "Percentage share owned50%",
+          ])
         end
       end
 
@@ -70,8 +76,7 @@ RSpec.describe "estimates/check_answers.html.slim" do
         end
 
         it "renders content" do
-          expect(text).to include("Owns the home they live inNo")
-          expect(page_text_within("#field-list-property")).not_to include("Disputed asset")
+          expect(text).to include("Does your client own the home the client lives in?No")
         end
       end
     end
@@ -84,21 +89,25 @@ RSpec.describe "estimates/check_answers.html.slim" do
               additional_properties: [{
                 "house_value" => 100_000,
                 "percentage_owned" => 100,
-                "mortgage" => 2_000,
-                "house_in_dispute" => true,
+                "mortgage" => additional_mortgage,
+                "house_in_dispute" => additional_house_in_dispute,
               }])
       end
-
-      let(:text) { page_text_within("#field-list-client_additional_property") }
 
       context "when owned outright" do
         let(:additional_property_owned) { "outright" }
         let(:additional_mortgage) { nil }
 
         it "renders content" do
-          expect(text).to include("Owns other propertyYes, owned outright")
-          expect(text).to include("Estimated value£100,000.00")
-          expect(text).to include("Percentage share owned100%")
+          expect(page_text_within("#table-additional_property")).to include(
+            "Does your client own any other property, a holiday home or land?Yes, owned outright",
+          )
+
+          expect_in_text(page_text_within("#table-additional_property_details"), [
+            "Client other property 1 details",
+            "How much is the property, holiday home or land worth?£100,000.00",
+            "What percentage does your client own?100%",
+          ])
         end
 
         context "when smod" do
@@ -115,10 +124,16 @@ RSpec.describe "estimates/check_answers.html.slim" do
         let(:additional_mortgage) { 2_000 }
 
         it "renders content" do
-          expect(text).to include("Owns other propertyYes, with a mortgage or loan")
-          expect(text).to include("Estimated value£100,000.00")
-          expect(text).to include("Outstanding mortgage£2,000.00")
-          expect(text).to include("Percentage share owned100%")
+          expect(page_text_within("#table-additional_property")).to include(
+            "Does your client own any other property, a holiday home or land?Yes, with a mortgage or loan",
+          )
+
+          expect_in_text(page_text_within("#table-additional_property_details"), [
+            "Client other property 1 details",
+            "How much is the property, holiday home or land worth?£100,000.00",
+            "Value of outstanding mortgage£2,000.00",
+            "What percentage does your client own?100%",
+          ])
         end
       end
     end
@@ -147,19 +162,24 @@ RSpec.describe "estimates/check_answers.html.slim" do
       let(:text) { page_text_within("#field-list-client_additional_property") }
 
       it "renders content" do
-        lines = [
-          "Owns other propertyYes, with a mortgage or loanDisputed asset",
-          "Estimated value£100,000.00",
-          "Outstanding mortgage£2,000.00",
-          "Percentage share owned100%",
-          "Other property 2Disputed asset",
-          "Estimated value£99,999.00",
-          "Outstanding mortgage on the propertyYes",
+        expect(page_text_within("#table-additional_property")).to include(
+          "Does your client own any other property, a holiday home or land?Yes, with a mortgage or loan",
+        )
+
+        expect_in_text(page_text_within("#table-additional_property_details"), [
+          "Client other property 1 details",
+          "How much is the property, holiday home or land worth?£100,000.00",
+          "Value of outstanding mortgage£2,000.00",
+          "What percentage does your client own?100%",
+        ])
+
+        expect_in_text(page_text_within("#table-additional_property_details-1"), [
+          "Client other property 2 details",
+          "How much is the property, holiday home or land worth?£99,999.00",
+          "Is there an outstanding mortgage on the property, holiday home or land?Yes",
           "Value of outstanding mortgage£999.00",
-          "Percentage share owned99%",
-        ]
-        lines.each { expect(text).to include(_1) }
-        expect(text).to eq lines.join
+          "What percentage does your client own?99%",
+        ])
       end
     end
 
@@ -182,20 +202,23 @@ RSpec.describe "estimates/check_answers.html.slim" do
               ])
       end
 
-      let(:text) { page_text_within("#field-list-client_additional_property") }
-
       it "renders content" do
-        lines = [
-          "Owns other propertyYes, owned outright",
-          "Estimated value£100,000.00",
-          "Percentage share owned100%",
-          "Other property 2",
-          "Estimated value£99,999.00",
-          "Outstanding mortgage on the propertyNo",
-          "Percentage share owned99%",
-        ]
-        lines.each { expect(text).to include(_1) }
-        expect(text).to eq lines.join
+        expect(page_text_within("#table-additional_property")).to include(
+          "Does your client own any other property, a holiday home or land?Yes, owned outright",
+        )
+
+        expect_in_text(page_text_within("#table-additional_property_details"), [
+          "Client other property 1 details",
+          "How much is the property, holiday home or land worth?£100,000.00",
+          "What percentage does your client own?100%",
+        ])
+
+        expect_in_text(page_text_within("#table-additional_property_details-1"), [
+          "Client other property 2 details",
+          "How much is the property, holiday home or land worth?£99,999.00",
+          "Is there an outstanding mortgage on the property, holiday home or land?No",
+          "What percentage does your client own?99%",
+        ])
       end
     end
   end

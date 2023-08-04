@@ -1,10 +1,10 @@
 require "rails_helper"
 
 RSpec.describe "estimates/check_answers.html.slim" do
-  let(:answers) { CheckAnswersPresenter.new(session_data) }
+  let(:sections) { CheckAnswers::SectionListerService.call(session_data) }
 
   before do
-    assign(:answers, answers)
+    assign(:sections, sections)
     params[:id] = :id
     allow(view).to receive(:form_with)
     render template: "estimates/check_answers"
@@ -25,11 +25,13 @@ RSpec.describe "estimates/check_answers.html.slim" do
           end
 
           it "renders content" do
-            expect(text).to include("Money in bank accounts£50.00")
-            expect(text).to include("Additional bank account 1£20.00")
-            expect(text).to include("Investments£60.00")
-            expect(text).to include("Valuables£550.00")
-            expect(text).not_to include("Disputed asset")
+            expect_in_text(text, [
+              "Partner assetsChange",
+              "Money in bank accounts£50.00",
+              "Additional bank account 1£20.00",
+              "Investments£60.00",
+              "Valuable items worth £500 or more£550.00",
+            ])
           end
         end
 
@@ -43,9 +45,12 @@ RSpec.describe "estimates/check_answers.html.slim" do
           end
 
           it "renders content" do
-            expect(text).to include("Money in bank accounts£0.00")
-            expect(text).to include("Investments£0.00")
-            expect(text).to include("Valuables£0.00")
+            expect_in_text(page_text_within("#table-partner_assets"), [
+              "Partner assetsChange",
+              "Money in bank accounts£0.00",
+              "Investments£0.00",
+              "Valuable items worth £500 or more£0.00",
+            ])
           end
         end
       end

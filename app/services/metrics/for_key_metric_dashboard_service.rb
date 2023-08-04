@@ -1,5 +1,5 @@
 module Metrics
-  class FromAnalyticsService
+  class ForKeyMetricDashboardService
     def self.call
       new.call
     end
@@ -36,6 +36,8 @@ module Metrics
           Geckoboard::NumberField.new(:completed_checks_per_user, name: "Completed checks per (analytics opted-in) user", optional: true),
           Geckoboard::NumberField.new(:median_completion_time_controlled, name: "Median time taken to complete a controlled check", optional: true),
           Geckoboard::NumberField.new(:median_completion_time_certificated, name: "Median time taken to complete a certificated check", optional: true),
+          Geckoboard::NumberField.new(:forms_downloaded, name: "Number of checks where a CW form is downloaded", optional: true),
+          Geckoboard::NumberField.new(:forms_percentage, name: "% of eligible controlled checks where a CW form is downloaded", optional: true),
         ],
       }
     end
@@ -55,6 +57,8 @@ module Metrics
           completed_checks_per_user: completed_checks_per_user(range),
           median_completion_time_controlled: median_completion_time(:controlled, range),
           median_completion_time_certificated: median_completion_time(:certificated, range),
+          forms_downloaded: forms_downloaded(range),
+          forms_percentage: forms_percentage(range),
         }
       end
     end
@@ -75,6 +79,8 @@ module Metrics
           completed_checks_per_user:,
           median_completion_time_controlled: median_completion_time(:controlled),
           median_completion_time_certificated: median_completion_time(:certificated),
+          forms_downloaded:,
+          forms_percentage:,
         },
       ]
     end
@@ -271,6 +277,25 @@ module Metrics
       ActiveRecord::Base.connection.execute(
         ApplicationRecord.sanitize_sql([QUERY, { choice:, range_start:, range_end: }]),
       )
+    end
+
+    def forms_downloaded(range = nil)
+      relevant_cw_form_journeys(range).where(form_downloaded: true).count
+    end
+
+    def forms_percentage(range = nil)
+      candidates = relevant_cw_form_journeys(range).count
+      return if candidates.zero?
+
+      (100 * forms_downloaded(range) / candidates.to_f).round
+    end
+
+    def relevant_cw_form_journeys(range)
+      cw_form_live_date = Date.new(2023, 7, 10)
+      basic_query = CompletedUserJourney.where(certificated: false, outcome: "eligible").where("completed >= ?", cw_form_live_date)
+      return basic_query unless range
+
+      basic_query.where(completed: range)
     end
   end
 end

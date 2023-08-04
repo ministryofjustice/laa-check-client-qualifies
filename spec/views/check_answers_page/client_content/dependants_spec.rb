@@ -1,10 +1,10 @@
 require "rails_helper"
 
 RSpec.describe "estimates/check_answers.html.slim" do
-  let(:answers) { CheckAnswersPresenter.new(session_data) }
+  let(:sections) { CheckAnswers::SectionListerService.call(session_data) }
 
   before do
-    assign(:answers, answers)
+    assign(:sections, sections)
     params[:id] = :id
     allow(view).to receive(:form_with)
     render template: "estimates/check_answers"
@@ -24,10 +24,12 @@ RSpec.describe "estimates/check_answers.html.slim" do
         end
 
         it "renders content" do
-          expect(text).to include("Have child dependantsYes")
-          expect(text).to include("Number of child dependants1")
-          expect(text).to include("Have adult dependantsYes")
-          expect(text).to include("Number of adult dependants2")
+          expect_in_text(text, [
+            "Does your client have any child dependants?Yes",
+            "How many child dependants are there?1",
+            "Does your client have any adult dependants?Yes",
+            "How many adult dependants are there?2",
+          ])
         end
       end
 
@@ -39,8 +41,10 @@ RSpec.describe "estimates/check_answers.html.slim" do
         end
 
         it "renders content" do
-          expect(text).to include("Have child dependantsNo")
-          expect(text).to include("Have adult dependantsNo")
+          expect_in_text(text, [
+            "Does your client have any child dependants?No",
+            "Does your client have any adult dependants?No",
+          ])
         end
       end
     end

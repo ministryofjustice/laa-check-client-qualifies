@@ -26,12 +26,9 @@
     = pdf_friendly_h2(t("estimates.show.evidence_needed"), "m", @is_pdf)
     = render "evidence"
   - elsif @model.level_of_help == "controlled" && @model.decision == "eligible"
+
     = pdf_friendly_h2(t("estimates.show.what_happens_next"), "m", @is_pdf)
-    - if FeatureFlags.enabled?(:cw_forms, @check.session_data)
-      = render "controlled_work_next_steps"
-    - else
-      = pdf_friendly_p_element(t("estimates.show.controlled_next_steps_paragraph_1#{'_partner' if @check.partner}"), @is_pdf, nil)
-      = pdf_friendly_p_element(t("estimates.show.controlled_next_steps_paragraph_2_html"), @is_pdf, nil)
+    = render "controlled_work_next_steps"
 
     = pdf_friendly_h2(t("estimates.show.evidence_needed"), "m", @is_pdf)
     = pdf_friendly_p_element(t("estimates.show.evidence_needed_explainer"), @is_pdf, nil)

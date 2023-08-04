@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Metrics::FromCompletedJourneysService do
+RSpec.describe Metrics::ForUserJourneyDashboardService do
   describe ".call" do
     let(:client) { instance_double(Geckoboard::Client, datasets: dataset_client) }
     let(:dataset_client) { instance_double(Geckoboard::DatasetsClient) }
