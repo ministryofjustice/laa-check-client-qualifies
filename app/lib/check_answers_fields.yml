@@ -89,6 +89,18 @@ sections:
               - attribute: adult_dependants_count
                 type: number_or_text
                 skip_unless: adult_dependants
+          - screen: dependant_income
+            fields:
+              - attribute: dependants_get_income
+                type: boolean
+        add_another_tables:
+          - screen: dependant_income_details
+            attribute: dependant_incomes
+            fields:
+              - attribute: frequency
+                type: frequency
+              - attribute: amount
+                type: money
   - label: client_income
     subsections:
       - label: client_employment_income

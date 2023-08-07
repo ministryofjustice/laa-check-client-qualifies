@@ -1,36 +1,28 @@
 module CfeParamBuilders
   class Dependants
     class << self
-      def children(dependants:, count:)
-        if dependants
-          Array.new(count) do
-            {
-              date_of_birth: 11.years.ago.to_date,
-              in_full_time_education: true,
-              relationship: "child_relative",
-              monthly_income: 0,
-              assets_value: 0,
-            }
-          end
-        else
-          []
+      def call(details_form, dependant_incomes)
+        adults = details_form.adult_dependants ? Array.new(details_form.adult_dependants_count, :adult) : []
+        children = details_form.child_dependants ? Array.new(details_form.child_dependants_count, :child) : []
+
+        (adults + children).zip(dependant_incomes || []).map do |person_type, income|
+          {
+            date_of_birth: (person_type == :adult ? 21 : 17).years.ago.to_date,
+            in_full_time_education: person_type == :child,
+            relationship: "#{person_type}_relative",
+            income: build_income(income),
+            assets_value: 0,
+          }
         end
       end
 
-      def adults(dependants:, count:)
-        if dependants
-          Array.new(count) do
-            {
-              date_of_birth: 21.years.ago.to_date,
-              in_full_time_education: false,
-              relationship: "adult_relative",
-              monthly_income: 0,
-              assets_value: 0,
-            }
-          end
-        else
-          []
-        end
+      def build_income(income)
+        return unless income
+
+        {
+          frequency: RegularTransactions::CFE_FREQUENCIES[income.frequency],
+          amount: income.amount,
+        }
       end
     end
   end

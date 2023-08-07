@@ -9,6 +9,8 @@ RSpec.shared_context "with a no-partner, non-passported certificated check" do
     fill_in_matter_type_screen
     fill_in_applicant_screen(employed: "Employed and in work")
     fill_in_dependant_details_screen(child_dependants: "Yes", child_dependants_count: 1)
+    fill_in_dependant_income_screen(choice: "Yes")
+    fill_in_dependant_income_details_screen
     fill_in_employment_screen
     fill_in_benefits_screen(choice: "Yes")
     fill_in_benefit_details_screen
@@ -55,10 +57,13 @@ RSpec.describe "Certificated check without partner", type: :feature do
           "receives_asylum_support" => false,
         })
         expect(parsed["dependants"]).to eq([
-          { "date_of_birth" => "2012-02-15",
+          { "date_of_birth" => "2006-02-15",
             "in_full_time_education" => true,
             "relationship" => "child_relative",
-            "monthly_income" => 0,
+            "income" => {
+              "amount" => 1.0,
+              "frequency" => "weekly",
+            },
             "assets_value" => 0 },
         ])
 
@@ -123,7 +128,7 @@ RSpec.describe "Certificated check without partner", type: :feature do
       click_on "Submit"
 
       ["Your client is likely to qualify for civil legal aid",
-       "We estimate they will have to pay towards the costs of their case:\n£31.07 per month from their disposable income£0.00 lump sum payment from their disposable capital",
+       "We estimate they will have to pay towards the costs of their case:\n£32.58 per month from their disposable income£0.00 lump sum payment from their disposable capital",
        "Employment income\n£4.33",
        "Benefits received\nThis does not include Housing Benefit\n£4.33",
        "Financial help from friends and family\n£866.67",
@@ -131,9 +136,9 @@ RSpec.describe "Certificated check without partner", type: :feature do
        "Total monthly income£883.66",
        "Employment expenses\nA fixed allowance if your client gets a salary or wage\n£45.00",
        "Housing costs minus any Housing Benefit payments your client gets\n£100.00",
-       "Dependants allowance\nA fixed allowance deducted for each dependant your client has\n£338.90",
-       "Total monthly outgoings£483.90",
-       "Assessed disposable monthly income\nTotal monthly income minus total monthly outgoings\n£399.76",
+       "Dependants allowance\nAn allowance of £338.90 applied for each dependant, minus any income they receive\n£334.57",
+       "Total monthly outgoings£479.57",
+       "Assessed disposable monthly income\nTotal monthly income minus total monthly outgoings\n£404.09",
        "Home client lives in\nHome worth\n£1.00Outstanding mortgage\n-£1.001% share of home equity£0.00Assessed value£0.00",
        "Vehicle 1\nValue£1.00Assessed value£1.00",
        "Investments and valuables\n£700.00Total capital\n£701.00",

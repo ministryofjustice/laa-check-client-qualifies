@@ -1,0 +1,29 @@
+- counter ||= nil
+. data-add-another-role="section" id=("section-#{counter}" if counter)
+  .add-another-heading
+    h2.govuk-heading-m
+      = t("estimate_flow.dependant_income_details.dependant")
+      span< data-add-another-role="counter" = counter
+    - if removeable
+      button.govuk-button.govuk-button--secondary type="button" data-add-another-role="remove" = t("generic.remove")
+
+  = render "shared/add_another/radio_field",
+           errors: model.errors.messages[:frequency],
+           legend: t("estimate_flow.dependant_income_details.frequency"),
+           legend_size: "s",
+           model_name: "dependant_income_model",
+           field_name: "frequency",
+           options: model.frequency_options,
+           form_name: "dependant_income_details_form",
+           counter:,
+           value: model.frequency
+
+  = render "shared/add_another/money_field",
+           errors: model.errors.messages[:amount],
+           form_name: "dependant_income_details_form",
+           model_name: "dependant_income_model",
+           field_name: "amount",
+           label_size: "s",
+           counter:,
+           label: t("estimate_flow.dependant_income_details.amount"),
+           value: model.amount
