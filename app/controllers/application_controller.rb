@@ -63,7 +63,7 @@ private
     maintenance_mode_enabled = false
 
     if maintenance_mode_enabled
-      redirect_to "/maintenance"
+      redirect_to "/service_unavailable"
     end
   end
 end
