@@ -13,6 +13,7 @@ class FeatureFlags
     self_employed: "session",
     public_beta: "global",
     index_production: "global",
+    maintenance_mode: "global",
   }.freeze
 
   class << self

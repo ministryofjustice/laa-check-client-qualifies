@@ -60,10 +60,8 @@ private
   end
 
   def check_maintenance_mode
-    maintenance_mode_enabled = false
-
-    if maintenance_mode_enabled
-      redirect_to "/service_unavailable"
+    if FeatureFlags.enabled?(:maintenance_mode, without_session_data: true)
+      redirect_to "/500"
     end
   end
 end
