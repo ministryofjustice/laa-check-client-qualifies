@@ -97,12 +97,12 @@ RSpec.describe Cfe::DependantsPayloadService do
 
         adult_with_income = payload[:dependants].find do |item|
           item[:date_of_birth] < 18.years.ago &&
-            item[:income] == { frequency: :weekly, amount: 1 }
+            item[:income] == { frequency: "weekly", amount: 1 }
         end
 
         child_with_income = payload[:dependants].find do |item|
           item[:date_of_birth] > 18.years.ago &&
-            item[:income] == { frequency: :two_weekly, amount: 2 }
+            item[:income] == { frequency: "two_weekly", amount: 2 }
         end
 
         child_without_income = payload[:dependants].find do |item|

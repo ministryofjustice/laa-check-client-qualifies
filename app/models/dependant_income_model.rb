@@ -10,7 +10,7 @@ class DependantIncomeModel
   validates :amount, presence: true, numericality: { greater_than: 0, allow_nil: true }
 
   attribute :frequency, :string
-  validates :frequency, inclusion: { in: OtherIncomeForm::VALID_FREQUENCIES, allow_nil: false }
+  validates :frequency, inclusion: { in: IncomeModel::FREQUENCY_OPTIONS, allow_nil: false }
 
   def frequency_options
     IncomeModel.income_frequency_options(skip_year: true)

@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "estimates/show.html.slim" do
   describe "Client financial content" do
     let(:calculation_result) { CalculationResult.new(session_data) }
-    let(:session_data) { { api_response:, adult_dependants: }.with_indifferent_access }
+    let(:session_data) { { api_response:, adult_dependants:, child_dependants: false }.with_indifferent_access }
     let(:adult_dependants) { true }
     let(:check) { Check.new(session_data) }
     let(:vehicle_in_regular_use) { true }

@@ -14,17 +14,14 @@ module CfeParamBuilders
             date_of_birth: (person_type == :adult ? 21 : 17).years.ago.to_date,
             in_full_time_education: person_type == :child,
             relationship: "#{person_type}_relative",
-            income: build_income(income),
             assets_value: 0,
-          }
+          }.tap { _1[:income] = build_income(income) if income }
         end
       end
 
       def build_income(income)
-        return unless income
-
         {
-          frequency: RegularTransactions::CFE_FREQUENCIES[income.frequency],
+          frequency: Employment::FREQUENCY_TRANSLATIONS.fetch(income.frequency),
           amount: income.amount,
         }
       end
