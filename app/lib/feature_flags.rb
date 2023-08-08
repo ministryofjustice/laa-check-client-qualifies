@@ -14,6 +14,7 @@ class FeatureFlags
     public_beta: "global",
     index_production: "global",
     maintenance_mode: "global",
+    basic_authentication: "global",
   }.freeze
 
   class << self

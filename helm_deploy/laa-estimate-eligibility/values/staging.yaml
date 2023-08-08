@@ -62,6 +62,7 @@ featureFlags:
   publicBeta: NOT_ENABLED
   indexProduction: NOT_ENABLED
   maintenanceMode: NOT_ENABLED
+  basicAuthentication: ENABLED
 
 geckoboard:
   metricsDataset: "ccq_monthly_metrics_staging"

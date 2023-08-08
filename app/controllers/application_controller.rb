@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   BROWSER_ID_COOKIE = :browser_id
   default_form_builder GOVUKDesignSystemFormBuilder::FormBuilder
-  before_action :force_setting_of_session_cookie, :check_maintenance_mode
+  before_action :force_setting_of_session_cookie, :authenticate, :check_maintenance_mode
 
   class MissingSessionError < StandardError; end
 
@@ -63,5 +63,16 @@ private
     if FeatureFlags.enabled?(:maintenance_mode, without_session_data: true)
       render file: "public/500.html", layout: false
     end
+  end
+
+  def authenticate
+    return unless FeatureFlags.enabled?(:basic_authentication, without_session_data: true)
+
+    return true if authenticate_with_http_basic do |username, password|
+      username == "ccq" && password == ENV["BASIC_AUTH_PASSWORD"]
+    end
+
+    request_http_basic_authentication
+    false
   end
 end
