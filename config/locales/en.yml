@@ -1522,8 +1522,8 @@ en:
     show:
       likely_to_qualify: Your client is likely to qualify for civil legal aid
       not_likely_to_qualify: Your client is not likely to qualify for civil legal aid
-      eligible_intro_paragraphs:
-        - Your client is likely to qualify financially for civil legal aid, without needing to pay a contribution, based on the information you entered.
+      eligible_intro_paragraphs_html:
+        - Your client is likely to qualify financially for civil legal aid, <b>without needing to pay a contribution</b>, based on the information you entered.
         - This is not a guarantee that your client will get civil legal aid. For a final decision on eligibility and contributions (if any), an application and supporting evidence must be submitted to the Legal Aid Agency (LAA) for assessment. A full assessment supported by evidence may generate a different result.
         - "The LAA will also consider:"
       contribution_intro_paragraph: "Your client is likely to qualify financially for civil legal aid based on the information you have entered. We estimate they will have to pay towards the costs of their case:"
@@ -1551,8 +1551,8 @@ en:
       controlled_ineligible_paragraphs:
         - Your client is not likely to qualify financially for civil legal aid based on the information you entered. You may wish to discuss your client’s options, for example they can pay for legal support or get advice from a charity or advice organisation.
         - These calculations were made in line with the latest version of the Lord Chancellor's Guidance on Determining Financial Eligibility for Controlled Work.
-      certificated_asylum_support_eligible_intro_paragraphs:
-        - Your client is likely to qualify financially for civil legal aid, without needing to pay a contribution, based on the information you entered.
+      certificated_asylum_support_eligible_intro_paragraphs_html:
+        - Your client is likely to qualify financially for civil legal aid, <b>without needing to pay a contribution</b>, based on the information you entered.
         - You told us your client is in receipt of Section 4 or Section 95 Asylum Support, which makes them automatically financially eligible for civil certificated legal aid for proceedings in the Immigration and Asylum chamber of the Upper Tribunal without income, outgoing and capital calculations.
         - This is not a guarantee that your client will get civil legal aid. For a final decision, an application and supporting evidence must be submitted to the Legal Aid Agency (LAA) for assessment. A full assessment supported by evidence may generate a different result.
         - "The LAA will also consider:"
