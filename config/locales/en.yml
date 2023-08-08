@@ -2107,7 +2107,7 @@ en:
       headed_paragraph4:
         heading: Preparation of this accessibility statement
         text_html:
-          - This statement was prepared on 12 December 2022. It was last reviewed on 10 January 2023.
+          - This statement was prepared on 12 December 2022. It was last reviewed on 20 July 2023.
           - This website was last tested on 4 January 2023. The test was carried out by <a href="https://digitalaccessibilitycentre.org" target='_blank' rel='noreferrer noopener'>Digital Accessibility Centre (DAC)</a>.
   cost_of_living_details:
     header: Government Cost of Living Payments
@@ -2165,6 +2165,8 @@ en:
         - they have capital worth more than £2,500
     self_employed:
       text: This service now supports clients (and their partners) who are self-employed, with the exception of self-employed company directors for certificated checks.
+    public_beta:
+      text: This service was launched as a public beta, available to all users. Until this date it was in a private pilot phase, available only by invitation.
   controlled_work_document_selections:
     new:
       title: Which controlled work (CW) form do you need?
