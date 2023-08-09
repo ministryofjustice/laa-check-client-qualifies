@@ -37,6 +37,8 @@ executors:
           POSTGRES_USER: user
           POSTGRES_DB: ccq_test
       - image: $CFE_ECR_ENDPOINT
+        aws_auth:
+          oidc_role_arn: $ECR_ROLE_TO_ASSUME
         environment:
           SECRET_KEY_BASE: can_be_anything
           POSTGRES_USER: postgres
