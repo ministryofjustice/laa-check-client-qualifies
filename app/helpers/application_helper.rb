@@ -55,7 +55,7 @@ module ApplicationHelper
       !cookies[CookiesController::NO_ANALYTICS_MODE]
   end
 
-  def beta_pilot_url?
-    request.base_url.include?("cloud-platform")
+  def using_non_primary_url?
+    ENV["PRIMARY_HOST"].blank? || ENV["PRIMARY_HOST"] == request.host
   end
 end
