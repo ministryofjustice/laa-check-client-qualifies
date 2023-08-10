@@ -9,18 +9,18 @@ module Steps
         if Steps::Logic.asylum_supported?(session_data)
           []
         else
-          groups(session_data).map { Steps::Group.new(_1) }
+          groups(session_data).map { Steps::Group.new(*_1) }
         end
       end
 
       def groups(session_data)
-        [:applicant, dependant_details(session_data)].flatten.compact
+        [[:applicant], dependant_details(session_data)].compact
       end
 
       def dependant_details(session_data)
         return if Steps::Logic.passported?(session_data)
 
-        [:dependant_details, dependant_income(session_data)]
+        [:dependant_details, dependant_income(session_data)].flatten.compact
       end
 
       def dependant_income(session_data)

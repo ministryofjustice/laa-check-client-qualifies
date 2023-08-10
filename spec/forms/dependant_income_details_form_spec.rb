@@ -2,7 +2,13 @@ require "rails_helper"
 
 RSpec.describe "dependant_income_details", type: :feature do
   let(:assessment_code) { :assessment_code }
-  let(:session_data) { { "level_of_help" => "controlled" } }
+  let(:session_data) do
+    {
+      "level_of_help" => "controlled",
+      "adult_dependants" => true,
+      "adult_dependants_count" => 1,
+    }
+  end
 
   before do
     set_session(assessment_code, session_data)
@@ -22,19 +28,24 @@ RSpec.describe "dependant_income_details", type: :feature do
     expect(session_contents.dig("dependant_incomes", 0, "amount")).to eq 1
   end
 
-  context "when I have a specific number of dependants" do
+  context "when I have fewer dependants than dependant incomes" do
     let(:session_data) do
       {
         "level_of_help" => "controlled",
         "adult_dependants" => true,
         "adult_dependants_count" => 2,
-        "child_dependants" => true,
-        "child_dependants_count" => 3,
+        "dependant_incomes" => [
+          { "frequency" => "weekly", "amount" => 1 },
+          { "frequency" => "weekly", "amount" => 2 },
+          { "frequency" => "weekly", "amount" => 3 },
+        ],
       }
     end
 
-    it "tells the JS to hide the add another button at the appropriate point" do
-      expect(find("[data-add-another-role=\"add\"]")["data-add-another-maximum"]).to eq "5"
+    it "only shows as many incomes as I have dependants" do
+      expect(page).to have_text "Dependant 1"
+      expect(page).to have_text "Dependant 2"
+      expect(page).not_to have_text "Dependant 3"
     end
   end
 end

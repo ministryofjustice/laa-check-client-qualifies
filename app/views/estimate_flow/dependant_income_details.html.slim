@@ -15,7 +15,7 @@
                 post_header_text: t(".hint"),
                 tag: :household
       . data-add-another-role="sectionList"
-        - @form.items.each_with_index do |benefit, index|
+        - @form.items[0...@form.max_items].each_with_index do |benefit, index|
           = render "dependant_income_section", removeable: index.positive?, model: benefit, counter: index + 1
       .govuk-button-group
         button.govuk-button.govuk-button--secondary type="button" data-add-another-role="add" data-add-another-maximum=@form.max_items
