@@ -688,7 +688,7 @@ en:
       hint: Income they receive will be deducted from your client’s dependant allowance.
       frequency: When does the dependant normally get this income?
       amount: Income
-      add: Add another dependant's ncome
+      add: Add another dependant's income
       dependant: Dependant
     employment_status:
       heading: What is your client's employment status?
