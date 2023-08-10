@@ -68,11 +68,8 @@ private
   def authenticate
     return unless FeatureFlags.enabled?(:basic_authentication, without_session_data: true)
 
-    return true if authenticate_with_http_basic do |username, password|
+    authenticate_or_request_with_http_basic("Check if your client qualifies for legal aid") do |username, password|
       username == "ccq" && password == ENV["BASIC_AUTH_PASSWORD"]
     end
-
-    request_http_basic_authentication
-    false
   end
 end
