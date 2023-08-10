@@ -61,7 +61,7 @@ private
 
   def check_maintenance_mode
     if FeatureFlags.enabled?(:maintenance_mode, without_session_data: true)
-      redirect_to "/500"
+      render file: "public/500_Service_Unavailable.html", status: :service_unavailable, layout: "layouts/500"
     end
   end
 end

@@ -70,6 +70,8 @@ env:
     value: {{ .Values.featureFlags.publicBeta }}
   - name: INDEX_PRODUCTION_FEATURE_FLAG
     value: {{ .Values.featureFlags.indexProduction }}
+  - name: MAINTENANCE_MODE_FEATURE_FLAG
+    value: {{ .Values.featureFlags.maintenanceMode }}
   - name: FEATURE_FLAG_OVERRIDES
     value: {{ .Values.featureFlags.overrides }}
   - name: NOTIFICATIONS_API_KEY
