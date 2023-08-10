@@ -1522,8 +1522,8 @@ en:
     show:
       likely_to_qualify: Your client is likely to qualify for civil legal aid
       not_likely_to_qualify: Your client is not likely to qualify for civil legal aid
-      eligible_intro_paragraphs:
-        - Your client is likely to qualify financially for civil legal aid, without needing to pay a contribution, based on the information you entered.
+      eligible_intro_paragraphs_html:
+        - Your client is likely to qualify financially for civil legal aid, <b>without needing to pay a contribution</b>, based on the information you entered.
         - This is not a guarantee that your client will get civil legal aid. For a final decision on eligibility and contributions (if any), an application and supporting evidence must be submitted to the Legal Aid Agency (LAA) for assessment. A full assessment supported by evidence may generate a different result.
         - "The LAA will also consider:"
       contribution_intro_paragraph: "Your client is likely to qualify financially for civil legal aid based on the information you have entered. We estimate they will have to pay towards the costs of their case:"
@@ -1551,8 +1551,8 @@ en:
       controlled_ineligible_paragraphs:
         - Your client is not likely to qualify financially for civil legal aid based on the information you entered. You may wish to discuss your client’s options, for example they can pay for legal support or get advice from a charity or advice organisation.
         - These calculations were made in line with the latest version of the Lord Chancellor's Guidance on Determining Financial Eligibility for Controlled Work.
-      certificated_asylum_support_eligible_intro_paragraphs:
-        - Your client is likely to qualify financially for civil legal aid, without needing to pay a contribution, based on the information you entered.
+      certificated_asylum_support_eligible_intro_paragraphs_html:
+        - Your client is likely to qualify financially for civil legal aid, <b>without needing to pay a contribution</b>, based on the information you entered.
         - You told us your client is in receipt of Section 4 or Section 95 Asylum Support, which makes them automatically financially eligible for civil certificated legal aid for proceedings in the Immigration and Asylum chamber of the Upper Tribunal without income, outgoing and capital calculations.
         - This is not a guarantee that your client will get civil legal aid. For a final decision, an application and supporting evidence must be submitted to the Legal Aid Agency (LAA) for assessment. A full assessment supported by evidence may generate a different result.
         - "The LAA will also consider:"
@@ -1885,7 +1885,6 @@ en:
       extra_text: This is because this service is only for use by those who give legal advice or provide legal services.
       find_out_more: "To find out more about legal aid and your options you can:"
       links_html:
-        - '<a href="https://www.gov.uk/check-legal-aid">check if you can get legal aid</a> as an individual'
         - 'check if you can get free and confidential advice from <a href="https://www.gov.uk/civil-legal-advice">Civil Legal Advice</a>'
         - 'find out more about <a href="https://www.gov.uk/legal-aid">legal aid</a>'
         - 'find out what information we use to <a href="https://www.gov.uk/guidance/civil-legal-aid-means-testing">check who can get civil legal aid</a>'
@@ -2029,7 +2028,7 @@ en:
       how_long_heading: How long we keep your data
       how_long_section:
         - We will only retain your data for as long as it is needed for the purposes set out on this page.
-        - We will retain summary logs of interactions with the service indefinitely, but these logs are fully anonymous.
+        - We will retain summary logs of interactions with the service for five years, but these logs are fully anonymous.
         - We will delete access log data which contain your IP address after 30 days.
       where_stored_heading: Where your data is processed and stored
       where_stored: We design, build and run our systems to make sure that your data is as safe as possible at all stages, both while it’s processed and when it’s stored. All personal data is processed in the EEA.
