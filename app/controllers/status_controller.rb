@@ -1,6 +1,4 @@
 class StatusController < ApplicationController
-  skip_before_action :check_maintenance_mode, only: :index
-
   # This is used by both the liveness check, used to see if a pod needs replacing,
   # and the readiness check, used to see if a pod is ready to start receiving traffic
   def index
