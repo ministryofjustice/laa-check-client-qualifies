@@ -3,7 +3,7 @@
 - content_for :back do
   = back_link(:partner_income, @check, @back_buttons_invoke_browser_back_behaviour)
 .govuk-grid-column-two-thirds
-  = render "estimate_flow/forms/income", i18n_key: "partner_income"
+  = render "estimate_flow/forms/income", i18n_key: "partner_income", partner: true
 
 = render "shared/question_sidebar",
          level_of_help: @check.level_of_help,
