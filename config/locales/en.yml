@@ -1574,14 +1574,15 @@ en:
       lord_chancellors_guidance: These calculations were made in line with the latest version of the Lord Chancellor's Guidance on Determining Financial Eligibility for Certificated Work.
       not_always_free: Legal aid is not always free
       freeness_explanation: In some circumstances, your client may be asked to repay the legal costs of their case, for example from money or assets kept or gained as a result of legal aid if the statutory charge arises.
-      controlled_likely_to_qualify: Your client is likely to qualify for civil legal aid, for controlled work and family mediation
+      controlled_asylum_support_qualifies: Your client qualifies for civil legal aid, for controlled work
+      controlled_qualifies: Your client qualifies for civil legal aid, for controlled work and family mediation
       controlled_eligible_paragraphs:
-        - Your client is likely to qualify financially for civil legal aid based on the information you entered.
-        - Before you (or a legal aid provider) proceed with your client’s case, it must also be within scope for legal aid and satisfy the relevant merits criteria set out in the relevant legislation and guidance. Save or print this page and keep any supporting evidence to support your decision in case the Legal Aid Agency (LAA) audits or assesses your client’s file in the future.
+        - Your client qualifies financially for civil legal aid based on the information you entered. Before you (or a provider of advice or services funded by legal aid) proceed with your client’s case, it must also be within scope for legal aid and satisfy the relevant merits criteria set out in the relevant legislation and guidance. 
+        - Save or print this page and keep any supporting evidence to support your decision in case the Legal Aid Agency (LAA) audits or assesses your client’s file in the future.
         - These calculations were made in line with the latest version of the Lord Chancellor's Guidance on Determining Financial Eligibility for Controlled Work.
-      controlled_not_likely_to_qualify: Your client is not likely to qualify for civil legal aid, for controlled work and family mediation
+      controlled_ineligible: Your client does not qualify for civil legal aid, for controlled work and family mediation
       controlled_ineligible_paragraphs:
-        - Your client is not likely to qualify financially for civil legal aid based on the information you entered. You may wish to discuss your client’s options, for example they can pay for legal support or get advice from a charity or advice organisation.
+        - Your client does not qualify financially for civil legal aid based on the information you entered. You may wish to discuss your client’s options, for example they can pay for legal support or get advice from a charity or advice organisation.
         - These calculations were made in line with the latest version of the Lord Chancellor's Guidance on Determining Financial Eligibility for Controlled Work.
       certificated_asylum_support_eligible_intro_paragraphs_html:
         - Your client is likely to qualify financially for civil legal aid, <b>without needing to pay a contribution</b>, based on the information you entered.
@@ -1589,9 +1590,8 @@ en:
         - This is not a guarantee that your client will get civil legal aid. For a final decision, an application and supporting evidence must be submitted to the Legal Aid Agency (LAA) for assessment. A full assessment supported by evidence may generate a different result.
         - "The LAA will also consider:"
       controlled_asylum_support_eligible_paragraphs:
-        - Your client is likely to qualify financially for civil legal aid, based on the information you have entered.
-        - You told us your client is in receipt of Section 4 or Section 95 Asylum Support, which makes them automatically financially eligible for civil controlled work relating to proceedings in the Immigration and Asylum chamber of the first tier or upper tribunal without income, outgoing and capital calculations.
-        - Before you (or a legal aid provider) proceed with your client’s case, it must also be within scope for legal aid and satisfy the relevant merits criteria set out in the relevant legislation and guidance.
+        - Your client qualifies financially for civil legal aid, based on the information you have entered. Before you (or a provider of advice or services funded by legal aid) proceed with your client’s case, it must also be within scope for legal aid and satisfy the relevant merits criteria set out in the relevant legislation and guidance.
+        - You told us your client is in receipt of Section 4 or Section 95 Asylum Support. This makes them automatically financially eligible for civil controlled work relating to legal help and help at court for immigration and asylum proceedings, as well as controlled legal representation in the Immigration and Asylum chamber of the first tier or upper tribunal without income, outgoing and capital calculations.
         - Save or print this page and keep any supporting evidence to support your decision in case the Legal Aid Agency (LAA) audits or assesses your client’s file in the future.
         - This assessment has been made in line with the latest version of the Lord Chancellor’s Guidance on Determining Eligibility for Controlled Work.
       what_happens_next: What happens next

@@ -33,8 +33,8 @@ RSpec.describe "estimates/show.html.slim" do
           let(:asylum_support) { true }
 
           it "displays the appropriate result panel content" do
-            expect(rendered).to include "You told us your client is in receipt of Section 4 or Section 95 Asylum Support, "\
-                                        "which makes them automatically financially eligible for civil controlled work"
+            expect(rendered).to include "You told us your client is in receipt of Section 4 or Section 95 Asylum Support. "\
+                                        "This makes them automatically financially eligible for civil controlled work"
           end
 
           it "shows a bespoke evidence list" do
@@ -58,8 +58,8 @@ RSpec.describe "estimates/show.html.slim" do
           let(:asylum_support) { true }
 
           it "displays the appropriate result panel content" do
-            expect(rendered).to include "You told us your client is in receipt of Section 4 or Section 95 Asylum Support, "\
-                                        "which makes them automatically financially eligible for civil controlled work"
+            expect(rendered).to include "You told us your client is in receipt of Section 4 or Section 95 Asylum Support. "\
+                                        "This makes them automatically financially eligible for civil controlled work"
           end
 
           it "shows a bespoke evidence list" do
