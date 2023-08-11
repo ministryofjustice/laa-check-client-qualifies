@@ -48,36 +48,6 @@ html dir="ltr" lang="en-GB" class="govuk-template"
         div role="navigation"
           = yield :back
 
-      - if using_non_primary_url? && FeatureFlags.enabled?(:public_beta, without_session_data: true)
-       - if controller_name == "estimates"
-        .moj-banner class="govuk-!-margin-top-2" role="region" aria-label="information banner, to explain that pilot phase is complete"
-          svg.moj-banner__icon[fill="currentColor"
-                              role="presentation"
-                              focusable="false"
-                              xmlns="http://www.w3.org/2000/svg"
-                              viewBox="0 0 25 25"
-                              height="25"
-                              width="25"]
-            path d=exclamation_mark_path
-          .moj-banner__message
-            h2.govuk-heading-s = t("service.beta_message_pilot_heading")
-            p.govuk-body-m = t("service.beta_message_pilot_body_html")
-       - else
-        .govuk-grid-column-two-thirds
-          .govuk-grid-row class="govuk-!-padding-right-2"
-           .moj-banner class="govuk-!-margin-top-2" role="region" aria-label="information banner, to explain that pilot phase is complete"
-              svg.moj-banner__icon[fill="currentColor"
-                                  role="presentation"
-                                  focusable="false"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  viewBox="0 0 25 25"
-                                  height="25"
-                                  width="25"]
-                path d=exclamation_mark_path
-              .moj-banner__message
-                h2.govuk-heading-s = t("service.beta_message_pilot_heading")
-                p.govuk-body-m = t("service.beta_message_pilot_body_html")
-
       main#main-content.govuk-main-wrapper role="main"
         div class="govuk-grid-row"
           = yield

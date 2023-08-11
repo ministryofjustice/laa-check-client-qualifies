@@ -4,6 +4,7 @@
   = link_to t("generic.back"), "/start", class: "govuk-back-link"
 
 .govuk-grid-column-two-thirds
+  = render "shared/heading"
   = form_for(@provider_user,
       url: provider_users_path,
       method: :post) do |form|

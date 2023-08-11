@@ -8,6 +8,7 @@
   = link_to t("generic.back"), check_answers_estimate_path(params[:id]), class: "govuk-back-link"
 
 .govuk-grid-column-full
+  = render "shared/heading"
   .govuk-panel.panel-blue.govuk-panel--confirmation class="govuk-!-text-align-left govuk-!-margin-bottom-9"
     .govuk-panel__body
       = render "result_panel_content"

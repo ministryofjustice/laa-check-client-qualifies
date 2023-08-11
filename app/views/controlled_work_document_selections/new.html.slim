@@ -4,6 +4,7 @@
   = link_to t("generic.back"), estimate_path(params[:estimate_id]), class: "govuk-back-link"
 
 .govuk-grid-column-two-thirds
+  = render "shared/heading"
   = form_for(@form, url: estimate_controlled_work_document_selections_path(params[:estimate_id])) do |form|
     = form.govuk_error_summary t("generic.error_summary_title")
     = form.govuk_radio_buttons_fieldset :form_type,
