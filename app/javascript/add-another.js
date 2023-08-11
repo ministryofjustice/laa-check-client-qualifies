@@ -39,12 +39,14 @@ const addAnother = (addAnotherContainer) => {
   const sections = addAnotherContainer.querySelector('[data-add-another-role="sectionList"]').querySelectorAll('[data-add-another-role="section"]');
   const counter = sections.length;
   addAnotherContainer.querySelector('[data-add-another-role="sectionList"]').append(newSection);
-  setUpSection(newSection, counter)
+  setUpSection(newSection, counter, { setUpSuggestions: true })
 };
 
-const setUpSection = (section, counter) => {
+const setUpSection = (section, counter, options) => {
   setUpRemoveButton(section);
-  setUpSuggestions(section);
+  if (options && options.setUpSuggestions) {
+    setUpSuggestions(section)
+  }
   setNumbering(section, counter);
   setUpRadios(section);
 };
