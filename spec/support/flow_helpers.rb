@@ -64,6 +64,19 @@ def fill_in_dependant_details_screen(options = {})
   click_on "Save and continue"
 end
 
+def fill_in_dependant_income_screen(choice: "No")
+  confirm_screen :dependant_income
+  choose choice
+  click_on "Save and continue"
+end
+
+def fill_in_dependant_income_details_screen(frequency: "Every week", amount: "1")
+  confirm_screen :dependant_income_details
+  choose frequency, name: "dependant_income_model[items][1][frequency]"
+  fill_in "dependant_income_model[items][1][amount]", with: amount
+  click_on "Save and continue"
+end
+
 def fill_in_employment_status_screen(choice: "Unemployed", screen_name: :employment_status)
   confirm_screen screen_name
   choose choice, name: "#{screen_name}_form[employment_status]"

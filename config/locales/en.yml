@@ -54,6 +54,18 @@ en:
               greater_than: The number of adult dependants must be greater than zero
               not_a_number: Adult dependants must be a number
               not_an_integer: Adult dependants must be a whole number
+        dependant_income_form:
+          attributes:
+            dependants_get_income:
+              inclusion: Select yes if any dependants aged 16 or over get income
+        dependant_income_model:
+          attributes:
+            frequency:
+              inclusion: Select when the dependant normally gets this income
+            amount:
+              blank: Enter income the dependant gets
+              greater_than: Income for the dependant must be more than 0
+              not_a_number: Income for the dependant must be a number
         employment_status_form:
           attributes:
             employment_status:
@@ -665,6 +677,22 @@ en:
       how_many_adult: How many adult dependants are there?
       guidance:
         text: Guidance on dependants
+    dependant_income:
+      legend: Do any of the dependants aged 16 or over get regular income?
+      hint: "Examples of dependant income:"
+      examples:
+        - a grant received by a child dependant over 16 who is in full-time education or training
+        - a wage received by a child dependant in an apprenticeship
+        - benefits received by an adult dependant
+        - earnings from part-time work if the dependant works more than 16 hours per week
+      guidance: Guidance on dependant income
+    dependant_income_details:
+      legend: Add income for dependants aged 16 or over
+      hint: Income they receive will be deducted from your client’s dependant allowance.
+      frequency: When does the dependant normally get this income?
+      amount: Income
+      add: Add another dependant's income
+      dependant: Dependant
     employment_status:
       heading: What is your client's employment status?
       in_work_including_self_employed: Employed or self-employed
@@ -1312,6 +1340,8 @@ en:
         immigration_or_asylum_type: Type of immigration or asylum matter
         applicant: Client details
         dependant_details: Dependants
+        dependant_income: Dependant income
+        dependant_income_details: Dependant %{variable} income
         employment_status: Employment status
         income: Client employment income %{variable}
         employment: Client employment income
@@ -1377,6 +1407,11 @@ en:
         adult_dependants: Does your client have any adult dependants?
         child_dependants_count: How many child dependants are there?
         adult_dependants_count: How many adult dependants are there?
+      dependant_income_fields:
+        dependants_get_income: Do any of the dependants aged 16 or over get regular income?
+      dependant_income_details_fields:
+        frequency: When does the dependant normally get this income?
+        amount: Income
       employment_status_fields:
         employment_status: What is your client's employment status?
         employment_status_options:
@@ -1525,8 +1560,8 @@ en:
     show:
       likely_to_qualify: Your client is likely to qualify for civil legal aid
       not_likely_to_qualify: Your client is not likely to qualify for civil legal aid
-      eligible_intro_paragraphs:
-        - Your client is likely to qualify financially for civil legal aid, without needing to pay a contribution, based on the information you entered.
+      eligible_intro_paragraphs_html:
+        - Your client is likely to qualify financially for civil legal aid, <b>without needing to pay a contribution</b>, based on the information you entered.
         - This is not a guarantee that your client will get civil legal aid. For a final decision on eligibility and contributions (if any), an application and supporting evidence must be submitted to the Legal Aid Agency (LAA) for assessment. A full assessment supported by evidence may generate a different result.
         - "The LAA will also consider:"
       contribution_intro_paragraph: "Your client is likely to qualify financially for civil legal aid based on the information you have entered. We estimate they will have to pay towards the costs of their case:"
@@ -1554,8 +1589,8 @@ en:
       controlled_ineligible_paragraphs:
         - Your client is not likely to qualify financially for civil legal aid based on the information you entered. You may wish to discuss your client’s options, for example they can pay for legal support or get advice from a charity or advice organisation.
         - These calculations were made in line with the latest version of the Lord Chancellor's Guidance on Determining Financial Eligibility for Controlled Work.
-      certificated_asylum_support_eligible_intro_paragraphs:
-        - Your client is likely to qualify financially for civil legal aid, without needing to pay a contribution, based on the information you entered.
+      certificated_asylum_support_eligible_intro_paragraphs_html:
+        - Your client is likely to qualify financially for civil legal aid, <b>without needing to pay a contribution</b>, based on the information you entered.
         - You told us your client is in receipt of Section 4 or Section 95 Asylum Support, which makes them automatically financially eligible for civil certificated legal aid for proceedings in the Immigration and Asylum chamber of the Upper Tribunal without income, outgoing and capital calculations.
         - This is not a guarantee that your client will get civil legal aid. For a final decision, an application and supporting evidence must be submitted to the Legal Aid Agency (LAA) for assessment. A full assessment supported by evidence may generate a different result.
         - "The LAA will also consider:"
@@ -1680,10 +1715,10 @@ en:
         income_tax: ""
         partner_allowance: A fixed allowance if your client has a partner
         housing_costs: Housing costs minus any Housing Benefit payments your client gets
-        dependants_allowance: A fixed allowance deducted for each dependant your client has
+        dependants_allowance: An allowance of £338.90 applied for each dependant, minus any income they receive
       household_outgoing_hints:
         housing_costs: Housing costs minus any Housing Benefit payments the household gets
-        dependants_allowance: A fixed allowance deducted for each dependant in the household
+        dependants_allowance: An allowance of £338.90 applied for each dependant, minus any income they receive
       partner_outgoing_hints:
         childcare_payments: ""
         maintenance_out: ""
@@ -1888,7 +1923,6 @@ en:
       extra_text: This is because this service is only for use by those who give legal advice or provide legal services.
       find_out_more: "To find out more about legal aid and your options you can:"
       links_html:
-        - '<a href="https://www.gov.uk/check-legal-aid">check if you can get legal aid</a> as an individual'
         - 'check if you can get free and confidential advice from <a href="https://www.gov.uk/civil-legal-advice">Civil Legal Advice</a>'
         - 'find out more about <a href="https://www.gov.uk/legal-aid">legal aid</a>'
         - 'find out what information we use to <a href="https://www.gov.uk/guidance/civil-legal-aid-means-testing">check who can get civil legal aid</a>'
@@ -1934,8 +1968,7 @@ en:
       mental_health_html: The <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>LAA contract management mental health guidance (opens in new tab)</a> explains when a means assessment is not needed for controlled work matters that will potentially involve proceedings before the Mental Health Tribunal (known as non-means, non-MHT matter starts).
       start_button: Start now
       last_updated: Last updated %{date}
-      show_all_updates: + show all updates
-      hide_all_updates: "- hide all updates"
+      see_all_updates: See all updates
   cookie_banner:
     title: Cookies on
     essential_cookies: We use some essential cookies to make this service work.
@@ -2032,7 +2065,7 @@ en:
       how_long_heading: How long we keep your data
       how_long_section:
         - We will only retain your data for as long as it is needed for the purposes set out on this page.
-        - We will retain summary logs of interactions with the service indefinitely, but these logs are fully anonymous.
+        - We will retain summary logs of interactions with the service for five years, but these logs are fully anonymous.
         - We will delete access log data which contain your IP address after 30 days.
       where_stored_heading: Where your data is processed and stored
       where_stored: We design, build and run our systems to make sure that your data is as safe as possible at all stages, both while it’s processed and when it’s stored. All personal data is processed in the EEA.
@@ -2136,22 +2169,25 @@ en:
           - partner allowance increased to £211.32 (was £191.41)
           - dependant allowance increased to £338.90 (was £307.64)
       history:
+        header: Changes to dependant and partner allowance
         text: "Changes to dependant and partner allowances: "
         bullets:
           - partner allowance increased to £211.32 (was £191.41)
           - dependant allowance increased to £338.90 (was £307.64)
     household_flow:
       history:
-        text: "Changes to simplify the question flow for clients who have a partner: "
+        text: "Changes to simplify the question flow for clients who have a partner"
         bullets:
           - introduction of household questions (for dependants, housing costs, property and vehicles)
     special_applicants:
       history:
+        header: Guidance for clients in specific circumstances
         text: "Additional guidance added to support clients in specific circumstances:"
         bullets:
           - prisoners, police officers, members of HM Forces, clients who are bankrupt and clients who live outside the UK
           - clarification on when the finances of applicants under 18 are assessed
     cw_forms:
+      header: Controlled work forms
       text: "When a controlled work check is completed, this service will add the results to a downloadable PDF for the civil controlled work forms that collect a client’s financial information:"
       bullets:
         - "CW1: financial eligibility for legal aid clients"
@@ -2167,9 +2203,13 @@ en:
         - they get regular income, like payment from a job
         - they have capital worth more than £2,500
     self_employed:
+      header: Self-employed clients
       text: This service now supports clients (and their partners) who are self-employed, with the exception of self-employed company directors for certificated checks.
     public_beta:
+      header: Public beta
       text: This service was launched as a public beta, available to all users. Until this date it was in a private pilot phase, available only by invitation.
+    tags:
+      mtr: Means test review
   controlled_work_document_selections:
     new:
       title: Which controlled work (CW) form do you need?
@@ -2225,4 +2265,7 @@ en:
       cla_html: check if you can get free and confidential advice from <a href="https://www.gov.uk/civil-legal-advice" target="_blank" rel="noreferrer noopener">Civil Legal Advice (opens in new tab)</a>
       find_out_more_html: find out more about <a href="https://www.gov.uk/legal-aid" target="_blank" rel="noreferrer noopener">legal aid (opens in new tab)</a>
       information_html: find out what information we use to <a href="https://www.gov.uk/guidance/civil-legal-aid-means-testing" target="_blank" rel="noreferrer noopener">check who can get civil legal aid (opens in new tab)</a>
+  updates:
+    index:
+      updates: Updates
 

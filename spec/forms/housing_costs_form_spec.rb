@@ -9,7 +9,16 @@ RSpec.describe "housing_costs", type: :feature do
     visit "estimates/#{assessment_code}/build_estimates/housing_costs"
   end
 
-  it "performs validations" do
+  it "performs validations if I leave the field blank" do
+    click_on "Save and continue"
+    expect(page).to have_css(".govuk-error-summary__list")
+  end
+
+  it "performs validations if I enter invalid values" do
+    fill_in "housing-costs-form-housing-payments-field", with: "1 1"
+    choose "Every 2 weeks", name: "housing_costs_form[housing_payments_frequency]"
+    fill_in "housing-costs-form-housing-benefit-value-field", with: "40"
+    choose "Every 4 weeks", name: "housing_costs_form[housing_benefit_frequency]"
     click_on "Save and continue"
     expect(page).to have_css(".govuk-error-summary__list")
   end

@@ -1,0 +1,4 @@
+.govuk-grid-column-full
+  h1.govuk-heading-l = t(".updates")
+  - ChangeLogs.occurred.each do |change_log|
+    = render "change_logs/log_item", change_log:

@@ -18,6 +18,9 @@ footer.govuk-footer.no-print role="contentinfo"
               = link_to t("layouts.application.footer.contact"), "mailto:eligibility@justice.gov.uk", class: "govuk-footer__link"
 
           li.govuk-footer__inline-list-item
+            = link_to t("layouts.application.footer.updates"), updates_path, class: "govuk-footer__link"
+
+          li.govuk-footer__inline-list-item
             = link_to t("layouts.application.footer.cookies"), cookies_path, class: "govuk-footer__link"
 
           li.govuk-footer__inline-list-item
