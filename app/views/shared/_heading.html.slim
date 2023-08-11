@@ -21,9 +21,10 @@ ruby:
 
 - case tag
 - when :partner
-  = render "shared/partner_tag"
+  .govuk-tag.govuk-tag--purple class="govuk-!-margin-bottom-2" = t("generic.tags.partner")
 - when :household
-  = render "shared/household_tag"
+  - if @check.partner
+    .govuk-tag.govuk-tag--orange class="govuk-!-margin-bottom-2" = t("generic.tags.household")
 
 - if header_text
     - if @is_pdf == true

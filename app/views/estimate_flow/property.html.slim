@@ -8,7 +8,7 @@
   = form_for(@form, url: wizard_path, method: :put) do |form|
     = form.govuk_error_summary t("generic.error_summary_title")
 
-    = render "shared/household_tag"
+    = render "shared/heading", tag: :household
     - if @check.partner
       = form.govuk_collection_radio_buttons :property_owned, property_options, :first, :last,
                                             legend: { text: t(legend_key), size: "xl", tag: "h1" },

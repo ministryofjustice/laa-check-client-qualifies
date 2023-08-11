@@ -1,6 +1,8 @@
+- partner ||= false
 = form_for(@form, url: wizard_path, method: :put) do |form|
   = render "shared/heading",
-            header_text: t("estimate_flow.#{i18n_key}.heading")
+            header_text: t("estimate_flow.#{i18n_key}.heading"),
+            tag: (:partner if partner)
 
   = form.govuk_error_summary t("generic.error_summary_title")
 
