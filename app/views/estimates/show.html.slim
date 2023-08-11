@@ -58,3 +58,6 @@
       = link_to t(".start_another_check"), new_estimate_path, class: "govuk-button", data: { module: "govuk-button" }
     = link_to t(".print_page"), print_estimate_path(params[:id]), target: "_blank", rel: "noopener", class: "govuk-button govuk-button--secondary"
     = link_to t(".save_as_pdf"), download_estimate_path(params[:id]), target: "_blank", rel: "noopener", class: "govuk-button govuk-button--secondary"
+
+  - unless @model.level_of_help == "controlled" && @model.decision == "eligible"
+    = render "shared/survey_prompt"
