@@ -58,4 +58,8 @@ module ApplicationHelper
   def using_non_primary_url?
     ENV["PRIMARY_HOST"].blank? || ENV["PRIMARY_HOST"] == request.host
   end
+
+  def survey_link
+    FeatureFlags.enabled?(:public_beta, without_session_data: true) ? t("service.public_beta_survey_link") : t("service.private_beta_survey_link")
+  end
 end
