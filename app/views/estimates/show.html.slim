@@ -7,53 +7,54 @@
 - content_for :back do
   = link_to t("generic.back"), check_answers_estimate_path(params[:id]), class: "govuk-back-link"
 
-.govuk-panel.panel-blue.govuk-panel--confirmation class="govuk-!-text-align-left govuk-!-margin-bottom-9"
-  .govuk-panel__body
-    = render "result_panel_content"
+.govuk-grid-column-full
+  .govuk-panel.panel-blue.govuk-panel--confirmation class="govuk-!-text-align-left govuk-!-margin-bottom-9"
+    .govuk-panel__body
+      = render "result_panel_content"
 
-- if @model.level_of_help == "certificated"
-  h2.govuk-heading-m = t(".what_happens_next")
-  - if @check.upper_tribunal?
-    p.govuk-body = t(".next_steps_without_apply_paragraph_1")
-  - else
-    p.govuk-body = t(".next_steps_paragraph_1")
-  p.govuk-body = t(".next_steps_paragraph_2")
+  - if @model.level_of_help == "certificated"
+    h2.govuk-heading-m = t(".what_happens_next")
+    - if @check.upper_tribunal?
+      p.govuk-body = t(".next_steps_without_apply_paragraph_1")
+    - else
+      p.govuk-body = t(".next_steps_paragraph_1")
+    p.govuk-body = t(".next_steps_paragraph_2")
 
-  = govuk_details(summary_text: t(".evidence_needed")) do
-    = render "evidence"
-- elsif @model.level_of_help == "controlled" && @model.decision == "eligible"
-  h2.govuk-heading-m = t(".what_happens_next")
+    = govuk_details(summary_text: t(".evidence_needed")) do
+      = render "evidence"
+  - elsif @model.level_of_help == "controlled" && @model.decision == "eligible"
+    h2.govuk-heading-m = t(".what_happens_next")
 
-  = render "controlled_work_next_steps"
+    = render "controlled_work_next_steps"
 
-  = govuk_details(summary_text: t(".evidence_needed")) do
-    = render "evidence"
+    = govuk_details(summary_text: t(".evidence_needed")) do
+      = render "evidence"
 
-- if @model.calculated?(:gross_income) || @model.calculated?(:disposable_income) || @model.calculated?(:capital)
-  h2.govuk-heading-m = t(".#{@model.level_of_help}_how_calculated")
-  = govuk_accordion do |accordion|
-    - accordion.with_section(heading_text: t(".legislation_header"))
-      = render "legislation_table", caption_size: "m"
-    - key = @model.level_of_help == "certificated" && !@check.upper_tribunal? ? ".upper_and_lower_limits_calculation_header" : ".upper_limits_calculation_header"
-    - accordion.with_section(heading_text: t(key))
-      = render "limits_table", caption_size: "m"
+  - if @model.calculated?(:gross_income) || @model.calculated?(:disposable_income) || @model.calculated?(:capital)
+    h2.govuk-heading-m = t(".#{@model.level_of_help}_how_calculated")
+    = govuk_accordion do |accordion|
+      - accordion.with_section(heading_text: t(".legislation_header"))
+        = render "legislation_table", caption_size: "m"
+      - key = @model.level_of_help == "certificated" && !@check.upper_tribunal? ? ".upper_and_lower_limits_calculation_header" : ".upper_limits_calculation_header"
+      - accordion.with_section(heading_text: t(key))
+        = render "limits_table", caption_size: "m"
 
-    - if @model.calculated?(:gross_income)
-      - accordion.with_section(heading_text: t(".income_calculation"))
-        = render "income_table", caption_size: "m"
+      - if @model.calculated?(:gross_income)
+        - accordion.with_section(heading_text: t(".income_calculation"))
+          = render "income_table", caption_size: "m"
 
-    - if @model.calculated?(:disposable_income)
-      - accordion.with_section(heading_text: t(".outgoings_calculation"))
-        = render "outgoings_table", caption_size: "m"
+      - if @model.calculated?(:disposable_income)
+        - accordion.with_section(heading_text: t(".outgoings_calculation"))
+          = render "outgoings_table", caption_size: "m"
 
-    - if @model.calculated?(:capital)
-      - accordion.with_section(heading_text: t(".capital_calculation"))
-        = render "capital_table", caption_size: "m"
+      - if @model.calculated?(:capital)
+        - accordion.with_section(heading_text: t(".capital_calculation"))
+          = render "capital_table", caption_size: "m"
 
-.govuk-button-group
-  - if @model.level_of_help == "controlled" && @model.decision == "eligible"
-    = link_to t(".continue_to_cw"), new_estimate_controlled_work_document_selection_path(params[:id]), class: "govuk-button", data: { module: "govuk-button" }
-  - else
-    = link_to t(".start_another_check"), new_estimate_path, class: "govuk-button", data: { module: "govuk-button" }
-  = link_to t(".print_page"), print_estimate_path(params[:id]), target: "_blank", rel: "noopener", class: "govuk-button govuk-button--secondary"
-  = link_to t(".save_as_pdf"), download_estimate_path(params[:id]), target: "_blank", rel: "noopener", class: "govuk-button govuk-button--secondary"
+  .govuk-button-group
+    - if @model.level_of_help == "controlled" && @model.decision == "eligible"
+      = link_to t(".continue_to_cw"), new_estimate_controlled_work_document_selection_path(params[:id]), class: "govuk-button", data: { module: "govuk-button" }
+    - else
+      = link_to t(".start_another_check"), new_estimate_path, class: "govuk-button", data: { module: "govuk-button" }
+    = link_to t(".print_page"), print_estimate_path(params[:id]), target: "_blank", rel: "noopener", class: "govuk-button govuk-button--secondary"
+    = link_to t(".save_as_pdf"), download_estimate_path(params[:id]), target: "_blank", rel: "noopener", class: "govuk-button govuk-button--secondary"

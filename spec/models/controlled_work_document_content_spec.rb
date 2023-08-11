@@ -363,6 +363,7 @@ RSpec.describe ControlledWorkDocumentContent do
     let(:session_data) do
       {
         child_dependants:,
+        child_dependants_count: 1,
         api_response: FactoryBot.build(:api_result,
                                        result_summary: build(:result_summary,
                                                              disposable_income: build(:disposable_income_summary,
@@ -370,11 +371,35 @@ RSpec.describe ControlledWorkDocumentContent do
       }.with_indifferent_access
     end
 
-    context "when client has child dependants" do
+    context "when client has child dependants without income" do
       let(:child_dependants) { true }
 
       it "returns the payload value" do
         expect(described_class.new(session_data).dependants_allowance_under_16).to eq 3
+      end
+    end
+
+    context "when client has child dependants but they all have income" do
+      let(:session_data) do
+        {
+          child_dependants: true,
+          child_dependants_count: 1,
+          adult_dependants: true,
+          adult_dependants_count: 1,
+          dependants_get_income: true,
+          dependant_incomes: [
+            { amount: 1, frequency: "weekly" },
+            { amount: 1, frequency: "weekly" },
+          ],
+          api_response: FactoryBot.build(:api_result,
+                                         result_summary: build(:result_summary,
+                                                               disposable_income: build(:disposable_income_summary,
+                                                                                        dependant_allowance_under_16: 3))),
+        }.with_indifferent_access
+      end
+
+      it "returns the payload value" do
+        expect(described_class.new(session_data).dependants_allowance_under_16).to eq nil
       end
     end
 

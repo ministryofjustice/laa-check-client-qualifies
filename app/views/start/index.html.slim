@@ -73,10 +73,5 @@
     hr
     p.govuk-body
       = t(".last_updated", date: ChangeLogs.last_updated_at)
-      button.change-log-toggle.hidden.govuk-body [data-change-log-role="toggle"
-                                                  data-show-text=t(".show_all_updates")
-                                                  data-hide-text=t(".hide_all_updates")
-                                                  aria-label="Toggle update history"]
-
-    - ChangeLogs.occurred.each do |change_log|
-      = render "change_logs/log_item", change_log:
+      span class="govuk-!-margin-left-3"
+      = link_to t(".see_all_updates"), updates_path

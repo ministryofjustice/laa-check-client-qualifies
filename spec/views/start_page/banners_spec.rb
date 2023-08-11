@@ -13,10 +13,6 @@ RSpec.describe "start/index.html.slim" do
       it "shows no banner" do
         expect(content).not_to include "On 10 April 2023 some allowances"
       end
-
-      it "shows nothing in the history" do
-        expect(content).not_to include "10 April 2023Changes to dependant and partner allowances"
-      end
     end
 
     context "when the change log is to be displayed but not live" do
@@ -29,10 +25,6 @@ RSpec.describe "start/index.html.slim" do
 
       it "shows a banner with future-looking text" do
         expect(content).to include "On 10 April 2023 some allowances used to estimate if a client is likely to meet the financial criteria for legal aid will change"
-      end
-
-      it "shows nothing in the history" do
-        expect(content).not_to include "10 April 2023Changes to dependant and partner allowances"
       end
     end
 
@@ -47,10 +39,6 @@ RSpec.describe "start/index.html.slim" do
       it "shows a banner with backward-looking text" do
         expect(content).to include "On 10 April 2023 some allowances used to estimate if a client is likely to meet the financial criteria for legal aid changed"
       end
-
-      it "shows an item in the history" do
-        expect(content).to include "10 April 2023Changes to dependant and partner allowances"
-      end
     end
 
     context "when the change log has been live for a while" do
@@ -63,10 +51,6 @@ RSpec.describe "start/index.html.slim" do
 
       it "shows no banner" do
         expect(content).not_to include "On 10 April 2023 some allowances"
-      end
-
-      it "shows an item in the history" do
-        expect(content).to include "10 April 2023Changes to dependant and partner allowances"
       end
     end
   end

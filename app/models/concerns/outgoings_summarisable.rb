@@ -20,11 +20,20 @@ module OutgoingsSummarisable
   end
 
   def dependants_allowance_under_16
-    from_cfe_payload("result_summary.disposable_income.dependant_allowance_under_16") if client_income_relevant? && child_dependants
+    # We should show this field if there are any child dependants without income, as we assume all child dependants without income are over 16
+    from_cfe_payload("result_summary.disposable_income.dependant_allowance_under_16") if client_income_relevant? && child_dependants && not_all_child_dependants_are_over_16
+  end
+
+  def not_all_child_dependants_are_over_16
+    # We don't directly associate dependant incomes with dependants. We assume that all dependant incomes belong to adults
+    # unless there are more dependant incomes than there are adult dependants. So if the total number of dependants exceeds the
+    # total number of incomes, we know that if there are any child dependants, at least one of them has no income and is therefore under 16.
+    child_dependants_count + (adult_dependants ? adult_dependants_count : 0) > (dependant_incomes&.count || 0)
   end
 
   def dependants_allowance_over_16
-    from_cfe_payload("result_summary.disposable_income.dependant_allowance_over_16") if client_income_relevant? && adult_dependants
+    # We should show this field if there are any child dependants without income, as we assume all child dependants without income are over 16
+    from_cfe_payload("result_summary.disposable_income.dependant_allowance_over_16") if client_income_relevant? && (adult_dependants || dependant_incomes.present?)
   end
 
   def client_tax_and_national_insurance
