@@ -3,8 +3,8 @@ require "rails_helper"
 RSpec.describe "estimates/show.html.slim" do
   describe "Client financial content" do
     let(:calculation_result) { CalculationResult.new(session_data) }
-    let(:session_data) { { api_response: }.with_indifferent_access }
-    let(:dependant_allowance) { 13.0 }
+    let(:session_data) { { api_response:, adult_dependants:, child_dependants: false }.with_indifferent_access }
+    let(:adult_dependants) { true }
     let(:check) { Check.new(session_data) }
     let(:vehicle_in_regular_use) { true }
     let(:api_response) do
@@ -32,7 +32,7 @@ RSpec.describe "estimates/show.html.slim" do
               fixed_employment_deduction: -3.34,
             },
             net_housing_costs: 500.0,
-            dependant_allowance:,
+            dependant_allowance: 13,
             partner_allowance: 858.34,
             combined_total_outgoings_and_allowances: 5483.0,
             combined_total_disposable_income: 12_345.0,
@@ -163,7 +163,7 @@ RSpec.describe "estimates/show.html.slim" do
       expect(page_text).to include "Income tax£5.00"
       expect(page_text).to include "National Insurance£10.00"
       expect(page_text).to include "Employment expensesA fixed allowance if your client gets a salary or wage£3.34"
-      expect(page_text).to include "Dependants allowanceA fixed allowance deducted for each dependant your client has£13.00"
+      expect(page_text).to include "Dependants allowanceAn allowance of £338.90 applied for each dependant, minus any income they receive£13.00"
       expect(page_text).to include "Partner allowanceA fixed allowance if your client has a partner£858.34"
       expect(page_text).to include "Total monthly outgoings£5,483"
       expect(page_text).to include "Assessed disposable monthly incomeTotal monthly income minus total monthly outgoings£12,345.00"
@@ -204,16 +204,8 @@ RSpec.describe "estimates/show.html.slim" do
       end
     end
 
-    context "when dependants allowance is not positive figure" do
-      let(:dependant_allowance) { 0 }
-
-      it "does not display the dependants allowance field" do
-        expect(page_text).not_to include "Dependants allowance"
-      end
-    end
-
-    context "when dependants allowance is nil" do
-      let(:dependant_allowance) { nil }
+    context "when there are no dependants" do
+      let(:adult_dependants) { false }
 
       it "does not display the dependants allowance field" do
         expect(page_text).not_to include "Dependants allowance"

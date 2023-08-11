@@ -81,6 +81,18 @@ module Steps
 
         session_data["partner_receives_benefits"]
       end
+
+      def dependants?(session_data)
+        return false if asylum_supported?(session_data) || passported?(session_data)
+
+        session_data["child_dependants"] || session_data["adult_dependants"]
+      end
+
+      def dependants_get_income?(session_data)
+        return false if asylum_supported?(session_data) || passported?(session_data) || !dependants?(session_data)
+
+        session_data["dependants_get_income"]
+      end
     end
   end
 end

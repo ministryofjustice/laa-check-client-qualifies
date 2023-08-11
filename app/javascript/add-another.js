@@ -31,6 +31,7 @@ const initAddAnother = () => {
     });
 
     setUpSections(addAnotherContainer.querySelector('[data-add-another-role="sectionList"]'));
+    setUpAddButton(addAnotherContainer);
   });
 }
 
@@ -40,6 +41,7 @@ const addAnother = (addAnotherContainer) => {
   const counter = sections.length;
   addAnotherContainer.querySelector('[data-add-another-role="sectionList"]').append(newSection);
   setUpSection(newSection, counter, { setUpSuggestions: true })
+  setUpAddButton(addAnotherContainer);
 };
 
 const setUpSection = (section, counter, options) => {
@@ -71,6 +73,7 @@ const remove = (section) => {
   const sectionList = section.closest('[data-add-another-role="sectionList"]')
   section.remove();
   setUpSections(sectionList); // Some JS triggers, in particular radio conditional reveals, must be re-initialised
+  setUpAddButton(sectionList.closest('[data-module="add-another"]'));
 }
 
 const setUpSections = (sectionList) => {
@@ -95,6 +98,18 @@ const setNumbering = (section, counter) => {
 const setUpRadios = (section) => {
   const radios = new Radios(section);
   radios.init();
+}
+
+const setUpAddButton = (addAnotherContainer) => {
+  const button = addAnotherContainer.querySelector('[data-add-another-role="add"]');
+  if (button.dataset.addAnotherMaximum) {
+    const sections = addAnotherContainer.querySelector('[data-add-another-role="sectionList"]').querySelectorAll('[data-add-another-role="section"]');
+    if (button.dataset.addAnotherMaximum <= sections.length) {
+      button.classList.add("add-another-hidden");
+    } else {
+      button.classList.remove("add-another-hidden");
+    }
+  }
 }
 
 export default initAddAnother;

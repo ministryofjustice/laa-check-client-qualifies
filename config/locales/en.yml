@@ -54,6 +54,18 @@ en:
               greater_than: The number of adult dependants must be greater than zero
               not_a_number: Adult dependants must be a number
               not_an_integer: Adult dependants must be a whole number
+        dependant_income_form:
+          attributes:
+            dependants_get_income:
+              inclusion: Select yes if any dependants aged 16 or over get income
+        dependant_income_model:
+          attributes:
+            frequency:
+              inclusion: Select when the dependant normally gets this income
+            amount:
+              blank: Enter income the dependant gets
+              greater_than: Income for the dependant must be more than 0
+              not_a_number: Income for the dependant must be a number
         employment_status_form:
           attributes:
             employment_status:
@@ -662,6 +674,22 @@ en:
       how_many_adult: How many adult dependants are there?
       guidance:
         text: Guidance on dependants
+    dependant_income:
+      legend: Do any of the dependants aged 16 or over get regular income?
+      hint: "Examples of dependant income:"
+      examples:
+        - a grant received by a child dependant over 16 who is in full-time education or training
+        - a wage received by a child dependant in an apprenticeship
+        - benefits received by an adult dependant
+        - earnings from part-time work if the dependant works more than 16 hours per week
+      guidance: Guidance on dependant income
+    dependant_income_details:
+      legend: Add income for dependants aged 16 or over
+      hint: Income they receive will be deducted from your client’s dependant allowance.
+      frequency: When does the dependant normally get this income?
+      amount: Income
+      add: Add another dependant's income
+      dependant: Dependant
     employment_status:
       heading: What is your client's employment status?
       in_work_including_self_employed: Employed or self-employed
@@ -1309,6 +1337,8 @@ en:
         immigration_or_asylum_type: Type of immigration or asylum matter
         applicant: Client details
         dependant_details: Dependants
+        dependant_income: Dependant income
+        dependant_income_details: Dependant %{variable} income
         employment_status: Employment status
         income: Client employment income %{variable}
         employment: Client employment income
@@ -1374,6 +1404,11 @@ en:
         adult_dependants: Does your client have any adult dependants?
         child_dependants_count: How many child dependants are there?
         adult_dependants_count: How many adult dependants are there?
+      dependant_income_fields:
+        dependants_get_income: Do any of the dependants aged 16 or over get regular income?
+      dependant_income_details_fields:
+        frequency: When does the dependant normally get this income?
+        amount: Income
       employment_status_fields:
         employment_status: What is your client's employment status?
         employment_status_options:
@@ -1677,10 +1712,10 @@ en:
         income_tax: ""
         partner_allowance: A fixed allowance if your client has a partner
         housing_costs: Housing costs minus any Housing Benefit payments your client gets
-        dependants_allowance: A fixed allowance deducted for each dependant your client has
+        dependants_allowance: An allowance of £338.90 applied for each dependant, minus any income they receive
       household_outgoing_hints:
         housing_costs: Housing costs minus any Housing Benefit payments the household gets
-        dependants_allowance: A fixed allowance deducted for each dependant in the household
+        dependants_allowance: An allowance of £338.90 applied for each dependant, minus any income they receive
       partner_outgoing_hints:
         childcare_payments: ""
         maintenance_out: ""
