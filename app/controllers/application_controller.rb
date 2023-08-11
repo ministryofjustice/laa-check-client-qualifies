@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   BROWSER_ID_COOKIE = :browser_id
+  BASIC_AUTHENTICATION_COOKIE = :basic_authenticated
   default_form_builder GOVUKDesignSystemFormBuilder::FormBuilder
   before_action :force_setting_of_session_cookie, :authenticate, :check_maintenance_mode
 
@@ -68,8 +69,8 @@ private
   def authenticate
     return unless FeatureFlags.enabled?(:basic_authentication, without_session_data: true)
 
-    authenticate_or_request_with_http_basic("Check if your client qualifies for legal aid") do |username, password|
-      username == "ccq" && password == ENV["BASIC_AUTH_PASSWORD"]
-    end
+    # MOJ DOM1 laptops have HTTP Basic Authentication disabled in Edge, so we provide our own
+    # 'basic authentication' UI
+    redirect_to new_basic_authentication_session_path unless cookies.signed[BASIC_AUTHENTICATION_COOKIE]
   end
 end
