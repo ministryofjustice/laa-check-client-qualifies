@@ -40,7 +40,8 @@ class HousingCostsForm
 private
 
   def housing_benefit_does_not_exceed_costs
-    return unless housing_payments.to_i.positive? &&
+    return unless errors.none? &&
+      housing_payments.to_i.positive? &&
       housing_benefit_value.to_i.positive? &&
       housing_payments_frequency.present? &&
       housing_benefit_frequency.present?
@@ -62,10 +63,8 @@ private
       13
     when "monthly"
       12
-    when "total"
+    else # The only other value that could be called is "total", meaning total in last 3 months
       4
-    else
-      raise "Unrecognised frequency: #{frequency}"
     end
   end
 end
