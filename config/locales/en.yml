@@ -1965,8 +1965,7 @@ en:
       mental_health_html: The <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>LAA contract management mental health guidance (opens in new tab)</a> explains when a means assessment is not needed for controlled work matters that will potentially involve proceedings before the Mental Health Tribunal (known as non-means, non-MHT matter starts).
       start_button: Start now
       last_updated: Last updated %{date}
-      show_all_updates: + show all updates
-      hide_all_updates: "- hide all updates"
+      see_all_updates: See all updates
   cookie_banner:
     title: Cookies on
     essential_cookies: We use some essential cookies to make this service work.
@@ -2167,22 +2166,25 @@ en:
           - partner allowance increased to £211.32 (was £191.41)
           - dependant allowance increased to £338.90 (was £307.64)
       history:
+        header: Changes to dependant and partner allowance
         text: "Changes to dependant and partner allowances: "
         bullets:
           - partner allowance increased to £211.32 (was £191.41)
           - dependant allowance increased to £338.90 (was £307.64)
     household_flow:
       history:
-        text: "Changes to simplify the question flow for clients who have a partner: "
+        text: "Changes to simplify the question flow for clients who have a partner"
         bullets:
           - introduction of household questions (for dependants, housing costs, property and vehicles)
     special_applicants:
       history:
+        header: Guidance for clients in specific circumstances
         text: "Additional guidance added to support clients in specific circumstances:"
         bullets:
           - prisoners, police officers, members of HM Forces, clients who are bankrupt and clients who live outside the UK
           - clarification on when the finances of applicants under 18 are assessed
     cw_forms:
+      header: Controlled work forms
       text: "When a controlled work check is completed, this service will add the results to a downloadable PDF for the civil controlled work forms that collect a client’s financial information:"
       bullets:
         - "CW1: financial eligibility for legal aid clients"
@@ -2198,9 +2200,13 @@ en:
         - they get regular income, like payment from a job
         - they have capital worth more than £2,500
     self_employed:
+      header: Self-employed clients
       text: This service now supports clients (and their partners) who are self-employed, with the exception of self-employed company directors for certificated checks.
     public_beta:
+      header: Public beta
       text: This service was launched as a public beta, available to all users. Until this date it was in a private pilot phase, available only by invitation.
+    tags:
+      mtr: Means test review
   controlled_work_document_selections:
     new:
       title: Which controlled work (CW) form do you need?
@@ -2256,4 +2262,7 @@ en:
       cla_html: check if you can get free and confidential advice from <a href="https://www.gov.uk/civil-legal-advice" target="_blank" rel="noreferrer noopener">Civil Legal Advice (opens in new tab)</a>
       find_out_more_html: find out more about <a href="https://www.gov.uk/legal-aid" target="_blank" rel="noreferrer noopener">legal aid (opens in new tab)</a>
       information_html: find out what information we use to <a href="https://www.gov.uk/guidance/civil-legal-aid-means-testing" target="_blank" rel="noreferrer noopener">check who can get civil legal aid (opens in new tab)</a>
+  updates:
+    index:
+      updates: Updates
 
