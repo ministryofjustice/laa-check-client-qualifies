@@ -36,9 +36,13 @@ class IncomeModel
   end
 
   def income_frequency_options
+    IncomeModel.income_frequency_options(skip_year: controlled)
+  end
+
+  def self.income_frequency_options(skip_year:)
     standard = STANDARD_FREQUENCY_OPTIONS.map { [_1, I18n.t("estimate_flow.income.frequencies.#{_1}")] }
     addendum = [:divider, [THREE_MONTHS, I18n.t("estimate_flow.income.frequencies.#{THREE_MONTHS}")]]
-    return standard + addendum if controlled
+    return standard + addendum if skip_year
 
     standard + addendum + [[YEAR, I18n.t("estimate_flow.income.frequencies.#{YEAR}")]]
   end

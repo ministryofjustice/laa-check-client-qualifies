@@ -1,0 +1,28 @@
+- content_for :page_title
+  = t(".legend")
+- content_for :back do
+  = back_link(:dependant_income_details, @check, @back_buttons_invoke_browser_back_behaviour)
+
+.govuk-grid-column-two-thirds
+  . data-module="add-another"
+    .add-another-template-area data-add-another-role="template"
+      = render "dependant_income_section", removeable: true, model: @form.blank_model
+
+    = form_for(@form, url: wizard_path, method: :put) do |form|
+      = form.govuk_error_summary t("generic.error_summary_title")
+      = render "shared/heading",
+                header_text: t(".legend"),
+                post_header_text: t(".hint"),
+                tag: :household
+      . data-add-another-role="sectionList"
+        - @form.items[0...@form.max_items].each_with_index do |benefit, index|
+          = render "dependant_income_section", removeable: index.positive?, model: benefit, counter: index + 1
+      .govuk-button-group
+        button.govuk-button.govuk-button--secondary type="button" data-add-another-role="add" data-add-another-maximum=@form.max_items
+          = t(".add")
+
+      = form.govuk_submit t("generic.save_and_continue")
+
+= render "shared/question_sidebar",
+          level_of_help: @check.level_of_help,
+          links: dependant_income_links(@check.level_of_help)

@@ -123,7 +123,7 @@ class CalculationResult
   def household_outgoing_rows
     data = { housing_costs: api_response.dig(:result_summary, :disposable_income, :net_housing_costs) }
     dependants_allowance = api_response.dig(:result_summary, :disposable_income, :dependant_allowance)
-    data[:dependants_allowance] = dependants_allowance if dependants_allowance&.positive?
+    data[:dependants_allowance] = dependants_allowance if @check.adult_dependants || @check.child_dependants
     data.transform_values { |v| monetise(v) }
   end
 

@@ -8,6 +8,8 @@ module Flow
       immigration_or_asylum_type: ImmigrationOrAsylumTypeForm,
       applicant: ApplicantForm,
       dependant_details: DependantDetailsForm,
+      dependant_income: DependantIncomeForm,
+      dependant_income_details: DependantIncomeDetailsForm,
       employment_status: EmploymentStatusForm,
       employment: EmploymentForm,
       income: IncomeForm,
