@@ -61,7 +61,7 @@ private
 
   def check_maintenance_mode
     if FeatureFlags.enabled?(:maintenance_mode, without_session_data: true)
-      render file: "public/500.html", status: :service_unavailable, layout: false
+      render file: "public/500.html", layout: false
     end
   end
 end
