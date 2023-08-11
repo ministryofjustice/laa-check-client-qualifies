@@ -54,4 +54,8 @@ module ApplicationHelper
       cookies[CookiesController::COOKIE_CHOICE_NAME] == "accepted" &&
       !cookies[CookiesController::NO_ANALYTICS_MODE]
   end
+
+  def survey_link
+    FeatureFlags.enabled?(:public_beta, without_session_data: true) ? t("service.public_beta_survey_link") : t("service.private_beta_survey_link")
+  end
 end

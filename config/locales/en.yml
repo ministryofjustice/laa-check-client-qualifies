@@ -412,12 +412,12 @@ en:
   service:
     name: Check if your client qualifies for legal aid
     name_for_page_title: Check if your client qualifies for legal aid | GOV.UK
-    user_survey_link: https://eu.surveymonkey.com/r/ccq1
+    private_beta_survey_link: https://eu.surveymonkey.com/r/ccq1
+    public_beta_survey_link: https://eu.surveymonkey.com/r/ccqpublicbeta
     beta: Beta
-    beta_message_html: This is a new service - your <a href="%{user_survey_link}" target="_blank">feedback</a> will help us improve it
+    beta_message_html: This is a new service - your <a href="%{survey_link}" target="_blank">feedback</a> will help us improve it
     beta_message_short: This is a new service
     survey_prompt: What did you think of this service?
-    survey_link: https://eu.surveymonkey.com/r/ccqpublicbeta
     survey_hint: (takes 2 minutes)
   generic:
     yes_choice: "Yes"
