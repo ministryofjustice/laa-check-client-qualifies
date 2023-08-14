@@ -23,7 +23,6 @@ RSpec.describe "Feature flags" do
     end
 
     scenario "I cannot view the form to edit feature flags" do
-      page.driver.browser.basic_authorize("flags", "password")
       visit edit_feature_flag_path("sentry")
       expect(page).to have_current_path "/"
     end
@@ -36,13 +35,7 @@ RSpec.describe "Feature flags" do
       ENV["FEATURE_FLAG_OVERRIDES"] = nil
     end
 
-    scenario "I can't access the edit screen without a password" do
-      visit edit_feature_flag_path("sentry")
-      expect(page).to have_content "HTTP Basic: Access denied."
-    end
-
     scenario "I edit a feature flag" do
-      page.driver.browser.basic_authorize("flags", "password")
       visit feature_flags_path
       expect(page).to have_content "sentryNo"
       expect(FeatureFlags.enabled?(:sentry, without_session_data: true)).to eq false

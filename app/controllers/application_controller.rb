@@ -1,7 +1,8 @@
 class ApplicationController < ActionController::Base
   BROWSER_ID_COOKIE = :browser_id
+  BASIC_AUTHENTICATION_COOKIE = :basic_authenticated
   default_form_builder GOVUKDesignSystemFormBuilder::FormBuilder
-  before_action :force_setting_of_session_cookie
+  before_action :force_setting_of_session_cookie, :authenticate, :check_maintenance_mode
 
   class MissingSessionError < StandardError; end
 
@@ -57,5 +58,19 @@ private
     return if ENV["PRIMARY_HOST"].blank? || ENV["PRIMARY_HOST"] == request.host
 
     redirect_to [request.protocol, ENV["PRIMARY_HOST"], request.fullpath].join, allow_other_host: true
+  end
+
+  def check_maintenance_mode
+    if FeatureFlags.enabled?(:maintenance_mode, without_session_data: true)
+      render file: "public/500.html", layout: false
+    end
+  end
+
+  def authenticate
+    return unless FeatureFlags.enabled?(:basic_authentication, without_session_data: true)
+
+    # MOJ DOM1 laptops have HTTP Basic Authentication disabled in Edge, so we provide our own
+    # 'basic authentication' UI
+    redirect_to new_basic_authentication_session_path unless cookies.signed[BASIC_AUTHENTICATION_COOKIE]
   end
 end

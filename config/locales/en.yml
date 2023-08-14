@@ -1555,7 +1555,9 @@ en:
         mortgage: Value of outstanding mortgage
         percentage_owned: What percentage does the partner own?
       submission_instructions: Now submit your eligibility check
-      submission_explanation: We'll use your answers to give you an estimated result on your client's financial eligibility for legal aid.
+      submission_explanation: We'll use your answers to give you an estimated result of your client's financial eligibility for legal aid.
+      how_to_save_header: How to save your answers
+      how_to_save_text: After you submit your eligibility check we'll show you the result and the calculations made to get it. You can print or save the eligibility result page, including your answers.
       call_to_action: Submit eligibility check
     show:
       likely_to_qualify: Your client is likely to qualify for civil legal aid
@@ -2268,4 +2270,13 @@ en:
   updates:
     index:
       updates: Updates
+  basic_authentication_sessions:
+    new:
+      title: This URL is private
+      explanation_1: You are visiting a version of the service that is not intended for public access. To continue, please enter the password.
+      explanation_2_html: If you believe you should have access to this URL but are not sure what the password is, please contact <a href='mailto:eligibility@justice.gov.uk'>eligibility@justice.gov.uk</a>.
+      problem: There is a problem
+      incorrect_password: The password you entered was incorrect
+      label: Password
+      continue: Continue
 
