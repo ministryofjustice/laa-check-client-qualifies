@@ -70,6 +70,10 @@ env:
     value: {{ .Values.featureFlags.publicBeta }}
   - name: INDEX_PRODUCTION_FEATURE_FLAG
     value: {{ .Values.featureFlags.indexProduction }}
+  - name: MAINTENANCE_MODE_FEATURE_FLAG
+    value: {{ .Values.featureFlags.maintenanceMode }}
+  - name: BASIC_AUTHENTICATION_FEATURE_FLAG
+    value: {{ .Values.featureFlags.basicAuthentication }}
   - name: FEATURE_FLAG_OVERRIDES
     value: {{ .Values.featureFlags.overrides }}
   - name: NOTIFICATIONS_API_KEY
@@ -110,11 +114,11 @@ env:
       secretKeyRef:
         name: kube-secrets
         key: blazer-database-password
-  - name: FEATURE_FLAGS_PASSWORD
+  - name: BASIC_AUTH_PASSWORD
     valueFrom:
       secretKeyRef:
         name: kube-secrets
-        key: feature-flags-password
+        key: basic-auth-password
   - name: CSP_REPORT_ENDPOINT
     value: {{ .Values.sentry.cspReportEndpoint }}
   - name: PRIMARY_HOST

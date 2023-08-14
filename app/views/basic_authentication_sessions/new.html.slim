@@ -1,0 +1,21 @@
+- content_for :page_title
+  = t(".title")
+
+.govuk-grid-column-two-thirds
+  = render "shared/heading", header_text: t(".title")
+
+  p.govuk-text = t(".explanation_1")
+  p.govuk-text = t(".explanation_2_html")
+  = form_with(url: basic_authentication_sessions_path) do |form|
+    - if @error
+      .govuk-error-summary
+        . role="alert"
+        h2.govuk-error-summary__title = t(".problem")
+        .govuk-error-summary__body
+          ul.govuk-list.govuk-error-summary__list
+            li
+              a href="#password-field" = t(".incorrect_password")
+
+    = form.govuk_password_field :password,
+            label: { text: t(".label") }
+    = form.govuk_submit t(".continue")
