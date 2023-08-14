@@ -56,7 +56,7 @@ module ApplicationHelper
   end
 
   def using_non_primary_url?
-    ENV["PRIMARY_HOST"].blank? || ENV["PRIMARY_HOST"] == request.host
+    ENV["PRIMARY_HOST"] != request.host
   end
 
   def survey_link
