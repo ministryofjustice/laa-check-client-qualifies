@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   resource :help, only: :show
   resources :feature_flags, only: %i[index edit update], path: "feature-flags"
   resources :updates, only: :index
+  resources :basic_authentication_sessions, only: %i[new create]
 
   get "/no-analytics", to: "cookies#no_analytics_mode"
   get "instant-:session_type", to: "instant_sessions#create"
