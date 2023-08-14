@@ -134,7 +134,9 @@ module Metrics
       relevant_events(range).where(event_type: "page_view", page: "view_results").count("DISTINCT assessment_code")
     end
 
-    def completion_rate(range = nil)
+    # The 'all time' completion rate is actually the last-90-day completion rate, as for a % rate, ancient historical
+    # data is less relevant.
+    def completion_rate(range = 90.days.ago.beginning_of_day..Date.current)
       started = checks_started(range)
       return if started.zero?
 
