@@ -92,7 +92,9 @@ geckoboard:
   allMetricsDataset: "ccq_all_metrics_uat"
   validationsDataset: "ccq_validations_uat"
   lastPagesDataset: "ccq_last_pages_uat"
-  journeysDataset: "ccq_journeys_uat"
+  allJourneysDataset: "ccq_all_journeys_uat"
+  monthlyJourneysDataset: "ccq_monthly_journeys_uat"
+  recentJourneysDataset: "ccq_recent_journeys_uat"
   enabled: not_enabled
 
 sentry:
