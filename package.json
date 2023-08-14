@@ -8,7 +8,7 @@
     "govuk-frontend": "^4.7.0",
     "jquery": "^3.7.0",
     "puppeteer": "^21.0.1",
-    "sass": "^1.64.2"
+    "sass": "^1.65.1"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets",
