@@ -67,6 +67,7 @@ featureFlags:
   publicBeta: ENABLED
   indexProduction: NOT_ENABLED
   maintenanceMode: NOT_ENABLED
+  basicAuthentication: ENABLED
 
 postgresql:
   enabled: true

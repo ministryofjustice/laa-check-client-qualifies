@@ -2270,4 +2270,13 @@ en:
   updates:
     index:
       updates: Updates
+  basic_authentication_sessions:
+    new:
+      title: This URL is private
+      explanation_1: You are visiting a version of the service that is not intended for public access. To continue, please enter the password.
+      explanation_2_html: If you believe you should have access to this URL but are not sure what the password is, please contact <a href='mailto:eligibility@justice.gov.uk'>eligibility@justice.gov.uk</a>.
+      problem: There is a problem
+      incorrect_password: The password you entered was incorrect
+      label: Password
+      continue: Continue
 
