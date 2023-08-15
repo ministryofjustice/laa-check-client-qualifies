@@ -3,7 +3,7 @@ html lang="en"
     meta charset="UTF-8"
     meta name="viewport" content="width=device-width, initial-scale=1.0"
     title = t(".title")
-    = stylesheet_link_tag "pdf", "data-turbo-track": "reload"
+    = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_include_tag "pdf", "data-turbo-track": "reload", defer: true, nonce: true
 
   body data-worker-path=path_to_javascript("worker") data-page-number=@page_number data-pdf-path=@document_path
