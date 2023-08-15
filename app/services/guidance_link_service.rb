@@ -1,15 +1,19 @@
 class GuidanceLinkService
   class << self
-    def call(document:, sub_section: nil, page_number_only: false)
-      feature_flag = FeatureFlags.enabled?(:mtr_phase_1, without_session_data: true) ? :mtr_phase_1_links : :legacy_links
-
+    include Rails.application.routes.url_helpers
+    def call(document:, sub_section: nil, page_number_only: false, original_link: false)
       if page_number_only
-        mapping[feature_flag].dig(document, :sections).fetch(sub_section)
-      elsif sub_section
-        "#{mapping[feature_flag].dig(document, :page_url)}#page=#{mapping[feature_flag].dig(document, :sections).fetch(sub_section)}"
+        sub_section ? links.dig(document, :sections).fetch(sub_section) : 1
+      elsif original_link
+        links.dig(document, :page_url)
       else
-        mapping[feature_flag].dig(document, :page_url)
+        document_path(document, sub_section:)
       end
+    end
+
+    def links
+      feature_flag = FeatureFlags.enabled?(:mtr_phase_1, without_session_data: true) ? :mtr_phase_1_links : :legacy_links
+      mapping[feature_flag].with_indifferent_access
     end
 
     def mapping

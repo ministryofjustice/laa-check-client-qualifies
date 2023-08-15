@@ -2279,4 +2279,10 @@ en:
       incorrect_password: The password you entered was incorrect
       label: Password
       continue: Continue
+  documents:
+    show:
+      title: Document viewer
+      next: Next page
+      previous: Previous page
+      download: Download PDF
 

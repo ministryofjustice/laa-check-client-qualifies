@@ -7,11 +7,13 @@
     "esbuild": "^0.19.2",
     "govuk-frontend": "^4.7.0",
     "jquery": "^3.7.0",
+    "pdfjs-dist": "^3.9.179",
     "puppeteer": "^21.0.3",
     "sass": "^1.65.1"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets",
-    "build:css": "sass ./app/assets/stylesheets/application.sass.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules --quiet-deps"
+    "build:css": "sass ./app/assets/stylesheets/application.sass.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules --quiet-deps",
+    "build:css:pdf": "sass ./app/assets/stylesheets/pdf.scss:./app/assets/builds/pdf.css --no-source-map --load-path=node_modules --quiet-deps"
   }
 }

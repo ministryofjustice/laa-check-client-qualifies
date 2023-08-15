@@ -1,0 +1,9 @@
+$govuk-global-styles: true;
+$govuk-new-link-styles: true;
+$govuk-assets-path: "/";
+
+@import "govuk-frontend/govuk/all";
+
+canvas {
+ border: 1px solid #000
+}
