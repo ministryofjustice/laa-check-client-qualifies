@@ -4,7 +4,7 @@ class GuidanceLinkService
     def call(document:, sub_section: nil, page_number_only: false, original_link: false)
       if page_number_only
         sub_section ? links.dig(document, :sections).fetch(sub_section) : 1
-      elsif original_link
+      elsif original_link || !sub_section
         links.dig(document, :page_url)
       else
         document_path(document, sub_section:)
