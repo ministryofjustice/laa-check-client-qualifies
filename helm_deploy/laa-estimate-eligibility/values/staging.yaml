@@ -59,7 +59,7 @@ featureFlags:
   sentry: ENABLED
   selfEmployed: ENABLED
   overrides: NOT_ENABLED
-  publicBeta: NOT_ENABLED
+  publicBeta: ENABLED
   indexProduction: NOT_ENABLED
   maintenanceMode: NOT_ENABLED
   basicAuthentication: ENABLED
