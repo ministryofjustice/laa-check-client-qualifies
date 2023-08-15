@@ -17,7 +17,8 @@ ruby:
       path d=exclamation_mark_path
     .moj-banner__message
       h2.govuk-heading-s = t("service.beta_message_pilot_heading")
-      p.govuk-body-m class="govuk-!-padding-top-3" = t("service.beta_message_pilot_body_html", public_beta_link: ENV["PRIMARY_HOST"])
+      p.govuk-body-m class="govuk-!-margin-top-5" = t("service.beta_message_pilot_body_1")
+      p.govuk-body-m = t("service.beta_message_pilot_body_2_html", public_beta_link: ENV["PRIMARY_HOST"])
 
 - case tag
 - when :partner
