@@ -4,6 +4,7 @@
   = back_link(:benefits, @check, @back_buttons_invoke_browser_back_behaviour)
 
 .govuk-grid-column-two-thirds
+  = render "shared/heading"
   = render "estimate_flow/forms/benefits",
            legend: { text: t(".legend"),
                      size: "xl",

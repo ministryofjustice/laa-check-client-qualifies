@@ -55,6 +55,12 @@ module ApplicationHelper
       !cookies[CookiesController::NO_ANALYTICS_MODE]
   end
 
+  def using_non_primary_url?
+    primary_url = ENV["PRIMARY_HOST"]
+
+    primary_url.present? && request.host != primary_url
+  end
+
   def survey_link
     FeatureFlags.enabled?(:public_beta, without_session_data: true) ? t("service.public_beta_survey_link") : t("service.private_beta_survey_link")
   end

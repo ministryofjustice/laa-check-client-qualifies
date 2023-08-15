@@ -1,107 +1,109 @@
 - content_for(:page_title)
-  = t(".title")
-= render "shared/heading", header_text: t(".title")
-p.govuk-body
-  = t(".paragraph_1_html", service_name: link_to(t("service.name"), root_path, class: "govuk-link"))
-p.govuk-body
-  = t(".paragraph_2", service_name: t("service.name"))
-p.govuk-body
-  = t(".paragraph_3_html", how_to_manage: link_to(t(".how_to_manage"),
-                                      "https://ico.org.uk/for-the-public/online/cookies",
-                                      class: "govuk-link"))
-h2.govuk-heading-l class="govuk-!-margin-top-6"
-  = t(".essential_cookies")
-p.govuk-body
-  = t(".essential_cookie_explainer")
-table.govuk-table
-  caption.govuk-table__caption
-    = t(".essential_cookies_used")
-  thead.govuk-table__head
-    tr.govuk-table__row
-      th.govuk-table__header[scope="col"]
-        = t(".name")
-      th.govuk-table__header[scope="col"]
-        = t(".purpose")
-      th.govuk-table__header[scope="col"]
-        = t(".expires")
-  tbody.govuk-table__body
-    tr.govuk-table__row
-      th.govuk-table__header[scope="row"]
-        = CookiesController::COOKIE_CHOICE_NAME
-      td.govuk-table__cell
-        = t(".saves_settings")
-      td.govuk-table__cell
-        = t(".one_year")
-    tr.govuk-table__row
-      th.govuk-table__header[scope="row"]
-        = LaaEstimateFinancialEligibilityForLegalAid::SESSION_COOKIE_NAME
-      td.govuk-table__cell
-        = t(".stores_user_provided_data")
-      td.govuk-table__cell
-        = t(".until_browser_closed")
+      = t(".title")
+.govuk-grid-column-full
+  = render "shared/heading", header_text: t(".title")
+  p.govuk-body
+    = t(".paragraph_1_html", service_name: link_to(t("service.name"), root_path, class: "govuk-link"))
+  p.govuk-body
+    = t(".paragraph_2", service_name: t("service.name"))
+  p.govuk-body
+    = t(".paragraph_3_html", how_to_manage: link_to(t(".how_to_manage"),
+                                        "https://ico.org.uk/for-the-public/online/cookies",
+                                        class: "govuk-link"))
+  h2.govuk-heading-l class="govuk-!-margin-top-6"
+    = t(".essential_cookies")
+  p.govuk-body
+    = t(".essential_cookie_explainer")
+  table.govuk-table
+    caption.govuk-table__caption
+      = t(".essential_cookies_used")
+    thead.govuk-table__head
+      tr.govuk-table__row
+        th.govuk-table__header[scope="col"]
+          = t(".name")
+        th.govuk-table__header[scope="col"]
+          = t(".purpose")
+        th.govuk-table__header[scope="col"]
+          = t(".expires")
+    tbody.govuk-table__body
+      tr.govuk-table__row
+        th.govuk-table__header[scope="row"]
+          = CookiesController::COOKIE_CHOICE_NAME
+        td.govuk-table__cell
+          = t(".saves_settings")
+        td.govuk-table__cell
+          = t(".one_year")
+      tr.govuk-table__row
+        th.govuk-table__header[scope="row"]
+          = LaaEstimateFinancialEligibilityForLegalAid::SESSION_COOKIE_NAME
+        td.govuk-table__cell
+          = t(".stores_user_provided_data")
+        td.govuk-table__cell
+          = t(".until_browser_closed")
 
-h2.govuk-heading-l class="govuk-!-margin-top-6"
-  = t(".analytics_cookies")
-p.govuk-body
-  = t(".analytics_explainer_1", service_name: t("service.name"))
-p.govuk-body
-  = t(".analytics_explainer_2")
-p.govuk-body
-  = t(".analytics_explainer_3")
-p.govuk-body
-  = t(".analytics_explainer_4")
-ul.govuk-list.govuk-list--bullet
-  li
-    = t(".subject_1")
-  li
-    = t(".subject_2")
-  li
-    = t(".subject_3")
-  li
-    = t(".subject_4")
-  li
-    = t(".subject_5")
-table.govuk-table
-  caption.govuk-table__caption
-    = t(".analytics_cookies_used")
-  thead.govuk-table__head
-    tr.govuk-table__row
-      th.govuk-table__header[scope="col"]
-        = t(".name")
-      th.govuk-table__header[scope="col"]
-        = t(".purpose")
-      th.govuk-table__header[scope="col"]
-        = t(".expires")
-  tbody.govuk-table__body
-    tr.govuk-table__row
-      th.govuk-table__header[scope="row"]
-        | GoogleAnalytics_ga
-      td.govuk-table__cell
-        = t(".analytics_purpose", service_name: t("service.name"))
-      td.govuk-table__cell
-        = t(".two_years")
-    tr.govuk-table__row
-      th.govuk-table__header[scope="row"]
-        | GoogleAnalytics_ga_[#{t(".random_number")}]
-      td.govuk-table__cell
-        = t(".reduce_requests")
-      td.govuk-table__cell
-        = t(".two_years")
-    tr.govuk-table__row
-      th.govuk-table__header[scope="row"]
-        = CookiesController::BROWSER_ID_COOKIE
-      td.govuk-table__cell
-        = t(".track_over_time", service_name: t("service.name"))
-      td.govuk-table__cell
-        = t(".one_year")
+  h2.govuk-heading-l class="govuk-!-margin-top-6"
+    = t(".analytics_cookies")
+  p.govuk-body
+    = t(".analytics_explainer_1", service_name: t("service.name"))
+  p.govuk-body
+    = t(".analytics_explainer_2")
+  p.govuk-body
+    = t(".analytics_explainer_3")
+  p.govuk-body
+    = t(".analytics_explainer_4")
+  ul.govuk-list.govuk-list--bullet
+    li
+      = t(".subject_1")
+    li
+      = t(".subject_2")
+    li
+      = t(".subject_3")
+    li
+      = t(".subject_4")
+    li
+      = t(".subject_5")
 
-= form_with(url: cookies_path, method: "PATCH") do |form|
-  input type="hidden" name="return_to" value=cookies_path
-  = form.govuk_radio_buttons_fieldset :cookies, legend: { text: t(".accept_cookies") } do
-    = form.govuk_radio_button :cookies, "accept",
-            label: { text: t("generic.yes_choice") },
-            checked: (cookies[CookiesController::COOKIE_CHOICE_NAME] == "accepted")
-    = form.govuk_radio_button :cookies, "reject",
-            label: { text: t("generic.no_choice") },
-            checked: (cookies[CookiesController::COOKIE_CHOICE_NAME] == "rejected")
-  = form.govuk_submit t(".save")
+  table.govuk-table
+    caption.govuk-table__caption
+      = t(".analytics_cookies_used")
+    thead.govuk-table__head
+      tr.govuk-table__row
+        th.govuk-table__header[scope="col"]
+          = t(".name")
+        th.govuk-table__header[scope="col"]
+          = t(".purpose")
+        th.govuk-table__header[scope="col"]
+          = t(".expires")
+    tbody.govuk-table__body
+      tr.govuk-table__row
+        th.govuk-table__header[scope="row"]
+          | GoogleAnalytics_ga
+        td.govuk-table__cell
+          = t(".analytics_purpose", service_name: t("service.name"))
+        td.govuk-table__cell
+          = t(".two_years")
+      tr.govuk-table__row
+        th.govuk-table__header[scope="row"]
+          | GoogleAnalytics_ga_[#{t(".random_number")}]
+        td.govuk-table__cell
+          = t(".reduce_requests")
+        td.govuk-table__cell
+          = t(".two_years")
+      tr.govuk-table__row
+        th.govuk-table__header[scope="row"]
+          = CookiesController::BROWSER_ID_COOKIE
+        td.govuk-table__cell
+          = t(".track_over_time", service_name: t("service.name"))
+        td.govuk-table__cell
+          = t(".one_year")
+
+  = form_with(url: cookies_path, method: "PATCH") do |form|
+    input type="hidden" name="return_to" value=cookies_path
+    = form.govuk_radio_buttons_fieldset :cookies, legend: { text: t(".accept_cookies") } do
+      = form.govuk_radio_button :cookies, "accept",
+              label: { text: t("generic.yes_choice") },
+              checked: (cookies[CookiesController::COOKIE_CHOICE_NAME] == "accepted")
+      = form.govuk_radio_button :cookies, "reject",
+              label: { text: t("generic.no_choice") },
+              checked: (cookies[CookiesController::COOKIE_CHOICE_NAME] == "rejected")
+    = form.govuk_submit t(".save")
