@@ -247,7 +247,7 @@ The current values for these are available as secure notes in 1Password for each
 
 ## Branch naming
 
-We name our branches to start with the Jira ticket ID, followed by a short description of the work. 
+We name our branches to start with the Jira ticket ID, followed by a short description of the work.
 
 Due to case-sensitivity in the integration between CircleCi and Jira, the Jira ticket ID needs to be uppercase so that it exactly matches how it is on Jira.
 For example:
