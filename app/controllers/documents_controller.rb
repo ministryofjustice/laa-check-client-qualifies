@@ -15,7 +15,7 @@ class DocumentsController < ApplicationController
     Tempfile.open(url) do |file|
       file.write(response.body.force_encoding("UTF-8"))
       file.rewind
-      send_file file, filename: url.split("/").last, type: "application/pdf", disposition: :inline
+      send_file file, filename: url.split("/").last, type: "application/pdf"
     end
   end
 end
