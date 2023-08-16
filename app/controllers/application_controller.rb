@@ -78,4 +78,8 @@ private
       redirect_to new_basic_authentication_session_path
     end
   end
+
+  def after_sign_in_path_for(*)
+    "/data"
+  end
 end

@@ -2266,4 +2266,6 @@ en:
       incorrect_password: The password you entered was incorrect
       label: Password
       continue: Continue
-
+  devise:
+    sessions:
+      google: "Sign in with Google"

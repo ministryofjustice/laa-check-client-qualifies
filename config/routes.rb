@@ -28,5 +28,7 @@ Rails.application.routes.draw do
   get "instant-:session_type", to: "instant_sessions#create", as: :instant_session
   get "robots.txt", to: "robots#index"
 
-  mount Blazer::Engine, at: "data"
+  authenticate :admin, ->(admin) { admin.persisted? } do
+    mount Blazer::Engine, at: "data"
+  end
 end
