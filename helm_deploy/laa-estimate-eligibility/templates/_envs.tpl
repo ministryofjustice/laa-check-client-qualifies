@@ -98,8 +98,12 @@ env:
     value:  {{ .Values.geckoboard.allMetricsDataset }}
   - name: GECKOBOARD_VALIDATION_DATASET_NAME
     value:  {{ .Values.geckoboard.validationsDataset }}
-  - name: GECKOBOARD_JOURNEYS_DATASET_NAME
-    value:  {{ .Values.geckoboard.journeysDataset }}
+  - name: GECKOBOARD_ALL_JOURNEYS_DATASET_NAME
+    value:  {{ .Values.geckoboard.allJourneysDataset }}
+  - name: GECKOBOARD_MONTHLY_JOURNEYS_DATASET_NAME
+    value:  {{ .Values.geckoboard.monthlyJourneysDataset }}
+  - name: GECKOBOARD_RECENT_JOURNEYS_DATASET_NAME
+    value:  {{ .Values.geckoboard.recentJourneysDataset }}
   - name: GECKOBOARD_ENABLED
     value: {{ .Values.geckoboard.enabled }}
   - name: BLAZER_USERNAME
