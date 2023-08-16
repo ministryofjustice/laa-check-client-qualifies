@@ -5,7 +5,7 @@
 
 # "Means test required"
 - name: Means test required
-  type: checkbox
+  type: always_checked_checkbox
   checked_value: "Yes_2"
 
 # "The client is directly or indirectly in receipt of S.4 or S.95 Asylum Support (Immigration and Asylum category work only):"
