@@ -84,6 +84,7 @@ RSpec.describe Metrics::ForUserJourneyDashboardService do
               controlled_over_60: 46,
               controlled_partner: 31,
               controlled_passported: 54,
+              row_type: "all",
             },
           ],
         )
@@ -118,6 +119,7 @@ RSpec.describe Metrics::ForUserJourneyDashboardService do
               controlled_over_60: nil,
               controlled_partner: nil,
               controlled_passported: nil,
+              row_type: "recent",
             },
           ],
         )
@@ -152,6 +154,7 @@ RSpec.describe Metrics::ForUserJourneyDashboardService do
               controlled_partner: 0,
               controlled_passported: 7,
               date: Date.new(2023, 5, 1),
+              row_type: "month",
             },
             {
               certificated_asylum: 0,
@@ -182,6 +185,7 @@ RSpec.describe Metrics::ForUserJourneyDashboardService do
               controlled_partner: 4,
               controlled_passported: 0,
               date: Date.new(2023, 6, 1),
+              row_type: "month",
             },
             {
               certificated_asylum: 0,
@@ -212,6 +216,7 @@ RSpec.describe Metrics::ForUserJourneyDashboardService do
               controlled_partner: 0,
               controlled_passported: 0,
               date: Date.new(2023, 7, 1),
+              row_type: "month",
             },
           ],
         )

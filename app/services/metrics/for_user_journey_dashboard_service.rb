@@ -60,6 +60,7 @@ module Metrics
       {
         fields: [
           (Geckoboard::DateField.new(:date, name: "Month beginning") if date),
+          Geckoboard::StringField.new(:row_type, name: "The type_of_record"),
           *number_fields,
         ].compact,
       }
@@ -67,19 +68,19 @@ module Metrics
 
     def all_metrics
       [
-        METRIC_TO_ATTRIBUTE_MAPPINGS.transform_values { build_percentage_for(_1, CompletedUserJourney) },
+        METRIC_TO_ATTRIBUTE_MAPPINGS.transform_values { build_percentage_for(_1, CompletedUserJourney) }.merge(row_type: "all"),
       ]
     end
 
     def recent_metrics
       [
-        METRIC_TO_ATTRIBUTE_MAPPINGS.transform_values { build_percentage_for(_1, CompletedUserJourney.where(completed: (30.days.ago..))) },
+        METRIC_TO_ATTRIBUTE_MAPPINGS.transform_values { build_percentage_for(_1, CompletedUserJourney.where(completed: (30.days.ago..))) }.merge(row_type: "recent"),
       ]
     end
 
     def monthly_metrics
       date_ranges.map do |range|
-        METRIC_TO_ATTRIBUTE_MAPPINGS.transform_values { build_count_for(_1, CompletedUserJourney.where(completed: range)) }.merge(date: range.first.to_date)
+        METRIC_TO_ATTRIBUTE_MAPPINGS.transform_values { build_count_for(_1, CompletedUserJourney.where(completed: range)) }.merge(date: range.first.to_date, row_type: "month")
       end
     end
 
