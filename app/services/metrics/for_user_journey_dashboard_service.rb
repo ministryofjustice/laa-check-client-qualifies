@@ -13,11 +13,11 @@ module Metrics
       all_metric_dataset.put(all_metrics)
 
       monthly_metric_dataset = client.datasets.find_or_create(ENV.fetch("GECKOBOARD_MONTHLY_JOURNEYS_DATASET_NAME", "monthly_journeys"),
-                                                              **metric_dataset_definition(date: false))
+                                                              **metric_dataset_definition(date: true))
       monthly_metric_dataset.put(monthly_metrics)
 
       recent_metric_dataset = client.datasets.find_or_create(ENV.fetch("GECKOBOARD_RECENT_JOURNEYS_DATASET_NAME", "recent_journeys"),
-                                                             **metric_dataset_definition(date: true))
+                                                             **metric_dataset_definition(date: false))
       recent_metric_dataset.put(recent_metrics)
     end
 
