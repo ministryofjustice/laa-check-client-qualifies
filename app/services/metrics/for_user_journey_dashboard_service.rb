@@ -8,70 +8,106 @@ module Metrics
 
     def call
       client = Geckoboard.client(ENV["GECKOBOARD_API_KEY"])
-      metric_dataset = client.datasets.find_or_create(ENV.fetch("GECKOBOARD_JOURNEYS_DATASET_NAME", "journeys"),
-                                                      **metric_dataset_definition)
-      metric_dataset.put(metrics)
+      all_metric_dataset = client.datasets.find_or_create(ENV.fetch("GECKOBOARD_ALL_JOURNEYS_DATASET_NAME", "all_journeys"),
+                                                          **metric_dataset_definition(date: false))
+      all_metric_dataset.put(all_metrics)
+
+      monthly_metric_dataset = client.datasets.find_or_create(ENV.fetch("GECKOBOARD_MONTHLY_JOURNEYS_DATASET_NAME", "monthly_journeys"),
+                                                              **metric_dataset_definition(date: true))
+      monthly_metric_dataset.put(monthly_metrics)
+
+      recent_metric_dataset = client.datasets.find_or_create(ENV.fetch("GECKOBOARD_RECENT_JOURNEYS_DATASET_NAME", "recent_journeys"),
+                                                             **metric_dataset_definition(date: false))
+      recent_metric_dataset.put(recent_metrics)
     end
 
   private
 
+    PARTNER_LAUNCH_DATE = Date.new(2023, 3, 31)
+
     METRIC_TO_ATTRIBUTE_MAPPINGS = {
-      with_partner: { partner: true },
-      no_partner: { partner: false },
-      over_60: { person_over_60: true },
-      passported: { passported: true },
-      non_passported: { passported: false },
-      property: { main_dwelling_owned: true },
-      vehicle: { vehicle_owned: true },
-      smod: { smod_assets: true },
-      immigration_matter: { matter_type: %w[immigration immigration_clr immigration_legal_help] },
-      asylum_matter: { matter_type: "asylum" },
-      domestic_abuse_matter: { matter_type: "domestic_abuse" },
-      other_matter: { matter_type: "other" },
-      eligible: { outcome: "eligible" },
-      ineligible: { outcome: "ineligible" },
-      capital_contribution: { outcome: "contribution_required", capital_contribution: true },
-      income_contribution: { outcome: "contribution_required", income_contribution: true },
-      form_downloaded: { form_downloaded: true },
-      asylum_support: { asylum_support: true },
-      no_asylum_support: { asylum_support: false },
+      combined_eligible_including_contributions: { criteria: { outcome: %w[eligible contribution_required] } },
+      combined_eligible_no_contribution: { criteria: { outcome: "eligible" } },
+      combined_income_contribution: { criteria: { income_contribution: true } },
+      combined_capital_contribution: { criteria: { capital_contribution: true } },
+      combined_ineligible: { criteria: { outcome: "ineligible" } },
+      certificated_eligible_no_contribution: { criteria: { outcome: "eligible" }, scope: { certificated: true } },
+      certificated_income_contribution: { criteria: { income_contribution: true }, scope: { certificated: true } },
+      certificated_capital_contribution: { criteria: { capital_contribution: true }, scope: { certificated: true } },
+      certificated_ineligible: { criteria: { outcome: "ineligible" }, scope: { certificated: true } },
+      controlled_eligible: { criteria: { outcome: "eligible" }, scope: { certificated: false } },
+      controlled_ineligible: { criteria: { outcome: "ineligible" }, scope: { certificated: false } },
+      combined_partner: { criteria: { partner: true }, scope: { completed: (PARTNER_LAUNCH_DATE..) } },
+      combined_passported: { criteria: { passported: true } },
+      combined_over_60: { criteria: { person_over_60: true } },
+      certificated_partner: { criteria: { partner: true }, scope: { certificated: true, completed: (PARTNER_LAUNCH_DATE..) } },
+      certificated_passported: { criteria: { passported: true }, scope: { certificated: true } },
+      certificated_over_60: { criteria: { person_over_60: true }, scope: { certificated: true } },
+      controlled_partner: { criteria: { partner: true }, scope: { certificated: false, completed: (PARTNER_LAUNCH_DATE..) } },
+      controlled_passported: { criteria: { passported: true }, scope: { certificated: false } },
+      controlled_over_60: { criteria: { person_over_60: true }, scope: { certificated: false } },
+      certificated_immigration: { criteria: { matter_type: "immigration" }, scope: { certificated: true, matter_type: %w[immigration asylum domestic_abuse other] } },
+      certificated_asylum: { criteria: { matter_type: "asylum" }, scope: { certificated: true, matter_type: %w[immigration asylum domestic_abuse other] } },
+      certificated_domestic_abuse: { criteria: { matter_type: "domestic_abuse" }, scope: { certificated: true, matter_type: %w[immigration asylum domestic_abuse other] } },
+      certificated_other: { criteria: { matter_type: "other" }, scope: { certificated: true, matter_type: %w[immigration asylum domestic_abuse other] } },
+      controlled_immigration: { criteria: { matter_type: %i[immigration_clr immigration_legal_help] }, scope: { certificated: false, matter_type: %w[immigration_clr immigration_legal_help asylum other] } },
+      controlled_asylum: { criteria: { matter_type: "asylum" }, scope: { certificated: false, matter_type: %w[immigration_clr immigration_legal_help asylum other] } },
+      controlled_other: { criteria: { matter_type: "other" }, scope: { certificated: false, matter_type: %w[immigration_clr immigration_legal_help asylum other] } },
     }.freeze
 
-    def metric_dataset_definition
+    def metric_dataset_definition(date: true)
+      number_fields = METRIC_TO_ATTRIBUTE_MAPPINGS.keys.map { Geckoboard::NumberField.new(_1, name: _1.to_s.humanize, optional: true) }
       {
         fields: [
-          Geckoboard::StringField.new(:property, name: "The property in question"),
-          Geckoboard::StringField.new(:metric_variant, name: "What about the property we're measuring"),
-          Geckoboard::NumberField.new(:checks, name: "The measurement"),
-        ],
+          (Geckoboard::DateField.new(:date, name: "Month beginning") if date),
+          Geckoboard::StringField.new(:row_type, name: "The type_of_record"),
+          *number_fields,
+        ].compact,
       }
     end
 
-    def metrics
-      METRIC_TO_ATTRIBUTE_MAPPINGS.map { |property, relevant_attributes| build_rows_for(property, relevant_attributes) }.flatten
-    end
-
-    def build_rows_for(property, relevant_attributes)
+    def all_metrics
       [
-        build_columns_for(property, relevant_attributes, :certificated, :all_time),
-        build_columns_for(property, relevant_attributes, :controlled, :all_time),
-        build_columns_for(property, relevant_attributes, :certificated, :month_to_date),
-        build_columns_for(property, relevant_attributes, :controlled, :month_to_date),
+        METRIC_TO_ATTRIBUTE_MAPPINGS.transform_values { build_percentage_for(_1, CompletedUserJourney) }.merge(row_type: "all"),
       ]
     end
 
-    def build_columns_for(property, relevant_attributes, level_of_help, range)
-      {
-        property: property.to_s,
-        metric_variant: "#{level_of_help == :certificated ? 'Certificated' : 'Controlled'} #{range == :all_time ? 'all time' : 'this month'}",
-        checks: count(range, level_of_help, relevant_attributes),
-      }
+    def recent_metrics
+      [
+        METRIC_TO_ATTRIBUTE_MAPPINGS.transform_values { build_percentage_for(_1, CompletedUserJourney.where(completed: (30.days.ago..))) }.merge(row_type: "recent"),
+      ]
     end
 
-    def count(range, level_of_help, attributes)
-      extra_attributes = { certificated: level_of_help == :certificated }
-      extra_attributes[:completed] = Date.current.all_month if range == :month_to_date
-      CompletedUserJourney.where(attributes.merge(extra_attributes)).count
+    def monthly_metrics
+      date_ranges.map do |range|
+        METRIC_TO_ATTRIBUTE_MAPPINGS.transform_values { build_count_for(_1, CompletedUserJourney.where(completed: range)) }.merge(date: range.first.to_date, row_type: "month")
+      end
+    end
+
+    def build_percentage_for(data, records_in_time_range)
+      relevant_journeys = data[:scope] ? records_in_time_range.where(data[:scope]) : records_in_time_range
+      return if relevant_journeys.none?
+
+      (100 * relevant_journeys.where(data[:criteria]).count / relevant_journeys.count.to_f).round
+    end
+
+    def build_count_for(data, records_in_time_range)
+      relevant_journeys = data[:scope] ? records_in_time_range.where(data[:scope]) : records_in_time_range
+      relevant_journeys.where(data[:criteria]).count
+    end
+
+    def date_ranges
+      end_date = Time.zone.today
+
+      dates = []
+      date = CompletedUserJourney.minimum(:completed).beginning_of_month
+
+      while date <= end_date.beginning_of_month
+        dates << date.all_month
+        date += 1.month
+      end
+
+      dates
     end
   end
 end

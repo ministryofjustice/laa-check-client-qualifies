@@ -4,11 +4,24 @@ RSpec.describe Metrics::ForUserJourneyDashboardService do
   describe ".call" do
     let(:client) { instance_double(Geckoboard::Client, datasets: dataset_client) }
     let(:dataset_client) { instance_double(Geckoboard::DatasetsClient) }
-    let(:dataset) { instance_double(Geckoboard::Dataset) }
+    let(:all_journey_dataset) { instance_double(Geckoboard::Dataset) }
+    let(:recent_journey_dataset) { instance_double(Geckoboard::Dataset) }
+    let(:monthly_journey_dataset) { instance_double(Geckoboard::Dataset) }
+    let(:arbitrary_fixed_time) { "2023-7-20" }
 
     before do
+      travel_to arbitrary_fixed_time
       allow(Geckoboard).to receive(:client).and_return(client)
-      allow(dataset_client).to receive(:find_or_create).and_return(dataset)
+      allow(dataset_client).to receive(:find_or_create) do |dataset_name, _|
+        case dataset_name
+        when "all_journeys"
+          all_journey_dataset
+        when "recent_journeys"
+          recent_journey_dataset
+        when "monthly_journeys"
+          monthly_journey_dataset
+        end
+      end
     end
 
     context "when there is no relevant data" do
@@ -19,55 +32,196 @@ RSpec.describe Metrics::ForUserJourneyDashboardService do
     end
 
     context "when there is relevant data" do
-      shared_examples "an aggregator" do |prefix, criteria|
-        before do
-          create_list :completed_user_journey, 3, **criteria.merge(certificated: true, completed: 1.month.ago)
-          create_list :completed_user_journey, 1, **criteria.merge(certificated: false, completed: 1.month.ago)
-          create_list :completed_user_journey, 5, **criteria.merge(certificated: true, completed: Time.current)
-          create_list :completed_user_journey, 6, **criteria.merge(certificated: false, completed: Time.current)
-
-          # Create some rows that should _not_ be included in the aggregation
-          inverse = criteria.dup
-          key_to_swap = inverse.keys.first
-          inverse[key_to_swap] = if inverse[key_to_swap].in? [true, false]
-                                   !inverse[key_to_swap]
-                                 else
-                                   "something_else"
-                                 end
-
-          create_list :completed_user_journey, 9, **inverse.merge(certificated: true, completed: 1.month.ago)
-        end
-
-        it "pushes appropriate numbers to Geckoboard" do
-          expect(dataset).to receive(:put) do |rows|
-            expect(rows.find { _1[:property] == prefix && _1[:metric_variant] == "Certificated all time" }[:checks]).to eq 8
-            expect(rows.find { _1[:property] == prefix && _1[:metric_variant] == "Controlled all time" }[:checks]).to eq 7
-            expect(rows.find { _1[:property] == prefix && _1[:metric_variant] == "Certificated this month" }[:checks]).to eq 5
-            expect(rows.find { _1[:property] == prefix && _1[:metric_variant] == "Controlled this month" }[:checks]).to eq 6
-          end
-          described_class.call
-        end
+      before do
+        create_list :completed_user_journey, 2, completed: 60.days.ago, certificated: false,
+                                                outcome: "contribution_required", income_contribution: true, capital_contribution: true,
+                                                partner: false, person_over_60: true, passported: false, matter_type: "immigration_clr"
+        create_list :completed_user_journey, 5, completed: 60.days.ago, certificated: true,
+                                                outcome: "eligible", income_contribution: false, capital_contribution: false,
+                                                partner: true, person_over_60: false, passported: true, matter_type: "asylum"
+        create_list :completed_user_journey, 3, completed: 60.days.ago, certificated: true,
+                                                outcome: "contribution_required", income_contribution: true, capital_contribution: true,
+                                                partner: false, person_over_60: true, passported: false, matter_type: "immigration"
+        create_list :completed_user_journey, 7, completed: 60.days.ago, certificated: false,
+                                                outcome: "ineligible", income_contribution: false, capital_contribution: false,
+                                                partner: false, person_over_60: false, passported: true, matter_type: "asylum"
+        create_list :completed_user_journey, 4, completed: 35.days.ago, certificated: false,
+                                                outcome: "ineligible", income_contribution: false, capital_contribution: false,
+                                                partner: true, person_over_60: true, passported: false, matter_type: "other"
+        create_list :completed_user_journey, 6, completed: 20.days.ago, certificated: true,
+                                                outcome: "eligible", income_contribution: false, capital_contribution: false,
+                                                partner: false, person_over_60: false, passported: true, matter_type: "domestic_abuse"
       end
 
-      it_behaves_like "an aggregator", "with_partner", partner: true
-      it_behaves_like "an aggregator", "no_partner", partner: false
-      it_behaves_like "an aggregator", "over_60", person_over_60: true
-      it_behaves_like "an aggregator", "passported", passported: true
-      it_behaves_like "an aggregator", "non_passported", passported: false
-      it_behaves_like "an aggregator", "property", main_dwelling_owned: true
-      it_behaves_like "an aggregator", "vehicle", vehicle_owned: true
-      it_behaves_like "an aggregator", "smod", smod_assets: true
-      it_behaves_like "an aggregator", "form_downloaded", form_downloaded: true
-      it_behaves_like "an aggregator", "asylum_support", asylum_support: true
-      it_behaves_like "an aggregator", "no_asylum_support", asylum_support: false
-      it_behaves_like "an aggregator", "domestic_abuse_matter", matter_type: "domestic_abuse"
-      it_behaves_like "an aggregator", "other_matter", matter_type: "other"
-      it_behaves_like "an aggregator", "immigration_matter", matter_type: "immigration"
-      it_behaves_like "an aggregator", "asylum_matter", matter_type: "asylum"
-      it_behaves_like "an aggregator", "eligible", outcome: "eligible"
-      it_behaves_like "an aggregator", "ineligible", outcome: "ineligible"
-      it_behaves_like "an aggregator", "capital_contribution", outcome: "contribution_required", capital_contribution: true
-      it_behaves_like "an aggregator", "income_contribution", outcome: "contribution_required", income_contribution: true
+      it "sends appropriate data to Geckoboard" do
+        expect(all_journey_dataset).to receive(:put).with(
+          [
+            {
+              certificated_asylum: 36,
+              certificated_capital_contribution: 21,
+              certificated_domestic_abuse: 43,
+              certificated_eligible_no_contribution: 79,
+              certificated_immigration: 21,
+              certificated_income_contribution: 21,
+              certificated_ineligible: 0,
+              certificated_other: 0,
+              certificated_over_60: 21,
+              certificated_partner: 36,
+              certificated_passported: 79,
+              combined_capital_contribution: 19,
+              combined_eligible_including_contributions: 59,
+              combined_eligible_no_contribution: 41,
+              combined_income_contribution: 19,
+              combined_ineligible: 41,
+              combined_over_60: 33,
+              combined_partner: 33,
+              combined_passported: 67,
+              controlled_asylum: 54,
+              controlled_eligible: 0,
+              controlled_immigration: 15,
+              controlled_ineligible: 85,
+              controlled_other: 31,
+              controlled_over_60: 46,
+              controlled_partner: 31,
+              controlled_passported: 54,
+              row_type: "all",
+            },
+          ],
+        )
+
+        expect(recent_journey_dataset).to receive(:put).with(
+          [
+            {
+              certificated_asylum: 0,
+              certificated_capital_contribution: 0,
+              certificated_domestic_abuse: 100,
+              certificated_eligible_no_contribution: 100,
+              certificated_immigration: 0,
+              certificated_income_contribution: 0,
+              certificated_ineligible: 0,
+              certificated_other: 0,
+              certificated_over_60: 0,
+              certificated_partner: 0,
+              certificated_passported: 100,
+              combined_capital_contribution: 0,
+              combined_eligible_including_contributions: 100,
+              combined_eligible_no_contribution: 100,
+              combined_income_contribution: 0,
+              combined_ineligible: 0,
+              combined_over_60: 0,
+              combined_partner: 0,
+              combined_passported: 100,
+              controlled_asylum: nil,
+              controlled_eligible: nil,
+              controlled_immigration: nil,
+              controlled_ineligible: nil,
+              controlled_other: nil,
+              controlled_over_60: nil,
+              controlled_partner: nil,
+              controlled_passported: nil,
+              row_type: "recent",
+            },
+          ],
+        )
+        expect(monthly_journey_dataset).to receive(:put).with(
+          [
+            {
+              certificated_asylum: 5,
+              certificated_capital_contribution: 3,
+              certificated_domestic_abuse: 0,
+              certificated_eligible_no_contribution: 5,
+              certificated_immigration: 3,
+              certificated_income_contribution: 3,
+              certificated_ineligible: 0,
+              certificated_other: 0,
+              certificated_over_60: 3,
+              certificated_partner: 5,
+              certificated_passported: 5,
+              combined_capital_contribution: 5,
+              combined_eligible_including_contributions: 10,
+              combined_eligible_no_contribution: 5,
+              combined_income_contribution: 5,
+              combined_ineligible: 7,
+              combined_over_60: 5,
+              combined_partner: 5,
+              combined_passported: 12,
+              controlled_asylum: 7,
+              controlled_eligible: 0,
+              controlled_immigration: 2,
+              controlled_ineligible: 7,
+              controlled_other: 0,
+              controlled_over_60: 2,
+              controlled_partner: 0,
+              controlled_passported: 7,
+              date: Date.new(2023, 5, 1),
+              row_type: "month",
+            },
+            {
+              certificated_asylum: 0,
+              certificated_capital_contribution: 0,
+              certificated_domestic_abuse: 6,
+              certificated_eligible_no_contribution: 6,
+              certificated_immigration: 0,
+              certificated_income_contribution: 0,
+              certificated_ineligible: 0,
+              certificated_other: 0,
+              certificated_over_60: 0,
+              certificated_partner: 0,
+              certificated_passported: 6,
+              combined_capital_contribution: 0,
+              combined_eligible_including_contributions: 6,
+              combined_eligible_no_contribution: 6,
+              combined_income_contribution: 0,
+              combined_ineligible: 4,
+              combined_over_60: 4,
+              combined_partner: 4,
+              combined_passported: 6,
+              controlled_asylum: 0,
+              controlled_eligible: 0,
+              controlled_immigration: 0,
+              controlled_ineligible: 4,
+              controlled_other: 4,
+              controlled_over_60: 4,
+              controlled_partner: 4,
+              controlled_passported: 0,
+              date: Date.new(2023, 6, 1),
+              row_type: "month",
+            },
+            {
+              certificated_asylum: 0,
+              certificated_capital_contribution: 0,
+              certificated_domestic_abuse: 0,
+              certificated_eligible_no_contribution: 0,
+              certificated_immigration: 0,
+              certificated_income_contribution: 0,
+              certificated_ineligible: 0,
+              certificated_other: 0,
+              certificated_over_60: 0,
+              certificated_partner: 0,
+              certificated_passported: 0,
+              combined_capital_contribution: 0,
+              combined_eligible_including_contributions: 0,
+              combined_eligible_no_contribution: 0,
+              combined_income_contribution: 0,
+              combined_ineligible: 0,
+              combined_over_60: 0,
+              combined_partner: 0,
+              combined_passported: 0,
+              controlled_asylum: 0,
+              controlled_eligible: 0,
+              controlled_immigration: 0,
+              controlled_ineligible: 0,
+              controlled_other: 0,
+              controlled_over_60: 0,
+              controlled_partner: 0,
+              controlled_passported: 0,
+              date: Date.new(2023, 7, 1),
+              row_type: "month",
+            },
+          ],
+        )
+        described_class.call
+      end
     end
   end
 end
