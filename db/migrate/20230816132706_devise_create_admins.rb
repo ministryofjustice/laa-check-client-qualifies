@@ -5,13 +5,6 @@ class DeviseCreateAdmins < ActiveRecord::Migration[7.0]
     create_table :admins do |t|
       t.string :email
 
-      ## Rememberable
-      t.datetime :remember_created_at
-
-      ## Omniauthable
-      t.string :provider
-      t.string :uid
-
       t.timestamps null: false
     end
 
