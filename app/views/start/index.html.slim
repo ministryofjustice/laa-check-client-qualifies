@@ -1,6 +1,12 @@
 .govuk-grid-column-two-thirds
   = render "shared/heading"
 
+  / TODO: Remove this when administrate is added
+  - if signed_in?
+    p YOU ARE SIGNED IN
+  - else
+    = button_to "Sign in with Google", admin_google_oauth2_omniauth_authorize_path
+
   - ChangeLogs.for_banner_display.each do |change_log|
     = render "change_logs/banner", change_log:
 

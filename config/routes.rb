@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :admins, controllers: { omniauth_callbacks: "admins/omniauth_callbacks" }
   root to: "start#index"
 
   resources :start, only: [:index]
