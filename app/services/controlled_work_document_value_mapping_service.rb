@@ -25,7 +25,7 @@ class ControlledWorkDocumentValueMappingService
     def convert(mapping, content)
       case mapping[:type]
       when "checkbox"
-        mapping[:checked_value] if value(mapping, content)
+        mapping[:checked_value]
       when "boolean_radio"
         case value(mapping, content)
         when true
