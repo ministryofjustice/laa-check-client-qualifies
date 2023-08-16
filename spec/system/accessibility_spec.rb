@@ -134,7 +134,7 @@ RSpec.describe "Accessibility" do
       start_assessment
       fill_in_forms_until(:check_answers)
       click_on "Submit"
-      click_on "Print this page"
+      click_on "Print results and answers"
       windows = page.driver.browser.window_handles
       page.driver.browser.switch_to.window(windows.last)
     end

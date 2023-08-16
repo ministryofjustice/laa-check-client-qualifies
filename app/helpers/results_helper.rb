@@ -48,7 +48,7 @@ module ResultsHelper
     end
   end
 
-  def pdf_friendly_p_element(text, is_pdf, additional_class)
+  def pdf_friendly_p_element(text, is_pdf, additional_class = nil)
     if is_pdf
       tag.ul(class: "govuk-list #{additional_class}", style: "list-style-type: none; margin: 0; padding-bottom: 10px; font-variant-ligatures: none;") do
         tag.li(text)
