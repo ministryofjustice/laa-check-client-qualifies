@@ -1,11 +1,14 @@
 class GuidanceLinkService
   class << self
     include Rails.application.routes.url_helpers
-    def call(document:, sub_section: nil, page_number_only: false, original_link: false)
-      if page_number_only
-        sub_section ? links.dig(document, :sections).fetch(sub_section) : 1
-      elsif original_link || !sub_section
+    def call(document:, sub_section: nil, data_type: :link)
+      case data_type
+      when :page_number
+        sub_section.present? ? links.dig(document, :sections).fetch(sub_section) : 1
+      when :original_link
         links.dig(document, :page_url)
+      when :pdf
+        links.dig(document, :pdf) || false
       else
         document_path(document, sub_section:)
       end
@@ -19,10 +22,12 @@ class GuidanceLinkService
     def mapping
       {
         legacy_links: {
-          mental_heatlh_guidance: {
+          mental_health_guidance: {
+            pdf: true,
             page_url: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1143984/Mental_Health_Guidance_-_Contract_management_-_GOV.UK_2023.pdf",
           },
           lc_guidance_controlled: {
+            pdf: true,
             page_url: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1157029/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_controlled_work_and_family_mediation_May_2023.pdf",
             sections: {
               legacy_guidance: 3,
@@ -42,6 +47,7 @@ class GuidanceLinkService
             },
           },
           lc_guidance_certificated: {
+            pdf: true,
             page_url: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1157030/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_certificated_work_May_2023__002_.pdf",
             sections: {
               passporting_benefit: 11,
@@ -89,10 +95,12 @@ class GuidanceLinkService
           },
         },
         mtr_phase_1_links: {
-          mental_heatlh_guidance: {
+          mental_health_guidance: {
+            pdf: true,
             page_url: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1143984/Mental_Health_Guidance_-_Contract_management_-_GOV.UK_2023.pdf",
           },
           lc_guidance_controlled: {
+            pdf: true,
             page_url: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1175062/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_controlled_work_and_family_mediation__July_2023_.pdf",
             sections: {
               legacy_guidance: 3,
@@ -112,6 +120,7 @@ class GuidanceLinkService
             },
           },
           lc_guidance_certificated: {
+            pdf: true,
             page_url: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1175064/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_certificated_work__July_2023_.pdf",
             sections: {
               smod: 8,

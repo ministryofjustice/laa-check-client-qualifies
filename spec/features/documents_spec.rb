@@ -1,10 +1,18 @@
 require "rails_helper"
 
 RSpec.describe "Documents" do
-  scenario "I view a document" do
+  scenario "I view a document with no section specified" do
     visit "/documents/lc_guidance_certificated"
     expect(page.find("body")["data-page-number"]).to eq "1"
     expect(page.find("body")["data-pdf-path"]).to eq "/documents/lc_guidance_certificated/download"
+    expect(AnalyticsEvent.first.page).to eq "document_lc_guidance_certificated"
+  end
+
+  scenario "I view a document with a section specified" do
+    visit "/documents/lc_guidance_certificated?sub_section=smod"
+    expect(page.find("body")["data-page-number"]).to eq "8"
+    expect(page.find("body")["data-pdf-path"]).to eq "/documents/lc_guidance_certificated/download"
+    expect(AnalyticsEvent.first.page).to eq "document_lc_guidance_certificated_smod_section"
   end
 
   scenario "I download a document" do
