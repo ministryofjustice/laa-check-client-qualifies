@@ -80,6 +80,6 @@ private
   end
 
   def after_sign_in_path_for(*)
-    "/data"
+    rails_admin_path
   end
 end

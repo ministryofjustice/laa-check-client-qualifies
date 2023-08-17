@@ -48,7 +48,7 @@ ingress:
 
 notifications:
   errorMessageTemplateId: b8879191-e4bb-4f10-831a-7d9bd2b078f1
-  recipient: patrick.gleeson@digital.justice.gov.uk,michael.blatherwick@digital.justice.gov.uk,stephen.p.dicks@digital.justice.gov.uk,william.clarke@digital.justice.gov.uk
+  recipient: patrick.gleeson@digital.justice.gov.uk,michael.blatherwick@digital.justice.gov.uk,william.clarke@digital.justice.gov.uk
 
 googleTagManager:
   containerId: GTM-WJ98FR4
@@ -100,3 +100,7 @@ sentry:
 
 app:
   primaryHost: ""
+  seedAdmins: patrick.gleeson@digital.justice.gov.uk,michael.blatherwick@digital.justice.gov.uk,william.clarke@digital.justice.gov.uk,masum.khan@digital.justice.gov.uk,hettie.street@digital.justice.gov.uk
+
+google:
+  oauthClientId: 276075615370-ncqvmdi84jruv1jggfg4bu8nlvk1drj0.apps.googleusercontent.com

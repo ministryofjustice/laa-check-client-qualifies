@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount RailsAdmin::Engine => "/admin", as: "rails_admin"
   devise_for :admins, controllers: { omniauth_callbacks: "admins/omniauth_callbacks" }
   root to: "start#index"
 
@@ -20,7 +21,7 @@ Rails.application.routes.draw do
   resource :privacy, as: :privacy, only: :show
   resource :accessibility, only: :show
   resource :help, only: :show
-  resources :feature_flags, only: %i[index edit update], path: "feature-flags"
+  resources :feature_flags, only: %i[index], path: "feature-flags"
   resources :updates, only: :index
   resources :basic_authentication_sessions, only: %i[new create]
 

@@ -13,7 +13,7 @@
           body.with_row do |row|
             row.with_cell(text: flag)
             row.with_cell(text: FeatureFlags.enabled?(flag, without_session_data: true) ? t("generic.yes_choice") : t("generic.no_choice"))
-            row.with_cell(text: link_to(t(".override"), edit_feature_flag_path(flag))) if FeatureFlags.overrideable?
+            row.with_cell(text: link_to(t(".override"), rails_admin_path)) if FeatureFlags.overrideable?
           end
         end
       end
@@ -30,7 +30,7 @@
           body.with_row do |row|
             row.with_cell(text: flag)
             row.with_cell(text: FeatureFlags.enabled?(flag, without_session_data: true) ? t("generic.yes_choice") : t("generic.no_choice"))
-            row.with_cell(text: link_to(t(".override"), edit_feature_flag_path(flag))) if FeatureFlags.overrideable?
+            row.with_cell(text: link_to(t(".override"), rails_admin_path)) if FeatureFlags.overrideable?
           end
         end
       end

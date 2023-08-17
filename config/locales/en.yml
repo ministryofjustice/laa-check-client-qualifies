@@ -2267,5 +2267,6 @@ en:
       label: Password
       continue: Continue
   devise:
+    unrecognised: "You are not recognised as an admin"
     sessions:
       google: "Sign in with Google"

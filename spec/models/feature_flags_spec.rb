@@ -69,7 +69,13 @@ RSpec.describe FeatureFlags do
     end
 
     it "returns true if the env var is set" do
-      expect(described_class.time_dependant).not_to include(:example_2125_flag)
+      expect(described_class.overrideable?).to eq true
+    end
+
+    it "allows DB overrides to override values" do
+      expect(described_class.enabled?(:example, without_session_data: true)).to eq false
+      FeatureFlagOverride.create! key: "example", value: true
+      expect(described_class.enabled?(:example, without_session_data: true)).to eq true
     end
   end
 end

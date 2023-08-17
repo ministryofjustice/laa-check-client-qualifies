@@ -8,12 +8,8 @@ module Admins
       if admin
         sign_in_and_redirect admin, event: :authentication
       else
-        redirect_to new_admin_session_path
+        redirect_to new_admin_session_path, flash: { notice: I18n.t("devise.unrecognised") }
       end
-    end
-
-    def failure
-      redirect_to new_admin_session_path
     end
   end
 end

@@ -21,11 +21,6 @@ RSpec.describe "Feature flags" do
       expect(page).to have_content "static_flagYes"
       expect(page).to have_content "time_dependant_flagNo"
     end
-
-    scenario "I cannot view the form to edit feature flags" do
-      visit edit_feature_flag_path("sentry")
-      expect(page).to have_current_path "/"
-    end
   end
 
   context "when overriding feature flags is permitted" do
@@ -35,22 +30,9 @@ RSpec.describe "Feature flags" do
       ENV["FEATURE_FLAG_OVERRIDES"] = nil
     end
 
-    scenario "I edit a feature flag" do
+    scenario "I see link to edit a feature flag" do
       visit feature_flags_path
-      expect(page).to have_content "sentryNo"
-      expect(FeatureFlags.enabled?(:sentry, without_session_data: true)).to eq false
-
-      visit edit_feature_flag_path("sentry")
-      choose "Yes"
-      click_on "Save and continue"
-      expect(page).to have_content "sentryYes"
-      expect(FeatureFlags.enabled?(:sentry, without_session_data: true)).to eq true
-
-      visit edit_feature_flag_path("sentry")
-      choose "No"
-      click_on "Save and continue"
-      expect(page).to have_content "sentryNo"
-      expect(FeatureFlags.enabled?(:sentry, without_session_data: true)).to eq false
+      expect(page).to have_content "Override"
     end
   end
 
