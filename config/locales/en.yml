@@ -1788,8 +1788,8 @@ en:
       client_assessed_capital: Disposable capital
       start_another_check: Start another eligibility check
       continue_to_cw: Continue to CW forms
-      print_page: Print this page
-      save_as_pdf: Save this page as a PDF
+      print_page: Print results and answers
+      save_as_pdf: Save results and answers as a PDF
       client_main_home: Home client lives in
       property_rows:
         value:
@@ -1840,12 +1840,9 @@ en:
           first_controlled: The calculations below assess the value of any property the client owns.
           second: The assessed values are used to calculate the total disposable capital for your client.
       controlled_cw_next_steps:
-        intro_paragraphs:
-          - You will need to complete the relevant controlled work form and keep for your records, along with any evidence provided by your client. Your client’s file may be audited and assessed by the LAA at a later date.
-          - You can download a controlled work form with the answers you gave included, or complete the form yourself.
-        intro_paragraphs_partner:
-          - You will need to complete the relevant controlled work form and keep for your records, along with any evidence provided by your client and their partner. Your client’s file may be audited and assessed by the LAA at a later date.
-          - You can download a controlled work form with the answers you gave included, or complete the form yourself.
+        intro_paragraph: You will need to complete the relevant controlled work form and keep for your records, along with any evidence provided by your client. Your client’s file may be audited and assessed by the LAA at a later date.
+        intro_paragraph_partner: You will need to complete the relevant controlled work form and keep for your records, along with any evidence provided by your client and their partner. Your client’s file may be audited and assessed by the LAA at a later date.
+        second_paragraph: You can download a controlled work form with the answers you gave included, or complete the form yourself.
         prefilled_header: Download a controlled work form with your answers included
         prefilled_bullets:
           - Choose which form to download on the next page. The answers you gave here will be included.

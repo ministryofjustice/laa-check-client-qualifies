@@ -11,7 +11,7 @@ RSpec.describe "Download result", type: :feature do
     start_assessment
     fill_in_forms_until(:check_answers)
     click_on "Submit"
-    click_on "Save this page as a PDF"
+    click_on "Save results and answers as a PDF"
     expect(page.response_headers["Content-Type"]).to eq("application/pdf")
   end
 
@@ -26,7 +26,7 @@ RSpec.describe "Download result", type: :feature do
       fill_in_level_of_help_screen(choice: "Civil controlled work or family mediation")
       fill_in_forms_until(:check_answers)
       click_on "Submit"
-      click_on "Save this page as a PDF"
+      click_on "Save results and answers as a PDF"
       expect(page.response_headers["Content-Type"]).to eq("application/pdf")
     end
   end
