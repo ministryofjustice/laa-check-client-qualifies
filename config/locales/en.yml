@@ -2280,4 +2280,13 @@ en:
       incorrect_password: The password you entered was incorrect
       label: Password
       continue: Continue
+  documents:
+    show:
+      titles:
+        mental_health_guidance: CONTRACT MANAGEMENT - Mental Health Guidance
+        lc_guidance_controlled: Lord Chancellor’s guidance on determining financial eligibility for Controlled Work and Family Mediation
+        lc_guidance_certificated: Lord Chancellor’s guidance on determining financial eligibility for certificated work
+      next: Next page
+      previous: Previous page
+      download: Download PDF
 
