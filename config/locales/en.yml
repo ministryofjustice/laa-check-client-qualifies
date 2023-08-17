@@ -1958,6 +1958,10 @@ en:
       start_button: Start now
       last_updated: Last updated %{date}
       see_all_updates: See all updates
+    issue_banner:
+      problem_identified: A problem has been identified
+      problem_resolved: Problem resolved
+      learn_more: Learn more.
   cookie_banner:
     title: Cookies on
     essential_cookies: We use some essential cookies to make this service work.
@@ -2257,6 +2261,9 @@ en:
   updates:
     index:
       updates: Updates
+    issue:
+      status_active: "Status: Unresolved"
+      status_resolved: "Status: Resolved"
   basic_authentication_sessions:
     new:
       title: This URL is private
