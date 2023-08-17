@@ -6,4 +6,5 @@ class Admin < ApplicationRecord
   devise :database_authenticatable, :omniauthable, :rememberable, omniauth_providers: %i[google_oauth2]
 
   def encrypted_password; end
+  def remember_created_at=(*); end
 end
