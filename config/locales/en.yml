@@ -549,6 +549,7 @@ en:
       select_a_level: Select a level of help
       controlled: Civil controlled work or family mediation
       certificated: Civil certificated or licensed legal work
+      controlled_hint: For example, legal help
       controlled_guidance:
         text: Guide to determining controlled work
       certificated_guidance:
