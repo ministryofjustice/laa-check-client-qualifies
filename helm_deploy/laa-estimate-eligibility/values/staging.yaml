@@ -59,7 +59,7 @@ featureFlags:
   sentry: ENABLED
   selfEmployed: ENABLED
   overrides: NOT_ENABLED
-  publicBeta: NOT_ENABLED
+  publicBeta: ENABLED
   indexProduction: NOT_ENABLED
   maintenanceMode: NOT_ENABLED
   basicAuthentication: ENABLED
@@ -69,7 +69,9 @@ geckoboard:
   allMetricsDataset: "ccq_all_metrics_staging"
   lastPagesDataset: "ccq_last_pages_staging"
   validationsDataset: "ccq_validations_staging"
-  journeysDataset: "ccq_journeys_staging"
+  allJourneysDataset: "ccq_all_journeys_staging"
+  monthlyJourneysDataset: "ccq_monthly_journeys_staging"
+  recentJourneysDataset: "ccq_recent_journeys_staging"
   enabled: not_enabled
 
 sentry:

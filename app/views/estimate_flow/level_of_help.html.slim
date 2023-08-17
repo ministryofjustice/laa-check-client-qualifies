@@ -24,7 +24,7 @@
       p.govuk-body = t(".certificated_explanation")
 
     = form.govuk_radio_buttons_fieldset :level_of_help, legend: { text: t(".select_a_level") }
-      = form.govuk_radio_button :level_of_help, "controlled", label: { text: t(".controlled") }
+      = form.govuk_radio_button :level_of_help, "controlled", label: { text: t(".controlled") }, hint: { text: t(".controlled_hint") }
       = form.govuk_radio_button :level_of_help, "certificated", label: { text: t(".certificated") }
 
     = form.govuk_submit t("generic.save_and_continue")

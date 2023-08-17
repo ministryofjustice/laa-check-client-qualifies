@@ -5,11 +5,27 @@ ruby:
   end_block = yield
   tag ||= nil
 
+- if using_non_primary_url? && FeatureFlags.enabled?(:public_beta, without_session_data: true)
+  .moj-banner class="govuk-!-margin-top-2" role="region" aria-label="information banner, to explain that pilot phase is complete"
+    svg.moj-banner__icon[fill="currentColor"
+                        role="presentation"
+                        focusable="false"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 25 25"
+                        height="25"
+                        width="25"]
+      path d=exclamation_mark_path
+    .moj-banner__message
+      h2.govuk-heading-s = t("service.beta_message_pilot_heading")
+      p.govuk-body-m class="govuk-!-margin-top-5" = t("service.beta_message_pilot_body_1")
+      p.govuk-body-m = t("service.beta_message_pilot_body_2_html", public_beta_link: ENV["PRIMARY_HOST"])
+
 - case tag
 - when :partner
-  = render "shared/partner_tag"
+  .govuk-tag.govuk-tag--purple class="govuk-!-margin-bottom-2" = t("generic.tags.partner")
 - when :household
-  = render "shared/household_tag"
+  - if @check.partner
+    .govuk-tag.govuk-tag--orange class="govuk-!-margin-bottom-2" = t("generic.tags.household")
 
 - if header_text
     - if @is_pdf == true

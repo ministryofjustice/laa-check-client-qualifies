@@ -4,6 +4,7 @@
   = back_link(:additional_property, @check, @back_buttons_invoke_browser_back_behaviour)
 
 .govuk-grid-column-two-thirds
+  = render "shared/heading"
   = form_for(@form, url: wizard_path, method: :put) do |form|
     = form.govuk_error_summary t("generic.error_summary_title")
     = form.govuk_collection_radio_buttons :property_owned, property_options, :first, :last,
