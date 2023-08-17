@@ -80,16 +80,11 @@ module CheckAnswers
       return if field_data[:skip_unless].present? && !model.send(field_data[:skip_unless])
       return if field_data[:skip_if].present? && model.send(field_data[:skip_if])
 
-      label = if index
-                index.zero? ? "#{field_data.fetch(:attribute)}_first" : "#{field_data.fetch(:attribute)}_subsequent"
-              else
-                field_data.fetch(:attribute)
-              end
       addendum = "_partner" if @check.partner && field_data[:partner_dependant_wording]
 
       disputed = field_data[:disputed_if].present? && @check.smod_applicable? && model.send(field_data.fetch(:disputed_if))
 
-      Field.new(label: "#{table_label}_fields.#{label}#{addendum}",
+      Field.new(label: "#{table_label}_fields.#{field_data.fetch(:attribute)}#{addendum}",
                 type: field_data[:type],
                 value: model.send(field_data[:attribute]),
                 disputed?: disputed,
@@ -99,7 +94,7 @@ module CheckAnswers
 
     def build_many_fields(field_data, model, table_label)
       submodel = model.send(field_data[:model])
-      submodel.each_with_index.map { build_field(field_data[:template], _1, table_label, index: _2) }
+      submodel.each_with_index.map { build_field(field_data[:template], _1, table_label, index: _2 + 1) }
     end
 
     def section_yaml
