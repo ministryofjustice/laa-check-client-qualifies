@@ -48,25 +48,8 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       )
     end
 
-    it "can successfully populate CW1 form fields" do
-      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1.yml")).map(&:with_indifferent_access)
-      result = described_class.call(session_data, mappings)
-      representative_sample = {
-        "Check Box12" => "No", # Not passporting
-        "Go to question 2" => "No", # Asylum supported not given
-        "Please complete Part A Capital Subject matter of dispute" => "No_4", # No SMOD
-        "Please provide details of both clients and partners means" => "Yes_3", # Has a partner
-        "undefined_26" => "250,000", # Property worth £250,000
-        "undefined_42" => "555", # Valuables
-        "undefined_40" => "222", # Investments
-        "undefined_38" => "111", # Savings
-        "undefined_30" => "25", # Percentage owned
-      }
-      expect(result).to include(representative_sample)
-    end
-
-    it "can successfully populate CW1 MTR Phase 1 form fields" do
-      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_mtr_phase_1.yml")).map(&:with_indifferent_access)
+    it "can successfully populate CW1 form fields (template with CCQ header)" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_header.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
         "Means test required" => "Yes_2", # This is always checked as CCQ is only relevant to means tested cases
@@ -83,24 +66,8 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       expect(result).to include(representative_sample)
     end
 
-    it "can successfully populate a CW2 IMM form" do
-      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw2.yml")).map(&:with_indifferent_access)
-      result = described_class.call(session_data, mappings)
-      representative_sample = {
-        "CheckBox13" => 1, # Has a partner
-        "CheckBox69" => 1, # Not passporting
-        "CheckBox64" => 1, # Asylum support not given and defaults to 'no' option
-        "FillText44" => "250,000", # Property worth £250,000
-        "FillText2" => "111", # Savings
-        "FillText6" => "222", # Investments
-        "FillText11" => "555", # Valuables
-        "FillText66" => "25", # Percentage owned
-      }
-      expect(result).to include(representative_sample)
-    end
-
-    it "can successfully populate a CW2 IMM form (MTR Phase 1)" do
-      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw2_mtr_phase_1.yml")).map(&:with_indifferent_access)
+    it "can successfully populate a CW2 IMM form (template with CCQ header)" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw2_header.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
         "Partner" => "Yes",
@@ -115,22 +82,8 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       expect(result).to include(representative_sample)
     end
 
-    it "can successfully populate CW5 form fields" do
-      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw5.yml")).map(&:with_indifferent_access)
-      result = described_class.call(session_data, mappings)
-      representative_sample = {
-        "CheckBox4" => "1", # client has partner
-        "CheckBox1" => nil, # client does not have partner
-        "FillText11" => "250,000", # client main home value non-SMOD
-        "FillText14" => "90,000", # client main home mortgage non-SMOD
-        "FillText20" => "110,000", # client main home net equity non-SMOD
-        "FillText24" => "100,000", # client final assessed amount of equity for main home non-SMOD
-      }
-      expect(result).to include(representative_sample)
-    end
-
-    it "can successfully populate CW5 MTR Phase 1 form fields" do
-      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw5_mtr_phase_1.yml")).map(&:with_indifferent_access)
+    it "can successfully populate CW5 form fields (template with CCQ header)" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw5_header.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
         "Partner" => "Yes", # client has partner
@@ -142,20 +95,8 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       expect(result).to include(representative_sample)
     end
 
-    it "can successfully populate CIVMEANS7 form non-SMOD fields" do
-      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/civ_means_7.yml")).map(&:with_indifferent_access)
-      result = described_class.call(session_data, mappings)
-      representative_sample = {
-        "CheckBox21" => "1", # Client not passported
-        "FillText36" => "110,000", # Client's share of total net equity
-        "FillText57" => "90,000", # Main home / outstanding mortgage
-        "FillText56" => "250,000", # Main home / current market value
-      }
-      expect(result).to include(representative_sample)
-    end
-
-    it "can successfully populate CIVMEANS7 form (MTR Phase 1)" do
-      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/civ_means_7_mtr_phase_1.yml")).map(&:with_indifferent_access)
+    it "can successfully populate CIVMEANS7 form (template with CCQ header)" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/civ_means_7_header.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
         "Passported" => "No",
@@ -166,8 +107,8 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       expect(result).to include(representative_sample)
     end
 
-    it "can successfully populate CW1-and-2 form (MTR Phase 1)" do
-      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_and_2_mtr_phase_1.yml")).map(&:with_indifferent_access)
+    it "can successfully populate CW1-and-2 form (template with CCQ header)" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_and_2_header.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
         "Client has a partner whose means are to be aggregated" => "Yes",
@@ -192,14 +133,14 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       )
     end
 
-    it "can successfully populate CW1 form fields" do
-      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1.yml")).map(&:with_indifferent_access)
+    it "can successfully populate CW1 form fields (template with CCQ header)" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_header.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
-        "Check Box12" => "No", # Not passporting
-        "Go to question 2" => "No", # Asylum supported not given
+        "Means test required" => "Yes_2", # Means test required
+        "Client in receipt of asylum support" => "No", # Asylum supported not given
+        "Has partner whose means are to be agrgregated" => "No_2", # No partner
         "Please complete Part A Capital Subject matter of dispute" => "Yes_5", # SMOD
-        "Please provide details of both clients and partners means" => "No_2", # No partner
         "undefined_26" => nil, # Non smod value is nil
         "undefined_10" => "250,000.11", # SMOD home worth £250,000
         "Other property 1" => "100,000.22", # SMOD other property worth £100,000
@@ -207,13 +148,13 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       expect(result).to include(representative_sample)
     end
 
-    it "can successfully populate CW5 form fields" do
-      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw5.yml")).map(&:with_indifferent_access)
+    it "can successfully populate CW5 form fields (template with CCQ header)" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw5_header.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
-        "CheckBox46" => "1", # Not passporting
-        "CheckBox2" => "1", # SMOD
-        "CheckBox1" => "1", # No partner
+        "Assets claimed by opponent" => "yes", # SMOD
+        "Passported" => "No", # Not passporting
+        "Partner" => "No", # No partner
         "FillText11" => nil, # Non smod value is nil
         "FillText27" => "250,000.11", # SMOD home worth £250,000
         "FillText29" => "100,000.22", # SMOD other property worth £100,000
@@ -221,11 +162,11 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       expect(result).to include(representative_sample)
     end
 
-    it "can successfully populate CIVMEANS7 form SMOD fields" do
-      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/civ_means_7.yml")).map(&:with_indifferent_access)
+    it "can successfully populate CIVMEANS7 form SMOD fields (template with CCQ header)" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/civ_means_7_header.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
-        "CheckBox21" => "1", # Client not passported
+        "Passported" => "No", # Client not passported
         "FillText36" => nil, # Client's share of total net equity (non-SMOD)
         "FillText57" => nil, # Main home / outstanding mortgage (non-SMOD)
         "FillText56" => nil, # Main home / current market value (non-SMOD)
@@ -251,12 +192,12 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       )
     end
 
-    it "can successfully populate CW1 form fields" do
-      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1.yml")).map(&:with_indifferent_access)
+    it "can successfully populate CW1 form fields (template with CCQ header)" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_header.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
-        "Check Box12" => nil, # Passporting not relevant
-        "Go to question 2" => "Yes_2", # Asylum supported
+        "Means test required" => "Yes_2", # Means test required
+        "Client in receipt of asylum support" => "Yes_2", # Asylum supported
         "Please complete Part A Capital Subject matter of dispute" => nil, # SMOD not relevant
         "undefined_42" => nil, # Valuables not relevant
         "undefined_40" => nil, # Investments not relevant
@@ -265,13 +206,12 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       expect(result).to include(representative_sample)
     end
 
-    it "can successfully populate a CW2 IMM form" do
-      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw2.yml")).map(&:with_indifferent_access)
+    it "can successfully populate a CW2 IMM form (template with CCQ header)" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw2_header.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
-        "CheckBox69" => nil, # Not passporting
-        "CheckBox64" => nil, # asylum supported No field
-        "CheckBox63" => 1, # asylum supported Yes field
+        "In receipt os NASS payment" => "Yes", # directly or indirectly in receipt of NASS paymen
+        "Passported" => nil, # Not passporting
         "FillText44" => nil, # Property worth £250,000
         "FillText11" => nil, # SMOD valuables are not relevant so are not displayed
       }
@@ -300,14 +240,14 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       )
     end
 
-    it "can successfully populate CW1 form fields" do
-      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1.yml")).map(&:with_indifferent_access)
+    it "can successfully populate CW1 form fields (template with CCQ header)" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_header.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
-        "Check Box12" => "No", # Not passporting
-        "Go to question 2" => "No", # Asylum supported not given
+        "Means test required" => "Yes_2", # Means test required
+        "Client in receipt of asylum support" => "No", # Asylum supported not given
         "Please complete Part A Capital Subject matter of dispute" => "Yes_5", # SMOD
-        "Please provide details of both clients and partners means" => "Yes_3", # Has a partner
+        "Has partner whose means are to be agrgregated" => "Yes_3", # Has a partner
         "undefined_26" => nil, # Non SMOD Property value
         "undefined_10" => "250,000", # SMOD Property worth £250,000
         "undefined_21" => "111", # SMOD savings

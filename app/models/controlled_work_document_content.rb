@@ -13,10 +13,6 @@ class ControlledWorkDocumentContent < Check
     session_data.dig("api_response", *path.split("."))
   end
 
-  def means_test_required?
-    true
-  end
-
   def asylum_support?
     asylum_support || false
   end
@@ -25,26 +21,10 @@ class ControlledWorkDocumentContent < Check
     partner unless asylum_support?
   end
 
-  def not_passporting?
-    !passporting unless asylum_support?
-  end
-
-  def no_partner?
-    !partner unless asylum_support?
-  end
-
-  def no_asylum_support?
-    !asylum_support
-  end
-
   def smod_assets?
     return if asylum_support?
 
     any_smod_assets?
-  end
-
-  def no_smod_assets?
-    !smod_assets?
   end
 
   def client_capital_relevant?
