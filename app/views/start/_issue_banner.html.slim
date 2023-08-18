@@ -11,6 +11,16 @@
     path d=exclamation_mark_path
   .moj-banner__message
     h2.govuk-heading-s = t(issue.status == Issue.statuses[:active] ? ".problem_identified" : ".problem_resolved")
-    p.govuk-body
-      = issue.banner_content
-      =< link_to t(".learn_more"), updates_path
+    - if issue.status == Issue.statuses[:active]
+      - paragraphs = issue.banner_content.split("\n")
+      = paragraphs.each_with_index do |paragraph, index|
+        p.govuk-body
+          = paragraph
+          - if index == paragraphs.length - 1
+            =< link_to t(".learn_more"), updates_path
+            | .
+    - else
+      p.govuk-body
+        = t(".resolved", issue_name: issue.title_for_sentences)
+        =< link_to t(".learn_more"), updates_path
+        | .

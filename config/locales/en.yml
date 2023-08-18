@@ -1961,7 +1961,8 @@ en:
     issue_banner:
       problem_identified: A problem has been identified
       problem_resolved: Problem resolved
-      learn_more: Learn more.
+      learn_more: Learn more
+      resolved: We have resolved the %{issue_name}.
   cookie_banner:
     title: Cookies on
     essential_cookies: We use some essential cookies to make this service work.

@@ -22,4 +22,8 @@ class Issue < ApplicationRecord
 
     sorted.reverse
   end
+
+  def title_for_sentences
+    "#{title[0].downcase}#{title[1..]}"
+  end
 end
