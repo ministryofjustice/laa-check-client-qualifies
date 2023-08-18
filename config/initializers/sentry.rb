@@ -1,5 +1,5 @@
 sentry_dsn = Rails.configuration.sentry_dsn
-if %w[production].include?(Rails.env) && sentry_dsn.present? && ENV["SENTRY_FEATURE_FLAG"]&.casecmp("enabled")&.zero?
+if sentry_dsn.present? && ENV["SENTRY_FEATURE_FLAG"]&.casecmp("enabled")&.zero?
   Sentry.init do |config|
     config.dsn = sentry_dsn
     config.breadcrumbs_logger = %i[active_support_logger http_logger]
@@ -8,9 +8,11 @@ if %w[production].include?(Rails.env) && sentry_dsn.present? && ENV["SENTRY_FEAT
     # config/initializers/filter_parameter_logging.rb
     # config.sanitize_fields = Rails.application.config.filter_parameters.map(&:to_s)
 
-    # Set traces_sample_rate to 1.0 to capture 100%
-    # of transactions for performance monitoring.
-    # We recommend adjusting this value in production.
-    config.traces_sample_rate = 0.2
+    # Capture 10% of all regular traffic, but only 1% of status check traffic
+    # (there are lots and lots of status checks, and we want to know if there are
+    # problems but we don't want to clog up Sentry with data)
+    config.traces_sampler = lambda do |sampling_context|
+      /status/.match?(sampling_context[:env]["PATH_INFO"]) ? 0.01 : 0.1
+    end
   end
 end
