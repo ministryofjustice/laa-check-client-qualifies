@@ -23,13 +23,6 @@
 
     = govuk_details(summary_text: t(".evidence_needed")) do
       = render "evidence"
-  - elsif @model.level_of_help == "controlled" && @model.decision == "eligible"
-    h2.govuk-heading-m = t(".what_happens_next")
-
-    = render "controlled_work_next_steps"
-
-    = govuk_details(summary_text: t(".evidence_needed")) do
-      = render "evidence"
 
   - if @model.calculated?(:gross_income) || @model.calculated?(:disposable_income) || @model.calculated?(:capital)
     h2.govuk-heading-m = t(".#{@model.level_of_help}_how_calculated")
@@ -53,12 +46,16 @@
           = render "capital_table", caption_size: "m"
 
   .govuk-button-group
-    - if @model.level_of_help == "controlled" && @model.decision == "eligible"
-      = link_to t(".continue_to_cw"), new_estimate_controlled_work_document_selection_path(params[:id]), class: "govuk-button", data: { module: "govuk-button" }
-    - else
+    - if @model.level_of_help == "certificated" || @model.decision != "eligible"
       = link_to t(".start_another_check"), new_estimate_path, class: "govuk-button", data: { module: "govuk-button" }
-    = link_to t(".print_page"), print_estimate_path(params[:id]), target: "_blank", rel: "noopener", class: "govuk-button govuk-button--secondary"
     = link_to t(".save_as_pdf"), download_estimate_path(params[:id]), target: "_blank", rel: "noopener", class: "govuk-button govuk-button--secondary"
+    = link_to t(".print_page"), print_estimate_path(params[:id]), target: "_blank", rel: "noopener", class: "govuk-button govuk-button--secondary"
 
-  - unless @model.level_of_help == "controlled" && @model.decision == "eligible"
+  - if @model.level_of_help == "controlled" && @model.decision == "eligible"
+    h2.govuk-heading-m = t(".what_happens_next")
+
+    = render "controlled_work_next_steps", cta: true
+      = govuk_details(summary_text: t("estimates.show.evidence_needed")) do
+        = render "evidence"
+  - else
     = render "shared/survey_prompt"

@@ -1,0 +1,1 @@
+require("pdfjs-dist/legacy/build/pdf.worker.js");

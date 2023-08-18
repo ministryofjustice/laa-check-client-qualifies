@@ -1,6 +1,6 @@
 = pdf_friendly_h2(t("estimates.show.client_income"), "m", @is_pdf)
 
-= pdf_friendly_p_element(t("estimates.show.period_conversion_hint"), @is_pdf, nil)
+= pdf_friendly_p_element(t("estimates.show.period_conversion_hint"), @is_pdf)
 
 = govuk_table do |table|
   - table.with_body do |body|
@@ -10,7 +10,7 @@
 - if @model.has_partner?
   = pdf_friendly_h2(t("estimates.show.partner_income"), "m", @is_pdf)
 
-  = pdf_friendly_p_element(t("estimates.show.period_conversion_hint"), @is_pdf, nil)
+  = pdf_friendly_p_element(t("estimates.show.period_conversion_hint"), @is_pdf)
   = govuk_table do |table|
     - table.with_body do |body|
       - @model.partner_income_rows.each do |income_type, money_amount|

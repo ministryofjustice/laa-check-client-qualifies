@@ -20,7 +20,7 @@
       li = _1
 
   p.govuk-body = t(".mental_health_html",
-                 page_url: GuidanceLinkService.call(document: :mental_heatlh_guidance))
+                 page_url: GuidanceLinkService.call(document: :mental_health_guidance))
 
   h2.govuk-heading-m = t(".client_types")
   - unless FeatureFlags.enabled?(:self_employed, without_session_data: true)
@@ -39,14 +39,14 @@
                                                       sub_section: :children),
                    page_number: GuidanceLinkService.call(document: :lc_guidance_controlled,
                                                          sub_section: :children,
-                                                         page_number_only: true))
+                                                         data_type: :page_number))
 
     p.govuk-body = t(".unacceptable_client_explanation_under_18_certificated_html",
                    page_url: GuidanceLinkService.call(document: :lc_guidance_certificated,
                                                       sub_section: :children),
                    page_number: GuidanceLinkService.call(document: :lc_guidance_certificated,
                                                          sub_section: :children,
-                                                         page_number_only: true))
+                                                         data_type: :page_number))
 
   - if FeatureFlags.enabled?(:self_employed, without_session_data: true)
     h3.govuk-heading-s = t(".unacceptable_client_heading_company_director")

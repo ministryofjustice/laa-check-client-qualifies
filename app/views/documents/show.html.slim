@@ -1,0 +1,19 @@
+html lang="en"
+  head
+    meta charset="UTF-8"
+    meta name="viewport" content="width=device-width, initial-scale=1.0"
+    title = @title
+    = stylesheet_link_tag "application", "data-turbo-track": "reload"
+    = javascript_include_tag "pdf", "data-turbo-track": "reload", defer: true, nonce: true
+
+  body data-worker-path=path_to_javascript("worker") data-page-number=@page_number data-pdf-path=@document_path
+    .govuk-width-container
+      main#main-content.govuk-main-wrapper role="main"
+        .govuk-grid-row
+          .govuk-grid-column-full
+            #canvas-container
+              canvas#canvas.pdf-frame
+            .govuk-button-group class="govuk-!-margin-top-3"
+              button.govuk-button.govuk-button--secondary#prev> = t(".previous")
+              button.govuk-button.govuk-button--secondary#next> = t(".next")
+              = link_to t(".download"), @document_path, class: "govuk-button"
