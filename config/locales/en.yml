@@ -657,26 +657,14 @@ en:
         paragraph_1_with_partner: A child dependant is one who lives with your client and depends on them or their partner for financial support. For example, your client’s or their partner’s child or another child relative who lives in their household.
         paragraphs:
           - A child dependant must be either under school leaving age, in full-time education, or undergoing training for a trade, profession or vocation.
-          - "Do not include:"
-        exclusions_certificated:
-          - foster children
-          - any child with over £338.90 income every month (any income below this will be deducted from the dependants allowance if an application is made)
-        exclusions_controlled:
-          - foster children
-          - any child with over £338.90 income every month (any income below this should be deducted from the dependants allowance when you complete the relevant controlled work form)
+          - Do not include foster children.
       adult_dependants:
         legend: Does your client have any adult dependants?
         legend_with_partner: Does your client or their partner have any adult dependants?
         summary: What we mean by adult dependants
         paragraph: An adult dependant is any adult relative who lives in the same household and is financially dependant on your client.
         paragraph_with_partner: An adult dependant is any adult relative who lives in the same household and is financially dependant on your client or their partner.
-        exclude: "Do not include:"
-        exclusions_certificated:
-          - anyone who owns any property, vehicles or other assets valued at over £8,000 in total
-          - anyone with over £338.90 income every month (any income below this will be deducted from the dependants allowance if an application is made)
-        exclusions_controlled:
-          - anyone who owns any property, vehicles or other assets valued at over £8,000 in total
-          - anyone with over £338.90 income every month (any income below this should be deducted from the dependants allowance when you complete the relevant controlled work form)
+        exclude: Do not include anyone who owns any property, vehicles or other assets valued at over £8,000 in total.
       how_many_child: How many child dependants are there?
       how_many_adult: How many adult dependants are there?
       guidance:
