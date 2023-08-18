@@ -22,7 +22,14 @@ Rails.application.routes.draw do
   resources :feature_flags, only: %i[index edit update], path: "feature-flags"
   resources :updates, only: :index
   resources :basic_authentication_sessions, only: %i[new create]
-
+  resources :documents, only: :show do
+    collection do
+      get :pdf_worker
+    end
+    member do
+      get :download
+    end
+  end
   get "/no-analytics", to: "cookies#no_analytics_mode"
   get "instant-:session_type", to: "instant_sessions#create"
   get "robots.txt", to: "robots#index"

@@ -18,21 +18,20 @@
   - if @model.level_of_help == "certificated"
     = pdf_friendly_h2(t("estimates.show.what_happens_next"), "m", @is_pdf)
     - if @check.upper_tribunal?
-      = pdf_friendly_p_element(t("estimates.show.next_steps_without_apply_paragraph_1"), @is_pdf, nil)
+      = pdf_friendly_p_element(t("estimates.show.next_steps_without_apply_paragraph_1"), @is_pdf)
     - else
-      = pdf_friendly_p_element(t("estimates.show.next_steps_paragraph_1"), @is_pdf, nil)
-    = pdf_friendly_p_element(t("estimates.show.next_steps_paragraph_2"), @is_pdf, nil)
+      = pdf_friendly_p_element(t("estimates.show.next_steps_paragraph_1"), @is_pdf)
+    = pdf_friendly_p_element(t("estimates.show.next_steps_paragraph_2"), @is_pdf)
 
     = pdf_friendly_h2(t("estimates.show.evidence_needed"), "m", @is_pdf)
     = render "evidence"
   - elsif @model.level_of_help == "controlled" && @model.decision == "eligible"
 
     = pdf_friendly_h2(t("estimates.show.what_happens_next"), "m", @is_pdf)
-    = render "controlled_work_next_steps"
-
-    = pdf_friendly_h2(t("estimates.show.evidence_needed"), "m", @is_pdf)
-    = pdf_friendly_p_element(t("estimates.show.evidence_needed_explainer"), @is_pdf, nil)
-    = render "evidence"
+    = render "controlled_work_next_steps", cta: false
+      = pdf_friendly_h2(t("estimates.show.evidence_needed"), "m", @is_pdf)
+      = pdf_friendly_p_element(t("estimates.show.evidence_needed_explainer"), @is_pdf)
+      = render "evidence"
 
   - if @model.calculated?(:gross_income) || @model.calculated?(:disposable_income) || @model.calculated?(:capital)
     = pdf_friendly_h2(t("estimates.show.#{@model.level_of_help}_how_calculated"), "m", @is_pdf)
