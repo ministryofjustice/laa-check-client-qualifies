@@ -1,6 +1,7 @@
 RailsAdmin.config do |config|
   config.asset_source = :webpack
   config.main_app_name = "CCQ"
+  config.parent_controller = "RailsAdminController"
   ### Popular gems integration
 
   ## == Devise ==
