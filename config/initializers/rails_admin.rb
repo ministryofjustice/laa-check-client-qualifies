@@ -1,3 +1,5 @@
+require Rails.root.join("app/lib/rails_admin/custom_actions.rb")
+
 RailsAdmin.config do |config|
   config.asset_source = :webpack
   config.main_app_name = "CCQ"
@@ -35,6 +37,9 @@ RailsAdmin.config do |config|
     edit
     delete
     show_in_app
+    publish_issue
+    update_issue
+    resolve_issue
 
     ## With an audit adapter, you can add:
     # history_index
