@@ -20,16 +20,11 @@ class ControlledWorkDocumentPopulationService
     end
 
     TEMPLATES = {
-      "cw1_mtr_phase_1" => "lib/cw1-form-mtr-phase-1.pdf",
-      "cw1" => "lib/cw1-form.pdf",
-      "cw2" => "lib/cw2imm-form.pdf",
-      "cw2_mtr_phase_1" => "lib/cw2imm-form-mtr-phase-1.pdf",
-      "cw5" => "lib/cw5-form.pdf",
-      "cw5_mtr_phase_1" => "lib/cw5-form-mtr-phase-1.pdf",
-      "cw1_and_2" => "lib/cw1-and-2-form.pdf",
-      "cw1_and_2_mtr_phase_1" => "lib/cw1-and-2-form-mtr-phase-1.pdf",
-      "civ_means_7" => "lib/civ-means-7-form.pdf",
-      "civ_means_7_mtr_phase_1" => "lib/civ-means-7-form-mtr-phase-1.pdf",
+      "cw1_header" => "lib/cw1-form-header.pdf",
+      "cw2_header" => "lib/cw2imm-form-header.pdf",
+      "cw5_header" => "lib/cw5-form-header.pdf",
+      "cw1_and_2_header" => "lib/cw1-and-2-form-header.pdf",
+      "civ_means_7_header" => "lib/civ-means-7-form-header.pdf",
     }.freeze
 
     def template_path(form_key)
@@ -42,9 +37,7 @@ class ControlledWorkDocumentPopulationService
     end
 
     def pick_form_key(form_type)
-      return form_type unless FeatureFlags.enabled?(:mtr_phase_1, without_session_data: true)
-
-      "#{form_type}_mtr_phase_1"
+      "#{form_type}_header"
     end
   end
 end
