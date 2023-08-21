@@ -657,7 +657,7 @@ en:
         paragraph_1_with_partner: A child dependant is one who lives with your client and depends on them or their partner for financial support. For example, your client’s or their partner’s child or another child relative who lives in their household.
         paragraphs:
           - A child dependant must be either under school leaving age, in full-time education, or undergoing training for a trade, profession or vocation.
-          - Do not include foster children.
+          - Do not include foster children (where the fostering allowance for that child has been wholly disregarded from gross income).
       adult_dependants:
         legend: Does your client have any adult dependants?
         legend_with_partner: Does your client or their partner have any adult dependants?
