@@ -18,6 +18,13 @@ RSpec.describe "Instant sessions page" do
     expect(page).to have_content "Your client is likely to qualify financially for civil legal aid"
   end
 
+  scenario "I request a content-rich instant controlled session", :self_employed_flag do
+    visit "instant-controlled-scenario"
+    expect(page).to have_content "Income before any deductions£1,200.00"
+    click_on "Submit"
+    expect(page).to have_content "Your client is likely to qualify financially for civil legal aid"
+  end
+
   scenario "I request an instant certificated session" do
     visit "instant-certificated"
     expect(page).to have_content "Check your answers"

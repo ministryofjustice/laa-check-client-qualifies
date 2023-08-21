@@ -424,4 +424,86 @@ FactoryBot.define do
       [{ "vehicle_value" => 1.0, "vehicle_pcp" => false, "vehicle_finance" => nil, "vehicle_over_3_years_ago" => false, "vehicle_in_regular_use" => false, "vehicle_in_dispute" => nil }]
     end
   end
+
+  factory :rich_instant_controlled_session, class: Hash do
+    initialize_with { attributes.transform_keys(&:to_s) }
+
+    level_of_help { "controlled" }
+    immigration_or_asylum { false }
+    over_60 { false }
+    partner { true }
+    passporting { false }
+    child_dependants { true }
+    child_dependants_count { 2 }
+    adult_dependants { true }
+    adult_dependants_count { 1 }
+    dependants_get_income { true }
+    dependant_incomes do
+      [{ "amount" => 60.0, "frequency" => "monthly" }]
+    end
+    employment_status { "in_work" }
+    incomes do
+      [{ "income_type" => "employment", "gross_income" => 1200.0, "income_tax" => 60.0, "national_insurance" => 9.0, "income_frequency" => "monthly" }]
+    end
+    receives_benefits { true }
+    benefits do
+      [{ "benefit_type" => "Child Benefit", "benefit_amount" => 80.0, "benefit_frequency" => "every_four_weeks" }]
+    end
+    friends_or_family_value { 0.0 }
+    maintenance_value { 0.0 }
+    property_or_lodger_value { 0.0 }
+    pension_value { 0.0 }
+    student_finance_value { 0.0 }
+    other_value { 0.0 }
+    housing_payments { 1200.0 }
+    housing_payments_frequency { "monthly" }
+    housing_benefit { true }
+    housing_benefit_value { 100 }
+    housing_benefit_frequency { "monthly" }
+    childcare_payments_value { 80.0 }
+    childcare_payments_frequency { "every_four_weeks" }
+    maintenance_payments_value { 0.0 }
+    legal_aid_payments_value { 10.0 }
+    legal_aid_payments_frequency { "monthly" }
+    property_value { nil }
+    property_mortgage { nil }
+    property_percentage_owned { nil }
+    bank_accounts { [{ "amount" => 400.0, "account_in_dispute" => false }] }
+    investments { 0.0 }
+    valuables { 1000.0 }
+    investments_in_dispute { false }
+    valuables_in_dispute { false }
+    partner_over_60 { true }
+    partner_employment_status { "in_work" }
+    partner_frequency { "week" }
+    partner_gross_income { 1.0 }
+    partner_income_tax { 0.0 }
+    partner_national_insurance { 0.0 }
+    partner_incomes do
+      [{ "income_type" => "self_employment", "gross_income" => 100.0, "income_tax" => 3.0, "national_insurance" => 2.0, "income_frequency" => "every_week" },
+       { "income_type" => "self_employment", "gross_income" => 800.0, "income_tax" => 20.0, "national_insurance" => 3.0, "income_frequency" => "monthly" }]
+    end
+    partner_receives_benefits { true }
+    partner_benefits do
+      [{ "benefit_type" => "Working Tax Credit", "benefit_amount" => 80.0, "benefit_frequency" => "monthly" }]
+    end
+    partner_friends_or_family_value { 0.0 }
+    partner_maintenance_value { 0.0 }
+    partner_property_or_lodger_value { 0.0 }
+    partner_pension_value { 0.0 }
+    partner_student_finance_value { 0.0 }
+    partner_other_value { 0.0 }
+    partner_childcare_payments_value { 0.0 }
+    partner_maintenance_payments_value { 0.0 }
+    partner_legal_aid_payments_value { 0.0 }
+    partner_bank_accounts { [{ "amount" => 500.0 }] }
+    partner_investments { 0.0 }
+    partner_valuables { 0.0 }
+    property_owned { "none" }
+    additional_property_owned { "none" }
+    partner_additional_property_owned { "outright" }
+    partner_additional_properties do
+      [{ "house_value" => 2000.0, "percentage_owned" => 100 }]
+    end
+  end
 end
