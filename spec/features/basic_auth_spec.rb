@@ -20,11 +20,25 @@ RSpec.describe "Basic auth" do
       expect(page).to have_content "Use this service to find out if your client is likely to get civil legal aid, based on their financial situation."
     end
 
+    scenario "I am returned to the path I was on" do
+      visit help_path
+      fill_in :password, with: "password"
+      click_on "Continue"
+      expect(page).to have_current_path help_path
+    end
+
     scenario "The wrong password generates an error" do
       visit root_path
       fill_in :password, with: "wrong"
       click_on "Continue"
       expect(page).to have_content "There is a problem"
+    end
+
+    scenario "I am not looped" do
+      visit new_basic_authentication_session_path
+      fill_in :password, with: "password"
+      click_on "Continue"
+      expect(page).to have_current_path root_path, ignore_query: true
     end
   end
 end
