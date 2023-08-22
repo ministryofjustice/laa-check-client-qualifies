@@ -31,7 +31,7 @@ Rails.application.routes.draw do
     end
   end
   get "/no-analytics", to: "cookies#no_analytics_mode"
-  get "instant-:session_type", to: "instant_sessions#create"
+  get "instant-:session_type", to: "instant_sessions#create", as: :instant_session
   get "robots.txt", to: "robots#index"
 
   mount Blazer::Engine, at: "data"

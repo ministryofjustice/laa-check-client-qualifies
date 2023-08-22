@@ -71,6 +71,11 @@ private
 
     # MOJ DOM1 laptops have HTTP Basic Authentication disabled in Edge, so we provide our own
     # 'basic authentication' UI
-    redirect_to new_basic_authentication_session_path unless cookies.signed[BASIC_AUTHENTICATION_COOKIE]
+    if cookies.signed[BASIC_AUTHENTICATION_COOKIE]
+      session["user_return_to"] = nil
+    else
+      session["user_return_to"] = request.path
+      redirect_to new_basic_authentication_session_path
+    end
   end
 end
