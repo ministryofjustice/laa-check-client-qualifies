@@ -5,6 +5,7 @@ RSpec.describe "No-analytics mode", type: :feature do
     scenario "I visit the home page" do
       visit root_path
       expect(page).not_to have_content "No-analytics mode"
+      click_on "Start now"
       expect(AnalyticsEvent.count).to eq 1
     end
   end
@@ -13,6 +14,7 @@ RSpec.describe "No-analytics mode", type: :feature do
     visit no_analytics_path
     expect(page).to have_current_path "/"
     expect(page).to have_content "No-analytics mode"
+    click_on "Start now"
     expect(AnalyticsEvent.count).to eq 0
   end
 end
