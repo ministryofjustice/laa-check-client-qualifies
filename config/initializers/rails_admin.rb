@@ -1,4 +1,4 @@
-require Rails.root.join("app/lib/rails_admin/custom_actions.rb")
+require Rails.root.join("app/lib/rails_admin/config/actions.rb")
 
 RailsAdmin.config do |config|
   config.asset_source = :webpack
