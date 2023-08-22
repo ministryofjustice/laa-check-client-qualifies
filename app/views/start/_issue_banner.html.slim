@@ -13,7 +13,7 @@
     h2.govuk-heading-s = t(issue.status == Issue.statuses[:active] ? ".problem_identified" : ".problem_resolved")
     - if issue.status == Issue.statuses[:active]
       - paragraphs = issue.banner_content.split("\n")
-      = paragraphs.each_with_index do |paragraph, index|
+      - paragraphs.each_with_index do |paragraph, index|
         p.govuk-body
           = paragraph
           - if index == paragraphs.length - 1
