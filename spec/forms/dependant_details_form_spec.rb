@@ -32,6 +32,6 @@ RSpec.describe "dependant_details", type: :feature do
   end
 
   it "shows me the new dependant allowance text" do
-    expect(page).to have_content "anyone with over £338.90 income every month"
+    expect(page).to have_content "Do not include anyone who owns any property, vehicles or other assets valued at over £8,000 in total."
   end
 end

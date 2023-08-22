@@ -9,7 +9,7 @@
     "jquery": "^3.7.0",
     "pdfjs-dist": "^3.9.179",
     "puppeteer": "^21.1.0",
-    "sass": "^1.65.1"
+    "sass": "^1.66.1"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets",

@@ -1,0 +1,33 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ .Release.Name | trunc 26 }}-clear-data
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  schedule: '23 1 * * *' # Run at 01:23 each morning (an arbitrary time when there is unlikely to be much else going on)
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 0
+  failedJobsHistoryLimit: 0
+  jobTemplate:
+    spec:
+      backoffLimit: 1
+      template:
+        spec:
+          containers:
+          - name: metrics
+            image: '{{ .Values.image.repository }}:{{ .Values.image.tag }}'
+            imagePullPolicy: IfNotPresent
+            command: ['rake', "job:data:clear"]
+{{ include "app.envs" . | nindent 12 }}
+            resources:
+              limits:
+                cpu: 200m
+                memory: 256Mi
+              requests:
+                cpu: 100m
+                memory: 128Mi
+          restartPolicy: Never

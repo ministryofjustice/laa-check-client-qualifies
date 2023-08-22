@@ -46,10 +46,15 @@
           = render "capital_table", caption_size: "m"
 
   .govuk-button-group
-    - if @model.level_of_help == "certificated" || @model.decision != "eligible"
-      = link_to t(".start_another_check"), new_estimate_path, class: "govuk-button", data: { module: "govuk-button" }
-    = link_to t(".save_as_pdf"), download_estimate_path(params[:id]), target: "_blank", rel: "noopener", class: "govuk-button govuk-button--secondary"
-    = link_to t(".print_page"), print_estimate_path(params[:id]), target: "_blank", rel: "noopener", class: "govuk-button govuk-button--secondary"
+    / For eligible controlled checks there is no primary CTA in this group, as it appears below.
+    / For other checks, 'Save as PDF' is the primary CTA.
+    - if @model.level_of_help == "controlled" && @model.decision == "eligible"
+      = link_to t(".save_as_pdf"), download_estimate_path(params[:id]), target: "_blank", rel: "noopener", class: "govuk-button govuk-button--secondary"
+      = link_to t(".print_page"), print_estimate_path(params[:id]), target: "_blank", rel: "noopener", class: "govuk-button govuk-button--secondary"
+    - else
+      = link_to t(".save_as_pdf"), download_estimate_path(params[:id]), target: "_blank", rel: "noopener", class: "govuk-button"
+      = link_to t(".print_page"), print_estimate_path(params[:id]), target: "_blank", rel: "noopener", class: "govuk-button govuk-button--secondary"
+      = link_to t(".start_another_check"), new_estimate_path, class: "govuk-button govuk-button--secondary", data: { module: "govuk-button" }
 
   - if @model.level_of_help == "controlled" && @model.decision == "eligible"
     h2.govuk-heading-m = t(".what_happens_next")

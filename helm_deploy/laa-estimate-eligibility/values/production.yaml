@@ -56,8 +56,8 @@ featureFlags:
   sentry: ENABLED
   selfEmployed: ENABLED
   overrides: NOT_ENABLED
-  publicBeta: NOT_ENABLED
-  indexProduction: NOT_ENABLED
+  publicBeta: ENABLED
+  indexProduction: ENABLED
   maintenanceMode: NOT_ENABLED
   basicAuthentication: NOT_ENABLED
 
@@ -76,4 +76,4 @@ sentry:
   cspReportEndpoint: https://o345774.ingest.sentry.io/api/4504177640275968/security/?sentry_key=217c7d14dd2e4cfa8dc62924a1bbd237
 
 app:
-  primaryHost: ""
+  primaryHost: "check-your-client-qualifies-for-legal-aid.service.gov.uk"
