@@ -14,7 +14,7 @@ class Issue < ApplicationRecord
     change_logs = ChangeLogs.occurred
     sorted = (issues + change_logs).sort_by do |issue_or_change_log|
       if issue_or_change_log.is_a?(Issue)
-        issue_or_change_log.issue_updates.maximum(:published_at)
+        issue_or_change_log.issue_updates.maximum(:published_at).in_time_zone("London")
       else
         Date.parse(issue_or_change_log[:change_on])
       end

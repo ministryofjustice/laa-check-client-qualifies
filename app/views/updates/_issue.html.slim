@@ -1,4 +1,4 @@
-- latest_update = issue.issue_updates.maximum(:published_at)
+- latest_update = issue.issue_updates.order(published_at: :desc).first.time_for_display
 . class="govuk-!-margin-bottom-7"
   h2.govuk-heading-m class="govuk-!-margin-bottom-2" = latest_update.strftime("%-d %B %Y")
   hr class="govuk-!-margin-bottom-4"
@@ -15,9 +15,9 @@
 
   - issue.issue_updates.order(published_at: :desc).each do |update|
     h3.govuk-heading-s class="govuk-!-margin-bottom-0"
-      - if update.published_at.beginning_of_day == latest_update.beginning_of_day
-        = update.published_at.strftime("%H:%M")
+      - if update.time_for_display.beginning_of_day == latest_update.beginning_of_day
+        = update.time_for_display.strftime("%H:%M")
       - else
-        = update.published_at.strftime("%-d %B %Y %H:%M")
+        = update.time_for_display.strftime("%-d %B %Y %H:%M")
     - update.content.split("\n").each do |paragraph|
       p.govuk-body = paragraph
