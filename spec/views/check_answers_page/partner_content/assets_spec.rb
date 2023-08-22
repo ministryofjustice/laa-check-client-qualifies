@@ -27,8 +27,8 @@ RSpec.describe "estimates/check_answers.html.slim" do
           it "renders content" do
             expect_in_text(text, [
               "Partner assetsChange",
-              "Money in bank accounts£50.00",
-              "Additional bank account 1£20.00",
+              "Money in bank account 1£50.00",
+              "Money in bank account 2£20.00",
               "Investments£60.00",
               "Valuable items worth £500 or more£550.00",
             ])
@@ -47,7 +47,7 @@ RSpec.describe "estimates/check_answers.html.slim" do
           it "renders content" do
             expect_in_text(page_text_within("#table-partner_assets"), [
               "Partner assetsChange",
-              "Money in bank accounts£0.00",
+              "Money in bank account 1£0.00",
               "Investments£0.00",
               "Valuable items worth £500 or more£0.00",
             ])

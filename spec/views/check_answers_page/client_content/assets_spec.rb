@@ -111,8 +111,8 @@ RSpec.describe "estimates/check_answers.html.slim" do
           it "renders the content correctly" do
             expect_in_text(text, [
               "Client assetsChange",
-              "Money in bank accounts£50.00",
-              "Additional bank account 1£30.00",
+              "Money in bank account 1£50.00",
+              "Money in bank account 2£30.00",
               "Investments£60.00",
               "Valuable items worth £500 or more£550.00",
             ])
@@ -122,7 +122,7 @@ RSpec.describe "estimates/check_answers.html.slim" do
             let(:savings_in_dispute) { true }
 
             it "renders content" do
-              expect(page_text_within("#money-in-bank-accounts")).to include("Disputed asset")
+              expect(page_text_within("#money-in-bank-account-1")).to include("Disputed asset")
             end
           end
         end
@@ -138,7 +138,7 @@ RSpec.describe "estimates/check_answers.html.slim" do
           it "renders content" do
             expect_in_text(text, [
               "Client assetsChange",
-              "Money in bank accounts£0.00",
+              "Money in bank account 1£0.00",
               "Investments£0.00",
               "Valuable items worth £500 or more£0.00",
             ])

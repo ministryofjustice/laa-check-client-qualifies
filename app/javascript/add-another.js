@@ -85,7 +85,7 @@ const setUpSections = (sectionList) => {
 const setNumbering = (section, counter) => {
   const counterElement = section.querySelector('[data-add-another-role="counter"]')
   if (counterElement) {
-    counterElement.innerHTML = counterElement.dataset.addAnotherNumberFrom === "zero" ? counter : counter + 1;
+    counterElement.innerHTML = counter + 1;
   }
   section.querySelectorAll('[data-add-another-dynamic-elements]').forEach((element) => {
     element.dataset.addAnotherDynamicElements.split(",").forEach((pairString) => {
