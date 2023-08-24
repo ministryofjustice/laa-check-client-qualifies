@@ -20,7 +20,7 @@
       li = _1
 
   p.govuk-body = t(".mental_health_html",
-                 page_url: GuidanceLinkService.call(document: :mental_heatlh_guidance))
+                 page_url: GuidanceLinkService.call(document: :mental_health_guidance))
 
   h2.govuk-heading-m = t(".client_types")
   - unless FeatureFlags.enabled?(:self_employed, without_session_data: true)

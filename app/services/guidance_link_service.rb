@@ -15,7 +15,7 @@ class GuidanceLinkService
     def mapping
       {
         legacy_links: {
-          mental_heatlh_guidance: {
+          mental_health_guidance: {
             page_url: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1143984/Mental_Health_Guidance_-_Contract_management_-_GOV.UK_2023.pdf",
           },
           lc_guidance_controlled: {
@@ -85,7 +85,7 @@ class GuidanceLinkService
           },
         },
         mtr_phase_1_links: {
-          mental_heatlh_guidance: {
+          mental_health_guidance: {
             page_url: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1143984/Mental_Health_Guidance_-_Contract_management_-_GOV.UK_2023.pdf",
           },
           lc_guidance_controlled: {
