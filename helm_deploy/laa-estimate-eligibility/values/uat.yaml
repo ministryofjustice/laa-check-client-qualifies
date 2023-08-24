@@ -82,7 +82,7 @@ postgresql:
   postgresqlUsername: postgres
   primary:
     persistence:
-      enabled: false
+      enabled: true
 
 geckoboard:
   metricsDataset: "ccq_monthly_metrics_uat"
