@@ -51,6 +51,10 @@ GEM
       globalid (>= 0.3.6)
     activemodel (7.0.7.2)
       activesupport (= 7.0.7.2)
+    activemodel-serializers-xml (1.0.2)
+      activemodel (> 5.x)
+      activesupport (> 5.x)
+      builder (~> 3.1)
     activerecord (7.0.7.2)
       activemodel (= 7.0.7.2)
       activesupport (= 7.0.7.2)
@@ -80,6 +84,7 @@ GEM
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
+    bcrypt (3.1.19)
     better_html (2.0.2)
       actionview (>= 6.0)
       activesupport (>= 6.0)
@@ -139,6 +144,12 @@ GEM
     debug_inspector (1.1.0)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
+    devise (4.9.2)
+      bcrypt (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 4.1.0)
+      responders
+      warden (~> 1.2.3)
     diff-lcs (1.5.0)
     docile (1.4.0)
     dotenv (2.8.1)
@@ -192,6 +203,7 @@ GEM
       combine_pdf (~> 1.0)
       nokogiri (~> 1.0)
     hashdiff (1.0.1)
+    hashie (5.0.0)
     hexapdf (0.33.0)
       cmdparse (~> 3.0, >= 3.0.3)
       geom2d (~> 0.4, >= 0.4.1)
@@ -209,6 +221,18 @@ GEM
       railties (>= 6.0.0)
     json (2.6.3)
     jwt (2.6.0)
+    kaminari (1.2.2)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.2.2)
+      kaminari-activerecord (= 1.2.2)
+      kaminari-core (= 1.2.2)
+    kaminari-actionview (1.2.2)
+      actionview
+      kaminari-core (= 1.2.2)
+    kaminari-activerecord (1.2.2)
+      activerecord
+      kaminari-core (= 1.2.2)
+    kaminari-core (1.2.2)
     language_server-protocol (3.17.0.3)
     loofah (2.21.3)
       crass (~> 1.0.2)
@@ -224,6 +248,8 @@ GEM
     mini_mime (1.1.5)
     minitest (5.19.0)
     msgpack (1.6.0)
+    multi_xml (0.6.0)
+    nested_form (0.3.2)
     net-http-persistent (4.0.1)
       connection_pool (~> 2.2)
     net-imap (0.3.7)
@@ -244,7 +270,30 @@ GEM
       racc (~> 1.4)
     notifications-ruby-client (5.4.0)
       jwt (>= 1.5, < 3)
+    oauth2 (2.0.9)
+      faraday (>= 0.17.3, < 3.0)
+      jwt (>= 1.0, < 3.0)
+      multi_xml (~> 0.5)
+      rack (>= 1.2, < 4)
+      snaky_hash (~> 2.0)
+      version_gem (~> 1.1)
+    omniauth (2.1.1)
+      hashie (>= 3.4.6)
+      rack (>= 2.2.3)
+      rack-protection
+    omniauth-google-oauth2 (1.1.1)
+      jwt (>= 2.0)
+      oauth2 (~> 2.0.6)
+      omniauth (~> 2.0)
+      omniauth-oauth2 (~> 1.8.0)
+    omniauth-oauth2 (1.8.0)
+      oauth2 (>= 1.4, < 3)
+      omniauth (~> 2.0)
+    omniauth-rails_csrf_protection (1.0.1)
+      actionpack (>= 4.2)
+      omniauth (~> 2.0)
     openssl (3.1.0)
+    orm_adapter (0.5.0)
     pagy (6.0.4)
     parallel (1.23.0)
     parser (3.2.2.3)
@@ -275,6 +324,8 @@ GEM
       nio4r (~> 2.0)
     racc (1.7.1)
     rack (2.2.8)
+    rack-protection (3.1.0)
+      rack (~> 2.2, >= 2.2.4)
     rack-test (2.1.0)
       rack (>= 1.3)
     rack_session_access (0.2.0)
@@ -301,6 +352,12 @@ GEM
     rails-html-sanitizer (1.6.0)
       loofah (~> 2.21)
       nokogiri (~> 1.14)
+    rails_admin (3.1.2)
+      activemodel-serializers-xml (>= 1.0)
+      kaminari (>= 0.14, < 2.0)
+      nested_form (~> 0.3)
+      rails (>= 6.0, < 8)
+      turbo-rails (~> 1.0)
     railties (7.0.7.2)
       actionpack (= 7.0.7.2)
       activesupport (= 7.0.7.2)
@@ -330,6 +387,9 @@ GEM
     regexp_parser (2.8.1)
     reline (0.3.3)
       io-console (~> 0.5)
+    responders (3.1.0)
+      actionpack (>= 5.2)
+      railties (>= 5.2)
     rexml (3.2.6)
     rspec (3.12.0)
       rspec-core (~> 3.12.0)
@@ -421,14 +481,22 @@ GEM
       rubocop (>= 1.0, < 2.0)
       slim (>= 3.0, < 6.0)
     smart_properties (1.17.0)
+    snaky_hash (2.0.1)
+      hashie
+      version_gem (~> 1.1, >= 1.1.1)
     temple (0.10.0)
     thor (1.2.2)
     thread_safe (0.3.6)
     tilt (2.1.0)
     timeout (0.4.0)
+    turbo-rails (1.4.0)
+      actionpack (>= 6.0.0)
+      activejob (>= 6.0.0)
+      railties (>= 6.0.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.4.2)
+    version_gem (1.1.3)
     view_component (3.3.0)
       activesupport (>= 5.2.0, < 8.0)
       concurrent-ruby (~> 1.0)
@@ -437,6 +505,8 @@ GEM
       axiom-types (~> 0.1)
       coercible (~> 1.0)
       descendants_tracker (~> 0.0, >= 0.0.3)
+    warden (1.2.9)
+      rack (>= 2.0.9)
     web-console (4.2.0)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -474,6 +544,7 @@ DEPENDENCIES
   cssbundling-rails
   database_cleaner
   debug
+  devise
   dotenv-rails
   erb_lint
   exception_notification
@@ -488,6 +559,8 @@ DEPENDENCIES
   grover
   hexapdf
   jsbundling-rails
+  omniauth-google-oauth2
+  omniauth-rails_csrf_protection
   pdf-forms
   pg (~> 1.5)
   propshaft
@@ -497,6 +570,7 @@ DEPENDENCIES
   puma (~> 6.3)
   rack_session_access
   rails (~> 7.0.7)
+  rails_admin
   redis-rails
   rexml
   rspec

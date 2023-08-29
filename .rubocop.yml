@@ -19,3 +19,7 @@ AllCops:
 
 Bundler/OrderedGems:
   Enabled: false
+
+# RailsAdmin's base controller should _not_ inherit from ApplicationController
+Rails/ApplicationController:
+  Enabled: false

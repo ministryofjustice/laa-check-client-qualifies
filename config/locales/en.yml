@@ -2266,4 +2266,7 @@ en:
       incorrect_password: The password you entered was incorrect
       label: Password
       continue: Continue
-
+  devise:
+    unrecognised: "You are not recognised as an admin"
+    sessions:
+      google: "Sign in with Google"

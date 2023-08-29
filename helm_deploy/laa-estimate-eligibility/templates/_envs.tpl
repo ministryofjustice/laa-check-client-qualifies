@@ -106,13 +106,6 @@ env:
     value:  {{ .Values.geckoboard.recentJourneysDataset }}
   - name: GECKOBOARD_ENABLED
     value: {{ .Values.geckoboard.enabled }}
-  - name: BLAZER_USERNAME
-    value: 'blazer'
-  - name: BLAZER_PASSWORD
-    valueFrom:
-      secretKeyRef:
-        name: kube-secrets
-        key: blazer-password
   - name: BLAZER_DATABASE_PASSWORD
     valueFrom:
       secretKeyRef:
@@ -127,5 +120,14 @@ env:
     value: {{ .Values.sentry.cspReportEndpoint }}
   - name: PRIMARY_HOST
     value: {{ .Values.app.primaryHost }}
+  - name: GOOGLE_OAUTH_CLIENT_ID
+    value: {{ .Values.google.oauthClientId }}
+  - name: GOOGLE_OAUTH_CLIENT_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: kube-secrets
+        key: google-oauth-client-secret
+  - name: SEED_ADMINS
+    value: {{ .Values.app.seedAdmins }}
 
 {{- end }}

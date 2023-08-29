@@ -1,7 +1,0 @@
-.govuk-grid-column-two-thirds
-  h1.govuk-heading-xl = params[:id]
-  = form_with(model: @model, url: feature_flag_path(params[:id]), method: "PATCH") do |form|
-    = form.govuk_collection_radio_buttons :value,
-                                          yes_no_options, :first, :last,
-                                          legend: { text: t(".value") }
-    = form.govuk_submit t("generic.save_and_continue")
