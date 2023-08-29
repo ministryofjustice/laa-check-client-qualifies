@@ -33,7 +33,7 @@ RSpec.describe "estimates/show.html.slim" do
       let(:api_response) { FactoryBot.build(:api_result, eligible: "eligible") }
 
       it "shows eligibility message" do
-        expect(page_text).to include "Your client is likely to qualify for civil legal aid, for controlled work and family mediation"
+        expect(page_text).to include "Your client qualifies for civil legal aid, for controlled work and family mediation"
       end
     end
 
