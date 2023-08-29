@@ -1,10 +1,10 @@
 - counter ||= nil
 . data-add-another-role="section" id=("section-#{counter}" if counter)
-  - if removeable
-    .add-another-heading
-      h2.govuk-heading-m
-        = t("estimate_flow.additional_property_details.additional_property")
-        span< data-add-another-role="counter" = counter
+  .add-another-heading
+    h2.govuk-heading-m
+      = t("estimate_flow.additional_property_details.additional_property")
+      span< data-add-another-role="counter" = counter
+    - if removeable
       button.govuk-button.govuk-button--secondary type="button" data-add-another-role="remove" id="remove-#{counter}" = t("generic.remove")
 
   / HOUSE VALUE
