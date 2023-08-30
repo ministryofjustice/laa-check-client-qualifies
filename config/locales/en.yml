@@ -941,7 +941,7 @@ en:
         monthly: Every month
     benefit_details:
       heading: Add benefit details
-      hint: Add details of any benefits your client receives. Do not include Housing Benefit or any other disregarded benefits.
+      hint: Add details of any benefits your client receives. Do not include Housing Benefit, State Pension, government Cost of Living Payments, or any other disregarded benefits.
       benefit: Benefit
       benefit_type: Benefit name
       benefit_type_hint: Enter the name of a benefit, or select one from the suggestions that appear when you start to enter the name.
@@ -952,7 +952,7 @@ en:
       legend: Does the partner get any benefits?
     partner_benefit_details:
       heading: Add benefit details
-      hint: Add details of any benefits the partner receives. Do not include Housing Benefit or any other disregarded benefits.
+      hint: Add details of any benefits the partner receives. Do not include Housing Benefit, State Pension, government Cost of Living Payments, or any other disregarded benefits.
     other_income:
       heading: Your client's other income
       second_caption: Enter 0 for any that do not apply
@@ -969,9 +969,9 @@ en:
         hint: Enter 0 if this does not apply
         instruction: Enter amount
       pension:
-        label: Pension
-        hint: Include State Pension, workplace and personal pensions. Enter 0 if this does not apply
-        instruction: Enter amount
+        label: Pensions
+        hint: Include the total value of any pensions, State Pension, workplace and personal pensions. Enter 0 if this does not apply.
+        instruction: Enter total value of any pensions'
       student_finance:
         label: Student finance
         hint: This includes any type of student loan, grant or bursary. Do not include any tuition fee loans. Enter 0 if this does not apply
@@ -1005,9 +1005,9 @@ en:
         hint: "Enter 0 if this does not apply"
         instruction: Enter amount
       pension:
-        label: Pension
-        hint: Include State Pension, workplace and personal pensions. Enter 0 if this does not apply.
-        instruction: Enter amount
+        label: Pensions
+        hint: Include the total value of any pensions, State Pension, workplace and personal pensions. Enter 0 if this does not apply.
+        instruction: Enter total value of any pensions'
       student_finance:
         label: Student finance
         hint: This includes any type of student loan, grant or bursary. Do not include any tuition fee loans. Enter 0 if this does not apply.
@@ -1434,7 +1434,7 @@ en:
         friends_or_family_value: Financial help from friends or family
         maintenance_value: Maintenance payments from a former partner
         property_or_lodger_value: Income from a property or lodger
-        pension_value: Pension
+        pension_value: Pensions
         student_finance_value: Student finance
         other_value: Income from other sources
       partner_details_fields:
@@ -1474,7 +1474,7 @@ en:
         partner_friends_or_family_value: Financial help from friends or family
         partner_maintenance_value: Maintenance payments from a former partner
         partner_property_or_lodger_value: Income from a property or lodger
-        partner_pension_value: Pension
+        partner_pension_value: Pensions
         partner_student_finance_value: Student finance
         partner_other_value: Income from other sources
       outgoings_fields:
@@ -1672,7 +1672,7 @@ en:
         friends_and_family: Financial help from friends and family
         maintenance: Maintenance payments from a former partner
         property_or_lodger: Income from a property or lodger
-        pension: Pension
+        pension: Pensions
         student_finance: Student finance
         other: Other sources
       client_income_hints:

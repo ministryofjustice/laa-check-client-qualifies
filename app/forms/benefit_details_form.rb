@@ -25,6 +25,9 @@ private
     jobseekers_allowance
     employment_support_allowance
     pension_credit
+    guaranteed_min_pension
+    state_pension
+    state_second_pension
   ].freeze
 
   def cfe_benefit_list
