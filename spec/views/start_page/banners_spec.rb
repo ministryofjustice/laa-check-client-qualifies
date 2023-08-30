@@ -54,4 +54,32 @@ RSpec.describe "start/index.html.slim" do
       end
     end
   end
+
+  describe "Issues" do
+    context "when there is an active issue" do
+      before do
+        issue = Issue.create! banner_content: "Something has gone wrong.", status: Issue.statuses[:active], title: "A"
+        IssueUpdate.create! issue:, utc_timestamp: 1.hour.ago, content: "A"
+        render template: "start/index"
+      end
+
+      it "shows a banner" do
+        expect(page_text).to include "A problem has been identified"
+        expect(page_text).to include "Something has gone wrong. Learn more."
+      end
+    end
+
+    context "when there is a recently resolved issue" do
+      before do
+        issue = Issue.create! title: "Problem with Housing Benefit", status: Issue.statuses[:resolved], banner_content: "A"
+        IssueUpdate.create! issue:, utc_timestamp: 1.hour.ago, content: "A"
+        render template: "start/index"
+      end
+
+      it "shows a banner" do
+        expect(page_text).to include "Problem resolved"
+        expect(page_text).to include "We have resolved the problem with Housing Benefit. Learn more."
+      end
+    end
+  end
 end
