@@ -114,7 +114,7 @@ RSpec.describe "Controlled other income", type: :feature do
         expect(page).to have_content("Financial help from friends and family\n£866.67")
         expect(page).to have_content("Maintenance payments from a former partner\n£650.00")
         expect(page).to have_content("Income from a property or lodger\n£0.00")
-        expect(page).to have_content("Pension\n£0.00")
+        expect(page).to have_content("Pensions\n£0.00")
         expect(page).to have_content("Student finance\n£0.00")
         expect(page).to have_content("Other sources\n£166.67")
       end
@@ -128,7 +128,7 @@ RSpec.describe "Controlled other income", type: :feature do
         expect(page).to have_content("Financial help from friends and family\n£866.67")
         expect(page).to have_content("Maintenance payments from a former partner\n£650.00")
         expect(page).to have_content("Income from a property or lodger\n£0.00")
-        expect(page).to have_content("Pension\n£0.00")
+        expect(page).to have_content("Pensions\n£0.00")
         expect(page).to have_content("Student finance\n£8.33")
         expect(page).to have_content("Other sources\n£500.00")
       end
