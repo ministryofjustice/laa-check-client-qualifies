@@ -6,7 +6,7 @@ class HealthCheckService
   end
 
   def self.database_healthy?
-    ActiveRecord::Base.connection.active? && AnalyticsEvent.count.is_a?(Numeric)
+    ActiveRecord::Base.connection.active?
   rescue PG::ConnectionBad, PG::UndefinedTable
     false
   end

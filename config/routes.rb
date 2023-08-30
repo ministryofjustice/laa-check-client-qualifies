@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   resources :updates, only: :index
   resources :basic_authentication_sessions, only: %i[new create]
 
+  get "/health", to: "status#health"
   get "/no-analytics", to: "cookies#no_analytics_mode"
   get "instant-:session_type", to: "instant_sessions#create", as: :instant_session
   get "robots.txt", to: "robots#index"
