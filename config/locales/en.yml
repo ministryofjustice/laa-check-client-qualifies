@@ -971,7 +971,7 @@ en:
       pension:
         label: Pensions
         hint: Include the total value of any pensions, State Pension, workplace and personal pensions. Enter 0 if this does not apply.
-        instruction: Enter total value of any pensions'
+        instruction: Enter total value of any pensions
       student_finance:
         label: Student finance
         hint: This includes any type of student loan, grant or bursary. Do not include any tuition fee loans. Enter 0 if this does not apply
@@ -1007,7 +1007,7 @@ en:
       pension:
         label: Pensions
         hint: Include the total value of any pensions, State Pension, workplace and personal pensions. Enter 0 if this does not apply.
-        instruction: Enter total value of any pensions'
+        instruction: Enter total value of any pensions
       student_finance:
         label: Student finance
         hint: This includes any type of student loan, grant or bursary. Do not include any tuition fee loans. Enter 0 if this does not apply.
