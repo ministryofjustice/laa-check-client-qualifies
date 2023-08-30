@@ -29,4 +29,13 @@ module BuildEstimatesHelper
   def immigration_or_asylum_type_options
     IMMIGRATION_OR_ASYLUM_TYPE_OPTIONS
   end
+
+  def document_link(document, sub_section = nil)
+    referrer = if %w[build_estimates check_answers].include?(controller_name)
+                 params[:id]
+               else
+                 [controller_name, action_name].join("_")
+               end
+    document_path(document, sub_section:, assessment_code: params[:estimate_id], referrer:)
+  end
 end
