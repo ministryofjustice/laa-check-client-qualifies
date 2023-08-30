@@ -58,8 +58,8 @@ RSpec.describe "start/index.html.slim" do
   describe "Issues" do
     context "when there is an active issue" do
       before do
-        issue = Issue.create! banner_content: "Something has gone wrong.", status: Issue.statuses[:active]
-        IssueUpdate.create! issue:, published_at: 1.hour.ago
+        issue = Issue.create! banner_content: "Something has gone wrong.", status: Issue.statuses[:active], title: "A"
+        IssueUpdate.create! issue:, utc_timestamp: 1.hour.ago, content: "A"
         render template: "start/index"
       end
 
@@ -71,8 +71,8 @@ RSpec.describe "start/index.html.slim" do
 
     context "when there is a recently resolved issue" do
       before do
-        issue = Issue.create! title: "Problem with Housing Benefit", status: Issue.statuses[:resolved]
-        IssueUpdate.create! issue:, published_at: 1.hour.ago
+        issue = Issue.create! title: "Problem with Housing Benefit", status: Issue.statuses[:resolved], banner_content: "A"
+        IssueUpdate.create! issue:, utc_timestamp: 1.hour.ago, content: "A"
         render template: "start/index"
       end
 

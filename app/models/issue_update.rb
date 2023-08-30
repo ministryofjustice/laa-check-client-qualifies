@@ -1,9 +1,10 @@
 class IssueUpdate < ApplicationRecord
   belongs_to :issue
   attribute :content, :string
-  attribute :published_at, :datetime, default: -> { Time.zone.now }
+  attribute :utc_timestamp, :datetime, default: -> { Time.zone.now }
+  validates :content, :utc_timestamp, presence: true
 
   def time_for_display
-    published_at.in_time_zone("London")
+    utc_timestamp.in_time_zone("London")
   end
 end

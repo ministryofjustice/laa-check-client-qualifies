@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_17_151230) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_30_082744) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -115,17 +115,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_17_151230) do
 
   create_table "issue_updates", force: :cascade do |t|
     t.bigint "issue_id"
-    t.text "content"
-    t.datetime "published_at"
+    t.text "content", null: false
+    t.datetime "utc_timestamp", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["issue_id"], name: "index_issue_updates_on_issue_id"
   end
 
   create_table "issues", force: :cascade do |t|
-    t.string "title"
-    t.text "banner_content"
-    t.string "status"
+    t.string "title", null: false
+    t.text "banner_content", null: false
+    t.string "status", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
