@@ -72,10 +72,6 @@ class Check
     property_owned == "with_mortgage"
   end
 
-  def self_employed_flag_enabled?
-    FeatureFlags.enabled?(:self_employed, session_data)
-  end
-
   def immigration_matter?
     if controlled?
       # For controlled work, "immigration_legal_help" is treated like "asylum"

@@ -7,11 +7,12 @@ RSpec.shared_context "with a no-partner, non-passported certificated check" do
     fill_in_provider_users_screen
     fill_in_level_of_help_screen
     fill_in_matter_type_screen
-    fill_in_applicant_screen(employed: "Employed and in work")
+    fill_in_applicant_screen
     fill_in_dependant_details_screen(child_dependants: "Yes", child_dependants_count: 1)
     fill_in_dependant_income_screen(choice: "Yes")
     fill_in_dependant_income_details_screen
-    fill_in_employment_screen
+    fill_in_employment_status_screen(choice: "Employed")
+    fill_in_income_screen
     fill_in_benefits_screen(choice: "Yes")
     fill_in_benefit_details_screen
     fill_in_other_income_screen(values: { friends_or_family: "200", student_finance: "100" }, frequencies: { friends_or_family: "Every week" })
@@ -67,15 +68,12 @@ RSpec.describe "Certificated check without partner", type: :feature do
             "assets_value" => 0 },
         ])
 
-        expect(parsed.dig("employment_income", 0, "payments", 0)).to eq({
-          "gross" => 1.0,
-          "tax" => 0.0,
-          "national_insurance" => 0.0,
-          "client_id" => "id-0",
-          "date" => "2023-02-15",
-          "benefits_in_kind" => 0,
-          "net_employment_income" => 1.0,
-        })
+        expect(parsed.dig("employment_details", 0, "income")).to eq({ "benefits_in_kind" => 0,
+                                                                      "frequency" => "weekly",
+                                                                      "gross" => 1.0,
+                                                                      "national_insurance" => -0.0,
+                                                                      "receiving_only_statutory_sick_or_maternity_pay" => false,
+                                                                      "tax" => -0.0 })
 
         expect(parsed["irregular_incomes"]["payments"]).to eq(
           [{ "income_type" => "student_loan", "frequency" => "annual", "amount" => 100.0 }],

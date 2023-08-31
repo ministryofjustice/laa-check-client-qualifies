@@ -30,7 +30,7 @@ RSpec.describe Cfe::PartnerPayloadService do
       let(:session_data) do
         {
           "partner" => true,
-          "partner_employment_status" => "in_work",
+          "partner_employment_status" => "unemployed",
           "partner_over_60" => true,
           "partner_student_finance_value" => 1_000,
           "partner_other_value" => 0,
@@ -67,9 +67,8 @@ RSpec.describe Cfe::PartnerPayloadService do
       it "constructs a valid payload" do
         described_class.call(session_data, payload)
         partner = payload[:partner]
-        expect(partner[:partner]).to eq({ employed: true, date_of_birth: 70.years.ago.to_date })
+        expect(partner[:partner]).to eq({ employed: false, date_of_birth: 70.years.ago.to_date })
         expect(partner[:irregular_incomes]).to eq([{ amount: 1_000, frequency: "annual", income_type: "student_loan" }])
-        expect(partner[:employments][0][:payments].count).to eq(12)
         expect(partner[:regular_transactions]).to eq([{ amount: 100,
                                                         category: :friends_or_family,
                                                         frequency: :weekly,
@@ -96,7 +95,7 @@ RSpec.describe Cfe::PartnerPayloadService do
         partner = payload[:partner]
         expect(partner[:partner]).to eq({ employed: false, date_of_birth: 50.years.ago.to_date })
         expect(partner[:irregular_incomes]).to eq([])
-        expect(partner[:employments]).to eq([])
+        expect(partner[:employment_details]).to eq([])
         expect(partner[:regular_transactions]).to eq([])
         expect(partner[:additional_properties]).to eq([])
         expect(partner[:capitals]).to eq({ bank_accounts: [],
@@ -122,7 +121,7 @@ RSpec.describe Cfe::PartnerPayloadService do
         partner = payload[:partner]
         expect(partner[:partner]).to eq({ employed: false, date_of_birth: 50.years.ago.to_date })
         expect(partner[:irregular_incomes]).to eq([])
-        expect(partner[:employments]).to eq([])
+        expect(partner[:employment_details]).to eq([])
         expect(partner[:regular_transactions]).to eq([])
         expect(partner[:additional_properties]).to eq([])
         expect(partner[:capitals]).to eq({ bank_accounts: [],
@@ -189,7 +188,7 @@ RSpec.describe Cfe::PartnerPayloadService do
       end
     end
 
-    context "when the self-employed feature flag is enabled", :self_employed_flag do
+    context "when dealing with employment data" do
       before { described_class.call(session_data, payload) }
 
       context "when the partner is not employed" do

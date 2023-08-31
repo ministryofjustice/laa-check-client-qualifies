@@ -59,7 +59,6 @@ cfe:
 
 featureFlags:
   sentry: ENABLED
-  selfEmployed: ENABLED
   overrides: ENABLED
   publicBeta: ENABLED
   indexProduction: NOT_ENABLED

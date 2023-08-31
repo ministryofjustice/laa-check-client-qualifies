@@ -12,9 +12,11 @@ RSpec.describe "Certificated, non-passported flow with partner", type: :feature 
     fill_in_forms_until(:applicant)
     fill_in_applicant_screen(partner: "Yes", passporting: "No")
     fill_in_dependant_details_screen
+    fill_in_employment_status_screen
     fill_in_benefits_screen
     fill_in_other_income_screen
     fill_in_partner_details_screen
+    fill_in_partner_employment_status_screen
     fill_in_partner_benefits_screen
     fill_in_partner_other_income_screen
     fill_in_outgoings_screen
@@ -31,8 +33,9 @@ RSpec.describe "Certificated, non-passported flow with partner", type: :feature 
 
   it "asks for employment details if relevant" do
     fill_in_forms_until(:partner_details)
-    fill_in_partner_details_screen(employed: "Employed and in work")
-    fill_in_partner_employment_screen
+    fill_in_partner_details_screen
+    fill_in_partner_employment_status_screen(choice: "Employed")
+    fill_in_partner_income_screen
     confirm_screen("partner_benefits")
   end
 

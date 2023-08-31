@@ -6,8 +6,9 @@ RSpec.shared_context "with partner data" do
     fill_in_forms_until(:applicant)
     fill_in_applicant_screen(partner: "Yes")
     fill_in_forms_until(:partner_details)
-    fill_in_partner_details_screen(employed: "Employed and in work")
-    fill_in_partner_employment_screen
+    fill_in_partner_details_screen
+    fill_in_partner_employment_status_screen(choice: "Employed")
+    fill_in_partner_income_screen
     fill_in_partner_benefits_screen(choice: "Yes")
     fill_in_partner_benefit_details_screen
     fill_in_partner_other_income_screen(values: { friends_or_family: "200", other: "100" }, frequencies: { friends_or_family: "Every week" })
@@ -45,13 +46,12 @@ RSpec.describe "Certificated check with partner", type: :feature do
         content = parsed["partner"]
         expect(content["partner"]).to eq({ "date_of_birth" => "1973-02-15", "employed" => true })
         expect(content["irregular_incomes"]).to eq([{ "income_type" => "unspecified_source", "frequency" => "quarterly", "amount" => 100.0 }])
-        expect(content.dig("employments", 0, "payments", 0)).to eq({ "gross" => 1.0,
-                                                                     "tax" => 0.0,
-                                                                     "national_insurance" => 0.0,
-                                                                     "client_id" => "id-0",
-                                                                     "date" => "2023-02-15",
-                                                                     "benefits_in_kind" => 0,
-                                                                     "net_employment_income" => 1.0 })
+        expect(content.dig("employment_details", 0, "income")).to eq({ "benefits_in_kind" => 0,
+                                                                       "frequency" => "weekly",
+                                                                       "gross" => 1.0,
+                                                                       "national_insurance" => -0.0,
+                                                                       "receiving_only_statutory_sick_or_maternity_pay" => false,
+                                                                       "tax" => -0.0 })
         expect(content["regular_transactions"]).to eq(
           [
             { "operation" => "credit", "category" => "friends_or_family", "frequency" => "weekly", "amount" => 200.0 },

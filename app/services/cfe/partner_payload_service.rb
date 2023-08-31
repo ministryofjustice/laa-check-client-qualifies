@@ -7,7 +7,6 @@ module Cfe
       partner_financials = {
         partner:,
         irregular_incomes:,
-        employments:,
         employment_details:,
         self_employment_details:,
         regular_transactions:,
@@ -22,7 +21,7 @@ module Cfe
     def partner
       @partner ||= {
         date_of_birth: @partner_details_form.over_60 ? 70.years.ago.to_date : 50.years.ago.to_date,
-        employed: @partner_details_form.employment_status&.in?(ApplicantForm::EMPLOYED_STATUSES.map(&:to_s)) || false,
+        employed: check.partner_employed?,
       }
     end
 
@@ -31,13 +30,6 @@ module Cfe
 
       form = instantiate_form(PartnerOtherIncomeForm)
       CfeParamBuilders::IrregularIncome.call(form)
-    end
-
-    def employments
-      return [] unless relevant_form?(:partner_employment)
-
-      form = instantiate_form(PartnerEmploymentForm)
-      CfeParamBuilders::EmploymentIncomes.call(form, @partner_details_form)
     end
 
     def employment_details

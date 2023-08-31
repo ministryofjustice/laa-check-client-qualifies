@@ -44,9 +44,6 @@ def fill_in_applicant_screen(choices = {})
 
   choose choices.fetch(:over_60, "No"), name: "applicant_form[over_60]"
   choose choices.fetch(:partner, "No"), name: "applicant_form[partner]"
-  if page.text.include?("What is your client's employment status?")
-    choose choices.fetch(:employed, "Unemployed"), name: "applicant_form[employment_status]"
-  end
   choose choices.fetch(:passporting, "No"), name: "applicant_form[passporting]"
   click_on "Save and continue"
 end
@@ -80,15 +77,6 @@ end
 def fill_in_employment_status_screen(choice: "Unemployed", screen_name: :employment_status)
   confirm_screen screen_name
   choose choice, name: "#{screen_name}_form[employment_status]"
-  click_on "Save and continue"
-end
-
-def fill_in_employment_screen(screen_name: :employment)
-  confirm_screen screen_name
-  fill_in "#{screen_name}_form[gross_income]", with: "1"
-  fill_in "#{screen_name}_form[income_tax]", with: "0"
-  fill_in "#{screen_name}_form[national_insurance]", with: "0"
-  choose "Every week"
   click_on "Save and continue"
 end
 
@@ -231,12 +219,7 @@ end
 def fill_in_partner_details_screen(choices = {})
   confirm_screen "partner_details"
   choose choices.fetch(:over_60, "No"), name: "partner_details_form[over_60]"
-  choose choices.fetch(:employed, "Unemployed"), name: "partner_details_form[employment_status]" if page.text.include?("What is the partner's employment status?")
   click_on "Save and continue"
-end
-
-def fill_in_partner_employment_screen
-  fill_in_employment_screen(screen_name: :partner_employment)
 end
 
 def fill_in_partner_employment_status_screen(choice: "Unemployed")

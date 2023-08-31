@@ -34,6 +34,14 @@ RSpec.describe FeatureFlags do
           expect(described_class.enabled?(:sentry, session_data)).to eq false
         end
       end
+
+      context "when the session_data is old and contains no feature flags key" do
+        let(:session_data) { {} }
+
+        it "returns the global value" do
+          expect(described_class.enabled?(:sentry, session_data)).to eq true
+        end
+      end
     end
   end
 

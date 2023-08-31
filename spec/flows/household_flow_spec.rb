@@ -6,9 +6,11 @@ RSpec.describe "Household section flow", type: :feature do
     fill_in_forms_until(:applicant)
     fill_in_applicant_screen(partner: "Yes", passporting: "No")
     fill_in_dependant_details_screen
+    fill_in_employment_status_screen
     fill_in_benefits_screen
     fill_in_other_income_screen
     fill_in_partner_details_screen
+    fill_in_partner_employment_status_screen
     fill_in_partner_benefits_screen
     fill_in_partner_other_income_screen
     fill_in_outgoings_screen
@@ -32,6 +34,7 @@ RSpec.describe "Household section flow", type: :feature do
     fill_in_forms_until(:applicant)
     fill_in_applicant_screen(partner: "No", passporting: "No")
     fill_in_dependant_details_screen
+    fill_in_employment_status_screen
     fill_in_benefits_screen
     fill_in_other_income_screen
     fill_in_outgoings_screen
@@ -111,16 +114,5 @@ RSpec.describe "Household section flow", type: :feature do
     fill_in_forms_until(:vehicle)
     fill_in_vehicle_screen(choice: "Yes")
     confirm_screen "vehicles_details"
-  end
-
-  context "when self-employed flag is enabled", :self_employed_flag, type: :feature do
-    it "uses employment status screen" do
-      start_assessment
-      fill_in_forms_until(:applicant)
-      fill_in_applicant_screen(partner: "No", passporting: "No")
-      fill_in_dependant_details_screen
-      fill_in_employment_status_screen(choice: "Employed or self-employed")
-      confirm_screen("income")
-    end
   end
 end
