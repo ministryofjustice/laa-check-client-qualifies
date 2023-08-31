@@ -970,7 +970,7 @@ en:
         instruction: Enter amount
       pension:
         label: Pensions
-        hint: Include the total value of any pensions, State Pension, workplace and personal pensions. Enter 0 if this does not apply.
+        hint: Include the total value of any pensions, including State Pension, workplace and personal pensions. Enter 0 if this does not apply.
         instruction: Enter total value of any pensions
       student_finance:
         label: Student finance
@@ -1006,7 +1006,7 @@ en:
         instruction: Enter amount
       pension:
         label: Pensions
-        hint: Include the total value of any pensions, State Pension, workplace and personal pensions. Enter 0 if this does not apply.
+        hint: Include the total value of any pensions, including State Pension, workplace and personal pensions. Enter 0 if this does not apply.
         instruction: Enter total value of any pensions
       student_finance:
         label: Student finance
