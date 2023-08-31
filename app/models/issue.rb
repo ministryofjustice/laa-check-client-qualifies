@@ -3,7 +3,12 @@ class Issue < ApplicationRecord
   has_many :issue_updates
   attribute :title, :string
   attribute :banner_content, :string
+
+  # This is a non-database attribute
+  attribute :initial_update_content, :string
+
   validates :title, :status, :banner_content, presence: true
+  validate :initial_update_content_not_blank
 
   def self.for_banner_display
     joins(:issue_updates).where("status = ? OR (status = ? AND issue_updates.utc_timestamp > ?)", statuses[:active], statuses[:resolved], 24.hours.ago)
@@ -26,5 +31,12 @@ class Issue < ApplicationRecord
 
   def title_for_sentences
     "#{title[0].downcase}#{title[1..]}"
+  end
+
+  def initial_update_content_not_blank
+    # If it's assigned _at all_ then it needs a real value. Empty strings are not permitted
+    return if initial_update_content.nil? || initial_update_content.present?
+
+    errors.add(:initial_update_content, :blank)
   end
 end

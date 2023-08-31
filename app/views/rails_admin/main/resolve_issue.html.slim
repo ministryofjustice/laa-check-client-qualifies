@@ -1,0 +1,17 @@
+= form_with(model: @object,
+            url: RailsAdmin.railtie_routes_url_helpers.resolve_issue_path(model_name: "issue", id: @object.issue_id)) do |form|
+  fieldset
+    .row
+      .col-sm-10
+        h3 = t(".resolve_problem")
+        .form-text = t(".example")
+        ul
+          - t(".example_bullets").each
+            li.form-text = _1
+    .control-group.row.mb-3.text_type
+      = form.label :content, t(".content"), class: "col-sm-2 col-form-label text-md-end"
+      .col-sm-10.controls
+        = form.text_area :content, class: "form-control"
+  .form-actions.row.justify-content-end.my-3
+    .col-sm-10
+      = form.submit t(".resolve"), class: "btn btn-primary"

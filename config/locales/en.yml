@@ -2278,3 +2278,57 @@ en:
     unrecognised: "You are not recognised as an admin"
     sessions:
       google: "Sign in with Google"
+  admin:
+    actions:
+      publish_issue:
+        menu: Publish new issue
+        title: Publish a new issue
+        breadcrumb: Publish new issue
+        done: created
+        issue_published: Issue published
+      update_issue:
+        menu: Publish update
+        title: Publish an issue update
+        breadcrumb: Publish update
+        done: updated
+        issue_updated: Issue update published
+      resolve_issue:
+        menu: Resolve
+        title: Resolve an issue
+        breadcrumb: Resolve
+        done: resolve
+        issue_resolved: Issue resolution published
+  rails_admin:
+    main:
+      publish_issue:
+        banner: Banner
+        updates_page: Updates page
+        publish: Publish
+        title: Problem title
+        title_hint: e.g. Childcare costs problem
+        banner_content: Banner text
+        banner_content_hint: This will appear in the main body of the banner.
+        initial_update_content: Description
+        initial_update_content_hint: "What to include:"
+        initial_update_content_hint_bullets:
+          - High level summary of what the bug is
+          - What should be happening, and what is actually happening
+          - "'We are working to resolve this issue.'"
+          - "(if possible) - a time frame for when users can expect the issue to be resolved, e.g. \"We expect to resolve this in the next 3 hours\""
+      update_issue:
+        add_update: Add update
+        example: "Examples of useful updates"
+        example_bullets:
+          - initial time frame for fix has significantly changed
+          - a bug affects multiple parts of a check, and part has been resolved
+        content: Update description
+        content_hint: This will appear as a time-stamped entry in the original problem update
+        update: Update
+      resolve_issue:
+        resolve_problem: Resolve problem
+        example: "What to include:"
+        example_bullets:
+          - "'The problem has been resolved'"
+          - "(if known) 'We estimate [X] checks were affected by this issue'"
+        content: Resolution text
+        resolve: Resolve problem
