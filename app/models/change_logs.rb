@@ -15,10 +15,6 @@ class ChangeLogs
   CHANGE_LOG = UPDATES + BANNERS
 
   class << self
-    def for_banner_display
-      BANNERS.select { Time.current.beginning_of_day >= _1[:show_from] && Time.current.beginning_of_day <= _1[:show_until] }
-    end
-
     def last_updated_at
       occurred.map { Date.parse(_1[:change_on]) }.max.strftime("%-d %B %Y")
     end
