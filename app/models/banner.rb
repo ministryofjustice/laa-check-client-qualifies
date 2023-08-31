@@ -7,7 +7,7 @@ class Banner < ApplicationRecord
 
   has_rich_text :content
 
-  validates :display_from_utc, :display_until_utc, :title, :published, :content, presence: true
+  validates :display_from_utc, :display_until_utc, :title, :content, presence: true
 
   def self.for_display
     where(published: true).where("display_from_utc <= CURRENT_DATE AND display_until_utc >= CURRENT_DATE")

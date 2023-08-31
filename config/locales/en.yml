@@ -2147,60 +2147,6 @@ en:
       - Council tax rebate
       - Energy Bills Support Scheme (EBSS)
       - Payments for those who are not served by mains gas
-  change_logs:
-    dependant_allowance:
-      banner:
-        header: Changes to dependant and partner allowances
-        prior_text: "On 10 April 2023 some allowances used to estimate if a client is likely to meet the financial criteria for legal aid will change:"
-        live_text: "On 10 April 2023 some allowances used to estimate if a client is likely to meet the financial criteria for legal aid changed:"
-        prior_bullets:
-          - partner allowance increases to £211.32 (currently £191.41)
-          - dependant allowance increases to £338.90 (currently £307.64)
-        live_bullets:
-          - partner allowance increased to £211.32 (was £191.41)
-          - dependant allowance increased to £338.90 (was £307.64)
-      history:
-        header: Changes to dependant and partner allowance
-        text: "Changes to dependant and partner allowances: "
-        bullets:
-          - partner allowance increased to £211.32 (was £191.41)
-          - dependant allowance increased to £338.90 (was £307.64)
-    household_flow:
-      history:
-        text: "Changes to simplify the question flow for clients who have a partner"
-        bullets:
-          - introduction of household questions (for dependants, housing costs, property and vehicles)
-    special_applicants:
-      history:
-        header: Guidance for clients in specific circumstances
-        text: "Additional guidance added to support clients in specific circumstances:"
-        bullets:
-          - prisoners, police officers, members of HM Forces, clients who are bankrupt and clients who live outside the UK
-          - clarification on when the finances of applicants under 18 are assessed
-    cw_forms:
-      header: Controlled work forms
-      text: "When a controlled work check is completed, this service will add the results to a downloadable PDF for the civil controlled work forms that collect a client’s financial information:"
-      bullets:
-        - "CW1: financial eligibility for legal aid clients"
-        - "CW1&2MH: legal help and controlled legal representation (mental health)"
-        - "CW2IMM: controlled legal representation (Immigration)"
-        - "CW5: financial eligibility form for clients wanting family mediation"
-        - "CIVMEANS7: financial assessment for family mediation"
-    mtr_phase_1:
-      header: Changes for clients aged under 18
-      para_1: "From 3 August 2023, clients aged under 18 will not need a means assessment for certificated work matters or controlled legal representation (CLR) matters. For all other types of controlled work and family mediation matters, clients under 18 must have a full means assessment if any of the following apply:"
-      bullets:
-        - their means are aggregated with another person’s, like a parent or guardian
-        - they get regular income, like payment from a job
-        - they have capital worth more than £2,500
-    self_employed:
-      header: Self-employed clients
-      text: This service now supports clients (and their partners) who are self-employed, with the exception of self-employed company directors for certificated checks.
-    public_beta:
-      header: Public beta
-      text: This service was launched as a public beta, available to all users. Until this date it was in a private pilot phase, available only by invitation.
-    tags:
-      mtr: Means test review
   controlled_work_document_selections:
     new:
       title: Which controlled work (CW) form do you need?
@@ -2259,6 +2205,9 @@ en:
   updates:
     index:
       updates: Updates
+      tags:
+        mtr: Means test review
+        policy_update: Policy update
     issue:
       status_active: "Status: Unresolved"
       status_resolved: "Status: Resolved"

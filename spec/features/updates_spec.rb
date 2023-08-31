@@ -1,11 +1,19 @@
 require "rails_helper"
 
 RSpec.describe "Updates page" do
-  scenario "I can view the updates page" do
+  scenario "The latest change log date is visible on the start page" do
+    create :change_log, published: true,released_on: "2023-4-1"
     visit root_path
-    click_on "Updates"
-    expect(page).to have_current_path "/updates"
-    expect(page).to have_content "Changes for clients aged under 18"
+    expect(page).to have_content "Last updated 1 April 2023"
+  end
+
+  scenario "I can view details of a published change log" do
+    change_log = create :change_log, published: true, tag: "mtr", released_on: "2023-4-1"
+    visit updates_path
+    expect(page).to have_content "1 April 2023"
+    expect(page).to have_content "Means test review"
+    expect(page).to have_content change_log.title
+    expect(page).to have_content change_log.content.to_plain_text.strip
   end
 
   scenario "I can view details of an active issue" do

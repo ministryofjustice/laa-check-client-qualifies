@@ -1,4 +1,4 @@
-- latest_update = issue.issue_updates.order(utc_timestamp: :desc).first.time_for_display
+- latest_update = issue.latest_update_time
 . class="govuk-!-margin-bottom-7"
   h2.govuk-heading-m class="govuk-!-margin-bottom-2" = latest_update.strftime("%-d %B %Y")
   hr class="govuk-!-margin-bottom-4"
