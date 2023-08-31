@@ -1,5 +1,5 @@
 class StatusController < ApplicationController
-  skip_before_action :authenticate, :check_maintenance_mode, only: :index
+  skip_before_action :authenticate, :check_maintenance_mode, only: %i[index health]
 
   def index
     render json: { alive: true }
