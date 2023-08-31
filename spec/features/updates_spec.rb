@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Updates page" do
   scenario "The latest change log date is visible on the start page" do
-    create :change_log, published: true,released_on: "2023-4-1"
+    create :change_log, published: true, released_on: "2023-4-1"
     visit root_path
     expect(page).to have_content "Last updated 1 April 2023"
   end

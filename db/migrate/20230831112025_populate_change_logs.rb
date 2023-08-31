@@ -1,5 +1,7 @@
 class PopulateChangeLogs < ActiveRecord::Migration[7.0]
   def up
+    return if Rails.env.test?
+
     ChangeLog.create!(
       title: "Public beta",
       released_on: "2023-8-22",
@@ -64,7 +66,7 @@ class PopulateChangeLogs < ActiveRecord::Migration[7.0]
   end
 
   def trix_format(string)
-    "<div class=\"trix-content\">#{string}</div>".html_safe
+    string.html_safe
   end
 
   def down

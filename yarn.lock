@@ -189,20 +189,6 @@
   resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-7.0.7.tgz#03b5faa8642a80211708e8f1754cf424e9228718"
   integrity sha512-NqHf4XDkeVaNk/r+TBo2aAMkjPyRPEfZkSqCTijfWukW1zTZ2XLDfvFzbpRCuWZ6gxItgoa/FkILZm27HRh2yg==
 
-"@rails/actiontext@^7.0.7-2":
-  version "7.0.7-2"
-  resolved "https://registry.yarnpkg.com/@rails/actiontext/-/actiontext-7.0.7-2.tgz#32a78cd9cbc1a00b0d240a8299e2d3fb4a1eabdd"
-  integrity sha512-m/wTMqhJfKMx7EW+EVVQvrv91Nzw5e+rDQ10ow8wFBKAf4Q9izjg9/TXqLA7OVV9CfM4yOr1yMM4wM544kyOYw==
-  dependencies:
-    "@rails/activestorage" ">= 7.0.0-alpha1"
-
-"@rails/activestorage@>= 7.0.0-alpha1":
-  version "7.0.7"
-  resolved "https://registry.yarnpkg.com/@rails/activestorage/-/activestorage-7.0.7.tgz#a23e22bccd61756ba52aff3b8cb43b050ae1ecca"
-  integrity sha512-EoiGMWUmRzYQhOQ1ifTFHuYNdOHP3f0YOhrKsFlshrV8vzkRkip1Ks3BMzW98cYOw7v6PUPmEeBxgb4jY2U2+g==
-  dependencies:
-    spark-md5 "^3.0.1"
-
 "@rails/ujs@^6.1.4-1":
   version "6.1.7"
   resolved "https://registry.yarnpkg.com/@rails/ujs/-/ujs-6.1.7.tgz#b09dc5b2105dd267e8374c47e4490240451dc7f6"
@@ -968,11 +954,6 @@ source-map@~0.6.1:
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.6.1.tgz#74722af32e9614e9c287a8d0bbde48b5e2f1a263"
   integrity sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==
 
-spark-md5@^3.0.1:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/spark-md5/-/spark-md5-3.0.2.tgz#7952c4a30784347abcee73268e473b9c0167e3fc"
-  integrity sha512-wcFzz9cDfbuqe0FZzfi2or1sgyIrsDwmPwfZC4hiNidPdPINjeUwNfv5kldczoEAcjl9Y1L3SM7Uz2PUEQzxQw==
-
 streamx@^2.15.0:
   version "2.15.0"
   resolved "https://registry.yarnpkg.com/streamx/-/streamx-2.15.0.tgz#f58c92e6f726b5390dcabd6dd9094d29a854d698"
@@ -1038,11 +1019,6 @@ tr46@~0.0.3:
   version "0.0.3"
   resolved "https://registry.npmjs.org/tr46/-/tr46-0.0.3.tgz"
   integrity sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw==
-
-trix@^2.0.5:
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/trix/-/trix-2.0.5.tgz#f54880ab38e24d47829a04e04afaf03a8607f772"
-  integrity sha512-OiCbDf17F7JahEwhyL1MvK9DxAAT1vkaW5sn+zpwfemZAcc4RfQB4ku18/1mKP58LRwBhjcy+6TBho7ciXz52Q==
 
 tslib@^2.0.1:
   version "2.6.0"

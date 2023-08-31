@@ -17,10 +17,10 @@ class ChangeLog < ApplicationRecord
   def self.latest_update_time
     issue_or_change_log = for_updates_page.first
     time = if issue_or_change_log.is_a?(Issue)
-      issue_or_change_log.latest_update_time
-    else
-      issue_or_change_log.released_on
-    end
+             issue_or_change_log.latest_update_time
+           else
+             issue_or_change_log.released_on
+           end
     time.strftime("%-d %B %Y")
   end
 
