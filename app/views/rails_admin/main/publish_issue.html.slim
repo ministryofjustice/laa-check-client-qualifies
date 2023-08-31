@@ -1,0 +1,30 @@
+= form_with(model: @object, url: RailsAdmin.railtie_routes_url_helpers.publish_issue_path) do |form|
+  fieldset
+    .row
+      .col-sm-10
+        h3 = t(".banner")
+    .control-group.row.mb-3.text_type
+      = form.label :banner_content, t(".banner_content"), class: "col-sm-2 col-form-label text-md-end"
+      .col-sm-10.controls
+        = form.text_area :banner_content, class: "form-control"
+        .form-text = t(".banner_content_hint")
+
+    .row
+      .col-sm-10
+        h3 = t(".updates_page")
+    .control-group.row.mb-3.string_type
+      = form.label :title, t(".title"), class: "col-sm-2 col-form-label text-md-end"
+      .col-sm-10.controls
+        = form.text_field :title, class: "form-control"
+        .form-text = t(".title_hint")
+    .control-group.row.mb-3.text_type
+      = form.label :initial_update_content, t(".initial_update_content"), class: "col-sm-2 col-form-label text-md-end"
+      .col-sm-10.controls
+        = form.text_area :initial_update_content, class: "form-control"
+        .form-text = t(".initial_update_content_hint")
+        ul
+          - t(".initial_update_content_hint_bullets").each
+            li.form-text = _1
+  .form-actions.row.justify-content-end.my-3
+    .col-sm-10
+      = form.submit t(".publish"), class: "btn btn-primary"
