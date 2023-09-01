@@ -74,6 +74,8 @@ runs:
         then
           helm delete $release_name
           echo "##[set-output name=message;]$(echo "Deleted UAT release ${release_name}!")"
+          kubectl delete pvc data-$release_name-postgresql-0
+          echo "##[set-output name=message;]$(echo "Deleted UAT persistent volume ${release_name}!")"
         else
           echo "##[set-output name=message;]$(echo "UAT release, ${release_name}, not found!")"
         fi

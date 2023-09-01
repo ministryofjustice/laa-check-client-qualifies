@@ -35,7 +35,7 @@ RSpec.describe "estimates/check_answers.html.slim" do
             "Financial help from friends or family£50.00Every week",
             "Maintenance payments from a former partner£100.00Every 2 weeks",
             "Income from a property or lodger£150.00Every 4 weeks",
-            "Pension£1,000.00Monthly",
+            "Pensions£1,000.00Monthly",
             "Student finance£350.00",
             "Income from other sources£200.00",
           ])
@@ -64,7 +64,7 @@ RSpec.describe "estimates/check_answers.html.slim" do
             "Financial help from friends or family£0.00",
             "Maintenance payments from a former partner£0.00",
             "Income from a property or lodger£0.00",
-            "Pension£0.00",
+            "Pensions£0.00",
             "Student finance£0.00",
             "Income from other sources£0.00",
           ])

@@ -168,7 +168,7 @@ RSpec.describe "estimates/show.html.slim" do
       expect(page_text).to include "Financial help from friends and family£100.00"
       expect(page_text).to include "Maintenance payments from a former partner£200.00"
       expect(page_text).to include "Income from a property or lodger£300.00"
-      expect(page_text).to include "Pension£400.00"
+      expect(page_text).to include "Pensions£400.00"
       expect(page_text).to include "Student finance£50.00"
       expect(page_text).to include "Other sources£111.00"
       expect(page_text).to include "Total client and partner monthly income£40,000.00"
