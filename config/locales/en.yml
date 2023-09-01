@@ -381,7 +381,7 @@ en:
               within_range: The percentage that they own of the property must be between 1 and 100
               within_range_when_many: The percentage that they own of other property, holiday home or land %{position} must be between 1 and 100
               not_a_number: The percentage that they own of the property must be a number between 1 and 100
-              not_a_number_when_many: THe percentage that they own of other property, holiday home or land %{position} must be a number between 1 and 100
+              not_a_number_when_many: The percentage that they own of other property, holiday home or land %{position} must be a number between 1 and 100
               not_an_integer: The percentage that they own of the property must be a whole number
               not_an_integer_when_many: The percentage that they own of other property, holiday home or land %{position} must be a whole number
         vehicle_form:
