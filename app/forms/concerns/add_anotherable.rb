@@ -51,10 +51,22 @@ private
   def items_valid?
     return if items.all?(&:valid?)
 
+    # Note that the `all` iterator above will terminate the first time it finds an invalid item.
+    # This is deliberate: we want users to be prompted to deal with errors one item at a time.
+
     items.each_with_index do |item, index|
-      item.errors.messages.each do |field, messages|
-        errors.add(:"items_#{index + 1}_#{field}", messages.first)
+      item.errors.each do |error|
+        errors.add(:"items_#{index + 1}_#{error.attribute}", error_message(error, items.length, item.class, index + 1))
       end
+    end
+  end
+
+  def error_message(error, number_of_items, model_class, position)
+    key = "activemodel.errors.models.#{model_class.to_s.underscore}.attributes.#{error.attribute}.#{error.type}"
+    if number_of_items > 1
+      I18n.t("#{key}_when_many", position:)
+    else
+      I18n.t(key)
     end
   end
 end
