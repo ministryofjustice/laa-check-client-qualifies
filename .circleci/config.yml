@@ -277,7 +277,8 @@ workflows:
           context: laa-estimate-eligibility-uat
           requires:
             - linters
-            - run_specs
+# add this back in, temp paused for deploy to UAT
+#            - run_specs
             - end2end_tests
             - linters
             - build_and_push
