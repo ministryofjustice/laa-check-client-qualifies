@@ -79,7 +79,12 @@ private
     end
   end
 
-  def after_sign_in_path_for(*)
-    rails_admin_path
+  def after_sign_in_path_for(resource_or_scope)
+    if resource_or_scope.is_a?(Admin)
+      params[:redirect_url] || rails_admin_path
+
+    else
+      super
+    end
   end
 end
