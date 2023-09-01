@@ -21,9 +21,9 @@ class ControlledWorkDocumentPopulationService
 
     TEMPLATES = {
       "cw1_header" => "lib/cw1-form-header.pdf",
-      "cw2_header" => "lib/cw2imm-form-header.pdf",
+      "cw2_header" => "lib/cw2imm-form-2023-8-21-header.pdf",
       "cw5_header" => "lib/cw5-form-header.pdf",
-      "cw1_and_2_header" => "lib/cw1-and-2-form-header.pdf",
+      "cw1_and_2_header" => "lib/cw1-and-2-form-2023-8-21-header.pdf",
       "civ_means_7_header" => "lib/civ-means-7-form-header.pdf",
     }.freeze
 
