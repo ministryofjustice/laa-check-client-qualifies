@@ -47,9 +47,7 @@ module Steps
       def employed?(session_data)
         return false if asylum_supported?(session_data) || passported?(session_data)
 
-        employment_statuses = FeatureFlags.enabled?(:self_employed, session_data) ? EmploymentStatusForm::EMPLOYED_STATUSES : ApplicantForm::EMPLOYED_STATUSES
-
-        employment_statuses.map(&:to_s).include? session_data["employment_status"]
+        EmploymentStatusForm::EMPLOYED_STATUSES.map(&:to_s).include? session_data["employment_status"]
       end
 
       def benefits?(session_data)
@@ -71,9 +69,7 @@ module Steps
       def partner_employed?(session_data)
         return false if passported?(session_data) || !partner?(session_data)
 
-        employment_statuses = FeatureFlags.enabled?(:self_employed, session_data) ? EmploymentStatusForm::EMPLOYED_STATUSES : ApplicantForm::EMPLOYED_STATUSES
-
-        employment_statuses.map(&:to_s).include? session_data["partner_employment_status"]
+        EmploymentStatusForm::EMPLOYED_STATUSES.map(&:to_s).include? session_data["partner_employment_status"]
       end
 
       def partner_benefits?(session_data)

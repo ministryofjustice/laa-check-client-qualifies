@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Self-employment flow", :self_employed_flag, type: :feature do
+RSpec.describe "Self-employment flow", type: :feature do
   before do
     start_assessment
     fill_in_forms_until(:applicant)

@@ -21,9 +21,7 @@
                  page_url: GuidanceLinkService.call(document: :mental_health_guidance))
 
   h2.govuk-heading-m = t(".client_types")
-  - unless FeatureFlags.enabled?(:self_employed, without_session_data: true)
-    h3.govuk-heading-s = t(".self_employment")
-    p.govuk-body = t(".unacceptable_client_explanation")
+
   h3.govuk-heading-s = t(".client_under_18_heading")
   p.govuk-body = t(".client_under_18_para_1")
   p.govuk-body = t(".client_under_18_para_2")
@@ -31,9 +29,8 @@
     - t(".client_under_18_bullets").each do |bullet|
       li = bullet
 
-  - if FeatureFlags.enabled?(:self_employed, without_session_data: true)
-    h3.govuk-heading-s = t(".unacceptable_client_heading_company_director")
-    p.govuk-body = t(".unacceptable_client_explanation_company_director")
+  h3.govuk-heading-s = t(".unacceptable_client_heading_company_director")
+  p.govuk-body = t(".unacceptable_client_explanation_company_director")
 
   h2.govuk-heading-m = t(".service_function")
   - t(".service_function_paragraphs").each

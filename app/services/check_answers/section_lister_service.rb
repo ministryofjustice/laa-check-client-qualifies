@@ -78,7 +78,6 @@ module CheckAnswers
     def build_field(field_data, model, table_label, index: nil)
       return build_many_fields(field_data, model, table_label) if field_data[:many]
       return if field_data[:skip_unless].present? && !model.send(field_data[:skip_unless])
-      return if field_data[:skip_if].present? && model.send(field_data[:skip_if])
 
       addendum = "_partner" if @check.partner && field_data[:partner_dependant_wording]
 

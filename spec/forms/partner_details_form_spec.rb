@@ -2,7 +2,6 @@ require "rails_helper"
 
 RSpec.describe "partner_details", type: :feature do
   let(:assessment_code) { :assessment_code }
-  let(:employment_question) { "What is the partner's employment status?" }
   let(:session) { { "level_of_help" => "controlled" } }
 
   before do
@@ -15,30 +14,10 @@ RSpec.describe "partner_details", type: :feature do
     expect(page).to have_css(".govuk-error-summary__list")
   end
 
-  it "has a question about employment" do
-    expect(page).to have_content employment_question
-  end
-
   it "stores my responses in the session" do
     choose "Yes", name: "partner_details_form[over_60]"
-    choose "Employed and in work", name: "partner_details_form[employment_status]"
     click_on "Save and continue"
 
     expect(session_contents["partner_over_60"]).to eq true
-    expect(session_contents["partner_employment_status"]).to eq "in_work"
-  end
-
-  context "when the client gets a passporting benefit" do
-    let(:session) { { "level_of_help" => "controlled", "passporting" => true } }
-
-    it "does not ask about employment" do
-      expect(page).not_to have_content employment_question
-    end
-  end
-
-  context "when the self employed flag is enabled", :self_employed_flag do
-    it "does not ask about employment" do
-      expect(page).not_to have_content employment_question
-    end
   end
 end

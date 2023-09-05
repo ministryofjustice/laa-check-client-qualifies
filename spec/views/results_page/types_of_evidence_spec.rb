@@ -20,7 +20,7 @@ RSpec.describe "estimates/show.html.slim" do
       render template: "estimates/show"
     end
 
-    context "when eligible for certificated work with self employed flag enabled", :self_employed_flag do
+    context "when eligible for certificated work" do
       let(:level_of_help) { "certificated" }
       let(:api_response) { FactoryBot.build(:api_result, eligible: "eligible") }
 
@@ -28,17 +28,6 @@ RSpec.describe "estimates/show.html.slim" do
         expect(page_text).to include "3 months of Prisoner Income and Expenditure Statements (PIES)"
         expect(page_text).to include "If the client or any partner are self-employed:"
         expect(page_text).to include "Most recent set of trading accounts or self-assessment tax return"
-      end
-    end
-
-    context "when eligible for certificated work without self employed flag enabled" do
-      let(:level_of_help) { "certificated" }
-      let(:api_response) { FactoryBot.build(:api_result, eligible: "eligible") }
-
-      it "shows relevant text" do
-        expect(page_text).to include "3 months of Prisoner Income and Expenditure Statements (PIES)"
-        expect(page_text).not_to include "If the client or any partner are self-employed:"
-        expect(page_text).not_to include "Most recent set of trading accounts or self-assessment tax return"
       end
     end
   end

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Results page variations", :end2end, :self_employed_flag, type: :feature do
+RSpec.describe "Results page variations", :end2end, type: :feature do
   it "shows an ineligible result if the client's gross income is above the threshold" do
     start_assessment
     fill_in_forms_until(:employment_status)

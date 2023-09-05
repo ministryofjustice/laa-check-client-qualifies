@@ -6,6 +6,7 @@ RSpec.describe "Certificated, non-passported flow", type: :feature do
     fill_in_forms_until(:applicant)
     fill_in_applicant_screen(partner: "No", passporting: "No")
     fill_in_dependant_details_screen
+    fill_in_employment_status_screen
     fill_in_benefits_screen
     fill_in_other_income_screen
     fill_in_outgoings_screen
@@ -20,18 +21,10 @@ RSpec.describe "Certificated, non-passported flow", type: :feature do
   it "asks for employment details if I am employed" do
     start_assessment
     fill_in_forms_until(:applicant)
-    fill_in_applicant_screen(employed: "Employed and in work")
+    fill_in_applicant_screen
     fill_in_dependant_details_screen
-    fill_in_employment_screen
-    confirm_screen("benefits")
-  end
-
-  it "asks for employment details if I am on statutory pay" do
-    start_assessment
-    fill_in_forms_until(:applicant)
-    fill_in_applicant_screen(employed: "Employed and on Statutory Sick Pay or Statutory Maternity Pay")
-    fill_in_dependant_details_screen
-    fill_in_employment_screen
+    fill_in_employment_status_screen(choice: "Employed")
+    fill_in_income_screen
     confirm_screen("benefits")
   end
 
