@@ -19,7 +19,7 @@ class Issue < ApplicationRecord
                          .uniq
   end
 
-  def self.for_updates_page
+  def self.issues_for_updates_page
     Issue.joins(:issue_updates).where(status: [statuses[:active], statuses[:resolved]]).uniq
   end
 

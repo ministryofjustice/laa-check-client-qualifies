@@ -51,6 +51,7 @@ Rails.application.configure do
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
 
+  # We don't use ActiveStorage, but we need this minimal config so that we can use ActionText
   config.active_storage.service = :local
 end
 

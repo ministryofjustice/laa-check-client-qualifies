@@ -3,9 +3,6 @@
   hr class="govuk-!-margin-bottom-4"
   h3.govuk-heading-s
     = change_log.title
-    - case change_log.tag
-    - when ChangeLog.tags[:mtr]
-      .govuk-tag class="govuk-!-margin-left-3" = t("updates.index.tags.mtr")
-    - when ChangeLog.tags[:policy_update]
-      .govuk-tag class="govuk-!-margin-left-3" = t("updates.index.tags.policy_update")
+    - if change_log.tag
+      .govuk-tag class="govuk-!-margin-left-3" = t("updates.index.tags.#{change_log.tag}")
   = change_log.content
