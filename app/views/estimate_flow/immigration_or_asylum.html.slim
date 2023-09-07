@@ -16,4 +16,4 @@
 = render "shared/question_sidebar",
         level_of_help: @check.level_of_help,
         links: { t("estimate_flow.level_of_help.controlled_guidance.text") => \
-                   GuidanceLinkService.call(document: :lc_guidance_controlled) }
+                   document_link(:lc_guidance_controlled) }

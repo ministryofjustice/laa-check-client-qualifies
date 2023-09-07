@@ -82,7 +82,7 @@ class GuidanceLinkService
             page_url: "https://legalaidlearning.justice.gov.uk/course/view.php?id=186",
           },
         },
-      }
+      }.with_indifferent_access
     end
   end
 end
