@@ -12,7 +12,7 @@ if sentry_dsn.present? && ENV["SENTRY_FEATURE_FLAG"]&.casecmp("enabled")&.zero?
     # (there are lots and lots of status checks, and we want to know if there are
     # problems but we don't want to clog up Sentry with data)
     config.traces_sampler = lambda do |sampling_context|
-      /\A\/(status|health)\Z/.match?(sampling_context[:env]["PATH_INFO"]) ? 0.01 : 0.1
+      /\A\/(status|health)\z/.match?(sampling_context[:env]["PATH_INFO"]) ? 0.01 : 0.1
     end
   end
 end
