@@ -1,6 +1,6 @@
 class DocumentsController < ApplicationController
   def show
-    AnalyticsService.call(event_type: "click_link_to_#{params[:id]}",
+    AnalyticsService.call(event_type: "click_#{params[:id]}#{"_#{params[:sub_section]}" if params[:sub_section].present?}",
                           page: params[:referrer],
                           assessment_code: params[:assessment_code],
                           cookies:)
