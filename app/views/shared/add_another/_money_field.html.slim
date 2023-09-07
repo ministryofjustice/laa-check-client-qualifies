@@ -29,7 +29,7 @@ ruby:
       span.govuk-visually-hidden = t("generic.error_prefix")
       = errors.first
   .govuk-input__wrapper
-    span.govuk-input__prefix aria-hidden="true" = BuildEstimatesHelper::POUND
+    span.govuk-input__prefix aria-hidden="true" = FormsHelper::POUND
     input.govuk-input.govuk-input--width-5 [
       inputmode="decimal"
       type="text"

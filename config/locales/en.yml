@@ -479,7 +479,7 @@ en:
       partner: Partner
       household: Household
     or: or
-  estimate_flow:
+  question_flow:
     aria_label:
       friends_or_family_value: Enter amount of financial help from friends or family
       maintenance_value: Enter amount of maintenance payments from a former partner
@@ -1188,7 +1188,7 @@ en:
       vehicle_finance:
         input: Enter the value of payments left
       vehicle_in_dispute: This asset is a subject matter of dispute
-  estimates:
+  checks:
     check_answers:
       heading: Check your answers
       change: Change
@@ -1201,10 +1201,6 @@ en:
         three_months: Total in last 3 months
         year: Total in the last year
         not_applicable: Not applicable
-        # TODO: Remove the below when the employment form is retired
-        week: Every week
-        two_weeks: Every 2 weeks
-        four_weeks: Every 4 weeks
       not_provided: Not provided
       sections:
         level_of_help: Level of help
@@ -1455,6 +1451,7 @@ en:
       how_to_save_header: How to save your answers
       how_to_save_text: After you submit your eligibility check we'll show you the result and the calculations made to get it. You can print or save the eligibility result page, including your answers.
       call_to_action: Submit eligibility check
+  results:
     show:
       likely_to_qualify: Your client is likely to qualify for civil legal aid
       not_likely_to_qualify: Your client is not likely to qualify for civil legal aid

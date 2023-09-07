@@ -1,0 +1,19 @@
+- content_for :page_title
+  = t(".title")
+- content_for :back
+  = back_link(:immigration_or_asylum, @check, @back_buttons_invoke_browser_back_behaviour)
+
+.govuk-grid-column-two-thirds
+  = render "shared/heading"
+  = form_for(@form, url: wizard_path, method: :put) do |form|
+    = form.govuk_error_summary t("generic.error_summary_title")
+
+    = form.govuk_collection_radio_buttons :immigration_or_asylum, yes_no_options, :first, :last,
+                                            legend: { text: t(".title"), size: "xl", tag: "h1" }
+
+    = form.govuk_submit t("generic.save_and_continue")
+
+= render "shared/question_sidebar",
+        level_of_help: @check.level_of_help,
+        links: { t("question_flow.level_of_help.controlled_guidance.text") => \
+                   document_link(:lc_guidance_controlled) }

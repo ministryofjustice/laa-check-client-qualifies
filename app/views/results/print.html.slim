@@ -1,0 +1,54 @@
+- content_for :page_title
+  - if @model.decision == "ineligible"
+    = t("results.show.not_likely_to_qualify")
+  - else
+    = t("results.show.likely_to_qualify")
+.govuk-grid-column-full.no-ligatures
+  .gem-c-organisation-logo
+    .gem-c-organisation-logo__container
+      = pdf_friendly_logo(@is_pdf)
+
+  = pdf_friendly_date(@is_pdf)
+
+  button.govuk-button.govuk-button--secondary data-module="govuk-button" data-trigger="print" = t(".print_this_page")
+
+  h2.govuk-heading-l = t("service.name")
+  = render "result_panel_content"
+
+  - if @model.level_of_help == "certificated"
+    = pdf_friendly_h2(t("results.show.what_happens_next"), "m", @is_pdf)
+    - if @check.upper_tribunal?
+      = pdf_friendly_p_element(t("results.show.next_steps_without_apply_paragraph_1"), @is_pdf)
+    - else
+      = pdf_friendly_p_element(t("results.show.next_steps_paragraph_1"), @is_pdf)
+    = pdf_friendly_p_element(t("results.show.next_steps_paragraph_2"), @is_pdf)
+
+    = pdf_friendly_h2(t("results.show.evidence_needed"), "m", @is_pdf)
+    = render "evidence"
+  - elsif @model.level_of_help == "controlled" && @model.decision == "eligible"
+
+    = pdf_friendly_h2(t("results.show.what_happens_next"), "m", @is_pdf)
+    = render "controlled_work_next_steps", cta: false
+      = pdf_friendly_h2(t("results.show.evidence_needed"), "m", @is_pdf)
+      = pdf_friendly_p_element(t("results.show.evidence_needed_explainer"), @is_pdf)
+      = render "evidence"
+
+  - if @model.calculated?(:gross_income) || @model.calculated?(:disposable_income) || @model.calculated?(:capital)
+    = pdf_friendly_h2(t("results.show.#{@model.level_of_help}_how_calculated"), "m", @is_pdf)
+
+  - if @model.calculated?(:gross_income)
+    = pdf_friendly_h2(t("results.show.income_calculation"), "m", @is_pdf)
+    = render "income_table", caption_size: "s"
+
+  - if @model.calculated?(:disposable_income)
+    = pdf_friendly_h2(t("results.show.outgoings_calculation"), "m", @is_pdf)
+    = render "outgoings_table", caption_size: "s"
+
+  - if @model.calculated?(:capital)
+    = pdf_friendly_h2(t("results.show.capital_calculation"), "m", @is_pdf)
+    = render "capital_table", caption_size: "s"
+
+  = pdf_friendly_h2(t(".your_answers"), "l", @is_pdf, "govuk-!-margin-bottom-9 govuk-!-margin-top-9")
+  = render "checks/check_answers_table", change_links: false
+
+  button.govuk-button.govuk-button--secondary data-module="govuk-button" data-trigger="print" = t(".print_this_page")

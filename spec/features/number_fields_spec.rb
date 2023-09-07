@@ -48,7 +48,7 @@ VALID_MONEY_VALUES = [
 
 RSpec.describe "Number fields" do
   describe "Integer fields" do
-    let(:dependant_details_header) { I18n.t("estimate_flow.dependant_details.legend") }
+    let(:dependant_details_header) { I18n.t("question_flow.dependant_details.legend") }
 
     before do
       set_session(:foo, "level_of_help" => "controlled")

@@ -1,0 +1,10 @@
+.govuk-grid-column-two-thirds
+  h1.govuk-heading-xl = t(".answers_deleted")
+
+  p.govuk-body = t(".paragraph_1")
+  p.govuk-body = t(".paragraph_2")
+  = link_to t(".start_again"),
+    new_check_path,
+    class: "govuk-button govuk-button--start",
+    role: "button",
+    id: "start"

@@ -1,0 +1,77 @@
+- counter ||= nil
+. data-add-another-role="section" id=("section-#{counter}" if counter)
+  .add-another-heading
+    h2.govuk-heading-m
+      = t("question_flow.income.income")
+      span< data-add-another-role="counter" = counter
+    - if removeable
+      button.govuk-button.govuk-button--secondary type="button" data-add-another-role="remove" = t("generic.remove")
+
+  = render "shared/add_another/radio_field",
+           errors: model.errors.messages[:income_type],
+           legend: t("question_flow.income.select_type"),
+           model_name: "income_model",
+           field_name: "income_type",
+           options: model.income_type_options,
+           form_name: "income_form",
+           counter:,
+           value: model.income_type,
+           legend_size: "m"
+
+  = render "shared/add_another/radio_field",
+           errors: model.errors.messages[:income_frequency],
+           legend: t("question_flow.#{i18n_key}.select_frequency"),
+           model_name: "income_model",
+           field_name: "income_frequency",
+           options: model.income_frequency_options,
+           form_name: "income_form",
+           counter:,
+           value: model.income_frequency,
+           legend_size: "m",
+           hint: t("question_flow.income.frequency_#{model.controlled ? 'controlled' : 'certificated'}_hint")
+
+  = render "shared/add_another/money_field",
+           errors: model.errors.messages[:gross_income],
+           form_name: "income_form",
+           model_name: "income_model",
+           field_name: "gross_income",
+           counter:,
+           label: t("question_flow.income.gross_income"),
+           value: model.gross_income,
+           label_size: "m"
+    = govuk_details(summary_text: t("question_flow.#{i18n_key}.self_employed_people.hint_header")) do
+      - if model.controlled
+        p.govuk-body = t("question_flow.#{i18n_key}.self_employed_people.controlled.paragraph_1")
+        p.govuk-body = t("question_flow.#{i18n_key}.self_employed_people.controlled.paragraph_2")
+      - else
+        - t("question_flow.#{i18n_key}.self_employed_people.certificated.first_paragraphs").each
+          p.govuk-body = _1
+        ul.govuk-list.govuk-list--bullet
+          - t("question_flow.#{i18n_key}.self_employed_people.certificated.first_bullets").each
+            li.govuk-body = _1
+        - t("question_flow.#{i18n_key}.self_employed_people.certificated.second_paragraphs").each
+          p.govuk-body = _1
+        ul.govuk-list.govuk-list--bullet
+          - t("question_flow.#{i18n_key}.self_employed_people.certificated.second_bullets").each
+            li.govuk-body = _1
+        p.govuk-body = t("question_flow.#{i18n_key}.self_employed_people.certificated.last_paragraph")
+
+  = render "shared/add_another/money_field",
+           errors: model.errors.messages[:income_tax],
+           form_name: "income_form",
+           model_name: "income_model",
+           field_name: "income_tax",
+           counter:,
+           label: t("question_flow.income.income_tax"),
+           value: model.income_tax,
+           label_size: "m"
+
+  = render "shared/add_another/money_field",
+           errors: model.errors.messages[:national_insurance],
+           form_name: "income_form",
+           model_name: "income_model",
+           field_name: "national_insurance",
+           counter:,
+           label: t("question_flow.income.national_insurance"),
+           value: model.national_insurance,
+           label_size: "m"

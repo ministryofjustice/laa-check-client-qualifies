@@ -1,0 +1,38 @@
+- content_for :page_title
+  = t(".title")
+- content_for :back do
+  = back_link(:level_of_help, @check, @back_buttons_invoke_browser_back_behaviour)
+
+.govuk-grid-column-two-thirds
+  = form_for(@form, url: wizard_path, method: :put) do |form|
+    = form.govuk_error_summary t("generic.error_summary_title")
+    = render "shared/heading", header_text: t(".title")
+
+    = govuk_details(summary_text: t(".controlled_header")) do
+      p.govuk-body = t(".includes")
+
+      ul.govuk-list.govuk-list--bullet
+        - t(".controlled_types").each do |bullet|
+          li = bullet
+
+      p.govuk-body = t(".also_includes")
+      ul.govuk-list.govuk-list--bullet
+        - t(".controlled_chambers").each do |bullet|
+          li = bullet
+
+    = govuk_details(summary_text: t(".certificated_header")) do
+      p.govuk-body = t(".certificated_explanation")
+
+    = form.govuk_radio_buttons_fieldset :level_of_help, legend: { text: t(".select_a_level") }
+      = form.govuk_radio_button :level_of_help, "controlled", label: { text: t(".controlled") }, hint: { text: t(".controlled_hint") }
+      = form.govuk_radio_button :level_of_help, "certificated", label: { text: t(".certificated") }
+
+    = form.govuk_submit t("generic.save_and_continue")
+= render "layouts/sidebar"
+  = render "shared/related_content",
+           links: { t("question_flow.level_of_help.controlled_guidance.text") => \
+                      document_link(:lc_guidance_controlled),
+                    t("question_flow.level_of_help.certificated_guidance.text") => \
+                      document_link(:lc_guidance_certificated),
+                    t("question_flow.level_of_help.mental_health_guidance.text") => \
+                      document_link(:mental_health_guidance) }

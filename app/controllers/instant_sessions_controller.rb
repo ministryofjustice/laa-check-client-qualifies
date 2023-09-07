@@ -18,7 +18,7 @@ class InstantSessionsController < ApplicationController
              raise "Unknown session type requested: #{params[:session_type]}"
            end
     session[assessment_id] = data
-    redirect_to check_answers_estimate_path assessment_code
+    redirect_to check_answers_path assessment_code:
   end
 
   def assessment_code

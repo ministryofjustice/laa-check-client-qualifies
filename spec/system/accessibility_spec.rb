@@ -107,7 +107,6 @@ RSpec.describe "Accessibility" do
   end
 
   describe "Results page" do
-    let(:estimate_id) { SecureRandom.uuid }
     let(:api_result) { build(:api_result) }
 
     before do

@@ -1,0 +1,26 @@
+- legend_key = @check.partner ? "question_flow.property.legend_with_partner" : "question_flow.property.legend"
+- content_for :page_title
+  = t(legend_key)
+- content_for :back
+  = back_link(:property, @check, @back_buttons_invoke_browser_back_behaviour)
+
+.govuk-grid-column-two-thirds
+  = form_for(@form, url: wizard_path, method: :put) do |form|
+    = form.govuk_error_summary t("generic.error_summary_title")
+
+    = render "shared/heading", tag: :household
+    - if @check.partner
+      = form.govuk_collection_radio_buttons :property_owned, property_options, :first, :last,
+                                            legend: { text: t(legend_key), size: "xl", tag: "h1" },
+                                            hint: lambda { \
+                                                        tag.p(t("question_flow.property.generic_hint"), class: "govuk-hint") + \
+                                                        govuk_details(summary_text: t("question_flow.property.details_title"),\
+                                                        text: t("question_flow.property.hint")) \
+                                                       }
+    - else
+      = form.govuk_collection_radio_buttons :property_owned, property_options, :first, :last,
+                                            legend: { text: t(legend_key), size: "xl", tag: "h1" },
+                                            hint: { text: t("question_flow.property.generic_hint") }
+
+    = form.govuk_submit t("generic.save_and_continue")
+= render "property_sidebar", level_of_help: @check.level_of_help, smod_applicable: @check.smod_applicable?

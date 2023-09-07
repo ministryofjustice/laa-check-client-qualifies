@@ -8,7 +8,7 @@ class ProviderUsersController < ApplicationController
   def create
     case params[:provider_user][:legal_aid_provider]
     when "true"
-      redirect_to new_estimate_path
+      redirect_to new_check_path
     when "false"
       redirect_to referrals_path
     else

@@ -8,12 +8,6 @@ Rails.application.routes.draw do
   resource :provider_users, only: %i[show create]
   resource :referrals, only: [:show]
 
-  resources :estimates, only: %i[new create show] do
-    member { get :print, :check_answers, :download }
-
-    resources :controlled_work_document_selections, only: %i[new create]
-  end
-
   resource :cookies, only: %i[show update]
   resource :privacy, as: :privacy, only: :show
   resource :accessibility, only: :show
@@ -39,9 +33,27 @@ Rails.application.routes.draw do
   get "estimates/:assessment_code/check_answers/:step", to: "redirects#check_answers"
   put "estimates/:assessment_code/build_estimates/:step", to: "redirects#build_estimate"
   put "estimates/:assessment_code/check_answers/:step", to: "redirects#check_answers"
+  get "estimates/:assessment_code", to: "redirects#result"
+  get "estimates/:assessment_code/print", to: "redirects#result"
+  get "estimates/:assessment_code/download", to: "redirects#result"
+  get "estimates/:assessment_code/check_answers", to: "redirects#check_answers"
+  get "estimates/:assessment_code/controlled_work_document_selections/new", to: "redirects#cw_forms"
+  post "estimates/:assessment_code/controlled_work_document_selections", to: "redirects#cw_forms"
 
-  get ":step_url_fragment/:assessment_code", to: "build_estimates#show", as: :step
-  put ":step_url_fragment/:assessment_code", to: "build_estimates#update"
+  get "new-check", to: "checks#new", as: :new_check
+  get "check_answers/:assessment_code", to: "checks#check_answers", as: :check_answers
+
+  get "/print/:assessment_code", to: "results#print", as: :print_result
+  get "/download/:assessment_code", to: "results#download", as: :download_result
+
+  get "which-controlled-work-form/:assessment_code", to: "controlled_work_document_selections#new", as: :controlled_work_document_selection
+  post "which-controlled-work-form/:assessment_code", to: "controlled_work_document_selections#create"
+
+  get ":step_url_fragment/:assessment_code", to: "forms#show", as: :step
+  put ":step_url_fragment/:assessment_code", to: "forms#update"
   get ":step_url_fragment/:assessment_code/check", to: "check_answers#show", as: :check_step
   put ":step_url_fragment/:assessment_code/check", to: "check_answers#update"
+
+  get ":assessment_code", to: "results#show", as: :result
+  post ":assessment_code", to: "results#create"
 end

@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "asylum_support", type: :feature do
-  let(:asylum_support_header) { I18n.t("estimate_flow.asylum_support.question") }
+  let(:asylum_support_header) { I18n.t("question_flow.asylum_support.question") }
   let(:assessment_code) { :assessment_code }
   let(:level_of_help) { "certificated" }
 

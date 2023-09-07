@@ -1,0 +1,71 @@
+- counter ||= nil
+. data-add-another-role="section" id=("section-#{counter}" if counter)
+  .add-another-heading
+    h2.govuk-heading-m
+      = t("question_flow.vehicles_details.vehicle")
+      span< data-add-another-role="counter" = counter
+    - if removeable
+      button.govuk-button.govuk-button--secondary type="button" data-add-another-role="remove" id="remove-#{counter}" = t("generic.remove")
+
+  / VEHICLE VALUE
+  = render "shared/add_another/money_field",
+           errors: model.errors.messages[:vehicle_value],
+           form_name: "vehicles_details_form",
+           model_name: "vehicle_model",
+           field_name: "vehicle_value",
+           counter:,
+           label: t("question_flow.vehicles_details.vehicle_value.input"),
+           value: model.vehicle_value,
+           hint: t("question_flow.vehicles_details.vehicle_value.input_hint"),
+           label_size: "m"
+
+  / VEHICLE FINANCE
+  = render "shared/add_another/yes_no_radios",
+           errors: model.errors.messages[:vehicle_pcp],
+           model_name: "vehicle_model",
+           form_name: "vehicles_details_form",
+           field_name: "vehicle_pcp",
+           legend: t("question_flow.vehicles_details.vehicle_pcp.legend"),
+           hint: t("question_flow.vehicles_details.vehicle_pcp.hint"),
+           counter:,
+           value: model.vehicle_pcp
+    = render "shared/add_another/money_field",
+              errors: model.errors.messages[:vehicle_finance],
+              form_name: "vehicles_details_form",
+              model_name: "vehicle_model",
+              field_name: "vehicle_finance",
+              counter:,
+              label: t("question_flow.vehicles_details.vehicle_finance.input"),
+              value: model.vehicle_finance
+
+  / VEHICLE AGE
+  = render "shared/add_another/yes_no_radios",
+           errors: model.errors.messages[:vehicle_over_3_years_ago],
+           model_name: "vehicle_model",
+           form_name: "vehicles_details_form",
+           field_name: "vehicle_over_3_years_ago",
+           legend: t("question_flow.vehicles_details.vehicle_over_3_years_ago.legend"),
+           hint: t("question_flow.vehicles_details.vehicle_over_3_years_ago.hint"),
+           counter:,
+           value: model.vehicle_over_3_years_ago
+
+  / VEHICLE USAGE
+  = render "shared/add_another/yes_no_radios",
+           errors: model.errors.messages[:vehicle_in_regular_use],
+           model_name: "vehicle_model",
+           form_name: "vehicles_details_form",
+           field_name: "vehicle_in_regular_use",
+           legend: t("question_flow.vehicles_details.vehicle_in_regular_use.legend"),
+           hint: t("question_flow.vehicles_details.vehicle_in_regular_use.hint"),
+           counter:,
+           value: model.vehicle_in_regular_use
+
+  / VEHICLE SMOD
+  - if @check.smod_applicable?
+    = render "shared/add_another/checkbox_field",
+            model_name: "vehicle_model",
+            field_name: "vehicle_in_dispute",
+            counter:,
+            label: t("question_flow.vehicles_details.vehicle_in_dispute"),
+            value: model.vehicle_in_dispute
+    = render "smod_help"

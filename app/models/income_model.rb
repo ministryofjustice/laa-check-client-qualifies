@@ -40,17 +40,17 @@ class IncomeModel
   end
 
   def self.income_frequency_options(skip_year:)
-    standard = STANDARD_FREQUENCY_OPTIONS.map { [_1, I18n.t("estimate_flow.income.frequencies.#{_1}")] }
-    addendum = [:divider, [THREE_MONTHS, I18n.t("estimate_flow.income.frequencies.#{THREE_MONTHS}")]]
+    standard = STANDARD_FREQUENCY_OPTIONS.map { [_1, I18n.t("question_flow.income.frequencies.#{_1}")] }
+    addendum = [:divider, [THREE_MONTHS, I18n.t("question_flow.income.frequencies.#{THREE_MONTHS}")]]
     return standard + addendum if skip_year
 
-    standard + addendum + [[YEAR, I18n.t("estimate_flow.income.frequencies.#{YEAR}")]]
+    standard + addendum + [[YEAR, I18n.t("question_flow.income.frequencies.#{YEAR}")]]
   end
 
   def income_type_options
     check_type = controlled ? "controlled" : "certificated"
     section = partner ? "partner_income" : "income"
-    TYPE_OPTIONS.map { [_1, I18n.t("estimate_flow.income.types.#{_1}"), I18n.t("estimate_flow.#{section}.types.#{_1}_#{check_type}_hint")] }
+    TYPE_OPTIONS.map { [_1, I18n.t("question_flow.income.types.#{_1}"), I18n.t("question_flow.#{section}.types.#{_1}_#{check_type}_hint")] }
   end
 
 private

@@ -1,7 +1,0 @@
-- if @model.ineligible?(value_type)
-  - subject = t("estimates.show.ineligible_explanation.#{@model.has_partner? ? 'subject_with_partner' : 'subject_no_partner'}")
-  - outcome = t("estimates.show.ineligible_explanation.#{@model.has_partner? ? 'outcome_with_partner' : 'outcome_no_partner'}")
-  = pdf_friendly_p_element(t("estimates.show.ineligible_explanation.text",
-        subject:,
-        outcome:,
-        value_type: t("estimates.show.ineligible_explanation.#{value_type}")), @is_pdf, "govuk-!-margin-top-8")

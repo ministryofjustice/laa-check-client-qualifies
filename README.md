@@ -102,7 +102,7 @@ CfeService test files are held in `spec/services`, and there is one for each of 
 CfeConnection is tested in `spec/services/cfe_connection_spec.rb`.  It validates that for each method on CfeConnection, whatever gets passed in gets turned into an appropriate HTTP request. We set expectations with `stub_request` calls.
 
 #### Result screen tests
-Result screen tests are held in `spec/views/estimates/` mock a response payload from CFE and set expectations for what appears on the results screen accordingly. They comprehensively test what content gets displayed based on the eligibility outcome.
+Result screen tests are held in `spec/views/results/` mock a response payload from CFE and set expectations for what appears on the results screen accordingly. They comprehensively test what content gets displayed based on the eligibility outcome.
 
 ### Integration tests
 

@@ -1,0 +1,6 @@
+- body.with_row do |row|
+  ruby:
+    text = header_with_hint("results.show.client_outgoing_types.#{outgoing_type}",
+                            "results.show.#{person}_outgoing_hints.#{outgoing_type}")
+  - row.with_cell(header: true, text:)
+  - pdf_friendly_numeric_table_cell(row, money_amount, bold_text: false)
