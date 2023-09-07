@@ -9,6 +9,6 @@ RSpec.describe "CW Forms", type: :feature do
     fill_in_forms_until(:check_answers)
     click_on "Submit"
     click_on "Continue to CW forms"
-    confirm_screen "controlled_work_document_selections/new"
+    expect(page).to have_current_path(/controlled_work_document_selections\/new\z/)
   end
 end

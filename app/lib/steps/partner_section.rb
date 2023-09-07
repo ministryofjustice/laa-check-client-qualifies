@@ -4,7 +4,6 @@ module Steps
       def all_steps
         %i[partner_details
            partner_employment_status
-           partner_employment
            partner_income
            partner_benefits
            partner_benefit_details

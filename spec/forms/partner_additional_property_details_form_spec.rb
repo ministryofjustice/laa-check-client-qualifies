@@ -6,7 +6,7 @@ RSpec.describe "partner_additional_property_details", type: :feature do
 
   before do
     set_session(assessment_code, session)
-    visit "estimates/#{assessment_code}/build_estimates/partner_additional_property_details"
+    visit form_path(:partner_additional_property_details, assessment_code)
   end
 
   it "performs validations" do

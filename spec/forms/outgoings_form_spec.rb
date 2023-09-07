@@ -7,7 +7,7 @@ RSpec.describe "outgoings", type: :feature do
 
   before do
     set_session(assessment_code, "level_of_help" => level_of_help)
-    visit "estimates/#{assessment_code}/build_estimates/outgoings"
+    visit form_path(:outgoings, assessment_code)
   end
 
   context "when level of help is 'certificated'" do
@@ -50,7 +50,7 @@ RSpec.describe "outgoings", type: :feature do
   context "when client is eligible for childcare costs" do
     before do
       allow(ChildcareEligibilityService).to receive(:call).and_return true
-      visit "estimates/#{assessment_code}/build_estimates/outgoings"
+      visit form_path(:outgoings, assessment_code)
     end
 
     it "shows childcare costs question" do

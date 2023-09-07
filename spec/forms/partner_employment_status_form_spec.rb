@@ -6,7 +6,7 @@ RSpec.describe "partner employment status form", type: :feature do
 
   before do
     set_session(assessment_code, "level_of_help" => level_of_help, "partner" => true)
-    visit "estimates/#{assessment_code}/build_estimates/partner_employment_status"
+    visit form_path(:partner_employment_status, assessment_code)
   end
 
   it "shows appropriate error messages if form blank" do

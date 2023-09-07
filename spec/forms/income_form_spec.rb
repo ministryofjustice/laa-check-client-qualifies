@@ -8,7 +8,7 @@ RSpec.describe "income", type: :feature do
 
   before do
     set_session(assessment_code, session_data)
-    visit "estimates/#{assessment_code}/build_estimates/income"
+    visit form_path(:income, assessment_code)
   end
 
   it "has no annual option" do

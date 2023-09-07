@@ -96,7 +96,7 @@ RSpec.describe "Accessibility" do
         assessment_code = current_path.split("/").reverse.second
 
         Steps::Helper.all_possible_steps.each do |step|
-          visit estimate_build_estimate_path(assessment_code, step)
+          visit form_path(step, assessment_code)
 
           # govuk components deliberately break ARIA rules by putting 'aria-expanded' attributes on inputs
           # C.F. https://github.com/alphagov/govuk-frontend/issues/979

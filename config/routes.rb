@@ -9,9 +9,6 @@ Rails.application.routes.draw do
   resource :referrals, only: [:show]
 
   resources :estimates, only: %i[new create show] do
-    resources :build_estimates, only: %i[show update]
-    resources :check_answers, only: %i[show update]
-
     member { get :print, :check_answers, :download }
 
     resources :controlled_work_document_selections, only: %i[new create]
@@ -36,4 +33,15 @@ Rails.application.routes.draw do
   authenticate :admin, ->(admin) { admin.persisted? } do
     mount Blazer::Engine, at: "data"
   end
+
+  # Catch and redirect old-format URLs
+  get "estimates/:assessment_code/build_estimates/:step", to: "redirects#build_estimate"
+  get "estimates/:assessment_code/check_answers/:step", to: "redirects#check_answers"
+  put "estimates/:assessment_code/build_estimates/:step", to: "redirects#build_estimate"
+  put "estimates/:assessment_code/check_answers/:step", to: "redirects#check_answers"
+
+  get ":step_url_fragment/:assessment_code", to: "build_estimates#show", as: :step
+  put ":step_url_fragment/:assessment_code", to: "build_estimates#update"
+  get ":step_url_fragment/:assessment_code/check", to: "check_answers#show", as: :check_step
+  put ":step_url_fragment/:assessment_code/check", to: "check_answers#update"
 end

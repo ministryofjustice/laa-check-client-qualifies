@@ -6,7 +6,7 @@ RSpec.describe "vehicles_details", type: :feature do
 
   before do
     set_session(assessment_code, session_data)
-    visit "estimates/#{assessment_code}/build_estimates/vehicles_details"
+    visit form_path(:vehicles_details, assessment_code)
   end
 
   it "shows an error message if no value is entered" do

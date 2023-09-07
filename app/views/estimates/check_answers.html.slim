@@ -2,7 +2,7 @@
   = t(".heading")
 - content_for :back
   = link_to t("generic.back"),
-            estimate_build_estimate_path(params[:id], Steps::Helper.last_step(@check&.session_data)),
+            step_path_from_step(Steps::Helper.last_step(@check&.session_data), params[:id]),
             class: "govuk-back-link"
 
 .govuk-grid-column-full

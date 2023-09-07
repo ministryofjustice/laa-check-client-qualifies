@@ -1,4 +1,5 @@
 class EstimateFlowController < ApplicationController
+  before_action :set_id
   include Wicked::Wizard
   before_action :load_check
 
@@ -17,7 +18,7 @@ protected
   end
 
   def assessment_code
-    params[:estimate_id]
+    params[:assessment_code].presence
   end
 
   def next_check_answer_step(step)
@@ -33,5 +34,9 @@ protected
 
   def track_choices(form)
     ChoiceAnalyticsService.call(form, assessment_code, cookies)
+  end
+
+  def set_id
+    params[:id] = Flow::Handler.step_from_url_fragment(params[:step_url_fragment]).to_s
   end
 end

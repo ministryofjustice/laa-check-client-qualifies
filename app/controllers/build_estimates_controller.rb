@@ -7,7 +7,7 @@ class BuildEstimatesController < EstimateFlowController
       session_data.merge!(@form.attributes_for_export_to_session)
       next_step = Steps::Helper.next_step_for(session_data, step)
       if next_step
-        redirect_to wizard_path next_step
+        redirect_to helpers.step_path_from_step(next_step, assessment_code)
       else
         redirect_to_finish_wizard
       end

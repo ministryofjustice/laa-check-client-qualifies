@@ -6,7 +6,7 @@ RSpec.describe "mortgage_or_loan_payment", type: :feature do
 
   before do
     set_session(assessment_code, session)
-    visit "estimates/#{assessment_code}/build_estimates/mortgage_or_loan_payment"
+    visit form_path(:mortgage_or_loan_payment, assessment_code)
   end
 
   it "performs validations" do

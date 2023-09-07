@@ -7,7 +7,7 @@ RSpec.describe "asylum_support", type: :feature do
 
   before do
     set_session(assessment_code, "level_of_help" => level_of_help)
-    visit "estimates/#{assessment_code}/build_estimates/asylum_support"
+    visit form_path(:asylum_support, assessment_code)
   end
 
   it "shows an error message if no value is entered" do

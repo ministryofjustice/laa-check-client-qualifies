@@ -5,7 +5,7 @@ RSpec.describe "other_income", type: :feature do
 
   before do
     set_session(assessment_code, "level_of_help" => "controlled")
-    visit "estimates/#{assessment_code}/build_estimates/other_income"
+    visit form_path(:other_income, assessment_code)
   end
 
   it "shows error messages if form left blank" do

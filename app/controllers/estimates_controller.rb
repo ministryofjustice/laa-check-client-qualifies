@@ -5,7 +5,7 @@ class EstimatesController < ApplicationController
   def new
     new_assessment_code = SecureRandom.uuid
     session[assessment_id(new_assessment_code)] = { "feature_flags" => load_session_derived_flags }
-    redirect_to estimate_build_estimate_path new_assessment_code, Steps::Helper.first_step
+    redirect_to helpers.step_path_from_step(Steps::Helper.first_step, new_assessment_code)
   end
 
   def create

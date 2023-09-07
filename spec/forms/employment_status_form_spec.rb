@@ -6,7 +6,7 @@ RSpec.describe "employment status form", type: :feature do
 
   before do
     set_session(assessment_code, "level_of_help" => level_of_help)
-    visit "estimates/#{assessment_code}/build_estimates/employment_status"
+    visit form_path(:employment_status, assessment_code)
   end
 
   context "when the household section flag is enabled", :household_section_flag do
