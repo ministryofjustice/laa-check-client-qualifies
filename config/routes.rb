@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   resources :feature_flags, only: %i[index], path: "feature-flags"
   resources :updates, only: :index
   resources :basic_authentication_sessions, only: %i[new create]
+  resources :documents, only: :show
 
   get "/health", to: "status#health"
   get "/no-analytics", to: "cookies#no_analytics_mode"

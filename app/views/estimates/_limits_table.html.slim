@@ -4,8 +4,8 @@ p.govuk-body = t(".outgoings_explanation")
 
 - lower_limits = @model.level_of_help == "certificated" && !@check.upper_tribunal?
 - upper_limit_could_be_waived = @model.level_of_help == "certificated" && !@check.upper_tribunal?
-- t(".list_html", page_url: GuidanceLinkService.call(document: :legislation_CLAR_2013_childcare),
-                  page_url_2: GuidanceLinkService.call(document: :legislation_CLAR_2013_housing)).each do |reason|
+- t(".list_html", page_url: document_link(:legislation_CLAR_2013_childcare),
+                  page_url_2: document_link(:legislation_CLAR_2013_housing)).each do |reason|
     p.govuk-body = reason
 - if lower_limits
   p.govuk-body = t(".certificated_last_item")
