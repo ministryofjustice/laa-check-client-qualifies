@@ -100,7 +100,7 @@ module Metrics
         top_validation_screens(time_period).map do |screen_and_count|
           {
             checks: screen_and_count[1],
-            screen: screen_and_count[0],
+            screen: Flow::Handler.url_fragment(screen_and_count[0]),
             data_type: time_period,
           }
         end
@@ -235,7 +235,7 @@ module Metrics
       query_exit_pages(level_of_help, period).map do |result|
         {
           checks: result["checks"],
-          screen: result["page"],
+          screen: Flow::Handler.url_fragment(result["page"]),
           context: "#{level_of_help}_#{period}",
         }
       end

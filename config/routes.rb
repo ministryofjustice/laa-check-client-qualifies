@@ -5,8 +5,8 @@ Rails.application.routes.draw do
 
   resources :start, only: [:index]
   resources :status, only: [:index]
-  resource :provider_users, only: %i[show create]
-  resource :referrals, only: [:show]
+  resource :provider_users, only: %i[show create], path: "do-you-give-legal-advice-or-provide-legal-services"
+  resource :referrals, only: [:show], path: "cannot-use-service"
 
   resource :cookies, only: %i[show update]
   resource :privacy, as: :privacy, only: :show
@@ -41,7 +41,7 @@ Rails.application.routes.draw do
   post "estimates/:assessment_code/controlled_work_document_selections", to: "redirects#cw_forms"
 
   get "new-check", to: "checks#new", as: :new_check
-  get "check_answers/:assessment_code", to: "checks#check_answers", as: :check_answers
+  get "check-answers/:assessment_code", to: "checks#check_answers", as: :check_answers
 
   get "/print/:assessment_code", to: "results#print", as: :print_result
   get "/download/:assessment_code", to: "results#download", as: :download_result

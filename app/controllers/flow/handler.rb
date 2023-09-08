@@ -47,7 +47,7 @@ module Flow
       end
 
       def url_fragment(step)
-        STEPS.fetch(step).fetch(:url_fragment)
+        STEPS.fetch(step.to_sym).fetch(:url_fragment)
       end
 
       def step_from_url_fragment(url_fragment)

@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "provider_users", type: :feature do
   describe "radio buttons" do
     before do
-      visit "/provider_users"
+      visit "/do-you-give-legal-advice-or-provide-legal-services"
     end
 
     it "errors when nothing is entered" do
