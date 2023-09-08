@@ -1,5 +1,5 @@
 - partner ||= false
-= form_for(@form, url: wizard_path, method: :put) do |form|
+= form_for(@form, url: request.path, method: :put) do |form|
   = form.govuk_error_summary t("generic.error_summary_title")
   = render "shared/heading",
             header_text: t("question_flow.#{i18n_key}.heading"),

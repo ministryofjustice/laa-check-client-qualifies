@@ -1,9 +1,5 @@
 class QuestionFlowController < ApplicationController
-  before_action :set_id
-  include Wicked::Wizard
   before_action :load_check
-
-  steps(*Steps::Helper.all_possible_steps)
 
   def show
     track_page_view
@@ -36,7 +32,7 @@ protected
     ChoiceAnalyticsService.call(form, assessment_code, cookies)
   end
 
-  def set_id
-    params[:id] = Flow::Handler.step_from_url_fragment(params[:step_url_fragment]).to_s
+  def step
+    @step ||= Flow::Handler.step_from_url_fragment(params[:step_url_fragment])
   end
 end

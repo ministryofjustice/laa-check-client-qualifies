@@ -4,7 +4,7 @@
   = back_link(:matter_type, @check, @back_buttons_invoke_browser_back_behaviour)
 
 .govuk-grid-column-two-thirds
-  = form_for(@form, url: wizard_path, method: :put) do |form|
+  = form_for(@form, url: request.path, method: :put) do |form|
     = form.govuk_error_summary t("generic.error_summary_title")
     = render "shared/heading", header_text: t(".title")
 

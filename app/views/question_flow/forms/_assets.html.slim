@@ -6,7 +6,7 @@
              model: @form.blank_model,
              form_name: (partner ? "partner_assets_form" : "client_assets_form")
 
-  = form_for(@form, url: wizard_path, method: :put) do |form|
+  = form_for(@form, url: request.path, method: :put) do |form|
 
     = form.govuk_error_summary t("generic.error_summary_title")
     = render "shared/heading",

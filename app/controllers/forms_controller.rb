@@ -9,15 +9,11 @@ class FormsController < QuestionFlowController
       if next_step
         redirect_to helpers.step_path_from_step(next_step, assessment_code)
       else
-        redirect_to_finish_wizard
+        redirect_to check_answers_path assessment_code:
       end
     else
       track_validation_error
       render "question_flow/#{step}"
     end
-  end
-
-  def finish_wizard_path
-    check_answers_path assessment_code:
   end
 end

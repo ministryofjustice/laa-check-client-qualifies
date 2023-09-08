@@ -8,7 +8,7 @@
     .add-another-template-area data-add-another-role="template"
       = render "dependant_income_section", removeable: true, model: @form.blank_model
 
-    = form_for(@form, url: wizard_path, method: :put) do |form|
+    = form_for(@form, url: request.path, method: :put) do |form|
       = form.govuk_error_summary t("generic.error_summary_title")
       = render "shared/heading",
                 header_text: t(".legend"),

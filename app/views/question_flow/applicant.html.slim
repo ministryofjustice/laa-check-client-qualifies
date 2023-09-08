@@ -15,7 +15,7 @@
       li.govuk-hint = _1
 
 .govuk-grid-column-two-thirds
-  = form_for(@form, url: wizard_path, method: :put) do |form|
+  = form_for(@form, url: request.path, method: :put) do |form|
     = render "shared/heading",
              header_text: t(".heading")
 

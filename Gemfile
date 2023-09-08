@@ -105,7 +105,6 @@ end
 
 gem "govuk-components"
 gem "govuk_design_system_formbuilder"
-gem "wicked"
 gem "faraday"
 gem "faraday-net_http_persistent"
 gem "faraday-retry"

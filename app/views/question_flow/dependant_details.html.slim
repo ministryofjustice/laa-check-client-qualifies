@@ -16,7 +16,7 @@
     p.govuk-text = t("question_flow.dependant_details.adult_dependants.exclude")
 
 .govuk-grid-column-two-thirds
-  = form_for(@form, url: wizard_path, method: :put) do |form|
+  = form_for(@form, url: request.path, method: :put) do |form|
     = form.govuk_error_summary t("generic.error_summary_title")
 
     = render "shared/heading",
