@@ -3,7 +3,10 @@ module Admins
     skip_before_action :verify_authenticity_token, only: :google_oauth2
 
     def subdomain_redirects
-      if params[:state] == "ccq-a" && (params[:state].ends_with?(".gov.uk") || params[:state].include?("localhost:3000"))
+      if params[:state].ends_with?(".gov.uk") || params[:state].include?("localhost:3000")
+        # redirect url for local host UAT would look like - https://127.0.0.1:3000/admins/google_oauth2/callback?host=main-check-client-qualifies-legal-aid-uat.cloud-platform.service.justice.gov.uk&access_token=abc123
+        # redirect url for local host UAT would look like - https://localhost:3000/admins/google_oauth2/callback?host=main-check-client-qualifies-legal-aid-uat.cloud-platform.service.justice.gov.uk&access_token=abc123
+        # redirect url for a UAT branch wouls look like - https://el-xxxx-foo-bar-check-client-qualifies-legal-aid-uat.cloud-platform.service.justice.gov.uk/admins/google_oauth2/callback?host=main-check-client-qualifies-legal-aid-uat.cloud-platform.service.justice.gov.uk&access_token=abc123
         redirect_to admin_google_oauth2_omniauth_callback_url(host: params[:state], access_token: params[:access_token])
       else
         raise "Invalid state provided by omniauth callback!"
