@@ -11,12 +11,3 @@ spec:
   rules:
     # Add rules for every host that you would like to redirect to production, like so:
     - host: redirect-example-check-client-qualifies.cloud-platform.service.justice.gov.uk
-      http:
-        paths:
-          - path: /
-            pathType: ImplementationSpecific
-            backend:
-              service:
-                name: check-client-qualifies-laa-estimate-eligibility-redirects
-                port:
-                  name: http
