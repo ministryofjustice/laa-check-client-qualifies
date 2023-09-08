@@ -1,7 +1,6 @@
 class FeatureFlags
   ENABLED_AFTER_DATE = {
     example_2125_flag: { from: "2125-01-01", public: false },
-    mtr_phase_1: { from: "2023-08-03", public: true },
   }.freeze
 
   # the values of some feature flags will come from the session and not the env variables.
@@ -10,8 +9,6 @@ class FeatureFlags
   STATIC_FLAGS = {
     example: "session",
     sentry: "global",
-    self_employed: "session",
-    public_beta: "global",
     index_production: "global",
     maintenance_mode: "global",
     basic_authentication: "global",

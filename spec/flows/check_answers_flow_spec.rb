@@ -3,15 +3,15 @@ require "rails_helper"
 RSpec.describe "Check answers", type: :feature do
   it "prompts me to fill screens were previously skipped, skipping screens that were previously filled" do
     start_assessment
-    fill_in_forms_until(:applicant)
-    fill_in_applicant_screen(employed: "Unemployed")
+    fill_in_forms_until(:employment_status)
+    fill_in_employment_status_screen(choice: "Unemployed")
     fill_in_forms_until(:check_answers)
     confirm_screen("check_answers")
-    within "#table-applicant" do
+    within "#table-employment_status" do
       click_on "Change"
     end
-    fill_in_applicant_screen(employed: "Employed and in work")
-    fill_in_employment_screen
+    fill_in_employment_status_screen(choice: "Employed")
+    fill_in_income_screen
     confirm_screen("check_answers")
   end
 
@@ -25,7 +25,7 @@ RSpec.describe "Check answers", type: :feature do
     end
     fill_in_applicant_screen(passporting: "No", employed: "Employed and in work")
     fill_in_dependant_details_screen
-    fill_in_employment_screen
+    fill_in_employment_status_screen
     fill_in_benefits_screen
     fill_in_other_income_screen
     fill_in_outgoings_screen
@@ -71,19 +71,6 @@ RSpec.describe "Check answers", type: :feature do
     end
     fill_in_level_of_help_screen(choice: "Civil controlled work or family mediation")
     fill_in_immigration_or_asylum_screen
-    confirm_screen("check_answers")
-  end
-
-  it "redirects correctly from the applicant form when self employed flag is switched on", :self_employed_flag do
-    start_assessment
-    fill_in_forms_until(:employment_status)
-    fill_in_employment_status_screen
-    fill_in_forms_until(:check_answers)
-    confirm_screen("check_answers")
-    within "#table-applicant" do
-      click_on "Change"
-    end
-    fill_in_applicant_screen(over_60: "Yes")
     confirm_screen("check_answers")
   end
 end

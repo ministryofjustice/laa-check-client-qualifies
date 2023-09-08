@@ -59,9 +59,7 @@ cfe:
 
 featureFlags:
   sentry: ENABLED
-  selfEmployed: ENABLED
   overrides: ENABLED
-  publicBeta: ENABLED
   indexProduction: NOT_ENABLED
   maintenanceMode: NOT_ENABLED
   basicAuthentication: ENABLED
@@ -82,7 +80,7 @@ postgresql:
   postgresqlUsername: postgres
   primary:
     persistence:
-      enabled: false
+      enabled: true
 
 geckoboard:
   metricsDataset: "ccq_monthly_metrics_uat"

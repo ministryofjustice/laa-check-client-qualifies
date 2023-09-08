@@ -19,7 +19,7 @@ module Steps
           [Steps::Group.new(:partner_details)]
         else
           [Steps::Group.new(:partner_details),
-           employment_status_step(session_data),
+           Steps::Group.new(:partner_employment_status),
            employment_steps(session_data),
            benefit_steps(session_data),
            Steps::Group.new(:partner_other_income)].compact
@@ -28,13 +28,8 @@ module Steps
 
     private
 
-      def employment_status_step(session_data)
-        Steps::Group.new(:partner_employment_status) if FeatureFlags.enabled?(:self_employed, session_data)
-      end
-
       def employment_steps(session_data)
-        key = FeatureFlags.enabled?(:self_employed, session_data) ? :partner_income : :partner_employment
-        Steps::Group.new(key) if Steps::Logic.partner_employed?(session_data)
+        Steps::Group.new(:partner_income) if Steps::Logic.partner_employed?(session_data)
       end
 
       def benefit_steps(session_data)

@@ -395,7 +395,7 @@ en:
               inclusion: Select yes if the vehicle is in regular use
             vehicle_value:
               blank: Enter the estimated value of the vehicle
-              greater_than: The estimated value of the vehicle must be more than
+              greater_than: The estimated value of the vehicle must be more than 0
               not_a_number: The estimated value of the vehicle must be a number
             vehicle_over_3_years_ago:
               inclusion: Select yes if the vehicle was bought over 3 years ago
@@ -412,13 +412,12 @@ en:
   service:
     name: Check if your client qualifies for legal aid
     name_for_page_title: Check if your client qualifies for legal aid | GOV.UK
-    private_beta_survey_link: https://eu.surveymonkey.com/r/ccq1
     public_beta_survey_link: https://eu.surveymonkey.com/r/ccqpublicbeta
     beta: Beta
     beta_message_html: This is a new service - your <a href="%{survey_link}" target="_blank">feedback</a> will help us improve it
     beta_message_short: This is a new service
     beta_message_pilot_heading: This page is no longer active as the pilot phase is complete.
-    beta_message_pilot_body_1: Thank you for taking part. 
+    beta_message_pilot_body_1: Thank you for taking part.
     beta_message_pilot_body_2_html: <a href="https://%{public_beta_link}" target="_blank">Check if your client qualifies for legal aid</a> is now live and available to all users.
     survey_prompt: What did you think of this service?
     survey_hint: (takes 2 minutes)
@@ -1925,9 +1924,7 @@ en:
       unacceptable_client_explanation: You cannot use this service if your client (or their partner) is self-employed.
       unacceptable_client_heading_company_director: "Company directors"
       unacceptable_client_explanation_company_director: "You cannot use this service for a certificated check if your client (or their partner) is a self-employed director."
-      unacceptable_client_heading_under_18: "Clients under 18"
-      unacceptable_client_explanation_under_18_controlled_html: For controlled work, the finances of applicants under 18 are only assessed if they are maintained or cared for by somebody who can also be included in the means assessment. Page %{page_number} of the <a href="%{page_url}" target='_blank'>Lord Chancellor’s guidance (opens in a new tab)</a> has more details about how to assess a child’s means.
-      unacceptable_client_explanation_under_18_certificated_html: For certificated work, see page %{page_number} of the <a href="%{page_url}" target='_blank'>Lord Chancellor’s guidance (opens in a new tab)</a> for more details about when and how to assess a child’s means.
+      client_under_18_heading: "Clients under 18"
       client_under_18_para_1: "Clients aged under 18 do not need a means assessment for certificated work matters or controlled legal representation (CLR) matters."
       client_under_18_para_2: "For all other types of controlled work and family mediation matters, clients under 18 must have a full means assessment if any of the following apply:"
       client_under_18_bullets:

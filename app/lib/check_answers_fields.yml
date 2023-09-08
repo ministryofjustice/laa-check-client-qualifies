@@ -67,9 +67,6 @@ sections:
                 type: boolean
               - attribute: partner
                 type: boolean
-              - attribute: employment_status
-                type: select
-                skip_if: self_employed_flag_enabled?
               - attribute: passporting
                 type: boolean
   - label: dependants
@@ -176,9 +173,6 @@ sections:
             fields:
               - attribute: partner_over_60
                 type: boolean
-              - attribute: partner_employment_status
-                type: select
-                skip_if: self_employed_flag_enabled?
   - label: partner_income
     subsections:
       - label: partner_employment_income

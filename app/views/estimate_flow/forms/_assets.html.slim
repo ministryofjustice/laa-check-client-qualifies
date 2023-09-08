@@ -14,13 +14,11 @@
               post_header_texts: hints,
               tag: (:partner if partner)
 
-    - if FeatureFlags.enabled?(:self_employed, @check.session_data) && !@check.controlled? && \
-      ((partner && @check.partner_self_employed?) || (!partner && @check.client_self_employed?))
+    - if !@check.controlled? && ((partner && @check.partner_self_employed?) || (!partner && @check.client_self_employed?))
       = govuk_details(summary_text: t("estimate_flow.#{i18n_key}.business_capital_title"))
         p.govuk-text = t("estimate_flow.#{i18n_key}.business_capital_text")
         p.govuk-text = t("estimate_flow.#{i18n_key}.business_capital_text_html",
-                        page_url: GuidanceLinkService.call(document: :lc_guidance_certificated,
-                                                           sub_section: :business_capital))
+                        page_url: document_link(:lc_guidance_certificated, :business_capital))
     = govuk_details(summary_text: t("estimate_flow.#{i18n_key}.bankrupt_title"))
       p.govuk-text = t("estimate_flow.#{i18n_key}.bankrupt_text")
     = govuk_details(summary_text: t("estimate_flow.#{i18n_key}.prison_title"))

@@ -77,18 +77,6 @@ RSpec.configure do |config|
     WebMock.disable_net_connect!(allow_localhost: true, allow: ALLOWED_HOSTS)
   end
 
-  config.around(:each, :self_employed_flag) do |example|
-    ENV["SELF_EMPLOYED_FEATURE_FLAG"] = "enabled"
-    example.run
-    ENV["SELF_EMPLOYED_FEATURE_FLAG"] = "disabled"
-  end
-
-  config.around(:each, :public_beta_flag) do |example|
-    ENV["PUBLIC_BETA_FEATURE_FLAG"] = "enabled"
-    example.run
-    ENV["PUBLIC_BETA_FEATURE_FLAG"] = "disabled"
-  end
-
   config.around(:each, :index_production_flag) do |example|
     ENV["INDEX_PRODUCTION_FEATURE_FLAG"] = "enabled"
     example.run

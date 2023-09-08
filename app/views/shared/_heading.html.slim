@@ -5,7 +5,7 @@ ruby:
   end_block = yield
   tag ||= nil
 
-- if using_non_primary_url? && FeatureFlags.enabled?(:public_beta, without_session_data: true)
+- if using_non_primary_url?
   .moj-banner class="govuk-!-margin-top-2" role="region" aria-label="information banner, to explain that pilot phase is complete"
     svg.moj-banner__icon[fill="currentColor"
                         role="presentation"

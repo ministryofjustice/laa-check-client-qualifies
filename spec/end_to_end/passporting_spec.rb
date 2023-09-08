@@ -9,7 +9,6 @@ RSpec.shared_context "with passported attributes", :household_section_flag do
   def submit_data_to_cfe
     choose "No", name: "applicant_form[over_60]"
     choose "No", name: "applicant_form[partner]"
-    choose "Unemployed", name: "applicant_form[employment_status]"
     choose "Yes", name: "applicant_form[passporting]"
     click_on "Save and continue"
     fill_in_forms_until(:assets)

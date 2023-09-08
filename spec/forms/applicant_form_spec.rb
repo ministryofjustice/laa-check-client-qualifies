@@ -17,7 +17,6 @@ RSpec.describe "applicant", type: :feature do
     within ".govuk-error-summary__list" do
       expect(page.text).to eq [
         "Select yes if your client is aged 60 or over",
-        "Select if your client is currently employed",
         "Select yes if the client has a partner",
         "Select yes if your client receives a passporting benefit or if they are named on their partner's passporting benefit",
       ].join
@@ -27,13 +26,11 @@ RSpec.describe "applicant", type: :feature do
   it "stores the chosen value in the session" do
     choose "Yes", name: "applicant_form[over_60]"
     choose "Yes", name: "applicant_form[partner]"
-    choose "Employed and in work", name: "applicant_form[employment_status]"
     choose "Yes", name: "applicant_form[passporting]"
     click_on "Save and continue"
 
     expect(session_contents["over_60"]).to eq true
     expect(session_contents["partner"]).to eq true
-    expect(session_contents["employment_status"]).to eq "in_work"
     expect(session_contents["passporting"]).to eq true
   end
 
@@ -47,24 +44,6 @@ RSpec.describe "applicant", type: :feature do
 
     it "does not show guidance link" do
       expect(page).not_to have_content "Guidance on prisoners"
-    end
-  end
-
-  context "when the self-employed flag is enabled", :self_employed_flag, :household_section_flag do
-    context "when level of help is controlled" do
-      let(:level_of_help) { "controlled" }
-
-      it "does not render the employment question" do
-        expect(page).not_to have_content "What is your client's employment status?"
-      end
-    end
-
-    context "when level of help is certificated" do
-      let(:level_of_help) { "certificated" }
-
-      it "does not render the employment question" do
-        expect(page).not_to have_content "What is your client's employment status?"
-      end
     end
   end
 end

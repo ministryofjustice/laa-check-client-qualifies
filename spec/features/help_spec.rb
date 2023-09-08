@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Help page", :public_beta_flag do
+RSpec.describe "Help page" do
   scenario "I can view the help page" do
     visit root_path
     click_on "Help"

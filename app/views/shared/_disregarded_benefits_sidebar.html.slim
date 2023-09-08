@@ -1,6 +1,5 @@
 = render "shared/question_sidebar", \
   level_of_help:,
   links: { \
-    t("generic.disregarded_benefits_guidance.text") => GuidanceLinkService.call(document: :"lc_guidance_#{level_of_help}",
-                                                                                sub_section: :disregarded_payments), \
+    t("generic.disregarded_benefits_guidance.text") => document_link(:"lc_guidance_#{level_of_help}", :disregarded_payments), \
   }

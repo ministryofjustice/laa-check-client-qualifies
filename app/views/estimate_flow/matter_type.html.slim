@@ -15,12 +15,12 @@
     = govuk_details(summary_text: t(".immigration_header_certificated"))
       p.govuk-body = t(".immigration_certificated_paragraph_one")
       p.govuk-body = t(".immigration_certificated_paragraph_two_html",
-                     page_url: GuidanceLinkService.call(document: :legislation_LASPO_2012_immigration))
+                     page_url: document_link(:legislation_LASPO_2012_immigration))
 
     = govuk_details(summary_text: t(".asylum_header_certificated"))
       p.govuk-body = t(".asylum_certificated_paragraph_one")
       p.govuk-body = t(".asylum_certificated_paragraph_two_html",
-                     page_url: GuidanceLinkService.call(document: :legislation_LASPO_2012_immigration))
+                     page_url: document_link(:legislation_LASPO_2012_immigration))
 
     h2.govuk-heading-s = t(".domestic_abuse_header")
     p.govuk-body = t(".domestic_abuse_paragraph")

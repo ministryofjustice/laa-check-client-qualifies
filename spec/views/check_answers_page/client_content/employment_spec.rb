@@ -13,48 +13,15 @@ RSpec.describe "estimates/check_answers.html.slim" do
   describe "client sections" do
     let(:text) { page_text }
 
-    context "when employment" do
-      let(:session_data) do
-        build(:minimal_complete_session,
-              employment_status:,
-              frequency: "monthly",
-              gross_income: 1_500,
-              income_tax: 200,
-              national_insurance: 100)
-      end
+    context "when the client is unemployed" do
+      let(:session_data) { build(:minimal_complete_session) }
 
-      context "when the client is employed and in work" do
-        let(:employment_status) { "in_work" }
-
-        it "renders content" do
-          expect(text).to include("What is your client's employment status?Employed and in work")
-          expect_in_text(text, [
-            "When does your client normally get paid?Monthly",
-            "Income before any deductions£1,500.00",
-            "Income tax£200.00",
-            "National Insurance£100.00",
-          ])
-        end
-      end
-
-      context "when the client is employed but on statuatory sick/maternity pay" do
-        let(:employment_status) { "receiving_statutory_pay" }
-
-        it "renders content" do
-          expect(text).to include("What is your client's employment status?Employed and on Statutory Sick Pay or Statutory Maternity Pay")
-        end
-      end
-
-      context "when the client is unemployed" do
-        let(:session_data) { build(:minimal_complete_session) }
-
-        it "renders content" do
-          expect(text).to include("What is your client's employment status?Unemployed")
-        end
+      it "renders content" do
+        expect(text).to include("What is your client's employment status?Unemployed")
       end
     end
 
-    context "when self-employed feature flag is enabled", :self_employed_flag do
+    context "when the client has incomes" do
       let(:session_data) do
         build(:minimal_complete_session,
               employment_status: "in_work",
@@ -74,10 +41,6 @@ RSpec.describe "estimates/check_answers.html.slim" do
                   "national_insurance" => 0,
                 },
               ])
-      end
-
-      it "does not show employment status in client details section" do
-        expect(page_text_within("#table-applicant")).not_to include "Employment"
       end
 
       it "shows employment status in the employment section" do

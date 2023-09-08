@@ -52,7 +52,7 @@ RSpec.shared_context "with a check containing partner employment data" do
   end
 end
 
-RSpec.describe "Self-employed flow", :self_employed_flag, type: :feature do
+RSpec.describe "Self-employed flow", type: :feature do
   let(:fixed_arbitrary_date) { Date.new(2023, 2, 15) }
 
   before { travel_to fixed_arbitrary_date }
