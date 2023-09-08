@@ -30,7 +30,7 @@ Rails.application.routes.draw do
   get "/no-analytics", to: "cookies#no_analytics_mode"
   get "instant-:session_type", to: "instant_sessions#create", as: :instant_session
   get "robots.txt", to: "robots#index"
-  get "/subdomain_redirects", to: "admins/omniauth_callbacks#subdomain_redirects"
+  get "/subdomain_redirects", to: "subdomain_redirects#subdomain_redirects", as: :subdomain_redirects
 
   authenticate :admin, ->(admin) { admin.persisted? } do
     mount Blazer::Engine, at: "data"
