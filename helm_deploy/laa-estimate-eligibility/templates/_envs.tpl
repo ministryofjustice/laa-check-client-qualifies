@@ -64,8 +64,6 @@ env:
         key: url
   - name: SENTRY_FEATURE_FLAG
     value: {{ .Values.featureFlags.sentry }}
-  - name: PUBLIC_BETA_FEATURE_FLAG
-    value: {{ .Values.featureFlags.publicBeta }}
   - name: INDEX_PRODUCTION_FEATURE_FLAG
     value: {{ .Values.featureFlags.indexProduction }}
   - name: MAINTENANCE_MODE_FEATURE_FLAG
