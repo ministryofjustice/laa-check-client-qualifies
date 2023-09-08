@@ -8,7 +8,7 @@ RSpec.describe "SubdomianRedirects controller method" do
       # Google re-directs us to SubdomainRedirectsController and calls method
       visit "#{subdomain_redirects_path}?state=#{state}"
 
-      # Expect the redirect to happen with the correct parameters
+      # Expect the redirect to happen and us to be logged in
       expect(page).to have_current_path("/admins/sign_in")
     end
   end
@@ -17,11 +17,8 @@ RSpec.describe "SubdomianRedirects controller method" do
     it "raises an error" do
       state = "https://CrossSiteRequestForgery.com"
 
-      # Google re-directs us to SubdomainRedirectsController and calls method
-      visit "#{subdomain_redirects_path}?state=#{state}"
-
-      # Expect an error to be raised
-      expect { raise "Invalid state provided by omniauth callback!" }.to raise_error("Invalid state provided by omniauth callback!")
+      # Google re-directs us to SubdomainRedirectsController and calls method, and this instantly raises an error
+      expect { visit "#{subdomain_redirects_path}?state=#{state}" }.to raise_error("Invalid state provided by omniauth callback!")
     end
   end
 end
