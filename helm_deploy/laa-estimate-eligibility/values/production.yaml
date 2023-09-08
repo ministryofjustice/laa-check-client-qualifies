@@ -55,7 +55,6 @@ cfe:
 featureFlags:
   sentry: ENABLED
   overrides: NOT_ENABLED
-  publicBeta: ENABLED
   indexProduction: ENABLED
   maintenanceMode: NOT_ENABLED
   basicAuthentication: NOT_ENABLED
