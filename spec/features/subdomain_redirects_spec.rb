@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "SubdomianRedirects controller method" do
+RSpec.describe "SubdomianRedirectsController method", type: :feature do
   context "when I'm from a correct url" do
     it "redirects to admin_google_oauth2_omniauth_callback_path" do
       state = "https://UATbranch.cloud-patform.service.justice.gov.uk"
