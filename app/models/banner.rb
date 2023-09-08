@@ -10,7 +10,7 @@ class Banner < ApplicationRecord
   validates :display_from_utc, :display_until_utc, :title, :content, presence: true
 
   def self.for_display
-    where(published: true).where("display_from_utc <= CURRENT_DATE AND display_until_utc >= CURRENT_DATE")
+    where(published: true).where("display_from_utc <= CURRENT_TIMESTAMP AND display_until_utc >= CURRENT_TIMESTAMP")
   end
 
   # RailsAdmin uses a pre 2.0 version of Trix that doesn't allow adding custom CSS classes to elements
