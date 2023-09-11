@@ -1,6 +1,0 @@
-h2.govuk-heading-s = t("change_logs.dependant_allowance.banner.header")
-- state = live ? "live" : "prior"
-p.govuk-body = t("change_logs.dependant_allowance.banner.#{state}_text")
-ul.govuk-list.govuk-list--bullet
-  - t("change_logs.dependant_allowance.banner.#{state}_bullets").each do |bullet|
-    li = bullet

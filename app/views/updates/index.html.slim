@@ -1,8 +1,8 @@
 .govuk-grid-column-full
   = render "shared/heading"
   h1.govuk-heading-l = t(".updates")
-  - Issue.for_updates_page.each do |issue_or_change_log|
+  - ChangeLog.change_logs_and_issues_for_updates_page.each do |issue_or_change_log|
     - if issue_or_change_log.is_a?(Issue)
       = render "issue", issue: issue_or_change_log
     - else
-      = render "change_logs/log_item", change_log: issue_or_change_log
+      = render "change_log", change_log: issue_or_change_log
