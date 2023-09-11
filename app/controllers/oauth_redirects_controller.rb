@@ -4,7 +4,7 @@ class OauthRedirectsController < ApplicationController
   # we need to perform subdomain redirects (see below)
   def google_redirect
     nonce = SecureRandom.hex(24)
-    session["omniauth.state"] = nonce # Omniauth will look in this locatin in the session when doing its own CSRF checking later.
+    session["omniauth.state"] = nonce # Omniauth will look in this location in the session when doing its own CSRF checking later.
     uri = URI.parse("https://accounts.google.com/o/oauth2/v2/auth")
     uri.query = { client_id: ENV["GOOGLE_OAUTH_CLIENT_ID"],
                   redirect_uri: ENV["GOOGLE_OAUTH_REDIRECT_URI"],
@@ -21,7 +21,7 @@ class OauthRedirectsController < ApplicationController
   # passing the URL of the subdomain we actually want to authenticate in the `state` param.
   # Here we check that the requested subdomain is valid, and if so, redirect back to it.
   # Note that the requested subdomain in the state param will itself contain a state param
-  # with an anti-CSRF nonce, so we need to make sure that is preserved when redirecting onwards
+  # with an anti-CSRF nonce (see above), so we need to make sure that is preserved when redirecting onwards
   def subdomain_redirect
     uri = URI.parse(params[:state])
     if uri.hostname.ends_with?("cloud-platform.service.justice.gov.uk") || request.host == uri.hostname
