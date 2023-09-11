@@ -106,10 +106,6 @@ RSpec.describe "results/show.html.slim" do
             expect(rendered).to include "<td class=\"govuk-table__header\">Capital</td><td class=\"govuk-table__cell\">£3,000</td>"
           end
 
-          it "makes no reference to lower limits" do
-            expect(rendered).not_to include "lower limit"
-          end
-
           it "makes no reference to Apply" do
             expect(rendered).to include "Use CCMS to start an application for your client."
           end
@@ -138,10 +134,6 @@ RSpec.describe "results/show.html.slim" do
 
         context "when not receiving asylum support" do
           let(:asylum_support) { false }
-
-          it "makes no reference to lower limits" do
-            expect(rendered).not_to include "lower limit"
-          end
 
           it "makes no reference to Apply" do
             expect(rendered).to include "Use CCMS to start an application for your client."

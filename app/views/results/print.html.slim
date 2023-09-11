@@ -15,6 +15,12 @@
   h2.govuk-heading-l = t("service.name")
   = render "result_panel_content"
 
+  - if @model.any_calculations_performed?
+    = pdf_friendly_h2(t("results.show.section_summaries.your_clients_key_eligibility_totals"), "m", @is_pdf)
+    .summary-box-holder class="govuk-!-margin-bottom-5"
+      - %i[gross_income disposable_income capital].each
+        = render("summary", section: _1, links: false) if @model.calculated?(_1)
+
   - if @model.level_of_help == "certificated"
     = pdf_friendly_h2(t("results.show.what_happens_next"), "m", @is_pdf)
     - if @check.upper_tribunal?
@@ -33,7 +39,7 @@
       = pdf_friendly_p_element(t("results.show.evidence_needed_explainer"), @is_pdf)
       = render "evidence"
 
-  - if @model.calculated?(:gross_income) || @model.calculated?(:disposable_income) || @model.calculated?(:capital)
+  - if @model.any_calculations_performed?
     = pdf_friendly_h2(t("results.show.#{@model.level_of_help}_how_calculated"), "m", @is_pdf)
 
   - if @model.calculated?(:gross_income)
