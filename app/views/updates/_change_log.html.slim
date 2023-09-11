@@ -1,0 +1,8 @@
+. class="govuk-!-margin-bottom-7"
+  h2.govuk-heading-m class="govuk-!-margin-bottom-2" = change_log.released_on.strftime("%-d %B %Y")
+  hr class="govuk-!-margin-bottom-4"
+  h3.govuk-heading-s
+    = change_log.title
+    - if change_log.tag
+      .govuk-tag class="govuk-!-margin-left-3" = t("updates.index.tags.#{change_log.tag}")
+  = change_log.content

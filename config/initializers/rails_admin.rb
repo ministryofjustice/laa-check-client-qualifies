@@ -54,5 +54,18 @@ RailsAdmin.config do |config|
     object_label_method { :email }
   end
 
-  config.excluded_models.push("AnalyticsEvent", "CompletedUserJourney", "Blazer::Audit", "Blazer::Check", "Blazer::Dashboard", "Blazer::DashboardQuery", "Blazer::Query")
+  config.excluded_models.push(
+    "AnalyticsEvent",
+    "CompletedUserJourney",
+    "Blazer::Audit",
+    "Blazer::Check",
+    "Blazer::Dashboard",
+    "Blazer::DashboardQuery",
+    "Blazer::Query",
+    "ActiveStorage::Attachment",
+    "ActiveStorage::Blob",
+    "ActiveStorage::VariantRecord",
+    "ActionText::RichText",
+    "ActionText::EncryptedRichText",
+  )
 end
