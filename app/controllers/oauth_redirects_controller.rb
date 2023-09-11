@@ -1,4 +1,6 @@
 class OauthRedirectsController < ApplicationController
+  skip_before_action :authenticate, only: %i[google_redirect subdomain_redirect]
+
   # We use a custom URL to initiate the redirect to Google so that we can generate
   # a state param that both contains the standard anti-CSRF nonce _and_ contains the information
   # we need to perform subdomain redirects (see below)
