@@ -118,6 +118,8 @@ env:
     value: {{ .Values.app.primaryHost }}
   - name: GOOGLE_OAUTH_CLIENT_ID
     value: {{ .Values.google.oauthClientId }}
+  - name: GOOGLE_OAUTH_REDIRECT_URI
+    value: {{ .Values.google.oauthRedirectUri }}
   - name: GOOGLE_OAUTH_CLIENT_SECRET
     valueFrom:
       secretKeyRef:

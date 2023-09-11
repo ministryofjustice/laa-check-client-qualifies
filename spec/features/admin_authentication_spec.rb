@@ -11,9 +11,7 @@ RSpec.describe "Admin authentication" do
     end
 
     scenario "I visit the admin panel" do
-      visit "/admin"
-      expect(page).to have_current_path("/admins/sign_in")
-      click_on "Sign in with Google"
+      visit admin_google_oauth2_omniauth_callback_path
       expect(page).to have_current_path("/admin")
     end
   end
@@ -28,9 +26,7 @@ RSpec.describe "Admin authentication" do
     end
 
     scenario "I visit the admin panel" do
-      visit "/admin"
-      expect(page).to have_current_path("/admins/sign_in")
-      click_on "Sign in with Google"
+      visit admin_google_oauth2_omniauth_callback_path
       expect(page).to have_current_path("/admins/sign_in")
       expect(page).to have_content "You are not recognised as an admin"
     end

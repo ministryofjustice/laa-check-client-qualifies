@@ -1,5 +1,3 @@
 .govuk-grid-column-full
   .govuk-button-group
-    = button_to t("devise.sessions.google"),
-      admin_google_oauth2_omniauth_authorize_path(state: root_url, redirect_uri: ENV["GOOGLE_OAUTH_REDIRECT_URI"]),
-      class: "govuk-button"
+    = button_to t("devise.sessions.google"), google_oauth_redirect_path, class: "govuk-button"
