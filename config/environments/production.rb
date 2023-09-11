@@ -83,4 +83,7 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   # config.active_record.dump_schema_after_migration = false
+
+  # We don't use ActiveStorage, but we need this minimal config so that we can use ActionText
+  config.active_storage.service = :local
 end
