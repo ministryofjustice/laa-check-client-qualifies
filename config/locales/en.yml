@@ -1916,14 +1916,33 @@ en:
         - 'find out what information we use to <a href="https://www.gov.uk/guidance/civil-legal-aid-means-testing">check who can get civil legal aid</a>'
   start:
     index:
-      opening_paragraph: Use this service to find out if your client is likely to get civil legal aid, based on their financial situation.
-      only_for_legal_aid_providers_html: You can only use this service if you give legal advice or provide legal services. %{link} as an individual.
-      check_if_you_can_get_legal_aid: Check if you can get legal aid
-      partner_living_outside_uk_html: If your client or their partner live outside the UK, you should <a href='https://www.bankofengland.co.uk/boeapps/database/Rates.asp?Travel=NIxIRx&into=GBP' target='_blank'>convert their financial information into Sterling</a> before completing this check.
-      self_employment: Self-employment
-      unacceptable_client_explanation: You cannot use this service if your client (or their partner) is self-employed.
-      unacceptable_client_heading_company_director: "Company directors"
-      unacceptable_client_explanation_company_director: "You cannot use this service for a certificated check if your client (or their partner) is a self-employed director."
+      opening_paragraphs:
+        - Use this service to find out if your client is likely to get civil legal aid, based on their financial situation.
+        - It normally takes about 5 minutes to answer all the questions. It might take longer if your client's financial affairs are complicated.
+      service_function: What this service will help you assess
+      service_function_paragraphs:
+        - This service assesses whether your client's case is likely to meet the financial criteria for legal aid. It cannot tell you if the merits or the type of case put it in scope for civil legal aid.
+        - For controlled work and family mediation, you must make a decision using the relevant legislation and guidance. The Legal Aid Agency (LAA) may check your decision in the future.
+        - For certificated or licensed work, you must submit an application with supporting evidence. You will have to wait for the LAA assessment to get a decision.
+      when_you_cannot_use_this_service: When you cannot use this service
+      you_cannot_use_this_service_if: "You cannot use this service if:"
+      invalid_case_types_html:
+        - it's for a certificated check if your client (or their partner) is a self-employed company director
+        - you are a member of the public – use the <a href="https://www.gov.uk/check-legal-aid" rel='noreferrer noopener' target='_blank'>legal aid checker</a> instead
+      what_youll_need: What you'll need
+      youll_need_information: "You'll need information from your client (and their partner) about their:"
+      required_information_types:
+        - income, including any benefits they claim
+        - outgoings, like housing costs, maintenance payments and childcare costs
+        - savings and investments
+        - assets, like property and vehicles
+      case_types: Case types
+      this_must_be_for_a_case: "This must be for a case that would be:"
+      valid_case_types:
+        - controlled work (including legal help)  or family mediation
+        - civil certificated or licensed legal work
+      mental_health_html: The <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>LAA contract management mental health guidance (opens in new tab)</a> explains when a means assessment is not needed for controlled work matters that will potentially involve proceedings before the Mental Health Tribunal (known as non-means, non-MHT matter starts).
+      client_types: Client types
       client_under_18_heading: "Clients under 18"
       client_under_18_para_1: "Clients aged under 18 do not need a means assessment for certificated work matters or controlled legal representation (CLR) matters."
       client_under_18_para_2: "For all other types of controlled work and family mediation matters, clients under 18 must have a full means assessment if any of the following apply:"
@@ -1931,27 +1950,6 @@ en:
         - their means are aggregated with another person’s, like a parent or guardian
         - they get regular income, like payment from a job
         - they have capital worth more than £2,500
-      case_types: Case types
-      case_types_intro: "This must be for a case that would be:"
-      valid_case_types:
-        - controlled work (including legal help)  or family mediation
-        - civil certificated or licensed legal work
-      client_types: Client types
-      service_function: What this service will help you assess
-      service_function_paragraphs:
-        - This service assesses whether your client's case is likely to meet the financial criteria for legal aid. It cannot tell you if the merits or the type of case put it in scope for civil legal aid.
-        - For controlled work and family mediation, you must make a decision using the relevant legislation and guidance. The Legal Aid Agency (LAA) may check your decision in the future.
-        - For certificated or licensed work, you must submit an application with supporting evidence. You will have to wait for the LAA assessment to get a decision.
-      before_start_heading: Before you start
-      before_start_paragraphs:
-        - It should take about 15 minutes to answer all the questions.
-        - "You'll need information from your client (and their partner) about their:"
-      required_information_types:
-        - income, including any benefits they claim
-        - outgoings, like housing costs, maintenance payments and childcare costs
-        - savings and investments
-        - assets, like property and vehicles
-      mental_health_html: The <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>LAA contract management mental health guidance (opens in new tab)</a> explains when a means assessment is not needed for controlled work matters that will potentially involve proceedings before the Mental Health Tribunal (known as non-means, non-MHT matter starts).
       start_button: Start now
       last_updated: Last updated %{date}
       see_all_updates: See all updates

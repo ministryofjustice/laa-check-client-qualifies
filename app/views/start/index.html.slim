@@ -3,16 +3,34 @@
   = render "banners"
 
   h1.govuk-heading-xl = t("service.name")
+  - t(".opening_paragraphs").each
+    p.govuk-body = _1
 
-  p.govuk-body = t(".opening_paragraph")
+  h2.govuk-heading-m = t(".service_function")
+  - t(".service_function_paragraphs").each
+    p.govuk-body = _1
 
-  .govuk-inset-text = t(".only_for_legal_aid_providers_html",
-                         link: link_to(t(".check_if_you_can_get_legal_aid"), "https://www.gov.uk/check-legal-aid"))
+  h2.govuk-heading-m = t(".when_you_cannot_use_this_service")
+  p.govuk-body = t(".you_cannot_use_this_service_if")
+  ul.govuk-list.govuk-list--bullet
+    - t(".invalid_case_types_html").each
+      li = _1
 
-  p.govuk-body = t(".partner_living_outside_uk_html")
+  = link_to start_button_label(:start_button),
+    provider_users_path,
+    class: "govuk-button govuk-button--start govuk-!-margin-top-2 govuk-!-margin-bottom-9",
+    role: "button",
+    id: "start"
+
+  h2 class="govuk-heading-m" = t(".what_youll_need")
+  p class="govuk-body" = t(".youll_need_information")
+
+  ul class="govuk-list govuk-list--bullet"
+    - t(".required_information_types").each
+      li = _1
 
   h2.govuk-heading-m = t(".case_types")
-  p.govuk-body = t(".case_types_intro")
+  p.govuk-body = t(".this_must_be_for_a_case")
   ul.govuk-list.govuk-list--bullet
     - t(".valid_case_types").each
       li = _1
@@ -29,30 +47,8 @@
     - t(".client_under_18_bullets").each do |bullet|
       li = bullet
 
-  h3.govuk-heading-s = t(".unacceptable_client_heading_company_director")
-  p.govuk-body = t(".unacceptable_client_explanation_company_director")
-
-  h2.govuk-heading-m = t(".service_function")
-  - t(".service_function_paragraphs").each
-    p.govuk-body = _1
-
-  h2 class="govuk-heading-m" = t(".before_start_heading")
-
-  - t(".before_start_paragraphs").each
-    p class="govuk-body" = _1
-
-  ul class="govuk-list govuk-list--bullet"
-    - t(".required_information_types").each
-      li = _1
-
-  = link_to start_button_label(:start_button),
-    provider_users_path,
-    class: "govuk-button govuk-button--start govuk-!-margin-top-2",
-    role: "button",
-    id: "start"
-
   - if ChangeLog.anything_to_display?
-    hr
+    hr class="govuk-!-margin-top-9"
     p.govuk-body
       = t(".last_updated", date: ChangeLog.latest_update_date)
       span class="govuk-!-margin-left-3"
