@@ -79,3 +79,4 @@ app:
 
 google:
   oauthClientId: 276075615370-ncqvmdi84jruv1jggfg4bu8nlvk1drj0.apps.googleusercontent.com
+  oauthRedirectUri: https://staging.check-your-client-qualifies-for-legal-aid.service.gov.uk/auth/subdomain_redirect
