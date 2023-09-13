@@ -1,27 +1,31 @@
 module OutgoingsSummarisable
   def client_mortgage
-    net_housing_costs if client_income_relevant? && property_owned_with_mortgage?
+    property_owned_with_mortgage? ? net_housing_costs : 0
   end
 
   def client_rent
-    net_housing_costs if client_income_relevant? && !owns_property?
+    !owns_property? ? net_housing_costs : 0
   end
 
   def partner_mortgage
-    net_housing_costs("partner_") if partner_income_relevant? && property_owned_with_mortgage?
+    if partner
+      property_owned_with_mortgage? ? net_housing_costs("partner_") : 0
+    end
   end
 
   def partner_rent
-    net_housing_costs("partner_") if partner_income_relevant? && !owns_property?
+    if partner
+      !owns_property? ? net_housing_costs("partner_") : 0
+    end
   end
 
   def partner_allowance
-    from_cfe_payload("result_summary.disposable_income.partner_allowance") if client_income_relevant? && partner
+    partner ? from_cfe_payload("result_summary.disposable_income.partner_allowance") : 0
   end
 
   def dependants_allowance_under_16
     # We should show this field if there are any child dependants without income, as we assume all child dependants without income are over 16
-    from_cfe_payload("result_summary.disposable_income.dependant_allowance_under_16") if client_income_relevant? && child_dependants && not_all_child_dependants_are_over_16
+    child_dependants && not_all_child_dependants_are_over_16 ? from_cfe_payload("result_summary.disposable_income.dependant_allowance_under_16") : 0
   end
 
   def not_all_child_dependants_are_over_16
@@ -33,35 +37,39 @@ module OutgoingsSummarisable
 
   def dependants_allowance_over_16
     # We should show this field if there are any child dependants without income, as we assume all child dependants without income are over 16
-    from_cfe_payload("result_summary.disposable_income.dependant_allowance_over_16") if client_income_relevant? && (adult_dependants || dependant_incomes.present?)
+    adult_dependants || dependant_incomes.present? ? from_cfe_payload("result_summary.disposable_income.dependant_allowance_over_16") : 0
   end
 
   def client_tax_and_national_insurance
-    tax_and_national_insurance if client_income_relevant? && employed?
+    employed? ? tax_and_national_insurance : 0
   end
 
   def partner_tax_and_national_insurance
-    tax_and_national_insurance("partner_") if partner_income_relevant? && partner_employed?
+    if partner
+      partner_employed? ? tax_and_national_insurance("partner_") : 0
+    end
   end
 
   def client_employment_deduction
-    employment_deduction if client_income_relevant? && employed?
+    employed? ? employment_deduction : 0
   end
 
   def partner_employment_deduction
-    employment_deduction("partner_") if partner_income_relevant? && partner_employed?
+    if partner
+      partner_employed? ? employment_deduction("partner_") : 0
+    end
   end
 
   def client_maintenance_allowance
-    from_cfe_payload("result_summary.disposable_income.maintenance_allowance") if client_income_relevant?
+    from_cfe_payload("result_summary.disposable_income.maintenance_allowance") || 0
   end
 
   def partner_maintenance_allowance
-    from_cfe_payload("result_summary.partner_disposable_income.maintenance_allowance") if partner_income_relevant?
+    from_cfe_payload("result_summary.partner_disposable_income.maintenance_allowance") || 0 if partner
   end
 
   def combined_childcare_costs
-    return unless client_income_relevant? && eligible_for_childcare_costs?
+    return 0 unless eligible_for_childcare_costs?
 
     (session_data.dig("api_response", "assessment", "disposable_income", "childcare_allowance") || 0) +
       (session_data.dig("api_response", "assessment", "partner_disposable_income", "childcare_allowance") || 0)
@@ -72,7 +80,7 @@ module OutgoingsSummarisable
   end
 
   def partner_legal_aid_contribution
-    from_cfe_payload("assessment.partner_disposable_income.monthly_equivalents.all_sources.legal_aid") if partner_income_relevant?
+    from_cfe_payload("assessment.partner_disposable_income.monthly_equivalents.all_sources.legal_aid") || 0 if partner
   end
 
   def client_total_allowances
@@ -80,7 +88,7 @@ module OutgoingsSummarisable
   end
 
   def partner_total_allowances
-    from_cfe_payload("result_summary.partner_disposable_income.total_outgoings_and_allowances") if partner_income_relevant?
+    from_cfe_payload("result_summary.partner_disposable_income.total_outgoings_and_allowances") || 0 if partner
   end
 
 private

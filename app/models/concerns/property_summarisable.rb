@@ -2,7 +2,7 @@ module PropertySummarisable
   # MAIN HOME
   # Value
   def main_home_value
-    from_cfe_payload("assessment.capital.capital_items.properties.main_home.value") if owns_property?
+    from_cfe_payload("assessment.capital.capital_items.properties.main_home.value") || 0
   end
 
   def smod_main_home_value
@@ -10,16 +10,16 @@ module PropertySummarisable
   end
 
   def non_smod_main_home_value
-    main_home_value unless house_in_dispute
+    house_in_dispute ? 0 : main_home_value || 0
   end
 
   # Outstanding mortgage
   def main_home_outstanding_mortgage
-    from_cfe_payload("assessment.capital.capital_items.properties.main_home.outstanding_mortgage") if owns_property?
+    from_cfe_payload("assessment.capital.capital_items.properties.main_home.outstanding_mortgage") || 0
   end
 
   def non_smod_main_home_outstanding_mortgage
-    main_home_outstanding_mortgage unless house_in_dispute
+    house_in_dispute ? 0 : main_home_outstanding_mortgage || 0
   end
 
   def smod_main_home_outstanding_mortgage
@@ -28,7 +28,7 @@ module PropertySummarisable
 
   # Percentage owned
   def main_home_percentage_owned
-    percentage_owned if owns_property?
+    percentage_owned || 0
   end
 
   def smod_main_home_percentage_owned
@@ -36,16 +36,16 @@ module PropertySummarisable
   end
 
   def non_smod_main_home_percentage_owned
-    main_home_percentage_owned unless house_in_dispute
+    house_in_dispute ? 0 : main_home_percentage_owned || 0
   end
 
   # Net value
   def main_home_net_value
-    from_cfe_payload("assessment.capital.capital_items.properties.main_home.net_value") if owns_property?
+    from_cfe_payload("assessment.capital.capital_items.properties.main_home.net_value") || 0
   end
 
   def non_smod_main_home_net_value
-    main_home_net_value unless house_in_dispute
+    house_in_dispute ? 0 : main_home_net_value || 0
   end
 
   def smod_main_home_net_value
@@ -54,7 +54,7 @@ module PropertySummarisable
 
   # Net equity
   def main_home_net_equity
-    from_cfe_payload("assessment.capital.capital_items.properties.main_home.net_equity") if owns_property?
+    from_cfe_payload("assessment.capital.capital_items.properties.main_home.net_equity") || 0
   end
 
   def smod_main_home_net_equity
@@ -62,12 +62,12 @@ module PropertySummarisable
   end
 
   def non_smod_main_home_net_equity
-    main_home_net_equity unless house_in_dispute
+    house_in_dispute ? 0 : main_home_net_equity || 0
   end
 
   # Assessed equity
   def main_home_assessed_equity
-    from_cfe_payload("assessment.capital.capital_items.properties.main_home.assessed_equity") if owns_property?
+    from_cfe_payload("assessment.capital.capital_items.properties.main_home.assessed_equity") || 0
   end
 
   def smod_main_home_assessed_equity
@@ -75,17 +75,17 @@ module PropertySummarisable
   end
 
   def non_smod_main_home_assessed_equity
-    main_home_assessed_equity unless house_in_dispute
+    house_in_dispute ? 0 : main_home_assessed_equity || 0
   end
 
   # ADDITIONAL PROPERTIES
   # Value
   def additional_properties_value
-    additional_properties_sum("value") if client_capital_relevant?
+    additional_properties_sum("value") || 0
   end
 
   def non_smod_additional_properties_value
-    additional_properties_sum("value", smod: false)
+    additional_properties_sum("value", smod: false) || 0
   end
 
   def smod_additional_properties_value
@@ -94,11 +94,11 @@ module PropertySummarisable
 
   # Outstanding mortgage
   def additional_properties_mortgage
-    additional_properties_sum("outstanding_mortgage")
+    additional_properties_sum("outstanding_mortgage") || 0
   end
 
   def non_smod_additional_properties_mortgage
-    additional_properties_sum("outstaging_mortgage", smod: false)
+    additional_properties_sum("outstaging_mortgage", smod: false) || 0
   end
 
   def smod_additional_properties_outstanding_mortgage
@@ -107,11 +107,11 @@ module PropertySummarisable
 
   # Percentage owned
   def smod_additional_properties_percentage_owned
-    additional_properties_percentage_owned(properties: combined_additional_properties.select { _1["subject_matter_of_dispute"] })
+    additional_properties_percentage_owned(properties: combined_additional_properties.select { _1["subject_matter_of_dispute"] }) if any_smod_assets?
   end
 
   def non_smod_additional_properties_percentage_owned
-    additional_properties_percentage_owned(properties: combined_additional_properties.reject { _1["subject_matter_of_dispute"] })
+    additional_properties_percentage_owned(properties: combined_additional_properties.reject { _1["subject_matter_of_dispute"] }) || 0
   end
 
   def additional_properties_percentage_owned(properties: combined_additional_properties)
@@ -122,16 +122,16 @@ module PropertySummarisable
     percentages = properties.map { _1["percentage_owned"] }
     return if percentages.uniq.length > 1
 
-    percentages.first
+    percentages.first || 0
   end
 
   # Net value
   def additional_properties_net_value
-    additional_properties_sum("net_value")
+    additional_properties_sum("net_value") || 0
   end
 
   def non_smod_additional_properties_net_value
-    additional_properties_sum("net_value", smod: false)
+    additional_properties_sum("net_value", smod: false) || 0
   end
 
   def smod_additional_properties_net_value
@@ -140,11 +140,11 @@ module PropertySummarisable
 
   # Net equity
   def additional_properties_net_equity
-    additional_properties_sum("net_equity")
+    additional_properties_sum("net_equity") || 0
   end
 
   def non_smod_additional_properties_net_equity
-    additional_properties_sum("net_equity", smod: false)
+    additional_properties_sum("net_equity", smod: false) || 0
   end
 
   def smod_additional_properties_net_equity
@@ -153,7 +153,7 @@ module PropertySummarisable
 
   # Assessed equity
   def additional_properties_assessed_equity
-    additional_properties_sum("assessed_equity")
+    additional_properties_sum("assessed_equity") || 0
   end
 
   def smod_additional_properties_assessed_equity
@@ -161,7 +161,7 @@ module PropertySummarisable
   end
 
   def non_smod_additional_properties_assessed_equity
-    additional_properties_sum("assessed_equity", smod: false)
+    additional_properties_sum("assessed_equity", smod: false) || 0
   end
 
 private
@@ -180,7 +180,8 @@ private
             end
     return if group.none?
 
-    group.sum { _1[attribute] || 0 }
+    result = group.sum { _1[attribute] || 0 }
+    result || 0
   end
 
   def combined_additional_properties

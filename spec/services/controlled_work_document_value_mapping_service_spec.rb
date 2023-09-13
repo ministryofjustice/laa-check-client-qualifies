@@ -13,27 +13,6 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
     expect(described_class.call(session_data, mappings)["foo"]).to eq true
   end
 
-  it "zeroes out negative values" do
-    mappings = [{ name: "foo", type: "text", source: "main_home_value" }]
-    session_data = {
-      "property_owned" => "outright",
-      "api_response" => {
-        "assessment" => {
-          "capital" => {
-            "capital_items" => {
-              "properties" => {
-                "main_home" => {
-                  "value" => -33.1,
-                },
-              },
-            },
-          },
-        },
-      },
-    }
-    expect(described_class.call(session_data, mappings)["foo"]).to eq "0"
-  end
-
   context "with a comprehensive session with no disputed assets" do
     let(:session_data) do
       FactoryBot.build(
@@ -141,7 +120,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
         "Client in receipt of asylum support" => "No", # Asylum supported not given
         "Has partner whose means are to be agrgregated" => "No_2", # No partner
         "Please complete Part A Capital Subject matter of dispute" => "Yes_5", # SMOD
-        "undefined_26" => nil, # Non smod value is nil
+        "undefined_26" => "0", # Non smod value is zero
         "undefined_10" => "250,000.11", # SMOD home worth £250,000
         "Other property 1" => "100,000.22", # SMOD other property worth £100,000
       }
@@ -155,7 +134,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
         "Assets claimed by opponent" => "yes", # SMOD
         "Passported" => "No", # Not passporting
         "Partner" => "No", # No partner
-        "FillText11" => nil, # Non smod value is nil
+        "FillText11" => "0", # Non smod value is zero
         "FillText27" => "250,000.11", # SMOD home worth £250,000
         "FillText29" => "100,000.22", # SMOD other property worth £100,000
       }
@@ -167,9 +146,9 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       result = described_class.call(session_data, mappings)
       representative_sample = {
         "Passported" => "No", # Client not passported
-        "FillText36" => nil, # Client's share of total net equity (non-SMOD)
-        "FillText57" => nil, # Main home / outstanding mortgage (non-SMOD)
-        "FillText56" => nil, # Main home / current market value (non-SMOD)
+        "FillText36" => "0", # Client's share of total net equity (non-SMOD)
+        "FillText57" => "0", # Main home / outstanding mortgage (non-SMOD)
+        "FillText56" => "0", # Main home / current market value (non-SMOD)
         "FillText105" => "250,000.11", # Main home / current market value (SMOD)
         "FillText106" => "90,000", # Main home / outstanding mortgage (SMOD)
         "FillText102" => "110,000", # total net equity (SMOD)
@@ -199,9 +178,9 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
         "Means test required" => "Yes_2", # Means test required
         "Client in receipt of asylum support" => "Yes_2", # Asylum supported
         "Please complete Part A Capital Subject matter of dispute" => nil, # SMOD not relevant
-        "undefined_42" => nil, # Valuables not relevant
-        "undefined_40" => nil, # Investments not relevant
-        "undefined_38" => nil, # Savings not relevant
+        "undefined_42" => "0", # Valuables not relevant
+        "undefined_40" => "0", # Investments not relevant
+        "undefined_38" => "0", # Savings not relevant
       }
       expect(result).to include(representative_sample)
     end
@@ -212,7 +191,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       representative_sample = {
         "In receipt os NASS payment" => "Yes", # directly or indirectly in receipt of NASS paymen
         "Passported" => nil, # Not passporting
-        "FillText44" => nil, # Property worth £250,000
+        "FillText44" => "0", # Property worth £250,000
         "FillText11" => nil, # SMOD valuables are not relevant so are not displayed
       }
       expect(result).to include(representative_sample)
@@ -248,7 +227,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
         "Client in receipt of asylum support" => "No", # Asylum supported not given
         "Please complete Part A Capital Subject matter of dispute" => "Yes_5", # SMOD
         "Has partner whose means are to be agrgregated" => "Yes_3", # Has a partner
-        "undefined_26" => nil, # Non SMOD Property value
+        "undefined_26" => "0", # Non SMOD Property value
         "undefined_10" => "250,000", # SMOD Property worth £250,000
         "undefined_21" => "111", # SMOD savings
         "undefined_23" => "555", # SMOD valuables

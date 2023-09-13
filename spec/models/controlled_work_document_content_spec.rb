@@ -48,7 +48,7 @@ RSpec.describe ControlledWorkDocumentContent do
             },
           },
         }
-        expect(described_class.new(session_data).non_smod_additional_properties_percentage_owned).to eq nil
+        expect(described_class.new(session_data).non_smod_additional_properties_percentage_owned).to eq 0
       end
     end
   end
@@ -85,14 +85,14 @@ RSpec.describe ControlledWorkDocumentContent do
     end
 
     describe "#client_rent" do
-      it "returns nil" do
-        expect(described_class.new(session_data).client_rent).to eq nil
+      it "returns zero" do
+        expect(described_class.new(session_data).client_rent).to eq 0
       end
     end
 
     describe "#partner_rent" do
-      it "returns nil" do
-        expect(described_class.new(session_data).partner_rent).to eq nil
+      it "returns zero" do
+        expect(described_class.new(session_data).partner_rent).to eq 0
       end
     end
   end
@@ -117,13 +117,13 @@ RSpec.describe ControlledWorkDocumentContent do
 
     describe "#client_mortgage" do
       it "returns zero" do
-        expect(described_class.new(session_data).client_mortgage).to eq nil
+        expect(described_class.new(session_data).client_mortgage).to eq 0
       end
     end
 
     describe "#partner_mortgage" do
       it "returns zero" do
-        expect(described_class.new(session_data).partner_mortgage).to eq nil
+        expect(described_class.new(session_data).partner_mortgage).to eq 0
       end
     end
 
@@ -211,6 +211,12 @@ RSpec.describe ControlledWorkDocumentContent do
       end
 
       describe "smod methods" do
+        describe "#smod_savings" do
+          it "returns a nil response when there are no smod assets" do
+            expect(described_class.new(session_data).smod_savings).to eq nil
+          end
+        end
+
         describe "#smod_main_home_value" do
           it "returns a response" do
             expect(described_class.new(session_data).smod_main_home_value).to eq nil
@@ -267,8 +273,8 @@ RSpec.describe ControlledWorkDocumentContent do
       end
 
       describe "#combined_non_disputed_capital?" do
-        it "returns nil" do
-          expect(described_class.new(session_data).combined_non_disputed_capital).to eq nil
+        it "returns zero" do
+          expect(described_class.new(session_data).combined_non_disputed_capital).to eq 0
         end
       end
     end
@@ -292,6 +298,28 @@ RSpec.describe ControlledWorkDocumentContent do
       describe "#smod_total_capital" do
         it "returns a response" do
           expect(described_class.new(session_data).smod_total_capital).to eq 4356
+        end
+      end
+
+      describe "#smod_savings" do
+        it "returns a zero response when there are existing smod assets but savings are not in dispute" do
+          expect(described_class.new(session_data).smod_savings).to eq 0
+        end
+
+        context "when savings are in dispute" do
+          let(:session_data) do
+            build(:minimal_complete_session,
+                  bank_accounts: [
+                    { "amount" => 25, "account_in_dispute" => true },
+                    { "amount" => 35, "account_in_dispute" => true },
+                  ],
+                  investments: 60,
+                  valuables: 550)
+          end
+
+          it "returns the summed value" do
+            expect(described_class.new(session_data).smod_savings).to eq 60
+          end
         end
       end
     end
@@ -398,16 +426,16 @@ RSpec.describe ControlledWorkDocumentContent do
         }.with_indifferent_access
       end
 
-      it "returns the payload value" do
-        expect(described_class.new(session_data).dependants_allowance_under_16).to eq nil
+      it "returns zero" do
+        expect(described_class.new(session_data).dependants_allowance_under_16).to eq 0
       end
     end
 
     context "when client has no child dependants" do
       let(:child_dependants) { false }
 
-      it "returns nil" do
-        expect(described_class.new(session_data).dependants_allowance_under_16).to eq nil
+      it "returns zero" do
+        expect(described_class.new(session_data).dependants_allowance_under_16).to eq 0
       end
     end
   end
@@ -434,8 +462,8 @@ RSpec.describe ControlledWorkDocumentContent do
     context "when client has no adult dependants" do
       let(:adult_dependants) { false }
 
-      it "returns nil" do
-        expect(described_class.new(session_data).dependants_allowance_over_16).to eq nil
+      it "returns zero" do
+        expect(described_class.new(session_data).dependants_allowance_over_16).to eq 0
       end
     end
   end
@@ -462,8 +490,8 @@ RSpec.describe ControlledWorkDocumentContent do
     context "when client is unemployed" do
       let(:employment_status) { "unemployed" }
 
-      it "returns nil" do
-        expect(described_class.new(session_data).client_tax_and_national_insurance).to eq nil
+      it "returns zero" do
+        expect(described_class.new(session_data).client_tax_and_national_insurance).to eq 0
       end
     end
   end
@@ -491,8 +519,8 @@ RSpec.describe ControlledWorkDocumentContent do
     context "when partner is unemployed" do
       let(:partner_employment_status) { "unemployed" }
 
-      it "returns nil" do
-        expect(described_class.new(session_data).partner_tax_and_national_insurance).to eq nil
+      it "returns zero" do
+        expect(described_class.new(session_data).partner_tax_and_national_insurance).to eq 0
       end
     end
   end
@@ -519,8 +547,8 @@ RSpec.describe ControlledWorkDocumentContent do
     context "when client is unemployed" do
       let(:employment_status) { "unemployed" }
 
-      it "returns nil" do
-        expect(described_class.new(session_data).client_employment_deduction).to eq nil
+      it "returns zero" do
+        expect(described_class.new(session_data).client_employment_deduction).to eq 0
       end
     end
   end
@@ -548,8 +576,8 @@ RSpec.describe ControlledWorkDocumentContent do
     context "when partner is unemployed" do
       let(:partner_employment_status) { "unemployed" }
 
-      it "returns nil" do
-        expect(described_class.new(session_data).partner_employment_deduction).to eq nil
+      it "returns zero" do
+        expect(described_class.new(session_data).partner_employment_deduction).to eq 0
       end
     end
   end
@@ -576,8 +604,8 @@ RSpec.describe ControlledWorkDocumentContent do
     context "when ineligible for costs" do
       let(:child_dependants) { false }
 
-      it "returns nil" do
-        expect(described_class.new(session_data).combined_childcare_costs).to eq nil
+      it "returns zero" do
+        expect(described_class.new(session_data).combined_childcare_costs).to eq 0
       end
     end
   end
