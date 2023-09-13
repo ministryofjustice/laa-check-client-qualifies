@@ -10,7 +10,7 @@ module PropertySummarisable
   end
 
   def non_smod_main_home_value
-    main_home_value unless house_in_dispute
+    main_home_value || 0 unless house_in_dispute
   end
 
   # Outstanding mortgage
@@ -19,7 +19,7 @@ module PropertySummarisable
   end
 
   def non_smod_main_home_outstanding_mortgage
-    main_home_outstanding_mortgage unless house_in_dispute
+    main_home_outstanding_mortgage || 0 unless house_in_dispute
   end
 
   def smod_main_home_outstanding_mortgage
@@ -45,7 +45,7 @@ module PropertySummarisable
   end
 
   def non_smod_main_home_net_value
-    main_home_net_value unless house_in_dispute
+    main_home_net_value || 0 unless house_in_dispute
   end
 
   def smod_main_home_net_value
@@ -62,7 +62,7 @@ module PropertySummarisable
   end
 
   def non_smod_main_home_net_equity
-    main_home_net_equity unless house_in_dispute
+    main_home_net_equity || 0 unless house_in_dispute
   end
 
   # Assessed equity
@@ -75,7 +75,7 @@ module PropertySummarisable
   end
 
   def non_smod_main_home_assessed_equity
-    main_home_assessed_equity unless house_in_dispute
+    main_home_assessed_equity || 0 unless house_in_dispute
   end
 
   # ADDITIONAL PROPERTIES

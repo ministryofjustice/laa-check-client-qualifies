@@ -54,6 +54,7 @@ RSpec.describe ControlledWorkDocumentContent do
   end
 
   context "when the main home is owned" do
+    let(:net_housing_costs) { 44 }
     let(:session_data) do
       {
         "property_owned" => "with_mortgage",
@@ -65,7 +66,7 @@ RSpec.describe ControlledWorkDocumentContent do
               "net_housing_costs" => 43.2,
             },
             "partner_disposable_income" => {
-              "net_housing_costs" => 44,
+              "net_housing_costs" => net_housing_costs,
             },
           },
         },
@@ -79,25 +80,36 @@ RSpec.describe ControlledWorkDocumentContent do
     end
 
     describe "#partner_mortgage" do
-      it "returns housing costs" do
-        expect(described_class.new(session_data).partner_mortgage).to eq 44
+      context "when there are housing costs to display" do
+        it "returns housing costs" do
+          expect(described_class.new(session_data).partner_mortgage).to eq 44
+        end
+      end
+
+      context "when there are NO housing costs to display" do
+        let(:net_housing_costs) { nil }
+
+        it "returns zero" do
+          expect(described_class.new(session_data).partner_mortgage).to eq 0
+        end
       end
     end
 
     describe "#client_rent" do
-      it "returns nil" do
-        expect(described_class.new(session_data).client_rent).to eq nil
+      it "returns zero" do
+        expect(described_class.new(session_data).client_rent).to eq 0
       end
     end
 
     describe "#partner_rent" do
-      it "returns nil" do
-        expect(described_class.new(session_data).partner_rent).to eq nil
+      it "returns zero" do
+        expect(described_class.new(session_data).partner_rent).to eq 0
       end
     end
   end
 
   context "when the main home is rented" do
+    let(:net_housing_costs) { 44 }
     let(:session_data) do
       {
         "property_owned" => "nont",
@@ -108,7 +120,7 @@ RSpec.describe ControlledWorkDocumentContent do
               "net_housing_costs" => 43.2,
             },
             "partner_disposable_income" => {
-              "net_housing_costs" => 44,
+              "net_housing_costs" => net_housing_costs,
             },
           },
         },
@@ -117,13 +129,13 @@ RSpec.describe ControlledWorkDocumentContent do
 
     describe "#client_mortgage" do
       it "returns zero" do
-        expect(described_class.new(session_data).client_mortgage).to eq nil
+        expect(described_class.new(session_data).client_mortgage).to eq 0
       end
     end
 
     describe "#partner_mortgage" do
       it "returns zero" do
-        expect(described_class.new(session_data).partner_mortgage).to eq nil
+        expect(described_class.new(session_data).partner_mortgage).to eq 0
       end
     end
 
@@ -134,8 +146,18 @@ RSpec.describe ControlledWorkDocumentContent do
     end
 
     describe "#partner_rent" do
-      it "returns housing costs" do
-        expect(described_class.new(session_data).partner_rent).to eq 44
+      context "when there are housing costs" do
+        it "returns housing costs" do
+          expect(described_class.new(session_data).partner_rent).to eq 44
+        end
+      end
+
+      context "when there are NO housing costs" do
+        let(:net_housing_costs) { nil }
+
+        it "returns zero" do
+          expect(described_class.new(session_data).partner_rent).to eq 0
+        end
       end
     end
   end
@@ -398,16 +420,16 @@ RSpec.describe ControlledWorkDocumentContent do
         }.with_indifferent_access
       end
 
-      it "returns the payload value" do
-        expect(described_class.new(session_data).dependants_allowance_under_16).to eq nil
+      it "returns zero" do
+        expect(described_class.new(session_data).dependants_allowance_under_16).to eq 0
       end
     end
 
     context "when client has no child dependants" do
       let(:child_dependants) { false }
 
-      it "returns nil" do
-        expect(described_class.new(session_data).dependants_allowance_under_16).to eq nil
+      it "returns zero" do
+        expect(described_class.new(session_data).dependants_allowance_under_16).to eq 0
       end
     end
   end
@@ -434,8 +456,8 @@ RSpec.describe ControlledWorkDocumentContent do
     context "when client has no adult dependants" do
       let(:adult_dependants) { false }
 
-      it "returns nil" do
-        expect(described_class.new(session_data).dependants_allowance_over_16).to eq nil
+      it "returns zero" do
+        expect(described_class.new(session_data).dependants_allowance_over_16).to eq 0
       end
     end
   end
@@ -462,8 +484,8 @@ RSpec.describe ControlledWorkDocumentContent do
     context "when client is unemployed" do
       let(:employment_status) { "unemployed" }
 
-      it "returns nil" do
-        expect(described_class.new(session_data).client_tax_and_national_insurance).to eq nil
+      it "returns zero" do
+        expect(described_class.new(session_data).client_tax_and_national_insurance).to eq 0
       end
     end
   end
@@ -491,8 +513,8 @@ RSpec.describe ControlledWorkDocumentContent do
     context "when partner is unemployed" do
       let(:partner_employment_status) { "unemployed" }
 
-      it "returns nil" do
-        expect(described_class.new(session_data).partner_tax_and_national_insurance).to eq nil
+      it "returns zero" do
+        expect(described_class.new(session_data).partner_tax_and_national_insurance).to eq 0
       end
     end
   end
@@ -519,8 +541,8 @@ RSpec.describe ControlledWorkDocumentContent do
     context "when client is unemployed" do
       let(:employment_status) { "unemployed" }
 
-      it "returns nil" do
-        expect(described_class.new(session_data).client_employment_deduction).to eq nil
+      it "returns zero" do
+        expect(described_class.new(session_data).client_employment_deduction).to eq 0
       end
     end
   end
@@ -548,8 +570,8 @@ RSpec.describe ControlledWorkDocumentContent do
     context "when partner is unemployed" do
       let(:partner_employment_status) { "unemployed" }
 
-      it "returns nil" do
-        expect(described_class.new(session_data).partner_employment_deduction).to eq nil
+      it "returns zero" do
+        expect(described_class.new(session_data).partner_employment_deduction).to eq 0
       end
     end
   end
@@ -576,8 +598,8 @@ RSpec.describe ControlledWorkDocumentContent do
     context "when ineligible for costs" do
       let(:child_dependants) { false }
 
-      it "returns nil" do
-        expect(described_class.new(session_data).combined_childcare_costs).to eq nil
+      it "returns zero" do
+        expect(described_class.new(session_data).combined_childcare_costs).to eq 0
       end
     end
   end

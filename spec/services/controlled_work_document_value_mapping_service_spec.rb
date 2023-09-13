@@ -13,27 +13,6 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
     expect(described_class.call(session_data, mappings)["foo"]).to eq true
   end
 
-  it "zeroes out negative values" do
-    mappings = [{ name: "foo", type: "text", source: "main_home_value" }]
-    session_data = {
-      "property_owned" => "outright",
-      "api_response" => {
-        "assessment" => {
-          "capital" => {
-            "capital_items" => {
-              "properties" => {
-                "main_home" => {
-                  "value" => -33.1,
-                },
-              },
-            },
-          },
-        },
-      },
-    }
-    expect(described_class.call(session_data, mappings)["foo"]).to eq "0"
-  end
-
   context "with a comprehensive session with no disputed assets" do
     let(:session_data) do
       FactoryBot.build(

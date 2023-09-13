@@ -48,11 +48,9 @@ class ControlledWorkDocumentValueMappingService
       return unless value
       return value unless value.is_a?(Numeric)
 
-      non_negative_value = [value, 0].max
+      precision = value.round == value ? 0 : 2
 
-      precision = non_negative_value.round == non_negative_value ? 0 : 2
-
-      number_with_precision(non_negative_value, precision:, delimiter: ",")
+      number_with_precision(value, precision:, delimiter: ",")
     end
   end
 end
