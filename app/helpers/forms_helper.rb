@@ -31,8 +31,8 @@ module FormsHelper
   end
 
   def document_link(document, sub_section = nil)
-    referrer = if %w[build_estimates check_answers].include?(controller_name)
-                 params[:id]
+    referrer = if %w[forms check_answers].include?(controller_name)
+                 Flow::Handler.step_from_url_fragment(params[:step_url_fragment])
                else
                  [controller_name, action_name].join("_")
                end
