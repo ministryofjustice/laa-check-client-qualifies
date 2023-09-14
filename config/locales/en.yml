@@ -476,6 +476,7 @@ en:
       partner: Partner
       household: Household
     or: or
+    hide_this_message: Hide this message
   question_flow:
     aria_label:
       friends_or_family_value: Enter amount of financial help from friends or family
@@ -648,6 +649,7 @@ en:
       amount: Income
       add: Add another dependant's income
       dependant: Dependant
+      removed: Dependant removed
     employment_status:
       heading: What is your client's employment status?
       in_work_including_self_employed: Employed or self-employed
@@ -733,6 +735,7 @@ en:
       income_tax: Income tax
       national_insurance: National insurance
       add: Add another employment income
+      removed: Employment income removed
       income: Employment income
       guidance:
         text: Guidance on income
@@ -851,6 +854,7 @@ en:
       enter_amount: Enter benefit amount
       select_frequency: Select frequency
       add: Add another benefit
+      removed: Benefit removed
     partner_benefits:
       legend: Does the partner get any benefits?
     partner_benefit_details:
@@ -1033,6 +1037,7 @@ en:
         input: Total money in account
       add_bank_account: Add another bank account
       bank_account: Bank account
+      removed: Bank account removed
       investments:
         label: Investments
         hints:
@@ -1156,6 +1161,7 @@ en:
         input: What percentage share does your client own?
         hint: If the property, holiday home or land is shared with the partner, add the percentage the client and partner own together. We do not need to know what percentage each of them owns.
       add: Add another property, holiday home or land
+      removed: Property, holiday home or land removed
     partner_additional_property_details:
       heading: The partner's other property, holiday home or land
       hint: Do not add property, a holiday home or land you’ve already told us about
@@ -1170,6 +1176,7 @@ en:
       heading: Tell us about the vehicle
       vehicle: Vehicle
       add: Add another vehicle
+      removed: Vehicle removed
       vehicle_value:
         input: What is the estimated value of the vehicle?
         input_hint: You can use car valuation websites to find this out. If you have more than one valuation, use the highest. Keep a record of where the valuation is from for evidence, as it may be checked if you make an application for legal aid.

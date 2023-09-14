@@ -71,10 +71,31 @@ const setUpSuggestions = (section) => {
 
 const remove = (section) => {
   const sectionList = section.closest('[data-add-another-role="sectionList"]')
+  showItemRemovedFeedback(section);
   section.remove();
   setUpSections(sectionList); // Some JS triggers, in particular radio conditional reveals, must be re-initialised
   setUpAddButton(sectionList.closest('[data-module="add-another"]'));
 }
+
+const showItemRemovedFeedback = (section) => {
+  const topLevelElement = section.closest('[data-module="add-another"]');
+  const feedback = document.createElement("div");
+  feedback.className = "add-another-removed-feedback";
+
+  const text = document.createElement("div");
+  text.className = "add-another-removed-feedback-text govuk-body";
+  text.innerHTML = topLevelElement.dataset.addAnotherRemovedFeedbackText;
+
+  const button = document.createElement("div")
+  button.className = "add-another-removed-feedback-button govuk-body";
+  button.innerHTML = topLevelElement.dataset.addAnotherHideMessageText;
+
+  feedback.append(text);
+  feedback.append(button);
+  section.after(feedback);
+
+  button.addEventListener("click", () => { feedback.remove() });
+};
 
 const setUpSections = (sectionList) => {
   sectionList.querySelectorAll('[data-add-another-role="section"]').forEach((section, index) => {

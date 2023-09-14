@@ -12,3 +12,25 @@
 .add-another-hidden {
   display: none;
 }
+
+.add-another-removed-feedback {
+  background-color: #F3F2F1;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  margin-bottom: 30px;
+}
+
+.add-another-removed-feedback-text.govuk-body {
+  margin-bottom: 0;
+}
+
+.add-another-removed-feedback-button.govuk-body {
+  margin-bottom: 0;
+  text-decoration: underline;
+  cursor: pointer;
+  color: #505a5f;
+  &:hover {
+    color: #0b0c0c;
+  }
+}
