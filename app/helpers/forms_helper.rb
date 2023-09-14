@@ -36,6 +36,6 @@ module FormsHelper
                else
                  [controller_name, action_name].join("_")
                end
-    document_path(document, sub_section:, assessment_code: params[:estimate_id], referrer:)
+    document_path(document, sub_section:, assessment_code: params[:assessment_code], referrer:)
   end
 end
