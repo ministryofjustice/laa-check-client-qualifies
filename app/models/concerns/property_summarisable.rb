@@ -50,8 +50,8 @@ module PropertySummarisable
 
   def smod_main_home_net_value
     house_in_dispute ? main_home_net_value : 0
-  end
 
+  end
   # Net equity
   def main_home_net_equity
     from_cfe_payload("assessment.capital.capital_items.properties.main_home.net_equity") if owns_property?
@@ -107,7 +107,7 @@ module PropertySummarisable
 
   # Percentage owned
   def smod_additional_properties_percentage_owned
-    additional_properties_percentage_owned(properties: combined_additional_properties.select { _1["subject_matter_of_dispute"] })
+    additional_properties_percentage_owned(properties: combined_additional_properties.select { _1["subject_matter_of_dispute"] }) || 0
   end
 
   def non_smod_additional_properties_percentage_owned

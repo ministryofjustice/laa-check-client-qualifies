@@ -13,12 +13,12 @@ module AssetSummarisable
   end
 
   def partner_savings
-    partner_bank_accounts&.sum { _1.amount.to_d }
+    partner_bank_accounts&.sum { _1.amount.to_d } || 0
   end
 
   # Investments
   def smod_investments
-    investments if investments_in_dispute
+    investments_in_dispute ? investments : 0
   end
 
   def non_smod_client_investments
@@ -27,16 +27,16 @@ module AssetSummarisable
 
   # Valuables
   def smod_valuables
-    valuables if valuables_in_dispute
+    valuables_in_dispute ? valuables : 0
   end
 
   def non_smod_client_valuables
-    valuables unless valuables_in_dispute
+    valuables || 0 unless valuables_in_dispute
   end
 
   # Totals
   def smod_total_capital
-    from_cfe_payload("result_summary.capital.combined_disputed_capital") if smod_assets?
+    smod_assets? ? from_cfe_payload("result_summary.capital.combined_disputed_capital") : 0
   end
 
   def combined_non_disputed_capital

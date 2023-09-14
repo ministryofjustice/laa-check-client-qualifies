@@ -8,17 +8,13 @@ module OutgoingsSummarisable
   end
 
   def partner_mortgage
-    if partner_income_relevant? && property_owned_with_mortgage?
-      net_housing_costs("partner_").nil? ? 0 : net_housing_costs("partner_")
-    elsif partner_income_relevant?
-      0
-    end
+    property_owned_with_mortgage? ? net_housing_costs("partner_").nil? ? 0 : net_housing_costs("partner_") : 0
   end
 
   def partner_rent
-    if partner_income_relevant? && !owns_property?
+    if !owns_property?
       net_housing_costs("partner_").nil? ? 0 : net_housing_costs("partner_")
-    elsif partner_income_relevant?
+    else
       0
     end
   end
@@ -53,7 +49,7 @@ module OutgoingsSummarisable
   end
 
   def partner_tax_and_national_insurance
-    partner_income_relevant? && partner_employed? ? tax_and_national_insurance("partner_") : 0
+    partner_employed? ? tax_and_national_insurance("partner_") : 0
   end
 
   def client_employment_deduction
@@ -61,11 +57,7 @@ module OutgoingsSummarisable
   end
 
   def partner_employment_deduction
-    if partner_income_relevant? && partner_employed?
-      employment_deduction("partner_")
-    elsif partner_income_relevant?
-      0
-    end
+    partner_employed? ? employment_deduction("partner_") : 0
   end
 
   def client_maintenance_allowance
@@ -73,7 +65,7 @@ module OutgoingsSummarisable
   end
 
   def partner_maintenance_allowance
-    from_cfe_payload("result_summary.partner_disposable_income.maintenance_allowance") if partner_income_relevant?
+    from_cfe_payload("result_summary.partner_disposable_income.maintenance_allowance") || 0
   end
 
   def combined_childcare_costs
@@ -90,7 +82,7 @@ module OutgoingsSummarisable
   end
 
   def partner_legal_aid_contribution
-    from_cfe_payload("assessment.partner_disposable_income.monthly_equivalents.all_sources.legal_aid") if partner_income_relevant?
+    from_cfe_payload("assessment.partner_disposable_income.monthly_equivalents.all_sources.legal_aid") || 0
   end
 
   def client_total_allowances
@@ -98,7 +90,7 @@ module OutgoingsSummarisable
   end
 
   def partner_total_allowances
-    from_cfe_payload("result_summary.partner_disposable_income.total_outgoings_and_allowances") if partner_income_relevant?
+    from_cfe_payload("result_summary.partner_disposable_income.total_outgoings_and_allowances") || 0
   end
 
 private

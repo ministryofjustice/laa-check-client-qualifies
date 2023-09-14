@@ -178,7 +178,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
         "Means test required" => "Yes_2", # Means test required
         "Client in receipt of asylum support" => "Yes_2", # Asylum supported
         "Please complete Part A Capital Subject matter of dispute" => nil, # SMOD not relevant
-        "undefined_42" => nil, # Valuables not relevant
+        "undefined_42" => "0", # Valuables not relevant
         "undefined_40" => nil, # Investments not relevant
         "undefined_38" => nil, # Savings not relevant
       }
