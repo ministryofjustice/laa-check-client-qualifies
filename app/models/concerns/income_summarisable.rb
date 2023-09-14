@@ -1,6 +1,6 @@
 module IncomeSummarisable
   def client_non_employment_income
-    non_employment_income if client_income_relevant?
+    non_employment_income || 0
   end
 
   def partner_non_employment_income
@@ -8,7 +8,7 @@ module IncomeSummarisable
   end
 
   def client_total_income
-    total_income if client_income_relevant?
+    total_income || 0
   end
 
   def partner_total_income
@@ -16,11 +16,11 @@ module IncomeSummarisable
   end
 
   def total_combined_income
-    from_cfe_payload("result_summary.gross_income.combined_total_gross_income") if client_income_relevant?
+    from_cfe_payload("result_summary.gross_income.combined_total_gross_income") || 0
   end
 
   def client_gross_income
-    employment_income if client_income_relevant?
+    employment_income || 0
   end
 
   def partner_gross_income
@@ -28,7 +28,7 @@ module IncomeSummarisable
   end
 
   def client_disposable_income
-    from_cfe_payload("result_summary.disposable_income.total_disposable_income") if client_income_relevant?
+    from_cfe_payload("result_summary.disposable_income.total_disposable_income") || 0
   end
 
   def partner_disposable_income
@@ -36,7 +36,7 @@ module IncomeSummarisable
   end
 
   def combined_disposable_income
-    from_cfe_payload("result_summary.disposable_income.combined_total_disposable_income") if client_income_relevant?
+    from_cfe_payload("result_summary.disposable_income.combined_total_disposable_income") || 0
   end
 
 private

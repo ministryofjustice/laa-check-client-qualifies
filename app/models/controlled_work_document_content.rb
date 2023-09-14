@@ -31,9 +31,9 @@ class ControlledWorkDocumentContent < Check
     Steps::Helper.valid_step?(session_data, :assets)
   end
 
-  def client_income_relevant?
-    Steps::Helper.valid_step?(session_data, :other_income)
-  end
+  # def client_income_relevant?
+  #   Steps::Helper.valid_step?(session_data, :other_income)
+  # end
 
   def partner_income_relevant?
     Steps::Helper.valid_step?(session_data, :partner_other_income)
