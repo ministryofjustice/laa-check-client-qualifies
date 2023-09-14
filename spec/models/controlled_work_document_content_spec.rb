@@ -234,38 +234,38 @@ RSpec.describe ControlledWorkDocumentContent do
 
       describe "smod methods" do
         describe "#smod_main_home_value" do
-          it "returns a response" do
-            expect(described_class.new(session_data).smod_main_home_value).to eq nil
+          it "returns a zero response" do
+            expect(described_class.new(session_data).smod_main_home_value).to eq 0
           end
         end
 
         describe "smod_main_home_outstanding_mortgage" do
-          it "returns a response" do
-            expect(described_class.new(session_data).smod_main_home_outstanding_mortgage).to eq nil
+          it "returns a zero" do
+            expect(described_class.new(session_data).smod_main_home_outstanding_mortgage).to eq 0
           end
         end
 
         describe "smod_main_home_percentage_owned" do
-          it "returns a response" do
-            expect(described_class.new(session_data).smod_main_home_percentage_owned).to eq nil
+          it "returns a zero response" do
+            expect(described_class.new(session_data).smod_main_home_percentage_owned).to eq 0
           end
         end
 
         describe "smod_main_home_net_value" do
-          it "returns a response" do
-            expect(described_class.new(session_data).smod_main_home_net_value).to eq nil
+          it "returns a zero response" do
+            expect(described_class.new(session_data).smod_main_home_net_value).to eq 0
           end
         end
 
         describe "smod_main_home_assessed_equity" do
-          it "returns a response" do
-            expect(described_class.new(session_data).smod_main_home_assessed_equity).to eq nil
+          it "returns a zero response" do
+            expect(described_class.new(session_data).smod_main_home_assessed_equity).to eq 0
           end
         end
 
         describe "smod_main_home_net_equity" do
-          it "returns a response" do
-            expect(described_class.new(session_data).smod_main_home_net_equity).to eq nil
+          it "returns a zero response" do
+            expect(described_class.new(session_data).smod_main_home_net_equity).to eq 0
           end
         end
       end

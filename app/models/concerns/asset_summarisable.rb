@@ -5,7 +5,7 @@ module AssetSummarisable
   end
 
   def smod_savings
-    bank_accounts.select(&:account_in_dispute).sum { _1.amount.to_d } if bank_accounts&.select(&:account_in_dispute)&.any?
+    bank_accounts&.select(&:account_in_dispute)&.any? ? bank_accounts.select(&:account_in_dispute).sum { _1.amount.to_d } : 0
   end
 
   def non_smod_client_savings

@@ -6,7 +6,7 @@ module PropertySummarisable
   end
 
   def smod_main_home_value
-    main_home_value if house_in_dispute
+    house_in_dispute ? main_home_value : 0
   end
 
   def non_smod_main_home_value
@@ -15,7 +15,7 @@ module PropertySummarisable
 
   # Outstanding mortgage
   def main_home_outstanding_mortgage
-    from_cfe_payload("assessment.capital.capital_items.properties.main_home.outstanding_mortgage") if owns_property?
+    owns_property? ? from_cfe_payload("assessment.capital.capital_items.properties.main_home.outstanding_mortgage") : 0
   end
 
   def non_smod_main_home_outstanding_mortgage
@@ -23,7 +23,7 @@ module PropertySummarisable
   end
 
   def smod_main_home_outstanding_mortgage
-    main_home_outstanding_mortgage if house_in_dispute
+    house_in_dispute ? main_home_outstanding_mortgage : 0
   end
 
   # Percentage owned
@@ -32,7 +32,7 @@ module PropertySummarisable
   end
 
   def smod_main_home_percentage_owned
-    main_home_percentage_owned if house_in_dispute
+    house_in_dispute ? main_home_percentage_owned : 0
   end
 
   def non_smod_main_home_percentage_owned
@@ -49,7 +49,7 @@ module PropertySummarisable
   end
 
   def smod_main_home_net_value
-    main_home_net_value if house_in_dispute
+    house_in_dispute ? main_home_net_value : 0
   end
 
   # Net equity
@@ -58,7 +58,7 @@ module PropertySummarisable
   end
 
   def smod_main_home_net_equity
-    main_home_net_equity if house_in_dispute
+    house_in_dispute ? main_home_net_equity : 0
   end
 
   def non_smod_main_home_net_equity
@@ -71,7 +71,7 @@ module PropertySummarisable
   end
 
   def smod_main_home_assessed_equity
-    main_home_assessed_equity if house_in_dispute
+    house_in_dispute ? main_home_assessed_equity : 0
   end
 
   def non_smod_main_home_assessed_equity
