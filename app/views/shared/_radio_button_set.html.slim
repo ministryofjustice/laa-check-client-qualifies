@@ -1,0 +1,17 @@
+/ Use this whenever we need to add radio buttons to a govuk_radio_buttons_fieldset
+/ The reason is that this handles the easily-forgettable "link_errors" param.
+
+/ Required values:
+/ form - a form object yielded by a `form_for` or `form_with` call
+/ field_name - the name of the field shared by all radio buttons
+/ buttons - an array of objects. Each object is either a hash,  with `value` and `options` keys,
+/           or it's the symbol `:divider`
+
+/ Optionally a block can be provided, which will be the conditional reveal if the first item is selected
+
+- buttons.each_with_index do |data, index|
+  - if data == :divider
+    = form.govuk_radio_divider
+  - else
+    = form.govuk_radio_button field_name, data[:value], **data[:options].merge(index.zero? ? { link_errors: true } : {})
+      = yield if index.zero? && block_given?

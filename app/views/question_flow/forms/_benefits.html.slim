@@ -6,9 +6,10 @@
 
     = render "shared/disregarded_benefits_details"
 
-    = form.govuk_radio_button :receives_benefits, true,
-            label: { text: t("generic.yes_choice") }
-    = form.govuk_radio_button :receives_benefits, false,
-            label: { text: t("generic.no_choice") }
+    = render "shared/radio_button_set",
+               form:,
+               field_name: :receives_benefits,
+               buttons: [{ value: true, options: { label: { text: t("generic.yes_choice") } } },
+                         { value: false, options: { label: { text: t("generic.no_choice") } } }]
 
   = form.govuk_submit t("generic.save_and_continue")
