@@ -178,7 +178,7 @@ private
               # We need to capture properties where `subject_matter_of_dispute` is either false OR nil
               combined_additional_properties.reject { _1["subject_matter_of_dispute"] }
             end
-    return if group.none?
+    return 0 if group.none?
 
     group.sum { _1[attribute] || 0 }
   end
