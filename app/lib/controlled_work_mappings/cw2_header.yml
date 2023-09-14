@@ -90,17 +90,17 @@
 # Client - Investments (shares, insurance policies, etc)
 - name: FillText6
   type: text
-  source: investments
+  source: client_investments
 
 # Partner - Investments (shares, insurance policies, etc)
 - name: FillText38
   type: text
-  source: partner_investments
+  source: partner_investments_value
 
 # Client - Valuable items (boat, caravan, jewellery, etc)
 - name: FillText11
   type: text
-  source: valuables
+  source: client_valuables
 
 # Partner - Valuable items (boat, caravan, jewellery, etc)
 - name: FillText39

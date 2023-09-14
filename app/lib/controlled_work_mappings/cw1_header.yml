@@ -189,7 +189,7 @@
 # Partner investments (non-SMOD)
 - name: undefined_41
   type: text
-  source: partner_investments
+  source: partner_investments_value
 
 # Valuables (non-SMOD)
 - name: undefined_42
@@ -199,7 +199,7 @@
 # Partner valuables (non-SMOD)
 - name: undefined_43
   type: text
-  source: partner_valuables
+  source: partner_valuables_value
 
 # Total capital part A (non-SMOD)
 - name: undefined_46

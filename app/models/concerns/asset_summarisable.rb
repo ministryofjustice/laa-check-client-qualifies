@@ -9,7 +9,7 @@ module AssetSummarisable
   end
 
   def non_smod_client_savings
-    bank_accounts.reject(&:account_in_dispute).sum { _1.amount.to_d } if bank_accounts&.reject(&:account_in_dispute)&.any?
+    bank_accounts&.reject(&:account_in_dispute)&.any? ? bank_accounts.reject(&:account_in_dispute).sum { _1.amount.to_d } : 0
   end
 
   def partner_savings
@@ -17,21 +17,35 @@ module AssetSummarisable
   end
 
   # Investments
+  def client_investments
+    investments_in_dispute ? 0 : investments || 0
+  end
+
+  def partner_investments_value
+    investments_in_dispute ? 0 : partner_investments || 0
+  end
   def smod_investments
     investments_in_dispute ? investments : 0
   end
 
   def non_smod_client_investments
-    investments unless investments_in_dispute
+    investments_in_dispute ? 0 : investments || 0
   end
 
   # Valuables
+  def client_valuables
+    valuables_in_dispute ? 0 : valuables || 0
+  end
+
+  def partner_valuables_value
+    valuables_in_dispute ? 0 : partner_valuables || 0
+  end
   def smod_valuables
     valuables_in_dispute ? valuables : 0
   end
 
   def non_smod_client_valuables
-    valuables || 0 unless valuables_in_dispute
+    valuables_in_dispute ? 0 : valuables || 0
   end
 
   # Totals
