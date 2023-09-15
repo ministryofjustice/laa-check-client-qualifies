@@ -9,11 +9,17 @@
     p.govuk-text = t("question_flow.dependant_details.child_dependants.paragraph_1#{'_with_partner' if @check.partner}")
     - t("question_flow.dependant_details.child_dependants.paragraphs").each do |paragraph|
       p.govuk-text = paragraph
+    ul.govuk-list.govuk-list--bullet
+      - t("question_flow.dependant_details.child_dependants.bullets").each
+        li = _1
 
 - content_for :adult_dependants_hint
   = govuk_details(summary_text: t("question_flow.dependant_details.adult_dependants.summary")) do
     p.govuk-text = t("question_flow.dependant_details.adult_dependants.paragraph#{'_with_partner' if @check.partner}")
     p.govuk-text = t("question_flow.dependant_details.adult_dependants.exclude")
+    ul.govuk-list.govuk-list--bullet
+      - t("question_flow.dependant_details.adult_dependants.bullets").each
+        li = _1
 
 .govuk-grid-column-two-thirds
   = form_for(@form, url: request.path, method: :put) do |form|
@@ -22,6 +28,7 @@
     = render "shared/heading",
             header_text: t(legend_key),
             tag: :household
+      = govuk_warning_text(text: t("question_flow.dependant_details.income_warning"))
 
     = form.govuk_radio_buttons_fieldset :child_dependants,
             hint: -> { content_for(:child_dependants_hint) },
