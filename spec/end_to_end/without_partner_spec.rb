@@ -4,7 +4,6 @@ RSpec.shared_context "with a no-partner, non-passported certificated check" do
   before do
     # This test explicitly asserts what screens are visited in what order
     start_assessment
-    fill_in_provider_users_screen
     fill_in_level_of_help_screen
     fill_in_matter_type_screen
     fill_in_applicant_screen

@@ -52,7 +52,7 @@ module ApplicationHelper
     link = if previous_step
              step_path_from_step(previous_step, params[:assessment_code])
            else
-             provider_users_path
+             root_path
            end
     link_to t("generic.back"), link, class: "govuk-back-link", data: { behaviour: ("browser-back" if mimic_browser_back) }
   end
