@@ -1,9 +1,0 @@
-= pdf_friendly_h1(t("estimates.show.likely_to_qualify"), @is_pdf)
-
-= pdf_friendly_paragraphs(t("estimates.show.certificated_asylum_support_eligible_intro_paragraphs_html"), @is_pdf)
-
-ul.govuk-list--bullet
-  - t("estimates.show.also_considered").each
-    li.govuk-body = _1
-
-= pdf_friendly_p_element(t("estimates.show.lord_chancellors_guidance"), @is_pdf)

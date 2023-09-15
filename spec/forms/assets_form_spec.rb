@@ -7,7 +7,7 @@ RSpec.describe "assets", type: :feature do
 
   before do
     set_session(assessment_code, session)
-    visit "estimates/#{assessment_code}/build_estimates/assets"
+    visit form_path(:assets, assessment_code)
   end
 
   it "shows appropriate error messages if form left blank" do

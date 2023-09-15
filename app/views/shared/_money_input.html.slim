@@ -6,7 +6,7 @@ ruby:
 = form.govuk_text_field field,
                         width:,
                         label: { text: label_text, size: },
-                        prefix_text: BuildEstimatesHelper::POUND,
+                        prefix_text: FormsHelper::POUND,
                         value: decimal_as_money_string(form, field),
                         inputmode: "decimal",
-                        "aria-label": set_aria ? t("estimate_flow.aria_label.#{checktype}#{field}").to_s : nil
+                        "aria-label": set_aria ? t("question_flow.aria_label.#{checktype}#{field}").to_s : nil

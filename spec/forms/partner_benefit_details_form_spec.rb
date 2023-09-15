@@ -7,7 +7,7 @@ RSpec.describe "partner_benefit_details", type: :feature do
     allow(CfeConnection).to receive(:state_benefit_types).and_return([])
 
     set_session(assessment_code, "level_of_help" => "controlled")
-    visit "estimates/#{assessment_code}/build_estimates/partner_benefit_details"
+    visit form_path(:partner_benefit_details, assessment_code)
   end
 
   it "shows an error message if no value is entered" do

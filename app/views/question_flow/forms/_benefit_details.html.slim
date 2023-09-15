@@ -1,0 +1,23 @@
+- partner ||= false
+. data-module="add-another"
+  .add-another-template-area data-add-another-role="template"
+    = render "benefit_section", removeable: true, model: @form.blank_model
+
+  = form_for(@form, url: request.path, method: :put) do |form|
+    = form.govuk_error_summary t("generic.error_summary_title")
+    = render "shared/heading",
+              header_text: t("question_flow.#{i18n_key}.heading"),
+              post_header_text: t("question_flow.#{i18n_key}.hint"),
+              tag: (:partner if partner)
+      = render "shared/disregarded_benefits_details"
+    . data-add-another-role="sectionList"
+      - @form.items.each_with_index do |benefit, index|
+        = render "benefit_section", removeable: index.positive?, model: benefit, counter: index + 1
+    .govuk-button-group
+      button.govuk-button.govuk-button--secondary type="button" data-add-another-role="add" = t("question_flow.benefit_details.add")
+
+    = form.govuk_submit t("generic.save_and_continue")
+
+datalist#suggestions
+  - @form.benefit_list.each
+    = tag.option(_1)

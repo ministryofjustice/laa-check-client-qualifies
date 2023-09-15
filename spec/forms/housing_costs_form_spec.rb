@@ -6,7 +6,7 @@ RSpec.describe "housing_costs", type: :feature do
 
   before do
     set_session(assessment_code, session)
-    visit "estimates/#{assessment_code}/build_estimates/housing_costs"
+    visit form_path(:housing_costs, assessment_code)
   end
 
   it "performs validations if I leave the field blank" do

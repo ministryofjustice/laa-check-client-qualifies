@@ -1,4 +1,4 @@
-class CheckAnswersController < EstimateFlowController
+class CheckAnswersController < QuestionFlowController
   before_action :set_back_behaviour
 
   def update
@@ -10,16 +10,16 @@ class CheckAnswersController < EstimateFlowController
       if Steps::Helper.last_step_in_group?(session_data, step)
         next_step = next_check_answer_step(step)
         if next_step
-          redirect_to wizard_path next_step
+          redirect_to helpers.check_step_path_from_step(next_step, assessment_code)
         else
-          redirect_to check_answers_estimate_path(assessment_code, anchor:)
+          redirect_to check_answers_path(assessment_code:, anchor:)
         end
       else
-        redirect_to wizard_path Steps::Helper.next_step_for(session_data, step)
+        redirect_to helpers.check_step_path_from_step(Steps::Helper.next_step_for(session_data, step), assessment_code)
       end
     else
       track_validation_error
-      render "estimate_flow/#{step}"
+      render "question_flow/#{step}"
     end
   end
 

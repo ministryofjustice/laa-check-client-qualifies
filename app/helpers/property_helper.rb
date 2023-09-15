@@ -10,7 +10,7 @@ module PropertyHelper
     guidance_type = additional_property ? "additional_properties_guidance" : "properties_guidance"
 
     {
-      t("estimate_flow.property.#{guidance_type}.text") => document_link(:"lc_guidance_#{level_of_help}", :"#{guidance_type}"),
+      t("question_flow.property.#{guidance_type}.text") => document_link(:"lc_guidance_#{level_of_help}", :"#{guidance_type}"),
       t("generic.trapped_capital.text") => (level_of_help == "controlled" ? document_link(:lc_guidance_controlled, :assets) : document_link(:legal_aid_learning)),
     }
   end

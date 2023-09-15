@@ -1,0 +1,9 @@
+= pdf_friendly_h1(t("results.show.not_likely_to_qualify"), @is_pdf)
+
+= pdf_friendly_paragraphs(t("results.show.ineligible_intro_paragraphs"), @is_pdf)
+
+ul.govuk-list--bullet
+  - t("results.show.also_considered").each do
+    li.govuk-body = _1
+
+= pdf_friendly_p_element(t("results.show.lord_chancellors_guidance"), @is_pdf)

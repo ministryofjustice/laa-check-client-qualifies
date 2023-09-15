@@ -15,14 +15,15 @@ class Check
 
   def method_missing(attribute, *args, &block)
     # A given attribute could be found in one of multiple different form classes
-    pairs = Flow::Handler::CLASSES.select { |_, v| v.session_keys.include?(attribute.to_s) }
+    pairs = Flow::Handler::STEPS.select { |_, v| v[:class].session_keys.include?(attribute.to_s) }
     return super if pairs.none?
 
     # 0 or 1 of the matching form classes will be valid at any one time
-    step, form_class = pairs.find { |k, _| Steps::Helper.valid_step?(session_data, k) }
+    step, step_data = pairs.find { |k, _| Steps::Helper.valid_step?(session_data, k) }
 
     return unless step
 
+    form_class = step_data[:class]
     method_name = if form_class::PREFIX
                     attribute.to_s.gsub(%r{^#{form_class::PREFIX}}, "")
                   else
@@ -32,7 +33,7 @@ class Check
   end
 
   def respond_to_missing?(attribute, include_private = false)
-    return true if Flow::Handler::CLASSES.find { |_, v| v.session_keys.include?(attribute.to_s) }
+    return true if Flow::Handler::STEPS.find { |_, v| v[:class].session_keys.include?(attribute.to_s) }
 
     super
   end

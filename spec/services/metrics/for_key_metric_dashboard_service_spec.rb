@@ -151,30 +151,30 @@ RSpec.describe Metrics::ForKeyMetricDashboardService do
           [
             {
               checks: 1,
-              screen: "outgoings",
+              screen: "client-outgoings",
               data_type: :current_month,
             },
             {
               checks: 1,
-              screen: "vehicle",
+              screen: "vehicle-ownership",
               data_type: :current_month,
             },
             {
               checks: 2,
-              screen: "vehicle",
+              screen: "vehicle-ownership",
               data_type: :all_time,
             },
             {
               checks: 1,
-              screen: "outgoings",
+              screen: "client-outgoings",
               data_type: :all_time,
             },
           ],
         )
         expect(last_page_dataset).to receive(:put).with(
           [
-            { checks: 1, context: "controlled_all_time", screen: "vehicle" },
-            { checks: 1, context: "controlled_current_month", screen: "vehicle" },
+            { checks: 1, context: "controlled_all_time", screen: "vehicle-ownership" },
+            { checks: 1, context: "controlled_current_month", screen: "vehicle-ownership" },
           ],
         )
         described_class.call

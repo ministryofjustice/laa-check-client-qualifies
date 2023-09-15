@@ -1,0 +1,18 @@
+- content_for :page_title
+  = t(".heading")
+- content_for :back
+  = link_to t("generic.back"),
+            step_path_from_step(Steps::Helper.last_step(@check&.session_data), params[:assessment_code]),
+            class: "govuk-back-link"
+
+.govuk-grid-column-full
+  = render "shared/heading", header_text: t(".heading")
+
+  = render "check_answers_table", change_links: true
+  h2.govuk-heading-m class="govuk-!-margin-top-9" = t(".submission_instructions")
+  p = t(".submission_explanation")
+  h2.govuk-heading-s = t(".how_to_save_header")
+  p = t(".how_to_save_text")
+
+  = form_with(url: result_path(assessment_code: params[:assessment_code])) do |form|
+    = form.govuk_submit t(".call_to_action")

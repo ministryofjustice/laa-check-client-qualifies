@@ -74,39 +74,6 @@ en:
           attributes:
             employment_status:
               inclusion: Select an employment status
-        employment_form:
-          attributes:
-            gross_income:
-              blank: Enter gross pay before any deductions
-              net_income_must_be_positive: Gross pay must be more than income tax and National Insurance combined
-              not_a_number: Gross pay before any deductions must be a number
-              greater_than: Gross pay before any deductions must be more than 0
-            income_tax:
-              greater_than_or_equal_to: Income tax must be 0 or more
-              blank: Enter income tax, if this does not apply enter 0
-              not_a_number: Income tax must be a number, if this does not apply enter 0
-            national_insurance:
-              blank: Enter National Insurance, if this does not apply enter 0
-              not_a_number: National Insurance must be a number, if this does not apply enter 0
-              greater_than_or_equal_to: National Insurance must be 0 or more
-            frequency:
-              blank: Select how often your client gets paid
-        partner_employment_form:
-          attributes:
-            gross_income:
-              greater_than: Gross pay before any deductions must be more than 0
-              blank: Enter gross pay before any deductions
-              net_income_must_be_positive: Gross pay must be more than income tax and National Insurance combined
-              not_a_number: Gross pay before any deductions must be a number
-            income_tax:
-              blank: Enter income tax, if this does not apply enter 0
-              not_a_number: Income tax must be a number, if this does not apply enter 0
-            national_insurance:
-              blank: Enter National Insurance, if this does not apply enter 0
-              not_a_number: National Insurance must be a number, if this does not apply enter 0
-              greater_than: Income tax must be 0 or more
-            frequency:
-              blank: Select how frequently the partner receives employment income
         income_model:
           attributes:
             income_frequency:
@@ -512,7 +479,7 @@ en:
       partner: Partner
       household: Household
     or: or
-  estimate_flow:
+  question_flow:
     aria_label:
       friends_or_family_value: Enter amount of financial help from friends or family
       maintenance_value: Enter amount of maintenance payments from a former partner
@@ -830,66 +797,6 @@ en:
           last_paragraph: If the partner is paid in cash, enter any money taken out of their earnings for personal use.
       police_guidance:
         text: Guidance on clients with police officer partners
-    employment:
-      heading: Your client's pay
-      second_caption: You can find this on your client's payslips
-      frequency:
-        input: When does your client normally get paid?
-        hint: We'll use this to calculate their monthly pay. If they do not get paid regularly, tell us how much they got paid in the last 3 months.
-        total: Total in last 3 months
-        week: Every week
-        two_weeks: Every 2 weeks
-        four_weeks: Every 4 weeks
-        monthly: Every month
-      police_officer_heading: Clients who are police officers
-      police_officer_hint: "If your client is a police officer, the salary entered should include:"
-      police_officer_inclusions:
-        - any rent or force housing allowance the client gets
-        - any police compensatory grant the client gets
-      prisoner_heading: Clients in prison
-      prisoner_hint: "If your client is in prison, include any income they get from:"
-      prisoner_inclusions:
-        - the pre-release employment scheme
-        - outside employment where they are participating in a ‘working out’ scheme
-        - employment when released on temporary licence
-      foreign_resident_heading: Clients living outside the UK
-      foreign_resident_hints:
-        - If your client lives outside the UK, include all income tax payments they made.
-        - Only include UK National Insurance contributions.
-      armed_forces_heading: Clients in HM Forces
-      armed_forces_hint: "If your client is a member of HM Forces, include any of the following they get in the gross salary you enter:"
-      armed_forces_inclusions:
-        - Local Overseas Allowance
-        - Excess Rent Allowance
-        - London Allowance
-        - Overseas Child Benefit
-    partner_employment:
-      heading: The partner's pay
-      second_caption: You can find this on the partner's payslips.
-      frequency:
-        input: When does the partner normally get paid?
-      police_officer_heading: Partners who are police officers
-      police_officer_hint: "If the partner is a police officer, the salary entered should include:"
-      police_officer_inclusions:
-        - any rent or force housing allowance the partner gets
-        - any police compensatory grant the partner gets
-      prisoner_heading: Partners in prison
-      prisoner_hint: "If the partner is in prison, include any income they get from:"
-      prisoner_inclusions:
-        - the pre-release employment scheme
-        - outside employment where they are participating in a ‘working out’ scheme
-        - employment when released on temporary licence
-      foreign_resident_heading: Partners living outside the UK
-      foreign_resident_hints:
-        - If the partner lives outside the UK, include all income tax payments they made.
-        - Only include UK National Insurance contributions.
-      armed_forces_heading: Partners in HM Forces
-      armed_forces_hint: "If the partner is a member of HM Forces, include any of the following they get in the gross salary you enter:"
-      armed_forces_inclusions:
-        - Local Overseas Allowance
-        - Excess Rent Allowance
-        - London Allowance
-        - Overseas Child Benefit
     housing_costs:
       heading: Housing costs
       heading_hint:
@@ -1281,7 +1188,7 @@ en:
       vehicle_finance:
         input: Enter the value of payments left
       vehicle_in_dispute: This asset is a subject matter of dispute
-  estimates:
+  checks:
     check_answers:
       heading: Check your answers
       change: Change
@@ -1294,10 +1201,6 @@ en:
         three_months: Total in last 3 months
         year: Total in the last year
         not_applicable: Not applicable
-        # TODO: Remove the below when the employment form is retired
-        week: Every week
-        two_weeks: Every 2 weeks
-        four_weeks: Every 4 weeks
       not_provided: Not provided
       sections:
         level_of_help: Level of help
@@ -1548,6 +1451,7 @@ en:
       how_to_save_header: How to save your answers
       how_to_save_text: After you submit your eligibility check we'll show you the result and the calculations made to get it. You can print or save the eligibility result page, including your answers.
       call_to_action: Submit eligibility check
+  results:
     show:
       likely_to_qualify: Your client is likely to qualify for civil legal aid
       not_likely_to_qualify: Your client is not likely to qualify for civil legal aid

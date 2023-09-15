@@ -1,3 +1,7 @@
+def form_path(step, assessment_code)
+  step_path(step_url_fragment: Flow::Handler.url_fragment(step), assessment_code:)
+end
+
 def start_assessment
   visit root_path
   click_on "Start now"
@@ -282,18 +286,30 @@ end
 
 def confirm_screen(expected)
   path = page.current_path
-  expect(path).to end_with expected.to_s
+  if expected.to_sym == :provider_users
+    expect(path).to eq "/do-you-give-legal-advice-or-provide-legal-services"
+  elsif expected.to_sym == :check_answers
+    expect(path).to start_with "/check-answers"
+  else
+    expect(path).to start_with "/#{Flow::Handler.url_fragment(expected.to_sym)}"
+  end
 end
 
 def fill_in_forms_until(target)
   current_page = nil
   loop do
-    new_current_page = current_path.split("/").last.to_sym
+    new_current_page = current_path.split("/").map(&:presence).compact.first
     raise "Infinite loop detected on screen #{current_page}" if current_page == new_current_page
 
     current_page = new_current_page
-    break if current_page == target
 
-    send("fill_in_#{current_page}_screen")
+    step = Flow::Handler.step_from_url_fragment(current_page)
+    break if step.to_s == target.to_s || current_path.starts_with?("/check-answers")
+
+    if current_page == "do-you-give-legal-advice-or-provide-legal-services"
+      fill_in_provider_users_screen
+    else
+      send("fill_in_#{step}_screen")
+    end
   end
 end

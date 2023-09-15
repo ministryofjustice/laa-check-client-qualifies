@@ -6,7 +6,7 @@ RSpec.describe "additional_property_details", type: :feature do
 
   before do
     set_session(assessment_code, session)
-    visit "estimates/#{assessment_code}/build_estimates/additional_property_details"
+    visit form_path(:additional_property_details, assessment_code)
   end
 
   it "performs validations" do
@@ -27,7 +27,7 @@ RSpec.describe "additional_property_details", type: :feature do
 
   context "when client has a partner" do
     let(:session) { { "level_of_help" => "controlled", "partner" => true } }
-    let(:partner_hint_text) { I18n.t("estimate_flow.additional_property_details.hint") }
+    let(:partner_hint_text) { I18n.t("question_flow.additional_property_details.hint") }
 
     it "adds some relevant hint text" do
       expect(page).to have_content partner_hint_text

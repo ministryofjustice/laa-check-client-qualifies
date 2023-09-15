@@ -48,11 +48,11 @@ VALID_MONEY_VALUES = [
 
 RSpec.describe "Number fields" do
   describe "Integer fields" do
-    let(:dependant_details_header) { I18n.t("estimate_flow.dependant_details.legend") }
+    let(:dependant_details_header) { I18n.t("question_flow.dependant_details.legend") }
 
     before do
       set_session(:foo, "level_of_help" => "controlled")
-      visit estimate_build_estimate_path(:foo, :dependant_details)
+      visit form_path(:dependant_details, "foo")
       choose "Yes", name: "dependant_details_form[child_dependants]"
       choose "No", name: "dependant_details_form[adult_dependants]"
     end
@@ -78,31 +78,30 @@ RSpec.describe "Number fields" do
   describe "Money fields" do
     before do
       set_session(:foo, "level_of_help" => "controlled", "matter_type" => "other")
-      visit "estimates/foo/build_estimates/employment"
-      fill_in "employment-form-gross-income-field", with: "5,000"
-      fill_in "employment-form-income-tax-field", with: "1000"
-      fill_in "employment-form-national-insurance-field", with: "foo"
-      choose "Every month"
+      visit form_path(:outgoings, "foo")
+      fill_in "outgoings-form-legal-aid-payments-value-field", with: "300"
+      choose "Every month", name: "outgoings_form[legal_aid_payments_frequency]"
+      choose "Every month", name: "outgoings_form[maintenance_payments_frequency]"
     end
 
     INVALID_MONEY_VALUES.each do |value|
       it "shows a validation error if I enter '#{value}'" do
-        fill_in "employment-form-national-insurance-field", with: value
+        fill_in "outgoings-form-maintenance-payments-value-field", with: value
         click_on "Save and continue"
         within ".govuk-error-summary__list" do
-          expect(page.text).to eq "National Insurance must be a number, if this does not apply enter 0"
+          expect(page.text).to eq "Maintenance payments to a former partner must be a number, if this does not apply enter 0"
         end
       end
     end
 
     VALID_MONEY_VALUES.each do |pair|
       it "allows me to enter '#{pair[:input]}'" do
-        fill_in "employment-form-national-insurance-field", with: pair[:input]
+        fill_in "outgoings-form-maintenance-payments-value-field", with: pair[:input]
         click_on "Save and continue"
-        expect(session_contents["national_insurance"]).to eq pair[:stored]
+        expect(session_contents["maintenance_payments_value"]).to eq pair[:stored]
         expect(page).not_to have_css(".govuk-error-summary__list")
-        visit "estimates/foo/build_estimates/employment"
-        expect(page).to have_field("employment-form-national-insurance-field", with: pair[:output])
+        visit form_path(:outgoings, "foo")
+        expect(page).to have_field("outgoings-form-maintenance-payments-value-field", with: pair[:output])
       end
     end
   end

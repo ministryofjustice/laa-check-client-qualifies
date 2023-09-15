@@ -1,0 +1,26 @@
+- if @check.asylum_support
+  ul.govuk-list.govuk-list--bullet
+    - t("results.show.controlled_asylum_types_of_evidence").each_with_index do |evidence, index|
+      li
+        = evidence
+        - if index + 1 == t("results.show.controlled_asylum_types_of_evidence").length
+          ul
+            - t("results.show.controlled_asylum_subtypes_of_evidence").each do |subevidence|
+              li = subevidence
+- elsif @model.level_of_help == "controlled"
+  = pdf_friendly_p_element(t("results.show.evidence_needed_explainer#{'_partner' if @check.partner}"), @is_pdf)
+
+  ul.govuk-list.govuk-list--bullet
+    - t("results.show.controlled_types_of_evidence#{'_partner' if @check.partner}").each do |evidence|
+      li = evidence
+- else
+  = pdf_friendly_p_element(t("results.show.evidence_needed_explainer"), @is_pdf)
+  ul.govuk-list.govuk-list--bullet
+    - t("results.show.types_of_evidence").each do |evidence|
+      li.govuk-body = evidence
+
+  = pdf_friendly_p_element(t("results.show.self_employed_evidence_needed_explainer"), @is_pdf)
+
+  ul.govuk-list.govuk-list--bullet
+    - t("results.show.self_employed_types_of_evidence").each do |evidence|
+      li.govuk-body = evidence

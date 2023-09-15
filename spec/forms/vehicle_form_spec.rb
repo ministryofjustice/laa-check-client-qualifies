@@ -5,7 +5,7 @@ RSpec.describe "vehicle", type: :feature do
 
   before do
     set_session(assessment_code, {})
-    visit "estimates/#{assessment_code}/build_estimates/vehicle"
+    visit form_path(:vehicle, assessment_code)
   end
 
   it "performs validations" do

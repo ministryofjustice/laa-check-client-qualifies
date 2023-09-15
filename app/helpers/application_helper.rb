@@ -1,4 +1,12 @@
 module ApplicationHelper
+  def step_path_from_step(step, assessment_code)
+    step_path(step_url_fragment: step_url_fragment_from_step(step), assessment_code:)
+  end
+
+  def check_step_path_from_step(step, assessment_code, anchor: nil)
+    check_step_path(step_url_fragment: step_url_fragment_from_step(step), assessment_code:, anchor:)
+  end
+
   def start_button_label(button_label)
     "#{t(".#{button_label}")} ".html_safe << content_tag(:svg,
                                                          content_tag(:path, "", fill: "currentColor", d: "M0 0h13l20 20-20 20H0l20-20z"),
@@ -42,7 +50,7 @@ module ApplicationHelper
     previous_step = Steps::Helper.previous_step_for(check.session_data, step)
 
     link = if previous_step
-             estimate_build_estimate_path(params[:estimate_id], previous_step)
+             step_path_from_step(previous_step, params[:assessment_code])
            else
              provider_users_path
            end
@@ -63,5 +71,9 @@ module ApplicationHelper
 
   def survey_link
     t("service.public_beta_survey_link")
+  end
+
+  def step_url_fragment_from_step(step)
+    Flow::Handler.url_fragment(step)
   end
 end

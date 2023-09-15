@@ -1,0 +1,20 @@
+- partner ||= false
+. data-module="add-another"
+  .add-another-template-area data-add-another-role="template"
+    = render "additional_property_section", removeable: true, model: @form.blank_additional_model, i18n_key:, partner:
+
+  = form_for(@form, url: request.path, method: :put) do |form|
+    = form.govuk_error_summary t("generic.error_summary_title")
+    = render "shared/heading",
+              header_text: t("question_flow.#{i18n_key}.heading"),
+              post_header_text: (t("question_flow.#{i18n_key}.hint") if partner || @check.partner),
+              tag: (:partner if partner)
+    . data-add-another-role="sectionList"
+      - @form.items.each_with_index do |additional_property, index|
+        = render "additional_property_section",
+                 removeable: index.positive?, model: additional_property, counter: index + 1, i18n_key:, partner:
+    .govuk-button-group
+      button.govuk-button.govuk-button--secondary type="button" data-add-another-role="add"
+        = t("question_flow.additional_property_details.add")
+
+    = form.govuk_submit t("generic.save_and_continue")

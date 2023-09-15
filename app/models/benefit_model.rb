@@ -17,6 +17,6 @@ class BenefitModel
   validates :benefit_frequency, inclusion: { in: FREQUENCY_OPTIONS, allow_nil: false }
 
   def benefit_options
-    FREQUENCY_OPTIONS.map { [_1, I18n.t("estimate_flow.benefits.frequencies.#{_1}")] }
+    FREQUENCY_OPTIONS.map { [_1, I18n.t("question_flow.benefits.frequencies.#{_1}")] }
   end
 end

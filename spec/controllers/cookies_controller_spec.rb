@@ -24,24 +24,24 @@ RSpec.describe CookiesController, type: :controller do
     end
 
     it "redirects to given path if one provided" do
-      response = patch :update, params: { cookies: "reject", return_to: new_estimate_path }
-      expect(response).to redirect_to new_estimate_path
+      response = patch :update, params: { cookies: "reject", return_to: new_check_path }
+      expect(response).to redirect_to new_check_path
     end
 
     it "adds a query params in redirect when returning to the cookies path if one provided" do
-      response = patch :update, params: { cookies: "reject", return_to: new_estimate_path, add_choice_to_query_string: 1 }
-      expect(response).to redirect_to new_estimate_path(cookie_choice: "rejected")
+      response = patch :update, params: { cookies: "reject", return_to: new_check_path, add_choice_to_query_string: 1 }
+      expect(response).to redirect_to new_check_path(cookie_choice: "rejected")
     end
 
     it "handles existing queries in return_to param" do
       response = patch :update,
                        params: {
                          cookies: "reject",
-                         return_to: new_estimate_path(alpha: :beta),
+                         return_to: new_check_path(alpha: :beta),
                          add_choice_to_query_string: 1,
                        }
 
-      expect(response).to redirect_to new_estimate_path(alpha: "beta", cookie_choice: "rejected")
+      expect(response).to redirect_to new_check_path(alpha: "beta", cookie_choice: "rejected")
     end
 
     it "deletes an existing browser id cookie if cookies are rejected" do

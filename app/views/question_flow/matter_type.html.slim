@@ -1,0 +1,44 @@
+- content_for :page_title
+  = t(".title")
+- content_for :back do
+  = back_link(:matter_type, @check, @back_buttons_invoke_browser_back_behaviour)
+
+.govuk-grid-column-two-thirds
+  = form_for(@form, url: request.path, method: :put) do |form|
+    = form.govuk_error_summary t("generic.error_summary_title")
+    = render "shared/heading", header_text: t(".title")
+
+    h2.govuk-heading-s = t(".immigration_and_asylum_header")
+
+    p.govuk-body = t(".immigration_and_asylum_certificated_paragraph")
+
+    = govuk_details(summary_text: t(".immigration_header_certificated"))
+      p.govuk-body = t(".immigration_certificated_paragraph_one")
+      p.govuk-body = t(".immigration_certificated_paragraph_two_html",
+                     page_url: document_link(:legislation_LASPO_2012_immigration))
+
+    = govuk_details(summary_text: t(".asylum_header_certificated"))
+      p.govuk-body = t(".asylum_certificated_paragraph_one")
+      p.govuk-body = t(".asylum_certificated_paragraph_two_html",
+                     page_url: document_link(:legislation_LASPO_2012_immigration))
+
+    h2.govuk-heading-s = t(".domestic_abuse_header")
+    p.govuk-body = t(".domestic_abuse_paragraph")
+
+    = form.govuk_radio_buttons_fieldset :matter_type, legend: { text: t(".select_a_matter_type") }
+      = form.govuk_radio_button :matter_type, "immigration",
+              label: { text: t(".immigration") }
+      = form.govuk_radio_button :matter_type, "asylum",
+              label: { text: t(".asylum") }
+      = form.govuk_radio_button :matter_type, "domestic_abuse",
+              label: { text: t(".domestic_abuse") }, hint: { text: t(".domestic_abuse_hint") }
+      = form.govuk_radio_divider
+
+      = form.govuk_radio_button :matter_type, "other",
+              label: { text: t(".other") }
+
+    = form.govuk_submit t("generic.save_and_continue")
+
+= render "shared/question_sidebar",
+        level_of_help: @check.level_of_help,
+        links: matter_type_links

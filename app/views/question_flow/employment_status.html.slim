@@ -1,0 +1,10 @@
+- content_for :page_title
+  = t(".heading")
+- content_for :back do
+  = back_link(:employment_status, @check, @back_buttons_invoke_browser_back_behaviour)
+
+.govuk-grid-column-two-thirds
+  = render "question_flow/forms/employment_status", i18n_key: "employment_status"
+= render "shared/question_sidebar", \
+           level_of_help: @check.level_of_help,
+           links: {}

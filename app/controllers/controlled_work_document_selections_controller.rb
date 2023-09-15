@@ -27,6 +27,6 @@ class ControlledWorkDocumentSelectionsController < ApplicationController
 private
 
   def assessment_code
-    params[:estimate_id]
+    params[:assessment_code]
   end
 end

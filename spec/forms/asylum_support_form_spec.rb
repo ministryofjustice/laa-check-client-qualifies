@@ -1,13 +1,13 @@
 require "rails_helper"
 
 RSpec.describe "asylum_support", type: :feature do
-  let(:asylum_support_header) { I18n.t("estimate_flow.asylum_support.question") }
+  let(:asylum_support_header) { I18n.t("question_flow.asylum_support.question") }
   let(:assessment_code) { :assessment_code }
   let(:level_of_help) { "certificated" }
 
   before do
     set_session(assessment_code, "level_of_help" => level_of_help)
-    visit "estimates/#{assessment_code}/build_estimates/asylum_support"
+    visit form_path(:asylum_support, assessment_code)
   end
 
   it "shows an error message if no value is entered" do

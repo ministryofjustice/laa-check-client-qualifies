@@ -1,0 +1,5 @@
+- body.with_row do |row|
+  ruby:
+    text = header_with_hint("results.show.client_income_types.#{income_type}", "results.show.client_income_hints.#{income_type}")
+  - row.with_cell(header: true, text:)
+  - pdf_friendly_numeric_table_cell(row, money_amount, bold_text: false)

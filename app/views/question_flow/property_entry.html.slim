@@ -1,0 +1,52 @@
+- content_for :page_title
+  = t("question_flow.property_entry.heading")
+- content_for :back
+  = back_link(:property_entry, @check, @back_buttons_invoke_browser_back_behaviour)
+
+.govuk-grid-column-two-thirds
+  = form_for(@form, url: request.path, method: :put) do |form|
+
+    = form.govuk_error_summary t("generic.error_summary_title")
+    = render "shared/heading",
+             header_text: t("question_flow.property_entry.heading"),
+             post_header_text: t("question_flow.property_entry.hint"),
+             tag: :household
+
+    = render "shared/money_input_with_hint",
+            form:,
+            field: :house_value,
+            width: 10,
+            label_text: t("question_flow.property_entry.house_value.input"),
+            hint_text: t("question_flow.property_entry.house_value.input_hint_#{@check.level_of_help}")
+    - if @form.owned_with_mortgage?
+      = render "shared/money_input_with_hint",
+              form:,
+              field: :mortgage,
+              width: 10,
+              label_text: t("question_flow.property_entry.mortgage.input"),
+              hint_text: t("question_flow.property_entry.mortgage.input_hint")
+    ruby:
+      percentage_hint_key = if @check.partner
+                              "question_flow.property_entry.percentage_owned.input_hint_with_partner"
+                            else
+                              "question_flow.property_entry.percentage_owned.input_hint"
+                            end
+    = render "shared/percentage_input",
+              form:,
+              field: :percentage_owned,
+              width: 3,
+              label_text: t("question_flow.property_entry.percentage_owned.input"),
+              size: "m",
+              hint_text: t(percentage_hint_key)
+
+    - if @check.smod_applicable?
+      .govuk-form-group
+        = form.govuk_check_box :house_in_dispute, true, 0,
+                multiple: false,
+                label: { text: t("generic.dispute") }
+
+      = render "smod_help"
+
+    = form.govuk_submit t("generic.save_and_continue")
+
+= render "property_sidebar", level_of_help: @check.level_of_help, smod_applicable: @check.smod_applicable?

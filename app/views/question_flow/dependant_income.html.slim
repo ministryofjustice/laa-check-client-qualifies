@@ -1,0 +1,24 @@
+- content_for :page_title
+  = t(".legend")
+- content_for :back do
+  = back_link(:dependant_income, @check, @back_buttons_invoke_browser_back_behaviour)
+
+- content_for :hint
+  p.govuk-hint = t(".hint")
+  ul.govuk-list.govuk-list--bullet
+    - t(".examples").each
+      li.govuk-hint = _1
+
+.govuk-grid-column-two-thirds
+  = form_for(@form, url: request.path, method: :put) do |form|
+    = form.govuk_error_summary t("generic.error_summary_title")
+    = render "shared/heading", tag: :household
+    = form.govuk_collection_radio_buttons :dependants_get_income,
+                                          yes_no_options, :first, :last,
+                                          legend: { text: t(".legend"), size: "xl", tag: "h1" },
+                                          hint: -> { content_for(:hint) }
+    = form.govuk_submit t("generic.save_and_continue")
+
+= render "shared/question_sidebar",
+          level_of_help: @check.level_of_help,
+          links: dependant_income_links(@check.level_of_help)

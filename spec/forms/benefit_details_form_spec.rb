@@ -1,12 +1,12 @@
 require "rails_helper"
 
-RSpec.describe "benefits_details", type: :feature do
+RSpec.describe "benefit_details", type: :feature do
   let(:assessment_code) { :assessment_code }
 
   before do
     allow(CfeConnection).to receive(:state_benefit_types).and_return([])
     set_session(assessment_code, "level_of_help" => "controlled")
-    visit "estimates/#{assessment_code}/build_estimates/benefit_details"
+    visit form_path(:benefit_details, assessment_code)
   end
 
   it "shows an error message if no value is entered" do

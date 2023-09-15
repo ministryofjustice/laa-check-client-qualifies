@@ -1,12 +1,12 @@
 require "rails_helper"
 
 RSpec.describe "level_of_help", type: :feature do
-  let(:level_of_help_header) { I18n.t("estimate_flow.level_of_help.title") }
+  let(:level_of_help_header) { I18n.t("question_flow.level_of_help.title") }
   let(:assessment_code) { "assessment-code" }
 
   before do
     set_session(assessment_code, {})
-    visit "estimates/#{assessment_code}/build_estimates/level_of_help"
+    visit form_path(:level_of_help, assessment_code)
   end
 
   it "shows an error message if no value is entered" do

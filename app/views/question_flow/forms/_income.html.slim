@@ -1,0 +1,39 @@
+- partner ||= false
+. data-module="add-another"
+  .add-another-template-area data-add-another-role="template"
+    = render "income_section", i18n_key:, removeable: true, model: @form.blank_model
+
+  = form_for(@form, url: request.path, method: :put) do |form|
+    = form.govuk_error_summary t("generic.error_summary_title")
+    = render "shared/heading",
+              header_text: t("question_flow.#{i18n_key}.heading"),
+              post_header_text: t("question_flow.#{i18n_key}.hint"),
+              tag: (:partner if partner)
+    = govuk_details(summary_text: t("question_flow.#{i18n_key}.police_officer_heading"))
+      p.govuk-text = t("question_flow.#{i18n_key}.police_officer_hint")
+      ul.govuk-list.govuk-list--bullet
+        - t("question_flow.#{i18n_key}.police_officer_inclusions").map
+          li.govuk_text = _1
+
+    = govuk_details(summary_text: t("question_flow.#{i18n_key}.prisoner_heading"))
+      p.govuk-text = t("question_flow.#{i18n_key}.prisoner_hint")
+      ul.govuk-list.govuk-list--bullet
+        - t("question_flow.#{i18n_key}.prisoner_inclusions").map
+          li.govuk_text = _1
+
+    = govuk_details(summary_text: t("question_flow.#{i18n_key}.foreign_resident_heading"))
+      - t("question_flow.#{i18n_key}.foreign_resident_hints").each
+        p.govuk-text = _1
+
+    = govuk_details(summary_text: t("question_flow.#{i18n_key}.armed_forces_heading"))
+      p.govuk-text = t("question_flow.#{i18n_key}.armed_forces_hint")
+      ul.govuk-list.govuk-list--bullet
+        - t("question_flow.#{i18n_key}.armed_forces_inclusions").map
+          li.govuk_text = _1
+    . data-add-another-role="sectionList"
+      - @form.items.each_with_index do |income, index|
+        = render "income_section", i18n_key:, removeable: index.positive?, model: income, counter: index + 1
+    .govuk-button-group
+      button.govuk-button.govuk-button--secondary type="button" data-add-another-role="add" = t("question_flow.income.add")
+
+    = form.govuk_submit t("generic.save_and_continue")

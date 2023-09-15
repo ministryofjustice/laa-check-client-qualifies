@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "estimates/show.html.slim" do
+RSpec.describe "results/show.html.slim" do
   describe "Client financial content" do
     let(:calculation_result) { CalculationResult.new(session_data) }
     let(:session_data) { { api_response:, adult_dependants:, child_dependants: false }.with_indifferent_access }
@@ -139,8 +139,8 @@ RSpec.describe "estimates/show.html.slim" do
     before do
       assign(:model, calculation_result)
       assign(:check, check)
-      params[:id] = :id
-      render template: "estimates/show"
+      params[:assessment_code] = :code
+      render template: "results/show"
     end
 
     it "shows income content" do

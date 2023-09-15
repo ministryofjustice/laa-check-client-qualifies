@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "estimates/show.html.slim" do
+RSpec.describe "results/show.html.slim" do
   describe "Partially owned property content" do
     let(:calculation_result) { CalculationResult.new(session_data) }
     let(:check) { Check.new({}) }
@@ -46,8 +46,8 @@ RSpec.describe "estimates/show.html.slim" do
     before do
       assign(:model, calculation_result)
       assign(:check, check)
-      params[:id] = :id
-      render template: "estimates/show"
+      params[:assessment_code] = :code
+      render template: "results/show"
     end
 
     it "shows partially owned main property content" do
