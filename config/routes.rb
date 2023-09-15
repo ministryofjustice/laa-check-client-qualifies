@@ -50,11 +50,11 @@ Rails.application.routes.draw do
   get "which-controlled-work-form/:assessment_code", to: "controlled_work_document_selections#new", as: :controlled_work_document_selection
   post "which-controlled-work-form/:assessment_code", to: "controlled_work_document_selections#create"
 
+  get "check-result/:assessment_code", to: "results#show", as: :result
+  post "check-result/:assessment_code", to: "results#create"
+
   get ":step_url_fragment/:assessment_code", to: "forms#show", as: :step
   put ":step_url_fragment/:assessment_code", to: "forms#update"
   get ":step_url_fragment/:assessment_code/check", to: "check_answers#show", as: :check_step
   put ":step_url_fragment/:assessment_code/check", to: "check_answers#update"
-
-  get ":assessment_code", to: "results#show", as: :result
-  post ":assessment_code", to: "results#create"
 end
