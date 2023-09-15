@@ -191,7 +191,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       representative_sample = {
         "In receipt os NASS payment" => "Yes", # directly or indirectly in receipt of NASS paymen
         "Passported" => nil, # Not passporting
-        "FillText44" => "0", # Property worth £250,000
+        "FillText44" => nil, # Property worth £250,000
         "FillText11" => nil, # SMOD valuables are not relevant so are not displayed
       }
       expect(result).to include(representative_sample)

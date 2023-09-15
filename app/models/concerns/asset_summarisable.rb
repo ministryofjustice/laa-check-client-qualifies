@@ -46,10 +46,14 @@ module AssetSummarisable
   end
 
   def combined_non_disputed_capital
+    return if asylum_support?
+
     from_cfe_payload("result_summary.capital.combined_non_disputed_capital") || 0
   end
 
   def combined_assessed_capital
+    return if asylum_support?
+
     from_cfe_payload("result_summary.capital.combined_assessed_capital") || 0
   end
 end

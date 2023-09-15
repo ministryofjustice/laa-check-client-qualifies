@@ -2,76 +2,98 @@ module PropertySummarisable
   # MAIN HOME
   # Value
   def main_home_value
-    from_cfe_payload("assessment.capital.capital_items.properties.main_home.value") || 0
+    from_cfe_payload("assessment.capital.capital_items.properties.main_home.value") || 0 unless asylum_support?
   end
 
   def smod_main_home_value
-    main_home_value if house_in_dispute
+    if any_smod_assets?
+      house_in_dispute ? main_home_value : 0
+    end
   end
 
   def non_smod_main_home_value
-    house_in_dispute ? 0 : main_home_value || 0
+    unless asylum_support?
+      house_in_dispute ? 0 : main_home_value || 0
+    end
   end
 
   # Outstanding mortgage
   def main_home_outstanding_mortgage
-    from_cfe_payload("assessment.capital.capital_items.properties.main_home.outstanding_mortgage") || 0
+    from_cfe_payload("assessment.capital.capital_items.properties.main_home.outstanding_mortgage") || 0 unless asylum_support?
   end
 
   def non_smod_main_home_outstanding_mortgage
-    house_in_dispute ? 0 : main_home_outstanding_mortgage || 0
+    unless asylum_support?
+      house_in_dispute ? 0 : main_home_outstanding_mortgage || 0
+    end
   end
 
   def smod_main_home_outstanding_mortgage
-    main_home_outstanding_mortgage if house_in_dispute
+    if any_smod_assets?
+      house_in_dispute ? main_home_outstanding_mortgage : 0
+    end
   end
 
   # Percentage owned
   def main_home_percentage_owned
-    percentage_owned || 0
+    percentage_owned || 0 unless asylum_support? || !client_income_relevant?
   end
 
   def smod_main_home_percentage_owned
-    main_home_percentage_owned if house_in_dispute
+    if any_smod_assets?
+      house_in_dispute ? main_home_percentage_owned : 0
+    end
   end
 
   def non_smod_main_home_percentage_owned
-    house_in_dispute ? 0 : main_home_percentage_owned || 0
+    unless asylum_support?
+      house_in_dispute ? 0 : main_home_percentage_owned || 0
+    end
   end
 
   # Net value
   def main_home_net_value
-    from_cfe_payload("assessment.capital.capital_items.properties.main_home.net_value") || 0
+    from_cfe_payload("assessment.capital.capital_items.properties.main_home.net_value") || 0 unless asylum_support?
   end
 
   def non_smod_main_home_net_value
-    house_in_dispute ? 0 : main_home_net_value || 0
+    unless asylum_support?
+      house_in_dispute ? 0 : main_home_net_value || 0
+    end
   end
 
   def smod_main_home_net_value
-    main_home_net_value if house_in_dispute
+    if any_smod_assets?
+      house_in_dispute ? main_home_net_value : 0
+    end
   end
 
   # Net equity
   def main_home_net_equity
-    from_cfe_payload("assessment.capital.capital_items.properties.main_home.net_equity") || 0
+    from_cfe_payload("assessment.capital.capital_items.properties.main_home.net_equity") || 0 unless asylum_support?
   end
 
   def smod_main_home_net_equity
-    main_home_net_equity if house_in_dispute
+    if any_smod_assets?
+      house_in_dispute ? main_home_net_equity : 0
+    end
   end
 
   def non_smod_main_home_net_equity
-    house_in_dispute ? 0 : main_home_net_equity || 0
+    unless asylum_support?
+      house_in_dispute ? 0 : main_home_net_equity || 0
+    end
   end
 
   # Assessed equity
   def main_home_assessed_equity
-    from_cfe_payload("assessment.capital.capital_items.properties.main_home.assessed_equity") || 0
+    from_cfe_payload("assessment.capital.capital_items.properties.main_home.assessed_equity") || 0 unless asylum_support?
   end
 
   def smod_main_home_assessed_equity
-    main_home_assessed_equity if house_in_dispute
+    if any_smod_assets?
+      house_in_dispute ? main_home_assessed_equity : 0
+    end
   end
 
   def non_smod_main_home_assessed_equity
@@ -107,7 +129,9 @@ module PropertySummarisable
 
   # Percentage owned
   def smod_additional_properties_percentage_owned
-    additional_properties_percentage_owned(properties: combined_additional_properties.select { _1["subject_matter_of_dispute"] }) if any_smod_assets?
+    if any_smod_assets? && !smod_additional_properties_value.nil?
+      additional_properties_percentage_owned(properties: combined_additional_properties.select { _1["subject_matter_of_dispute"] })
+    end
   end
 
   def non_smod_additional_properties_percentage_owned

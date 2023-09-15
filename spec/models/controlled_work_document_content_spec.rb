@@ -273,8 +273,8 @@ RSpec.describe ControlledWorkDocumentContent do
       end
 
       describe "#combined_non_disputed_capital?" do
-        it "returns zero" do
-          expect(described_class.new(session_data).combined_non_disputed_capital).to eq 0
+        it "returns nil" do
+          expect(described_class.new(session_data).combined_non_disputed_capital).to eq nil
         end
       end
     end
