@@ -2125,6 +2125,7 @@ en:
       continue: Continue
   devise:
     unrecognised: "You are not recognised as an admin"
+    invalid_subdomain: "Invalid subdomain provided in state param"
     sessions:
       google: "Sign in with Google"
   admin:
