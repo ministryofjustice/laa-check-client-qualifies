@@ -1,6 +1,6 @@
 require "rails_helper"
 
-# In this case we use a controller spec because it allows for easy setting and
+# In this case we use a controller spec because it allows for easily detecting redirects to external sites.
 RSpec.describe OauthRedirectsController, type: :controller do
   describe "google_redirect" do
     it "sets session state nonce" do
