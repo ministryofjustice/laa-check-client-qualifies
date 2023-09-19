@@ -87,14 +87,14 @@
             - pdf_friendly_numeric_table_cell(row, amount, bold_text: false)
         - body.with_row(classes: %w[solid-top-border]) do |row|
           - row.with_cell(header: true, text: t("results.show.pensioner_disregard_types.assessed_capital"))
-          - pdf_friendly_numeric_table_cell(row, @model.total_assessed_capital, bold_text: true)
+          - pdf_friendly_numeric_table_cell(row, @model.total_calculated_capital, bold_text: true)
 
 = pdf_friendly_h2(t("results.show.total"), caption_size.to_s, @is_pdf)
 = govuk_table do |table|
   - table.with_body do |body|
     - body.with_row(classes: %w[solid-top-border]) do |row|
       - row.with_cell(header: true, text: t("results.show.total_assessed_capital"))
-      - pdf_friendly_numeric_table_cell(row, @model.total_assessed_capital, bold_text: true)
+      - pdf_friendly_numeric_table_cell(row, @model.total_calculated_capital, bold_text: true)
     - body.with_row(classes: %w[solid-bottom-border]) do |row|
       - row.with_cell(classes: %w[govuk-!-font-weight-regular], header: true, text: t("results.show.capital_upper_threshold"))
       - pdf_friendly_numeric_table_cell(row, @model.capital_upper_threshold, bold_text: false)

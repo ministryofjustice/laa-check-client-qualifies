@@ -1,4 +1,5 @@
 import { initAll } from "govuk-frontend";
+import initResults from "./results";
 import Rails from '@rails/ujs';
 
 // NOTE: suggestions input component not yet part of GOV.UK frontend
@@ -25,3 +26,4 @@ document.querySelectorAll('a[data-behaviour="browser-back"]').forEach((link) => 
 
 Rails.start();
 initAll();
+initResults();

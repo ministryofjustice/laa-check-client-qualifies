@@ -7,7 +7,7 @@ FactoryBot.define do
     assessment { build(:assessment) }
 
     transient do
-      eligible { "ineligible" }
+      eligible { nil }
       main_home { nil }
       additional_property { nil }
       over_60 { false }
@@ -24,7 +24,13 @@ FactoryBot.define do
         api_result.dig(:assessment, :capital, :capital_items, :properties)[:additional_properties] = [evaluator.additional_property]
       end
 
-      api_result.fetch(:result_summary)[:overall_result] = { result: evaluator.eligible }
+      if api_result.fetch(:result_summary)[:overall_result].nil?
+        api_result.fetch(:result_summary)[:overall_result] = {}
+      end
+
+      if evaluator.eligible
+        api_result.fetch(:result_summary)[:overall_result][:result] = evaluator.eligible
+      end
 
       if evaluator.over_60
         api_result.dig(:result_summary, :capital)[:pensioner_capital_disregard] = 100_000

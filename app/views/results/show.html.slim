@@ -13,6 +13,12 @@
     .govuk-panel__body
       = render "result_panel_content"
 
+  - if @model.any_calculations_performed?
+    h2.govuk-heading-m = t(".section_summaries.your_clients_key_eligibility_totals")
+    .summary-box-holder class="govuk-!-margin-bottom-5"
+      - %i[gross_income disposable_income capital].each
+        = render("summary", section: _1, links: true) if @model.calculated?(_1)
+
   - if @model.level_of_help == "certificated"
     h2.govuk-heading-m = t(".what_happens_next")
     - if @check.upper_tribunal?
@@ -24,7 +30,7 @@
     = govuk_details(summary_text: t(".evidence_needed")) do
       = render "evidence"
 
-  - if @model.calculated?(:gross_income) || @model.calculated?(:disposable_income) || @model.calculated?(:capital)
+  - if @model.any_calculations_performed?
     h2.govuk-heading-m = t(".#{@model.level_of_help}_how_calculated")
     = govuk_accordion do |accordion|
       - accordion.with_section(heading_text: t(".legislation_header"))
