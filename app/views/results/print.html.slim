@@ -17,7 +17,7 @@
 
   - if @model.any_calculations_performed?
     = pdf_friendly_h2(t("results.show.section_summaries.your_clients_key_eligibility_totals"), "m", @is_pdf)
-    .summary-box-holder class="govuk-!-margin-bottom-5"
+    .summary-box-holder class="govuk-!-margin-bottom-5 #{"pdf-summary-box" if @is_pdf}"
       - %i[gross_income disposable_income capital].each
         = render("summary", section: _1, links: false) if @model.calculated?(_1)
 

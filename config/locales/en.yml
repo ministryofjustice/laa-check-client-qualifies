@@ -1773,7 +1773,7 @@ en:
             ineligible_no_lower_threshold: Your client's total exceeds the disposable monthly income upper limit (%{upper_threshold}). This means they are ineligible for legal aid.
           capital:
             eligible: Your client’s total is below the disposable capital lower limit (%{lower_threshold}).
-            elibile_no_upper_threshold: Your client's total is below the disposable capital lower limit (%{lower_threshold}).
+            eligible_no_upper_threshold: Your client's total is below the disposable capital lower limit (%{lower_threshold}).
             eligible_no_lower_threshold: Your client’s total is below the disposable capital upper limit (%{upper_threshold}).
             contribution_required_and_overall_contribution_required: Your client’s total is between the disposable capital lower limit (%{lower_threshold}) and upper limit (%{upper_threshold}). This means they will need to make a contribution of %{capital_contribution} towards legal aid costs from their disposable capital.
             contribution_required_and_overall_contribution_required_no_upper_threshold: Your client's total is above the disposable capital lower limit (%{lower_threshold}). This means they will need to make a lump sum contribution of up to %{capital_contribution} from their disposable capital, depending on the costs of the case.

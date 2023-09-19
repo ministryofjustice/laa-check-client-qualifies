@@ -27,10 +27,15 @@ tr.solid-bottom-border {
     display: flex;
     align-items: stretch;
   }
+
+  &.pdf-summary-box {
+    display: flex;
+    align-items: stretch;
+  }
 }
 
 .summary-box {
-  width: 312px;
+  max-width: 312px;
   margin-right: 12px;
   margin-bottom: 12px;
   padding: 15px 10px;
