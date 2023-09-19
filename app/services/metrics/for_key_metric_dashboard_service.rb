@@ -100,7 +100,7 @@ module Metrics
         top_validation_screens(time_period).map do |screen_and_count|
           {
             checks: screen_and_count[1],
-            screen: Flow::Handler.url_fragment(screen_and_count[0]),
+            screen: screen_name(screen_and_count[0]),
             data_type: time_period,
           }
         end
@@ -235,10 +235,19 @@ module Metrics
       query_exit_pages(level_of_help, period).map do |result|
         {
           checks: result["checks"],
-          screen: Flow::Handler.url_fragment(result["page"]),
+          screen: screen_name(result["page"]),
           context: "#{level_of_help}_#{period}",
         }
       end
+    end
+
+    def screen_name(page)
+      # Some pages are part of the question flow and we can therefore translate them
+      # into a more recognisable name by providing the URL fragment associated with
+      # the step in question. But in other cases, the raw page string suffices.
+      Flow::Handler.url_fragment(page)
+    rescue KeyError
+      page
     end
 
     QUERY = "
