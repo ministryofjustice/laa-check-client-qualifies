@@ -1,6 +1,6 @@
 require "rails_helper"
 
-# In this case we use a controller spec because it allows for easy setting and
+# In this case we use a controller spec because it allows for easily detecting redirects to external sites.
 RSpec.describe OauthRedirectsController, type: :controller do
   describe "google_redirect" do
     it "sets session state nonce" do
@@ -15,8 +15,16 @@ RSpec.describe OauthRedirectsController, type: :controller do
   end
 
   describe "subdomain_redirect" do
-    it "raises an error if an invalid state param is provided" do
-      expect { get :subdomain_redirect, params: { state: "https://somemalicioussite.com?falsity=cloud-platform.service.justice.gov.uk" } }.to raise_error "Invalid subdomain provided in state param"
+    it "highlights an error if an invalid state param is provided" do
+      get :subdomain_redirect, params: { state: "https://somemalicioussite.com?falsity=cloud-platform.service.justice.gov.uk" }
+      expect(response).to redirect_to "/admins/sign_in"
+      expect(flash[:notice]).to eq "Invalid subdomain provided in state param"
+    end
+
+    it "highlights an error if no state param is provided" do
+      get :subdomain_redirect
+      expect(response).to redirect_to "/admins/sign_in"
+      expect(flash[:notice]).to eq "Invalid subdomain provided in state param"
     end
 
     it "redirects to an appropriate subdomain" do

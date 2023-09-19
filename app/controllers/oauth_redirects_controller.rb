@@ -31,7 +31,9 @@ class OauthRedirectsController < ApplicationController
       uri.query += "&#{params.slice(:code, :scope, :authuser, :hd, :prompt).permit!.to_query}"
       redirect_to uri.to_s, allow_other_host: true
     else
-      raise "Invalid subdomain provided in state param"
+      raise URI::InvalidURIError
     end
+  rescue URI::InvalidURIError
+    redirect_to new_admin_session_path, flash: { notice: I18n.t("devise.invalid_subdomain") }
   end
 end
