@@ -79,6 +79,7 @@ RSpec.describe Metrics::ForKeyMetricDashboardService do
         create :analytics_event, assessment_code: "CODE3", page: "applicant", browser_id: "BROWSER1", created_at: 1439.minutes.ago
         create :analytics_event, assessment_code: "CODE3", page: "outgoings", browser_id: "BROWSER1", created_at: 1438.minutes.ago, event_type: "validation_message"
         create :analytics_event, assessment_code: "CODE3", page: "vehicle", browser_id: "BROWSER1", created_at: 1437.minutes.ago
+        create :analytics_event, assessment_code: "CODE3", page: "check_answers", browser_id: "BROWSER1", created_at: 1436.minutes.ago
 
         # Completed controlled assessment by user 2
         create :analytics_event, assessment_code: "CODE4", page: "level_of_help", browser_id: "BROWSER2", created_at: 22.hours.ago
@@ -173,8 +174,8 @@ RSpec.describe Metrics::ForKeyMetricDashboardService do
         )
         expect(last_page_dataset).to receive(:put).with(
           [
-            { checks: 1, context: "controlled_all_time", screen: "vehicle-ownership" },
-            { checks: 1, context: "controlled_current_month", screen: "vehicle-ownership" },
+            { checks: 1, context: "controlled_all_time", screen: "check_answers" },
+            { checks: 1, context: "controlled_current_month", screen: "check_answers" },
           ],
         )
         described_class.call
