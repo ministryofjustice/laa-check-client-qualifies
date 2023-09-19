@@ -21,7 +21,7 @@
 
   / MORTGAGE
   - if model.show_inline_mortgage_ownership_question?
-    = render "shared/add_another/yes_no_radios",
+    = render "shared/add_another/yes_no_radios_conditional_reveal",
             errors: model.errors.messages[:inline_owned_with_mortgage],
             model_name: "additional_property_model",
             form_name: "additional_property_details_form",
