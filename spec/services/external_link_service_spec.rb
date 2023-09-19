@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe GuidanceLinkService do
+RSpec.describe ExternalLinkService do
   describe ".call" do
     it "shows controlled LC Guidance links" do
       result = described_class.call(document: :lc_guidance_controlled)
@@ -20,6 +20,11 @@ RSpec.describe GuidanceLinkService do
     it "takes me to a specific part of PDF in the LC Guidance" do
       result = described_class.call(document: :lc_guidance_certificated, sub_section: :upper_tribunal)
       expect(result).to eq "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1176073/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_certificated_work__August_2023_.pdf#page=110"
+    end
+
+    it "takes me to the external CW form page" do
+      result = described_class.call(document: :laa_cw_forms)
+      expect(result).to eq "https://www.gov.uk/government/collections/controlled-work-application-forms"
     end
   end
 end
