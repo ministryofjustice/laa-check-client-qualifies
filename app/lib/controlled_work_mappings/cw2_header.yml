@@ -197,7 +197,7 @@
 # Dependent's allowances - Partner
 - name: FillText100
   type: text
-  section: partner_income
+  section: income
   source: partner_allowance
 
 # Dependents Aged 15 and under
