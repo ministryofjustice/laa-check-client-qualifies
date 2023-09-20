@@ -1736,7 +1736,7 @@ en:
           - Get your client to sign the form.
           - Keep the form, with any evidence provided by your client, for your records.
         manual_header:  Complete a controlled work form yourself
-        manual_instruction_html: Download a <a href='https://www.gov.uk/government/collections/controlled-work-application-forms' target='_blank' rel='noreferrer noopener'>controlled work application form</a>. Some of these can be filled in on a computer.
+        manual_instruction_html: Download a <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>controlled work application form</a>. Some of these can be filled in on a computer.
       ineligible_explanation:
         text: Your %{subject} %{value_type} exceeds the upper limit. This means %{outcome} not qualify for legal aid.
         subject_no_partner: client’s
@@ -1746,6 +1746,43 @@ en:
         outcome_with_partner: your client does
         disposable_income: disposable monthly income
         capital: disposable capital
+      section_summaries:
+        your_clients_key_eligibility_totals: Your client's key eligibility totals
+        heading:
+          gross_income: Gross monthly income
+          disposable_income: Disposable monthly income
+          capital: Disposable capital
+        contribution_needed: Contribution needed
+        exceeds_upper_limit: Exceeds upper limit
+        texts:
+          gross_income:
+            eligible: Your client’s total is below the gross monthly income upper limit (%{upper_threshold}).
+            eligible_no_upper_threshold: There is no gross monthly income limit in %{matter_type} matters.
+            ineligible: Your client's total exceeds the gross monthly income upper limit (%{upper_threshold}). This means they are ineligible for legal aid.
+          disposable_income:
+            eligible: Your client’s total is below the disposable monthly income lower limit (%{lower_threshold}).
+            eligible_no_upper_threshold: Your client's total is below the disposable monthly income lower limit (%{lower_threshold}).
+            eligible_no_lower_threshold: Your client’s total is below the disposable monthly income upper limit (%{upper_threshold}).
+            contribution_required_and_overall_contribution_required: Your client’s total is between the disposable monthly income lower limit (%{lower_threshold}) and upper limit (%{upper_threshold}). This means they will need to make a contribution of %{income_contribution} per month towards legal aid costs from their disposable monthly income.
+            contribution_required_and_overall_contribution_required_no_upper_threshold: Your client's total is above the disposable monthly income lower limit (%{lower_threshold}). This means they will need to make a contribution of up to %{income_contribution} per month from their disposable monthly income, depending on the costs of the case.
+            contribution_required_and_overall_ineligible: Your client’s total is between the disposable monthly income lower limit (%{lower_threshold}) and upper limit (%{upper_threshold}).
+            ineligible: Your client's total exceeds the disposable monthly income upper limit (%{upper_threshold}). This means they are ineligible for legal aid.
+            ineligible_no_lower_threshold: Your client's total exceeds the disposable monthly income upper limit (%{upper_threshold}). This means they are ineligible for legal aid.
+          capital:
+            eligible: Your client’s total is below the disposable capital lower limit (%{lower_threshold}).
+            eligible_no_upper_threshold: Your client's total is below the disposable capital lower limit (%{lower_threshold}).
+            eligible_no_lower_threshold: Your client’s total is below the disposable capital upper limit (%{upper_threshold}).
+            contribution_required_and_overall_contribution_required: Your client’s total is between the disposable capital lower limit (%{lower_threshold}) and upper limit (%{upper_threshold}). This means they will need to make a contribution of %{capital_contribution} towards legal aid costs from their disposable capital.
+            contribution_required_and_overall_contribution_required_no_upper_threshold: Your client's total is above the disposable capital lower limit (%{lower_threshold}). This means they will need to make a lump sum contribution of up to %{capital_contribution} from their disposable capital, depending on the costs of the case.
+            contribution_required_and_overall_ineligible: Your client’s total is between the disposable capital lower limit (%{lower_threshold}) and upper limit (%{upper_threshold}).
+            ineligible: Your client's total exceeds the disposable capital upper limit (%{upper_threshold}). This means they are ineligible for legal aid.
+            ineligible_no_lower_threshold: Your client's total exceeds the disposable capital upper limit (%{upper_threshold}). This means they are ineligible for legal aid.
+        matter_types:
+          domestic_abuse: domestic abuse
+          immigration: immigration
+          asylum: asylum
+          other: other
+        see_calculation: See calculation.
     legislation_table:
       paragraph_1_controlled_html: This calculation was made using the rules for controlled work in <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>The Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 (opens in new tab)</a> and the <a href="%{page_url_2}" target='_blank' rel='noreferrer noopener' aria-label="Link opens a search page which includes a list of amendments to The Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 (opens in new tab)">amendments to these Regulations (opens in new tab)</a>.
       paragraph_2_controlled_html: Guidance on determining financial eligibility for controlled work and family mediation can be found in the <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>guide to determining controlled work (opens in new tab)</a>.
@@ -2106,6 +2143,7 @@ en:
       continue: Continue
   devise:
     unrecognised: "You are not recognised as an admin"
+    invalid_subdomain: "Invalid subdomain provided in state param"
     sessions:
       google: "Sign in with Google"
   admin:
