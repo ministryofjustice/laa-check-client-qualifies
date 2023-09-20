@@ -7,12 +7,6 @@ def start_assessment
   click_on "Start now"
 end
 
-def fill_in_provider_users_screen(choice: "Yes")
-  confirm_screen "provider_users"
-  choose choice
-  click_on "Save and continue"
-end
-
 def fill_in_level_of_help_screen(choice: "Civil certificated or licensed legal work")
   confirm_screen "level_of_help"
   choose choice
@@ -286,9 +280,7 @@ end
 
 def confirm_screen(expected)
   path = page.current_path
-  if expected.to_sym == :provider_users
-    expect(path).to eq "/do-you-give-legal-advice-or-provide-legal-services"
-  elsif expected.to_sym == :check_answers
+  if expected.to_sym == :check_answers
     expect(path).to start_with "/check-answers"
   else
     expect(path).to start_with "/#{Flow::Handler.url_fragment(expected.to_sym)}"
@@ -306,10 +298,6 @@ def fill_in_forms_until(target)
     step = Flow::Handler.step_from_url_fragment(current_page)
     break if step.to_s == target.to_s || current_path.starts_with?("/check-answers")
 
-    if current_page == "do-you-give-legal-advice-or-provide-legal-services"
-      fill_in_provider_users_screen
-    else
-      send("fill_in_#{step}_screen")
-    end
+    send("fill_in_#{step}_screen")
   end
 end

@@ -36,16 +36,6 @@ RSpec.describe "Accessibility" do
     end
   end
 
-  describe "Referrals page" do
-    before do
-      visit referrals_path
-    end
-
-    it "has no AXE-detectable accessibility issues" do
-      expect(page).to be_axe_clean
-    end
-  end
-
   describe "Cookies page" do
     before do
       visit cookies_path
@@ -91,7 +81,6 @@ RSpec.describe "Accessibility" do
     %w[controlled certificated].each do |level_of_help|
       it "has no AXE-detectable accessibility issues on any page" do
         start_assessment
-        fill_in_provider_users_screen
         fill_in_level_of_help_screen choice: level_of_help
         assessment_code = current_path.split("/").reverse.second
 
