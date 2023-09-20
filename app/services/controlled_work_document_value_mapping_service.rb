@@ -59,6 +59,8 @@ class ControlledWorkDocumentValueMappingService
         !content.client_capital_relevant?
       when "partner_capital"
         !content.partner_capital_relevant?
+      when "income_even_if_passported"
+        !content.client_capital_relevant?
       when "income"
         !content.client_income_relevant?
       when "partner_income"

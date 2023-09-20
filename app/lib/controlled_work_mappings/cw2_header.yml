@@ -135,7 +135,7 @@
 # Income-related Employment and Support Allowance, Guarantee Credit or Universal Credit - Yes option
 - name: Passported
   type: boolean_radio
-  section: income
+  section: income_even_if_passported
   source: passporting
   yes_value: "Yes"
   no_value: "No"

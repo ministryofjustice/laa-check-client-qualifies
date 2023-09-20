@@ -236,7 +236,7 @@
 # The client is directly or indirectly in receipt of [passporting benefit]
 - name: Passported
   type: boolean_radio
-  section: income
+  section: income_even_if_passported
   source: passporting
   yes_value: "Yes"
   no_value: "No"

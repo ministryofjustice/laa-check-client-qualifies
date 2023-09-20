@@ -252,7 +252,7 @@
 - name: Passported
   type: boolean_radio
   source: passporting
-  section: income
+  section: income_even_if_passported
   yes_value: "Yes"
   no_value: "No"
 
