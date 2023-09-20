@@ -14,4 +14,4 @@
     = form.govuk_radio_divider
   - else
     = form.govuk_radio_button field_name, data[:value], **data[:options].merge(index.zero? ? { link_errors: true } : {})
-      = yield if index.zero? && block_given?
+      = yield if index.zero?
