@@ -1804,16 +1804,16 @@ en:
       gross_income_caption: Gross income limits
       number_of_children: Number of child dependants
       child_list:
-        - 0 to 4
-        - 5
-        - 6
-        - 7
-        - 8 or more
-      0 to 4_limit: £2,675
-      5_limit: £2,879
-      6_limit: £3,101
-      7_limit: £3,323
-      8 or more_limit: Add £222 to above figure for each additional child
+        - children: 0 to 4
+          limit: £2,657
+        - children: 5
+          limit: £2,879
+        - children: 6
+          limit: £3,101
+        - children: 7
+          limit: £3,323
+        - children: 8 or more
+          limit: Add £222 to above figure for each additional child
       gross_limit: Gross monthly income limit
       limits_table_caption: Disposable income and Capital limits
       disposable_limit: Disposable monthly income
