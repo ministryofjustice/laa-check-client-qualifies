@@ -2,7 +2,7 @@ module Steps
   class CaseDetailsSection
     class << self
       def all_steps
-        %i[level_of_help matter_type immigration_or_asylum immigration_or_asylum_type asylum_support]
+        %i[level_of_help matter_type domestic_abuse_applicant immigration_or_asylum immigration_or_asylum_type immigration_or_asylum_type_upper_tribunal asylum_support]
       end
 
       def grouped_steps_for(session_data)

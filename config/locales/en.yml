@@ -529,8 +529,8 @@ en:
       tribunal_guidance_text: Guide to determining controlled work
     domestic_abuse_applicant:
       question: Is your client an applicant in a domestic abuse case?
-      help_text_1: This must be for legal representation for a domestic abuse matter (injunction or other order for protection from harm, or committal for breach), FGM protection order, or forced marriage protection order.
-      help_text_2: We need to know this for the check calculations because upper eligibility limits are waived if your client is an applicant in a domestic abuse matter.
+      paragraph_1: This must be for legal representation for a domestic abuse matter (injunction or other order for protection from harm, or committal for breach), FGM protection order, or forced marriage protection order.
+      paragraph_2: We need to know this for the check calculations because upper eligibility limits are waived if your client is an applicant in a domestic abuse matter.
     matter_type:
       title: Which type of matter is this?
       immigration: Immigration (Upper Tribunal)
@@ -1241,6 +1241,7 @@ en:
         type_of_matter: Type of matter
         asylum_support: Asylum Support
         matter_type: Type of matter
+        domestic_abuse_applicant: Domestic abuse applicant
         immigration_or_asylum: Type of matter
         immigration_or_asylum_type: Type of immigration or asylum matter
         applicant: Client details
@@ -1286,7 +1287,6 @@ en:
           asylum: Asylum (Upper Tribunal)
           other: Another category of law
           domestic_abuse: Domestic abuse
-      domestic_abuse_applicant_fields:
         domestic_abuse_applicant: Is your client an applicant in a domestic abuse case?
       immigration_or_asylum_fields:
         immigration_or_asylum: Is this an immigration or asylum matter?
@@ -1296,12 +1296,11 @@ en:
           immigration_clr: Immigration - controlled legal representation (CLR) in the First-tier Tribunal
           immigration_legal_help: Immigration - legal help or help at court
           asylum: Asylum - legal help, help at court, or controlled legal representation (CLR) in the First-tier Tribunal
-      immigration_or_asylum_type_upper_tribunal_fields:
         immigration_or_asylum_type_upper_tribunal: Is this for a matter in the Immigration and Asylum Chamber of the Upper Tribunal?
         immigration_or_asylum_type_upper_tribunal_options:
           immigration_upper: Yes, immigration (Upper Tribunal)
           asylum_upper: Yes, asylum (Upper Tribunal)
-          no: "No"
+          none: "No"
       asylum_support_fields:
         asylum_support: Does your client get asylum support?
       applicant_fields:
