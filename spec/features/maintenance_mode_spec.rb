@@ -11,7 +11,7 @@ RSpec.describe "Maintenance mode page", type: :feature do
   context "when the flag is turned off" do
     scenario "I can view the start page" do
       visit root_path
-      expect(page).to have_text "Use this service to find out if your client is likely to get civil legal aid, based on their financial situation."
+      expect(page).to have_text "This service will ask you questions about your client, then tell you if they are likely to get civil legal aid, based on their financial situation."
     end
   end
 end
