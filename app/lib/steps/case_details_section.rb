@@ -22,7 +22,8 @@ module Steps
       end
 
       def certificated_matter_type_group(session_data)
-        Steps::Logic.upper_tribunal?(session_data) ? %i[matter_type asylum_support] : %i[matter_type]
+        Steps::Logic.domestic_abuse_applicant?(session_data) ? %i[domestic_abuse_applicant] : %i[domestic_abuse_applicant immigration_or_asylum_type_upper_tribunal] 
+        # need to work out how to get from immigration_or_asylum_type_upper_tribunal to asylum_support, when user clicks yes. 
       end
 
       def controlled_matter_type_group(session_data)
