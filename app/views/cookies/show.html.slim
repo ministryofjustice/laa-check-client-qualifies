@@ -107,7 +107,7 @@
                        checked: (cookies[CookiesController::COOKIE_CHOICE_NAME] == "accepted") } },
           { value: "reject",
             options: { label: { text: t("generic.no_choice") },
-                       checked: (cookies[CookiesController::COOKIE_CHOICE_NAME] == "rejected") } },
+                       checked: (cookies[CookiesController::COOKIE_CHOICE_NAME] != "accepted") } },
         ]
       = render "shared/radio_button_set",
                form:,
