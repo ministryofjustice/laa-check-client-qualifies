@@ -48,4 +48,88 @@ RSpec.describe "dependant_income_details", type: :feature do
       expect(page).not_to have_text "Dependant 3"
     end
   end
+
+  describe "dependant income limits" do
+    context "when there are other page errors for frequency or amount" do
+      it "does not trigger the error" do
+        fill_in "1-amount", with: "hello world"
+        click_on "Save and continue"
+        expect(page).not_to have_content "Dependant income must be less than the equivalent of £338.90 per month."
+        expect(page).to have_content "Select when the dependant normally gets this income"
+        expect(page).to have_content "Income for the dependant must be a number"
+      end
+    end
+
+    context "when choosing monthly frequency" do
+      let(:monthly_limit) { "338.90" }
+
+      it "shows an error message when on the limit" do
+        fill_in "1-amount", with: monthly_limit
+        choose "1-frequency-monthly"
+        click_on "Save and continue"
+        expect(page).to have_content "Dependant income must be less than £338.90 per month."
+      end
+
+      it "does not show an error message when below the limit" do
+        fill_in "1-amount", with: "338.89"
+        choose "1-frequency-monthly"
+        click_on "Save and continue"
+        expect(page).not_to have_content "Dependant income must be less than £338.90 per month."
+      end
+    end
+
+    context "when choosing three month total frequency" do
+      let(:three_month_limit) { "1016.70" }
+
+      it "shows an error message when on the limit" do
+        fill_in "1-amount", with: three_month_limit
+        choose "1-frequency-three_months"
+        click_on "Save and continue"
+        expect(page).to have_content "Dependant income must be less than the equivalent of £338.90 per month."
+      end
+
+      it "does not show an error message when below the limit" do
+        fill_in "1-amount", with: "1016.69"
+        choose "1-frequency-three_months"
+        click_on "Save and continue"
+        expect(page).not_to have_content "Dependant income must be less than the equivalent of £338.90 per month."
+      end
+    end
+
+    context "when choosing weekly frequency" do
+      let(:weekly_limit) { "78.20" }
+
+      it "shows an error message when on the limit" do
+        fill_in "1-amount", with: weekly_limit
+        choose "1-frequency-every_week"
+        click_on "Save and continue"
+        expect(page).to have_content "Dependant income must be less than the equivalent of £338.90 per month."
+      end
+
+      it "does not show an error message when below the limit" do
+        fill_in "1-amount", with: "78.19"
+        choose "1-frequency-every_week"
+        click_on "Save and continue"
+        expect(page).not_to have_content "Dependant income must be less than the equivalent of £338.90 per month."
+      end
+    end
+
+    context "when choosing fortnightly frequency" do
+      let(:fortnightly_limit) { "156.40" }
+
+      it "shows an error message when on the limit" do
+        fill_in "1-amount", with: fortnightly_limit
+        choose "1-frequency-every_two_weeks"
+        click_on "Save and continue"
+        expect(page).to have_content "Dependant income must be less than the equivalent of £338.90 per month."
+      end
+
+      it "does not show an error message when below the limit" do
+        fill_in "1-amount", with: "156.39"
+        choose "1-frequency-every_two_weeks"
+        click_on "Save and continue"
+        expect(page).not_to have_content "Dependant income must be less than the equivalent of £338.90 per month."
+      end
+    end
+  end
 end
