@@ -572,7 +572,7 @@ en:
       guidance_text_html: Guidance for these matters is in paragraphs 24 to 30, 32(1) and 32A(1) of Part 1 of Schedule 1 to the <a href="%{page_url}" target="_blank" rel="noreferrer noopener">Legal Aid, Sentencing and Punishment of Offenders Act 2012</a> (LASPO).
       immigration_upper: Yes, immigration (Upper Tribunal)
       asylum_upper: Yes, asylum (Upper Tribunal)
-      no: "No"
+      none: "No"
     applicant:
       passporting_guidance:
         text: Guidance on passporting

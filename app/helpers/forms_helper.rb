@@ -21,7 +21,7 @@ module FormsHelper
   IMMIGRATION_OR_ASYLUM_TYPE_UPPER_TRIBUNAL_OPTIONS = [
     [:immigration_upper, I18n.t("question_flow.immigration_or_asylum_type_upper_tribunal.immigration_upper")],
     [:asylum_upper, I18n.t("question_flow.immigration_or_asylum_type_upper_tribunal.asylum_upper")],
-    [:no, I18n.t("question_flow.immigration_or_asylum_type_upper_tribunal.no")],
+    [:none, I18n.t("question_flow.immigration_or_asylum_type_upper_tribunal.none")],
   ].freeze
 
   def property_options

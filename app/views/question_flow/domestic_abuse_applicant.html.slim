@@ -8,13 +8,15 @@
   = form_for(@form, url: request.path, method: :put) do |form|
     = form.govuk_error_summary t("generic.error_summary_title")
 
+    h1.govuk-heading-xl = t(".question")
+
+    p.govuk-boy = t(".help_text_1")
+    p.govuk-boy = t(".help_text_2")
+
     = form.govuk_collection_radio_buttons :domestic_abuse_applicant,
             yes_no_options, :first, :last,
-            legend: { text: t(".question"), size: "xl", tag: "h1" },
-            hint: lambda { \
-                            tag.p(t(".help_text_1"), class: "govuk-body") + \
-                            tag.p(t(".help_text_2"), class: "govuk-body") \
-                          }
+            legend: nil
+
     = form.govuk_submit t("generic.save_and_continue")
 
 = render "shared/question_sidebar",

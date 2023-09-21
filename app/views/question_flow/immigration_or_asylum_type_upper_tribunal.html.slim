@@ -8,18 +8,19 @@
    = form_for(@form, url: request.path, method: :put) do |form|
     = form.govuk_error_summary t("generic.error_summary_title")
 
-    = form.govuk_collection_radio_buttons :immigration_or_asylum_type_upper_tribunal,
-                                            immigration_or_asylum_type_upper_tribunal_options, :first, :last,
-                                            legend: { text: t(".question"), size: "xl", tag: "h1" },
-                                            hint: lambda { \
-                                                            tag.p(t(".help_text_1"), class: "govuk-body") + \
-                                                            tag.p(t(".help_text_2"), class: "govuk-body") + \
-                                                            tag.p(t(".help_text_3"), class: "govuk-body") \
-                                                          }
+    h1.govuk-heading-xl = t(".question")
+
+    p.govuk-boy = t(".help_text_1")
+    p.govuk-boy = t(".help_text_2")
+    p.govuk-boy = t(".help_text_3")
 
     = govuk_details(summary_text: t(".guidance_header"))
       p.govuk-body = t(".guidance_text_html",
-                       page_url: document_link(:legislation_LASPO_2012_immigration))
+                     page_url: document_link(:legislation_LASPO_2012_immigration))
+
+    = form.govuk_collection_radio_buttons :immigration_or_asylum_type_upper_tribunal,
+                                            immigration_or_asylum_type_upper_tribunal_options, :first, :last,
+                                            legend: nil
 
     = form.govuk_submit t("generic.save_and_continue")
 
@@ -27,5 +28,5 @@
         level_of_help: @check.level_of_help,
         links: { t("question_flow.level_of_help.certificated_guidance.text") => \
                    document_link(:lc_guidance_certificated),
-                 t(".tribunal_guidance.text") => \
+                 t("question_flow.matter_type.tribunal_guidance.text") => \
                   document_link(:lc_guidance_certificated, :upper_tribunal) }

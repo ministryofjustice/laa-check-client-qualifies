@@ -3,7 +3,7 @@ class ImmigrationOrAsylumTypeUpperTribunalForm
   include ActiveModel::Attributes
   include SessionPersistable
 
-  TYPES = %w[immigration_upper asylum_upper no].freeze
+  TYPES = %w[immigration_upper asylum_upper none].freeze
 
   ATTRIBUTES = %i[immigration_or_asylum_type_upper_tribunal].freeze
 
