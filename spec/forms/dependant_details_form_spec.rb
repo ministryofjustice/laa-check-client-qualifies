@@ -35,7 +35,7 @@ RSpec.describe "dependant_details", type: :feature do
     expect(page).to have_content(
       "Do not include:\n"\
       "anyone who owns any property, vehicles or other assets valued at over £8,000 in total"\
-      "anyone with over £338.90 income every month (any income below this can be entered on the following pages and will be deducted from the dependant allowance)",
+      "anyone with £338.90 or more income every month (any income below this can be entered on the following pages and will be deducted from the dependant allowance)",
     )
   end
 end
