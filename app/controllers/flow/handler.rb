@@ -2,10 +2,12 @@ module Flow
   class Handler
     STEPS = {
       level_of_help: { class: LevelOfHelpForm, url_fragment: "what-level-help" },
+      domestic_abuse_applicant: { class: DomesticAbuseApplicantForm, url_fragment: "is-client-domestic-abuse-case-applicant" },
       asylum_support: { class: AsylumSupportForm, url_fragment: "does-client-get-asylum-support" },
       matter_type: { class: MatterTypeForm, url_fragment: "which-matter-type" },
       immigration_or_asylum: { class: ImmigrationOrAsylumForm, url_fragment: "is-this-immigration-asylum-matter" },
       immigration_or_asylum_type: { class: ImmigrationOrAsylumTypeForm, url_fragment: "immigration-asylum-type" },
+      immigration_or_asylum_type_upper_tribunal: { class: ImmigrationOrAsylumTypeUpperTribunalForm, url_fragment: "is-this-matter-immigration-asylum-chamber-upper-tribunal" },
       applicant: { class: ApplicantForm, url_fragment: "about-client" },
       dependant_details: { class: DependantDetailsForm, url_fragment: "about-dependants" },
       dependant_income: { class: DependantIncomeForm, url_fragment: "do-dependants-get-income" },
