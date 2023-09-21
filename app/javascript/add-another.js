@@ -63,6 +63,10 @@ const setUpRemoveButton = (section) => {
   if (!removeButton) {
     return;
   }
+  if (removeButton.dataset.removeListenerSet) {
+    return;
+  }
+  removeButton.dataset.removeListenerSet = true;
   removeButton.addEventListener('click', () => {
     remove(section)
   })
@@ -77,6 +81,7 @@ const setUpSuggestions = (section) => {
 const remove = (section) => {
   const sectionList = section.closest('[data-add-another-role="sectionList"]')
   showItemRemovedFeedback(section);
+  updateErrorMessages(section, sectionList)
   section.remove();
   setUpSections(sectionList); // Some JS triggers, in particular radio conditional reveals, must be re-initialised
   setUpAddButton(sectionList.closest('[data-module="add-another"]'));
@@ -104,6 +109,38 @@ const showItemRemovedFeedback = (section) => {
 
   button.addEventListener("click", () => { feedback.remove() });
 };
+
+const updateErrorMessages = (sectionToRemove, sectionList) => {
+  let reachedSectionToRemove = false
+  sectionList.querySelectorAll('[data-add-another-role="section"]').forEach((currentSection, index) => {
+    const currentSectionCurrentPosition = index + 1;
+    // Remove all error summary messages pertaining to an item that has been removed
+    if (currentSection === sectionToRemove) {
+      reachedSectionToRemove = true;
+      document.querySelectorAll(`[data-add-another-role="errorMessage"][data-add-another-item-position="${currentSectionCurrentPosition}"]`).forEach((redundantErrorMessage) => {
+        redundantErrorMessage.closest("li").remove();
+      });
+    // Decrement the numbers of all error messages that are for items that come after the removed item.
+    } else if (reachedSectionToRemove) {
+      const newPosition = index;
+      document.querySelectorAll(`[data-add-another-role="errorMessage"][data-add-another-item-position="${currentSectionCurrentPosition}"]`).forEach((elementToUpdate) => {
+        elementToUpdate.dataset.addAnotherItemPosition = newPosition;
+        elementToUpdate.querySelectorAll('[data-add-another-role="errorPosition"]').forEach((positionText) => {
+          positionText.innerHTML = newPosition;
+        })
+
+        elementToUpdate.closest("a").href = elementToUpdate.closest("a").href.replace(`-${currentSectionCurrentPosition}-`, `-${newPosition}-`);
+      });
+    }
+  });
+
+  // Remove the error summary if there are no errors left in it
+  document.querySelectorAll(".govuk-error-summary__list").forEach((summaryList) => {
+    if (summaryList.childNodes.length === 0) {
+      summaryList.closest(".govuk-error-summary").remove();
+    }
+  })
+}
 
 const setUpSections = (sectionList) => {
   sectionList.querySelectorAll('[data-add-another-role="section"]').forEach((section, index) => {

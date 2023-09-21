@@ -2,6 +2,7 @@
 # and also to translate its values into attributes to go into the session.
 module AddAnotherable
   extend ActiveSupport::Concern
+  include ActionView::Helpers::TagHelper
 
   included do
     attr_accessor :items
@@ -68,7 +69,10 @@ private
   def error_message(error, number_of_items, model_class, position)
     key = "activemodel.errors.models.#{model_class.to_s.underscore}.attributes.#{error.attribute}.#{error.type}"
     if number_of_items > 1
-      I18n.t("#{key}_when_many", position:)
+      position_tag = tag.span(position, data: { add_another_role: "errorPosition" })
+      content = I18n.t("#{key}_when_many",
+                       position: position_tag)
+      tag.span(content.html_safe, data: { add_another_role: "errorMessage", add_another_item_position: position })
     else
       I18n.t(key)
     end
