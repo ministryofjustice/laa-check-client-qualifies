@@ -20,6 +20,12 @@ RSpec.describe DocumentsController, type: :controller do
       expect(response.headers["Location"]).to eq "https://www.gov.uk/government/collections/controlled-work-application-forms"
     end
 
+    it "tracks the legal aid public calculator link and redirects successfully" do
+      get :show, params: { id: "legal_aid_checker_for_public", assessment_code: "foo", referrer: "other" }
+      expect(AnalyticsEvent.find_by(page: "other", event_type: "click_legal_aid_checker_for_public", assessment_code: "foo")).not_to be_nil
+      expect(response.headers["Location"]).to eq "https://www.gov.uk/check-legal-aid"
+    end
+
     it "tracks nothing if there is no referrer param" do
       get :show, params: { id: "lc_guidance_controlled", assessment_code: "foo" }
       expect(AnalyticsEvent.find_by(event_type: "click_lc_guidance_controlled", assessment_code: "foo")).to be_nil
