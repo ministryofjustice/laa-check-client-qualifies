@@ -1,7 +1,6 @@
 class DependantIncomeModel
   include ActiveModel::Model
   include ActiveModel::Attributes
-  include ActionView::Helpers::NumberHelper
   include SessionPersistable
 
   ATTRIBUTES = %i[amount frequency].freeze
