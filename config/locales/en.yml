@@ -527,6 +527,10 @@ en:
       guidance:
         text: Guidance on Asylum Support
       tribunal_guidance_text: Guide to determining controlled work
+    domestic_abuse_applicant:
+      question: Is your client an applicant in a domestic abuse case?
+      help_text_1: This must be for legal representation for a domestic abuse matter (injunction or other order for protection from harm, or committal for breach), FGM protection order, or forced marriage protection order.
+      help_text_2: We need to know this for the check calculations because upper eligibility limits are waived if your client is an applicant in a domestic abuse matter.
     matter_type:
       title: Which type of matter is this?
       immigration: Immigration (Upper Tribunal)
@@ -559,6 +563,16 @@ en:
       asylum: Asylum - legal help, help at court, or controlled legal representation (CLR) in the First-tier Tribunal
       legacy_case_guidance:
         text: Guidance on legacy case Appeals and Reviews in the Upper Tribunal
+    immigration_or_asylum_type_upper_tribunal:
+      question: Is this for a matter in the Immigration and Asylum Chamber of the Upper Tribunal?
+      help_text_1: This is only for for legal representation for an immigration or asylum matter in the Immigration and Asylum Chamber of the Upper Tribunal, including in relation to an appeal or review from the Immigration and Asylum Chamber of the First-tier Tribunal.
+      help_text_2: We need to know this to use the correct capital thresholds that apply to these types of cases.
+      help_text_3: For any other matter, including any immigration or asylum matters not in the Upper Tribunal, select no.
+      guidance_header: Guidance
+      guidance_text_html: Guidance for these matters is in paragraphs 24 to 30, 32(1) and 32A(1) of Part 1 of Schedule 1 to the <a href="%{page_url}" target="_blank" rel="noreferrer noopener">Legal Aid, Sentencing and Punishment of Offenders Act 2012</a> (LASPO).
+      immigration_upper: Yes, immigration (Upper Tribunal)
+      asylum_upper: Yes, asylum (Upper Tribunal)
+      no: "No"
     applicant:
       passporting_guidance:
         text: Guidance on passporting
@@ -1272,6 +1286,8 @@ en:
           asylum: Asylum (Upper Tribunal)
           other: Another category of law
           domestic_abuse: Domestic abuse
+      domestic_abuse_applicant_fields:
+        domestic_abuse_applicant: Is your client an applicant in a domestic abuse case?
       immigration_or_asylum_fields:
         immigration_or_asylum: Is this an immigration or asylum matter?
       immigration_or_asylum_type_fields:
