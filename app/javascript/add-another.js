@@ -42,6 +42,7 @@ const addAnother = (addAnotherContainer) => {
   addAnotherContainer.querySelector('[data-add-another-role="sectionList"]').append(newSection);
   const newSectionHeader = newSection.querySelector("h2");
   if (newSectionHeader) {
+    newSectionHeader.setAttribute('tabindex', '0')
     newSectionHeader.focus();
   }
   setUpSection(newSection, counter, { setUpSuggestions: true })
@@ -85,6 +86,7 @@ const showItemRemovedFeedback = (section) => {
   const topLevelElement = section.closest('[data-module="add-another"]');
   const feedback = document.createElement("div");
   feedback.className = "add-another-removed-feedback";
+  feedback.setAttribute("tabindex", "0")
 
   const text = document.createElement("div");
   text.className = "add-another-removed-feedback-text govuk-body";
