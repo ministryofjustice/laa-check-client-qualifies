@@ -40,6 +40,10 @@ const addAnother = (addAnotherContainer) => {
   const sections = addAnotherContainer.querySelector('[data-add-another-role="sectionList"]').querySelectorAll('[data-add-another-role="section"]');
   const counter = sections.length;
   addAnotherContainer.querySelector('[data-add-another-role="sectionList"]').append(newSection);
+  const newSectionHeader = newSection.querySelector("h2");
+  if (newSectionHeader) {
+    newSectionHeader.focus();
+  }
   setUpSection(newSection, counter, { setUpSuggestions: true })
   setUpAddButton(addAnotherContainer);
 };
@@ -86,13 +90,15 @@ const showItemRemovedFeedback = (section) => {
   text.className = "add-another-removed-feedback-text govuk-body";
   text.innerHTML = topLevelElement.dataset.addAnotherRemovedFeedbackText;
 
-  const button = document.createElement("div")
+  const button = document.createElement("button")
   button.className = "add-another-removed-feedback-button govuk-body";
   button.innerHTML = topLevelElement.dataset.addAnotherHideMessageText;
 
   feedback.append(text);
   feedback.append(button);
   section.after(feedback);
+
+  feedback.focus();
 
   button.addEventListener("click", () => { feedback.remove() });
 };
