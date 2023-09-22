@@ -16,7 +16,7 @@ module Steps
         if controlled?(session_data)
           session_data["immigration_or_asylum"]
         else
-          session_data["domestic_abuse_applicant"].in?(%w[immigration asylum])
+          session_data["immigration_or_asylum_type_upper_tribunal"].in?(%w[immigration_upper asylum_upper])
         end
       end
 
