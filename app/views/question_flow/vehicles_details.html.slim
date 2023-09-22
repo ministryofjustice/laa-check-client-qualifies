@@ -3,7 +3,9 @@
 - content_for :back do
   = back_link(:vehicles_details, @check, @back_buttons_invoke_browser_back_behaviour)
 .govuk-grid-column-two-thirds
-  . data-module="add-another"
+  . [data-module="add-another"
+     data-add-another-removed-feedback-text=t(".removed")
+     data-add-another-hide-message-text=t("generic.hide_this_message")]
     .add-another-template-area data-add-another-role="template"
       = render "vehicle_section", removeable: true, model: @form.blank_model
 
