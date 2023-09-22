@@ -26,14 +26,10 @@
                                           legend: { text: t(".over_60.legend") },
                                           hint: { text: t(".over_60.hint") }
 
-    = form.govuk_radio_buttons_fieldset(:partner,
-            legend: { text: t(".partner.legend") },
-            hint: -> { content_for(:partner_hint) })
-      = form.govuk_radio_button :partner,
-              true,
-              label: { text: t("generic.yes_choice") },
-              link_errors: true
-      = form.govuk_radio_button :partner, false, label: { text: t("generic.no_choice") }
+    = form.govuk_collection_radio_buttons(:partner,
+                                          yes_no_options, :first, :last,
+                                          legend: { text: t(".partner.legend") },
+                                          hint: -> { content_for(:partner_hint) })
 
     = form.govuk_collection_radio_buttons :passporting, yes_no_options, :first, :last,
                                           legend: { text: t(".passporting.legend") },
