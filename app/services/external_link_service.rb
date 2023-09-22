@@ -75,11 +75,11 @@ class ExternalLinkService
           legislation_ammendments: {
             page_url: "https://www.legislation.gov.uk/all?title=Civil%20Legal%20Aid%20%28Financial%20Resources%20",
           },
-          controlled_work_applications: {
-            page_url: "https://www.gov.uk/government/collections/controlled-work-application-forms",
-          },
           legal_aid_learning: {
             page_url: "https://legalaidlearning.justice.gov.uk/course/view.php?id=186",
+          },
+          legal_aid_checker_for_public: {
+            page_url: "https://www.gov.uk/check-legal-aid",
           },
           laa_cw_forms: {
             page_url: "https://www.gov.uk/government/collections/controlled-work-application-forms",
