@@ -1,5 +1,7 @@
 - partner ||= false
-. data-module="add-another"
+. [data-module="add-another"
+   data-add-another-removed-feedback-text=t("question_flow.income.removed")
+   data-add-another-hide-message-text=t("generic.hide_this_message")]
   .add-another-template-area data-add-another-role="template"
     = render "income_section", i18n_key:, removeable: true, model: @form.blank_model
 

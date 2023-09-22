@@ -1,6 +1,7 @@
 class CalculationResult
   CFE_MAX_VALUE = 999_999_999_999
   VALID_OVERALL_RESULTS = %w[eligible contribution_required ineligible].freeze
+  Summary = Struct.new(:status, :upper_threshold, :lower_threshold, :no_upper_threshold, :no_lower_threshold, :section, keyword_init: true)
 
   include ActionView::Helpers::NumberHelper
 
@@ -24,6 +25,10 @@ class CalculationResult
     end
   end
 
+  def any_calculations_performed?
+    calculated?(:gross_income) || calculated?(:disposable_income) || calculated?(:capital)
+  end
+
   def calculated?(section)
     api_response.dig(:result_summary, section, :proceeding_types).none? { _1[:result] == "pending" }
   end
@@ -32,12 +37,44 @@ class CalculationResult
     api_response.dig(:result_summary, section, :proceeding_types).all? { _1[:result] == "ineligible" }
   end
 
+  def summary_data(section)
+    raw_thresholds = api_response.dig(:result_summary, section, :proceeding_types, 0)
+                             .slice(:upper_threshold, :lower_threshold)
+    thresholds = raw_thresholds.transform_values { monetise(_1, precision: 0) }
+
+    # The HTML IDs of the various accordion sections are dynamically generated within the
+    # gov.uk component from the header text of those sections. To reference them, we need
+    # to do the same, so that if that text changes, this code doesn't break.
+    thresholds[:section] = case section
+                           when :gross_income
+                             "#{I18n.t('results.show.income_calculation').parameterize}-section"
+                           when :disposable_income
+                             "#{I18n.t('results.show.outgoings_calculation').parameterize}-section"
+                           else
+                             "#{I18n.t('results.show.capital_calculation').parameterize}-section"
+                           end
+    thresholds[:no_upper_threshold] = raw_thresholds[:upper_threshold] == CFE_MAX_VALUE
+    thresholds[:no_lower_threshold] = raw_thresholds[:upper_threshold] == raw_thresholds[:lower_threshold]
+    case api_response.dig(:result_summary, section, :proceeding_types, 0, :result)
+    when "ineligible"
+      Summary.new(**thresholds.merge(status: "ineligible"))
+    when "contribution_required"
+      Summary.new(**thresholds.merge(status: "contribution_required_and_overall_#{decision}"))
+    else
+      Summary.new(**thresholds.merge(status: "eligible"))
+    end
+  end
+
+  def matter_type
+    @check.matter_type
+  end
+
   def raw_capital_contribution
     api_response.dig(:result_summary, :overall_result, :capital_contribution)
   end
 
   def capital_contribution
-    monetise(raw_capital_contribution)
+    @capital_contribution ||= monetise(raw_capital_contribution)
   end
 
   def raw_income_contribution
@@ -45,10 +82,10 @@ class CalculationResult
   end
 
   def income_contribution
-    monetise(raw_income_contribution)
+    @income_contribution ||= monetise(raw_income_contribution)
   end
 
-  def gross_income
+  def total_calculated_gross_income
     monetise(api_response.dig(:result_summary, :gross_income, :combined_total_gross_income))
   end
 
@@ -60,11 +97,11 @@ class CalculationResult
     monetise(api_response.dig(:result_summary, :gross_income, :proceeding_types).map { |pt| pt.fetch(:upper_threshold) }.min)
   end
 
-  def total_disposable_income
+  def total_calculated_disposable_income
     monetise(api_response.dig(:result_summary, :disposable_income, :combined_total_disposable_income))
   end
 
-  def total_assessed_capital
+  def total_calculated_capital
     # # If the pensioner_capital_disregard is applied, it is applied by CFE in full even when the disregard is
     # # greater than the client's total capital value. This can lead to the CFE 'assessed capital' figure
     # # being a negative number, which is unsuitable for display to the end user.
@@ -236,10 +273,10 @@ private
     api_response.dig(:assessment, :"#{prefix}gross_income", :other_income, :monthly_equivalents, :all_sources, key)
   end
 
-  def monetise(number)
+  def monetise(number, precision: 2)
     return I18n.t("generic.not_applicable") if number.nil? || number == CFE_MAX_VALUE
 
-    number_to_currency(number, unit: "£", separator: ".", delimiter: ",", precision: 2)
+    number_to_currency(number, unit: "£", separator: ".", delimiter: ",", precision:)
   end
 
   def income_rows(prefix:)

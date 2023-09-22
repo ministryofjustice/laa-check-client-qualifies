@@ -4,4 +4,6 @@ class AnalyticsEvent < ApplicationRecord
   attribute :assessment_code, :string
   attribute :browser_id, :string
   attribute :created_at, :datetime
+
+  validates :event_type, :page, presence: true
 end

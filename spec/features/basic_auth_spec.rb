@@ -17,7 +17,7 @@ RSpec.describe "Basic auth" do
       visit root_path
       fill_in :password, with: "password"
       click_on "Continue"
-      expect(page).to have_content "Use this service to find out if your client is likely to get civil legal aid, based on their financial situation."
+      expect(page).to have_content "This service will ask you questions about your client, then tell you if they are likely to get civil legal aid, based on their financial situation."
     end
 
     scenario "I am returned to the path I was on" do

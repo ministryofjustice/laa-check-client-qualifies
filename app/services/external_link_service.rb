@@ -1,18 +1,18 @@
-class GuidanceLinkService
+class ExternalLinkService
   class << self
     def call(document:, sub_section: nil, page_number_only: false)
       if page_number_only
-        mapping[:guidance_links].dig(document, :sections).fetch(sub_section)
+        mapping[:external_links].dig(document, :sections).fetch(sub_section)
       elsif sub_section
-        "#{mapping[:guidance_links].dig(document, :page_url)}#page=#{mapping[:guidance_links].dig(document, :sections).fetch(sub_section)}"
+        "#{mapping[:external_links].dig(document, :page_url)}#page=#{mapping[:external_links].dig(document, :sections).fetch(sub_section)}"
       else
-        mapping[:guidance_links].dig(document, :page_url)
+        mapping[:external_links].dig(document, :page_url)
       end
     end
 
     def mapping
       {
-        guidance_links: {
+        external_links: {
           mental_health_guidance: {
             page_url: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1143984/Mental_Health_Guidance_-_Contract_management_-_GOV.UK_2023.pdf",
           },
@@ -75,11 +75,14 @@ class GuidanceLinkService
           legislation_ammendments: {
             page_url: "https://www.legislation.gov.uk/all?title=Civil%20Legal%20Aid%20%28Financial%20Resources%20",
           },
-          controlled_work_applications: {
-            page_url: "https://www.gov.uk/government/collections/controlled-work-application-forms",
-          },
           legal_aid_learning: {
             page_url: "https://legalaidlearning.justice.gov.uk/course/view.php?id=186",
+          },
+          legal_aid_checker_for_public: {
+            page_url: "https://www.gov.uk/check-legal-aid",
+          },
+          laa_cw_forms: {
+            page_url: "https://www.gov.uk/government/collections/controlled-work-application-forms",
           },
         },
       }.with_indifferent_access

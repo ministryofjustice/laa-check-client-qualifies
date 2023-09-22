@@ -4,5 +4,3 @@ exclude:
 linters:
   LineLength:
     max: 140
-    exclude:
-      - 'app/views/layouts/_footer.html.slim'
