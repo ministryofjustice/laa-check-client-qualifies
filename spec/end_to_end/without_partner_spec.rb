@@ -6,6 +6,7 @@ RSpec.shared_context "with a no-partner, non-passported certificated check" do
     start_assessment
     fill_in_level_of_help_screen
     fill_in_domestic_abuse_applicant_screen
+    fill_in_immigration_or_asylum_type_upper_tribunal_screen
     fill_in_applicant_screen
     fill_in_dependant_details_screen(child_dependants: "Yes", child_dependants_count: 1)
     fill_in_dependant_income_screen(choice: "Yes")
