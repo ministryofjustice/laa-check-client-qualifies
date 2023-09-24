@@ -6,7 +6,7 @@ RSpec.describe Steps::Logic do
       session_data = {
         "employment_status" => "in_work",
         "asylum_support" => true,
-        "matter_type" => "immigration",
+        "immigration_or_asylum_type_upper_tribunal" => "immigration_upper",
       }
 
       expect(described_class.employed?(session_data)).to eq false

@@ -12,7 +12,7 @@ RSpec.describe "results/show.html.slim" do
         # and domestic_abuse/other, we infer those rules from the api response, not the raw
         # session data. Which is why we don't need to change these values in all the tests below.
         level_of_help: "certificated",
-        matter_type: "domestic_abuse",
+        domestic_abuse_applicant: true,
       }.with_indifferent_access
     end
 

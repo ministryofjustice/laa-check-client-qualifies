@@ -14,7 +14,7 @@ RSpec.describe "checks/check_answers.html.slim" do
     let(:session_data) do
       build(:minimal_complete_session,
             level_of_help:,
-            matter_type:,
+            immigration_or_asylum_type_upper_tribunal:,
             asylum_support:)
     end
 
@@ -22,11 +22,11 @@ RSpec.describe "checks/check_answers.html.slim" do
       let(:session_data) do
         build(:minimal_complete_session,
               level_of_help: "certificated",
-              matter_type:)
+              immigration_or_asylum_type_upper_tribunal:)
       end
 
       context "when the provider chooses immigration" do
-        let(:matter_type) { "immigration" }
+        let(:immigration_or_asylum_type_upper_tribunal) { "immigration_upper" }
 
         it "renders the correct case matter type" do
           expect(page_text).to include("Which type of matter is this?Immigration (Upper Tribunal)")
@@ -34,7 +34,7 @@ RSpec.describe "checks/check_answers.html.slim" do
       end
 
       context "when the provider chooses asylum" do
-        let(:matter_type) { "asylum" }
+        let(:immigration_or_asylum_type_upper_tribunal) { "asylum_upper" }
 
         it "renders the correct case matter type" do
           expect(page_text).to include("Which type of matter is this?Asylum (Upper Tribunal)")

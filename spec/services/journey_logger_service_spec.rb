@@ -95,7 +95,7 @@ RSpec.describe JourneyLoggerService do
       let(:session_data) do
         {
           level_of_help: "certificated",
-          matter_type: "immigration",
+          immigration_or_asylum_type_upper_tribunal: "immigration_upper",
           property_owned: "with_mortgage",
           house_in_dispute: true,
           asylum_support: false,
@@ -113,7 +113,7 @@ RSpec.describe JourneyLoggerService do
         let(:session_data) do
           {
             level_of_help: "certificated",
-            matter_type: "immigration",
+            immigration_or_asylum_type_upper_tribunal: "immigration_upper",
             asylum_support: true,
           }.with_indifferent_access
         end

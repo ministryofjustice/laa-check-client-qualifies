@@ -1304,9 +1304,9 @@ en:
           asylum: Asylum - legal help, help at court, or controlled legal representation (CLR) in the First-tier Tribunal
         immigration_or_asylum_type_upper_tribunal: Is this for a matter in the Immigration and Asylum Chamber of the Upper Tribunal?
         immigration_or_asylum_type_upper_tribunal_options:
-          immigration_upper: Yes, immigration (Upper Tribunal)
-          asylum_upper: Yes, asylum (Upper Tribunal)
-          none: "No"
+          immigration_upper: Immigration (Upper Tribunal)
+          asylum_upper: Asylum (Upper Tribunal)
+          none: Another category of law
       asylum_support_fields:
         asylum_support: Does your client get asylum support?
       applicant_fields:
