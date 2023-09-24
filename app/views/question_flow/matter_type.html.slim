@@ -26,16 +26,18 @@
     p.govuk-body = t(".domestic_abuse_paragraph")
 
     = form.govuk_radio_buttons_fieldset :matter_type, legend: { text: t(".select_a_matter_type") }
-      = form.govuk_radio_button :matter_type, "immigration",
-              label: { text: t(".immigration") }
-      = form.govuk_radio_button :matter_type, "asylum",
-              label: { text: t(".asylum") }
-      = form.govuk_radio_button :matter_type, "domestic_abuse",
-              label: { text: t(".domestic_abuse") }, hint: { text: t(".domestic_abuse_hint") }
-      = form.govuk_radio_divider
-
-      = form.govuk_radio_button :matter_type, "other",
-              label: { text: t(".other") }
+      ruby:
+        buttons = [
+          { value: "immigration", options: { label: { text: t(".immigration") } } },
+          { value: "asylum", options: { label: { text: t(".asylum") } } },
+          { value: "domestic_abuse", options: { label: { text: t(".domestic_abuse") }, hint: { text: t(".domestic_abuse_hint") } } },
+          :divider,
+          { value: "other", options: { label: { text: t(".other") } } },
+        ]
+      = render "shared/radio_button_set",
+               form:,
+               buttons:,
+               field_name: :matter_type
 
     = form.govuk_submit t("generic.save_and_continue")
 

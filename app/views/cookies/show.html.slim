@@ -100,10 +100,17 @@
   = form_with(url: cookies_path, method: "PATCH") do |form|
     input type="hidden" name="return_to" value=cookies_path
     = form.govuk_radio_buttons_fieldset :cookies, legend: { text: t(".accept_cookies") } do
-      = form.govuk_radio_button :cookies, "accept",
-              label: { text: t("generic.yes_choice") },
-              checked: (cookies[CookiesController::COOKIE_CHOICE_NAME] == "accepted")
-      = form.govuk_radio_button :cookies, "reject",
-              label: { text: t("generic.no_choice") },
-              checked: (cookies[CookiesController::COOKIE_CHOICE_NAME] == "rejected")
+      ruby:
+        buttons = [
+          { value: "accept",
+            options: { label: { text: t("generic.yes_choice") },
+                       checked: (cookies[CookiesController::COOKIE_CHOICE_NAME] == "accepted") } },
+          { value: "reject",
+            options: { label: { text: t("generic.no_choice") },
+                       checked: (cookies[CookiesController::COOKIE_CHOICE_NAME] != "accepted") } },
+        ]
+      = render "shared/radio_button_set",
+               form:,
+               buttons:,
+               field_name: :cookies
     = form.govuk_submit t(".save")

@@ -20,7 +20,7 @@
            label_size: "m"
 
   / VEHICLE FINANCE
-  = render "shared/add_another/yes_no_radios",
+  = render "shared/add_another/yes_no_radios_conditional_reveal",
            errors: model.errors.messages[:vehicle_pcp],
            model_name: "vehicle_model",
            form_name: "vehicles_details_form",
