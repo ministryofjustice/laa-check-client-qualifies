@@ -3,6 +3,8 @@ FactoryBot.define do
     initialize_with { attributes.transform_keys(&:to_s) }
 
     level_of_help { "certificated" }
+    domestic_abuse_applicant { false }
+    immigration_or_asylum_type_upper_tribunal { "none" }
     over_60 { false }
     employment_status { "unemployed" }
     partner { false }
@@ -43,7 +45,7 @@ FactoryBot.define do
     valuables_in_dispute { false }
 
     trait :with_asylum_support do
-      matter_type { "immigration" }
+      immigration_or_asylum_type_upper_tribunal { "immigration_upper" }
       asylum_support { true }
     end
 
@@ -124,7 +126,8 @@ FactoryBot.define do
     initialize_with { attributes.transform_keys(&:to_s) }
 
     level_of_help { "certificated" }
-    matter_type { "other" }
+    domestic_abuse_applicant { false }
+    immigration_or_asylum_type_upper_tribunal { "none" }
     over_60 { false }
     employment_status { "receiving_statutory_pay" }
     partner { true }
@@ -327,7 +330,8 @@ FactoryBot.define do
     initialize_with { attributes.transform_keys(&:to_s) }
 
     level_of_help { "certificated" }
-    matter_type { "immigration" }
+    domestic_abuse_applicant { false }
+    immigration_or_asylum_type_upper_tribunal { "immigration_upper" }
     asylum_support { false }
     over_60 { false }
     employment_status { "in_work" }

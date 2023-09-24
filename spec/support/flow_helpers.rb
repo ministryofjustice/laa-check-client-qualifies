@@ -19,7 +19,7 @@ def fill_in_matter_type_screen(choice: "Another category of law")
   click_on "Save and continue"
 end
 
-def fill_in_domestic_abuse_applicant_screen(choice: "Yes")
+def fill_in_domestic_abuse_applicant_screen(choice: "No")
   confirm_screen "domestic_abuse_applicant"
   choose choice
   click_on "Save and continue"
@@ -33,6 +33,12 @@ end
 
 def fill_in_immigration_or_asylum_type_screen(choice: "Asylum")
   confirm_screen "immigration_or_asylum_type"
+  choose choice
+  click_on "Save and continue"
+end
+
+def fill_in_immigration_or_asylum_type_upper_tribunal_screen(choice: "No")
+  confirm_screen "immigration_or_asylum_type_upper_tribunal"
   choose choice
   click_on "Save and continue"
 end

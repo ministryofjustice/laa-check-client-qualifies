@@ -5,7 +5,7 @@ RSpec.shared_context "with a no-partner, non-passported certificated check" do
     # This test explicitly asserts what screens are visited in what order
     start_assessment
     fill_in_level_of_help_screen
-    fill_in_matter_type_screen
+    fill_in_domestic_abuse_applicant_screen
     fill_in_applicant_screen
     fill_in_dependant_details_screen(child_dependants: "Yes", child_dependants_count: 1)
     fill_in_dependant_income_screen(choice: "Yes")
