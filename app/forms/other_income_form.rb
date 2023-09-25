@@ -2,7 +2,6 @@ class OtherIncomeForm
   include ActiveModel::Model
   include ActiveModel::Attributes
   include SessionPersistable
-  include NumberValidatable
 
   REGULAR_INCOME_TYPES = %i[friends_or_family maintenance property_or_lodger pension].freeze
   IRREGULAR_INCOME_TYPES = %i[student_finance other].freeze
@@ -17,7 +16,8 @@ class OtherIncomeForm
 
     attribute value_attribute, :gbp
     validates value_attribute, presence: true,
-                               numericality: { greater_than_or_equal_to: 0, allow_nil: true }
+                               numericality: { greater_than_or_equal_to: 0, allow_nil: true },
+                               is_a_number: true
 
     next unless REGULAR_INCOME_TYPES.include?(income_type)
 

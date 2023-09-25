@@ -81,25 +81,56 @@ en:
         income_model:
           attributes:
             income_frequency:
-              inclusion: Select the frequency
-              inclusion_when_many: Select the frequency for employment income %{position}
+              inclusion: Select when your client normally gets this income
+              inclusion_when_many: Select when your client normally gets income %{position}
             income_type:
-              inclusion: Select the income type
-              inclusion_when_many: Select the income type for employment income %{position}
+              inclusion: Select the employment income type
+              inclusion_when_many: Select the employment income type for employment income %{position}
             gross_income:
-              blank: Enter the income amount
-              blank_when_many: Enter the income amount for employment income %{position}
-              greater_than: Income amount must be more than 0
-              greater_than_when_many: Income amount for employment income %{position} must be more than -
-              not_a_number: Income amount must be a number
-              not_a_number_when_many: Income amount for employment income %{position} must be a number
-              net_income_must_be_positive: Income amount must be more than income tax and National Insurance combined
-              net_income_must_be_positive_when_many: Income amount for employment income %{position} must be more than income tax and National Insurance combined
+              blank: Enter the income before any deductions
+              blank_when_many: Enter the income before any deductions for employment income %{position}
+              greater_than: Income before any deductions must be more than 0
+              greater_than_when_many: Income before any deductions for employment income %{position} must be more than 0
+              not_a_number: Income before any deductions must be a number
+              not_a_number_when_many: Income before any deductions for employment income %{position} must be a number
+              net_income_must_be_positive: Income before any deductions must be more than income tax and National Insurance combined
+              net_income_must_be_positive_when_many: Income before any deductions for employment income %{position} must be more than income tax and National Insurance combined
             income_tax:
               blank: Enter the income tax amount
               blank_when_many: Enter the income tax amount for employment income %{position}
               greater_than: Income tax amount must be more than 0
-              greater_than_when_many: Income tax amount for employment income %{position} must be more than -
+              greater_than_when_many: Income tax amount for employment income %{position} must be more than 0
+              not_a_number: Income tax amount must be a number
+              not_a_number_when_many: Income tax amount for employment income %{position} must be a number
+            national_insurance:
+              blank: Enter the National Insurance amount
+              blank_when_many: Enter the National Insurance amount for employment income %{position}
+              greater_than: National Insurance amount must be more than 0
+              greater_than_when_many: National Insurance amount for employment income %{position} must be more than 0
+              not_a_number: National Insurance amount must be a number
+              not_a_number_when_many: National Insurance amount for employment income %{position} must be a number
+        partner_income_model:
+          attributes:
+            income_frequency:
+              inclusion: Select when the partner normally gets this income
+              inclusion_when_many: Select when the partner normally gets income %{position}
+            income_type:
+              inclusion: Select the employment income type
+              inclusion_when_many: Select the employment income type for employment income %{position}
+            gross_income:
+              blank: Enter the income before any deductions
+              blank_when_many: Enter the income before any deductions for employment income %{position}
+              greater_than: Income before any deductions must be more than 0
+              greater_than_when_many: Income before any deductions for employment income %{position} must be more than 0
+              not_a_number: Income before any deductions must be a number
+              not_a_number_when_many: Income before any deductions for employment income %{position} must be a number
+              net_income_must_be_positive: Income before any deductions must be more than income tax and National Insurance combined
+              net_income_must_be_positive_when_many: Income before any deductions for employment income %{position} must be more than income tax and National Insurance combined
+            income_tax:
+              blank: Enter the income tax amount
+              blank_when_many: Enter the income tax amount for employment income %{position}
+              greater_than: Income tax amount must be more than 0
+              greater_than_when_many: Income tax amount for employment income %{position} must be more than 0
               not_a_number: Income tax amount must be a number
               not_a_number_when_many: Income tax amount for employment income %{position} must be a number
             national_insurance:
@@ -132,15 +163,30 @@ en:
         benefit_model:
           attributes:
             benefit_frequency:
-              inclusion: Select the frequency
-              inclusion_when_many: Select benefit %{position} frequency
+              inclusion: Select when your client normally gets this benefit
+              inclusion_when_many: Select when your client normally gets benefit %{position}
             benefit_amount:
-              blank: Enter the amount
-              blank_when_many: Enter benefit %{position} amount
-              greater_than: Amount must be more than 0
-              greater_than_when_many: Benefit %{position} amount must be more than 0
-              not_a_number: Amount must be a number
-              not_a_number_when_many: Benefit %{position} amount must be a number
+              blank: Enter benefit amount
+              blank_when_many: Enter benefit amount for benefit %{position}
+              greater_than: Benefit amount must be more than 0
+              greater_than_when_many: Benefit amount for benefit %{position} must be more than 0
+              not_a_number: Benefit amount must be a number
+              not_a_number_when_many: Benefit amount for benefit %{position} must be a number
+            benefit_type:
+              blank: Enter the benefit name
+              blank_when_many: Enter benefit %{position} name
+        partner_benefit_model:
+          attributes:
+            benefit_frequency:
+              inclusion: Select when the partner normally gets this benefit
+              inclusion_when_many: Select when the partner normally gets benefit %{position}
+            benefit_amount:
+              blank: Enter benefit amount
+              blank_when_many: Enter benefit amount for benefit %{position}
+              greater_than: Benefit amount must be more than 0
+              greater_than_when_many: Benefit amount for benefit %{position} must be more than 0
+              not_a_number: Benefit amount must be a number
+              not_a_number_when_many: Benefit amount for benefit %{position} must be a number
             benefit_type:
               blank: Enter the benefit name
               blank_when_many: Enter benefit %{position} name
@@ -302,12 +348,12 @@ en:
         bank_account_model:
           attributes:
             amount:
-              blank: Enter the total of all money in bank accounts. Enter 0 if this does not apply.
-              blank_when_many: Enter amount for money in bank account %{position}. Enter 0 if this does not apply.
-              not_a_number: The total of all money in bank accounts must be a number. Enter 0 if this does not apply.
-              not_a_number_when_many: The amount of money in bank account %{position} must be a number. Enter 0 if this does not apply.
-              greater_than_or_equal_to: The total of all money in bank accounts must be 0 or more.
-              greater_than_or_equal_to_when_many: The amount of money in bank account %{position} must be 0 or more.
+              blank: Enter total money in bank account. Enter 0 if this does not apply.
+              blank_when_many: Enter total money in bank account %{position}. Enter 0 if this does not apply.
+              not_a_number: Total money in bank account must be a number. Enter 0 if this does not apply.
+              not_a_number_when_many: Total money in bank account %{position} must be a number. Enter 0 if this does not apply.
+              greater_than_or_equal_to: Total money in bank account must be 0 or more. Enter 0 if this does not apply.
+              greater_than_or_equal_to_when_many: Total money in bank account %{position} must be 0 or more. Enter 0 if this does not apply.
         property_form:
           attributes:
             property_owned:
@@ -359,31 +405,63 @@ en:
         additional_property_model:
           attributes:
             house_value:
-              blank: Enter how much the property is worth
-              blank_when_many: Enter how much other property, holiday home or land %{position} is worth
-              greater_than: The property must be worth more than 0
-              greater_than_when_many: Other property, holiday home or land %{position} must be worth more than 0
-              not_a_number: How much the property is worth must be a number
-              not_a_number_when_many: How much other property, holiday home or land %{position} is worth must be a number
+              blank: Enter how much the property, holiday home or land is worth
+              blank_when_many: Enter how much property, holiday home or land %{position} is worth
+              greater_than: The property, holiday home or land must be worth more than 0
+              greater_than_when_many: Property, holiday home or land %{position} must be worth more than 0
+              not_a_number: How much the property, holiday home or land is worth must be a number
+              not_a_number_when_many: How much property, holiday home or land %{position} is worth must be a number
             mortgage:
-              blank: Enter the outstanding mortgage on the property, holiday home or land
-              blank_when_many: Enter the outstanding mortgage on other property, holiday home or land %{position}
-              greater_than: Outstanding mortgage cannot be 0
-              greater_than_when_many: Outstanding mortgage for other property, holiday home or land %{position} cannot be 0
-              not_a_number: Outstanding mortgage must be a number
-              not_a_number_when_many: Outstanding mortgage for other property, holiday home or land %{position} must be a number
+              blank: Enter how much is left to pay on the mortgage
+              blank_when_many: Enter how much is left to pay on the mortgage for property, holiday home or land %{position}
+              greater_than: How much is left to pay on the mortgage must be more than 0
+              greater_than_when_many: How much is left to pay on the mortgage for property, holiday home or land %{position} must be more than 0
+              not_a_number: How much is left to pay on the mortgage must be a number
+              not_a_number_when_many: How much is left to pay on the mortgage for property, holiday home or land %{position} must be a number
             inline_owned_with_mortgage:
-              inclusion: Select yes if there is an outstanding mortgage on the property, holiday home or land
+              inclusion: Select yes if there is an outstanding mortgage
               inclusion_when_many: Select yes if there is an outstanding mortgage on other property, holiday home or land %{position}
             percentage_owned:
-              blank: Enter the percentage share that they own of the property
-              blank_when_many: Enter the percentage share that they own of other property, holiday home or land %{position}
-              within_range: The percentage that they own of the property must be between 1 and 100
-              within_range_when_many: The percentage that they own of other property, holiday home or land %{position} must be between 1 and 100
-              not_a_number: The percentage that they own of the property must be a number between 1 and 100
-              not_a_number_when_many: The percentage that they own of other property, holiday home or land %{position} must be a number between 1 and 100
-              not_an_integer: The percentage that they own of the property must be a whole number
-              not_an_integer_when_many: The percentage that they own of other property, holiday home or land %{position} must be a whole number
+              blank: Enter the percentage share your client owns
+              blank_when_many: Enter the percentage share your client owns of property %{position}
+              less_than_or_equal_to: Percentage share your client owns must be between 1 and 100
+              less_than_or_equal_to_when_many: Percentage share your client owns of property %{position} must be between 1 and 100
+              greater_than: Percentage share your client owns must be between 1 and 100
+              greater_than_when_many: Percentage share your client owns of property %{position} must be between 1 and 100
+              not_a_number: Percentage share your client owns must be a number between 1 and 100
+              not_a_number_when_many: Percentage share your client owns of property %{position} must be a number between 1 and 100
+              not_an_integer: Percentage share your client owns must be a whole number between 1 and 100
+              not_an_integer_when_many: Percentage share your client owns of property %{position} must be a whole number between 1 and 100
+        partner_additional_property_model:
+          attributes:
+            house_value:
+              blank: Enter how much the property, holiday home or land is worth
+              blank_when_many: Enter how much property, holiday home or land %{position} is worth
+              greater_than: The property, holiday home or land must be worth more than 0
+              greater_than_when_many: Property, holiday home or land %{position} must be worth more than 0
+              not_a_number: How much the property, holiday home or land is worth must be a number
+              not_a_number_when_many: How much property, holiday home or land %{position} is worth must be a number
+            mortgage:
+              blank: Enter how much is left to pay on the mortgage
+              blank_when_many: Enter how much is left to pay on the mortgage for property, holiday home or land %{position}
+              greater_than: How much is left to pay on the mortgage must be more than 0
+              greater_than_when_many: How much is left to pay on the mortgage for property, holiday home or land %{position} must be more than 0
+              not_a_number: How much is left to pay on the mortgage must be a number
+              not_a_number_when_many: How much is left to pay on the mortgage for property, holiday home or land %{position} must be a number
+            inline_owned_with_mortgage:
+              inclusion: Select yes if there is an outstanding mortgage
+              inclusion_when_many: Select yes if there is an outstanding mortgage on other property, holiday home or land %{position}
+            percentage_owned:
+              blank: Enter the percentage share the partner owns
+              blank_when_many: Enter the percentage share the partner owns of property %{position}
+              less_than_or_equal_to: Percentage share the partner owns must be between 1 and 100
+              less_than_or_equal_to_when_many: Percentage share the partner owns of property %{position} must be between 1 and 100
+              greater_than: Percentage share the partner owns must be between 1 and 100
+              greater_than_when_many: Percentage share the partner owns of property %{position} must be between 1 and 100
+              not_a_number: Percentage share the partner owns must be a number between 1 and 100
+              not_a_number_when_many: Percentage share the partner owns of property %{position} must be a number between 1 and 100
+              not_an_integer: Percentage share the partner owns must be a whole number between 1 and 100
+              not_an_integer_when_many: Percentage share the partner owns of property %{position} must be a whole number between 1 and 100
         vehicle_form:
           attributes:
             vehicle_owned:
@@ -777,7 +855,7 @@ en:
             - if the drawings exceed the declared net profits of the business, or the business is making a loss, use the value of any monthly drawings for personal use made by your client
           last_paragraph: If your client is paid in cash, enter any money taken out of their earnings for personal use.
       income_tax: Income tax
-      national_insurance: National insurance
+      national_insurance: National Insurance
       add: Add another employment income
       removed: Employment income removed
       income: Employment income
@@ -895,14 +973,15 @@ en:
       benefit: Benefit
       benefit_type: Benefit name
       benefit_type_hint: Enter the name of a benefit, or select one from the suggestions that appear when you start to enter the name.
-      enter_amount: Enter benefit amount
-      select_frequency: Select frequency
+      enter_amount: Benefit amount
+      select_frequency: When does your client normally get this benefit?
       add: Add another benefit
       removed: Benefit removed
     partner_benefits:
       legend: Does the partner get any benefits?
     partner_benefit_details:
       heading: Add benefit details
+      select_frequency: When does the partner normally get this benefit?
       hint: Add details of any benefits the partner receives. Do not include Housing Benefit, State Pension, government Cost of Living Payments, or any other disregarded benefits.
     other_income:
       heading: Your client's other income
@@ -1078,7 +1157,7 @@ en:
           - For example, money in current or savings accounts, ISAs, or child accounts your client is a signatory on. If the client and partner share any joint bank accounts, include these.
           - Do not include any government Cost of Living Payments owed to your client.
           - Enter 0 if this does not apply.
-        input: Total money in account
+        input: Total money in bank account
       add_bank_account: Add another bank account
       bank_account: Bank account
       removed: Bank account removed
@@ -1234,7 +1313,7 @@ en:
         legend: Are there any payments left on the vehicle?
         hint: Include any outstanding payments on loans, hire purchase (HP) or personal contract purchase (PCP) agreements
       vehicle_finance:
-        input: Enter the value of payments left
+        input: Value of payments left on the vehicle
       vehicle_in_dispute: This asset is a subject matter of dispute
   checks:
     check_answers:

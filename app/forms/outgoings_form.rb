@@ -2,7 +2,6 @@ class OutgoingsForm
   include ActiveModel::Model
   include ActiveModel::Attributes
   include SessionPersistable
-  include NumberValidatable
 
   PAYMENT_TYPES = %i[childcare_payments maintenance_payments legal_aid_payments].freeze
   VALUE_ATTRIBUTES = PAYMENT_TYPES.map { :"#{_1}_value" }.freeze
@@ -20,6 +19,7 @@ class OutgoingsForm
     validates value_attribute,
               presence: true,
               numericality: { greater_than_or_equal_to: 0, allow_nil: true },
+              is_a_number: true,
               if: -> { payment_type != :childcare_payments || eligible_for_childcare_costs? }
     validates frequency_attribute, presence: true,
                                    inclusion: { in: VALID_FREQUENCIES, allow_nil: false },

@@ -2,14 +2,13 @@ class ClientAssetsForm
   include ActiveModel::Model
   include ActiveModel::Attributes
   include SessionPersistable
-  include NumberValidatable
   include AddAnotherable
 
   BASE_ATTRIBUTES = %i[investments valuables].freeze
 
   BASE_ATTRIBUTES.each do |asset_type|
     attribute asset_type, :gbp
-    validates asset_type, numericality: { greater_than_or_equal_to: 0, allow_nil: true }, presence: true
+    validates asset_type, numericality: { greater_than_or_equal_to: 0, allow_nil: true }, presence: true, is_a_number: true
   end
 
   delegate :smod_applicable?, to: :check
