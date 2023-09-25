@@ -296,9 +296,6 @@ en:
           attributes:
             property_owned:
               inclusion: Select if the partner owns any other property
-        provider_user:
-          attributes:
-            blank: Select yes if you give legal advice or provide legal services
         property_entry_form:
           attributes:
             house_value:
@@ -479,6 +476,7 @@ en:
       partner: Partner
       household: Household
     or: or
+    hide_this_message: Hide this message
   question_flow:
     aria_label:
       friends_or_family_value: Enter amount of financial help from friends or family
@@ -658,6 +656,7 @@ en:
       amount: Income
       add: Add another dependant's income
       dependant: Dependant
+      removed: Dependant removed
     employment_status:
       heading: What is your client's employment status?
       in_work_including_self_employed: Employed or self-employed
@@ -743,6 +742,7 @@ en:
       income_tax: Income tax
       national_insurance: National insurance
       add: Add another employment income
+      removed: Employment income removed
       income: Employment income
       guidance:
         text: Guidance on income
@@ -861,6 +861,7 @@ en:
       enter_amount: Enter benefit amount
       select_frequency: Select frequency
       add: Add another benefit
+      removed: Benefit removed
     partner_benefits:
       legend: Does the partner get any benefits?
     partner_benefit_details:
@@ -1043,6 +1044,7 @@ en:
         input: Total money in account
       add_bank_account: Add another bank account
       bank_account: Bank account
+      removed: Bank account removed
       investments:
         label: Investments
         hints:
@@ -1166,6 +1168,7 @@ en:
         input: What percentage share does your client own?
         hint: If the property, holiday home or land is shared with the partner, add the percentage the client and partner own together. We do not need to know what percentage each of them owns.
       add: Add another property, holiday home or land
+      removed: Property, holiday home or land removed
     partner_additional_property_details:
       heading: The partner's other property, holiday home or land
       hint: Do not add property, a holiday home or land you’ve already told us about
@@ -1180,6 +1183,7 @@ en:
       heading: Tell us about the vehicle
       vehicle: Vehicle
       add: Add another vehicle
+      removed: Vehicle removed
       vehicle_value:
         input: What is the estimated value of the vehicle?
         input_hint: You can use car valuation websites to find this out. If you have more than one valuation, use the highest. Keep a record of where the valuation is from for evidence, as it may be checked if you make an application for legal aid.
@@ -1746,7 +1750,7 @@ en:
           - Get your client to sign the form.
           - Keep the form, with any evidence provided by your client, for your records.
         manual_header:  Complete a controlled work form yourself
-        manual_instruction_html: Download a <a href='https://www.gov.uk/government/collections/controlled-work-application-forms' target='_blank' rel='noreferrer noopener'>controlled work application form</a>. Some of these can be filled in on a computer.
+        manual_instruction_html: Download a <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>controlled work application form</a>. Some of these can be filled in on a computer.
       ineligible_explanation:
         text: Your %{subject} %{value_type} exceeds the upper limit. This means %{outcome} not qualify for legal aid.
         subject_no_partner: client’s
@@ -1756,6 +1760,43 @@ en:
         outcome_with_partner: your client does
         disposable_income: disposable monthly income
         capital: disposable capital
+      section_summaries:
+        your_clients_key_eligibility_totals: Your client's key eligibility totals
+        heading:
+          gross_income: Gross monthly income
+          disposable_income: Disposable monthly income
+          capital: Disposable capital
+        contribution_needed: Contribution needed
+        exceeds_upper_limit: Exceeds upper limit
+        texts:
+          gross_income:
+            eligible: Your client’s total is below the gross monthly income upper limit (%{upper_threshold}).
+            eligible_no_upper_threshold: There is no gross monthly income limit in %{matter_type} matters.
+            ineligible: Your client's total exceeds the gross monthly income upper limit (%{upper_threshold}). This means they are ineligible for legal aid.
+          disposable_income:
+            eligible: Your client’s total is below the disposable monthly income lower limit (%{lower_threshold}).
+            eligible_no_upper_threshold: Your client's total is below the disposable monthly income lower limit (%{lower_threshold}).
+            eligible_no_lower_threshold: Your client’s total is below the disposable monthly income upper limit (%{upper_threshold}).
+            contribution_required_and_overall_contribution_required: Your client’s total is between the disposable monthly income lower limit (%{lower_threshold}) and upper limit (%{upper_threshold}). This means they will need to make a contribution of %{income_contribution} per month towards legal aid costs from their disposable monthly income.
+            contribution_required_and_overall_contribution_required_no_upper_threshold: Your client's total is above the disposable monthly income lower limit (%{lower_threshold}). This means they will need to make a contribution of up to %{income_contribution} per month from their disposable monthly income, depending on the costs of the case.
+            contribution_required_and_overall_ineligible: Your client’s total is between the disposable monthly income lower limit (%{lower_threshold}) and upper limit (%{upper_threshold}).
+            ineligible: Your client's total exceeds the disposable monthly income upper limit (%{upper_threshold}). This means they are ineligible for legal aid.
+            ineligible_no_lower_threshold: Your client's total exceeds the disposable monthly income upper limit (%{upper_threshold}). This means they are ineligible for legal aid.
+          capital:
+            eligible: Your client’s total is below the disposable capital lower limit (%{lower_threshold}).
+            eligible_no_upper_threshold: Your client's total is below the disposable capital lower limit (%{lower_threshold}).
+            eligible_no_lower_threshold: Your client’s total is below the disposable capital upper limit (%{upper_threshold}).
+            contribution_required_and_overall_contribution_required: Your client’s total is between the disposable capital lower limit (%{lower_threshold}) and upper limit (%{upper_threshold}). This means they will need to make a contribution of %{capital_contribution} towards legal aid costs from their disposable capital.
+            contribution_required_and_overall_contribution_required_no_upper_threshold: Your client's total is above the disposable capital lower limit (%{lower_threshold}). This means they will need to make a lump sum contribution of up to %{capital_contribution} from their disposable capital, depending on the costs of the case.
+            contribution_required_and_overall_ineligible: Your client’s total is between the disposable capital lower limit (%{lower_threshold}) and upper limit (%{upper_threshold}).
+            ineligible: Your client's total exceeds the disposable capital upper limit (%{upper_threshold}). This means they are ineligible for legal aid.
+            ineligible_no_lower_threshold: Your client's total exceeds the disposable capital upper limit (%{upper_threshold}). This means they are ineligible for legal aid.
+        matter_types:
+          domestic_abuse: domestic abuse
+          immigration: immigration
+          asylum: asylum
+          other: other
+        see_calculation: See calculation.
     legislation_table:
       paragraph_1_controlled_html: This calculation was made using the rules for controlled work in <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>The Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 (opens in new tab)</a> and the <a href="%{page_url_2}" target='_blank' rel='noreferrer noopener' aria-label="Link opens a search page which includes a list of amendments to The Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 (opens in new tab)">amendments to these Regulations (opens in new tab)</a>.
       paragraph_2_controlled_html: Guidance on determining financial eligibility for controlled work and family mediation can be found in the <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>guide to determining controlled work (opens in new tab)</a>.
@@ -1777,16 +1818,16 @@ en:
       gross_income_caption: Gross income limits
       number_of_children: Number of child dependants
       child_list:
-        - 0 to 4
-        - 5
-        - 6
-        - 7
-        - 8 or more
-      0 to 4_limit: £2,675
-      5_limit: £2,879
-      6_limit: £3,101
-      7_limit: £3,323
-      8 or more_limit: Add £222 to above figure for each additional child
+        - children: 0 to 4
+          limit: £2,657
+        - children: 5
+          limit: £2,879
+        - children: 6
+          limit: £3,101
+        - children: 7
+          limit: £3,323
+        - children: 8 or more
+          limit: Add £222 to above figure for each additional child
       gross_limit: Gross monthly income limit
       limits_table_caption: Disposable income and Capital limits
       disposable_limit: Disposable monthly income
@@ -1809,37 +1850,21 @@ en:
       paragraph_1: We have deleted your answers. This is because the service was updated while you were using it and the answers you gave cannot be saved.
       paragraph_2: You will need to start again.
       start_again: Start again
-  provider_users:
-    show:
-      provider_question: Do you give legal advice or provide legal services?
-      hints:
-        provider_user_radio_buttons: This includes if you provide civil or family legal representation and advice in England and Wales to help people deal with their legal problems
-  referrals:
-    show:
-      page_heading: You cannot use this service to check if someone qualifies for legal aid
-      sub_heading: What to do next
-      return_button: Return to GOV.UK
-      extra_text: This is because this service is only for use by those who give legal advice or provide legal services.
-      find_out_more: "To find out more about legal aid and your options you can:"
-      links_html:
-        - 'check if you can get free and confidential advice from <a href="https://www.gov.uk/civil-legal-advice">Civil Legal Advice</a>'
-        - 'find out more about <a href="https://www.gov.uk/legal-aid">legal aid</a>'
-        - 'find out what information we use to <a href="https://www.gov.uk/guidance/civil-legal-aid-means-testing">check who can get civil legal aid</a>'
   start:
     index:
       opening_paragraphs:
-        - Use this service to find out if your client is likely to get civil legal aid, based on their financial situation.
-        - It normally takes about 5 minutes to answer all the questions. It might take longer if your client's financial affairs are complicated.
-      service_function: What this service will help you assess
+        - This service will ask you questions about your client, then tell you if they are likely to get civil legal aid, based on their financial situation.
+        - It normally takes about 5 minutes to answer all the questions. It might take longer if your client's financial affairs are complicated. At the end it will show the check result and calculations, which you can save or print.
+      service_function: If the check says your client is likely to qualify for legal aid
       service_function_paragraphs:
-        - This service assesses whether your client's case is likely to meet the financial criteria for legal aid. It cannot tell you if the merits or the type of case put it in scope for civil legal aid.
-        - For controlled work and family mediation, you must make a decision using the relevant legislation and guidance. The Legal Aid Agency (LAA) may check your decision in the future.
-        - For certificated or licensed work, you must submit an application with supporting evidence. You will have to wait for the LAA assessment to get a decision.
-      when_you_cannot_use_this_service: When you cannot use this service
-      you_cannot_use_this_service_if: "You cannot use this service if:"
+        - This service assesses whether your client's case is likely to meet the financial criteria for legal aid. It cannot tell you if the merits or the type of case are in scope for civil legal aid.
+        - For controlled work and family mediation, if you decide your client's case is in scope for civil legal aid using the relevant legislation and guidance, you should complete the relevant controlled work (CW) form. This service can add your answers to most of the CW forms, which you can download as a PDF.
+        - For certificated or licensed work, to get a final decision you must submit an application with supporting evidence to LAA.
+      when_you_should_not_use_this_service: When you should not use this service
+      you_should_not_use_this_service_if: "You should not use this service if:"
       invalid_case_types_html:
         - it's for a certificated check if your client (or their partner) is a self-employed company director
-        - you are a member of the public – use the <a href="https://www.gov.uk/check-legal-aid" rel='noreferrer noopener' target='_blank'>legal aid checker</a> instead
+        - you are a member of the public – use the <a href="%{page_url}" rel='noreferrer noopener' target='_blank'>legal aid checker</a> instead
       what_youll_need: What you'll need
       youll_need_information: "You'll need information from your client (and their partner) about their:"
       required_information_types:
@@ -1853,9 +1878,8 @@ en:
         - controlled work (including legal help)  or family mediation
         - civil certificated or licensed legal work
       mental_health_html: The <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>LAA contract management mental health guidance (opens in new tab)</a> explains when a means assessment is not needed for controlled work matters that will potentially involve proceedings before the Mental Health Tribunal (known as non-means, non-MHT matter starts).
-      client_types: Client types
-      client_under_18_heading: "Clients under 18"
-      client_under_18_para_1: "Clients aged under 18 do not need a means assessment for certificated work matters or controlled legal representation (CLR) matters."
+      client_under_18_heading: Clients under 18
+      client_under_18_para_1: Clients aged under 18 do not need a means assessment for certificated work matters or controlled legal representation (CLR) matters.
       client_under_18_para_2: "For all other types of controlled work and family mediation matters, clients under 18 must have a full means assessment if any of the following apply:"
       client_under_18_bullets:
         - their means are aggregated with another person’s, like a parent or guardian
@@ -1864,6 +1888,9 @@ en:
       start_button: Start now
       last_updated: Last updated %{date}
       see_all_updates: See all updates
+      related_content:
+        legal_aid_checker_for_public:
+          text: Legal aid checker for members of the public
     issue_banner:
       problem_identified: A problem has been identified
       problem_resolved: Problem resolved
@@ -2132,6 +2159,7 @@ en:
       continue: Continue
   devise:
     unrecognised: "You are not recognised as an admin"
+    invalid_subdomain: "Invalid subdomain provided in state param"
     sessions:
       google: "Sign in with Google"
   admin:

@@ -1,5 +1,7 @@
 - partner ||= false
-. data-module="add-another"
+. [data-module="add-another"
+   data-add-another-removed-feedback-text=t("question_flow.additional_property_details.removed")
+   data-add-another-hide-message-text=t("generic.hide_this_message")]
   .add-another-template-area data-add-another-role="template"
     = render "additional_property_section", removeable: true, model: @form.blank_additional_model, i18n_key:, partner:
 
