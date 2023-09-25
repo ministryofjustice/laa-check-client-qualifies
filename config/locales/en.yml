@@ -613,6 +613,7 @@ en:
     dependant_details:
       legend: Tell us about your client's dependants
       legend_with_partner: Tell us about your client and their partner's dependants
+      income_warning: Do not include any dependants with £338.90 or more income every month
       child_dependants:
         legend: Does your client have any child dependants?
         legend_with_partner: Does your client or their partner have any child dependants?
@@ -621,14 +622,20 @@ en:
         paragraph_1_with_partner: A child dependant is one who lives with your client and depends on them or their partner for financial support. For example, your client’s or their partner’s child or another child relative who lives in their household.
         paragraphs:
           - A child dependant must be either under school leaving age, in full-time education, or undergoing training for a trade, profession or vocation.
-          - Do not include foster children (where the fostering allowance for that child has been wholly disregarded from gross income).
+          - "Do not include:"
+        bullets:
+          - foster children (where the fostering allowance for that child has been wholly disregarded from gross income)
+          - any child with £338.90 or more income every month (any income below this can be entered on the following pages and will be deducted from the dependant allowance)
       adult_dependants:
         legend: Does your client have any adult dependants?
         legend_with_partner: Does your client or their partner have any adult dependants?
         summary: What we mean by adult dependants
         paragraph: An adult dependant is any adult relative who lives in the same household and is financially dependant on your client.
         paragraph_with_partner: An adult dependant is any adult relative who lives in the same household and is financially dependant on your client or their partner.
-        exclude: Do not include anyone who owns any property, vehicles or other assets valued at over £8,000 in total.
+        exclude: "Do not include:"
+        bullets:
+          - anyone who owns any property, vehicles or other assets valued at over £8,000 in total
+          - anyone with £338.90 or more income every month (any income below this can be entered on the following pages and will be deducted from the dependant allowance)
       how_many_child: How many child dependants are there?
       how_many_adult: How many adult dependants are there?
       guidance:
