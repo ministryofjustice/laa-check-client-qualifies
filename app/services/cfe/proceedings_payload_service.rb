@@ -15,13 +15,10 @@ module Cfe
                     PROCEEDING_TYPES["domestic_abuse"]
                   else
                     type_form = instantiate_form(ImmigrationOrAsylumTypeUpperTribunalForm)
-                    case ccms_code
-                    when type_form.immigration_or_asylum_type_upper_tribunal == "immigration_upper"
+                    if type_form.immigration_or_asylum_type_upper_tribunal == "immigration_upper"
                       PROCEEDING_TYPES["immigration"]
-                    when type_form.immigration_or_asylum_type_upper_tribunal == "asylum_upper"
+                    elsif type_form.immigration_or_asylum_type_upper_tribunal == "asylum_upper"
                       PROCEEDING_TYPES["asylum"]
-                    when type_form.immigration_or_asylum_type_upper_tribunal == "none"
-                      PROCEEDING_TYPES["other"]
                     else
                       PROCEEDING_TYPES["other"]
                     end

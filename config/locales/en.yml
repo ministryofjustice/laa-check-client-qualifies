@@ -1809,10 +1809,10 @@ en:
             ineligible: Your client's total exceeds the disposable capital upper limit (%{upper_threshold}). This means they are ineligible for legal aid.
             ineligible_no_lower_threshold: Your client's total exceeds the disposable capital upper limit (%{upper_threshold}). This means they are ineligible for legal aid.
         matter_types:
-          domestic_abuse: domestic abuse
-          immigration: immigration
-          asylum: asylum
-          other: other
+          domestic_abuse_applicant: domestic abuse
+          immigration_upper: immigration
+          asylum_upper: asylum
+          none: other
         see_calculation: See calculation.
     legislation_table:
       paragraph_1_controlled_html: This calculation was made using the rules for controlled work in <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>The Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 (opens in new tab)</a> and the <a href="%{page_url_2}" target='_blank' rel='noreferrer noopener' aria-label="Link opens a search page which includes a list of amendments to The Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 (opens in new tab)">amendments to these Regulations (opens in new tab)</a>.
