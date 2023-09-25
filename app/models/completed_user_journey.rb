@@ -14,4 +14,6 @@ class CompletedUserJourney < ApplicationRecord
   attribute :form_downloaded, :boolean
   attribute :asylum_support, :boolean
   attribute :matter_type, :string
+  attribute :domestic_abuse_applicant, :boolean
+  attribute :immigration_or_asylum_type_upper_tribunal, :string
 end

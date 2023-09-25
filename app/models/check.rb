@@ -78,7 +78,7 @@ class Check
       # For controlled work, "immigration_legal_help" is treated like "asylum"
       immigration_or_asylum_type == "immigration_clr"
     else
-      immigration_or_asylum_type_upper_tribunal == "immigration_upper" || "asylum_upper"
+      immigration_or_asylum_type_upper_tribunal == "immigration_upper"
     end
   end
 
