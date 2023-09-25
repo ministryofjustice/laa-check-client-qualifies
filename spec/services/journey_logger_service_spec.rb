@@ -29,8 +29,7 @@ RSpec.describe JourneyLoggerService do
         expect(output.capital_contribution).to eq false
         expect(output.income_contribution).to eq false
         expect(output.asylum_support).to eq false
-        expect(output.domestic_abuse_applicant).to eq nil
-        expect(output.immigration_or_asylum_type_upper_tribunal).to eq nil
+        expect(output.matter_type).to eq "asylum"
       end
 
       it "skips saving in no-analytics mode" do
@@ -126,18 +125,19 @@ RSpec.describe JourneyLoggerService do
         end
       end
 
-      context "when a domestic abuse applicant" do
+      context "when a domestic abuse case" do
         let(:session_data) do
           {
             level_of_help: "certificated",
-            domestic_abuse_applicant: "true",
+            domestic_abuse_applicant: true,
+            asylum_support: false,
           }.with_indifferent_access
         end
 
-        it "tracks the domestic abuse applicant" do
+        it "tracks a domestic abuse case" do
           described_class.call(assessment_id, calculation_result, check, {})
           output = CompletedUserJourney.find_by(assessment_id:)
-          expect(output.domestic_abuse_applicant).to eq true
+          expect(output.matter_type).to eq "domestic abuse"
         end
       end
     end
