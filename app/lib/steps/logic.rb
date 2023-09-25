@@ -8,10 +8,6 @@ module Steps
         session_data["level_of_help"] == LevelOfHelpForm::LEVELS_OF_HELP[:controlled]
       end
 
-      def certificated?(session_data)
-        session_data["level_of_help"] == LevelOfHelpForm::LEVELS_OF_HELP[:certificated]
-      end
-
       def upper_tribunal?(session_data)
         if controlled?(session_data)
           session_data["immigration_or_asylum"]

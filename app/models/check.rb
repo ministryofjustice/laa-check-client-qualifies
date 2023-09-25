@@ -45,10 +45,6 @@ class Check
     Steps::Logic.controlled?(session_data)
   end
 
-  def certificated?
-    Steps::Logic.certificated?(session_data)
-  end
-
   def smod_applicable?
     !upper_tribunal?
   end
