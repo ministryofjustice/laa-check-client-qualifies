@@ -98,15 +98,15 @@ en:
             income_tax:
               blank: Enter the income tax amount
               blank_when_many: Enter the income tax amount for employment income %{position}
-              greater_than: Income tax amount must be more than 0
-              greater_than_when_many: Income tax amount for employment income %{position} must be more than 0
+              greater_than_or_equal_to: Income tax amount must be 0 or more
+              greater_than_or_equal_to_when_many: Income tax amount for employment income %{position} must be 0 or more
               not_a_number: Income tax amount must be a number
               not_a_number_when_many: Income tax amount for employment income %{position} must be a number
             national_insurance:
               blank: Enter the National Insurance amount
               blank_when_many: Enter the National Insurance amount for employment income %{position}
-              greater_than: National Insurance amount must be more than 0
-              greater_than_when_many: National Insurance amount for employment income %{position} must be more than 0
+              greater_than_or_equal_to: National Insurance amount must be 0 or more
+              greater_than_or_equal_to_when_many: National Insurance amount for employment income %{position} must be 0 or more
               not_a_number: National Insurance amount must be a number
               not_a_number_when_many: National Insurance amount for employment income %{position} must be a number
         partner_income_model:
@@ -129,15 +129,15 @@ en:
             income_tax:
               blank: Enter the income tax amount
               blank_when_many: Enter the income tax amount for employment income %{position}
-              greater_than: Income tax amount must be more than 0
-              greater_than_when_many: Income tax amount for employment income %{position} must be more than 0
+              greater_than_or_equal_to: Income tax amount must be 0 or more
+              greater_than_or_equal_to_when_many: Income tax amount for employment income %{position} must be 0 or more
               not_a_number: Income tax amount must be a number
               not_a_number_when_many: Income tax amount for employment income %{position} must be a number
             national_insurance:
               blank: Enter the National Insurance amount
               blank_when_many: Enter the National Insurance amount for employment income %{position}
-              greater_than: National Insurance amount must be more than 0
-              greater_than_when_many: National Insurance amount for employment income %{position} must be more than 0
+              greater_than_or_equal_to: National Insurance amount must be 0 or more
+              greater_than_or_equal_to_when_many: National Insurance amount for employment income %{position} must be 0 or more
               not_a_number: National Insurance amount must be a number
               not_a_number_when_many: National Insurance amount for employment income %{position} must be a number
         housing_benefit_form:
