@@ -25,7 +25,7 @@ module Steps
         if Steps::Logic.domestic_abuse_applicant?(session_data)
           %i[domestic_abuse_applicant]
         else
-          [:domestic_abuse_applicant, Steps::Logic.upper_tribunal?(session_data) ? %i[immigration_or_asylum_type_upper_tribunal asylum_support] : %i[immigration_or_asylum_type_upper_tribunal]]
+          [:domestic_abuse_applicant, Steps::Logic.upper_tribunal?(session_data) ? %i[immigration_or_asylum_type_upper_tribunal asylum_support] : %i[immigration_or_asylum_type_upper_tribunal]].flatten
         end
       end
 
