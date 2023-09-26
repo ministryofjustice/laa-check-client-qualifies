@@ -17,7 +17,7 @@ RSpec.describe "partner_income", type: :feature do
 
   it "shows an error message if no value is entered" do
     click_on "Save and continue"
-    expect(page).to have_content "Enter the income amount"
+    expect(page).to have_content "Enter the income before any deductions"
   end
 
   it "validates gross pay exceeds deductions" do
@@ -27,7 +27,7 @@ RSpec.describe "partner_income", type: :feature do
     fill_in "income_model[items][1][income_tax]", with: "1"
     fill_in "income_model[items][1][national_insurance]", with: "1"
     click_on "Save and continue"
-    expect(page).to have_content "Income amount must be more than income tax and National Insurance combined"
+    expect(page).to have_content "Income before any deductions must be more than income tax and National Insurance combined"
   end
 
   it "saves what I enter to the session" do

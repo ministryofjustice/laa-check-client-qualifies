@@ -14,7 +14,7 @@ RSpec.describe "partner_assets", type: :feature do
     click_on "Save and continue"
     within ".govuk-error-summary__list" do
       expect(page.text).to eq [
-        "Enter the total of all money in bank accounts. Enter 0 if this does not apply.",
+        "Enter total money in bank account. Enter 0 if this does not apply.",
         "Enter the total value of investments. Enter 0 if this does not apply.",
         "Enter the value of items worth £500 or more. Enter 0 if this does not apply.",
       ].join

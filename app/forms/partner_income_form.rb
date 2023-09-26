@@ -3,9 +3,16 @@ class PartnerIncomeForm < IncomeForm
   include AddAnotherable
 
   ITEMS_SESSION_KEY = "partner_incomes".freeze
+  ITEM_MODEL = PartnerIncomeModel
 
-  def self.add_extra_attributes_to_model_from_session(model, session_data, _)
-    model.controlled = Steps::Logic.controlled?(session_data)
-    model.partner = true
+  class << self
+    def param_key
+      "income_model"
+    end
+
+    def add_extra_attributes_to_model_from_session(model, session_data, _)
+      model.controlled = Steps::Logic.controlled?(session_data)
+      model.partner = true
+    end
   end
 end

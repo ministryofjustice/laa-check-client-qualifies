@@ -3,7 +3,7 @@
    data-add-another-removed-feedback-text=t("question_flow.benefit_details.removed")
    data-add-another-hide-message-text=t("generic.hide_this_message")]
   .add-another-template-area data-add-another-role="template"
-    = render "benefit_section", removeable: true, model: @form.blank_model
+    = render "benefit_section", removeable: true, i18n_key:, model: @form.blank_model
 
   = form_for(@form, url: request.path, method: :put) do |form|
     = form.govuk_error_summary t("generic.error_summary_title")
@@ -14,7 +14,7 @@
       = render "shared/disregarded_benefits_details"
     . data-add-another-role="sectionList"
       - @form.items.each_with_index do |benefit, index|
-        = render "benefit_section", removeable: index.positive?, model: benefit, counter: index + 1
+        = render "benefit_section", removeable: index.positive?, model: benefit, i18n_key:, counter: index + 1
     .govuk-button-group
       button.govuk-button.govuk-button--secondary type="button" data-add-another-role="add" = t("question_flow.benefit_details.add")
 

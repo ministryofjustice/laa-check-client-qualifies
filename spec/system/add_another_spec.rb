@@ -15,6 +15,17 @@ RSpec.describe "Add another JS" do
     expect(page).to have_content "Enter the estimated value of the vehicle"
   end
 
+  it "shows numbered error messages if there are more than 1 on the page" do
+    fill_in "1-vehicle-value", with: "123"
+    choose "No", name: "vehicle_model[items][1][vehicle_pcp]"
+    choose "No", name: "vehicle_model[items][1][vehicle_over_3_years_ago]"
+    choose "No", name: "vehicle_model[items][1][vehicle_in_regular_use]"
+    click_on "Add another vehicle"
+
+    click_on "Save and continue"
+    expect(page).to have_content "Enter the estimated value of vehicle 2"
+  end
+
   it "lets me add multiple vehicles" do
     fill_in "1-vehicle-value", with: "123"
     choose "No", name: "vehicle_model[items][1][vehicle_pcp]"

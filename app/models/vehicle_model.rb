@@ -2,7 +2,6 @@ class VehicleModel
   include ActiveModel::Model
   include ActiveModel::Attributes
   include SessionPersistable
-  include NumberValidatable
 
   ATTRIBUTES = %i[vehicle_finance
                   vehicle_pcp
@@ -14,6 +13,7 @@ class VehicleModel
   attribute :vehicle_value, :gbp
   validates :vehicle_value,
             numericality: { greater_than: 0, allow_nil: true },
+            is_a_number: true,
             presence: true
 
   attribute :vehicle_pcp, :boolean
@@ -22,6 +22,7 @@ class VehicleModel
   attribute :vehicle_finance, :gbp
   validates :vehicle_finance,
             numericality: { greater_than: 0, allow_nil: true },
+            is_a_number: true,
             presence: true, if: -> { vehicle_pcp }
 
   attribute :vehicle_over_3_years_ago, :boolean
