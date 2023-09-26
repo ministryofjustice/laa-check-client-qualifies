@@ -2,19 +2,19 @@ require "rails_helper"
 
 RSpec.describe ControlledWorkDocumentValueMappingService do
   it "raises an error if it encounters an unknown mapping type" do
-    mappings = [{ name: "foo", type: "typo", source: "some_string" }]
+    mappings = [{ section: "general", fields: [{ name: "foo", type: "typo", source: "some_string" }] }]
     session_data = {}
     expect { described_class.call(session_data, mappings) }.to raise_error "Unknown mapping type typo for mapping foo"
   end
 
   it "retrieves values from the session based on mappings" do
-    mappings = [{ name: "foo", type: "text", source: "aggregate_partner?" }]
+    mappings = [{ section: "general", fields: [{ name: "foo", type: "text", source: "aggregate_partner?" }] }]
     session_data = { "partner" => "true" }
     expect(described_class.call(session_data, mappings)["foo"]).to eq true
   end
 
   it "raises an error if an unrecognised section is found" do
-    mappings = [{ name: "foo", type: "text", source: "aggregate_partner?", section: "unknown" }]
+    mappings = [{ section: "unknown", fields: [{ name: "foo", type: "text", source: "aggregate_partner?" }] }]
     session_data = { "partner" => "true" }
     expect { described_class.call(session_data, mappings)["foo"] }.to raise_error "Unknown section 'unknown'"
   end
@@ -34,7 +34,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
     end
 
     it "can successfully populate CW1 form fields (template with CCQ header)" do
-      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_header.yml")).map(&:with_indifferent_access)
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
         "Means test required" => "Yes_2", # This is always checked as CCQ is only relevant to means tested cases
@@ -52,7 +52,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
     end
 
     it "can successfully populate a CW2 IMM form (template with CCQ header)" do
-      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw2_header.yml")).map(&:with_indifferent_access)
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw2.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
         "Partner" => "Yes",
@@ -68,7 +68,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
     end
 
     it "can successfully populate CW5 form fields (template with CCQ header)" do
-      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw5_header.yml")).map(&:with_indifferent_access)
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw5.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
         "Partner" => "Yes", # client has partner
@@ -81,7 +81,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
     end
 
     it "can successfully populate CIVMEANS7 form (template with CCQ header)" do
-      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/civ_means_7_header.yml")).map(&:with_indifferent_access)
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/civ_means_7.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
         "Passported" => "No",
@@ -93,7 +93,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
     end
 
     it "can successfully populate CW1-and-2 form (template with CCQ header)" do
-      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_and_2_header.yml")).map(&:with_indifferent_access)
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_and_2.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
         "Client has a partner whose means are to be aggregated" => "Yes",
@@ -119,7 +119,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
     end
 
     it "can successfully populate CW1 form fields (template with CCQ header)" do
-      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_header.yml")).map(&:with_indifferent_access)
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
         "Means test required" => "Yes_2", # Means test required
@@ -134,7 +134,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
     end
 
     it "can successfully populate CW5 form fields (template with CCQ header)" do
-      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw5_header.yml")).map(&:with_indifferent_access)
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw5.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
         "Assets claimed by opponent" => "yes", # SMOD
@@ -148,7 +148,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
     end
 
     it "can successfully populate CIVMEANS7 form SMOD fields (template with CCQ header)" do
-      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/civ_means_7_header.yml")).map(&:with_indifferent_access)
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/civ_means_7.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
         "Passported" => "No", # Client not passported
@@ -178,7 +178,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
     end
 
     it "can successfully populate CW1 form fields (template with CCQ header)" do
-      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_header.yml")).map(&:with_indifferent_access)
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
         "Means test required" => "Yes_2", # Means test required
@@ -192,7 +192,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
     end
 
     it "can successfully populate a CW2 IMM form (template with CCQ header)" do
-      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw2_header.yml")).map(&:with_indifferent_access)
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw2.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
         "In receipt os NASS payment" => "Yes", # directly or indirectly in receipt of NASS paymen
@@ -226,7 +226,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
     end
 
     it "can successfully populate CW1 form fields (template with CCQ header)" do
-      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_header.yml")).map(&:with_indifferent_access)
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
         "Means test required" => "Yes_2", # Means test required

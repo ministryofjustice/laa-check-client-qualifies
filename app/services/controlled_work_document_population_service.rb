@@ -9,22 +9,20 @@
 class ControlledWorkDocumentPopulationService
   class << self
     def call(session_data, form_type)
-      form_key = pick_form_key(form_type)
-
       Dir.mktmpdir do |dir|
         file_name = "#{dir}/output-form.pdf"
         pdftk = PdfForms.new(`which pdftk`.chomp)
-        pdftk.fill_form template_path(form_key), file_name, values(session_data, form_key)
+        pdftk.fill_form template_path(form_type), file_name, values(session_data, form_type)
         yield File.read(file_name).force_encoding("BINARY")
       end
     end
 
     TEMPLATES = {
-      "cw1_header" => "lib/cw1-form-header.pdf",
-      "cw2_header" => "lib/cw2imm-form-2023-8-21-header.pdf",
-      "cw5_header" => "lib/cw5-form-header.pdf",
-      "cw1_and_2_header" => "lib/cw1-and-2-form-2023-8-21-header.pdf",
-      "civ_means_7_header" => "lib/civ-means-7-form-header.pdf",
+      "cw1" => "lib/cw1-form.pdf",
+      "cw2" => "lib/cw2imm-form-2023-8-21.pdf",
+      "cw5" => "lib/cw5-form.pdf",
+      "cw1_and_2" => "lib/cw1-and-2-form-2023-8-21.pdf",
+      "civ_means_7" => "lib/civ-means-7-form.pdf",
     }.freeze
 
     def template_path(form_key)
@@ -34,10 +32,6 @@ class ControlledWorkDocumentPopulationService
     def values(session_data, form_key)
       mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/#{form_key}.yml")).map(&:with_indifferent_access)
       ControlledWorkDocumentValueMappingService.call(session_data, mappings)
-    end
-
-    def pick_form_key(form_type)
-      "#{form_type}_header"
     end
   end
 end

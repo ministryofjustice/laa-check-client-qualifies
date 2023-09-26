@@ -4,11 +4,13 @@
 # For the most part it does this by calling methods on a ControlledWorkDocumentContent
 # model.
 
-# The mappings have the following attributes:
+# The mappings are grouped into named sections, where the name of the section affects
+# whether it should be skipped or not.
+
+# The fields within each section have the following attributes:
 # name - the name of a field in the PDF, which should be a key of the output hash
 # type - what sort of field this is (either `text`,  `always_checked_checkbox` or `boolean_radio` (i.e. "Yes" and "No" radio buttons))
-# source - where to get the value from - either an attribute on a form or via method in ControlledWorkDocumentContent
-# section - which part of the form is the field in (which determines when it should be skipped)
+# source - where to get the value from - the name of a method in ControlledWorkDocumentContent
 # checked_value - if `type` is `checkbox` this is the value that the field must be set to in order to mark it as checked
 # yes_value - if `type` is `boolean_radio` this is the value that the field must be set to in order to mark "Yes" as selected
 # no_value - if `type` is `boolean_radio` this is the value that the field must be set to in order to mark "No" as selected
@@ -16,19 +18,22 @@ class ControlledWorkDocumentValueMappingService
   class << self
     include ActionView::Helpers::NumberHelper
 
-    def call(session_data, mappings)
+    def call(session_data, sections)
       content = ControlledWorkDocumentContent.new(session_data)
-      mappings.map { [_1[:name], convert(_1, content)] }.to_h
+      values_by_section = sections.map do |section|
+        section[:fields].map { [_1[:name], convert(_1, content, section[:section])] }.to_h
+      end
+      values_by_section.each_with_object({}) { |values, ret| ret.merge!(values) }
     end
 
   private
 
-    def convert(mapping, content)
+    def convert(mapping, content, section)
       case mapping[:type]
       when "always_checked_checkbox"
         mapping[:checked_value]
       when "boolean_radio"
-        return if skip?(mapping[:section], content)
+        return if skip?(section, content)
 
         case value(mapping, content)
         when true
@@ -37,7 +42,7 @@ class ControlledWorkDocumentValueMappingService
           mapping[:no_value]
         end
       when "text"
-        return if skip?(mapping[:section], content)
+        return if skip?(section, content)
 
         format(value(mapping, content))
       else
@@ -50,9 +55,9 @@ class ControlledWorkDocumentValueMappingService
     end
 
     def skip?(section, content)
-      return false unless section
-
       case section
+      when "general"
+        false
       when "smod_capital"
         !content.smod_assets?
       when "capital"
