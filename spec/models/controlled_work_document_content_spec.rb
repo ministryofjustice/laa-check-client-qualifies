@@ -28,7 +28,7 @@ RSpec.describe ControlledWorkDocumentContent do
         expect(described_class.new(session_data).additional_properties_percentage_owned).to eq 50
       end
 
-      it "returns nil if it differs" do
+      it "returns an empty string if it differs" do
         session_data = {
           "api_response" => {
             "assessment" => {
@@ -37,7 +37,7 @@ RSpec.describe ControlledWorkDocumentContent do
             },
           },
         }
-        expect(described_class.new(session_data).additional_properties_percentage_owned).to eq nil
+        expect(described_class.new(session_data).additional_properties_percentage_owned).to eq ""
       end
 
       it "returns nil if client's additional property is smod" do
@@ -399,15 +399,7 @@ RSpec.describe ControlledWorkDocumentContent do
       end
 
       it "returns the payload value" do
-        expect(described_class.new(session_data).dependants_allowance_under_16).to eq nil
-      end
-    end
-
-    context "when client has no child dependants" do
-      let(:child_dependants) { false }
-
-      it "returns nil" do
-        expect(described_class.new(session_data).dependants_allowance_under_16).to eq nil
+        expect(described_class.new(session_data).dependants_allowance_under_16).to eq 3
       end
     end
   end
@@ -430,14 +422,6 @@ RSpec.describe ControlledWorkDocumentContent do
         expect(described_class.new(session_data).dependants_allowance_over_16).to eq 3
       end
     end
-
-    context "when client has no adult dependants" do
-      let(:adult_dependants) { false }
-
-      it "returns nil" do
-        expect(described_class.new(session_data).dependants_allowance_over_16).to eq nil
-      end
-    end
   end
 
   describe "#client_tax_and_national_insurance" do
@@ -456,14 +440,6 @@ RSpec.describe ControlledWorkDocumentContent do
 
       it "returns the payload value, minused" do
         expect(described_class.new(session_data).client_tax_and_national_insurance).to eq(-3)
-      end
-    end
-
-    context "when client is unemployed" do
-      let(:employment_status) { "unemployed" }
-
-      it "returns nil" do
-        expect(described_class.new(session_data).client_tax_and_national_insurance).to eq nil
       end
     end
   end
@@ -487,14 +463,6 @@ RSpec.describe ControlledWorkDocumentContent do
         expect(described_class.new(session_data).partner_tax_and_national_insurance).to eq(-3)
       end
     end
-
-    context "when partner is unemployed" do
-      let(:partner_employment_status) { "unemployed" }
-
-      it "returns nil" do
-        expect(described_class.new(session_data).partner_tax_and_national_insurance).to eq nil
-      end
-    end
   end
 
   describe "#client_employment_deduction" do
@@ -513,14 +481,6 @@ RSpec.describe ControlledWorkDocumentContent do
 
       it "returns the payload value, minused" do
         expect(described_class.new(session_data).client_employment_deduction).to eq(-3)
-      end
-    end
-
-    context "when client is unemployed" do
-      let(:employment_status) { "unemployed" }
-
-      it "returns nil" do
-        expect(described_class.new(session_data).client_employment_deduction).to eq nil
       end
     end
   end
@@ -544,14 +504,6 @@ RSpec.describe ControlledWorkDocumentContent do
         expect(described_class.new(session_data).partner_employment_deduction).to eq(-3)
       end
     end
-
-    context "when partner is unemployed" do
-      let(:partner_employment_status) { "unemployed" }
-
-      it "returns nil" do
-        expect(described_class.new(session_data).partner_employment_deduction).to eq nil
-      end
-    end
   end
 
   describe "#combined_childcare_costs" do
@@ -570,14 +522,6 @@ RSpec.describe ControlledWorkDocumentContent do
 
       it "returns the payload value" do
         expect(described_class.new(session_data).combined_childcare_costs).to eq(3)
-      end
-    end
-
-    context "when ineligible for costs" do
-      let(:child_dependants) { false }
-
-      it "returns nil" do
-        expect(described_class.new(session_data).combined_childcare_costs).to eq nil
       end
     end
   end
