@@ -5,9 +5,9 @@ class DependantIncomeModel
 
   ATTRIBUTES = %i[amount frequency].freeze
   DEPENDANT_INCOME_UPPER_LIMITS = {
-    "every_week" => 78.20,
-    "every_two_weeks" => 156.40,
-    "every_four_weeks" => 312.80,
+    "every_week" => 78.21,
+    "every_two_weeks" => 156.42,
+    "every_four_weeks" => 312.83,
     "monthly" => 338.90,
     "three_months" => 1016.70,
   }.freeze

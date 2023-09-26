@@ -97,7 +97,7 @@ RSpec.describe "dependant_income_details", type: :feature do
     end
 
     context "when choosing weekly frequency" do
-      let(:weekly_limit) { "78.20" }
+      let(:weekly_limit) { "78.21" }
 
       it "shows an error message when on the limit" do
         fill_in "1-amount", with: weekly_limit
@@ -107,7 +107,7 @@ RSpec.describe "dependant_income_details", type: :feature do
       end
 
       it "does not show an error message when below the limit" do
-        fill_in "1-amount", with: "78.19"
+        fill_in "1-amount", with: "78.20"
         choose "1-frequency-every_week"
         click_on "Save and continue"
         expect(page).not_to have_content "Dependant income must be less than the equivalent of £338.90 per month."
@@ -115,7 +115,7 @@ RSpec.describe "dependant_income_details", type: :feature do
     end
 
     context "when choosing fortnightly frequency" do
-      let(:fortnightly_limit) { "156.40" }
+      let(:fortnightly_limit) { "156.42" }
 
       it "shows an error message when on the limit" do
         fill_in "1-amount", with: fortnightly_limit
@@ -125,7 +125,7 @@ RSpec.describe "dependant_income_details", type: :feature do
       end
 
       it "does not show an error message when below the limit" do
-        fill_in "1-amount", with: "156.39"
+        fill_in "1-amount", with: "156.41"
         choose "1-frequency-every_two_weeks"
         click_on "Save and continue"
         expect(page).not_to have_content "Dependant income must be less than the equivalent of £338.90 per month."
