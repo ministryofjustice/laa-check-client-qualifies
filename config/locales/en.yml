@@ -65,12 +65,14 @@ en:
               inclusion_when_many: Select when dependant %{position} normally gets this income
             amount:
               blank: Enter income the dependant gets
-              dependant_monthly_income_too_high: Dependant income must be less than £338.90 per month. If you have counted someone as a dependant and they have income of £338.90 or more per month, you must go back and remove them as a dependant to continue with this check.
-              dependant_monthly_equivalent_income_too_high: Dependant income must be less than the equivalent of £338.90 per month. If you have counted someone as a dependant and they have income equivalent to £338.90 or more per month, you must go back and remove them as a dependant to continue with this check.
-              greater_than: Income for the dependant must be more than 0
-              not_a_number: Income for the dependant must be a number
               blank_when_many: Enter income dependant %{position} gets
+              dependant_monthly_income_too_high: Dependant income must be less than £338.90 per month. If you have counted someone as a dependant and they have income of £338.90 or more per month, you must go back and remove them as a dependant to continue with this check.
+              dependant_monthly_income_too_high_when_many: Dependant %{position} income must be less than £338.90 per month. If you have counted someone as a dependant and they have income of £338.90 or more per month, you must go back and remove them as a dependant to continue with this check.
+              dependant_monthly_equivalent_income_too_high: Dependant income must be less than the equivalent of £338.90 per month. If you have counted someone as a dependant and they have income equivalent to £338.90 or more per month, you must go back and remove them as a dependant to continue with this check.
+              dependant_monthly_equivalent_income_too_high_when_many: Dependant %{position} income must be less than the equivalent of £338.90 per month. If you have counted someone as a dependant and they have income equivalent to £338.90 or more per month, you must go back and remove them as a dependant to continue with this check.
+              greater_than: Income for the dependant must be more than 0
               greater_than_when_many: Income for dependant %{position} must be more than 0
+              not_a_number: Income for the dependant must be a number
               not_a_number_when_many: Income for dependant %{position} must be a number
         employment_status_form:
           attributes:
