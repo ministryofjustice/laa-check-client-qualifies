@@ -10,10 +10,6 @@ en:
           attributes:
             asylum_support:
               inclusion: Select if your client receives section 4 or section 95 Asylum Support
-        matter_type_form:
-          attributes:
-            matter_type:
-              blank: Select what type of matter this is
         immigration_or_asylum_form:
           attributes:
             immigration_or_asylum:
@@ -533,12 +529,6 @@ en:
       paragraph_1: This must be for legal representation for a domestic abuse matter (injunction or other order for protection from harm, or committal for breach), FGM protection order, or forced marriage protection order.
       paragraph_2: We need to know this for the check calculations because upper eligibility limits are waived if your client is an applicant in a domestic abuse matter.
     matter_type:
-      title: Which type of matter is this?
-      immigration: Immigration (Upper Tribunal)
-      asylum: Asylum (Upper Tribunal)
-      other: Another category of law
-      domestic_abuse: Domestic abuse
-      domestic_abuse_hint: Upper eligibility limits are waived if your client is an applicant in a domestic abuse matter
       domestic_abuse_guidance:
         text: Guidance on domestic abuse or violence
       tribunal_guidance:
@@ -1254,7 +1244,6 @@ en:
         level_of_help: Level of help your client needs
         type_of_matter: Type of matter
         asylum_support: Asylum Support
-        matter_type: Type of matter
         domestic_abuse_applicant: Type of matter
         immigration_or_asylum: Type of matter
         immigration_or_asylum_type: Type of immigration or asylum matter

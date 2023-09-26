@@ -42,10 +42,6 @@ sections:
   - label: case_details
     subsections:
       - tables:
-          - screen: matter_type
-            fields:
-              - attribute: matter_type
-                type: select
           - screen: domestic_abuse_applicant
             fields: 
               - attribute: domestic_abuse_applicant
