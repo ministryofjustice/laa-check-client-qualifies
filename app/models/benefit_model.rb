@@ -2,7 +2,6 @@ class BenefitModel
   include ActiveModel::Model
   include ActiveModel::Attributes
   include SessionPersistable
-  include NumberValidatable
 
   FREQUENCY_OPTIONS = %w[every_week every_two_weeks every_four_weeks monthly].freeze
 
@@ -11,7 +10,7 @@ class BenefitModel
   attribute :benefit_type, :string
   validates :benefit_type, presence: true
   attribute :benefit_amount, :gbp
-  validates :benefit_amount, presence: true, numericality: { greater_than: 0, allow_nil: true }
+  validates :benefit_amount, presence: true, numericality: { greater_than: 0, allow_nil: true }, is_a_number: true
 
   attribute :benefit_frequency, :string
   validates :benefit_frequency, inclusion: { in: FREQUENCY_OPTIONS, allow_nil: false }

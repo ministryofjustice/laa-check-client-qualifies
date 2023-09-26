@@ -2,7 +2,6 @@ class DependantDetailsForm
   include ActiveModel::Model
   include ActiveModel::Attributes
   include SessionPersistable
-  include NumberValidatable
 
   FORM_ATTRIBUTES = {
     child_dependants: :child_dependants_count,
@@ -17,6 +16,6 @@ class DependantDetailsForm
     attribute integer_field, :fully_validatable_integer
     validates integer_field, presence: true,
                              numericality: { greater_than: 0, only_integer: true },
-                             if: ->(m) { m.public_send(boolean_field) }
+                             if: ->(m) { m.public_send(boolean_field) }, is_a_number: true
   end
 end
