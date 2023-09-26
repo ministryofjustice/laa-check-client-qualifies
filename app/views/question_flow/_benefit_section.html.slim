@@ -44,7 +44,7 @@
 
   = render "shared/add_another/radio_field",
            errors: model.errors.messages[:benefit_frequency],
-           legend: t("question_flow.benefit_details.select_frequency"),
+           legend: t("question_flow.#{i18n_key}.select_frequency"),
            model_name: "benefit_model",
            field_name: "benefit_frequency",
            options: model.benefit_options,

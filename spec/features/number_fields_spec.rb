@@ -1,7 +1,7 @@
 require "rails_helper"
 
 VALID_INTEGER_VALUES = ["2", "2,000", "1234   "].freeze
-INVALID_INTEGER_VALUES = ["two", "2 00", "2.37", "+2", "-876"].freeze
+INVALID_INTEGER_VALUES = ["two", "2 00", "2.37", "+2", "-2"].freeze
 INVALID_MONEY_VALUES = ["two", "2 00", "$54", "7_00", "123.45e1"].freeze
 VALID_MONEY_VALUES = [
   {

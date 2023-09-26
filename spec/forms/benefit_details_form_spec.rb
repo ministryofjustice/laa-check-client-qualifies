@@ -11,7 +11,7 @@ RSpec.describe "benefit_details", type: :feature do
 
   it "shows an error message if no value is entered" do
     click_on "Save and continue"
-    expect(page).to have_content "Enter the amount"
+    expect(page).to have_content "Enter benefit amount"
   end
 
   it "saves what I enter to the session" do

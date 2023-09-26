@@ -2,14 +2,13 @@ class MortgageOrLoanPaymentForm
   include ActiveModel::Model
   include ActiveModel::Attributes
   include SessionPersistable
-  include NumberValidatable
 
   ATTRIBUTES = %i[housing_loan_payments housing_payments_loan_frequency].freeze
 
   delegate :level_of_help, :partner, to: :check
 
   attribute :housing_loan_payments, :gbp
-  validates :housing_loan_payments, numericality: { greater_than_or_equal_to: 0, allow_nil: true }, presence: true
+  validates :housing_loan_payments, numericality: { greater_than_or_equal_to: 0, allow_nil: true }, presence: true, is_a_number: true
 
   attribute :housing_payments_loan_frequency, :string
   validates :housing_payments_loan_frequency,

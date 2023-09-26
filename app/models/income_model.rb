@@ -2,7 +2,6 @@ class IncomeModel
   include ActiveModel::Model
   include ActiveModel::Attributes
   include SessionPersistable
-  include NumberValidatable
 
   STANDARD_FREQUENCY_OPTIONS = %w[every_week every_two_weeks every_four_weeks monthly].freeze
   THREE_MONTHS = "three_months".freeze
@@ -19,11 +18,11 @@ class IncomeModel
   validates :income_frequency, inclusion: { in: ->(model) { model.relevant_frequency_options }, allow_nil: false }
 
   attribute :gross_income, :gbp
-  validates :gross_income, presence: true, numericality: { greater_than: 0, allow_nil: true }
+  validates :gross_income, presence: true, numericality: { greater_than: 0, allow_nil: true }, is_a_number: true
   attribute :income_tax, :gbp
-  validates :income_tax, presence: true, numericality: { greater_than_or_equal_to: 0, allow_nil: true }
+  validates :income_tax, presence: true, numericality: { greater_than_or_equal_to: 0, allow_nil: true }, is_a_number: true
   attribute :national_insurance, :gbp
-  validates :national_insurance, presence: true, numericality: { greater_than_or_equal_to: 0, allow_nil: true }
+  validates :national_insurance, presence: true, numericality: { greater_than_or_equal_to: 0, allow_nil: true }, is_a_number: true
 
   validate :net_income_must_be_positive
 
