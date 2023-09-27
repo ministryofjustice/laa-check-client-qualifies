@@ -11,13 +11,13 @@
                      page_url: document_link(:legislation_LASPO_2012_immigration))
 
 .govuk-grid-column-two-thirds
-  = render "shared/heading", header_text: t(".question")
+  = render "shared/heading"
   = form_for(@form, url: request.path, method: :put) do |form|
     = form.govuk_error_summary t("generic.error_summary_title")
 
     = form.govuk_collection_radio_buttons :immigration_or_asylum_type_upper_tribunal,
                                             immigration_or_asylum_type_upper_tribunal_options, :first, :last,
-                                            legend: nil,
+                                            legend: { text: t(".question"), size: "xl", tag: "h1" },
                                             hint: -> { content_for(:hint) }
 
     = form.govuk_submit t("generic.save_and_continue")

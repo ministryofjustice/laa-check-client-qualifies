@@ -7,13 +7,13 @@
   p.govuk-boy = t(".paragraph_2")
 
 .govuk-grid-column-two-thirds
-  = render "shared/heading", header_text: t(".question")
+  = render "shared/heading"
   = form_for(@form, url: request.path, method: :put) do |form|
     = form.govuk_error_summary t("generic.error_summary_title")
 
     = form.govuk_collection_radio_buttons :domestic_abuse_applicant,
             yes_no_options, :first, :last,
-            legend: nil,
+            legend: { text: t(".question"), size: "xl", tag: "h1" },
             hint: -> { content_for(:hint) }
 
     = form.govuk_submit t("generic.save_and_continue")
