@@ -28,9 +28,10 @@ Rails.application.routes.draw do
 
   # Catch and redirect old-format URLs
   get "estimates/:assessment_code/build_estimates/:step", to: "redirects#build_estimate"
-  get "estimates/:assessment_code/check_answers/:step", to: "redirects#check_answers"
+  get "estimates/:assessment_code/check_answers/:step", to: "redirects#check"
   put "estimates/:assessment_code/build_estimates/:step", to: "redirects#build_estimate"
-  put "estimates/:assessment_code/check_answers/:step", to: "redirects#check_answers"
+  put "estimates/:assessment_code/check_answers/:step", to: "redirects#check"
+  get "estimates/:assessment_code/check_answers", to: "redirects#check_answers"
   get "estimates/:assessment_code", to: "redirects#result"
   get "estimates/:assessment_code/print", to: "redirects#result"
   get "estimates/:assessment_code/download", to: "redirects#result"
