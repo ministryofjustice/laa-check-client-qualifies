@@ -2,36 +2,21 @@ require "rails_helper"
 
 RSpec.describe ControlledWorkDocumentValueMappingService do
   it "raises an error if it encounters an unknown mapping type" do
-    mappings = [{ name: "foo", type: "typo", source: "some_string" }]
+    mappings = [{ section: "general", fields: [{ name: "foo", type: "typo", source: "some_string" }] }]
     session_data = {}
     expect { described_class.call(session_data, mappings) }.to raise_error "Unknown mapping type typo for mapping foo"
   end
 
   it "retrieves values from the session based on mappings" do
-    mappings = [{ name: "foo", type: "text", source: "aggregate_partner?" }]
+    mappings = [{ section: "general", fields: [{ name: "foo", type: "text", source: "aggregate_partner?" }] }]
     session_data = { "partner" => "true" }
     expect(described_class.call(session_data, mappings)["foo"]).to eq true
   end
 
-  it "zeroes out negative values" do
-    mappings = [{ name: "foo", type: "text", source: "main_home_value" }]
-    session_data = {
-      "property_owned" => "outright",
-      "api_response" => {
-        "assessment" => {
-          "capital" => {
-            "capital_items" => {
-              "properties" => {
-                "main_home" => {
-                  "value" => -33.1,
-                },
-              },
-            },
-          },
-        },
-      },
-    }
-    expect(described_class.call(session_data, mappings)["foo"]).to eq "0"
+  it "raises an error if an unrecognised section is found" do
+    mappings = [{ section: "unknown", fields: [{ name: "foo", type: "text", source: "aggregate_partner?" }] }]
+    session_data = { "partner" => "true" }
+    expect { described_class.call(session_data, mappings)["foo"] }.to raise_error "Unknown section 'unknown'"
   end
 
   context "with a comprehensive session with no disputed assets" do
@@ -49,7 +34,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
     end
 
     it "can successfully populate CW1 form fields (template with CCQ header)" do
-      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_header.yml")).map(&:with_indifferent_access)
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
         "Means test required" => "Yes_2", # This is always checked as CCQ is only relevant to means tested cases
@@ -67,7 +52,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
     end
 
     it "can successfully populate a CW2 IMM form (template with CCQ header)" do
-      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw2_header.yml")).map(&:with_indifferent_access)
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw2.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
         "Partner" => "Yes",
@@ -83,7 +68,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
     end
 
     it "can successfully populate CW5 form fields (template with CCQ header)" do
-      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw5_header.yml")).map(&:with_indifferent_access)
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw5.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
         "Partner" => "Yes", # client has partner
@@ -96,7 +81,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
     end
 
     it "can successfully populate CIVMEANS7 form (template with CCQ header)" do
-      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/civ_means_7_header.yml")).map(&:with_indifferent_access)
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/civ_means_7.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
         "Passported" => "No",
@@ -108,7 +93,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
     end
 
     it "can successfully populate CW1-and-2 form (template with CCQ header)" do
-      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_and_2_header.yml")).map(&:with_indifferent_access)
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_and_2.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
         "Client has a partner whose means are to be aggregated" => "Yes",
@@ -134,14 +119,14 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
     end
 
     it "can successfully populate CW1 form fields (template with CCQ header)" do
-      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_header.yml")).map(&:with_indifferent_access)
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
         "Means test required" => "Yes_2", # Means test required
         "Client in receipt of asylum support" => "No", # Asylum supported not given
         "Has partner whose means are to be agrgregated" => "No_2", # No partner
         "Please complete Part A Capital Subject matter of dispute" => "Yes_5", # SMOD
-        "undefined_26" => nil, # Non smod value is nil
+        "undefined_26" => "0",
         "undefined_10" => "250,000.11", # SMOD home worth £250,000
         "Other property 1" => "100,000.22", # SMOD other property worth £100,000
       }
@@ -149,13 +134,13 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
     end
 
     it "can successfully populate CW5 form fields (template with CCQ header)" do
-      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw5_header.yml")).map(&:with_indifferent_access)
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw5.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
         "Assets claimed by opponent" => "yes", # SMOD
         "Passported" => "No", # Not passporting
         "Partner" => "No", # No partner
-        "FillText11" => nil, # Non smod value is nil
+        "FillText11" => "0",
         "FillText27" => "250,000.11", # SMOD home worth £250,000
         "FillText29" => "100,000.22", # SMOD other property worth £100,000
       }
@@ -163,13 +148,13 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
     end
 
     it "can successfully populate CIVMEANS7 form SMOD fields (template with CCQ header)" do
-      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/civ_means_7_header.yml")).map(&:with_indifferent_access)
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/civ_means_7.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
         "Passported" => "No", # Client not passported
-        "FillText36" => nil, # Client's share of total net equity (non-SMOD)
-        "FillText57" => nil, # Main home / outstanding mortgage (non-SMOD)
-        "FillText56" => nil, # Main home / current market value (non-SMOD)
+        "FillText36" => "0", # Client's share of total net equity (non-SMOD)
+        "FillText57" => "0", # Main home / outstanding mortgage (non-SMOD)
+        "FillText56" => "0", # Main home / current market value (non-SMOD)
         "FillText105" => "250,000.11", # Main home / current market value (SMOD)
         "FillText106" => "90,000", # Main home / outstanding mortgage (SMOD)
         "FillText102" => "110,000", # total net equity (SMOD)
@@ -193,7 +178,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
     end
 
     it "can successfully populate CW1 form fields (template with CCQ header)" do
-      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_header.yml")).map(&:with_indifferent_access)
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
         "Means test required" => "Yes_2", # Means test required
@@ -207,7 +192,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
     end
 
     it "can successfully populate a CW2 IMM form (template with CCQ header)" do
-      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw2_header.yml")).map(&:with_indifferent_access)
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw2.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
         "In receipt os NASS payment" => "Yes", # directly or indirectly in receipt of NASS paymen
@@ -241,14 +226,14 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
     end
 
     it "can successfully populate CW1 form fields (template with CCQ header)" do
-      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_header.yml")).map(&:with_indifferent_access)
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
         "Means test required" => "Yes_2", # Means test required
         "Client in receipt of asylum support" => "No", # Asylum supported not given
         "Please complete Part A Capital Subject matter of dispute" => "Yes_5", # SMOD
         "Has partner whose means are to be agrgregated" => "Yes_3", # Has a partner
-        "undefined_26" => nil, # Non SMOD Property value
+        "undefined_26" => "0", # Non SMOD Property value
         "undefined_10" => "250,000", # SMOD Property worth £250,000
         "undefined_21" => "111", # SMOD savings
         "undefined_23" => "555", # SMOD valuables
