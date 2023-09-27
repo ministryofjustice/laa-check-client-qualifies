@@ -19,14 +19,14 @@ module Steps
     private
 
       def controlled_matter_type_group(session_data)
-        steps = Steps::Logic.upper_tribunal?(session_data) ? %i[immigration_or_asylum immigration_or_asylum_type asylum_support] : %i[immigration_or_asylum]
+        steps = Steps::Logic.immigration_or_asylum?(session_data) ? %i[immigration_or_asylum immigration_or_asylum_type asylum_support] : %i[immigration_or_asylum]
         Steps::Group.new(*steps)
       end
 
       def upper_tribunal_type_group(session_data)
         steps = if Steps::Logic.domestic_abuse_applicant?(session_data)
                   []
-                elsif Steps::Logic.upper_tribunal?(session_data)
+                elsif Steps::Logic.immigration_or_asylum?(session_data)
                   %i[immigration_or_asylum_type_upper_tribunal asylum_support]
                 else
                   %i[immigration_or_asylum_type_upper_tribunal]

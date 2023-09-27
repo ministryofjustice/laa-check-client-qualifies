@@ -46,11 +46,11 @@ class Check
   end
 
   def smod_applicable?
-    !upper_tribunal?
+    !immigration_or_asylum?
   end
 
-  def upper_tribunal?
-    Steps::Logic.upper_tribunal?(session_data)
+  def immigration_or_asylum?
+    Steps::Logic.immigration_or_asylum?(session_data)
   end
 
   def owns_property?

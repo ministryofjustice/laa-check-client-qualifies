@@ -2,8 +2,8 @@ p.govuk-body = t(".calculation_information")
 h2.govuk-heading-m = t(".limits_heading")
 p.govuk-body = t(".outgoings_explanation")
 
-- lower_limits = @model.level_of_help == "certificated" && !@check.upper_tribunal?
-- upper_limit_could_be_waived = @model.level_of_help == "certificated" && !@check.upper_tribunal?
+- lower_limits = @model.level_of_help == "certificated" && !@check.immigration_or_asylum?
+- upper_limit_could_be_waived = @model.level_of_help == "certificated" && !@check.immigration_or_asylum?
 - t(".list_html", page_url: document_link(:legislation_CLAR_2013_childcare),
                   page_url_2: document_link(:legislation_CLAR_2013_housing)).each do |reason|
     p.govuk-body = reason

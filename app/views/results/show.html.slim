@@ -21,7 +21,7 @@
 
   - if @model.level_of_help == "certificated"
     h2.govuk-heading-m = t(".what_happens_next")
-    - if @check.upper_tribunal?
+    - if @check.immigration_or_asylum?
       p.govuk-body = t(".next_steps_without_apply_paragraph_1")
     - else
       p.govuk-body = t(".next_steps_paragraph_1")
@@ -36,7 +36,7 @@
       - accordion.with_section(heading_text: t(".legislation_header"))
         = render "legislation_table", caption_size: "m"
       ruby:
-        key = if @model.level_of_help == "certificated" && !@check.upper_tribunal?
+        key = if @model.level_of_help == "certificated" && !@check.immigration_or_asylum?
                 ".upper_and_lower_limits_calculation_header"
               else
                 ".upper_limits_calculation_header"

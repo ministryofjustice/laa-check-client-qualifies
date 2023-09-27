@@ -2,20 +2,19 @@
   = t(".question")
 - content_for :back do
   = back_link(:domestic_abuse_applicant, @check, @back_buttons_invoke_browser_back_behaviour)
+- content_for :hint
+  p.govuk-boy = t(".paragraph_1")
+  p.govuk-boy = t(".paragraph_2")
 
 .govuk-grid-column-two-thirds
-  = render "shared/heading"
+  = render "shared/heading", header_text: t(".question")
   = form_for(@form, url: request.path, method: :put) do |form|
     = form.govuk_error_summary t("generic.error_summary_title")
 
-    h1.govuk-heading-xl = t(".question")
-
-    p.govuk-boy = t(".paragraph_1")
-    p.govuk-boy = t(".paragraph_2")
-
     = form.govuk_collection_radio_buttons :domestic_abuse_applicant,
             yes_no_options, :first, :last,
-            legend: nil
+            legend: nil,
+            hint: -> { content_for(:hint) }
 
     = form.govuk_submit t("generic.save_and_continue")
 

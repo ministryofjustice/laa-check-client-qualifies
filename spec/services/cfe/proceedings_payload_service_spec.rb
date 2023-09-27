@@ -9,7 +9,7 @@ RSpec.describe Cfe::ProceedingsPayloadService do
       let(:session_data) do
         {
           "level_of_help" => "certificated",
-          "domestic_abuse_applicant" => "false",
+          "domestic_abuse_applicant" => false,
           "immigration_or_asylum_type_upper_tribunal" => "none",
         }
       end

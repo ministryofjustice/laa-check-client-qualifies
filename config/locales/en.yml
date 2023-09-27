@@ -6,6 +6,10 @@ en:
           attributes:
             level_of_help:
               blank: Select the level of help your client needs
+        domestic_abuse_applicant_form:
+          attributes:
+            domestic_abuse_applicant:
+              inclusion: Select if your client is an applicant in a domestic abuse case
         asylum_support_form:
           attributes:
             asylum_support:
@@ -17,6 +21,10 @@ en:
         immigration_or_asylum_type_form:
           attributes:
             immigration_or_asylum_type:
+              blank: Select what type of immigration or asylum matter this is
+        immigration_or_asylum_type_upper_tribunal_form:
+          attributes:
+            immigration_or_asylum_type_upper_tribunal:
               blank: Select what type of immigration or asylum matter this is
         partner_details_form:
           attributes:
@@ -650,7 +658,6 @@ en:
       question: Is your client an applicant in a domestic abuse case?
       paragraph_1: This must be for legal representation for a domestic abuse matter (injunction or other order for protection from harm, or committal for breach), FGM protection order, or forced marriage protection order.
       paragraph_2: We need to know this for the check calculations because upper eligibility limits are waived if your client is an applicant in a domestic abuse matter.
-    matter_type:
       domestic_abuse_guidance:
         text: Guidance on domestic abuse or violence
       tribunal_guidance:
@@ -1407,13 +1414,6 @@ en:
         level_of_help_options:
           certificated: Civil certificated or licensed legal work
           controlled: Civil controlled work or family mediation
-      matter_type_fields:
-        matter_type: Which type of matter is this?
-        matter_type_options:
-          immigration: Immigration (Upper Tribunal)
-          asylum: Asylum (Upper Tribunal)
-          other: Another category of law
-          domestic_abuse: Domestic abuse
       domestic_abuse_applicant_fields: 
         domestic_abuse_applicant: Is your client an applicant in a domestic abuse case?
       immigration_or_asylum_type_upper_tribunal_fields:

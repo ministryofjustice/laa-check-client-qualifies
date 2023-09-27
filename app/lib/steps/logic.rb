@@ -8,7 +8,7 @@ module Steps
         session_data["level_of_help"] == LevelOfHelpForm::LEVELS_OF_HELP[:controlled]
       end
 
-      def upper_tribunal?(session_data)
+      def immigration_or_asylum?(session_data)
         if controlled?(session_data)
           session_data["immigration_or_asylum"]
         else
@@ -17,11 +17,11 @@ module Steps
       end
 
       def domestic_abuse_applicant?(session_data)
-        session_data["domestic_abuse_applicant"]
+        session_data["domestic_abuse_applicant"] && !controlled?(session_data)
       end
 
       def asylum_supported?(session_data)
-        upper_tribunal?(session_data) && session_data["asylum_support"]
+        immigration_or_asylum?(session_data) && session_data["asylum_support"]
       end
 
       def passported?(session_data)
