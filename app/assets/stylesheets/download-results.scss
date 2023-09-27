@@ -27,6 +27,12 @@
   font-family: HelveticaNeue, "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
 
+.pdf-header-reset{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
 @media print {
   button {
     display: none !important; // In no circumstances do we want buttons to appear when the page is printed,

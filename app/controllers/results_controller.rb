@@ -1,5 +1,5 @@
 class ResultsController < ApplicationController
-  before_action :load_check, only: %i[show print download]
+  before_action :load_check, only: %i[show download]
 
   def create
     session_data["api_response"] = CfeService.call(session_data)
@@ -15,21 +15,14 @@ class ResultsController < ApplicationController
     track_page_view(page: :view_results)
   end
 
-  def print
-    @model = CalculationResult.new(session_data)
-    @sections = CheckAnswers::SectionListerService.call(session_data)
-    track_page_view(page: :print_results)
-    render :print, layout: "print_application"
-  end
-
   def download
     track_page_view(page: :download_results)
     @model = CalculationResult.new(session_data)
     @sections = CheckAnswers::SectionListerService.call(session_data)
     @is_pdf = true
     html = render_to_string({
-      template: "results/print",
-      layout: "print_application",
+      template: "results/download",
+      layout: "download_application",
     })
 
     PdfService.with_pdf_data_from_html_string(html, request.base_url) do |pdf_data|
