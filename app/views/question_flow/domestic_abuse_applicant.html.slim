@@ -1,0 +1,23 @@
+- content_for :page_title
+  = t(".question")
+- content_for :back do
+  = back_link(:domestic_abuse_applicant, @check, @back_buttons_invoke_browser_back_behaviour)
+- content_for :hint
+  p.govuk-boy = t(".paragraph_1")
+  p.govuk-boy = t(".paragraph_2")
+
+.govuk-grid-column-two-thirds
+  = render "shared/heading"
+  = form_for(@form, url: request.path, method: :put) do |form|
+    = form.govuk_error_summary t("generic.error_summary_title")
+
+    = form.govuk_collection_radio_buttons :domestic_abuse_applicant,
+            yes_no_options, :first, :last,
+            legend: { text: t(".question"), size: "xl", tag: "h1" },
+            hint: -> { content_for(:hint) }
+
+    = form.govuk_submit t("generic.save_and_continue")
+
+= render "shared/question_sidebar",
+         level_of_help: @check.level_of_help,
+         links: domestic_abuse_applicant_links
