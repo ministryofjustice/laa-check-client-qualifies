@@ -73,14 +73,14 @@ RSpec.describe "results/show.html.slim" do
       let(:session_data) do
         {
           level_of_help: "certificated",
-          matter_type:,
+          immigration_or_asylum_type_upper_tribunal:,
           asylum_support:,
           api_response:,
         }.with_indifferent_access
       end
 
       context "when immigration" do
-        let(:matter_type) { "immigration" }
+        let(:immigration_or_asylum_type_upper_tribunal) { "immigration_upper" }
 
         context "when receiving asylum support" do
           let(:asylum_support) { true }
@@ -113,7 +113,7 @@ RSpec.describe "results/show.html.slim" do
       end
 
       context "when asylum" do
-        let(:matter_type) { "asylum" }
+        let(:immigration_or_asylum_type_upper_tribunal) { "asylum_upper" }
 
         context "when receiving asylum support" do
           let(:asylum_support) { true }

@@ -11,10 +11,18 @@
   p.govuk-body class="govuk-!-margin-top-3"
     - upper_snippet = "_no_upper_threshold" if data.no_upper_threshold
     - lower_snippet = "_no_lower_threshold" if data.no_lower_threshold
+    ruby:
+      matter_type = if @model.domestic_abuse_applicant
+                      t("results.show.section_summaries.matter_types.domestic_abuse_applicant")
+                    elsif @model.immigration_or_asylum_type_upper_tribunal
+                      t("results.show.section_summaries.matter_types.#{@model.immigration_or_asylum_type_upper_tribunal}")
+                    else
+                      t("results.show.section_summaries.matter_types.none")
+                    end
     => t("results.show.section_summaries.texts.#{section}.#{data.status}#{upper_snippet}#{lower_snippet}",
           upper_threshold: data.upper_threshold,
           lower_threshold: data.lower_threshold,
-          matter_type: (t("results.show.section_summaries.matter_types.#{@model.matter_type}") if @model.matter_type),
+          matter_type:,
           capital_contribution: @model.capital_contribution,
           income_contribution: @model.income_contribution)
     - if links

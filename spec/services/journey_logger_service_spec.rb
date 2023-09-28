@@ -95,7 +95,7 @@ RSpec.describe JourneyLoggerService do
       let(:session_data) do
         {
           level_of_help: "certificated",
-          matter_type: "immigration",
+          immigration_or_asylum_type_upper_tribunal: "immigration_upper",
           property_owned: "with_mortgage",
           house_in_dispute: true,
           asylum_support: false,
@@ -113,7 +113,7 @@ RSpec.describe JourneyLoggerService do
         let(:session_data) do
           {
             level_of_help: "certificated",
-            matter_type: "immigration",
+            immigration_or_asylum_type_upper_tribunal: "immigration_upper",
             asylum_support: true,
           }.with_indifferent_access
         end
@@ -122,6 +122,38 @@ RSpec.describe JourneyLoggerService do
           described_class.call(assessment_id, calculation_result, check, {})
           output = CompletedUserJourney.find_by(assessment_id:)
           expect(output.asylum_support).to eq true
+        end
+      end
+
+      context "when an asylum upper tribunal case" do
+        let(:session_data) do
+          {
+            level_of_help: "certificated",
+            immigration_or_asylum_type_upper_tribunal: "asylum_upper",
+            asylum_support: false,
+          }.with_indifferent_access
+        end
+
+        it "tracks it as an asylum upper tribunal case" do
+          described_class.call(assessment_id, calculation_result, check, {})
+          output = CompletedUserJourney.find_by(assessment_id:)
+          expect(output.matter_type).to eq "asylum"
+        end
+      end
+
+      context "when a domestic abuse case" do
+        let(:session_data) do
+          {
+            level_of_help: "certificated",
+            domestic_abuse_applicant: true,
+            asylum_support: false,
+          }.with_indifferent_access
+        end
+
+        it "tracks a domestic abuse case" do
+          described_class.call(assessment_id, calculation_result, check, {})
+          output = CompletedUserJourney.find_by(assessment_id:)
+          expect(output.matter_type).to eq "domestic_abuse"
         end
       end
     end
