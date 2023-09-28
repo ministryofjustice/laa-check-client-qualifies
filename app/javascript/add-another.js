@@ -26,11 +26,9 @@ const initAddAnother = () => {
       addAnother(addAnotherContainer)
     })
 
-    addAnotherContainer.querySelectorAll('[data-add-another-role="section"]').forEach((section) => {
-      setUpRemoveButton(section);
-    });
+    const sectionList = addAnotherContainer.querySelector('[data-add-another-role="sectionList"]');
 
-    setUpSections(addAnotherContainer.querySelector('[data-add-another-role="sectionList"]'));
+    setUpSections(sectionList);
     setUpAddButton(addAnotherContainer);
   });
 }
