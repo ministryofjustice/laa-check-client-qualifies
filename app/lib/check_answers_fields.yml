@@ -42,10 +42,10 @@ sections:
   - label: case_details
     subsections:
       - tables:
-          - screen: matter_type
-            fields:
-              - attribute: matter_type
-                type: select
+          - screen: domestic_abuse_applicant
+            fields: 
+              - attribute: domestic_abuse_applicant
+                type: boolean
           - screen: immigration_or_asylum
             fields:
               - attribute: immigration_or_asylum
@@ -53,6 +53,10 @@ sections:
           - screen: immigration_or_asylum_type
             fields:
               - attribute: immigration_or_asylum_type
+                type: select
+          - screen: immigration_or_asylum_type_upper_tribunal
+            fields: 
+              - attribute: immigration_or_asylum_type_upper_tribunal
                 type: select
           - screen: asylum_support
             fields:

@@ -51,7 +51,7 @@ RSpec.describe Cfe::VehiclePayloadService do
     context "when the client is asylum supported" do
       let(:session_data) do
         {
-          "matter_type" => "immigration",
+          "immigration_or_asylum_type_upper_tribunal" => "immigration_upper",
           "asylum_support" => true,
         }
       end
@@ -76,7 +76,7 @@ RSpec.describe Cfe::VehiclePayloadService do
                              "vehicle_in_dispute" => true,
                            },
                          ],
-                         matter_type: "immigration")
+                         immigration_or_asylum_type_upper_tribunal: "immigration_upper")
       end
 
       it "does not add SMOD to the payload" do

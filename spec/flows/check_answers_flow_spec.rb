@@ -64,7 +64,7 @@ RSpec.describe "Check answers", type: :feature do
     start_assessment
     fill_in_forms_until(:level_of_help)
     fill_in_level_of_help_screen(choice: "Civil certificated or licensed legal work")
-    fill_in_matter_type_screen(choice: "Domestic abuse")
+    fill_in_domestic_abuse_applicant_screen(choice: "Yes")
     fill_in_forms_until(:check_answers)
     within "#table-level_of_help" do
       click_on "Change"

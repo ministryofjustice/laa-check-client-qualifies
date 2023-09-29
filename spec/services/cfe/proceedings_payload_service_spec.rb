@@ -9,7 +9,8 @@ RSpec.describe Cfe::ProceedingsPayloadService do
       let(:session_data) do
         {
           "level_of_help" => "certificated",
-          "matter_type" => "other",
+          "domestic_abuse_applicant" => false,
+          "immigration_or_asylum_type_upper_tribunal" => "none",
         }
       end
 
@@ -18,6 +19,65 @@ RSpec.describe Cfe::ProceedingsPayloadService do
         expect(payload[:proceeding_types]).to eq(
           [{
             ccms_code: "SE003",
+            client_involvement_type: "A",
+          }],
+        )
+      end
+    end
+
+    context "when checking a certificated, asylum case" do
+      let(:session_data) do
+        {
+          "level_of_help" => "certificated",
+          "domestic_abuse_applicant" => false,
+          "immigration_or_asylum_type_upper_tribunal" => "asylum_upper",
+        }
+      end
+
+      it "uses the relevant proceeding type" do
+        service.call(session_data, payload)
+        expect(payload[:proceeding_types]).to eq(
+          [{
+            ccms_code: "IA031",
+            client_involvement_type: "A",
+          }],
+        )
+      end
+    end
+
+    context "when checking a certificated, immigration case" do
+      let(:session_data) do
+        {
+          "level_of_help" => "certificated",
+          "domestic_abuse_applicant" => false,
+          "immigration_or_asylum_type_upper_tribunal" => "immigration_upper",
+        }
+      end
+
+      it "uses the relevant proceeding type" do
+        service.call(session_data, payload)
+        expect(payload[:proceeding_types]).to eq(
+          [{
+            ccms_code: "IM030",
+            client_involvement_type: "A",
+          }],
+        )
+      end
+    end
+
+    context "when checking a certificated, domestic abuse case" do
+      let(:session_data) do
+        {
+          "level_of_help" => "certificated",
+          "domestic_abuse_applicant" => true,
+        }
+      end
+
+      it "uses the relevant proceeding type" do
+        service.call(session_data, payload)
+        expect(payload[:proceeding_types]).to eq(
+          [{
+            ccms_code: "DA001",
             client_involvement_type: "A",
           }],
         )

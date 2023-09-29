@@ -65,8 +65,12 @@ class CalculationResult
     end
   end
 
-  def matter_type
-    @check.matter_type
+  def domestic_abuse_applicant
+    @check.domestic_abuse_applicant
+  end
+
+  def immigration_or_asylum_type_upper_tribunal
+    @check.immigration_or_asylum_type_upper_tribunal
   end
 
   def raw_capital_contribution

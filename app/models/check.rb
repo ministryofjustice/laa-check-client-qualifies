@@ -46,11 +46,11 @@ class Check
   end
 
   def smod_applicable?
-    !upper_tribunal?
+    !immigration_or_asylum?
   end
 
-  def upper_tribunal?
-    Steps::Logic.upper_tribunal?(session_data)
+  def immigration_or_asylum?
+    Steps::Logic.immigration_or_asylum?(session_data)
   end
 
   def owns_property?
@@ -78,7 +78,7 @@ class Check
       # For controlled work, "immigration_legal_help" is treated like "asylum"
       immigration_or_asylum_type == "immigration_clr"
     else
-      matter_type == "immigration"
+      immigration_or_asylum_type_upper_tribunal == "immigration_upper"
     end
   end
 

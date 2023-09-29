@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Invalid session", type: :feature do
   it "tells me if CfeService thinks my answers are invalid" do
-    allow(CfeService).to receive(:call).and_raise(Cfe::InvalidSessionError.new(MatterTypeForm.new))
+    allow(CfeService).to receive(:call).and_raise(Cfe::InvalidSessionError.new(DomesticAbuseApplicantForm.new))
     expect(ErrorService).to receive(:call)
 
     start_assessment

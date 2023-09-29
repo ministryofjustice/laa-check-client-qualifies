@@ -4,7 +4,8 @@ RSpec.describe "Certificated, passported flow", type: :feature do
   it "allows me a direct route to the check answers page" do
     start_assessment
     fill_in_level_of_help_screen
-    fill_in_matter_type_screen
+    fill_in_domestic_abuse_applicant_screen
+    fill_in_immigration_or_asylum_type_upper_tribunal_screen
     fill_in_applicant_screen(passporting: "Yes")
     fill_in_assets_screen
     fill_in_vehicle_screen

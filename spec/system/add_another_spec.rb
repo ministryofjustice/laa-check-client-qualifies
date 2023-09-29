@@ -85,4 +85,44 @@ RSpec.describe "Add another JS" do
     expect(session_contents.dig("vehicles", 0, "vehicle_value")).to eq 123
     expect(session_contents.dig("vehicles", 1, "vehicle_value")).to eq 789
   end
+
+  it "removes error messages pertaining to a removed item" do
+    fill_in "1-vehicle-value", with: "123"
+    choose "No", name: "vehicle_model[items][1][vehicle_pcp]"
+    choose "No", name: "vehicle_model[items][1][vehicle_over_3_years_ago]"
+    choose "No", name: "vehicle_model[items][1][vehicle_in_regular_use]"
+    click_on "Add another vehicle"
+
+    choose "No", name: "vehicle_model[items][2][vehicle_pcp]"
+    choose "No", name: "vehicle_model[items][2][vehicle_over_3_years_ago]"
+    choose "No", name: "vehicle_model[items][2][vehicle_in_regular_use]"
+    click_on "Save and continue"
+
+    expect(page).to have_content "Enter the estimated value of vehicle 2"
+    click_on "remove-2"
+    expect(page).not_to have_content "Enter the estimated value of vehicle 2"
+  end
+
+  it "rewords error messages pertaining items that come after a removed item" do
+    fill_in "1-vehicle-value", with: "123"
+    choose "No", name: "vehicle_model[items][1][vehicle_pcp]"
+    choose "No", name: "vehicle_model[items][1][vehicle_over_3_years_ago]"
+    choose "No", name: "vehicle_model[items][1][vehicle_in_regular_use]"
+    click_on "Add another vehicle"
+
+    fill_in "2-vehicle-value", with: "456"
+    choose "No", name: "vehicle_model[items][2][vehicle_pcp]"
+    choose "No", name: "vehicle_model[items][2][vehicle_over_3_years_ago]"
+    choose "No", name: "vehicle_model[items][2][vehicle_in_regular_use]"
+    click_on "Add another vehicle"
+
+    choose "No", name: "vehicle_model[items][3][vehicle_pcp]"
+    choose "No", name: "vehicle_model[items][3][vehicle_over_3_years_ago]"
+    choose "No", name: "vehicle_model[items][3][vehicle_in_regular_use]"
+    click_on "Save and continue"
+
+    expect(page).to have_content "Enter the estimated value of vehicle 3"
+    click_on "remove-2"
+    expect(page).to have_content "Enter the estimated value of vehicle 2"
+  end
 end
