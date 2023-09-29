@@ -253,3 +253,5 @@ Due to case-sensitivity in the integration between CircleCi and Jira, the Jira t
 For example:
 ❌ el-123-add-new-feature
 ✅ EL-123-add-new-feature
+
+text to test EL-1194, and that CircleCI set-up still works after applying a 'Project Restriction' to this UAT context.
