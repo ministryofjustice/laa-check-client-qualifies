@@ -30,4 +30,10 @@ RSpec.describe "Redirects" do
     visit "/estimates/foo/controlled_work_document_selections/new"
     expect(page).to have_current_path("/which-controlled-work-form/foo")
   end
+
+  scenario "I try to visit the print action for an old check" do
+    set_session(:foo, "level_of_help" => "controlled", "api_response" => build(:api_result))
+    visit "/print/foo"
+    expect(page.response_headers["Content-Type"]).to eq("application/pdf")
+  end
 end

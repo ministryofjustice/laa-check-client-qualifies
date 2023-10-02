@@ -111,36 +111,4 @@ RSpec.describe "Accessibility" do
       expect(page).to be_axe_clean.skipping("aria-allowed-attr")
     end
   end
-
-  describe "Print results page" do
-    let(:api_result) { build(:api_result) }
-
-    before do
-      travel_to arbitrary_fixed_time
-      allow(CfeService).to receive(:call).and_return(api_result)
-
-      start_assessment
-      fill_in_forms_until(:check_answers)
-      click_on "Submit"
-      click_on "Print results and answers"
-      windows = page.driver.browser.window_handles
-      page.driver.browser.switch_to.window(windows.last)
-    end
-
-    context "when assessing controlled work" do
-      let(:level_of_help) { "controlled" }
-
-      it "has no AXE-detectable accessibility issues" do
-        expect(page).to be_axe_clean
-      end
-    end
-
-    context "when assessing certificated work" do
-      let(:level_of_help) { "certificated" }
-
-      it "has no AXE-detectable accessibility issues" do
-        expect(page).to be_axe_clean
-      end
-    end
-  end
 end
