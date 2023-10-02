@@ -1634,7 +1634,7 @@ en:
         - These calculations were made in line with the latest version of the Lord Chancellor's Guidance on Determining Financial Eligibility for Controlled Work.
       controlled_ineligible: Your client does not qualify for civil legal aid, for controlled work and family mediation
       controlled_ineligible_paragraphs:
-        - Your client does not qualify financially for civil legal aid based on the information you entered. You may wish to discuss your client’s options, for example they can pay for legal support or get advice from a charity or advice organisation.
+        - Your client does not qualify financially for civil legal aid based on the information you entered.
         - These calculations were made in line with the latest version of the Lord Chancellor's Guidance on Determining Financial Eligibility for Controlled Work.
       certificated_asylum_support_eligible_intro_paragraphs_html:
         - Your client is likely to qualify financially for civil legal aid, <b>without needing to pay a contribution</b>, based on the information you entered.
@@ -1647,6 +1647,7 @@ en:
         - Save or print this page and keep any supporting evidence to support your decision in case the Legal Aid Agency (LAA) audits or assesses your client’s file in the future.
         - This assessment has been made in line with the latest version of the Lord Chancellor’s Guidance on Determining Eligibility for Controlled Work.
       what_happens_next: What happens next
+      what_happens_next_controlled_ineligible_next_step: You may wish to discuss your client’s options, for example they can pay for legal support or get advice from a charity or advice organisation.
       next_steps_paragraph_1: Use Apply for legal aid or CCMS to start an application for your client.
       next_steps_without_apply_paragraph_1: Use CCMS to start an application for your client.
       next_steps_paragraph_2: You may need to provide evidence of your client's eligibility as part of your application.
@@ -1671,7 +1672,7 @@ en:
         - If the client or any partner’s access to capital is affected by bankruptcy or a restraint or freezing order covering their assets, relevant documentation such as a copy of the bankruptcy order, a statement of assets and liabilities (if available), a copy of restraint order and any variations sought.
         - If the client or any partner holds assets as a trustee on behalf of another person, documentary evidence of the trust arrangement.
       certificated_how_calculated: How we calculated whether your client is likely to be financially eligible for civil certificated legal aid work
-      controlled_how_calculated: How we calculated whether your client is likely to be financially eligible for civil controlled legal aid work
+      controlled_how_calculated: How we calculated whether your client is financially eligible for civil controlled legal aid work
       legacy_controlled_types_of_evidence:
         - bank statements covering the most recent month
         - evidence of any benefits or financial support your client received from the government, local authorities or third parties dated in the last 6 months
