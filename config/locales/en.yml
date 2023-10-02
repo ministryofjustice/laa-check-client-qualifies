@@ -1829,8 +1829,7 @@ en:
       client_assessed_capital: Disposable capital
       start_another_check: Start another eligibility check
       continue_to_cw: Continue to CW forms
-      print_page: Print results and answers
-      save_as_pdf: Save results and answers as a PDF
+      save_as_pdf: Save results and answers as a printable PDF
       client_main_home: Home client lives in
       property_rows:
         value:
@@ -1980,8 +1979,8 @@ en:
       controlled_immigration_capital_upper_limit: £3,000
       not_applicable: When limits are not applicable
       not_applicable_text: The upper limits do not apply if your client is the applicant in a matter such as domestic abuse (see Regulation 12 for the full list).
-    print:
-      date: "Date:"
+    download:
+      date: "Date: "
       legal_aid: Legal Aid
       agency: Agency
       print_this_page: Print this page

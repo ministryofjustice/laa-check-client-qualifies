@@ -6,11 +6,15 @@
 .govuk-grid-column-full.no-ligatures
   .gem-c-organisation-logo
     .gem-c-organisation-logo__container
-      = pdf_friendly_logo(@is_pdf)
+      span.gem-c-organisation-logo__name
+        ul.pdf-header-reset
+          li = I18n.t("results.download.legal_aid")
+          li = I18n.t("results.download.agency")
 
-  = pdf_friendly_date(@is_pdf)
-
-  button.govuk-button.govuk-button--secondary data-module="govuk-button" data-trigger="print" = t(".print_this_page")
+  ul.pdf-header-reset
+    li
+      span.govuk-body-m = I18n.t("results.download.date")
+      span.govuk-body-m class="govuk-!-font-weight-bold" = Date.current.strftime("%d %B %Y")
 
   h2.govuk-heading-l = t("service.name")
   = render "result_panel_content"
@@ -60,5 +64,3 @@
 
   = pdf_friendly_h2(t(".your_answers"), "l", @is_pdf, "govuk-!-margin-bottom-9 govuk-!-margin-top-9")
   = render "checks/check_answers_table", change_links: false
-
-  button.govuk-button.govuk-button--secondary data-module="govuk-button" data-trigger="print" = t(".print_this_page")

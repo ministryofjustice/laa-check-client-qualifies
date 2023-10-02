@@ -13,7 +13,7 @@ RSpec.describe "Download result", type: :feature do
     fill_in_level_of_help_screen(choice: "Civil certificated or licensed legal work")
     fill_in_forms_until(:check_answers)
     click_on "Submit"
-    click_on "Save results and answers as a PDF"
+    click_on "Save results and answers as a printable PDF"
     expect(page.response_headers["Content-Type"]).to eq("application/pdf")
   end
 
@@ -27,7 +27,7 @@ RSpec.describe "Download result", type: :feature do
     fill_in_level_of_help_screen(choice: "Civil controlled work or family mediation")
     fill_in_forms_until(:check_answers)
     click_on "Submit"
-    click_on "Save results and answers as a PDF"
+    click_on "Save results and answers as a printable PDF"
     expect(page.response_headers["Content-Type"]).to eq("application/pdf")
   end
 
@@ -44,7 +44,7 @@ RSpec.describe "Download result", type: :feature do
       fill_in_level_of_help_screen(choice: "Civil certificated or licensed legal work")
       fill_in_forms_until(:check_answers)
       click_on "Submit"
-      click_on "Save results and answers as a PDF"
+      click_on "Save results and answers as a printable PDF"
       expect(page.response_headers["Content-Type"]).to eq("application/pdf")
     end
 
@@ -58,7 +58,7 @@ RSpec.describe "Download result", type: :feature do
       fill_in_level_of_help_screen(choice: "Civil controlled work or family mediation")
       fill_in_forms_until(:check_answers)
       click_on "Submit"
-      click_on "Save results and answers as a PDF"
+      click_on "Save results and answers as a printable PDF"
       expect(page.response_headers["Content-Type"]).to eq("application/pdf")
     end
   end

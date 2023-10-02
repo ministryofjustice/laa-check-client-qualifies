@@ -73,37 +73,4 @@ module ResultsHelper
       safe_join(modified_screen_sentences)
     end
   end
-
-  def pdf_friendly_logo(is_pdf)
-    if is_pdf
-      tag.span(class: "gem-c-organisation-logo__name") do
-        tag.ul(style: "list-style-type: none; margin: 0; padding: 0;") do
-          concat tag.li(I18n.t("results.print.legal_aid"))
-          concat tag.li(I18n.t("results.print.agency"))
-        end
-      end
-    else
-      tag.span(class: "gem-c-organisation-logo__name") do
-        concat tag.span(I18n.t("results.print.legal_aid"))
-        concat tag.br(I18n.t("results.print.agency"))
-      end
-    end
-  end
-
-  def pdf_friendly_date(is_pdf)
-    if is_pdf
-      tag.ul(style: "list-style-type: none; margin: 0; padding: 0;") do
-        tag.li(style: "") do
-          concat tag.span(I18n.t("results.print.date"), class: "govuk-body-m")
-          concat tag.span(" #{Date.current.strftime('%d %B %Y')}", class: "govuk-body-m govuk-!-font-weight-bold")
-        end
-      end
-    else
-      tag.span(class: "govuk-body-m") do
-        concat tag.span(I18n.t("results.print.date"))
-        concat tag.strong(" #{Date.current.strftime('%d %B %Y')}")
-        concat tag.br
-      end
-    end
-  end
 end
