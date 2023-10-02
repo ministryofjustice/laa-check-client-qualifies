@@ -67,14 +67,8 @@
       = link_to t(".save_as_pdf"),
                 download_result_path(params[:assessment_code]),
                 target: "_blank", rel: "noopener", class: "govuk-button govuk-button--secondary"
-      = link_to t(".print_page"),
-                print_result_path(params[:assessment_code]),
-                target: "_blank", rel: "noopener", class: "govuk-button govuk-button--secondary"
     - else
       = link_to t(".save_as_pdf"), download_result_path(params[:assessment_code]), target: "_blank", rel: "noopener", class: "govuk-button"
-      = link_to t(".print_page"),
-                print_result_path(params[:assessment_code]),
-                target: "_blank", rel: "noopener", class: "govuk-button govuk-button--secondary"
       = link_to t(".start_another_check"), new_check_path, class: "govuk-button govuk-button--secondary", data: { module: "govuk-button" }
 
   - if @model.level_of_help == "controlled" && @model.decision == "eligible"

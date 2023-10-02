@@ -15,7 +15,6 @@ class PdfService
     },
     emulate_media: "screen",
     launch_args: ["--font-render-hinting=medium", "--no-sandbox", "--force-renderer-accessibility"],
-    execute_script: "document.querySelectorAll('button').forEach(el => el.style.display = 'none')",
   }.freeze
 
   class << self
