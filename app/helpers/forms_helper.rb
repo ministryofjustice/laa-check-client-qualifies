@@ -18,6 +18,12 @@ module FormsHelper
     [:asylum, I18n.t("question_flow.immigration_or_asylum_type.asylum")],
   ].freeze
 
+  IMMIGRATION_OR_ASYLUM_TYPE_UPPER_TRIBUNAL_OPTIONS = [
+    [:immigration_upper, I18n.t("question_flow.immigration_or_asylum_type_upper_tribunal.immigration_upper")],
+    [:asylum_upper, I18n.t("question_flow.immigration_or_asylum_type_upper_tribunal.asylum_upper")],
+    [:none, I18n.t("question_flow.immigration_or_asylum_type_upper_tribunal.none")],
+  ].freeze
+
   def property_options
     PROPERTY_OPTIONS
   end
@@ -28,6 +34,10 @@ module FormsHelper
 
   def immigration_or_asylum_type_options
     IMMIGRATION_OR_ASYLUM_TYPE_OPTIONS
+  end
+
+  def immigration_or_asylum_type_upper_tribunal_options
+    IMMIGRATION_OR_ASYLUM_TYPE_UPPER_TRIBUNAL_OPTIONS
   end
 
   def document_link(document, sub_section = nil)

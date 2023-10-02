@@ -103,8 +103,8 @@ RSpec.describe "Household section flow", type: :feature do
 
   it "skips property if the client is asylum supported" do
     start_assessment
-    fill_in_forms_until(:matter_type)
-    fill_in_matter_type_screen(choice: "Asylum")
+    fill_in_forms_until(:immigration_or_asylum_type_upper_tribunal)
+    fill_in_immigration_or_asylum_type_upper_tribunal_screen(choice: "Yes, asylum (Upper Tribunal)")
     fill_in_asylum_support_screen(choice: "Yes")
     confirm_screen("check_answers")
   end

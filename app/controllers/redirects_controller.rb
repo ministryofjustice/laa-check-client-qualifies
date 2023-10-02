@@ -4,6 +4,10 @@ class RedirectsController < ApplicationController
   end
 
   def check_answers
+    redirect_to check_answers_path(params[:assessment_code])
+  end
+
+  def check
     redirect_to helpers.check_step_path_from_step(params[:step].to_sym, params[:assessment_code])
   end
 

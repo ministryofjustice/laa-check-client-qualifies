@@ -6,14 +6,14 @@ en:
           attributes:
             level_of_help:
               blank: Select the level of help your client needs
+        domestic_abuse_applicant_form:
+          attributes:
+            domestic_abuse_applicant:
+              inclusion: Select if your client is an applicant in a domestic abuse case
         asylum_support_form:
           attributes:
             asylum_support:
               inclusion: Select if your client receives section 4 or section 95 Asylum Support
-        matter_type_form:
-          attributes:
-            matter_type:
-              blank: Select what type of matter this is
         immigration_or_asylum_form:
           attributes:
             immigration_or_asylum:
@@ -21,6 +21,10 @@ en:
         immigration_or_asylum_type_form:
           attributes:
             immigration_or_asylum_type:
+              blank: Select what type of immigration or asylum matter this is
+        immigration_or_asylum_type_upper_tribunal_form:
+          attributes:
+            immigration_or_asylum_type_upper_tribunal:
               blank: Select what type of immigration or asylum matter this is
         partner_details_form:
           attributes:
@@ -654,13 +658,10 @@ en:
       guidance:
         text: Guidance on Asylum Support
       tribunal_guidance_text: Guide to determining controlled work
-    matter_type:
-      title: Which type of matter is this?
-      immigration: Immigration (Upper Tribunal)
-      asylum: Asylum (Upper Tribunal)
-      other: Another category of law
-      domestic_abuse: Domestic abuse
-      domestic_abuse_hint: Upper eligibility limits are waived if your client is an applicant in a domestic abuse matter
+    domestic_abuse_applicant:
+      question: Is your client an applicant in a domestic abuse case?
+      paragraph_1: This must be for legal representation for a domestic abuse matter (injunction or other order for protection from harm, or committal for breach), FGM protection order, or forced marriage protection order.
+      paragraph_2: We need to know this for the check calculations because upper eligibility limits are waived if your client is an applicant in a domestic abuse matter.
       domestic_abuse_guidance:
         text: Guidance on domestic abuse or violence
       tribunal_guidance:
@@ -686,6 +687,16 @@ en:
       asylum: Asylum - legal help, help at court, or controlled legal representation (CLR) in the First-tier Tribunal
       legacy_case_guidance:
         text: Guidance on legacy case Appeals and Reviews in the Upper Tribunal
+    immigration_or_asylum_type_upper_tribunal:
+      question: Is this for a matter in the Immigration and Asylum Chamber of the Upper Tribunal?
+      help_text_1: This is only for for legal representation for an immigration or asylum matter in the Immigration and Asylum Chamber of the Upper Tribunal, including in relation to an appeal or review from the Immigration and Asylum Chamber of the First-tier Tribunal.
+      help_text_2: We need to know this to use the correct capital thresholds that apply to these types of cases.
+      help_text_3: For any other matter, including any immigration or asylum matters not in the Upper Tribunal, select no.
+      guidance_header: Guidance
+      guidance_text_html: Guidance for these matters is in paragraphs 24 to 30, 32(1) and 32A(1) of Part 1 of Schedule 1 to the <a href="%{page_url}" target="_blank" rel="noreferrer noopener">Legal Aid, Sentencing and Punishment of Offenders Act 2012</a> (LASPO).
+      immigration_upper: Yes, immigration (Upper Tribunal)
+      asylum_upper: Yes, asylum (Upper Tribunal)
+      none: "No"
     applicant:
       passporting_guidance:
         text: Guidance on passporting
@@ -1367,9 +1378,10 @@ en:
         level_of_help: Level of help your client needs
         type_of_matter: Type of matter
         asylum_support: Asylum Support
-        matter_type: Type of matter
+        domestic_abuse_applicant: Type of matter
         immigration_or_asylum: Type of matter
         immigration_or_asylum_type: Type of immigration or asylum matter
+        immigration_or_asylum_type_upper_tribunal: Type of immigration or asylum matter
         applicant: Client details
         dependant_details: Dependants
         dependant_income: Dependant income
@@ -1406,13 +1418,14 @@ en:
         level_of_help_options:
           certificated: Civil certificated or licensed legal work
           controlled: Civil controlled work or family mediation
-      matter_type_fields:
-        matter_type: Which type of matter is this?
-        matter_type_options:
-          immigration: Immigration (Upper Tribunal)
-          asylum: Asylum (Upper Tribunal)
-          other: Another category of law
-          domestic_abuse: Domestic abuse
+      domestic_abuse_applicant_fields: 
+        domestic_abuse_applicant: Is your client an applicant in a domestic abuse case?
+      immigration_or_asylum_type_upper_tribunal_fields:
+        immigration_or_asylum_type_upper_tribunal: Is this for a matter in the Immigration and Asylum Chamber of the Upper Tribunal?
+        immigration_or_asylum_type_upper_tribunal_options:
+          immigration_upper: Immigration (Upper Tribunal)
+          asylum_upper: Asylum (Upper Tribunal)
+          none: Another category of law
       immigration_or_asylum_fields:
         immigration_or_asylum: Is this an immigration or asylum matter?
       immigration_or_asylum_type_fields:
@@ -1920,10 +1933,10 @@ en:
             ineligible: Your client's total exceeds the disposable capital upper limit (%{upper_threshold}). This means they are ineligible for legal aid.
             ineligible_no_lower_threshold: Your client's total exceeds the disposable capital upper limit (%{upper_threshold}). This means they are ineligible for legal aid.
         matter_types:
-          domestic_abuse: domestic abuse
-          immigration: immigration
-          asylum: asylum
-          other: other
+          domestic_abuse_applicant: domestic abuse
+          immigration_upper: immigration
+          asylum_upper: asylum
+          none: other
         see_calculation: See calculation.
     legislation_table:
       paragraph_1_controlled_html: This calculation was made using the rules for controlled work in <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>The Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 (opens in new tab)</a> and the <a href="%{page_url_2}" target='_blank' rel='noreferrer noopener' aria-label="Link opens a search page which includes a list of amendments to The Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 (opens in new tab)">amendments to these Regulations (opens in new tab)</a>.

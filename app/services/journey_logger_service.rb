@@ -34,8 +34,16 @@ class JourneyLoggerService
     end
 
     def matter_type(check)
-      if !check.controlled?
-        check.matter_type
+      if !check.controlled? && !check.domestic_abuse_applicant
+        if check.immigration_or_asylum_type_upper_tribunal == "immigration_upper"
+          "immigration"
+        elsif check.immigration_or_asylum_type_upper_tribunal == "asylum_upper"
+          "asylum"
+        else
+          "other"
+        end
+      elsif check.domestic_abuse_applicant
+        "domestic_abuse"
       elsif !check.immigration_or_asylum
         "other"
       else

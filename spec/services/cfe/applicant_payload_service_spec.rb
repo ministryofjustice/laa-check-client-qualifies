@@ -50,7 +50,7 @@ RSpec.describe Cfe::ApplicantPayloadService do
     context "when a&I matter type is used and client is asylum supported" do
       let(:session_data) do
         {
-          matter_type: "immigration",
+          immigration_or_asylum_type_upper_tribunal: "immigration_upper",
           asylum_support: true,
         }.with_indifferent_access
       end
@@ -72,7 +72,7 @@ RSpec.describe Cfe::ApplicantPayloadService do
     context "when a&I matter type is used and client is not asylum supported" do
       let(:session_data) do
         {
-          matter_type: "immigration",
+          immigration_or_asylum_type_upper_tribunal: "immigration_upper",
           asylum_support: false,
           over_60: false,
           employment_status: "unemployed",

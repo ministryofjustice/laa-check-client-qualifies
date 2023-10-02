@@ -23,7 +23,7 @@
 
   - if @model.level_of_help == "certificated"
     = pdf_friendly_h2(t("results.show.what_happens_next"), "m", @is_pdf)
-    - if @check.upper_tribunal?
+    - if @check.immigration_or_asylum?
       = pdf_friendly_p_element(t("results.show.next_steps_without_apply_paragraph_1"), @is_pdf)
     - else
       = pdf_friendly_p_element(t("results.show.next_steps_paragraph_1"), @is_pdf)
