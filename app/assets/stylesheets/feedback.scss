@@ -36,7 +36,7 @@
 .gem-c-feedback__prompt-content {
   display: flex;
   flex-direction: column;
-  // Changed govuk-spacin from 3 to 0
+  // Changed govuk-spacing from 3 to 0
   padding: 0 govuk-spacing(0);
   @include govuk-media-query($from: tablet) {
     flex-direction: row;
