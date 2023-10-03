@@ -4,7 +4,26 @@
       .gem-c-feedback__prompt-content
         .gem-c-feedback__prompt-questions--something-is-wrong
           .gem-c-feedback__prompt-link
-            = t("Give feedback on this page")
+            = t("feedback.freetext.button")
+
+      .gem-c-feedback
+       .gem-c-feedback__form-heading
+         = t("feedback.freetext.heading")
+         .gem-c-feedback__form-paragraph
+           = t("feedback.freetext.heading_hint")
+
+           = form_for(:freetext, local: false) do |form|
+            = form.govuk_text_area :text,
+                                    label: nil,
+                                    hint: nil,
+                                    rows: 5
+
+           button.govuk-button.govuk-button:before type="button" data-freetext-feedback="send"
+             = t("feedback.freetext.button_send")
+
+           button.govuk-button.govuk-button--secondary.gem-c-feedback__close type="button" data-freetext-feedback="cancel"
+             = t("feedback.freetext.button_cancel")
+
   / if the page is results, cw form selection
   / render the satisfaction feedback
   / otherwise render the freetext feedback

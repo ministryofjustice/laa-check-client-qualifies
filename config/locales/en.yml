@@ -2356,3 +2356,19 @@ en:
           - "(if known) 'We estimate [X] checks were affected by this issue'"
         content: Resolution text
         resolve: Resolve problem
+  feedback:
+   freetext:
+     button: Give feedback on this page
+     heading: What is your feedback on this page?
+     heading_hint: Don't include personal information.
+     button_send: Send
+     button_cancel: Cancel
+     thank_you_message: Thank you for your feedback
+   satisfacetion:
+     question: Were you satisfied with this service?
+     yes: "Yes"
+     no: "No"
+     thank_you_message: Thank you for your feedback
+     feedback_link: https://eu.surveymonkey.com/r/ccqpublicbeta
+     feedback_link_html: <a href="%{feedback_link}" target="_blank">Tell us more in our 2 minute survey (opens in new tab)</a>
+
