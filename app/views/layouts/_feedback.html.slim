@@ -1,0 +1,10 @@
+- unless params[:controller] == "start"
+  .gem-c-feedback__prompt
+    .govuk-width-container
+      .gem-c-feedback__prompt-content
+        .gem-c-feedback__prompt-questions--something-is-wrong
+          .gem-c-feedback__prompt-link
+            = t("Give feedback on this page")
+  / if the page is results, cw form selection
+  / render the satisfaction feedback
+  / otherwise render the freetext feedback
