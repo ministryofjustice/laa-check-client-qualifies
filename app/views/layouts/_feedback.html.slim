@@ -12,8 +12,7 @@
          = t("feedback.freetext.heading")
          .gem-c-feedback__form-paragraph
            = t("feedback.freetext.heading_hint")
-           = form_with(url: feedbacks_path(assessment_code: params[:assessment_code],
-                       freetext_feedback: { text:, page: params[:page] }), local: false) do |form|
+           = form_with(url: feedbacks_path(assessment_code: params[:assessment_code], step: "some_step", feedback_type: "freetext"), local: false) do |form|
             = form.govuk_text_area :text,
                                     label: nil,
                                     hint: nil,

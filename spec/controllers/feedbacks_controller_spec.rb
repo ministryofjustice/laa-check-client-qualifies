@@ -19,6 +19,9 @@ RSpec.describe FeedbacksController, type: :controller do
     end
 
     it "raises error if satisfaction outcome is invalid" do
+      post :create, params: { satisfied: true, level_of_help: "controlled", outcome: "foo", widget_type: "satisfaction" }
+      expect(SatisfactionFeedback.find_by(satisfied: true, level_of_help: "controlled", outcome: "foo")).to be_nil
+      expect(response).to raise_error
     end
   end
 end

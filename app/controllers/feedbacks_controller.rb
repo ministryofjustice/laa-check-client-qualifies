@@ -2,10 +2,12 @@ class FeedbacksController < ApplicationController
   def new; end
 
   def create
-    @form = params[:widget_type].include?("satisfaction") ? satisfaction_model : freetext_model
+    # will the data always look like this? could satisfaction_feedback be an empty hash?
+
+    @form = params[:feedback_type].include?("satisfaction") ? satisfaction_model : freetext_model
 
     if @form.valid?
-      if params[:widget_type].include?("satisfaction")
+      if params.include?(:satisfaction_feedback)
         SatisfactionFeedback.create!(
           satisfied:,
           level_of_help:,
@@ -25,12 +27,16 @@ class FeedbacksController < ApplicationController
 
 private
 
+  def assessment_code
+    params[:assessment_code]
+  end
+
   def satisfaction_model
-    SatisfactionFeedback.new(params.permit(:satisfied, :level_of_help, :outcome))
+    SatisfactionFeedback.new(params.require[:feedback].permit(:satisfied))
   end
 
   def freetext_model
-    FreetextFeedback.new(params.permit(:text, :page, :level_of_help))
+    FreetextFeedback.new(params.require[:feedback].permit(:text, :page))
   end
 
   def satisfied
@@ -42,14 +48,20 @@ private
   end
 
   def page
-    @form.page
+    # how to get the page? we use a combination of controller and action in other places
+    # can we use the steps logic?
+    step
   end
 
   def level_of_help
-    @form.level_of_help if @form.level_of_help.present?
+    session_data["level_of_help"]
   end
 
   def outcome
-    @form.outcome
+    session_data["api_response"].dig(:result_summary, :overall_result)[:result]
+  end
+
+  def step
+    @step ||= Flow::Handler.step_from_url_fragment(params[:step_url_fragment])
   end
 end
