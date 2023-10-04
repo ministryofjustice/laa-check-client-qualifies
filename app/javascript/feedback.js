@@ -1,19 +1,39 @@
 const initFeedback = () => {
-  document.querySelector('[data-freetext-feedback="query"]').addEventListener('click', () => {
-    freetextAreaShow();
-  })
-  document.querySelector('[data-freetext-feedback="cancel"]').addEventListener('click', () => {
-    freetextAreaHide();
-  })
-  document.querySelector('[data-freetext-feedback="send"]').addEventListener('click', () => {
-    messageAreaShow();
-  })
-  document.querySelector('[data-satisfaction-feedback="yes-button"]').addEventListener('click', () => {
-    linkAreaShow();
-  })
-  document.querySelector('[data-satisfaction-feedback="no-button"]').addEventListener('click', () => {
-    linkAreaShow();
-  })
+  const query = document.querySelector('[data-freetext-feedback="query"]');
+  const cancel = document.querySelector('[data-freetext-feedback="cancel"]');
+  const send  = document.querySelector('[data-freetext-feedback="send"]');
+  const yes_button = document.querySelector('[data-satisfaction-feedback="yes-button"]');
+  const no_button = document.querySelector('[data-satisfaction-feedback="no-button"]');
+
+  if (query) {
+    query.addEventListener('click', () => {
+     freetextAreaShow();
+    })
+  }
+
+  if (cancel) { 
+    cancel.addEventListener('click', () => {
+     freetextAreaHide();
+    })
+  }
+
+  if (send) {
+    send.addEventListener('click', () => {
+     messageAreaShow();
+    })
+  }
+
+  if (yes_button) {
+    yes_button.addEventListener('click', () => {
+     linkAreaShow();
+    })
+  }
+
+  if (no_button) {
+    no_button.addEventListener('click', () => {
+     linkAreaShow();
+    })
+  }
 };
 
 function freetextAreaShow() {
