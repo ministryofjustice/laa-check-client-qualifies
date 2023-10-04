@@ -1,19 +1,18 @@
 - unless params[:controller] == "start"
-  .gem-c-feedback__prompt
-    .govuk-width-container
-
-      .gem-c-feedback__prompt-content data-module="promt"
+  .gem-c-feedback__prompt data-module="feedback-area"
+    .govuk-width-container data-module="prompt-area"
+      .gem-c-feedback__prompt-content
         .gem-c-feedback__prompt-questions--something-is-wrong
           button.gem-c-feedback__prompt-link data-freetext-feedback="query"
             = t("feedback.freetext.button")
 
-      .gem-c-feedback data-module="freetext"
-       .gem-c-feedback__form-heading
-         = t("feedback.freetext.heading")
-         .gem-c-feedback__form-paragraph
-           = t("feedback.freetext.heading_hint")
-           = form_with(url: feedbacks_path(assessment_code: params[:assessment_code],
-                       freetext_feedback: { text:, page: params[:page] }), local: false) do |form|
+    .govuk-width-container data-module="freetext-area" hidden=true
+      .gem-c-feedback__form-heading
+        = t("feedback.freetext.heading")
+        .gem-c-feedback__form-paragraph
+          = t("feedback.freetext.heading_hint")
+          = form_with(url: feedbacks_path(assessment_code: params[:assessment_code], step: "some_step", feedback_type: "freetext"),
+                      local: false) do |form|
             = form.govuk_text_area :text,
                                     label: nil,
                                     hint: nil,
@@ -25,6 +24,10 @@
             button.govuk-button.govuk-button--secondary.gem-c-feedback__close type="cancel" data-freetext-feedback="cancel"
               = t("feedback.freetext.button_cancel")
 
+    .govuk-width-container data-module="message-area" hidden=true
+      h2.govuk-heading-s class="govuk-!-margin-bottom-0"
+        = t("feedback.freetext.thank_you_message")
+
 / satisfaction feedback area
 
             button.govuk-button.govuk-button:before type="submit" data-freetext-feedback="yes"
@@ -33,6 +36,6 @@
             button.govuk-button.govuk-button--secondary.gem-c-feedback__close type="submit" data-freetext-feedback="no"
               = t("feedback.satisfaction.no")
 
-  / if the page is results, cw form selection
-  / render the satisfaction feedback
-  / otherwise render the freetext feedback
+/ if the page is results, cw form selection
+/ render the satisfaction feedback
+/ otherwise render the freetext feedback

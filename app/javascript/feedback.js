@@ -1,39 +1,33 @@
 const initFeedback = () => {
-  document.querySelector('data-module="promt"]').addEventListener('click', () => {
-    document.querySelector('[data-freetext-feedback="query"]').hidden = true;
-  },
-  false,
-  )
+  document.querySelector('[data-freetext-feedback="query"]').addEventListener('click', () => {
+    freetextAreaShow();
+  })
+  document.querySelector('[data-freetext-feedback="cancel"]').addEventListener('click', () => {
+    freetextAreaHide();
+  })
+  document.querySelector('[data-freetext-feedback="send"]').addEventListener('click', () => {
+    freetextAreaMessage();
+  })
 };
 
-
-const revealElements = () => {
-  const feedbackPrompt = document.querySelector('[data-module="promt"');
-  const widthContainer = document.querySelector('.govuk-width-container');
-
-  if (feedbackPrompt) {
-    feedbackPrompt.hidden = true;
-  }
-
-  if (widthContainer) {
-    widthContainer.hidden = true;
-  }
+const freetextAreaShow = () => {
+  document.querySelector('[data-module="prompt-area"]').hidden = true;
+  document.querySelector('[data-module="freetext-area"]').hidden = false;
+  document.querySelector('[data-module="message-area"]').hidden = true;
+  document.querySelector('[data-module="feedback-area"]').style.backgroundColor = "white"
 };
 
-
-const displayWhiteBackground = () => {
-
+const freetextAreaHide = () => { 
+  document.querySelector('[data-module="prompt-area"]').hidden = false;
+  document.querySelector('[data-module="freetext-area"]').hidden = true;
+  document.querySelector('[data-module="message-area"]').hidden = true;
+  document.querySelector('[data-module="feedback-area"]').style.backgroundColor = "#f3f2f1"
 };
 
-
-
-const cancel = () => {
-
-};
-
-
-const send = () => {
-
+const freetextAreaMessage = () => { 
+  document.querySelector('[data-module="freetext-area"]').hidden = true;
+  document.querySelector('[data-module="message-area"]').hidden = false;
+  document.querySelector('[data-module="feedback-area"]').style.backgroundColor = "#f3f2f1"
 };
 
 
