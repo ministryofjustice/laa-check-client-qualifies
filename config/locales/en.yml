@@ -2364,11 +2364,10 @@ en:
      button_send: Send
      button_cancel: Cancel
      thank_you_message: Thank you for your feedback
-   satisfacetion:
+   satisfaction:
      question: Were you satisfied with this service?
      yes: "Yes"
      no: "No"
      thank_you_message: Thank you for your feedback
-     feedback_link: https://eu.surveymonkey.com/r/ccqpublicbeta
-     feedback_link_html: <a href="%{feedback_link}" target="_blank">Tell us more in our 2 minute survey (opens in new tab)</a>
+     feedback_link_html: <a href="https://eu.surveymonkey.com/r/ccqpublicbeta" target="_blank">Tell us more in our 2 minute survey (opens in new tab)</a>
 

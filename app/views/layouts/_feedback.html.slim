@@ -1,5 +1,8 @@
-- unless params[:controller] == "start"
-  .gem-c-feedback__prompt data-module="feedback-area"
+/ Can't get this condition to work
+/ - if params[:controller] != "results" || params[:controller] != "cw_form_selection"
+
+- if params[:controller] != "results"
+  .gem-c-feedback__prompt data-module="freetext-feedback-area"
     .govuk-width-container data-module="prompt-area"
       .gem-c-feedback__prompt-content
         .gem-c-feedback__prompt-questions--something-is-wrong
@@ -13,10 +16,10 @@
           = t("feedback.freetext.heading_hint")
           = form_with(url: feedbacks_path(assessment_code: params[:assessment_code], step: "some_step", feedback_type: "freetext"),
                       local: false) do |form|
-            = form.govuk_text_area :text,
+            = form.govuk_text_area :freetext,
                                     label: nil,
                                     hint: nil,
-                                    rows: 5
+                                    rows: 7
 
             button.govuk-button.govuk-button:before type="submit" data-freetext-feedback="send"
               = t("feedback.freetext.button_send")
@@ -28,14 +31,25 @@
       h2.govuk-heading-s class="govuk-!-margin-bottom-0"
         = t("feedback.freetext.thank_you_message")
 
-/ satisfaction feedback area
+- else
+  .gem-c-feedback__prompt
+    .govuk-width-container data-module="question-area"
+      span.gem-c-feedback__prompt-question-answer
+        h2.govuk-heading-s class="govuk-!-margin-bottom-0 govuk-!-margin-right-6"
+          = t("feedback.satisfaction.question")
 
-            button.govuk-button.govuk-button:before type="submit" data-freetext-feedback="yes"
-              = t("feedback.satisfaction.yes")
+        = form_with(url: feedbacks_path(assessment_code: params[:assessment_code], step: "some_step", feedback_type: "satisfaction"),
+                  local: false)
 
-            button.govuk-button.govuk-button--secondary.gem-c-feedback__close type="submit" data-freetext-feedback="no"
-              = t("feedback.satisfaction.no")
+          button.gem-c-feedback__prompt-link-small-button type="submit" data-satisfaction-feedback="yes-button"
+            = t("feedback.satisfaction.yes")
 
-/ if the page is results, cw form selection
-/ render the satisfaction feedback
-/ otherwise render the freetext feedback
+          button.gem-c-feedback__prompt-link-small-button type="submit" data-satisfaction-feedback="no"
+            = t("feedback.satisfaction.no")
+
+    .govuk-width-container data-module="link-area" hidden=true
+      span.gem-c-feedback__prompt-question-answer
+        h2.govuk-heading-s class="govuk-!-margin-bottom-0 govuk-!-margin-right-2"
+          = t("feedback.satisfaction.thank_you_message")
+        p.govuk-body-m class="govuk-!-margin-bottom-0 govuk-!-margin-right-6"
+          = t("feedback.satisfaction.feedback_link_html")
