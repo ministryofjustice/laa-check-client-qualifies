@@ -1,13 +1,9 @@
 class FeedbacksController < ApplicationController
-  def new; end
-
   def create
-    # will the data always look like this? could satisfaction_feedback be an empty hash?
-
-    @form = params[:feedback_type].include?("satisfaction") ? satisfaction_model : freetext_model
-
+    # will the data always look like this?
+    @form = params[:type]&.include?("satisfaction") ? satisfaction_model : freetext_model
     if @form.valid?
-      if params.include?(:satisfaction_feedback)
+      if params[:type].include?("satisfaction")
         SatisfactionFeedback.create!(
           satisfied:,
           level_of_help:,
@@ -32,11 +28,11 @@ private
   end
 
   def satisfaction_model
-    SatisfactionFeedback.new(params.require[:feedback].permit(:satisfied))
+    SatisfactionFeedback.new(params.permit(:satisfied))
   end
 
   def freetext_model
-    FreetextFeedback.new(params.require[:feedback].permit(:text, :page))
+    FreetextFeedback.new(params.permit(:text, :page))
   end
 
   def satisfied
@@ -48,9 +44,8 @@ private
   end
 
   def page
-    # how to get the page? we use a combination of controller and action in other places
-    # can we use the steps logic?
-    step
+    # can the page always be sent down from the view? check answers might be different
+    @form.page
   end
 
   def level_of_help
@@ -59,9 +54,5 @@ private
 
   def outcome
     session_data["api_response"].dig(:result_summary, :overall_result)[:result]
-  end
-
-  def step
-    @step ||= Flow::Handler.step_from_url_fragment(params[:step_url_fragment])
   end
 end

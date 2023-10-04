@@ -1,13 +1,10 @@
 require "rails_helper"
 
 RSpec.describe FeedbacksController, type: :controller do
-  describe "#new" do
-  end
-
   describe "#create" do
-    it "saves freetext feedback to the database" do
-      post :create, params: { text: "some text", level_of_help: "controlled", page: "foo", widget_type: "bar" }
-      expect(FreetextFeedback.find_by(text: "some text", level_of_help: "controlled", page: "foo")).not_to be_nil
+    it "saves freetext feedback correctly" do
+      post :create, params: { type: "freetext", feedback: { text: "foo", page: "bar" } }
+      expect(FreetextFeedback.find_by(text: "foo", page: "bar")).not_to be_nil
     end
 
     it "saves satisfaction feedback to the database" do
