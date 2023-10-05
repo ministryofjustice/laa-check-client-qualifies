@@ -1,18 +1,23 @@
 class FeedbacksController < ApplicationController
+  FEEDBACK_TYPES = %w[freetext satisfaction].freeze
+
   def create
-    # will the data always look like this?
-    @form = params[:type]&.include?("satisfaction") ? satisfaction_model : freetext_model
+    if params[:type].nil? || !FEEDBACK_TYPES.include?(params[:type])
+      raise "Feedback type needs to be specified"
+    end
+
+    @form = params[:type].include?("satisfaction") ? satisfaction_model : freetext_model
     if @form.valid?
-      if params[:type].include?("satisfaction")
+      if @form.instance_of?(SatisfactionFeedback)
         SatisfactionFeedback.create!(
-          satisfied:,
+          satisfied: @form.satisfied,
           level_of_help:,
           outcome:,
         )
       else
         FreetextFeedback.create!(
-          text:,
-          page:,
+          text: @form.text,
+          page: @form.page,
           level_of_help:,
         )
       end
@@ -33,18 +38,6 @@ private
 
   def freetext_model
     FreetextFeedback.new(params.permit(:text, :page))
-  end
-
-  def satisfied
-    @form.satisfied
-  end
-
-  def text
-    @form.text
-  end
-
-  def page
-    @form.page
   end
 
   def level_of_help

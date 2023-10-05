@@ -11,8 +11,16 @@ RSpec.describe FeedbacksController, type: :controller do
     it "saves satisfaction feedback correctly" do
       allow_any_instance_of(described_class).to receive(:level_of_help).and_return("controlled")
       allow_any_instance_of(described_class).to receive(:outcome).and_return("eligible")
-      post :create, params: { type: "satisfaction", satisfied: true }
-      expect(SatisfactionFeedback.find_by(satisfied: true, level_of_help: "controlled", outcome: "eligible")).not_to be_nil
+      post :create, params: { type: "satisfaction", satisfied: "yes" }
+      expect(SatisfactionFeedback.find_by(satisfied: "yes", level_of_help: "controlled", outcome: "eligible")).not_to be_nil
+    end
+
+    it "raise error when no feedback type is entered" do
+      expect { post :create, params: { type: nil, satisfied: "yes" } }.to raise_error("Feedback type needs to be specified")
+    end
+
+    it "raise error when an invalid feedback type is entered" do
+      expect { post :create, params: { type: "foo", text: "bar", page: "some page" } }.to raise_error("Feedback type needs to be specified")
     end
   end
 end

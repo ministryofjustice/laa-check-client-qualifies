@@ -9,6 +9,14 @@ RSpec.describe "Feedback" do
 
   context "when on the results page" do
     it "I can successfully submit satisfaction feedback" do
+      # we need to stub the cfe response
+      start_assessment
+      fill_in_forms_until(:check_answers)
+      click_on "Submit"
+      expect(page).to have_content("Were you satisfied with this service?")
+      click_on "Yes"
+      expect(page).to have_content("Thank you for your feedback")
+      expect(page).to have_content("Tell us more in our 2 minute survey (opens in new tab)")
     end
   end
 
