@@ -7,13 +7,9 @@
 
         = form_with(url: feedbacks_path(assessment_code: params[:assessment_code],
                                         type: "satisfaction"),
-                                        local: false)
-
-          button.gem-c-feedback__prompt-link-small-button type="submit" data-satisfaction-feedback="yes-button"
-            = t("feedback.satisfaction.yes")
-
-          button.gem-c-feedback__prompt-link-small-button type="submit" data-satisfaction-feedback="no"
-            = t("feedback.satisfaction.no")
+                                        local: false) do |form|
+          = form.govuk_submit "Yes", value: "Yes", class: "gem-c-feedback__prompt-link-small-button", id: "yesButton"
+          = form.govuk_submit "No", value: "No", class: "gem-c-feedback__prompt-link-small-button", id: "noButton"
 
     .govuk-width-container data-module="link-area" hidden=true
       span.gem-c-feedback__prompt-question-answer

@@ -2,8 +2,8 @@ const initFeedback = () => {
   const query = document.querySelector('[data-freetext-feedback="query"]');
   const cancel = document.querySelector('[data-freetext-feedback="cancel"]');
   const send  = document.querySelector('[data-freetext-feedback="send"]');
-  const yes_button = document.querySelector('[data-satisfaction-feedback="yes-button"]');
-  const no_button = document.querySelector('[data-satisfaction-feedback="no-button"]');
+  const yes_button = document.querySelector('#yesButton');
+  const no_button = document.querySelector('#noButton');
 
   if (query) {
     query.addEventListener('click', () => {
