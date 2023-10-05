@@ -33,15 +33,15 @@
   padding: 0;
 }
 
-@media print {
-  button {
-    display: none !important; // In no circumstances do we want buttons to appear when the page is printed,
-                              // regardless of class-based button styles
-  }
-}
 // Grover/pupetteer has a bug https://github.com/puppeteer/puppeteer/issues/4125
 // this ensures that the bug does not cause the titles in H1 and H2 elements to
 // split on the characters 'fi'
 .no-ligatures{
   font-variant-ligatures: none;
+}
+
+// This controls the overall background colour of the page, as this class is applied
+// to the outermost <html> element.
+.govuk-template {
+  background-color: white;
 }
