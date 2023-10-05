@@ -44,7 +44,6 @@ private
   end
 
   def page
-    # can the page always be sent down from the view? check answers might be different
     @form.page
   end
 
@@ -53,6 +52,6 @@ private
   end
 
   def outcome
-    session_data["api_response"].dig(:result_summary, :overall_result)[:result]
+    session_data["api_response"].dig("result_summary", "overall_result")["result"]
   end
 end

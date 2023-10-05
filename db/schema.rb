@@ -195,7 +195,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_02_105412) do
   end
 
   create_table "satisfaction_feedbacks", force: :cascade do |t|
-    t.boolean "satisfied", null: false
+    t.string "satisfied", null: false
     t.string "level_of_help", null: false
     t.string "outcome", null: false
     t.datetime "created_at", null: false

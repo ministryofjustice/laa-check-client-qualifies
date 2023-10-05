@@ -3,22 +3,16 @@ require "rails_helper"
 RSpec.describe FeedbacksController, type: :controller do
   describe "#create" do
     it "saves freetext feedback correctly" do
-      post :create, params: { type: "freetext", feedback: { text: "foo", page: "bar" } }
-      expect(FreetextFeedback.find_by(text: "foo", page: "bar")).not_to be_nil
+      allow_any_instance_of(described_class).to receive(:level_of_help).and_return("controlled")
+      post :create, params: { type: "freetext", text: "foo", page: "bar" }
+      expect(FreetextFeedback.find_by(text: "foo", page: "bar", level_of_help: "controlled")).not_to be_nil
     end
 
-    it "saves satisfaction feedback to the database" do
-      post :create, params: { satisfied: true, level_of_help: "controlled", outcome: "eligible", widget_type: "satisfaction" }
+    it "saves satisfaction feedback correctly" do
+      allow_any_instance_of(described_class).to receive(:level_of_help).and_return("controlled")
+      allow_any_instance_of(described_class).to receive(:outcome).and_return("eligible")
+      post :create, params: { type: "satisfaction", satisfied: true }
       expect(SatisfactionFeedback.find_by(satisfied: true, level_of_help: "controlled", outcome: "eligible")).not_to be_nil
-    end
-
-    it "errors if feedback text is blank" do
-    end
-
-    it "raises error if satisfaction outcome is invalid" do
-      post :create, params: { satisfied: true, level_of_help: "controlled", outcome: "foo", widget_type: "satisfaction" }
-      expect(SatisfactionFeedback.find_by(satisfied: true, level_of_help: "controlled", outcome: "foo")).to be_nil
-      expect(response).to raise_error
     end
   end
 end
