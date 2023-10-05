@@ -1,7 +1,7 @@
 - if params[:controller] == "results" || params[:controller] == "controlled_work_document_selections"
   .gem-c-feedback__prompt
     .govuk-width-container data-module="question-area"
-      span.gem-c-feedback__prompt-question-answer
+      span.gem-c-feedback__prompt-question-answer role="form"
         h2.govuk-heading-s class="govuk-!-margin-bottom-0 govuk-!-margin-right-6"
           = t("feedback.satisfaction.question")
 
@@ -48,7 +48,7 @@
             button.govuk-button.govuk-button:before type="submit" data-freetext-feedback="send"
               = t("feedback.freetext.button_send")
 
-            .govuk-button.govuk-button--secondary.gem-c-feedback__close type="cancel" data-freetext-feedback="cancel"
+            button.govuk-button.govuk-button--secondary.gem-c-feedback__close type="button" data-freetext-feedback="cancel"
               = t("feedback.freetext.button_cancel")
 
     .govuk-width-container data-module="message-area" hidden=true
