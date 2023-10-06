@@ -1,64 +1,40 @@
 const initFeedback = () => {
-  const query = document.querySelector('[data-freetext-feedback="query"]');
+  const prompt = document.querySelector('[data-freetext-feedback="prompt"]');
   const cancel = document.querySelector('[data-freetext-feedback="cancel"]');
   const send  = document.querySelector('[data-freetext-feedback="send"]');
-  const yes_button = document.querySelector('#yesButton');
-  const no_button = document.querySelector('#noButton');
+  const yes_button = document.querySelector('#data-satisfaction-feedback-yes');
+  const no_button = document.querySelector('#data-satisfaction-feedback-no');
 
-  if (query) {
-    query.addEventListener('click', () => {
-     freetextAreaShow();
-    })
-  }
 
-  if (cancel) { 
-    cancel.addEventListener('click', () => {
-     freetextAreaHide();
-    })
-  }
+  prompt?.addEventListener('click', () => {
+    showSection("freetext");
+  });
 
-  if (send) {
-    send.addEventListener('click', () => {
-     messageAreaShow();
-    })
-  }
+  cancel?.addEventListener('click', () => {
+    showSection("prompt");
+  })
 
-  if (yes_button) {
-    yes_button.addEventListener('click', () => {
-     linkAreaShow();
-    })
-  }
+  send?.addEventListener('click', () => {
+    showSection("message");
+  })
 
-  if (no_button) {
-    no_button.addEventListener('click', () => {
-     linkAreaShow();
-    })
-  }
+  yes_button?.addEventListener('click', () => {
+    showSection("link");
+  })
+
+  no_button?.addEventListener('click', () => {
+    showSection("link");
+  })
 };
 
-function freetextAreaShow() {
-  document.querySelector('[data-module="prompt-area"]').hidden = true;
-  document.querySelector('[data-module="freetext-area"]').hidden = false;
-  document.querySelector('[data-module="message-area"]').hidden = true;
-  document.querySelector('[data-module="freetext-feedback-area"]').style.backgroundColor = "white";
-}
+function showSection(sectionArea) {
+  ['freetext', 'message', 'prompt', 'link', 'question'].forEach((section) => {
+    const sectionElement = document.querySelector(`[data-feedback-section="${section}-area"]`);
 
-function freetextAreaHide() {
-  document.querySelector('[data-module="prompt-area"]').hidden = false;
-  document.querySelector('[data-module="freetext-area"]').hidden = true;
-  document.querySelector('[data-module="message-area"]').hidden = true;
-  document.querySelector('[data-module="freetext-feedback-area"]').style.backgroundColor = "#f3f2f1";
-}
-
-function messageAreaShow() {
-  document.querySelector('[data-module="freetext-area"]').hidden = true;
-  document.querySelector('[data-module="message-area"]').hidden = false;
-  document.querySelector('[data-module="freetext-feedback-area"]').style.backgroundColor = "#f3f2f1";
-}
-
-function linkAreaShow() {
-  document.querySelector('[data-module="question-area"]').hidden = true;
-  document.querySelector('[data-module="link-area"]').hidden = false;
+     if (sectionElement) {
+      sectionElement.hidden = (section !== sectionArea);
+     }
+  });
 }
 
 export default initFeedback;

@@ -11,6 +11,18 @@
   padding-bottom: 20px;
 }
 
+// New style added in
+.gem-c-feedback__prompt-white {
+  background-color: govuk-colour("white");
+  color: govuk-colour("black");
+  border-top: 1px solid $govuk-border-colour;
+  outline: 0;
+  // Added in
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+
 .gem-c-feedback__prompt-content {
   display: flex;
   flex-direction: column;
