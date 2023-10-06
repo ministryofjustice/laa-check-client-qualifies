@@ -16,6 +16,7 @@
   flex-direction: column;
   // Changed govuk-spacing from 3 to 0
   padding: 0 govuk-spacing(0);
+
   @include govuk-media-query($from: tablet) {
     flex-direction: row;
     align-items: center;
@@ -23,18 +24,11 @@
   }
 }
 
-.gem-c-feedback__prompt-questions {
-  text-align: left;
-  padding: govuk-spacing(4) 0;
-  @include govuk-media-query($from: tablet) {
-    margin: 0 govuk-spacing(3);
-  }
-}
-
 .gem-c-feedback__prompt-questions--something-is-wrong {
   border-top: 1px solid $govuk-border-colour;
   // Added in
   display: flex;
+
   @include govuk-media-query($from: tablet) {
     border: 0;
   }
@@ -45,6 +39,7 @@
   align-items: center;
   // Added in
   column-gap: 10px;
+  
   @include govuk-media-query($until: mobile) {
     justify-content: center;
     flex-wrap: wrap;
@@ -98,6 +93,7 @@
   text-align: center;
   margin-right: 15px;
   padding: govuk-spacing(0) 6;
+
   @include govuk-media-query($from: tablet) {
     @include govuk-font(16);
   }
@@ -119,48 +115,6 @@
   }
 }
 
-// Feedback form styles - not used but may want to at future date
-.gem-c-feedback__error-summary {
-  margin-bottom: govuk-spacing(3);
-  padding: govuk-spacing(3);
-  border: solid $govuk-border-width-narrow $govuk-error-colour;
-  clear: both;
-
-  &:focus {
-    outline: solid 3px $govuk-focus-colour;
-  }
-
-  @include govuk-media-query($from: desktop) {
-    border-width: $govuk-border-width;
-  }
-
-  // this comes from the backend so we can't put a class on it
-  h2 {
-    @include govuk-text-colour;
-    @include govuk-font($size: 24, $weight: bold);
-    margin: 0 0 govuk-spacing(3) 0;
-  }
-
-  p {
-    @include govuk-text-colour;
-    @include govuk-font($size: 19);
-    margin: 0 0 govuk-spacing(3) 0;
-  }
-
-  a {
-    @include govuk-link-common;
-    @include govuk-link-style-default;
-    @include govuk-link-print-friendly;
-  }
-}
-
-.gem-c-feedback__error-message {
-  @include govuk-font(19, $weight: bold);
-  display: block;
-  padding: 4px 0 0;
-  color: $govuk-error-colour;
-}
-
 .gem-c-feedback__form-heading {
   @include govuk-text-colour;
   @include govuk-font(24, $weight: bold);
@@ -172,7 +126,6 @@
   @include govuk-font(19);
   margin: 0 0 govuk-spacing(6) 0;
 }
-
 
 .gem-c-feedback__close {
   margin: 0 govuk-spacing(2);

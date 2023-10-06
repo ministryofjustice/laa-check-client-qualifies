@@ -513,8 +513,6 @@ en:
     beta_message_pilot_heading: This page is no longer active as the pilot phase is complete.
     beta_message_pilot_body_1: Thank you for taking part.
     beta_message_pilot_body_2_html: <a href="https://%{public_beta_link}" target="_blank">Check if your client qualifies for legal aid</a> is now live and available to all users.
-    survey_prompt: What did you think of this service?
-    survey_hint: (takes 2 minutes)
   generic:
     yes_choice: "Yes"
     no_choice: "No"
@@ -2366,8 +2364,6 @@ en:
      thank_you_message: Thank you for your feedback
    satisfaction:
      question: Were you satisfied with this service?
-     yes: "Yes"
-     no: "No"
      thank_you_message: Thank you for your feedback
      feedback_link_html: <a href="https://eu.surveymonkey.com/r/ccqpublicbeta" target="_blank">Tell us more in our 2 minute survey (opens in new tab)</a>
 
