@@ -1,7 +1,6 @@
 require "rails_helper"
 
 RSpec.describe "Feedback component" do
->>>>>>> d27d7de681d8977f7a77fade6c9036777b582aeb
   let(:assessment_code) { :assessment_code }
 
   before do
