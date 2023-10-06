@@ -1,6 +1,7 @@
 require "rails_helper"
 
-RSpec.describe "Freetext feedback" do
+RSpec.describe "Feedback component" do
+>>>>>>> d27d7de681d8977f7a77fade6c9036777b582aeb
   let(:assessment_code) { :assessment_code }
 
   before do
@@ -49,35 +50,26 @@ RSpec.describe "Freetext feedback" do
     end
   end
 
-  context "when on any other page in the flow" do
-    it "I can submit freetext feedback" do
-      visit check_answers_path(assessment_code)
-      expect(page).to have_content("Give feedback on this page")
-      click_on "Give feedback on this page"
-      fill_in "text-field", with: "some feedback!"
-      click_on "Send"
-      expect(page).to have_content("Thank you for your feedback")
-    end
+  describe "Freetext feedback" do
+    context "when on any other page in the flow" do
+      it "I can submit freetext feedback" do
+        visit check_answers_path(assessment_code)
+        expect(page).to have_content("Give feedback on this page")
+        click_on "Give feedback on this page"
+        fill_in "text-field", with: "some feedback!"
+        click_on "Send"
+        expect(page).to have_content("Thank you for your feedback")
+      end
 
-    it "I can cancel my freetext feedback" do
-      visit check_answers_path(assessment_code)
-      expect(page).to have_content("Give feedback on this page")
-      click_on "Give feedback on this page"
-      fill_in "text-field", with: "some feedback!"
-      click_on "Cancel"
-      expect(page).to have_content("Give feedback on this page")
-      expect(page).not_to have_content("Thank you for your feedback")
-    end
-  end
-
-  context "when level of help is not yet set" do
-    it "I can submit freetext feedback" do
-      visit "/what-level-help/#{assessment_code}"
-      expect(page).to have_content("Give feedback on this page")
-      click_on "Give feedback on this page"
-      fill_in "text-field", with: "some more feedback!"
-      click_on "Send"
-      expect(page).to have_content("Thank you for your feedback")
+      it "I can cancel my freetext feedback" do
+        visit check_answers_path(assessment_code)
+        expect(page).to have_content("Give feedback on this page")
+        click_on "Give feedback on this page"
+        fill_in "text-field", with: "some feedback!"
+        click_on "Cancel"
+        expect(page).to have_content("Give feedback on this page")
+        expect(page).not_to have_content("Thank you for your feedback")
+      end
     end
   end
 end
