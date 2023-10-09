@@ -60,7 +60,7 @@ html dir="ltr" lang="en-GB" class="govuk-template"
 
           = yield
 
-    - unless params[:controller] == "start"
+    - if @feedback
       = render partial: "layouts/feedback"
 
     = render partial: "layouts/footer"

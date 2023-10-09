@@ -1,4 +1,6 @@
 class ControlledWorkDocumentSelectionsController < ApplicationController
+  before_action :specify_feedback_widget
+
   def new
     track_page_view(page: :cw_form_selection)
     @form = ControlledWorkDocumentSelection.new
@@ -28,5 +30,9 @@ private
 
   def assessment_code
     params[:assessment_code]
+  end
+
+  def specify_feedback_widget
+    @feedback = :satisfaction
   end
 end

@@ -1,5 +1,11 @@
 class HelpsController < ApplicationController
-  before_action :track_page_view, only: :show
+  before_action :specify_feedback_widget, :track_page_view, only: :show
 
   def show; end
+
+protected
+
+  def specify_feedback_widget
+    @feedback = :freetext
+  end
 end

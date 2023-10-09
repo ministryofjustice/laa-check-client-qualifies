@@ -20,6 +20,8 @@ class ChecksController < ApplicationController
     @check = Check.new(session_data)
     @sections = CheckAnswers::SectionListerService.call(session_data)
     track_page_view(page: :check_answers)
+    @feedback = :freetext
+    @freeform_feedback_step = "check_answers"
   end
 
   def assessment_code

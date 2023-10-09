@@ -1,5 +1,5 @@
 class ResultsController < ApplicationController
-  before_action :load_check, only: %i[show download]
+  before_action :specify_feedback_widget, :load_check, only: %i[show download]
 
   def create
     session_data["api_response"] = CfeService.call(session_data)
@@ -44,5 +44,9 @@ private
 
   def track_completed_journey(calculation_result)
     JourneyLoggerService.call(assessment_id, calculation_result, @check, cookies)
+  end
+
+  def specify_feedback_widget
+    @feedback = :satisfaction
   end
 end
