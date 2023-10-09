@@ -73,10 +73,10 @@ GEM
     addressable (2.8.5)
       public_suffix (>= 2.0.2, < 6.0)
     ast (2.4.2)
-    axe-core-api (4.7.0)
+    axe-core-api (4.8.0)
       dumb_delegator
       virtus
-    axe-core-rspec (4.7.0)
+    axe-core-rspec (4.8.0)
       axe-core-api
       dumb_delegator
       virtus
