@@ -52,7 +52,8 @@ RSpec.describe "Feedback component" do
   describe "Freetext feedback" do
     context "when on any other page in the flow" do
       it "I can submit freetext feedback" do
-        visit check_answers_path(assessment_code)
+        start_assessment
+        fill_in_forms_until(:check_answers)
         expect(page).to have_content("Give feedback on this page")
         click_on "Give feedback on this page"
         fill_in "text-field", with: "some feedback!"
@@ -61,7 +62,8 @@ RSpec.describe "Feedback component" do
       end
 
       it "I can cancel my freetext feedback" do
-        visit check_answers_path(assessment_code)
+        start_assessment
+        fill_in_forms_until(:check_answers)
         expect(page).to have_content("Give feedback on this page")
         click_on "Give feedback on this page"
         fill_in "text-field", with: "some feedback!"
