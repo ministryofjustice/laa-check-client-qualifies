@@ -39,7 +39,7 @@
         = t("feedback.freetext.heading_hint")
       = form_with(url: feedbacks_path(assessment_code: params[:assessment_code],
                                       type: "freetext",
-                                      page: @step),
+                                      page: @freeform_feedback_step),
                                       local: false) do |form|
         = form.govuk_text_area :text,
                                 label: nil,

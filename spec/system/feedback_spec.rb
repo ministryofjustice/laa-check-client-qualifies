@@ -1,16 +1,14 @@
 require "rails_helper"
 
 RSpec.describe "Feedback component" do
-  let(:assessment_code) { :assessment_code }
-
   before do
     driven_by(:headless_chrome)
   end
 
-  describe "satisafaction feedback" do
+  describe "satisfaction feedback" do
     before do
       stub_request(:post, %r{v6/assessments\z}).to_return(
-        body: FactoryBot.build(:api_result, eligible: "eligible").to_json,
+        body: build(:api_result, eligible: "eligible").to_json,
         headers: { "Content-Type" => "application/json" },
       )
     end
@@ -50,26 +48,28 @@ RSpec.describe "Feedback component" do
   end
 
   describe "Freetext feedback" do
-    context "when on any other page in the flow" do
-      it "I can submit freetext feedback" do
-        start_assessment
-        fill_in_forms_until(:check_answers)
-        expect(page).to have_content("Give feedback on this page")
-        click_on "Give feedback on this page"
-        fill_in "text-field", with: "some feedback!"
-        click_on "Send"
-        expect(page).to have_content("Thank you for your feedback")
-      end
+    describe "pages within the question flow" do
+      context "when on the check answers page" do
+        it "I can submit freetext feedback" do
+          start_assessment
+          fill_in_forms_until(:check_answers)
+          expect(page).to have_content("Give feedback on this page")
+          click_on "Give feedback on this page"
+          fill_in "text-field", with: "some feedback!"
+          click_on "Send"
+          expect(page).to have_content("Thank you for your feedback")
+        end
 
-      it "I can cancel my freetext feedback" do
-        start_assessment
-        fill_in_forms_until(:check_answers)
-        expect(page).to have_content("Give feedback on this page")
-        click_on "Give feedback on this page"
-        fill_in "text-field", with: "some feedback!"
-        click_on "Cancel"
-        expect(page).to have_content("Give feedback on this page")
-        expect(page).not_to have_content("Thank you for your feedback")
+        it "I can cancel my freetext feedback" do
+          start_assessment
+          fill_in_forms_until(:check_answers)
+          expect(page).to have_content("Give feedback on this page")
+          click_on "Give feedback on this page"
+          fill_in "text-field", with: "some feedback!"
+          click_on "Cancel"
+          expect(page).to have_content("Give feedback on this page")
+          expect(page).not_to have_content("Thank you for your feedback")
+        end
       end
     end
   end

@@ -1,8 +1,9 @@
 class SatisfactionFeedback < ApplicationRecord
-  OUTCOMES = %w[eligible eligible_contribution_required inelible].freeze
   attribute :satisfied, :string
   attribute :level_of_help, :string
   attribute :outcome, :string
 
-  validates :satisfied, inclusion: { in: %w[yes no] }
+  validates :satisfied, presence: true, inclusion: { in: %w[yes no] }
+  validates :level_of_help, presence: true
+  validates :outcome, presence: true
 end
