@@ -68,6 +68,19 @@ RSpec.describe "Feedback component" do
           expect(FreetextFeedback.find_by(text: "some feedback!", page: "check_answers_checks", level_of_help: "certificated")).to be_nil
           expect(FreetextFeedback.count).to be(0)
         end
+
+        it "I'm presented with prompt, when I don't enter any text" do
+          start_assessment
+          fill_in_forms_until(:check_answers)
+          expect(page).to have_content("Give feedback on this page")
+          click_on "Give feedback on this page"
+          fill_in "text-field", with: ""
+          click_on "Send"
+          expect(page).to have_content("Give feedback on this page")
+          expect(page).not_to have_content("Thank you for your feedback")
+          expect(FreetextFeedback.find_by(text: "", page: "check_answers_checks", level_of_help: "certificated")).to be_nil
+          expect(FreetextFeedback.count).to be(0)
+        end
       end
     end
 
