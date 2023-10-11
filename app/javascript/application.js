@@ -21,7 +21,9 @@ document.querySelectorAll('a[data-behaviour="browser-back"]').forEach((link) => 
   });
 });
 
-Rails.start();
+if (!window._rails_loaded) {
+  Rails.start();
+}
 initAll();
 initResults();
 initFeedback();
