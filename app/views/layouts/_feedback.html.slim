@@ -23,7 +23,7 @@
           = t("feedback.satisfaction.thank_you_message")
         p.govuk-body-m class="govuk-!-margin-bottom-0 govuk-!-margin-right-6"
           = t("feedback.satisfaction.feedback_link_html")
-- if @feedback == :freetext
+- elsif @feedback == :freetext
   .gem-c-feedback__prompt data-feedback-section="prompt-area"
     .govuk-width-container
       .gem-c-feedback__prompt-content

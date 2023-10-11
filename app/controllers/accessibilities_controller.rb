@@ -4,6 +4,6 @@ class AccessibilitiesController < ApplicationController
   def show; end
 
   def specify_feedback_widget
-    @feedback = "none"
+    @feedback = :none
   end
 end

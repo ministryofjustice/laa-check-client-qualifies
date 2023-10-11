@@ -17,7 +17,7 @@ const initFeedback = () => {
   send?.addEventListener('click', (e) => {
     const freetextField = document.getElementById("text-field")
 
-    if (freetextField.value === "") {
+    if (freetextField.value.replace(/\s+/g, '') === "") {
       e.preventDefault();
       showSection("prompt")
     } else {
