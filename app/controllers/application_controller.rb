@@ -2,11 +2,13 @@ class ApplicationController < ActionController::Base
   BROWSER_ID_COOKIE = :browser_id
   BASIC_AUTHENTICATION_COOKIE = :basic_authenticated
   default_form_builder GOVUKDesignSystemFormBuilder::FormBuilder
-  before_action :force_setting_of_session_cookie, :authenticate, :check_maintenance_mode
+  before_action :force_setting_of_session_cookie, :specify_feedback_widget, :authenticate, :check_maintenance_mode
 
   class MissingSessionError < StandardError; end
 
   rescue_from MissingSessionError do
+    @feedback = :freetext
+    @freetext_feedback_page_name = "missing_session"
     render "errors/missing_session"
   end
 
@@ -81,5 +83,10 @@ private
 
   def after_sign_in_path_for(*)
     rails_admin_path
+  end
+
+  def specify_feedback_widget
+    @feedback = :freetext
+    @freetext_feedback_page_name = page_name
   end
 end

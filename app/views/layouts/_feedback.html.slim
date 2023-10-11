@@ -37,14 +37,14 @@
         = t("feedback.freetext.heading")
       .govuk-body-m class="govuk-!-margin-bottom-4"
         = t("feedback.freetext.heading_hint")
-      = form_with(url: feedbacks_path(assessment_code: params[:assessment_code],
-                                      type: "freetext",
-                                      page: @freeform_feedback_step),
-                                      local: false) do |form|
+      = form_with(url: feedbacks_path, local: false) do |form|
         = form.govuk_text_area :text,
                                 label: nil,
                                 hint: nil,
                                 rows: 4
+        input type="hidden" name="assessment_code" value=params[:assessment_code]
+        input type="hidden" name="type" value="freetext"
+        input type="hidden" name="page" value=@freetext_feedback_page_name
 
         button.govuk-button.govuk-button:before type="submit" data-freetext-feedback="send"
           = t("feedback.freetext.button_send")

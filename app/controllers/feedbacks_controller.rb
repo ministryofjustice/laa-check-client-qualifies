@@ -19,6 +19,7 @@ class FeedbacksController < ApplicationController
         level_of_help:,
       )
     end
+    head :created
   end
 
 private
@@ -28,6 +29,8 @@ private
   end
 
   def level_of_help
+    return if assessment_code.blank?
+
     session_data["level_of_help"]
   end
 

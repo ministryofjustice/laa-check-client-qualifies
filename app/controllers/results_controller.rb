@@ -1,5 +1,5 @@
 class ResultsController < ApplicationController
-  before_action :specify_feedback_widget, :load_check, only: %i[show download]
+  before_action :load_check, only: %i[show download]
 
   def create
     session_data["api_response"] = CfeService.call(session_data)

@@ -1,5 +1,5 @@
 class QuestionFlowController < ApplicationController
-  before_action :specify_feedback_widget, :load_check
+  before_action :load_check
 
   def show
     track_page_view
@@ -34,10 +34,5 @@ protected
 
   def step
     @step ||= Flow::Handler.step_from_url_fragment(params[:step_url_fragment])
-  end
-
-  def specify_feedback_widget
-    @feedback = :freetext
-    @freeform_feedback_step = step
   end
 end

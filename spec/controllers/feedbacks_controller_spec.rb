@@ -2,18 +2,20 @@ require "rails_helper"
 
 RSpec.describe FeedbacksController, type: :controller do
   describe "#create" do
-    before do
-      allow(controller).to receive(:level_of_help).and_return("controlled")
+    let(:session) do
+      { "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4" =>
+                      { "level_of_help" => "controlled",
+                        "api_response" =>
+                        { "result_summary" => { "overall_result" => { "result" => "eligible" } } } } }
     end
 
     it "saves freetext feedback correctly" do
-      post :create, params: { type: "freetext", text: "foo", page: "bar" }
+      post :create, session:, params: { assessment_code: "1234", type: "freetext", text: "foo", page: "bar" }
       expect(FreetextFeedback.find_by(text: "foo", page: "bar", level_of_help: "controlled")).not_to be_nil
     end
 
     it "saves satisfaction feedback correctly" do
-      allow(controller).to receive(:outcome).and_return("eligible")
-      post :create, params: { type: "satisfaction", satisfied: "yes" }
+      post :create, session:, params: { assessment_code: "1234", type: "satisfaction", satisfied: "yes" }
       expect(SatisfactionFeedback.find_by(satisfied: "yes", level_of_help: "controlled", outcome: "eligible")).not_to be_nil
     end
 
