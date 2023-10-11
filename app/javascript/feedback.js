@@ -14,8 +14,15 @@ const initFeedback = () => {
     showSection("prompt");
   })
 
-  send?.addEventListener('click', () => {
-    showSection("message");
+  send?.addEventListener('click', (e) => {
+    const freetextField = document.getElementById("text-field")
+
+    if (freetextField.value === "") {
+      e.preventDefault();
+      showSection("prompt")
+    } else {
+      showSection("message");
+    }
   })
 
   yes_button?.addEventListener('click', () => {
