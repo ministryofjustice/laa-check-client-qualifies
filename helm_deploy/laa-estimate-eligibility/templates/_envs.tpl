@@ -51,6 +51,8 @@ env:
       secretKeyRef:
         name: kube-secrets
         key: sentry-dsn
+  - name: SENTRY_CLIENT_SIDE_DSN
+    value: {{ .Values.sentry.clientSideDsn }}
   - name: GOOGLE_TAG_MANAGER_ID
     value: {{ .Values.googleTagManager.containerId }}
   - name: CFE_HOST

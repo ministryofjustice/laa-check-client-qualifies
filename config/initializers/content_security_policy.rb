@@ -17,6 +17,9 @@ Rails.application.configure do
     # This is the SHA for the inline CSS used by the static service unavailable page (as it's static, it can't use a nonce)
     policy.style_src   "'sha256-77rnAjTWIfn0C+JGy/VQ5ZlAh2ZNEkgbAZfHP+ot9k0='", :self, :https, :report_sample
 
+    # Sentry creates workers from "blobs" in order to report on errors, so we allow that
+    policy.worker_src :blob
+
     # Specify URI for violation reports
     policy.report_uri(ENV["CSP_REPORT_ENDPOINT"]) if ENV["CSP_REPORT_ENDPOINT"].present?
   end
