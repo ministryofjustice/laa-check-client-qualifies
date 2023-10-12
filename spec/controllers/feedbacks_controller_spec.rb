@@ -2,8 +2,7 @@ require "rails_helper"
 
 RSpec.describe FeedbacksController, type: :controller do
   describe "#create" do
-    # This long character, is the corresponding ID when the assessment_code is "1234".
-    # We have used here as the cookies["SessionData"] will be blank, in this test.
+    # This long string is the corresponding assessment_id when the assessment_code is "1234" and cookies["SessionData"] is blank
     let(:session) do
       { "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4" =>
                       { "level_of_help" => "controlled",

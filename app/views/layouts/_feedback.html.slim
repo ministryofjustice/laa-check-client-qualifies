@@ -17,7 +17,7 @@
                                         local: false) do |form|
           = form.govuk_submit "No", class: "gem-c-feedback__prompt-link-small-button", id: "data-satisfaction-feedback-no"
 
-    .govuk-width-container data-feedback-section="link-area" hidden=true
+    .govuk-width-container data-feedback-section="link-area" hidden=true aria-live="assertive"
       span.gem-c-feedback__prompt-question-answer
         h2.govuk-heading-s class="govuk-!-margin-bottom-0 govuk-!-margin-right-2"
           = t("feedback.satisfaction.thank_you_message")
@@ -31,7 +31,7 @@
           button.gem-c-feedback__prompt-link data-freetext-feedback="prompt"
             = t("feedback.freetext.button")
 
-  .gem-c-feedback__prompt-white data-feedback-section="freetext-area" hidden=true
+  .gem-c-feedback__prompt-white data-feedback-section="freetext-area" hidden=true aria-live="assertive"
     .govuk-width-container
       .gem-c-feedback__form-heading
         = t("feedback.freetext.heading")
@@ -52,7 +52,7 @@
         button.govuk-button.govuk-button--secondary.gem-c-feedback__close type="button" data-freetext-feedback="cancel"
           = t("feedback.freetext.button_cancel")
 
-  .gem-c-feedback__prompt data-feedback-section="message-area" hidden=true
+  .gem-c-feedback__prompt data-feedback-section="message-area" hidden=true aria-live="assertive"
     .govuk-width-container
       h2.govuk-heading-s class="govuk-!-margin-bottom-0"
         = t("feedback.freetext.thank_you_message")
