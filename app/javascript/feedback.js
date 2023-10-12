@@ -5,9 +5,9 @@ const initFeedback = () => {
   const yes_button = document.querySelector('#data-satisfaction-feedback-yes');
   const no_button = document.querySelector('#data-satisfaction-feedback-no');
 
-
   prompt?.addEventListener('click', () => {
     showSection("freetext");
+    document.getElementById("freetext-input-field").focus();
   });
 
   cancel?.addEventListener('click', () => {
@@ -15,13 +15,14 @@ const initFeedback = () => {
   })
 
   send?.addEventListener('click', (e) => {
-    const freetextField = document.getElementById("text-field")
+    const freetextField = document.getElementById("freetext-input-field")
 
     if (freetextField.value.replace(/\s+/g, '') === "") {
       e.preventDefault();
       showSection("prompt")
     } else {
       showSection("message");
+      document.getElementById("thank-you-message").focus();
     }
   })
 

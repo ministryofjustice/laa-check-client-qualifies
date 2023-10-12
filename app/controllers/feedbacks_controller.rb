@@ -14,7 +14,7 @@ class FeedbacksController < ApplicationController
       )
     else
       FreetextFeedback.create!(
-        text: params[:text],
+        text: params[:freetext_input],
         page: params[:page],
         level_of_help:,
       )

@@ -11,7 +11,7 @@ RSpec.describe FeedbacksController, type: :controller do
     end
 
     it "saves freetext feedback correctly" do
-      post :create, session:, params: { assessment_code: "1234", type: "freetext", text: "foo", page: "bar" }
+      post :create, session:, params: { assessment_code: "1234", type: "freetext", freetext_input: "foo", page: "bar" }
       expect(FreetextFeedback.find_by(text: "foo", page: "bar", level_of_help: "controlled")).not_to be_nil
     end
 

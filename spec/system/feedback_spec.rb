@@ -50,7 +50,7 @@ RSpec.describe "Feedback component" do
           fill_in_forms_until(:check_answers)
           expect(page).to have_content("Give feedback on this page")
           click_on "Give feedback on this page"
-          fill_in "text-field", with: "some feedback!"
+          fill_in "freetext-input-field", with: "some feedback!"
           click_on "Send"
           expect(page).to have_content("Thank you for your feedback")
           expect(FreetextFeedback.find_by(text: "some feedback!", page: "check_answers_checks", level_of_help: "certificated")).not_to be_nil
@@ -61,7 +61,7 @@ RSpec.describe "Feedback component" do
           fill_in_forms_until(:check_answers)
           expect(page).to have_content("Give feedback on this page")
           click_on "Give feedback on this page"
-          fill_in "text-field", with: "some feedback!"
+          fill_in "freetext-input-field", with: "some feedback!"
           click_on "Cancel"
           expect(page).to have_content("Give feedback on this page")
           expect(page).not_to have_content("Thank you for your feedback")
@@ -74,7 +74,7 @@ RSpec.describe "Feedback component" do
           fill_in_forms_until(:check_answers)
           expect(page).to have_content("Give feedback on this page")
           click_on "Give feedback on this page"
-          fill_in "text-field", with: ""
+          fill_in "freetext-input-field", with: ""
           click_on "Send"
           expect(page).to have_content("Give feedback on this page")
           expect(page).not_to have_content("Thank you for your feedback")
@@ -90,7 +90,7 @@ RSpec.describe "Feedback component" do
           visit "/updates"
           expect(page).to have_content("Give feedback on this page")
           click_on "Give feedback on this page"
-          fill_in "text-field", with: "some feedback!"
+          fill_in "freetext-input-field", with: "some feedback!"
           click_on "Send"
           expect(page).to have_content("Thank you for your feedback")
           expect(FreetextFeedback.find_by(text: "some feedback!", page: "index_updates", level_of_help: nil)).not_to be_nil
@@ -102,7 +102,7 @@ RSpec.describe "Feedback component" do
           visit "/help"
           expect(page).to have_content("Give feedback on this page")
           click_on "Give feedback on this page"
-          fill_in "text-field", with: "some feedback!"
+          fill_in "freetext-input-field", with: "some feedback!"
           click_on "Send"
           expect(page).to have_content("Thank you for your feedback")
           expect(FreetextFeedback.find_by(text: "some feedback!", page: "show_helps", level_of_help: nil)).not_to be_nil
