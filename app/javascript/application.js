@@ -7,14 +7,13 @@ if (sentryDsn) {
     integrations: [new Sentry.BrowserTracing(), new Sentry.Replay()],
     // All errors are captured
     sampleRate: 1,
-    // 10% of non-erroring sessions are captured for performance monitoring
-    tracesSampleRate: 0.1,
-
-    // 10% of sessions are replayable
-    replaysSessionSampleRate: 0.1,
-
     // All erroring sessions are replayable
     replaysOnErrorSampleRate: 1.0,
+
+    // No non-erroring sessions are captured for performance monitoring
+    tracesSampleRate: 0,
+    // No non-erroring sessions are replayable
+    replaysSessionSampleRate: 0,
   });
 }
 
