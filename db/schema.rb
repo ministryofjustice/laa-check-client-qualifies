@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_31_112025) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_02_105412) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,20 +22,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_31_112025) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
-  end
-
-  create_table "active_admin_comments", force: :cascade do |t|
-    t.string "namespace"
-    t.text "body"
-    t.string "resource_type"
-    t.bigint "resource_id"
-    t.string "author_type"
-    t.bigint "author_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author"
-    t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
-    t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource"
   end
 
   create_table "active_storage_attachments", force: :cascade do |t|
@@ -183,6 +169,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_31_112025) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "freetext_feedbacks", force: :cascade do |t|
+    t.text "text", null: false
+    t.string "page", null: false
+    t.string "level_of_help"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "issue_updates", force: :cascade do |t|
     t.bigint "issue_id"
     t.text "content", null: false
@@ -196,6 +190,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_31_112025) do
     t.string "title", null: false
     t.text "banner_content", null: false
     t.string "status", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "satisfaction_feedbacks", force: :cascade do |t|
+    t.string "satisfied", null: false
+    t.string "level_of_help", null: false
+    t.string "outcome", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

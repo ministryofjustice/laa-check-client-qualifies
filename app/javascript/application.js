@@ -6,6 +6,7 @@ import Rails from '@rails/ujs';
 // https://github.com/alphagov/govuk-frontend/pull/2453
 import Input from "./suggestions"
 import initAddAnother from "./add-another";
+import initFeedback from "./feedback";
 
 initAddAnother();
 
@@ -20,6 +21,9 @@ document.querySelectorAll('a[data-behaviour="browser-back"]').forEach((link) => 
   });
 });
 
-Rails.start();
+if (!window._rails_loaded) {
+  Rails.start();
+}
 initAll();
 initResults();
+initFeedback();
