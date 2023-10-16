@@ -83,8 +83,6 @@ You can run tests with the command:
 bundle exec rspec
 ```
 
-Our test suite is in the process of being refactored. Below is the _intended_ main structure of the test suite, which our actual test suite does not yet reflect.
-
 ### Unit tests
 
 #### Form tests
@@ -123,6 +121,9 @@ screens are filled out in what order, although they do not specify how the scree
 End-to-end tests are held in `spec/end_to_end` and are RSpec `feature` specs. Each test describes a journey from start page to result screen, describing the values that are filled on each screen along the way. Some tests test, via HTTP stubs, the values that are sent to CFE when loading the result screen. Some actually send the payload to CFE and test what appears on the results screen, but these must be explicitly enabled by calling `bundle exec rspec -t end2end`
 
 There are end-to-end tests to cover the main categories of journey through the site, but the end-to-end tests are _not_ intended to be comprehensive.
+
+#### System tests
+"System" tests are held in /spec/system, and are where we hold tests that involve running our javascript.
 
 **The above is not a comprehensive list of tests, and we are pragmatic about how best to test any given piece functionality. Classes not comprehensively exercised by the above tests get their own unit tests.**
 
