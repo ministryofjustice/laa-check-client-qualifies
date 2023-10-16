@@ -5,8 +5,15 @@ if (sentryDsn) {
   Sentry.init({
     dsn: sentryDsn,
     integrations: [new Sentry.BrowserTracing(), new Sentry.Replay()],
-    tracesSampleRate: 1.0,
+    // All errors are captured
+    sampleRate: 1,
+    // 10% of non-erroring sessions are captured for performance monitoring
+    tracesSampleRate: 0.1,
+
+    // 10% of sessions are replayable
     replaysSessionSampleRate: 0.1,
+
+    // All erroring sessions are replayable
     replaysOnErrorSampleRate: 1.0,
   });
 }
