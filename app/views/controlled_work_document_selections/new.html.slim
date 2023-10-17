@@ -18,7 +18,6 @@
     .govuk-button-group
       = form.govuk_submit t(".download")
       = link_to t(".start_another_check"), new_check_path, class: "govuk-button govuk-button--secondary"
-    = render "shared/survey_prompt"
 
 = render "shared/question_sidebar",
         level_of_help: @check.level_of_help,

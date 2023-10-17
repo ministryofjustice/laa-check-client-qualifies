@@ -40,4 +40,8 @@ private
       cookies.delete(BROWSER_ID_COOKIE)
     end
   end
+
+  def specify_feedback_widget
+    @feedback = "none"
+  end
 end

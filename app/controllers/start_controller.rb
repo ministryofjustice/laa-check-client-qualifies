@@ -13,4 +13,8 @@ class StartController < ApplicationController
                           page: params[:ref])
     redirect_to root_path(params.except(:ref, :action, :controller).permit!)
   end
+
+  def specify_feedback_widget
+    @feedback = "none"
+  end
 end

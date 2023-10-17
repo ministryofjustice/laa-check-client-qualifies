@@ -77,6 +77,22 @@ RSpec.configure do |config|
     WebMock.disable_net_connect!(allow_localhost: true, allow: ALLOWED_HOSTS)
   end
 
+  config.after(:each, type: :system) do
+    errors = page.driver.browser.logs.get(:browser)
+    if errors.present?
+      aggregate_failures "javascript errors" do
+        errors.map { { level: _1.level, message: _1.message } }.uniq.each do |error|
+          expect(error[:level]).not_to eq("SEVERE"), error[:message]
+
+          next unless error[:level] == "WARNING"
+
+          warn "WARN: javascript output a warning"
+          warn error[:message]
+        end
+      end
+    end
+  end
+
   config.around(:each, :index_production_flag) do |example|
     ENV["INDEX_PRODUCTION_FEATURE_FLAG"] = "enabled"
     example.run
