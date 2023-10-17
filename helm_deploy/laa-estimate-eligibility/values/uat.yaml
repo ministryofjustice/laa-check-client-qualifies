@@ -96,7 +96,7 @@ sentry:
   # Despite looking very secret-y, the key here is _not_ a secret, as it will appear in every HTTP response header
   cspReportEndpoint: https://o345774.ingest.sentry.io/api/6747538/security/?sentry_key=53f41c70bd59430cbf0855fd6f79cf86
   # Similarly this is available in the page source
-  clientSideDsn: https://04ec9fc34a2146138f8a2da2d243a718@o345774.ingest.sentry.io/6747538
+  dsn: https://04ec9fc34a2146138f8a2da2d243a718@o345774.ingest.sentry.io/6747538
 
 app:
   primaryHost: ""

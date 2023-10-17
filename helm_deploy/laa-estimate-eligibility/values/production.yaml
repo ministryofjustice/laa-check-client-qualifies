@@ -73,7 +73,7 @@ sentry:
   # Despite looking very secret-y, the key here is _not_ a secret, as it will appear in every HTTP response header
   cspReportEndpoint: https://o345774.ingest.sentry.io/api/4504177640275968/security/?sentry_key=217c7d14dd2e4cfa8dc62924a1bbd237
   # Similarly this is available in the page source
-  clientSideDsn: https://cd41516e32594c35ae312a4c53936956@o345774.ingest.sentry.io/4504177640275968
+  dsn: https://cd41516e32594c35ae312a4c53936956@o345774.ingest.sentry.io/4504177640275968
 
 app:
   primaryHost: "check-your-client-qualifies-for-legal-aid.service.gov.uk"
