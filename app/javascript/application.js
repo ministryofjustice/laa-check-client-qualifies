@@ -46,5 +46,3 @@ if (!window._rails_loaded) {
 initAll();
 initResults();
 initFeedback();
-
-
