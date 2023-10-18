@@ -35,6 +35,7 @@ RSpec.describe "Instant sessions page" do
   end
 
   scenario "I typo" do
-    expect { visit "instant-typo" }.to raise_error("Unknown session type requested: typo")
+    visit "instant-typo"
+    expect(page).to have_content "Page not found"
   end
 end

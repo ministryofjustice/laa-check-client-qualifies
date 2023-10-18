@@ -15,7 +15,7 @@ class InstantSessionsController < ApplicationController
            when "certificated"
              FactoryBot.build(:instant_certificated_session)
            else
-             raise "Unknown session type requested: #{params[:session_type]}"
+             return render file: "public/404.html", layout: false
            end
     session[assessment_id] = data
     redirect_to check_answers_path assessment_code:
