@@ -22,6 +22,10 @@ module SessionPersistable
       instantiate_with_simple_attributes_from_params(params, session_data)
     end
 
+    def from_params_subset(params, session_data)
+      instantiate_with_simple_attributes_from_params_subset(params, session_data)
+    end
+
     def extract_simple_attributes_from_session(session_data)
       session_data.slice(*session_keys)
     end
@@ -42,6 +46,11 @@ module SessionPersistable
     def instantiate_with_simple_attributes_from_params(params, session_data)
       check = Check.new(session_data)
       new(extract_simple_attributes_from_params(params), check)
+    end
+
+    def instantiate_with_simple_attributes_from_params_subset(params, session_data)
+      check = Check.new(session_data)
+      new(params.permit(*self::ATTRIBUTES), check)
     end
   end
 

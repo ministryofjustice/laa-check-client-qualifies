@@ -45,4 +45,8 @@ private
   def track_completed_journey(calculation_result)
     JourneyLoggerService.call(assessment_id, calculation_result, @check, cookies)
   end
+
+  def specify_feedback_widget
+    @feedback = :satisfaction
+  end
 end

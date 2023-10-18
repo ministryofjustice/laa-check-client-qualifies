@@ -29,4 +29,8 @@ private
   def assessment_code
     params[:assessment_code]
   end
+
+  def specify_feedback_widget
+    @feedback = :satisfaction
+  end
 end

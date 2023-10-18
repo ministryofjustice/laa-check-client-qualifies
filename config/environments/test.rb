@@ -29,7 +29,7 @@ Rails.application.configure do
   config.session_store :cache_store, key: LaaEstimateFinancialEligibilityForLegalAid::SESSION_COOKIE_NAME
 
   # Raise exceptions instead of rendering exception templates.
-  config.action_dispatch.show_exceptions = false
+  config.action_dispatch.show_exceptions = :none
 
   # Disable request forgery protection in test environment.
   config.action_controller.allow_forgery_protection = false
