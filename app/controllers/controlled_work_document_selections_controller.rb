@@ -7,11 +7,11 @@ class ControlledWorkDocumentSelectionsController < ApplicationController
   end
 
   def create
-    @form = ControlledWorkDocumentSelection.new(params[:controlled_work_document_selection]&.permit(:form_type))
+    @form = ControlledWorkDocumentSelection.new(params[:controlled_work_document_selection]&.permit(:form_type, :language))
     if @form.valid?
-      track_page_view(page: "download_#{@form.form_type}")
+      track_page_view(page: "download_#{@form.form_type}#{'_welsh' if @form.language == 'welsh'}")
       JourneyLogUpdateService.call(assessment_id, cookies, form_downloaded: true)
-      ControlledWorkDocumentPopulationService.call(session_data, @form.form_type) do |file|
+      ControlledWorkDocumentPopulationService.call(session_data, @form) do |file|
         send_data file,
                   filename: "controlled-work-form-#{assessment_code}.pdf",
                   type: "application/pdf"

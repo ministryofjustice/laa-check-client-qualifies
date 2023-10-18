@@ -4,17 +4,28 @@
   = link_to t("generic.back"), result_path(assessment_code: params[:assessment_code]), class: "govuk-back-link"
 
 .govuk-grid-column-two-thirds
-  = render "shared/heading"
+  = render "shared/heading", header_text: t(".title"), post_header_texts: t(".explainers")
+    - if @model.pensioner_disregard_applied?
+      = render "shared/banner",
+               heading: t("controlled_work_document_selections.new.banner.heading"),
+               body: t("controlled_work_document_selections.new.banner.body")
+
   = form_for(@form, url: controlled_work_document_selection_path(assessment_code: params[:assessment_code])) do |form|
     = form.govuk_error_summary t("generic.error_summary_title")
-    = form.govuk_radio_buttons_fieldset :form_type,
-                                        legend: { text: t(".title"), size: "xl", tag: "h1" },
-                                        hint: -> { t(".explainers").map { tag.p(_1, class: "govuk-hint") }.join.html_safe }
-      = render "shared/banner", heading: t(".banner.heading"), body: t(".banner.body") if @model.pensioner_disregard_applied?
+
+    = form.govuk_radio_buttons_fieldset :form_type, legend: { text: t(".form_type_title") }
       = render "shared/radio_button_set",
                form:,
                field_name: :form_type,
                buttons: ControlledWorkDocumentSelection::OPTIONS.map { { value: _1, options: { label: { text: t(".option.#{_1}") } } } }
+
+    - if FeatureFlags.enabled?(:welsh_cw, without_session_data: true)
+      = form.govuk_radio_buttons_fieldset :form_type, legend: { text: t(".language_title") }
+        = render "shared/radio_button_set",
+               form:,
+               field_name: :language,
+               buttons: ControlledWorkDocumentSelection::LANGUAGES.map { { value: _1, options: { label: { text: t(".language.#{_1}") } } } }
+
     .govuk-button-group
       = form.govuk_submit t(".download")
       = link_to t(".start_another_check"), new_check_path, class: "govuk-button govuk-button--secondary"
