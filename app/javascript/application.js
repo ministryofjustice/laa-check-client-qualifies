@@ -1,3 +1,22 @@
+import * as Sentry from "@sentry/browser";
+
+const sentryDsn = document.querySelector("body").dataset.sentryDsn;
+if (sentryDsn) {
+  Sentry.init({
+    dsn: sentryDsn,
+    integrations: [new Sentry.BrowserTracing(), new Sentry.Replay()],
+    // All errors are captured
+    sampleRate: 1,
+    // All erroring sessions are replayable
+    replaysOnErrorSampleRate: 1.0,
+
+    // No non-erroring sessions are captured for performance monitoring
+    tracesSampleRate: 0,
+    // No non-erroring sessions are replayable
+    replaysSessionSampleRate: 0,
+  });
+}
+
 import { initAll } from "govuk-frontend";
 import initResults from "./results";
 import Rails from '@rails/ujs';

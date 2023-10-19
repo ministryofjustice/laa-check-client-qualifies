@@ -236,13 +236,15 @@ It is also possible to manually deploy to an environment from the command line, 
 
 Secrets have been stored for each environment using `kubectl create secret`. The following secrets are currently in use:
 
-* sentry-dsn
 * notifications-api-key
 * secret-key-base
 * geckoboard-api-key
 * blazer-password
 * blazer-database-password
 * feature-flags-password
+* slack-webhook-url
+* basic-auth-password
+* google-oauth-client-secret
 
 The current values for these are available as secure notes in 1Password for each environment, should they be lost from Kubernetes.
 

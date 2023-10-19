@@ -20,6 +20,9 @@ Rails.application.configure do
                      "'sha256-SKk0A/cx4rPskCI+pT65OEYkqpmpNRbLvwc1gsUtf6s='",
                      :self, :https, :report_sample
 
+    # Sentry creates workers from "blobs" in order to report on errors, so we allow that
+    policy.worker_src :blob
+
     # Specify URI for violation reports
     policy.report_uri(ENV["CSP_REPORT_ENDPOINT"]) if ENV["CSP_REPORT_ENDPOINT"].present?
   end
