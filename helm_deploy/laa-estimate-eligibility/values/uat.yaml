@@ -63,6 +63,7 @@ featureFlags:
   indexProduction: NOT_ENABLED
   maintenanceMode: NOT_ENABLED
   basicAuthentication: ENABLED
+  welshCw: ENABLED
 
 postgresql:
   enabled: true

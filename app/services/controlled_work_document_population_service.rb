@@ -8,11 +8,12 @@
 # form is to be populated.
 class ControlledWorkDocumentPopulationService
   class << self
-    def call(session_data, form_type)
+    def call(session_data, model)
       Dir.mktmpdir do |dir|
+        form_key = "#{model.form_type}#{'_welsh' if model.language == 'welsh'}"
         file_name = "#{dir}/output-form.pdf"
         pdftk = PdfForms.new(`which pdftk`.chomp)
-        pdftk.fill_form template_path(form_type), file_name, values(session_data, form_type)
+        pdftk.fill_form template_path(form_key), file_name, values(session_data, form_key)
         yield File.read(file_name).force_encoding("BINARY")
       end
     end

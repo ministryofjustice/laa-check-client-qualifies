@@ -503,6 +503,8 @@ en:
           attributes:
             form_type:
               blank: Select which form you need
+            language:
+              blank: Select which language you need the form in
   service:
     name: Check if your client qualifies for legal aid
     name_for_page_title: Check if your client qualifies for legal aid | GOV.UK
@@ -2223,7 +2225,7 @@ en:
       - Payments for those who are not served by mains gas
   controlled_work_document_selections:
     new:
-      title: Which controlled work (CW) form do you need?
+      title: Download a controlled work (CW) form with your answers
       explainers:
         - Your answers from previous pages will be included in the CW form you select to download.
         - After you download the form, you will need to add your client’s details and any other information needed on that form.
@@ -2231,12 +2233,17 @@ en:
       banner:
         heading: 60 or over disregard (also known as the pensioner disregard)
         body: Your client is eligible for the 60 or over disregard (also known as the pensioner disregard). CW forms do not have a field to record this in the financial eligibility section. We will correctly apply this to your client’s capital. You do not need to make any changes to the form.
+      form_type_title: Which controlled work (CW) form do you need?
+      language_title: Which language do you need the form in?
       option:
         cw1: CW1 - legal help, help at court or family help (lower)
         cw2: CW2 (IMM) - immigration
         cw1_and_2: CW1&2 - mental health
         cw5: CW5 - help with family mediation
         civ_means_7: CIV Means 7 - family mediation
+      language:
+        english: English
+        welsh: Welsh
       download: Download the pre-populated form
       start_another_check: Start another eligibility check
   feature_flags:

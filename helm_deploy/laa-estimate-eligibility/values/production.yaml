@@ -58,6 +58,7 @@ featureFlags:
   indexProduction: ENABLED
   maintenanceMode: NOT_ENABLED
   basicAuthentication: NOT_ENABLED
+  welshCw: NOT_ENABLED
 
 geckoboard:
   metricsDataset: "ccq_monthly_metrics_production"
