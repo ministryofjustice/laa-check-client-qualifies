@@ -7,7 +7,7 @@ RSpec.describe "cw_selection", type: :feature do
 
   before do
     set_session(assessment_code, session_data)
-    visit "which-controlled-work-form/#{assessment_code}"
+    visit controlled_work_document_selection_path(assessment_code:)
   end
 
   it "shows an error message if no value is entered" do
