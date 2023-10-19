@@ -47,10 +47,7 @@ env:
   - name: RAILS_LOG_TO_STDOUT
     value: 'true'
   - name: SENTRY_DSN
-    valueFrom:
-      secretKeyRef:
-        name: kube-secrets
-        key: sentry-dsn
+    value: {{ .Values.sentry.dsn }}
   - name: GOOGLE_TAG_MANAGER_ID
     value: {{ .Values.googleTagManager.containerId }}
   - name: CFE_HOST
