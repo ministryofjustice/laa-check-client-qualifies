@@ -272,9 +272,24 @@ workflows:
           requires:
             - install_dependencies
       - deploy:
-          name: Deploy UAT
+          name: Deploy UAT to existing namespace
           environment: uat
           context: laa-estimate-eligibility-uat
+          requires:
+            - linters
+            - run_specs
+            - end2end_tests
+            - linters
+            - build_and_push
+          post-steps:
+            - jira/notify:
+                job_type: deployment
+                environment: UAT
+                environment_type: testing
+      - deploy:
+          name: Deploy UAT to new namespace
+          environment: ccq-uat
+          context: laa-check-client-qualifies-uat
           requires:
             - linters
             - run_specs
