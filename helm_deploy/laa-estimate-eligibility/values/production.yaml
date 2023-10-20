@@ -58,6 +58,7 @@ featureFlags:
   indexProduction: ENABLED
   maintenanceMode: NOT_ENABLED
   basicAuthentication: NOT_ENABLED
+  welshCw: NOT_ENABLED
 
 geckoboard:
   metricsDataset: "ccq_monthly_metrics_production"
@@ -72,6 +73,8 @@ geckoboard:
 sentry:
   # Despite looking very secret-y, the key here is _not_ a secret, as it will appear in every HTTP response header
   cspReportEndpoint: https://o345774.ingest.sentry.io/api/4504177640275968/security/?sentry_key=217c7d14dd2e4cfa8dc62924a1bbd237
+  # Similarly this is available in the page source
+  dsn: https://cd41516e32594c35ae312a4c53936956@o345774.ingest.sentry.io/4504177640275968
 
 app:
   primaryHost: "check-your-client-qualifies-for-legal-aid.service.gov.uk"
@@ -80,3 +83,6 @@ app:
 google:
   oauthClientId: 276075615370-ncqvmdi84jruv1jggfg4bu8nlvk1drj0.apps.googleusercontent.com
   oauthRedirectUri: https://check-your-client-qualifies-for-legal-aid.service.gov.uk/auth/subdomain_redirect
+
+use_new_namespace:
+  enabled: false

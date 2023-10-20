@@ -47,21 +47,26 @@ env:
   - name: RAILS_LOG_TO_STDOUT
     value: 'true'
   - name: SENTRY_DSN
-    valueFrom:
-      secretKeyRef:
-        name: kube-secrets
-        key: sentry-dsn
+    value: {{ .Values.sentry.dsn }}
   - name: GOOGLE_TAG_MANAGER_ID
     value: {{ .Values.googleTagManager.containerId }}
   - name: CFE_HOST
     value: {{ .Values.cfe.host }}
   - name: CFE_ENVIRONMENT_NAME
     value: {{ .Values.cfe.environment_name }}
+  {{ if .Values.use_new_namespace.enabled }}
+  - name: REDIS_URL
+    valueFrom:
+      secretKeyRef:
+        name: laa-check-client-qualifies-elasticache-instance-output
+        key: url
+  {{ else }}
   - name: REDIS_URL
     valueFrom:
       secretKeyRef:
         name: laa-estimate-financial-eligibility-elasticache-instance-output
         key: url
+  {{ end }}
   - name: SENTRY_FEATURE_FLAG
     value: {{ .Values.featureFlags.sentry }}
   - name: INDEX_PRODUCTION_FEATURE_FLAG
@@ -70,6 +75,8 @@ env:
     value: {{ .Values.featureFlags.maintenanceMode }}
   - name: BASIC_AUTHENTICATION_FEATURE_FLAG
     value: {{ .Values.featureFlags.basicAuthentication }}
+  - name: WELSH_CW_FEATURE_FLAG
+    value: {{ .Values.featureFlags.welshCw }}
   - name: FEATURE_FLAG_OVERRIDES
     value: {{ .Values.featureFlags.overrides }}
   - name: NOTIFICATIONS_API_KEY

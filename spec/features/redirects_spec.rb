@@ -28,7 +28,7 @@ RSpec.describe "Redirects" do
   scenario "I try to visit the CW form URL for a check" do
     set_session(:foo, "level_of_help" => "controlled", "api_response" => build(:api_result))
     visit "/estimates/foo/controlled_work_document_selections/new"
-    expect(page).to have_current_path("/which-controlled-work-form/foo")
+    expect(page).to have_current_path("/download-cw-form/foo")
   end
 
   scenario "I try to visit the print action for an old check" do

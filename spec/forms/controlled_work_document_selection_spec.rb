@@ -7,7 +7,7 @@ RSpec.describe "cw_selection", type: :feature do
 
   before do
     set_session(assessment_code, session_data)
-    visit "which-controlled-work-form/#{assessment_code}"
+    visit controlled_work_document_selection_path(assessment_code:)
   end
 
   it "shows an error message if no value is entered" do
@@ -59,6 +59,27 @@ RSpec.describe "cw_selection", type: :feature do
     choose "CW1 - legal help, help at court or family help (lower)"
     click_on "Download the pre-populated form"
     expect(AnalyticsEvent.last.page).to eq "download_cw1"
+  end
+
+  context "when the welsh CW feature flag is enabled", :welsh_cw_flag do
+    it "requires me to choose a language" do
+      choose "CW1 - legal help, help at court or family help (lower)"
+      click_on "Download the pre-populated form"
+      expect(page).to have_content "Select which language you need the form in"
+    end
+
+    it "allows me to proceed in English" do
+      choose "CW1 - legal help, help at court or family help (lower)"
+      choose "English"
+      click_on "Download the pre-populated form"
+      expect(page.response_headers["Content-Type"]).to eq("application/pdf")
+    end
+
+    it "errors if I choose Welsh (because that's not implemented yet)" do
+      choose "CW1 - legal help, help at court or family help (lower)"
+      choose "Welsh"
+      expect { click_on "Download the pre-populated form" }.to raise_error KeyError
+    end
   end
 
   it "lets me start a new check" do
