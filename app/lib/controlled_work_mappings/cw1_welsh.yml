@@ -2,33 +2,33 @@
 # combined with the output from CFE.
 
 # The mappings conform to the format described in ControlledWorkDocumentValueMappingService
-# - section: general
-#   fields:
-#     # "Means test required"
-#     - name: Means test required
-#       type: always_checked_checkbox
-#       checked_value: "Yes_2"
+- section: general
+  fields:
+    # "Means test required"
+    - name: Matter type
+      type: always_checked_checkbox
+      checked_value: "Means test required"
 
-#     # "The client is directly or indirectly in receipt of S.4 or S.95 Asylum Support (Immigration and Asylum category work only):"
-#     - name: Client in receipt of asylum support
-#       type: boolean_radio
-#       source: asylum_support?
-#       yes_value: "Yes_2"
-#       no_value: "No"
+    # "The client is directly or indirectly in receipt of S.4 or S.95 Asylum Support (Immigration and Asylum category work only):"
+    - name: Asylum support
+      type: boolean_radio
+      source: asylum_support?
+      yes_value: "Ydyw"
+      no_value: "Nac ydyw"
 
-#     # "The client has a partner whose means are to be aggregated:"
-#     - name: Has partner whose means are to be agrgregated
-#       type: boolean_radio
-#       source: aggregate_partner?
-#       yes_value: "Yes_3"
-#       no_value: "No_2"
+    # "The client has a partner whose means are to be aggregated:"
+    - name: Partner
+      type: boolean_radio
+      source: aggregate_partner?
+      yes_value: "le"
+      no_value: "Na"
 
-#     # "The client's assets (held in sole name or jointly held) have been claimed by the opponent:"
-#     - name: Please complete Part A Capital Subject matter of dispute
-#       type: boolean_radio
-#       source: smod_assets?
-#       yes_value: "Yes_5"
-#       no_value: "No_4"
+    # "The client's assets (held in sole name or jointly held) have been claimed by the opponent:"
+    - name: Client's assets claimed by opponent
+      type: boolean_radio
+      source: smod_assets?
+      yes_value: "Ydy"
+      no_value: "Nac ydy"
 
 - section: smod_capital
   fields:
@@ -54,62 +54,62 @@
       source: smod_additional_properties_outstanding_mortgage
 
     # Main home / client's share of property for assessment (SMOD)
-    - name: undefined_14
+    - name: FillText16
       type: text
       source: smod_main_home_percentage_owned
 
     # Other property / client's share of property for assessment (SMOD)
-    - name: undefined_15
+    - name: FillText23
       type: text
       source: smod_additional_properties_percentage_owned
 
     # Main home / total net equity (SMOD)
-    - name: undefined_16
+    - name: FillText134
       type: text
       source: smod_main_home_net_value
 
     # Other property / total net equity (SMOD)
-    - name: Other property
+    - name: FillText135
       type: text
       source: smod_additional_properties_net_value
 
     # Main home / client's share of total net equity (SMOD)
-    - name: undefined_17
+    - name: FillText80
       type: text
       source: smod_main_home_net_equity
 
     # Other property / client's share of total net equity (SMOD)
-    - name: undefined_18
+    - name: FillText132
       type: text
       source: smod_additional_properties_net_equity
 
     # Main home / final assessed amount of client's equity (SMOD)
-    - name: undefined_19
+    - name: FillText99
       type: text
       source: smod_main_home_assessed_equity
 
     # Other property / final assessed amount of client's equity (SMOD)
-    - name: undefined_20
+    - name: FillText100
       type: text
       source: smod_additional_properties_assessed_equity
 
     # Savings (SMOD)
-    - name: undefined_21
+    - name: FillText24
       type: text
       source: smod_savings
 
     # Investments (SMOD)
-    - name: undefined_22
+    - name: FillText25
       type: text
       source: smod_investments
 
     # Valuables (SMOD)
-    - name: undefined_23
+    - name: FillText55
       type: text
       source: smod_valuables
 
     # Total capital part A (SMOD)
-    - name: undefined_25
+    - name: FillText133
       type: text
       source: smod_total_capital
 
@@ -117,204 +117,204 @@
   fields:
     # Part B
     # Main home / current market value (non-SMOD)
-    - name: undefined_26
+    - name: FillText136
       type: text
       source: non_smod_main_home_value
 
     # Main home / outstanding mortgage (non-SMOD)
-    - name: undefined_27
+    - name: FillText137
       type: text
       source: non_smod_main_home_outstanding_mortgage
 
     # Other property / current market value (non-SMOD)
-    - name: Other property 1_2
+    - name: FillText138
       type: text
       source: non_smod_additional_properties_value
 
     # Other property / outstanding mortgage (non-SMOD)
-    - name: Other property 2_2
+    - name: FillText139
       type: text
       source: non_smod_additional_properties_mortgage
 
     # Main home / client's share of property for assessment (non-SMOD)
-    - name: undefined_30
+    - name: FillText140
       type: text
       source: non_smod_main_home_percentage_owned
 
     # Other property / client's share of property for assessment (non-SMOD)
-    - name: undefined_31
+    - name: FillText141
       type: text
       source: non_smod_additional_properties_percentage_owned
 
     # Main home / total net equity (non-SMOD)
-    - name: undefined_32
+    - name: FillText144
       type: text
       source: non_smod_main_home_net_value
 
     # Other property / total net equity (non-SMOD)
-    - name: undefined_33
+    - name: FillText145
       type: text
       source: non_smod_additional_properties_net_value
 
     # Main home / client's share of total net equity (non-SMOD)
-    - name: undefined_34
+    - name: FillText142
       type: text
       source: non_smod_main_home_net_equity
 
     # Other property / client's share of total net equity (non-SMOD)
-    - name: undefined_35
+    - name: FillText143
       type: text
       source: non_smod_additional_properties_net_equity
 
     # Main home / final assessed amount of client's equity (non-SMOD)
-    - name: undefined_36
+    - name: FillText146
       type: text
       source: non_smod_main_home_assessed_equity
 
     # Other property / final assessed amount of client's equity (non-SMOD)
-    - name: undefined_37
+    - name: FillText147
       type: text
       source: non_smod_additional_properties_assessed_equity
 
     # Savings (non-SMOD)
-    - name: undefined_38
+    - name: FillText148
       type: text
       source: non_smod_client_savings
 
     # Investments (non-SMOD)
-    - name: undefined_40
+    - name: FillText111
       type: text
       source: non_smod_client_investments
 
     # Valuables (non-SMOD)
-    - name: undefined_42
+    - name: FillText112
       type: text
       source: non_smod_client_valuables
 
     # Total capital part A (non-SMOD)
-    - name: undefined_46
+    - name: FillText118
       type: text
       source: combined_non_disputed_capital
 
     # Total of all capital assets (Part A and Part B)
-    - name: undefined_47
+    - name: FillText149
       type: text
       source: combined_assessed_capital
 
 - section: partner_capital
   fields:
     # Partner savings (non-SMOD)
-    - name: undefined_39
+    - name: FillText114
       type: text
       source: partner_savings
 
     # Partner investments (non-SMOD)
-    - name: undefined_41
+    - name: FillText115
       type: text
       source: partner_investments
 
     # Partner valuables (non-SMOD)
-    - name: undefined_43
+    - name: FillText116
       type: text
       source: partner_valuables
 
-# - section: income_even_if_passported
-#   fields:
-#     # Part C
-#     # The client is directly or indirectly in receipt of [passporting benefit]
-#     - name: Passported
-#       type: boolean_radio
-#       source: passporting
-#       section: income_even_if_passported
-#       yes_value: "Yes"
-#       no_value: "No"
+- section: income_even_if_passported
+  fields:
+    # Part C
+    # The client is directly or indirectly in receipt of [passporting benefit]
+    - name: Passported
+      type: boolean_radio
+      source: passporting
+      section: income_even_if_passported
+      yes_value: "Ydy"
+      no_value: "Nac ydy"
 
 - section: income
   fields:
 
     # Gross monthly earnings / Client
-    - name: undefined_48
+    - name: FillText150
       type: text
       source: client_gross_income
 
     # Other income / Client
-    - name: undefined_50
+    - name: FillText152
       type: text
       source: client_non_employment_income
 
     # Total gross income / Client
-    - name: undefined_52
+    - name: FillText154
       type: text
       source: client_total_income
 
     # Total gross income  Client and Partner
-    - name: undefined_54
+    - name: FillText164
       type: text
       section: partner_income
       source: total_combined_income
 
     # Mortgage instalment / Client
-    - name: undefined_55
+    - name: FillText2
       type: text
       source: client_mortgage
 
     # Rent / Client
-    - name: undefined_57
+    - name: FillText6
       type: text
       source: client_rent
 
     # Dependents' allowances / Partner
-    - name: undefined_59
+    - name: FillText9
       type: text
       source: partner_allowance
 
     # Dependents' allowances / Aged 15 or under
-    - name: undefined_60
+    - name: FillText10
       type: text
       source: dependants_allowance_under_16
 
     # Dependents' allowances / Aged 16 or over
-    - name: undefined_61
+    - name: FillText11
       type: text
       source: dependants_allowance_over_16
 
     # Tax and national insurance / Client
-    - name: undefined_62
+    - name: FillText22
       type: text
       source: client_tax_and_national_insurance
 
     # Standard allowance for employment expense / Client
-    - name: undefined_64
+    - name: FillText12
       type: text
       source: client_employment_deduction
 
     # Maintenance allowance / Client
-    - name: undefined_66
+    - name: FillText14
       type: text
       source: client_maintenance_allowance
 
     # Childcare costs
-    - name: undefined_68
+    - name: FillText17
       type: text
       source: combined_childcare_costs
 
     # Payment of income contribution order / Client
-    - name: undefined_69
+    - name: FillText32
       type: text
       source: client_legal_aid_contribution
 
     # Total allowances / Client
-    - name: undefined_71
+    - name: FillText18
       type: text
       source: client_total_allowances
 
     # Total monthly disposable income / Client
-    - name: undefined_73
+    - name: FillText20
       type: text
       source: client_disposable_income
 
     # Total monthly disposable income Client and partner
-    - name: undefined_75
+    - name: FillText31
       type: text
       source: combined_disposable_income
 
@@ -323,55 +323,55 @@
   fields:
 
     # Gross monthly earnings / Partner
-    - name: undefined_49
+    - name: FillText151
       type: text
       source: partner_gross_income
 
     # Other income / Partner
-    - name: undefined_51
+    - name: FillText153
       type: text
       source: partner_non_employment_income
     # Total gross income / Partner
-    - name: undefined_53
+    - name: FillText163
       type: text
       source: partner_total_income
 
     # Mortgage instalment / Partner
-    - name: undefined_56
+    - name: FillText5
       type: text
       source: partner_mortgage
 
     # Rent / Partner
-    - name: undefined_58
+    - name: FillText7
       type: text
       source: partner_rent
 
     # Tax and national insurance / Partner
-    - name: undefined_63
+    - name: FillText26
       type: text
       source: partner_tax_and_national_insurance
 
     # Standard allowance for employment expense / Partner
-    - name: undefined_65
+    - name: FillText13
       type: text
       source: partner_employment_deduction
 
     # Maintenance allowance / Partner
-    - name: undefined_67
+    - name: FillText15
       type: text
       source: partner_maintenance_allowance
 
     # Payment of income contribution order / Partner
-    - name: undefined_70
+    - name: FillText33
       type: text
       source: partner_legal_aid_contribution
 
     # Total allowances / Partner
-    - name: undefined_72
+    - name: FillText19
       type: text
       source: partner_total_allowances
 
     # Total monthly disposable income / Partner
-    - name: undefined_74
+    - name: FillText21
       type: text
       source: partner_disposable_income
