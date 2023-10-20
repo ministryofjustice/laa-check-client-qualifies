@@ -20,7 +20,7 @@
     - name: Partner
       type: boolean_radio
       source: aggregate_partner?
-      yes_value: "le"
+      yes_value: "Ie"
       no_value: "Na"
 
     # "The client's assets (held in sole name or jointly held) have been claimed by the opponent:"
