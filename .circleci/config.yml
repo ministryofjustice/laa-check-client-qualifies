@@ -302,9 +302,27 @@ workflows:
                 environment: UAT
                 environment_type: testing
       - deploy:
-          name: Deploy staging
+          name: Deploy staging to existing namesapce
           environment: staging
           context: laa-estimate-eligibility-staging
+          requires:
+            - run_specs
+            - end2end_tests
+            - linters
+            - build_and_push
+          post-steps:
+            - jira/notify:
+                job_type: deployment
+                environment: Staging
+                environment_type: staging
+          filters:
+            branches:
+              only:
+                - main
+      - deploy:
+          name: Deploy staging to new namesapce
+          environment: ccq-staging
+          context: laa-check-client-qualifies-staging
           requires:
             - run_specs
             - end2end_tests
