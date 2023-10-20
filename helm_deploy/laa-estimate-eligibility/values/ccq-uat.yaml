@@ -48,7 +48,7 @@ ingress:
   annotations:
     external-dns.alpha.kubernetes.io/set-identifier: "check-client-qualifies-laa-estimate-eligibility-laa-check-client-qualifies-uat-green"
     # TODO: the weight is set to 0 for now but will need to be reverted to 100 at some point.
-    external-dns.alpha.kubernetes.io/aws-weight: "100"
+    external-dns.alpha.kubernetes.io/aws-weight: "0"
 
 notifications:
   errorMessageTemplateId: b8879191-e4bb-4f10-831a-7d9bd2b078f1
