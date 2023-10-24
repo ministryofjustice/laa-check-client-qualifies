@@ -338,9 +338,27 @@ workflows:
               only:
                 - main
       - deploy:
-          name: Deploy production
+          name: Deploy production to existing namesapce
           environment: production
           context: laa-estimate-eligibility-production
+          requires:
+            - run_specs
+            - end2end_tests
+            - linters
+            - build_and_push
+          post-steps:
+            - jira/notify:
+                job_type: deployment
+                environment: Production
+                environment_type: production
+          filters:
+            branches:
+              only:
+                - main
+      - deploy:
+          name: Deploy production to new namesapce
+          environment: ccq-production
+          context: laa-check-client-qualifies-production
           requires:
             - run_specs
             - end2end_tests
