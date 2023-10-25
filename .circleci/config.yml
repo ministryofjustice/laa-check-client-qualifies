@@ -209,7 +209,7 @@ jobs:
           role_arn: $ECR_ROLE_TO_ASSUME_CCQ
           region: $ECR_REGION
       - run: |
-          aws ecr get-login-password --region $ECR_REGION | docker login --username AWS --password-stdin ${AWS_ECR_REGISTRY_ID_CCQ}.dkr.ecr.${ECR_REGION}.amazonaws.com
+          aws ecr get-login-password --region $ECR_REGION | docker login --username AWS --password-stdin ${AWS_ECR_REGISTRY_ID}.dkr.ecr.${ECR_REGION}.amazonaws.com
       - run:
           name: Set ECR_TAG environment variable for use in next step
           command: |
