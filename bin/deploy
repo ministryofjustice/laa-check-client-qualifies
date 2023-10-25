@@ -3,7 +3,7 @@
 ENVIRONMENT=$1
 # Convert the branch name into a string that can be turned into a valid URL
   BRANCH_RELEASE_NAME=$(echo $CIRCLE_BRANCH | tr '[:upper:]' '[:lower:]' | sed 's:^\w*\/::' | tr -s ' _/[]().' '-' | cut -c1-18 | sed 's/-$//')
-
+  VIEWABLE_BRANCH_HOST_SUFFIX=$(echo $BRANCH_HOST_SUFFIX)
 
 deploy_branch() {
 # Set the deployment host, this will add the prefix of the branch name e.g el-257-deploy-with-circleci or just main
@@ -11,7 +11,7 @@ deploy_branch() {
 # Set the ingress name, needs release name, namespace and -green suffix
   IDENTIFIER="$BRANCH_RELEASE_NAME-laa-estimate-eligibility-$K8S_NAMESPACE-green"
   echo "Deploying CIRCLE_SHA1: $CIRCLE_SHA1 under release name: '$BRANCH_RELEASE_NAME'..."
-  echo "UAT URL is: $BRANCH_RELEASE_NAME-$BRANCH_HOST_SUFFIX.cloud-platform.service.justice.gov.uk"
+  echo "UAT URL is: $BRANCH_RELEASE_NAME-$VIEWABLE_BRANCH_HOST_SUFFIX.cloud-platform.service.justice.gov.uk"
 
   helm upgrade $BRANCH_RELEASE_NAME ./helm_deploy/laa-estimate-eligibility/. \
                 --install --wait \
