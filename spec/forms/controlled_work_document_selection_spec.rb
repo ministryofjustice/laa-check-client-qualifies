@@ -76,7 +76,7 @@ RSpec.describe "cw_selection", type: :feature do
     end
 
     it "allows me to proceed in Welsh" do
-      choose "CW1 - legal help, help at court or family help (lower)"
+      choose "CW2 (IMM) - immigration"
       choose "Welsh"
       click_on "Download the pre-populated form"
       expect(page.response_headers["Content-Type"]).to eq("application/pdf")
