@@ -67,6 +67,22 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       expect(result).to include(representative_sample)
     end
 
+    it "can successfully populate a Welsh CW2 IMM form" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw2_welsh.yml")).map(&:with_indifferent_access)
+      result = described_class.call(session_data, mappings)
+      representative_sample = {
+        "Partner" => "Oes",
+        "Passported" => "Nac ydy",
+        "NASS" => "Na", # Asylum support
+        "Gwerth cyfredol ar y farchnad (Prif gartref)" => "250,000", # Property worth £250,000
+        "Cynilion (banc, cymdeithas adeiladu, ayb)" => "111", # Savings
+        "Buddsoddiadau (cyfranddaliadau, polisïau yswiriant ayb)" => "222", # Investments
+        "Eitemau gwerthfawr (cwch, carafán, gemwaith, ayb)" => "555", # Valuables
+        "FillText66" => "25", # Percentage owned
+      }
+      expect(result).to include(representative_sample)
+    end
+
     it "can successfully populate CW5 form fields (template with CCQ header)" do
       mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw5.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
@@ -199,6 +215,18 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
         "Passported" => nil, # Not passporting
         "FillText44" => nil, # Property worth £250,000
         "FillText11" => nil, # SMOD valuables are not relevant so are not displayed
+      }
+      expect(result).to include(representative_sample)
+    end
+
+    it "can successfully populate a Welsh CW2 IMM form" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw2_welsh.yml")).map(&:with_indifferent_access)
+      result = described_class.call(session_data, mappings)
+      representative_sample = {
+        "NASS" => "Yyd", # directly or indirectly in receipt of NASS paymen
+        "Passported" => nil, # Not passporting
+        "Gwerth cyfredol ar y farchnad (Prif gartref)" => nil, # Property worth £250,000
+        "Eitemau gwerthfawr (cwch, carafán, gemwaith, ayb)" => nil, # SMOD valuables are not relevant so are not displayed
       }
       expect(result).to include(representative_sample)
     end
