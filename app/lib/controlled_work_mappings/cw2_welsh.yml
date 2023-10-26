@@ -80,41 +80,41 @@
       type: text
       source: additional_properties_assessed_equity
 
-    # # Client - Savings (bank, building society, etc)
-    # - name: FillText2
-    #   type: text
-    #   source: savings
+#     # Client - Savings (bank, building society, etc)
+#     - name: Cynilion (banc, cymdeithas adeiladu, ayb)
+#       type: text
+#       source: savings
 
-    # # Client - Investments (shares, insurance policies, etc)
-    # - name: FillText6
-    #   type: text
-    #   source: investments
+#     # Client - Investments (shares, insurance policies, etc)
+#     - name: Buddsoddiadau (cyfranddaliadau, polisïau yswiriant ayb)
+#       type: text
+#       source: investments
 
-    # # Client - Valuable items (boat, caravan, jewellery, etc)
-    # - name: FillText11
-    #   type: text
-    #   source: valuables
+#     # Client - Valuable items (boat, caravan, jewellery, etc)
+#     - name: Eitemau gwerthfawr (cwch, carafán, gemwaith, ayb)
+#       type: text
+#       source: valuables
 
-    # # Total Capital
-    # - name: FillText43
-    #   type: text
-    #   source: combined_assessed_capital
+#     # Total Capital
+#     - name: Cyfanswm cyfalaf (Cleient)
+#       type: text
+#       source: combined_assessed_capital
 
 # - section: partner_capital
 #   fields:
 
 #     # Partner - Savings (bank, building society, etc)
-#     - name: FillText37
+#     - name: Cynilion (banc, cymdeithas adeiladu, ayb) (Partner)
 #       type: text
 #       source: partner_savings
 
 #     # Partner - Investments (shares, insurance policies, etc)
-#     - name: FillText38
+#     - name: Buddsoddiadau (cyfranddaliadau, polisïau yswiriant ayb) (Partner)
 #       type: text
 #       source: partner_investments
 
 #     # Partner - Valuable items (boat, caravan, jewellery, etc)
-#     - name: FillText39
+#     - name: Eitemau gwerthfawr (cwch, carafán, gemwaith, ayb) (Partner)
 #       type: text
 #       source: partner_valuables
 
@@ -126,29 +126,29 @@
 #     - name: Passported
 #       type: boolean_radio
 #       source: passporting
-#       yes_value: "Yes"
-#       no_value: "No"
+#       yes_value: "Yyd"
+#       no_value: "Nac ydy"
 
 # - section: income
 #   fields:
 
 #     # Client - Gross monthly earnings
-#     - name: FillText82
+#     - name: Enillion misol gro (Cleient)
 #       type: text
 #       source: client_gross_income
 
 #     # Client - Other income (including child benefit, pensions, maintenance, dividends, tax credits, benefits in kind, etc)
-#     - name: FillText84
+#     - name: Incwm arall (Cleient)
 #       type: text
 #       source: client_non_employment_income
 
 #     # Client - Total gross income
-#     - name: FillText86
+#     - name: Cyfanswm incwm (Cleient)
 #       type: text
 #       source: client_total_income
 
 #     # Total gross income (Client and Partner)
-#     - name: FillText93
+#     - name: Cyfanswm incwm gros (Cleient a Phartner)
 #       type: text
 #       source: total_combined_income
 
@@ -158,32 +158,32 @@
 #       source: client_mortgage
 
 #     # Client - Housing Costs - Rent
-#     - name: FillText122
+#     - name: Rhent (Ceient)
 #       type: text
 #       source: client_rent
 
 #     # Dependent's allowances - Partner
-#     - name: FillText100
+#     - name: Partner (Lwfansau dibynyddion)
 #       type: text
 #       source: partner_allowance
 
 #     # Dependents Aged 15 and under
-#     - name: FillText48
+#     - name: 15 oed neu'n iau (Lwfansau dibynyddion)
 #       type: text
 #       source: dependants_allowance_under_16
 
 #     # Dependents Aged 16 or over
-#     - name: FillText49
+#     - name: 16 oed neu'n hŷn (Lwfansau dibynyddion)
 #       type: text
 #       source: dependants_allowance_over_16
 
 #     # Client - Tax and National Insurance
-#     - name: FillText63
+#     - name: Treth ac Yswiriant Gwlado (Celient)
 #       type: text
 #       source: client_tax_and_national_insurance
 
 #     # Client - Standard allowance for employment expenses
-#     - name: FillText50
+#     - name: Lwfans safonol ar gyfer treuliau cyflogaeth (Cleient)
 #       type: text
 #       source: client_employment_deduction
 
@@ -193,27 +193,27 @@
 #       source: client_maintenance_allowance
 
 #     # Childcare costs because of work/self employment
-#     - name: FillText115
+#     - name: Costau gofal plant oherwydd gwaith/hunangyflogaet (Cleient)
 #       type: text
 #       source: combined_childcare_costs
 
 #     # Client - Payment of income contribution order (criminal legal aid)
-#     - name: FillText124
+#     - name: Talu archeb cyfraniad incwm (cymorth cyfreithiol troseddol (Cleient)
 #       type: text
 #       source: client_legal_aid_contribution
 
 #     # Client - Total Allowances
-#     - name: FillText116
+#     - name: Cyfanswm lwfansau (Cleient)
 #       type: text
 #       source: client_total_allowances
 
 #     # Client - Total monthly disposable income
-#     - name: FillText118
+#     - name: Cyfanswm incwm gwario misol (Cleient)
 #       type: text
 #       source: client_disposable_income
 
 #     # Total monthly disposable income (Client and Partner)
-#     - name: FillText119
+#     - name: Cyfanswm incwm gwario misol (Cleient a Phartner)
 #       type: text
 #       source: combined_disposable_income
 
@@ -221,17 +221,17 @@
 #   fields:
 
 #     # Partner - Gross monthly earnings
-#     - name: FillText83
+#     - name: Enillion misol gro (Partner)
 #       type: text
 #       source: partner_gross_income
 
 #     # Partner - Other income (including child benefit, pensions, maintenance, dividends, tax credits, benefits in kind, etc)
-#     - name: FillText85
+#     - name: Incwm arall (Partner)
 #       type: text
 #       source: partner_non_employment_income
 
 #     # Partner - Total gross income
-#     - name: FillText90
+#     - name: Cyfanswm incwm (Partner)
 #       type: text
 #       source: partner_total_income
 
@@ -241,17 +241,17 @@
 #       source: partner_mortgage
 
 #     # Partner - Housing Costs - Rent
-#     - name: FillText123
+#     - name: Rhent (Partner)
 #       type: text
 #       source: partner_rent
 
 #     # Partner - Tax and National Insurance
-#     - name: FillText64
+#     - name: Treth ac Yswiriant Gwlado (Partner)
 #       type: text
 #       source: partner_tax_and_national_insurance
 
 #     # Partner - Standard allowance for employment expenses
-#     - name: FillText112
+#     - name: Lwfans safonol ar gyfer treuliau cyflogaeth (Partner)
 #       type: text
 #       source: partner_employment_deduction
 
@@ -261,17 +261,16 @@
 #       source: partner_maintenance_allowance
 
 #     # Partner - Payment of income contribution order (criminal legal aid)
-#     - name: FillText125
+#     - name: Talu archeb cyfraniad incwm (cymorth cyfreithiol troseddol (Partner)
 #       type: text
 #       source: partner_legal_aid_contribution
 
 #     # Partner - Total Allowances
-#     - name: FillText117
+#     - name: Cyfanswm lwfansau (Partner)
 #       type: text
 #       source: partner_total_allowances
 
 #     # Partner - Total monthly disposable income
-#     - name: FillText51
+#     - name: Cyfanswm incwm gwario misol (Partner)
 #       type: text
 #       source: partner_disposable_income
-
