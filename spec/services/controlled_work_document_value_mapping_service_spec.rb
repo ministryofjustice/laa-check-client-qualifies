@@ -92,6 +92,18 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       expect(result).to include(representative_sample)
     end
 
+    it "can successfully populate a Welsh CIVMEANS7 form" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/civ_means_7_welsh.yml")).map(&:with_indifferent_access)
+      result = described_class.call(session_data, mappings)
+      representative_sample = {
+        "Passported" => "Nac ydy",
+        "FillText30" => "110,000", # Client's share of total net equity
+        "FillText22" => "90,000", # Main home / outstanding mortgage
+        "FillText21" => "250,000", # Main home / current market value
+      }
+      expect(result).to include(representative_sample)
+    end
+
     it "can successfully populate CW1-and-2 form (template with CCQ header)" do
       mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_and_2.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
@@ -158,6 +170,21 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
         "FillText105" => "250,000.11", # Main home / current market value (SMOD)
         "FillText106" => "90,000", # Main home / outstanding mortgage (SMOD)
         "FillText102" => "110,000", # total net equity (SMOD)
+      }
+      expect(result).to include(representative_sample)
+    end
+
+    it "can successfully populate a Welsh CIVMEANS7 form SMOD fields" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/civ_means_7_welsh.yml")).map(&:with_indifferent_access)
+      result = described_class.call(session_data, mappings)
+      representative_sample = {
+        "Passported" => "Nac ydy", # Client not passported
+        "FillText30" => "0", # Client's share of total net equity (non-SMOD)
+        "FillText22" => "0", # Main home / outstanding mortgage (non-SMOD)
+        "FillText21" => "0", # Main home / current market value (non-SMOD)
+        "FillText128" => "250,000.11", # Main home / current market value (SMOD)
+        "FillText129" => "90,000", # Main home / outstanding mortgage (SMOD)
+        "FillText134" => "110,000", # total net equity (SMOD)
       }
       expect(result).to include(representative_sample)
     end
