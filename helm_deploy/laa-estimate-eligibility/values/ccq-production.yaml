@@ -57,26 +57,28 @@ cfe:
 featureFlags:
   sentry: ENABLED
   overrides: NOT_ENABLED
+  # TODO: enable indexProduction when we go live 
   indexProduction: NOT_ENABLED
   maintenanceMode: NOT_ENABLED
+  # TODO: disable basicAuthentication when we go live 
   basicAuthentication: ENABLED
   welshCw: NOT_ENABLED
 
 geckoboard:
-  metricsDataset: "ccq_monthly_metrics_staging"
-  allMetricsDataset: "ccq_all_metrics_staging"
-  lastPagesDataset: "ccq_last_pages_staging"
-  validationsDataset: "ccq_validations_staging"
-  allJourneysDataset: "ccq_all_journeys_staging"
-  monthlyJourneysDataset: "ccq_monthly_journeys_staging"
-  recentJourneysDataset: "ccq_recent_journeys_staging"
-  enabled: not_enabled
+  metricsDataset: "ccq_monthly_metrics_production"
+  allMetricsDataset: "ccq_all_metrics_production"
+  lastPagesDataset: "ccq_last_pages_production"
+  validationsDataset: "ccq_validations_production"
+  allJourneysDataset: "ccq_all_journeys_production"
+  monthlyJourneysDataset: "ccq_monthly_journeys_production"
+  recentJourneysDataset: "ccq_recent_journeys_production"
+  enabled: enabled
 
 sentry:
   # Despite looking very secret-y, the key here is _not_ a secret, as it will appear in every HTTP response header
-  cspReportEndpoint: https://o345774.ingest.sentry.io/api/6763263/security/?sentry_key=fda2f0cddce3417c87e4df62f3611e76
+  cspReportEndpoint: https://o345774.ingest.sentry.io/api/4504177640275968/security/?sentry_key=217c7d14dd2e4cfa8dc62924a1bbd237
   # Similarly this is available in the page source
-  dsn: https://f55bec8a5587418e932cd4935569a06b@o345774.ingest.sentry.io/6763263
+  dsn: https://cd41516e32594c35ae312a4c53936956@o345774.ingest.sentry.io/4504177640275968
 
 app:
   primaryHost: "check-your-client-qualifies-for-legal-aid.service.gov.uk"
