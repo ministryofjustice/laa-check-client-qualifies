@@ -302,7 +302,7 @@ workflows:
                 environment: UAT
                 environment_type: testing
       - deploy:
-          name: Deploy staging to existing namesapce
+          name: Deploy staging to existing namespace
           environment: staging
           context: laa-estimate-eligibility-staging
           requires:
@@ -320,7 +320,7 @@ workflows:
               only:
                 - main
       - deploy:
-          name: Deploy staging to new namesapce
+          name: Deploy staging to new namespace
           environment: ccq-staging
           context: laa-check-client-qualifies-staging
           requires:
@@ -338,7 +338,7 @@ workflows:
               only:
                 - main
       - deploy:
-          name: Deploy production to existing namesapce
+          name: Deploy production to existing namespace
           environment: production
           context: laa-estimate-eligibility-production
           requires:
@@ -356,7 +356,7 @@ workflows:
               only:
                 - main
       - deploy:
-          name: Deploy production to new namesapce
+          name: Deploy production to new namespace
           environment: ccq-production
           context: laa-check-client-qualifies-production
           requires:
