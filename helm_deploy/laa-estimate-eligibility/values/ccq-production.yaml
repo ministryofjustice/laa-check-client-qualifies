@@ -57,10 +57,10 @@ cfe:
 featureFlags:
   sentry: ENABLED
   overrides: NOT_ENABLED
-  # TODO: enable indexProduction when we go live 
+  # TODO: enable 'indexProduction' when we go live 
   indexProduction: NOT_ENABLED
   maintenanceMode: NOT_ENABLED
-  # TODO: disable basicAuthentication when we go live 
+  # TODO: disable 'basicAuthentication' when we go live 
   basicAuthentication: ENABLED
   welshCw: NOT_ENABLED
 
@@ -72,7 +72,8 @@ geckoboard:
   allJourneysDataset: "ccq_all_journeys_production"
   monthlyJourneysDataset: "ccq_monthly_journeys_production"
   recentJourneysDataset: "ccq_recent_journeys_production"
-  enabled: enabled
+  # TODO: enable 'enabled' when we go live. At the moment we aren't sending any data to geckoboard in this namespace, as we don't want to overwrite what we have with empty data. 
+  enabled: not_enabled
 
 sentry:
   # Despite looking very secret-y, the key here is _not_ a secret, as it will appear in every HTTP response header
