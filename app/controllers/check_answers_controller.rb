@@ -12,6 +12,7 @@ class CheckAnswersController < QuestionFlowController
         if next_step
           redirect_to helpers.check_step_path_from_step(next_step, assessment_code)
         else
+          session[assessment_id] = session_data
           redirect_to check_answers_path(assessment_code:, anchor:)
         end
       else
@@ -24,6 +25,17 @@ class CheckAnswersController < QuestionFlowController
   end
 
 private
+
+  def session_data
+    data = super
+    if data[:pending]
+      data[:pending]
+    else
+      pending = data.dup
+      session[assessment_id][:pending] = pending
+      pending
+    end
+  end
 
   def set_back_behaviour
     @back_buttons_invoke_browser_back_behaviour = true
