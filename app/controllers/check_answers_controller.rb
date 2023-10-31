@@ -12,6 +12,7 @@ class CheckAnswersController < QuestionFlowController
         if next_step
           redirect_to helpers.check_step_path_from_step(next_step, assessment_code)
         else
+          # Promote the temporary copy of the answers to overwrite the original answers
           session[assessment_id] = session_data
           redirect_to check_answers_path(assessment_code:, anchor:)
         end
@@ -26,12 +27,15 @@ class CheckAnswersController < QuestionFlowController
 
 private
 
+  # While we're in a 'change answers loop', we want to be working with a temporary copy of the answers
+  # stored in a section of the session called 'pending'.
   def session_data
     data = super
-    if data[:pending]
+    if data[:pending] && !params[:begin_editing]
       data[:pending]
     else
       pending = data.dup
+      pending[:pending] = nil
       session[assessment_id][:pending] = pending
       pending
     end
