@@ -10,7 +10,7 @@ class StatusController < ApplicationController
     if healthy
       render json: { healthy: true }
     else
-      render json: { healthy: false, error: }, status: :service_unavailable
+      render json: { healthy: false, error: }
     end
   end
 end
