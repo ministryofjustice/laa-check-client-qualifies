@@ -277,9 +277,6 @@ workflows:
           context: laa-estimate-eligibility-uat
           requires:
             - linters
-            - run_specs
-            - end2end_tests
-            - linters
             - build_and_push
           post-steps:
             - jira/notify:
@@ -294,7 +291,6 @@ workflows:
             - linters
             - run_specs
             - end2end_tests
-            - linters
             - build_and_push
           post-steps:
             - jira/notify:

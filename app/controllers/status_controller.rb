@@ -6,10 +6,11 @@ class StatusController < ApplicationController
   end
 
   def health
-    if HealthCheckService.call
+    healthy, error = HealthCheckService.call
+    if healthy
       render json: { healthy: true }
     else
-      render json: { healthy: false }, status: :service_unavailable
+      render json: { healthy: false, error: }, status: :service_unavailable
     end
   end
 end
