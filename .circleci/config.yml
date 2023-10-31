@@ -206,7 +206,7 @@ jobs:
     steps:
       - checkout
       - aws-cli/setup:
-          role_arn: $ECR_ROLE_TO_ASSUME
+          role_arn: $ECR_ROLE_TO_ASSUME_CCQ
           region: $ECR_REGION
       - run: |
           aws ecr get-login-password --region $ECR_REGION | docker login --username AWS --password-stdin ${AWS_ECR_REGISTRY_ID}.dkr.ecr.${ECR_REGION}.amazonaws.com
@@ -220,7 +220,7 @@ jobs:
           push-image: true
           tag: $ECR_TAG
           region: $ECR_REGION
-          repo: $ECR_REPOSITORY
+          repo: $ECR_REPOSITORY_CCQ
       - jira/notify:
           job_type: build
   deploy:
@@ -302,7 +302,7 @@ workflows:
                 environment: UAT
                 environment_type: testing
       - deploy:
-          name: Deploy staging to existing namesapce
+          name: Deploy staging to existing namespace
           environment: staging
           context: laa-estimate-eligibility-staging
           requires:
@@ -320,7 +320,7 @@ workflows:
               only:
                 - main
       - deploy:
-          name: Deploy staging to new namesapce
+          name: Deploy staging to new namespace
           environment: ccq-staging
           context: laa-check-client-qualifies-staging
           requires:
@@ -338,9 +338,27 @@ workflows:
               only:
                 - main
       - deploy:
-          name: Deploy production
+          name: Deploy production to existing namespace
           environment: production
           context: laa-estimate-eligibility-production
+          requires:
+            - run_specs
+            - end2end_tests
+            - linters
+            - build_and_push
+          post-steps:
+            - jira/notify:
+                job_type: deployment
+                environment: Production
+                environment_type: production
+          filters:
+            branches:
+              only:
+                - main
+      - deploy:
+          name: Deploy production to new namespace
+          environment: ccq-production
+          context: laa-check-client-qualifies-production
           requires:
             - run_specs
             - end2end_tests
