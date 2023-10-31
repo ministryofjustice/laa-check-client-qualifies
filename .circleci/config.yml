@@ -206,7 +206,7 @@ jobs:
     steps:
       - checkout
       - aws-cli/setup:
-          role_arn: $ECR_ROLE_TO_ASSUME
+          role_arn: $ECR_ROLE_TO_ASSUME_CCQ
           region: $ECR_REGION
       - run: |
           aws ecr get-login-password --region $ECR_REGION | docker login --username AWS --password-stdin ${AWS_ECR_REGISTRY_ID}.dkr.ecr.${ECR_REGION}.amazonaws.com
@@ -220,7 +220,7 @@ jobs:
           push-image: true
           tag: $ECR_TAG
           region: $ECR_REGION
-          repo: $ECR_REPOSITORY
+          repo: $ECR_REPOSITORY_CCQ
       - jira/notify:
           job_type: build
   deploy:
