@@ -51,6 +51,24 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       expect(result).to include(representative_sample)
     end
 
+    it "can successfully populate Welsh CW1 form fields" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_welsh.yml")).map(&:with_indifferent_access)
+      result = described_class.call(session_data, mappings)
+      representative_sample = {
+        "Matter type" => "Means test required", # This is always checked as CCQ is only relevant to means tested cases
+        "Passported" => "Nac ydy", # Not passporting
+        "Asylum support" => "Nac ydyw", # Asylum supported not given
+        "Client's assets claimed by opponent" => "Nac ydy", # No SMOD
+        "Partner" => "Ie", # Has a partner
+        "FillText136" => "250,000", # Property worth £250,000
+        "FillText112" => "555", # Valuables
+        "FillText111" => "222", # Investments
+        "FillText148" => "111", # Savings
+        "FillText140" => "25", # Percentage owned
+      }
+      expect(result).to include(representative_sample)
+    end
+
     it "can successfully populate a CW2 IMM form (template with CCQ header)" do
       mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw2.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
@@ -133,6 +151,21 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       expect(result).to include(representative_sample)
     end
 
+    it "can successfully populate Welsh CW1 form fields" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_welsh.yml")).map(&:with_indifferent_access)
+      result = described_class.call(session_data, mappings)
+      representative_sample = {
+        "Matter type" => "Means test required", # Means test required
+        "Asylum support" => "Nac ydyw", # Asylum supported not given
+        "Partner" => "Na", # No partner
+        "Client's assets claimed by opponent" => "Ydy", # SMOD
+        "FillText136" => "0", # Part B Capital, Main home, current market value
+        "FillText128" => "250,000.11", # SMOD home worth £250,000
+        "FillText130" => "100,000.22", # SMOD other property worth £100,000
+      }
+      expect(result).to include(representative_sample)
+    end
+
     it "can successfully populate CW5 form fields (template with CCQ header)" do
       mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw5.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
@@ -191,6 +224,20 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       expect(result).to include(representative_sample)
     end
 
+    it "can successfully populate Welsh CW1 form fields" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_welsh.yml")).map(&:with_indifferent_access)
+      result = described_class.call(session_data, mappings)
+      representative_sample = {
+        "Matter type" => "Means test required", # Means test required
+        "Asylum support" => "Ydyw", # Asylum supported
+        "Client's assets claimed by opponent" => nil, # SMOD not relevant
+        "FillText112" => nil, # Valuables not relevant
+        "FillText111" => nil, # Investments not relevant
+        "FillText148" => nil, # Savings not relevant
+      }
+      expect(result).to include(representative_sample)
+    end
+
     it "can successfully populate a CW2 IMM form (template with CCQ header)" do
       mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw2.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
@@ -241,6 +288,26 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
         "Other property 1" => "200,000", # SMOD investments
         "undefined_15" => "75", # SMOD investments
         "Other property 2" => "120,000", # SMOD investments
+      }
+      expect(result).to include(representative_sample)
+    end
+
+    it "can successfully populate Welsh CW1 form fields" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_welsh.yml")).map(&:with_indifferent_access)
+      result = described_class.call(session_data, mappings)
+      representative_sample = {
+        "Matter type" => "Means test required", # Means test required
+        "Asylum support" => "Nac ydyw", # Asylum supported not given
+        "Client's assets claimed by opponent" => "Ydy", # SMOD
+        "Partner" => "Ie", # Has a partner
+        "FillText136" => "0", # Non SMOD Property value
+        "FillText128" => "250,000", # SMOD Property worth £250,000
+        "FillText24" => "111", # SMOD savings
+        "FillText55" => "555", # SMOD valuables
+        "FillText25" => "222", # SMOD investments
+        "FillText130" => "200,000", # SMOD investments
+        "FillText23" => "75", # SMOD investments
+        "FillText131" => "120,000", # SMOD investments
       }
       expect(result).to include(representative_sample)
     end

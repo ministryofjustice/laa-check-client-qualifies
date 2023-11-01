@@ -24,6 +24,7 @@ class ControlledWorkDocumentPopulationService
       "cw5" => "lib/cw5-form.pdf",
       "cw1_and_2" => "lib/cw1-and-2-form-2023-8-21.pdf",
       "civ_means_7" => "lib/civ-means-7-form.pdf",
+      "cw1_welsh" => "lib/cw1-form-welsh.pdf",
     }.freeze
 
     def template_path(form_key)
