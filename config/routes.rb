@@ -58,6 +58,6 @@ Rails.application.routes.draw do
 
   get ":step_url_fragment/:assessment_code", to: "forms#show", as: :step
   put ":step_url_fragment/:assessment_code", to: "forms#update"
-  get ":step_url_fragment/:assessment_code/check", to: "check_answers#show", as: :check_step
-  put ":step_url_fragment/:assessment_code/check", to: "check_answers#update"
+  get ":step_url_fragment/:assessment_code/check", to: "change_answers#show", as: :check_step
+  put ":step_url_fragment/:assessment_code/check", to: "change_answers#update"
 end

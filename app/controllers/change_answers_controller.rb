@@ -1,4 +1,4 @@
-class CheckAnswersController < QuestionFlowController
+class ChangeAnswersController < QuestionFlowController
   before_action :set_back_behaviour
 
   def update
@@ -31,13 +31,16 @@ private
   # stored in a section of the session called 'pending'.
   def session_data
     data = super
-    if data[:pending] && !params[:begin_editing]
-      data[:pending]
-    else
+
+    # Set up a fresh copy of the answers into the pending section if it's blank or we're
+    # starting a new loop
+    if !data[:pending] || params[:begin_editing]
       pending = data.dup
       pending[:pending] = nil
       session[assessment_id][:pending] = pending
       pending
+    else
+      data[:pending]
     end
   end
 
