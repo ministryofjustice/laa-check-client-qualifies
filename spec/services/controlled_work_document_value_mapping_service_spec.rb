@@ -114,6 +114,19 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       expect(result).to include(representative_sample)
     end
 
+    it "can successfully populate Welsh CW5 form fields" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw5_welsh.yml")).map(&:with_indifferent_access)
+      result = described_class.call(session_data, mappings)
+      representative_sample = {
+        "Partner" => "Ie", # client has partner
+        "FillText136" => "250,000", # client main home value non-SMOD
+        "FillText137" => "90,000", # client main home mortgage non-SMOD
+        "FillText142" => "110,000", # client main home net equity non-SMOD
+        "FillText146" => "100,000", # client final assessed amount of equity for main home non-SMOD
+      }
+      expect(result).to include(representative_sample)
+    end
+
     it "can successfully populate CIVMEANS7 form (template with CCQ header)" do
       mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/civ_means_7.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
@@ -192,6 +205,20 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
         "FillText11" => "0",
         "FillText27" => "250,000.11", # SMOD home worth £250,000
         "FillText29" => "100,000.22", # SMOD other property worth £100,000
+      }
+      expect(result).to include(representative_sample)
+    end
+
+    it "can successfully populate Welsh CW5 form fields" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw5_welsh.yml")).map(&:with_indifferent_access)
+      result = described_class.call(session_data, mappings)
+      representative_sample = {
+        "Client's assets claimed by opponent" => "Ydy", # SMOD
+        "Passported" => "Nac ydy", # Not passporting
+        "Partner" => "1", # No partner
+        "FillText136" => "0",
+        "FillText128" => "250,000.11", # SMOD home worth £250,000
+        "FillText130" => "100,000.22", # SMOD other property worth £100,000
       }
       expect(result).to include(representative_sample)
     end
