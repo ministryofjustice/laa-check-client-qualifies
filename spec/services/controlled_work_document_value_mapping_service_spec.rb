@@ -150,6 +150,18 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       }
       expect(result).to include(representative_sample)
     end
+
+    it "can successfully populate a Welsh CW1-and-2 form" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_and_2_welsh.yml")).map(&:with_indifferent_access)
+      result = described_class.call(session_data, mappings)
+      representative_sample = {
+        "Partner" => "Oes",
+        "Passported" => "Nac ydy",
+        "FillText76" => "90,000", # Main home / outstanding mortgage
+        "FillText67" => "250,000", # Main home / current market value
+      }
+      expect(result).to include(representative_sample)
+    end
   end
 
   context "with disputed main home and additional property" do
