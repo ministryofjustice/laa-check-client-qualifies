@@ -48,7 +48,7 @@ runs:
           branch=${BRANCH_NAME}
         fi
 
-        echo "##[set-output name=branch;]$(echo $branch)"
+        echo "branch=$branch" >> $GITHUB_OUTPUT
 
     - name: Extract release name
       id: extract_release
@@ -56,7 +56,7 @@ runs:
       run: |
         branch=${{ steps.extract_branch.outputs.branch }}
         truncated_branch=$(echo $branch | tr '[:upper:]' '[:lower:]' | sed 's:^\w*\/::' | tr -s ' _/[]().' '-' | cut -c1-18 | sed 's/-$//')
-        echo "##[set-output name=release;]$(echo $truncated_branch)"
+        echo "release=$truncated_branch" >> $GITHUB_OUTPUT
 
     - name: Authenticate to the cluster
       id: authenticate_to_cluster
@@ -83,9 +83,8 @@ runs:
         if [[ ! -z "$found" ]]
         then
           helm delete $release_name
-          echo "##[set-output name=message;]$(echo "Deleted UAT release ${release_name}!")"
           kubectl delete pvc data-$release_name-postgresql-0
-          echo "##[set-output name=message;]$(echo "Deleted UAT persistent volume ${release_name}!")"
+          echo 'message="Deleted UAT release ${release_name}!"' >> $GITHUB_OUTPUT
         else
-          echo "##[set-output name=message;]$(echo "UAT release, ${release_name}, not found!")"
+          echo 'message="UAT release, ${release_name}, not found!"' >> $GITHUB_OUTPUT
         fi
