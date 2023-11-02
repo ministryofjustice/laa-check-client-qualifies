@@ -13,6 +13,9 @@ inputs:
   k8s_token:
     description: "Kubernetes authentication token"
     required: true
+  branch_name:
+    description: "Optional branch name - inferred if not given"
+    required: false
 outputs:
   branch-name:
     description: "Extracted branch name"
@@ -30,12 +33,19 @@ runs:
     - name: Extract branch name
       id: extract_branch
       shell: bash
+      env:
+        BRANCH_NAME: ${{ inputs.branch_name || 'not_given' }}
       run: |
-        if [ $GITHUB_EVENT_NAME == "pull_request" ]
+        if [ ${BRANCH_NAME} == "not_given" ]
         then
-          branch=$GITHUB_HEAD_REF
+          if [ $GITHUB_EVENT_NAME == "pull_request" ]
+          then
+            branch=$GITHUB_HEAD_REF
+          else
+            branch=${GITHUB_REF#refs/heads/}
+          fi
         else
-          branch=${GITHUB_REF#refs/heads/}
+          branch=${BRANCH_NAME}
         fi
 
         echo "##[set-output name=branch;]$(echo $branch)"
