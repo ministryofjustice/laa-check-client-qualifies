@@ -45,7 +45,7 @@ runs:
             branch=${GITHUB_REF#refs/heads/}
           fi
         else
-          branch=${BRANCH_NAME}
+          branch=$BRANCH_NAME
         fi
 
         echo "branch=$branch" >> $GITHUB_OUTPUT
@@ -84,7 +84,7 @@ runs:
         then
           helm delete $release_name
           kubectl delete pvc data-$release_name-postgresql-0
-          echo 'message="Deleted UAT release ${release_name}!"' >> $GITHUB_OUTPUT
+          echo "message=\"Deleted UAT release ${release_name}\!\"" >> $GITHUB_OUTPUT
         else
-          echo 'message="UAT release, ${release_name}, not found!"' >> $GITHUB_OUTPUT
+          echo "message=\"UAT release, ${release_name}, not found\!\"" >> $GITHUB_OUTPUT
         fi
