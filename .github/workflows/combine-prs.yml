@@ -160,6 +160,7 @@ jobs:
       matrix:
         branch: ${{ fromJSON(needs.combine-prs.outputs.branches) }}
     steps:
+      - uses: actions/checkout@v4
       - name: Delete from old UAT namespace
         id: delete_old_uat
         uses: ./.github/actions/delete-uat-release
