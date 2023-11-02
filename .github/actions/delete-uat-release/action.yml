@@ -36,7 +36,7 @@ runs:
       env:
         BRANCH_NAME: ${{ inputs.branch_name || 'not_given' }}
       run: |
-        if [ ${BRANCH_NAME} == "not_given" ]
+        if [ $BRANCH_NAME == "not_given" ]
         then
           if [ $GITHUB_EVENT_NAME == "pull_request" ]
           then

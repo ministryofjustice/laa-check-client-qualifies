@@ -169,7 +169,7 @@ jobs:
           k8s_cluster_cert: ${{ secrets.K8S_GHA_UAT_CLUSTER_CERT }}
           k8s_namespace: ${{ secrets.K8S_GHA_UAT_NAMESPACE }}
           k8s_token: ${{ secrets.K8S_GHA_UAT_TOKEN }}
-          branch_name: $$ {{ matrix.branch }}
+          branch_name: ${{ matrix.branch }}
       - name: Old result
         shell: bash
         run: echo ${{ steps.delete_old_uat.outputs.delete-message }}\
