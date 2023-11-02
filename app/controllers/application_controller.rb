@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   BROWSER_ID_COOKIE = :browser_id
   BASIC_AUTHENTICATION_COOKIE = :basic_authenticated
   default_form_builder GOVUKDesignSystemFormBuilder::FormBuilder
-  before_action :force_setting_of_session_cookie, :specify_feedback_widget, :authenticate, :check_maintenance_mode
+  before_action :force_setting_of_session_cookie, :specify_feedback_widget, :authenticate, :check_maintenance_mode, :ensure_db_connection
 
   class MissingSessionError < StandardError; end
 
@@ -88,5 +88,14 @@ private
   def specify_feedback_widget
     @feedback = :freetext
     @freetext_feedback_page_name = page_name
+  end
+
+  def ensure_db_connection
+    # In some circumstances the database connection can be interrupted, and when this happens
+    # even when the database is available again, the connection is not restored automatically
+    # This check ensures the connection is restored as soon as possible if this ever happens
+    ActiveRecord::Base.connection.reconnect! unless ActiveRecord::Base.connection.active?
+  rescue StandardError
+    nil
   end
 end
