@@ -256,3 +256,5 @@ Due to case-sensitivity in the integration between CircleCi and Jira, the Jira t
 For example:
 ❌ el-123-add-new-feature
 ✅ EL-123-add-new-feature
+
+FOO
