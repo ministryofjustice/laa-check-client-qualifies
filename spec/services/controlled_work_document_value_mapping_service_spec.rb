@@ -114,6 +114,19 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       expect(result).to include(representative_sample)
     end
 
+    it "can successfully populate Welsh CW5 form fields" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw5_welsh.yml")).map(&:with_indifferent_access)
+      result = described_class.call(session_data, mappings)
+      representative_sample = {
+        "Partner" => "Ie", # client has partner
+        "FillText136" => "250,000", # client main home value non-SMOD
+        "FillText137" => "90,000", # client main home mortgage non-SMOD
+        "FillText142" => "110,000", # client main home net equity non-SMOD
+        "FillText146" => "100,000", # client final assessed amount of equity for main home non-SMOD
+      }
+      expect(result).to include(representative_sample)
+    end
+
     it "can successfully populate CIVMEANS7 form (template with CCQ header)" do
       mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/civ_means_7.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
@@ -126,6 +139,18 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       expect(result).to include(representative_sample)
     end
 
+    it "can successfully populate a Welsh CIVMEANS7 form" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/civ_means_7_welsh.yml")).map(&:with_indifferent_access)
+      result = described_class.call(session_data, mappings)
+      representative_sample = {
+        "Passported" => "Nac ydy",
+        "FillText30" => "110,000", # Client's share of total net equity
+        "FillText22" => "90,000", # Main home / outstanding mortgage
+        "FillText21" => "250,000", # Main home / current market value
+      }
+      expect(result).to include(representative_sample)
+    end
+
     it "can successfully populate CW1-and-2 form (template with CCQ header)" do
       mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_and_2.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
@@ -134,6 +159,18 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
         "Passported" => "No",
         "FillText6" => "90,000", # Main home / outstanding mortgage
         "FillText5" => "250,000", # Main home / current market value
+      }
+      expect(result).to include(representative_sample)
+    end
+
+    it "can successfully populate a Welsh CW1-and-2 form" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_and_2_welsh.yml")).map(&:with_indifferent_access)
+      result = described_class.call(session_data, mappings)
+      representative_sample = {
+        "Partner" => "Oes",
+        "Passported" => "Nac ydy",
+        "FillText76" => "90,000", # Main home / outstanding mortgage
+        "FillText67" => "250,000", # Main home / current market value
       }
       expect(result).to include(representative_sample)
     end
@@ -196,6 +233,20 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       expect(result).to include(representative_sample)
     end
 
+    it "can successfully populate Welsh CW5 form fields" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw5_welsh.yml")).map(&:with_indifferent_access)
+      result = described_class.call(session_data, mappings)
+      representative_sample = {
+        "Client's assets claimed by opponent" => "Ydy", # SMOD
+        "Passported" => "Nac ydy", # Not passporting
+        "Partner" => "1", # No partner
+        "FillText136" => "0",
+        "FillText128" => "250,000.11", # SMOD home worth £250,000
+        "FillText130" => "100,000.22", # SMOD other property worth £100,000
+      }
+      expect(result).to include(representative_sample)
+    end
+
     it "can successfully populate CIVMEANS7 form SMOD fields (template with CCQ header)" do
       mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/civ_means_7.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
@@ -207,6 +258,21 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
         "FillText105" => "250,000.11", # Main home / current market value (SMOD)
         "FillText106" => "90,000", # Main home / outstanding mortgage (SMOD)
         "FillText102" => "110,000", # total net equity (SMOD)
+      }
+      expect(result).to include(representative_sample)
+    end
+
+    it "can successfully populate a Welsh CIVMEANS7 form SMOD fields" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/civ_means_7_welsh.yml")).map(&:with_indifferent_access)
+      result = described_class.call(session_data, mappings)
+      representative_sample = {
+        "Passported" => "Nac ydy", # Client not passported
+        "FillText30" => "0", # Client's share of total net equity (non-SMOD)
+        "FillText22" => "0", # Main home / outstanding mortgage (non-SMOD)
+        "FillText21" => "0", # Main home / current market value (non-SMOD)
+        "FillText128" => "250,000.11", # Main home / current market value (SMOD)
+        "FillText129" => "90,000", # Main home / outstanding mortgage (SMOD)
+        "FillText134" => "110,000", # total net equity (SMOD)
       }
       expect(result).to include(representative_sample)
     end
