@@ -61,7 +61,7 @@ featureFlags:
   sentry: ENABLED
   overrides: ENABLED
   indexProduction: NOT_ENABLED
-  maintenanceMode: NOT_ENABLED
+  maintenanceMode: ENABLED
   basicAuthentication: ENABLED
   welshCw: ENABLED
 
