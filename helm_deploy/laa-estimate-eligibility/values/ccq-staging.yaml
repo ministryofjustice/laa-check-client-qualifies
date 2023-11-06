@@ -57,7 +57,7 @@ featureFlags:
   overrides: NOT_ENABLED
   indexProduction: NOT_ENABLED
   maintenanceMode: ENABLED
-  basicAuthentication: ENABLED
+  basicAuthentication: NOT_ENABLED
   welshCw: NOT_ENABLED
 
 geckoboard:
