@@ -41,5 +41,12 @@ RSpec.describe "status requests" do
       get("/health")
       expect(response).not_to be_successful
     end
+
+    it "responds to an inactive connection" do
+      allow(ActiveRecord::Base.connection).to receive(:active?).and_return(false, true)
+      expect(ActiveRecord::Base.connection).to receive(:reconnect!)
+      get("/health")
+      expect(response).to be_successful
+    end
   end
 end
