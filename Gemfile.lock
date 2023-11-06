@@ -216,7 +216,7 @@ GEM
       nokogiri (~> 1.0)
     hashdiff (1.0.1)
     hashie (5.0.0)
-    hexapdf (0.34.0)
+    hexapdf (0.34.1)
       cmdparse (~> 3.0, >= 3.0.3)
       geom2d (~> 0.4, >= 0.4.1)
       openssl (>= 2.2.1)
