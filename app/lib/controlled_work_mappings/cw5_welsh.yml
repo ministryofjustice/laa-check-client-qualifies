@@ -1,0 +1,364 @@
+# This file defines the mappings used to prepopulate a Welsh CW5 PDF form with the answers given by a user to CCQ's questions
+# combined with the output from CFE.
+
+# The mappings conform to the format described in ControlledWorkDocumentValueMappingService
+- section: general
+  fields:
+    # "The client has a partner whose means are to be aggregated:
+    - name: Partner
+      type: boolean_radio
+      source: aggregate_partner?
+      yes_value: "Ie"
+      no_value: "1"
+
+    # "The client's assets (held in sole name or jointly held) have been claimed by the opponent:"
+    - name: Client's assets claimed by opponent
+      type: boolean_radio
+      source: smod_assets?
+      yes_value: "Ydy"
+      no_value: "Nac ydy"
+
+- section: smod_capital
+  fields:
+    # Part A
+    # Main home - Current market value (SMOD)
+    - name: FillText128
+      type: text
+      source: smod_main_home_value
+
+    # Main home - Outstanding Mortgage/secured loan (SMOD)
+    - name: FillText129
+      type: text
+      source: smod_main_home_outstanding_mortgage
+
+    # Other property - Current market value (SMOD)
+    - name: FillText130
+      type: text
+      source: smod_additional_properties_value
+
+    # Other property - Outstanding mortgage/secured loan (SMOD)
+    - name: FillText131
+      type: text
+      source: smod_additional_properties_outstanding_mortgage
+
+    # Main home / "Client's share of property for assessment?" (SMOD)
+    - name: FillText16
+      type: text
+      source: smod_main_home_percentage_owned
+
+    # Other property / "Client's share of property for assessment?" (SMOD)
+    - name: FillText23
+      type: text
+      source: smod_additional_properties_percentage_owned
+
+    # Main home / "Total Net Equity (i.e. current market value minus mortgage disregard):" (SMOD)
+    - name: FillText134
+      type: text
+      source: smod_main_home_net_value
+
+    # Other property / "Total Net Equity (i.e. current market value minus mortgage disregard):" (SMOD)
+    - name: FillText135
+      type: text
+      source: smod_additional_properties_net_value
+
+    # Main home / "Client's share of Total Net Equity:" (SMOD)
+    - name: FillText80
+      type: text
+      source: smod_main_home_net_equity
+
+    # Other property / "Client's share of Total Net Equity:" (SMOD)
+    - name: FillText132
+      type: text
+      source: smod_additional_properties_net_equity
+
+    # Main home / "Final assessed amount of Client's equity:" (SMOD)
+    - name: FillText99
+      type: text
+      source: smod_main_home_assessed_equity
+
+    # Other property / "Final assessed amount of Client's equity:" (SMOD)
+    - name: FillText100
+      type: text
+      source: smod_additional_properties_assessed_equity
+
+    # Savings / Client & Partner - "Savings (bank, building society, etc)" (SMOD)
+    - name: FillText27
+      type: text
+      source: smod_savings
+
+    # Investments / Client & Partner - "Investments (shares, insurance policies, etc)" (SMOD)
+    - name: FillText28
+      type: text
+      source: smod_investments
+
+    # Valuables / Client & Partner - "Valuables (boat, caravan, jewellery, etc)" (SMOD)
+    - name: FillText29
+      type: text
+      source: smod_valuables
+
+    # Total capital part A (SMOD)
+    - name: FillText133
+      type: text
+      source: smod_total_capital
+
+- section: capital
+  fields:
+    # Part B
+    # Main home / "Current market value:" (non-SMOD)
+    - name: FillText136
+      type: text
+      source: non_smod_main_home_value
+
+    # Main home / "Outstanding Mortgage/secured loan:" (non-SMOD)
+    - name: FillText137
+      type: text
+      source: non_smod_main_home_outstanding_mortgage
+
+    # Other property / "Current market value:" (non-SMOD)
+    - name: FillText138
+      type: text
+      source: non_smod_additional_properties_value
+
+    # Other property / "Outstanding Mortgage/secured loan:" (non-SMOD)
+    - name: FillText139
+      type: text
+      source: non_smod_additional_properties_mortgage
+
+    # Main home / "Client's share of property for assessment:" (non-SMOD)
+    - name: FillText140
+      type: text
+      source: non_smod_main_home_percentage_owned
+
+    # Other property / "Client's share of property for assessment:" (non-SMOD)
+    - name: FillText141
+      type: text
+      source: non_smod_additional_properties_percentage_owned
+
+    # Main home / "Total Net Equity (i.e. current market value minus mortgage disregard):" (non-SMOD)
+    - name: FillText144
+      type: text
+      source: non_smod_main_home_net_value
+
+    # Other property / "Total Net Equity (i.e. current market value minus mortgage disregard):" (non-SMOD)
+    - name: FillText145
+      type: text
+      source: non_smod_additional_properties_net_value
+
+    # Main home / "Client's share of Total Net Equity" (non-SMOD)
+    - name: FillText142
+      type: text
+      source: non_smod_main_home_net_equity
+
+    # Other property / "Client's share of Total Net Equity" (non-SMOD)
+    - name: FillText143
+      type: text
+      source: non_smod_additional_properties_net_equity
+
+    # Main home / "Final assessed amount of Client's equity:" (non-SMOD)
+    - name: FillText146
+      type: text
+      source: non_smod_main_home_assessed_equity
+
+    # Other property / "Final assessed amount of Client's equity:" (non-SMOD)
+    - name: FillText147
+      type: text
+      source: non_smod_additional_properties_assessed_equity
+
+    # Savings / Client - "Savings (bank, building society, etc)" (non-SMOD)
+    - name: FillText148
+      type: text
+      source: non_smod_client_savings
+
+    # Investments / Client - "Investments (shares, insurance policies, etc)" (non-SMOD)
+    - name: FillText111
+      type: text
+      source: non_smod_client_investments
+
+    # Valuables / Client - "Valuable items (boat, caravan, jewellery, etc)" (non-SMOD)
+    - name: FillText112
+      type: text
+      source: non_smod_client_valuables
+
+    # Total capital part B (non-SMOD)
+    - name: FillText118
+      type: text
+      source: combined_non_disputed_capital
+
+    # Total of all capital assets (Part A and Part B)
+    - name: FillText149
+      type: text
+      source: combined_assessed_capital
+
+- section: partner_capital
+  fields:
+
+    # Savings / Partner - "Savings (bank, building society, etc)" (non-SMOD)
+    - name: FillText114
+      type: text
+      source: partner_savings
+
+    # Investments / Partner - "Investments (shares, insurance policies, etc)" (non-SMOD)
+    - name: FillText115
+      type: text
+      source: partner_investments
+
+    # Valuables / Partner - "Valuable items (boat, caravan, jewellery, etc)" (non-SMOD)
+    - name: FillText116
+      type: text
+      source: partner_valuables
+
+- section: income_even_if_passported
+  fields:
+    # Part C
+    # The client is directly or indirectly in receipt of [passporting benefit]
+    - name: Passported
+      type: boolean_radio
+      source: passporting
+      yes_value: "Ydy"
+      no_value: "Nac ydy"
+
+- section: income
+  fields:
+
+    # Gross monthly earnings / Client
+    - name: FillText150
+      type: text
+      source: client_gross_income
+
+    # Other income / Client
+    - name: FillText152
+      type: text
+      source: client_non_employment_income
+
+    # Total gross income / Client
+    - name: FillText154
+      type: text
+      source: client_total_income
+
+    # Total gross income  Client and Partner
+    - name: FillText164
+      type: text
+      source: total_combined_income
+
+    # Mortgage instalment / Client
+    - name: FillText31
+      type: text
+      source: client_mortgage
+
+    # Rent / Client
+    - name: FillText34
+      type: text
+      source: client_rent
+
+    # Dependents' allowances / Partner
+    - name: FillText44
+      type: text
+      source: partner_allowance
+
+    # Dependents' allowances / Aged 15 or under
+    - name: FillText45
+      type: text
+      source: dependants_allowance_under_16
+
+    # Dependents' allowances / Aged 16 or over
+    - name: FillText11
+      type: text
+      source: dependants_allowance_over_16
+
+    # Tax and national insurance / Client
+    - name: FillText49
+      type: text
+      source: client_tax_and_national_insurance
+
+    # Standard allowance for employment expense / Client
+    - name: FillText46
+      type: text
+      source: client_employment_deduction
+
+    # Maintenance allowance / Client
+    - name: FillText14
+      type: text
+      source: client_maintenance_allowance
+
+    # Childcare costs
+    - name: FillText17
+      type: text
+      source: combined_childcare_costs
+
+    # Payment of income contribution order / Client
+    - name: FillText32
+      type: text
+      source: client_legal_aid_contribution
+
+    # Total allowances / Client
+    - name: FillText18
+      type: text
+      source: client_total_allowances
+
+    # Total monthly disposable income / Client
+    - name: FillText20
+      type: text
+      source: client_disposable_income
+
+    # Total monthly disposable income Client and partner
+    - name: FillText51
+      type: text
+      source: combined_disposable_income
+
+- section: partner_income
+  fields:
+
+    # Gross monthly earnings / Partner
+    - name: FillText151
+      type: text
+      source: partner_gross_income
+
+    # Other income / Partner
+    - name: FillText153
+      type: text
+      source: partner_non_employment_income
+
+    # Total gross income / Partner
+    - name: FillText163
+      type: text
+      source: partner_total_income
+
+    # Mortgage instalment / Partner
+    - name: FillText33
+      type: text
+      source: partner_mortgage
+
+    # Rent / Partner
+    - name: FillText43
+      type: text
+      source: partner_rent
+
+    # Tax and national insurance / Partner
+    - name: FillText26
+      type: text
+      source: partner_tax_and_national_insurance
+
+    # Standard allowance for employment expense / Partner
+    - name: FillText48
+      type: text
+      source: partner_employment_deduction
+
+    # Maintenance allowance / Partner
+    - name: FillText15
+      type: text
+      source: partner_maintenance_allowance
+
+    # Payment of income contribution order / Partner
+    - name: FillText52
+      type: text
+      source: partner_legal_aid_contribution
+
+    # Total allowances / Partner
+    - name: FillText19
+      type: text
+      source: partner_total_allowances
+
+    # Total monthly disposable income / Partner
+    - name: FillText21
+      type: text
+      source: partner_disposable_income
