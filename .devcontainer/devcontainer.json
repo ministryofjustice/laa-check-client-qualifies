@@ -10,7 +10,7 @@
 	"features": {
 		"ghcr.io/devcontainers/features/sshd:1": {},
     "ghcr.io/rocker-org/devcontainer-features/apt-packages:1": {
-      "packages": "libpq-dev"
+      "packages": "libpq-dev, pdftk"
     },
     "ghcr.io/devcontainers/features/git:1": {
       "version": "latest"
@@ -37,7 +37,7 @@
 	"forwardPorts": [3000],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "boot.sh",
+	"postCreateCommand": ".devcontainer/boot.sh",
 
 	// Configure tool-specific properties.
 	"customizations": {
