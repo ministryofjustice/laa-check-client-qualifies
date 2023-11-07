@@ -3,8 +3,8 @@ module ApplicationHelper
     step_path(step_url_fragment: step_url_fragment_from_step(step), assessment_code:)
   end
 
-  def check_step_path_from_step(step, assessment_code, anchor: nil)
-    check_step_path(step_url_fragment: step_url_fragment_from_step(step), assessment_code:, anchor:)
+  def check_step_path_from_step(step, assessment_code, anchor: nil, begin_editing: nil)
+    check_step_path(step_url_fragment: step_url_fragment_from_step(step), assessment_code:, anchor:, begin_editing:)
   end
 
   def start_button_label(button_label)
