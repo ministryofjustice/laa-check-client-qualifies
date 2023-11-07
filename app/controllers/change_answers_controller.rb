@@ -1,4 +1,4 @@
-class CheckAnswersController < QuestionFlowController
+class ChangeAnswersController < QuestionFlowController
   before_action :set_back_behaviour
 
   def update
@@ -12,6 +12,8 @@ class CheckAnswersController < QuestionFlowController
         if next_step
           redirect_to helpers.check_step_path_from_step(next_step, assessment_code)
         else
+          # Promote the temporary copy of the answers to overwrite the original answers
+          session[assessment_id] = session_data
           redirect_to check_answers_path(assessment_code:, anchor:)
         end
       else
@@ -24,6 +26,23 @@ class CheckAnswersController < QuestionFlowController
   end
 
 private
+
+  # While we're in a 'change answers loop', we want to be working with a temporary copy of the answers
+  # stored in a section of the session called 'pending'.
+  def session_data
+    data = super
+
+    # Set up a fresh copy of the answers into the pending section if it's blank or we're
+    # starting a new loop
+    if !data[:pending] || params[:begin_editing]
+      pending = data.dup
+      pending[:pending] = nil
+      session[assessment_id][:pending] = pending
+      pending
+    else
+      data[:pending]
+    end
+  end
 
   def set_back_behaviour
     @back_buttons_invoke_browser_back_behaviour = true

@@ -16,7 +16,7 @@
           - if change_links
             - anchor = "section-#{table.index + 1}" if table.index
             = link_to t("checks.check_answers.change"),
-                      check_step_path_from_step(table.screen.to_sym, params[:assessment_code], anchor:),
+                      check_step_path_from_step(table.screen.to_sym, params[:assessment_code], anchor:, begin_editing: true),
                       class: "change-link govuk-!-margin-top-1"
         .govuk-summary-card__content
           dl.govuk-summary-list
