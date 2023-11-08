@@ -29,7 +29,15 @@ RSpec.describe "checks/check_answers.html.slim" do
         let(:immigration_or_asylum_type_upper_tribunal) { "immigration_upper" }
 
         it "renders the correct case matter type" do
-          expect(page_text).to include("Is this for a matter in the Immigration and Asylum Chamber of the Upper Tribunal?Immigration (Upper Tribunal)")
+          expect(page_text).to include("Is this for a matter in the Immigration and Asylum Chamber of the Upper Tribunal?Yes, immigration (Upper Tribunal)")
+        end
+      end
+
+      context "when the provider chooses 'No'" do
+        let(:immigration_or_asylum_type_upper_tribunal) { "none" }
+
+        it "renders the correct case matter type" do
+          expect(page_text).to include("Is this for a matter in the Immigration and Asylum Chamber of the Upper Tribunal?No")
         end
       end
 
@@ -37,7 +45,7 @@ RSpec.describe "checks/check_answers.html.slim" do
         let(:immigration_or_asylum_type_upper_tribunal) { "asylum_upper" }
 
         it "renders the correct case matter type" do
-          expect(page_text).to include("Is this for a matter in the Immigration and Asylum Chamber of the Upper Tribunal?Asylum (Upper Tribunal)")
+          expect(page_text).to include("Is this for a matter in the Immigration and Asylum Chamber of the Upper Tribunal?Yes, asylum (Upper Tribunal)")
         end
       end
     end
