@@ -13,7 +13,7 @@ class FeatureFlags
     maintenance_mode: "global",
     basic_authentication: "global",
     welsh_cw: "global",
-    end_of_journey: "global",
+    end_of_journey: "session",
   }.freeze
 
   class << self
