@@ -3,6 +3,9 @@ default: &default
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 25 } %>
   timeout: 5000
+  host: <%= ENV['CODESPACES_POSTGRES_HOST'] %>
+  username: <%= ENV['CODESPACES_POSTGRES_USER'] %>
+  password: <%= ENV['CODESPACES_POSTGRES_PASSWORD'] %>
 
 development:
   <<: *default
@@ -11,9 +14,6 @@ development:
 test:
   <<: *default
   database: ccq_test
-  host: <%= ENV['CODESPACES_POSTGRES_HOST'] %>
-  username: <%= ENV['CODESPACES_POSTGRES_USER'] %>
-  password: <%= ENV['CODESPACES_POSTGRES_PASSWORD'] %>
 
 production:
   <<: *default
