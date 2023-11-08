@@ -64,6 +64,7 @@ featureFlags:
   maintenanceMode: ENABLED
   basicAuthentication: ENABLED
   welshCw: ENABLED
+  endOfJourney: ENABLED
 
 postgresql:
   enabled: true
