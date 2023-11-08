@@ -11,6 +11,9 @@ development:
 test:
   <<: *default
   database: ccq_test
+  host: <%= ENV['CODESPACES_POSTGRES_HOST'] %>
+  username: <%= ENV['CODESPACES_POSTGRES_USER'] %>
+  password: <%= ENV['CODESPACES_POSTGRES_PASSWORD'] %>
 
 production:
   <<: *default
