@@ -311,7 +311,6 @@ workflows:
             - end2end_tests
             - linters
             - build_and_push
-            - Deploy staging to new namespace
           post-steps:
             - jira/notify:
                 job_type: deployment
@@ -330,6 +329,7 @@ workflows:
             - end2end_tests
             - linters
             - build_and_push
+            - Deploy staging to existing namespace
           post-steps:
             - jira/notify:
                 job_type: deployment

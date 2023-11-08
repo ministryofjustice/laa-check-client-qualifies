@@ -30,10 +30,8 @@ service:
 
 ingress:
   hosts:
-    - host: check-your-client-qualifies-for-legal-aid-staging.cloud-platform.service.justice.gov.uk
+    - host: ccq-old-namspace-staging.cloud-platform.service.justice.gov.uk
       secret: false
-    - host: staging.check-your-client-qualifies-for-legal-aid.service.gov.uk
-      secret: ccq-staging-cert-secret
   annotations:
     external-dns.alpha.kubernetes.io/set-identifier: "check-client-qualifies-laa-estimate-eligibility-laa-estimate-financial-eligibility-for-legal-aid-staging-green"
     external-dns.alpha.kubernetes.io/aws-weight: "100"

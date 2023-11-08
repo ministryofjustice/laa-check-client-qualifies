@@ -30,15 +30,13 @@ service:
 
 ingress:
   hosts:
-    - host: main-ccq-staging.cloud-platform.service.justice.gov.uk
-      secret: false
-#    - host: check-your-client-qualifies-for-legal-aid-staging.cloud-platform.service.justice.gov.uk
-#      secret: false
-#    - host: staging.check-your-client-qualifies-for-legal-aid.service.gov.uk
-#      secret: ccq-staging-cert-secret
+   - host: check-your-client-qualifies-for-legal-aid-staging.cloud-platform.service.justice.gov.uk
+     secret: false
+   - host: staging.check-your-client-qualifies-for-legal-aid.service.gov.uk
+     secret: ccq-staging-cert-secret
   annotations:
     external-dns.alpha.kubernetes.io/set-identifier: "check-client-qualifies-laa-estimate-eligibility-laa-check-client-qualifies-staging-green"
-    external-dns.alpha.kubernetes.io/aws-weight: "0"
+    external-dns.alpha.kubernetes.io/aws-weight: "100"
 
 postgresql:
   enabled: false
