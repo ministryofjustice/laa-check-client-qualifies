@@ -58,6 +58,7 @@ featureFlags:
   basicAuthentication: ENABLED
   welshCw: NOT_ENABLED
   endOfJourney: NOT_ENABLED
+  underEighteen: NOT_ENABLED
 
 geckoboard:
   metricsDataset: "ccq_monthly_metrics_staging"
