@@ -9,3 +9,6 @@ npm install -g yarn
 yarn install
 yarn build
 yarn build:css
+
+echo "Creating template .env.development..."
+cp .env.sample .env.development

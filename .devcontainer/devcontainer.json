@@ -10,7 +10,7 @@
 	"features": {
 		"ghcr.io/devcontainers/features/sshd:1": {},
     "ghcr.io/rocker-org/devcontainer-features/apt-packages:1": {
-      "packages": "libpq-dev, pdftk"
+      "packages": "libpq-dev, chromium, chromium-driver, pdftk"
     },
     "ghcr.io/devcontainers/features/git:1": {
       "version": "latest"

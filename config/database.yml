@@ -7,14 +7,14 @@ default: &default
 development:
   <<: *default
   database: ccq_development
-  host: db
+  host: <%= ENV.fetch("POSTGRES_HOST", "db") %> 
   username: postgres
   password: postgres
 
 test:
   <<: *default
   database: ccq_test
-  host: db
+  host: <%= ENV.fetch("POSTGRES_HOST", "db") %> 
   username: postgres
   password: postgres
 
