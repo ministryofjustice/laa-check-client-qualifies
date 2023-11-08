@@ -78,7 +78,7 @@ env:
   - name: WELSH_CW_FEATURE_FLAG
     value: {{ .Values.featureFlags.welshCw }}
   - name: END_OF_JOURNEY_FEATURE_FLAG
-  value: {{ .Values.featureFlags.welshCw }}
+    value: {{ .Values.featureFlags.endOfJourney }}
   - name: FEATURE_FLAG_OVERRIDES
     value: {{ .Values.featureFlags.overrides }}
   - name: NOTIFICATIONS_API_KEY
