@@ -103,10 +103,14 @@ RSpec.describe "checks/check_answers.html.slim" do
                     { "amount" => 30, "account_in_dispute" => savings_in_dispute },
                   ],
                   investments: 60,
-                  valuables: 550)
+                  valuables: 550,
+                  investments_in_dispute:,
+                  valuables_in_dispute:)
           end
 
           let(:savings_in_dispute) { false }
+          let(:valuables_in_dispute) { false }
+          let(:investments_in_dispute) { false }
 
           it "renders the content correctly" do
             expect_in_text(text, [
@@ -120,9 +124,13 @@ RSpec.describe "checks/check_answers.html.slim" do
 
           context "when is smod" do
             let(:savings_in_dispute) { true }
+            let(:valuables_in_dispute) { true }
+            let(:investments_in_dispute) { true }
 
             it "renders content" do
               expect(page_text_within("#money-in-bank-account-1")).to include("Disputed asset")
+              expect(page_text_within("#investments")).to include("Disputed asset")
+              expect(page_text_within("#valuable-items-worth-500-or-more")).to include("Disputed asset")
             end
           end
         end
