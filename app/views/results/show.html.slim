@@ -1,3 +1,4 @@
+- end_of_journey = FeatureFlags.enabled?(:end_of_journey, @check.session_data)
 - content_for :page_title
   - if @model.decision == "ineligible"
     = t(".not_likely_to_qualify")
@@ -19,7 +20,7 @@
       - %i[gross_income disposable_income capital].each
         = render("summary", section: _1, links: true) if @model.calculated?(_1)
 
-  - if FeatureFlags.enabled?(:end_of_journey, @check.session_data) && @model.level_of_help == "controlled" && @model.decision == "eligible"
+  - if end_of_journey && @model.level_of_help == "controlled" && @model.decision == "eligible" && !@check.immigration_or_asylum?
     h2.govuk-heading-m = t(".save_results")
     p.govuk-body = t(".save_results_intro")
     ul.govuk-list.govuk-list--bullet
@@ -80,21 +81,22 @@
         - accordion.with_section(heading_text: t(".capital_calculation"))
           = render "capital_table", caption_size: "m"
 
-- unless FeatureFlags.enabled?(:end_of_journey, @check.session_data)
-  .govuk-button-group
-    / For eligible controlled checks there is no primary CTA in this group, as it appears below.
-    / For other checks, 'Save as PDF' is the primary CTA.
+  - unless end_of_journey && !@check.immigration_or_asylum?
+    .govuk-button-group
+      / For eligible controlled checks there is no primary CTA in this group, as it appears below.
+      / For other checks, 'Save as PDF' is the primary CTA.
+      - if @model.level_of_help == "controlled" && @model.decision == "eligible"
+        = link_to t(".save_as_pdf"),
+                  download_result_path(params[:assessment_code]),
+                  target: "_blank", rel: "noopener", class: "govuk-button govuk-button--secondary"
+      - else
+        = link_to t(".save_as_pdf"), download_result_path(params[:assessment_code]),
+                                     target: "_blank", rel: "noopener", class: "govuk-button"
+        = link_to t(".start_another_check"), new_check_path, class: "govuk-button govuk-button--secondary", data: { module: "govuk-button" }
+
     - if @model.level_of_help == "controlled" && @model.decision == "eligible"
-      = link_to t(".save_as_pdf"),
-                download_result_path(params[:assessment_code]),
-                target: "_blank", rel: "noopener", class: "govuk-button govuk-button--secondary"
-    - else
-      = link_to t(".save_as_pdf"), download_result_path(params[:assessment_code]), target: "_blank", rel: "noopener", class: "govuk-button"
-      = link_to t(".start_another_check"), new_check_path, class: "govuk-button govuk-button--secondary", data: { module: "govuk-button" }
+      h2.govuk-heading-m = t(".what_happens_next")
 
-  - if @model.level_of_help == "controlled" && @model.decision == "eligible"
-    h2.govuk-heading-m = t(".what_happens_next")
-
-    = render "controlled_work_next_steps", cta: true
-      = govuk_details(summary_text: t("results.show.evidence_needed")) do
-        = render "evidence"
+      = render "controlled_work_next_steps", cta: true
+        = govuk_details(summary_text: t("results.show.evidence_needed")) do
+          = render "evidence"
