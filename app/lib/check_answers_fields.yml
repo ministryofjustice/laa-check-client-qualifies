@@ -288,8 +288,10 @@ sections:
                   type: money
               - attribute: investments
                 type: money
+                disputed_if: investments_in_dispute
               - attribute: valuables
                 type: money
+                disputed_if: valuables_in_dispute
   - label: partner_assets
     subsections:
       - tables:
@@ -299,7 +301,6 @@ sections:
                 model: partner_bank_accounts
                 template:
                   attribute: amount
-                  disputed_if: account_in_dispute
                   type: money
               - attribute: partner_investments
                 type: money

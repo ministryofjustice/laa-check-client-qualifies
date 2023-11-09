@@ -1423,9 +1423,9 @@ en:
       immigration_or_asylum_type_upper_tribunal_fields:
         immigration_or_asylum_type_upper_tribunal: Is this for a matter in the Immigration and Asylum Chamber of the Upper Tribunal?
         immigration_or_asylum_type_upper_tribunal_options:
-          immigration_upper: Immigration (Upper Tribunal)
-          asylum_upper: Asylum (Upper Tribunal)
-          none: Another category of law
+          immigration_upper: Yes, immigration (Upper Tribunal)
+          asylum_upper: Yes, asylum (Upper Tribunal)
+          none: "No"
       immigration_or_asylum_fields:
         immigration_or_asylum: Is this an immigration or asylum matter?
       immigration_or_asylum_type_fields:

@@ -14,6 +14,7 @@ class FeatureFlags
     basic_authentication: "global",
     welsh_cw: "global",
     end_of_journey: "session",
+    under_eighteen: "session",
   }.freeze
 
   class << self

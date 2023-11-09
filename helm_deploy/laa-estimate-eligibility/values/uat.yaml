@@ -65,6 +65,7 @@ featureFlags:
   basicAuthentication: ENABLED
   welshCw: ENABLED
   endOfJourney: ENABLED
+  underEighteen: ENABLED
 
 postgresql:
   enabled: true

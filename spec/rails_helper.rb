@@ -123,6 +123,12 @@ RSpec.configure do |config|
     ENV["END_OF_JOURNEY_FEATURE_FLAG"] = "disabled"
   end
 
+  config.around(:each, :under_eighteen_flag) do |example|
+    ENV["UNDER_EIGHTEEN_FEATURE_FLAG"] = "enabled"
+    example.run
+    ENV["UNDER_EIGHTEEN_FEATURE_FLAG"] = "disabled"
+  end
+
   config.before(:suite) do
     DatabaseCleaner.clean_with :truncation
   end
