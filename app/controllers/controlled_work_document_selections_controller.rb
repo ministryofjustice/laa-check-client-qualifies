@@ -31,6 +31,6 @@ private
   end
 
   def specify_feedback_widget
-    @feedback = :satisfaction
+    @feedback = FeatureFlags.enabled?(:end_of_journey, session_data) ? :freetext : :satisfaction
   end
 end
