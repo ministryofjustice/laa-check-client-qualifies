@@ -39,6 +39,8 @@ Rails.application.routes.draw do
   get "estimates/:assessment_code/check_answers", to: "redirects#check_answers"
   get "estimates/:assessment_code/controlled_work_document_selections/new", to: "redirects#cw_forms"
   post "estimates/:assessment_code/controlled_work_document_selections", to: "redirects#cw_forms"
+  get "download-cw-form/:assessment_code", to: "redirects#cw_forms"
+  post "download-cw-form/:assessment_code", to: "redirects#cw_forms"
   get "which-controlled-work-form/:assessment_code", to: "redirects#cw_forms"
   post "which-controlled-work-form/:assessment_code", to: "redirects#cw_forms"
   get "provider_users", to: redirect("/new-check")
@@ -47,11 +49,13 @@ Rails.application.routes.draw do
 
   get "new-check", to: "checks#new", as: :new_check
   get "check-answers/:assessment_code", to: "checks#check_answers", as: :check_answers
+  get "youve-reached-the-end/:assessment_code", to: "checks#end_of_journey", as: :end_of_journey
 
   get "/download/:assessment_code", to: "results#download", as: :download_result
+  get "/cw-form/:assessment_code", to: "controlled_work_document_selections#download", as: :download_cw_form
 
-  get "download-cw-form/:assessment_code", to: "controlled_work_document_selections#new", as: :controlled_work_document_selection
-  post "download-cw-form/:assessment_code", to: "controlled_work_document_selections#create"
+  get "select-cw-form/:assessment_code", to: "controlled_work_document_selections#new", as: :controlled_work_document_selection
+  post "select-cw-form/:assessment_code", to: "controlled_work_document_selections#create"
 
   get "check-result/:assessment_code", to: "results#show", as: :result
   post "check-result/:assessment_code", to: "results#create"

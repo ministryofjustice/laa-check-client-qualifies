@@ -13,7 +13,20 @@ class ChecksController < ApplicationController
     track_page_view(page: :check_answers)
   end
 
+  def end_of_journey
+    @model = CalculationResult.new(session_data)
+    @check = Check.new(session_data)
+    @form = ControlledWorkDocumentSelection.from_session(session_data)
+    track_page_view(page: :end_of_journey)
+  end
+
+private
+
   def assessment_code
     params[:assessment_code]
+  end
+
+  def specify_feedback_widget
+    @feedback = action_name == "end_of_journey" ? :satisfaction : :freetext
   end
 end

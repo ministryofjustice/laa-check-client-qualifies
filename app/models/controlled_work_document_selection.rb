@@ -1,6 +1,9 @@
 class ControlledWorkDocumentSelection
   include ActiveModel::Model
   include ActiveModel::Attributes
+  include SessionPersistable
+
+  ATTRIBUTES = %i[form_type language].freeze
 
   OPTIONS = %i[cw1 cw2 cw1_and_2 cw5 civ_means_7].freeze
   LANGUAGES = %w[english welsh].freeze
