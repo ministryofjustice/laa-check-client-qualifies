@@ -30,10 +30,8 @@ service:
 
 ingress:
   hosts:
-    - host: check-your-client-qualifies-for-legal-aid.cloud-platform.service.justice.gov.uk
+    - host: former-check-your-client-qualifies-for-legal-aid.cloud-platform.service.justice.gov.uk
       secret: false
-    - host: check-your-client-qualifies-for-legal-aid.service.gov.uk
-      secret: ccq-production-cert-secret
   annotations:
     external-dns.alpha.kubernetes.io/set-identifier: "check-client-qualifies-laa-estimate-eligibility-laa-estimate-financial-eligibility-for-legal-aid-production-green"
     external-dns.alpha.kubernetes.io/aws-weight: "100"
@@ -55,9 +53,9 @@ cfe:
 featureFlags:
   sentry: ENABLED
   overrides: NOT_ENABLED
-  indexProduction: ENABLED
+  indexProduction: NOT_ENABLED
   maintenanceMode: ENABLED
-  basicAuthentication: NOT_ENABLED
+  basicAuthentication: ENABLED
   welshCw: NOT_ENABLED
   endOfJourney: NOT_ENABLED
   underEighteen: NOT_ENABLED
@@ -70,7 +68,7 @@ geckoboard:
   allJourneysDataset: "ccq_all_journeys_production"
   monthlyJourneysDataset: "ccq_monthly_journeys_production"
   recentJourneysDataset: "ccq_recent_journeys_production"
-  enabled: enabled
+  enabled: not_enabled
 
 sentry:
   # Despite looking very secret-y, the key here is _not_ a secret, as it will appear in every HTTP response header
