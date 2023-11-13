@@ -4,7 +4,7 @@
   "dependencies": {
     "@ministryofjustice/frontend": "^1.8.0",
     "@rails/ujs": "^7.1.2",
-    "@sentry/browser": "^7.77.0",
+    "@sentry/browser": "^7.80.0",
     "esbuild": "^0.19.5",
     "govuk-frontend": "^4.7.0",
     "jquery": "^3.7.1",
