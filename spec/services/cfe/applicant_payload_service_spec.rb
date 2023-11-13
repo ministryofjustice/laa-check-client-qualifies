@@ -11,13 +11,14 @@ RSpec.describe Cfe::ApplicantPayloadService do
     }.with_indifferent_access
   end
   let(:payload) { {} }
+  let(:early_eligibility) { false }
 
   describe ".call" do
     context "when client is under 60" do
       let(:over_60) { false }
 
       it "populates the payload appropriately" do
-        service.call(session_data, payload)
+        service.call(session_data, payload, early_eligibility)
         expect(payload[:applicant]).to eq(
           {
             date_of_birth: 50.years.ago.to_date,
@@ -34,7 +35,7 @@ RSpec.describe Cfe::ApplicantPayloadService do
       let(:over_60) { true }
 
       it "populates the payload appropriately" do
-        service.call(session_data, payload)
+        service.call(session_data, payload, early_eligibility)
         expect(payload[:applicant]).to eq(
           {
             date_of_birth: 70.years.ago.to_date,
@@ -56,7 +57,7 @@ RSpec.describe Cfe::ApplicantPayloadService do
       end
 
       it "populates the payload appropriately" do
-        service.call(session_data, payload)
+        service.call(session_data, payload, early_eligibility)
         expect(payload[:applicant]).to eq(
           {
             date_of_birth: 50.years.ago.to_date,
@@ -82,7 +83,7 @@ RSpec.describe Cfe::ApplicantPayloadService do
       end
 
       it "populates the payload appropriately" do
-        service.call(session_data, payload)
+        service.call(session_data, payload, early_eligibility)
         expect(payload[:applicant]).to eq(
           {
             date_of_birth: 50.years.ago.to_date,

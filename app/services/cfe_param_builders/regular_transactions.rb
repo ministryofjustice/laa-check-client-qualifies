@@ -1,6 +1,6 @@
 module CfeParamBuilders
   class RegularTransactions
-    def self.call(income_form, outgoings_form, benefit_details_form = nil, housing_form = nil)
+    def self.call(income_form, outgoings_form = nil, benefit_details_form = nil, housing_form = nil)
       income = build_payments(CFE_INCOME_TRANSLATIONS, income_form, :credit)
 
       outgoings = build_payments(CFE_OUTGOINGS_TRANSLATIONS, outgoings_form, :debit)

@@ -3,6 +3,8 @@ module Cfe
     delegate :smod_applicable?, to: :check
 
     def call
+      return if early_eligibility?
+
       capitals
       properties
     end

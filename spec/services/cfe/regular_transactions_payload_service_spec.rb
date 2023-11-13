@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe Cfe::RegularTransactionsPayloadService do
   let(:service) { described_class }
   let(:payload) { {} }
+  let(:early_eligibility) { false }
   let(:empty_session_data) do
     {
       "friends_or_family_value" => 0,
@@ -46,7 +47,7 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
       end
 
       it "adds an appropriate payload" do
-        service.call(session_data, payload)
+        service.call(session_data, payload, early_eligibility)
         expect(payload[:regular_transactions]).to eq(
           [{ amount: 45,
              category: :friends_or_family,
@@ -84,7 +85,7 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
       let(:session_data) { empty_session_data }
 
       it "adds no payments" do
-        service.call(session_data, payload)
+        service.call(session_data, payload, early_eligibility)
         expect(payload[:regular_transactions]).to eq([])
       end
     end
@@ -105,7 +106,7 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
       end
 
       it "adds benefit payments" do
-        service.call(session_data, payload)
+        service.call(session_data, payload, early_eligibility)
         expect(payload[:regular_transactions]).to eq(
           [
             { amount: 100,
@@ -129,7 +130,7 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
       end
 
       it "adds nothing to the payment" do
-        service.call(session_data, payload)
+        service.call(session_data, payload, early_eligibility)
         expect(payload[:regular_transactions]).to be_nil
       end
     end
@@ -162,7 +163,7 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
       end
 
       it "populates the payload with content from the housing costs screen" do
-        service.call(session_data, payload)
+        service.call(session_data, payload, early_eligibility)
         expect(payload[:regular_transactions]).to eq(
           [{ amount: 45,
              category: :friends_or_family,
@@ -212,7 +213,7 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
         end
 
         it "does not include rent or mortgage in the payload" do
-          service.call(session_data, payload)
+          service.call(session_data, payload, early_eligibility)
           expect(payload[:regular_transactions]).to eq(
             [],
           )
@@ -229,7 +230,7 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
         end
 
         it "raises an error" do
-          expect { service.call(session_data, payload) }.to raise_error(
+          expect { service.call(session_data, payload, early_eligibility) }.to raise_error(
             "Invalid session detected by HousingCostsForm:\n  Housing payments frequency is not included in the list",
           )
         end
@@ -245,7 +246,7 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
         end
 
         it "populates the payload with content from the mortgage or loan screen" do
-          service.call(session_data, payload)
+          service.call(session_data, payload, early_eligibility)
           expect(payload[:regular_transactions]).to eq(
             [{ amount: 140,
                category: :rent_or_mortgage,
@@ -265,7 +266,7 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
         end
 
         it "does not populate the payload with content from the mortgage or loan screen" do
-          service.call(session_data, payload)
+          service.call(session_data, payload, early_eligibility)
           expect(payload[:regular_transactions]).to eq(
             [],
           )
@@ -280,7 +281,7 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
         end
 
         it "populates the payload with content from the mortgage or loan screen" do
-          service.call(session_data, payload)
+          service.call(session_data, payload, early_eligibility)
           expect(payload[:regular_transactions]).to eq(
             [],
           )
@@ -295,7 +296,7 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
         end
 
         it "adds nothing to the payment" do
-          service.call(session_data, payload)
+          service.call(session_data, payload, early_eligibility)
           expect(payload[:regular_transactions]).to be_nil
         end
       end

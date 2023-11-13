@@ -2,8 +2,9 @@ require "rails_helper"
 
 RSpec.describe Cfe::EmploymentIncomePayloadService do
   let(:payload) { {} }
+  let(:early_eligibility) { false }
 
-  before { described_class.call(session_data, payload) }
+  before { described_class.call(session_data, payload, early_eligibility) }
 
   context "when the client is not employed" do
     let(:session_data) { { "employment_status" => "unemployed" } }

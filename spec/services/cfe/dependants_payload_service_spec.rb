@@ -14,6 +14,7 @@ RSpec.describe Cfe::DependantsPayloadService do
   end
 
   let(:payload) { {} }
+  let(:early_eligibility) { false }
   let(:arbitrary_fixed_time) { Time.zone.local(2022, 10, 17, 9, 0, 0) }
 
   describe ".call" do
@@ -29,7 +30,7 @@ RSpec.describe Cfe::DependantsPayloadService do
       let(:dependant_incomes) { nil }
 
       it "populates the payload successfully" do
-        service.call(session_data, payload)
+        service.call(session_data, payload, early_eligibility)
         expect(payload[:dependants].count).to eq child_dependants + adult_dependants
 
         valid_child_count = payload[:dependants].count do |item|
@@ -61,7 +62,7 @@ RSpec.describe Cfe::DependantsPayloadService do
       let(:dependant_incomes) { nil }
 
       it "does not populate the payload" do
-        service.call(session_data, payload)
+        service.call(session_data, payload, early_eligibility)
         expect(payload[:dependants]).to eq []
       end
     end
@@ -74,7 +75,7 @@ RSpec.describe Cfe::DependantsPayloadService do
       end
 
       it "does not populate the payload" do
-        service.call(session_data, payload)
+        service.call(session_data, payload, early_eligibility)
         expect(payload[:dependants]).to be_nil
       end
     end
@@ -92,7 +93,7 @@ RSpec.describe Cfe::DependantsPayloadService do
       end
 
       it "adds incomes to the right places" do
-        service.call(session_data, payload)
+        service.call(session_data, payload, early_eligibility)
         expect(payload[:dependants].count).to eq child_dependants + adult_dependants
 
         adult_with_income = payload[:dependants].find do |item|

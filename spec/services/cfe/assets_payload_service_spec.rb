@@ -3,9 +3,10 @@ require "rails_helper"
 RSpec.describe Cfe::AssetsPayloadService do
   describe ".call" do
     let(:payload) { {} }
+    let(:early_eligibility) { false }
 
     before do
-      described_class.call(session_data, payload)
+      described_class.call(session_data, payload, early_eligibility)
     end
 
     context "when there is a full set of data" do

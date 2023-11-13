@@ -101,6 +101,14 @@ module Steps
 
         session_data["dependants_get_income"]
       end
+
+      def ineligible_gross_income?(session_data)
+        return false if asylum_supported?(session_data) || passported?(session_data)
+
+        return false unless session_data["api_result"]
+
+        session_data.dig("api_result", "result_summary", "gross_income", "proceeding_types").first["result"] == "ineligible"
+      end
     end
   end
 end
