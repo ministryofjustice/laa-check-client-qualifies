@@ -2227,6 +2227,11 @@ en:
     new:
       title: Download a controlled work (CW) form with your answers
       explainers:
+        - Choose which form to download.
+        - Add your client’s personal details and any other questions not already filled in.
+        - Get your client to sign the form.
+        - Keep the form, with any evidence provided by your client, for your records.
+      legacy_explainers:
         - Your answers from previous pages will be included in the CW form you select to download.
         - After you download the form, you will need to add your client’s details and any other information needed on that form.
         - Once complete, get your client to sign the form and keep it, with any evidence provided by your client, for your records.
@@ -2246,6 +2251,7 @@ en:
         welsh: Welsh
       download: Download the pre-populated form
       start_another_check: Start another eligibility check
+      download_and_finish: Download the pre-populated form and finish
   feature_flags:
     index:
       feature_flags: Feature flags
