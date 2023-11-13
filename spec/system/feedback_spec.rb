@@ -36,9 +36,7 @@ RSpec.describe "Feedback component" do
         fill_in "freetext-input-field", with: "some feedback!"
         click_on "Send"
         expect(page).to have_content("Thank you for your feedback")
-
-        # Could not get this line of the test to work
-        # expect(FreetextFeedback.find_by(text: "some feedback!", page: "results_show", level_of_help: "certificated")).not_to be_nil
+        expect(FreetextFeedback.find_by(text: "some feedback!", page: "show_results", level_of_help: "certificated")).not_to be_nil
       end
     end
 
