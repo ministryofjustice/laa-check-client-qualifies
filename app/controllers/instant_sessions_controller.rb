@@ -17,7 +17,8 @@ class InstantSessionsController < ApplicationController
            else
              return render file: "public/404.html", layout: false
            end
-    session[assessment_id] = data
+
+    session[assessment_id] = data.merge("feature_flags" => FeatureFlags.session_flags)
     redirect_to check_answers_path assessment_code:
   end
 
