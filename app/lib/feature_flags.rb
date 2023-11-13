@@ -54,5 +54,11 @@ class FeatureFlags
     def overrideable?
       ENV["FEATURE_FLAG_OVERRIDES"]&.casecmp("enabled")&.zero?
     end
+
+    def session_flags
+      STATIC_FLAGS.select { |_, v| v == "session" }.each_with_object({}) do |flag, flags|
+        flags[flag.first.to_s] = enabled?(flag.first, without_session_data: true)
+      end
+    end
   end
 end
