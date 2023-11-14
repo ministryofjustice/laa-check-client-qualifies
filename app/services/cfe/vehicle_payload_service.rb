@@ -1,6 +1,7 @@
 module Cfe
   class VehiclePayloadService < BaseService
     def call
+      return if early_eligibility?
       return unless relevant_form?(:vehicles_details)
 
       model = instantiate_form(VehiclesDetailsForm)

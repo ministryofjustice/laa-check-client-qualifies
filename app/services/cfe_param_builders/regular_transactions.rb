@@ -1,6 +1,6 @@
 module CfeParamBuilders
   class RegularTransactions
-    def self.call(income_form, outgoings_form = nil, benefit_details_form = nil, housing_form = nil)
+    def self.call(income_form, outgoings_form, benefit_details_form = nil, housing_form = nil)
       income = build_payments(CFE_INCOME_TRANSLATIONS, income_form, :credit)
 
       outgoings = build_payments(CFE_OUTGOINGS_TRANSLATIONS, outgoings_form, :debit)
@@ -36,6 +36,8 @@ module CfeParamBuilders
     }.freeze
 
     def self.build_payments(cfe_translations, form, operation)
+      return [] if form.nil?
+
       cfe_translations.select { |_cfe_name, local_name| form.send("#{local_name}_value").to_i.positive? }
                       .map do |cfe_name, local_name|
         {

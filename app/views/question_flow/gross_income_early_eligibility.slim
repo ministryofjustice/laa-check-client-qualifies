@@ -3,7 +3,15 @@
 / - content_for :back do
 /   = back_link(:income, @check, @back_buttons_invoke_browser_back_behaviour)
 / .govuk-grid-column-two-thirds
-/   = render "question_flow/forms/income", i18n_key: "income"
+.govuk-grid-column-two-thirds
+  = render "shared/heading"
+  = form_for(@form, url: request.path, method: :put) do |form|
+    = form.govuk_error_summary t("generic.error_summary_title")
+
+    = form.govuk_collection_radio_buttons :skip_to_check_answers,
+            yes_no_options, :first, :last,
+            legend: { text: "Skip to check answers?", size: "xl", tag: "h1" }
+    = form.govuk_submit t("generic.save_and_continue")
 
 = render "shared/question_sidebar",
          level_of_help: @check.level_of_help,

@@ -6,7 +6,7 @@ module Steps
       end
 
       def grouped_steps_for(session_data)
-        if Steps::Logic.passported?(session_data) || Steps::Logic.asylum_supported?(session_data)
+        if !Steps::Logic.show_outgoings_sections?(session_data)
           []
         elsif Steps::Logic.partner?(session_data)
           [Steps::Group.new(:outgoings),

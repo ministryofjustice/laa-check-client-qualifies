@@ -29,7 +29,7 @@ class FormsController < QuestionFlowController
     remaining_steps.map do |remaining|
       remaining_tags << Flow::Handler::STEPS.fetch(remaining)[:tag]
     end
-    return if remaining_tags.compact.include?(:gross_income)
+    return unless !remaining_tags.compact.include?(:gross_income) && Flow::Handler::STEPS.fetch(step)[:tag] == :gross_income
 
     session_data["api_result"] = CfeService.call(session_data, early_eligibility: true)
   end

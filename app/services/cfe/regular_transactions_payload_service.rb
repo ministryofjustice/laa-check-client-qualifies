@@ -1,7 +1,6 @@
 module Cfe
   class RegularTransactionsPayloadService < BaseService
     def call
-      return if early_eligibility?
       return unless relevant_form?(:outgoings) ||
         relevant_form?(:other_income) ||
         relevant_form?(:mortgage_or_loan_payment) ||

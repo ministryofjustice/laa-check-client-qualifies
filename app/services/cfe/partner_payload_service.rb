@@ -49,14 +49,14 @@ module Cfe
     def regular_transactions
       return [] unless relevant_form?(:partner_other_income) && relevant_form?(:partner_outgoings)
 
-      outgoings_form = instantiate_form(PartnerOutgoingsForm)
+      outgoings_form = instantiate_form(PartnerOutgoingsForm) if early_eligibility?
       income_form = instantiate_form(PartnerOtherIncomeForm)
       benefits_form = instantiate_form(PartnerBenefitDetailsForm) if relevant_form?(:partner_benefit_details)
       CfeParamBuilders::RegularTransactions.call(income_form, outgoings_form, benefits_form)
     end
 
     def additional_properties
-      return [] unless relevant_form?(:partner_additional_property_details)
+      return [] unless relevant_form?(:partner_additional_property_details) && !early_eligibility?
 
       form = instantiate_form(PartnerAdditionalPropertyDetailsForm)
       form.items.map do |model|
@@ -70,6 +70,8 @@ module Cfe
     end
 
     def capitals
+      return if early_eligibility?
+
       assets_form = instantiate_form(PartnerAssetsForm)
       CfeParamBuilders::Capitals.call(assets_form)
     end
