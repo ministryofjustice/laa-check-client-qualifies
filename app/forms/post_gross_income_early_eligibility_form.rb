@@ -3,8 +3,8 @@ class PostGrossIncomeEarlyEligibilityForm
   include ActiveModel::Attributes
   include SessionPersistable
 
-  ATTRIBUTES = %w[gross_income_early_eligibility].freeze
+  ATTRIBUTES = %w[gross_income_skip_to_check_answers].freeze
 
-  attribute :skip_to_check_answers, :boolean
-  validates :skip_to_check_answers, inclusion: { in: [true, false] }
+  attribute :gross_income_skip_to_check_answers, :boolean
+  validates :gross_income_skip_to_check_answers, inclusion: { in: [true, false] }
 end

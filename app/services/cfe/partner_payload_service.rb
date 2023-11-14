@@ -49,7 +49,7 @@ module Cfe
     def regular_transactions
       return [] unless relevant_form?(:partner_other_income) && relevant_form?(:partner_outgoings)
 
-      outgoings_form = instantiate_form(PartnerOutgoingsForm) if early_eligibility?
+      outgoings_form = instantiate_form(PartnerOutgoingsForm) unless early_gross_income_result?
       income_form = instantiate_form(PartnerOtherIncomeForm)
       benefits_form = instantiate_form(PartnerBenefitDetailsForm) if relevant_form?(:partner_benefit_details)
       CfeParamBuilders::RegularTransactions.call(income_form, outgoings_form, benefits_form)

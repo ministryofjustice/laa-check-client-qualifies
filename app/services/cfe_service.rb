@@ -1,6 +1,6 @@
 class CfeService
   class << self
-    def call(session_data, early_eligibility: false)
+    def call(session_data, early_eligibility: nil)
       payload = {}
       Cfe::AssessmentPayloadService.call(session_data, payload, early_eligibility)
       Cfe::DependantsPayloadService.call(session_data, payload, early_eligibility)

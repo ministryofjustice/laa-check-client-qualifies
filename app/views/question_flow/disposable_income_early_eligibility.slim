@@ -1,5 +1,5 @@
 - content_for :page_title
-  = "Gross income early eligibility"
+  = "Disposable income early eligibility"
 / - content_for :back do
 /   = back_link(:income, @check, @back_buttons_invoke_browser_back_behaviour)
 / .govuk-grid-column-two-thirds
@@ -8,7 +8,7 @@
   = form_for(@form, url: request.path, method: :put) do |form|
     = form.govuk_error_summary t("generic.error_summary_title")
 
-    = form.govuk_collection_radio_buttons :gross_income_skip_to_check_answers,
+    = form.govuk_collection_radio_buttons :disposable_income_skip_to_check_answers,
             yes_no_options, :first, :last,
             legend: { text: "Skip to check answers?", size: "xl", tag: "h1" }
     = form.govuk_submit t("generic.save_and_continue")

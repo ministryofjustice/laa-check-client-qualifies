@@ -7,10 +7,10 @@ module Cfe
         relevant_form?(:housing_costs) ||
         relevant_form?(:benefit_details)
 
-      outgoings_form = instantiate_form(OutgoingsForm) unless early_eligibility?
+      outgoings_form = instantiate_form(OutgoingsForm) if !early_gross_income_result? && relevant_form?(:outgoings)
       income_form = instantiate_form(OtherIncomeForm)
       benefit_details_form = instantiate_form(BenefitDetailsForm) if relevant_form?(:benefit_details)
-      housing_form = if early_eligibility?
+      housing_form = if early_gross_income_result?
                        nil
                      elsif relevant_form?(:mortgage_or_loan_payment)
                        instantiate_form(MortgageOrLoanPaymentForm)

@@ -1,21 +1,23 @@
 module Steps
   class PropertySection
     PROPERTY_STEPS = %i[property property_entry].freeze
+    POST_DISPOSABLE_INCOME_EARLY_RESULT = %i[disposable_income_early_eligibility].freeze
     ADDITIONAL_PROPERTY_STEPS = %i[additional_property additional_property_details].freeze
     ADDITIONAL_PARTNER_PROPERTY_STEPS = %i[partner_additional_property partner_additional_property_details].freeze
     HOUSING_COSTS_STEPS = %i[housing_costs mortgage_or_loan_payment].freeze
 
     class << self
       def all_steps
-        PROPERTY_STEPS + ADDITIONAL_PROPERTY_STEPS + ADDITIONAL_PARTNER_PROPERTY_STEPS + HOUSING_COSTS_STEPS
+        PROPERTY_STEPS + ADDITIONAL_PROPERTY_STEPS + ADDITIONAL_PARTNER_PROPERTY_STEPS + HOUSING_COSTS_STEPS + POST_DISPOSABLE_INCOME_EARLY_RESULT
       end
 
       def grouped_steps_for(session_data)
-        return [] if Steps::Logic.asylum_supported?(session_data)
+        return [] unless Steps::Logic.show_capital_sections?(session_data)
 
         [
           Steps::Group.new(*property_steps(session_data)),
           housing_costs_property_group(session_data),
+          disposable_income_step(session_data),
           Steps::Group.new(*additional_property_steps(session_data)),
           partner_additional_property_group(session_data),
         ].compact
@@ -49,6 +51,10 @@ module Steps
                   %i[partner_additional_property]
                 end
         Steps::Group.new(*steps)
+      end
+
+      def disposable_income_step(session_data)
+        Steps::Group.new(:disposable_income_early_eligibility) if Steps::Logic.ineligible_disposable_income?(session_data)
       end
     end
   end

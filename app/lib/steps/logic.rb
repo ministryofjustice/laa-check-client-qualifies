@@ -110,10 +110,18 @@ module Steps
         session_data.dig("api_result", "result_summary", "gross_income", "proceeding_types").first["result"] == "ineligible"
       end
 
+      def ineligible_disposable_income?(session_data)
+        return false unless show_outgoings_sections?(session_data)
+
+        return false unless session_data["api_result"]
+
+        session_data.dig("api_result", "result_summary", "disposable_income", "proceeding_types").first["result"] == "ineligible"
+      end
+
       def show_outgoings_sections?(session_data)
         return false if passported?(session_data) || asylum_supported?(session_data)
 
-        return false if session_data["skip_to_check_answers"] == true && ineligible_gross_income?(session_data)
+        return false if session_data["gross_income_skip_to_check_answers"] == true && ineligible_gross_income?(session_data)
 
         true
       end
@@ -121,7 +129,8 @@ module Steps
       def show_capital_sections?(session_data)
         return false if asylum_supported?(session_data)
 
-        return false if session_data["skip_to_check_answers"] == true && ineligible_gross_income?(session_data)
+        return false if session_data["gross_income_skip_to_check_answers"] == true && ineligible_gross_income?(session_data)
+        return false if session_data["disposable_income_skip_to_check_answers"] == true && ineligible_disposable_income?(session_data)
 
         true
       end

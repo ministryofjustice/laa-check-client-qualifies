@@ -31,6 +31,18 @@ class FormsController < QuestionFlowController
     end
     return unless !remaining_tags.compact.include?(:gross_income) && Flow::Handler::STEPS.fetch(step)[:tag] == :gross_income
 
-    session_data["api_result"] = CfeService.call(session_data, early_eligibility: true)
+    session_data["api_result"] = CfeService.call(session_data, early_eligibility: :gross_income)
+  end
+
+  def check_early_disposable_income_eligibility
+    remaining_steps = Steps::Helper.remaining_steps_for(session_data, step)
+
+    remaining_tags = []
+    remaining_steps.map do |remaining|
+      remaining_tags << Flow::Handler::STEPS.fetch(remaining)[:tag]
+    end
+    return unless !remaining_tags.compact.include?(:disposable_income) && Flow::Handler::STEPS.fetch(step)[:tag] == :disposable_income
+
+    session_data["api_result"] = CfeService.call(session_data, early_eligibility: :disposable_income)
   end
 end

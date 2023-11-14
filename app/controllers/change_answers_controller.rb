@@ -8,6 +8,10 @@ class ChangeAnswersController < QuestionFlowController
       track_choices(@form)
       session_data.merge!(@form.attributes_for_export_to_session)
       if Steps::Helper.last_step_in_group?(session_data, step)
+        if Flow::Handler::STEPS.fetch(step)[:tag] == :gross_income || Flow::Handler::STEPS.fetch(step)[:tag] == :disposable_income
+          session_data["api_result"] = CfeService.call(session_data, early_eligibility: Flow::Handler::STEPS.fetch(step)[:tag])
+        end
+
         next_step = next_check_answer_step(step)
         if next_step
           redirect_to helpers.check_step_path_from_step(next_step, assessment_code)

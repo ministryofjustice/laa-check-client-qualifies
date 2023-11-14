@@ -29,8 +29,12 @@ module Cfe
       Steps::Helper.valid_step?(@session_data, form_name)
     end
 
+    def early_gross_income_result?
+      @early_eligibility == :gross_income
+    end
+
     def early_eligibility?
-      @early_eligibility == true
+      !@early_eligibility.nil?
     end
   end
 end
