@@ -4,7 +4,7 @@ RSpec.describe Cfe::PartnerPayloadService do
   describe ".call" do
     let(:service) { described_class }
     let(:payload) { {} }
-    let(:early_eligibility) { false }
+    let(:early_eligibility) { nil }
     let(:minimal_partner_info) do
       {
         "partner" => true,

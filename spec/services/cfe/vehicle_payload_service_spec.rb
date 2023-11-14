@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Cfe::VehiclePayloadService do
   let(:payload) { {} }
-  let(:early_eligibility) { false }
+  let(:early_eligibility) { nil }
 
   describe ".call" do
     context "when there are multiple vehicles" do

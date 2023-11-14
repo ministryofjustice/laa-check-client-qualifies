@@ -35,4 +35,8 @@ protected
   def step
     @step ||= Flow::Handler.step_from_url_fragment(params[:step_url_fragment])
   end
+
+  def tag_from(step)
+    Flow::Handler::STEPS.fetch(step)[:tag]
+  end
 end

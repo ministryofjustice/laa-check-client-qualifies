@@ -6,7 +6,7 @@ module Steps
       end
 
       def grouped_steps_for(session_data)
-        if Steps::Logic.passported?(session_data) || Steps::Logic.asylum_supported?(session_data)
+        if !Steps::Logic.show_income_sections?(session_data)
           []
         else
           [Steps::Group.new(:employment_status),

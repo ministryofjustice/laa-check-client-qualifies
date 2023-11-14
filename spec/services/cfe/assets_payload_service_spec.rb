@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe Cfe::AssetsPayloadService do
   describe ".call" do
     let(:payload) { {} }
-    let(:early_eligibility) { false }
+    let(:early_eligibility) { nil }
 
     before do
       described_class.call(session_data, payload, early_eligibility)

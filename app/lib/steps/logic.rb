@@ -57,13 +57,13 @@ module Steps
       end
 
       def employed?(session_data)
-        return false if asylum_supported?(session_data) || passported?(session_data)
+        return false unless show_income_sections?(session_data)
 
         EmploymentStatusForm::EMPLOYED_STATUSES.map(&:to_s).include? session_data["employment_status"]
       end
 
       def benefits?(session_data)
-        return false if asylum_supported?(session_data) || passported?(session_data)
+        return false unless show_income_sections?(session_data)
 
         session_data["receives_benefits"]
       end
@@ -103,7 +103,7 @@ module Steps
       end
 
       def ineligible_gross_income?(session_data)
-        return false if asylum_supported?(session_data) || passported?(session_data)
+        return false unless show_income_sections?(session_data)
 
         return false unless session_data["api_result"]
 
@@ -118,10 +118,16 @@ module Steps
         session_data.dig("api_result", "result_summary", "disposable_income", "proceeding_types").first["result"] == "ineligible"
       end
 
+      def show_income_sections?(session_data)
+        return false if asylum_supported?(session_data) || passported?(session_data)
+
+        true
+      end
+
       def show_outgoings_sections?(session_data)
         return false if passported?(session_data) || asylum_supported?(session_data)
 
-        return false if session_data["gross_income_skip_to_check_answers"] == true && ineligible_gross_income?(session_data)
+        return false if session_data["gross_income_skip_to_check_answers"] && ineligible_gross_income?(session_data)
 
         true
       end
@@ -129,8 +135,9 @@ module Steps
       def show_capital_sections?(session_data)
         return false if asylum_supported?(session_data)
 
-        return false if session_data["gross_income_skip_to_check_answers"] == true && ineligible_gross_income?(session_data)
-        return false if session_data["disposable_income_skip_to_check_answers"] == true && ineligible_disposable_income?(session_data)
+        return false if session_data["gross_income_skip_to_check_answers"] && ineligible_gross_income?(session_data)
+
+        return false if session_data["disposable_income_skip_to_check_answers"] && ineligible_disposable_income?(session_data)
 
         true
       end

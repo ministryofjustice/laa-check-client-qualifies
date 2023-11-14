@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe Cfe::RegularTransactionsPayloadService do
   let(:service) { described_class }
   let(:payload) { {} }
-  let(:early_eligibility) { false }
+  let(:early_eligibility) { nil }
   let(:empty_session_data) do
     {
       "friends_or_family_value" => 0,

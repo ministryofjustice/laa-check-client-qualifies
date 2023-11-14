@@ -14,7 +14,7 @@ RSpec.describe Cfe::DependantsPayloadService do
   end
 
   let(:payload) { {} }
-  let(:early_eligibility) { false }
+  let(:early_eligibility) { nil }
   let(:arbitrary_fixed_time) { Time.zone.local(2022, 10, 17, 9, 0, 0) }
 
   describe ".call" do

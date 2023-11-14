@@ -52,6 +52,10 @@ module Flow
         STEPS.fetch(step).fetch(:class).from_params(params, session)
       end
 
+      def tag(step)
+        STEPS.fetch(step)[:tag]
+      end
+
       def url_fragment(step)
         STEPS.fetch(step.to_sym).fetch(:url_fragment)
       end

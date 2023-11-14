@@ -11,7 +11,7 @@ RSpec.describe Cfe::IrregularIncomePayloadService do
       "pension_value" => 0,
     }
   end
-  let(:early_eligibility) { false }
+  let(:early_eligibility) { nil }
 
   describe ".call" do
     context "when there is no relevant data" do

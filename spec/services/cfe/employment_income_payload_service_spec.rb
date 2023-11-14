@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Cfe::EmploymentIncomePayloadService do
   let(:payload) { {} }
-  let(:early_eligibility) { false }
+  let(:early_eligibility) { nil }
 
   before { described_class.call(session_data, payload, early_eligibility) }
 

@@ -11,7 +11,7 @@ RSpec.describe Cfe::ApplicantPayloadService do
     }.with_indifferent_access
   end
   let(:payload) { {} }
-  let(:early_eligibility) { false }
+  let(:early_eligibility) { nil }
 
   describe ".call" do
     context "when client is under 60" do

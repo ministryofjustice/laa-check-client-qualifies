@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe Cfe::ProceedingsPayloadService do
   let(:service) { described_class }
   let(:payload) { {} }
-  let(:early_eligibility) { false }
+  let(:early_eligibility) { nil }
 
   describe ".call" do
     context "when checking a certificated case" do
