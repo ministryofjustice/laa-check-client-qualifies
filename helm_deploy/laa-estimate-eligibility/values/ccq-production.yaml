@@ -59,7 +59,7 @@ featureFlags:
   overrides: NOT_ENABLED
   # TODO: enable 'indexProduction' when we go live 
   indexProduction: NOT_ENABLED
-  maintenanceMode: NOT_ENABLED
+  maintenanceMode: ENABLED
   # TODO: disable 'basicAuthentication' when we go live 
   basicAuthentication: ENABLED
   welshCw: NOT_ENABLED
