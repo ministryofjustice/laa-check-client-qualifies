@@ -12,7 +12,7 @@ class FeedbacksController < ApplicationController
         level_of_help:,
         outcome:,
       )
-      session[:most_recent_feedback_id] = model.id
+      user_satisfaction_feedback_ids << model.id
       render json: { id: model.id }, status: :created
     else
       FreetextFeedback.create!(
@@ -25,9 +25,9 @@ class FeedbacksController < ApplicationController
   end
 
   def update
-    return head(:forbidden) unless params[:id] == session[:most_recent_feedback_id].to_s
+    return head(:forbidden) unless user_satisfaction_feedback_ids.include?(params[:id].to_i)
 
-    SatisfactionFeedback.update!(
+    SatisfactionFeedback.find(params[:id]).update!(
       comment: params[:comment],
     )
 
@@ -35,6 +35,10 @@ class FeedbacksController < ApplicationController
   end
 
 private
+
+  def user_satisfaction_feedback_ids
+    session[:satisfaction_feedback_ids] ||= []
+  end
 
   def assessment_code
     params[:assessment_code]
