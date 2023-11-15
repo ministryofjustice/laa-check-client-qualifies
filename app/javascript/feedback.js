@@ -7,7 +7,7 @@ const initFeedback = () => {
   onClickElementWithRole("submit-text", (e) => {
     if (textBlank()) {
       e.preventDefault();
-      showSection("initial")
+      showSection(e.target.dataset.feedbackSectionIfBlank);
     } else {
       showSection("final");
       document.querySelector('[data-feedback-role="final-message"]').focus();
