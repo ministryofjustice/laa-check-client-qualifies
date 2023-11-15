@@ -3,17 +3,8 @@ class ChecksController < ApplicationController
 
   def new
     new_assessment_code = SecureRandom.uuid
-    session[assessment_id(new_assessment_code)] = { "feature_flags" => load_session_derived_flags }
+    session[assessment_id(new_assessment_code)] = { "feature_flags" => FeatureFlags.session_flags }
     redirect_to helpers.step_path_from_step(Steps::Helper.first_step, new_assessment_code)
-  end
-
-  def load_session_derived_flags
-    feature_flags = {}
-    FeatureFlags::STATIC_FLAGS.select { |_, v| v == "session" }.map do |flag|
-      feature_flags[flag.first.to_s] = FeatureFlags.enabled?(flag.first, without_session_data: true)
-    end
-
-    feature_flags
   end
 
   def check_answers

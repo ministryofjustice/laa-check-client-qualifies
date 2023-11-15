@@ -4,11 +4,22 @@
   = link_to t("generic.back"), result_path(assessment_code: params[:assessment_code]), class: "govuk-back-link"
 
 .govuk-grid-column-two-thirds
-  = render "shared/heading", header_text: t(".title"), post_header_texts: t(".explainers")
+  = render "shared/heading", header_text: t(".title")
     - if @model.pensioner_disregard_applied?
-      = render "shared/banner",
-               heading: t("controlled_work_document_selections.new.banner.heading"),
-               body: t("controlled_work_document_selections.new.banner.body")
+      - banner = render "shared/banner",
+                        heading: t("controlled_work_document_selections.new.banner.heading"),
+                        body: t("controlled_work_document_selections.new.banner.body")
+
+    - if FeatureFlags.enabled?(:end_of_journey, @check.session_data)
+      ol.govuk-list.govuk-list--number class="govuk-!-margin-bottom-5"
+        - t("controlled_work_document_selections.new.explainers").each do
+          li.govuk-hint = _1
+    - else
+      - explainers = t("controlled_work_document_selections.new.legacy_explainers")
+      - explainers.each do
+        span.govuk-caption-m class="govuk-!-margin-bottom-#{_1 == explainers.last && !banner ? 5 : 2}" = _1
+
+    = banner
 
   = form_for(@form, url: controlled_work_document_selection_path(assessment_code: params[:assessment_code])) do |form|
     = form.govuk_error_summary t("generic.error_summary_title")
@@ -27,8 +38,11 @@
                buttons: ControlledWorkDocumentSelection::LANGUAGES.map { { value: _1, options: { label: { text: t(".language.#{_1}") } } } }
 
     .govuk-button-group
-      = form.govuk_submit t(".download")
-      = link_to t(".start_another_check"), new_check_path, class: "govuk-button govuk-button--secondary"
+      - if FeatureFlags.enabled?(:end_of_journey, @check.session_data)
+        = form.govuk_submit t(".download_and_finish")
+      - else
+        = form.govuk_submit t(".download")
+        = link_to t(".start_another_check"), new_check_path, class: "govuk-button govuk-button--secondary"
 
 = render "shared/question_sidebar",
         level_of_help: @check.level_of_help,
