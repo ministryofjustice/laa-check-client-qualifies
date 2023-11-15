@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.shared_context "with passported attributes", :household_section_flag do
+RSpec.shared_context "with passported attributes" do
   before do
     start_assessment
     fill_in_forms_until(:applicant)

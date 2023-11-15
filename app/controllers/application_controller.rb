@@ -2,7 +2,12 @@ class ApplicationController < ActionController::Base
   BROWSER_ID_COOKIE = :browser_id
   BASIC_AUTHENTICATION_COOKIE = :basic_authenticated
   default_form_builder GOVUKDesignSystemFormBuilder::FormBuilder
-  before_action :force_setting_of_session_cookie, :specify_feedback_widget, :authenticate, :check_maintenance_mode, :ensure_db_connection
+  before_action :force_setting_of_session_cookie,
+                :specify_feedback_widget,
+                :specify_freetext_feedback_page_name,
+                :authenticate,
+                :check_maintenance_mode,
+                :ensure_db_connection
 
   class MissingSessionError < StandardError; end
 
@@ -64,7 +69,7 @@ private
 
   def check_maintenance_mode
     if FeatureFlags.enabled?(:maintenance_mode, without_session_data: true)
-      render file: "public/500.html", layout: false
+      render file: "public/maintenance.html", layout: false
     end
   end
 
@@ -87,6 +92,9 @@ private
 
   def specify_feedback_widget
     @feedback = :freetext
+  end
+
+  def specify_freetext_feedback_page_name
     @freetext_feedback_page_name = page_name
   end
 

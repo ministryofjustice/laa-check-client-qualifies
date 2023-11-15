@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "cw_selection", type: :feature do
   let(:assessment_code) { :assessment_code }
-  let(:session_data) { { "level_of_help" => "controlled", "api_response" => api_response } }
+  let(:session_data) { { "level_of_help" => "controlled", "api_response" => api_response, "feature_flags" => FeatureFlags.session_flags } }
   let(:api_response) { build(:api_result) }
 
   before do
@@ -86,5 +86,15 @@ RSpec.describe "cw_selection", type: :feature do
   it "lets me start a new check" do
     click_on "Start another eligibility check"
     expect(page).to have_content "What level of help does your client need?"
+  end
+
+  it "shows the satisfaction widget" do
+    expect(page).to have_content "Were you satisfied with this service?"
+  end
+
+  context "when the end of journey flag is enabled", :end_of_journey_flag do
+    it "shows the freeform feedback widget" do
+      expect(page).to have_content "Give feedback on this page"
+    end
   end
 end
