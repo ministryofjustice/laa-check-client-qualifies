@@ -23,7 +23,7 @@ RSpec.describe "CW Forms", type: :feature do
       click_on "Continue to CW forms"
       choose "CW2"
       click_on "Continue to download and finish"
-      expect(page).to have_current_path(/\A\/youve-reached-the-end/)
+      expect(page).to have_current_path(/\A\/service-end/)
       click_on "Download your form"
       expect(page.response_headers["Content-Type"]).to eq("application/pdf")
     end
