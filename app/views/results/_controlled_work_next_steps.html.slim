@@ -1,9 +1,7 @@
-- end_of_journey_feature_flag = FeatureFlags.enabled?(:end_of_journey, @check.session_data)
-
 = pdf_friendly_p_element(t("results.show.controlled_cw_next_steps.intro_paragraph#{'_partner' if @check.partner}"), @is_pdf)
 = yield
 
-- unless end_of_journey_feature_flag && @is_pdf
+- unless @is_pdf
   = pdf_friendly_p_element(t("results.show.controlled_cw_next_steps.second_paragraph"), @is_pdf)
 
   = pdf_friendly_h3(t("results.show.controlled_cw_next_steps.prefilled_header"), @is_pdf)
