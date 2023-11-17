@@ -26,6 +26,21 @@ RSpec.describe "Feedback component" do
       end
     end
 
+    context "when on the results page, with end_of_journey_flag enabled", :end_of_journey_flag do
+      it "I can successfully submit freetext feedback" do
+        start_assessment
+        fill_in_level_of_help_screen(choice: "Civil controlled work or family mediation")
+        fill_in_forms_until(:check_answers)
+        click_on "Submit"
+        expect(page).to have_content("Give feedback on this page")
+        click_on "Give feedback on this page"
+        fill_in "freetext-input-field", with: "some feedback!"
+        click_on "Send"
+        expect(page).to have_content("Thank you for your feedback")
+        expect(FreetextFeedback.find_by(text: "some feedback!", page: "show_results", level_of_help: "controlled")).not_to be_nil
+      end
+    end
+
     context "when on the CW form selection page" do
       it "I can successfully submit satisfaction feedback" do
         start_assessment

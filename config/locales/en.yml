@@ -1646,9 +1646,12 @@ en:
       freeness_explanation: In some circumstances, your client may be asked to repay the legal costs of their case, for example from money or assets kept or gained as a result of legal aid if the statutory charge arises.
       controlled_asylum_support_qualifies: Your client qualifies for civil legal aid, for controlled work
       controlled_qualifies: Your client qualifies for civil legal aid, for controlled work and family mediation
-      controlled_eligible_paragraphs:
-        - Your client qualifies financially for civil legal aid based on the information you entered. Before you (or a provider of advice or services funded by legal aid) proceed with your client’s case, it must also be within scope for legal aid and satisfy the relevant merits criteria set out in the relevant legislation and guidance. 
+      controlled_eligible_paragraphs_old:
+        - Your client qualifies financially for civil legal aid based on the information you entered. Before you (or a provider of advice or services funded by legal aid) proceed with your client’s case, it must also be within scope for legal aid and satisfy the relevant merits criteria set out in the relevant legislation and guidance.
         - Save or print this page and keep any supporting evidence to support your decision in case the Legal Aid Agency (LAA) audits or assesses your client’s file in the future.
+        - These calculations were made in line with the latest version of the Lord Chancellor's Guidance on Determining Financial Eligibility for Controlled Work.
+      controlled_eligible_paragraphs:
+        - Your client qualifies financially for civil legal aid based on the information you entered. Before you (or a provider of advice or services funded by legal aid) proceed with your client’s case, it must also be within scope for legal aid and satisfy the relevant merits criteria set out in the relevant legislation and guidance.
         - These calculations were made in line with the latest version of the Lord Chancellor's Guidance on Determining Financial Eligibility for Controlled Work.
       controlled_ineligible: Your client does not qualify for civil legal aid, for controlled work and family mediation
       controlled_ineligible_paragraphs:
@@ -1664,6 +1667,16 @@ en:
         - You told us your client is in receipt of Section 4 or Section 95 Asylum Support. This makes them automatically financially eligible for civil controlled work relating to legal help and help at court for immigration and asylum proceedings, as well as controlled legal representation in the Immigration and Asylum chamber of the first tier or upper tribunal without income, outgoing and capital calculations.
         - Save or print this page and keep any supporting evidence to support your decision in case the Legal Aid Agency (LAA) audits or assesses your client’s file in the future.
         - This assessment has been made in line with the latest version of the Lord Chancellor’s Guidance on Determining Eligibility for Controlled Work.
+      save_results: Save results and answers as a PDF
+      save_results_intro: 'The PDF will include:'
+      save_results_bullets: 
+        - the eligibility declaration
+        - your client’s key eligibility totals
+        - how we calculated your client’s key eligibility totals
+        - the answers you input into this service
+      complete_a_cw_form: Complete a controlled work form
+      complete_a_cw_form_paragraph: You will need to complete the relevant controlled work form and keep for your records, along with any evidence provided by your client. Your client’s file may be audited and assessed by the LAA at a later date.
+      download_a_cw_form_header: Download a controlled work form with your answers included 
       what_happens_next: What happens next
       what_happens_next_controlled_ineligible_next_step: You may wish to discuss your client’s options, for example they can pay for legal support or get advice from a charity or advice organisation.
       next_steps_paragraph_1: Use Apply for legal aid or CCMS to start an application for your client.
