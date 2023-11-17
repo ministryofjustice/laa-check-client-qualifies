@@ -1,5 +1,3 @@
-- end_of_journey_feature_flag = FeatureFlags.enabled?(:end_of_journey, @check.session_data)
-- show_buttons_at_top = end_of_journey_feature_flag && @check.controlled? && @model.decision == "eligible" && !@check.asylum_support
 - content_for :page_title
   - if @model.decision == "ineligible"
     = t(".not_likely_to_qualify")
@@ -21,7 +19,7 @@
       - %i[gross_income disposable_income capital].each
         = render("summary", section: _1, links: true) if @model.calculated?(_1)
 
-  - if show_buttons_at_top
+  - if @journey_continues_on_another_page
     h2.govuk-heading-m = t(".save_results")
     p.govuk-body = t(".save_results_intro")
     ul.govuk-list.govuk-list--bullet
@@ -82,7 +80,7 @@
         - accordion.with_section(heading_text: t(".capital_calculation"))
           = render "capital_table", caption_size: "m"
 
-  - unless show_buttons_at_top
+  - unless @journey_continues_on_another_page
     .govuk-button-group
       / For eligible controlled checks there is no primary CTA in this group, as it appears below.
       / For other checks, 'Save as PDF' is the primary CTA.
