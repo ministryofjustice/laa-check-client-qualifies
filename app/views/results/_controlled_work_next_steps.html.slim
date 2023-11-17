@@ -4,7 +4,7 @@
 - unless @is_pdf
   = pdf_friendly_p_element(t("results.show.controlled_cw_next_steps.second_paragraph"), @is_pdf)
 
-  = pdf_friendly_h3(t("results.show.controlled_cw_next_steps.prefilled_header"), @is_pdf)
+  h3.govuk-heading-s = t("results.show.controlled_cw_next_steps.prefilled_header")
 
   ol.govuk-list.govuk-list--number
     - t("results.show.controlled_cw_next_steps.prefilled_bullets").each do |bullet|
@@ -15,7 +15,7 @@
               controlled_work_document_selection_path(assessment_code: params[:assessment_code]),
               class: "govuk-button", data: { module: "govuk-button" }
 
-  = pdf_friendly_h3(t("results.show.controlled_cw_next_steps.manual_header"), @is_pdf)
+  h3.govuk-heading-s = t("results.show.controlled_cw_next_steps.manual_header")
 
   = pdf_friendly_p_element(t("results.show.controlled_cw_next_steps.manual_instruction_html",
                            page_url: document_link(:laa_cw_forms)),
