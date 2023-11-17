@@ -17,4 +17,6 @@
 
   = pdf_friendly_h3(t("results.show.controlled_cw_next_steps.manual_header"), @is_pdf)
 
-  = pdf_friendly_p_element(t("results.show.controlled_cw_next_steps.manual_instruction_html"), @is_pdf)
+  = pdf_friendly_p_element(t("results.show.controlled_cw_next_steps.manual_instruction_html",
+                           page_url: document_link(:laa_cw_forms)),
+                           @is_pdf)
