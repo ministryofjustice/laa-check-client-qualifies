@@ -4,16 +4,14 @@
   = link_to t("generic.back"), result_path(assessment_code: params[:assessment_code]), class: "govuk-back-link"
 
 .govuk-grid-column-two-thirds
-  = render "shared/heading", header_text: t(".title")
+  = render "shared/heading", header_text: t(".#{'legacy_' unless FeatureFlags.enabled?(:end_of_journey, @check.session_data)}title")
     - if @model.pensioner_disregard_applied?
       - banner = render "shared/banner",
                         heading: t("controlled_work_document_selections.new.banner.heading"),
                         body: t("controlled_work_document_selections.new.banner.body")
 
     - if FeatureFlags.enabled?(:end_of_journey, @check.session_data)
-      ol.govuk-list.govuk-list--number class="govuk-!-margin-bottom-5"
-        - t("controlled_work_document_selections.new.explainers").each do
-          li.govuk-hint = _1
+      p.govuk-text class="govuk-!-margin-bottom-5" = t("controlled_work_document_selections.new.explainer")
     - else
       - explainers = t("controlled_work_document_selections.new.legacy_explainers")
       - explainers.each do
