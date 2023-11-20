@@ -2396,15 +2396,14 @@ en:
         content: Resolution text
         resolve: Resolve problem
   feedback:
+    heading_hint: Don't include personal information.
+    thank_you_message: Thank you for your feedback
+    button_send: Send
+    button_cancel: Cancel
+    button_skip: Skip
     freetext:
       button: Give feedback on this page
       heading: What is your feedback on this page?
-      heading_hint: Don't include personal information.
-      button_send: Send
-      button_cancel: Cancel
-      thank_you_message: Thank you for your feedback
     satisfaction:
+      comment_heading: Your response has been sent, please tell us more
       question: Were you satisfied with this service?
-      thank_you_message: Thank you for your feedback
-      feedback_link_html: <a href="https://eu.surveymonkey.com/r/ccqpublicbeta" target="_blank" rel="noreferrer noopener">Tell us more in our 2 minute survey (opens in new tab)</a>
-

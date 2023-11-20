@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   resources :updates, only: :index
   resources :basic_authentication_sessions, only: %i[new create]
   resources :documents, only: :show
-  resources :feedbacks, only: %i[create]
+  resources :feedbacks, only: %i[create update]
 
   get "/health", to: "status#health"
   get "/no-analytics", to: "cookies#no_analytics_mode"
