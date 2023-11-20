@@ -23,7 +23,7 @@ deploy_branch() {
 }
 
 deploy_main() {
-  helm upgrade check-client-qualifies ./helm_deploy/laa-check-client-qualifiesy/. \
+  helm upgrade check-client-qualifies ./helm_deploy/laa-check-client-qualifies/. \
                           --install --wait \
                           --namespace=${K8S_NAMESPACE} \
                           --values ./helm_deploy/laa-check-client-qualifies/values/$ENVIRONMENT.yaml \
