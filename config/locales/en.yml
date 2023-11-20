@@ -1602,6 +1602,24 @@ en:
       how_to_save_header: How to save your answers
       how_to_save_text: After you submit your eligibility check we'll show you the result and the calculations made to get it. You can print or save the eligibility result page, including your answers.
       call_to_action: Submit eligibility check
+    end_of_journey:
+      title: You've reached the end of this service
+      start_downloading_now: Your %{form} form will start downloading now
+      form_types:
+        cw1: CW1
+        cw2: CW2
+        cw1_and_2: CW1&2
+        cw5: CW5
+        civ_means_7: CIV Means 7
+      if_not_begin: Download your form if it does not start automatically
+      next_steps: Next steps
+      complete_controlled_work: 1. Complete the controlled work form
+      add_client_details: add your client’s personal details and any other questions not already filled in
+      sign_the_form: get your client to sign the form
+      gather_evidence: 2. Gather your client’s evidence
+      keep_evidence: You will need to keep evidence of means provided by your client along with the controlled work form.
+      keep_the_evidence: 3. Keep the evidence together with the controlled work form in your records
+      file_may_be_audited: Your client’s file may be audited or assessed by the LAA at a later date.
   results:
     show:
       likely_to_qualify: Your client is likely to qualify for civil legal aid
@@ -2238,12 +2256,9 @@ en:
       - Payments for those who are not served by mains gas
   controlled_work_document_selections:
     new:
-      title: Download a controlled work (CW) form with your answers
-      explainers:
-        - Choose which form to download.
-        - Add your client’s personal details and any other questions not already filled in.
-        - Get your client to sign the form.
-        - Keep the form, with any evidence provided by your client, for your records.
+      title: Select a controlled work (CW) form to download with your answers
+      legacy_title: Download a controlled work (CW) form with your answers
+      explainer: The form will start downloading on the next page.
       legacy_explainers:
         - Your answers from previous pages will be included in the CW form you select to download.
         - After you download the form, you will need to add your client’s details and any other information needed on that form.
@@ -2264,7 +2279,7 @@ en:
         welsh: Welsh
       download: Download the pre-populated form
       start_another_check: Start another eligibility check
-      download_and_finish: Download the pre-populated form and finish
+      download_and_finish: Continue to download and finish
   feature_flags:
     index:
       feature_flags: Feature flags
@@ -2381,15 +2396,14 @@ en:
         content: Resolution text
         resolve: Resolve problem
   feedback:
+    heading_hint: Don't include personal information.
+    thank_you_message: Thank you for your feedback
+    button_send: Send
+    button_cancel: Cancel
+    button_skip: Skip
     freetext:
       button: Give feedback on this page
       heading: What is your feedback on this page?
-      heading_hint: Don't include personal information.
-      button_send: Send
-      button_cancel: Cancel
-      thank_you_message: Thank you for your feedback
     satisfaction:
+      comment_heading: Your response has been sent, please tell us more
       question: Were you satisfied with this service?
-      thank_you_message: Thank you for your feedback
-      feedback_link_html: <a href="https://eu.surveymonkey.com/r/ccqpublicbeta" target="_blank" rel="noreferrer noopener">Tell us more in our 2 minute survey (opens in new tab)</a>
-

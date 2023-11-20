@@ -26,6 +26,7 @@ import Rails from '@rails/ujs';
 import Input from "./suggestions"
 import initAddAnother from "./add-another";
 import initFeedback from "./feedback";
+import initInstantDownload from "./instant-download";
 
 initAddAnother();
 
@@ -46,3 +47,4 @@ if (!window._rails_loaded) {
 initAll();
 initResults();
 initFeedback();
+initInstantDownload();

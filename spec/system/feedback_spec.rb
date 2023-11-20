@@ -20,15 +20,20 @@ RSpec.describe "Feedback component" do
         click_on "Submit"
         expect(page).to have_content("Were you satisfied with this service?")
         click_on "Yes"
+        expect(page).to have_content("Your response has been sent, please tell us more")
+        stored_data = SatisfactionFeedback.find_by(satisfied: "yes", outcome: "eligible", level_of_help: "certificated")
+        expect(stored_data).not_to be_nil
+        fill_in "comment-field", with: "some feedback!"
+        click_on "Send"
         expect(page).to have_content("Thank you for your feedback")
-        expect(page).to have_content("Tell us more in our 2 minute survey (opens in new tab)")
-        expect(SatisfactionFeedback.find_by(satisfied: "yes", outcome: "eligible", level_of_help: "certificated")).not_to be_nil
+        expect(stored_data.reload.comment).to eq "some feedback!"
       end
     end
 
     context "when on the results page, with end_of_journey_flag enabled", :end_of_journey_flag do
       it "I can successfully submit freetext feedback" do
         start_assessment
+        fill_in_level_of_help_screen(choice: "Civil controlled work or family mediation")
         fill_in_forms_until(:check_answers)
         click_on "Submit"
         expect(page).to have_content("Give feedback on this page")
@@ -36,7 +41,7 @@ RSpec.describe "Feedback component" do
         fill_in "freetext-input-field", with: "some feedback!"
         click_on "Send"
         expect(page).to have_content("Thank you for your feedback")
-        expect(FreetextFeedback.find_by(text: "some feedback!", page: "show_results", level_of_help: "certificated")).not_to be_nil
+        expect(FreetextFeedback.find_by(text: "some feedback!", page: "show_results", level_of_help: "controlled")).not_to be_nil
       end
     end
 
@@ -49,9 +54,9 @@ RSpec.describe "Feedback component" do
         click_on "Continue to CW forms"
         expect(page).to have_content("Were you satisfied with this service?")
         click_on "No"
+        click_on "Skip"
         expect(page).to have_content("Thank you for your feedback")
-        expect(page).to have_content("Tell us more in our 2 minute survey (opens in new tab)")
-        expect(SatisfactionFeedback.find_by(satisfied: "no", outcome: "eligible", level_of_help: "controlled")).not_to be_nil
+        expect(SatisfactionFeedback.find_by(satisfied: "no", outcome: "eligible", level_of_help: "controlled", comment: nil)).not_to be_nil
       end
     end
   end
