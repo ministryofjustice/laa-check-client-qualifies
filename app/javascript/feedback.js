@@ -1,43 +1,51 @@
 const initFeedback = () => {
-  const prompt = document.querySelector('[data-freetext-feedback="prompt"]');
-  const cancel = document.querySelector('[data-freetext-feedback="cancel"]');
-  const send  = document.querySelector('[data-freetext-feedback="send"]');
-  const yes_button = document.querySelector('#data-satisfaction-feedback-yes');
-  const no_button = document.querySelector('#data-satisfaction-feedback-no');
-
-  prompt?.addEventListener('click', () => {
-    showSection("freetext");
-    document.getElementById("freetext-input-field").focus();
+  onClickElementWithRole("initial-trigger", () => {
+    showSection("message");
+    document.querySelector('[data-feedback-role="text-input"]').focus();
   });
 
-  cancel?.addEventListener('click', () => {
-    showSection("prompt");
-  })
-
-  send?.addEventListener('click', (e) => {
-    const freetextField = document.getElementById("freetext-input-field")
-
-    if (freetextField.value.replace(/\s+/g, '') === "") {
+  onClickElementWithRole("submit-text", (e) => {
+    if (textBlank()) {
       e.preventDefault();
-      showSection("prompt")
+      showSection(e.target.dataset.feedbackSectionIfBlank);
     } else {
-      showSection("message");
-      document.getElementById("thank-you-message").focus();
+      showSection("final");
+      document.querySelector('[data-feedback-role="final-message"]').focus();
     }
-  })
+  });
 
-  yes_button?.addEventListener('click', () => {
-    showSection("link");
-  })
+  onClickElementWithRole("cancel", () => {
+    showSection("initial");
+  });
 
-  no_button?.addEventListener('click', () => {
-    showSection("link");
-  })
-};
+  onClickElementWithRole("skip", () => {
+    showSection("final");
+  });
 
-function showSection(sectionArea) {
-  ['freetext', 'message', 'prompt', 'link', 'question'].forEach((section) => {
-    const sectionElement = document.querySelector(`[data-feedback-section="${section}-area"]`);
+  document.querySelectorAll('[data-feedback-role="satisfaction-form"]').forEach((element) => {
+    element.addEventListener('ajax:success', (e) => {
+      document.querySelectorAll('[data-feedback-role="comment-form"]').forEach((form) => {
+        form.action = `/feedbacks/${e.detail[0].id}`;
+      });
+    });
+  });
+
+}
+
+const onClickElementWithRole = (role, callback) => {
+  document.querySelectorAll(`[data-feedback-role="${role}"]`).forEach((element) => {
+    element.addEventListener('click', callback);
+  });
+}
+
+const textBlank = () => {
+  const freetextField = document.querySelector('[data-feedback-role="text-input"]');
+  return freetextField.value.replace(/\s+/g, '') === "";
+}
+
+const showSection = (sectionArea) => {
+  ['initial', 'message', 'final'].forEach((section) => {
+    const sectionElement = document.querySelector(`[data-feedback-section="${section}"]`);
 
      if (sectionElement) {
       sectionElement.hidden = (section !== sectionArea);

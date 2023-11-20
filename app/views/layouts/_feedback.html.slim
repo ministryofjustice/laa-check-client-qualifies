@@ -1,8 +1,7 @@
-- label = safe_join([tag.h3(t("feedback.freetext.heading")), tag.p(t("feedback.freetext.heading_hint"))])
-
 - if @feedback == :satisfaction
-  .gem-c-feedback__prompt
-    .govuk-width-container data-feedback-section="question-area"
+  - label = safe_join([tag.h3(t("feedback.satisfaction.comment_heading")), tag.p(t("feedback.heading_hint"))])
+  .gem-c-feedback__prompt data-feedback-section="initial"
+    .govuk-width-container
       .gem-c-feedback__prompt-question-answer role="form"
         h2.govuk-heading-s class="govuk-!-margin-bottom-0 govuk-!-margin-right-6"
           = t("feedback.satisfaction.question")
@@ -10,47 +9,60 @@
         = form_with(url: feedbacks_path(assessment_code: params[:assessment_code],
                                         type: "satisfaction",
                                         satisfied: "yes"),
-                                        local: false) do |form|
-          = form.govuk_submit "Yes", class: "gem-c-feedback__prompt-link-small-button", id: "data-satisfaction-feedback-yes"
+                                        local: false, data: { feedback_role: "satisfaction-form" }) do |form|
+          = form.govuk_submit "Yes", class: "gem-c-feedback__prompt-link-small-button", data: { feedback_role: "initial-trigger" }
 
         = form_with(url: feedbacks_path(assessment_code: params[:assessment_code],
                                         type: "satisfaction",
                                         satisfied: "no"),
-                                        local: false) do |form|
-          = form.govuk_submit "No", class: "gem-c-feedback__prompt-link-small-button", id: "data-satisfaction-feedback-no"
+                                        local: false, data: { feedback_role: "satisfaction-form" }) do |form|
+          = form.govuk_submit "No", class: "gem-c-feedback__prompt-link-small-button", data: { feedback_role: "initial-trigger" }
 
-    .govuk-width-container data-feedback-section="link-area" hidden=true
+  .gem-c-feedback__prompt-white data-feedback-section="message" hidden=true
+    .govuk-width-container
+      = form_with(url: feedbacks_path, local: false, data: { feedback_role: "comment-form" }, method: :patch) do |form|
+        = form.govuk_text_area :comment,
+                                label: { text: label },
+                                data: { feedback_role: "text-input" },
+                                rows: 4
+        button.govuk-button.govuk-button:before type="submit" data-feedback-role="submit-text" data-feedback-section-if-blank="final"
+          = t("feedback.button_send")
+
+        button.govuk-button.govuk-button--secondary.gem-c-feedback__close type="button" data-feedback-role="skip"
+          = t("feedback.button_skip")
+
+  .gem-c-feedback__prompt data-feedback-section="final" hidden=true
+    .govuk-width-container
       span.gem-c-feedback__prompt-question-answer
-        h2.govuk-heading-s class="govuk-!-margin-bottom-0 govuk-!-margin-right-2"
-          = t("feedback.satisfaction.thank_you_message")
-        p.govuk-body-m class="govuk-!-margin-bottom-0 govuk-!-margin-right-6"
-          = t("feedback.satisfaction.feedback_link_html")
+        h2.govuk-heading-s class="govuk-!-margin-bottom-0 govuk-!-margin-right-2" data-feedback-role="final-message"
+          = t("feedback.thank_you_message")
 - elsif @feedback == :freetext
-  .gem-c-feedback__prompt data-feedback-section="prompt-area"
+  - label = safe_join([tag.h3(t("feedback.freetext.heading")), tag.p(t("feedback.heading_hint"))])
+  .gem-c-feedback__prompt data-feedback-section="initial"
     .govuk-width-container
       .gem-c-feedback__prompt-content
         .gem-c-feedback__prompt-questions--something-is-wrong
-          button.gem-c-feedback__prompt-link data-freetext-feedback="prompt"
+          button.gem-c-feedback__prompt-link data-feedback-role="initial-trigger"
             = t("feedback.freetext.button")
 
-  .gem-c-feedback__prompt-white data-feedback-section="freetext-area" hidden=true
+  .gem-c-feedback__prompt-white data-feedback-section="message" hidden=true
     .govuk-width-container
       = form_with(url: feedbacks_path, local: false) do |form|
         = form.govuk_text_area :freetext_input,
-                                label: -> { label },
-                                hint: nil,
+                                label: { text: label },
+                                data: { feedback_role: "text-input" },
                                 rows: 4
         input type="hidden" name="assessment_code" value=params[:assessment_code]
         input type="hidden" name="type" value="freetext"
         input type="hidden" name="page" value=@freetext_feedback_page_name
 
-        button.govuk-button.govuk-button:before type="submit" data-freetext-feedback="send"
-          = t("feedback.freetext.button_send")
+        button.govuk-button.govuk-button:before type="submit" data-feedback-role="submit-text" data-feedback-section-if-blank="initial"
+          = t("feedback.button_send")
 
-        button.govuk-button.govuk-button--secondary.gem-c-feedback__close type="button" data-freetext-feedback="cancel"
-          = t("feedback.freetext.button_cancel")
+        button.govuk-button.govuk-button--secondary.gem-c-feedback__close type="button" data-feedback-role="cancel"
+          = t("feedback.button_cancel")
 
-  .gem-c-feedback__prompt data-feedback-section="message-area" hidden=true
+  .gem-c-feedback__prompt data-feedback-section="final" hidden=true
     .govuk-width-container
-      h2.govuk-heading-s class="govuk-!-margin-bottom-0" id="thank-you-message" tabIndex="0"
-        = t("feedback.freetext.thank_you_message")
+      h2.govuk-heading-s class="govuk-!-margin-bottom-0" data-feedback-role="final-message" tabIndex="0"
+        = t("feedback.thank_you_message")

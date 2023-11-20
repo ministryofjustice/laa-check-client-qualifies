@@ -7,22 +7,38 @@ class FeedbacksController < ApplicationController
     end
 
     if params[:type] == "satisfaction"
-      SatisfactionFeedback.create!(
+      model = SatisfactionFeedback.create!(
         satisfied: params[:satisfied],
         level_of_help:,
         outcome:,
       )
+      user_satisfaction_feedback_ids << model.id
+      render json: { id: model.id }, status: :created
     else
       FreetextFeedback.create!(
         text: params[:freetext_input],
         page: params[:page],
         level_of_help:,
       )
+      head :created
     end
+  end
+
+  def update
+    return head(:forbidden) unless user_satisfaction_feedback_ids.include?(params[:id].to_i)
+
+    SatisfactionFeedback.find(params[:id]).update!(
+      comment: params[:comment],
+    )
+
     head :created
   end
 
 private
+
+  def user_satisfaction_feedback_ids
+    session[:satisfaction_feedback_ids] ||= []
+  end
 
   def assessment_code
     params[:assessment_code]
