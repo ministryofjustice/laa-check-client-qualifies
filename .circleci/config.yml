@@ -249,7 +249,7 @@ jobs:
       - deploy:
           name: Deploy LAA Check-your-client-qualifies-for-legal-aid service's /infrastructure to UAT
           command: |
-            kubectl apply --record=false -f ./infrastructure/laa-estimate-financial-eligibility-for-legal-aid-uat/
+            kubectl apply --record=false -f ./infrastructure/laa-check-client-qualifies-uat/
       - slack/notify:
           channel: eligibility-alerts-uat
           event: fail
