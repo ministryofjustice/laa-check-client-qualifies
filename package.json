@@ -1,5 +1,5 @@
 {
-  "name": "laa-estimate-financial-eligibility-for-legal-aid",
+  "name": "laa-check-client-qualifies",
   "private": "true",
   "dependencies": {
     "@ministryofjustice/frontend": "^1.8.0",
