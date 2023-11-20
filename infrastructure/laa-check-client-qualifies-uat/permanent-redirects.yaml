@@ -1,9 +1,9 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: check-client-qualifies-laa-estimate-eligibility-redirects
+  name: check-client-qualifies-laa-check-client-qualifies-redirects
   annotations:
-    external-dns.alpha.kubernetes.io/set-identifier: "check-client-qualifies-laa-estimate-eligibility-redirects-laa-check-client-qualifies-uat-green"
+    external-dns.alpha.kubernetes.io/set-identifier: "check-client-qualifies-laa-check-client-qualifies-redirects-laa-check-client-qualifies-uat-green"
     external-dns.alpha.kubernetes.io/aws-weight: "100"
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/permanent-redirect: "https://check-your-client-qualifies-for-legal-aid.service.gov.uk"

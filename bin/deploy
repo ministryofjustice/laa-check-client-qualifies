@@ -9,13 +9,13 @@ deploy_branch() {
 # Set the deployment host, this will add the prefix of the branch name e.g el-257-deploy-with-circleci or just main
   RELEASE_HOST="$BRANCH_RELEASE_NAME-ccq-uat.cloud-platform.service.justice.gov.uk"
 # Set the ingress name, needs release name, namespace and -green suffix
-  IDENTIFIER="$BRANCH_RELEASE_NAME-laa-estimate-eligibility-$K8S_NAMESPACE-green"
+  IDENTIFIER="$BRANCH_RELEASE_NAME-laa-check-client-qualifies-$K8S_NAMESPACE-green"
   echo "Deploying CIRCLE_SHA1: $CIRCLE_SHA1 under release name: '$BRANCH_RELEASE_NAME'..."
 
-  helm upgrade $BRANCH_RELEASE_NAME ./helm_deploy/laa-estimate-eligibility/. \
+  helm upgrade $BRANCH_RELEASE_NAME ./helm_deploy/laa-check-client-qualifies/. \
                 --install --wait \
                 --namespace=${K8S_NAMESPACE} \
-                --values ./helm_deploy/laa-estimate-eligibility/values/$ENVIRONMENT.yaml \
+                --values ./helm_deploy/laa-check-client-qualifies/values/$ENVIRONMENT.yaml \
                 --set image.repository="$ECR_ENDPOINT_CCQ" \
                 --set image.tag="branch-$CIRCLE_SHA1" \
                 --set ingress.annotations."external-dns\.alpha\.kubernetes\.io/set-identifier"="$IDENTIFIER" \
@@ -23,10 +23,10 @@ deploy_branch() {
 }
 
 deploy_main() {
-  helm upgrade check-client-qualifies ./helm_deploy/laa-estimate-eligibility/. \
+  helm upgrade check-client-qualifies ./helm_deploy/laa-check-client-qualifiesy/. \
                           --install --wait \
                           --namespace=${K8S_NAMESPACE} \
-                          --values ./helm_deploy/laa-estimate-eligibility/values/$ENVIRONMENT.yaml \
+                          --values ./helm_deploy/laa-check-client-qualifies/values/$ENVIRONMENT.yaml \
                           --set image.repository="$ECR_ENDPOINT_CCQ" \
                           --set image.tag="main-$CIRCLE_SHA1"
 }

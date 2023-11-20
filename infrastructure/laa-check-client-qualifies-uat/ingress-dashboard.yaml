@@ -692,8 +692,8 @@ data:
           {
             "current": {
               "selected": false,
-              "text": "main-laa-estimate-eligibility",
-              "value": "main-laa-estimate-eligibility"
+              "text": "main-laa-check-client-qualifies",
+              "value": "main-laa-check-client-qualifies"
             },
             "datasource": {
               "type": "prometheus",

@@ -30,61 +30,61 @@ service:
 
 ingress:
   hosts:
-    - host: check-your-client-qualifies-for-legal-aid.cloud-platform.service.justice.gov.uk
-      secret: false
-    - host: check-your-client-qualifies-for-legal-aid.service.gov.uk
-      secret: ccq-production-cert-secret
+   - host: check-your-client-qualifies-for-legal-aid-staging.cloud-platform.service.justice.gov.uk
+     secret: false
+   - host: staging.check-your-client-qualifies-for-legal-aid.service.gov.uk
+     secret: ccq-staging-cert-secret
   annotations:
-    external-dns.alpha.kubernetes.io/set-identifier: "check-client-qualifies-laa-estimate-eligibility-laa-check-client-qualifies-production-green"
+    external-dns.alpha.kubernetes.io/set-identifier: "check-client-qualifies-laa-check-client-qualifies-laa-check-client-qualifies-staging-green"
     external-dns.alpha.kubernetes.io/aws-weight: "100"
 
 postgresql:
   enabled: false
 
 notifications:
-  errorMessageTemplateId: 7d7941c0-2f4d-43f2-acf8-12fdb8104e4d
+  errorMessageTemplateId: 928f3ea3-0134-4966-b43d-ba7e1369fd5d
   recipient: patrick.gleeson@digital.justice.gov.uk,michael.blatherwick@digital.justice.gov.uk,william.clarke@digital.justice.gov.uk
 
 googleTagManager:
   containerId: GTM-WJ98FR4
 
 cfe:
-  host: http://cfe-civil.cfe-civil-production.svc.cluster.local
-  environment_name: production
+  host: http://cfe-civil.cfe-civil-staging.svc.cluster.local
+  environment_name: staging
 
 featureFlags:
   sentry: ENABLED
   overrides: NOT_ENABLED
-  indexProduction: ENABLED
+  indexProduction: NOT_ENABLED
   maintenanceMode: NOT_ENABLED
-  basicAuthentication: NOT_ENABLED
+  basicAuthentication: ENABLED
   welshCw: NOT_ENABLED
   endOfJourney: NOT_ENABLED
   underEighteen: NOT_ENABLED
 
 geckoboard:
-  metricsDataset: "ccq_monthly_metrics_production"
-  allMetricsDataset: "ccq_all_metrics_production"
-  lastPagesDataset: "ccq_last_pages_production"
-  validationsDataset: "ccq_validations_production"
-  allJourneysDataset: "ccq_all_journeys_production"
-  monthlyJourneysDataset: "ccq_monthly_journeys_production"
-  recentJourneysDataset: "ccq_recent_journeys_production"
-  enabled: enabled
+  metricsDataset: "ccq_monthly_metrics_staging"
+  allMetricsDataset: "ccq_all_metrics_staging"
+  lastPagesDataset: "ccq_last_pages_staging"
+  validationsDataset: "ccq_validations_staging"
+  allJourneysDataset: "ccq_all_journeys_staging"
+  monthlyJourneysDataset: "ccq_monthly_journeys_staging"
+  recentJourneysDataset: "ccq_recent_journeys_staging"
+  enabled: not_enabled
 
 sentry:
   # Despite looking very secret-y, the key here is _not_ a secret, as it will appear in every HTTP response header
-  cspReportEndpoint: https://o345774.ingest.sentry.io/api/4504177640275968/security/?sentry_key=217c7d14dd2e4cfa8dc62924a1bbd237
+  cspReportEndpoint: https://o345774.ingest.sentry.io/api/6763263/security/?sentry_key=fda2f0cddce3417c87e4df62f3611e76
   # Similarly this is available in the page source
-  dsn: https://cd41516e32594c35ae312a4c53936956@o345774.ingest.sentry.io/4504177640275968
+  dsn: https://f55bec8a5587418e932cd4935569a06b@o345774.ingest.sentry.io/6763263
 
 app:
-  primaryHost: "check-your-client-qualifies-for-legal-aid.service.gov.uk"
+  primaryHost: ""
   seedAdmins: patrick.gleeson@digital.justice.gov.uk,michael.blatherwick@digital.justice.gov.uk,william.clarke@digital.justice.gov.uk,masum.khan@digital.justice.gov.uk,hettie.street@digital.justice.gov.uk
 
 google:
   oauthClientId: 276075615370-ncqvmdi84jruv1jggfg4bu8nlvk1drj0.apps.googleusercontent.com
-  oauthRedirectUri: https://check-your-client-qualifies-for-legal-aid.service.gov.uk/auth/subdomain_redirect
+  oauthRedirectUri: https://staging.check-your-client-qualifies-for-legal-aid.service.gov.uk/auth/subdomain_redirect
 
 use_new_namespace:
   enabled: true

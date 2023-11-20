@@ -47,9 +47,9 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "laa-estimate-eligibility.serviceAccountName" -}}
+{{- define "laa-check-client-qualifies.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create -}}
-    {{ default (include "laa-estimate-eligibility.fullname" .) .Values.serviceAccount.name }}
+    {{ default (include "laa-check-client-qualifies.fullname" .) .Values.serviceAccount.name }}
 {{- else -}}
     {{ default "default" .Values.serviceAccount.name }}
 {{- end -}}
