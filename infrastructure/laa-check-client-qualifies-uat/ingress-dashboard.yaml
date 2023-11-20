@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: ingress-dashboard
-  namespace: laa-check-client-qualifies
+  namespace: laa-check-client-qualifies-uat
   labels:
     grafana_dashboard: ""
 data:
