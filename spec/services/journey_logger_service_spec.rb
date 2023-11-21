@@ -168,6 +168,16 @@ RSpec.describe JourneyLoggerService do
       end
     end
 
+    context "when client is over 60" do
+      let(:session_data) { { "over_60" => true } }
+
+      it "saves age to the completed user journey" do
+        described_class.call(assessment_id, calculation_result, check, session_data)
+        output = CompletedUserJourney.find_by(assessment_id:)
+        expect(output.person_over_60).to eq true
+      end
+    end
+
     context "when under-18 flag is enabled", :under_eighteen_flag do
       let(:session_data) { { "feature_flags" => { "under_eighteen" => true }, "client_age" => "under_18" } }
 
