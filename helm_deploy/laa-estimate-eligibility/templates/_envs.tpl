@@ -54,19 +54,11 @@ env:
     value: {{ .Values.cfe.host }}
   - name: CFE_ENVIRONMENT_NAME
     value: {{ .Values.cfe.environment_name }}
-  {{ if .Values.use_new_namespace.enabled }}
   - name: REDIS_URL
     valueFrom:
       secretKeyRef:
         name: laa-check-client-qualifies-elasticache-instance-output
         key: url
-  {{ else }}
-  - name: REDIS_URL
-    valueFrom:
-      secretKeyRef:
-        name: laa-estimate-financial-eligibility-elasticache-instance-output
-        key: url
-  {{ end }}
   - name: SENTRY_FEATURE_FLAG
     value: {{ .Values.featureFlags.sentry }}
   - name: INDEX_PRODUCTION_FEATURE_FLAG

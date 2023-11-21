@@ -681,7 +681,7 @@ data:
               "refId": "Prometheus-namespace-Variable-Query"
             },
             "refresh": 1,
-            "regex": "/^laa-check-client-qualifies-aid/",
+            "regex": "/^laa-check-client-qualifies/",
             "skipUrlSync": false,
             "sort": 1,
             "tagValuesQuery": "",
