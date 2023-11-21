@@ -2,6 +2,10 @@ en:
   activemodel:
     errors:
       models:
+        client_age_form:
+          attributes:
+            client_age:
+              inclusion: Select the age group your client is in
         level_of_help_form:
           attributes:
             level_of_help:
@@ -623,6 +627,24 @@ en:
       housing_payments_value: Enter amount of housing payments
       housing_payments: Enter amount of housing payments
       housing_benefit_value: Enter the amount of housing benefit
+    client_age:
+      title: What age is your client?
+      need_to_know: "We need to know for the check calculations because:"
+      reasons:
+        - some clients under 18 may not need a means assessment
+        - clients aged 60 or over may have some of their capital excluded from a financial eligibility assessment
+      options:
+        under_18: Under 18
+        standard: 18 to 59
+        over_60: 60 or over
+      guidance:
+        controlled: Guide to determining controlled work
+        certificated: Guide to determining certificated work
+        under_18_controlled: Guidance on under 18s for controlled work
+        under_18_certificated: Guidance on under 18s for certificated work
+        over_60_controlled: Guidance on 60 or over disregard (pensioner disregard) for controlled work
+        over_60_certificated: Guidance on 60 or over disregard (pensioner disregard) for certificated work
+
     level_of_help:
       title: What level of help does your client need?
       controlled_header: Civil controlled work or family mediation

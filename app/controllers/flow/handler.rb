@@ -1,6 +1,7 @@
 module Flow
   class Handler
     STEPS = {
+      client_age: { class: ClientAgeForm, url_fragment: "client-age-group" },
       level_of_help: { class: LevelOfHelpForm, url_fragment: "what-level-help" },
       domestic_abuse_applicant: { class: DomesticAbuseApplicantForm, url_fragment: "is-client-domestic-abuse-case-applicant" },
       immigration_or_asylum: { class: ImmigrationOrAsylumForm, url_fragment: "is-this-immigration-asylum-matter" },
