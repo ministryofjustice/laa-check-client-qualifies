@@ -36,18 +36,6 @@ module ResultsHelper
     end
   end
 
-  def pdf_friendly_h3(text, is_pdf)
-    if is_pdf
-      tag.h3(class: "govuk-heading-s", style: "font-variant-ligatures: none;") do
-        tag.ul(style: "list-style-type: none; margin: 0; padding: 0;") do
-          tag.li(text)
-        end
-      end
-    else
-      tag.h3(text, class: "govuk-heading-s")
-    end
-  end
-
   def pdf_friendly_p_element(text, is_pdf, additional_class = nil)
     if is_pdf
       tag.ul(class: "govuk-list #{additional_class}", style: "list-style-type: none; margin: 0; padding-bottom: 10px; font-variant-ligatures: none;") do

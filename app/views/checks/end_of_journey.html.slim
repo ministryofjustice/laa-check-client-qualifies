@@ -1,0 +1,27 @@
+- content_for :page_title
+  = t(".title")
+- content_for :back do
+  = link_to t("generic.back"), controlled_work_document_selection_path(assessment_code: params[:assessment_code]), class: "govuk-back-link"
+
+.govuk-grid-column-two-thirds
+  = render "shared/heading", header_text: t(".title")
+  h2.govuk-heading-m = t(".start_downloading_now", form: t(".form_types.#{@form.form_type}"))
+  p.govuk-text
+    = link_to(t(".if_not_begin"), download_cw_form_path(assessment_code: params[:assessment_code]), data: { module: "instant-download" })
+
+  h2.govuk-heading-m = t(".next_steps")
+
+  h3.govuk-heading-s = t(".complete_controlled_work")
+  ul.govuk-list.govuk-list--bullet
+    li = t(".add_client_details")
+    li = t(".sign_the_form")
+
+  h3.govuk-heading-s = t(".gather_evidence")
+  p.govuk-text = t(".keep_evidence")
+  = govuk_details(summary_text: t("results.show.evidence_needed")) do
+    = render "results/evidence"
+
+  h3.govuk-heading-s = t(".keep_the_evidence")
+  p.govuk-text = t(".file_may_be_audited")
+
+= render "shared/question_sidebar", level_of_help: @check.level_of_help, links: {}

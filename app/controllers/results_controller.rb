@@ -13,6 +13,8 @@ class ResultsController < ApplicationController
     @model = CalculationResult.new(session_data)
     track_completed_journey(@model)
     track_page_view(page: :view_results)
+    @journey_continues_on_another_page = FeatureFlags.enabled?(:end_of_journey, session_data) && @check.controlled? && @model.decision == "eligible" && !@check.asylum_support
+    @feedback = @journey_continues_on_another_page ? :freetext : :satisfaction
   end
 
   def download
@@ -44,9 +46,5 @@ private
 
   def track_completed_journey(calculation_result)
     JourneyLoggerService.call(assessment_id, calculation_result, @check, cookies)
-  end
-
-  def specify_feedback_widget
-    @feedback = FeatureFlags.enabled?(:end_of_journey, session_data) ? :freetext : :satisfaction
   end
 end
