@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: pods-dashboard
-  namespace: laa-estimate-financial-eligibility-for-legal-aid-uat
+  namespace: laa-check-client-qualifies-uat
   labels:
     grafana_dashboard: ""
 data:
@@ -396,8 +396,8 @@ data:
             "allValue": null,
             "current": {
               "selected": false,
-              "text": "laa-estimate-financial-eligibility-for-legal-aid-uat",
-              "value": "laa-estimate-financial-eligibility-for-legal-aid-uat"
+              "text": "laa-check-client-qualifies-uat",
+              "value": "laa-check-client-qualifies-uat"
             },
             "datasource": "Prometheus",
             "definition": "label_values(kube_deployment_metadata_generation, namespace)",
@@ -409,7 +409,7 @@ data:
             "options": [],
             "query": "label_values(kube_deployment_metadata_generation, namespace)",
             "refresh": 1,
-            "regex": "/^laa-estimate-financial-eligibility-for-legal-aid/",
+            "regex": "/^laa-check-client-qualifies/",
             "skipUrlSync": false,
             "sort": 1,
             "tagValuesQuery": "",

@@ -57,7 +57,7 @@ executors:
     docker:
       - image: ministryofjustice/cloud-platform-tools:2.1
         environment:
-          GITHUB_TEAM_NAME_SLUG: laa-estimate-eligibility
+          GITHUB_TEAM_NAME_SLUG: check-client-qualifies
           TZ: Europe/London
 
 references:
@@ -249,7 +249,7 @@ jobs:
       - deploy:
           name: Deploy LAA Check-your-client-qualifies-for-legal-aid service's /infrastructure to UAT
           command: |
-            kubectl apply --record=false -f ./infrastructure/laa-estimate-financial-eligibility-for-legal-aid-uat/
+            kubectl apply --record=false -f ./infrastructure/laa-check-client-qualifies-uat/
       - slack/notify:
           channel: eligibility-alerts-uat
           event: fail
@@ -323,7 +323,7 @@ workflows:
               only:
                 - main
       - deploy_infrastructure_uat:
-          context: laa-estimate-eligibility-uat
+          context: laa-check-client-qualifies-uat
           filters:
             branches:
               only:
