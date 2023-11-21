@@ -234,17 +234,15 @@ e.g. `helm -n laa-check-client-qualifies-uat delete el-351-employment-questions-
 
 It is also possible to manually deploy to an environment from the command line, the structure of the command can be found in `bin/uat_deployment`
 
-Secrets have been stored for each environment using `kubectl create secret`. The following secrets are currently in use:
+## Secrets
 
-* notifications-api-key
-* secret-key-base
-* geckoboard-api-key
-* blazer-password
-* blazer-database-password
-* feature-flags-password
-* slack-webhook-url
-* basic-auth-password
-* google-oauth-client-secret
+We keep secrets in AWS Secrets Manager. To edit them, visit the [AWS web console](https://justice-cloud-platform.eu.auth0.com/samlp/mQev56oEa7mrRCKAZRxSnDSoYt6Y7r5m?connection=github). The following secrets are currently stored in a secret called "aws-secrets" in each namespace we use:
+* NOTIFICATIONS_API_KEY
+* SECRET_KEY_BASE
+* GECKOBOARD_API_KEY
+* BLAZER_DATABASE_PASSWORD
+* BASIC_AUTH_PASSWORD
+* GOOGLE_OAUTH_CLIENT_SECRET
 
 The current values for these are available as secure notes in 1Password for each environment, should they be lost from Kubernetes.
 
