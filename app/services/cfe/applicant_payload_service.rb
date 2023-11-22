@@ -32,9 +32,9 @@ module Cfe
       if relevant_form?(:client_age)
         client_age_form = instantiate_form(ClientAgeForm)
         case client_age_form.client_age
-        when "under_18"
+        when ClientAgeForm::UNDER_18
           17.years.ago.to_date
-        when "over_60"
+        when ClientAgeForm::OVER_60
           70.years.ago.to_date
         else
           50.years.ago.to_date
