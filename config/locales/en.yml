@@ -14,6 +14,10 @@ en:
           attributes:
             aggregated_means:
               inclusion: Select yes if you will aggregate your client’s means with another person’s means
+        regular_income_form:
+          attributes:
+            regular_income:
+              inclusion: Select yes if your client gets regular income
         domestic_abuse_applicant_form:
           attributes:
             domestic_abuse_applicant:
@@ -690,6 +694,14 @@ en:
         - the client is financially independent
         - the client is in local authority or foster care
       guidance: Guidance on means aggregation for under 18s
+    regular_income:
+      title: Does your client get regular income?
+      explainer: For example, payment from a full time job or local authority financial support for a care leaver. If they get regular income, they must have a full means test.
+      exception_intro: "Do not include:"
+      exceptions:
+        - part-time earnings (less than 16 hours per week)•  holiday jobs•  pocket money
+        - any maintenance paid for the child
+      guidance: Guidance on income
     asylum_support:
       question: Does your client get Asylum Support?
       help_text_1: This means Asylum Support as defined in Section 4 or Section 95 of the Immigration and Asylum Act 1999.

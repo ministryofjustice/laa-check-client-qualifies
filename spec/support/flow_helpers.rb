@@ -25,6 +25,12 @@ def fill_in_aggregated_means_screen(choice: "No")
   click_on "Save and continue"
 end
 
+def fill_in_regular_income_screen(choice: "No")
+  confirm_screen "regular_income"
+  choose choice
+  click_on "Save and continue"
+end
+
 def fill_in_domestic_abuse_applicant_screen(choice: "No")
   confirm_screen "domestic_abuse_applicant"
   choose choice
