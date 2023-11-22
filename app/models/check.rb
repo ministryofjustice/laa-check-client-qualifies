@@ -101,4 +101,16 @@ class Check
   def eligible_for_childcare_costs?
     ChildcareEligibilityService.call(self)
   end
+
+  def show_over_60_question?
+    !FeatureFlags.enabled?(:under_eighteen, session_data)
+  end
+
+  def consolidated_client_age
+    if show_over_60_question?
+      over_60 ? "over_60" : "standard"
+    else
+      client_age
+    end
+  end
 end

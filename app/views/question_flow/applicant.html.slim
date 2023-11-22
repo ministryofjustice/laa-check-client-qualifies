@@ -21,10 +21,11 @@
 
     = form.govuk_error_summary t("generic.error_summary_title")
 
-    = form.govuk_collection_radio_buttons :over_60,
-                                          yes_no_options, :first, :last,
-                                          legend: { text: t(".over_60.legend") },
-                                          hint: { text: t(".over_60.hint") }
+    - unless FeatureFlags.enabled?(:under_eighteen, @check.session_data)
+      = form.govuk_collection_radio_buttons :over_60,
+                                            yes_no_options, :first, :last,
+                                            legend: { text: t(".over_60.legend") },
+                                            hint: { text: t(".over_60.hint") }
 
     = form.govuk_collection_radio_buttons(:partner,
                                           yes_no_options, :first, :last,
