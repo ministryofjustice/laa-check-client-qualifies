@@ -1662,10 +1662,14 @@ en:
         - You told us your client is in receipt of Section 4 or Section 95 Asylum Support, which makes them automatically financially eligible for civil certificated legal aid for proceedings in the Immigration and Asylum chamber of the Upper Tribunal without income, outgoing and capital calculations.
         - This is not a guarantee that your client will get civil legal aid. For a final decision, an application and supporting evidence must be submitted to the Legal Aid Agency (LAA) for assessment. A full assessment supported by evidence may generate a different result.
         - "The LAA will also consider:"
-      controlled_asylum_support_eligible_paragraphs:
+      controlled_asylum_support_eligible_paragraphs_old:
         - Your client qualifies financially for civil legal aid, based on the information you have entered. Before you (or a provider of advice or services funded by legal aid) proceed with your client’s case, it must also be within scope for legal aid and satisfy the relevant merits criteria set out in the relevant legislation and guidance.
         - You told us your client is in receipt of Section 4 or Section 95 Asylum Support. This makes them automatically financially eligible for civil controlled work relating to legal help and help at court for immigration and asylum proceedings, as well as controlled legal representation in the Immigration and Asylum chamber of the first tier or upper tribunal without income, outgoing and capital calculations.
         - Save or print this page and keep any supporting evidence to support your decision in case the Legal Aid Agency (LAA) audits or assesses your client’s file in the future.
+        - This assessment has been made in line with the latest version of the Lord Chancellor’s Guidance on Determining Eligibility for Controlled Work.
+      controlled_asylum_support_eligible_paragraphs:
+        - Your client qualifies financially for civil legal aid, based on the information you have entered. Before you (or a provider of advice or services funded by legal aid) proceed with your client’s case, it must also be within scope for legal aid and satisfy the relevant merits criteria set out in the relevant legislation and guidance.
+        - You told us your client is in receipt of Section 4 or Section 95 Asylum Support. This makes them automatically financially eligible for civil controlled work relating to legal help and help at court for immigration and asylum proceedings, as well as controlled legal representation in the Immigration and Asylum chamber of the first tier or upper tribunal without income, outgoing and capital calculations.
         - This assessment has been made in line with the latest version of the Lord Chancellor’s Guidance on Determining Eligibility for Controlled Work.
       save_results: Save results and answers as a PDF
       save_results_intro: 'The PDF will include:'
@@ -1673,6 +1677,9 @@ en:
         - the eligibility declaration
         - your client’s key eligibility totals
         - how we calculated your client’s key eligibility totals
+        - the answers you input into this service
+      save_results_bullets_asylum: 
+        - the eligibility declaration
         - the answers you input into this service
       complete_a_cw_form: Complete a controlled work form
       complete_a_cw_form_paragraph: You will need to complete the relevant controlled work form and keep for your records, along with any evidence provided by your client. Your client’s file may be audited and assessed by the LAA at a later date.

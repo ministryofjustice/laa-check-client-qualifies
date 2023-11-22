@@ -22,9 +22,14 @@
   - if @journey_continues_on_another_page
     h2.govuk-heading-m = t(".save_results")
     p.govuk-body = t(".save_results_intro")
-    ul.govuk-list.govuk-list--bullet
-      - t(".save_results_bullets").each
-        li = _1
+    - if @check.asylum_support
+      ul.govuk-list.govuk-list--bullet
+        - t(".save_results_bullets_asylum").each
+          li = _1
+    - else
+      ul.govuk-list.govuk-list--bullet
+        - t(".save_results_bullets").each
+          li = _1
 
     .govuk-button-group
       = link_to t(".save_as_pdf"),
