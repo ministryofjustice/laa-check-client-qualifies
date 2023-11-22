@@ -61,7 +61,7 @@ class Check
     return false unless smod_applicable?
 
     house_in_dispute ||
-      bank_accounts.any?(&:account_in_dispute) ||
+      bank_accounts&.any?(&:account_in_dispute) ||
       investments_in_dispute ||
       valuables_in_dispute ||
       additional_properties&.any?(&:house_in_dispute) ||

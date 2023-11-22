@@ -1,0 +1,23 @@
+- content_for :page_title
+  = t(".title")
+- content_for :back
+  = back_link(:under_eighteen_assets, @check, @back_buttons_invoke_browser_back_behaviour)
+
+- content_for :hint
+  - t(".hints").each
+    p.govuk-body = _1
+
+.govuk-grid-column-two-thirds
+  = form_for(@form, url: request.path, method: :put) do |form|
+    = form.govuk_error_summary t("generic.error_summary_title")
+
+    = render "shared/heading"
+    = form.govuk_collection_radio_buttons :under_eighteen_assets, yes_no_options, :first, :last,
+                                          legend: { text: t(".title"), size: "xl", tag: "h1" },
+                                          hint: -> { content_for(:hint) }
+    = form.govuk_submit t("generic.save_and_continue")
+
+= render "shared/question_sidebar",
+         level_of_help: @check.level_of_help,
+         links: { t("question_flow.level_of_help.certificated_guidance.text") => document_link(:lc_guidance_controlled),
+                  t(".guidance") => document_link(:lc_guidance_controlled, :child_assets) }

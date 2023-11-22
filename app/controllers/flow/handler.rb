@@ -6,6 +6,7 @@ module Flow
       under_18_clr: { class: ControlledLegalRepresentationForm, url_fragment: "client-under-18-controlled-legal-representation-work" },
       aggregated_means: { class: AggregatedMeansForm, url_fragment: "client-under-18-aggregated-means" },
       regular_income: { class: RegularIncomeForm, url_fragment: "client-under-18-regular-income" },
+      under_eighteen_assets: { class: UnderEighteenAssetsForm, url_fragment: "client-under-18-assets" },
       domestic_abuse_applicant: { class: DomesticAbuseApplicantForm, url_fragment: "is-client-domestic-abuse-case-applicant" },
       immigration_or_asylum: { class: ImmigrationOrAsylumForm, url_fragment: "is-this-immigration-asylum-matter" },
       immigration_or_asylum_type: { class: ImmigrationOrAsylumTypeForm, url_fragment: "immigration-asylum-type" },

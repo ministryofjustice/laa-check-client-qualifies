@@ -22,6 +22,10 @@ en:
           attributes:
             regular_income:
               inclusion: Select yes if your client gets regular income
+        under_eighteen_assets_form:
+          attributes:
+            under_eighteen_assets:
+              inclusion: Select yes if your client has assets worth £2,500 or more
         domestic_abuse_applicant_form:
           attributes:
             domestic_abuse_applicant:
@@ -720,6 +724,12 @@ en:
         - pocket money
         - any maintenance paid for the child
       guidance: Guidance on income
+    under_eighteen_assets:
+      title: Does your client have assets worth £2,500 or more?
+      hints:
+        - For example, money in bank accounts, investments, valuable items, property or land.
+        - If they have any assets like this, they must have a full means test.
+      guidance: Guidance on assets
     asylum_support:
       question: Does your client get Asylum Support?
       help_text_1: This means Asylum Support as defined in Section 4 or Section 95 of the Immigration and Asylum Act 1999.

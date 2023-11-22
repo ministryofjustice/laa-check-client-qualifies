@@ -7,8 +7,7 @@ module Steps
            partner_income
            partner_benefits
            partner_benefit_details
-           partner_other_income
-           partner_outgoings]
+           partner_other_income]
       end
 
       def grouped_steps_for(session_data)
