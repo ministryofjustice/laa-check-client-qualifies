@@ -35,6 +35,7 @@ class ExternalLinkService
               over_60: 31,
               children: 34,
               means_aggregation: 34,
+              child_income: 35,
             },
           },
           lc_guidance_certificated: {

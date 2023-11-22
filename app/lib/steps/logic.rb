@@ -12,6 +12,10 @@ module Steps
         session_data["level_of_help"] == LevelOfHelpForm::LEVELS_OF_HELP[:controlled]
       end
 
+      def aggregated_means?(session_data)
+        client_under_eighteen?(session_data) && session_data["aggregated_means"]
+      end
+
       def immigration_or_asylum?(session_data)
         if controlled?(session_data)
           session_data["immigration_or_asylum"]
