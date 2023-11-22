@@ -699,7 +699,9 @@ en:
       explainer: For example, payment from a full time job or local authority financial support for a care leaver. If they get regular income, they must have a full means test.
       exception_intro: "Do not include:"
       exceptions:
-        - part-time earnings (less than 16 hours per week)•  holiday jobs•  pocket money
+        - part-time earnings (less than 16 hours per week)
+        - holiday jobs
+        - pocket money
         - any maintenance paid for the child
       guidance: Guidance on income
     asylum_support:
