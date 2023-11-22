@@ -1,8 +1,8 @@
 - content_for :page_title
   - if @model.decision == "ineligible"
-    = t("results.show.not_likely_to_qualify")
+    = t(@check.controlled? ? "results.show.controlled_ineligible" : "results.show.not_likely_to_qualify")
   - else
-    = t("results.show.likely_to_qualify")
+    = t(@check.controlled? ? "results.show.controlled_qualifies" : "results.show.likely_to_qualify")
 .govuk-grid-column-full.no-ligatures
   .gem-c-organisation-logo
     .gem-c-organisation-logo__container

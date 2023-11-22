@@ -1,8 +1,8 @@
 - content_for :page_title
   - if @model.decision == "ineligible"
-    = t(".not_likely_to_qualify")
+    = t(@check.controlled? ? ".controlled_ineligible" : ".not_likely_to_qualify")
   - else
-    = t(".likely_to_qualify")
+    = t(@check.controlled? ? ".controlled_qualifies" : ".likely_to_qualify")
 
 - content_for :back do
   = link_to t("generic.back"), check_answers_path(assessment_code: params[:assessment_code]), class: "govuk-back-link"
