@@ -21,7 +21,7 @@ class JourneyLoggerService
         certificated: !check.controlled?,
         partner: check.partner || false,
         client_age: check.client_age,
-        person_over_60: check.consolidated_client_age == "over_60" || check.partner_over_60 || false,
+        person_over_60: check.consolidated_client_age == ClientAgeForm::OVER_60 || check.partner_over_60 || false,
         passported: check.passporting || false,
         main_dwelling_owned: check.owns_property? || false,
         vehicle_owned: check.vehicle_owned || false,

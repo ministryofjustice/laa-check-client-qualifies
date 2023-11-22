@@ -108,7 +108,7 @@ class Check
 
   def consolidated_client_age
     if show_over_60_question?
-      over_60 ? "over_60" : "standard"
+      over_60 ? ClientAgeForm::OVER_60 : ClientAgeForm::STANDARD
     else
       client_age
     end

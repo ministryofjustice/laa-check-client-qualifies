@@ -34,6 +34,7 @@ class ExternalLinkService
               smod: 27,
               over_60: 31,
               children: 34,
+              means_aggregation: 34,
             },
           },
           lc_guidance_certificated: {

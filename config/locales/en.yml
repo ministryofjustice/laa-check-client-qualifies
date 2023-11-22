@@ -10,6 +10,10 @@ en:
           attributes:
             level_of_help:
               blank: Select the level of help your client needs
+        aggregated_means_form:
+          attributes:
+            aggregated_means:
+              inclusion: Select yes if you will aggregate your client’s means with another person’s means
         domestic_abuse_applicant_form:
           attributes:
             domestic_abuse_applicant:
@@ -672,6 +676,20 @@ en:
         text: Guide to determining certificated work
       mental_health_guidance:
         text: Means assessment section of Mental Health guidance
+    aggregated_means:
+      title: Will you aggregate your client's means with another person's means?
+      explainer: If your client's means are aggregated with the means of another person, such as a maintaining adult, they must have a full means test.
+      what_we_mean: What we mean by aggregation of means
+      example_intro: "A maintaining adult is any other person who is responsible for maintaining the child. For example, the other person could be one of the following:"
+      examples:
+        - a parent or guardian who gives your client financial support
+        - anyone who contributes substantially to your client's maintenance
+      exception_intro: "Exceptions to this are when:"
+      exceptions:
+        - a parent or guardian has a conflict of interest in the matter
+        - the client is financially independent
+        - the client is in local authority or foster care
+      guidance: Guidance on means aggregation for under 18s
     asylum_support:
       question: Does your client get Asylum Support?
       help_text_1: This means Asylum Support as defined in Section 4 or Section 95 of the Immigration and Asylum Act 1999.
