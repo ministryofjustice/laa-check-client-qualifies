@@ -161,18 +161,6 @@ jobs:
         branch: ${{ fromJSON(needs.combine-prs.outputs.branches) }}
     steps:
       - uses: actions/checkout@v4
-      - name: Delete from old UAT namespace
-        id: delete_old_uat
-        uses: ./.github/actions/delete-uat-release
-        with:
-          k8s_cluster: ${{ secrets.K8S_GHA_UAT_CLUSTER_NAME }}
-          k8s_cluster_cert: ${{ secrets.K8S_GHA_UAT_CLUSTER_CERT }}
-          k8s_namespace: ${{ secrets.K8S_GHA_UAT_NAMESPACE }}
-          k8s_token: ${{ secrets.K8S_GHA_UAT_TOKEN }}
-          branch_name: ${{ matrix.branch }}
-      - name: Old result
-        shell: bash
-        run: echo ${{ steps.delete_old_uat.outputs.delete-message }}\
       - name: Delete from UAT namespace
         id: delete_uat
         uses: ./.github/actions/delete-uat-release
