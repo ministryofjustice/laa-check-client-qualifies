@@ -1644,8 +1644,8 @@ en:
       file_may_be_audited: Your client’s file may be audited or assessed by the LAA at a later date.
   results:
     show:
-      likely_to_qualify: Your client is likely to qualify for civil legal aid
-      not_likely_to_qualify: Your client is not likely to qualify for civil legal aid
+      likely_to_qualify: Your client is likely to qualify for civil legal aid, for certificated work
+      not_likely_to_qualify: Your client is not likely to qualify for civil legal aid, for certificated work
       eligible_intro_paragraphs_html:
         - Your client is likely to qualify financially for civil legal aid, <b>without needing to pay a contribution</b>, based on the information you entered.
         - This is not a guarantee that your client will get civil legal aid. For a final decision on eligibility and contributions (if any), an application and supporting evidence must be submitted to the Legal Aid Agency (LAA) for assessment. A full assessment supported by evidence may generate a different result.
