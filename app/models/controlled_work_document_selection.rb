@@ -23,9 +23,9 @@ class ControlledWorkDocumentSelection
 
   def form_options
     if client_under_18_and_clr
-      %i[cw2 cw1_and_2]
+      %i[cw2 cw1_and_2].freeze
     else
-      %i[cw1 cw2 cw1_and_2 cw5 civ_means_7]
+      %i[cw1 cw2 cw1_and_2 cw5 civ_means_7].freeze
     end
   end
 
