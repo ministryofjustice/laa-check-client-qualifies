@@ -26,7 +26,7 @@
       = render "shared/radio_button_set",
                form:,
                field_name: :form_type,
-               buttons: ControlledWorkDocumentSelection::OPTIONS.map { { value: _1, options: { label: { text: t(".option.#{_1}") } } } }
+               buttons: @form.options
 
     - if FeatureFlags.enabled?(:welsh_cw, without_session_data: true)
       = form.govuk_radio_buttons_fieldset :language, legend: { text: t(".language_title") }
