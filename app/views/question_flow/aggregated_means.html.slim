@@ -1,0 +1,31 @@
+- content_for :page_title
+  = t(".title")
+- content_for :back
+  = back_link(:aggregated_means, @check, @back_buttons_invoke_browser_back_behaviour)
+
+- content_for :hint
+  p.govuk-body = t(".explainer")
+  = govuk_details(summary_text: t(".what_we_mean"))
+    p.govuk-body = t(".example_intro")
+    ul.govuk-list.govuk-list--bullet
+      - t(".examples").each
+        li.govuk-body = _1
+    p.govuk-body = t(".exception_intro")
+    ul.govuk-list.govuk-list--bullet
+      - t(".exceptions").each
+        li.govuk-body = _1
+
+.govuk-grid-column-two-thirds
+  = form_for(@form, url: request.path, method: :put) do |form|
+    = form.govuk_error_summary t("generic.error_summary_title")
+
+    = render "shared/heading"
+    = form.govuk_collection_radio_buttons :aggregated_means, yes_no_options, :first, :last,
+                                          legend: { text: t(".title"), size: "xl", tag: "h1" },
+                                          hint: -> { content_for(:hint) }
+    = form.govuk_submit t("generic.save_and_continue")
+
+= render "shared/question_sidebar",
+         level_of_help: @check.level_of_help,
+         links: { t("question_flow.level_of_help.controlled_guidance.text") => document_link(:lc_guidance_controlled),
+                  t(".guidance") => document_link(:lc_guidance_controlled, :means_aggregation) }

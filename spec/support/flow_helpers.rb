@@ -7,8 +7,20 @@ def start_assessment
   click_on "Start now"
 end
 
+def fill_in_client_age_screen(choice: "18 to 59")
+  confirm_screen "client_age"
+  choose choice
+  click_on "Save and continue"
+end
+
 def fill_in_level_of_help_screen(choice: "Civil certificated or licensed legal work")
   confirm_screen "level_of_help"
+  choose choice
+  click_on "Save and continue"
+end
+
+def fill_in_aggregated_means_screen(choice: "No")
+  confirm_screen "aggregated_means"
   choose choice
   click_on "Save and continue"
 end
