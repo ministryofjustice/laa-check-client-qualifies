@@ -20,12 +20,28 @@ module Cfe
 
       applicant_form = instantiate_form(ApplicantForm)
       {
-        date_of_birth: applicant_form.over_60 ? 70.years.ago.to_date : 50.years.ago.to_date,
+        date_of_birth: date_of_birth(applicant_form),
         has_partner_opponent: false,
         receives_qualifying_benefit: applicant_form.passporting || false,
         employed: check.employed?,
         receives_asylum_support: false,
       }
+    end
+
+    def date_of_birth(applicant_form)
+      if relevant_form?(:client_age)
+        client_age_form = instantiate_form(ClientAgeForm)
+        case client_age_form.client_age
+        when ClientAgeForm::UNDER_18
+          17.years.ago.to_date
+        when ClientAgeForm::OVER_60
+          70.years.ago.to_date
+        else
+          50.years.ago.to_date
+        end
+      else
+        applicant_form.over_60 ? 70.years.ago.to_date : 50.years.ago.to_date
+      end
     end
   end
 end

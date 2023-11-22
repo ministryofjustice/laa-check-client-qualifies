@@ -2,10 +2,18 @@ en:
   activemodel:
     errors:
       models:
+        client_age_form:
+          attributes:
+            client_age:
+              inclusion: Select the age group your client is in
         level_of_help_form:
           attributes:
             level_of_help:
               blank: Select the level of help your client needs
+        aggregated_means_form:
+          attributes:
+            aggregated_means:
+              inclusion: Select yes if you will aggregate your client’s means with another person’s means
         domestic_abuse_applicant_form:
           attributes:
             domestic_abuse_applicant:
@@ -623,6 +631,24 @@ en:
       housing_payments_value: Enter amount of housing payments
       housing_payments: Enter amount of housing payments
       housing_benefit_value: Enter the amount of housing benefit
+    client_age:
+      title: What age is your client?
+      need_to_know: "We need to know for the check calculations because:"
+      reasons:
+        - some clients under 18 may not need a means assessment
+        - clients aged 60 or over may have some of their capital excluded from a financial eligibility assessment
+      options:
+        under_18: Under 18
+        standard: 18 to 59
+        over_60: 60 or over
+      guidance:
+        controlled: Guide to determining controlled work
+        certificated: Guide to determining certificated work
+        under_18_controlled: Guidance on under 18s for controlled work
+        under_18_certificated: Guidance on under 18s for certificated work
+        over_60_controlled: Guidance on 60 or over disregard (pensioner disregard) for controlled work
+        over_60_certificated: Guidance on 60 or over disregard (pensioner disregard) for certificated work
+
     level_of_help:
       title: What level of help does your client need?
       controlled_header: Civil controlled work or family mediation
@@ -650,6 +676,20 @@ en:
         text: Guide to determining certificated work
       mental_health_guidance:
         text: Means assessment section of Mental Health guidance
+    aggregated_means:
+      title: Will you aggregate your client's means with another person's means?
+      explainer: If your client's means are aggregated with the means of another person, such as a maintaining adult, they must have a full means test.
+      what_we_mean: What we mean by aggregation of means
+      example_intro: "A maintaining adult is any other person who is responsible for maintaining the child. For example, the other person could be one of the following:"
+      examples:
+        - a parent or guardian who gives your client financial support
+        - anyone who contributes substantially to your client's maintenance
+      exception_intro: "Exceptions to this are when:"
+      exceptions:
+        - a parent or guardian has a conflict of interest in the matter
+        - the client is financially independent
+        - the client is in local authority or foster care
+      guidance: Guidance on means aggregation for under 18s
     asylum_support:
       question: Does your client get Asylum Support?
       help_text_1: This means Asylum Support as defined in Section 4 or Section 95 of the Immigration and Asylum Act 1999.
@@ -1622,8 +1662,8 @@ en:
       file_may_be_audited: Your client’s file may be audited or assessed by the LAA at a later date.
   results:
     show:
-      likely_to_qualify: Your client is likely to qualify for civil legal aid
-      not_likely_to_qualify: Your client is not likely to qualify for civil legal aid
+      likely_to_qualify: Your client is likely to qualify for civil legal aid, for certificated work
+      not_likely_to_qualify: Your client is not likely to qualify for civil legal aid, for certificated work
       eligible_intro_paragraphs_html:
         - Your client is likely to qualify financially for civil legal aid, <b>without needing to pay a contribution</b>, based on the information you entered.
         - This is not a guarantee that your client will get civil legal aid. For a final decision on eligibility and contributions (if any), an application and supporting evidence must be submitted to the Legal Aid Agency (LAA) for assessment. A full assessment supported by evidence may generate a different result.

@@ -26,8 +26,8 @@ module Steps
         steps_list_for(session_data).include?(step.to_sym)
       end
 
-      def first_step
-        steps_list_for({}).first
+      def first_step(session_data)
+        steps_list_for(session_data).first
       end
 
       def last_step(session_data)

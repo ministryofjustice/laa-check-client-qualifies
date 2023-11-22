@@ -3,8 +3,9 @@ class ChecksController < ApplicationController
 
   def new
     new_assessment_code = SecureRandom.uuid
-    session[assessment_id(new_assessment_code)] = { "feature_flags" => FeatureFlags.session_flags }
-    redirect_to helpers.step_path_from_step(Steps::Helper.first_step, new_assessment_code)
+    data = { "feature_flags" => FeatureFlags.session_flags }
+    session[assessment_id(new_assessment_code)] = data
+    redirect_to helpers.step_path_from_step(Steps::Helper.first_step(data), new_assessment_code)
   end
 
   def check_answers
