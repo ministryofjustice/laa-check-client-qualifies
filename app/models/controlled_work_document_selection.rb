@@ -17,13 +17,13 @@ class ControlledWorkDocumentSelection
                        if: -> { FeatureFlags.enabled?(:welsh_cw, without_session_data: true) }
 
   # Based on the IncomeModel class
-  # Will need to chanege :level_of_help to whatever the CLR option is
-  attr_accessor :level_of_help, :partner
+  # Will need to change :level_of_help to whatever the CLR option is
+  attr_accessor :level_of_help
 
   # My thinking is that this checks if feature flag is on and then level of help is true
-  # Will need to chanege :level_of_help to whatever the CLR option is
+  # Will need to change :level_of_help to whatever the CLR option is
   def client_under_18_and_clr
-    FeatureFlags.enabled?(:under_eighteen, @check.session_data) && partner
+    FeatureFlags.enabled?(:under_eighteen, @check.session_data) && level_of_help == "clr"
   end
 
   def form_options
