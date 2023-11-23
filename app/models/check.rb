@@ -118,7 +118,11 @@ class Check
     Steps::Logic.ineligible_gross_income?(session_data)
   end
 
+  def ineligible_on_disposable_income?
+    Steps::Logic.ineligible_disposable_income?(session_data)
+  end
+
   def show_widget?
-    !session_data.key?("skip_to_check_answers")
+    !session_data.key?("hide_widget") || !session_data["hide_widget"]
   end
 end

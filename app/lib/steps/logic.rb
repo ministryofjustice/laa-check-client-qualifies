@@ -68,17 +68,6 @@ module Steps
         session_data["receives_benefits"]
       end
 
-      def other_income?(session_data)
-        return false unless show_income_sections?(session_data)
-
-        !session_data["friends_or_family_value"].nil? ||
-          !session_data["maintenance_value"].nil? ||
-          !session_data["property_or_lodger_value"].nil? ||
-          !session_data["pension_value"].nil? ||
-          !session_data["student_finance_value"].nil? ||
-          !session_data["other_value"].nil?
-      end
-
       def partner?(session_data)
         !asylum_supported?(session_data) && session_data["partner"]
       end
@@ -116,17 +105,17 @@ module Steps
       def ineligible_gross_income?(session_data)
         return false unless show_income_sections?(session_data)
 
-        return false unless session_data["api_result"]
+        return false unless session_data["gross_income_early_result"]
 
-        session_data.dig("api_result", "result_summary", "gross_income", "proceeding_types").first["result"] == "ineligible"
+        session_data.dig("gross_income_early_result", "result_summary", "gross_income", "proceeding_types").first["result"] == "ineligible"
       end
 
       def ineligible_disposable_income?(session_data)
         return false unless show_outgoings_sections?(session_data)
 
-        return false unless session_data["api_result"]
+        return false unless session_data["disposable_income_early_result"]
 
-        session_data.dig("api_result", "result_summary", "disposable_income", "proceeding_types").first["result"] == "ineligible"
+        session_data.dig("disposable_income_early_result", "result_summary", "disposable_income", "proceeding_types").first["result"] == "ineligible"
       end
 
       def show_income_sections?(session_data)

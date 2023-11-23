@@ -8,7 +8,7 @@ module Cfe
         relevant_form?(:benefit_details)
 
       outgoings_form = instantiate_form(OutgoingsForm) if !early_gross_income_result? && relevant_form?(:outgoings)
-      income_form = instantiate_form(OtherIncomeForm) if !early_employment_income_result? && !early_benefits_income_result? && relevant_form?(:other_income)
+      income_form = instantiate_form(OtherIncomeForm) if !early_employment_income_result? && !early_benefits_income_result? && relevant_form?(:other_income) && !other_income_invalid?
       benefit_details_form = instantiate_form(BenefitDetailsForm) if relevant_form?(:benefit_details) && !early_employment_income_result?
       housing_form = if early_gross_income_result?
                        nil

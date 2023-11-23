@@ -12,7 +12,7 @@ module Steps
           [Steps::Group.new(:employment_status),
            employment_steps(session_data),
            benefit_steps(session_data),
-           other_income_steps(session_data)].compact
+           Steps::Group.new(:other_income)].compact
         end
       end
 
@@ -24,10 +24,6 @@ module Steps
 
       def benefit_steps(session_data)
         Steps::Group.new(*(Steps::Logic.benefits?(session_data) ? %i[benefits benefit_details] : %i[benefits]))
-      end
-
-      def other_income_steps(session_data)
-        Steps::Group.new(:other_income) if Steps::Logic.other_income?(session_data)
       end
     end
   end

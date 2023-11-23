@@ -39,8 +39,6 @@ module Flow
       additional_property_details: { class: AdditionalPropertyDetailsForm, url_fragment: "client-other-property-holiday-home-land-details" },
       partner_additional_property: { class: PartnerAdditionalPropertyForm, url_fragment: "does-partner-own-other-property-holiday-home-land" },
       partner_additional_property_details: { class: PartnerAdditionalPropertyDetailsForm, url_fragment: "partner-other-property-holiday-home-land-details" },
-      gross_income_early_eligibility: { class: PostGrossIncomeEarlyEligibilityForm, url_fragment: "some-url" },
-      disposable_income_early_eligibility: { class: PostDisposableIncomeEarlyEligibilityForm, url_fragment: "some-other-url" },
     }.freeze
 
     class << self

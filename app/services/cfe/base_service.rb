@@ -48,5 +48,9 @@ module Cfe
     def early_eligibility?
       !@early_eligibility.nil?
     end
+
+    def other_income_invalid?
+      !OtherIncomeForm.from_session(@session_data).valid?
+    end
   end
 end

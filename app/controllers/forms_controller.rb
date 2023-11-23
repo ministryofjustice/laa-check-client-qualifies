@@ -10,15 +10,15 @@ class FormsController < QuestionFlowController
       # end
 
       if tags_from(step).include?(:employment_income)
-        session_data["api_result"] = CfeService.call(session_data, early_eligibility: :employment_income)
+        session_data["gross_income_early_result"] = CfeService.call(session_data, early_eligibility: :employment_income)
       end
 
       if tags_from(step).include?(:benefits_income)
-        session_data["api_result"] = CfeService.call(session_data, early_eligibility: :benefits_income)
+        session_data["gross_income_early_result"] = CfeService.call(session_data, early_eligibility: :benefits_income)
       end
 
       if tags_from(step).include?(:other_income)
-        session_data["api_result"] = CfeService.call(session_data, early_eligibility: :other_income)
+        session_data["gross_income_early_result"] = CfeService.call(session_data, early_eligibility: :other_income)
       end
 
       if tags_from(step).include?(:disposable_income)
@@ -37,16 +37,6 @@ class FormsController < QuestionFlowController
     end
   end
 
-  # def check_early_eligibility(steps, tag)
-  #   remaining_tags = []
-  #   steps.map do |remaining|
-  #     remaining_tags << tag_from(remaining)
-  #   end
-  #   return unless !remaining_tags.compact.include?(tag) && tag_from(step) == tag
-
-  #   session_data["api_result"] = CfeService.call(session_data, early_eligibility: tag)
-  # end
-
   def check_early_disposable_income_eligibility(session_data, step)
     remaining_steps = Steps::Helper.remaining_steps_for(session_data, step)
     return if remaining_steps.blank?
@@ -57,6 +47,6 @@ class FormsController < QuestionFlowController
     end
     return unless !remaining_tags.flatten.compact.include?(:disposable_income) && tags_from(step).include?(:disposable_income)
 
-    session_data["api_result"] = CfeService.call(session_data, early_eligibility: :disposable_income)
+    session_data["disposable_income_early_result"] = CfeService.call(session_data, early_eligibility: :disposable_income)
   end
 end

@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   before_action :force_setting_of_session_cookie,
                 :specify_feedback_widget,
                 :specify_freetext_feedback_page_name,
+                :hide_eligibility_widget,
                 :authenticate,
                 :check_maintenance_mode,
                 :ensure_db_connection
@@ -96,6 +97,12 @@ private
 
   def specify_freetext_feedback_page_name
     @freetext_feedback_page_name = page_name
+  end
+
+  def hide_eligibility_widget
+    if params[:hide_widget] && session_data
+      session_data["hide_widget"] = true
+    end
   end
 
   def ensure_db_connection
