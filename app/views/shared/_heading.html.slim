@@ -35,7 +35,7 @@ ruby:
     - else
       h1.govuk-heading-xl class=("govuk-!-margin-bottom-3" if post_header_texts.any? || end_block.present?) = header_text
 
-- if @check&.ineligible_on_gross_income? && !params[:hide_widget]
+- if @check&.ineligible_on_gross_income? && @check&.show_widget?
     .moj-banner class="govuk-!-margin-top-2" role="region" aria-label="information banner, to explain that pilot phase is complete"
       svg.moj-banner__icon[fill="currentColor"
                           role="presentation"

@@ -68,6 +68,17 @@ module Steps
         session_data["receives_benefits"]
       end
 
+      def other_income?(session_data)
+        return false unless show_income_sections?(session_data)
+
+        !session_data["friends_or_family_value"].nil? ||
+          !session_data["maintenance_value"].nil? ||
+          !session_data["property_or_lodger_value"].nil? ||
+          !session_data["pension_value"].nil? ||
+          !session_data["student_finance_value"].nil? ||
+          !session_data["other_value"].nil?
+      end
+
       def partner?(session_data)
         !asylum_supported?(session_data) && session_data["partner"]
       end

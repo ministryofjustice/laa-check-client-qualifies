@@ -113,4 +113,12 @@ class Check
       client_age
     end
   end
+
+  def ineligible_on_gross_income?
+    Steps::Logic.ineligible_gross_income?(session_data)
+  end
+
+  def show_widget?
+    !session_data.key?("skip_to_check_answers")
+  end
 end
