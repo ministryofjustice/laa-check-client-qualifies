@@ -47,7 +47,8 @@ ruby:
         path d=exclamation_mark_path
       .moj-banner__message
         h2.govuk-heading-s = "Your client is ineligible on gross income"
-        p.govuk-body-m class="govuk-!-margin-top-5" = "Select if you would like to skip to check answers or dismiss this notification to continue check"
+        - copy = "Select if you would like to skip to check answers or dismiss this notification to continue check"
+        p.govuk-body-m class="govuk-!-margin-top-5" = copy
         .govuk-button-group
           = link_to "Skip to check answers",
           check_answers_path(assessment_code: params[:assessment_code], hide_widget: true),
@@ -55,7 +56,6 @@ ruby:
           = link_to "Dismiss",
           url_for(hide_widget: true),
           class: "govuk-button govuk-button--secondary"
-
 - if @check&.ineligible_on_disposable_income? && @check&.show_widget?
     .moj-banner class="govuk-!-margin-top-2" role="region" aria-label="information banner"
       svg.moj-banner__icon[fill="currentColor"
@@ -68,7 +68,8 @@ ruby:
         path d=exclamation_mark_path
       .moj-banner__message
         h2.govuk-heading-s = "Your client is ineligible on disposable income"
-        p.govuk-body-m class="govuk-!-margin-top-5" = "Select if you would like to skip to check answers or dismiss this notification to continue check"
+        - copy = "Select if you would like to skip to check answers or dismiss this notification to continue check"
+        p.govuk-body-m class="govuk-!-margin-top-5" = copy
         .govuk-button-group
           = link_to "Skip to check answers",
           check_answers_path(assessment_code: params[:assessment_code], hide_widget: true),
