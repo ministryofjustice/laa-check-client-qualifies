@@ -30,7 +30,19 @@ module Cfe
     end
 
     def early_gross_income_result?
-      @early_eligibility == :gross_income
+      early_employment_income_result? || early_benefits_income_result? || early_other_income_result?
+    end
+
+    def early_employment_income_result?
+      @early_eligibility == :employment_income
+    end
+
+    def early_benefits_income_result?
+      @early_eligibility == :benefits_income
+    end
+
+    def early_other_income_result?
+      @early_eligibility == :other_income
     end
 
     def early_eligibility?

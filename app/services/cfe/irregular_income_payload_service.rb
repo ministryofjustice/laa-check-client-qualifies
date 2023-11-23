@@ -1,7 +1,7 @@
 module Cfe
   class IrregularIncomePayloadService < BaseService
     def call
-      return unless relevant_form?(:other_income)
+      return if !relevant_form?(:other_income) || early_employment_income_result? || early_benefits_income_result?
 
       form = instantiate_form(OtherIncomeForm)
 

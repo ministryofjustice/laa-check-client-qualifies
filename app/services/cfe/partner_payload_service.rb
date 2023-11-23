@@ -26,7 +26,7 @@ module Cfe
     end
 
     def irregular_incomes
-      return [] unless relevant_form?(:partner_other_income)
+      return [] if !relevant_form?(:partner_other_income) || early_employment_income_result? || early_benefits_income_result?
 
       form = instantiate_form(PartnerOtherIncomeForm)
       CfeParamBuilders::IrregularIncome.call(form)

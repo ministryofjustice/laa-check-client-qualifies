@@ -127,7 +127,7 @@ module Steps
       def show_outgoings_sections?(session_data)
         return false if passported?(session_data) || asylum_supported?(session_data)
 
-        return false if session_data["gross_income_skip_to_check_answers"] && ineligible_gross_income?(session_data)
+        return false if session_data["skip_to_check_answers"] && ineligible_gross_income?(session_data)
 
         true
       end
@@ -135,9 +135,9 @@ module Steps
       def show_capital_sections?(session_data)
         return false if asylum_supported?(session_data)
 
-        return false if session_data["gross_income_skip_to_check_answers"] && ineligible_gross_income?(session_data)
+        return false if session_data["skip_to_check_answers"] && ineligible_gross_income?(session_data)
 
-        return false if session_data["disposable_income_skip_to_check_answers"] && ineligible_disposable_income?(session_data)
+        return false if session_data["skip_to_check_answers"] && ineligible_disposable_income?(session_data)
 
         true
       end

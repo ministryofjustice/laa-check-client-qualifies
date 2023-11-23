@@ -9,6 +9,9 @@ class ChecksController < ApplicationController
   end
 
   def check_answers
+    if params[:hide_widget]
+      session_data["skip_to_check_answers"] = true
+    end
     @check = Check.new(session_data)
     @sections = CheckAnswers::SectionListerService.call(session_data)
     track_page_view(page: :check_answers)

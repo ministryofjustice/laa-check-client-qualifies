@@ -15,26 +15,26 @@ module Flow
       dependant_income: { class: DependantIncomeForm, url_fragment: "do-dependants-get-income" },
       dependant_income_details: { class: DependantIncomeDetailsForm, url_fragment: "dependant-income-details" }, # not sure if this needs tagging
       employment_status: { class: EmploymentStatusForm, url_fragment: "client-employment-status" },
-      income: { class: IncomeForm, url_fragment: "client-employment-income", tag: :gross_income },
+      income: { class: IncomeForm, url_fragment: "client-employment-income", tags: %i[gross_income employment_income] },
       benefits: { class: BenefitsForm, url_fragment: "does-client-get-benefits" },
-      benefit_details: { class: BenefitDetailsForm, url_fragment: "client-benefit-details", tag: :gross_income },
-      other_income: { class: OtherIncomeForm, url_fragment: "client-other-income", tag: :gross_income },
-      outgoings: { class: OutgoingsForm, url_fragment: "client-outgoings", tag: :disposable_income },
-      property: { class: PropertyForm, url_fragment: "property-ownership", tag: :disposable_income },
+      benefit_details: { class: BenefitDetailsForm, url_fragment: "client-benefit-details", tags: %i[gross_income benefits_income] },
+      other_income: { class: OtherIncomeForm, url_fragment: "client-other-income", tags: %i[gross_income other_income] },
+      outgoings: { class: OutgoingsForm, url_fragment: "client-outgoings", tags: %i[disposable_income] },
+      property: { class: PropertyForm, url_fragment: "property-ownership", tags: %i[disposable_income] },
       property_entry: { class: PropertyEntryForm, url_fragment: "home-client-lives-in" },
       vehicle: { class: VehicleForm, url_fragment: "vehicle-ownership" },
       vehicles_details: { class: VehiclesDetailsForm, url_fragment: "vehicle-details" },
       assets: { class: ClientAssetsForm, url_fragment: "client-assets" },
       partner_details: { class: PartnerDetailsForm, url_fragment: "about-partner" },
       partner_employment_status: { class: PartnerEmploymentStatusForm, url_fragment: "partner-employment-status" },
-      partner_income: { class: PartnerIncomeForm, url_fragment: "partner-employment-income", tag: :gross_income },
+      partner_income: { class: PartnerIncomeForm, url_fragment: "partner-employment-income", tags: %i[gross_income employment_income] },
       partner_benefits: { class: PartnerBenefitsForm, url_fragment: "does-partner-get-benefits" },
-      partner_benefit_details: { class: PartnerBenefitDetailsForm, url_fragment: "partner-benefit-details", tag: :gross_income },
-      partner_other_income: { class: PartnerOtherIncomeForm, url_fragment: "partner-other-income", tag: :gross_income },
-      partner_outgoings: { class: PartnerOutgoingsForm, url_fragment: "partner-outgoings", tag: :disposable_income },
+      partner_benefit_details: { class: PartnerBenefitDetailsForm, url_fragment: "partner-benefit-details", tags: %i[gross_income benefits_income] },
+      partner_other_income: { class: PartnerOtherIncomeForm, url_fragment: "partner-other-income", tags: %i[gross_income other_income] },
+      partner_outgoings: { class: PartnerOutgoingsForm, url_fragment: "partner-outgoings", tags: %i[disposable_income] },
       partner_assets: { class: PartnerAssetsForm, url_fragment: "partner-assets" },
-      housing_costs: { class: HousingCostsForm, url_fragment: "housing-costs", tag: :disposable_income },
-      mortgage_or_loan_payment: { class: MortgageOrLoanPaymentForm, url_fragment: "client-mortgage-loan-payments", tag: :disposable_income },
+      housing_costs: { class: HousingCostsForm, url_fragment: "housing-costs", tags: %i[disposable_income] },
+      mortgage_or_loan_payment: { class: MortgageOrLoanPaymentForm, url_fragment: "client-mortgage-loan-payments", tags: %i[disposable_income] },
       additional_property: { class: AdditionalPropertyForm, url_fragment: "does-client-own-other-property-holiday-home-land" },
       additional_property_details: { class: AdditionalPropertyDetailsForm, url_fragment: "client-other-property-holiday-home-land-details" },
       partner_additional_property: { class: PartnerAdditionalPropertyForm, url_fragment: "does-partner-own-other-property-holiday-home-land" },
@@ -50,10 +50,6 @@ module Flow
 
       def model_from_params(step, params, session)
         STEPS.fetch(step).fetch(:class).from_params(params, session)
-      end
-
-      def tag(step)
-        STEPS.fetch(step)[:tag]
       end
 
       def url_fragment(step)

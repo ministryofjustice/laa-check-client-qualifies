@@ -49,7 +49,6 @@ module Steps
          ApplicantDetailsSection,
          IncomeSection,
          PartnerSection,
-         PostGrossIncomeEarlyEligibilitySection,
          OutgoingsSection,
          AssetsAndVehiclesSection,
          PropertySection]
