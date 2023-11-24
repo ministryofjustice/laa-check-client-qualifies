@@ -15,7 +15,7 @@ module Steps
 
       def initial_steps(session_data)
         if FeatureFlags.enabled?(:under_eighteen, session_data)
-          [Steps::Group.new(:client_age), Steps::Group.new(:level_of_help), Steps::Group.new(:under_18_clr)]
+          [Steps::Group.new(:client_age), Steps::Group.new(:level_of_help)]
         else
           [Steps::Group.new(:level_of_help)]
         end
@@ -51,7 +51,7 @@ module Steps
       def under_eighteen_steps(session_data)
         return [] unless Steps::Logic.client_under_eighteen?(session_data)
 
-        [:aggregated_means, (:regular_income unless Steps::Logic.aggregated_means?(session_data))].compact
+        [:under_18_clr, :aggregated_means, (:regular_income unless Steps::Logic.aggregated_means?(session_data))].compact
       end
     end
   end
