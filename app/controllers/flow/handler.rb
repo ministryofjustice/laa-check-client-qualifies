@@ -3,6 +3,7 @@ module Flow
     STEPS = {
       client_age: { class: ClientAgeForm, url_fragment: "client-age-group" },
       level_of_help: { class: LevelOfHelpForm, url_fragment: "what-level-help" },
+      under_18_clr: { class: ControlledLegalRepresentationForm, url_fragment: "client-under-18-controlled-legal-representation-work" },
       aggregated_means: { class: AggregatedMeansForm, url_fragment: "client-under-18-aggregated-means" },
       regular_income: { class: RegularIncomeForm, url_fragment: "client-under-18-regular-income" },
       domestic_abuse_applicant: { class: DomesticAbuseApplicantForm, url_fragment: "is-client-domestic-abuse-case-applicant" },

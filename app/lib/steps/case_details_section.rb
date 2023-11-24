@@ -2,7 +2,7 @@ module Steps
   class CaseDetailsSection
     class << self
       def all_steps
-        under_18_steps = %i[aggregated_means regular_income]
+        under_18_steps = %i[under_18_clr aggregated_means regular_income]
         case_type_steps = %i[domestic_abuse_applicant immigration_or_asylum immigration_or_asylum_type immigration_or_asylum_type_upper_tribunal asylum_support]
         %i[client_age level_of_help] + under_18_steps + case_type_steps
       end
@@ -15,7 +15,7 @@ module Steps
 
       def initial_steps(session_data)
         if FeatureFlags.enabled?(:under_eighteen, session_data)
-          [Steps::Group.new(:client_age), Steps::Group.new(:level_of_help)]
+          [Steps::Group.new(:client_age), Steps::Group.new(:level_of_help), Steps::Group.new(:under_18_clr)]
         else
           [Steps::Group.new(:level_of_help)]
         end
