@@ -10,6 +10,10 @@ en:
           attributes:
             level_of_help:
               blank: Select the level of help your client needs
+        controlled_legal_representation_form:
+          attributes:
+            controlled_legal_representation:
+              inclusion: Select yes if the work is controlled legal representation (CLR)
         aggregated_means_form:
           attributes:
             aggregated_means:
@@ -18,6 +22,10 @@ en:
           attributes:
             regular_income:
               inclusion: Select yes if your client gets regular income
+        under_eighteen_assets_form:
+          attributes:
+            under_eighteen_assets:
+              inclusion: Select yes if your client has assets worth £2,500 or more
         domestic_abuse_applicant_form:
           attributes:
             domestic_abuse_applicant:
@@ -680,6 +688,18 @@ en:
         text: Guide to determining certificated work
       mental_health_guidance:
         text: Means assessment section of Mental Health guidance
+
+    under_18_clr:
+      title: Is the work controlled legal representation (CLR)?
+      clr_header: Civil controlled legal representation (CLR)
+      details_text_html: 'Controlled legal representation (CLR) covers the following, as stated under Regulation 21(2)(e) of the <a href="%{page_url}" target="_blank" rel="noreferrer noopener">Civil Legal Aid (Procedure) Regulations 2012:</a>'
+      section_1: (i) the Health, Education and Social Care Chamber of the First-tier Tribunal under the Mental Health Act 1983 or paragraph 5(2) of the Schedule to the Repatriation of Prisoners Act 1984;
+      section_2: (ii) the Mental Health Review Tribunal for Wales; or
+      section_3: (iii) the Immigration and Asylum Chamber of the First tier Tribunal.
+      guidance:
+        controlled: Guide to determining controlled work
+        mental_health: Means assessment section of Mental Health guidance
+        clr: Guidance on controlled legal representation (CLR) for child applicants
     aggregated_means:
       title: Will you aggregate your client's means with another person's means?
       explainer: If your client's means are aggregated with the means of another person, such as a maintaining adult, they must have a full means test.
@@ -704,6 +724,12 @@ en:
         - pocket money
         - any maintenance paid for the child
       guidance: Guidance on income
+    under_eighteen_assets:
+      title: Does your client have assets worth £2,500 or more?
+      hints:
+        - For example, money in bank accounts, investments, valuable items, property or land.
+        - If they have any assets like this, they must have a full means test.
+      guidance: Guidance on assets
     asylum_support:
       question: Does your client get Asylum Support?
       help_text_1: This means Asylum Support as defined in Section 4 or Section 95 of the Immigration and Asylum Act 1999.
@@ -1472,7 +1498,7 @@ en:
         level_of_help_options:
           certificated: Civil certificated or licensed legal work
           controlled: Civil controlled work or family mediation
-      domestic_abuse_applicant_fields: 
+      domestic_abuse_applicant_fields:
         domestic_abuse_applicant: Is your client an applicant in a domestic abuse case?
       immigration_or_asylum_type_upper_tribunal_fields:
         immigration_or_asylum_type_upper_tribunal: Is this for a matter in the Immigration and Asylum Chamber of the Upper Tribunal?
@@ -1727,17 +1753,17 @@ en:
         - This assessment has been made in line with the latest version of the Lord Chancellor’s Guidance on Determining Eligibility for Controlled Work.
       save_results: Save results and answers as a PDF
       save_results_intro: 'The PDF will include:'
-      save_results_bullets: 
+      save_results_bullets:
         - the eligibility declaration
         - your client’s key eligibility totals
         - how we calculated your client’s key eligibility totals
         - the answers you input into this service
-      save_results_bullets_asylum: 
+      save_results_bullets_asylum:
         - the eligibility declaration
         - the answers you input into this service
       complete_a_cw_form: Complete a controlled work form
       complete_a_cw_form_paragraph: You will need to complete the relevant controlled work form and keep for your records, along with any evidence provided by your client. Your client’s file may be audited and assessed by the LAA at a later date.
-      download_a_cw_form_header: Download a controlled work form with your answers included 
+      download_a_cw_form_header: Download a controlled work form with your answers included
       what_happens_next: What happens next
       what_happens_next_controlled_ineligible_next_step: You may wish to discuss your client’s options, for example they can pay for legal support or get advice from a charity or advice organisation.
       next_steps_paragraph_1: Use Apply for legal aid or CCMS to start an application for your client.
