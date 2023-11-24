@@ -19,6 +19,12 @@ def fill_in_level_of_help_screen(choice: "Civil certificated or licensed legal w
   click_on "Save and continue"
 end
 
+def fill_in_under_18_controlled_legal_rep_screen(choice: "Yes")
+  confirm_screen "under_18_clr"
+  choose choice
+  click_on "Save and continue"
+end
+
 def fill_in_aggregated_means_screen(choice: "No")
   confirm_screen "aggregated_means"
   choose choice
