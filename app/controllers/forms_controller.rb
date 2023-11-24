@@ -37,6 +37,13 @@ class FormsController < QuestionFlowController
         check_early_disposable_income_eligibility(session_data, step)
       end
 
+      if tags_from(step).include?(:client_assets)
+        session_data["capital_early_result"] = CfeService.call(session_data, early_eligibility: :client_assets)
+      end
+
+      if tags_from(step).include?(:partner_assets)
+        session_data["capital_early_result"] = CfeService.call(session_data, early_eligibility: :partner_assets)
+      end
       next_step = Steps::Helper.next_step_for(session_data, step)
       if next_step
         redirect_to helpers.step_path_from_step(next_step, assessment_code)

@@ -49,6 +49,14 @@ module Cfe
       @early_eligibility == :other_income
     end
 
+    def early_assets_result?
+      @early_eligibility == :client_assets
+    end
+
+    def early_partner_assets_result?
+      @early_eligibility == :partner_assets
+    end
+
     def early_partner_employment_income_result?
       @early_eligibility == :partner_employment_income
     end
@@ -71,6 +79,14 @@ module Cfe
 
     def partner_other_income_invalid?
       !PartnerOtherIncomeForm.from_session(@session_data).valid?
+    end
+
+    def housing_costs_valid?
+      HousingCostsForm.from_session(@session_data).valid?
+    end
+
+    def partner_assets_valid?
+      PartnerAssetsForm.from_session(@session_data).valid?
     end
   end
 end

@@ -70,7 +70,7 @@ module Cfe
     end
 
     def capitals
-      return if early_eligibility? || !relevant_form?(:partner_assets)
+      return if early_gross_income_result? || early_partner_gross_income_result? || !relevant_form?(:partner_assets) || !partner_assets_valid?
 
       assets_form = instantiate_form(PartnerAssetsForm)
       CfeParamBuilders::Capitals.call(assets_form)

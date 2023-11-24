@@ -118,6 +118,14 @@ module Steps
         session_data.dig("disposable_income_early_result", "result_summary", "disposable_income", "proceeding_types").first["result"] == "ineligible"
       end
 
+      def ineligible_capital_assets?(session_data)
+        return false unless show_capital_sections?(session_data)
+
+        return false unless session_data["capital_early_result"]
+
+        session_data.dig("capital_early_result", "result_summary", "capital", "proceeding_types").first["result"] == "ineligible"
+      end
+
       def show_income_sections?(session_data)
         return false if asylum_supported?(session_data) || passported?(session_data)
 

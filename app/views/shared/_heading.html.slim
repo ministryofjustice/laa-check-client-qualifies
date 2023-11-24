@@ -77,6 +77,27 @@ ruby:
           = link_to "Dismiss",
           url_for(hide_widget: true),
           class: "govuk-button govuk-button--secondary"
+- if @check&.ineligible_on_capital_assets? && @check&.show_widget?
+    .moj-banner class="govuk-!-margin-top-2" role="region" aria-label="information banner"
+      svg.moj-banner__icon[fill="currentColor"
+                          role="presentation"
+                          focusable="false"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 25 25"
+                          height="25"
+                          width="25"]
+        path d=exclamation_mark_path
+      .moj-banner__message
+        h2.govuk-heading-s = "Your client is ineligible on capital assets"
+        - copy = "Select if you would like to skip to check answers or dismiss this notification to continue check"
+        p.govuk-body-m class="govuk-!-margin-top-5" = copy
+        .govuk-button-group
+          = link_to "Skip to check answers",
+          check_answers_path(assessment_code: params[:assessment_code], hide_widget: true),
+          class: "govuk-button govuk-button"
+          = link_to "Dismiss",
+          url_for(hide_widget: true),
+          class: "govuk-button govuk-button--secondary"
 
 - post_header_texts.each do |text|
   - is_last = text == post_header_texts.last && end_block.blank?

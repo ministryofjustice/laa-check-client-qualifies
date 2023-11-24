@@ -10,11 +10,11 @@ module Cfe
       outgoings_form = instantiate_form(OutgoingsForm) if !early_gross_income_result? && relevant_form?(:outgoings) && !early_partner_gross_income_result?
       income_form = instantiate_form(OtherIncomeForm) if !early_employment_income_result? && !early_benefits_income_result? && relevant_form?(:other_income) && !other_income_invalid?
       benefit_details_form = instantiate_form(BenefitDetailsForm) if relevant_form?(:benefit_details) && !early_employment_income_result?
-      housing_form = if early_gross_income_result? || early_partner_gross_income_result?
+      housing_form = if early_gross_income_result? || early_partner_gross_income_result? || early_assets_result? || early_partner_assets_result?
                        nil
                      elsif relevant_form?(:mortgage_or_loan_payment)
                        instantiate_form(MortgageOrLoanPaymentForm)
-                     elsif relevant_form?(:housing_costs)
+                     elsif relevant_form?(:housing_costs) && housing_costs_valid?
                        instantiate_form(HousingCostsForm)
                      end
 

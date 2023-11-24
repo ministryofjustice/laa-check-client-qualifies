@@ -122,6 +122,10 @@ class Check
     Steps::Logic.ineligible_disposable_income?(session_data)
   end
 
+  def ineligible_on_capital_assets?
+    Steps::Logic.ineligible_capital_assets?(session_data)
+  end
+
   def show_widget?
     !session_data.key?("hide_widget") || !session_data["hide_widget"]
   end
