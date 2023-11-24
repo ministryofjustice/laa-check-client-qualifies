@@ -29,7 +29,7 @@ module Flow
       partner_employment_status: { class: PartnerEmploymentStatusForm, url_fragment: "partner-employment-status" },
       partner_income: { class: PartnerIncomeForm, url_fragment: "partner-employment-income", tag: :partner_employment_income },
       partner_benefits: { class: PartnerBenefitsForm, url_fragment: "does-partner-get-benefits" },
-      partner_benefit_details: { class: PartnerBenefitDetailsForm, url_fragment: "partner-benefit-details", tags: :partner_benefits_income },
+      partner_benefit_details: { class: PartnerBenefitDetailsForm, url_fragment: "partner-benefit-details", tag: :partner_benefits_income },
       partner_other_income: { class: PartnerOtherIncomeForm, url_fragment: "partner-other-income", tag: :partner_other_income },
       partner_outgoings: { class: PartnerOutgoingsForm, url_fragment: "partner-outgoings", tag: :disposable_income },
       partner_assets: { class: PartnerAssetsForm, url_fragment: "partner-assets", tag: :partner_assets },
