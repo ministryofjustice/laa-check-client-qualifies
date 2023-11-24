@@ -33,6 +33,10 @@ module Cfe
       early_employment_income_result? || early_benefits_income_result? || early_other_income_result?
     end
 
+    def early_partner_gross_income_result?
+      early_partner_employment_income_result? || early_partner_benefits_income_result? || early_partner_other_income_result?
+    end
+
     def early_employment_income_result?
       @early_eligibility == :employment_income
     end
@@ -45,12 +49,28 @@ module Cfe
       @early_eligibility == :other_income
     end
 
+    def early_partner_employment_income_result?
+      @early_eligibility == :partner_employment_income
+    end
+
+    def early_partner_benefits_income_result?
+      @early_eligibility == :partner_benefits_income
+    end
+
+    def early_partner_other_income_result?
+      @early_eligibility == :partner_other_income
+    end
+
     def early_eligibility?
       !@early_eligibility.nil?
     end
 
     def other_income_invalid?
       !OtherIncomeForm.from_session(@session_data).valid?
+    end
+
+    def partner_other_income_invalid?
+      !PartnerOtherIncomeForm.from_session(@session_data).valid?
     end
   end
 end

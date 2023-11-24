@@ -1,7 +1,7 @@
 module Cfe
   class PartnerPayloadService < BaseService
     def call
-      return unless relevant_form?(:partner_details)
+      return unless relevant_form?(:partner_details) && !early_gross_income_result?
 
       @partner_details_form = instantiate_form(PartnerDetailsForm)
       partner_financials = {
@@ -11,10 +11,10 @@ module Cfe
         self_employment_details:,
         regular_transactions:,
         additional_properties:,
-        capitals:,
         dependants: [],
         vehicles: [],
       }
+      partner_financials[:capitals] = capitals if capitals
       payload[:partner] = partner_financials
     end
 
@@ -26,7 +26,7 @@ module Cfe
     end
 
     def irregular_incomes
-      return [] if !relevant_form?(:partner_other_income) || early_employment_income_result? || early_benefits_income_result?
+      return [] if !relevant_form?(:partner_other_income) || early_employment_income_result? || early_benefits_income_result? || early_partner_employment_income_result? || early_partner_benefits_income_result? || partner_other_income_invalid?
 
       form = instantiate_form(PartnerOtherIncomeForm)
       CfeParamBuilders::IrregularIncome.call(form)
@@ -49,9 +49,9 @@ module Cfe
     def regular_transactions
       return [] unless relevant_form?(:partner_other_income) && relevant_form?(:partner_outgoings)
 
-      outgoings_form = instantiate_form(PartnerOutgoingsForm) unless early_gross_income_result?
-      income_form = instantiate_form(PartnerOtherIncomeForm)
-      benefits_form = instantiate_form(PartnerBenefitDetailsForm) if relevant_form?(:partner_benefit_details)
+      outgoings_form = instantiate_form(PartnerOutgoingsForm) unless early_gross_income_result? || early_partner_gross_income_result?
+      income_form = instantiate_form(PartnerOtherIncomeForm) unless early_partner_employment_income_result? || early_partner_benefits_income_result? || partner_other_income_invalid?
+      benefits_form = instantiate_form(PartnerBenefitDetailsForm) if relevant_form?(:partner_benefit_details) && !early_partner_employment_income_result?
       CfeParamBuilders::RegularTransactions.call(income_form, outgoings_form, benefits_form)
     end
 
@@ -70,7 +70,7 @@ module Cfe
     end
 
     def capitals
-      return if early_eligibility?
+      return if early_eligibility? || !relevant_form?(:partner_assets)
 
       assets_form = instantiate_form(PartnerAssetsForm)
       CfeParamBuilders::Capitals.call(assets_form)

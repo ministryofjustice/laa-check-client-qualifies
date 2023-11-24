@@ -21,6 +21,18 @@ class FormsController < QuestionFlowController
         session_data["gross_income_early_result"] = CfeService.call(session_data, early_eligibility: :other_income)
       end
 
+      if tags_from(step).include?(:partner_employment_income)
+        session_data["gross_income_early_result"] = CfeService.call(session_data, early_eligibility: :partner_employment_income)
+      end
+
+      if tags_from(step).include?(:partner_benefits_income)
+        session_data["gross_income_early_result"] = CfeService.call(session_data, early_eligibility: :partner_benefits_income)
+      end
+
+      if tags_from(step).include?(:partner_other_income)
+        session_data["gross_income_early_result"] = CfeService.call(session_data, early_eligibility: :partner_other_income)
+      end
+
       if tags_from(step).include?(:disposable_income)
         check_early_disposable_income_eligibility(session_data, step)
       end
