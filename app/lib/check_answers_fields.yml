@@ -32,18 +32,35 @@
 # The attribute is also used to construct the I18n key
 # 'money_with_frequency' fields also have an 'alt_attribute' which describes which number to display.
 sections:
-  - label: level_of_help
-    subsections:
+  - subsections:
       - tables:
+          - screen: client_age
+            fields:
+              - attribute: client_age
+                type: select
           - screen: level_of_help
+            skip_change_link: true
             fields:
               - attribute: level_of_help
                 type: select
+                screen: level_of_help
+          - screen: aggregated_means
+            skip_change_link: true
+            fields:
+              - attribute: aggregated_means
+                type: boolean
+                screen: aggregated_means
+              - attribute: regular_income
+                type: boolean
+                screen: regular_income
+              - attribute: under_eighteen_assets
+                type: boolean
+                screen: under_eighteen_assets
   - label: case_details
     subsections:
       - tables:
           - screen: domestic_abuse_applicant
-            fields: 
+            fields:
               - attribute: domestic_abuse_applicant
                 type: boolean
           - screen: immigration_or_asylum
@@ -55,7 +72,7 @@ sections:
               - attribute: immigration_or_asylum_type
                 type: select
           - screen: immigration_or_asylum_type_upper_tribunal
-            fields: 
+            fields:
               - attribute: immigration_or_asylum_type_upper_tribunal
                 type: select
           - screen: asylum_support
