@@ -44,6 +44,9 @@ sections:
               - attribute: level_of_help
                 type: select
                 screen: level_of_help
+              - attribute: controlled_legal_representation
+                type: boolean
+                screen: under_18_clr
           - screen: aggregated_means
             skip_change_link: true
             fields:

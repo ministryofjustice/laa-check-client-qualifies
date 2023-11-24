@@ -1506,6 +1506,7 @@ en:
         level_of_help_options:
           certificated: Civil certificated or licensed legal work
           controlled: Civil controlled work or family mediation
+        controlled_legal_representation: Is the work controlled legal representation (CLR)?
       aggregated_means_fields:
         aggregated_means: Will you aggregate your client's means with another person's means?
         regular_income: Does your client get regular income?
