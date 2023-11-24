@@ -99,6 +99,8 @@ class Check
   end
 
   def eligible_for_childcare_costs?
+    return false if ineligible_on_gross_income?
+
     ChildcareEligibilityService.call(self)
   end
 
