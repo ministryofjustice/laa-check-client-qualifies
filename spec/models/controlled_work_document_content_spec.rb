@@ -356,6 +356,12 @@ RSpec.describe ControlledWorkDocumentContent do
           expect(described_class.new(session_data).additional_properties_mortgage).to eq 120_000
         end
       end
+
+      describe "#non_smod_additional_properties_mortgage" do
+        it "returns the correct figure" do
+          expect(described_class.new(session_data).non_smod_additional_properties_mortgage).to eq 120_000
+        end
+      end
     end
   end
 
