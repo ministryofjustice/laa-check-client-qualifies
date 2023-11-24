@@ -692,7 +692,7 @@ en:
     under_18_clr:
       title: Is the work controlled legal representation (CLR)?
       clr_header: Civil controlled legal representation (CLR)
-      details_text_html: 'Controlled legal representation (CLR) covers the following, as stated under Regulation 21(2)(e) of the <a href="%{page_url}" target="_blank" rel="noreferrer noopener">Civil Legal Aid (Procedure) Regulations 2012:</a>'
+      details_text_html: 'Controlled legal representation (CLR) covers the following, as stated under Regulation 21(2)(e) of the <a href="%{page_url}" target="_blank" rel="noreferrer noopener">Civil Legal Aid (Procedure) Regulations 2012</a>:'
       section_1: (i) the Health, Education and Social Care Chamber of the First-tier Tribunal under the Mental Health Act 1983 or paragraph 5(2) of the Schedule to the Repatriation of Prisoners Act 1984;
       section_2: (ii) the Mental Health Review Tribunal for Wales; or
       section_3: (iii) the Immigration and Asylum Chamber of the First tier Tribunal.
