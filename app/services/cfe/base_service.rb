@@ -77,6 +77,10 @@ module Cfe
       !OtherIncomeForm.from_session(@session_data).valid?
     end
 
+    def partner_valid?
+      PartnerDetailsForm.from_session(@session_data).valid?
+    end
+
     def partner_other_income_invalid?
       !PartnerOtherIncomeForm.from_session(@session_data).valid?
     end

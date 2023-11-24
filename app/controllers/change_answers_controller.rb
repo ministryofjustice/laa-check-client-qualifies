@@ -7,13 +7,10 @@ class ChangeAnswersController < QuestionFlowController
     if @form.valid?
       track_choices(@form)
       session_data.merge!(@form.attributes_for_export_to_session)
+      EarlyCfeResultService.call(step, session_data)
       if Steps::Helper.last_step_in_group?(session_data, step)
-        if tag_from(step) == (:gross_income || :disposable_income)
-          session_data["api_result"] = CfeService.call(session_data, early_eligibility: tag_from(step))
-        end
-
         next_step = next_check_answer_step(step)
-        if next_step
+        if next_step && (!Steps::Logic.ineligible_gross_income?(session_data) || !Steps::Logic.ineligible_disposable_income?(session_data) || !Steps::Logic.ineligible_capital_assets?(session_data))
           redirect_to helpers.check_step_path_from_step(next_step, assessment_code)
         else
           # Promote the temporary copy of the answers to overwrite the original answers
