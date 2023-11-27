@@ -13,7 +13,7 @@
 
     - name: Under 18
       type: boolean_radio
-      source: under_eighteen
+      source: under_eighteen?
       yes_value: Ydy
       no_value: Nac ydy
 

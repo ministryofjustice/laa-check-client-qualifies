@@ -439,4 +439,26 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       expect(result).to include(representative_sample)
     end
   end
+
+  context "when the under 18 flag is off" do
+    let(:session_data) do
+      FactoryBot.build(
+        :minimal_complete_session,
+        level_of_help: "controlled",
+        client_age: nil,
+        api_response: FactoryBot.build(:api_result,
+                                       main_home: FactoryBot.build(:property_api_result, value: 250_000),
+                                       additional_property: FactoryBot.build(:property_api_result,
+                                                                             outstanding_mortgage: 120_000,
+                                                                             percentage_owned: 75,
+                                                                             subject_matter_of_dispute: true)).with_indifferent_access,
+      )
+    end
+
+    it "leaves the under 18 question blank, not nil" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_and_2_welsh.yml")).map(&:with_indifferent_access)
+      result = described_class.call(session_data, mappings)
+      expect(result).to include("Under 18" => nil)
+    end
+  end
 end
