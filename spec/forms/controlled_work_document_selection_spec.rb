@@ -115,4 +115,21 @@ RSpec.describe "cw_selection", type: :feature do
       expect(page).not_to have_content "CIV Means 7 - family mediation"
     end
   end
+
+  context "when the client is under 18 and the level of help is controlled legal representation", :under_eighteen_flag do
+    let(:session_data) do
+      { "level_of_help" => "controlled",
+        "client_age" => "under_18",
+        "controlled_legal_representation" => "true",
+        "api_response" => api_response }
+    end
+
+    it "only shows CW2 and CW1&2 forms" do
+      expect(page).not_to have_content "CW1 - legal help, help at court or family help (lower)"
+      expect(page).to have_content "CW2 (IMM) - immigration"
+      expect(page).to have_content "CW1&2 - mental health"
+      expect(page).not_to have_content "CW5 - help with family mediation"
+      expect(page).not_to have_content "CIV Means 7 - family mediation"
+    end
+  end
 end

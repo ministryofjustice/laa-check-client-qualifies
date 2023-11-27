@@ -16,7 +16,16 @@ class ControlledWorkDocumentSelection
                        if: -> { FeatureFlags.enabled?(:welsh_cw, without_session_data: true) }
 
   def options
-    OPTIONS.select { !check.asylum_support || %i[cw1 cw2].include?(_1) }
-           .map { { value: _1, options: { label: { text: I18n.t("controlled_work_document_selections.new.option.#{_1}") } } } }
+    if client_under_18_feature_flag_and_clr
+      OPTIONS.select { %i[cw2 cw1_and_2].include?(_1) }
+            .map { { value: _1, options: { label: { text: I18n.t("controlled_work_document_selections.new.option.#{_1}") } } } }
+    else
+      OPTIONS.select { !check.asylum_support || %i[cw1 cw2].include?(_1) }
+            .map { { value: _1, options: { label: { text: I18n.t("controlled_work_document_selections.new.option.#{_1}") } } } }
+    end
+  end
+
+  def client_under_18_feature_flag_and_clr
+    FeatureFlags.enabled?(:under_eighteen, @check.session_data) && @check.session_data["controlled_legal_representation"]
   end
 end
