@@ -24,7 +24,7 @@
       yes_value: Ydy
       no_value: Nac ydy
 
-    - name: Child’s means are to be aggregated with adult
+    - name: Means aggregated
       type: boolean_radio
       source: aggregated_means
       yes_value: Ydy
