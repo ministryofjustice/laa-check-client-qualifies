@@ -1,0 +1,26 @@
+- content_for :page_title
+  = t(".title")
+- content_for :back
+  = back_link(:under_18_clr, @check, @back_buttons_invoke_browser_back_behaviour)
+- content_for :hint
+  = govuk_details(summary_text: t(".clr_header"))
+    p.govuk-body = t(".details_text_html", page_url: document_link(:legislation_cla_2012))
+    p.govuk-boy = t(".section_1")
+    p.govuk-boy = t(".section_2")
+    p.govuk-boy = t(".section_3")
+
+.govuk-grid-column-two-thirds
+  = form_for(@form, url: request.path, method: :put) do |form|
+    = form.govuk_error_summary t("generic.error_summary_title")
+
+    = render "shared/heading"
+
+    = form.govuk_collection_radio_buttons :controlled_legal_representation,
+            yes_no_options, :first, :last,
+            legend: { text: t("question_flow.under_18_clr.title"), size: "xl", tag: "h1" },
+            hint: -> { content_for(:hint) }
+
+    = form.govuk_submit t("generic.save_and_continue")
+
+= render "layouts/sidebar"
+  = render "shared/related_content", links: under_18_clr_links

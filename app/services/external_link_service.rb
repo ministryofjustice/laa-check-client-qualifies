@@ -36,6 +36,7 @@ class ExternalLinkService
               children: 34,
               means_aggregation: 34,
               child_income: 35,
+              child_assets: 35,
             },
           },
           lc_guidance_certificated: {
@@ -75,6 +76,9 @@ class ExternalLinkService
           },
           legislation_LASPO_2012_immigration: {
             page_url: "https://www.legislation.gov.uk/ukpga/2012/10/schedule/1",
+          },
+          legislation_cla_2012: {
+            page_url: "https://www.legislation.gov.uk/uksi/2012/3098/regulation/21/made",
           },
           legislation_ammendments: {
             page_url: "https://www.legislation.gov.uk/all?title=Civil%20Legal%20Aid%20%28Financial%20Resources%20",
