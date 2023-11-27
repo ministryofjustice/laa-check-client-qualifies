@@ -120,7 +120,7 @@ RSpec.describe "cw_selection", type: :feature do
     let(:session_data) do
       { "level_of_help" => "controlled",
         "client_age" => "under_18",
-        "controlled_legal_representation" => "true",
+        "controlled_legal_representation" => true,
         "api_response" => api_response }
     end
 
