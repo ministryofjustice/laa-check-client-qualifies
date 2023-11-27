@@ -61,7 +61,7 @@ class Check
     return false unless smod_applicable?
 
     house_in_dispute ||
-      bank_accounts.any?(&:account_in_dispute) ||
+      bank_accounts&.any?(&:account_in_dispute) ||
       investments_in_dispute ||
       valuables_in_dispute ||
       additional_properties&.any?(&:house_in_dispute) ||
@@ -100,5 +100,17 @@ class Check
 
   def eligible_for_childcare_costs?
     ChildcareEligibilityService.call(self)
+  end
+
+  def show_over_60_question?
+    !FeatureFlags.enabled?(:under_eighteen, session_data)
+  end
+
+  def consolidated_client_age
+    if show_over_60_question?
+      over_60 ? ClientAgeForm::OVER_60 : ClientAgeForm::STANDARD
+    else
+      client_age
+    end
   end
 end

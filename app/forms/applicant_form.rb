@@ -7,6 +7,6 @@ class ApplicantForm
 
   ATTRIBUTES.each do |attr|
     attribute attr, :boolean
-    validates attr, inclusion: { in: [true, false] }
+    validates attr, inclusion: { in: [true, false] }, if: -> { attr != :over_60 || !FeatureFlags.enabled?(:under_eighteen, @check.session_data) }
   end
 end

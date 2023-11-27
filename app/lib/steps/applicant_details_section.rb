@@ -6,7 +6,7 @@ module Steps
       end
 
       def grouped_steps_for(session_data)
-        if Steps::Logic.asylum_supported?(session_data)
+        if Steps::Logic.skip_client_questions?(session_data)
           []
         else
           groups(session_data).map { Steps::Group.new(*_1) }

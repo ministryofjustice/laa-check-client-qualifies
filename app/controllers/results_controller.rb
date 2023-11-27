@@ -13,7 +13,7 @@ class ResultsController < ApplicationController
     @model = CalculationResult.new(session_data)
     track_completed_journey(@model)
     track_page_view(page: :view_results)
-    @journey_continues_on_another_page = FeatureFlags.enabled?(:end_of_journey, session_data) && @check.controlled? && @model.decision == "eligible" && !@check.asylum_support
+    @journey_continues_on_another_page = FeatureFlags.enabled?(:end_of_journey, session_data) && @check.controlled? && @model.decision == "eligible"
     @feedback = @journey_continues_on_another_page ? :freetext : :satisfaction
   end
 

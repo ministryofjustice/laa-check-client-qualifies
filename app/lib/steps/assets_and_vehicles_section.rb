@@ -9,7 +9,7 @@ module Steps
       end
 
       def grouped_steps_for(session_data)
-        return [] if Steps::Logic.asylum_supported?(session_data)
+        return [] if Steps::Logic.skip_capital_questions?(session_data)
 
         if Steps::Logic.partner?(session_data)
           [Steps::Group.new(:assets),

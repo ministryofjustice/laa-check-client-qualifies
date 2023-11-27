@@ -14,6 +14,7 @@ class ControlledWorkDocumentSelection
   validates :language, presence: true, inclusion: { in: LANGUAGES, allow_nil: true },
                        if: -> { FeatureFlags.enabled?(:welsh_cw, without_session_data: true) }
 
+
   # Based on the IncomeModel class
   # Will need to change :level_of_help to whatever the CLR option is
   attr_accessor :level_of_help
@@ -31,5 +32,11 @@ class ControlledWorkDocumentSelection
 
   def client_under_18_and_clr
     FeatureFlags.enabled?(:under_eighteen, @check.session_data) && level_of_help == "clr"
+
+    
+  # El-1281
+  def options
+    OPTIONS.select { !check.asylum_support || %i[cw1 cw2].include?(_1) }
+           .map { { value: _1, options: { label: { text: I18n.t("controlled_work_document_selections.new.option.#{_1}") } } } }
   end
 end

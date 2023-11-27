@@ -98,7 +98,7 @@ module PropertySummarisable
   end
 
   def non_smod_additional_properties_mortgage
-    additional_properties_sum("outstaging_mortgage", smod: false)
+    additional_properties_sum("outstanding_mortgage", smod: false)
   end
 
   def smod_additional_properties_outstanding_mortgage

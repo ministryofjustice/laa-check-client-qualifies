@@ -6,9 +6,10 @@ RSpec.describe "applicant", type: :feature do
   let(:partner_question_placement_hint) do
     "You will be asked questions about the partner after you have answered questions about your client"
   end
+  let(:pensioner_guidance) { "Guidance on 60 or over disregard (pensioner disregard)" }
 
   before do
-    set_session(assessment_code, "level_of_help" => level_of_help)
+    set_session(assessment_code, "level_of_help" => level_of_help, "feature_flags" => FeatureFlags.session_flags)
     visit form_path(:applicant, assessment_code)
   end
 
@@ -39,11 +40,25 @@ RSpec.describe "applicant", type: :feature do
     expect(page).to have_content "Guidance on prisoners"
   end
 
+  it "shows guidance about over-60s" do
+    expect(page).to have_content pensioner_guidance
+  end
+
   context "when the level of help is controlled" do
     let(:level_of_help) { "controlled" }
 
     it "does not show guidance link" do
       expect(page).not_to have_content "Guidance on prisoners"
+    end
+  end
+
+  context "when the under-18 flag is enabled", :under_eighteen_flag do
+    it "does not show age guidance link" do
+      expect(page).not_to have_content pensioner_guidance
+    end
+
+    it "does not show age questions" do
+      expect(page).not_to have_content "Is your client aged 60 or over?"
     end
   end
 end
