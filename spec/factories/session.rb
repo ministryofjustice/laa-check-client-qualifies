@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :minimal_complete_session, class: Hash do
     initialize_with { attributes.transform_keys(&:to_s) }
-
+    client_age { "standard" }
     level_of_help { "certificated" }
     domestic_abuse_applicant { false }
     immigration_or_asylum_type_upper_tribunal { "none" }
@@ -124,7 +124,7 @@ FactoryBot.define do
 
   factory :full_session, class: Hash do
     initialize_with { attributes.transform_keys(&:to_s) }
-
+    client_age { "standard" }
     level_of_help { "certificated" }
     domestic_abuse_applicant { false }
     immigration_or_asylum_type_upper_tribunal { "none" }
@@ -229,7 +229,7 @@ FactoryBot.define do
 
   factory :instant_controlled_session, class: Hash do
     initialize_with { attributes.transform_keys(&:to_s) }
-
+    client_age { "standard" }
     level_of_help { "controlled" }
     immigration_or_asylum { "true" }
     immigration_or_asylum_type { "immigration_clr" }
@@ -328,7 +328,7 @@ FactoryBot.define do
 
   factory :instant_certificated_session, class: Hash do
     initialize_with { attributes.transform_keys(&:to_s) }
-
+    client_age { "standard" }
     level_of_help { "certificated" }
     domestic_abuse_applicant { false }
     immigration_or_asylum_type_upper_tribunal { "immigration_upper" }
@@ -431,7 +431,7 @@ FactoryBot.define do
 
   factory :rich_instant_controlled_session, class: Hash do
     initialize_with { attributes.transform_keys(&:to_s) }
-
+    client_age { "standard" }
     level_of_help { "controlled" }
     immigration_or_asylum { false }
     over_60 { false }

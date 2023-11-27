@@ -1455,7 +1455,9 @@ en:
         client_other_property: Client other property
         partner_other_property: Partner other property
       tables:
+        client_age: Client age
         level_of_help: Level of help your client needs
+        aggregated_means: Means tests for under 18s
         type_of_matter: Type of matter
         asylum_support: Asylum Support
         domestic_abuse_applicant: Type of matter
@@ -1493,11 +1495,22 @@ en:
         additional_property_details: Client other property %{variable} details
         partner_additional_property: Partner other property
         partner_additional_property_details: Partner other property %{variable} details
+      client_age_fields:
+        client_age: What age is your client?
+        client_age_options:
+          under_18: Under 18
+          standard: 18 to 59
+          over_60: 60 or over
       level_of_help_fields:
         level_of_help: What level of help does your client need?
         level_of_help_options:
           certificated: Civil certificated or licensed legal work
           controlled: Civil controlled work or family mediation
+        controlled_legal_representation: Is the work controlled legal representation (CLR)?
+      aggregated_means_fields:
+        aggregated_means: Will you aggregate your client's means with another person's means?
+        regular_income: Does your client get regular income?
+        under_eighteen_assets: Does your client have assets worth £2,500 or more?
       domestic_abuse_applicant_fields:
         domestic_abuse_applicant: Is your client an applicant in a domestic abuse case?
       immigration_or_asylum_type_upper_tribunal_fields:

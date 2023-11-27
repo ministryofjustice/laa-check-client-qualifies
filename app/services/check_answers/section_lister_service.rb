@@ -2,8 +2,8 @@ module CheckAnswers
   class SectionListerService
     Section = Struct.new(:label, :subsections, keyword_init: true)
     Subsection = Struct.new(:label, :tables, keyword_init: true)
-    Table = Struct.new(:screen, :index, :disputed?, :fields, keyword_init: true)
-    Field = Struct.new(:label, :type, :value, :alt_value, :disputed?, :index, keyword_init: true)
+    Table = Struct.new(:screen, :index, :disputed?, :fields, :skip_change_link, keyword_init: true)
+    Field = Struct.new(:label, :type, :value, :alt_value, :disputed?, :index, :screen, keyword_init: true)
 
     def self.call(session_data)
       check = Check.new(session_data)
@@ -68,6 +68,7 @@ module CheckAnswers
         index:,
         disputed?: table_data[:disputed_if].present? && @check.smod_applicable? && model.send(table_data.fetch(:disputed_if)),
         fields: build_fields(model, table_data[:fields], table_data[:screen]),
+        skip_change_link: table_data[:skip_change_link] == true,
       )
     end
 
@@ -78,6 +79,7 @@ module CheckAnswers
     def build_field(field_data, model, table_label, index: nil)
       return build_many_fields(field_data, model, table_label) if field_data[:many]
       return if field_data[:skip_unless].present? && !model.send(field_data[:skip_unless])
+      return if field_data[:screen] && !Steps::Helper.valid_step?(@check.session_data, field_data[:screen])
 
       addendum = "_partner" if @check.partner && field_data[:partner_dependant_wording]
 
@@ -88,6 +90,7 @@ module CheckAnswers
                 value: model.send(field_data[:attribute]),
                 disputed?: disputed,
                 index:,
+                screen: field_data[:screen],
                 alt_value: (model.send(field_data[:alt_attribute]) if field_data[:alt_attribute]))
     end
 
