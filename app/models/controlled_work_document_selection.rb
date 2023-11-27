@@ -5,37 +5,27 @@ class ControlledWorkDocumentSelection
 
   ATTRIBUTES = %i[form_type language].freeze
 
+  OPTIONS = %i[cw1 cw2 cw1_and_2 cw5 civ_means_7].freeze
   LANGUAGES = %w[english welsh].freeze
 
   attribute :form_type, :string
-  validates :form_type, presence: true, inclusion: { in: ->(selection) { selection.form_options }, allow_nil: true }
+  validates :form_type, presence: true, inclusion: { in: OPTIONS.map(&:to_s), allow_nil: true }
 
   attribute :language, :string
   validates :language, presence: true, inclusion: { in: LANGUAGES, allow_nil: true },
                        if: -> { FeatureFlags.enabled?(:welsh_cw, without_session_data: true) }
 
-  # Based on the IncomeModel class
-  # Will need to change :level_of_help to whatever the CLR option is
-  attr_accessor :level_of_help
-
-  # My thinking is that, this checks if feature flag is on and then level of help is true
-  # Will need to change :level_of_help to whatever the CLR option is
-
-  def form_options
-    if client_under_18_and_clr
-      %i[cw2 cw1_and_2].freeze
+  def options
+    if client_under_18_feature_flag_and_clr
+      OPTIONS.select { %i[cw1 cw2].include?(_1) }
+            .map { { value: _1, options: { label: { text: I18n.t("controlled_work_document_selections.new.option.#{_1}") } } } }
     else
-      %i[cw1 cw2 cw1_and_2 cw5 civ_means_7].freeze
+      OPTIONS.select { !check.asylum_support || %i[cw2 cw1_and_2].include?(_1) }
+            .map { { value: _1, options: { label: { text: I18n.t("controlled_work_document_selections.new.option.#{_1}") } } } }
     end
   end
 
-  def client_under_18_and_clr
-    FeatureFlags.enabled?(:under_eighteen, @check.session_data) && level_of_help == "clr"
-  end
-
-  # El-1281
-  def options
-    OPTIONS.select { !check.asylum_support || %i[cw1 cw2].include?(_1) }
-           .map { { value: _1, options: { label: { text: I18n.t("controlled_work_document_selections.new.option.#{_1}") } } } }
+  def client_under_18_feature_flag_and_clr
+    FeatureFlags.enabled?(:under_eighteen, @check.session_data) && @check.session_data["controlled_legal_representation"]
   end
 end

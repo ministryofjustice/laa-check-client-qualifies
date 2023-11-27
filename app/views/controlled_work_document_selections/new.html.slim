@@ -26,9 +26,6 @@
       = render "shared/radio_button_set",
                form:,
                field_name: :form_type,
-              # EL-1277
-               buttons: @form.form_options.map { { value: _1, options: { label: { text: t(".option.#{_1}") } } } }
-              / EL-1281
                buttons: @form.options
 
     - if FeatureFlags.enabled?(:welsh_cw, without_session_data: true)
