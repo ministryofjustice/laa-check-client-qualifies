@@ -67,7 +67,7 @@ RSpec.describe "results/show.html.slim" do
             },
             disposable_income: {
               proceeding_types: [
-                { "result": "pending" },
+                { "result": "not_calculated" },
               ],
             },
             capital: {
