@@ -647,8 +647,8 @@ en:
       title: What age is your client?
       need_to_know: "We need to know for the check calculations because:"
       reasons:
-        - some clients under 18 may not need a means assessment
-        - clients aged 60 or over may have some of their capital excluded from a financial eligibility assessment
+        - some clients under 18 may not need a full means test
+        - clients aged 60 or over may have some of their capital excluded from a means test
       options:
         under_18: Under 18
         standard: 18 to 59
@@ -2150,7 +2150,7 @@ en:
         - civil certificated or licensed legal work
       mental_health_html: The <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>LAA contract management mental health guidance (opens in new tab)</a> explains when a means assessment is not needed for controlled work matters that will potentially involve proceedings before the Mental Health Tribunal (known as non-means, non-MHT matter starts).
       client_under_18_heading: Clients under 18
-      client_under_18_para_1: Clients aged under 18 do not need a means assessment for certificated work matters or controlled legal representation (CLR) matters.
+      client_under_18_para_1: Clients aged under 18 do not need a full means test for certificated work matters or controlled legal representation (CLR) matters.
       client_under_18_para_2: "For all other types of controlled work and family mediation matters, clients under 18 must have a full means assessment if any of the following apply:"
       client_under_18_bullets:
         - their means are aggregated with another person’s, like a parent or guardian
