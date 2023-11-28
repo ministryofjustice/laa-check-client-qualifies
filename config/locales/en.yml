@@ -645,7 +645,7 @@ en:
       housing_benefit_value: Enter the amount of housing benefit
     client_age:
       title: What age is your client?
-      need_to_know: "We need to know for the check calculations because:"
+      need_to_know: "We need to know this for the check calculations because:"
       reasons:
         - some clients under 18 may not need a full means test
         - clients aged 60 or over may have some of their capital excluded from a means test
