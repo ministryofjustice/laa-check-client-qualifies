@@ -627,6 +627,7 @@ en:
       household: Household
     or: or
     hide_this_message: Hide this message
+    welsh_in_welsh: Cy
   question_flow:
     aria_label:
       friends_or_family_value: Enter amount of financial help from friends or family
