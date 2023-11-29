@@ -117,4 +117,8 @@ class Check
   def under_eighteen_no_means_test_required?
     Steps::Logic.under_eighteen_no_means_test_required?(session_data)
   end
+
+  def under_eighteen?
+    Steps::Logic.client_under_eighteen?(session_data)
+  end
 end

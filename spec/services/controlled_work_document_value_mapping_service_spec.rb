@@ -406,4 +406,59 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       expect(result).to include(representative_sample)
     end
   end
+
+  context "when the client is under 18", :under_eighteen_flag do
+    let(:session_data) do
+      FactoryBot.build(
+        :minimal_complete_session,
+        client_age: "under_18",
+        level_of_help: "controlled",
+        controlled_legal_representation: false,
+        aggregated_means: false,
+        regular_income: false,
+        under_eighteen_assets: true,
+        api_response: FactoryBot.build(:api_result,
+                                       main_home: FactoryBot.build(:property_api_result, value: 250_000),
+                                       additional_property: FactoryBot.build(:property_api_result,
+                                                                             outstanding_mortgage: 120_000,
+                                                                             percentage_owned: 75,
+                                                                             subject_matter_of_dispute: true)).with_indifferent_access,
+      )
+    end
+
+    it "can successfully populate Welsh CW1&2 form fields" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_and_2_welsh.yml")).map(&:with_indifferent_access)
+      result = described_class.call(session_data, mappings)
+      representative_sample = {
+        "Under 18" => "Ydy",
+        "Application for controlled legal representation" => "Nac ydy",
+        "Child's means to be aggregated with adult" => "Nac ydy",
+        "Child receives money on regular basis" => "Nac ydy",
+        "Child has savings, items of value or investments totalling £2,500 or more" => "Oes",
+      }
+      expect(result).to include(representative_sample)
+    end
+  end
+
+  context "when the under 18 flag is off" do
+    let(:session_data) do
+      FactoryBot.build(
+        :minimal_complete_session,
+        level_of_help: "controlled",
+        client_age: nil,
+        api_response: FactoryBot.build(:api_result,
+                                       main_home: FactoryBot.build(:property_api_result, value: 250_000),
+                                       additional_property: FactoryBot.build(:property_api_result,
+                                                                             outstanding_mortgage: 120_000,
+                                                                             percentage_owned: 75,
+                                                                             subject_matter_of_dispute: true)).with_indifferent_access,
+      )
+    end
+
+    it "leaves the under 18 question blank, not nil" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_and_2_welsh.yml")).map(&:with_indifferent_access)
+      result = described_class.call(session_data, mappings)
+      expect(result).to include("Under 18" => nil)
+    end
+  end
 end

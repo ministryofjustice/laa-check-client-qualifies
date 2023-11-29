@@ -11,6 +11,36 @@
       yes_value: "Oes"
       no_value: "Nac oes"
 
+    - name: Under 18
+      type: boolean_radio
+      source: under_eighteen?
+      yes_value: Ydy
+      no_value: Nac ydy
+
+    - name: Application for controlled legal representation
+      type: boolean_radio
+      source: controlled_legal_representation
+      yes_value: Ydy
+      no_value: Nac ydy
+
+    - name: Child's means to be aggregated with adult
+      type: boolean_radio
+      source: aggregated_means
+      yes_value: Ydy
+      no_value: Nac ydy
+
+    - name: Child receives money on regular basis
+      type: boolean_radio
+      source: regular_income
+      yes_value: Ydy
+      no_value: Nac ydy
+
+    - name: Child has savings, items of value or investments totalling £2,500 or more
+      type: boolean_radio
+      source: under_eighteen_assets
+      yes_value: Oes
+      no_value: Nac oes
+
 - section: capital
   fields:
     # Main home / current market value

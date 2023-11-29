@@ -5,7 +5,7 @@ module Steps
     # model to do this thinking for us, Check relies on Steps::Helper which in turn relies on Steps::Logic
     class << self
       def client_under_eighteen?(session_data)
-        session_data["client_age"] == ClientAgeForm::UNDER_18
+        session_data["client_age"]&.==(ClientAgeForm::UNDER_18)
       end
 
       def controlled?(session_data)

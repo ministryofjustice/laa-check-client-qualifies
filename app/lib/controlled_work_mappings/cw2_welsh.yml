@@ -15,8 +15,14 @@
     - name: NASS
       type: boolean_radio
       source: asylum_support?
-      yes_value: "Yyd"
+      yes_value: "Yyd" # Note that this mirrors a typo in the CW form field name
       no_value: "Na"
+
+    - name: Under 18
+      type: boolean_radio
+      source: under_eighteen?
+      yes_value: Yyd # Note that this mirrors a typo in the CW form field name
+      no_value: Nac ydy
 
 - section: capital
   fields:
@@ -126,7 +132,7 @@
     - name: Passported
       type: boolean_radio
       source: passporting
-      yes_value: "Yyd"
+      yes_value: "Yyd" # Note that this mirrors a typo in the CW form field name
       no_value: "Nac ydy"
 
 - section: income
