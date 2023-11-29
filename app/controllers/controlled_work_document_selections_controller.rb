@@ -42,8 +42,11 @@ private
     track_page_view(page: "download_#{@form.form_type}#{'_welsh' if @form.language == 'welsh'}")
     JourneyLogUpdateService.call(assessment_id, cookies, form_downloaded: true)
     ControlledWorkDocumentPopulationService.call(session_data, @form) do |file|
+      prefix = "#{I18n.t('generic.welsh_in_welsh')} " if @form.language == "welsh"
+      form_name = I18n.t("checks.end_of_journey.form_types.#{@form.form_type}")
+      timestamp = helpers.timestamp_for_filenames
       send_data file,
-                filename: "controlled-work-form-#{assessment_code}.pdf",
+                filename: "#{prefix}#{form_name} #{timestamp}.pdf",
                 type: "application/pdf"
     end
   end

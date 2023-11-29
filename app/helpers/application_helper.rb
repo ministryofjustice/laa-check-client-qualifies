@@ -76,4 +76,8 @@ module ApplicationHelper
   def step_url_fragment_from_step(step)
     Flow::Handler.url_fragment(step)
   end
+
+  def timestamp_for_filenames
+    Time.zone.now.in_time_zone("London").strftime("%Y-%m-%d %Hh%Mm%Ss")
+  end
 end
