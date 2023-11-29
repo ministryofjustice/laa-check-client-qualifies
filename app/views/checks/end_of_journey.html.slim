@@ -1,3 +1,4 @@
+- under_18_and_does_not_need_means_test = @check.under_eighteen_controlled_clr? || @check.under_eighteen_no_means_test_required?
 - content_for :page_title
   = t(".title")
 - content_for :back do
@@ -16,12 +17,16 @@
     li = t(".add_client_details")
     li = t(".sign_the_form")
 
-  h3.govuk-heading-s = t(".gather_evidence")
-  p.govuk-text = t(".keep_evidence")
-  = govuk_details(summary_text: t("results.show.evidence_needed")) do
-    = render "results/evidence"
+  - if under_18_and_does_not_need_means_test
+    h3.govuk-heading-s = t(".keep_the_evidence_for_under_18")
+    p.govuk-text = t(".file_may_be_audited")
+  - else
+    h3.govuk-heading-s = t(".gather_evidence")
+    p.govuk-text = t(".keep_evidence")
+    = govuk_details(summary_text: t("results.show.evidence_needed")) do
+      = render "results/evidence"
 
-  h3.govuk-heading-s = t(".keep_the_evidence")
-  p.govuk-text = t(".file_may_be_audited")
+    h3.govuk-heading-s = t(".keep_the_evidence")
+    p.govuk-text = t(".file_may_be_audited")
 
 = render "shared/question_sidebar", level_of_help: @check.level_of_help, links: {}

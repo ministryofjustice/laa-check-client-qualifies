@@ -1712,6 +1712,7 @@ en:
       gather_evidence: 2. Gather your client’s evidence
       keep_evidence: You will need to keep evidence of means provided by your client along with the controlled work form.
       keep_the_evidence: 3. Keep the evidence together with the controlled work form in your records
+      keep_the_evidence_for_under_18: 2. Keep the controlled work form in your records
       file_may_be_audited: Your client’s file may be audited or assessed by the LAA at a later date.
   results:
     show:

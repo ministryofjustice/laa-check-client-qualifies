@@ -113,4 +113,12 @@ class Check
       client_age
     end
   end
+
+  def under_eighteen_controlled_clr?
+    Steps::Logic.controlled_clr?(session_data)
+  end
+
+  def under_eighteen_no_means_test_required?
+    Steps::Logic.under_eighteen_no_means_test_required?(session_data)
+  end
 end
