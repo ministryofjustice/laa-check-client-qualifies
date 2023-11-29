@@ -29,7 +29,7 @@ class ResultsController < ApplicationController
 
     PdfService.with_pdf_data_from_html_string(html, request.base_url) do |pdf_data|
       send_data pdf_data,
-                filename: "#{I18n.t('generic.download_name')} - #{Time.zone.now.in_time_zone('London').strftime('%Y-%m-%d %H.%M.%S')}.pdf",
+                filename: "#{I18n.t('generic.download_name')} - #{helpers.timestamp_for_filenames}.pdf",
                 type: "application/pdf"
     end
   end

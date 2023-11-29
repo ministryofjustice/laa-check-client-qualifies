@@ -44,7 +44,7 @@ private
     ControlledWorkDocumentPopulationService.call(session_data, @form) do |file|
       prefix = "#{I18n.t('generic.welsh_in_welsh')} " if @form.language == "welsh"
       form_name = I18n.t("checks.end_of_journey.form_types.#{@form.form_type}")
-      timestamp = Time.zone.now.in_time_zone("London").strftime("%Y-%m-%d %H.%M.%S")
+      timestamp = helpers.timestamp_for_filenames
       send_data file,
                 filename: "#{prefix}#{form_name} #{timestamp}.pdf",
                 type: "application/pdf"

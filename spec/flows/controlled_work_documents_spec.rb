@@ -31,7 +31,7 @@ RSpec.describe "CW Forms", type: :feature do
       click_on "Continue to download and finish"
       expect(page).to have_current_path(/\A\/service-end/)
       click_on "Download your form"
-      expect(page.response_headers["Content-Disposition"]).to eq("attachment; filename=\"CW2 2023-02-15 14.23.21.pdf\"; filename*=UTF-8''CW2%202023-02-15%2014.23.21.pdf")
+      expect(page.response_headers["Content-Disposition"]).to eq("attachment; filename=\"CW2 2023-02-15 14h23m21s.pdf\"; filename*=UTF-8''CW2%202023-02-15%2014h23m21s.pdf")
       expect(page.response_headers["Content-Type"]).to eq("application/pdf")
     end
 
@@ -43,7 +43,7 @@ RSpec.describe "CW Forms", type: :feature do
         click_on "Continue to download and finish"
         expect(page).to have_current_path(/\A\/service-end/)
         click_on "Download your form"
-        expect(page.response_headers["Content-Disposition"]).to eq("attachment; filename=\"Cy CW2 2023-02-15 14.23.21.pdf\"; filename*=UTF-8''Cy%20CW2%202023-02-15%2014.23.21.pdf")
+        expect(page.response_headers["Content-Disposition"]).to eq("attachment; filename=\"Cy CW2 2023-02-15 14h23m21s.pdf\"; filename*=UTF-8''Cy%20CW2%202023-02-15%2014h23m21s.pdf")
       end
     end
   end
