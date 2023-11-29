@@ -16,7 +16,14 @@ class ControlledWorkDocumentSelection
                        if: -> { FeatureFlags.enabled?(:welsh_cw, without_session_data: true) }
 
   def options
-    OPTIONS.select { !check.asylum_support || %i[cw1 cw2].include?(_1) }
-           .map { { value: _1, options: { label: { text: I18n.t("controlled_work_document_selections.new.option.#{_1}") } } } }
+    cw_form_radio_button_option = if check.controlled_legal_representation
+                                    %i[cw2 cw1_and_2].freeze
+                                  elsif check.asylum_support
+                                    %i[cw1 cw2].freeze
+                                  else
+                                    OPTIONS
+                                  end
+
+    cw_form_radio_button_option.map { { value: _1, options: { label: { text: I18n.t("controlled_work_document_selections.new.option.#{_1}") } } } }
   end
 end
