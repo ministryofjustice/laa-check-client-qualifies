@@ -4,6 +4,13 @@
 # The mappings conform to the format described in ControlledWorkDocumentValueMappingService
 - section: general
   fields:
+    # "The client is a child under the age of 18: - Yes"
+    - name: Client under 18
+      type: boolean_radio
+      source: under_eighteen?
+      yes_value: "Yes"
+      no_value: "No"
+
     # Does the client have a partner whose means are to be aggregated?
     - name: Partner
       type: boolean_radio
