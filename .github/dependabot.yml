@@ -10,7 +10,7 @@ updates:
     schedule:
       interval: "weekly"
     groups:
-      everything:
+      combined-dependencies:
         patterns:
           - "*"
   - package-ecosystem: "terraform"
@@ -18,7 +18,7 @@ updates:
     schedule:
       interval: "weekly"
     groups:
-      everything:
+      combined-dependencies:
         patterns:
           - "*"
   - package-ecosystem: "github-actions"
@@ -26,7 +26,7 @@ updates:
     schedule:
       interval: "weekly"
     groups:
-      everything:
+      combined-dependencies:
         patterns:
           - "*"
   - package-ecosystem: "npm"
@@ -34,6 +34,6 @@ updates:
     schedule:
       interval: "weekly"
     groups:
-      everything:
+      combined-dependencies:
         patterns:
           - "*"
