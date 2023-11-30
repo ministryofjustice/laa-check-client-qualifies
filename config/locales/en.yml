@@ -1730,9 +1730,9 @@ en:
         - Any capital contribution will not exceed the likely costs of their case.
         - This is not a guarantee that your client will get civil legal aid if an application is made for them and the contribution figure(s) displayed may change. For a final decision on eligibility and contributions (if any), an application and supporting evidence must be submitted to the Legal Aid Agency (LAA) for assessment. A full assessment supported by evidence may generate a different result.
         - "The LAA will also consider:"
-      ineligible_intro_paragraphs:
-        - Your client is not likely to qualify financially for civil legal aid based on the information you entered. You may wish to discuss your client’s options, for example they can pay for legal support or get advice from a charity or advice organisation.
-        - "Although it is unlikely to generate a different result, your client may wish to have an application and supporting evidence submitted to the Legal Aid Agency (LAA) for assessment. An application may also consider:"
+      certificated_ineligible:
+        - Your client is not likely to qualify financially for civil legal aid based on the information you entered.
+        - This calculation was made in line with the latest version of the Lord Chancellor's Guidance on Determining Financial Eligibility for Certificated Work.
       also_considered:
         - whether your client’s case is in scope for legal aid
         - the case merits, for example its likelihood of success and the benefit it would give your client
@@ -1784,6 +1784,11 @@ en:
       next_steps_paragraph_1: Use Apply for legal aid or CCMS to start an application for your client.
       next_steps_without_apply_paragraph_1: Use CCMS to start an application for your client.
       next_steps_paragraph_2: You may need to provide evidence of your client's eligibility as part of your application.
+      next_steps_certificated_ineligible_paragraphs:
+        - You may wish to discuss your client’s options, for example they can pay privately for legal support or get advice from a charity or advice organisation, such as Citizens Advice.
+        - Although we calculated that your client is unlikely to qualify for legal aid, they may still wish to have an application and supporting evidence submitted to the Legal Aid Agency (LAA) for assessment.
+        - "As well as asking the financial assessment questions again, an application will also have questions about:"
+      next_steps_certificated_ineligible_final_paragraph: You will need to provide evidence of your client's eligibility as part of your application.
       evidence_needed: Evidence you might need
       evidence_needed_explainer: Depending on your client's financial situation, you may need to provide items from this general list.
       evidence_needed_explainer_partner: Depending on your client and their partner's financial situation, you may need to provide items from this general list.

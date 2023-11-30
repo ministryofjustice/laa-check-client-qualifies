@@ -45,12 +45,7 @@
               class: "govuk-button", data: { module: "govuk-button" }
 
   - if @model.level_of_help == "certificated"
-    h2.govuk-heading-m = t(".what_happens_next")
-    - if @check.immigration_or_asylum?
-      p.govuk-body = t(".next_steps_without_apply_paragraph_1")
-    - else
-      p.govuk-body = t(".next_steps_paragraph_1")
-    p.govuk-body = t(".next_steps_paragraph_2")
+    = render "certificated_next_steps"
 
     = govuk_details(summary_text: t(".evidence_needed")) do
       = render "evidence"

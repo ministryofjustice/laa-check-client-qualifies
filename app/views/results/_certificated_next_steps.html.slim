@@ -1,0 +1,13 @@
+= pdf_friendly_h2(t("results.show.what_happens_next"), "m", @is_pdf)
+- if @model.decision == "ineligible"
+  = pdf_friendly_paragraphs(t("results.show.next_steps_certificated_ineligible_paragraphs"), @is_pdf)
+  ul.govuk-list--bullet
+    - t("results.show.also_considered").each do
+      li.govuk-body = _1
+  = pdf_friendly_p_element(t("results.show.next_steps_certificated_ineligible_final_paragraph"), @is_pdf)
+- else
+  - if @check.immigration_or_asylum?
+    = pdf_friendly_p_element(t("results.show.next_steps_without_apply_paragraph_1"), @is_pdf)
+  - else
+    = pdf_friendly_p_element(t("results.show.next_steps_paragraph_1"), @is_pdf)
+  = pdf_friendly_p_element(t("results.show.next_steps_paragraph_2"), @is_pdf)
