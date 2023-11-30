@@ -151,6 +151,12 @@ jobs:
               base: baseBranch,
               body: body
             });
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: "rubocop.yml",
+              ref: '${{ github.event.inputs.combineBranchName || 'combine-prs-branch'}}',
+            });
             return combinedBranches;
   delete-branches:
     runs-on: ubuntu-latest
