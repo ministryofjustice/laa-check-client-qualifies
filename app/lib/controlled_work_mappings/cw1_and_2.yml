@@ -4,6 +4,40 @@
 # The mappings conform to the format described in ControlledWorkDocumentValueMappingService
 - section: general
   fields:
+    # "The client is a child under the age of 18:"
+    - name: Child under 18
+      type: boolean_radio
+      source: under_eighteen?
+      yes_value: "Yes"
+      no_value: "No"
+
+    - name: Application for controlled legal representation
+      type: boolean_radio
+      source: controlled_legal_representation
+      yes_value: "Yes"
+      no_value: "No"
+
+    # "The child’s means are to be aggregated with a maintaining adult."
+    - name: Child's means to be aggregrated with maintinaing adult
+      type: boolean_radio
+      source: aggregated_means
+      yes_value: "Yes"
+      no_value: "No"
+
+    # "Does this child receive any money on a regular basis? Do not include any part-time earnings"
+    - name: Child receives money
+      type: boolean_radio
+      source: regular_income
+      yes_value: "Yes"
+      no_value: "No"
+
+    # "Does this child have any savings, items of value or investments totalling £2,500 or more"
+    - name: Child has savings/capital
+      type: boolean_radio
+      source: under_eighteen_assets
+      yes_value: "Yes"
+      no_value: "No"
+
     # "The client has a partner whose means are to be aggregated:"
     - name: Client has a partner whose means are to be aggregated
       type: boolean_radio

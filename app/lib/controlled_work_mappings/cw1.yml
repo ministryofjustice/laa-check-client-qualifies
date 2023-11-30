@@ -9,6 +9,34 @@
       type: always_checked_checkbox
       checked_value: "Yes_2"
 
+    # "The client is a child under the age of 18:"
+    - name: Child under 18
+      type: boolean_radio
+      source: under_eighteen?
+      yes_value: "Yes_2"
+      no_value: "No"
+
+    # "The child’s means are to be aggregated with a maintaining adult."
+    - name: Means to be aggregated with maintainng adult
+      type: boolean_radio
+      source: aggregated_means
+      yes_value: "Yes"
+      no_value: "No"
+
+    # "Does this child receive any money on a regular basis? Do not include any part-time earnings"
+    - name: Child receives money
+      type: boolean_radio
+      source: regular_income
+      yes_value: "Yes"
+      no_value: "No"
+
+    # "Does this child have any savings, items of value or investments totalling £2,500 or more"
+    - name: Child has savings/capital
+      type: boolean_radio
+      source: under_eighteen_assets
+      yes_value: "Yes_2"
+      no_value: "No"
+
     # "The client is directly or indirectly in receipt of S.4 or S.95 Asylum Support (Immigration and Asylum category work only):"
     - name: Client in receipt of asylum support
       type: boolean_radio
