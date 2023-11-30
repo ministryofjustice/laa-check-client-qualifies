@@ -25,6 +25,7 @@ RSpec.describe "results/show.html.slim" do
 
       it "show eligible" do
         expect(page_text).to include "Your client is likely to qualify for civil legal aid"
+        expect(page_text).to include "Use Apply for legal aid or CCMS to start an application for your client."
       end
     end
 
@@ -83,7 +84,8 @@ RSpec.describe "results/show.html.slim" do
         expect(page_text).to include(
           "Your client’s total monthly income exceeds the upper limit. This means they do not qualify for legal aid.",
         )
-        expect(page_text).to include("Your client is not likely to qualify for civil legal aid")
+        expect(page_text).to include("Your client is not likely to qualify for civil legal aid, for certificated work")
+        expect(page_text).to include("You may wish to discuss your client’s options")
       end
     end
   end
