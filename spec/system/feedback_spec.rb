@@ -14,7 +14,7 @@ RSpec.describe "Feedback component" do
     end
 
     context "when on the results page" do
-      it "I can successfully submit satisfaction feedback" do
+      it "I can successfully submit satisfaction feedback", :slow do
         start_assessment
         fill_in_forms_until(:check_answers)
         click_on "Submit"
@@ -31,7 +31,7 @@ RSpec.describe "Feedback component" do
     end
 
     context "when on the results page, with end_of_journey_flag enabled", :end_of_journey_flag do
-      it "I can successfully submit freetext feedback" do
+      it "I can successfully submit freetext feedback", :slow do
         start_assessment
         fill_in_level_of_help_screen(choice: "Civil controlled work or family mediation")
         fill_in_forms_until(:check_answers)
@@ -46,7 +46,7 @@ RSpec.describe "Feedback component" do
     end
 
     context "when on the CW form selection page" do
-      it "I can successfully submit satisfaction feedback" do
+      it "I can successfully submit satisfaction feedback", :slow do
         start_assessment
         fill_in_level_of_help_screen(choice: "Civil controlled work or family mediation")
         fill_in_forms_until(:check_answers)
@@ -64,7 +64,7 @@ RSpec.describe "Feedback component" do
   describe "Freetext feedback" do
     describe "pages within the question flow" do
       context "when on the check answers page" do
-        it "I can submit freetext feedback" do
+        it "I can submit freetext feedback", :slow do
           start_assessment
           fill_in_forms_until(:check_answers)
           expect(page).to have_content("Give feedback on this page")
@@ -75,7 +75,7 @@ RSpec.describe "Feedback component" do
           expect(FreetextFeedback.find_by(text: "some feedback!", page: "check_answers_checks", level_of_help: "certificated")).not_to be_nil
         end
 
-        it "I can cancel my freetext feedback" do
+        it "I can cancel my freetext feedback", :slow do
           start_assessment
           fill_in_forms_until(:check_answers)
           expect(page).to have_content("Give feedback on this page")
@@ -88,7 +88,7 @@ RSpec.describe "Feedback component" do
           expect(FreetextFeedback.count).to be(0)
         end
 
-        it "I'm presented with prompt, when I don't enter any text" do
+        it "I'm presented with prompt, when I don't enter any text", :slow do
           start_assessment
           fill_in_forms_until(:check_answers)
           expect(page).to have_content("Give feedback on this page")

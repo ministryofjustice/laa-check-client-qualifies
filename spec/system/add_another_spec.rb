@@ -19,7 +19,7 @@ RSpec.describe "Add another JS" do
       expect(page).to have_content "Enter the estimated value of the vehicle"
     end
 
-    it "shows numbered error messages if there are more than 1 on the page" do
+    it "shows numbered error messages if there are more than 1 on the page", :slow do
       fill_in "1-vehicle-value", with: "123"
       choose "No", name: "vehicle_model[items][1][vehicle_pcp]"
       choose "No", name: "vehicle_model[items][1][vehicle_over_3_years_ago]"
@@ -30,7 +30,7 @@ RSpec.describe "Add another JS" do
       expect(page).to have_content "Enter the estimated value of vehicle 2"
     end
 
-    it "lets me add multiple vehicles" do
+    it "lets me add multiple vehicles", :slow do
       fill_in "1-vehicle-value", with: "123"
       choose "No", name: "vehicle_model[items][1][vehicle_pcp]"
       choose "No", name: "vehicle_model[items][1][vehicle_over_3_years_ago]"
@@ -60,7 +60,7 @@ RSpec.describe "Add another JS" do
       expect(session_contents.dig("vehicles", 1, "vehicle_in_dispute")).to eq true
     end
 
-    it "lets me remove a vehicle" do
+    it "lets me remove a vehicle", :slow do
       fill_in "1-vehicle-value", with: "123"
       choose "No", name: "vehicle_model[items][1][vehicle_pcp]"
       choose "No", name: "vehicle_model[items][1][vehicle_over_3_years_ago]"
@@ -90,7 +90,7 @@ RSpec.describe "Add another JS" do
       expect(session_contents.dig("vehicles", 1, "vehicle_value")).to eq 789
     end
 
-    it "removes error messages pertaining to a removed item" do
+    it "removes error messages pertaining to a removed item", :slow do
       fill_in "1-vehicle-value", with: "123"
       choose "No", name: "vehicle_model[items][1][vehicle_pcp]"
       choose "No", name: "vehicle_model[items][1][vehicle_over_3_years_ago]"
@@ -107,7 +107,7 @@ RSpec.describe "Add another JS" do
       expect(page).not_to have_content "Enter the estimated value of vehicle 2"
     end
 
-    it "rewords error messages pertaining items that come after a removed item" do
+    it "rewords error messages pertaining items that come after a removed item", :slow do
       fill_in "1-vehicle-value", with: "123"
       choose "No", name: "vehicle_model[items][1][vehicle_pcp]"
       choose "No", name: "vehicle_model[items][1][vehicle_over_3_years_ago]"
@@ -137,7 +137,7 @@ RSpec.describe "Add another JS" do
       fill_in_additional_property_screen(choice: "Yes, owned outright")
     end
 
-    it "applies conditional validation appropriately" do
+    it "applies conditional validation appropriately", :slow do
       fill_in "1-house-value", with: "123"
       fill_in "1-percentage-owned", with: "100"
       click_on "Add another property"
