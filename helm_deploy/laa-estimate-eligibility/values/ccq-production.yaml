@@ -30,15 +30,13 @@ service:
 
 ingress:
   hosts:
-    - host: main-ccq-production.cloud-platform.service.justice.gov.uk
+    - host: check-your-client-qualifies-for-legal-aid.cloud-platform.service.justice.gov.uk
       secret: false
-    # - host: check-your-client-qualifies-for-legal-aid.cloud-platform.service.justice.gov.uk
-    #   secret: false
-    # - host: check-your-client-qualifies-for-legal-aid.service.gov.uk
-    #   secret: ccq-production-cert-secret
+    - host: check-your-client-qualifies-for-legal-aid.service.gov.uk
+      secret: ccq-production-cert-secret
   annotations:
     external-dns.alpha.kubernetes.io/set-identifier: "check-client-qualifies-laa-estimate-eligibility-laa-check-client-qualifies-production-green"
-    external-dns.alpha.kubernetes.io/aws-weight: "0"
+    external-dns.alpha.kubernetes.io/aws-weight: "100"
 
 postgresql:
   enabled: false
@@ -51,19 +49,17 @@ googleTagManager:
   containerId: GTM-WJ98FR4
 
 cfe:
-  host: http://cfe-civil.cfe-civil-staging.svc.cluster.local
+  host: http://cfe-civil.cfe-civil-production.svc.cluster.local
   environment_name: production
 
 featureFlags:
   sentry: ENABLED
   overrides: NOT_ENABLED
-  # TODO: enable 'indexProduction' when we go live 
-  indexProduction: NOT_ENABLED
+  indexProduction: ENABLED
   maintenanceMode: NOT_ENABLED
-  # TODO: disable 'basicAuthentication' when we go live 
-  basicAuthentication: ENABLED
+  basicAuthentication: NOT_ENABLED
   welshCw: NOT_ENABLED
-  endOfJourney: NOT_ENABLED
+  endOfJourney: ENABLED
   underEighteen: NOT_ENABLED
 
 geckoboard:
@@ -74,8 +70,7 @@ geckoboard:
   allJourneysDataset: "ccq_all_journeys_production"
   monthlyJourneysDataset: "ccq_monthly_journeys_production"
   recentJourneysDataset: "ccq_recent_journeys_production"
-  # TODO: enable 'enabled' when we go live. At the moment we aren't sending any data to geckoboard in this namespace, as we don't want to overwrite what we have with empty data. 
-  enabled: not_enabled
+  enabled: enabled
 
 sentry:
   # Despite looking very secret-y, the key here is _not_ a secret, as it will appear in every HTTP response header
@@ -90,6 +85,3 @@ app:
 google:
   oauthClientId: 276075615370-ncqvmdi84jruv1jggfg4bu8nlvk1drj0.apps.googleusercontent.com
   oauthRedirectUri: https://check-your-client-qualifies-for-legal-aid.service.gov.uk/auth/subdomain_redirect
-
-use_new_namespace:
-  enabled: true

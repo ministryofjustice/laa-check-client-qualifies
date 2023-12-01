@@ -94,5 +94,70 @@ RSpec.describe Cfe::ApplicantPayloadService do
         )
       end
     end
+
+    context "when the under-18 flag is enabled", :under_eighteen_flag do
+      let(:session_data) do
+        {
+          immigration_or_asylum_type_upper_tribunal: "immigration_upper",
+          asylum_support: false,
+          feature_flags: { "under_eighteen" => true },
+          client_age:,
+          employment_status: "unemployed",
+          passporting: false,
+          partner: false,
+        }.with_indifferent_access
+      end
+
+      context "when the client is under 18" do
+        let(:client_age) { "under_18" }
+
+        it "populates the payload appropriately" do
+          service.call(session_data, payload)
+          expect(payload[:applicant]).to eq(
+            {
+              date_of_birth: 17.years.ago.to_date,
+              employed: false,
+              has_partner_opponent: false,
+              receives_qualifying_benefit: false,
+              receives_asylum_support: false,
+            },
+          )
+        end
+      end
+
+      context "when the client is over 18" do
+        let(:client_age) { "standard" }
+
+        it "populates the payload appropriately" do
+          service.call(session_data, payload)
+          expect(payload[:applicant]).to eq(
+            {
+              date_of_birth: 50.years.ago.to_date,
+              employed: false,
+              has_partner_opponent: false,
+              receives_qualifying_benefit: false,
+              receives_asylum_support: false,
+            },
+          )
+        end
+      end
+
+      context "when the client is over 60" do
+        let(:client_age) { "over_60" }
+
+        it "populates the payload appropriately" do
+          service.call(session_data, payload)
+          expect(payload[:applicant]).to eq(
+            {
+              date_of_birth: 70.years.ago.to_date,
+              employed: false,
+              has_partner_opponent: false,
+              receives_qualifying_benefit: false,
+              receives_asylum_support: false,
+            },
+          )
+        end
+      end
+    end
   end
 end

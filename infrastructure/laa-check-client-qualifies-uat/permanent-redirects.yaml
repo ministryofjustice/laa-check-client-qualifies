@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: check-client-qualifies-laa-estimate-eligibility-redirects
   annotations:
-    external-dns.alpha.kubernetes.io/set-identifier: "check-client-qualifies-laa-estimate-eligibility-redirects-laa-estimate-financial-eligibility-for-legal-aid-uat-green"
+    external-dns.alpha.kubernetes.io/set-identifier: "check-client-qualifies-laa-estimate-eligibility-redirects-laa-check-client-qualifies-uat-green"
     external-dns.alpha.kubernetes.io/aws-weight: "100"
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/permanent-redirect: "https://check-your-client-qualifies-for-legal-aid.service.gov.uk"

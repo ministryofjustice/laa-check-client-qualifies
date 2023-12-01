@@ -119,7 +119,7 @@ RSpec.configure do |config|
     ENV["WELSH_CW_FEATURE_FLAG"] = "disabled"
   end
 
-  config.around(:each, :end_of_journey) do |example|
+  config.around(:each, :end_of_journey_flag) do |example|
     ENV["END_OF_JOURNEY_FEATURE_FLAG"] = "enabled"
     example.run
     ENV["END_OF_JOURNEY_FEATURE_FLAG"] = "disabled"

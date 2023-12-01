@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "cw_selection", type: :feature do
   let(:assessment_code) { :assessment_code }
-  let(:session_data) { { "level_of_help" => "controlled", "api_response" => api_response } }
+  let(:session_data) { { "level_of_help" => "controlled", "api_response" => api_response, "feature_flags" => FeatureFlags.session_flags } }
   let(:api_response) { build(:api_result) }
 
   before do
@@ -86,5 +86,50 @@ RSpec.describe "cw_selection", type: :feature do
   it "lets me start a new check" do
     click_on "Start another eligibility check"
     expect(page).to have_content "What level of help does your client need?"
+  end
+
+  it "shows the satisfaction widget" do
+    expect(page).to have_content "Were you satisfied with this service?"
+  end
+
+  context "when the end of journey flag is enabled", :end_of_journey_flag do
+    it "shows the freeform feedback widget" do
+      expect(page).to have_content "Give feedback on this page"
+    end
+  end
+
+  context "when the client is asylum supported" do
+    let(:session_data) do
+      { "level_of_help" => "controlled",
+        "immigration_or_asylum" => true,
+        "asylum_support" => true,
+        "api_response" => api_response,
+        "feature_flags" => FeatureFlags.session_flags }
+    end
+
+    it "only shows CW1 and CW2 forms" do
+      expect(page).to have_content "CW1 - legal help, help at court or family help (lower)"
+      expect(page).to have_content "CW2 (IMM) - immigration"
+      expect(page).not_to have_content "CW1&2 - mental health"
+      expect(page).not_to have_content "CW5 - help with family mediation"
+      expect(page).not_to have_content "CIV Means 7 - family mediation"
+    end
+  end
+
+  context "when the client is under 18 and the level of help is controlled legal representation", :under_eighteen_flag do
+    let(:session_data) do
+      { "level_of_help" => "controlled",
+        "client_age" => "under_18",
+        "controlled_legal_representation" => true,
+        "api_response" => api_response }
+    end
+
+    it "only shows CW2 and CW1&2 forms" do
+      expect(page).not_to have_content "CW1 - legal help, help at court or family help (lower)"
+      expect(page).to have_content "CW2 (IMM) - immigration"
+      expect(page).to have_content "CW1&2 - mental health"
+      expect(page).not_to have_content "CW5 - help with family mediation"
+      expect(page).not_to have_content "CIV Means 7 - family mediation"
+    end
   end
 end

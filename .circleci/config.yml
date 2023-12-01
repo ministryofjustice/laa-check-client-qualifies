@@ -57,7 +57,7 @@ executors:
     docker:
       - image: ministryofjustice/cloud-platform-tools:2.1
         environment:
-          GITHUB_TEAM_NAME_SLUG: laa-estimate-eligibility
+          GITHUB_TEAM_NAME_SLUG: check-client-qualifies
           TZ: Europe/London
 
 references:
@@ -249,7 +249,7 @@ jobs:
       - deploy:
           name: Deploy LAA Check-your-client-qualifies-for-legal-aid service's /infrastructure to UAT
           command: |
-            kubectl apply --record=false -f ./infrastructure/laa-estimate-financial-eligibility-for-legal-aid-uat/
+            kubectl apply --record=false -f ./infrastructure/laa-check-client-qualifies-uat/
       - slack/notify:
           channel: eligibility-alerts-uat
           event: fail
@@ -272,21 +272,6 @@ workflows:
           requires:
             - install_dependencies
       - deploy:
-          name: Deploy UAT to existing namespace
-          environment: uat
-          context: laa-estimate-eligibility-uat
-          requires:
-            - linters
-            - run_specs
-            - end2end_tests
-            - linters
-            - build_and_push
-          post-steps:
-            - jira/notify:
-                job_type: deployment
-                environment: UAT
-                environment_type: testing
-      - deploy:
           name: Deploy UAT to new namespace
           environment: ccq-uat
           context: laa-check-client-qualifies-uat
@@ -296,30 +281,11 @@ workflows:
             - end2end_tests
             - linters
             - build_and_push
-            - Deploy UAT to existing namespace
           post-steps:
             - jira/notify:
                 job_type: deployment
                 environment: UAT
                 environment_type: testing
-      - deploy:
-          name: Deploy staging to existing namespace
-          environment: staging
-          context: laa-estimate-eligibility-staging
-          requires:
-            - run_specs
-            - end2end_tests
-            - linters
-            - build_and_push
-          post-steps:
-            - jira/notify:
-                job_type: deployment
-                environment: Staging
-                environment_type: staging
-          filters:
-            branches:
-              only:
-                - main
       - deploy:
           name: Deploy staging to new namespace
           environment: ccq-staging
@@ -329,30 +295,11 @@ workflows:
             - end2end_tests
             - linters
             - build_and_push
-            - Deploy staging to existing namespace
           post-steps:
             - jira/notify:
                 job_type: deployment
                 environment: Staging
                 environment_type: staging
-          filters:
-            branches:
-              only:
-                - main
-      - deploy:
-          name: Deploy production to existing namespace
-          environment: production
-          context: laa-estimate-eligibility-production
-          requires:
-            - run_specs
-            - end2end_tests
-            - linters
-            - build_and_push
-          post-steps:
-            - jira/notify:
-                job_type: deployment
-                environment: Production
-                environment_type: production
           filters:
             branches:
               only:
@@ -376,7 +323,7 @@ workflows:
               only:
                 - main
       - deploy_infrastructure_uat:
-          context: laa-estimate-eligibility-uat
+          context: laa-check-client-qualifies-uat
           filters:
             branches:
               only:

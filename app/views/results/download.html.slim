@@ -1,8 +1,8 @@
 - content_for :page_title
   - if @model.decision == "ineligible"
-    = t("results.show.not_likely_to_qualify")
+    = t(@check.controlled? ? "results.show.controlled_ineligible" : "results.show.not_likely_to_qualify")
   - else
-    = t("results.show.likely_to_qualify")
+    = t(@check.controlled? ? "results.show.controlled_qualifies" : "results.show.likely_to_qualify")
 .govuk-grid-column-full.no-ligatures
   .gem-c-organisation-logo
     .gem-c-organisation-logo__container
@@ -26,13 +26,7 @@
         = render("summary", section: _1, links: false) if @model.calculated?(_1)
 
   - if @model.level_of_help == "certificated"
-    = pdf_friendly_h2(t("results.show.what_happens_next"), "m", @is_pdf)
-    - if @check.immigration_or_asylum?
-      = pdf_friendly_p_element(t("results.show.next_steps_without_apply_paragraph_1"), @is_pdf)
-    - else
-      = pdf_friendly_p_element(t("results.show.next_steps_paragraph_1"), @is_pdf)
-    = pdf_friendly_p_element(t("results.show.next_steps_paragraph_2"), @is_pdf)
-
+    = render "certificated_next_steps"
     = pdf_friendly_h2(t("results.show.evidence_needed"), "m", @is_pdf)
     = render "evidence"
   - elsif @model.level_of_help == "controlled" && @model.decision == "eligible"

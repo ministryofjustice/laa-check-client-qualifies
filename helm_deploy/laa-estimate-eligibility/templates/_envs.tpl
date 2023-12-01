@@ -38,8 +38,8 @@ env:
   - name: SECRET_KEY_BASE
     valueFrom:
       secretKeyRef:
-        name: kube-secrets
-        key: secret-key-base
+        name: aws-secrets
+        key: SECRET_KEY_BASE
   - name: RAILS_ENV
     value: production
   - name: RAILS_SERVE_STATIC_FILES
@@ -54,19 +54,11 @@ env:
     value: {{ .Values.cfe.host }}
   - name: CFE_ENVIRONMENT_NAME
     value: {{ .Values.cfe.environment_name }}
-  {{ if .Values.use_new_namespace.enabled }}
   - name: REDIS_URL
     valueFrom:
       secretKeyRef:
         name: laa-check-client-qualifies-elasticache-instance-output
         key: url
-  {{ else }}
-  - name: REDIS_URL
-    valueFrom:
-      secretKeyRef:
-        name: laa-estimate-financial-eligibility-elasticache-instance-output
-        key: url
-  {{ end }}
   - name: SENTRY_FEATURE_FLAG
     value: {{ .Values.featureFlags.sentry }}
   - name: INDEX_PRODUCTION_FEATURE_FLAG
@@ -86,8 +78,8 @@ env:
   - name: NOTIFICATIONS_API_KEY
     valueFrom:
       secretKeyRef:
-        name: kube-secrets
-        key: notifications-api-key
+        name: aws-secrets
+        key: NOTIFICATIONS_API_KEY
   - name: NOTIFICATIONS_ERROR_MESSAGE_TEMPLATE_ID
     value:  {{ .Values.notifications.errorMessageTemplateId }}
   - name: NOTIFICATIONS_RECIPIENT
@@ -95,8 +87,8 @@ env:
   - name: GECKOBOARD_API_KEY
     valueFrom:
       secretKeyRef:
-        name: kube-secrets
-        key: geckoboard-api-key
+        name: aws-secrets
+        key: GECKOBOARD_API_KEY
   - name: GECKOBOARD_METRIC_DATASET_NAME
     value:  {{ .Values.geckoboard.metricsDataset }}
   - name: GECKOBOARD_LAST_PAGE_DATASET_NAME
@@ -116,13 +108,13 @@ env:
   - name: BLAZER_DATABASE_PASSWORD
     valueFrom:
       secretKeyRef:
-        name: kube-secrets
-        key: blazer-database-password
+        name: aws-secrets
+        key: BLAZER_DATABASE_PASSWORD
   - name: BASIC_AUTH_PASSWORD
     valueFrom:
       secretKeyRef:
-        name: kube-secrets
-        key: basic-auth-password
+        name: aws-secrets
+        key: BASIC_AUTH_PASSWORD
   - name: CSP_REPORT_ENDPOINT
     value: {{ .Values.sentry.cspReportEndpoint }}
   - name: PRIMARY_HOST
@@ -134,8 +126,8 @@ env:
   - name: GOOGLE_OAUTH_CLIENT_SECRET
     valueFrom:
       secretKeyRef:
-        name: kube-secrets
-        key: google-oauth-client-secret
+        name: aws-secrets
+        key: GOOGLE_OAUTH_CLIENT_SECRET
   - name: SEED_ADMINS
     value: {{ .Values.app.seedAdmins }}
 

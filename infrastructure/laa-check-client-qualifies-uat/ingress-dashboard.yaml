@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: ingress-dashboard
-  namespace: laa-estimate-financial-eligibility-for-legal-aid-uat
+  namespace: laa-check-client-qualifies-uat
   labels:
     grafana_dashboard: ""
 data:
@@ -663,8 +663,8 @@ data:
           {
             "current": {
               "selected": false,
-              "text": "laa-estimate-financial-eligibility-for-legal-aid-uat",
-              "value": "laa-estimate-financial-eligibility-for-legal-aid-uat"
+              "text": "laa-check-client-qualifies-uat",
+              "value": "laa-check-client-qualifiesd-uat"
             },
             "datasource": {
               "type": "prometheus",
@@ -681,7 +681,7 @@ data:
               "refId": "Prometheus-namespace-Variable-Query"
             },
             "refresh": 1,
-            "regex": "/^laa-estimate-financial-eligibility-for-legal-aid/",
+            "regex": "/^laa-check-client-qualifies/",
             "skipUrlSync": false,
             "sort": 1,
             "tagValuesQuery": "",
@@ -692,8 +692,8 @@ data:
           {
             "current": {
               "selected": false,
-              "text": "main-laa-estimate-eligibility",
-              "value": "main-laa-estimate-eligibility"
+              "text": "check-client-qualifies-laa-estimate-eligibility",
+              "value": "check-client-qualifies-laa-estimate-eligibility"
             },
             "datasource": {
               "type": "prometheus",

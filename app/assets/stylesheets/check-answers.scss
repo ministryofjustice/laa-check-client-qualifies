@@ -6,6 +6,12 @@
   margin-left: 20px;
 }
 
+.inline-change-link {
+  font-weight: bold;
+  float:right;
+  font-size: 1rem;
+}
+
 @media (min-width: 40.0625em) {
   .govuk-summary-list__key.wide {
     width: 40%;

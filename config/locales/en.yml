@@ -2,10 +2,30 @@ en:
   activemodel:
     errors:
       models:
+        client_age_form:
+          attributes:
+            client_age:
+              inclusion: Select the age group your client is in
         level_of_help_form:
           attributes:
             level_of_help:
               blank: Select the level of help your client needs
+        controlled_legal_representation_form:
+          attributes:
+            controlled_legal_representation:
+              inclusion: Select yes if the work is controlled legal representation (CLR)
+        aggregated_means_form:
+          attributes:
+            aggregated_means:
+              inclusion: Select yes if you will aggregate your client’s means with another person’s means
+        regular_income_form:
+          attributes:
+            regular_income:
+              inclusion: Select yes if your client gets regular income
+        under_eighteen_assets_form:
+          attributes:
+            under_eighteen_assets:
+              inclusion: Select yes if your client has assets worth £2,500 or more
         domestic_abuse_applicant_form:
           attributes:
             domestic_abuse_applicant:
@@ -607,6 +627,7 @@ en:
       household: Household
     or: or
     hide_this_message: Hide this message
+    welsh_in_welsh: Cy
   question_flow:
     aria_label:
       friends_or_family_value: Enter amount of financial help from friends or family
@@ -623,6 +644,24 @@ en:
       housing_payments_value: Enter amount of housing payments
       housing_payments: Enter amount of housing payments
       housing_benefit_value: Enter the amount of housing benefit
+    client_age:
+      title: What age is your client?
+      need_to_know: "We need to know this for the check calculations because:"
+      reasons:
+        - some clients under 18 may not need a full means test
+        - clients aged 60 or over may have some of their capital excluded from a means test
+      options:
+        under_18: Under 18
+        standard: 18 to 59
+        over_60: 60 or over
+      guidance:
+        controlled: Guide to determining controlled work
+        certificated: Guide to determining certificated work
+        under_18_controlled: Guidance on under 18s for controlled work
+        under_18_certificated: Guidance on under 18s for certificated work
+        over_60_controlled: Guidance on 60 or over disregard (pensioner disregard) for controlled work
+        over_60_certificated: Guidance on 60 or over disregard (pensioner disregard) for certificated work
+
     level_of_help:
       title: What level of help does your client need?
       controlled_header: Civil controlled work or family mediation
@@ -650,6 +689,48 @@ en:
         text: Guide to determining certificated work
       mental_health_guidance:
         text: Means assessment section of Mental Health guidance
+
+    under_18_clr:
+      title: Is the work controlled legal representation (CLR)?
+      clr_header: Civil controlled legal representation (CLR)
+      details_text_html: 'Controlled legal representation (CLR) covers the following, as stated under Regulation 21(2)(e) of the <a href="%{page_url}" target="_blank" rel="noreferrer noopener">Civil Legal Aid (Procedure) Regulations 2012</a>:'
+      section_1: (i) the Health, Education and Social Care Chamber of the First-tier Tribunal under the Mental Health Act 1983 or paragraph 5(2) of the Schedule to the Repatriation of Prisoners Act 1984;
+      section_2: (ii) the Mental Health Review Tribunal for Wales; or
+      section_3: (iii) the Immigration and Asylum Chamber of the First tier Tribunal.
+      guidance:
+        controlled: Guide to determining controlled work
+        mental_health: Means assessment section of Mental Health guidance
+        clr: Guidance on controlled legal representation (CLR) for child applicants
+    aggregated_means:
+      title: Will you aggregate your client's means with another person's means?
+      explainer: If your client's means are aggregated with the means of another person, such as a maintaining adult, they must have a full means test.
+      what_we_mean: What we mean by aggregation of means
+      example_intro: "A maintaining adult is any other person who is responsible for maintaining the child. For example, the other person could be one of the following:"
+      examples:
+        - a parent or guardian who gives your client financial support
+        - anyone who contributes substantially to your client's maintenance
+      exception_intro: "Exceptions to this are when:"
+      exceptions:
+        - a parent or guardian has a conflict of interest in the matter
+        - the client is financially independent
+        - the client is in local authority or foster care
+      guidance: Guidance on means aggregation for under 18s
+    regular_income:
+      title: Does your client get regular income?
+      explainer: For example, payment from a full time job or local authority financial support for a care leaver. If they get regular income, they must have a full means test.
+      exception_intro: "Do not include:"
+      exceptions:
+        - part-time earnings (less than 16 hours per week)
+        - holiday jobs
+        - pocket money
+        - any maintenance paid for the child
+      guidance: Guidance on income
+    under_eighteen_assets:
+      title: Does your client have assets worth £2,500 or more?
+      hints:
+        - For example, money in bank accounts, investments, valuable items, property or land.
+        - If they have any assets like this, they must have a full means test.
+      guidance: Guidance on assets
     asylum_support:
       question: Does your client get Asylum Support?
       help_text_1: This means Asylum Support as defined in Section 4 or Section 95 of the Immigration and Asylum Act 1999.
@@ -1375,7 +1456,9 @@ en:
         client_other_property: Client other property
         partner_other_property: Partner other property
       tables:
+        client_age: Client age
         level_of_help: Level of help your client needs
+        aggregated_means: Means tests for under 18s
         type_of_matter: Type of matter
         asylum_support: Asylum Support
         domestic_abuse_applicant: Type of matter
@@ -1413,12 +1496,23 @@ en:
         additional_property_details: Client other property %{variable} details
         partner_additional_property: Partner other property
         partner_additional_property_details: Partner other property %{variable} details
+      client_age_fields:
+        client_age: What age is your client?
+        client_age_options:
+          under_18: Under 18
+          standard: 18 to 59
+          over_60: 60 or over
       level_of_help_fields:
         level_of_help: What level of help does your client need?
         level_of_help_options:
           certificated: Civil certificated or licensed legal work
           controlled: Civil controlled work or family mediation
-      domestic_abuse_applicant_fields: 
+        controlled_legal_representation: Is the work controlled legal representation (CLR)?
+      aggregated_means_fields:
+        aggregated_means: Will you aggregate your client's means with another person's means?
+        regular_income: Does your client get regular income?
+        under_eighteen_assets: Does your client have assets worth £2,500 or more?
+      domestic_abuse_applicant_fields:
         domestic_abuse_applicant: Is your client an applicant in a domestic abuse case?
       immigration_or_asylum_type_upper_tribunal_fields:
         immigration_or_asylum_type_upper_tribunal: Is this for a matter in the Immigration and Asylum Chamber of the Upper Tribunal?
@@ -1602,10 +1696,29 @@ en:
       how_to_save_header: How to save your answers
       how_to_save_text: After you submit your eligibility check we'll show you the result and the calculations made to get it. You can print or save the eligibility result page, including your answers.
       call_to_action: Submit eligibility check
+    end_of_journey:
+      title: You've reached the end of this service
+      start_downloading_now: Your %{form} form will start downloading now
+      form_types:
+        cw1: CW1
+        cw2: CW2
+        cw1_and_2: CW1&2
+        cw5: CW5
+        civ_means_7: CIV Means 7
+      if_not_begin: Download your form if it does not start automatically
+      next_steps: Next steps
+      complete_controlled_work: 1. Complete the controlled work form
+      add_client_details: add your client’s personal details and any other questions not already filled in
+      sign_the_form: get your client to sign the form
+      gather_evidence: 2. Gather your client’s evidence
+      keep_evidence: You will need to keep evidence of means provided by your client along with the controlled work form.
+      keep_the_evidence: 3. Keep the evidence together with the controlled work form in your records
+      keep_the_evidence_for_under_18: 2. Keep the controlled work form in your records
+      file_may_be_audited: Your client’s file may be audited or assessed by the LAA at a later date.
   results:
     show:
-      likely_to_qualify: Your client is likely to qualify for civil legal aid
-      not_likely_to_qualify: Your client is not likely to qualify for civil legal aid
+      likely_to_qualify: Your client is likely to qualify for civil legal aid, for certificated work
+      not_likely_to_qualify: Your client is not likely to qualify for civil legal aid, for certificated work
       eligible_intro_paragraphs_html:
         - Your client is likely to qualify financially for civil legal aid, <b>without needing to pay a contribution</b>, based on the information you entered.
         - This is not a guarantee that your client will get civil legal aid. For a final decision on eligibility and contributions (if any), an application and supporting evidence must be submitted to the Legal Aid Agency (LAA) for assessment. A full assessment supported by evidence may generate a different result.
@@ -1617,9 +1730,9 @@ en:
         - Any capital contribution will not exceed the likely costs of their case.
         - This is not a guarantee that your client will get civil legal aid if an application is made for them and the contribution figure(s) displayed may change. For a final decision on eligibility and contributions (if any), an application and supporting evidence must be submitted to the Legal Aid Agency (LAA) for assessment. A full assessment supported by evidence may generate a different result.
         - "The LAA will also consider:"
-      ineligible_intro_paragraphs:
-        - Your client is not likely to qualify financially for civil legal aid based on the information you entered. You may wish to discuss your client’s options, for example they can pay for legal support or get advice from a charity or advice organisation.
-        - "Although it is unlikely to generate a different result, your client may wish to have an application and supporting evidence submitted to the Legal Aid Agency (LAA) for assessment. An application may also consider:"
+      certificated_ineligible:
+        - Your client is not likely to qualify financially for civil legal aid based on the information you entered.
+        - This calculation was made in line with the latest version of the Lord Chancellor's Guidance on Determining Financial Eligibility for Certificated Work.
       also_considered:
         - whether your client’s case is in scope for legal aid
         - the case merits, for example its likelihood of success and the benefit it would give your client
@@ -1628,9 +1741,12 @@ en:
       freeness_explanation: In some circumstances, your client may be asked to repay the legal costs of their case, for example from money or assets kept or gained as a result of legal aid if the statutory charge arises.
       controlled_asylum_support_qualifies: Your client qualifies for civil legal aid, for controlled work
       controlled_qualifies: Your client qualifies for civil legal aid, for controlled work and family mediation
-      controlled_eligible_paragraphs:
-        - Your client qualifies financially for civil legal aid based on the information you entered. Before you (or a provider of advice or services funded by legal aid) proceed with your client’s case, it must also be within scope for legal aid and satisfy the relevant merits criteria set out in the relevant legislation and guidance. 
+      controlled_eligible_paragraphs_old:
+        - Your client qualifies financially for civil legal aid based on the information you entered. Before you (or a provider of advice or services funded by legal aid) proceed with your client’s case, it must also be within scope for legal aid and satisfy the relevant merits criteria set out in the relevant legislation and guidance.
         - Save or print this page and keep any supporting evidence to support your decision in case the Legal Aid Agency (LAA) audits or assesses your client’s file in the future.
+        - These calculations were made in line with the latest version of the Lord Chancellor's Guidance on Determining Financial Eligibility for Controlled Work.
+      controlled_eligible_paragraphs:
+        - Your client qualifies financially for civil legal aid based on the information you entered. Before you (or a provider of advice or services funded by legal aid) proceed with your client’s case, it must also be within scope for legal aid and satisfy the relevant merits criteria set out in the relevant legislation and guidance.
         - These calculations were made in line with the latest version of the Lord Chancellor's Guidance on Determining Financial Eligibility for Controlled Work.
       controlled_ineligible: Your client does not qualify for civil legal aid, for controlled work and family mediation
       controlled_ineligible_paragraphs:
@@ -1641,16 +1757,38 @@ en:
         - You told us your client is in receipt of Section 4 or Section 95 Asylum Support, which makes them automatically financially eligible for civil certificated legal aid for proceedings in the Immigration and Asylum chamber of the Upper Tribunal without income, outgoing and capital calculations.
         - This is not a guarantee that your client will get civil legal aid. For a final decision, an application and supporting evidence must be submitted to the Legal Aid Agency (LAA) for assessment. A full assessment supported by evidence may generate a different result.
         - "The LAA will also consider:"
-      controlled_asylum_support_eligible_paragraphs:
+      controlled_asylum_support_eligible_paragraphs_old:
         - Your client qualifies financially for civil legal aid, based on the information you have entered. Before you (or a provider of advice or services funded by legal aid) proceed with your client’s case, it must also be within scope for legal aid and satisfy the relevant merits criteria set out in the relevant legislation and guidance.
         - You told us your client is in receipt of Section 4 or Section 95 Asylum Support. This makes them automatically financially eligible for civil controlled work relating to legal help and help at court for immigration and asylum proceedings, as well as controlled legal representation in the Immigration and Asylum chamber of the first tier or upper tribunal without income, outgoing and capital calculations.
         - Save or print this page and keep any supporting evidence to support your decision in case the Legal Aid Agency (LAA) audits or assesses your client’s file in the future.
         - This assessment has been made in line with the latest version of the Lord Chancellor’s Guidance on Determining Eligibility for Controlled Work.
+      controlled_asylum_support_eligible_paragraphs:
+        - Your client qualifies financially for civil legal aid, based on the information you have entered. Before you (or a provider of advice or services funded by legal aid) proceed with your client’s case, it must also be within scope for legal aid and satisfy the relevant merits criteria set out in the relevant legislation and guidance.
+        - You told us your client is in receipt of Section 4 or Section 95 Asylum Support. This makes them automatically financially eligible for civil controlled work relating to legal help and help at court for immigration and asylum proceedings, as well as controlled legal representation in the Immigration and Asylum chamber of the first tier or upper tribunal without income, outgoing and capital calculations.
+        - This assessment has been made in line with the latest version of the Lord Chancellor’s Guidance on Determining Eligibility for Controlled Work.
+      save_results: Save results and answers as a PDF
+      save_results_intro: 'The PDF will include:'
+      save_results_bullets:
+        - the eligibility declaration
+        - your client’s key eligibility totals
+        - how we calculated your client’s key eligibility totals
+        - the answers you input into this service
+      save_results_bullets_asylum:
+        - the eligibility declaration
+        - the answers you input into this service
+      complete_a_cw_form: Complete a controlled work form
+      complete_a_cw_form_paragraph: You will need to complete the relevant controlled work form and keep for your records, along with any evidence provided by your client. Your client’s file may be audited and assessed by the LAA at a later date.
+      download_a_cw_form_header: Download a controlled work form with your answers included
       what_happens_next: What happens next
       what_happens_next_controlled_ineligible_next_step: You may wish to discuss your client’s options, for example they can pay for legal support or get advice from a charity or advice organisation.
       next_steps_paragraph_1: Use Apply for legal aid or CCMS to start an application for your client.
       next_steps_without_apply_paragraph_1: Use CCMS to start an application for your client.
       next_steps_paragraph_2: You may need to provide evidence of your client's eligibility as part of your application.
+      next_steps_certificated_ineligible_paragraphs:
+        - You may wish to discuss your client’s options, for example they can pay privately for legal support or get advice from a charity or advice organisation, such as Citizens Advice.
+        - Although we calculated that your client is unlikely to qualify for legal aid, they may still wish to have an application and supporting evidence submitted to the Legal Aid Agency (LAA) for assessment.
+        - "As well as asking the financial assessment questions again, an application will also have questions about:"
+      next_steps_certificated_ineligible_final_paragraph: You will need to provide evidence of your client's eligibility as part of your application.
       evidence_needed: Evidence you might need
       evidence_needed_explainer: Depending on your client's financial situation, you may need to provide items from this general list.
       evidence_needed_explainer_partner: Depending on your client and their partner's financial situation, you may need to provide items from this general list.
@@ -2019,7 +2157,7 @@ en:
         - civil certificated or licensed legal work
       mental_health_html: The <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>LAA contract management mental health guidance (opens in new tab)</a> explains when a means assessment is not needed for controlled work matters that will potentially involve proceedings before the Mental Health Tribunal (known as non-means, non-MHT matter starts).
       client_under_18_heading: Clients under 18
-      client_under_18_para_1: Clients aged under 18 do not need a means assessment for certificated work matters or controlled legal representation (CLR) matters.
+      client_under_18_para_1: Clients aged under 18 do not need a full means test for certificated work matters or controlled legal representation (CLR) matters.
       client_under_18_para_2: "For all other types of controlled work and family mediation matters, clients under 18 must have a full means assessment if any of the following apply:"
       client_under_18_bullets:
         - their means are aggregated with another person’s, like a parent or guardian
@@ -2225,8 +2363,10 @@ en:
       - Payments for those who are not served by mains gas
   controlled_work_document_selections:
     new:
-      title: Download a controlled work (CW) form with your answers
-      explainers:
+      title: Select a controlled work (CW) form to download with your answers
+      legacy_title: Download a controlled work (CW) form with your answers
+      explainer: The form will start downloading on the next page.
+      legacy_explainers:
         - Your answers from previous pages will be included in the CW form you select to download.
         - After you download the form, you will need to add your client’s details and any other information needed on that form.
         - Once complete, get your client to sign the form and keep it, with any evidence provided by your client, for your records.
@@ -2246,6 +2386,7 @@ en:
         welsh: Welsh
       download: Download the pre-populated form
       start_another_check: Start another eligibility check
+      download_and_finish: Continue to download and finish
   feature_flags:
     index:
       feature_flags: Feature flags
@@ -2362,15 +2503,14 @@ en:
         content: Resolution text
         resolve: Resolve problem
   feedback:
+    heading_hint: Don't include personal information.
+    thank_you_message: Thank you for your feedback
+    button_send: Send
+    button_cancel: Cancel
+    button_skip: Skip
     freetext:
       button: Give feedback on this page
       heading: What is your feedback on this page?
-      heading_hint: Don't include personal information.
-      button_send: Send
-      button_cancel: Cancel
-      thank_you_message: Thank you for your feedback
     satisfaction:
+      comment_heading: Your response has been sent, please tell us more
       question: Were you satisfied with this service?
-      thank_you_message: Thank you for your feedback
-      feedback_link_html: <a href="https://eu.surveymonkey.com/r/ccqpublicbeta" target="_blank" rel="noreferrer noopener">Tell us more in our 2 minute survey (opens in new tab)</a>
-

@@ -1,6 +1,12 @@
-.govuk-summary-list__row
+- screen ||= nil
+.govuk-summary-list__row id=("table-#{screen}" if screen)
   dt.govuk-summary-list__key.wide
     = label_text
 
   dd.govuk-summary-list__value
     = value_text
+
+    - if screen
+      = link_to t("checks.check_answers.change"),
+                  check_step_path_from_step(screen.to_sym, params[:assessment_code], begin_editing: true),
+                  class: "inline-change-link"

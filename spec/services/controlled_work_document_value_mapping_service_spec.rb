@@ -37,6 +37,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
+        "Child under 18" => "No",
         "Means test required" => "Yes_2", # This is always checked as CCQ is only relevant to means tested cases
         "Passported" => "No", # Not passporting
         "Client in receipt of asylum support" => "No", # Asylum supported not given
@@ -49,6 +50,30 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
         "undefined_30" => "25", # Percentage owned
       }
       expect(result).to include(representative_sample)
+    end
+
+    context "when under 18 flag is enabled", :under_eighteen_flag do
+      let(:session_data) do
+        build(:minimal_complete_session,
+              level_of_help: "controlled",
+              controlled_legal_representation: false,
+              client_age: "under_18",
+              aggregated_means: false,
+              regular_income: false,
+              under_eighteen_assets: true)
+      end
+
+      it "can successfully populate CW1 form fields with Under 18 questions" do
+        mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1.yml")).map(&:with_indifferent_access)
+        result = described_class.call(session_data, mappings)
+        representative_sample = {
+          "Child under 18" => "Yes_2",
+          "Means to be aggregated with maintainng adult" => "No",
+          "Child receives money" => "No",
+          "Child has savings/capital" => "Yes_2",
+        }
+        expect(result).to include(representative_sample)
+      end
     end
 
     it "can successfully populate Welsh CW1 form fields" do
@@ -73,6 +98,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw2.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
+        "Client under 18" => "No",
         "Partner" => "Yes",
         "Passported" => "No",
         "In receipt os NASS payment" => "No", # Asylum support
@@ -105,6 +131,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw5.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
+        "Child under 18" => "No",
         "Partner" => "Yes", # client has partner
         "FillText11" => "250,000", # client main home value non-SMOD
         "FillText14" => "90,000", # client main home mortgage non-SMOD
@@ -251,6 +278,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/civ_means_7.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
+        "Client is under 18" => "No",
         "Passported" => "No", # Client not passported
         "FillText36" => "0", # Client's share of total net equity (non-SMOD)
         "FillText57" => "0", # Main home / outstanding mortgage (non-SMOD)
@@ -324,6 +352,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw2.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
+        "Client under 18" => "No",
         "In receipt os NASS payment" => "Yes", # directly or indirectly in receipt of NASS paymen
         "Passported" => nil, # Not passporting
         "FillText44" => nil, # Property worth £250,000
@@ -370,6 +399,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
+        "Child under 18" => "No",
         "Means test required" => "Yes_2", # Means test required
         "Client in receipt of asylum support" => "No", # Asylum supported not given
         "Please complete Part A Capital Subject matter of dispute" => "Yes_5", # SMOD
@@ -404,6 +434,61 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
         "FillText131" => "120,000", # SMOD investments
       }
       expect(result).to include(representative_sample)
+    end
+  end
+
+  context "when the client is under 18", :under_eighteen_flag do
+    let(:session_data) do
+      FactoryBot.build(
+        :minimal_complete_session,
+        client_age: "under_18",
+        level_of_help: "controlled",
+        controlled_legal_representation: false,
+        aggregated_means: false,
+        regular_income: false,
+        under_eighteen_assets: true,
+        api_response: FactoryBot.build(:api_result,
+                                       main_home: FactoryBot.build(:property_api_result, value: 250_000),
+                                       additional_property: FactoryBot.build(:property_api_result,
+                                                                             outstanding_mortgage: 120_000,
+                                                                             percentage_owned: 75,
+                                                                             subject_matter_of_dispute: true)).with_indifferent_access,
+      )
+    end
+
+    it "can successfully populate Welsh CW1&2 form fields" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_and_2_welsh.yml")).map(&:with_indifferent_access)
+      result = described_class.call(session_data, mappings)
+      representative_sample = {
+        "Under 18" => "Ydy",
+        "Application for controlled legal representation" => "Nac ydy",
+        "Child's means to be aggregated with adult" => "Nac ydy",
+        "Child receives money on regular basis" => "Nac ydy",
+        "Child has savings, items of value or investments totalling £2,500 or more" => "Oes",
+      }
+      expect(result).to include(representative_sample)
+    end
+  end
+
+  context "when the under 18 flag is off" do
+    let(:session_data) do
+      FactoryBot.build(
+        :minimal_complete_session,
+        level_of_help: "controlled",
+        client_age: nil,
+        api_response: FactoryBot.build(:api_result,
+                                       main_home: FactoryBot.build(:property_api_result, value: 250_000),
+                                       additional_property: FactoryBot.build(:property_api_result,
+                                                                             outstanding_mortgage: 120_000,
+                                                                             percentage_owned: 75,
+                                                                             subject_matter_of_dispute: true)).with_indifferent_access,
+      )
+    end
+
+    it "leaves the under 18 question blank, not nil" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_and_2_welsh.yml")).map(&:with_indifferent_access)
+      result = described_class.call(session_data, mappings)
+      expect(result).to include("Under 18" => nil)
     end
   end
 end

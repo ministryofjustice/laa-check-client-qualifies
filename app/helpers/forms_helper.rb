@@ -12,6 +12,12 @@ module FormsHelper
     [:none, I18n.t("question_flow.property.property_owned.none")],
   ].freeze
 
+  CLIENT_AGE_OPTIONS = [
+    [:under_18, I18n.t("question_flow.client_age.options.under_18")],
+    [:standard, I18n.t("question_flow.client_age.options.standard")],
+    [:over_60, I18n.t("question_flow.client_age.options.over_60")],
+  ].freeze
+
   IMMIGRATION_OR_ASYLUM_TYPE_OPTIONS = [
     [:immigration_clr, I18n.t("question_flow.immigration_or_asylum_type.immigration_clr")],
     [:immigration_legal_help, I18n.t("question_flow.immigration_or_asylum_type.immigration_legal_help")],
@@ -26,6 +32,10 @@ module FormsHelper
 
   def property_options
     PROPERTY_OPTIONS
+  end
+
+  def client_age_options
+    CLIENT_AGE_OPTIONS
   end
 
   def yes_no_options

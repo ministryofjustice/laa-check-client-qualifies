@@ -3,17 +3,9 @@ class ChecksController < ApplicationController
 
   def new
     new_assessment_code = SecureRandom.uuid
-    session[assessment_id(new_assessment_code)] = { "feature_flags" => load_session_derived_flags }
-    redirect_to helpers.step_path_from_step(Steps::Helper.first_step, new_assessment_code)
-  end
-
-  def load_session_derived_flags
-    feature_flags = {}
-    FeatureFlags::STATIC_FLAGS.select { |_, v| v == "session" }.map do |flag|
-      feature_flags[flag.first.to_s] = FeatureFlags.enabled?(flag.first, without_session_data: true)
-    end
-
-    feature_flags
+    data = { "feature_flags" => FeatureFlags.session_flags }
+    session[assessment_id(new_assessment_code)] = data
+    redirect_to helpers.step_path_from_step(Steps::Helper.first_step(data), new_assessment_code)
   end
 
   def check_answers
@@ -22,7 +14,20 @@ class ChecksController < ApplicationController
     track_page_view(page: :check_answers)
   end
 
+  def end_of_journey
+    @model = CalculationResult.new(session_data)
+    @check = Check.new(session_data)
+    @form = ControlledWorkDocumentSelection.from_session(session_data)
+    track_page_view(page: :end_of_journey)
+  end
+
+private
+
   def assessment_code
     params[:assessment_code]
+  end
+
+  def specify_feedback_widget
+    @feedback = action_name == "end_of_journey" ? :satisfaction : :freetext
   end
 end
