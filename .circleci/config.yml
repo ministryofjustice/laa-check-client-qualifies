@@ -83,7 +83,7 @@ orbs:
   aws-cli: circleci/aws-cli@4.0.0
   aws-ecr: circleci/aws-ecr@8.2.1
   browser-tools: circleci/browser-tools@1.4.4
-  jira: circleci/jira@2.1.1
+  jira: circleci/jira@2.1.0
   slack: circleci/slack@4.5.2
 
 jobs:
