@@ -16,7 +16,8 @@ class AdditionalPropertyModel
   validates :mortgage,
             numericality: { greater_than: 0, allow_nil: true },
             is_a_number: true,
-            presence: { if: :owned_with_mortgage? }
+            presence: true,
+            if: :owned_with_mortgage?
 
   attribute :percentage_owned, :fully_validatable_integer
   validates :percentage_owned,
