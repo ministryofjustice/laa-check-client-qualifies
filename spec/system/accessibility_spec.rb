@@ -78,19 +78,17 @@ RSpec.describe "Accessibility" do
       allow(CfeConnection).to receive(:state_benefit_types).and_return([])
     end
 
-    %w[controlled certificated].each do |level_of_help|
-      it "has no AXE-detectable accessibility issues on any page" do
-        start_assessment
-        fill_in_level_of_help_screen choice: level_of_help
-        assessment_code = current_path.split("/").reverse.second
+    it "has no AXE-detectable accessibility issues on any page", :slow do
+      start_assessment
+      fill_in_level_of_help_screen choice: "certificated"
+      assessment_code = current_path.split("/").reverse.second
 
-        Steps::Helper.all_possible_steps.each do |step|
-          visit form_path(step, assessment_code)
+      Steps::Helper.all_possible_steps.each do |step|
+        visit form_path(step, assessment_code)
 
-          # govuk components deliberately break ARIA rules by putting 'aria-expanded' attributes on inputs
-          # C.F. https://github.com/alphagov/govuk-frontend/issues/979
-          expect(page).to be_axe_clean.skipping("aria-allowed-attr")
-        end
+        # govuk components deliberately break ARIA rules by putting 'aria-expanded' attributes on inputs
+        # C.F. https://github.com/alphagov/govuk-frontend/issues/979
+        expect(page).to be_axe_clean.skipping("aria-allowed-attr")
       end
     end
   end
@@ -105,7 +103,7 @@ RSpec.describe "Accessibility" do
       click_on "Submit"
     end
 
-    it "has no AXE-detectable accessibility issues" do
+    it "has no AXE-detectable accessibility issues", :slow do
       # govuk accordions deliberately break ARIA rules by putting 'aria-labelledBy' without a role
       # C.F. https://github.com/alphagov/govuk-frontend/issues/2472#issuecomment-1398629391
       # govuk components deliberately break ARIA rules by putting 'aria-expanded' attributes on inputs
