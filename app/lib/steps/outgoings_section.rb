@@ -7,13 +7,17 @@ module Steps
 
       def grouped_steps_for(session_data)
         if Steps::Logic.skip_income_questions?(session_data)
-          []
+          if FeatureFlags.enabled?(:outgoings_flow, session_data)
+            [Steps::Group.new(:property)]
+          else
+            []
+          end
         else
           [
             Steps::Group.new(:outgoings),
             (Steps::Group.new(:partner_outgoings) if Steps::Logic.partner?(session_data)),
             (Steps::Group.new(:property) if FeatureFlags.enabled?(:outgoings_flow, session_data)),
-            (housing_costs_group if FeatureFlags.enabled?(:outgoings_flow, session_data)),
+            (housing_costs_group(session_data) if FeatureFlags.enabled?(:outgoings_flow, session_data)),
           ].compact
         end
       end
