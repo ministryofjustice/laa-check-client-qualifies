@@ -25,7 +25,9 @@
       - %i[gross_income disposable_income capital].each
         = render("summary", section: _1, links: false) if @model.calculated?(_1)
 
-  - if @model.level_of_help == "certificated"
+  - if @check.under_eighteen_no_means_test_required?
+    = render "under_eighteen_next_steps"
+  - elsif @model.level_of_help == "certificated"
     = render "certificated_next_steps"
     = pdf_friendly_h2(t("results.show.evidence_needed"), "m", @is_pdf)
     = render "evidence"

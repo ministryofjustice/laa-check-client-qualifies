@@ -52,10 +52,7 @@ RSpec.describe "Certificated check without partner", type: :feature do
         expect(parsed["proceeding_types"]).to eq([{ "ccms_code" => "SE003", "client_involvement_type" => "A" }])
         expect(parsed["applicant"]).to eq({
           "date_of_birth" => "1973-02-15",
-          "employed" => true,
-          "has_partner_opponent" => false,
           "receives_qualifying_benefit" => false,
-          "receives_asylum_support" => false,
         })
         expect(parsed["dependants"]).to eq([
           { "date_of_birth" => "2006-02-15",

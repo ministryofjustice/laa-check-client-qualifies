@@ -2,11 +2,11 @@ module Cfe
   class ProceedingsPayloadService < BaseService
     PROCEEDING_TYPES = { "immigration" => "IM030", "asylum" => "IA031", "other" => "SE003", "domestic_abuse" => "DA001" }.freeze
     def call
-      payload[:proceeding_types] = if relevant_form?(:domestic_abuse_applicant)
-                                     payload_from_certificated_journey
-                                   else
-                                     payload_from_immigration_and_asylum_choices
-                                   end
+      if relevant_form?(:domestic_abuse_applicant)
+        payload[:proceeding_types] = payload_from_certificated_journey
+      elsif relevant_form?(:immigration_or_asylum)
+        payload[:proceeding_types] = payload_from_immigration_and_asylum_choices
+      end
     end
 
     def payload_from_certificated_journey

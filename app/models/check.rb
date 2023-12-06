@@ -82,10 +82,6 @@ class Check
     end
   end
 
-  def employed?
-    Steps::Logic.employed?(session_data)
-  end
-
   def partner_employed?
     Steps::Logic.partner_employed?(session_data)
   end
@@ -116,6 +112,10 @@ class Check
 
   def under_eighteen_no_means_test_required?
     Steps::Logic.under_eighteen_no_means_test_required?(session_data)
+  end
+
+  def not_aggregated_no_income_low_capital?
+    Steps::Logic.not_aggregated_no_income_low_capital?(session_data)
   end
 
   def under_eighteen?
