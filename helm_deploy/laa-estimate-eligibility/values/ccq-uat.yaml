@@ -66,6 +66,7 @@ featureFlags:
   welshCw: ENABLED
   endOfJourney: ENABLED
   underEighteen: ENABLED
+  outgoingsFlow: ENABLED
 
 postgresql:
   enabled: true

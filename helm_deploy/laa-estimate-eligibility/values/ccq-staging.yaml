@@ -61,6 +61,7 @@ featureFlags:
   welshCw: ENABLED
   endOfJourney: ENABLED
   underEighteen: NOT_ENABLED
+  outgoingsFlow: NOT_ENABLED
 
 geckoboard:
   metricsDataset: "ccq_monthly_metrics_staging"

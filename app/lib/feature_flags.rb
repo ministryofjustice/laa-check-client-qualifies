@@ -15,6 +15,7 @@ class FeatureFlags
     welsh_cw: "global",
     end_of_journey: "session",
     under_eighteen: "session",
+    outgoings_flow: "session",
   }.freeze
 
   class << self
