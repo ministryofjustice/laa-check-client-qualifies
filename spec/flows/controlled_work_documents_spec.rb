@@ -28,6 +28,7 @@ RSpec.describe "CW Forms", type: :feature do
     it "takes me to an end-of-journey page" do
       click_on "Continue to CW forms"
       choose "CW2"
+      choose "English"
       click_on "Continue to download and finish"
       expect(page).to have_current_path(/\A\/service-end/)
       click_on "Download your form"
@@ -35,16 +36,14 @@ RSpec.describe "CW Forms", type: :feature do
       expect(page.response_headers["Content-Type"]).to eq("application/pdf")
     end
 
-    context "with the welsh CW flag enabled", :welsh_cw_flag do
-      it "gives me a welsh-named CW form" do
-        click_on "Continue to CW forms"
-        choose "CW2"
-        choose "Welsh"
-        click_on "Continue to download and finish"
-        expect(page).to have_current_path(/\A\/service-end/)
-        click_on "Download your form"
-        expect(page.response_headers["Content-Disposition"]).to eq("attachment; filename=\"Cy CW2 2023-02-15 14h23m21s.pdf\"; filename*=UTF-8''Cy%20CW2%202023-02-15%2014h23m21s.pdf")
-      end
+    it "gives me a welsh-named CW form" do
+      click_on "Continue to CW forms"
+      choose "CW2"
+      choose "Welsh"
+      click_on "Continue to download and finish"
+      expect(page).to have_current_path(/\A\/service-end/)
+      click_on "Download your form"
+      expect(page.response_headers["Content-Disposition"]).to eq("attachment; filename=\"Cy CW2 2023-02-15 14h23m21s.pdf\"; filename*=UTF-8''Cy%20CW2%202023-02-15%2014h23m21s.pdf")
     end
   end
 end
