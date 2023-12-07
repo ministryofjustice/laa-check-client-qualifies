@@ -1060,7 +1060,12 @@ en:
           link: "{%page_url}"
     mortgage_or_loan_payment:
       heading: What are the mortgage or loan payments for the home your client lives in?
-      heading_hint: Enter the full amount due, whoever pays it. Enter 0 if this does not apply.
+      heading_hint_1: Enter the full amount due.
+      living_with_someone_else: Living with someone else
+      details_paragraphs:
+        - If your client lives with their ex-partner, or someone else whose means are not included in the assessment, enter the amount paid by your client. The Legal Aid Agency will assume that your client is liable for 50% of the housing costs unless there is evidence otherwise. If your client’s share is being paid or partially paid by this person, enter the amount paid on your client’s behalf as income for your client on the previous ‘Your client's other income’ page.
+        - You may need to provide evidence for this if you make a full application or open a controlled work file for your client.
+      heading_hint_2: Enter 0 if this does not apply.
       value: Enter amount
       frequency: Select frequency
     benefits:
