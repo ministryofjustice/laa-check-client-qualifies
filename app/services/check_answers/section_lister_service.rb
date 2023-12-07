@@ -100,7 +100,11 @@ module CheckAnswers
     end
 
     def section_yaml
-      Rails.root.join("app/lib/check_answers_fields.yml")
+      if FeatureFlags.enabled?(:outgoings_flow, @check.session_data)
+        Rails.root.join("app/lib/check_answers_fields.yml")
+      else
+        Rails.root.join("app/lib/check_answers_fields_old_flow.yml")
+      end
     end
   end
 end
