@@ -2016,15 +2016,6 @@ en:
       controlled_cw_next_steps:
         intro_paragraph: You will need to complete the relevant controlled work form and keep for your records, along with any evidence provided by your client. Your client’s file may be audited and assessed by the LAA at a later date.
         intro_paragraph_partner: You will need to complete the relevant controlled work form and keep for your records, along with any evidence provided by your client and their partner. Your client’s file may be audited and assessed by the LAA at a later date.
-        second_paragraph: You can download a controlled work form with the answers you gave included, or complete the form yourself.
-        prefilled_header: Download a controlled work form with your answers included
-        prefilled_bullets:
-          - Choose which form to download on the next page. The answers you gave here will be included.
-          - Add your client’s personal details and any other questions not already filled in.
-          - Get your client to sign the form.
-          - Keep the form, with any evidence provided by your client, for your records.
-        manual_header:  Complete a controlled work form yourself
-        manual_instruction_html: Download a <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>controlled work application form</a>. Some of these can be filled in on a computer.
       ineligible_explanation:
         text: Your %{subject} %{value_type} exceeds the upper limit. This means %{outcome} not qualify for legal aid.
         subject_no_partner: client’s
