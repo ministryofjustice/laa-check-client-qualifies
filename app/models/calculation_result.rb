@@ -31,7 +31,7 @@ class CalculationResult
   end
 
   def calculated?(section)
-    api_response.dig(:result_summary, section, :proceeding_types).select { VALID_OVERALL_RESULTS.include?(_1[:result]) }.any?
+    api_response.dig(:result_summary, section, :proceeding_types).any? { VALID_OVERALL_RESULTS.include?(_1[:result]) }
   end
 
   def ineligible?(section)
