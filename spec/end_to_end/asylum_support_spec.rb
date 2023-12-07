@@ -43,6 +43,7 @@ RSpec.describe "Asylum support checks", type: :feature do
     it "renders content" do
       click_on "Submit"
       expect(page).to have_content("Your client is likely to qualify for civil legal aid, for certificated work")
+      expect(page).to have_content("You told us your client is in receipt of Section 4 or Section 95 Asylum Support")
       expect(page).not_to have_content("Income calculation")
       expect(page).not_to have_content("Outgoings calculation")
       expect(page).not_to have_content("Capital calculation")
