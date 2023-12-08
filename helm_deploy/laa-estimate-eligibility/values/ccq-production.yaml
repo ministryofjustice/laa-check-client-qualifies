@@ -87,4 +87,4 @@ google:
   oauthRedirectUri: https://check-your-client-qualifies-for-legal-aid.service.gov.uk/auth/subdomain_redirect
 
 metabase:
-  enabled: false
+  enabled: true
