@@ -47,7 +47,7 @@ spec:
             pathType: ImplementationSpecific
             backend:
               service:
-                name: {{ $fullName }}-metabase-service
+                name: {{ $fullName }}-metabase
                 port:
                   number: 80
     {{- end }}
