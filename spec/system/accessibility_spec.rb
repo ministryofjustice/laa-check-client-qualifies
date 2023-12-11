@@ -86,8 +86,6 @@ RSpec.describe "Accessibility" do
       Steps::Helper.all_possible_steps.each do |step|
         visit form_path(step, assessment_code)
 
-        # govuk components deliberately break ARIA rules by putting 'aria-expanded' attributes on inputs
-        # C.F. https://github.com/alphagov/govuk-frontend/issues/979
         expect(page).to be_axe_clean
       end
     end
@@ -106,9 +104,7 @@ RSpec.describe "Accessibility" do
     it "has no AXE-detectable accessibility issues", :slow do
       # govuk accordions deliberately break ARIA rules by putting 'aria-labelledBy' without a role
       # C.F. https://github.com/alphagov/govuk-frontend/issues/2472#issuecomment-1398629391
-      # govuk components deliberately break ARIA rules by putting 'aria-expanded' attributes on inputs
-      # C.F. https://github.com/alphagov/govuk-frontend/issues/979
-      expect(page).to be_axe_clean
+      expect(page).to be_axe_clean.skipping("aria-prohibited-attr")
     end
   end
 end
