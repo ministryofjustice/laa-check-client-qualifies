@@ -12,7 +12,7 @@ RSpec.describe "CW Forms", type: :feature do
     expect(page).to have_current_path(/\A\/select-cw-form/)
   end
 
-  context "when the end of journey flag is enabled", :end_of_journey_flag do
+  context "when progressing to download and end of journey screen" do
     let(:fixed_arbitrary_time) { Time.zone.local(2023, 2, 15, 14, 23, 21) }
 
     before do

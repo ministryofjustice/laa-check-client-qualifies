@@ -36,10 +36,6 @@ RSpec.describe "results/show.html.slim" do
             expect(rendered).to include "You told us your client is in receipt of Section 4 or Section 95 Asylum Support. "\
                                         "This makes them automatically financially eligible for civil controlled work"
           end
-
-          it "shows a bespoke evidence list" do
-            expect(rendered).to include "confirmation from the Home Office or Migrant Help that the individual is in receipt of support"
-          end
         end
 
         context "when not receiving asylum support" do
@@ -60,10 +56,6 @@ RSpec.describe "results/show.html.slim" do
           it "displays the appropriate result panel content" do
             expect(rendered).to include "You told us your client is in receipt of Section 4 or Section 95 Asylum Support. "\
                                         "This makes them automatically financially eligible for civil controlled work"
-          end
-
-          it "shows a bespoke evidence list" do
-            expect(rendered).to include "confirmation from the Home Office or Migrant Help that the individual is in receipt of support"
           end
         end
       end

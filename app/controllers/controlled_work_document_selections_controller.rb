@@ -9,12 +9,8 @@ class ControlledWorkDocumentSelectionsController < ApplicationController
   def create
     @form = ControlledWorkDocumentSelection.from_params(params, session_data)
     if @form.valid?
-      if FeatureFlags.enabled?(:end_of_journey, session_data)
-        session_data.merge!(@form.attributes_for_export_to_session)
-        redirect_to end_of_journey_path(assessment_code)
-      else
-        handle_download
-      end
+      session_data.merge!(@form.attributes_for_export_to_session)
+      redirect_to end_of_journey_path(assessment_code)
     else
       track_validation_error(page: :cw_form_selection)
       @check = Check.new(session_data)
@@ -35,7 +31,7 @@ private
   end
 
   def specify_feedback_widget
-    @feedback = FeatureFlags.enabled?(:end_of_journey, session_data) ? :freetext : :satisfaction
+    @feedback = :freetext
   end
 
   def handle_download
