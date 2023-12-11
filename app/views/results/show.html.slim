@@ -82,20 +82,6 @@
 
   - unless @journey_continues_on_another_page
     .govuk-button-group
-      / For eligible controlled checks there is no primary CTA in this group, as it appears below.
-      / For other checks, 'Save as PDF' is the primary CTA.
-      - if @model.level_of_help == "controlled" && @model.decision == "eligible"
-        = link_to t(".save_as_pdf"),
-                  download_result_path(params[:assessment_code]),
-                  target: "_blank", rel: "noopener", class: "govuk-button govuk-button--secondary"
-      - else
-        = link_to t(".save_as_pdf"), download_result_path(params[:assessment_code]),
-                                     target: "_blank", rel: "noopener", class: "govuk-button"
-        = link_to t(".start_another_check"), new_check_path, class: "govuk-button govuk-button--secondary", data: { module: "govuk-button" }
-
-    - if @model.level_of_help == "controlled" && @model.decision == "eligible"
-      h2.govuk-heading-m = t(".what_happens_next")
-
-      = render "controlled_work_next_steps", cta: true
-        = govuk_details(summary_text: t("results.show.evidence_needed")) do
-          = render "evidence"
+      = link_to t(".save_as_pdf"), download_result_path(params[:assessment_code]),
+                                    target: "_blank", rel: "noopener", class: "govuk-button"
+      = link_to t(".start_another_check"), new_check_path, class: "govuk-button govuk-button--secondary", data: { module: "govuk-button" }

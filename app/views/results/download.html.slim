@@ -32,10 +32,10 @@
   - elsif @model.level_of_help == "controlled" && @model.decision == "eligible"
 
     = pdf_friendly_h2(t("results.show.what_happens_next"), "m", @is_pdf)
-    = render "controlled_work_next_steps", cta: false
-      = pdf_friendly_h2(t("results.show.evidence_needed"), "m", @is_pdf)
-      = pdf_friendly_p_element(t("results.show.evidence_needed_explainer"), @is_pdf)
-      = render "evidence"
+    = pdf_friendly_p_element(t("results.show.controlled_cw_next_steps.intro_paragraph#{'_partner' if @check.partner}"), @is_pdf)
+    = pdf_friendly_h2(t("results.show.evidence_needed"), "m", @is_pdf)
+    = pdf_friendly_p_element(t("results.show.evidence_needed_explainer"), @is_pdf)
+    = render "evidence"
 
   - if @model.level_of_help == "controlled" && @model.decision == "ineligible"
     = pdf_friendly_h2(t("results.show.what_happens_next"), "m", @is_pdf)

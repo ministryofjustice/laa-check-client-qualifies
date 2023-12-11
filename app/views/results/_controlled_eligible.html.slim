@@ -1,8 +1,6 @@
-- end_of_journey = FeatureFlags.enabled?(:end_of_journey, @check.session_data)
-
 = pdf_friendly_h1(t("results.show.controlled_qualifies"), @is_pdf)
 
-= pdf_friendly_paragraphs(t("results.show.controlled_eligible_paragraphs#{'_old' unless end_of_journey}"), @is_pdf)
+= pdf_friendly_paragraphs(t("results.show.controlled_eligible_paragraphs"), @is_pdf)
 
 = pdf_friendly_h2(t("results.show.not_always_free"), "m", @is_pdf)
 
