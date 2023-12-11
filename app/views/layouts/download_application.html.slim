@@ -25,10 +25,10 @@ html dir="ltr" lang="en-GB" class="govuk-template"
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = stylesheet_link_tag "pdf"
     = javascript_include_tag "application", "data-turbo-track": "reload", defer: true, nonce: true
-  body class="govuk-template__body"
+  body.govuk-template__body
     = render "layouts/analytics_body"
     javascript [nonce=content_security_policy_nonce]:
-      document.body.className = ((document.body.className) ? document.body.className + " js-enabled" : "js-enabled");
+      document.body.className += ' js-enabled' + ('noModule' in HTMLScriptElement.prototype ? ' govuk-frontend-supported' : '');
 
     = govuk_skip_link
 

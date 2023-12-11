@@ -161,7 +161,6 @@ const setNumbering = (section, counter) => {
 
 const setUpRadios = (section) => {
   const radios = new Radios(section);
-  radios.init();
 }
 
 const setUpAddButton = (addAnotherContainer) => {
