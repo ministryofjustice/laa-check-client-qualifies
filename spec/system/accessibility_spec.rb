@@ -88,7 +88,7 @@ RSpec.describe "Accessibility" do
 
         # govuk components deliberately break ARIA rules by putting 'aria-expanded' attributes on inputs
         # C.F. https://github.com/alphagov/govuk-frontend/issues/979
-        expect(page).to be_axe_clean.skipping("aria-allowed-attr")
+        expect(page).to be_axe_clean
       end
     end
   end
@@ -108,7 +108,7 @@ RSpec.describe "Accessibility" do
       # C.F. https://github.com/alphagov/govuk-frontend/issues/2472#issuecomment-1398629391
       # govuk components deliberately break ARIA rules by putting 'aria-expanded' attributes on inputs
       # C.F. https://github.com/alphagov/govuk-frontend/issues/979
-      expect(page).to be_axe_clean.skipping("aria-prohibited-attr").skipping("aria-allowed-attr")
+      expect(page).to be_axe_clean
     end
   end
 end
