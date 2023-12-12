@@ -1750,10 +1750,6 @@ en:
       freeness_explanation: In some circumstances, your client may be asked to repay the legal costs of their case, for example from money or assets kept or gained as a result of legal aid if the statutory charge arises.
       controlled_asylum_support_qualifies: Your client qualifies for civil legal aid, for controlled work
       controlled_qualifies: Your client qualifies for civil legal aid, for controlled work and family mediation
-      controlled_eligible_paragraphs_old:
-        - Your client qualifies financially for civil legal aid based on the information you entered. Before you (or a provider of advice or services funded by legal aid) proceed with your client’s case, it must also be within scope for legal aid and satisfy the relevant merits criteria set out in the relevant legislation and guidance.
-        - Save or print this page and keep any supporting evidence to support your decision in case the Legal Aid Agency (LAA) audits or assesses your client’s file in the future.
-        - These calculations were made in line with the latest version of the Lord Chancellor's Guidance on Determining Financial Eligibility for Controlled Work.
       controlled_eligible_paragraphs:
         - Your client qualifies financially for civil legal aid based on the information you entered. Before you (or a provider of advice or services funded by legal aid) proceed with your client’s case, it must also be within scope for legal aid and satisfy the relevant merits criteria set out in the relevant legislation and guidance.
         - These calculations were made in line with the latest version of the Lord Chancellor's Guidance on Determining Financial Eligibility for Controlled Work.
@@ -1766,11 +1762,6 @@ en:
         - You told us your client is in receipt of Section 4 or Section 95 Asylum Support, which makes them automatically financially eligible for civil certificated legal aid for proceedings in the Immigration and Asylum chamber of the Upper Tribunal without income, outgoing and capital calculations.
         - This is not a guarantee that your client will get civil legal aid. For a final decision, an application and supporting evidence must be submitted to the Legal Aid Agency (LAA) for assessment. A full assessment supported by evidence may generate a different result.
         - "The LAA will also consider:"
-      controlled_asylum_support_eligible_paragraphs_old:
-        - Your client qualifies financially for civil legal aid, based on the information you have entered. Before you (or a provider of advice or services funded by legal aid) proceed with your client’s case, it must also be within scope for legal aid and satisfy the relevant merits criteria set out in the relevant legislation and guidance.
-        - You told us your client is in receipt of Section 4 or Section 95 Asylum Support. This makes them automatically financially eligible for civil controlled work relating to legal help and help at court for immigration and asylum proceedings, as well as controlled legal representation in the Immigration and Asylum chamber of the first tier or upper tribunal without income, outgoing and capital calculations.
-        - Save or print this page and keep any supporting evidence to support your decision in case the Legal Aid Agency (LAA) audits or assesses your client’s file in the future.
-        - This assessment has been made in line with the latest version of the Lord Chancellor’s Guidance on Determining Eligibility for Controlled Work.
       controlled_asylum_support_eligible_paragraphs:
         - Your client qualifies financially for civil legal aid, based on the information you have entered. Before you (or a provider of advice or services funded by legal aid) proceed with your client’s case, it must also be within scope for legal aid and satisfy the relevant merits criteria set out in the relevant legislation and guidance.
         - You told us your client is in receipt of Section 4 or Section 95 Asylum Support. This makes them automatically financially eligible for civil controlled work relating to legal help and help at court for immigration and asylum proceedings, as well as controlled legal representation in the Immigration and Asylum chamber of the first tier or upper tribunal without income, outgoing and capital calculations.
@@ -2029,15 +2020,6 @@ en:
       controlled_cw_next_steps:
         intro_paragraph: You will need to complete the relevant controlled work form and keep for your records, along with any evidence provided by your client. Your client’s file may be audited and assessed by the LAA at a later date.
         intro_paragraph_partner: You will need to complete the relevant controlled work form and keep for your records, along with any evidence provided by your client and their partner. Your client’s file may be audited and assessed by the LAA at a later date.
-        second_paragraph: You can download a controlled work form with the answers you gave included, or complete the form yourself.
-        prefilled_header: Download a controlled work form with your answers included
-        prefilled_bullets:
-          - Choose which form to download on the next page. The answers you gave here will be included.
-          - Add your client’s personal details and any other questions not already filled in.
-          - Get your client to sign the form.
-          - Keep the form, with any evidence provided by your client, for your records.
-        manual_header:  Complete a controlled work form yourself
-        manual_instruction_html: Download a <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>controlled work application form</a>. Some of these can be filled in on a computer.
       ineligible_explanation:
         text: Your %{subject} %{value_type} exceeds the upper limit. This means %{outcome} not qualify for legal aid.
         subject_no_partner: client’s
@@ -2373,12 +2355,7 @@ en:
   controlled_work_document_selections:
     new:
       title: Select a controlled work (CW) form to download with your answers
-      legacy_title: Download a controlled work (CW) form with your answers
       explainer: The form will start downloading on the next page.
-      legacy_explainers:
-        - Your answers from previous pages will be included in the CW form you select to download.
-        - After you download the form, you will need to add your client’s details and any other information needed on that form.
-        - Once complete, get your client to sign the form and keep it, with any evidence provided by your client, for your records.
       banner:
         heading: 60 or over disregard (also known as the pensioner disregard)
         body: Your client is eligible for the 60 or over disregard (also known as the pensioner disregard). CW forms do not have a field to record this in the financial eligibility section. We will correctly apply this to your client’s capital. You do not need to make any changes to the form.
@@ -2393,8 +2370,6 @@ en:
       language:
         english: English
         welsh: Welsh
-      download: Download the pre-populated form
-      start_another_check: Start another eligibility check
       download_and_finish: Continue to download and finish
   feature_flags:
     index:
