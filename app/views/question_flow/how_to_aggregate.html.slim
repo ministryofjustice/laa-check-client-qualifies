@@ -27,6 +27,5 @@
       - t(".details_bullets").each
         li = _1
 
-  = link_to t(".continue"),
-            step_path_from_step(Steps::Helper.next_step_for(@check.session_data, @step), params[:assessment_code]),
-            class: "govuk-button"
+  = form_for(@form, url: request.path, method: :put) do |form|
+    = form.govuk_submit t(".continue")
