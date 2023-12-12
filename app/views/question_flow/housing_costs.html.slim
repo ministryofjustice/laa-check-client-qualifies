@@ -14,46 +14,48 @@
                     end
 
     = render "shared/heading",
-            header_text: t("question_flow.housing_costs.heading"),
-            post_header_texts: t("question_flow.housing_costs.#{partner_key}"),
+            header_text: t(".heading"),
+            post_header_texts: t(".#{partner_key}"),
             tag: :household
     h2.govuk-heading-m
-      = t("question_flow.housing_costs.housing_payments.label")
-    p.govuk-hint
-      - t("question_flow.housing_costs.housing_payments.hint_paragraphs").each
-        p.govuk-hint = _1
+      = t(".housing_payments.label")
+    - t(".housing_payments.hint_paragraphs_1").each
+      p.govuk-hint = _1
+    = govuk_details(summary_text: t(".housing_payments.living_with_someone_else")) do
+      - t(".housing_payments.details_paragraphs").each
+        p.govuk-body = _1
+    - t(".housing_payments.hint_paragraphs_2").each
+      p.govuk-hint = _1
 
     = render "shared/money_input",
             form:,
             field: :housing_payments,
             width: 10,
-            label_text: t("question_flow.housing_costs.value"),
+            label_text: t(".value"),
             set_aria: true
     = form.govuk_collection_radio_buttons :housing_payments_frequency,
                                           @form.housing_payment_frequencies,
                                           :first,
                                           :last,
-                                          legend: -> { tag.p(t("question_flow.housing_costs.frequency")) }
+                                          legend: -> { tag.p(t(".frequency")) }
     h2.govuk-heading-m
-      = t("question_flow.housing_costs.housing_benefits.label")
+      = t(".housing_benefits.label")
     p.govuk-hint
-      - t("question_flow.housing_costs.housing_benefits.hint_paragraphs").each
+      - t(".housing_benefits.hint_paragraphs").each
         p.govuk-hint = _1
 
     ul.govuk-list.govuk-list--bullet
-      li.govuk-hint = t("question_flow.housing_costs.housing_benefits.hint_bullet_1")
+      li.govuk-hint = t(".housing_benefits.hint_bullet_1")
       - if @check.partner
-        li.govuk-hint = t("question_flow.housing_costs.housing_benefits.hint_bullet_2_partner")
-      li.govuk-hint = t("question_flow.housing_costs.housing_benefits.hint_bullet_3")
+        li.govuk-hint = t(".housing_benefits.hint_bullet_2_partner")
+      li.govuk-hint = t(".housing_benefits.hint_bullet_3")
 
-    p.govuk-hint
-      - t("question_flow.housing_costs.housing_benefits.hint_paragraphs_continued").each
-        p.govuk-hint = _1
+    p.govuk-hint = t(".housing_benefits.last_hint_paragraph")
     = render "shared/money_input",
             form:,
             field: :housing_benefit_value,
             width: 10,
-            label_text: t("question_flow.housing_costs.value"),
+            label_text: t(".value"),
             set_aria: true
     = form.govuk_collection_radio_buttons :housing_benefit_frequency,
                                           @form.frequencies,

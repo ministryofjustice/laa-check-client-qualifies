@@ -1025,15 +1025,21 @@ en:
     housing_costs:
       heading: Housing costs
       heading_hint:
-        - "Enter the housing costs for the home the client lives in."
+        - "Enter the housing costs for the home your client lives in."
       heading_hint_partner:
-        - "Enter the housing costs for the home the client lives in."
-        - "If the client and partner live separately, do not include the partner’s housing costs."
+        - "Enter the housing costs for the home your client lives in."
+        - "If your client and their partner live separately, do not include the partner’s housing costs."
       housing_payments:
         label: Housing payments
-        hint_paragraphs:
+        hint_paragraphs_1:
           - "For example, rent, mortgage or board and lodgings."
-          - "Enter the full amount due, whoever pays it."
+          - "Enter the full amount due."
+        living_with_someone_else: Living with someone else
+        details_paragraphs:
+          - If your client lives with their ex-partner, or someone else whose means are not included in the assessment, enter the amount paid by your client.
+          - The Legal Aid Agency will assume that your client is liable for 50% of the housing costs unless there is evidence otherwise. If your client’s share is being paid or partially paid by this person, enter the amount paid on your client’s behalf as income for your client on the previous ‘Your client's other income’ page.
+          - You may need to provide evidence for this if you make a full application or open a controlled work file for your client.
+        hint_paragraphs_2:
           - "Do not make any deductions for Housing Benefit."
           - "If your client is paying board and lodgings, enter the portion of the costs that relates to lodgings or, if you are unsure, 50% of the total costs."
           - "If your client is paying all or part of their ex-partner's housing costs for the former matrimonial home, do not include this here - add it as maintenance payments to a former partner instead."
@@ -1041,14 +1047,12 @@ en:
       housing_benefits:
         label: Housing Benefit
         hint_paragraphs:
-          - "Enter any Housing Benefit claimed for the home the client lives in."
+          - "Enter any Housing Benefit claimed for the home your client lives in."
           - "Include any Housing Benefit paid:"
         hint_bullet_1: "to the client"
         hint_bullet_2_partner: "to the partner"
         hint_bullet_3: "to a landlord"
-        hint_paragraphs_continued:
-          - "Enter the full amount, whoever claims it."
-          - "Enter 0 if this does not apply."
+        last_hint_paragraph: Enter 0 if this does not apply.
       value: Enter amount
       frequency: Select frequency
       guidance_on_housing_costs:
