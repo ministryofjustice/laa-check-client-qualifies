@@ -1028,7 +1028,7 @@ en:
         - "Enter the housing costs for the home your client lives in."
       heading_hint_partner:
         - "Enter the housing costs for the home your client lives in."
-        - "If your client and partner live separately, do not include the partner’s housing costs."
+        - "If your client and their partner live separately, do not include the partner’s housing costs."
       housing_payments:
         label: Housing payments
         hint_paragraphs_1:
