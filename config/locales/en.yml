@@ -715,6 +715,27 @@ en:
         - the client is financially independent
         - the client is in local authority or foster care
       guidance: Guidance on means aggregation for under 18s
+    how_to_aggregate:
+      title: You are going to aggregate your client's means with another person's means
+      panel_text: If your client's means are aggregated with the means of another person, such as a maintaining adult, they must have a full means test.
+      what_happens_next: What happens next
+      paragraphs_1:
+        - "For all questions that refer to 'your client' or 'the client', such as if your client has dependants or owns the home they live in, answer them with reference to both your client and the maintaining adult."
+        - "For questions that ask for financial information:"
+      bullets_1:
+        - add any relevant income or spending amounts for your client to those of the maintaining adult
+        - enter these combined amounts in the relevant fields that refer to 'your client'
+      paragraph_2_html: "If the maintaining adult has a partner, only include the partner if their finances can be included in the means assessment, as per regulation 16 of %{link}, and:"
+      link_text: The Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 (opens in new tab)
+      bullets_2:
+        - answer any partner-related questions as if the maintaining adult is the client
+        - continue to treat the combined income and expenditure of your client and the maintaining adult as that of your client
+      what_we_mean: What we mean by a maintaining adult
+      details_paragraph: "A maintaining adult is any other person who is responsible for maintaining the child. For example, the other person could be one of the following:"
+      details_bullets:
+        - a parent or guardian who gives your client financial support
+        - anyone who contributes substantially to your client's maintenance
+      continue: Continue
     regular_income:
       title: Does your client get regular income?
       explainer: For example, payment from a full time job or local authority financial support for a care leaver. If they get regular income, they must have a full means test.

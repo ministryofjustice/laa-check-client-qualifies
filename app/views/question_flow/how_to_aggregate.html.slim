@@ -1,0 +1,32 @@
+- content_for :page_title
+  = t(".title")
+- content_for :back
+  = back_link(:how_to_aggregate, @check, @back_buttons_invoke_browser_back_behaviour)
+
+.govuk-grid-column-full
+  = render "shared/heading"
+  .govuk-panel.panel-blue.govuk-panel--confirmation class="govuk-!-text-align-left govuk-!-margin-bottom-9"
+    .govuk-panel__body
+      h1.govuk-heading-l = t(".title")
+      p.govuk-body = t(".panel_text")
+  h2.govuk-heading-s = t(".what_happens_next")
+  - t(".paragraphs_1").each
+    p.govuk-body = _1
+  ul.govuk-list.govuk-list--bullet
+    - t(".bullets_1").each
+      li = _1
+  p.govuk-body
+    = t(".paragraph_2_html",
+        link: link_to(t(".link_text"), ExternalLinkService.call(document: :legislation_CLAR_2013_individual_resources)))
+  ul.govuk-list.govuk-list--bullet
+    - t(".bullets_2").each
+      li = _1
+  = govuk_details(summary_text: t(".what_we_mean"))
+    p.govuk-body = t(".details_paragraph")
+    ul.govuk-list.govuk-list--bullet
+      - t(".details_bullets").each
+        li = _1
+
+  = link_to t(".continue"),
+            step_path_from_step(Steps::Helper.next_step_for(@check.session_data, @step), params[:assessment_code]),
+            class: "govuk-button"
