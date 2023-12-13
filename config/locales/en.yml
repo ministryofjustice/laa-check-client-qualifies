@@ -1787,6 +1787,21 @@ en:
         - Your client qualifies financially for civil legal aid, based on the information you have entered. Before you (or a provider of advice or services funded by legal aid) proceed with your client’s case, it must also be within scope for legal aid and satisfy the relevant merits criteria set out in the relevant legislation and guidance.
         - You told us your client is in receipt of Section 4 or Section 95 Asylum Support. This makes them automatically financially eligible for civil controlled work relating to legal help and help at court for immigration and asylum proceedings, as well as controlled legal representation in the Immigration and Asylum chamber of the first tier or upper tribunal without income, outgoing and capital calculations.
         - This assessment has been made in line with the latest version of the Lord Chancellor’s Guidance on Determining Eligibility for Controlled Work.
+      under_eighteen_certificated_header: Your client qualifies for civil legal aid without a means test, for certificated work
+      under_eighteen_certificated_paragraphs:
+        - Your client qualifies for civil legal aid without a means test, based on the information you have entered. Before you (or a provider of advice or services funded by legal aid) proceed with your client’s case, it must also be within scope for legal aid and satisfy the relevant merits criteria set out in the relevant legislation and guidance.
+        - You told us your client is under 18. This makes them automatically eligible for civil certificated or licensed legal work without a means test.
+        - These calculations were made in line with the latest version of the Lord Chancellor's Guidance on Determining Financial Eligibility for Certificated Work.
+      under_eighteen_controlled_header: Your client qualifies for civil legal aid without a full means test, for controlled work and family mediation
+      under_eighteen_controlled_paragraphs:
+        - Your client qualifies for civil legal aid without a full means test, based on the information you have entered. Before you (or a provider of advice or services funded by legal aid) proceed with your client’s case, it must also be within scope for legal aid and satisfy the relevant merits criteria set out in the relevant legislation and guidance.
+        - You told us your client is under 18, their means cannot be aggregated with another person’s, they don’t have assets worth £2,500 or more, and they don’t get regular income. This makes them eligible for controlled work and family mediation without a full means test.
+        - This assessment has been made in line with the latest version of the Lord Chancellor's Guidance on Determining Financial Eligibility for Controlled Work.
+      under_eighteen_controlled_clr_header: Your client qualifies for civil legal aid without a means test, for controlled legal representation
+      under_eighteen_controlled_clr_paragraphs:
+        - Your client qualifies for civil legal aid without a means test, based on the information you have entered. Before you (or a provider of advice or services funded by legal aid) proceed with your client’s case, it must also be within scope for legal aid and satisfy the relevant merits criteria set out in the relevant legislation and guidance.
+        - You told us your client is under 18. This makes them automatically eligible for controlled legal representation (CLR) without a means test.
+        - This assessment has been made in line with the latest version of the Lord Chancellor's Guidance on Determining Financial Eligibility for Controlled Work.
       save_results: Save results and answers as a PDF
       save_results_intro: 'The PDF will include:'
       save_results_bullets:
@@ -1794,11 +1809,12 @@ en:
         - your client’s key eligibility totals
         - how we calculated your client’s key eligibility totals
         - the answers you input into this service
-      save_results_bullets_asylum:
+      save_results_bullets_no_means_test:
         - the eligibility declaration
         - the answers you input into this service
       complete_a_cw_form: Complete a controlled work form
       complete_a_cw_form_paragraph: You will need to complete the relevant controlled work form and keep for your records, along with any evidence provided by your client. Your client’s file may be audited and assessed by the LAA at a later date.
+      complete_a_cw_form_paragraph_under_eighteen: You will need to complete the relevant controlled work form and keep for your records. Your client’s file may be audited and assessed by the LAA at a later date.
       download_a_cw_form_header: Download a controlled work form with your answers included
       what_happens_next: What happens next
       what_happens_next_controlled_ineligible_next_step: You may wish to discuss your client’s options, for example they can pay for legal support or get advice from a charity or advice organisation.

@@ -33,6 +33,10 @@ module Steps
         return true unless controlled?(session_data)
         return true if controlled_clr?(session_data)
 
+        not_aggregated_no_income_low_capital?(session_data)
+      end
+
+      def not_aggregated_no_income_low_capital?(session_data)
         aggregated_means?(session_data) == false && under_eighteen_regular_income?(session_data) == false && under_eighteen_assets?(session_data) == false
       end
 

@@ -5,9 +5,7 @@ RSpec.describe Cfe::ApplicantPayloadService do
   let(:session_data) do
     {
       over_60:,
-      employment_status: "unemployed",
       passporting: false,
-      partner: false,
     }.with_indifferent_access
   end
   let(:payload) { {} }
@@ -21,10 +19,7 @@ RSpec.describe Cfe::ApplicantPayloadService do
         expect(payload[:applicant]).to eq(
           {
             date_of_birth: 50.years.ago.to_date,
-            employed: false,
-            has_partner_opponent: false,
             receives_qualifying_benefit: false,
-            receives_asylum_support: false,
           },
         )
       end
@@ -38,10 +33,7 @@ RSpec.describe Cfe::ApplicantPayloadService do
         expect(payload[:applicant]).to eq(
           {
             date_of_birth: 70.years.ago.to_date,
-            employed: false,
-            has_partner_opponent: false,
             receives_qualifying_benefit: false,
-            receives_asylum_support: false,
           },
         )
       end
@@ -60,9 +52,6 @@ RSpec.describe Cfe::ApplicantPayloadService do
         expect(payload[:applicant]).to eq(
           {
             date_of_birth: 50.years.ago.to_date,
-            employed: false,
-            has_partner_opponent: false,
-            receives_qualifying_benefit: false,
             receives_asylum_support: true,
           },
         )
@@ -75,7 +64,6 @@ RSpec.describe Cfe::ApplicantPayloadService do
           immigration_or_asylum_type_upper_tribunal: "immigration_upper",
           asylum_support: false,
           over_60: false,
-          employment_status: "unemployed",
           passporting: false,
           partner: false,
         }.with_indifferent_access
@@ -86,8 +74,6 @@ RSpec.describe Cfe::ApplicantPayloadService do
         expect(payload[:applicant]).to eq(
           {
             date_of_birth: 50.years.ago.to_date,
-            employed: false,
-            has_partner_opponent: false,
             receives_qualifying_benefit: false,
             receives_asylum_support: false,
           },
@@ -102,9 +88,7 @@ RSpec.describe Cfe::ApplicantPayloadService do
           asylum_support: false,
           feature_flags: { "under_eighteen" => true },
           client_age:,
-          employment_status: "unemployed",
           passporting: false,
-          partner: false,
         }.with_indifferent_access
       end
 
@@ -116,10 +100,6 @@ RSpec.describe Cfe::ApplicantPayloadService do
           expect(payload[:applicant]).to eq(
             {
               date_of_birth: 17.years.ago.to_date,
-              employed: false,
-              has_partner_opponent: false,
-              receives_qualifying_benefit: false,
-              receives_asylum_support: false,
             },
           )
         end
@@ -133,8 +113,6 @@ RSpec.describe Cfe::ApplicantPayloadService do
           expect(payload[:applicant]).to eq(
             {
               date_of_birth: 50.years.ago.to_date,
-              employed: false,
-              has_partner_opponent: false,
               receives_qualifying_benefit: false,
               receives_asylum_support: false,
             },
@@ -150,8 +128,6 @@ RSpec.describe Cfe::ApplicantPayloadService do
           expect(payload[:applicant]).to eq(
             {
               date_of_birth: 70.years.ago.to_date,
-              employed: false,
-              has_partner_opponent: false,
               receives_qualifying_benefit: false,
               receives_asylum_support: false,
             },

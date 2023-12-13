@@ -22,9 +22,9 @@
   - if @journey_continues_on_another_page
     h2.govuk-heading-m = t(".save_results")
     p.govuk-body = t(".save_results_intro")
-    - if @check.asylum_support
+    - if @check.asylum_support || @check.under_eighteen_no_means_test_required?
       ul.govuk-list.govuk-list--bullet
-        - t(".save_results_bullets_asylum").each
+        - t(".save_results_bullets_no_means_test").each
           li = _1
     - else
       ul.govuk-list.govuk-list--bullet
@@ -37,20 +37,22 @@
             target: "_blank", rel: "noopener", class: "govuk-button govuk-button--secondary"
 
     h2.govuk-heading-m = t(".complete_a_cw_form")
-    p.govuk-body = t(".complete_a_cw_form_paragraph")
+    p.govuk-body = t(".complete_a_cw_form_paragraph#{'_under_eighteen' if @check.under_eighteen_no_means_test_required?}")
     h2.govuk-heading-s = t(".download_a_cw_form_header")
 
     = link_to t("results.show.continue_to_cw"),
               controlled_work_document_selection_path(assessment_code: params[:assessment_code]),
               class: "govuk-button", data: { module: "govuk-button" }
 
-  - if @model.level_of_help == "certificated"
+  - elsif @check.under_eighteen_no_means_test_required?
+    = render "under_eighteen_next_steps", download_option: true
+  - elsif @model.level_of_help == "certificated"
     = render "certificated_next_steps"
 
     = govuk_details(summary_text: t(".evidence_needed")) do
       = render "evidence"
 
-  - if @model.level_of_help == "controlled" && @model.decision == "ineligible"
+  - elsif @model.level_of_help == "controlled" && @model.decision == "ineligible"
     h2.govuk-heading-m = t(".what_happens_next")
     p.govuk-body = t(".what_happens_next_controlled_ineligible_next_step")
 
@@ -80,7 +82,7 @@
         - accordion.with_section(heading_text: t(".capital_calculation"))
           = render "capital_table", caption_size: "m"
 
-  - unless @journey_continues_on_another_page
+  - unless @journey_continues_on_another_page || @check.under_eighteen_no_means_test_required?
     .govuk-button-group
       = link_to t(".save_as_pdf"), download_result_path(params[:assessment_code]),
                                     target: "_blank", rel: "noopener", class: "govuk-button"

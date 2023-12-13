@@ -24,9 +24,6 @@ RSpec.describe "Asylum support checks", type: :feature do
         expect(parsed["proceeding_types"]).to eq([{ "ccms_code" => "IA031", "client_involvement_type" => "A" }])
         expect(parsed["applicant"]).to eq({
           "date_of_birth" => "1973-02-15",
-          "has_partner_opponent" => false,
-          "receives_qualifying_benefit" => false,
-          "employed" => false,
           "receives_asylum_support" => true,
         })
       }.to_return(

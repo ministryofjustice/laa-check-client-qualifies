@@ -1,4 +1,6 @@
-- if @check.asylum_support
+- if @check.under_eighteen_no_means_test_required?
+  = render "under_eighteen"
+- elsif @check.asylum_support
   = render "asylum_support_#{@model.level_of_help}_eligible"
 - else
   = render "#{@model.level_of_help}_#{@model.decision}"

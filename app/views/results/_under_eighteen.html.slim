@@ -1,0 +1,9 @@
+ruby:
+  level_of_help = if @check.controlled?
+                    @check.controlled_legal_representation ? "controlled_clr" : "controlled"
+                  else
+                    "certificated"
+                  end
+= pdf_friendly_h1(t("results.show.under_eighteen_#{level_of_help}_header"), @is_pdf)
+
+= pdf_friendly_paragraphs(t("results.show.under_eighteen_#{level_of_help}_paragraphs"), @is_pdf)
