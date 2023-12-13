@@ -5,19 +5,33 @@ class OtherIncomeForm
 
   REGULAR_INCOME_TYPES = %i[friends_or_family maintenance property_or_lodger pension].freeze
   IRREGULAR_INCOME_TYPES = %i[student_finance other].freeze
+  BOOLEAN_ATTRIBUTES = (REGULAR_INCOME_TYPES + IRREGULAR_INCOME_TYPES).map { :"#{_1}_received" }.freeze
   VALUE_ATTRIBUTES = (REGULAR_INCOME_TYPES + IRREGULAR_INCOME_TYPES).map { :"#{_1}_value" }.freeze
+  CONDITIONAL_VALUE_ATTRIBUTES = (REGULAR_INCOME_TYPES + IRREGULAR_INCOME_TYPES).map { :"#{_1}_conditional_value" }.freeze
   FREQUENCY_ATTRIBUTES = REGULAR_INCOME_TYPES.map { :"#{_1}_frequency" }.freeze
   VALID_FREQUENCIES = %w[every_week every_two_weeks every_four_weeks monthly total].freeze
 
-  ATTRIBUTES = VALUE_ATTRIBUTES + FREQUENCY_ATTRIBUTES
+  ATTRIBUTES = BOOLEAN_ATTRIBUTES + VALUE_ATTRIBUTES + CONDITIONAL_VALUE_ATTRIBUTES + FREQUENCY_ATTRIBUTES
 
   (REGULAR_INCOME_TYPES + IRREGULAR_INCOME_TYPES).each do |income_type|
+    boolean_attribute = :"#{income_type}_received"
     value_attribute = :"#{income_type}_value"
+    conditional_value_attribute = :"#{income_type}_conditional_value"
+
+    attribute boolean_attribute, :boolean
+    validates boolean_attribute, inclusion: { in: [true, false] }
 
     attribute value_attribute, :gbp
     validates value_attribute, presence: true,
                                numericality: { greater_than_or_equal_to: 0, allow_nil: true },
-                               is_a_number: true
+                               is_a_number: true,
+                               if: -> { !FeatureFlags.enabled?(:conditional_reveals, check.session_data) }
+
+    attribute conditional_value_attribute, :gbp
+    validates conditional_value_attribute, presence: true,
+                                           numericality: { greater_than: 0, allow_nil: true },
+                                           is_a_number: true,
+                                           if: -> { FeatureFlags.enabled?(:conditional_reveals, check.session_data) && boolean_attribute }
 
     next unless REGULAR_INCOME_TYPES.include?(income_type)
 
@@ -26,7 +40,7 @@ class OtherIncomeForm
 
     validates frequency_attribute, presence: true,
                                    inclusion: { in: VALID_FREQUENCIES, allow_nil: false },
-                                   if: -> { send(value_attribute).to_i.positive? }
+                                   if: -> { (!FeatureFlags.enabled?(:conditional_reveals, check.session_data) && send(value_attribute).to_i.positive?) || boolean_attribute }
   end
 
   delegate :level_of_help, to: :check

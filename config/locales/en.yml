@@ -220,6 +220,12 @@ en:
               blank_when_many: Enter benefit %{position} name
         other_income_form:
           attributes:
+            friends_or_family_received:
+              inclusion: Select yes if your client gets financial help from friends or family
+            friends_or_family_conditional_value:
+              blank: Enter amount of financial help from friends and family
+              not_a_number: Amount of financial help from friends of family must be a number
+              greater_than: Amount of financial help from friends and family must be more than 0
             friends_or_family_value:
               blank: Enter financial help from friends and family, if this does not apply enter 0
               not_a_number: Financial help from friends and family must be a number, if this does not apply enter 0
@@ -1120,32 +1126,46 @@ en:
       heading: Your client's other income
       second_caption: Enter 0 for any that do not apply
       friends_or_family:
+        question: Does your client get financial help from friends or family?
+        question_hint: For example, money from a family member for rent or bills
         label: Financial help from friends or family
         hint: For example, money from a family member for rent or bills. Enter 0 if this does not apply
         instruction: Enter amount
       maintenance:
+        question: Does your client get maintenance from a former partner?
+        question_hint: This includes child maintenance
         label: Maintenance payments from a former partner
         hint: This includes child maintenance. Enter 0 if this does not apply
         instruction: Enter amount
       property_or_lodger:
+        question: Does your client get income from a property or lodger?
+        question_hint: ""
         label: Income from a property or lodger
         hint: Enter 0 if this does not apply
         instruction: Enter amount
       pension:
+        question: Does your client get income from pensions?
+        question_hint: Include the total value of any pensions, including State Pension, workplace and personal pensions
         label: Pensions
         hint: Include the total value of any pensions, including State Pension, workplace and personal pensions. Enter 0 if this does not apply.
         instruction: Enter total value of any pensions
       student_finance:
+        question: Does your client get income from student finance?
+        question_hint: This includes any type of student loan, grant or bursary. Do not include any tuition fee loans.
         label: Student finance
         hint: This includes any type of student loan, grant or bursary. Do not include any tuition fee loans. Enter 0 if this does not apply
         certificated_instruction: Enter amount received this academic year
         controlled_instruction: Enter amount received this academic year
       other:
+        question: Does your client get income from other sources?
+        question_hint: Include any other income your client received. Do not include any government Cost of Living Payments.
         label: Income from other sources
         hint: Include any other income your client received. Do not include any government Cost of Living Payments. Enter 0 if this does not apply
         certificated_instruction: Enter amount received in the last 3 months
         controlled_instruction: Enter amount received in the last month
       enter_frequency: Select frequency
+      amount: Amount
+      frequency: Frequency
       frequencies:
         every_week: Every week
         every_two_weeks: Every 2 weeks
@@ -1156,27 +1176,39 @@ en:
       heading: The partner's other income
       second_caption: Do not add any income you've listed as other income for the client. Enter 0 for any that do not apply.
       friends_or_family:
+        question: Does the partner get financial help from friends or family?
+        question_hint: For example, money from a family member for rent or bills
         label: Financial help from friends or family
         hint: For example, money from a family member for rent or bills. Enter 0 if this does not apply.
         instruction: Enter amount
       maintenance:
+        question: Does the partner get maintenance from a former partner?
+        question_hint: This includes child maintenance
         label: Maintenance payments from a former partner
         hint: This includes child maintenance. Enter 0 if this does not apply.
         instruction: Enter amount
       property_or_lodger:
+        question: Does the partner get income from a property or lodger?
+        question_hint: ""
         label: Income from a property or lodger
         hint: "Enter 0 if this does not apply"
         instruction: Enter amount
       pension:
+        question: Does the partner get income from pensions?
+        question_hint: Include the total value of any pensions, including State Pension, workplace and personal pensions
         label: Pensions
         hint: Include the total value of any pensions, including State Pension, workplace and personal pensions. Enter 0 if this does not apply.
         instruction: Enter total value of any pensions
       student_finance:
+        question: Does the partner get income from student finance?
+        question_hint: This includes any type of student loan, grant or bursary. Do not include any tuition fee loans.
         label: Student finance
         hint: This includes any type of student loan, grant or bursary. Do not include any tuition fee loans. Enter 0 if this does not apply.
         certificated_instruction: Enter amount received this academic year
         controlled_instruction: Enter amount received this academic year
       other:
+        question: Does the partner get income from other sources?
+        question_hint: Include any other income the partner received. Do not include any government Cost of Living Payments.
         label: Income from other sources
         hint: Include any other income the partner received. Do not include any government Cost of Living Payments. Enter 0 if this does not apply.
         certificated_instruction: Enter amount received in the last 3 months

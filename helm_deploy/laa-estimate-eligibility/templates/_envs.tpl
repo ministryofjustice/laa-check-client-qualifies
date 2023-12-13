@@ -71,6 +71,8 @@ env:
     value: {{ .Values.featureFlags.underEighteen }}
   - name: OUTGOINGS_FLOW_FEATURE_FLAG
     value: {{ .Values.featureFlags.outgoingsFlow }}
+  - name: CONDITIONAL_REVEALS_FEATURE_FLAG
+    value: {{ .Values.featureFlags.conditionalReveals }}
   - name: FEATURE_FLAG_OVERRIDES
     value: {{ .Values.featureFlags.overrides }}
   - name: NOTIFICATIONS_API_KEY
