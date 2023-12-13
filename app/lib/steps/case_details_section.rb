@@ -2,7 +2,7 @@ module Steps
   class CaseDetailsSection
     class << self
       def all_steps
-        under_18_steps = %i[under_18_clr aggregated_means regular_income under_eighteen_assets]
+        under_18_steps = %i[under_18_clr aggregated_means how_to_aggregate regular_income under_eighteen_assets]
         case_type_steps = %i[domestic_abuse_applicant immigration_or_asylum immigration_or_asylum_type immigration_or_asylum_type_upper_tribunal asylum_support]
         %i[client_age level_of_help] + under_18_steps + case_type_steps
       end
@@ -60,6 +60,7 @@ module Steps
         is_regular_income = Steps::Logic.under_eighteen_regular_income?(session_data)
         [:under_18_clr,
          (:aggregated_means unless is_clr),
+         (:how_to_aggregate if is_aggregated && !is_clr),
          (:regular_income unless is_clr || is_aggregated),
          (:under_eighteen_assets unless is_clr || is_aggregated || is_regular_income)].compact
       end

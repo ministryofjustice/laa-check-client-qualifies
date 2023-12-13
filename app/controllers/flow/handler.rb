@@ -5,6 +5,7 @@ module Flow
       level_of_help: { class: LevelOfHelpForm, url_fragment: "what-level-help" },
       under_18_clr: { class: ControlledLegalRepresentationForm, url_fragment: "client-under-18-controlled-legal-representation-work" },
       aggregated_means: { class: AggregatedMeansForm, url_fragment: "client-under-18-aggregated-means" },
+      how_to_aggregate: { class: HowToAggregateForm, url_fragment: "how-to-aggregate" },
       regular_income: { class: RegularIncomeForm, url_fragment: "client-under-18-regular-income" },
       under_eighteen_assets: { class: UnderEighteenAssetsForm, url_fragment: "client-under-18-assets" },
       domestic_abuse_applicant: { class: DomesticAbuseApplicantForm, url_fragment: "is-client-domestic-abuse-case-applicant" },
