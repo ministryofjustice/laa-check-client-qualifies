@@ -45,7 +45,7 @@
               class: "govuk-button", data: { module: "govuk-button" }
 
   - elsif @check.under_eighteen_no_means_test_required?
-    = render "under_eighteen_next_steps"
+    = render "under_eighteen_next_steps", download_option: true
   - elsif @model.level_of_help == "certificated"
     = render "certificated_next_steps"
 
