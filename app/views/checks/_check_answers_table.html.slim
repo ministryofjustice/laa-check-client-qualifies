@@ -58,5 +58,6 @@
                           label_text: t("checks.check_answers.#{field.label}"),
                           value: field.value,
                           frequency: t("checks.check_answers.frequency_options.#{alt_value || 'not_applicable'}")
+              / TODO: add boolean_money and boolean_money_with_frequency
               - else
                 - raise "Unknown field_type #{field.type}"
