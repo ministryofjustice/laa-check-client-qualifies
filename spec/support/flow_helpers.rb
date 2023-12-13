@@ -31,6 +31,10 @@ def fill_in_aggregated_means_screen(choice: "No")
   click_on "Save and continue"
 end
 
+def fill_in_how_to_aggregate_screen
+  click_on "Continue"
+end
+
 def fill_in_regular_income_screen(choice: "No")
   confirm_screen "regular_income"
   choose choice

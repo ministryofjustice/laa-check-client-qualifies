@@ -715,6 +715,27 @@ en:
         - the client is financially independent
         - the client is in local authority or foster care
       guidance: Guidance on means aggregation for under 18s
+    how_to_aggregate:
+      title: You are going to aggregate your client's means with another person's means
+      panel_text: If your client's means are aggregated with the means of another person, such as a maintaining adult, they must have a full means test.
+      what_happens_next: What happens next
+      paragraphs_1:
+        - "For all questions that refer to 'your client' or 'the client', such as if your client has dependants or owns the home they live in, answer them with reference to both your client and the maintaining adult."
+        - "For questions that ask for financial information:"
+      bullets_1:
+        - add any relevant income or spending amounts for your client to those of the maintaining adult
+        - enter these combined amounts in the relevant fields that refer to 'your client'
+      paragraph_2_html: "If the maintaining adult has a partner, only include the partner if their finances can be included in the means assessment, as per regulation 16 of %{link}, and:"
+      link_text: The Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 (opens in new tab)
+      bullets_2:
+        - answer any partner-related questions as if the maintaining adult is the client
+        - continue to treat the combined income and expenditure of your client and the maintaining adult as that of your client
+      what_we_mean: What we mean by a maintaining adult
+      details_paragraph: "A maintaining adult is any other person who is responsible for maintaining the child. For example, the other person could be one of the following:"
+      details_bullets:
+        - a parent or guardian who gives your client financial support
+        - anyone who contributes substantially to your client's maintenance
+      continue: Continue
     regular_income:
       title: Does your client get regular income?
       explainer: For example, payment from a full time job or local authority financial support for a care leaver. If they get regular income, they must have a full means test.
@@ -1025,15 +1046,21 @@ en:
     housing_costs:
       heading: Housing costs
       heading_hint:
-        - "Enter the housing costs for the home the client lives in."
+        - "Enter the housing costs for the home your client lives in."
       heading_hint_partner:
-        - "Enter the housing costs for the home the client lives in."
-        - "If the client and partner live separately, do not include the partner’s housing costs."
+        - "Enter the housing costs for the home your client lives in."
+        - "If your client and their partner live separately, do not include the partner’s housing costs."
       housing_payments:
         label: Housing payments
-        hint_paragraphs:
+        hint_paragraphs_1:
           - "For example, rent, mortgage or board and lodgings."
-          - "Enter the full amount due, whoever pays it."
+          - "Enter the full amount due."
+        living_with_someone_else: Living with someone else
+        details_paragraphs:
+          - If your client lives with their ex-partner, or someone else whose means are not included in the assessment, enter the amount paid by your client.
+          - The Legal Aid Agency will assume that your client is liable for 50% of the housing costs unless there is evidence otherwise. If your client’s share is being paid or partially paid by this person, enter the amount paid on your client’s behalf as income for your client on the previous ‘Your client's other income’ page.
+          - You may need to provide evidence for this if you make a full application or open a controlled work file for your client.
+        hint_paragraphs_2:
           - "Do not make any deductions for Housing Benefit."
           - "If your client is paying board and lodgings, enter the portion of the costs that relates to lodgings or, if you are unsure, 50% of the total costs."
           - "If your client is paying all or part of their ex-partner's housing costs for the former matrimonial home, do not include this here - add it as maintenance payments to a former partner instead."
@@ -1041,14 +1068,12 @@ en:
       housing_benefits:
         label: Housing Benefit
         hint_paragraphs:
-          - "Enter any Housing Benefit claimed for the home the client lives in."
+          - "Enter any Housing Benefit claimed for the home your client lives in."
           - "Include any Housing Benefit paid:"
         hint_bullet_1: "to the client"
         hint_bullet_2_partner: "to the partner"
         hint_bullet_3: "to a landlord"
-        hint_paragraphs_continued:
-          - "Enter the full amount, whoever claims it."
-          - "Enter 0 if this does not apply."
+        last_hint_paragraph: Enter 0 if this does not apply.
       value: Enter amount
       frequency: Select frequency
       guidance_on_housing_costs:
