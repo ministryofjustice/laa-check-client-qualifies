@@ -1,0 +1,13 @@
+- if download_option
+  h2.govuk-heading-m = t("results.show.save_results")
+  p.govuk-body = t("results.show.save_results_intro")
+  ul.govuk-list.govuk-list--bullet
+    - t("results.show.save_results_bullets_no_means_test").each
+      li = _1
+  .govuk-button-group
+    = link_to t("results.show.save_as_pdf"),
+          download_result_path(params[:assessment_code]),
+          target: "_blank", rel: "noopener", class: "govuk-button govuk-button--secondary"
+
+= pdf_friendly_h2(t("results.show.what_happens_next"), "m", @is_pdf)
+= pdf_friendly_p_element(t("results.show.next_steps_paragraph_1"), @is_pdf)

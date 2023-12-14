@@ -25,6 +25,7 @@ RSpec.describe "Under 18 flow", :under_eighteen_flag, type: :feature do
     fill_in_level_of_help_screen(choice: "Civil controlled work or family mediation")
     fill_in_under_18_controlled_legal_rep_screen(choice: "No")
     fill_in_aggregated_means_screen(choice: "Yes")
+    fill_in_how_to_aggregate_screen
     confirm_screen("immigration_or_asylum")
   end
 

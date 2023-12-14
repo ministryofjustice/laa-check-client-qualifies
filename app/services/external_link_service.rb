@@ -74,6 +74,9 @@ class ExternalLinkService
           legislation_CLAR_2013_housing: {
             page_url: "https://www.legislation.gov.uk/uksi/2013/480/regulation/28",
           },
+          legislation_CLAR_2013_individual_resources: {
+            page_url: "https://www.legislation.gov.uk/uksi/2013/480/regulation/16/made",
+          },
           legislation_LASPO_2012_immigration: {
             page_url: "https://www.legislation.gov.uk/ukpga/2012/10/schedule/1",
           },

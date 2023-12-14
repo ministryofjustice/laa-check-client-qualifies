@@ -59,7 +59,6 @@ featureFlags:
   maintenanceMode: NOT_ENABLED
   basicAuthentication: ENABLED
   welshCw: ENABLED
-  endOfJourney: ENABLED
   underEighteen: NOT_ENABLED
 
 geckoboard:
