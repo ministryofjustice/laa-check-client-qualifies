@@ -8,11 +8,7 @@ module CfeParamBuilders
     end
 
     def self.create_student_loan(form)
-      amount = if FeatureFlags.enabled?(:conditional_reveals, form.check.session_data)
-                 form.student_finance_received ? form.student_finance_conditional_value : 0
-               else
-                 form.student_finance_value
-               end
+      amount = extract_amount(form, :student_finance)
 
       return unless amount.positive?
 
@@ -24,11 +20,7 @@ module CfeParamBuilders
     end
 
     def self.create_other_income(form)
-      amount = if FeatureFlags.enabled?(:conditional_reveals, form.check.session_data)
-                 form.other_received ? form.other_conditional_value : 0
-               else
-                 form.other_value
-               end
+      amount = extract_amount(form, :other)
 
       return unless amount.positive?
 
@@ -37,6 +29,14 @@ module CfeParamBuilders
         "frequency": form.level_of_help == "controlled" ? "monthly" : "quarterly",
         "amount": amount,
       }
+    end
+
+    def self.extract_amount(form, attribute)
+      if FeatureFlags.enabled?(:conditional_reveals, form.check.session_data)
+        form.send(:"#{attribute}_received") ? form.send(:"#{attribute}_conditional_value") : 0
+      else
+        form.send(:"#{attribute}_value")
+      end
     end
   end
 end

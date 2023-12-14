@@ -20,14 +20,13 @@
                   form:,
                   field: :"#{type}_conditional_value",
                   width: 10,
-                  label_text: t("question_flow.#{i18n_key}.amount"),
-                  set_aria: true
+                  label_text: t("question_flow.other_income.amount")
 
           = form.govuk_collection_radio_buttons :"#{type}_frequency",
                                                 @form.frequencies,
                                                 :first,
                                                 :last,
-                                                legend: -> { tag.p(t("question_flow.#{i18n_key}.frequency")) }
+                                                legend: -> { tag.p(t("question_flow.other_income.frequency")) }
     - else
       h2.govuk-heading-m class="govuk-!-margin-bottom-2"
         = t("question_flow.#{i18n_key}.#{type}.label")
@@ -65,9 +64,7 @@
                   form:,
                   field: :"#{type}_conditional_value",
                   width: 10,
-                  label_text: t("question_flow.#{i18n_key}.#{type}.#{level}_instruction"),
-                  set_aria: true,
-                  level:
+                  label_text: t("question_flow.#{i18n_key}.#{type}.#{level}_instruction")
     - else
       h2.govuk-heading-m class="govuk-!-margin-top-9 govuk-!-margin-bottom-2"
         = t("question_flow.#{i18n_key}.#{type}.label")

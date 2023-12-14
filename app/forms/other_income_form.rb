@@ -19,7 +19,7 @@ class OtherIncomeForm
     conditional_value_attribute = :"#{income_type}_conditional_value"
 
     attribute boolean_attribute, :boolean
-    validates boolean_attribute, inclusion: { in: [true, false] }
+    validates boolean_attribute, inclusion: { in: [true, false] }, if: -> { FeatureFlags.enabled?(:conditional_reveals, check.session_data) }
 
     attribute value_attribute, :gbp
     validates value_attribute, presence: true,
@@ -31,7 +31,7 @@ class OtherIncomeForm
     validates conditional_value_attribute, presence: true,
                                            numericality: { greater_than: 0, allow_nil: true },
                                            is_a_number: true,
-                                           if: -> { FeatureFlags.enabled?(:conditional_reveals, check.session_data) && boolean_attribute }
+                                           if: -> { FeatureFlags.enabled?(:conditional_reveals, check.session_data) && send(boolean_attribute) }
 
     next unless REGULAR_INCOME_TYPES.include?(income_type)
 
@@ -40,7 +40,7 @@ class OtherIncomeForm
 
     validates frequency_attribute, presence: true,
                                    inclusion: { in: VALID_FREQUENCIES, allow_nil: false },
-                                   if: -> { (!FeatureFlags.enabled?(:conditional_reveals, check.session_data) && send(value_attribute).to_i.positive?) || boolean_attribute }
+                                   if: -> { (!FeatureFlags.enabled?(:conditional_reveals, check.session_data) && send(value_attribute).to_i.positive?) || send(boolean_attribute) }
   end
 
   delegate :level_of_help, to: :check
