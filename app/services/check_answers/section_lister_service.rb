@@ -93,7 +93,7 @@ module CheckAnswers
                 index:,
                 screen: field_data[:screen],
                 alt_value: (model.send(field_data[:alt_attribute]) if field_data[:alt_attribute]),
-                second_alt_value: (model.send(field_data[:second_alt_attribute]) if field_data[:second_alt_attribute]),)
+                second_alt_value: (model.send(field_data[:second_alt_attribute]) if field_data[:second_alt_attribute]))
     end
 
     def build_many_fields(field_data, model, table_label)
