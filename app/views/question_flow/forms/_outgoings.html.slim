@@ -1,28 +1,51 @@
 - partner ||= false
+- conditionals = FeatureFlags.enabled?(:conditional_reveals, @check.session_data)
 = form_for(@form, url: request.path, method: :put) do |form|
   = form.govuk_error_summary t("generic.error_summary_title")
   = render "shared/heading",
            header_text: t("question_flow.#{i18n_key}.heading"),
-           post_header_text: t("question_flow.#{i18n_key}.second_caption"),
+           post_header_text: t("question_flow.#{i18n_key}.#{'second_' unless conditionals}caption"),
            tag: (:partner if partner)
   - OutgoingsForm::PAYMENT_TYPES.each do |type|
     - next if type == :childcare_payments && !@form.eligible_for_childcare_costs?
-    h2.govuk-heading-m class="govuk-!-margin-bottom-2"
-      = t("question_flow.#{i18n_key}.#{type}.label")
-    - t("question_flow.#{i18n_key}.#{type}.hints").each do |hint|
-      span.govuk-caption-m class="govuk-!-margin-bottom-4"
-        = hint
 
-    = render "shared/money_input",
-            form:,
-            field: :"#{type}_value",
-            width: 10,
-            label_text: t("question_flow.#{i18n_key}.enter_amount"),
-            set_aria: true
-    = form.govuk_collection_radio_buttons :"#{type}_frequency",
-                                          @form.frequencies,
-                                          :first,
-                                          :last,
-                                          legend: -> { tag.p(t("question_flow.#{i18n_key}.enter_frequency")) }
+    - if FeatureFlags.enabled?(:conditional_reveals, @check.session_data)
+      = form.govuk_radio_buttons_fieldset :"#{type}_relevant",
+            legend: { text: t("question_flow.#{i18n_key}.#{type}.question") },
+            hint: { text: t("question_flow.#{i18n_key}.#{type}.question_hint") } do
+        = render "shared/radio_button_set",
+                form:,
+                field_name: :"#{type}_relevant",
+                buttons: [{ value: true, options: { label: { text: t("generic.yes_choice") } } },
+                          { value: false, options: { label: { text: t("generic.no_choice") } } }]
+          = render "shared/money_input",
+                  form:,
+                  field: :"#{type}_conditional_value",
+                  width: 10,
+                  label_text: t("question_flow.outgoings.amount")
+
+          = form.govuk_collection_radio_buttons :"#{type}_frequency",
+                                                @form.frequencies,
+                                                :first,
+                                                :last,
+                                                legend: -> { tag.p(t("question_flow.outgoings.frequency")) }
+    - else
+      h2.govuk-heading-m class="govuk-!-margin-bottom-2"
+        = t("question_flow.#{i18n_key}.#{type}.label")
+      - t("question_flow.#{i18n_key}.#{type}.hints").each do |hint|
+        span.govuk-caption-m class="govuk-!-margin-bottom-4"
+          = hint
+
+      = render "shared/money_input",
+              form:,
+              field: :"#{type}_value",
+              width: 10,
+              label_text: t("question_flow.#{i18n_key}.enter_amount"),
+              set_aria: true
+      = form.govuk_collection_radio_buttons :"#{type}_frequency",
+                                            @form.frequencies,
+                                            :first,
+                                            :last,
+                                            legend: -> { tag.p(t("question_flow.#{i18n_key}.enter_frequency")) }
 
   = form.govuk_submit t("generic.save_and_continue")

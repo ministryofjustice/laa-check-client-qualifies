@@ -220,17 +220,17 @@ en:
               blank_when_many: Enter benefit %{position} name
         other_income_form:
           attributes:
-            friends_or_family_received:
+            friends_or_family_relevant:
               inclusion: Select yes if your client gets financial help from friends or family
-            maintenance_received:
+            maintenance_relevant:
               inclusion: Select yes if your client gets maintenance from a former partner
-            property_or_lodger_received:
+            property_or_lodger_relevant:
               inclusion: Select yes if your client gets income from a property or lodger
-            pension_received:
+            pension_relevant:
               inclusion: Select yes if your client gets income from pensions
-            student_finance_received:
+            student_finance_relevant:
               inclusion: Select yes if your client gets income from student finance
-            other_received:
+            other_relevant:
               inclusion: Select yes if your client gets income from other sources
             friends_or_family_conditional_value:
               blank: Enter amount of financial help from friends and family
@@ -290,17 +290,17 @@ en:
               greater_than_or_equal_to: Other income must be 0 or more
         partner_other_income_form:
           attributes:
-            friends_or_family_received:
+            friends_or_family_relevant:
               inclusion: Select yes if the partner gets financial help from friends or family
-            maintenance_received:
+            maintenance_relevant:
               inclusion: Select yes if the partner gets maintenance from a former partner
-            property_or_lodger_received:
+            property_or_lodger_relevant:
               inclusion: Select yes if the partner gets income from a property or lodger
-            pension_received:
+            pension_relevant:
               inclusion: Select yes if the partner gets income from pensions
-            student_finance_received:
+            student_finance_relevant:
               inclusion: Select yes if the partner gets income from student finance
-            other_received:
+            other_relevant:
               inclusion: Select yes if the partner gets income from other sources
             friends_or_family_conditional_value:
               blank: Enter amount of financial help from friends and family
@@ -354,10 +354,24 @@ en:
               not_a_number: Income from other sources must be a number, if this does not apply enter 0
         outgoings_form:
           attributes:
-            housing_payments_value:
-              blank: Enter housing payments, if this does not apply enter 0
-              not_a_number: Housing payments must be a number, if this does not apply enter 0
-              greater_than_or_equal_to: Housing payments must be 0 or more
+            childcare_payments_relevant:
+              inclusion: Select yes if your client pays for childcare
+            maintenance_payments_relevant:
+              inclusion: Select yes if your client pays maintenance to a former partner
+            legal_aid_payments_relevant:
+              inclusion: Select yes if your client makes payments toward legal aid for a criminal case
+            childcare_payments_conditional_value:
+              blank: Enter amount paid for childcare
+              not_a_number: Amount paid for childcare must be a number
+              greater_than: Amount paid for childcare must be more than 0
+            maintenance_payments_conditional_value:
+              blank: Enter amount of maintenance paid to a former partner
+              not_a_number: Amount of maintenance paid to a former parter must be a number
+              greater_than: Amount of maintenance paid to a former parter must be more than 0
+            legal_aid_payments_conditional_value:
+              blank: Enter amount paid toward legal aid in a criminal case
+              not_a_number: Amount paid toward legal aid in a criminal case must be a number
+              greater_than: Amount paid toward legal aid in a criminal case must be more than 0
             childcare_payments_value:
               blank: Enter childcare payments, if this does not apply enter 0
               not_a_number: Childcare payments must be a number, if this does not apply enter 0
@@ -370,8 +384,6 @@ en:
               blank: Enter payments towards legal aid in a criminal case, if this does not apply enter 0
               not_a_number: Payments towards legal aid in a criminal case must be a number, if this does not apply enter 0
               greater_than_or_equal_to: Payments towards legal aid in a criminal case  must be 0 or more
-            housing_payments_frequency:
-              blank: Select frequency of housing payments
             childcare_payments_frequency:
               blank: Select frequency of childcare payments
             maintenance_payments_frequency:
@@ -380,9 +392,24 @@ en:
               blank: Select frequency of payments towards legal aid in a criminal case
         partner_outgoings_form:
           attributes:
-            housing_payments_value:
-              blank: Enter housing payments, if this does not apply enter 0
-              not_a_number: Housing payments must be a number, or enter 0 if this does not apply
+            childcare_payments_relevant:
+              inclusion: Select yes if the partner pays for childcare
+            maintenance_payments_relevant:
+              inclusion: Select yes if the partner pays maintenance to a former partner
+            legal_aid_payments_relevant:
+              inclusion: Select yes if the partner makes payments toward legal aid for a criminal case
+            childcare_payments_conditional_value:
+              blank: Enter amount paid for childcare
+              not_a_number: Amount paid for childcare must be a number
+              greater_than: Amount paid for childcare must be more than 0
+            maintenance_payments_conditional_value:
+              blank: Enter amount of maintenance paid to a former partner
+              not_a_number: Amount of maintenance paid to a former parter must be a number
+              greater_than: Amount of maintenance paid to a former parter must be more than 0
+            legal_aid_payments_conditional_value:
+              blank: Enter amount paid toward legal aid in a criminal case
+              not_a_number: Amount paid toward legal aid in a criminal case must be a number
+              greater_than: Amount paid toward legal aid in a criminal case must be more than 0
             childcare_payments_value:
               blank: Enter childcare payments, if this does not apply enter 0
               not_a_number: Childcare payments must be a number, or enter 0 if this does not apply
@@ -392,8 +419,6 @@ en:
             legal_aid_payments_value:
               blank: Enter payments towards legal aid in a criminal case, if this does not apply enter 0
               not_a_number: Payments towards legal aid in a criminal case must be a number, or enter 0 if this does not apply
-            housing_payments_frequency:
-              blank: Select frequency of housing payments
             childcare_payments_frequency:
               blank: Select frequency of childcare payments
             maintenance_payments_frequency:
@@ -1282,21 +1307,30 @@ en:
       enter_frequency: Select frequency
     outgoings:
       heading: Your client's outgoings and deductions
+      caption: ""
       second_caption: Enter 0 for any that do not apply
       childcare_payments:
+        question: Does your client pay for childcare?
+        question_hint: For example, to a childminder, nanny or nursery
         label: Childcare payments
         hints:
           - "For example, to a childminder, nanny or nursery. Enter 0 if this does not apply."
       maintenance_payments:
+        question: Does your client pay maintenance to a former partner?
+        question_hint: This includes child maintenance. If your client is paying all or part of their ex-partner’s housing costs in the former matrimonial home, include this.
         label: Maintenance payments to a former partner
         hints:
           - "This includes child maintenance. If your client is paying all or part of their ex-partner’s housing costs in the former matrimonial home, include this. Enter 0 if this does not apply."
       legal_aid_payments:
+        question: Does your client make payments toward legal aid for a criminal case?
+        question_hint: ""
         label: Payments towards legal aid in a criminal case
         hints:
           - "Enter 0 if this does not apply"
       enter_amount: Enter amount
       enter_frequency: Select frequency
+      amount: Amount
+      frequency: Frequency
       frequencies:
         every_week: Every week
         every_two_weeks: Every 2 weeks
@@ -1310,16 +1344,23 @@ en:
           text: Guidance on determining disposable income
     partner_outgoings:
       heading: The partner's outgoings and deductions
+      caption: Do not add any outgoings you've listed as outgoings for the client.
       second_caption: Do not add any outgoings you've listed as outgoings for the client. Enter 0 for any that do not apply.
       childcare_payments:
+        question: Does the partner pay for childcare?
+        question_hint: For example, to a childminder, nanny or nursery
         label: Childcare payments
         hints:
           - "For example, to a childminder, nanny or nursery. Enter 0 if this does not apply"
       maintenance_payments:
+        question: Does the partner pay maintenance to a former partner?
+        question_hint: This includes child maintenance
         label: Maintenance payments to a former partner
         hints:
           - "This includes child maintenance. Enter 0 if this does not apply"
       legal_aid_payments:
+        question: Does the partner make payments toward legal aid for a criminal case?
+        question_hint: ""
         label: Payments towards legal aid in a criminal case
         hints:
           - Enter 0 if this does not apply
@@ -1768,10 +1809,16 @@ en:
         childcare_payments_value: Childcare payments
         maintenance_payments_value: Maintenance payments
         legal_aid_payments_value: Legal aid payments
+        childcare_payments_conditional_value: Does your client pay for childcare?
+        maintenance_payments_conditional_value: Does your client pay maintenance to a former partner?
+        legal_aid_payments_conditional_value: Does your client make payments toward legal aid for a criminal case?
       partner_outgoings_fields:
         partner_childcare_payments_value: Childcare payments
         partner_maintenance_payments_value: Maintenance payments
         partner_legal_aid_payments_value: Legal aid payments
+        partner_childcare_payments_conditional_value: Does the partner pay for childcare?
+        partner_maintenance_payments_conditional_value: Does the partner pay maintenance to a former partner?
+        partner_legal_aid_payments_conditional_value: Does the partner make payments toward legal aid for a criminal case?
       assets_fields:
         amount: Money in bank account %{variable}
         investments: Investments

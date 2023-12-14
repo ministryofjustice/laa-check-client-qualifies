@@ -5,7 +5,7 @@ class OtherIncomeForm
 
   REGULAR_INCOME_TYPES = %i[friends_or_family maintenance property_or_lodger pension].freeze
   IRREGULAR_INCOME_TYPES = %i[student_finance other].freeze
-  BOOLEAN_ATTRIBUTES = (REGULAR_INCOME_TYPES + IRREGULAR_INCOME_TYPES).map { :"#{_1}_received" }.freeze
+  BOOLEAN_ATTRIBUTES = (REGULAR_INCOME_TYPES + IRREGULAR_INCOME_TYPES).map { :"#{_1}_relevant" }.freeze
   VALUE_ATTRIBUTES = (REGULAR_INCOME_TYPES + IRREGULAR_INCOME_TYPES).map { :"#{_1}_value" }.freeze
   CONDITIONAL_VALUE_ATTRIBUTES = (REGULAR_INCOME_TYPES + IRREGULAR_INCOME_TYPES).map { :"#{_1}_conditional_value" }.freeze
   FREQUENCY_ATTRIBUTES = REGULAR_INCOME_TYPES.map { :"#{_1}_frequency" }.freeze
@@ -14,7 +14,7 @@ class OtherIncomeForm
   ATTRIBUTES = BOOLEAN_ATTRIBUTES + VALUE_ATTRIBUTES + CONDITIONAL_VALUE_ATTRIBUTES + FREQUENCY_ATTRIBUTES
 
   (REGULAR_INCOME_TYPES + IRREGULAR_INCOME_TYPES).each do |income_type|
-    boolean_attribute = :"#{income_type}_received"
+    boolean_attribute = :"#{income_type}_relevant"
     value_attribute = :"#{income_type}_value"
     conditional_value_attribute = :"#{income_type}_conditional_value"
 

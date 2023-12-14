@@ -53,12 +53,12 @@ RSpec.describe "other_income", type: :feature do
     end
 
     it "stores the chosen values in the session" do
-      choose "No", name: "other_income_form[friends_or_family_received]"
-      choose "Yes", name: "other_income_form[maintenance_received]"
-      choose "Yes", name: "other_income_form[property_or_lodger_received]"
-      choose "Yes", name: "other_income_form[pension_received]"
-      choose "Yes", name: "other_income_form[student_finance_received]"
-      choose "Yes", name: "other_income_form[other_received]"
+      choose "No", name: "other_income_form[friends_or_family_relevant]"
+      choose "Yes", name: "other_income_form[maintenance_relevant]"
+      choose "Yes", name: "other_income_form[property_or_lodger_relevant]"
+      choose "Yes", name: "other_income_form[pension_relevant]"
+      choose "Yes", name: "other_income_form[student_finance_relevant]"
+      choose "Yes", name: "other_income_form[other_relevant]"
 
       fill_in "other-income-form-maintenance-conditional-value-field", with: "300"
       choose "Every 2 weeks", name: "other_income_form[maintenance_frequency]"
@@ -75,19 +75,19 @@ RSpec.describe "other_income", type: :feature do
 
       click_on "Save and continue"
 
-      expect(session_contents["friends_or_family_received"]).to eq false
-      expect(session_contents["maintenance_received"]).to eq true
+      expect(session_contents["friends_or_family_relevant"]).to eq false
+      expect(session_contents["maintenance_relevant"]).to eq true
       expect(session_contents["maintenance_conditional_value"]).to eq 300
       expect(session_contents["maintenance_frequency"]).to eq "every_two_weeks"
-      expect(session_contents["property_or_lodger_received"]).to eq true
+      expect(session_contents["property_or_lodger_relevant"]).to eq true
       expect(session_contents["property_or_lodger_conditional_value"]).to eq 45
       expect(session_contents["property_or_lodger_frequency"]).to eq "every_week"
-      expect(session_contents["pension_received"]).to eq true
+      expect(session_contents["pension_relevant"]).to eq true
       expect(session_contents["pension_conditional_value"]).to eq 34
       expect(session_contents["pension_frequency"]).to eq "monthly"
-      expect(session_contents["student_finance_received"]).to eq true
+      expect(session_contents["student_finance_relevant"]).to eq true
       expect(session_contents["student_finance_conditional_value"]).to eq 100
-      expect(session_contents["other_received"]).to eq true
+      expect(session_contents["other_relevant"]).to eq true
       expect(session_contents["other_conditional_value"]).to eq 67
     end
   end

@@ -59,12 +59,12 @@ RSpec.shared_context "with conditional reveals" do
   end
 
   def submit_data_to_cfe
-    choose "Yes", name: "other_income_form[friends_or_family_received]"
-    choose "No", name: "other_income_form[maintenance_received]"
-    choose "No", name: "other_income_form[property_or_lodger_received]"
-    choose "No", name: "other_income_form[pension_received]"
-    choose "Yes", name: "other_income_form[student_finance_received]"
-    choose "No", name: "other_income_form[other_received]"
+    choose "Yes", name: "other_income_form[friends_or_family_relevant]"
+    choose "No", name: "other_income_form[maintenance_relevant]"
+    choose "No", name: "other_income_form[property_or_lodger_relevant]"
+    choose "No", name: "other_income_form[pension_relevant]"
+    choose "Yes", name: "other_income_form[student_finance_relevant]"
+    choose "No", name: "other_income_form[other_relevant]"
 
     fill_in "other-income-form-friends-or-family-conditional-value-field", with: "200"
     choose "Every week", name: "other_income_form[friends_or_family_frequency]"
