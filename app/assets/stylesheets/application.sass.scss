@@ -2,7 +2,7 @@ $govuk-global-styles: true;
 $govuk-new-link-styles: true;
 $govuk-assets-path: "/";
 
-@import "govuk-frontend/govuk/all";
+@import "govuk-frontend/dist/govuk/all";
 // Import required moj components individually, as "moj/all"
 // tries to import govuk/base which exists as _base.scss but the pipeline can't find it.
 // Also, components list doesn't seem to include badge anyway?
