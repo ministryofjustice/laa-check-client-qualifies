@@ -343,12 +343,30 @@ sections:
                 type: money_with_frequency
                 alt_attribute: childcare_payments_frequency
                 skip_unless: eligible_for_childcare_costs?
+                skip_if: conditional_reveals?
               - attribute: maintenance_payments_value
                 type: money_with_frequency
                 alt_attribute: maintenance_payments_frequency
+                skip_if: conditional_reveals?
               - attribute: legal_aid_payments_value
                 type: money_with_frequency
                 alt_attribute: legal_aid_payments_frequency
+                skip_if: conditional_reveals?
+              - attribute: childcare_payments_conditional_value
+                type: boolean_money_with_frequency
+                alt_attribute: childcare_payments_frequency
+                second_alt_attribute: childcare_payments_relevant
+                skip_unless: conditional_reveals?,eligible_for_childcare_costs?
+              - attribute: maintenance_payments_conditional_value
+                type: boolean_money_with_frequency
+                alt_attribute: maintenance_payments_frequency
+                second_alt_attribute: maintenance_payments_relevant
+                skip_unless: conditional_reveals?
+              - attribute: legal_aid_payments_conditional_value
+                type: boolean_money_with_frequency
+                alt_attribute: legal_aid_payments_frequency
+                second_alt_attribute: legal_aid_payments_relevant
+                skip_unless: conditional_reveals?
   - label: partner_outgoings
     subsections:
       - tables:
@@ -358,12 +376,30 @@ sections:
                 type: money_with_frequency
                 alt_attribute: partner_childcare_payments_frequency
                 skip_unless: eligible_for_childcare_costs?
+                skip_if: conditional_reveals?
               - attribute: partner_maintenance_payments_value
                 type: money_with_frequency
                 alt_attribute: partner_maintenance_payments_frequency
+                skip_if: conditional_reveals?
               - attribute: partner_legal_aid_payments_value
                 type: money_with_frequency
                 alt_attribute: partner_legal_aid_payments_frequency
+                skip_if: conditional_reveals?
+              - attribute: partner_childcare_payments_conditional_value
+                type: boolean_money_with_frequency
+                alt_attribute: partner_childcare_payments_frequency
+                second_alt_attribute: partner_childcare_payments_relevant
+                skip_unless: conditional_reveals?,eligible_for_childcare_costs?
+              - attribute: partner_maintenance_payments_conditional_value
+                type: boolean_money_with_frequency
+                alt_attribute: partner_maintenance_payments_frequency
+                second_alt_attribute: partner_maintenance_payments_relevant
+                skip_unless: conditional_reveals?
+              - attribute: partner_legal_aid_payments_conditional_value
+                type: boolean_money_with_frequency
+                alt_attribute: partner_legal_aid_payments_frequency
+                second_alt_attribute: partner_legal_aid_payments_relevant
+                skip_unless: conditional_reveals?
   - label: client_assets
     subsections:
       - tables:
