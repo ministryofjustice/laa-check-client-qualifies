@@ -11,8 +11,14 @@ RSpec.describe "cw_selection", type: :feature do
   end
 
   it "shows an error message if no value is entered" do
-    click_on "Download the pre-populated form"
+    click_on "Continue to download and finish"
     expect(page).to have_content " Select which form you need"
+  end
+
+  it "requires me to choose a language" do
+    choose "CW1 - legal help, help at court or family help (lower)"
+    click_on "Continue to download and finish"
+    expect(page).to have_content "Select which language you need the form in"
   end
 
   context "when there is pensioner disregard applied" do
@@ -49,53 +55,22 @@ RSpec.describe "cw_selection", type: :feature do
     end
   end
 
-  it "downloads a PDF if I make a selection" do
+  it "allows me to proceed if I make a selection" do
     choose "CW1 - legal help, help at court or family help (lower)"
-    click_on "Download the pre-populated form"
-    expect(page.response_headers["Content-Type"]).to eq("application/pdf")
+    choose "English"
+    click_on "Continue to download and finish"
+    expect(page).to have_content "You've reached the end of this service"
   end
 
-  it "creates an analytics event if I make a selection" do
+  it "allows me to proceed in Welsh when I select a CW1 form" do
     choose "CW1 - legal help, help at court or family help (lower)"
-    click_on "Download the pre-populated form"
-    expect(AnalyticsEvent.last.page).to eq "download_cw1"
+    choose "Welsh"
+    click_on "Continue to download and finish"
+    expect(page).to have_content "You've reached the end of this service"
   end
 
-  context "when the welsh CW feature flag is enabled", :welsh_cw_flag do
-    it "requires me to choose a language" do
-      choose "CW1 - legal help, help at court or family help (lower)"
-      click_on "Download the pre-populated form"
-      expect(page).to have_content "Select which language you need the form in"
-    end
-
-    it "allows me to proceed in English" do
-      choose "CW1 - legal help, help at court or family help (lower)"
-      choose "English"
-      click_on "Download the pre-populated form"
-      expect(page.response_headers["Content-Type"]).to eq("application/pdf")
-    end
-
-    it "allows me to proceed in Welsh when I select a CW1 form" do
-      choose "CW1 - legal help, help at court or family help (lower)"
-      choose "Welsh"
-      click_on "Download the pre-populated form"
-      expect(page.response_headers["Content-Type"]).to eq("application/pdf")
-    end
-  end
-
-  it "lets me start a new check" do
-    click_on "Start another eligibility check"
-    expect(page).to have_content "What level of help does your client need?"
-  end
-
-  it "shows the satisfaction widget" do
-    expect(page).to have_content "Were you satisfied with this service?"
-  end
-
-  context "when the end of journey flag is enabled", :end_of_journey_flag do
-    it "shows the freeform feedback widget" do
-      expect(page).to have_content "Give feedback on this page"
-    end
+  it "shows the freeform feedback widget" do
+    expect(page).to have_content "Give feedback on this page"
   end
 
   context "when the client is asylum supported" do

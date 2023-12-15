@@ -33,7 +33,7 @@
                 = render "checks/check_answer",
                           label_text: t("checks.check_answers.#{field.label}"),
                           value_text: yes_no_boolean(field.value),
-                          screen: field.screen
+                          screen: (field.screen if change_links)
               - when "number_or_text"
                 = render "checks/check_answer",
                           label_text: t("checks.check_answers.#{field.label}"),
@@ -47,7 +47,7 @@
                 = render "checks/check_answer",
                           label_text: t("checks.check_answers.#{field.label}"),
                           value_text: t("checks.check_answers.#{value_key}"),
-                          screen: field.screen
+                          screen: (field.screen if change_links)
               - when "frequency"
                 = render "checks/check_answer",
                           label_text: t("checks.check_answers.#{field.label}"),

@@ -13,7 +13,7 @@ require "pry-rescue/rspec" if Rails.env.development?
 
 Capybara.register_driver :headless_chrome do |app|
   options = Selenium::WebDriver::Chrome::Options.new
-  options.add_argument("--headless")
+  options.add_argument("--headless=new")
   Capybara::Selenium::Driver.new(app, browser: :chrome, options:)
 end
 
@@ -109,18 +109,6 @@ RSpec.configure do |config|
     ENV["BASIC_AUTHENTICATION_FEATURE_FLAG"] = "enabled"
     example.run
     ENV["BASIC_AUTHENTICATION_FEATURE_FLAG"] = "disabled"
-  end
-
-  config.around(:each, :welsh_cw_flag) do |example|
-    ENV["WELSH_CW_FEATURE_FLAG"] = "enabled"
-    example.run
-    ENV["WELSH_CW_FEATURE_FLAG"] = "disabled"
-  end
-
-  config.around(:each, :end_of_journey_flag) do |example|
-    ENV["END_OF_JOURNEY_FEATURE_FLAG"] = "enabled"
-    example.run
-    ENV["END_OF_JOURNEY_FEATURE_FLAG"] = "disabled"
   end
 
   config.around(:each, :under_eighteen_flag) do |example|

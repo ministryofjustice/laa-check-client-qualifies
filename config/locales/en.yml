@@ -715,6 +715,27 @@ en:
         - the client is financially independent
         - the client is in local authority or foster care
       guidance: Guidance on means aggregation for under 18s
+    how_to_aggregate:
+      title: You are going to aggregate your client's means with another person's means
+      panel_text: If your client's means are aggregated with the means of another person, such as a maintaining adult, they must have a full means test.
+      what_happens_next: What happens next
+      paragraphs_1:
+        - "For all questions that refer to 'your client' or 'the client', such as if your client has dependants or owns the home they live in, answer them with reference to both your client and the maintaining adult."
+        - "For questions that ask for financial information:"
+      bullets_1:
+        - add any relevant income or spending amounts for your client to those of the maintaining adult
+        - enter these combined amounts in the relevant fields that refer to 'your client'
+      paragraph_2_html: "If the maintaining adult has a partner, only include the partner if their finances can be included in the means assessment, as per regulation 16 of %{link}, and:"
+      link_text: The Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 (opens in new tab)
+      bullets_2:
+        - answer any partner-related questions as if the maintaining adult is the client
+        - continue to treat the combined income and expenditure of your client and the maintaining adult as that of your client
+      what_we_mean: What we mean by a maintaining adult
+      details_paragraph: "A maintaining adult is any other person who is responsible for maintaining the child. For example, the other person could be one of the following:"
+      details_bullets:
+        - a parent or guardian who gives your client financial support
+        - anyone who contributes substantially to your client's maintenance
+      continue: Continue
     regular_income:
       title: Does your client get regular income?
       explainer: For example, payment from a full time job or local authority financial support for a care leaver. If they get regular income, they must have a full means test.
@@ -1025,15 +1046,21 @@ en:
     housing_costs:
       heading: Housing costs
       heading_hint:
-        - "Enter the housing costs for the home the client lives in."
+        - "Enter the housing costs for the home your client lives in."
       heading_hint_partner:
-        - "Enter the housing costs for the home the client lives in."
-        - "If the client and partner live separately, do not include the partner’s housing costs."
+        - "Enter the housing costs for the home your client lives in."
+        - "If your client and their partner live separately, do not include the partner’s housing costs."
       housing_payments:
         label: Housing payments
-        hint_paragraphs:
+        hint_paragraphs_1:
           - "For example, rent, mortgage or board and lodgings."
-          - "Enter the full amount due, whoever pays it."
+          - "Enter the full amount due."
+        living_with_someone_else: Living with someone else
+        details_paragraphs:
+          - If your client lives with their ex-partner, or someone else whose means are not included in the assessment, enter the amount paid by your client.
+          - The Legal Aid Agency will assume that your client is liable for 50% of the housing costs unless there is evidence otherwise. If your client’s share is being paid or partially paid by this person, enter the amount paid on your client’s behalf as income for your client on the previous ‘Your client's other income’ page.
+          - You may need to provide evidence for this if you make a full application or open a controlled work file for your client.
+        hint_paragraphs_2:
           - "Do not make any deductions for Housing Benefit."
           - "If your client is paying board and lodgings, enter the portion of the costs that relates to lodgings or, if you are unsure, 50% of the total costs."
           - "If your client is paying all or part of their ex-partner's housing costs for the former matrimonial home, do not include this here - add it as maintenance payments to a former partner instead."
@@ -1041,14 +1068,12 @@ en:
       housing_benefits:
         label: Housing Benefit
         hint_paragraphs:
-          - "Enter any Housing Benefit claimed for the home the client lives in."
+          - "Enter any Housing Benefit claimed for the home your client lives in."
           - "Include any Housing Benefit paid:"
         hint_bullet_1: "to the client"
         hint_bullet_2_partner: "to the partner"
         hint_bullet_3: "to a landlord"
-        hint_paragraphs_continued:
-          - "Enter the full amount, whoever claims it."
-          - "Enter 0 if this does not apply."
+        last_hint_paragraph: Enter 0 if this does not apply.
       value: Enter amount
       frequency: Select frequency
       guidance_on_housing_costs:
@@ -1060,7 +1085,12 @@ en:
           link: "{%page_url}"
     mortgage_or_loan_payment:
       heading: What are the mortgage or loan payments for the home your client lives in?
-      heading_hint: Enter the full amount due, whoever pays it. Enter 0 if this does not apply.
+      heading_hint_1: Enter the full amount due.
+      living_with_someone_else: Living with someone else
+      details_paragraphs:
+        - If your client lives with their ex-partner, or someone else whose means are not included in the assessment, enter the amount paid by your client. The Legal Aid Agency will assume that your client is liable for 50% of the housing costs unless there is evidence otherwise. If your client’s share is being paid or partially paid by this person, enter the amount paid on your client’s behalf as income for your client on the previous ‘Your client's other income’ page.
+        - You may need to provide evidence for this if you make a full application or open a controlled work file for your client.
+      heading_hint_2: Enter 0 if this does not apply.
       value: Enter amount
       frequency: Select frequency
     benefits:
@@ -1741,10 +1771,6 @@ en:
       freeness_explanation: In some circumstances, your client may be asked to repay the legal costs of their case, for example from money or assets kept or gained as a result of legal aid if the statutory charge arises.
       controlled_asylum_support_qualifies: Your client qualifies for civil legal aid, for controlled work
       controlled_qualifies: Your client qualifies for civil legal aid, for controlled work and family mediation
-      controlled_eligible_paragraphs_old:
-        - Your client qualifies financially for civil legal aid based on the information you entered. Before you (or a provider of advice or services funded by legal aid) proceed with your client’s case, it must also be within scope for legal aid and satisfy the relevant merits criteria set out in the relevant legislation and guidance.
-        - Save or print this page and keep any supporting evidence to support your decision in case the Legal Aid Agency (LAA) audits or assesses your client’s file in the future.
-        - These calculations were made in line with the latest version of the Lord Chancellor's Guidance on Determining Financial Eligibility for Controlled Work.
       controlled_eligible_paragraphs:
         - Your client qualifies financially for civil legal aid based on the information you entered. Before you (or a provider of advice or services funded by legal aid) proceed with your client’s case, it must also be within scope for legal aid and satisfy the relevant merits criteria set out in the relevant legislation and guidance.
         - These calculations were made in line with the latest version of the Lord Chancellor's Guidance on Determining Financial Eligibility for Controlled Work.
@@ -1757,15 +1783,25 @@ en:
         - You told us your client is in receipt of Section 4 or Section 95 Asylum Support, which makes them automatically financially eligible for civil certificated legal aid for proceedings in the Immigration and Asylum chamber of the Upper Tribunal without income, outgoing and capital calculations.
         - This is not a guarantee that your client will get civil legal aid. For a final decision, an application and supporting evidence must be submitted to the Legal Aid Agency (LAA) for assessment. A full assessment supported by evidence may generate a different result.
         - "The LAA will also consider:"
-      controlled_asylum_support_eligible_paragraphs_old:
-        - Your client qualifies financially for civil legal aid, based on the information you have entered. Before you (or a provider of advice or services funded by legal aid) proceed with your client’s case, it must also be within scope for legal aid and satisfy the relevant merits criteria set out in the relevant legislation and guidance.
-        - You told us your client is in receipt of Section 4 or Section 95 Asylum Support. This makes them automatically financially eligible for civil controlled work relating to legal help and help at court for immigration and asylum proceedings, as well as controlled legal representation in the Immigration and Asylum chamber of the first tier or upper tribunal without income, outgoing and capital calculations.
-        - Save or print this page and keep any supporting evidence to support your decision in case the Legal Aid Agency (LAA) audits or assesses your client’s file in the future.
-        - This assessment has been made in line with the latest version of the Lord Chancellor’s Guidance on Determining Eligibility for Controlled Work.
       controlled_asylum_support_eligible_paragraphs:
         - Your client qualifies financially for civil legal aid, based on the information you have entered. Before you (or a provider of advice or services funded by legal aid) proceed with your client’s case, it must also be within scope for legal aid and satisfy the relevant merits criteria set out in the relevant legislation and guidance.
         - You told us your client is in receipt of Section 4 or Section 95 Asylum Support. This makes them automatically financially eligible for civil controlled work relating to legal help and help at court for immigration and asylum proceedings, as well as controlled legal representation in the Immigration and Asylum chamber of the first tier or upper tribunal without income, outgoing and capital calculations.
         - This assessment has been made in line with the latest version of the Lord Chancellor’s Guidance on Determining Eligibility for Controlled Work.
+      under_eighteen_certificated_header: Your client qualifies for civil legal aid without a means test, for certificated work
+      under_eighteen_certificated_paragraphs:
+        - Your client qualifies for civil legal aid without a means test, based on the information you have entered. Before you (or a provider of advice or services funded by legal aid) proceed with your client’s case, it must also be within scope for legal aid and satisfy the relevant merits criteria set out in the relevant legislation and guidance.
+        - You told us your client is under 18. This makes them automatically eligible for civil certificated or licensed legal work without a means test.
+        - These calculations were made in line with the latest version of the Lord Chancellor's Guidance on Determining Financial Eligibility for Certificated Work.
+      under_eighteen_controlled_header: Your client qualifies for civil legal aid without a full means test, for controlled work and family mediation
+      under_eighteen_controlled_paragraphs:
+        - Your client qualifies for civil legal aid without a full means test, based on the information you have entered. Before you (or a provider of advice or services funded by legal aid) proceed with your client’s case, it must also be within scope for legal aid and satisfy the relevant merits criteria set out in the relevant legislation and guidance.
+        - You told us your client is under 18, their means cannot be aggregated with another person’s, they don’t have assets worth £2,500 or more, and they don’t get regular income. This makes them eligible for controlled work and family mediation without a full means test.
+        - This assessment has been made in line with the latest version of the Lord Chancellor's Guidance on Determining Financial Eligibility for Controlled Work.
+      under_eighteen_controlled_clr_header: Your client qualifies for civil legal aid without a means test, for controlled legal representation
+      under_eighteen_controlled_clr_paragraphs:
+        - Your client qualifies for civil legal aid without a means test, based on the information you have entered. Before you (or a provider of advice or services funded by legal aid) proceed with your client’s case, it must also be within scope for legal aid and satisfy the relevant merits criteria set out in the relevant legislation and guidance.
+        - You told us your client is under 18. This makes them automatically eligible for controlled legal representation (CLR) without a means test.
+        - This assessment has been made in line with the latest version of the Lord Chancellor's Guidance on Determining Financial Eligibility for Controlled Work.
       save_results: Save results and answers as a PDF
       save_results_intro: 'The PDF will include:'
       save_results_bullets:
@@ -1773,11 +1809,12 @@ en:
         - your client’s key eligibility totals
         - how we calculated your client’s key eligibility totals
         - the answers you input into this service
-      save_results_bullets_asylum:
+      save_results_bullets_no_means_test:
         - the eligibility declaration
         - the answers you input into this service
       complete_a_cw_form: Complete a controlled work form
       complete_a_cw_form_paragraph: You will need to complete the relevant controlled work form and keep for your records, along with any evidence provided by your client. Your client’s file may be audited and assessed by the LAA at a later date.
+      complete_a_cw_form_paragraph_under_eighteen: You will need to complete the relevant controlled work form and keep for your records. Your client’s file may be audited and assessed by the LAA at a later date.
       download_a_cw_form_header: Download a controlled work form with your answers included
       what_happens_next: What happens next
       what_happens_next_controlled_ineligible_next_step: You may wish to discuss your client’s options, for example they can pay for legal support or get advice from a charity or advice organisation.
@@ -2020,15 +2057,6 @@ en:
       controlled_cw_next_steps:
         intro_paragraph: You will need to complete the relevant controlled work form and keep for your records, along with any evidence provided by your client. Your client’s file may be audited and assessed by the LAA at a later date.
         intro_paragraph_partner: You will need to complete the relevant controlled work form and keep for your records, along with any evidence provided by your client and their partner. Your client’s file may be audited and assessed by the LAA at a later date.
-        second_paragraph: You can download a controlled work form with the answers you gave included, or complete the form yourself.
-        prefilled_header: Download a controlled work form with your answers included
-        prefilled_bullets:
-          - Choose which form to download on the next page. The answers you gave here will be included.
-          - Add your client’s personal details and any other questions not already filled in.
-          - Get your client to sign the form.
-          - Keep the form, with any evidence provided by your client, for your records.
-        manual_header:  Complete a controlled work form yourself
-        manual_instruction_html: Download a <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>controlled work application form</a>. Some of these can be filled in on a computer.
       ineligible_explanation:
         text: Your %{subject} %{value_type} exceeds the upper limit. This means %{outcome} not qualify for legal aid.
         subject_no_partner: client’s
@@ -2364,12 +2392,7 @@ en:
   controlled_work_document_selections:
     new:
       title: Select a controlled work (CW) form to download with your answers
-      legacy_title: Download a controlled work (CW) form with your answers
       explainer: The form will start downloading on the next page.
-      legacy_explainers:
-        - Your answers from previous pages will be included in the CW form you select to download.
-        - After you download the form, you will need to add your client’s details and any other information needed on that form.
-        - Once complete, get your client to sign the form and keep it, with any evidence provided by your client, for your records.
       banner:
         heading: 60 or over disregard (also known as the pensioner disregard)
         body: Your client is eligible for the 60 or over disregard (also known as the pensioner disregard). CW forms do not have a field to record this in the financial eligibility section. We will correctly apply this to your client’s capital. You do not need to make any changes to the form.
@@ -2384,8 +2407,6 @@ en:
       language:
         english: English
         welsh: Welsh
-      download: Download the pre-populated form
-      start_another_check: Start another eligibility check
       download_and_finish: Continue to download and finish
   feature_flags:
     index:

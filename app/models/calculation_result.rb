@@ -19,6 +19,7 @@ class CalculationResult
       # We believe that those circumstances can never be reached via CCQ.
       # However we want to safeguard against CFE doing something unexpected.
       result = api_response.dig(:result_summary, :overall_result, :result)
+
       raise "Unhandled CFE result: #{result}" unless VALID_OVERALL_RESULTS.include?(result)
 
       result
@@ -30,7 +31,7 @@ class CalculationResult
   end
 
   def calculated?(section)
-    api_response.dig(:result_summary, section, :proceeding_types).all? { VALID_OVERALL_RESULTS.include?(_1[:result]) }
+    api_response.dig(:result_summary, section, :proceeding_types).any? { VALID_OVERALL_RESULTS.include?(_1[:result]) }
   end
 
   def ineligible?(section)

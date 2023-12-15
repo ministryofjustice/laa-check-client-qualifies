@@ -1,0 +1,47 @@
+{{- if .Values.metabase.enabled }}
+{{- $fullName := include "app.fullname" . -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $fullName }}-metabase
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ $fullName }}-metabase
+  template:
+    metadata:
+      labels:
+        app: {{ $fullName }}-metabase
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      serviceAccountName: {{ include "laa-estimate-eligibility.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+      - name: metabase
+        image: metabase/metabase:v0.47.8
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+          - containerPort: 3000
+        resources:
+          requests:
+            cpu: 25m
+            memory: 1Gi
+          limits:
+            cpu: 500m
+            memory: 3Gi
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsUser: 1000
+          runAsGroup: 1000
+        env:
+          - name: MB_DB_CONNECTION_URI
+            valueFrom:
+              secretKeyRef:
+                name: rds-postgresql-instance-output
+                key: jdbc_url
+{{- end }}

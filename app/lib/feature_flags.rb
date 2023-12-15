@@ -12,8 +12,6 @@ class FeatureFlags
     index_production: "global",
     maintenance_mode: "global",
     basic_authentication: "global",
-    welsh_cw: "global",
-    end_of_journey: "session",
     under_eighteen: "session",
     outgoings_flow: "session",
   }.freeze

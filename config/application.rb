@@ -33,7 +33,7 @@ module LaaEstimateFinancialEligibilityForLegalAid
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
-    config.assets.paths << Rails.root.join("node_modules/govuk-frontend/govuk/assets")
+    config.assets.paths << Rails.root.join("node_modules/govuk-frontend/dist/govuk/assets")
 
     config.sentry_dsn = ENV["SENTRY_DSN"]&.strip
     config.check_financial_eligibility_host = ENV.fetch("CFE_HOST",

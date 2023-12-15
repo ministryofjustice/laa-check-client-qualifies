@@ -1,5 +1,6 @@
 class CompletedUserJourney < ApplicationRecord
   attribute :assessment_id, :string
+  attribute :session, :json
   attribute :certificated, :boolean
   attribute :partner, :boolean
   attribute :client_age, :string

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_21_163655) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_06_090719) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -160,6 +160,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_21_163655) do
     t.string "matter_type"
     t.boolean "asylum_support"
     t.string "client_age"
+    t.jsonb "session"
     t.index ["assessment_id"], name: "index_completed_user_journeys_on_assessment_id", unique: true
   end
 

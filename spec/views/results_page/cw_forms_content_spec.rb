@@ -10,6 +10,7 @@ RSpec.describe "results/show.html.slim" do
     before do
       assign(:model, calculation_result)
       assign(:check, check)
+      assign(:journey_continues_on_another_page, true)
       params[:assessment_code] = :code
       render template: "results/show"
     end
@@ -21,7 +22,7 @@ RSpec.describe "results/show.html.slim" do
         let(:eligibility) { "eligible" }
 
         it "shows relevant next steps content" do
-          expect(page_text).to include "You can download a controlled work form with the answers you gave included, or complete the form yourself"
+          expect(page_text).to include "You will need to complete the relevant controlled work form and keep for your records, along with any evidence provided by your client"
         end
 
         it "shows a new call to action" do

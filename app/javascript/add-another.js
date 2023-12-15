@@ -160,8 +160,9 @@ const setNumbering = (section, counter) => {
 }
 
 const setUpRadios = (section) => {
-  const radios = new Radios(section);
-  radios.init();
+  if (section.querySelector('input[type="radio"]')) {
+    const radios = new Radios(section);
+  }
 }
 
 const setUpAddButton = (addAnotherContainer) => {

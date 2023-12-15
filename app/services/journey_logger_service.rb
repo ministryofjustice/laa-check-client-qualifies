@@ -31,6 +31,7 @@ class JourneyLoggerService
         income_contribution: calculation_result.raw_income_contribution&.positive? || false,
         asylum_support: check.asylum_support || false,
         matter_type: matter_type(check),
+        session: check.session_data,
       }
     end
 

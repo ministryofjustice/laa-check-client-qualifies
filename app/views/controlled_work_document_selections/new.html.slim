@@ -4,19 +4,13 @@
   = link_to t("generic.back"), result_path(assessment_code: params[:assessment_code]), class: "govuk-back-link"
 
 .govuk-grid-column-two-thirds
-  = render "shared/heading", header_text: t(".#{'legacy_' unless FeatureFlags.enabled?(:end_of_journey, @check.session_data)}title")
+  = render "shared/heading", header_text: t(".title")
     - if @model.pensioner_disregard_applied?
       - banner = render "shared/banner",
                         heading: t("controlled_work_document_selections.new.banner.heading"),
                         body: t("controlled_work_document_selections.new.banner.body")
 
-    - if FeatureFlags.enabled?(:end_of_journey, @check.session_data)
-      p.govuk-text class="govuk-!-margin-bottom-5" = t("controlled_work_document_selections.new.explainer")
-    - else
-      - explainers = t("controlled_work_document_selections.new.legacy_explainers")
-      - explainers.each do
-        span.govuk-caption-m class="govuk-!-margin-bottom-#{_1 == explainers.last && !banner ? 5 : 2}" = _1
-
+    p.govuk-text class="govuk-!-margin-bottom-5" = t("controlled_work_document_selections.new.explainer")
     = banner
 
   = form_for(@form, url: controlled_work_document_selection_path(assessment_code: params[:assessment_code])) do |form|
@@ -28,19 +22,14 @@
                field_name: :form_type,
                buttons: @form.options
 
-    - if FeatureFlags.enabled?(:welsh_cw, without_session_data: true)
-      = form.govuk_radio_buttons_fieldset :language, legend: { text: t(".language_title") }
-        = render "shared/radio_button_set",
-               form:,
-               field_name: :language,
-               buttons: ControlledWorkDocumentSelection::LANGUAGES.map { { value: _1, options: { label: { text: t(".language.#{_1}") } } } }
+    = form.govuk_radio_buttons_fieldset :language, legend: { text: t(".language_title") }
+      = render "shared/radio_button_set",
+              form:,
+              field_name: :language,
+              buttons: ControlledWorkDocumentSelection::LANGUAGES.map { { value: _1, options: { label: { text: t(".language.#{_1}") } } } }
 
     .govuk-button-group
-      - if FeatureFlags.enabled?(:end_of_journey, @check.session_data)
         = form.govuk_submit t(".download_and_finish")
-      - else
-        = form.govuk_submit t(".download")
-        = link_to t(".start_another_check"), new_check_path, class: "govuk-button govuk-button--secondary"
 
 = render "shared/question_sidebar",
         level_of_help: @check.level_of_help,

@@ -1,5 +1,5 @@
 const initInstantDownload = () => {
-  document.querySelectorAll('[data-module="instant-download"').forEach((link) => {
+  document.querySelectorAll('[data-module="instant-download"]').forEach((link) => {
     link.click();
   })
 }

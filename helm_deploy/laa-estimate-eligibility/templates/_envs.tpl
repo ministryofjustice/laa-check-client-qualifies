@@ -67,10 +67,6 @@ env:
     value: {{ .Values.featureFlags.maintenanceMode }}
   - name: BASIC_AUTHENTICATION_FEATURE_FLAG
     value: {{ .Values.featureFlags.basicAuthentication }}
-  - name: WELSH_CW_FEATURE_FLAG
-    value: {{ .Values.featureFlags.welshCw }}
-  - name: END_OF_JOURNEY_FEATURE_FLAG
-    value: {{ .Values.featureFlags.endOfJourney }}
   - name: UNDER_EIGHTEEN_FEATURE_FLAG
     value: {{ .Values.featureFlags.underEighteen }}
   - name: OUTGOINGS_FLOW_FEATURE_FLAG
