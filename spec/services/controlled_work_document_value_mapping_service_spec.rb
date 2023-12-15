@@ -470,6 +470,27 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
     end
   end
 
+  context "when the client is under 18 and needs no means test", :under_eighteen_flag do
+    let(:session_data) do
+      FactoryBot.build(
+        :minimal_complete_session,
+        client_age: "under_18",
+        level_of_help: "controlled",
+        controlled_legal_representation: true,
+        api_response: FactoryBot.build(:api_result).with_indifferent_access,
+      )
+    end
+
+    it "ignores the asylum support question" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1.yml")).map(&:with_indifferent_access)
+      result = described_class.call(session_data, mappings)
+      representative_sample = {
+        "Client in receipt of asylum support" => nil,
+      }
+      expect(result).to include(representative_sample)
+    end
+  end
+
   context "when the under 18 flag is off" do
     let(:session_data) do
       FactoryBot.build(
