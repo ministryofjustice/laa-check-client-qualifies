@@ -58,7 +58,6 @@ featureFlags:
   indexProduction: ENABLED
   maintenanceMode: NOT_ENABLED
   basicAuthentication: NOT_ENABLED
-  welshCw: ENABLED
   underEighteen: NOT_ENABLED
 
 geckoboard:

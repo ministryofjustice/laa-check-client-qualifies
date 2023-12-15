@@ -67,8 +67,6 @@ env:
     value: {{ .Values.featureFlags.maintenanceMode }}
   - name: BASIC_AUTHENTICATION_FEATURE_FLAG
     value: {{ .Values.featureFlags.basicAuthentication }}
-  - name: WELSH_CW_FEATURE_FLAG
-    value: {{ .Values.featureFlags.welshCw }}
   - name: UNDER_EIGHTEEN_FEATURE_FLAG
     value: {{ .Values.featureFlags.underEighteen }}
   - name: FEATURE_FLAG_OVERRIDES

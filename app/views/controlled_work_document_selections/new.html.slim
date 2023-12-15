@@ -22,12 +22,11 @@
                field_name: :form_type,
                buttons: @form.options
 
-    - if FeatureFlags.enabled?(:welsh_cw, without_session_data: true)
-      = form.govuk_radio_buttons_fieldset :language, legend: { text: t(".language_title") }
-        = render "shared/radio_button_set",
-               form:,
-               field_name: :language,
-               buttons: ControlledWorkDocumentSelection::LANGUAGES.map { { value: _1, options: { label: { text: t(".language.#{_1}") } } } }
+    = form.govuk_radio_buttons_fieldset :language, legend: { text: t(".language_title") }
+      = render "shared/radio_button_set",
+              form:,
+              field_name: :language,
+              buttons: ControlledWorkDocumentSelection::LANGUAGES.map { { value: _1, options: { label: { text: t(".language.#{_1}") } } } }
 
     .govuk-button-group
         = form.govuk_submit t(".download_and_finish")

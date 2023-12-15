@@ -12,8 +12,7 @@ class ControlledWorkDocumentSelection
   validates :form_type, presence: true, inclusion: { in: OPTIONS.map(&:to_s), allow_nil: true }
 
   attribute :language, :string
-  validates :language, presence: true, inclusion: { in: LANGUAGES, allow_nil: true },
-                       if: -> { FeatureFlags.enabled?(:welsh_cw, without_session_data: true) }
+  validates :language, presence: true, inclusion: { in: LANGUAGES, allow_nil: true }
 
   def options
     cw_form_radio_button_option = if check.controlled_legal_representation

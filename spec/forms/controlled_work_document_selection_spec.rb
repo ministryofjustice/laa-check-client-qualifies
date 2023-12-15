@@ -15,6 +15,12 @@ RSpec.describe "cw_selection", type: :feature do
     expect(page).to have_content " Select which form you need"
   end
 
+  it "requires me to choose a language" do
+    choose "CW1 - legal help, help at court or family help (lower)"
+    click_on "Continue to download and finish"
+    expect(page).to have_content "Select which language you need the form in"
+  end
+
   context "when there is pensioner disregard applied" do
     let(:api_response) do
       FactoryBot.build(
@@ -49,26 +55,18 @@ RSpec.describe "cw_selection", type: :feature do
     end
   end
 
-  context "when the welsh CW feature flag is enabled", :welsh_cw_flag do
-    it "requires me to choose a language" do
-      choose "CW1 - legal help, help at court or family help (lower)"
-      click_on "Continue to download and finish"
-      expect(page).to have_content "Select which language you need the form in"
-    end
+  it "allows me to proceed if I make a selection" do
+    choose "CW1 - legal help, help at court or family help (lower)"
+    choose "English"
+    click_on "Continue to download and finish"
+    expect(page).to have_content "You've reached the end of this service"
+  end
 
-    it "allows me to proceed in English" do
-      choose "CW1 - legal help, help at court or family help (lower)"
-      choose "English"
-      click_on "Continue to download and finish"
-      expect(page).to have_content "You've reached the end of this service"
-    end
-
-    it "allows me to proceed in Welsh when I select a CW1 form" do
-      choose "CW1 - legal help, help at court or family help (lower)"
-      choose "Welsh"
-      click_on "Continue to download and finish"
-      expect(page).to have_content "You've reached the end of this service"
-    end
+  it "allows me to proceed in Welsh when I select a CW1 form" do
+    choose "CW1 - legal help, help at court or family help (lower)"
+    choose "Welsh"
+    click_on "Continue to download and finish"
+    expect(page).to have_content "You've reached the end of this service"
   end
 
   it "shows the freeform feedback widget" do
