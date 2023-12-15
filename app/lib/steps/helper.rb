@@ -41,17 +41,21 @@ module Steps
       end
 
       def step_groups_for(session_data)
-        all_sections.map { |section| section.grouped_steps_for(session_data) }.reduce(:+)
+        all_sections(session_data).map { |section| section.grouped_steps_for(session_data) }.reduce(:+)
       end
 
-      def all_sections
-        [CaseDetailsSection,
-         ApplicantDetailsSection,
-         IncomeSection,
-         PartnerSection,
-         OutgoingsSection,
-         AssetsAndVehiclesSection,
-         PropertySection]
+      def all_sections(session_data = nil)
+        initial_sections = [CaseDetailsSection,
+                            ApplicantDetailsSection,
+                            IncomeSection,
+                            PartnerSection,
+                            OutgoingsSection]
+
+        if FeatureFlags.enabled?(:outgoings_flow, session_data, without_session_data: session_data.nil?)
+          initial_sections + [PropertySection, AssetsAndVehiclesSection]
+        else
+          initial_sections + [AssetsAndVehiclesSection, PropertySection]
+        end
       end
 
       def remaining_steps(steps, step)

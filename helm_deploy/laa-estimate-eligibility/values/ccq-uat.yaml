@@ -64,6 +64,7 @@ featureFlags:
   maintenanceMode: NOT_ENABLED
   basicAuthentication: ENABLED
   underEighteen: ENABLED
+  outgoingsFlow: ENABLED
 
 postgresql:
   enabled: true

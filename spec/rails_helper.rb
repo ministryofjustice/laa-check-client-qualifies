@@ -117,6 +117,12 @@ RSpec.configure do |config|
     ENV["UNDER_EIGHTEEN_FEATURE_FLAG"] = "disabled"
   end
 
+  config.around(:each, :outgoings_flow_flag) do |example|
+    ENV["OUTGOINGS_FLOW_FEATURE_FLAG"] = "enabled"
+    example.run
+    ENV["OUTGOINGS_FLOW_FEATURE_FLAG"] = "disabled"
+  end
+
   config.before(:suite) do
     DatabaseCleaner.clean_with :truncation
   end

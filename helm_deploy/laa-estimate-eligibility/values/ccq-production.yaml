@@ -59,6 +59,7 @@ featureFlags:
   maintenanceMode: NOT_ENABLED
   basicAuthentication: NOT_ENABLED
   underEighteen: NOT_ENABLED
+  outgoingsFlow: NOT_ENABLED
 
 geckoboard:
   metricsDataset: "ccq_monthly_metrics_production"

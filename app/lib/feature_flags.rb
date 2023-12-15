@@ -13,6 +13,7 @@ class FeatureFlags
     maintenance_mode: "global",
     basic_authentication: "global",
     under_eighteen: "session",
+    outgoings_flow: "session",
   }.freeze
 
   class << self

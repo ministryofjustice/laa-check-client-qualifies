@@ -69,6 +69,8 @@ env:
     value: {{ .Values.featureFlags.basicAuthentication }}
   - name: UNDER_EIGHTEEN_FEATURE_FLAG
     value: {{ .Values.featureFlags.underEighteen }}
+  - name: OUTGOINGS_FLOW_FEATURE_FLAG
+    value: {{ .Values.featureFlags.outgoingsFlow }}
   - name: FEATURE_FLAG_OVERRIDES
     value: {{ .Values.featureFlags.overrides }}
   - name: NOTIFICATIONS_API_KEY
