@@ -58,7 +58,7 @@ featureFlags:
   indexProduction: NOT_ENABLED
   maintenanceMode: NOT_ENABLED
   basicAuthentication: ENABLED
-  underEighteen: NOT_ENABLED
+  underEighteen: ENABLED
   outgoingsFlow: NOT_ENABLED
 
 geckoboard:
