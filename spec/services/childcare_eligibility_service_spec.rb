@@ -12,7 +12,7 @@ RSpec.describe ChildcareEligibilityService do
         "incomes" => [{
           "income_type" => income_type,
         }],
-        "student_finance_received" => false,
+        "student_finance_relevant" => false,
       }
     end
 
@@ -47,7 +47,7 @@ RSpec.describe ChildcareEligibilityService do
         "child_dependants" => true,
         "partner" => false,
         "employment_status" => "unemployed",
-        "student_finance_received" => true,
+        "student_finance_relevant" => true,
       }
     end
 
@@ -62,7 +62,7 @@ RSpec.describe ChildcareEligibilityService do
         "child_dependants" => true,
         "partner" => false,
         "employment_status" => "unemployed",
-        "student_finance_received" => false,
+        "student_finance_relevant" => false,
       }
     end
 
@@ -77,7 +77,7 @@ RSpec.describe ChildcareEligibilityService do
         "child_dependants" => false,
         "partner" => false,
         "employment_status" => "unemployed",
-        "student_finance_received" => true,
+        "student_finance_relevant" => true,
       }
     end
 
@@ -91,9 +91,9 @@ RSpec.describe ChildcareEligibilityService do
       {
         "child_dependants" => true,
         "partner" => true,
-        "student_finance_received" => true,
+        "student_finance_relevant" => true,
         "partner_employment_status" => "unemployed",
-        "partner_student_finance_received" => false,
+        "partner_student_finance_relevant" => false,
       }
     end
 
@@ -107,9 +107,9 @@ RSpec.describe ChildcareEligibilityService do
       {
         "child_dependants" => true,
         "partner" => true,
-        "student_finance_received" => true,
+        "student_finance_relevant" => true,
         "partner_employment_status" => "unemployed",
-        "partner_student_finance_received" => true,
+        "partner_student_finance_relevant" => true,
       }
     end
 
@@ -123,12 +123,12 @@ RSpec.describe ChildcareEligibilityService do
       {
         "child_dependants" => true,
         "partner" => true,
-        "student_finance_received" => true,
+        "student_finance_relevant" => true,
         "partner_employment_status" => "in_work",
         "partner_incomes" => [{
           "income_type" => "employment",
         }],
-        "partner_student_finance_received" => false,
+        "partner_student_finance_relevant" => false,
       }
     end
 

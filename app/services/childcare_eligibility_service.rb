@@ -11,11 +11,11 @@ class ChildcareEligibilityService
     end
 
     def client_eligible?(check)
-      check.student_finance_received || in_work?(check.incomes)
+      check.student_finance_relevant || in_work?(check.incomes)
     end
 
     def partner_eligible?(check)
-      check.partner_student_finance_received || in_work?(check.partner_incomes)
+      check.partner_student_finance_relevant || in_work?(check.partner_incomes)
     end
 
     def in_work?(incomes)
