@@ -36,14 +36,22 @@ module CfeParamBuilders
     }.freeze
 
     def self.build_payments(cfe_translations, form, operation)
-      cfe_translations.select { |_cfe_name, local_name| form.send("#{local_name}_value").to_i.positive? }
+      cfe_translations.select { |_cfe_name, local_name| value(form, local_name).to_i.positive? }
                       .map do |cfe_name, local_name|
         {
           operation:,
           category: cfe_name,
           frequency: CFE_FREQUENCIES.fetch(form.send("#{local_name}_frequency")),
-          amount: form.send("#{local_name}_value"),
+          amount: value(form, local_name),
         }
+      end
+    end
+
+    def self.value(form, local_name)
+      if FeatureFlags.enabled?(:conditional_reveals, form.check.session_data) && form.is_a?(OtherIncomeForm)
+        form.send("#{local_name}_conditional_value") if form.send("#{local_name}_received")
+      else
+        form.send("#{local_name}_value")
       end
     end
 

@@ -37,8 +37,8 @@ RSpec.describe "checks/check_answers.html.slim" do
                 partner_childcare_payments_value: 200,
                 partner_childcare_payments_frequency: "every_two_weeks",
                 child_dependants: true,
-                partner_student_finance_value: 1,
-                student_finance_value: 1)
+                partner_student_finance_received: true,
+                student_finance_received: true)
         end
 
         it "shows childcare" do

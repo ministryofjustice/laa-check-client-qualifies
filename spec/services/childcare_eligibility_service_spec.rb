@@ -12,7 +12,7 @@ RSpec.describe ChildcareEligibilityService do
         "incomes" => [{
           "income_type" => income_type,
         }],
-        "student_finance_value" => 0,
+        "student_finance_received" => false,
       }
     end
 
@@ -47,7 +47,7 @@ RSpec.describe ChildcareEligibilityService do
         "child_dependants" => true,
         "partner" => false,
         "employment_status" => "unemployed",
-        "student_finance_value" => 1,
+        "student_finance_received" => true,
       }
     end
 
@@ -62,7 +62,7 @@ RSpec.describe ChildcareEligibilityService do
         "child_dependants" => true,
         "partner" => false,
         "employment_status" => "unemployed",
-        "student_finance_value" => 0,
+        "student_finance_received" => false,
       }
     end
 
@@ -77,7 +77,7 @@ RSpec.describe ChildcareEligibilityService do
         "child_dependants" => false,
         "partner" => false,
         "employment_status" => "unemployed",
-        "student_finance_value" => 1,
+        "student_finance_received" => true,
       }
     end
 
@@ -91,9 +91,9 @@ RSpec.describe ChildcareEligibilityService do
       {
         "child_dependants" => true,
         "partner" => true,
-        "student_finance_value" => 1,
+        "student_finance_received" => true,
         "partner_employment_status" => "unemployed",
-        "partner_student_finance_value" => 0,
+        "partner_student_finance_received" => false,
       }
     end
 
@@ -107,9 +107,9 @@ RSpec.describe ChildcareEligibilityService do
       {
         "child_dependants" => true,
         "partner" => true,
-        "student_finance_value" => 1,
+        "student_finance_received" => true,
         "partner_employment_status" => "unemployed",
-        "partner_student_finance_value" => 1,
+        "partner_student_finance_received" => true,
       }
     end
 
@@ -123,12 +123,12 @@ RSpec.describe ChildcareEligibilityService do
       {
         "child_dependants" => true,
         "partner" => true,
-        "student_finance_value" => 1,
+        "student_finance_received" => true,
         "partner_employment_status" => "in_work",
         "partner_incomes" => [{
           "income_type" => "employment",
         }],
-        "partner_student_finance_value" => 0,
+        "partner_student_finance_received" => false,
       }
     end
 

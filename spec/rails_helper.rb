@@ -123,6 +123,12 @@ RSpec.configure do |config|
     ENV["OUTGOINGS_FLOW_FEATURE_FLAG"] = "disabled"
   end
 
+  config.around(:each, :conditional_reveals_flag) do |example|
+    ENV["CONDITIONAL_REVEALS_FEATURE_FLAG"] = "enabled"
+    example.run
+    ENV["CONDITIONAL_REVEALS_FEATURE_FLAG"] = "disabled"
+  end
+
   config.before(:suite) do
     DatabaseCleaner.clean_with :truncation
   end
