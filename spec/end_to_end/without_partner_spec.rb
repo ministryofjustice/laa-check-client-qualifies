@@ -123,7 +123,7 @@ RSpec.describe "Certificated check without partner", type: :feature do
       click_on "Submit"
 
       ["Your client is likely to qualify for civil legal aid",
-       "We estimate they will have to pay towards the costs of their case:\n£32.58 per month from their disposable income£0.00 lump sum payment from their disposable capital",
+       "We estimate they will have to pay towards the costs of their case:\n£32.58 per month from their disposable income -these contributions will continue for the duration of the case, however long it lasts£0.00 lump sum payment from their disposable capital - any capital contribution will not exceed the likely costs of their case and they might pay less than this amount",
        "Employment income\n£4.33",
        "Benefits received\nThis does not include Housing Benefit\n£4.33",
        "Financial help from friends and family\n£866.67",
