@@ -1,15 +1,15 @@
 - partner ||= false
-- conditionals = FeatureFlags.enabled?(:conditional_reveals, @check.session_data)
+- conditional_reveals_enabled = FeatureFlags.enabled?(:conditional_reveals, @check.session_data)
 = form_for(@form, url: request.path, method: :put) do |form|
   = form.govuk_error_summary t("generic.error_summary_title")
   = render "shared/heading",
            header_text: t("question_flow.#{i18n_key}.heading"),
-           post_header_text: t("question_flow.#{i18n_key}.#{'second_' unless conditionals}caption"),
+           post_header_text: t("question_flow.#{i18n_key}.#{'second_' unless conditional_reveals_enabled}caption"),
            tag: (:partner if partner)
   - OutgoingsForm::PAYMENT_TYPES.each do |type|
     - next if type == :childcare_payments && !@form.eligible_for_childcare_costs?
 
-    - if FeatureFlags.enabled?(:conditional_reveals, @check.session_data)
+    - if conditional_reveals_enabled
       = form.govuk_radio_buttons_fieldset :"#{type}_relevant",
             legend: { text: t("question_flow.#{i18n_key}.#{type}.question") },
             hint: { text: t("question_flow.#{i18n_key}.#{type}.question_hint") } do
