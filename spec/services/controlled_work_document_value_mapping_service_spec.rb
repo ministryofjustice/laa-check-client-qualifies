@@ -52,7 +52,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       expect(result).to include(representative_sample)
     end
 
-    context "when under 18 flag is enabled", :under_eighteen_flag do
+    context "when client is under 18" do
       let(:session_data) do
         build(:minimal_complete_session,
               level_of_help: "controlled",
@@ -437,7 +437,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
     end
   end
 
-  context "when the client is under 18", :under_eighteen_flag do
+  context "when the client is under 18" do
     let(:session_data) do
       FactoryBot.build(
         :minimal_complete_session,
@@ -470,7 +470,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
     end
   end
 
-  context "when the client is under 18 and needs no means test", :under_eighteen_flag do
+  context "when the client is under 18 and needs no means test" do
     let(:session_data) do
       FactoryBot.build(
         :minimal_complete_session,

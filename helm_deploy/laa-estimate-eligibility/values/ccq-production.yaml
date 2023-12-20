@@ -58,7 +58,6 @@ featureFlags:
   indexProduction: ENABLED
   maintenanceMode: NOT_ENABLED
   basicAuthentication: NOT_ENABLED
-  underEighteen: ENABLED
   outgoingsFlow: NOT_ENABLED
   conditionalReveals: NOT_ENABLED
 

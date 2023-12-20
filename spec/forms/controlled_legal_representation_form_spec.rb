@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "under_18_clr", :under_eighteen_flag, type: :feature do
+RSpec.describe "under_18_clr", type: :feature do
   let(:title) { I18n.t("question_flow.under_18_clr.title") }
   let(:assessment_code) { :assessment_code }
   let(:level_of_help) { "controlled" }

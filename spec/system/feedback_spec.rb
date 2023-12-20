@@ -13,6 +13,7 @@ RSpec.describe "Feedback component" do
     context "when on the end of journey page", :welsh_cw_flag do
       it "I can successfully submit satisfaction feedback", :slow do
         start_assessment
+        fill_in_client_age_screen
         fill_in_level_of_help_screen(choice: "Civil controlled work or family mediation")
         fill_in_forms_until(:check_answers)
         click_on "Submit"
@@ -77,6 +78,7 @@ RSpec.describe "Feedback component" do
       context "when on the results page" do
         it "I can successfully submit freetext feedback", :slow do
           start_assessment
+          fill_in_client_age_screen
           fill_in_level_of_help_screen(choice: "Civil controlled work or family mediation")
           fill_in_forms_until(:check_answers)
           click_on "Submit"
@@ -92,6 +94,7 @@ RSpec.describe "Feedback component" do
       context "when on the CW form selection page" do
         it "I can successfully submit freetext feedback", :slow do
           start_assessment
+          fill_in_client_age_screen
           fill_in_level_of_help_screen(choice: "Civil controlled work or family mediation")
           fill_in_forms_until(:check_answers)
           click_on "Submit"

@@ -91,7 +91,7 @@ RSpec.describe "cw_selection", type: :feature do
     end
   end
 
-  context "when the client is under 18 and the level of help is controlled legal representation", :under_eighteen_flag do
+  context "when the client is under 18 and the level of help is controlled legal representation" do
     let(:session_data) do
       { "level_of_help" => "controlled",
         "client_age" => "under_18",

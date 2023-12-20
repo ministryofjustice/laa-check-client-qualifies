@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe "Certificated, passported flow", type: :feature do
   it "allows me a direct route to the check answers page" do
     start_assessment
+    fill_in_client_age_screen
     fill_in_level_of_help_screen
     fill_in_domestic_abuse_applicant_screen
     fill_in_immigration_or_asylum_type_upper_tribunal_screen

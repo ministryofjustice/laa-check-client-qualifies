@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "regular_income", :under_eighteen_flag, type: :feature do
+RSpec.describe "regular_income", type: :feature do
   let(:title) { I18n.t("question_flow.regular_income.title") }
   let(:assessment_code) { :assessment_code }
 

@@ -13,12 +13,8 @@ module Steps
 
     private
 
-      def initial_steps(session_data)
-        if FeatureFlags.enabled?(:under_eighteen, session_data)
-          [Steps::Group.new(:client_age), Steps::Group.new(:level_of_help)]
-        else
-          [Steps::Group.new(:level_of_help)]
-        end
+      def initial_steps(_session_data)
+        [Steps::Group.new(:client_age), Steps::Group.new(:level_of_help)]
       end
 
       def post_level_of_help_steps(session_data)

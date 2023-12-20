@@ -98,16 +98,8 @@ class Check
     ChildcareEligibilityService.call(self)
   end
 
-  def show_over_60_question?
-    !FeatureFlags.enabled?(:under_eighteen, session_data)
-  end
-
   def consolidated_client_age
-    if show_over_60_question?
-      over_60 ? ClientAgeForm::OVER_60 : ClientAgeForm::STANDARD
-    else
-      client_age
-    end
+    client_age
   end
 
   def under_eighteen_no_means_test_required?
