@@ -7,7 +7,7 @@ module Steps
 
       def grouped_steps_for(session_data)
         if Steps::Logic.skip_income_questions?(session_data)
-          if FeatureFlags.enabled?(:outgoings_flow, session_data)
+          if FeatureFlags.enabled?(:outgoings_flow, session_data) && !Steps::Logic.skip_capital_questions?(session_data)
             [Steps::Group.new(:property)]
           else
             []

@@ -14,6 +14,8 @@ class ControlledWorkDocumentContent < Check
   end
 
   def asylum_support?
+    return if under_eighteen_no_means_test_required?
+
     asylum_support || false
   end
 
@@ -22,7 +24,7 @@ class ControlledWorkDocumentContent < Check
   end
 
   def smod_assets?
-    return if asylum_support?
+    return if under_eighteen_no_means_test_required? || asylum_support?
 
     any_smod_assets?
   end
