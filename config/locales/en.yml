@@ -1864,10 +1864,9 @@ en:
         - This is not a guarantee that your client will get civil legal aid. For a final decision on eligibility and contributions (if any), an application and supporting evidence must be submitted to the Legal Aid Agency (LAA) for assessment. A full assessment supported by evidence may generate a different result.
         - "The LAA will also consider:"
       contribution_intro_paragraph: "Your client is likely to qualify financially for civil legal aid based on the information you have entered. We estimate they will have to pay towards the costs of their case:"
-      per_month: per month from their disposable income
-      from_capital: lump sum payment from their disposable capital
+      per_month: per month from their disposable income - these contributions will continue for the duration of the case, however long it lasts
+      from_capital: lump sum payment from their disposable capital - any capital contribution will not exceed the likely costs of their case and they might pay less than this amount
       contribution_explanations:
-        - Any capital contribution will not exceed the likely costs of their case.
         - This is not a guarantee that your client will get civil legal aid if an application is made for them and the contribution figure(s) displayed may change. For a final decision on eligibility and contributions (if any), an application and supporting evidence must be submitted to the Legal Aid Agency (LAA) for assessment. A full assessment supported by evidence may generate a different result.
         - "The LAA will also consider:"
       certificated_ineligible:
