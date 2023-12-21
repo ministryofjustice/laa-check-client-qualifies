@@ -3,7 +3,7 @@ module CheckAnswers
     Section = Struct.new(:label, :subsections, keyword_init: true)
     Subsection = Struct.new(:label, :tables, keyword_init: true)
     Table = Struct.new(:screen, :index, :disputed?, :fields, :skip_change_link, keyword_init: true)
-    Field = Struct.new(:label, :type, :value, :alt_value, :disputed?, :index, :screen, keyword_init: true)
+    Field = Struct.new(:label, :type, :value, :alt_value, :second_alt_value, :disputed?, :index, :screen, keyword_init: true)
 
     def self.call(session_data)
       check = Check.new(session_data)
@@ -79,6 +79,7 @@ module CheckAnswers
     def build_field(field_data, model, table_label, index: nil)
       return build_many_fields(field_data, model, table_label) if field_data[:many]
       return if field_data[:skip_unless].present? && !model.send(field_data[:skip_unless])
+      return if field_data[:skip_if].present? && model.send(field_data[:skip_if])
       return if field_data[:screen] && !Steps::Helper.valid_step?(@check.session_data, field_data[:screen])
 
       addendum = "_partner" if @check.partner && field_data[:partner_dependant_wording]
@@ -91,7 +92,8 @@ module CheckAnswers
                 disputed?: disputed,
                 index:,
                 screen: field_data[:screen],
-                alt_value: (model.send(field_data[:alt_attribute]) if field_data[:alt_attribute]))
+                alt_value: (model.send(field_data[:alt_attribute]) if field_data[:alt_attribute]),
+                second_alt_value: (model.send(field_data[:second_alt_attribute]) if field_data[:second_alt_attribute]))
     end
 
     def build_many_fields(field_data, model, table_label)

@@ -220,6 +220,42 @@ en:
               blank_when_many: Enter benefit %{position} name
         other_income_form:
           attributes:
+            friends_or_family_received:
+              inclusion: Select yes if your client gets financial help from friends or family
+            maintenance_received:
+              inclusion: Select yes if your client gets maintenance from a former partner
+            property_or_lodger_received:
+              inclusion: Select yes if your client gets income from a property or lodger
+            pension_received:
+              inclusion: Select yes if your client gets income from pensions
+            student_finance_received:
+              inclusion: Select yes if your client gets income from student finance
+            other_received:
+              inclusion: Select yes if your client gets income from other sources
+            friends_or_family_conditional_value:
+              blank: Enter amount of financial help from friends and family
+              not_a_number: Amount of financial help from friends of family must be a number
+              greater_than: Amount of financial help from friends and family must be more than 0
+            maintenance_conditional_value:
+              blank: Enter amount of maintenance from a former partner
+              not_a_number: Amount of maintenance from a former parter must be a number
+              greater_than: Amount of maintenance from a former partner must be more than 0
+            property_or_lodger_conditional_value:
+              blank: Enter amount of income from a property or lodger
+              not_a_number: Amount of income from a property of lodger must be a number
+              greater_than: Amount of income from a property or lodger must be more than 0
+            pension_conditional_value:
+              blank: Enter amount of income your client gets from pensions
+              not_a_number: Amount of income your client gets from pensions must be a number
+              greater_than: Amount of income your client gets from pensions must be more than 0
+            student_finance_conditional_value:
+              blank: Enter amount of student finance received this academic year
+              not_a_number: Amount of student finance received this academic year must be a number
+              greater_than: Amount of student finance received this academic year must be more than 0
+            other_conditional_value:
+              blank: Enter amount of income from other sources received in the last 3 months
+              not_a_number: Amount of income from other sources received in the last 3 months must be a number
+              greater_than: Amount of income from other sources received in the last 3 months must be more than 0
             friends_or_family_value:
               blank: Enter financial help from friends and family, if this does not apply enter 0
               not_a_number: Financial help from friends and family must be a number, if this does not apply enter 0
@@ -243,7 +279,7 @@ en:
             property_or_lodger_frequency:
               blank: Select frequency of income from a property or lodger
             pension_frequency:
-              blank: Select frequency of pension
+              blank: SSelect frequency of income your client gets from pensions
             student_finance_value:
               blank: Enter student finance, if this does not apply enter 0
               not_a_number: Student finance must be a number, if this does not apply enter 0
@@ -254,6 +290,42 @@ en:
               greater_than_or_equal_to: Other income must be 0 or more
         partner_other_income_form:
           attributes:
+            friends_or_family_received:
+              inclusion: Select yes if the partner gets financial help from friends or family
+            maintenance_received:
+              inclusion: Select yes if the partner gets maintenance from a former partner
+            property_or_lodger_received:
+              inclusion: Select yes if the partner gets income from a property or lodger
+            pension_received:
+              inclusion: Select yes if the partner gets income from pensions
+            student_finance_received:
+              inclusion: Select yes if the partner gets income from student finance
+            other_received:
+              inclusion: Select yes if the partner gets income from other sources
+            friends_or_family_conditional_value:
+              blank: Enter amount of financial help from friends and family
+              not_a_number: Amount of financial help from friends of family must be a number
+              greater_than: Amount of financial help from friends and family must be more than 0
+            maintenance_conditional_value:
+              blank: Enter amount of maintenance from a former partner
+              not_a_number: Amount of maintenance from a former parter must be a number
+              greater_than: Amount of maintenance from a former partner must be more than 0
+            property_or_lodger_conditional_value:
+              blank: Enter amount of income from a property or lodger
+              not_a_number: Amount of income from a property of lodger must be a number
+              greater_than: Amount of income from a property or lodger must be more than 0
+            pension_conditional_value:
+              blank: Enter amount of income the partner gets from pensions
+              not_a_number: Amount of income the partner gets from pensions must be a number
+              greater_than: Amount of income the partner gets from pensions must be more than 0
+            student_finance_conditional_value:
+              blank: Enter amount of student finance received this academic year
+              not_a_number: Amount of student finance received this academic year must be a number
+              greater_than: Amount of student finance received this academic year must be more than 0
+            other_conditional_value:
+              blank: Enter amount of income from other sources received in the last 3 months
+              not_a_number: Amount of income from other sources received in the last 3 months must be a number
+              greater_than: Amount of income from other sources received in the last 3 months must be more than 0
             friends_or_family_value:
               blank: Enter financial help from friends and family, if this does not apply enter 0
               not_a_number: Financial help from friends and family must be a number, if this does not apply enter 0
@@ -273,7 +345,7 @@ en:
             property_or_lodger_frequency:
               blank: Select frequency of income from a property or lodger
             pension_frequency:
-              blank: Select frequency of pension
+              blank: Select frequency of income the partner gets from pensions
             student_finance_value:
               blank: Enter student finance, if this does not apply enter 0
               not_a_number: Student finance must be a number, if this does not apply enter 0
@@ -1120,32 +1192,46 @@ en:
       heading: Your client's other income
       second_caption: Enter 0 for any that do not apply
       friends_or_family:
+        question: Does your client get financial help from friends or family?
+        question_hint: For example, money from a family member for rent or bills
         label: Financial help from friends or family
         hint: For example, money from a family member for rent or bills. Enter 0 if this does not apply
         instruction: Enter amount
       maintenance:
+        question: Does your client get maintenance from a former partner?
+        question_hint: This includes child maintenance
         label: Maintenance payments from a former partner
         hint: This includes child maintenance. Enter 0 if this does not apply
         instruction: Enter amount
       property_or_lodger:
+        question: Does your client get income from a property or lodger?
+        question_hint: ""
         label: Income from a property or lodger
         hint: Enter 0 if this does not apply
         instruction: Enter amount
       pension:
+        question: Does your client get income from pensions?
+        question_hint: Include the total value of any pensions, including State Pension, workplace and personal pensions
         label: Pensions
         hint: Include the total value of any pensions, including State Pension, workplace and personal pensions. Enter 0 if this does not apply.
         instruction: Enter total value of any pensions
       student_finance:
+        question: Does your client get income from student finance?
+        question_hint: This includes any type of student loan, grant or bursary. Do not include any tuition fee loans.
         label: Student finance
         hint: This includes any type of student loan, grant or bursary. Do not include any tuition fee loans. Enter 0 if this does not apply
         certificated_instruction: Enter amount received this academic year
         controlled_instruction: Enter amount received this academic year
       other:
+        question: Does your client get income from other sources?
+        question_hint: Include any other income your client received. Do not include any government Cost of Living Payments.
         label: Income from other sources
         hint: Include any other income your client received. Do not include any government Cost of Living Payments. Enter 0 if this does not apply
         certificated_instruction: Enter amount received in the last 3 months
         controlled_instruction: Enter amount received in the last month
       enter_frequency: Select frequency
+      amount: Amount
+      frequency: Frequency
       frequencies:
         every_week: Every week
         every_two_weeks: Every 2 weeks
@@ -1156,27 +1242,39 @@ en:
       heading: The partner's other income
       second_caption: Do not add any income you've listed as other income for the client. Enter 0 for any that do not apply.
       friends_or_family:
+        question: Does the partner get financial help from friends or family?
+        question_hint: For example, money from a family member for rent or bills
         label: Financial help from friends or family
         hint: For example, money from a family member for rent or bills. Enter 0 if this does not apply.
         instruction: Enter amount
       maintenance:
+        question: Does the partner get maintenance from a former partner?
+        question_hint: This includes child maintenance
         label: Maintenance payments from a former partner
         hint: This includes child maintenance. Enter 0 if this does not apply.
         instruction: Enter amount
       property_or_lodger:
+        question: Does the partner get income from a property or lodger?
+        question_hint: ""
         label: Income from a property or lodger
         hint: "Enter 0 if this does not apply"
         instruction: Enter amount
       pension:
+        question: Does the partner get income from pensions?
+        question_hint: Include the total value of any pensions, including State Pension, workplace and personal pensions
         label: Pensions
         hint: Include the total value of any pensions, including State Pension, workplace and personal pensions. Enter 0 if this does not apply.
         instruction: Enter total value of any pensions
       student_finance:
+        question: Does the partner get income from student finance?
+        question_hint: This includes any type of student loan, grant or bursary. Do not include any tuition fee loans.
         label: Student finance
         hint: This includes any type of student loan, grant or bursary. Do not include any tuition fee loans. Enter 0 if this does not apply.
         certificated_instruction: Enter amount received this academic year
         controlled_instruction: Enter amount received this academic year
       other:
+        question: Does the partner get income from other sources?
+        question_hint: Include any other income the partner received. Do not include any government Cost of Living Payments.
         label: Income from other sources
         hint: Include any other income the partner received. Do not include any government Cost of Living Payments. Enter 0 if this does not apply.
         certificated_instruction: Enter amount received in the last 3 months
@@ -1614,6 +1712,12 @@ en:
         pension_value: Pensions
         student_finance_value: Student finance
         other_value: Income from other sources
+        friends_or_family_conditional_value: Does your client get financial help from friends or family?
+        maintenance_conditional_value: Does your client get maintenance from a former partner?
+        property_or_lodger_conditional_value: Does your client get income from a property or lodger?
+        pension_conditional_value: Does your client get income from pensions?
+        student_finance_conditional_value: Does your client get income from student finance?
+        other_conditional_value: Does your client get income from other sources?
       partner_details_fields:
         partner_over_60: Is the partner aged 60 or over?
         partner_employment_status: What is the partner's employment status?
@@ -1654,6 +1758,12 @@ en:
         partner_pension_value: Pensions
         partner_student_finance_value: Student finance
         partner_other_value: Income from other sources
+        partner_friends_or_family_conditional_value: Does the partner get financial help from friends or family?
+        partner_maintenance_conditional_value: Does the partner get maintenance from a former partner?
+        partner_property_or_lodger_conditional_value: Does the partner get income from a property or lodger?
+        partner_pension_conditional_value: Does the partner get income from pensions?
+        partner_student_finance_conditional_value: Does the partner get income from student finance?
+        partner_other_conditional_value: Does the partner get income from other sources?
       outgoings_fields:
         childcare_payments_value: Childcare payments
         maintenance_payments_value: Maintenance payments
