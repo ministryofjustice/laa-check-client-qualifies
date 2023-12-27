@@ -98,10 +98,6 @@ class Check
     ChildcareEligibilityService.call(self)
   end
 
-  def consolidated_client_age
-    client_age
-  end
-
   def under_eighteen_no_means_test_required?
     Steps::Logic.under_eighteen_no_means_test_required?(session_data)
   end
