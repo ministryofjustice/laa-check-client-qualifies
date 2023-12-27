@@ -48,8 +48,8 @@ module CfeParamBuilders
     end
 
     def self.value(form, local_name)
-      if FeatureFlags.enabled?(:conditional_reveals, form.check.session_data) && form.is_a?(OtherIncomeForm)
-        form.send("#{local_name}_conditional_value") if form.send("#{local_name}_received")
+      if FeatureFlags.enabled?(:conditional_reveals, form.check.session_data)
+        form.send("#{local_name}_conditional_value") if form.send("#{local_name}_relevant")
       else
         form.send("#{local_name}_value")
       end

@@ -78,7 +78,7 @@ module CheckAnswers
 
     def build_field(field_data, model, table_label, index: nil)
       return build_many_fields(field_data, model, table_label) if field_data[:many]
-      return if field_data[:skip_unless].present? && !model.send(field_data[:skip_unless])
+      return if field_data[:skip_unless].present? && field_data[:skip_unless].split(",").any? { !model.send(_1) }
       return if field_data[:skip_if].present? && model.send(field_data[:skip_if])
       return if field_data[:screen] && !Steps::Helper.valid_step?(@check.session_data, field_data[:screen])
 
