@@ -171,12 +171,17 @@ end
 
 def fill_in_outgoings_screen(screen_name: :outgoings, values: {}, frequencies: {})
   confirm_screen screen_name.to_s
-  fill_in "#{screen_name}_form[housing_payments_value]", with: "0" if page.body.include?("housing_payments_value")
-  fill_in "#{screen_name}_form[childcare_payments_value]", with: values.fetch(:childcare, "0") if page.text.include?("Childcare payments")
-  fill_in "#{screen_name}_form[maintenance_payments_value]", with: values.fetch(:maintenance, "0")
-  fill_in "#{screen_name}_form[legal_aid_payments_value]", with: values.fetch(:legal_aid, "0")
-  frequencies.each do |k, v|
-    choose v, name: "#{screen_name}_form[#{k}_payments_frequency]"
+  if page.text.include? "Does your client pay maintenance to a former partner?"
+    choose "No", name: "#{screen_name}_form[childcare_payments_relevant]" if page.text.include?("childcare")
+    choose "No", name: "#{screen_name}_form[maintenance_payments_relevant]"
+    choose "No", name: "#{screen_name}_form[legal_aid_payments_relevant]"
+  else
+    fill_in "#{screen_name}_form[childcare_payments_value]", with: values.fetch(:childcare, "0") if page.text.include?("Childcare payments")
+    fill_in "#{screen_name}_form[maintenance_payments_value]", with: values.fetch(:maintenance, "0")
+    fill_in "#{screen_name}_form[legal_aid_payments_value]", with: values.fetch(:legal_aid, "0")
+    frequencies.each do |k, v|
+      choose v, name: "#{screen_name}_form[#{k}_payments_frequency]"
+    end
   end
   click_on "Save and continue"
 end

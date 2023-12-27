@@ -179,7 +179,7 @@ sections:
               - attribute: friends_or_family_conditional_value
                 type: boolean_money_with_frequency
                 alt_attribute: friends_or_family_frequency
-                second_alt_attribute: friends_or_family_received
+                second_alt_attribute: friends_or_family_relevant
                 skip_unless: conditional_reveals?
               - attribute: maintenance_value
                 type: money_with_frequency
@@ -188,7 +188,7 @@ sections:
               - attribute: maintenance_conditional_value
                 type: boolean_money_with_frequency
                 alt_attribute: maintenance_frequency
-                second_alt_attribute: maintenance_received
+                second_alt_attribute: maintenance_relevant
                 skip_unless: conditional_reveals?
               - attribute: property_or_lodger_value
                 type: money_with_frequency
@@ -197,7 +197,7 @@ sections:
               - attribute: property_or_lodger_conditional_value
                 type: boolean_money_with_frequency
                 alt_attribute: property_or_lodger_frequency
-                second_alt_attribute: property_or_lodger_received
+                second_alt_attribute: property_or_lodger_relevant
                 skip_unless: conditional_reveals?
               - attribute: pension_value
                 type: money_with_frequency
@@ -206,21 +206,21 @@ sections:
               - attribute: pension_conditional_value
                 type: boolean_money_with_frequency
                 alt_attribute: pension_frequency
-                second_alt_attribute: pension_received
+                second_alt_attribute: pension_relevant
                 skip_unless: conditional_reveals?
               - attribute: student_finance_value
                 skip_if: conditional_reveals?
                 type: money
               - attribute: student_finance_conditional_value
                 type: boolean_money
-                alt_attribute: student_finance_received
+                alt_attribute: student_finance_relevant
                 skip_unless: conditional_reveals?
               - attribute: other_value
                 type: money
                 skip_if: conditional_reveals?
               - attribute: other_conditional_value
                 type: boolean_money
-                alt_attribute: other_received
+                alt_attribute: other_relevant
                 skip_unless: conditional_reveals?
   - label: partner_details
     subsections:
@@ -288,7 +288,7 @@ sections:
               - attribute: partner_friends_or_family_conditional_value
                 type: boolean_money_with_frequency
                 alt_attribute: partner_friends_or_family_frequency
-                second_alt_attribute: partner_friends_or_family_received
+                second_alt_attribute: partner_friends_or_family_relevant
                 skip_unless: conditional_reveals?
               - attribute: partner_maintenance_value
                 type: money_with_frequency
@@ -297,7 +297,7 @@ sections:
               - attribute: partner_maintenance_conditional_value
                 type: boolean_money_with_frequency
                 alt_attribute: partner_maintenance_frequency
-                second_alt_attribute: partner_maintenance_received
+                second_alt_attribute: partner_maintenance_relevant
                 skip_unless: conditional_reveals?
               - attribute: partner_property_or_lodger_value
                 type: money_with_frequency
@@ -306,7 +306,7 @@ sections:
               - attribute: partner_property_or_lodger_conditional_value
                 type: boolean_money_with_frequency
                 alt_attribute: partner_property_or_lodger_frequency
-                second_alt_attribute: partner_property_or_lodger_received
+                second_alt_attribute: partner_property_or_lodger_relevant
                 skip_unless: conditional_reveals?
               - attribute: partner_pension_value
                 type: money_with_frequency
@@ -315,21 +315,21 @@ sections:
               - attribute: partner_pension_conditional_value
                 type: boolean_money_with_frequency
                 alt_attribute: partner_pension_frequency
-                second_alt_attribute: partner_pension_received
+                second_alt_attribute: partner_pension_relevant
                 skip_unless: conditional_reveals?
               - attribute: partner_student_finance_value
                 skip_if: conditional_reveals?
                 type: money
               - attribute: partner_student_finance_conditional_value
                 type: boolean_money
-                alt_attribute: partner_student_finance_received
+                alt_attribute: partner_student_finance_relevant
                 skip_unless: conditional_reveals?
               - attribute: partner_other_value
                 type: money
                 skip_if: conditional_reveals?
               - attribute: partner_other_conditional_value
                 type: boolean_money
-                alt_attribute: partner_other_received
+                alt_attribute: partner_other_relevant
                 skip_unless: conditional_reveals?
   - label: client_outgoings
     subsections:
@@ -340,12 +340,30 @@ sections:
                 type: money_with_frequency
                 alt_attribute: childcare_payments_frequency
                 skip_unless: eligible_for_childcare_costs?
+                skip_if: conditional_reveals?
               - attribute: maintenance_payments_value
                 type: money_with_frequency
                 alt_attribute: maintenance_payments_frequency
+                skip_if: conditional_reveals?
               - attribute: legal_aid_payments_value
                 type: money_with_frequency
                 alt_attribute: legal_aid_payments_frequency
+                skip_if: conditional_reveals?
+              - attribute: childcare_payments_conditional_value
+                type: boolean_money_with_frequency
+                alt_attribute: childcare_payments_frequency
+                second_alt_attribute: childcare_payments_relevant
+                skip_unless: conditional_reveals?,eligible_for_childcare_costs?
+              - attribute: maintenance_payments_conditional_value
+                type: boolean_money_with_frequency
+                alt_attribute: maintenance_payments_frequency
+                second_alt_attribute: maintenance_payments_relevant
+                skip_unless: conditional_reveals?
+              - attribute: legal_aid_payments_conditional_value
+                type: boolean_money_with_frequency
+                alt_attribute: legal_aid_payments_frequency
+                second_alt_attribute: legal_aid_payments_relevant
+                skip_unless: conditional_reveals?
   - label: partner_outgoings
     subsections:
       - tables:
@@ -355,12 +373,30 @@ sections:
                 type: money_with_frequency
                 alt_attribute: partner_childcare_payments_frequency
                 skip_unless: eligible_for_childcare_costs?
+                skip_if: conditional_reveals?
               - attribute: partner_maintenance_payments_value
                 type: money_with_frequency
                 alt_attribute: partner_maintenance_payments_frequency
+                skip_if: conditional_reveals?
               - attribute: partner_legal_aid_payments_value
                 type: money_with_frequency
                 alt_attribute: partner_legal_aid_payments_frequency
+                skip_if: conditional_reveals?
+              - attribute: partner_childcare_payments_conditional_value
+                type: boolean_money_with_frequency
+                alt_attribute: partner_childcare_payments_frequency
+                second_alt_attribute: partner_childcare_payments_relevant
+                skip_unless: conditional_reveals?,eligible_for_childcare_costs?
+              - attribute: partner_maintenance_payments_conditional_value
+                type: boolean_money_with_frequency
+                alt_attribute: partner_maintenance_payments_frequency
+                second_alt_attribute: partner_maintenance_payments_relevant
+                skip_unless: conditional_reveals?
+              - attribute: partner_legal_aid_payments_conditional_value
+                type: boolean_money_with_frequency
+                alt_attribute: partner_legal_aid_payments_frequency
+                second_alt_attribute: partner_legal_aid_payments_relevant
+                skip_unless: conditional_reveals?
   - label: client_assets
     subsections:
       - tables:

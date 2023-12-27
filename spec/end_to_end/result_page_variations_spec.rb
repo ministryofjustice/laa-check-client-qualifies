@@ -37,8 +37,7 @@ RSpec.describe "Results page variations", :end2end, type: :feature do
 
     key_lines = ["Your client is likely to qualify financially for civil legal aid based on the information you have entered.",
                  "We estimate they will have to pay towards the costs of their case:\n",
-                 "£149.15 per month from their disposable income£1,000.00 lump sum payment from their disposable capital\n",
-                 "Any capital contribution will not exceed the likely costs of their case.",
+                 "£149.15 per month from their disposable income - these contributions will continue for the duration of the case, however long it lasts£1,000.00 lump sum payment from their disposable capital - any capital contribution will not exceed the likely costs of their case and they might pay less than this amount\n",
                  "Disposable income and Capital limitsLower limitUpper limitDisposable monthly income£315£733Capital£3,000£8,000",
                  "Total monthly income£1,500.00Monthly income upper limit£2,657.00",
                  "Maintenance payments to a former partner\n£800.00",

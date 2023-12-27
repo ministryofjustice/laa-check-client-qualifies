@@ -8,12 +8,12 @@
             tag: (:partner if partner)
   - OtherIncomeForm::REGULAR_INCOME_TYPES.each do |type|
     - if FeatureFlags.enabled?(:conditional_reveals, @check.session_data)
-      = form.govuk_radio_buttons_fieldset :"#{type}_received",
+      = form.govuk_radio_buttons_fieldset :"#{type}_relevant",
             legend: { text: t("question_flow.#{i18n_key}.#{type}.question") },
             hint: { text: t("question_flow.#{i18n_key}.#{type}.question_hint") } do
         = render "shared/radio_button_set",
                 form:,
-                field_name: :"#{type}_received",
+                field_name: :"#{type}_relevant",
                 buttons: [{ value: true, options: { label: { text: t("generic.yes_choice") } } },
                           { value: false, options: { label: { text: t("generic.no_choice") } } }]
           = render "shared/money_input",
@@ -48,14 +48,14 @@
 
   - OtherIncomeForm::IRREGULAR_INCOME_TYPES.each do |type|
     - if FeatureFlags.enabled?(:conditional_reveals, @check.session_data)
-      = form.govuk_radio_buttons_fieldset :"#{type}_received",
+      = form.govuk_radio_buttons_fieldset :"#{type}_relevant",
             legend: { text: t("question_flow.#{i18n_key}.#{type}.question") },
             hint: { text: t("question_flow.#{i18n_key}.#{type}.question_hint") } do
         - if type == :other
           = render "shared/cost_of_living"
         = render "shared/radio_button_set",
                 form:,
-                field_name: :"#{type}_received",
+                field_name: :"#{type}_relevant",
                 buttons: [{ value: true, options: { label: { text: t("generic.yes_choice") } } },
                           { value: false, options: { label: { text: t("generic.no_choice") } } }]
 
