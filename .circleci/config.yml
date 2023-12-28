@@ -205,6 +205,7 @@ jobs:
     executor: aws-ecr/default
     steps:
       - checkout
+
       - aws-cli/setup:
           role_arn: $ECR_ROLE_TO_ASSUME_CCQ
           region: $ECR_REGION
@@ -216,17 +217,24 @@ jobs:
             [[ "$CIRCLE_BRANCH" == "main" ]] && ECR_TAG="main-$CIRCLE_SHA1" || ECR_TAG="branch-$CIRCLE_SHA1"
             echo "export ECR_TAG=$ECR_TAG" >> "$BASH_ENV"
             source "$BASH_ENV"
-      - aws-ecr/build_and_push_image:
-          auth:
-            - aws-cli/setup:
-                role_arn: $ECR_ROLE_TO_ASSUME_CCQ
-                region: $ECR_REGION
-          remote_docker_layer_caching: true
-          create_repo: false
-          dockerfile: Dockerfile
+      # - aws-ecr/build_and_push_image:
+      #     auth:
+      #       - aws-cli/setup:
+      #           role_arn: $ECR_ROLE_TO_ASSUME_CCQ
+      #           region: $ECR_REGION
+      #     remote_docker_layer_caching: true
+      #     create_repo: false
+      #     dockerfile: Dockerfile
+      #     region: $ECR_REGION
+      #     repo: $ECR_REPOSITORY_CCQ
+      #     tag: $ECR_TAG
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - aws-ecr/build_image:
+          push_image: true
+          tag: $ECR_TAG
           region: $ECR_REGION
           repo: $ECR_REPOSITORY_CCQ
-          tag: $ECR_TAG
       - jira/notify:
           job_type: build
           pipeline_id: << pipeline.id >>
