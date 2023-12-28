@@ -202,7 +202,7 @@ jobs:
           template: basic_fail_1
           branch_pattern: main
   build_and_push:
-    executor: docker
+    executor: aws-ecr/default
     steps:
       - checkout
       - aws-cli/setup:
@@ -303,9 +303,9 @@ workflows:
           environment: ccq-staging
           context: laa-check-client-qualifies-staging
           requires:
-            # - run_specs
-            # - end2end_tests
-            # - linters
+            - run_specs
+            - end2end_tests
+            - linters
             - build_and_push
           post-steps:
             - jira/notify:
