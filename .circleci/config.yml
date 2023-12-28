@@ -221,7 +221,6 @@ jobs:
             - aws-cli/setup:
                 role_arn: $ECR_ROLE_TO_ASSUME_CCQ
                 region: $ECR_REGION
-          setup_remote_docker: true
           remote_docker_layer_caching: true
           create_repo: false
           dockerfile: Dockerfile
