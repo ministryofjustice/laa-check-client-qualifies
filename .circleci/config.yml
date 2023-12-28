@@ -202,10 +202,11 @@ jobs:
           template: basic_fail_1
           branch_pattern: main
   build_and_push:
-    executor: aws-ecr/default
+    executor: 
+      name: aws-ecr/default
+      dlc: true
     steps:
       - checkout
-      - docker_layer_caching: true
       - aws-cli/setup:
           role_arn: $ECR_ROLE_TO_ASSUME_CCQ
           region: $ECR_REGION
