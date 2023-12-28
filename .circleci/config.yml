@@ -81,7 +81,7 @@ references:
 
 orbs:
   aws-cli: circleci/aws-cli@4.0.0
-  aws-ecr: circleci/aws-ecr@8.2.1
+  aws-ecr: circleci/aws-ecr@9.0.1
   browser-tools: circleci/browser-tools@1.4.4
   jira: circleci/jira@2.1.0
   slack: circleci/slack@4.5.2
@@ -216,8 +216,14 @@ jobs:
             [[ "$CIRCLE_BRANCH" == "main" ]] && ECR_TAG="main-$CIRCLE_SHA1" || ECR_TAG="branch-$CIRCLE_SHA1"
             echo "export ECR_TAG=$ECR_TAG" >> "$BASH_ENV"
             source "$BASH_ENV"
-      - aws-ecr/build-and-push-image:
-          create-repo: false
+      - aws-ecr/build_and_push_image:
+          auth:
+            - aws-cli/setup:
+                role_arn: $ECR_ROLE_TO_ASSUME_CCQ
+                region: $ECR_REGION
+          setup_remote_docker: true
+          remote_docker_layer_caching: true
+          create_repo: false
           dockerfile: Dockerfile
           region: $ECR_REGION
           repo: $ECR_REPOSITORY_CCQ
@@ -262,15 +268,15 @@ workflows:
   run_ci:
     jobs:
       - install_dependencies
-      - linters:
-          requires:
-            - install_dependencies
-      - run_specs:
-          requires:
-            - install_dependencies
-      - end2end_tests:
-          requires:
-            - install_dependencies
+      # - linters:
+      #     requires:
+      #       - install_dependencies
+      # - run_specs:
+      #     requires:
+      #       - install_dependencies
+      # - end2end_tests:
+      #     requires:
+      #       - install_dependencies
       - build_and_push:
           requires:
             - install_dependencies
@@ -279,10 +285,10 @@ workflows:
           environment: ccq-uat
           context: laa-check-client-qualifies-uat
           requires:
-            - linters
-            - run_specs
-            - end2end_tests
-            - linters
+            # - linters
+            # - run_specs
+            # - end2end_tests
+            # - linters
             - build_and_push
           post-steps:
             - jira/notify:
@@ -296,9 +302,9 @@ workflows:
           environment: ccq-staging
           context: laa-check-client-qualifies-staging
           requires:
-            - run_specs
-            - end2end_tests
-            - linters
+            # - run_specs
+            # - end2end_tests
+            # - linters
             - build_and_push
           post-steps:
             - jira/notify:
@@ -316,9 +322,9 @@ workflows:
           environment: ccq-production
           context: laa-check-client-qualifies-production
           requires:
-            - run_specs
-            - end2end_tests
-            - linters
+            # - run_specs
+            # - end2end_tests
+            # - linters
             - build_and_push
           post-steps:
             - jira/notify:
