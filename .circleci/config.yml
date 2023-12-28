@@ -205,8 +205,6 @@ jobs:
     executor: aws-ecr/default
     steps:
       - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
       - aws-cli/setup:
           role_arn: $ECR_ROLE_TO_ASSUME_CCQ
           region: $ECR_REGION
@@ -223,6 +221,8 @@ jobs:
           tag: $ECR_TAG
           region: $ECR_REGION
           repo: $ECR_REPOSITORY_CCQ
+      - aws-ecr/build_and_push_image:
+          docker_layer_caching: true
       - jira/notify:
           job_type: build
           pipeline_id: << pipeline.id >>
