@@ -221,8 +221,7 @@ jobs:
           tag: $ECR_TAG
           region: $ECR_REGION
           repo: $ECR_REPOSITORY_CCQ
-      - aws-ecr/build_and_push_image:
-          docker_layer_caching: true
+          remote_docker_layer_caching: true
       - jira/notify:
           job_type: build
           pipeline_id: << pipeline.id >>
