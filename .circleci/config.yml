@@ -223,6 +223,7 @@ jobs:
             - aws-cli/setup:
                 role_arn: $ECR_ROLE_TO_ASSUME_CCQ
                 region: $ECR_REGION
+          setup_remote_docker: true
           remote_docker_layer_caching: true
       - jira/notify:
           job_type: build
