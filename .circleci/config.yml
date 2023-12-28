@@ -202,9 +202,7 @@ jobs:
           template: basic_fail_1
           branch_pattern: main
   build_and_push:
-    executor: 
-      name: aws-ecr/default
-      dlc: true
+    executor: aws-ecr/default
     steps:
       - checkout
       - aws-cli/setup:
@@ -223,6 +221,7 @@ jobs:
           tag: $ECR_TAG
           region: $ECR_REGION
           repo: $ECR_REPOSITORY_CCQ
+      - aws-ecr/build-and-push-image:
       - jira/notify:
           job_type: build
           pipeline_id: << pipeline.id >>
