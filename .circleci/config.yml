@@ -202,10 +202,9 @@ jobs:
           template: basic_fail_1
           branch_pattern: main
   build_and_push:
-    executor: aws-ecr/default
+    executor: cloud-platform-executor
     steps:
       - checkout
-
       - aws-cli/setup:
           role_arn: $ECR_ROLE_TO_ASSUME_CCQ
           region: $ECR_REGION
