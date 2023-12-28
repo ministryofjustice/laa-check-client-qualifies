@@ -217,10 +217,12 @@ jobs:
             echo "export ECR_TAG=$ECR_TAG" >> "$BASH_ENV"
             source "$BASH_ENV"
       - aws-ecr/build-and-push-image:
-          push-image: true
-          tag: $ECR_TAG
+          create-repo: false
+          dockerfile: Dockerfile
           region: $ECR_REGION
           repo: $ECR_REPOSITORY_CCQ
+          tag: $ECR_TAG
+          setup-remote-docker: true
           remote_docker_layer_caching: true
       - jira/notify:
           job_type: build
