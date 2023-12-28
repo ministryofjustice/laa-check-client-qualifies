@@ -81,7 +81,7 @@ references:
 
 orbs:
   aws-cli: circleci/aws-cli@4.0.0
-  aws-ecr: circleci/aws-ecr@8.2.1
+  aws-ecr: circleci/aws-ecr@9.0.1
   browser-tools: circleci/browser-tools@1.4.4
   jira: circleci/jira@2.1.0
   slack: circleci/slack@4.5.2
@@ -216,11 +216,14 @@ jobs:
             [[ "$CIRCLE_BRANCH" == "main" ]] && ECR_TAG="main-$CIRCLE_SHA1" || ECR_TAG="branch-$CIRCLE_SHA1"
             echo "export ECR_TAG=$ECR_TAG" >> "$BASH_ENV"
             source "$BASH_ENV"
-      - aws-ecr/build-image:
-          push-image: true
-          tag: $ECR_TAG
-          region: $ECR_REGION
+      - aws-ecr/build_and_push_image:
           repo: $ECR_REPOSITORY_CCQ
+          account_id: $AWS_ECR_REGISTRY_ID
+          auth:
+            - aws-cli/setup:
+                role_arn: $ECR_ROLE_TO_ASSUME_CCQ
+                region: $ECR_REGION
+          remote_docker_layer_caching: true
       - jira/notify:
           job_type: build
           pipeline_id: << pipeline.id >>
