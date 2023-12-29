@@ -58,11 +58,11 @@ executors:
         environment:
           GITHUB_TEAM_NAME_SLUG: check-client-qualifies
           TZ: Europe/London
-  customised-executor-for-dlc:
-    resource_class: medium
-    machine:
-      docker_layer_caching: true
-      image: 'ubuntu-2004:202101-01'
+  # customised-executor-for-dlc:
+  #   resource_class: medium
+  #   machine:
+  #     docker_layer_caching: true
+  #     image: 'ubuntu-2004:202101-01'
 
 
 references:
@@ -207,7 +207,9 @@ jobs:
           template: basic_fail_1
           branch_pattern: main
   build_and_push:
-    executor: customised-executor-for-dlc
+    executor:
+      name: aws-ecr/default
+      docker_layer_caching: true
     steps:
       - checkout
       - aws-cli/setup:
