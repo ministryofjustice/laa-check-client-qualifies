@@ -59,7 +59,7 @@ executors:
           GITHUB_TEAM_NAME_SLUG: check-client-qualifies
           TZ: Europe/London
   customised-executor-for-dlc:
-    resource_class: small
+    resource_class: medium
     machine:
       docker_layer_caching: true
       image: 'ubuntu-2004:202101-01'
