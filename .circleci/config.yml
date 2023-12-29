@@ -228,7 +228,6 @@ jobs:
                 region: $ECR_REGION
           create_repo: false
           dockerfile: Dockerfile
-          setup_remote_docker: true
           remote_docker_layer_caching: true
           account_id: $AWS_ECR_REGISTRY_ID
           region: $ECR_REGION
