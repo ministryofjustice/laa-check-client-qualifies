@@ -58,12 +58,6 @@ executors:
         environment:
           GITHUB_TEAM_NAME_SLUG: check-client-qualifies
           TZ: Europe/London
-  # customised-executor-for-dlc:
-  #   resource_class: medium
-  #   machine:
-  #     docker_layer_caching: true
-  #     image: 'ubuntu-2004:202101-01'
-
 
 references:
   authenticate_k8s: &authenticate_k8s
@@ -223,18 +217,6 @@ jobs:
             [[ "$CIRCLE_BRANCH" == "main" ]] && ECR_TAG="main-$CIRCLE_SHA1" || ECR_TAG="branch-$CIRCLE_SHA1"
             echo "export ECR_TAG=$ECR_TAG" >> "$BASH_ENV"
             source "$BASH_ENV"
-      # - aws-ecr/build_and_push_image:
-      #     auth:
-      #       - aws-cli/setup:
-      #           role_arn: $ECR_ROLE_TO_ASSUME_CCQ
-      #           region: $ECR_REGION
-      #     create_repo: false
-      #     dockerfile: Dockerfile
-      #     remote_docker_layer_caching: true
-      #     account_id: $AWS_ECR_REGISTRY_ID
-      #     region: $ECR_REGION
-      #     repo: $ECR_REPOSITORY_CCQ
-      #     tag: $ECR_TAG
       - aws-ecr/build_image:
           push_image: true
           account_id: $AWS_ECR_REGISTRY_ID
