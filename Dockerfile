@@ -15,7 +15,7 @@ RUN addgroup -g 1000 -S appgroup \
   && adduser -u 1000 -S appuser -G appgroup
 
 # Add the timezone (builder image) as it's not configured by default in Alpine
-RUN apk add --update tzdata && \
+RUN apk add --update --no-cache tzdata && \
     cp /usr/share/zoneinfo/Europe/London /etc/localtime && \
     echo "Europe/London" > /etc/timezone
 
@@ -23,7 +23,7 @@ RUN apk add --update tzdata && \
 # yarn: node package manager
 # postgresql-dev: postgres driver and libraries
 # git: to allow us to create the VERSION file
-RUN apk add build-base yarn postgresql13-dev git
+RUN apk add --no-cache build-base yarn postgresql13-dev git
 
 # Install gems defined in Gemfile
 COPY .ruby-version Gemfile Gemfile.lock ./
@@ -84,16 +84,16 @@ FROM ruby:3.2.2-alpine as production
 WORKDIR /app
 
 # Add the timezone (prod image) as it's not configured by default in Alpine
-RUN apk add --update tzdata && \
+RUN apk add --update --no-cache tzdata && \
     cp /usr/share/zoneinfo/Europe/London /etc/localtime && \
     echo "Europe/London" > /etc/timezone
 
 # libpq: required to run postgres
-RUN apk add libpq postgresql-client
+RUN apk add --no-cache libpq postgresql-client
 
 # Install Chromium and Puppeteer for PDF generation
 # Installs latest Chromium package available on Alpine (Chromium 108)
-RUN apk add \
+RUN apk add --no-cache \
         chromium \
         nss \
         freetype \
