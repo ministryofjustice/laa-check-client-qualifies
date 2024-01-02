@@ -201,7 +201,9 @@ jobs:
           template: basic_fail_1
           branch_pattern: main
   build_and_push:
-    executor: aws-ecr/default
+    executor:
+      name: aws-ecr/default
+      docker_layer_caching: true
     steps:
       - checkout
       - aws-cli/setup:
