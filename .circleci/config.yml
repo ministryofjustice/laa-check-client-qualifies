@@ -136,6 +136,7 @@ jobs:
           template: basic_fail_1
           branch_pattern: main
   run_specs:
+    parallelism: 5
     executor: test-executor
     steps:
       - browser-tools/install-browser-tools:
@@ -158,7 +159,26 @@ jobs:
       - run:
           name: Run tests
           command: |
-            bundle exec rake spec
+            TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings --timings-type=filename)
+            echo "${TESTFILES}"
+            bundle exec rspec --format progress \
+            --format RspecJunitFormatter \
+            -o /tmp/test-results/rspec/rspec.xml \
+            -- ${TESTFILES}
+
+      - store_test_results:
+          path: /tmp/test-results/rspec
+
+      - run:
+          name: Stash Coverage Results
+          command: |
+            mkdir coverage_results
+            cp -R coverage/.resultset.json coverage_results/.resultset-${CIRCLE_NODE_INDEX}-unit.json
+      - persist_to_workspace:
+          root: ./
+          paths:
+            - coverage_results
+
       - store_artifacts:
           path: coverage
       - slack/notify:
@@ -175,12 +195,23 @@ jobs:
       - *setup_database
       - run:
           name: Prepare for test run
-          command: |
-            bundle exec rake test:prepare
+          command: bundle exec rake test:prepare
       - run:
           name: Run CFE End to End tests
           command: |
             COVERAGE=false bundle exec rspec -t end2end --format documentation spec/**/**_spec.rb
+  coverage:
+    executor: basic-executor
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ./
+      - run:
+          name: Process coverage
+          command: bundle exec rake job:simplecov:process_coverage
+      - store_artifacts:
+          path: ~/project/coverage
+          destination: coverage
   linters:
     executor: basic-executor
     resource_class: medium
@@ -267,6 +298,9 @@ workflows:
       - run_specs:
           requires:
             - install_dependencies
+      - coverage:
+          requires:
+            - run_specs
       - end2end_tests:
           requires:
             - install_dependencies
@@ -278,7 +312,6 @@ workflows:
           environment: ccq-uat
           context: laa-check-client-qualifies-uat
           requires:
-            - linters
             - run_specs
             - end2end_tests
             - linters

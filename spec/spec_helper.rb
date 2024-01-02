@@ -21,8 +21,18 @@ unless ENV.fetch("COVERAGE", "true") == "false"
     add_filter "app/lib/exception_notifier/templated_notifier.rb"
 
     enable_coverage :branch
-    primary_coverage :branch
-    minimum_coverage branch: 100, line: 100
+
+    # CIRCLE_NODE_TOTAL is a built in CircleCI env_var that only exists when
+    # parallelism is turned on. As this splits the test run, 100% branch and
+    # line coverage is checked by the simplecov_coverage.rake task instead
+    unless ENV["CIRCLE_NODE_TOTAL"]
+      primary_coverage :branch
+      minimum_coverage  branch: 100, line: 100
+
+      SimpleCov.at_exit do
+        SimpleCov.result.format!
+      end
+    end
   end
 end
 
