@@ -30,6 +30,7 @@ COPY .ruby-version Gemfile Gemfile.lock ./
 
 # Install gems and remove gem cache
 RUN bundler -v && \
+    bundle config set no-cache 'true' && \
     bundle config set no-binstubs 'true' && \
     bundle config set without 'development test' && \
     bundle install --retry=5 --jobs=4 && \
