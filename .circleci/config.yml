@@ -79,9 +79,9 @@ references:
         bundle exec rake db:migrate
 
 orbs:
-  aws-cli: circleci/aws-cli@4.0.0
+  aws-cli: circleci/aws-cli@4.1.2
   aws-ecr: circleci/aws-ecr@9.0.1
-  browser-tools: circleci/browser-tools@1.4.4
+  browser-tools: circleci/browser-tools@1.4.6
   jira: circleci/jira@2.1.0
   slack: circleci/slack@4.5.2
 
@@ -139,8 +139,10 @@ jobs:
     executor: test-executor
     steps:
       - browser-tools/install-browser-tools:
-          chrome-version: 116.0.5845.96 # TODO: remove when chromedriver downloads are fixed
           replace-existing-chrome: true
+          install-firefox: false
+          install-geckodriver: false
+          install-chromedriver: false
       - checkout
       - attach_workspace:
           at: ./
@@ -314,7 +316,7 @@ workflows:
           environment: ccq-uat
           context: laa-check-client-qualifies-uat
           requires:
-            - run_specs
+            - coverage
             - end2end_tests
             - linters
             - build_and_push
@@ -330,7 +332,7 @@ workflows:
           environment: ccq-staging
           context: laa-check-client-qualifies-staging
           requires:
-            - run_specs
+            - coverage
             - end2end_tests
             - linters
             - build_and_push
@@ -350,7 +352,7 @@ workflows:
           environment: ccq-production
           context: laa-check-client-qualifies-production
           requires:
-            - run_specs
+            - coverage
             - end2end_tests
             - linters
             - build_and_push
