@@ -79,9 +79,9 @@ references:
         bundle exec rake db:migrate
 
 orbs:
-  aws-cli: circleci/aws-cli@4.0.0
+  aws-cli: circleci/aws-cli@4.1.2
   aws-ecr: circleci/aws-ecr@9.0.1
-  browser-tools: circleci/browser-tools@1.4.4
+  browser-tools: circleci/browser-tools@1.4.6
   jira: circleci/jira@2.1.0
   slack: circleci/slack@4.5.2
 
@@ -139,8 +139,10 @@ jobs:
     executor: test-executor
     steps:
       - browser-tools/install-browser-tools:
-          chrome-version: 116.0.5845.96 # TODO: remove when chromedriver downloads are fixed
-          replace-existing-chrome: true
+          replace-existing-chrome: false
+          install-firefox: false
+          install-geckodriver: false
+          install-chromedriver: false
       - checkout
       - attach_workspace:
           at: ./
