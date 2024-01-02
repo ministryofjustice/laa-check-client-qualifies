@@ -141,6 +141,7 @@ jobs:
       - browser-tools/install-browser-tools:
           install-firefox: false
           install-geckodriver: false
+          install-chromedriver: false
       - checkout
       - attach_workspace:
           at: ./
@@ -314,7 +315,7 @@ workflows:
           environment: ccq-uat
           context: laa-check-client-qualifies-uat
           requires:
-            - run_specs
+            - coverage
             - end2end_tests
             - linters
             - build_and_push
@@ -330,7 +331,7 @@ workflows:
           environment: ccq-staging
           context: laa-check-client-qualifies-staging
           requires:
-            - run_specs
+            - coverage
             - end2end_tests
             - linters
             - build_and_push
@@ -350,7 +351,7 @@ workflows:
           environment: ccq-production
           context: laa-check-client-qualifies-production
           requires:
-            - run_specs
+            - coverage
             - end2end_tests
             - linters
             - build_and_push
