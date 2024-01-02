@@ -68,7 +68,7 @@ group :development, :test do
   gem "debug", platforms: %i[mri mingw x64_mingw]
   gem "rspec-rails"
   gem "dotenv-rails"
-
+  gem "rspec_junit_formatter"
   gem "pry-rescue"
   gem "pry-stack_explorer"
   gem "pry-nav"
