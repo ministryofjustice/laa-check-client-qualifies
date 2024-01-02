@@ -5,12 +5,12 @@
     "@ministryofjustice/frontend": "^1.8.1",
     "@rails/ujs": "^7.1.2",
     "@sentry/browser": "^7.91.0",
-    "esbuild": "^0.19.10",
+    "esbuild": "^0.19.11",
     "govuk-frontend": "^5.0.0",
     "jquery": "^3.7.1",
     "puppeteer": "^21.6.1",
     "rails_admin": "3.1.2",
-    "sass": "^1.69.5"
+    "sass": "^1.69.6"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets",
