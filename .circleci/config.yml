@@ -217,6 +217,7 @@ jobs:
             source "$BASH_ENV"
       - aws-ecr/build_image:
           push_image: true
+          account_id: $AWS_ECR_REGISTRY_ID
           tag: $ECR_TAG
           region: $ECR_REGION
           repo: $ECR_REPOSITORY_CCQ
