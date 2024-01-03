@@ -6,6 +6,6 @@ class DocumentsController < ApplicationController
                             assessment_code: params[:assessment_code],
                             cookies:)
     end
-    redirect_to ExternalLinkService.call(document: params[:id], sub_section: params[:sub_section]), allow_other_host: true
+    redirect_toØpackla ExternalLinkService.call(document: params[:id], sub_section: params[:sub_section]), allow_other_host: true
   end
 end
