@@ -45,19 +45,21 @@ RSpec.describe "Add another JS" do
       check "This asset is a subject matter of dispute", id: "2-vehicle_in_dispute"
       click_on "Save and continue"
 
-      expect(session_contents.dig("vehicles", 0, "vehicle_value")).to eq 123
-      expect(session_contents.dig("vehicles", 0, "vehicle_pcp")).to eq false
-      expect(session_contents.dig("vehicles", 0, "vehicle_finance")).to eq nil
-      expect(session_contents.dig("vehicles", 0, "vehicle_over_3_years_ago")).to eq false
-      expect(session_contents.dig("vehicles", 0, "vehicle_in_regular_use")).to eq false
-      expect(session_contents.dig("vehicles", 0, "vehicle_in_dispute")).to eq false
+      click_on "Back"
 
-      expect(session_contents.dig("vehicles", 1, "vehicle_value")).to eq 789
-      expect(session_contents.dig("vehicles", 1, "vehicle_pcp")).to eq true
-      expect(session_contents.dig("vehicles", 1, "vehicle_finance")).to eq 456
-      expect(session_contents.dig("vehicles", 1, "vehicle_over_3_years_ago")).to eq true
-      expect(session_contents.dig("vehicles", 1, "vehicle_in_regular_use")).to eq true
-      expect(session_contents.dig("vehicles", 1, "vehicle_in_dispute")).to eq true
+      expect(find(id: "1-vehicle-value").value).to eq "123"
+      expect(find(id: "1-vehicle-pcp-false", visible: false)).to be_checked
+      expect(find(id: "1-vehicle-finance", visible: false).value).to eq ""
+      expect(find(id: "1-vehicle-over-3-years-ago-false", visible: false)).to be_checked
+      expect(find(id: "1-vehicle-in-regular-use-false", visible: false)).to be_checked
+      expect(find(id: "1-vehicle_in_dispute", visible: false)).not_to be_checked
+
+      expect(find(id: "2-vehicle-value").value).to eq "789"
+      expect(find(id: "2-vehicle-pcp", visible: false)).to be_checked
+      expect(find(id: "2-vehicle-finance", visible: false).value).to eq "456"
+      expect(find(id: "2-vehicle-over-3-years-ago", visible: false)).to be_checked
+      expect(find(id: "2-vehicle-in-regular-use", visible: false)).to be_checked
+      expect(find(id: "2-vehicle_in_dispute", visible: false)).to be_checked
     end
 
     it "lets me remove a vehicle", :slow do
@@ -86,8 +88,10 @@ RSpec.describe "Add another JS" do
 
       click_on "Save and continue"
 
-      expect(session_contents.dig("vehicles", 0, "vehicle_value")).to eq 123
-      expect(session_contents.dig("vehicles", 1, "vehicle_value")).to eq 789
+      click_on "Back"
+
+      expect(find(id: "1-vehicle-value").value).to eq "123"
+      expect(find(id: "2-vehicle-value").value).to eq "789"
     end
 
     it "removes error messages pertaining to a removed item", :slow do
