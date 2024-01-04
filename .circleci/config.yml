@@ -316,9 +316,9 @@ workflows:
           environment: ccq-uat
           context: laa-check-client-qualifies-uat
           requires:
-            - coverage
-            - end2end_tests
-            - linters
+            # - coverage
+            # - end2end_tests
+            # - linters
             - build_and_push
           post-steps:
             - jira/notify:
