@@ -137,6 +137,16 @@ module Steps
 
         session_data["dependants_get_income"]
       end
+
+      def newly_ineligible_disposable_income?(session_data)
+        return false if passported?(session_data) || asylum_supported?(session_data)
+
+        return false unless session_data["disposable_income_early_result"]
+
+        return false if session_data["early_result_screen_seen"]
+
+        session_data.dig("disposable_income_early_result", "result_summary", "disposable_income", "proceeding_types").first["result"] == "ineligible"
+      end
     end
   end
 end

@@ -1,0 +1,9 @@
+.govuk-button-group
+      = link_to "Check answers",
+            check_answers_path(params[:assessment_code]),
+            class: "govuk-button govuk-button"
+
+.govuk-button-group
+      = link_to "Return to check",
+            step_path_from_step(@next_step, params[:assessment_code]),
+            class: "govuk-button govuk-button--secondary"
