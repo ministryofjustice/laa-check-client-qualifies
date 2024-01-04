@@ -336,12 +336,13 @@ def fill_in_forms_until(target)
   current_page = nil
   loop do
     new_current_page = current_path.split("/").map(&:presence).compact.first
+    # infinite loop caused until early eligibility is stubbed properly - current path won't move on (i think)
     raise "Infinite loop detected on screen #{current_page}" if current_page == new_current_page
 
     current_page = new_current_page
 
     step = Flow::Handler.step_from_url_fragment(current_page)
-    break if step.to_s == target.to_s || current_path.starts_with?("/check-answers")
+    break if step.to_s == target.to_s || current_path.starts_with?("/check-answers") # want to add something here for early eligibility
 
     send("fill_in_#{step}_screen")
   end

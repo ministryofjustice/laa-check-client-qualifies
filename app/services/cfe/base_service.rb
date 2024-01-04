@@ -1,11 +1,11 @@
 module Cfe
   class BaseService
-    def self.call(session_data, payload)
-      new(session_data, payload).call
+    def self.call(*args, payload)
+      new(*args, payload).call
     end
 
-    def initialize(session_data, payload)
-      @session_data = session_data
+    def initialize(*args, payload)
+      @session_data, @early_eligibility = *args
       @payload = payload
     end
 
@@ -18,7 +18,7 @@ module Cfe
       form
     end
 
-    attr_reader :payload
+    attr_reader :payload, :early_eligibility
 
     def check
       @check ||= Check.new(@session_data)

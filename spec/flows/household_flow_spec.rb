@@ -43,6 +43,10 @@ RSpec.describe "Household section flow", type: :feature do
     fill_in_vehicles_details_screen
     fill_in_property_screen(choice: "Yes, with a mortgage or loan")
     fill_in_property_entry_screen
+    # parts of tests now need stubbing as we are asking for an early result on form update in some places
+    # if we stub the early elibility points with 'eligible' responses, these tests should still
+    # pass as they do currently. But I'm not sure if they will be easy to stub in their current format.
+    # We'll need new flow tests for an ineligible early result flow.
     fill_in_mortgage_or_loan_payment_screen
     fill_in_additional_property_screen(choice: "Yes, owned outright")
     fill_in_additional_property_details_screen

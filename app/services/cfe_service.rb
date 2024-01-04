@@ -1,17 +1,17 @@
 class CfeService
   class << self
-    def call(session_data)
+    def call(*args)
       payload = {}
-      Cfe::AssessmentPayloadService.call(session_data, payload)
-      Cfe::DependantsPayloadService.call(session_data, payload)
-      Cfe::ProceedingsPayloadService.call(session_data, payload)
-      Cfe::EmploymentIncomePayloadService.call(session_data, payload)
-      Cfe::IrregularIncomePayloadService.call(session_data, payload)
-      Cfe::VehiclePayloadService.call(session_data, payload)
-      Cfe::AssetsPayloadService.call(session_data, payload)
-      Cfe::RegularTransactionsPayloadService.call(session_data, payload)
-      Cfe::ApplicantPayloadService.call(session_data, payload)
-      Cfe::PartnerPayloadService.call(session_data, payload)
+      Cfe::AssessmentPayloadService.call(*args, payload)
+      Cfe::DependantsPayloadService.call(*args, payload)
+      Cfe::ProceedingsPayloadService.call(*args, payload)
+      Cfe::EmploymentIncomePayloadService.call(*args, payload)
+      Cfe::IrregularIncomePayloadService.call(*args, payload)
+      Cfe::VehiclePayloadService.call(*args, payload)
+      Cfe::AssetsPayloadService.call(*args, payload)
+      Cfe::RegularTransactionsPayloadService.call(*args, payload)
+      Cfe::ApplicantPayloadService.call(*args, payload)
+      Cfe::PartnerPayloadService.call(*args, payload)
       CfeConnection.assess(payload)
     end
   end

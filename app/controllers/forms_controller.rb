@@ -5,8 +5,8 @@ class FormsController < QuestionFlowController
     if @form.valid?
       track_choices(@form)
       session_data.merge!(@form.attributes_for_export_to_session)
-      if last_tag_in_group?(:disposable_income)
-        # session_data["disposable_income_early_result"] = CfeService.call(session_data, early_eligibility: :disposable_income)
+      if tag_from(step) == :disposable_income && last_tag_in_group?(:disposable_income)
+        session_data["disposable_income_early_result"] = CfeService.call(session_data, :disposable_income)
       end
       next_step = Steps::Helper.next_step_for(session_data, step)
       if Steps::Logic.newly_ineligible_disposable_income?(session_data)
