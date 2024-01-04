@@ -135,7 +135,7 @@ jobs:
           template: basic_fail_1
           branch_pattern: main
   run_specs:
-    parallelism: 5
+    parallelism: 3
     executor: test-executor
     steps:
       - browser-tools/install-browser-tools:
