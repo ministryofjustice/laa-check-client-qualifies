@@ -16,7 +16,7 @@ RSpec.describe "Issue administration" do
     visit root_path
     expect(page).to have_content "A problem has been identified with childcare costs. Learn more."
     visit updates_path
-    expect(page).to have_content "Problem with childcare costs\nactive"
+    expect(page).to have_content "Problem with childcare costs\nActive"
   end
 
   scenario "I leave fields blank" do
@@ -55,7 +55,7 @@ RSpec.describe "Issue administration" do
       visit root_path
       expect(page).to have_content "We have resolved the problem with childcare costs. Learn more."
       visit updates_path
-      expect(page).to have_content "Problem with childcare costs\nresolved"
+      expect(page).to have_content "Problem with childcare costs\nResolved"
       expect(page).to have_content "We have fixed the problem"
     end
 
