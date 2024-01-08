@@ -80,7 +80,7 @@ RUN curl https://gitlab.com/api/v4/projects/5024297/packages/generic/pdftk-java/
 
 # Build browser tools for test-executor 
 # Use the cimg/ruby:3.2.2-browsers image as the base image to extend out
-FROM cimg/image:ruby:3.2.2-browsers
+FROM cimg/ruby:3.2.2-browsers
 
 # Install PDFTK
 RUN apt-get update && apt-get install -y pdftk
@@ -93,9 +93,6 @@ WORKDIR /app
 
 # Copy application files to the container
 COPY . .
-
-# Build the image
-RUN docker build -t browser-image-setup .
 
 # Push the image to our registry
 RUN docker push our-registry/browser-image-setup
