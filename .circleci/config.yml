@@ -8,7 +8,7 @@ executors:
   test-executor:
     resource_class: small
     docker:
-      - image: our-registry/browser-image-setup
+      - image: ccq/browser-image-setup:latest
         environment:
           VCR_RECORD_MODE: none
           COVERAGE: true

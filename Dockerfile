@@ -78,26 +78,6 @@ RUN curl https://gitlab.com/api/v4/projects/5024297/packages/generic/pdftk-java/
         -H:GenerateDebugInfo=0
 
 
-# Build browser tools for test-executor 
-# Use the cimg/ruby:3.2.2-browsers image as the base image to extend out
-FROM cimg/ruby:3.2.2-browsers
-
-# Install PDFTK
-RUN apt-get update && apt-get install -y pdftk
-
-# Install Puppeteer with Chromium
-RUN yarn add puppeteer@19.2.0
-
-# Set the working directory (I think it's the /app)
-WORKDIR /app
-
-# Copy application files to the container
-COPY . .
-
-# Push the image to our registry
-RUN docker push our-registry/browser-image-setup
-
-
 # Build runtime image
 FROM ruby:3.2.2-alpine as production
 
