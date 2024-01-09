@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "client_age", :under_eighteen_flag, type: :feature do
+RSpec.describe "client_age", type: :feature do
   let(:title) { I18n.t("question_flow.client_age.title") }
   let(:assessment_code) { :assessment_code }
   let(:level_of_help) { "certificated" }

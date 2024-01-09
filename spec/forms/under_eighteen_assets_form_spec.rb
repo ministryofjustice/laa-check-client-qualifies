@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "under_eighteen_assets", :under_eighteen_flag, type: :feature do
+RSpec.describe "under_eighteen_assets", type: :feature do
   let(:title) { I18n.t("question_flow.under_eighteen_assets.title") }
   let(:assessment_code) { :assessment_code }
 

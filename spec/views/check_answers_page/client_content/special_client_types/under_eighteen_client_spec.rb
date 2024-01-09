@@ -10,7 +10,7 @@ RSpec.describe "checks/check_answers.html.slim" do
     render template: "checks/check_answers"
   end
 
-  describe "under eighteen clients", :under_eighteen_flag do
+  describe "under eighteen clients" do
     let(:session_data) do
       build(:minimal_complete_session,
             level_of_help: "controlled",

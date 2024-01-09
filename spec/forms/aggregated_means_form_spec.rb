@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "aggregated_means", :under_eighteen_flag, type: :feature do
+RSpec.describe "aggregated_means", type: :feature do
   let(:title) { I18n.t("question_flow.aggregated_means.title") }
   let(:assessment_code) { :assessment_code }
   let(:level_of_help) { "certificated" }

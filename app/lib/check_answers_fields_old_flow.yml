@@ -87,9 +87,6 @@ sections:
       - tables:
           - screen: applicant
             fields:
-              - attribute: over_60
-                type: boolean
-                skip_unless: show_over_60_question?
               - attribute: partner
                 type: boolean
               - attribute: passporting
