@@ -60,6 +60,7 @@ featureFlags:
   basicAuthentication: NOT_ENABLED
   outgoingsFlow: NOT_ENABLED
   conditionalReveals: NOT_ENABLED
+  earlyEligibility: NOT_ENABLED
 
 geckoboard:
   metricsDataset: "ccq_monthly_metrics_production"

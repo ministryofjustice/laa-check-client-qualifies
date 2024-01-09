@@ -14,6 +14,7 @@ class FeatureFlags
     basic_authentication: "global",
     outgoings_flow: "session",
     conditional_reveals: "session",
+    early_eligibility: "session",
   }.freeze
 
   class << self

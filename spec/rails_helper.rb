@@ -123,6 +123,12 @@ RSpec.configure do |config|
     ENV["CONDITIONAL_REVEALS_FEATURE_FLAG"] = "disabled"
   end
 
+  config.around(:each, :early_eligibility_flag) do |example|
+    ENV["EARLY_ELIGIBILITY_FEATURE_FLAG"] = "enabled"
+    example.run
+    ENV["EARLY_ELIGIBILITY_FEATURE_FLAG"] = "disabled"
+  end
+
   config.before(:suite) do
     DatabaseCleaner.clean_with :truncation
   end
