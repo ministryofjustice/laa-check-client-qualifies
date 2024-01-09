@@ -65,6 +65,7 @@ featureFlags:
   basicAuthentication: ENABLED
   outgoingsFlow: ENABLED
   conditionalReveals: NOT_ENABLED
+  earlyEligibility: ENABLED
 
 postgresql:
   enabled: true
