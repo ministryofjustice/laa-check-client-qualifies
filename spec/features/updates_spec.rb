@@ -22,7 +22,7 @@ RSpec.describe "Updates page" do
     create :issue_update, issue:, utc_timestamp: 1.hour.ago, content: "We have identified the source of the problem"
     create :issue_update, issue:, utc_timestamp: 25.hours.ago, content: "We are aware of a problem"
     visit updates_path
-    expect(page).to have_content "1 June 2023\n#{issue.title}\nactive\nStatus: Unresolved"
+    expect(page).to have_content "1 June 2023\n#{issue.title}\nActive\nStatus: Unresolved"
     expect(page).to have_content "18:00\nWe have identified the source of the problem"
     expect(page).to have_content "31 May 2023 18:00\nWe are aware of a problem"
   end
@@ -33,7 +33,7 @@ RSpec.describe "Updates page" do
     create :issue_update, issue:, utc_timestamp: 1.hour.ago, content: "We fixed the problem"
     create :issue_update, issue:, utc_timestamp: 25.hours.ago, content: "We are aware of a problem"
     visit updates_path
-    expect(page).to have_content "1 June 2023\n#{issue.title}\nresolved\nStatus: Resolved 1 June 2023 18:00"
+    expect(page).to have_content "1 June 2023\n#{issue.title}\nResolved\nStatus: Resolved 1 June 2023 18:00"
     expect(page).to have_content "18:00\nWe fixed the problem"
     expect(page).to have_content "31 May 2023 18:00\nWe are aware of a problem"
   end
