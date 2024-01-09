@@ -80,7 +80,6 @@ end
 def fill_in_applicant_screen(choices = {})
   confirm_screen "applicant"
 
-  choose choices.fetch(:over_60, "No"), name: "applicant_form[over_60]"
   choose choices.fetch(:partner, "No"), name: "applicant_form[partner]"
   choose choices.fetch(:passporting, "No"), name: "applicant_form[passporting]"
   click_on "Save and continue"

@@ -12,18 +12,14 @@ module Cfe
     end
 
     def date_of_birth
-      if relevant_form?(:client_age)
-        client_age_form = instantiate_form(ClientAgeForm)
-        case client_age_form.client_age
-        when ClientAgeForm::UNDER_18
-          17.years.ago.to_date
-        when ClientAgeForm::OVER_60
-          70.years.ago.to_date
-        else
-          50.years.ago.to_date
-        end
+      client_age_form = instantiate_form(ClientAgeForm)
+      case client_age_form.client_age
+      when ClientAgeForm::UNDER_18
+        17.years.ago.to_date
+      when ClientAgeForm::OVER_60
+        70.years.ago.to_date
       else
-        check.over_60 ? 70.years.ago.to_date : 50.years.ago.to_date
+        50.years.ago.to_date
       end
     end
   end

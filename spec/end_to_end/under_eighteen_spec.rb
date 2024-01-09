@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Under-18 checks", :under_eighteen_flag do
+RSpec.describe "Under-18 checks" do
   before do
     start_assessment
     fill_in_client_age_screen(choice: "Under 18")

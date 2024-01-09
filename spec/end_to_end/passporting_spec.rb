@@ -3,11 +3,11 @@ require "rails_helper"
 RSpec.shared_context "with passported attributes" do
   before do
     start_assessment
+    fill_in_client_age_screen(choice: "18 to 59")
     fill_in_forms_until(:applicant)
   end
 
   def submit_data_to_cfe
-    choose "No", name: "applicant_form[over_60]"
     choose "No", name: "applicant_form[partner]"
     choose "Yes", name: "applicant_form[passporting]"
     click_on "Save and continue"

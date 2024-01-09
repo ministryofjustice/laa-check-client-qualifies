@@ -1,4 +1,3 @@
-- under_eighteen_feature_flag = FeatureFlags.enabled?(:under_eighteen, without_session_data: true)
 .govuk-grid-column-two-thirds
   = render "shared/heading"
   = render "banners"
@@ -38,15 +37,6 @@
 
   p.govuk-body = t(".mental_health_html",
                  page_url: document_link(:mental_health_guidance))
-
-  - unless under_eighteen_feature_flag
-    h2.govuk-heading-m = t(".client_under_18_heading")
-
-    p.govuk-body = t(".client_under_18_para_1")
-    p.govuk-body = t(".client_under_18_para_2")
-    ul.govuk-list.govuk-list--bullet
-      - t(".client_under_18_bullets").each do |bullet|
-        li = bullet
 
   - if ChangeLog.anything_to_display?
     hr class="govuk-!-margin-top-9"

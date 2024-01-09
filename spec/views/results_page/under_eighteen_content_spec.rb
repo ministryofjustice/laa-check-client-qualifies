@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "results/show.html.slim", :under_eighteen_flag do
+RSpec.describe "results/show.html.slim" do
   describe "Result panel content" do
     let(:calculation_result) { CalculationResult.new(session_data) }
     let(:api_response) { FactoryBot.build(:api_result, eligible: "eligible") }

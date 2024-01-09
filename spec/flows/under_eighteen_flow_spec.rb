@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Under 18 flow", :under_eighteen_flag, type: :feature do
+RSpec.describe "Under 18 flow", type: :feature do
   it "shows additional questions form u18 controlled checks if flag is enabled" do
     start_assessment
     fill_in_client_age_screen(choice: "Under 18")
