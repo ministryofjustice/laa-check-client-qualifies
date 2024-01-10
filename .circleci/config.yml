@@ -84,19 +84,17 @@ orbs:
   browser-tools: circleci/browser-tools@1.4.6
   jira: circleci/jira@2.1.0
   slack: circleci/slack@4.5.2
-  docker: circleci/docker@1.4.0
 
 jobs:
-  docker_hub_workflow:
-    machine:
-      image: ubuntu-2004:current
-    resource_class: large
-    steps:
-      - docker/check:
-          docker-username: 'DOCKERHUB_USER'
-          docker-password: 'DOCKERHUB_PAT'
-      - docker/pull:
-          images: 'masumkhan/welcome-to-docker'
+  docker_hub_login:
+    docker:
+      - image: masumkhan/welcome-to-docker
+    steps: 
+      - checkout
+      - run:
+          name: Login to Dockerhub
+          command: |
+              echo "${DOCKERHUB_PAT}" | docker login -u "${DOCKERHUB_USER}" --password-stdin
   install_dependencies:
     executor: basic-executor
     steps:
@@ -306,7 +304,7 @@ jobs:
 workflows:
   docker_hub_workflow:
     jobs:
-      - docker_hub_workflow:
+      - docker_hub_login:
           context:
             - build-env-vars
             - docker-hub-creds
