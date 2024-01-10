@@ -234,6 +234,11 @@ jobs:
           template: basic_fail_1
           branch_pattern: main
   build_and_push:
+    docker:
+      - image: masumkhan/welcome-to-docker
+        auth:
+          username: $DOCKERHUB_USER
+          password: $DOCKERHUB_PAT
     executor:
       name: aws-ecr/default
       docker_layer_caching: true
