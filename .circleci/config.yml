@@ -305,10 +305,7 @@ workflows:
   run_ci:
     jobs:
       - install_dependencies
-      - docker_hub_login:
-          context:
-            - build-env-vars
-            - docker-hub-creds
+      - docker_hub_login
       - linters:
           requires:
             - install_dependencies
