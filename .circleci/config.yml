@@ -92,6 +92,10 @@ jobs:
     resource_class: arm-medium
     steps: 
       - checkout
+      - run:
+          name: Login to Dockerhub
+          command: |
+              echo "${DOCKERHUB_PAT}" | docker login -u "${DOCKERHUB_USER}" --password-stdin
   install_dependencies:
     executor: basic-executor
     steps:
