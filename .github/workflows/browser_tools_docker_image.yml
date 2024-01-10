@@ -18,4 +18,4 @@ jobs:
           docker build . --file ./Dockerfile_browser_tools.dockerfile --tag ccq/browser-image-setup
       - name: Push the Docker image
         run: |
-          docker image push ccq/browser-image-setup
+          docker image push masumkhan/welcome-to-docker
