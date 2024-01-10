@@ -84,8 +84,19 @@ orbs:
   browser-tools: circleci/browser-tools@1.4.6
   jira: circleci/jira@2.1.0
   slack: circleci/slack@4.5.2
+  docker: circleci/docker@1.4.0
 
 jobs:
+  docker_hub_workflow:
+    machine:
+      image: ubuntu-2004:current
+    resource_class: large
+    steps:
+      - docker/check:
+          docker-username: 'DOCKERHUB_USER'
+          docker-password: 'DOCKERHUB_PAT'
+      - docker/pull:
+          images: 'masumkhan/welcome-to-docker'
   install_dependencies:
     executor: basic-executor
     steps:
@@ -234,11 +245,6 @@ jobs:
           template: basic_fail_1
           branch_pattern: main
   build_and_push:
-    docker:
-      - image: masumkhan/welcome-to-docker
-        auth:
-          username: $DOCKERHUB_USER
-          password: $DOCKERHUB_PAT
     executor:
       name: aws-ecr/default
       docker_layer_caching: true
@@ -298,6 +304,12 @@ jobs:
           template: basic_fail_1
 
 workflows:
+  docker_hub_workflow:
+    jobs:
+      - docker_hub_workflow:
+          context:
+            - build-env-vars
+            - docker-hub-creds
   run_ci:
     jobs:
       - install_dependencies
