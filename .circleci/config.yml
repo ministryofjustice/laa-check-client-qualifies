@@ -89,6 +89,7 @@ jobs:
   docker_hub_login:
     docker:
       - image: masumkhan/welcome-to-docker
+    resource_class: arm-medium
     steps: 
       - checkout
   install_dependencies:
