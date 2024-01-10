@@ -166,6 +166,8 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
       end
       let(:relevant_steps) { %i[outgoings partner_outgoings housing_costs] }
 
+      let(:completed_steps) { %i[outgoings partner_outgoings housing_costs] }
+
       it "populates the payload with content from the housing costs screen" do
         service.call(session_data, payload, relevant_steps)
         expect(payload[:regular_transactions]).to eq(

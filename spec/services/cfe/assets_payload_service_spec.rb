@@ -18,11 +18,11 @@ RSpec.describe Cfe::AssetsPayloadService do
           "house_in_dispute" => false,
           "additional_property_owned" => "with_mortgage",
           "additional_properties" => [{
-            "house_value" => 123,
-            "mortgage" => 1313,
-            "percentage_owned" => 44,
-            "house_in_dispute" => false,
-          }],
+                                        "house_value" => 123,
+                                        "mortgage" => 1313,
+                                        "percentage_owned" => 44,
+                                        "house_in_dispute" => false,
+                                      }],
           "bank_accounts" => [{ "amount" => 553, "account_in_dispute" => true }],
           "investments" => 345,
           "valuables" => 665,
@@ -34,28 +34,28 @@ RSpec.describe Cfe::AssetsPayloadService do
 
       it "populates the payload appropriately" do
         expect(payload[:capitals]).to eq(
-          { bank_accounts: [{ description: "Liquid Asset",
-                              subject_matter_of_dispute: true,
-                              value: 553 }],
-            non_liquid_capital: [{ description: "Non Liquid Asset",
-                                   subject_matter_of_dispute: true,
-                                   value: 345 },
-                                 { description: "Non Liquid Asset",
-                                   subject_matter_of_dispute: true,
-                                   value: 665 }] },
-        )
+                                        { bank_accounts: [{ description: "Liquid Asset",
+                                                            subject_matter_of_dispute: true,
+                                                            value: 553 }],
+                                          non_liquid_capital: [{ description: "Non Liquid Asset",
+                                                                 subject_matter_of_dispute: true,
+                                                                 value: 345 },
+                                                               { description: "Non Liquid Asset",
+                                                                 subject_matter_of_dispute: true,
+                                                                 value: 665 }] },
+                                        )
         expect(payload[:properties]).to eq(
-          { additional_properties: [{ outstanding_mortgage: 1313,
-                                      percentage_owned: 44,
-                                      shared_with_housing_assoc: false,
-                                      subject_matter_of_dispute: false,
-                                      value: 123 }],
-            main_home: { outstanding_mortgage: 123_123,
-                         percentage_owned: 80,
-                         shared_with_housing_assoc: false,
-                         subject_matter_of_dispute: false,
-                         value: 234_234 } },
-        )
+                                          { additional_properties: [{ outstanding_mortgage: 1313,
+                                                                      percentage_owned: 44,
+                                                                      shared_with_housing_assoc: false,
+                                                                      subject_matter_of_dispute: false,
+                                                                      value: 123 }],
+                                            main_home: { outstanding_mortgage: 123_123,
+                                                         percentage_owned: 80,
+                                                         shared_with_housing_assoc: false,
+                                                         subject_matter_of_dispute: false,
+                                                         value: 234_234 } },
+                                          )
       end
     end
 
@@ -64,11 +64,11 @@ RSpec.describe Cfe::AssetsPayloadService do
         {
           "additional_property_owned" => "with_mortgage",
           "additional_properties" => [{
-            "house_value" => 123,
-            "mortgage" => 1313,
-            "percentage_owned" => 44,
-            "house_in_dispute" => true,
-          }],
+                                        "house_value" => 123,
+                                        "mortgage" => 1313,
+                                        "percentage_owned" => 44,
+                                        "house_in_dispute" => true,
+                                      }],
           "bank_accounts" => [{ "amount" => 0, "account_in_dispute" => false }],
           "investments" => 0,
           "valuables" => 0,
@@ -80,12 +80,12 @@ RSpec.describe Cfe::AssetsPayloadService do
 
       it "populates the payload with content from the standalone additional property screens" do
         expect(payload[:properties][:additional_properties]).to eq(
-          [{ outstanding_mortgage: 1313,
-             percentage_owned: 44,
-             shared_with_housing_assoc: false,
-             subject_matter_of_dispute: true,
-             value: 123 }],
-        )
+                                                                  [{ outstanding_mortgage: 1313,
+                                                                     percentage_owned: 44,
+                                                                     shared_with_housing_assoc: false,
+                                                                     subject_matter_of_dispute: true,
+                                                                     value: 123 }],
+                                                                  )
       end
     end
 
@@ -94,10 +94,10 @@ RSpec.describe Cfe::AssetsPayloadService do
         {
           "additional_property_owned" => "outright",
           "additional_properties" => [{
-            "house_value" => 123,
-            "percentage_owned" => 44,
-            "house_in_dispute" => false,
-          }],
+                                        "house_value" => 123,
+                                        "percentage_owned" => 44,
+                                        "house_in_dispute" => false,
+                                      }],
           "bank_accounts" => [{ "amount" => 0, "account_in_dispute" => false }],
           "investments" => 0,
           "valuables" => 0,
@@ -109,12 +109,12 @@ RSpec.describe Cfe::AssetsPayloadService do
 
       it "populates the payload with content from the standalone additional property screens" do
         expect(payload[:properties][:additional_properties]).to eq(
-          [{ outstanding_mortgage: 0,
-             percentage_owned: 44,
-             shared_with_housing_assoc: false,
-             subject_matter_of_dispute: false,
-             value: 123 }],
-        )
+                                                                  [{ outstanding_mortgage: 0,
+                                                                     percentage_owned: 44,
+                                                                     shared_with_housing_assoc: false,
+                                                                     subject_matter_of_dispute: false,
+                                                                     value: 123 }],
+                                                                  )
       end
     end
 
@@ -152,35 +152,35 @@ RSpec.describe Cfe::AssetsPayloadService do
                          :with_zero_capital_assets,
                          additional_property_owned: "with_mortgage",
                          additional_properties: [{
-                           "house_value" => 100_000,
-                           "mortgage" => 1,
-                           "percentage_owned" => 100,
-                           "house_in_dispute" => false,
-                         }])
+                                                   "house_value" => 100_000,
+                                                   "mortgage" => 1,
+                                                   "percentage_owned" => 100,
+                                                   "house_in_dispute" => false,
+                                                 }])
       end
       let(:relevant_steps) { [:additional_property_details] }
 
       it "adds a fake main home to the payload" do
         expect(payload[:properties]).to eq(
-          {
-            additional_properties: [
-              {
-                outstanding_mortgage: 1.0,
-                percentage_owned: 100,
-                shared_with_housing_assoc: false,
-                subject_matter_of_dispute: false,
-                value: 100_000,
-              },
-            ],
-            main_home: {
-              outstanding_mortgage: 0,
-              percentage_owned: 0,
-              shared_with_housing_assoc: false,
-              subject_matter_of_dispute: false,
-              value: 0,
-            },
-          },
-        )
+                                          {
+                                            additional_properties: [
+                                              {
+                                                outstanding_mortgage: 1.0,
+                                                percentage_owned: 100,
+                                                shared_with_housing_assoc: false,
+                                                subject_matter_of_dispute: false,
+                                                value: 100_000,
+                                              },
+                                            ],
+                                            main_home: {
+                                              outstanding_mortgage: 0,
+                                              percentage_owned: 0,
+                                              shared_with_housing_assoc: false,
+                                              subject_matter_of_dispute: false,
+                                              value: 0,
+                                            },
+                                          },
+                                          )
       end
     end
 
@@ -191,34 +191,34 @@ RSpec.describe Cfe::AssetsPayloadService do
                          :with_zero_capital_assets,
                          additional_property_owned: "outright",
                          additional_properties: [{
-                           "house_value" => 100_000,
-                           "percentage_owned" => 100,
-                           "house_in_dispute" => true,
-                         }])
+                                                   "house_value" => 100_000,
+                                                   "percentage_owned" => 100,
+                                                   "house_in_dispute" => true,
+                                                 }])
       end
       let(:relevant_steps) { %i[additional_property_details] }
 
       it "populates the payload with the right SMOD value" do
         expect(payload[:properties]).to eq(
-          {
-            additional_properties: [
-              {
-                outstanding_mortgage: 0.0,
-                percentage_owned: 100,
-                shared_with_housing_assoc: false,
-                subject_matter_of_dispute: true,
-                value: 100_000,
-              },
-            ],
-            main_home: {
-              outstanding_mortgage: 0,
-              percentage_owned: 0,
-              shared_with_housing_assoc: false,
-              subject_matter_of_dispute: false,
-              value: 0,
-            },
-          },
-        )
+                                          {
+                                            additional_properties: [
+                                              {
+                                                outstanding_mortgage: 0.0,
+                                                percentage_owned: 100,
+                                                shared_with_housing_assoc: false,
+                                                subject_matter_of_dispute: true,
+                                                value: 100_000,
+                                              },
+                                            ],
+                                            main_home: {
+                                              outstanding_mortgage: 0,
+                                              percentage_owned: 0,
+                                              shared_with_housing_assoc: false,
+                                              subject_matter_of_dispute: false,
+                                              value: 0,
+                                            },
+                                          },
+                                          )
       end
     end
 
@@ -234,16 +234,16 @@ RSpec.describe Cfe::AssetsPayloadService do
 
       it "populates the payload with appropriate details including zero mortgage" do
         expect(payload[:properties]).to eq(
-          {
-            main_home: {
-              outstanding_mortgage: 0,
-              percentage_owned: 100,
-              shared_with_housing_assoc: false,
-              subject_matter_of_dispute: false,
-              value: 100_000,
-            },
-          },
-        )
+                                          {
+                                            main_home: {
+                                              outstanding_mortgage: 0,
+                                              percentage_owned: 100,
+                                              shared_with_housing_assoc: false,
+                                              subject_matter_of_dispute: false,
+                                              value: 100_000,
+                                            },
+                                          },
+                                          )
       end
     end
 
@@ -260,16 +260,16 @@ RSpec.describe Cfe::AssetsPayloadService do
 
       it "populates the payload with appropriate flag" do
         expect(payload[:properties]).to eq(
-          {
-            main_home: {
-              outstanding_mortgage: 0,
-              percentage_owned: 100,
-              shared_with_housing_assoc: false,
-              value: 100_000,
-              subject_matter_of_dispute: true,
-            },
-          },
-        )
+                                          {
+                                            main_home: {
+                                              outstanding_mortgage: 0,
+                                              percentage_owned: 100,
+                                              shared_with_housing_assoc: false,
+                                              value: 100_000,
+                                              subject_matter_of_dispute: true,
+                                            },
+                                          },
+                                          )
       end
     end
 

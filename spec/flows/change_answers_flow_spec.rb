@@ -1,6 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Change answers", type: :feature do
+  # these specs need sorting/replicating with the new EE feature
   it "prompts me to fill screens were previously skipped, and saving my changes" do
     start_assessment
     fill_in_forms_until(:employment_status)

@@ -11,10 +11,10 @@ module Cfe
         self_employment_details:,
         regular_transactions:,
         additional_properties:,
-        capitals:,
         dependants: [],
         vehicles: [],
       }
+      partner_financials[:capitals] = capitals if capitals
       payload[:partner] = partner_financials
     end
 
@@ -47,10 +47,10 @@ module Cfe
     end
 
     def regular_transactions
-      return [] unless relevant_form?(:partner_other_income) && relevant_form?(:partner_outgoings)
+      return [] if !relevant_form?(:partner_other_income) && !relevant_form?(:partner_outgoings)
 
-      outgoings_form = instantiate_form(PartnerOutgoingsForm)
-      income_form = instantiate_form(PartnerOtherIncomeForm)
+      outgoings_form = instantiate_form(PartnerOutgoingsForm) if relevant_form?(:partner_outgoings)
+      income_form = instantiate_form(PartnerOtherIncomeForm) if relevant_form?(:partner_other_income)
       benefits_form = instantiate_form(PartnerBenefitDetailsForm) if relevant_form?(:partner_benefit_details)
       CfeParamBuilders::RegularTransactions.call(income_form, outgoings_form, benefits_form)
     end
@@ -70,6 +70,8 @@ module Cfe
     end
 
     def capitals
+      return unless relevant_form?(:partner_assets)
+
       assets_form = instantiate_form(PartnerAssetsForm)
       CfeParamBuilders::Capitals.call(assets_form)
     end

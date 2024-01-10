@@ -8,7 +8,24 @@ class ChangeAnswersController < QuestionFlowController
       track_choices(@form)
       session_data.merge!(@form.attributes_for_export_to_session)
       if Steps::Helper.last_step_in_group?(session_data, step)
+        last_step_with_data = Steps::Helper.last_step_with_valid_data(session_data)
         next_step = next_check_answer_step(step)
+        if FeatureFlags.enabled?(:early_eligibility, session_data)
+          if step_in_applicant_or_case_details?(step)
+            if is_last_step_in_applicant_case_details?(last_step_with_data) && CfeService.ineligible_gross_income?(session_data, Steps::Helper.completed_steps_for(session_data, last_step_with_data))
+              next_step = nil
+            else
+              flash[:notice] = "Based on the answers you changed, your client is now within the limit for legal aid. Add more details and find out if they would still qualify."
+            end
+          else
+            if Steps::Logic.check_stops_at_gross_income?(session_data) && CfeService.ineligible_gross_income?(session_data, Steps::Helper.completed_steps_for(session_data, last_step_with_data))
+              next_step = nil
+            end
+            if show_flash(session_data, last_step_with_data)
+              flash[:notice] = "Based on the answers you changed, your client is now within the limit for legal aid. Add more details and find out if they would still qualify."
+            end
+          end
+        end
         if next_step
           redirect_to helpers.check_step_path_from_step(next_step, assessment_code)
         else
@@ -54,5 +71,27 @@ private
 
   def page_name
     "check_#{step}"
+  end
+
+  def is_last_step_in_applicant_case_details?(the_step)
+    non_finance_steps = Steps::Helper.steps_for_section(session_data, Steps::CaseDetailsSection) +
+      Steps::Helper.steps_for_section(session_data, Steps::ApplicantDetailsSection)
+    non_finance_steps.last == the_step || the_step == :other_income
+  end
+
+  def step_in_applicant_or_case_details?(the_step)
+    (Steps::Helper.steps_for_section(session_data, Steps::ApplicantDetailsSection) +
+      Steps::Helper.steps_for_section(session_data, Steps::CaseDetailsSection)).include?(the_step)
+    # if they change the level of help, we don't want to send to CFE because we need the proceeding (matter) type first
+    # same goes for client age as I don't think we would have the right payload needed for CFE response until second step
+    # also if the answer is changed to 'no' for domestic abuse applicant as we need to ask the I&A q (matter type) before we send to CFE
+  end
+
+  def show_flash(session_data, last_step_with_data)
+    return false unless Steps::Logic.check_stops_at_gross_income?(session_data)
+
+    return false if CfeService.ineligible_gross_income?(session_data, Steps::Helper.completed_steps_for(session_data, last_step_with_data))
+
+    true
   end
 end

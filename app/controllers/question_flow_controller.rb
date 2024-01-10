@@ -3,6 +3,7 @@ class QuestionFlowController < ApplicationController
 
   def show
     track_page_view
+    # @show_banner = session_data["early_result"] && @form.class.from_session(session_data).invalid? && something_that_knows_we_are_editing
     @form = Flow::Handler.model_from_session(step, session_data)
     render "/question_flow/#{step}"
   end
@@ -34,5 +35,25 @@ protected
 
   def step
     @step ||= Flow::Handler.step_from_url_fragment(params[:step_url_fragment])
+  end
+
+  def tag_from(step)
+    return if Flow::Handler::STEPS.fetch(step)[:tag].nil?
+
+    Flow::Handler::STEPS.fetch(step)[:tag]
+  end
+
+  def last_tag_in_group?(tag)
+    remaining_steps = Steps::Helper.remaining_steps_for(session_data, step)
+
+    return if remaining_steps.blank?
+
+    remaining_tags = []
+    remaining_steps.map do |remaining|
+      remaining_tags << tag_from(remaining)
+    end
+    return unless !remaining_tags.compact.include?(tag) && tag_from(step) == tag
+
+    true
   end
 end

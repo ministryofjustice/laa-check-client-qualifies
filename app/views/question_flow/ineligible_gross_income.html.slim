@@ -1,0 +1,32 @@
+- content_for :page_title
+  = t("question_flow.early_result.gross_income.title")
+- content_for :back do
+  = back_link(:ineligible_gross_income, @check, @back_buttons_invoke_browser_back_behaviour)
+/ TODO: dynamically generate the excess over the limit
+.govuk-grid-column-two-thirds
+  = render "shared/heading", header_text: t("question_flow.early_result.gross_income.title")
+
+  p.govuk-body class="govuk-!-font-weight-bold" = t("question_flow.early_result.gross_income.para_1")
+  p.govuk-body = t("question_flow.early_result.gross_income.para_2")
+
+  = govuk_details(summary_text: t("question_flow.early_result.gross_income.help")) do
+        h2.govuk-heading-s = t("question_flow.early_result.gross_income.go_to_summary")
+        p.govuk-body = t("question_flow.early_result.gross_income.details_para_1")
+        ul.govuk-list.govuk-list--bullet
+        - t("question_flow.early_result.gross_income.details_list").map
+          li.govuk-text = _1
+        p.govuk-body
+        h2.govuk-heading-s = t("question_flow.early_result.gross_income.add_more_details")
+        p.govuk-body = t("question_flow.early_result.gross_income.details_para_2")
+
+  .govuk-button-group
+    = form_for(@form, url: request.path, method: :put) do |form|
+      = form.hidden_field :check_answers, value: "gross"
+      = form.govuk_submit t("question_flow.early_result.gross_income.go_to_summary")
+    = form_for(@form, url: request.path, method: :put) do |form|
+      = form.hidden_field :check_answers, value: "return"
+      = form.govuk_submit t("question_flow.early_result.gross_income.add_more_details"), secondary: true
+
+= render "shared/question_sidebar",
+        level_of_help: @check.level_of_help,
+        links: {}

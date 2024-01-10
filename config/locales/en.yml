@@ -644,6 +644,8 @@ en:
     error_summary_title: There is a problem
     error_prefix: "Error:"
     save_and_continue: Save and continue
+    check_answers: Check answers
+    return_to_check: Return to check
     change: Change
     level_of_help:
       text: Level of help
@@ -1083,6 +1085,20 @@ en:
         text: Guidance on income
       police_guidance:
         text: Guidance on police officer applicants
+    early_result:
+      gross_income:
+        title: Monthly income limit exceeded by £150
+        para_1: Your client will not qualify financially for legal aid.
+        para_2: You can go to the summary or add more details to your check, but this will not change the outcome.
+        help: Help with next steps
+        details_para_1: "You can:"
+        details_list:
+          - review and change your answers
+          - get the calculation
+          - save your summary
+        details_para_2: You can complete all the questions in the check, before reviewing your answers and getting the summary. Adding more details will not change the outcome. Your client will not qualify as long as the monthly income exceeds the limit.
+        go_to_summary: Go to summary
+        add_more_details: Add more details
     partner_income:
       heading: The partner's employment income
       hint: You can find this on the partner's payslips.
