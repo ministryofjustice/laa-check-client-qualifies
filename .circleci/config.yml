@@ -86,15 +86,6 @@ orbs:
   slack: circleci/slack@4.5.2
 
 jobs:
-  docker_hub_login:
-    docker:
-      - image: masumkhan/welcome-to-docker
-        auth:
-          username: $DOCKERHUB_USER
-          password: $DOCKERHUB_PAT
-    resource_class: arm-medium
-    steps: 
-      - checkout
   install_dependencies:
     executor: basic-executor
     steps:
@@ -305,14 +296,12 @@ workflows:
   run_ci:
     jobs:
       - install_dependencies
-      - docker_hub_login
       - linters:
           requires:
             - install_dependencies
       - run_specs:
           requires:
             - install_dependencies
-            - docker_hub_login
       - coverage:
           requires:
             - run_specs
