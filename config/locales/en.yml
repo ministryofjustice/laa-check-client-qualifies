@@ -58,8 +58,6 @@ en:
               inclusion: Select if your client is currently employed
             passporting:
               inclusion: Select yes if your client receives a passporting benefit or if they are named on their partner's passporting benefit
-            over_60:
-              inclusion: Select yes if your client is aged 60 or over
             partner:
               inclusion: Select yes if the client has a partner
         dependant_details_form:
@@ -917,9 +915,6 @@ en:
             - has a contrary interest in the case - this means they want a different outcome to your client
       prisoner_guidance:
         text: Guidance on prisoners
-      over_60:
-        legend: Is your client aged 60 or over?
-        hint: Clients aged 60 or over may have some of their capital excluded from a financial eligibility assessment.
       employed:
         legend: What is your client's employment status?
         hint: "You cannot use this service if your client, or their partner, is self-employed."
@@ -2608,6 +2603,8 @@ en:
         mtr: Means test review
         policy_update: Policy update
         feature: Feature
+        active: Active
+        resolved: Resolved
     issue:
       status_active: "Status: Unresolved"
       status_resolved: "Status: Resolved"

@@ -80,6 +80,7 @@ RSpec.describe "Accessibility" do
 
     it "has no AXE-detectable accessibility issues on any page", :slow do
       start_assessment
+      fill_in_client_age_screen
       fill_in_level_of_help_screen choice: "certificated"
       assessment_code = current_path.split("/").reverse.second
 

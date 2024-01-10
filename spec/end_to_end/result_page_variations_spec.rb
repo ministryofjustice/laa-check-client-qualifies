@@ -66,8 +66,8 @@ RSpec.describe "Results page variations", :end2end, type: :feature do
 
   it "disregards capital when the client is over 60" do
     start_assessment
+    fill_in_client_age_screen(choice: "60 or over")
     fill_in_forms_until(:applicant)
-    fill_in_applicant_screen(over_60: "Yes")
     fill_in_forms_until(:assets)
     fill_in_assets_screen(values: { valuables: "102,000" })
     fill_in_forms_until(:check_answers)

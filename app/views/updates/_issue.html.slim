@@ -4,7 +4,8 @@
   hr class="govuk-!-margin-bottom-4"
   h3.govuk-heading-s class="govuk-!-margin-bottom-0"
     = issue.title
-    .govuk-tag class="govuk-!-margin-left-3 govuk-tag--#{issue.status == Issue.statuses[:active] ? "red" : "grey"}" = issue.status
+    .govuk-tag class="govuk-!-margin-left-3 govuk-tag--#{issue.status == Issue.statuses[:active] ? "red" : "grey"}"
+      = t("updates.index.tags.#{issue.status}")
   - if issue.status == Issue.statuses[:active]
     p.govuk-body = t(".status_active")
   - else

@@ -63,9 +63,9 @@ featureFlags:
   indexProduction: NOT_ENABLED
   maintenanceMode: NOT_ENABLED
   basicAuthentication: ENABLED
-  underEighteen: ENABLED
   outgoingsFlow: ENABLED
   conditionalReveals: NOT_ENABLED
+  earlyEligibility: ENABLED
 
 postgresql:
   enabled: true

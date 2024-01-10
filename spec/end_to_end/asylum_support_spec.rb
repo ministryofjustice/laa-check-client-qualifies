@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe "Asylum support checks", type: :feature do
   before do
     start_assessment
+    fill_in_client_age_screen(choice: "18 to 59")
     fill_in_level_of_help_screen(choice: "Civil certificated")
     fill_in_domestic_abuse_applicant_screen(choice: "No")
     fill_in_immigration_or_asylum_type_upper_tribunal_screen(choice: "Yes, asylum (Upper Tribunal)")

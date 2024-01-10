@@ -6,7 +6,6 @@ RSpec.describe "applicant", type: :feature do
   let(:partner_question_placement_hint) do
     "You will be asked questions about the partner after you have answered questions about your client"
   end
-  let(:pensioner_guidance) { "Guidance on 60 or over disregard (pensioner disregard)" }
 
   before do
     set_session(assessment_code, "level_of_help" => level_of_help, "feature_flags" => FeatureFlags.session_flags)
@@ -17,7 +16,6 @@ RSpec.describe "applicant", type: :feature do
     click_on "Save and continue"
     within ".govuk-error-summary__list" do
       expect(page.text).to eq [
-        "Select yes if your client is aged 60 or over",
         "Select yes if the client has a partner",
         "Select yes if your client receives a passporting benefit or if they are named on their partner's passporting benefit",
       ].join
@@ -25,12 +23,10 @@ RSpec.describe "applicant", type: :feature do
   end
 
   it "stores the chosen value in the session" do
-    choose "Yes", name: "applicant_form[over_60]"
     choose "Yes", name: "applicant_form[partner]"
     choose "Yes", name: "applicant_form[passporting]"
     click_on "Save and continue"
 
-    expect(session_contents["over_60"]).to eq true
     expect(session_contents["partner"]).to eq true
     expect(session_contents["passporting"]).to eq true
   end
@@ -40,25 +36,11 @@ RSpec.describe "applicant", type: :feature do
     expect(page).to have_content "Guidance on prisoners"
   end
 
-  it "shows guidance about over-60s" do
-    expect(page).to have_content pensioner_guidance
-  end
-
   context "when the level of help is controlled" do
     let(:level_of_help) { "controlled" }
 
     it "does not show guidance link" do
       expect(page).not_to have_content "Guidance on prisoners"
-    end
-  end
-
-  context "when the under-18 flag is enabled", :under_eighteen_flag do
-    it "does not show age guidance link" do
-      expect(page).not_to have_content pensioner_guidance
-    end
-
-    it "does not show age questions" do
-      expect(page).not_to have_content "Is your client aged 60 or over?"
     end
   end
 end
