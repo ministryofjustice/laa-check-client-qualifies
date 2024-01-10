@@ -88,7 +88,7 @@ orbs:
 jobs:
   docker_hub_login:
     docker:
-      - image: ccq/browser-image-setup:latest
+      - image: masumkhan/welcome-to-docker
         auth:
           username: $DOCKERHUB_USER
           password: $DOCKERHUB_PAT
