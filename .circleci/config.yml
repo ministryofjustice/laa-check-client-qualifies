@@ -302,21 +302,20 @@ jobs:
           template: basic_fail_1
 
 workflows:
-  docker_hub_workflow:
+  run_ci:
     jobs:
+      - install_dependencies
       - docker_hub_login:
           context:
             - build-env-vars
             - docker-hub-creds
-  run_ci:
-    jobs:
-      - install_dependencies
       - linters:
           requires:
             - install_dependencies
       - run_specs:
           requires:
             - install_dependencies
+            - docker_hub_login
       - coverage:
           requires:
             - run_specs
