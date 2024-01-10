@@ -3,6 +3,8 @@ module Cfe
     delegate :smod_applicable?, to: :check
 
     def call
+      return if early_gross_income_check?
+
       capitals
       properties
     end
@@ -10,7 +12,7 @@ module Cfe
   private
 
     def capitals
-      return unless relevant_form?(:assets)
+      return unless relevant_form?(:assets, ClientAssetsForm)
 
       asset_form = instantiate_form(ClientAssetsForm)
       capitals = CfeParamBuilders::Capitals.call(asset_form, smod_applicable: smod_applicable?)
@@ -21,7 +23,7 @@ module Cfe
     end
 
     def properties
-      if relevant_form?(:additional_property_details)
+      if relevant_form?(:additional_property_details, AdditionalPropertyDetailsForm)
         additionals_form = instantiate_form(AdditionalPropertyDetailsForm)
         additional_properties = additionals_form.items.map do |model|
           {
@@ -34,7 +36,7 @@ module Cfe
         end
       end
 
-      if relevant_form?(:property_entry)
+      if relevant_form?(:property_entry, PropertyEntryForm)
         property_entry_form = instantiate_form(PropertyEntryForm)
         main_home = {
           value: property_entry_form.house_value,

@@ -1,0 +1,13 @@
+.govuk-grid-column-full
+  = render "shared/heading"
+  h2.govuk-heading-m = t("You're here because you're ineligible on gross income")
+
+  .govuk-button-group
+      = link_to "Check answers",
+            check_answers_path(params[:assessment_code]),
+            class: "govuk-button govuk-button"
+
+  .govuk-button-group
+        = link_to "Return to check",
+              step_path_from_step(@next_step, params[:assessment_code]),
+              class: "govuk-button govuk-button--secondary"

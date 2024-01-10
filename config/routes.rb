@@ -64,4 +64,5 @@ Rails.application.routes.draw do
   put ":step_url_fragment/:assessment_code", to: "forms#update"
   get ":step_url_fragment/:assessment_code/check", to: "change_answers#show", as: :check_step
   put ":step_url_fragment/:assessment_code/check", to: "change_answers#update"
+  get ":step_url_fragment/ineligible-gross-income/:assessment_code", to: "early_eligibilities#gross_income", as: :ineligible_gross_income
 end

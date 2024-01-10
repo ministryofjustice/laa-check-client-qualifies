@@ -137,6 +137,12 @@ module Steps
 
         session_data["dependants_get_income"]
       end
+
+      def newly_ineligible_gross_income?(session_data)
+        return false unless session_data["gross_income_early_result"]
+
+        session_data.dig("gross_income_early_result", "result_summary", "gross_income", "proceeding_types").first["result"] == "ineligible"
+      end
     end
   end
 end
