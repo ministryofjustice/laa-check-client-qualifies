@@ -7,13 +7,16 @@ class ChangeAnswersController < QuestionFlowController
     if @form.valid?
       track_choices(@form)
       session_data.merge!(@form.attributes_for_export_to_session)
+      if FeatureFlags.enabled?(:early_eligibility, session_data) && affects_eligibility?
+        session_data["gross_income_early_result"] = CfeService.call(session_data, :gross_income)
+      end
       # here we kick off a call to CFE service to update elibility for gross income, gross partner and disposable (if applicable)
       # kick off a call if those relevant forms are valid? if they aren't then quietly fail
       # detect if the eligibility has changed i.e. become eligible across above three areas, if so we will need a banner for the next screen
       # should we use temporary copy of answers against the saved session data to do this? (pending field)
       if Steps::Helper.last_step_in_group?(session_data, step)
         next_step = next_check_answer_step(step)
-        if next_step
+        if next_step && !already_ineligible?
           redirect_to helpers.check_step_path_from_step(next_step, assessment_code)
         else
           # Promote the temporary copy of the answers to overwrite the original answers
@@ -58,5 +61,15 @@ private
 
   def page_name
     "check_#{step}"
+  end
+
+  def affects_eligibility?
+    tag_from(step) == :gross_income
+  end
+
+  def already_ineligible?
+    return unless FeatureFlags.enabled?(:early_eligibility, session_data)
+
+    Steps::Logic.newly_ineligible_gross_income?(session_data)
   end
 end

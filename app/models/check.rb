@@ -113,4 +113,11 @@ class Check
   def conditional_reveals?
     FeatureFlags.enabled?(:conditional_reveals, session_data)
   end
+
+  def show_banner?
+    # not using this method yet
+    return false if session_data["banner_seen"]
+
+    true
+  end
 end

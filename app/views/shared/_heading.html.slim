@@ -35,6 +35,20 @@ ruby:
     - else
       h1.govuk-heading-xl class=("govuk-!-margin-bottom-3" if post_header_texts.any? || end_block.present?) = header_text
 
+- if @show_banner
+  .moj-banner class="govuk-!-margin-top-2" role="region" aria-label="information banner"
+      svg.moj-banner__icon[fill="currentColor"
+                          role="presentation"
+                          focusable="false"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 25 25"
+                          height="25"
+                          width="25"]
+        path d=exclamation_mark_path
+      .moj-banner__message
+        - copy = "Your eligibility has changes, now answer more qs"
+        p.govuk-body-m class="govuk-!-margin-top-5" = copy
+
 - post_header_texts.each do |text|
   - is_last = text == post_header_texts.last && end_block.blank?
   span.govuk-caption-m class="govuk-!-margin-bottom-#{is_last ? "5" : "2"}" = text
