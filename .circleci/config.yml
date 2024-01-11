@@ -141,17 +141,15 @@ jobs:
     parallelism: 3
     executor: test-executor
     steps:
-      # - browser-tools/install-browser-tools:
-      #     replace-existing-chrome: true
-      #     install-firefox: false
-      #     install-geckodriver: false
-      #     install-chromedriver: false
+      - browser-tools/install-browser-tools:
+          replace-existing-chrome: true
+          install-firefox: false
+          install-geckodriver: false
+          install-chromedriver: false
       - run:
-          name: Clean up workspace & install Chrome
+          name: Clean up workspace after orb
           command: |
-            rm -rf * || true
-            rm -rf .* || true
-            sudo apt install google-chrome-stable
+            rm -rf ../* || true
       - checkout
       - attach_workspace:
           at: ./
