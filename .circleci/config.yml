@@ -138,12 +138,12 @@ jobs:
     parallelism: 3
     executor: test-executor
     steps:
-      - checkout
       - browser-tools/install-browser-tools:
           replace-existing-chrome: true
           install-firefox: false
           install-geckodriver: false
           install-chromedriver: false
+      - checkout
       - attach_workspace:
           at: ./
       - *setup_database
