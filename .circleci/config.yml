@@ -141,20 +141,12 @@ jobs:
     parallelism: 3
     executor: test-executor
     steps:
-      - browser-tools/install-browser-tools:
-          replace-existing-chrome: true
-          install-firefox: false
-          install-geckodriver: false
-          install-chromedriver: false
-      - run:
-          name: Clean up workspace after orb
-          command: |
-            rm -rf ../* || true
+      # - browser-tools/install-browser-tools:
+      #     replace-existing-chrome: true
+      #     install-firefox: false
+      #     install-geckodriver: false
+      #     install-chromedriver: false
       - checkout
-      - run:
-          name: Change permissions in the directory
-          command: |
-            chmod -R 755 /home/circleci/project/vendor/bundle/ruby/3.2.0/bin
       - attach_workspace:
           at: ./
       - *setup_database
