@@ -6,7 +6,6 @@ executors:
     docker:
       - image: cimg/ruby:3.2.2-browsers
   test-executor:
-    resource_class: arm-medium
     docker:
       - image: masumkhan/welcome-to-docker:latest
         environment:
@@ -137,6 +136,7 @@ jobs:
   run_specs:
     parallelism: 3
     executor: test-executor
+    resource_class: arm.medium
     steps:
       - browser-tools/install-browser-tools:
           replace-existing-chrome: true
