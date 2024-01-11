@@ -15,7 +15,7 @@ executors:
           PGHOST: localhost
           PGUSER: user
           TZ: "Europe/London"
-      - image: cimg/postgres:10.18
+      - image: cimg/postgres:11.21
         environment:
           POSTGRES_USER: user
           POSTGRES_DB: ccq_test
