@@ -138,7 +138,7 @@ jobs:
     parallelism: 3
     executor: test-executor
     steps:
-      - checkout
+      # - checkout
       - browser-tools/install-browser-tools:
           replace-existing-chrome: true
           install-firefox: false
