@@ -9,5 +9,3 @@ RUN apt install pdftk --allow-unauthenticated || true
 
 # Install Puppeteer with Chromium
 RUN yarn add puppeteer@19.2.0
-
-CMD ["docker/run"]
