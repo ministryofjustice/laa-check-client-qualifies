@@ -141,17 +141,17 @@ jobs:
     parallelism: 3
     executor: test-executor
     steps:
-      - run:
-          name: Clean up workspace
-          command: |
-            rm -rf * || true
-            rm -rf .* || true
-      - checkout
+      # - run:
+      #     name: Clean up workspace
+      #     command: |
+      #       rm -rf * || true
+      #       rm -rf .* || true
       - browser-tools/install-browser-tools:
           replace-existing-chrome: true
           install-firefox: false
           install-geckodriver: false
           install-chromedriver: false
+      - checkout
       - attach_workspace:
           at: ./
       - *setup_database
