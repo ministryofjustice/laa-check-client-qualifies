@@ -42,6 +42,7 @@ module Flow
       additional_property_details: { class: AdditionalPropertyDetailsForm, url_fragment: "client-other-property-holiday-home-land-details" },
       partner_additional_property: { class: PartnerAdditionalPropertyForm, url_fragment: "does-partner-own-other-property-holiday-home-land" },
       partner_additional_property_details: { class: PartnerAdditionalPropertyDetailsForm, url_fragment: "partner-other-property-holiday-home-land-details" },
+      # ineligible_gross_income: { url_fragment: "ineligible-gross-income" },
     }.freeze
 
     class << self
