@@ -146,6 +146,11 @@ jobs:
           install-firefox: false
           install-geckodriver: false
           install-chromedriver: false
+      - run:
+          name: Clean up workspace after orb
+          command: |
+            rm -rf * || true
+            rm -rf .* || true
       - checkout
       - attach_workspace:
           at: ./
