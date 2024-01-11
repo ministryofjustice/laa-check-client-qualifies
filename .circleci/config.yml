@@ -6,7 +6,7 @@ executors:
     docker:
       - image: cimg/ruby:3.2.2-browsers
   test-executor:
-    resource_class: arm.medium
+    resource_class: small
     docker:
       - image: masumkhan/welcome-to-docker:latest
         environment:
