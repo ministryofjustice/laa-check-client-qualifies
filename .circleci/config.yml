@@ -151,6 +151,10 @@ jobs:
           command: |
             rm -rf ../* || true
       - checkout
+      - run:
+          name: Change permissions in the directory
+          command: |
+            chmod -R 755 /home/circleci/project/vendor/bundle/ruby/3.2.0/bin
       - attach_workspace:
           at: ./
       - *setup_database
