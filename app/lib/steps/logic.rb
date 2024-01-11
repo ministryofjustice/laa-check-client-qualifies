@@ -139,6 +139,7 @@ module Steps
       end
 
       def newly_ineligible_gross_income?(session_data)
+        # binding.pry
         return false unless session_data["gross_income_early_result"]
 
         session_data.dig("gross_income_early_result", "result_summary", "gross_income", "proceeding_types").first["result"] == "ineligible"

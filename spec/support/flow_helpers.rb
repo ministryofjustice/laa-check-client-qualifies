@@ -322,6 +322,11 @@ def fill_in_partner_additional_property_details_screen
   fill_in_additional_property_details_screen(screen_name: :partner_additional_property_details)
 end
 
+def bypass_early_gross_income_result(choice)
+  confirm_screen "ineligible-gross-income"
+  choose choice
+end
+
 def confirm_screen(expected)
   path = page.current_path
   if expected.to_sym == :check_answers

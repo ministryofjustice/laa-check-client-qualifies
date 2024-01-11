@@ -7,6 +7,7 @@ class FormsController < QuestionFlowController
       session_data.merge!(@form.attributes_for_export_to_session)
       if FeatureFlags.enabled?(:early_eligibility, session_data) && tag_from(step) == :gross_income && last_tag_in_group?(:gross_income)
         # we actually might not need to send down the early eligibility argument if we just check the form validity?
+        binding.pry
         session_data["gross_income_early_result"] = CfeService.call(session_data, :gross_income)
       end
       next_step = Steps::Helper.next_step_for(session_data, step)

@@ -36,6 +36,10 @@ FactoryBot.define do
         api_result.dig(:result_summary, :capital)[:pensioner_capital_disregard] = 100_000
       end
 
+      if evaluator.early_gross_income_result
+        api_result.dig(:gross_income_early_result, :result_summary, :gross_income, :proceeding_types)[:result] == "ineligible"
+      end
+
       if evaluator.partner
         %i[capital gross_income disposable_income].each do |subsection|
           %i[assessment result_summary].each do |section|
@@ -49,6 +53,26 @@ FactoryBot.define do
       end
     end
   end
+
+  # factory :early_gross_income_result, class: Hash do
+  #   initialize_with { attributes }
+  #   # {
+  #   #   "gross_income_early_result" =>
+  #   #     { "version" => "6",
+  #   #       "timestamp" => "2024-01-11T11:39:21.651Z",
+  #   #       "success" => true,
+  #   #       "result_summary" =>
+  #   #         { "overall_result" =>
+  #   #             { "result" => "ineligible",
+  #   #               "capital_contribution" => 0.0,
+  #   #               "income_contribution" => 0.0,
+  #   #               "proceeding_types" =>
+  #   #                 [{ "ccms_code" => "SE003",
+  #   #                    "upper_threshold" => 0.0,
+  #   #                    "lower_threshold" => 0.0,
+  #   #                    "result" => "ineligible",
+  #   #                    "client_involvement_type" => "A" }] } } },
+  # end
 
   factory :property_api_result, class: Hash do
     initialize_with { attributes }
@@ -133,6 +157,75 @@ FactoryBot.define do
           non_liquid: [],
         },
       }
+    end
+  end
+
+  # factory :early_gross_income_result, class: Hash do
+  #   { "version" => "6",
+  #     "timestamp" => "2024-01-11T11:39:21.651Z",
+  #     "success" => true,
+  #     "result_summary" =>
+  #      { "overall_result" =>
+  #         { "result" => "ineligible",
+  #           "capital_contribution" => 0.0,
+  #           "income_contribution" => 0.0,
+  #           "proceeding_types" =>
+  #            [{ "ccms_code" => "SE003",
+  #               "upper_threshold" => 0.0,
+  #               "lower_threshold" => 0.0,
+  #               "result" => "ineligible",
+  #               "client_involvement_type" => "A" }] },
+  #        "gross_income" =>
+  #         { "total_gross_income" => 18_200.0,
+  #           "proceeding_types" =>
+  #            [{ "ccms_code" => "SE003",
+  #               "upper_threshold" => 2657.0,
+  #               "lower_threshold" => 0.0,
+  #               "result" => "ineligible",
+  #               "client_involvement_type" => "A" }],
+  #           "combined_total_gross_income" => 18_200.0 },
+  #        "remarks" => {} } }
+  # end
+  factory :early_gross_income_result, class: Hash do
+    initialize_with { attributes }
+
+    trait :api_result do
+      version { "6" }
+      timestamp { "2024-01-11T11:39:21.651Z" }
+      success { true }
+
+      result_summary do
+        {
+          overall_result: {
+            result: "ineligible",
+            capital_contribution: 0.0,
+            income_contribution: 0.0,
+            proceeding_types: [
+              {
+                ccms_code: "SE003",
+                upper_threshold: 0.0,
+                lower_threshold: 0.0,
+                result: "ineligible",
+                client_involvement_type: "A",
+              },
+            ],
+          },
+          gross_income: {
+            total_gross_income: 18_200.0,
+            proceeding_types: [
+              {
+                ccms_code: "SE003",
+                upper_threshold: 2657.0,
+                lower_threshold: 0.0,
+                result: "ineligible",
+                client_involvement_type: "A",
+              },
+            ],
+            combined_total_gross_income: 18_200.0,
+          },
+          remarks: {},
+        }
+      end
     end
   end
 end
