@@ -4,6 +4,7 @@ FROM cimg/ruby:3.2.2-browsers
 
 # Install Chrome
 RUN sudo npx puppeteer browsers install chrome || true
+RUN sudo npm install -g npm@10.3.0
 
 # Install PDFTK
 RUN sudo add-apt-repository --yes ppa:malteworld/ppa || true
