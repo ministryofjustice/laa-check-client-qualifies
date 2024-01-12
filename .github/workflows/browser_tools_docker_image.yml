@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Build the Docker image
         run: |
-          docker build -f ./Dockerfile . -t masumkhan/welcome-to-docker:latest
+          docker build -f ./Dockerfile_browser_tools.dockerfile . -t masumkhan/welcome-to-docker:latest
       - name: Push the Docker image
         run: |
           docker push masumkhan/welcome-to-docker:latest
