@@ -8,7 +8,7 @@ executors:
   test-executor:
     resource_class: small
     docker:
-      - image: masumkhan/welcome-to-docker:latest
+      - image: ghcr.io/puppeteer/puppeteer:16.1.0
         auth:
           username: $DOCKERHUB_USER
           password: $DOCKERHUB_PAT
@@ -140,10 +140,10 @@ jobs:
     parallelism: 3
     executor: test-executor
     steps:
-      - run:
-          name: Clean up workspace after orb
-          command: |
-            rm -rf /home/circleci/project/* || true
+      # - run:
+      #     name: Clean up workspace after orb
+      #     command: |
+      #       rm -rf /home/circleci/project/* || true
       - checkout
       - attach_workspace:
           at: ./
