@@ -12,7 +12,7 @@ RUN sudo npx puppeteer browsers install chrome || true
 RUN sudo npm install -g npm@10.3.0
 
 # Install Puppeteer with Chromium
-RUN yarn add puppeteer@19.2.0
+RUN yarn add puppeteer@21.7.0
 
 # Install PDFTK
 RUN sudo add-apt-repository --yes ppa:malteworld/ppa || true
