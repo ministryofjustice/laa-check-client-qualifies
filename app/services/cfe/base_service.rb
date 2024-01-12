@@ -1,11 +1,11 @@
 module Cfe
   class BaseService
-    def self.call(*args, payload)
-      new(*args, payload).call
+    def self.call(session_data, payload)
+      new(session_data, payload).call
     end
 
-    def initialize(*args, payload)
-      @session_data, @early_eligibility = *args
+    def initialize(session_data, payload)
+      @session_data = session_data
       @payload = payload
     end
 
@@ -30,10 +30,6 @@ module Cfe
       else
         Steps::Helper.valid_step?(@session_data, form_name)
       end
-    end
-
-    def early_gross_income_check?
-      @early_eligibility == :gross_income
     end
   end
 end

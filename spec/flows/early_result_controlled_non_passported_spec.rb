@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Early Result Certificated, non-passported flow", :early_eligibility_flag, type: :feature do
+RSpec.describe "Early Result controlled, non-passported flow", :early_eligibility_flag, type: :feature do
   let(:api_response) do
     { "version" => "6",
       "timestamp" => "2024-01-11T11:39:21.651Z",
@@ -31,6 +31,8 @@ RSpec.describe "Early Result Certificated, non-passported flow", :early_eligibil
     allow(CfeService).to receive(:call).and_return(api_response)
 
     start_assessment
+    fill_in_client_age_screen
+    fill_in_level_of_help_screen(choice: "Civil controlled work or family mediation")
     fill_in_forms_until(:applicant)
     fill_in_applicant_screen(partner: "No", passporting: "No")
     fill_in_dependant_details_screen
@@ -47,6 +49,8 @@ RSpec.describe "Early Result Certificated, non-passported flow", :early_eligibil
     allow(CfeService).to receive(:call).and_return(api_response)
 
     start_assessment
+    fill_in_client_age_screen
+    fill_in_level_of_help_screen(choice: "Civil controlled work or family mediation")
     fill_in_forms_until(:applicant)
     fill_in_applicant_screen(partner: "No", passporting: "No")
     fill_in_dependant_details_screen

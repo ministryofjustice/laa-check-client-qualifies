@@ -322,15 +322,16 @@ def fill_in_partner_additional_property_details_screen
   fill_in_additional_property_details_screen(screen_name: :partner_additional_property_details)
 end
 
-def bypass_early_gross_income_result(choice)
+def bypass_early_result(choice)
   confirm_early_result_screen
   click_on choice
 end
 
 def confirm_early_result_screen
   path = page.current_path
-  expect(path).to include("ineligible-gross-income")
+  expect(path).to include("early-result")
 end
+
 def confirm_screen(expected)
   path = page.current_path
   if expected.to_sym == :check_answers

@@ -3,8 +3,6 @@ module Cfe
     delegate :smod_applicable?, to: :check
 
     def call
-      return if early_gross_income_check?
-
       capitals
       properties
     end

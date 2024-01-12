@@ -1,7 +1,7 @@
 module Cfe
   class PartnerPayloadService < BaseService
     def call
-      return unless relevant_form?(:partner_details, PartnerDetailsForm) && !early_gross_income_check?
+      return unless relevant_form?(:partner_details, PartnerDetailsForm)
 
       @partner_details_form = instantiate_form(PartnerDetailsForm)
       partner_financials = {

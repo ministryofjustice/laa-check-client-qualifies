@@ -20,6 +20,8 @@ protected
   end
 
   def next_check_answer_step(step)
+    return if FeatureFlags.enabled?(:early_eligibility, session_data) && last_tag_in_group?(:gross_income)
+
     Steps::Helper.remaining_steps_for(session_data, step)
       .drop_while { |thestep|
         Flow::Handler.model_from_session(thestep, session_data).valid?
