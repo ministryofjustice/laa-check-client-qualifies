@@ -20,5 +20,3 @@ RUN sudo apt update --allow-unauthenticated || true
 RUN sudo apt install pdftk --allow-unauthenticated || true
 
 COPY . .
-
-USER 1000
