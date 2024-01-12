@@ -20,12 +20,26 @@ protected
   end
 
   def next_check_answer_step(step)
-    return if FeatureFlags.enabled?(:early_eligibility, session_data) && last_tag_in_group?(:gross_income)
+    if FeatureFlags.enabled?(:early_eligibility, session_data) && Steps::Logic.ineligible_gross_income?(session_data)
+      array = Steps::Helper.remaining_steps_for(session_data, step).map do |rem|
+        [rem, tag_from(rem)]
+      end
 
-    Steps::Helper.remaining_steps_for(session_data, step)
-      .drop_while { |thestep|
+      remaining_steps = array.reverse.drop_while { |a| !a.include?(:gross_income) }.map do |arr|
+        arr.take(1)
+      end
+
+      remaining_steps.flatten.reverse.drop_while { |thestep|
         Flow::Handler.model_from_session(thestep, session_data).valid?
       }.first
+    else
+      Steps::Helper.remaining_steps_for(session_data, step)
+        .drop_while { |thestep|
+          Flow::Handler.model_from_session(thestep, session_data).valid?
+        }.first
+    end
+    # if they are ineligible on gross income then only show steps up to the last gross income step
+    # anything that is invalid after the last gross income step should be disregarded/ignored
   end
 
   def page_name
