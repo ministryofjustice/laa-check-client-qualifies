@@ -43,18 +43,18 @@ RSpec.describe "Early Result Certificated, non-passported flow", :early_eligibil
     fill_in_outgoings_screen
   end
 
-  # it "when I am ineligible on gross income and stop the check" do
-  #   start_assessment
-  #   fill_in_forms_until(:applicant)
-  #   fill_in_applicant_screen(partner: "No", passporting: "No")
-  #   fill_in_dependant_details_screen
-  #   fill_in_employment_status_screen(choice: "Employed or self-employed")
-  #   fill_in_income_screen({ gross: "8000", frequency: "Every month" })
-  #   fill_in_forms_until(:other_income)
-  #   fill_in_other_income_screen(values: { friends_or_family: "1200" }, frequencies: { friends_or_family: "Every week" })
-  #   confirm_screen
-  #   bypass_early_gross_income_result("Check answers")
-  #   # confirm_screen("ineligible-gross-income")
-  #   confirm_screen("Check Answers")
-  # end
+  it "when I am ineligible on gross income and stop the check", :early_eligibility_flag do
+    allow(CfeService).to receive(:call).and_return(api_response)
+
+    start_assessment
+    fill_in_forms_until(:applicant)
+    fill_in_applicant_screen(partner: "No", passporting: "No")
+    fill_in_dependant_details_screen
+    fill_in_employment_status_screen(choice: "Employed or self-employed")
+    fill_in_income_screen({ gross: "8000", frequency: "Every month" })
+    fill_in_forms_until(:other_income)
+    fill_in_other_income_screen(values: { friends_or_family: "1200" }, frequencies: { friends_or_family: "Every week" })
+    bypass_early_gross_income_result("Check answers")
+    confirm_screen("check_answers")
+  end
 end

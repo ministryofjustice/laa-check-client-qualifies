@@ -323,16 +323,18 @@ def fill_in_partner_additional_property_details_screen
 end
 
 def bypass_early_gross_income_result(choice)
-  confirm_screen "ineligible_gross_income"
+  confirm_early_result_screen
   click_on choice
 end
 
+def confirm_early_result_screen
+  path = page.current_path
+  expect(path).to include("ineligible-gross-income")
+end
 def confirm_screen(expected)
   path = page.current_path
   if expected.to_sym == :check_answers
     expect(path).to start_with "/check-answers"
-  elsif expected.to_sym == :ineligible_gross_income
-    expect(path).to include("ineligible-gross-income")
   else
     expect(path).to start_with "/#{Flow::Handler.url_fragment(expected.to_sym)}"
   end
