@@ -10,7 +10,7 @@ class ChangeAnswersController < QuestionFlowController
       # detect if the eligibility has changed i.e. become eligible across above three areas, if so we will need a banner for the next screen
       # should we use temporary copy of answers against the saved session data to do this? (pending field)
       if Steps::Helper.last_step_in_group?(session_data, step)
-        if FeatureFlags.enabled?(:early_eligibility, session_data) && @form.class != LevelOfHelpForm
+        if FeatureFlags.enabled?(:early_eligibility, session_data) && !invalid_matter_type?
           session_data["early_result"] = CfeService.call(session_data)
         end
         next_step = next_check_answer_step(step)
@@ -61,9 +61,11 @@ private
     "check_#{step}"
   end
 
-  def already_ineligible?
-    return unless FeatureFlags.enabled?(:early_eligibility, session_data)
-
-    Steps::Logic.ineligible_gross_income?(session_data)
+  def invalid_matter_type?
+    # if they change the level of help, we don't want to send to CFE because we need the proceeding (matter) type first
+    # same goes for client age as I don't think we would have the right payload needed for CFE response until second step
+    # also if the answer is changed to 'no' for domestic abuse applicant as we need to ask the I&A q (matter type) before we send to CFE
+    @form.instance_of?(LevelOfHelpForm) || @form.instance_of?(ClientAgeForm) ||
+      (@form.instance_of?(DomesticAbuseApplicantForm) && @form.attributes_for_export_to_session.values.to_s.include?("false"))
   end
 end

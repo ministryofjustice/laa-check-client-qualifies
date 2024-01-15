@@ -21,14 +21,19 @@ protected
 
   def next_check_answer_step(step)
     if FeatureFlags.enabled?(:early_eligibility, session_data) && Steps::Logic.ineligible_gross_income?(session_data)
+      # code needs refactor but works
+      # collect all the possible steps and their tag
       array = Steps::Helper.remaining_steps_for(session_data, step).map do |rem|
         [rem, tag_from(rem)]
       end
 
+      # reverse the order of steps and drop anything that comes after the last gross income screen
+      # then only take the step and discard the tag
       remaining_steps = array.reverse.drop_while { |a| !a.include?(:gross_income) }.map do |arr|
         arr.take(1)
       end
 
+      # reverse the steps again so they are chronological and drop anything that already contains valid data
       remaining_steps.flatten.reverse.drop_while { |thestep|
         Flow::Handler.model_from_session(thestep, session_data).valid?
       }.first
@@ -38,8 +43,6 @@ protected
           Flow::Handler.model_from_session(thestep, session_data).valid?
         }.first
     end
-    # if they are ineligible on gross income then only show steps up to the last gross income step
-    # anything that is invalid after the last gross income step should be disregarded/ignored
   end
 
   def page_name

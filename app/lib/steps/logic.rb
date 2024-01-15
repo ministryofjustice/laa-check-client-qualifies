@@ -141,6 +141,10 @@ module Steps
       def ineligible_gross_income?(session_data)
         return false unless session_data["early_result"]
 
+        # guard clause here for cases where there is no proceeding type i.e. under 18?
+        # This issue can arise in a change loop.
+        return if session_data.dig("early_result", "result_summary", "gross_income", "proceeding_types").compact_blank.blank?
+
         session_data.dig("early_result", "result_summary", "gross_income", "proceeding_types").first["result"] == "ineligible"
       end
     end
