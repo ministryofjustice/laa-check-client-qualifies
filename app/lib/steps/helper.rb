@@ -23,6 +23,8 @@ module Steps
       end
 
       def valid_step?(session_data, step)
+        # should we be modifying this method?
+        # we use this all over the place to determine steps
         steps_list_for(session_data).include?(step.to_sym)
       end
 
