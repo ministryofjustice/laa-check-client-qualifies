@@ -67,6 +67,8 @@ module CheckAnswers
                        true
                      when "partner_employment"
                        true
+                     when "assets"
+                       true
                      else
                        Flow::Handler::STEPS.fetch(table_data[:screen].to_sym).fetch(:class).from_session(@check.session_data).valid?
                      end
