@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Early result, change answers loops", :early_eligibility, type: :feature do
+RSpec.describe "Change answers", type: :feature do
   # these specs need sorting/replicating with the new EE feature
   it "prompts me to fill screens were previously skipped, and saving my changes" do
     start_assessment

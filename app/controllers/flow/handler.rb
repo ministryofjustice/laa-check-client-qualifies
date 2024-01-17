@@ -14,6 +14,8 @@ module Flow
       immigration_or_asylum_type_upper_tribunal: { class: ImmigrationOrAsylumTypeUpperTribunalForm, url_fragment: "is-this-matter-immigration-asylum-chamber-upper-tribunal" },
       asylum_support: { class: AsylumSupportForm, url_fragment: "does-client-get-asylum-support" },
       applicant: { class: ApplicantForm, url_fragment: "about-client" },
+      # think about if there is value in tagging dependant details as :gross_income
+      # if 5 or more dependants, gross income limit is waived
       dependant_details: { class: DependantDetailsForm, url_fragment: "about-dependants" },
       dependant_income: { class: DependantIncomeForm, url_fragment: "do-dependants-get-income" },
       dependant_income_details: { class: DependantIncomeDetailsForm, url_fragment: "dependant-income-details" },

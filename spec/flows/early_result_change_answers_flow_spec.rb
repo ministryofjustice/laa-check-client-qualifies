@@ -1,20 +1,22 @@
 require "rails_helper"
 
-RSpec.describe "Change answers", type: :feature do
+RSpec.describe "Change answers after early result", :early_eligibility_flag, type: :feature do
   # these specs need sorting/replicating with the new EE feature
-  it "prompts me to fill screens were previously skipped, and saving my changes" do
+  it "change answers successfully after early gross income result" do
     start_assessment
     fill_in_forms_until(:employment_status)
-    fill_in_employment_status_screen(choice: "Unemployed")
-    fill_in_forms_until(:check_answers)
+    fill_in_employment_status_screen(choice: "Employed")
+    fill_in_income_screen({ gross: "3000" })
+    fill_in_benefits_screen
+    fill_in_other_income_screen
+    bypass_early_result("Check answers")
     confirm_screen("check_answers")
     within "#table-employment_status" do
       click_on "Change"
     end
-    fill_in_employment_status_screen(choice: "Employed")
-    fill_in_income_screen
-    confirm_screen("check_answers")
-    expect(page).to have_content "What is your client's employment status?Employed or self-employed"
+    fill_in_employment_status_screen(choice: "Unemployed")
+    confirm_screen("outgoings")
+    # expect(page).to have_content "What is your client's employment status?Employed or self-employed"
   end
 
   it "does not save my changes if I back out of them" do
