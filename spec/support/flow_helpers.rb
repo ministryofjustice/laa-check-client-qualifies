@@ -334,10 +334,10 @@ end
 
 def confirm_screen(expected)
   path = page.current_path
-  puts 11111111111
-  puts expected
-  puts 22222222
-  puts path
+  # puts 11111111111
+  # puts expected
+  # puts 22222222
+  # puts path
   if expected.to_sym == :check_answers
     expect(path).to start_with "/check-answers"
   else

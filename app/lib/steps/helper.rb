@@ -43,7 +43,12 @@ module Steps
       end
 
       def step_groups_for(session_data)
-        all_sections(session_data).map { |section| section.grouped_steps_for(session_data) }.reduce(:+)
+        if FeatureFlags.enabled?(:early_eligibility, session_data) && Steps::Logic.ineligible_gross_income?(session_data) && Steps::Logic.skip_to_check_answers?(session_data)
+          # one issue here, if they choose to go to check answers, then go back and fill out more data, then the flow breaks
+          sections_early_result_gross_income.map { |section| section.grouped_steps_for(session_data) }.reduce(:+)
+        else
+          all_sections(session_data).map { |section| section.grouped_steps_for(session_data) }.reduce(:+)
+        end
       end
 
       def all_sections(session_data = nil)
@@ -58,6 +63,10 @@ module Steps
         else
           initial_sections + [AssetsAndVehiclesSection, PropertySection]
         end
+      end
+
+      def sections_early_result_gross_income
+        [CaseDetailsSection, ApplicantDetailsSection, IncomeSection]
       end
 
       def remaining_steps(steps, step)

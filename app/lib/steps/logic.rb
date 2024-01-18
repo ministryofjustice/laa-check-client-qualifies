@@ -143,9 +143,17 @@ module Steps
 
         # guard clause here for cases where there is no proceeding type i.e. under 18?
         # This issue can arise in a change loop.
-        return if session_data.dig("early_result", "result_summary", "gross_income", "proceeding_types").compact_blank.blank?
+        return false if session_data.dig("early_result", "result_summary", "gross_income", "proceeding_types").compact_blank.blank?
 
         session_data.dig("early_result", "result_summary", "gross_income", "proceeding_types").first["result"] == "ineligible"
+      end
+
+      def skip_to_check_answers?(session_data)
+        return false unless session_data["skip_to_answers"]
+
+        return false if session_data["resume_check"]
+
+        session_data["skip_to_answers"]
       end
     end
   end

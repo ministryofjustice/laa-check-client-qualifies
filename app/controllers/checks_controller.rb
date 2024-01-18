@@ -14,6 +14,12 @@ class ChecksController < ApplicationController
     track_page_view(page: :check_answers)
   end
 
+  def early_check_answers
+    session_data["early_results"] = params[:early_result_type]
+    session_data["skip_to_answers"] = true
+    redirect_to check_answers_path(params[:assessment_code])
+  end
+
   def end_of_journey
     @model = CalculationResult.new(session_data)
     @check = Check.new(session_data)

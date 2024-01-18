@@ -1,12 +1,13 @@
 module Cfe
   class BaseService
-    def self.call(session_data, payload)
-      new(session_data, payload).call
+    def self.call(session_data, payload, early_eligibility = nil)
+      new(session_data, payload, early_eligibility).call
     end
 
-    def initialize(session_data, payload)
+    def initialize(session_data, payload, early_eligibility)
       @session_data = session_data
       @payload = payload
+      @early_eligibility = early_eligibility
     end
 
   private
@@ -24,12 +25,8 @@ module Cfe
       @check ||= Check.new(@session_data)
     end
 
-    def relevant_form?(form_name, form_class = nil)
-      if FeatureFlags.enabled?(:early_eligibility, @session_data) && form_class
-        Steps::Helper.valid_step?(@session_data, form_name) && form_class.from_session(@session_data).valid?
-      else
-        Steps::Helper.valid_step?(@session_data, form_name)
-      end
+    def relevant_form?(form_name)
+      Steps::Helper.valid_step?(@session_data, form_name)
     end
   end
 end

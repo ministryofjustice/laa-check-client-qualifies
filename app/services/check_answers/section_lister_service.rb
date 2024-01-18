@@ -61,16 +61,7 @@ module CheckAnswers
     end
 
     def build_table(table_data, model, index: nil)
-      screen_list = %w[employment partner_employment assets]
-
-      valid_form = if FeatureFlags.enabled?(:early_eligibility, @check.session_data)
-                     screen_list.include?(table_data[:screen]) ||
-                       Flow::Handler::STEPS.fetch(table_data[:screen].to_sym).fetch(:class).from_session(@check.session_data).valid?
-                   else
-                     true
-                   end
-
-      return unless Steps::Helper.valid_step?(@check.session_data, table_data[:screen]) && valid_form
+      return unless Steps::Helper.valid_step?(@check.session_data, table_data[:screen])
 
       Table.new(
         screen: table_data[:screen],

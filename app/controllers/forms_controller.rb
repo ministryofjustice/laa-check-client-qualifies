@@ -7,13 +7,12 @@ class FormsController < QuestionFlowController
       session_data.merge!(@form.attributes_for_export_to_session)
       if FeatureFlags.enabled?(:early_eligibility, session_data) && last_tag_in_group?(:gross_income)
         # we actually might not need to send down the early eligibility argument if we just check the form validity?
-        session_data["early_result"] = CfeService.call(session_data)
+        session_data["early_result"] = CfeService.call(session_data, early_eligibility: :gross_income)
       end
       next_step = Steps::Helper.next_step_for(session_data, step)
-      if FeatureFlags.enabled?(:early_eligibility, session_data) && Steps::Logic.ineligible_gross_income?(session_data) && last_tag_in_group?(:gross_income)
-        # having to include a URL fragment so the step can be carried through (i think)
-        redirect_to early_result_path(Flow::Handler.url_fragment(step), assessment_code)
-      elsif next_step
+      if show_early_result_screen?
+        redirect_to early_result_path(assessment_code, step:, early_result_type: :gross_income)
+      elsif next_step && !show_early_result_screen?
         redirect_to helpers.step_path_from_step(next_step, assessment_code)
       else
         redirect_to check_answers_path assessment_code:
@@ -22,5 +21,9 @@ class FormsController < QuestionFlowController
       track_validation_error
       render "question_flow/#{step}"
     end
+  end
+
+  def show_early_result_screen?
+    FeatureFlags.enabled?(:early_eligibility, session_data) && Steps::Logic.ineligible_gross_income?(session_data) && last_tag_in_group?(:gross_income)
   end
 end
