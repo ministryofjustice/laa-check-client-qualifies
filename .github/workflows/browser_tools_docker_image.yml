@@ -1,7 +1,7 @@
 name: "Generate browsertools docker image"
 on:
   schedule:
-    - cron:  '*/30 * * * *'
+    - cron:  '15 5 * * 1-5'
   workflow_dispatch:
 jobs:
   build-push:
@@ -12,10 +12,10 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_PAT }}
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
       - name: Build the Docker image
         run: |
-          docker build . --file ./Dockerfile_browser_tools.dockerfile --tag ccq/browser-image-setup
+          docker build -f ./Dockerfile_browser_tools.dockerfile . -t masumkhan/welcome-to-docker:latest
       - name: Push the Docker image
         run: |
-          docker push ccq/browser-image-setup
+          docker push masumkhan/welcome-to-docker:latest
