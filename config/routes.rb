@@ -50,7 +50,6 @@ Rails.application.routes.draw do
   get "new-check", to: "checks#new", as: :new_check
   get "check-answers/:assessment_code", to: "checks#check_answers", as: :check_answers
   get "service-end/:assessment_code", to: "checks#end_of_journey", as: :end_of_journey
-  get ":early-result-type/:assessment_code", to: "checks#early_check_answers", as: :early_check_answers
 
   get "/download/:assessment_code", to: "results#download", as: :download_result
   get "/cw-form/:assessment_code", to: "controlled_work_document_selections#download", as: :download_cw_form
@@ -61,10 +60,11 @@ Rails.application.routes.draw do
   get "check-result/:assessment_code", to: "results#show", as: :result
   post "check-result/:assessment_code", to: "results#create"
 
+  get "limit-warning/:assessment_code", to: "early_results#show", as: :early_result
+  get "resume/:assessment_code", to: "early_results#resume_check", as: :resume_check
+
   get ":step_url_fragment/:assessment_code", to: "forms#show", as: :step
   put ":step_url_fragment/:assessment_code", to: "forms#update"
   get ":step_url_fragment/:assessment_code/check", to: "change_answers#show", as: :check_step
   put ":step_url_fragment/:assessment_code/check", to: "change_answers#update"
-  get "limit-warning/:assessment_code", to: "early_results#show", as: :early_result
-  get ":step_url_fragment/:assessment_code", to: "early_results#resume_check", as: :resume_check
 end

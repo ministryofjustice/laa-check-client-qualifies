@@ -68,7 +68,8 @@ private
     # if they change the level of help, we don't want to send to CFE because we need the proceeding (matter) type first
     # same goes for client age as I don't think we would have the right payload needed for CFE response until second step
     # also if the answer is changed to 'no' for domestic abuse applicant as we need to ask the I&A q (matter type) before we send to CFE
-    @form.instance_of?(LevelOfHelpForm) || @form.instance_of?(ClientAgeForm) ||
+
+    @form.instance_of?(LevelOfHelpForm) || @form.attributes_for_export_to_session.value?("under_18") ||
       (@form.instance_of?(DomesticAbuseApplicantForm) && @form.attributes_for_export_to_session.values.to_s.include?("false"))
   end
 end

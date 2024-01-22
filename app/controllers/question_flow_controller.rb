@@ -2,17 +2,11 @@ class QuestionFlowController < ApplicationController
   before_action :load_check
 
   def show
-    if FeatureFlags.enabled?(:early_eligibility, session_data) && params[:early_result_type]
-      @next_step = Steps::Helper.next_step_for(session_data, params[:step].to_sym)
-      @early_result_type = params[:early_result_type]
-      render "/early_results/show"
-    else
-      track_page_view
-      @form = Flow::Handler.model_from_session(step, session_data)
-      @show_banner = change_answers_loop? && @form.class.from_session(session_data).invalid? && FeatureFlags.enabled?(:early_eligibility, session_data)
-      session_data["banner_seen"] = true if @show_banner # this line doesn't yet work
-      render "/question_flow/#{step}"
-    end
+    track_page_view
+    @form = Flow::Handler.model_from_session(step, session_data)
+    @show_banner = change_answers_loop? && @form.class.from_session(session_data).invalid? && FeatureFlags.enabled?(:early_eligibility, session_data)
+    session_data["banner_seen"] = true if @show_banner # this line doesn't yet work
+    render "/question_flow/#{step}"
   end
 
 protected
@@ -27,6 +21,8 @@ protected
 
   def next_check_answer_step(step)
     if FeatureFlags.enabled?(:early_eligibility, session_data) && Steps::Logic.ineligible_gross_income?(session_data)
+      # think this code possibly no longer necessary
+
       # code needs refactor but works
       # collect all the possible steps and their tag
       array = Steps::Helper.remaining_steps_for(session_data, step).map do |rem|

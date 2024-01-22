@@ -4,10 +4,10 @@
 
   .govuk-button-group
       = link_to "Check answers",
-            early_check_answers_path(params[:assessment_code], early_result_type: @early_result_type),
+            check_answers_path(assessment_code: params[:assessment_code]),
             class: "govuk-button govuk-button"
 
   .govuk-button-group
         = link_to "Return to check",
-              resume_check_path(@next_step, params[:assessment_code]),
+              resume_check_path(assessment_code: params[:assessment_code]),
               class: "govuk-button govuk-button--secondary"

@@ -149,11 +149,11 @@ module Steps
       end
 
       def skip_to_check_answers?(session_data)
-        return false unless session_data["skip_to_answers"]
+        return false unless session_data["early_result_type"]
 
         return false if session_data["resume_check"]
 
-        session_data["skip_to_answers"]
+        true
       end
     end
   end

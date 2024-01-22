@@ -23,8 +23,6 @@ module Steps
       end
 
       def valid_step?(session_data, step)
-        # should we be modifying this method?
-        # we use this all over the place to determine steps
         steps_list_for(session_data).include?(step.to_sym)
       end
 
@@ -44,7 +42,7 @@ module Steps
 
       def step_groups_for(session_data)
         if FeatureFlags.enabled?(:early_eligibility, session_data) && Steps::Logic.ineligible_gross_income?(session_data) && Steps::Logic.skip_to_check_answers?(session_data)
-          # one issue here, if they choose to go to check answers, then go back and fill out more data, then the flow breaks
+          # user could use back buttons to fudge data a bit - if session_data["resume_check"] is true, we won't short circuit them
           sections_early_result_gross_income.map { |section| section.grouped_steps_for(session_data) }.reduce(:+)
         else
           all_sections(session_data).map { |section| section.grouped_steps_for(session_data) }.reduce(:+)

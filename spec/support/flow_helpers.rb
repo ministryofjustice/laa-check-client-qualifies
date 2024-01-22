@@ -329,15 +329,11 @@ end
 
 def confirm_early_result_screen
   path = page.current_path
-  expect(path).to include("early-result")
+  expect(path).to include("limit-warning")
 end
 
 def confirm_screen(expected)
   path = page.current_path
-  # puts 11111111111
-  # puts expected
-  # puts 22222222
-  # puts path
   if expected.to_sym == :check_answers
     expect(path).to start_with "/check-answers"
   else

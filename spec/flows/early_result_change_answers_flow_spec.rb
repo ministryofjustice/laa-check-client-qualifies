@@ -31,6 +31,32 @@ RSpec.describe "Change answers after early result", :early_eligibility_flag, typ
               "combined_total_gross_income" => 18_200.0 } } }
   end
 
+  let(:eligible_api_response) do
+    { "version" => "6",
+      "timestamp" => "2024-01-11T11:39:21.651Z",
+      "success" => true,
+      "result_summary" =>
+        { "overall_result" =>
+            { "result" => "ineligible",
+              "capital_contribution" => 0.0,
+              "income_contribution" => 0.0,
+              "proceeding_types" =>
+                [{ "ccms_code" => "SE003",
+                   "upper_threshold" => 0.0,
+                   "lower_threshold" => 0.0,
+                   "result" => "ineligible",
+                   "client_involvement_type" => "A" }] },
+          "gross_income" =>
+            { "total_gross_income" => 18_200.0,
+              "proceeding_types" =>
+                [{ "ccms_code" => "SE003",
+                   "upper_threshold" => 2657.0,
+                   "lower_threshold" => 0.0,
+                   "result" => "eligible",
+                   "client_involvement_type" => "A" }],
+              "combined_total_gross_income" => 18_200.0 } } }
+  end
+
   # these specs need sorting/replicating with the new EE feature
   it "change answers successfully after early gross income result" do
     allow(CfeService).to receive(:call).and_return(api_response)
@@ -47,6 +73,7 @@ RSpec.describe "Change answers after early result", :early_eligibility_flag, typ
       click_on "Change"
     end
     fill_in_employment_status_screen(choice: "Unemployed")
+    allow(CfeService).to receive(:call).and_return(eligible_api_response)
     #  this is going to check answers instead of outgoings
     confirm_screen("outgoings")
   end
