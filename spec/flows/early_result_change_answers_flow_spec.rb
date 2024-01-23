@@ -59,7 +59,7 @@ RSpec.describe "Change answers after early result", :early_eligibility_flag, typ
 
   # these specs need sorting/replicating with the new EE feature
   it "change answers successfully after early gross income result" do
-    allow(CfeService).to receive(:call).and_return(api_response)
+    allow(CfeService).to receive(:call).and_return(api_response, eligible_api_response)
 
     start_assessment
     fill_in_forms_until(:employment_status)
@@ -73,13 +73,12 @@ RSpec.describe "Change answers after early result", :early_eligibility_flag, typ
       click_on "Change"
     end
     fill_in_employment_status_screen(choice: "Unemployed")
-    allow(CfeService).to receive(:call).and_return(eligible_api_response)
     #  this is going to check answers instead of outgoings
     confirm_screen("outgoings")
   end
 
   it "does not save my changes if I back out of them" do
-    allow(CfeService).to receive(:call).and_return(api_response)
+    allow(CfeService).to receive(:call).and_return(api_response, eligible_api_response)
 
     start_assessment
     fill_in_forms_until(:employment_status)
