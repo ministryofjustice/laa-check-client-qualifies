@@ -5,7 +5,7 @@ FROM cimg/ruby:3.2.2-browsers
 WORKDIR /app
 
 # Install Chrome
-RUN npx puppeteer browsers install chrome
+RUN sudo npx puppeteer browsers install chrome
 
 # Install Puppeteer with Chromium
 RUN sudo yarn add puppeteer@21.5.0
