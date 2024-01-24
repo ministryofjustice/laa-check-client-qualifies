@@ -10,7 +10,7 @@ RUN npx puppeteer browsers install chrome \
 
 # Install PDFTK
 RUN sudo add-apt-repository --yes ppa:malteworld/ppa \
-    && sudo apt update --allow-unauthenticated \
-    && sudo apt install pdftk --allow-unauthenticated
+    && sudo apt-get update \
+    && sudo apt-get -y install pdftk
 
 COPY . .
