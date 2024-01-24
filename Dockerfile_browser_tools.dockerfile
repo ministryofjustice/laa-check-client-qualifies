@@ -4,15 +4,13 @@ FROM cimg/ruby:3.2.2-browsers
 
 WORKDIR /app
 
-# Install Chrome
-RUN npx puppeteer browsers install chrome
-
-# Install Puppeteer with Chromium
-RUN sudo yarn add puppeteer@21.5.0
+# Install Chrome & Puppeteer with Chromium
+RUN npx puppeteer browsers install chrome \ 
+    && sudo yarn add puppeteer@21.5.0
 
 # Install PDFTK
-RUN sudo add-apt-repository --yes ppa:malteworld/ppa || true
-RUN sudo apt update --allow-unauthenticated || true
-RUN sudo apt install pdftk --allow-unauthenticated || true
+RUN sudo add-apt-repository --yes ppa:malteworld/ppa \ 
+    && sudo apt update --allow-unauthenticated \ 
+    && sudo apt install pdftk --allow-unauthenticated
 
 COPY . .
