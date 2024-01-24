@@ -4,11 +4,11 @@ FROM cimg/ruby:3.2.2-browsers
 
 WORKDIR /app
 
+# Install Puppeteer with Chromium
+RUN sudo yarn add puppeteer@21.9.0
+
 # Install Chrome
 RUN sudo npx puppeteer browsers install chrome
-
-# Install Puppeteer with Chromium
-RUN sudo yarn add puppeteer@21.5.0
 
 # Install PDFTK
 RUN sudo add-apt-repository --yes ppa:malteworld/ppa || true
