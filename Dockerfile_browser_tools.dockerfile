@@ -5,8 +5,8 @@ FROM cimg/ruby:3.2.2-browsers
 WORKDIR /app
 
 # Install Chrome & Puppeteer with Chromium
-RUN npx puppeteer browsers install chrome \ 
-    && sudo yarn add puppeteer@21.5.0
+RUN npx puppeteer browsers install chrome
+RUN sudo yarn add puppeteer@21.5.0
 
 # Install PDFTK
 RUN sudo add-apt-repository --yes ppa:malteworld/ppa || true
