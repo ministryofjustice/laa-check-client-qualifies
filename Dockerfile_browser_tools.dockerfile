@@ -1,4 +1,4 @@
-# Build browser tools for test-executor
+# Build custom docker image for test-executor
 # Use the cimg/ruby:3.2.2-browsers image as the base image to extend out
 FROM cimg/ruby:3.2.2-browsers
 
@@ -8,6 +8,7 @@ WORKDIR /app
 RUN npx puppeteer browsers install chrome
 
 # Install Puppeteer with Chromium
+# Chromium version 119.0.6045.105 is mapped to Puppeteer version 21.5.0, as per documentation -> https://pptr.dev/chromium-support
 RUN sudo yarn add puppeteer@21.5.0
 
 # Install PDFTK
