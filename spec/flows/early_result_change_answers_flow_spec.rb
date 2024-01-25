@@ -1,7 +1,7 @@
 require "rails_helper"
 
-RSpec.describe "Change answers after early result", :early_eligibility_flag, type: :feature do
-  let(:api_response) do
+RSpec.describe "Change answers, early result", :early_eligibility_flag, type: :feature do
+  let(:ineligible) do
     { "version" => "6",
       "timestamp" => "2024-01-11T11:39:21.651Z",
       "success" => true,
@@ -27,7 +27,7 @@ RSpec.describe "Change answers after early result", :early_eligibility_flag, typ
               "combined_total_gross_income" => 18_200.0 } } }
   end
 
-  let(:eligible_api_response) do
+  let(:eligible) do
     { "version" => "6",
       "timestamp" => "2024-01-11T11:39:21.651Z",
       "success" => true,
@@ -54,26 +54,87 @@ RSpec.describe "Change answers after early result", :early_eligibility_flag, typ
   end
 
   # these specs need sorting/replicating with the new EE feature
-  it "change answers successfully after early gross income result" do
-    allow(CfeService).to receive(:call).and_return(api_response, eligible_api_response)
+  context "with an early ineligible gross income result and direct journey to check answers, that becomes eligible" do
+    it "change employment status successfully after early ineligible gross income result" do
+      allow(CfeService).to receive(:call).and_return(ineligible, eligible)
 
-    start_assessment
-    fill_in_forms_until(:employment_status)
-    fill_in_employment_status_screen(choice: "Employed")
-    fill_in_income_screen({ gross: "3000" })
-    fill_in_benefits_screen
-    fill_in_other_income_screen
-    bypass_early_result("Check answers")
-    confirm_screen("check_answers")
-    within "#table-employment_status" do
-      click_on "Change"
+      start_assessment
+      fill_in_forms_until(:employment_status)
+      fill_in_employment_status_screen(choice: "Employed")
+      fill_in_income_screen({ gross: "3000" })
+      fill_in_benefits_screen
+      fill_in_other_income_screen
+      bypass_early_result("Check answers")
+      confirm_screen("check_answers")
+      within "#table-employment_status" do
+        click_on "Change"
+      end
+      fill_in_employment_status_screen(choice: "Unemployed")
+      confirm_screen("outgoings")
     end
-    fill_in_employment_status_screen(choice: "Unemployed")
-    confirm_screen("outgoings")
+
+    it "change employment income successfully after early ineligible gross income result" do
+      allow(CfeService).to receive(:call).and_return(ineligible, eligible)
+
+      start_assessment
+      fill_in_forms_until(:employment_status)
+      fill_in_employment_status_screen(choice: "Employed")
+      fill_in_income_screen({ gross: "3000" })
+      fill_in_benefits_screen
+      fill_in_other_income_screen
+      bypass_early_result("Check answers")
+      confirm_screen("check_answers")
+      within "#table-income" do
+        click_on "Change"
+      end
+      fill_in_income_screen({ gross: "1000" })
+      confirm_screen("outgoings")
+    end
+  end
+
+  context "with an early ineligible gross income result and direct journey to check answers, that remains ineligible" do
+    it "change employment income successfully after early ineligible gross income result" do
+      allow(CfeService).to receive(:call).and_return(ineligible, ineligible)
+
+      start_assessment
+      fill_in_forms_until(:employment_status)
+      fill_in_employment_status_screen(choice: "Employed")
+      fill_in_income_screen({ gross: "3000" })
+      fill_in_benefits_screen
+      fill_in_other_income_screen
+      bypass_early_result("Check answers")
+      confirm_screen("check_answers")
+      within "#table-income" do
+        click_on "Change"
+      end
+      fill_in_income_screen({ gross: "2999" })
+      confirm_screen("check_answers")
+    end
+
+    it "change level of help successfully" do
+      allow(CfeService).to receive(:call).and_return(ineligible, ineligible)
+
+      start_assessment
+      fill_in_forms_until(:employment_status)
+      fill_in_employment_status_screen(choice: "Employed")
+      fill_in_income_screen({ gross: "3000" })
+      fill_in_benefits_screen
+      fill_in_other_income_screen
+      bypass_early_result("Check answers")
+      confirm_screen("check_answers")
+      within "#table-level_of_help" do
+        click_on "Change"
+      end
+      fill_in_level_of_help_screen(choice: "Civil controlled work or family mediation")
+      fill_in_immigration_or_asylum_screen(choice: "No")
+      # this passes although in staging it seems to take you to a property question? could be bug
+      # with instant session
+      confirm_screen("check_answers")
+    end
   end
 
   it "does not save my changes if I back out of them" do
-    allow(CfeService).to receive(:call).and_return(eligible_api_response)
+    allow(CfeService).to receive(:call).and_return(eligible)
 
     start_assessment
     fill_in_forms_until(:employment_status)
@@ -91,7 +152,7 @@ RSpec.describe "Change answers after early result", :early_eligibility_flag, typ
   end
 
   it "can handle a switch from passporting to not" do
-    allow(CfeService).to receive(:call).and_return(eligible_api_response, eligible_api_response)
+    allow(CfeService).to receive(:call).and_return(eligible, eligible)
 
     start_assessment
     fill_in_forms_until(:applicant)
@@ -111,7 +172,7 @@ RSpec.describe "Change answers after early result", :early_eligibility_flag, typ
   end
 
   it "takes me on mini loops" do
-    allow(CfeService).to receive(:call).and_return(eligible_api_response)
+    allow(CfeService).to receive(:call).and_return(eligible)
 
     start_assessment
     fill_in_forms_until(:applicant)
@@ -149,7 +210,7 @@ RSpec.describe "Change answers after early result", :early_eligibility_flag, typ
   end
 
   it "behaves as expected when there are validation errors" do
-    allow(CfeService).to receive(:call).and_return(eligible_api_response)
+    allow(CfeService).to receive(:call).and_return(eligible)
 
     start_assessment
     fill_in_forms_until(:check_answers)
