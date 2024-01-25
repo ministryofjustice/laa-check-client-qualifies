@@ -13,7 +13,7 @@ ENV PUPPETEER_EXECUTABLE_PATH=/home/circleci/.cache/puppeteer/chrome/linux-121.0
 
 # Install Puppeteer with Chromium
 # Chromium version 119.0.6045.105 is mapped to Puppeteer version 21.5.0, as per documentation -> https://pptr.dev/chromium-support
-RUN sudo yarn add puppeteer@21.5.0
+RUN yarn add puppeteer@21.5.0
 
 # Install PDFTK
 RUN sudo add-apt-repository --yes ppa:malteworld/ppa || true
