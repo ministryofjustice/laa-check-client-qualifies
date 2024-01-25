@@ -8,8 +8,8 @@ WORKDIR /app
 RUN npx puppeteer browsers install chrome
 
 # # Tell Puppeteer to skip installing Chromium. We'll be using the installed package.
-# ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
-# ENV PUPPETEER_EXECUTABLE_PATH=/home/circleci/.cache/puppeteer/chrome/linux-121.0.6167.85/chrome-linux64/chrome
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+ENV PUPPETEER_EXECUTABLE_PATH=/home/circleci/.cache/puppeteer/chrome/linux-121.0.6167.85/chrome-linux64/chrome
 
 # Install Puppeteer with Chromium
 # Chromium version 119.0.6045.105 is mapped to Puppeteer version 21.5.0, as per documentation -> https://pptr.dev/chromium-support
