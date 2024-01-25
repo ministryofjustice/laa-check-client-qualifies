@@ -8,10 +8,10 @@ executors:
   test-executor:
     resource_class: small
     docker:
-      - image: checkclientqualifiesdocker/circleci-image:latest
+      - image: masumkhan/welcome-to-docker:latest
         auth:
-          username: $DOCKERHUB_USER_CCQ
-          password: $DOCKERHUB_PAT_CCQ
+          username: $DOCKERHUB_USER
+          password: $DOCKERHUB_PAT
         environment:
           VCR_RECORD_MODE: none
           COVERAGE: true
