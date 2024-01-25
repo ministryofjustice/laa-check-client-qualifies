@@ -19,9 +19,6 @@ class ChangeAnswersController < QuestionFlowController
         else
           # Promote the temporary copy of the answers to overwrite the original answers
           session[assessment_id] = session_data
-          #  this redirect is firing after the change to employment status
-          # this should be going to the next step in the loop and not to CYA
-          # if reverted to employed it goes to CYA but assets show as not applicable
           redirect_to check_answers_path(assessment_code:, anchor:)
         end
       else

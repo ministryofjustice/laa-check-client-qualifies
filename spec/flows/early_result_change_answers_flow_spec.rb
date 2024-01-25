@@ -1,10 +1,6 @@
 require "rails_helper"
 
 RSpec.describe "Change answers after early result", :early_eligibility_flag, type: :feature do
-  # before do
-  #   allow(CfeService).to receive(:call).and_return(api_response)
-  # end
-
   let(:api_response) do
     { "version" => "6",
       "timestamp" => "2024-01-11T11:39:21.651Z",
@@ -47,14 +43,14 @@ RSpec.describe "Change answers after early result", :early_eligibility_flag, typ
                    "result" => "ineligible",
                    "client_involvement_type" => "A" }] },
           "gross_income" =>
-            { "total_gross_income" => 18_200.0,
+            { "total_gross_income" => 10_200.0,
               "proceeding_types" =>
                 [{ "ccms_code" => "SE003",
                    "upper_threshold" => 2657.0,
                    "lower_threshold" => 0.0,
                    "result" => "eligible",
                    "client_involvement_type" => "A" }],
-              "combined_total_gross_income" => 18_200.0 } } }
+              "combined_total_gross_income" => 10_200.0 } } }
   end
 
   # these specs need sorting/replicating with the new EE feature
@@ -73,12 +69,11 @@ RSpec.describe "Change answers after early result", :early_eligibility_flag, typ
       click_on "Change"
     end
     fill_in_employment_status_screen(choice: "Unemployed")
-    #  this is going to check answers instead of outgoings
     confirm_screen("outgoings")
   end
 
   it "does not save my changes if I back out of them" do
-    allow(CfeService).to receive(:call).and_return(api_response, eligible_api_response)
+    allow(CfeService).to receive(:call).and_return(eligible_api_response)
 
     start_assessment
     fill_in_forms_until(:employment_status)
@@ -96,7 +91,7 @@ RSpec.describe "Change answers after early result", :early_eligibility_flag, typ
   end
 
   it "can handle a switch from passporting to not" do
-    allow(CfeService).to receive(:call).and_return(api_response)
+    allow(CfeService).to receive(:call).and_return(eligible_api_response, eligible_api_response)
 
     start_assessment
     fill_in_forms_until(:applicant)
@@ -116,7 +111,7 @@ RSpec.describe "Change answers after early result", :early_eligibility_flag, typ
   end
 
   it "takes me on mini loops" do
-    allow(CfeService).to receive(:call).and_return(api_response)
+    allow(CfeService).to receive(:call).and_return(eligible_api_response)
 
     start_assessment
     fill_in_forms_until(:applicant)
@@ -154,7 +149,7 @@ RSpec.describe "Change answers after early result", :early_eligibility_flag, typ
   end
 
   it "behaves as expected when there are validation errors" do
-    allow(CfeService).to receive(:call).and_return(api_response)
+    allow(CfeService).to receive(:call).and_return(eligible_api_response)
 
     start_assessment
     fill_in_forms_until(:check_answers)
