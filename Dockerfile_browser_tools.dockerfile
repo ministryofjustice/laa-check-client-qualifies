@@ -4,8 +4,9 @@ FROM cimg/ruby:3.2.2-browsers
 
 WORKDIR /app
 
-# # Install Chrome
+# Install Chrome
 # RUN npx puppeteer browsers install chrome
+RUN sudo apt-get install chromium-browser
 
 # Tell Puppeteer to skip installing Chrome. We'll be using the installed package.
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
