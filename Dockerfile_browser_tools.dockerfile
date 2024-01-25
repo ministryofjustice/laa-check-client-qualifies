@@ -1,11 +1,15 @@
 # Build custom docker image for test-executor
-# Use the cimg/ruby:3.2.3-node image as the base image to extend out
-FROM cimg/ruby:3.2.2-node
+# Use the cimg/ruby:3.2.2-browsers image as the base image to extend out
+FROM cimg/ruby:3.2.2-browsers
 
 WORKDIR /app
 
 # Install Chrome
 RUN npx puppeteer browsers install chrome
+
+# Tell Puppeteer to skip installing Chrome. We'll be using the installed package.
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
 # Install Puppeteer with Chromium
 # Chromium version 119.0.6045.105 is mapped to Puppeteer version 21.5.0, as per documentation -> https://pptr.dev/chromium-support
