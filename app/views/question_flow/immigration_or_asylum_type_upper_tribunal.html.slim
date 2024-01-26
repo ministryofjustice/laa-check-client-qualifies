@@ -3,9 +3,9 @@
 - content_for :back do
   = back_link(:immigration_or_asylum_type_upper_tribunal, @check, @back_buttons_invoke_browser_back_behaviour)
 - content_for :hint
-    p.govuk-boy = t(".help_text_1")
-    p.govuk-boy = t(".help_text_2")
-    p.govuk-boy = t(".help_text_3")
+    p.govuk-body = t(".help_text_1")
+    p.govuk-body = t(".help_text_2")
+    p.govuk-body = t(".help_text_3")
     = govuk_details(summary_text: t(".guidance_header"))
       p.govuk-body = t(".guidance_text_html",
                      page_url: document_link(:legislation_LASPO_2012_immigration))
