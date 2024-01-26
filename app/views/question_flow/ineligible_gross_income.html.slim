@@ -6,27 +6,7 @@
     = form_for(@form, url: request.path, method: :put) do |form|
       = form.hidden_field :check_answers, value: "gross"
       = form.govuk_submit t("generic.check_answers")
-    / = link_to "Check answers",
-    /         check_answers_path(assessment_code: params[:assessment_code]),
-    /         class: "govuk-button govuk-button"
 
   .govuk-button-group
     = form_for(@form, url: request.path, method: :put) do |form|
       = form.govuk_submit t("generic.return_to_check"), secondary: true
-    / = link_to "Return to check",
-    /           resume_check_path(assessment_code: params[:assessment_code]),
-    /           class: "govuk-button govuk-button--secondary"
-
-/ .govuk-grid-column-two-thirds
-/   = render "shared/heading"
-/   = form_for(@form, url: request.path, method: :put) do |form|
-/     = form.govuk_error_summary t("generic.error_summary_title")
-/     = form.govuk_collection_radio_buttons :property_owned, property_options, :first, :last,
-/             legend: { text: t(".legend"), size: "xl", tag: "h1" },
-/             hint: lambda { \
-/               tag.p(t(".hint"), class: "govuk-hint") + \
-/                       (@check.partner ? tag.p(t(".partner_hint"), class: "govuk-hint") : "") \
-/             }
-/
-/     = form.govuk_submit t("generic.save_and_continue")
-/ = render "additional_property_sidebar", level_of_help: @check.level_of_help, smod_applicable: @check.smod_applicable?
