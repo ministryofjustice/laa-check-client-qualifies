@@ -34,7 +34,7 @@ module Steps
         steps_list_for(session_data || {}).last
       end
 
-      private
+    private
 
       def steps_list_for(session_data)
         step_groups_for(session_data).map(&:steps).flatten

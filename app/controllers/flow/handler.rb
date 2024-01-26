@@ -2,7 +2,7 @@ module Flow
   class Handler
     STEPS = {
       client_age: { class: ClientAgeForm, url_fragment: "client-age-group", tag: :non_income },
-      level_of_help: { class: LevelOfHelpForm, url_fragment: "what-level-help", tag: :non_income  },
+      level_of_help: { class: LevelOfHelpForm, url_fragment: "what-level-help", tag: :non_income },
       under_18_clr: { class: ControlledLegalRepresentationForm, url_fragment: "client-under-18-controlled-legal-representation-work" },
       aggregated_means: { class: AggregatedMeansForm, url_fragment: "client-under-18-aggregated-means" },
       how_to_aggregate: { class: HowToAggregateForm, url_fragment: "how-to-aggregate" },
@@ -16,13 +16,13 @@ module Flow
         url_fragment: "is-this-matter-immigration-asylum-chamber-upper-tribunal",
         tag: :non_income,
       },
-      asylum_support: { class: AsylumSupportForm, url_fragment: "does-client-get-asylum-support",  tag: :non_income },
-      applicant: { class: ApplicantForm, url_fragment: "about-client",  tag: :non_income },
+      asylum_support: { class: AsylumSupportForm, url_fragment: "does-client-get-asylum-support", tag: :non_income },
+      applicant: { class: ApplicantForm, url_fragment: "about-client", tag: :non_income },
       # think about if there is value in tagging dependant details as :gross_income
       # if 5 or more dependants, gross income limit is waived
       # think about if there is value in tagging dependant details as :gross_income
       # if 5 or more dependants, gross income limit is waived
-      dependant_details: { class: DependantDetailsForm, url_fragment: "about-dependants",  tag: :non_income },
+      dependant_details: { class: DependantDetailsForm, url_fragment: "about-dependants", tag: :non_income },
       dependant_income: { class: DependantIncomeForm, url_fragment: "do-dependants-get-income" },
       dependant_income_details: { class: DependantIncomeDetailsForm, url_fragment: "dependant-income-details" },
       employment_status: { class: EmploymentStatusForm, url_fragment: "client-employment-status" },

@@ -4,10 +4,12 @@ class QuestionFlowController < ApplicationController
   def show
     track_page_view
     @form = Flow::Handler.model_from_session(step, session_data)
+    @show_banner = change_answers_loop? && @form.class.from_session(session_data).invalid? && FeatureFlags.enabled?(:early_eligibility, session_data)
+    session_data["banner_seen"] = true if @show_banner # this line doesn't yet work
     render "/question_flow/#{step}"
   end
 
-  protected
+protected
 
   def load_check
     @check = Check.new(session_data)
