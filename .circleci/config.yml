@@ -8,7 +8,10 @@ executors:
   test-executor:
     resource_class: small
     docker:
-      - image: cimg/ruby:3.2.2-browsers
+      - image: checkclientqualifiesdocker/circleci-image:latest
+        auth:
+          username: $DOCKERHUB_USER_CCQ
+          password: $DOCKERHUB_PAT_CCQ
         environment:
           VCR_RECORD_MODE: none
           COVERAGE: true
@@ -16,7 +19,7 @@ executors:
           PGHOST: localhost
           PGUSER: user
           TZ: "Europe/London"
-      - image: cimg/postgres:10.18
+      - image: cimg/postgres:11.21
         environment:
           POSTGRES_USER: user
           POSTGRES_DB: ccq_test
@@ -81,7 +84,6 @@ references:
 orbs:
   aws-cli: circleci/aws-cli@4.1.2
   aws-ecr: circleci/aws-ecr@9.0.1
-  browser-tools: circleci/browser-tools@1.4.6
   jira: circleci/jira@2.1.0
   slack: circleci/slack@4.5.2
 
@@ -138,24 +140,9 @@ jobs:
     parallelism: 3
     executor: test-executor
     steps:
-      - browser-tools/install-browser-tools:
-          replace-existing-chrome: true
-          install-firefox: false
-          install-geckodriver: false
-          install-chromedriver: false
       - checkout
       - attach_workspace:
           at: ./
-      - run:
-          name: Install Puppeteer with Chromium
-          command: |
-            yarn add puppeteer@19.2.0
-      - run:
-          name: Install PDFTK
-          command: |
-            sudo add-apt-repository --yes ppa:malteworld/ppa || true
-            sudo apt update --allow-unauthenticated || true
-            sudo apt install pdftk --allow-unauthenticated || true
       - *setup_database
       - run:
           name: Run tests
