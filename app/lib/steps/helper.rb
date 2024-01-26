@@ -34,19 +34,14 @@ module Steps
         steps_list_for(session_data || {}).last
       end
 
-    private
+      private
 
       def steps_list_for(session_data)
         step_groups_for(session_data).map(&:steps).flatten
       end
 
       def step_groups_for(session_data)
-        if FeatureFlags.enabled?(:early_eligibility, session_data) && Steps::Logic.ineligible_gross_income?(session_data) && Steps::Logic.skip_to_check_answers?(session_data)
-          # user could use back buttons to fudge data a bit - if session_data["resume_check"] is true, we won't short circuit them
-          sections_early_result_gross_income.map { |section| section.grouped_steps_for(session_data) }.reduce(:+)
-        else
-          all_sections(session_data).map { |section| section.grouped_steps_for(session_data) }.reduce(:+)
-        end
+        all_sections(session_data).map { |section| section.grouped_steps_for(session_data) }.reduce(:+)
       end
 
       def all_sections(session_data = nil)
@@ -54,6 +49,7 @@ module Steps
                             ApplicantDetailsSection,
                             IncomeSection,
                             PartnerSection,
+                            GrossIncomeIneligibleSection,
                             OutgoingsSection]
 
         if FeatureFlags.enabled?(:outgoings_flow, session_data, without_session_data: session_data.nil?)
@@ -61,10 +57,6 @@ module Steps
         else
           initial_sections + [AssetsAndVehiclesSection, PropertySection]
         end
-      end
-
-      def sections_early_result_gross_income
-        [CaseDetailsSection, ApplicantDetailsSection, IncomeSection]
       end
 
       def remaining_steps(steps, step)

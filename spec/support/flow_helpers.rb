@@ -329,7 +329,7 @@ end
 
 def confirm_early_result_screen
   path = page.current_path
-  expect(path).to include("limit-warning")
+  expect(path).to include("ineligible-gross-income")
 end
 
 def confirm_screen(expected)

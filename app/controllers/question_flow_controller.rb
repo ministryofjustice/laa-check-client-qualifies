@@ -4,12 +4,10 @@ class QuestionFlowController < ApplicationController
   def show
     track_page_view
     @form = Flow::Handler.model_from_session(step, session_data)
-    @show_banner = change_answers_loop? && @form.class.from_session(session_data).invalid? && FeatureFlags.enabled?(:early_eligibility, session_data)
-    session_data["banner_seen"] = true if @show_banner # this line doesn't yet work
     render "/question_flow/#{step}"
   end
 
-protected
+  protected
 
   def load_check
     @check = Check.new(session_data)
@@ -20,31 +18,10 @@ protected
   end
 
   def next_check_answer_step(step)
-    if FeatureFlags.enabled?(:early_eligibility, session_data) && Steps::Logic.ineligible_gross_income?(session_data)
-      # think this code possibly no longer necessary
-
-      # code needs refactor but works
-      # collect all the possible steps and their tag
-      array = Steps::Helper.remaining_steps_for(session_data, step).map do |rem|
-        [rem, tag_from(rem)]
-      end
-
-      # reverse the order of steps and drop anything that comes after the last gross income screen
-      # then only take the step and discard the tag
-      remaining_steps = array.reverse.drop_while { |a| !a.include?(:gross_income) }.map do |arr|
-        arr.take(1)
-      end
-
-      # reverse the steps again so they are chronological and drop anything that already contains valid data
-      remaining_steps.flatten.reverse.drop_while { |thestep|
-        Flow::Handler.model_from_session(thestep, session_data).valid?
-      }.first
-    else
-      Steps::Helper.remaining_steps_for(session_data, step)
-        .drop_while { |thestep|
-          Flow::Handler.model_from_session(thestep, session_data).valid?
-        }.first
-    end
+    Steps::Helper.remaining_steps_for(session_data, step)
+                 .drop_while { |thestep|
+                   Flow::Handler.model_from_session(thestep, session_data).valid?
+                 }.first
   end
 
   def page_name
@@ -77,9 +54,5 @@ protected
     return unless !remaining_tags.compact.include?(tag) && tag_from(step) == tag
 
     true
-  end
-
-  def change_answers_loop?
-    params[:controller] == "change_answers"
   end
 end

@@ -60,9 +60,6 @@ Rails.application.routes.draw do
   get "check-result/:assessment_code", to: "results#show", as: :result
   post "check-result/:assessment_code", to: "results#create"
 
-  get "limit-warning/:assessment_code", to: "early_results#show", as: :early_result
-  get "resume/:assessment_code", to: "early_results#resume_check", as: :resume_check
-
   get ":step_url_fragment/:assessment_code", to: "forms#show", as: :step
   put ":step_url_fragment/:assessment_code", to: "forms#update"
   get ":step_url_fragment/:assessment_code/check", to: "change_answers#show", as: :check_step

@@ -1,22 +1,28 @@
 module Flow
   class Handler
     STEPS = {
-      client_age: { class: ClientAgeForm, url_fragment: "client-age-group" },
-      level_of_help: { class: LevelOfHelpForm, url_fragment: "what-level-help" },
+      client_age: { class: ClientAgeForm, url_fragment: "client-age-group", tag: :non_income },
+      level_of_help: { class: LevelOfHelpForm, url_fragment: "what-level-help", tag: :non_income  },
       under_18_clr: { class: ControlledLegalRepresentationForm, url_fragment: "client-under-18-controlled-legal-representation-work" },
       aggregated_means: { class: AggregatedMeansForm, url_fragment: "client-under-18-aggregated-means" },
       how_to_aggregate: { class: HowToAggregateForm, url_fragment: "how-to-aggregate" },
       regular_income: { class: RegularIncomeForm, url_fragment: "client-under-18-regular-income" },
       under_eighteen_assets: { class: UnderEighteenAssetsForm, url_fragment: "client-under-18-assets" },
       domestic_abuse_applicant: { class: DomesticAbuseApplicantForm, url_fragment: "is-client-domestic-abuse-case-applicant" },
-      immigration_or_asylum: { class: ImmigrationOrAsylumForm, url_fragment: "is-this-immigration-asylum-matter" },
-      immigration_or_asylum_type: { class: ImmigrationOrAsylumTypeForm, url_fragment: "immigration-asylum-type" },
-      immigration_or_asylum_type_upper_tribunal: { class: ImmigrationOrAsylumTypeUpperTribunalForm, url_fragment: "is-this-matter-immigration-asylum-chamber-upper-tribunal" },
-      asylum_support: { class: AsylumSupportForm, url_fragment: "does-client-get-asylum-support" },
-      applicant: { class: ApplicantForm, url_fragment: "about-client" },
+      immigration_or_asylum: { class: ImmigrationOrAsylumForm, url_fragment: "is-this-immigration-asylum-matter", tag: :non_income },
+      immigration_or_asylum_type: { class: ImmigrationOrAsylumTypeForm, url_fragment: "immigration-asylum-type", tag: :non_income },
+      immigration_or_asylum_type_upper_tribunal: {
+        class: ImmigrationOrAsylumTypeUpperTribunalForm,
+        url_fragment: "is-this-matter-immigration-asylum-chamber-upper-tribunal",
+        tag: :non_income,
+      },
+      asylum_support: { class: AsylumSupportForm, url_fragment: "does-client-get-asylum-support",  tag: :non_income },
+      applicant: { class: ApplicantForm, url_fragment: "about-client",  tag: :non_income },
       # think about if there is value in tagging dependant details as :gross_income
       # if 5 or more dependants, gross income limit is waived
-      dependant_details: { class: DependantDetailsForm, url_fragment: "about-dependants" },
+      # think about if there is value in tagging dependant details as :gross_income
+      # if 5 or more dependants, gross income limit is waived
+      dependant_details: { class: DependantDetailsForm, url_fragment: "about-dependants",  tag: :non_income },
       dependant_income: { class: DependantIncomeForm, url_fragment: "do-dependants-get-income" },
       dependant_income_details: { class: DependantIncomeDetailsForm, url_fragment: "dependant-income-details" },
       employment_status: { class: EmploymentStatusForm, url_fragment: "client-employment-status" },
@@ -44,7 +50,7 @@ module Flow
       additional_property_details: { class: AdditionalPropertyDetailsForm, url_fragment: "client-other-property-holiday-home-land-details" },
       partner_additional_property: { class: PartnerAdditionalPropertyForm, url_fragment: "does-partner-own-other-property-holiday-home-land" },
       partner_additional_property_details: { class: PartnerAdditionalPropertyDetailsForm, url_fragment: "partner-other-property-holiday-home-land-details" },
-      # ineligible_gross_income: { url_fragment: "ineligible-gross-income" }, could this be an option? probably not
+      ineligible_gross_income: { class: IneligibleGrossIncomeForm, url_fragment: "ineligible-gross-income" },
     }.freeze
 
     class << self
@@ -62,6 +68,10 @@ module Flow
 
       def step_from_url_fragment(url_fragment)
         STEPS.transform_values { _1[:url_fragment] }.key(url_fragment)
+      end
+
+      def income_or_asset_step?(step)
+        STEPS.fetch(step)[:tag] != :non_income
       end
     end
   end

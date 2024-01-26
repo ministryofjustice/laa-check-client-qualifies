@@ -14,5 +14,13 @@ class CfeService
       Cfe::PartnerPayloadService.call(session_data, payload, early_eligibility)
       CfeConnection.assess(payload)
     end
+
+    def cfe_result(result_body)
+      # guard clause here for cases where there is no proceeding type i.e. under 18?
+      # This issue can arise in a change loop.
+      return "eligible" if result_body.dig("result_summary", "gross_income", "proceeding_types").compact_blank.blank?
+
+      result_body.dig("result_summary", "gross_income", "proceeding_types").first["result"]
+    end
   end
 end

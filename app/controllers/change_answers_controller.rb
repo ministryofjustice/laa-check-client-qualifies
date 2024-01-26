@@ -7,19 +7,19 @@ class ChangeAnswersController < QuestionFlowController
     if @form.valid?
       track_choices(@form)
       session_data.merge!(@form.attributes_for_export_to_session)
-      # detect if the eligibility has changed i.e. become eligible across above three areas, if so we will need a banner for the next screen
-      # should we use temporary copy of answers against the saved session data to do this? (pending field)
       if Steps::Helper.last_step_in_group?(session_data, step)
-        if FeatureFlags.enabled?(:early_eligibility, session_data) && !invalid_matter_type?
-          session_data["early_result"] = CfeService.call(session_data)
-        end
         next_step = next_check_answer_step(step)
         if next_step
-          redirect_to helpers.check_step_path_from_step(next_step, assessment_code)
+          if Flow::Handler.income_or_asset_step?(next_step) && session_data["check_answers"]
+            session_data["gross_early_result"] = CfeService.cfe_result(CfeService.call(session_data, early_eligibility: :gross_income))
+          end
+          if session_data["gross_early_result"] == "ineligible" && session_data["check_answers"] && Flow::Handler.income_or_asset_step?(next_step)
+            return_to_check_answers
+          else
+            redirect_to helpers.check_step_path_from_step(next_step, assessment_code)
+          end
         else
-          # Promote the temporary copy of the answers to overwrite the original answers
-          session[assessment_id] = session_data
-          redirect_to check_answers_path(assessment_code:, anchor:)
+          return_to_check_answers
         end
       else
         redirect_to helpers.check_step_path_from_step(Steps::Helper.next_step_for(session_data, step), assessment_code)
@@ -31,6 +31,12 @@ class ChangeAnswersController < QuestionFlowController
   end
 
 private
+
+  def return_to_check_answers
+    # Promote the temporary copy of the answers to overwrite the original answers
+    session[assessment_id] = session_data
+    redirect_to check_answers_path(assessment_code:, anchor:)
+  end
 
   # While we're in a 'change answers loop', we want to be working with a temporary copy of the answers
   # stored in a section of the session called 'pending'.
@@ -59,14 +65,5 @@ private
 
   def page_name
     "check_#{step}"
-  end
-
-  def invalid_matter_type?
-    # if they change the level of help, we don't want to send to CFE because we need the proceeding (matter) type first
-    # same goes for client age as I don't think we would have the right payload needed for CFE response until second step
-    # also if the answer is changed to 'no' for domestic abuse applicant as we need to ask the I&A q (matter type) before we send to CFE
-
-    @form.instance_of?(LevelOfHelpForm) || @form.attributes_for_export_to_session.value?("under_18") ||
-      (@form.instance_of?(DomesticAbuseApplicantForm) && @form.attributes_for_export_to_session.values.to_s.include?("false"))
   end
 end

@@ -8,6 +8,10 @@ module Steps
         session_data["client_age"]&.==(ClientAgeForm::UNDER_18)
       end
 
+      def gross_ineligible?(session_data)
+        session_data["gross_early_result"] == "ineligible"
+      end
+
       def controlled?(session_data)
         session_data["level_of_help"] == LevelOfHelpForm::LEVELS_OF_HELP[:controlled]
       end
@@ -136,24 +140,6 @@ module Steps
         return false if skip_income_questions?(session_data) || !dependants?(session_data)
 
         session_data["dependants_get_income"]
-      end
-
-      def ineligible_gross_income?(session_data)
-        return false unless session_data["early_result"]
-
-        # guard clause here for cases where there is no proceeding type i.e. under 18?
-        # This issue can arise in a change loop.
-        return false if session_data.dig("early_result", "result_summary", "gross_income", "proceeding_types").compact_blank.blank?
-
-        session_data.dig("early_result", "result_summary", "gross_income", "proceeding_types").first["result"] == "ineligible"
-      end
-
-      def skip_to_check_answers?(session_data)
-        return false unless session_data["early_result_type"]
-
-        return false if session_data["resume_check"]
-
-        true
       end
     end
   end

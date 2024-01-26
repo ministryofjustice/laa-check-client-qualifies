@@ -640,6 +640,8 @@ en:
     error_summary_title: There is a problem
     error_prefix: "Error:"
     save_and_continue: Save and continue
+    check_answers: Check answers
+    return_to_check: Return to check
     change: Change
     level_of_help:
       text: Level of help
