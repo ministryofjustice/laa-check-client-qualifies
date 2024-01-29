@@ -257,7 +257,7 @@ jobs:
       - setup_remote_docker:
           docker_layer_caching: true
       - *authenticate_k8s
-      - deploy:
+      - run:
           name: Deploy LAA Check-your-client-qualifies-for-legal-aid service to << parameters.environment >>
           command: |
             ./bin/deploy << parameters.environment >>
@@ -270,7 +270,7 @@ jobs:
     steps:
       - checkout
       - *authenticate_k8s
-      - deploy:
+      - run:
           name: Deploy LAA Check-your-client-qualifies-for-legal-aid service's /infrastructure to UAT
           command: |
             kubectl apply --record=false -f ./infrastructure/laa-check-client-qualifies-uat/
