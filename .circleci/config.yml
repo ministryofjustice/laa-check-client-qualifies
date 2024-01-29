@@ -26,7 +26,7 @@ executors:
   e2e-executor:
     resource_class: small
     docker:
-      - image: cimg/ruby:3.2.2-browsers
+      - image: cimg/ruby:3.3.0-browsers
         environment:
           VCR_RECORD_MODE: none
           COVERAGE: true
