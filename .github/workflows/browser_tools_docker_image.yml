@@ -12,7 +12,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USER_CCQ }}
           password: ${{ secrets.DOCKERHUB_PAT_CCQ }}
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Build the Docker image
         run: |
           docker build -f ./Dockerfile_browser_tools.dockerfile . -t checkclientqualifiesdocker/circleci-image:latest
