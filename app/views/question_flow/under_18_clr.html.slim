@@ -5,9 +5,9 @@
 - content_for :hint
   = govuk_details(summary_text: t(".clr_header"))
     p.govuk-body = t(".details_text_html", page_url: document_link(:legislation_cla_2012))
-    p.govuk-boy = t(".section_1")
-    p.govuk-boy = t(".section_2")
-    p.govuk-boy = t(".section_3")
+    p.govuk-body = t(".section_1")
+    p.govuk-body = t(".section_2")
+    p.govuk-body = t(".section_3")
 
 .govuk-grid-column-two-thirds
   = form_for(@form, url: request.path, method: :put) do |form|
