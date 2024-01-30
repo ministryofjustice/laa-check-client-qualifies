@@ -49,7 +49,6 @@ module Steps
                             ApplicantDetailsSection,
                             IncomeSection,
                             PartnerSection,
-                            GrossIncomeIneligibleSection,
                             OutgoingsSection]
 
         if FeatureFlags.enabled?(:outgoings_flow, session_data, without_session_data: session_data.nil?)

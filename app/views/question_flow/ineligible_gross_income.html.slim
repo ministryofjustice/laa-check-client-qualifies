@@ -9,4 +9,5 @@
 
   .govuk-button-group
     = form_for(@form, url: request.path, method: :put) do |form|
+      = form.hidden_field :check_answers, value: "return"
       = form.govuk_submit t("generic.return_to_check"), secondary: true
