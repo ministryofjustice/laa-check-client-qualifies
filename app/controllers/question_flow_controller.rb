@@ -57,4 +57,8 @@ protected
 
     true
   end
+
+  def change_answers_loop?
+    params[:controller] == "change_answers"
+  end
 end
