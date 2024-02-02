@@ -4,18 +4,18 @@ FROM cimg/ruby:3.2.2-browsers
 
 WORKDIR /app
 
-# Install Chrome
-RUN npx puppeteer browsers install chrome
-
-# # Tell Puppeteer to skip installing Chromium. We'll be using the installed package.
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
-
-# Chrome version 121.0.6167.185 is mapped to Puppeteer version 21.9.0, as per documentation -> https://pptr.dev/chromium-support
-RUN yarn add puppeteer@21.9.0
-
 # Install PDFTK
 RUN sudo apt update --allow-unauthenticated
 RUN sudo add-apt-repository --yes ppa:malteworld/ppa
 RUN sudo apt install pdftk --allow-unauthenticated
+
+# Install Puppeteer via Yarn
+RUN yarn add puppeteer@21.9.0
+
+# Install Chrome using Puppeteer command
+RUN npx puppeteer browsers install chrome@121
+
+# Tell Puppeteer to skip installing Chromium. We'll be using the installed package.
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 
 COPY . .
