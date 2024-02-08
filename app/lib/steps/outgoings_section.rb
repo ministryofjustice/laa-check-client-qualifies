@@ -6,8 +6,10 @@ module Steps
       end
 
       def grouped_steps_for(session_data)
-        if Steps::Logic.skip_income_questions?(session_data)
-          if FeatureFlags.enabled?(:outgoings_flow, session_data) && !Steps::Logic.skip_capital_questions?(session_data)
+        logic = Steps::Logic::Thing.new(session_data)
+
+        if logic.skip_income_questions?
+          if FeatureFlags.enabled?(:outgoings_flow, session_data) && !logic.skip_capital_questions?
             [Steps::Group.new(:property)]
           else
             []
@@ -15,17 +17,17 @@ module Steps
         else
           [
             Steps::Group.new(:outgoings),
-            (Steps::Group.new(:partner_outgoings) if Steps::Logic.partner?(session_data)),
+            (Steps::Group.new(:partner_outgoings) if logic.partner?),
             (Steps::Group.new(:property) if FeatureFlags.enabled?(:outgoings_flow, session_data)),
-            (housing_costs_group(session_data) if FeatureFlags.enabled?(:outgoings_flow, session_data)),
+            (housing_costs_group(logic) if FeatureFlags.enabled?(:outgoings_flow, session_data)),
           ].compact
         end
       end
 
-      def housing_costs_group(session_data)
-        step = if Steps::Logic.owns_property_with_mortgage_or_loan?(session_data)
+      def housing_costs_group(logic)
+        step = if logic.owns_property_with_mortgage_or_loan?
                  :mortgage_or_loan_payment
-               elsif !Steps::Logic.owns_property_outright?(session_data)
+               elsif !logic.owns_property_outright?
                  :housing_costs
                end
         Steps::Group.new(step) if step

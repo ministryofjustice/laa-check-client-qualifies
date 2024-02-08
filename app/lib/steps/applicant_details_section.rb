@@ -6,31 +6,32 @@ module Steps
       end
 
       def grouped_steps_for(session_data)
-        if Steps::Logic.skip_client_questions?(session_data)
+        logic = Steps::Logic::Thing.new(session_data)
+        if logic.skip_client_questions?
           []
         else
-          groups(session_data).map { Steps::Group.new(*_1) }
+          groups(logic).map { Steps::Group.new(*_1) }
         end
       end
 
-      def groups(session_data)
-        [[:applicant], dependant_details(session_data)].compact
+      def groups(logic)
+        [[:applicant], dependant_details(logic)].compact
       end
 
-      def dependant_details(session_data)
-        return if Steps::Logic.passported?(session_data)
+      def dependant_details(logic)
+        return if logic.passported?
 
-        [:dependant_details, dependant_income(session_data)].flatten.compact
+        [:dependant_details, dependant_income(logic)].flatten.compact
       end
 
-      def dependant_income(session_data)
-        return unless Steps::Logic.dependants?(session_data)
+      def dependant_income(logic)
+        return unless logic.dependants?
 
-        [:dependant_income, dependant_income_details(session_data)]
+        [:dependant_income, dependant_income_details(logic)]
       end
 
-      def dependant_income_details(session_data)
-        :dependant_income_details if Steps::Logic.dependants_get_income?(session_data)
+      def dependant_income_details(logic)
+        :dependant_income_details if logic.dependants_get_income?
       end
     end
   end

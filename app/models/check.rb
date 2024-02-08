@@ -9,6 +9,7 @@
 class Check
   def initialize(session_data = {})
     @session_data = session_data
+    @steps_logic = Steps::Logic::Thing.new session_data
   end
 
   attr_reader :session_data
@@ -42,7 +43,7 @@ class Check
   # current session that are not directly values contained within the session
 
   def controlled?
-    Steps::Logic.controlled?(session_data)
+    @steps_logic.controlled?
   end
 
   def smod_applicable?
@@ -50,11 +51,11 @@ class Check
   end
 
   def immigration_or_asylum?
-    Steps::Logic.immigration_or_asylum?(session_data)
+    @steps_logic.immigration_or_asylum?
   end
 
   def owns_property?
-    Steps::Logic.owns_property?(session_data)
+    @steps_logic.owns_property?
   end
 
   def any_smod_assets?
@@ -83,7 +84,7 @@ class Check
   end
 
   def partner_employed?
-    Steps::Logic.partner_employed?(session_data)
+    @steps_logic.partner_employed?
   end
 
   def client_self_employed?
@@ -99,15 +100,15 @@ class Check
   end
 
   def under_eighteen_no_means_test_required?
-    Steps::Logic.under_eighteen_no_means_test_required?(session_data)
+    @steps_logic.under_eighteen_no_means_test_required?
   end
 
   def not_aggregated_no_income_low_capital?
-    Steps::Logic.not_aggregated_no_income_low_capital?(session_data)
+    @steps_logic.not_aggregated_no_income_low_capital?
   end
 
   def under_eighteen?
-    Steps::Logic.client_under_eighteen?(session_data)
+    @steps_logic.client_under_eighteen?
   end
 
   def conditional_reveals?

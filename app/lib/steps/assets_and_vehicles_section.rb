@@ -9,22 +9,24 @@ module Steps
       end
 
       def grouped_steps_for(session_data)
-        return [] if Steps::Logic.skip_capital_questions?(session_data)
+        logic = Steps::Logic::Thing.new(session_data)
 
-        if Steps::Logic.partner?(session_data)
+        return [] if logic.skip_capital_questions?
+
+        if logic.partner?
           [Steps::Group.new(:assets),
            Steps::Group.new(:partner_assets),
-           vehicle_steps(session_data)].compact
+           vehicle_steps(logic)].compact
         else
           [Steps::Group.new(:assets),
-           vehicle_steps(session_data)].compact
+           vehicle_steps(logic)].compact
         end
       end
 
-      def vehicle_steps(session_data)
-        return if Steps::Logic.controlled?(session_data)
+      def vehicle_steps(logic)
+        return if logic.controlled?
 
-        steps = Steps::Logic.owns_vehicle?(session_data) ? %i[vehicle vehicles_details] : %i[vehicle]
+        steps = logic.owns_vehicle? ? %i[vehicle vehicles_details] : %i[vehicle]
         Steps::Group.new(*steps)
       end
     end

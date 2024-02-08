@@ -8,20 +8,20 @@ module Steps
       end
 
       def grouped_steps_for(session_data)
-        initial_steps(session_data) + post_level_of_help_steps(session_data)
+        initial_steps + post_level_of_help_steps(Steps::Logic::Thing.new(session_data))
       end
 
     private
 
-      def initial_steps(_session_data)
+      def initial_steps
         [Steps::Group.new(:client_age), Steps::Group.new(:level_of_help)]
       end
 
       def post_level_of_help_steps(session_data)
-        if Steps::Logic.controlled?(session_data)
+        if session_data.controlled?
           [Steps::Group.new(*under_eighteen_steps(session_data)),
            controlled_matter_type_group(session_data)].compact
-        elsif Steps::Logic.under_eighteen_no_means_test_required?(session_data)
+        elsif session_data.under_eighteen_no_means_test_required?
           []
         else
           [Steps::Group.new(:domestic_abuse_applicant),
@@ -30,16 +30,16 @@ module Steps
       end
 
       def controlled_matter_type_group(session_data)
-        return if Steps::Logic.under_eighteen_no_means_test_required?(session_data)
+        return if session_data.under_eighteen_no_means_test_required?
 
-        steps = Steps::Logic.immigration_or_asylum?(session_data) ? %i[immigration_or_asylum immigration_or_asylum_type asylum_support] : %i[immigration_or_asylum]
+        steps = session_data.immigration_or_asylum? ? %i[immigration_or_asylum immigration_or_asylum_type asylum_support] : %i[immigration_or_asylum]
         Steps::Group.new(*steps)
       end
 
       def upper_tribunal_type_group(session_data)
-        steps = if Steps::Logic.domestic_abuse_applicant?(session_data)
+        steps = if session_data.domestic_abuse_applicant?
                   []
-                elsif Steps::Logic.immigration_or_asylum?(session_data)
+                elsif session_data.immigration_or_asylum?
                   %i[immigration_or_asylum_type_upper_tribunal asylum_support]
                 else
                   %i[immigration_or_asylum_type_upper_tribunal]
@@ -48,12 +48,12 @@ module Steps
         Steps::Group.new(*steps)
       end
 
-      def under_eighteen_steps(session_data)
-        return [] unless Steps::Logic.client_under_eighteen?(session_data)
+      def under_eighteen_steps(steps_logic)
+        return [] unless steps_logic.client_under_eighteen?
 
-        is_clr = Steps::Logic.controlled_clr?(session_data)
-        is_aggregated = Steps::Logic.aggregated_means?(session_data)
-        is_regular_income = Steps::Logic.under_eighteen_regular_income?(session_data)
+        is_clr = steps_logic.controlled_clr?
+        is_aggregated = steps_logic.aggregated_means?
+        is_regular_income = steps_logic.under_eighteen_regular_income?
         [:under_18_clr,
          (:aggregated_means unless is_clr),
          (:how_to_aggregate if is_aggregated && !is_clr),

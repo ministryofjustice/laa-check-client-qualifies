@@ -10,6 +10,6 @@ class IncomeForm
   alias_attribute :incomes, :items
 
   def self.add_extra_attributes_to_model_from_session(model, session_data, _)
-    model.controlled = Steps::Logic.controlled?(session_data)
+    model.controlled = Steps::Logic::Thing.new(session_data).controlled?
   end
 end

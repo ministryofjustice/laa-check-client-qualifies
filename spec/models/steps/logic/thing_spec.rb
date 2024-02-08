@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Steps::Logic do
+RSpec.describe Steps::Logic::Thing do
   describe "#employed?" do
     it "returns false if the client is asylum supported" do
       session_data = {
@@ -9,7 +9,7 @@ RSpec.describe Steps::Logic do
         "immigration_or_asylum_type_upper_tribunal" => "immigration_upper",
       }
 
-      expect(described_class.employed?(session_data)).to eq false
+      expect(described_class.new(session_data).employed?).to eq false
     end
   end
 
@@ -20,7 +20,7 @@ RSpec.describe Steps::Logic do
         "receives_benefits" => true,
       }
 
-      expect(described_class.benefits?(session_data)).to eq false
+      expect(described_class.new(session_data).benefits?).to eq false
     end
   end
 
@@ -30,7 +30,7 @@ RSpec.describe Steps::Logic do
         "partner" => false,
       }
 
-      expect(described_class.partner_owns_additional_property?(session_data)).to eq false
+      expect(described_class.new(session_data).partner_owns_additional_property?).to eq false
     end
   end
 
@@ -41,7 +41,7 @@ RSpec.describe Steps::Logic do
         "partner_employment_status" => "in_work",
       }
 
-      expect(described_class.partner_employed?(session_data)).to eq false
+      expect(described_class.new(session_data).partner_employed?).to eq false
     end
   end
 
@@ -52,7 +52,7 @@ RSpec.describe Steps::Logic do
         "partner_receives_benefits" => true,
       }
 
-      expect(described_class.partner_benefits?(session_data)).to eq false
+      expect(described_class.new(session_data).partner_benefits?).to eq false
     end
   end
 
@@ -63,7 +63,7 @@ RSpec.describe Steps::Logic do
         "partner_receives_benefits" => true,
       }
 
-      expect(described_class.dependants?(session_data)).to eq false
+      expect(described_class.new(session_data).dependants?).to eq false
     end
   end
 
@@ -74,7 +74,7 @@ RSpec.describe Steps::Logic do
         "partner_receives_benefits" => true,
       }
 
-      expect(described_class.dependants_get_income?(session_data)).to eq false
+      expect(described_class.new(session_data).dependants_get_income?).to eq false
     end
   end
 end
