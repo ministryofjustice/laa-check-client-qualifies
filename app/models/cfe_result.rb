@@ -1,33 +1,33 @@
 class CfeResult
   VALID_OVERALL_RESULTS = %w[eligible contribution_required ineligible].freeze
 
-  def initialize api_response
+  def initialize(api_response)
     @api_response = api_response.deep_symbolize_keys
   end
 
   def decision
     @decision ||= begin
-                    # In some circumstances CFE can return other results, such as 'partially_eligible'.
-                    # We believe that those circumstances can never be reached via CCQ.
-                    # However we want to safeguard against CFE doing something unexpected.
-                    result = api_response.dig(:result_summary, :overall_result, :result)
+      # In some circumstances CFE can return other results, such as 'partially_eligible'.
+      # We believe that those circumstances can never be reached via CCQ.
+      # However we want to safeguard against CFE doing something unexpected.
+      result = api_response.dig(:result_summary, :overall_result, :result)
 
-                    raise "Unhandled CFE result: #{result}" unless VALID_OVERALL_RESULTS.include?(result)
+      raise "Unhandled CFE result: #{result}" unless VALID_OVERALL_RESULTS.include?(result)
 
-                    result
-                  end
+      result
+    end
   end
 
   def calculated?(section)
     api_response.dig(:result_summary, section, :proceeding_types).any? { VALID_OVERALL_RESULTS.include?(_1[:result]) }
   end
 
-  def raw_thresholds section
+  def raw_thresholds(section)
     api_response.dig(:result_summary, section, :proceeding_types, 0)
                                  .slice(:upper_threshold, :lower_threshold)
   end
 
-  def result_for section
+  def result_for(section)
     api_response.dig(:result_summary, section, :proceeding_types, 0, :result)
   end
 
@@ -90,11 +90,11 @@ class CfeResult
     0 - value if value.present?
   end
 
-  def partner_allowance prefix
+  def partner_allowance(prefix)
     api_response.dig(:result_summary, :"#{prefix}disposable_income", :partner_allowance)
   end
 
-  def disposable_income_result_row row
+  def disposable_income_result_row(row)
     api_response.dig(:result_summary, :disposable_income, row)
   end
 
@@ -154,12 +154,12 @@ class CfeResult
     disregarded = api_response.dig(:result_summary, :capital, :pensioner_disregard_applied) +
       api_response.dig(:result_summary, :partner_capital, :pensioner_disregard_applied)
     {
-      total_capital: total_capital,
+      total_capital:,
       pensioner_capital_disregard: -disregarded,
     }
   end
 
-  private
+private
 
   attr_reader :api_response
 
