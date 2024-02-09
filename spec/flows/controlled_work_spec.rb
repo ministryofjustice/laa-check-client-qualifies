@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Controlled work flow", type: :feature do
+RSpec.describe "Controlled work flow", :stub_cfe_calls, type: :feature do
   it "skips the vehicle screens on a controlled work check" do
     start_assessment
     fill_in_forms_until(:level_of_help)

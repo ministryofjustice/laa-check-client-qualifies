@@ -9,6 +9,25 @@ class ChangeAnswersController < QuestionFlowController
       session_data.merge!(@form.attributes_for_export_to_session)
       if Steps::Helper.last_step_in_group?(session_data, step)
         next_step = next_check_answer_step(step)
+        if FeatureFlags.enabled?(:early_eligibility, session_data)
+          last_step_with_data = Steps::Helper.last_step_with_valid_data(session_data)
+          completed_steps = Steps::Helper.completed_steps_for(session_data, last_step_with_data)
+          if non_finance_step?(step)
+            if last_non_finance_step?(last_step_with_data) && CfeService.result(session_data, completed_steps).ineligible_gross_income?
+              next_step = nil
+            elsif next_step.present?
+              flash[:notice] = I18n.t("service.change_eligibility")
+            end
+          else
+            cfe_result = CfeService.result(session_data, completed_steps)
+            if Steps::Logic.data_stops_before_outgoings?(session_data) && cfe_result.ineligible_gross_income?
+              next_step = nil
+            end
+            if Steps::Logic.data_stops_before_outgoings?(session_data) && !cfe_result.ineligible_gross_income? && next_step.present?
+              flash[:notice] = I18n.t("service.change_eligibility")
+            end
+          end
+        end
         if next_step
           redirect_to helpers.check_step_path_from_step(next_step, assessment_code)
         else
@@ -54,5 +73,16 @@ private
 
   def page_name
     "check_#{step}"
+  end
+
+  def last_non_finance_step?(the_step)
+    non_finance_steps = Steps::Helper.steps_for_section(session_data, Steps::CaseDetailsSection) +
+      Steps::Helper.steps_for_section(session_data, Steps::ApplicantDetailsSection)
+    non_finance_steps.last == the_step || the_step == :other_income
+  end
+
+  def non_finance_step?(the_step)
+    (Steps::Helper.steps_for_section(session_data, Steps::ApplicantDetailsSection) +
+      Steps::Helper.steps_for_section(session_data, Steps::CaseDetailsSection)).include?(the_step)
   end
 end

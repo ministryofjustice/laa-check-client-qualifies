@@ -51,7 +51,9 @@ RSpec.describe "Self-employed flow", type: :feature do
   context "when completing an employed check" do
     include_context "with a check containing employment data"
 
-    it "sends the right employment data to CFE" do
+    it "sends the right employment data to CFE", :stub_cfe_calls do
+      WebMock.reset!
+
       stub = stub_request(:post, %r{assessments\z}).with { |request|
         parsed = JSON.parse(request.body)
 
@@ -83,7 +85,9 @@ RSpec.describe "Self-employed flow", type: :feature do
   context "when completing a self-employed check" do
     include_context "with a check containing self-employment data"
 
-    it "sends the right self-employment data to CFE" do
+    it "sends the right self-employment data to CFE", :stub_cfe_calls do
+      WebMock.reset!
+
       stub = stub_request(:post, %r{assessments\z}).with { |request|
         parsed = JSON.parse(request.body)
 
@@ -113,7 +117,9 @@ RSpec.describe "Self-employed flow", type: :feature do
   context "when completing a partner-employed check" do
     include_context "with a check containing partner employment data"
 
-    it "sends the right partner employment data to CFE" do
+    it "sends the right partner employment data to CFE", :stub_cfe_calls do
+      WebMock.reset!
+
       stub = stub_request(:post, %r{assessments\z}).with { |request|
         parsed = JSON.parse(request.body)
 

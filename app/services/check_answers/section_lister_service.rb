@@ -61,7 +61,7 @@ module CheckAnswers
     end
 
     def build_table(table_data, model, index: nil)
-      return unless Steps::Helper.valid_step?(@check.session_data, table_data[:screen])
+      return unless Steps::Helper.relevant_steps(@check.session_data).include?(table_data[:screen].to_sym)
 
       Table.new(
         screen: table_data[:screen],
@@ -80,7 +80,7 @@ module CheckAnswers
       return build_many_fields(field_data, model, table_label) if field_data[:many]
       return if field_data[:skip_unless].present? && field_data[:skip_unless].split(",").any? { !model.send(_1) }
       return if field_data[:skip_if].present? && model.send(field_data[:skip_if])
-      return if field_data[:screen] && !Steps::Helper.valid_step?(@check.session_data, field_data[:screen])
+      return if field_data[:screen] && !Steps::Helper.relevant_steps(@check.session_data).include?(field_data[:screen].to_sym)
 
       addendum = "_partner" if @check.partner && field_data[:partner_dependant_wording]
 
