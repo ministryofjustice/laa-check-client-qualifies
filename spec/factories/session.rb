@@ -127,6 +127,12 @@ FactoryBot.define do
       partner_legal_aid_payments_value { 0 }
     end
 
+    trait :with_partner_assets_information do
+      partner_bank_accounts { [{ "amount" => 10 }, { "amount" => 5 }] }
+      partner_investments { 0 }
+      partner_valuables { 0 }
+    end
+
     trait :with_no_main_home do
       property_owned { "none" }
     end

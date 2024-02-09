@@ -31,21 +31,17 @@ class ControlledWorkDocumentContent < Check
 
   def client_capital_relevant?
     Steps::Helper.relevant_steps(session_data).include?(:assets)
-    # Steps::Helper.valid_step?(session_data, :assets)
   end
 
   def partner_capital_relevant?
     Steps::Helper.relevant_steps(session_data).include?(:partner_assets)
-    # Steps::Helper.valid_step?(session_data, :partner_assets)
   end
 
   def client_income_relevant?
     Steps::Helper.relevant_steps(session_data).include?(:other_income)
-    # Steps::Helper.valid_step?(session_data, :other_income)
   end
 
   def partner_income_relevant?
     Steps::Helper.relevant_steps(session_data).include?(:partner_other_income)
-    # Steps::Helper.valid_step?(session_data, :partner_other_income)
   end
 end
