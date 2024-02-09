@@ -34,6 +34,12 @@ module Steps
         steps_list_for(session_data || {}).last
       end
 
+      def relevant_steps(session_data)
+        steps_list_for(session_data).select do |step|
+          Flow::Handler.model_from_session(step, session_data).valid?
+        end
+      end
+
     private
 
       def steps_list_for(session_data)

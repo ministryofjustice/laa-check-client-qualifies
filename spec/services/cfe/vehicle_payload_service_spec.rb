@@ -2,6 +2,7 @@ require "rails_helper"
 
 RSpec.describe Cfe::VehiclePayloadService do
   let(:payload) { {} }
+  let(:relevant_steps) { [:vehicles_details] }
 
   describe ".call" do
     context "when there are multiple vehicles" do
@@ -30,7 +31,7 @@ RSpec.describe Cfe::VehiclePayloadService do
       end
 
       it "sets the payload appropriately" do
-        described_class.call(session_data, payload)
+        described_class.call(session_data, payload, relevant_steps)
         expect(payload[:vehicles]).to eq(
           [
             { date_of_purchase: 4.years.ago.to_date,
@@ -55,9 +56,10 @@ RSpec.describe Cfe::VehiclePayloadService do
           "asylum_support" => true,
         }
       end
+      let(:relevant_steps) { [:asylum_support] }
 
       it "does not set the payload" do
-        described_class.call(session_data, payload)
+        described_class.call(session_data, payload, relevant_steps)
         expect(payload[:vehicles]).to be_nil
       end
     end
@@ -80,7 +82,7 @@ RSpec.describe Cfe::VehiclePayloadService do
       end
 
       it "does not add SMOD to the payload" do
-        described_class.call(session_data, payload)
+        described_class.call(session_data, payload, relevant_steps)
         expect(payload.dig(:vehicles, 0, :subject_matter_of_dispute)).to eq false
       end
     end

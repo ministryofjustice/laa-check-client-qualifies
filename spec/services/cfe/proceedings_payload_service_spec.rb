@@ -13,9 +13,10 @@ RSpec.describe Cfe::ProceedingsPayloadService do
           "immigration_or_asylum_type_upper_tribunal" => "none",
         }
       end
+      let(:relevant_steps) { %i[level_of_help domestic_abuse_applicant] }
 
       it "uses the relevant proceeding type" do
-        service.call(session_data, payload)
+        service.call(session_data, payload, relevant_steps)
         expect(payload[:proceeding_types]).to eq(
           [{
             ccms_code: "SE003",
@@ -33,9 +34,10 @@ RSpec.describe Cfe::ProceedingsPayloadService do
           "immigration_or_asylum_type_upper_tribunal" => "asylum_upper",
         }
       end
+      let(:relevant_steps) { %i[level_of_help domestic_abuse_applicant immigration_or_asylum] }
 
       it "uses the relevant proceeding type" do
-        service.call(session_data, payload)
+        service.call(session_data, payload, relevant_steps)
         expect(payload[:proceeding_types]).to eq(
           [{
             ccms_code: "IA031",
@@ -53,9 +55,10 @@ RSpec.describe Cfe::ProceedingsPayloadService do
           "immigration_or_asylum_type_upper_tribunal" => "immigration_upper",
         }
       end
+      let(:relevant_steps) { %i[level_of_help domestic_abuse_applicant immigration_or_asylum] }
 
       it "uses the relevant proceeding type" do
-        service.call(session_data, payload)
+        service.call(session_data, payload, relevant_steps)
         expect(payload[:proceeding_types]).to eq(
           [{
             ccms_code: "IM030",
@@ -72,9 +75,10 @@ RSpec.describe Cfe::ProceedingsPayloadService do
           "domestic_abuse_applicant" => true,
         }
       end
+      let(:relevant_steps) { %i[level_of_help domestic_abuse_applicant] }
 
       it "uses the relevant proceeding type" do
-        service.call(session_data, payload)
+        service.call(session_data, payload, relevant_steps)
         expect(payload[:proceeding_types]).to eq(
           [{
             ccms_code: "DA001",
@@ -91,9 +95,10 @@ RSpec.describe Cfe::ProceedingsPayloadService do
           "immigration_or_asylum" => false,
         }
       end
+      let(:relevant_steps) { %i[level_of_help immigration_or_asylum] }
 
       it "uses the 'other' proceeding type" do
-        service.call(session_data, payload)
+        service.call(session_data, payload, relevant_steps)
         expect(payload[:proceeding_types]).to eq(
           [{
             ccms_code: "SE003",
@@ -111,12 +116,13 @@ RSpec.describe Cfe::ProceedingsPayloadService do
           "immigration_or_asylum_type" => immigration_or_asylum_type,
         }
       end
+      let(:relevant_steps) { %i[level_of_help immigration_or_asylum] }
 
       context "when immigration or asylum type is CLR" do
         let(:immigration_or_asylum_type) { "immigration_clr" }
 
         it "uses the 'immigration' proceeding type" do
-          service.call(session_data, payload)
+          service.call(session_data, payload, relevant_steps)
           expect(payload[:proceeding_types]).to eq(
             [{
               ccms_code: "IM030",
@@ -130,7 +136,7 @@ RSpec.describe Cfe::ProceedingsPayloadService do
         let(:immigration_or_asylum_type) { "immigration_legal_help" }
 
         it "uses the 'immigration' proceeding type" do
-          service.call(session_data, payload)
+          service.call(session_data, payload, relevant_steps)
           expect(payload[:proceeding_types]).to eq(
             [{
               ccms_code: "IA031",
@@ -144,7 +150,7 @@ RSpec.describe Cfe::ProceedingsPayloadService do
         let(:immigration_or_asylum_type) { "asylum" }
 
         it "uses the 'immigration' proceeding type" do
-          service.call(session_data, payload)
+          service.call(session_data, payload, relevant_steps)
           expect(payload[:proceeding_types]).to eq(
             [{
               ccms_code: "IA031",

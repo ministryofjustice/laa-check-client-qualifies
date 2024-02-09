@@ -1,12 +1,13 @@
 module Cfe
   class BaseService
-    def self.call(session_data, payload)
-      new(session_data, payload).call
+    def self.call(session_data, payload, relevant_steps)
+      new(session_data, payload, relevant_steps).call
     end
 
-    def initialize(session_data, payload)
+    def initialize(session_data, payload, relevant_steps)
       @session_data = session_data
       @payload = payload
+      @relevant_steps = relevant_steps
     end
 
   private
@@ -18,14 +19,14 @@ module Cfe
       form
     end
 
-    attr_reader :payload
+    attr_reader :payload, :relevant_steps
 
     def check
       @check ||= Check.new(@session_data)
     end
 
     def relevant_form?(form_name)
-      Steps::Helper.valid_step?(@session_data, form_name)
+      relevant_steps.include?(form_name)
     end
   end
 end

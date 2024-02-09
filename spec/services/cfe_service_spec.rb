@@ -8,6 +8,7 @@ RSpec.describe CfeService do
       let(:mock_connection) { instance_double(CfeConnection) }
       let(:arbitrary_fixed_time) { Date.new(2023, 3, 8) }
       let(:assessment_id) { "assessment-id" }
+      let(:relevant_steps) { [] }
 
       before do
         travel_to arbitrary_fixed_time
@@ -27,7 +28,7 @@ RSpec.describe CfeService do
 
         allow(CfeConnection).to receive(:assess).and_return api_response
 
-        result = described_class.call(session_data)
+        result = described_class.call(session_data, relevant_steps)
         expect(result).to eq api_response
       end
     end
