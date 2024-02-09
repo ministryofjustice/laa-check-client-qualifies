@@ -55,10 +55,6 @@ RSpec.describe Cfe::DependantsPayloadService do
     end
 
     context "when there are no dependants" do
-      # interesting test....the boolean is false but there is information.
-      # In this test we are sending down the relevant_steps. Because the boolean is
-      # false, we don't send down the number of dependants. But we send the step
-      # because the form would be valid.
       let(:dependant_boolean) { false }
       let(:child_dependants) { 4 }
       let(:adult_dependants) { 2 }

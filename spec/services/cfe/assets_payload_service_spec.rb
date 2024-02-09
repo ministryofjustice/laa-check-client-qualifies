@@ -322,11 +322,6 @@ RSpec.describe Cfe::AssetsPayloadService do
       let(:relevant_steps) { Steps::Helper.relevant_steps(session_data) }
 
       it "returns correct result" do
-        # this one is a new test which fails currently - this is the kind of thing
-        # I am concerned about when we deduce what is valid to send to CFE.
-        # if a user has changed some answers then I think we might get into this state.
-        # Where we have been using def valid_step? previously, the assets would appear
-        # as not a valid step (i.e. not in the navigation) and therefore would not have been sent to CFE - we are changing this.
         expect(payload[:capitals]).to eq nil
       end
     end
