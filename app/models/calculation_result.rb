@@ -6,9 +6,9 @@ class CalculationResult
 
   attr_reader :level_of_help
 
-  delegate :decision, :calculated?, :has_partner?, :ineligible?, :capital_items,
+  delegate :decision, :calculated?, :has_partner?, :ineligible?,
            :raw_capital_contribution, :raw_income_contribution,
-           :pensioner_disregard_applied?, :smod_applied?, to: :@api_response
+           :smod_applied?, to: :@api_response
 
   def initialize(session_data)
     @api_response = CfeResult.new session_data["api_response"]
@@ -130,7 +130,7 @@ class CalculationResult
   end
 
   def main_home_data
-    main_home = capital_items(:properties, "").fetch(:main_home)
+    main_home = capital_items(:properties).fetch(:main_home)
     property_data(main_home, property_type: :main)
   end
 
@@ -147,7 +147,7 @@ class CalculationResult
   end
 
   def display_household_vehicles
-    capital_items(:vehicles, "").map do |vehicle|
+    capital_items(:vehicles).map do |vehicle|
       if vehicle[:in_regular_use]
         { value: monetise(vehicle[:value]),
           loan_amount_outstanding: monetise(-1 * vehicle[:loan_amount_outstanding]),
@@ -166,7 +166,7 @@ class CalculationResult
   def client_capital_subtotal_rows
     rows = api_response.client_capital_subtotal_rows.transform_values { |x| monetise(x) }
 
-    if has_partner? || !pensioner_disregard_applied?
+    if has_partner? || !api_response.pensioner_disregard_applied?
       rows.except(:pensioner_capital_disregard)
     else
       rows
@@ -201,8 +201,12 @@ private
 
   attr_reader :api_response
 
+  def capital_items(key)
+    api_response.capital_items(key)
+  end
+
   def partner_capital_items(key)
-    capital_items(key, "partner_")
+    api_response.capital_items(key, "partner_")
   end
 
   def monetise(number, precision: 2)
@@ -245,7 +249,7 @@ private
   end
 
   def additional_property_data(prefix:)
-    properties = capital_items(:properties, prefix)
+    properties = api_response.capital_items(:properties, prefix)
     return [] unless properties
 
     properties[:additional_properties].map do |additional_property|
