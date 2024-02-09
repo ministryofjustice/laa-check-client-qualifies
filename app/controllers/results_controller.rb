@@ -2,7 +2,7 @@ class ResultsController < ApplicationController
   before_action :load_check, only: %i[show download]
 
   def create
-    session_data["api_response"] = CfeService.call(session_data)
+    session_data["api_response"] = CfeService.call(session_data, Steps::Helper.relevant_steps(session_data))
     redirect_to result_path(assessment_code:)
   rescue Cfe::InvalidSessionError => e
     ErrorService.call(e)
