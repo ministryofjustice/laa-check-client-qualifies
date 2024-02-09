@@ -477,6 +477,8 @@ en:
               not_a_number_when_many: Total money in bank account %{position} must be a number. Enter 0 if this does not apply.
               greater_than_or_equal_to: Total money in bank account must be 0 or more. Enter 0 if this does not apply.
               greater_than_or_equal_to_when_many: Total money in bank account %{position} must be 0 or more. Enter 0 if this does not apply.
+            account_in_dispute:
+              inclusion: Make specs pass
         property_form:
           attributes:
             property_owned:
@@ -625,6 +627,7 @@ en:
     name_for_page_title: Check if your client qualifies for legal aid | GOV.UK
     public_beta_survey_link: https://eu.surveymonkey.com/r/ccqpublicbeta
     beta: Beta
+    change_eligibility: Based on the answers you changed, your client is now within the limit for legal aid. Add more details and find out if they would still qualify.
     beta_message_html: This is a new service - your <a href="%{survey_link}" target="_blank">feedback</a> will help us improve it
     beta_message_short: This is a new service
     beta_message_pilot_heading: This page is no longer active as the pilot phase is complete.
@@ -640,6 +643,8 @@ en:
     error_summary_title: There is a problem
     error_prefix: "Error:"
     save_and_continue: Save and continue
+    check_answers: Check answers
+    return_to_check: Return to check
     change: Change
     level_of_help:
       text: Level of help
@@ -1089,6 +1094,20 @@ en:
         certificated_text: Employment income (PDF, 918KB)
       police_guidance:
         text: Police officer applicants (PDF, 918KB)
+    early_result:
+      gross_income:
+        title: Monthly income limit exceeded by £%{cfe_result_number}
+        para_1: Your client will not qualify financially for legal aid.
+        para_2: You can go to the summary or add more details to your check, but this will not change the outcome.
+        help: Help with next steps
+        details_para_1: "You can:"
+        details_list:
+          - review and change your answers
+          - get the calculation
+          - save your summary
+        details_para_2: You can complete all the questions in the check, before reviewing your answers and getting the summary. Adding more details will not change the outcome. Your client will not qualify as long as the monthly income exceeds the limit.
+        go_to_summary: Go to summary
+        add_more_details: Add more details
     partner_income:
       heading: The partner's employment income
       hint: You can find this on the partner's payslips.
@@ -2315,11 +2334,6 @@ en:
       agency: Agency
       print_this_page: Print this page
       your_answers: Your answers
-    invalid_session:
-      answers_deleted: Your answers have been deleted
-      paragraph_1: We have deleted your answers. This is because the service was updated while you were using it and the answers you gave cannot be saved.
-      paragraph_2: You will need to start again.
-      start_again: Start again
   start:
     index:
       opening_paragraphs:
@@ -2595,6 +2609,11 @@ en:
     subheading_2: How to share results
     subsection_2: To share the results of a check, save the result declaration as a PDF. You can do this on the results page at the end of the check.
     cta: Start a new eligibility check
+  invalid_session:
+    answers_deleted: Your answers have been deleted
+    paragraph_1: We have deleted your answers. This is because the service was updated while you were using it and the answers you gave cannot be saved.
+    paragraph_2: You will need to start again.
+    start_again: Start again
   helps:
     show:
       title: Help

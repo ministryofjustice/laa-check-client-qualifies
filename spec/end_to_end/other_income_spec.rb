@@ -21,7 +21,6 @@ RSpec.shared_context "with certificated other income" do
 
     click_on "Save and continue"
     fill_in_forms_until(:check_answers)
-    click_on "Submit"
   end
 end
 
@@ -48,7 +47,6 @@ RSpec.shared_context "with controlled other income" do
 
     click_on "Save and continue"
     fill_in_forms_until(:check_answers)
-    click_on "Submit"
   end
 end
 
@@ -73,14 +71,17 @@ RSpec.shared_context "with conditional reveals" do
 
     click_on "Save and continue"
     fill_in_forms_until(:check_answers)
-    click_on "Submit"
   end
 end
 
 RSpec.describe "Other income", type: :feature do
-  context "with stubbing" do
+  context "with stubbing", :stub_cfe_calls do
     context "when the check is for certificated work" do
       include_context "with certificated other income"
+      before do
+        submit_data_to_cfe
+        WebMock.reset!
+      end
 
       it "sends the right data to CFE for certificated work - in particular ther other income frequency" do
         assessment_stub = stub_request(:post, %r{v6/assessments\z}).with { |request|
@@ -98,13 +99,17 @@ RSpec.describe "Other income", type: :feature do
           headers: { "Content-Type" => "application/json" },
         )
 
-        submit_data_to_cfe
+        click_on "Submit"
         expect(assessment_stub).to have_been_requested
       end
     end
 
     context "when the check is for controlled work" do
       include_context "with controlled other income"
+      before do
+        submit_data_to_cfe
+        WebMock.reset!
+      end
 
       it "sends the right data to CFE for controlled work - in particular ther other income frequency" do
         assessment_stub = stub_request(:post, %r{v6/assessments\z}).with { |request|
@@ -123,13 +128,17 @@ RSpec.describe "Other income", type: :feature do
           headers: { "Content-Type" => "application/json" },
         )
 
-        submit_data_to_cfe
+        click_on "Submit"
         expect(assessment_stub).to have_been_requested
       end
     end
 
     context "when conditional reveals are enabled", :conditional_reveals_flag do
       include_context "with conditional reveals"
+      before do
+        submit_data_to_cfe
+        WebMock.reset!
+      end
 
       it "sends the right data to CFE for controlled work - in particular ther other income frequency" do
         assessment_stub = stub_request(:post, %r{v6/assessments\z}).with { |request|
@@ -146,7 +155,7 @@ RSpec.describe "Other income", type: :feature do
           headers: { "Content-Type" => "application/json" },
         )
 
-        submit_data_to_cfe
+        click_on "Submit"
         expect(assessment_stub).to have_been_requested
       end
     end
@@ -159,6 +168,7 @@ RSpec.describe "Other income", type: :feature do
 
       it "renders content" do
         submit_data_to_cfe
+        click_on "Submit"
         expect(page).to have_content("Financial help from friends and family\n£866.67")
         expect(page).to have_content("Maintenance payments from a former partner\n£650.00")
         expect(page).to have_content("Income from a property or lodger\n£0.00")
@@ -173,6 +183,7 @@ RSpec.describe "Other income", type: :feature do
 
       it "renders content" do
         submit_data_to_cfe
+        click_on "Submit"
         expect(page).to have_content("Financial help from friends and family\n£866.67")
         expect(page).to have_content("Maintenance payments from a former partner\n£650.00")
         expect(page).to have_content("Income from a property or lodger\n£0.00")

@@ -14,5 +14,9 @@ class CfeService
       Cfe::PartnerPayloadService.call(session_data, payload, relevant_steps)
       CfeConnection.assess(payload)
     end
+
+    def result(session_data, completed_steps)
+      CfeResult.new call(session_data, completed_steps)
+    end
   end
 end

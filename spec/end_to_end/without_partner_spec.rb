@@ -42,7 +42,9 @@ RSpec.describe "Certificated check without partner", type: :feature do
 
     include_context "with a no-partner, non-passported certificated check"
 
-    it "sends the right data to CFE for certificated work" do
+    it "sends the right data to CFE for certificated work", :stub_cfe_calls do
+      WebMock.reset!
+
       stub = stub_request(:post, %r{assessments\z}).with { |request|
         parsed = JSON.parse(request.body)
 
