@@ -306,5 +306,29 @@ RSpec.describe Cfe::AssetsPayloadService do
         expect(payload[:properties]).to eq(nil)
       end
     end
+
+    context "when the data is incohesive" do
+      let(:session_data) do
+        {
+          "immigration_or_asylum_type_upper_tribunal" => "immigration_upper",
+          "asylum_support" => true,
+          "bank_accounts" => [{ "amount" => 553, "account_in_dispute" => false }],
+          "investments" => 345,
+          "valuables" => 665,
+          "investments_in_dispute" => false,
+          "valuables_in_dispute" => false,
+        }
+      end
+      let(:relevant_steps) { %i[asylum_support assets] }
+
+      it "returns correct result" do
+        # this one is a new test which fails currently - this is the kind of thing
+        # I am concerned about when we deduce what is valid to send to CFE.
+        # if a user has changed some answers then I think we might get into this state.
+        # Where we have been using def valid_step? previously, the assets would appear
+        # as not a valid step (i.e. not in the navigation) and therefore would not have been sent to CFE - we are changing this.
+        expect(payload[:capitals]).to eq nil
+      end
+    end
   end
 end
