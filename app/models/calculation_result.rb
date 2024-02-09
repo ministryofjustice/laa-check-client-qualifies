@@ -6,7 +6,7 @@ class CalculationResult
 
   attr_reader :level_of_help
 
-  delegate :decision, :calculated?, :has_partner?, :ineligible?,
+  delegate :decision, :calculated?, :has_partner?, :ineligible?, :pensioner_disregard_applied?,
            :raw_capital_contribution, :raw_income_contribution,
            :smod_applied?, to: :@api_response
 
@@ -166,7 +166,7 @@ class CalculationResult
   def client_capital_subtotal_rows
     rows = api_response.client_capital_subtotal_rows.transform_values { |x| monetise(x) }
 
-    if has_partner? || !api_response.pensioner_disregard_applied?
+    if has_partner? || !pensioner_disregard_applied?
       rows.except(:pensioner_capital_disregard)
     else
       rows
