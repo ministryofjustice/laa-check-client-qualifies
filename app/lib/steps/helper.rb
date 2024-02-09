@@ -34,6 +34,8 @@ module Steps
         steps_list_for(session_data || {}).last
       end
 
+      # If you are working with the data you should call
+      # this method to filter what is valid.
       def relevant_steps(session_data)
         steps_list_for(session_data).select do |step|
           Flow::Handler.model_from_session(step, session_data).valid?

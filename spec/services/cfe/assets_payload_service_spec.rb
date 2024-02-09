@@ -319,7 +319,7 @@ RSpec.describe Cfe::AssetsPayloadService do
           "valuables_in_dispute" => false,
         }
       end
-      let(:relevant_steps) { %i[asylum_support assets] }
+      let(:relevant_steps) { Steps::Helper.relevant_steps(session_data) }
 
       it "returns correct result" do
         # this one is a new test which fails currently - this is the kind of thing
