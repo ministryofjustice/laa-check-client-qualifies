@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Change answers", type: :feature do
+RSpec.describe "Change answers", :stub_cfe_calls, type: :feature do
   it "prompts me to fill screens were previously skipped, and saving my changes" do
     start_assessment
     fill_in_forms_until(:employment_status)

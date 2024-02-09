@@ -322,6 +322,16 @@ def fill_in_partner_additional_property_details_screen
   fill_in_additional_property_details_screen(screen_name: :partner_additional_property_details)
 end
 
+def fill_in_ineligible_gross_income_screen(choice: "Add more details")
+  confirm_ineligible_gross_income_screen
+  click_on choice
+end
+
+def confirm_ineligible_gross_income_screen
+  path = page.current_path
+  expect(path).to include("ineligible-gross-income")
+end
+
 def confirm_screen(expected)
   path = page.current_path
   if expected.to_sym == :check_answers

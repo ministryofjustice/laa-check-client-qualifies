@@ -71,11 +71,6 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
 
   WebMock.disable_net_connect!(allow_localhost: true, allow: ALLOWED_HOSTS)
-  config.around(:each, :vcr) do |example|
-    WebMock.allow_net_connect!
-    example.run
-    WebMock.disable_net_connect!(allow_localhost: true, allow: ALLOWED_HOSTS)
-  end
 
   config.after(:each, type: :system) do
     errors = page.driver.browser.logs.get(:browser)
@@ -91,6 +86,23 @@ RSpec.configure do |config|
         end
       end
     end
+  end
+
+  config.before(:each, :stub_cfe_calls) do
+    stub_request(:post, %r{assessments\z}).to_return(
+      body: FactoryBot.build(:api_result, result: "eligible").to_json,
+      headers: { "Content-Type" => "application/json" },
+    )
+  end
+
+  config.before(:each, :stub_cfe_gross_ineligible) do
+    stub_request(:post, %r{assessments\z}).to_return(
+      body: FactoryBot.build(:api_result,
+                             result_summary: build(:result_summary,
+                                                   gross_income: build(:gross_income_summary,
+                                                                       proceeding_types: build_list(:proceeding_type, 1, result: "ineligible")))).to_json,
+      headers: { "Content-Type" => "application/json" },
+    )
   end
 
   config.around(:each, :index_production_flag) do |example|

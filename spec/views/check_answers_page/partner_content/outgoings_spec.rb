@@ -35,6 +35,7 @@ RSpec.describe "checks/check_answers.html.slim" do
         let(:session_data) do
           build(:minimal_complete_session,
                 :with_partner,
+                partner_legal_aid_payments_value: 0,
                 partner_childcare_payments_value: 200,
                 partner_childcare_payments_frequency: "every_two_weeks",
                 child_dependants: true,

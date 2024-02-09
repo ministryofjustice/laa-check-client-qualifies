@@ -18,10 +18,10 @@ module Flow
       dependant_income: { class: DependantIncomeForm, url_fragment: "do-dependants-get-income" },
       dependant_income_details: { class: DependantIncomeDetailsForm, url_fragment: "dependant-income-details" },
       employment_status: { class: EmploymentStatusForm, url_fragment: "client-employment-status" },
-      income: { class: IncomeForm, url_fragment: "client-employment-income" },
+      income: { class: IncomeForm, url_fragment: "client-employment-income", tag: :gross_income },
       benefits: { class: BenefitsForm, url_fragment: "does-client-get-benefits" },
-      benefit_details: { class: BenefitDetailsForm, url_fragment: "client-benefit-details" },
-      other_income: { class: OtherIncomeForm, url_fragment: "client-other-income" },
+      benefit_details: { class: BenefitDetailsForm, url_fragment: "client-benefit-details", tag: :gross_income },
+      other_income: { class: OtherIncomeForm, url_fragment: "client-other-income", tag: :gross_income },
       outgoings: { class: OutgoingsForm, url_fragment: "client-outgoings" },
       property: { class: PropertyForm, url_fragment: "property-ownership" },
       property_entry: { class: PropertyEntryForm, url_fragment: "home-client-lives-in" },
@@ -42,6 +42,7 @@ module Flow
       additional_property_details: { class: AdditionalPropertyDetailsForm, url_fragment: "client-other-property-holiday-home-land-details" },
       partner_additional_property: { class: PartnerAdditionalPropertyForm, url_fragment: "does-partner-own-other-property-holiday-home-land" },
       partner_additional_property_details: { class: PartnerAdditionalPropertyDetailsForm, url_fragment: "partner-other-property-holiday-home-land-details" },
+      ineligible_gross_income: { class: IneligibleGrossIncomeForm, url_fragment: "ineligible-gross-income" },
     }.freeze
 
     class << self
