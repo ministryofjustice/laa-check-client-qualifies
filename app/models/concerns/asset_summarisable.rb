@@ -12,7 +12,6 @@ module AssetSummarisable
     bank_accounts.reject(&:account_in_dispute).sum { _1.amount.to_d }
   end
 
-  # now not hitting this in the tests - to add to factory
   def partner_savings
     partner_bank_accounts.sum { _1.amount.to_d }
   end
