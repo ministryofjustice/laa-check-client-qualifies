@@ -101,6 +101,38 @@ FactoryBot.define do
       partner { true }
     end
 
+    trait :with_partner_income_outgoings_data do
+      partner_employment_status { "in_work" }
+      partner_frequency { "week" }
+      partner_gross_income { 10 }
+      partner_income_tax { 4 }
+      partner_national_insurance { 5 }
+      partner_benefits do
+        [
+          { "id" => "a7b72db5-2c4d-4f04-a7c8-4b5adae1bfa0",
+            "benefit_type" => "bbb",
+            "benefit_amount" => 6,
+            "benefit_frequency" => "monthly" },
+        ]
+      end
+      partner_add_benefit { false }
+      partner_friends_or_family_value { 0 }
+      partner_maintenance_value { 0 }
+      partner_property_or_lodger_value { 0 }
+      partner_pension_value { 0 }
+      partner_student_finance_value { 0 }
+      partner_other_value { 0 }
+      partner_childcare_payments_value { 0 }
+      partner_maintenance_payments_value { 0 }
+      partner_legal_aid_payments_value { 0 }
+    end
+
+    trait :with_partner_assets_information do
+      partner_bank_accounts { [{ "amount" => 10 }, { "amount" => 5 }] }
+      partner_investments { 0 }
+      partner_valuables { 0 }
+    end
+
     trait :with_no_main_home do
       property_owned { "none" }
     end

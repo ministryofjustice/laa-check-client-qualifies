@@ -25,6 +25,8 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
         :minimal_complete_session,
         :with_main_home,
         :with_partner,
+        :with_partner_income_outgoings_data,
+        :with_partner_assets_information,
         bank_accounts: [{ "amount" => 111, "account_in_dispute" => false }],
         investments: 222,
         valuables: 555,
