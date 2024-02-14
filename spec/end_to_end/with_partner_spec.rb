@@ -47,7 +47,7 @@ RSpec.describe "Certificated check with partner", type: :feature do
         expect(content["partner"]).to eq({ "date_of_birth" => "1973-02-15", "employed" => true })
         expect(content["irregular_incomes"]).to eq([{ "income_type" => "unspecified_source", "frequency" => "quarterly", "amount" => 100.0 }])
         expect(content.dig("employment_details", 0, "income")).to eq({ "benefits_in_kind" => 0,
-                                                                       "frequency" => "weekly",
+                                                                       "frequency" => "monthly",
                                                                        "gross" => 1.0,
                                                                        "national_insurance" => -0.0,
                                                                        "receiving_only_statutory_sick_or_maternity_pay" => false,

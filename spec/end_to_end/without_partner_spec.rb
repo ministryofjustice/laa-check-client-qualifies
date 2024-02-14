@@ -67,7 +67,7 @@ RSpec.describe "Certificated check without partner", type: :feature do
         ])
 
         expect(parsed.dig("employment_details", 0, "income")).to eq({ "benefits_in_kind" => 0,
-                                                                      "frequency" => "weekly",
+                                                                      "frequency" => "monthly",
                                                                       "gross" => 1.0,
                                                                       "national_insurance" => -0.0,
                                                                       "receiving_only_statutory_sick_or_maternity_pay" => false,
