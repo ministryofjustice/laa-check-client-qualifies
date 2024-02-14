@@ -13,7 +13,7 @@ RSpec.shared_context "with a no-partner, non-passported certificated check" do
     fill_in_dependant_income_screen(choice: "Yes")
     fill_in_dependant_income_details_screen
     fill_in_employment_status_screen(choice: "Employed")
-    fill_in_income_screen
+    fill_in_income_screen(frequency: "Every week")
     fill_in_benefits_screen(choice: "Yes")
     fill_in_benefit_details_screen
     fill_in_other_income_screen(values: { friends_or_family: "200", student_finance: "100" }, frequencies: { friends_or_family: "Every week" })
@@ -67,7 +67,7 @@ RSpec.describe "Certificated check without partner", type: :feature do
         ])
 
         expect(parsed.dig("employment_details", 0, "income")).to eq({ "benefits_in_kind" => 0,
-                                                                      "frequency" => "monthly",
+                                                                      "frequency" => "weekly",
                                                                       "gross" => 1.0,
                                                                       "national_insurance" => -0.0,
                                                                       "receiving_only_statutory_sick_or_maternity_pay" => false,
