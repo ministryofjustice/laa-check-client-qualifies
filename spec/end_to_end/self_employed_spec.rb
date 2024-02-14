@@ -8,7 +8,7 @@ RSpec.shared_context "with a check containing employment data" do
     fill_in_income_screen(frequency: "Every week",
                           gross: "400",
                           tax: "50",
-                          ni: "20")
+                          national_insurance: "20")
     fill_in_forms_until(:check_answers)
   end
 end
@@ -22,7 +22,7 @@ RSpec.shared_context "with a check containing self-employment data" do
                           frequency: "Every 2 weeks",
                           gross: "350",
                           tax: "20",
-                          ni: "10")
+                          national_insurance: "10")
     fill_in_forms_until(:check_answers)
   end
 end
@@ -38,7 +38,7 @@ RSpec.shared_context "with a check containing partner employment data" do
                                   frequency: "Every month",
                                   gross: "1250",
                                   tax: "100",
-                                  ni: "67")
+                                  national_insurance: "67")
     fill_in_forms_until(:check_answers)
   end
 end

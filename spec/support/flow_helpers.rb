@@ -117,13 +117,13 @@ def fill_in_employment_status_screen(choice: "Unemployed", screen_name: :employm
   click_on "Save and continue"
 end
 
-def fill_in_income_screen(type: "A salary or wage", frequency: "Every month", gross: "1", tax: "0", ni: "0", screen_name: :income)
+def fill_in_income_screen(type: "A salary or wage", frequency: "Every month", gross: "1", tax: "0", national_insurance: "0", screen_name: :income)
   confirm_screen screen_name
   choose type, name: "income_model[items][1][income_type]"
   choose frequency, name: "income_model[items][1][income_frequency]"
   fill_in "income_model[items][1][gross_income]", with: gross
   fill_in "income_model[items][1][income_tax]", with: tax
-  fill_in "income_model[items][1][national_insurance]", with: ni
+  fill_in "income_model[items][1][national_insurance]", with: national_insurance
   click_on "Save and continue"
 end
 
@@ -268,8 +268,8 @@ def fill_in_partner_employment_status_screen(choice: "Unemployed")
   fill_in_employment_status_screen(screen_name: :partner_employment_status, choice:)
 end
 
-def fill_in_partner_income_screen(type: "A salary or wage", frequency: "Every month", gross: "1", tax: "0", ni: "0")
-  fill_in_income_screen(type:, frequency:, gross:, tax:, ni:, screen_name: :partner_income)
+def fill_in_partner_income_screen(type: "A salary or wage", frequency: "Every month", gross: "1", tax: "0", national_insurance: "0")
+  fill_in_income_screen(type:, frequency:, gross:, tax:, national_insurance:, screen_name: :partner_income)
 end
 
 def fill_in_partner_benefits_screen(choice: "No")
