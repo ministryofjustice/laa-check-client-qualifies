@@ -46,9 +46,7 @@ module ApplicationHelper
     number_with_precision(current_value, precision: 0, delimiter: ",")
   end
 
-  def back_link(step, check, mimic_browser_back)
-    previous_step = Steps::Helper.previous_step_for(check.session_data, step)
-
+  def back_link(previous_step, mimic_browser_back)
     link = if previous_step
              step_path_from_step(previous_step, params[:assessment_code])
            else
