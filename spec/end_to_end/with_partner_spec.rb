@@ -8,7 +8,7 @@ RSpec.shared_context "with partner data" do
     fill_in_forms_until(:partner_details)
     fill_in_partner_details_screen
     fill_in_partner_employment_status_screen(choice: "Employed")
-    fill_in_partner_income_screen
+    fill_in_partner_income_screen(frequency: "Every week")
     fill_in_partner_benefits_screen(choice: "Yes")
     fill_in_partner_benefit_details_screen
     fill_in_partner_other_income_screen(values: { friends_or_family: "200", other: "100" }, frequencies: { friends_or_family: "Every week" })
