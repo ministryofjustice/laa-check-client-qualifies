@@ -7,8 +7,7 @@
     - if removeable
       button.govuk-button.govuk-button--secondary type="button" data-add-another-role="remove" = t("generic.remove")
 
-  .govuk-form-group [role="combobox"
-                     aria-owns="benefit-model-benefit-type-field"
+  .govuk-form-group [aria-controls="benefit-model-benefit-type-field"
                      aria-haspopup="listbox"
                      aria-expanded="false"
                      class=("govuk-form-group--error" if model.errors.messages[:benefit_type].any?)]
@@ -22,6 +21,7 @@
         span.govuk-visually-hidden = t("generic.error_prefix")
         = model.errors.messages[:benefit_type].first
     input.govuk-input.govuk-input--width-20 [
+      role="combobox"
       autocomplete="off"
       data-suggestions="suggestions"
       data-module="govuk-input"
