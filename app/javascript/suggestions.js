@@ -167,7 +167,13 @@ Input.prototype.handleInputKeyDown = function (event) {
       break
     // Tab
     case 9:
-      this.hideSuggestions()
+      if (this.$ul.hidden !== true) {
+        // Move focus to last option if there are any.
+        if (this.$ul.querySelector('li[role="option"]')) {
+          this.moveFocusToOptions(false)
+        }
+        event.preventDefault()
+      }
       break
   }
 }
@@ -202,6 +208,9 @@ Input.prototype.handleSuggestionsKeyDown = function (event) {
       this.selectSuggestion(optionSelected)
       event.preventDefault()
       break
+    case 9:
+      this.hideSuggestions()
+      break  
     default:
       this.$module.focus()
   }
