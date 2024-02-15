@@ -208,11 +208,18 @@ Input.prototype.handleSuggestionsKeyDown = function (event) {
       this.selectSuggestion(optionSelected)
       event.preventDefault()
       break
+    // Tab to scroll through list, then end back into input
     case 9:
-      this.hideSuggestions()
-      break  
+      optionSelected = this.$ul.querySelector('li:focus');
+      if (optionSelected.nextElementSibling) {
+        optionSelected.nextElementSibling.focus();
+      } else {
+        this.$module.focus();
+      }
+      event.preventDefault();
+      break;
     default:
-      this.$module.focus()
+      this.$module.focus();
   }
 }
 
