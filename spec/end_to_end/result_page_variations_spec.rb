@@ -5,7 +5,7 @@ RSpec.describe "Results page variations", :end2end, type: :feature do
     start_assessment
     fill_in_forms_until(:employment_status)
     fill_in_employment_status_screen(choice: "Employed or self-employed")
-    fill_in_income_screen({ gross: "1500", frequency: "Every month" })
+    fill_in_income_screen(gross: "1500", frequency: "Every month")
     fill_in_forms_until(:other_income)
     fill_in_other_income_screen(values: { friends_or_family: "1200" }, frequencies: { friends_or_family: "Every month" })
     fill_in_forms_until(:check_answers)
@@ -27,7 +27,7 @@ RSpec.describe "Results page variations", :end2end, type: :feature do
     fill_in_level_of_help_screen(choice: "Civil certificated or licensed legal work")
     fill_in_forms_until(:employment_status)
     fill_in_employment_status_screen(choice: "Employed or self-employed")
-    fill_in_income_screen({ gross: "1500", frequency: "Every month" })
+    fill_in_income_screen(gross: "1500", frequency: "Every month")
     fill_in_forms_until(:outgoings)
     fill_in_outgoings_screen(values: { maintenance: "800" }, frequencies: { maintenance: "Every month" })
     fill_in_forms_until(:assets)
