@@ -645,7 +645,7 @@ en:
       text: Level of help
       certificated: Civil certificated or licensed legal work
       controlled: Civil controlled work or family mediation
-    related_content_title: Related content
+    guidance_title: Guidance
     not_applicable: Not applicable
     opens_in_new_tab: (opens in new tab)
     dispute: This asset is a subject matter of dispute
@@ -750,10 +750,10 @@ en:
         standard: 18 to 59
         over_60: 60 or over
       guidance:
-        controlled: Guide to determining controlled work
-        certificated: Guide to determining certificated work
-        under_18_controlled: Guidance on under 18s for controlled work
-        under_18_certificated: Guidance on under 18s for certificated work
+        controlled: Controlled work (PDF, 427KB)
+        certificated: Certificated work (PDF, 918KB)
+        under_18_controlled: Under 18s - Controlled work (PDF, 427KB)
+        under_18_certificated: Under 18s - Certificated work (PDF, 918KB)
         over_60_controlled: Guidance on 60 or over disregard (pensioner disregard) for controlled work
         over_60_certificated: Guidance on 60 or over disregard (pensioner disregard) for certificated work
 
@@ -2347,7 +2347,7 @@ en:
       see_all_updates: See all updates
       related_content:
         legal_aid_checker_for_public:
-          text: Legal aid checker for members of the public
+          text: Legal aid checker for members of the public (opens in new tab)
     issue_banner:
       problem_identified: A problem has been identified
       problem_resolved: Problem resolved
