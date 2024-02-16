@@ -13,7 +13,7 @@ RSpec.shared_context "with a no-partner, non-passported certificated check" do
     fill_in_dependant_income_screen(choice: "Yes")
     fill_in_dependant_income_details_screen
     fill_in_employment_status_screen(choice: "Employed")
-    fill_in_income_screen
+    fill_in_income_screen(frequency: "Every week")
     fill_in_benefits_screen(choice: "Yes")
     fill_in_benefit_details_screen
     fill_in_other_income_screen(values: { friends_or_family: "200", student_finance: "100" }, frequencies: { friends_or_family: "Every week" })

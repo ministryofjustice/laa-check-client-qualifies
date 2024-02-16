@@ -2,52 +2,43 @@ require "rails_helper"
 
 RSpec.shared_context "with a check containing employment data" do
   before do
-    choices = {
-      frequency: "Every week",
-      gross: "400",
-      tax: "50",
-      ni: "20",
-    }
     start_assessment
     fill_in_forms_until(:employment_status)
     fill_in_employment_status_screen(choice: "Employed or self-employed")
-    fill_in_income_screen(choices)
+    fill_in_income_screen(frequency: "Every week",
+                          gross: "400",
+                          tax: "50",
+                          national_insurance: "20")
     fill_in_forms_until(:check_answers)
   end
 end
 
 RSpec.shared_context "with a check containing self-employment data" do
   before do
-    choices = {
-      type: "Self-employment income",
-      frequency: "Every 2 weeks",
-      gross: "350",
-      tax: "20",
-      ni: "10",
-    }
     start_assessment
     fill_in_forms_until(:employment_status)
     fill_in_employment_status_screen(choice: "Employed or self-employed")
-    fill_in_income_screen(choices)
+    fill_in_income_screen(type: "Self-employment income",
+                          frequency: "Every 2 weeks",
+                          gross: "350",
+                          tax: "20",
+                          national_insurance: "10")
     fill_in_forms_until(:check_answers)
   end
 end
 
 RSpec.shared_context "with a check containing partner employment data" do
   before do
-    choices = {
-      type: "Self-employment income",
-      frequency: "Every month",
-      gross: "1250",
-      tax: "100",
-      ni: "67",
-    }
     start_assessment
     fill_in_forms_until(:applicant)
     fill_in_applicant_screen(partner: "Yes")
     fill_in_forms_until(:partner_employment_status)
     fill_in_partner_employment_status_screen(choice: "Employed or self-employed")
-    fill_in_partner_income_screen(choices)
+    fill_in_partner_income_screen(type: "Self-employment income",
+                                  frequency: "Every month",
+                                  gross: "1250",
+                                  tax: "100",
+                                  national_insurance: "67")
     fill_in_forms_until(:check_answers)
   end
 end
