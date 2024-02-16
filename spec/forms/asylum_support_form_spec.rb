@@ -23,14 +23,14 @@ RSpec.describe "asylum_support", type: :feature do
   end
 
   it "has no extra piece of guidance" do
-    expect(page).not_to have_content "Guide to determining controlled work"
+    expect(page).not_to have_content "Controlled work"
   end
 
   context "when in a controlled work context" do
     let(:level_of_help) { "controlled" }
 
     it "has an extra piece of guidance" do
-      expect(page).to have_content "Guide to determining controlled work"
+      expect(page).to have_content "Controlled work"
     end
   end
 end
