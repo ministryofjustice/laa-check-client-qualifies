@@ -48,7 +48,7 @@ RSpec.describe "partner_assets", type: :feature do
     let(:level_of_help) { "certificated" }
 
     it "shows appropriate links" do
-      expect(page).to have_content "Guidance on clients with partners who are prisoners"
+      expect(page).to have_content "Clients with partners who are prisoners"
     end
 
     context "when client is self-employed" do

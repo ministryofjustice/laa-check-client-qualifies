@@ -61,7 +61,7 @@ RSpec.describe "assets", type: :feature do
     let(:session) { { "level_of_help" => "certificated" } }
 
     it "shows appropriate links" do
-      expect(page).to have_content "Guidance on bankrupt clients"
+      expect(page).to have_content "Clients who are bankrupt"
     end
 
     it "does not show content about self-employed applicants" do
