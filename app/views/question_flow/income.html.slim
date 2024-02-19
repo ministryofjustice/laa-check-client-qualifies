@@ -1,7 +1,7 @@
 - content_for :page_title
   = t(".heading")
 - content_for :back do
-  = back_link(:income, @check, @back_buttons_invoke_browser_back_behaviour)
+  = back_link(@previous_step, @back_buttons_invoke_browser_back_behaviour)
 .govuk-grid-column-two-thirds
   = render "question_flow/forms/income", i18n_key: "income"
 

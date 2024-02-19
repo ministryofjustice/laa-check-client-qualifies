@@ -1,7 +1,7 @@
 - content_for :page_title
   = t("question_flow.property_entry.heading")
 - content_for :back
-  = back_link(:property_entry, @check, @back_buttons_invoke_browser_back_behaviour)
+  = back_link(@previous_step, @back_buttons_invoke_browser_back_behaviour)
 
 .govuk-grid-column-two-thirds
   = form_for(@form, url: request.path, method: :put) do |form|
