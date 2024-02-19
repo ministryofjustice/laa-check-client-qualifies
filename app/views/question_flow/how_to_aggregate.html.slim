@@ -1,7 +1,7 @@
 - content_for :page_title
   = t(".title")
 - content_for :back
-  = back_link(:how_to_aggregate, @check, @back_buttons_invoke_browser_back_behaviour)
+  = back_link(@previous_step, @back_buttons_invoke_browser_back_behaviour)
 
 .govuk-grid-column-full
   = render "shared/heading"

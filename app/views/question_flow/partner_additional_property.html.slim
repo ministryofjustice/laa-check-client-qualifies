@@ -1,7 +1,7 @@
 - content_for :page_title
   = t(".legend")
 - content_for :back
-  = back_link(:partner_additional_property, @check, @back_buttons_invoke_browser_back_behaviour)
+  = back_link(@previous_step, @back_buttons_invoke_browser_back_behaviour)
 
 .govuk-grid-column-two-thirds
   = form_for(@form, url: request.path, method: :put) do |form|
