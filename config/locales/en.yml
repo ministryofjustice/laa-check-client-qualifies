@@ -752,10 +752,10 @@ en:
       guidance:
         controlled: Controlled work (PDF, 427KB)
         certificated: Certificated work (PDF, 918KB)
-        under_18_controlled: Under 18s - Controlled work (PDF, 427KB)
-        under_18_certificated: Under 18s - Certificated work (PDF, 918KB)
-        over_60_controlled: 60 or over disregard (pensioner disregard) - Controlled work (PDF, 427KB)
-        over_60_certificated: 60 or over disregard (pensioner disregard) - Certificated work (PDF, 918KB)
+        under_18_controlled: Controlled work - child applicants (PDF, 427KB)
+        under_18_certificated: Certificated work - child applicants (PDF, 918KB)
+        over_60_controlled: Controlled work - over 60s (PDF, 427KB)
+        over_60_certificated: Certificated work - over 60s (PDF, 918KB)
 
     level_of_help:
       title: What level of help does your client need?
@@ -783,7 +783,7 @@ en:
       certificated_guidance:
         text: Certificated work (PDF, 918KB)
       mental_health_guidance:
-        text: Means assessment section of Mental Health guidance (PDF, 288KB)
+        text: Mental Health (PDF, 288KB)
 
     under_18_clr:
       title: Is the work controlled legal representation (CLR)?
@@ -794,7 +794,7 @@ en:
       section_3: (iii) the Immigration and Asylum Chamber of the First tier Tribunal.
       guidance:
         controlled: Controlled work (PDF, 427KB)
-        mental_health: Means assessment section of Mental Health guidance (PDF, 288KB)
+        mental_health: Mental Health (PDF, 288KB)
         clr: Controlled legal representation (CLR) for child applicants - Controlled work (PDF, 427KB)
     aggregated_means:
       title: Will you aggregate your client's means with another person's means?
@@ -809,7 +809,7 @@ en:
         - a parent or guardian has a conflict of interest in the matter
         - the client is financially independent
         - the client is in local authority or foster care
-      guidance: Means aggregation for under 18s - Controlled work (PDF, 427KB)
+      guidance: Means aggregation for under 18s (PDF, 427KB)
     how_to_aggregate:
       title: You are going to aggregate your client's means with another person's means
       panel_text: If your client's means are aggregated with the means of another person, such as a maintaining adult, they must have a full means test.
@@ -840,20 +840,21 @@ en:
         - holiday jobs
         - pocket money
         - any maintenance paid for the child
-      guidance: Guidance on income - Controlled work (PDF, 427KB)
+      guidance: Income (PDF, 427KB)
     under_eighteen_assets:
       title: Does your client have assets worth £2,500 or more?
       hints:
         - For example, money in bank accounts, investments, valuable items, property or land.
         - If they have any assets like this, they must have a full means test.
-      guidance: Guidance on assets - Controlled work (PDF, 427KB)
+      guidance: Assets (PDF, 427KB)
     asylum_support:
       question: Does your client get Asylum Support?
       help_text_1: This means Asylum Support as defined in Section 4 or Section 95 of the Immigration and Asylum Act 1999.
       help_text_2: Your client will not need an income or capital assessment if they receive this type of Asylum Support.
       help_text_3: Also select yes if your client is named in their partner's Asylum Support claim.
       guidance:
-        text: Guidance on Asylum Support
+        controlled_text: Asylum Support (PDF, 427KB)
+        certificated_text: Asylum Support (PDF, 918KB)
       tribunal_guidance_text: Controlled work (PDF, 427KB)
     domestic_abuse_applicant:
       question: Is your client an applicant in a domestic abuse case?
@@ -862,7 +863,7 @@ en:
       domestic_abuse_guidance:
         text: Domestic abuse or violence (PDF, 918KB)
       tribunal_guidance:
-        text: Guidance on Upper Tribunal matters
+        text: Upper Tribunal matters (PDF, 918KB)
       immigration_and_asylum_header: Immigration and asylum matters
       immigration_and_asylum_certificated_paragraph: These must be for matters in the Immigration and Asylum Chamber of the Upper Tribunal including in relation to an appeal or review from the Immigration and Asylum Chamber of the First-tier Tribunal.
       immigration_header_certificated: Immigration (Upper Tribunal)
@@ -883,7 +884,7 @@ en:
       immigration_legal_help: Immigration - legal help or help at court
       asylum: Asylum - legal help, help at court, or controlled legal representation (CLR) in the First-tier Tribunal
       legacy_case_guidance:
-        text: Guidance on legacy case Appeals and Reviews in the Upper Tribunal
+        text: Guidance on legacy case Appeals and Reviews in the Upper Tribunal (PDF, 427KB)
     immigration_or_asylum_type_upper_tribunal:
       question: Is this for a matter in the Immigration and Asylum Chamber of the Upper Tribunal?
       help_text_1: This is only for for legal representation for an immigration or asylum matter in the Immigration and Asylum Chamber of the Upper Tribunal, including in relation to an appeal or review from the Immigration and Asylum Chamber of the First-tier Tribunal.
@@ -896,7 +897,8 @@ en:
       none: "No"
     applicant:
       passporting_guidance:
-        text: Guidance on passporting
+        controlled_text: Passporting (PDF, 427KB)
+        certificated_text: Passporting (PDF, 918KB)
       pensioner_guidance:
         text: "Guidance on 60 or over disregard (pensioner disregard)"
       heading: Tell us about your client
@@ -914,7 +916,7 @@ en:
             - is an opponent in the case
             - has a contrary interest in the case - this means they want a different outcome to your client
       prisoner_guidance:
-        text: Guidance on prisoners
+        text: Prisoners (PDF, 918KB)
       employed:
         legend: What is your client's employment status?
         hint: "You cannot use this service if your client, or their partner, is self-employed."
@@ -970,7 +972,8 @@ en:
       how_many_child: How many child dependants are there?
       how_many_adult: How many adult dependants are there?
       guidance:
-        text: Guidance on dependants
+        controlled_text: Dependants (PDF, 427KB)
+        certificated_text: Dependants (PDF, 918KB)
     dependant_income:
       legend: Do any of the dependants aged 16 or over get regular income?
       hint: "Examples of dependant income:"
@@ -979,7 +982,9 @@ en:
         - a wage received by a child dependant in an apprenticeship
         - benefits received by an adult dependant
         - earnings from part-time work if the dependant works more than 16 hours per week
-      guidance: Guidance on dependant income
+      guidance:
+        controlled_text: Dependants' income (PDF, 427KB)
+        certificated_text: Dependants' income (PDF, 918KB)
     dependant_income_details:
       legend: Add income for dependants aged 16 or over
       hint: Income they receive will be deducted from your client’s dependant allowance.
@@ -1076,9 +1081,10 @@ en:
       removed: Employment income removed
       income: Employment income
       guidance:
-        text: Guidance on income
+        controlled_text: Employment income (PDF, 427KB)
+        certificated_text: Employment income (PDF, 918KB)
       police_guidance:
-        text: Guidance on police officer applicants
+        text: Police officer applicants (PDF, 918KB)
     partner_income:
       heading: The partner's employment income
       hint: You can find this on the partner's payslips.
