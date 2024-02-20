@@ -134,6 +134,7 @@ Input.prototype.handleSuggestionClicked = function (event) {
 }
 
 Input.prototype.selectSuggestion = function (option) {
+  option.setAttribute('aria-selected', 'true')
   this.$module.value = option.dataset.value // [change: use `data-value`]
 
   this.$module.focus()
