@@ -34,6 +34,7 @@ Input.prototype.init = function () {
     this.$formGroup.appendChild(this.$suggestionsHeader)
     this.$formGroup.appendChild(this.$ul)
 
+    this.$module.removeAttribute('list') // [change: deactivate browser-native suggestions]
     this.$module.setAttribute('aria-autocomplete', 'list')
     this.$module.setAttribute('aria-controls', this.$module.getAttribute('id') + '-suggestions')
 
