@@ -33,9 +33,9 @@
     = form.govuk_submit t("generic.save_and_continue")
 = render "layouts/sidebar"
   = render "shared/related_content",
-           links: { t("question_flow.level_of_help.controlled_guidance.text") => \
-                      document_link(:lc_guidance_controlled),
+          links: { t("question_flow.level_of_help.controlled_guidance.text") => \
+                      { document: document_link(:lc_guidance_controlled), file_info: file_info(:lc_guidance_controlled) },
                     t("question_flow.level_of_help.certificated_guidance.text") => \
-                      document_link(:lc_guidance_certificated),
+                      { document: document_link(:lc_guidance_certificated), file_info: file_info(:lc_guidance_certificated) },
                     t("question_flow.level_of_help.mental_health_guidance.text") => \
-                      document_link(:mental_health_guidance) }
+                      { document: document_link(:mental_health_guidance), file_info: file_info(:mental_health_guidance) } }

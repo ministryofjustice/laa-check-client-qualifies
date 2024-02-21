@@ -58,4 +58,8 @@ module FormsHelper
                end
     document_path(document, sub_section:, assessment_code: params[:assessment_code], referrer:)
   end
+
+  def file_info(document)
+    ExternalLinkService.pdf_size(document)
+  end
 end

@@ -10,14 +10,20 @@ class ExternalLinkService
       end
     end
 
+    def pdf_size(document)
+      mapping[:external_links].dig(document, :file_info)
+    end
+
     def mapping
       {
         external_links: {
           mental_health_guidance: {
             page_url: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1143984/Mental_Health_Guidance_-_Contract_management_-_GOV.UK_2023.pdf",
+            file_info: "PDF, 288KB",
           },
           lc_guidance_controlled: {
             page_url: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1176119/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_controlled_work_and_family_mediation__August_2023_.pdf",
+            file_info: "PDF, 427KB",
             sections: {
               legacy_guidance: 3,
               under_18: 4,
@@ -41,6 +47,7 @@ class ExternalLinkService
           },
           lc_guidance_certificated: {
             page_url: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1176073/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_certificated_work__August_2023_.pdf",
+            file_info: "PDF, 918KB",
             sections: {
               smod: 8,
               passporting_benefit: 10,

@@ -782,11 +782,11 @@ en:
       certificated: Civil certificated or licensed legal work
       controlled_hint: For example, legal help
       controlled_guidance:
-        text: Controlled work (PDF, 427KB)
+        text: Controlled work
       certificated_guidance:
-        text: Certificated work (PDF, 918KB)
+        text: Certificated work
       mental_health_guidance:
-        text: Mental Health (PDF, 288KB)
+        text: Mental Health
 
     under_18_clr:
       title: Is the work controlled legal representation (CLR)?
