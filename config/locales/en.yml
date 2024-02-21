@@ -796,9 +796,9 @@ en:
       section_2: (ii) the Mental Health Review Tribunal for Wales; or
       section_3: (iii) the Immigration and Asylum Chamber of the First tier Tribunal.
       guidance:
-        controlled: Controlled work (PDF, 427KB)
-        mental_health: Mental Health (PDF, 288KB)
-        clr: Controlled legal representation (CLR) for child applicants - Controlled work (PDF, 427KB)
+        controlled: Controlled work
+        mental_health: Mental Health
+        clr: Controlled legal representation (CLR) for child applicants - Controlled work
     aggregated_means:
       title: Will you aggregate your client's means with another person's means?
       explainer: If your client's means are aggregated with the means of another person, such as a maintaining adult, they must have a full means test.
@@ -812,7 +812,7 @@ en:
         - a parent or guardian has a conflict of interest in the matter
         - the client is financially independent
         - the client is in local authority or foster care
-      guidance: Means aggregation for under 18s (PDF, 427KB)
+      guidance: Means aggregation for under 18s
     how_to_aggregate:
       title: You are going to aggregate your client's means with another person's means
       panel_text: If your client's means are aggregated with the means of another person, such as a maintaining adult, they must have a full means test.
@@ -856,9 +856,8 @@ en:
       help_text_2: Your client will not need an income or capital assessment if they receive this type of Asylum Support.
       help_text_3: Also select yes if your client is named in their partner's Asylum Support claim.
       guidance:
-        controlled_text: Asylum Support (PDF, 427KB)
-        certificated_text: Asylum Support (PDF, 918KB)
-      tribunal_guidance_text: Controlled work (PDF, 427KB)
+        text: Asylum Support
+      tribunal_guidance_text: Controlled work
     domestic_abuse_applicant:
       question: Is your client an applicant in a domestic abuse case?
       paragraph_1: This must be for legal representation for a domestic abuse matter (injunction or other order for protection from harm, or committal for breach), FGM protection order, or forced marriage protection order.
@@ -887,7 +886,7 @@ en:
       immigration_legal_help: Immigration - legal help or help at court
       asylum: Asylum - legal help, help at court, or controlled legal representation (CLR) in the First-tier Tribunal
       legacy_case_guidance:
-        text: Guidance on legacy case Appeals and Reviews in the Upper Tribunal (PDF, 427KB)
+        text: Guidance on legacy case Appeals and Reviews in the Upper Tribunal
     immigration_or_asylum_type_upper_tribunal:
       question: Is this for a matter in the Immigration and Asylum Chamber of the Upper Tribunal?
       help_text_1: This is only for for legal representation for an immigration or asylum matter in the Immigration and Asylum Chamber of the Upper Tribunal, including in relation to an appeal or review from the Immigration and Asylum Chamber of the First-tier Tribunal.

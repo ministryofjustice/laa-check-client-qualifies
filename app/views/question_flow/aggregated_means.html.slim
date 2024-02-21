@@ -27,5 +27,8 @@
 
 = render "shared/question_sidebar",
          level_of_help: @check.level_of_help,
-         links: { t("question_flow.level_of_help.controlled_guidance.text") => document_link(:lc_guidance_controlled),
-                  t(".guidance") => document_link(:lc_guidance_controlled, :means_aggregation) }
+         links: { t("question_flow.level_of_help.controlled_guidance.text") => \
+                     { document: document_link(:lc_guidance_controlled), file_info: file_info(:lc_guidance_controlled) },
+                  t(".guidance") => \
+                     { document: document_link(:lc_guidance_controlled, :means_aggregation),
+                       file_info: file_info(:lc_guidance_controlled) } }
