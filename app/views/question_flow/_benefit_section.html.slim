@@ -22,6 +22,7 @@
         = model.errors.messages[:benefit_type].first
     .govuk_text_field
       input.govuk-input.govuk-input--width-20 [
+        aria-owns="suggestions"
         aria-description=t("question_flow.benefit_details.aria_description_for_input_field")
         autocomplete="off"
         data-suggestions="suggestions"
