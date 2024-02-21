@@ -3,4 +3,8 @@ ul class="govuk-list govuk-!-font-size-16"
   - links.each do |text, dest|
     li
       p
-        = link_to "#{text}, (#{dest.fetch(:file_info, '')})", dest[:document], target: "_blank", rel: "noreferrer noopener", class: "govuk-link govuk-body-m"
+        = link_to "#{text} #{dest.fetch(:file_info, '')}",
+          dest[:document],
+          target: "_blank",
+          rel: "noreferrer noopener",
+          class: "govuk-link govuk-body-m"

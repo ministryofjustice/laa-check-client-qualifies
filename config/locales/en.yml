@@ -753,12 +753,12 @@ en:
         standard: 18 to 59
         over_60: 60 or over
       guidance:
-        controlled: Controlled work (PDF, 427KB)
-        certificated: Certificated work (PDF, 918KB)
-        under_18_controlled: Controlled work - child applicants (PDF, 427KB)
-        under_18_certificated: Certificated work - child applicants (PDF, 918KB)
-        over_60_controlled: Controlled work - over 60s (PDF, 427KB)
-        over_60_certificated: Certificated work - over 60s (PDF, 918KB)
+        controlled: Controlled work
+        certificated: Certificated work
+        under_18_controlled: Controlled work - child applicants
+        under_18_certificated: Certificated work - child applicants
+        over_60_controlled: Controlled work - over 60s
+        over_60_certificated: Certificated work - over 60s
 
     level_of_help:
       title: What level of help does your client need?
