@@ -26,6 +26,7 @@ html dir="ltr" lang="en-GB" class="govuk-template"
 
       main#main-content.govuk-main-wrapper role="main"
         div class="govuk-grid-row"
+          = render "layouts/admin_login"
           = yield
 
     = render partial: "layouts/feedback"

@@ -1,7 +1,7 @@
 - content_for :page_title
   = t(".question")
 - content_for :back do
-  = back_link(:immigration_or_asylum_type_upper_tribunal, @check, @back_buttons_invoke_browser_back_behaviour)
+  = back_link(@previous_step, @back_buttons_invoke_browser_back_behaviour)
 - content_for :hint
     p.govuk-body = t(".help_text_1")
     p.govuk-body = t(".help_text_2")

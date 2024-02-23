@@ -5,6 +5,7 @@ RSpec.describe "checks/check_answers.html.slim" do
 
   before do
     assign(:sections, sections)
+    assign(:previous_step, Steps::Helper.last_step(session_data))
     params[:assessment_code] = :code
     allow(view).to receive(:form_with)
     render template: "checks/check_answers"

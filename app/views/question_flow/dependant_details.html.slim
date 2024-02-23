@@ -2,7 +2,7 @@
 - content_for :page_title
   = t(legend_key)
 - content_for :back do
-  = back_link(:dependant_details, @check, @back_buttons_invoke_browser_back_behaviour)
+  = back_link(@previous_step, @back_buttons_invoke_browser_back_behaviour)
 
 - content_for :child_dependants_hint
   = govuk_details(summary_text: t("question_flow.dependant_details.child_dependants.summary")) do

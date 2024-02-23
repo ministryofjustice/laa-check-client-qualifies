@@ -1,0 +1,28 @@
+head
+  = render "layouts/analytics_head"
+  title
+    = yield(:page_title)
+    = " | " if content_for?(:page_title)
+    = t("service.name_for_page_title")
+
+  = csrf_meta_tags
+  = csp_meta_tag
+
+  = tag.meta name: "viewport", content: "width=device-width, initial-scale=1"
+  = tag.meta property: "og:image", content: asset_path("images/govuk-opengraph-image.png")
+  = tag.meta name: "theme-color", content: "#0b0c0c"
+  ruby:
+    index_prod = FeatureFlags.enabled?(:index_production, without_session_data: true) ? "all" : "noindex"
+  = tag.meta name: "robots", content: index_prod.to_s
+
+  - if ENV["PRIMARY_HOST"].present?
+    link[rel="canonical" href="#{"https://#{ENV['PRIMARY_HOST']}#{url_for(only_path: true)}"}"]
+
+  = favicon_link_tag asset_path("images/favicon.ico"), rel: "icon", sizes: "48x48"
+  = favicon_link_tag asset_path("images/favicon.svg"), rel: "icon", sizes: "any", type: "image/svg+xml"
+  = favicon_link_tag asset_path("images/govuk-icon-mask.svg"), rel: "mask-icon", color: "#0b0c0c"
+  = favicon_link_tag asset_path("images/govuk-icon-180.png"), rel: "apple-touch-icon"
+  link rel="manifest" href=asset_path("manifest.json")
+
+  = stylesheet_link_tag "application", "data-turbo-track": "reload"
+  = javascript_include_tag "application", "data-turbo-track": "reload", defer: true, nonce: true, type: "module"
