@@ -81,8 +81,7 @@ module Steps
       end
 
       def all_sections(session_data = nil)
-        initial_sections = [CaseDetailsSection,
-                            ApplicantDetailsSection,
+        initial_sections = [NonFinancialSection,
                             IncomeSection,
                             PartnerSection,
                             OutgoingsSection]
