@@ -95,6 +95,7 @@ class ExternalLinkService
           },
           legal_aid_learning: {
             page_url: "https://legalaidlearning.justice.gov.uk/course/view.php?id=186",
+            file_info: "(opens in new tab)",
           },
           legal_aid_checker_for_public: {
             page_url: "https://www.gov.uk/check-legal-aid",

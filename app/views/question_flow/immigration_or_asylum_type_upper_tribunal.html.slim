@@ -25,6 +25,7 @@
 = render "shared/question_sidebar",
         level_of_help: @check.level_of_help,
         links: { t("question_flow.level_of_help.certificated_guidance.text") => \
-                   document_link(:lc_guidance_certificated),
+                   { document: document_link(:lc_guidance_certificated), file_info: file_info(:lc_guidance_certificated) },
                  t("question_flow.domestic_abuse_applicant.tribunal_guidance.text") => \
-                  document_link(:lc_guidance_certificated, :upper_tribunal) }
+                   { document: document_link(:lc_guidance_certificated, :upper_tribunal),
+                     file_info: file_info(:lc_guidance_certificated) } }

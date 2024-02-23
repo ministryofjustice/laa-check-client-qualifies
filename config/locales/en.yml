@@ -651,17 +651,14 @@ en:
     dispute: This asset is a subject matter of dispute
     disputed_asset: Disputed asset
     disregarded_benefits_guidance:
-      controlled_text: Disregarded benefits (PDF, 427KB)
-      certificated_text: Disregarded benefits (PDF, 918KB)
+      text: Disregarded benefits
     smod:
       guidance:
-        controlled_text: Subject matter of dispute (PDF, 427KB)
-        certificated_text: Subject matter of dispute (PDF, 918KB)
+        text: Subject matter of dispute
     smod_help: Help with subject matter of dispute
     smod_help_text: Regulation 38 (Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013) provides for a disregard of the amount or value of assets that are the subject matter of dispute (SMOD); however the total amount disregarded must not exceed £100,000. Please read the related content on subject matter of dispute (Regulation 38).
     trapped_capital:
-      controlled_text: Trapped capital (PDF, 427KB)
-      certificated_text: Trapped capital (opens in new tab)
+      text: Trapped capital
     disregarded_benefits:
       text: Government Cost of Living Payments and disregarded benefits
       cost_of_living:
@@ -843,13 +840,13 @@ en:
         - holiday jobs
         - pocket money
         - any maintenance paid for the child
-      guidance: Income (PDF, 427KB)
+      guidance: Income
     under_eighteen_assets:
       title: Does your client have assets worth £2,500 or more?
       hints:
         - For example, money in bank accounts, investments, valuable items, property or land.
         - If they have any assets like this, they must have a full means test.
-      guidance: Assets (PDF, 427KB)
+      guidance: Assets
     asylum_support:
       question: Does your client get Asylum Support?
       help_text_1: This means Asylum Support as defined in Section 4 or Section 95 of the Immigration and Asylum Act 1999.
@@ -863,9 +860,9 @@ en:
       paragraph_1: This must be for legal representation for a domestic abuse matter (injunction or other order for protection from harm, or committal for breach), FGM protection order, or forced marriage protection order.
       paragraph_2: We need to know this for the check calculations because upper eligibility limits are waived if your client is an applicant in a domestic abuse matter.
       domestic_abuse_guidance:
-        text: Domestic abuse or violence (PDF, 918KB)
+        text: Domestic abuse or violence
       tribunal_guidance:
-        text: Upper Tribunal matters (PDF, 918KB)
+        text: Upper Tribunal matters
       immigration_and_asylum_header: Immigration and asylum matters
       immigration_and_asylum_certificated_paragraph: These must be for matters in the Immigration and Asylum Chamber of the Upper Tribunal including in relation to an appeal or review from the Immigration and Asylum Chamber of the First-tier Tribunal.
       immigration_header_certificated: Immigration (Upper Tribunal)
@@ -899,8 +896,7 @@ en:
       none: "No"
     applicant:
       passporting_guidance:
-        controlled_text: Passporting (PDF, 427KB)
-        certificated_text: Passporting (PDF, 918KB)
+        text: Passporting
       pensioner_guidance:
         text: "Guidance on 60 or over disregard (pensioner disregard)"
       heading: Tell us about your client
@@ -918,7 +914,7 @@ en:
             - is an opponent in the case
             - has a contrary interest in the case - this means they want a different outcome to your client
       prisoner_guidance:
-        text: Prisoners (PDF, 918KB)
+        text: Prisoners
       employed:
         legend: What is your client's employment status?
         hint: "You cannot use this service if your client, or their partner, is self-employed."
@@ -974,8 +970,7 @@ en:
       how_many_child: How many child dependants are there?
       how_many_adult: How many adult dependants are there?
       guidance:
-        controlled_text: Dependants (PDF, 427KB)
-        certificated_text: Dependants (PDF, 918KB)
+        text: Dependants
     dependant_income:
       legend: Do any of the dependants aged 16 or over get regular income?
       hint: "Examples of dependant income:"
@@ -985,8 +980,7 @@ en:
         - benefits received by an adult dependant
         - earnings from part-time work if the dependant works more than 16 hours per week
       guidance:
-        controlled_text: Dependants' income (PDF, 427KB)
-        certificated_text: Dependants' income (PDF, 918KB)
+        text: Dependants' income
     dependant_income_details:
       legend: Add income for dependants aged 16 or over
       hint: Income they receive will be deducted from your client’s dependant allowance.
@@ -1083,10 +1077,9 @@ en:
       removed: Employment income removed
       income: Employment income
       guidance:
-        controlled_text: Employment income (PDF, 427KB)
-        certificated_text: Employment income (PDF, 918KB)
+        text: Employment income
       police_guidance:
-        text: Police officer applicants (PDF, 918KB)
+        text: Police officer applicants
     partner_income:
       heading: The partner's employment income
       hint: You can find this on the partner's payslips.
@@ -1142,7 +1135,7 @@ en:
             - if the drawings exceed the declared net profits of the business, or the business is making a loss, use the value of any monthly drawings for personal use made by the partner
           last_paragraph: If the partner is paid in cash, enter any money taken out of their earnings for personal use.
       police_guidance:
-        text: Police officer applicants (PDF, 918KB)
+        text: Police officer applicants
     housing_costs:
       heading: Housing costs
       heading_hint:
@@ -1178,10 +1171,10 @@ en:
       frequency: Select frequency
       guidance_on_housing_costs:
         certificated:
-          text: Housing costs (PDF, 918KB)
+          text: Housing costs
           link: "{%page_url}"
         controlled:
-          text: Housing costs (PDF, 427KB)
+          text: Housing costs
           link: "{%page_url}"
     mortgage_or_loan_payment:
       heading: What are the mortgage or loan payments for the home your client lives in?
@@ -1342,9 +1335,9 @@ en:
         total: Total in last 3 months
       guidance_on_outgoings:
         certificated:
-          text: Determining outgoings (PDF, 918KB)
+          text: Determining outgoings
         controlled:
-          text: Determining disposable income (PDF, 427KB)
+          text: Determining disposable income
     partner_outgoings:
       heading: The partner's outgoings and deductions
       caption: Do not add any outgoings you've listed as outgoings for the client.
@@ -1381,17 +1374,17 @@ en:
         none: "No"
       properties_guidance:
         certificated:
-          text: Properties (PDF, 918KB)
+          text: Properties
           link: "%page_url"
         controlled:
-          text: Properties (PDF, 427KB)
+          text: Properties
           link: "%page_url"
       additional_properties_guidance:
         certificated:
-          text: Properties owned that are not the 'main house' (PDF, 918KB)
+          text: Properties owned that are not the 'main house'
           link: "%page_url"
         controlled:
-          text: Properties owned that are not the 'main house' (PDF, 427KB)
+          text: Properties owned that are not the 'main house'
           link: "%page_url"
     additional_property:
       legend: Does your client own any other property, a holiday home or land?
@@ -1408,7 +1401,7 @@ en:
         legend_with_partner: Does your client or their partner own a vehicle?
         hint: "This includes cars, vans and motorcycles"
       guidance:
-        text: Vehicles (PDF, 918KB)
+        text: Vehicles
     assets:
       legend: Client assets
       hint: Enter 0 for any that do not apply
@@ -1421,9 +1414,9 @@ en:
       prison_title: Clients in prison
       prison_text: If your client is in prison, include the balance of any private, spends or savings accounts as money in bank accounts.
       prisoner_guidance:
-        text: Clients who are prisoners (PDF, 918KB)
+        text: Clients who are prisoners
       bankrupt_guidance:
-        text: Clients who are bankrupt (PDF, 918KB)
+        text: Clients who are bankrupt
       bank_accounts:
         label: Money in bank accounts
         hints:
@@ -1483,11 +1476,11 @@ en:
         input: Total of all valuable items
       guidance:
         controlled:
-          text: Assets and capital, including disregarded capital (PDF, 427KB)
+          text: Assets and capital, including disregarded capital
         certificated:
-          text: Assets and capital (PDF, 918KB)
+          text: Assets and capital
       disregarded_capital_guidance:
-        text: Disregarded capital (PDF, 918KB)
+        text: Disregarded capital
     partner_assets:
       legend: Partner assets
       hints:
@@ -1501,9 +1494,9 @@ en:
       prison_title: Partners in prison
       prison_text: If the partner is in prison, include the balance of any private, spends or savings accounts as money in bank accounts.
       prisoner_guidance:
-        text: Clients with partners who are prisoners (PDF, 918KB)
+        text: Clients with partners who are prisoners
       bankrupt_guidance:
-        text: Clients with partners who are bankrupt (PDF, 918KB)
+        text: Clients with partners who are bankrupt
       bank_accounts:
         hints:
           - For example, money in current or savings accounts, ISAs, or child accounts the partner is a signatory on.

@@ -16,5 +16,7 @@
 
 = render "shared/question_sidebar",
          level_of_help: @check.level_of_help,
-         links: { t("question_flow.vehicle.guidance.text") => document_link(:lc_guidance_certificated, :vehicle),
-                  t("generic.trapped_capital.certificated_text") => document_link(:legal_aid_learning) }
+         links: { t("question_flow.vehicle.guidance.text") => \
+                    { document: document_link(:lc_guidance_certificated, :vehicle), file_info: file_info(:lc_guidance_certificated) },
+                  t("generic.trapped_capital.text") => \
+                    { document: document_link(:legal_aid_learning), file_info: file_info(:lc_guidance_certificated) } }
