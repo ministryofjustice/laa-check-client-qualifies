@@ -1,8 +1,5 @@
-// [change: commented out all polyfills imports]
-// import 'govuk-frontend/vendor/polyfills/Function/prototype/bind'
-// addEventListener, event.target normalization and DOMContentLoaded
-// import '../../vendor/polyfills/Event'
-// import '../../vendor/polyfills/Element/prototype/classList'
+// CCQ based this component on Crime Apply implementation: https://github.com/ministryofjustice/laa-apply-for-criminal-legal-aid/blob/main/app/javascript/local/suggestions.js
+// Crime Apply based their implementation on a GDS component called 'input with suggestions', which was not merged into govuk-frontend: https://github.com/alphagov/govuk-frontend/pull/2453
 
 function Input ($module) {
   this.$module = $module
@@ -106,15 +103,6 @@ Input.prototype.updateSuggestionsWithOptions = function (options) {
     li.setAttribute('data-value', option.value)
     li.setAttribute('class', 'govuk-input__suggestion')
     // li.addEventListener('mouseenter', this.handleMouseEntered.bind(this))
-
-    // [change: support captions]
-    if (option.dataset.caption) {
-      var caption = document.createElement('span')
-      caption.textContent = option.dataset.caption
-      caption.setAttribute('class', 'govuk-input__suggestion-caption')
-      li.append(caption)
-    }
-
     this.$ul.appendChild(li)
   }
 
@@ -125,12 +113,6 @@ Input.prototype.updateSuggestionsWithOptions = function (options) {
 
 Input.prototype.handleSuggestionClicked = function (event) {
   var suggestionClicked = event.target
-
-  // [change: support captions]
-  if (suggestionClicked.tagName !== 'li') {
-    suggestionClicked = suggestionClicked.closest('li')
-  }
-
   this.selectSuggestion(suggestionClicked)
 }
 
