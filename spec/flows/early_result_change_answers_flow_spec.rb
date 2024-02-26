@@ -52,6 +52,7 @@ RSpec.describe "Change answers after early result", :early_eligibility_flag, typ
         fill_in_employment_status_screen(choice: "Unemployed")
         confirm_screen("outgoings")
         fill_in_forms_until("check_answers")
+        expect(page).to have_content "Client outgoings"
         click_on "Submit"
       end
 
