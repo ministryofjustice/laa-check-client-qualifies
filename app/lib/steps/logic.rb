@@ -139,15 +139,15 @@ module Steps
       end
 
       def user_chose_to_continue_check?(session_data)
-        session_data["early_eligibility_selection"] == IneligibleGrossIncomeForm::VALID_OPTIONS[:continue]
+        session_data[IneligibleGrossIncomeForm::SELECTION] == IneligibleGrossIncomeForm::VALID_OPTIONS[:continue]
       end
 
       def check_stops_at_gross_income?(session_data)
-        session_data["early_eligibility_selection"] == IneligibleGrossIncomeForm::VALID_OPTIONS[:gross]
+        session_data[IneligibleGrossIncomeForm::SELECTION] == IneligibleGrossIncomeForm::VALID_OPTIONS[:gross]
       end
 
       def data_stops_before_outgoings?(session_data)
-        !session_data.key?("early_eligibility_selection") || check_stops_at_gross_income?(session_data)
+        !session_data.key?(IneligibleGrossIncomeForm::SELECTION) || check_stops_at_gross_income?(session_data)
       end
     end
   end
