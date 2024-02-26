@@ -93,7 +93,7 @@ RUN apk add --update --no-cache tzdata && \
 RUN apk add --no-cache libpq postgresql-client
 
 # Install Chromium and Puppeteer for PDF generation
-# Installs latest Chromium package available on Alpine (Chromium 108)
+# Installs latest Chromium package available on Alpine
 RUN apk add --no-cache \
         chromium \
         nss \
@@ -108,8 +108,8 @@ RUN apk add --no-cache \
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
-# Install latest version of Puppeteer that works with Chromium 108
-RUN yarn add puppeteer@19.2.0
+# Install latest version of Puppeteer
+RUN yarn add puppeteer@22.3.0
 
 # Copy files generated in the builder images
 COPY --from=builder /app /app
