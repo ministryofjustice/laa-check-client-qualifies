@@ -98,6 +98,7 @@ RUN apk add --no-cache \
         freetype \
         harfbuzz \
         ca-certificates \
+        nodejs \
         ttf-freefont
 
 # Copy files generated in the builder images
@@ -108,4 +109,3 @@ COPY --from=pdftkbuilder /build/pdftk /usr/bin/pdftk
 USER 1000
 
 CMD ["docker/run"]
-
