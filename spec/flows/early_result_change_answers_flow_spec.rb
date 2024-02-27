@@ -29,11 +29,14 @@ RSpec.describe "Change answers after early result", :early_eligibility_flag, typ
   context "when starting as ineligible on gross income", :stub_cfe_gross_ineligible do
     # Default to certificated - it's mostly un-interesting
     let(:level_of_help) { "Civil certificated or licensed legal work" }
+    let(:with_partner) { "No" }
 
     before do
       start_assessment
       fill_in_client_age_screen
       fill_in_level_of_help_screen(choice: level_of_help)
+      fill_in_forms_until(:applicant)
+      fill_in_applicant_screen(partner: with_partner)
       fill_in_forms_until(:employment_status)
       fill_in_employment_status_screen(choice: "Employed")
       fill_in_income_screen(gross: "2700")
@@ -161,16 +164,16 @@ RSpec.describe "Change answers after early result", :early_eligibility_flag, typ
       end
     end
 
-    context "when changing to under 18 with income" do
+    # need these complex interactions to be VCR tests as the outcomes
+    # are not easily mocked without bizarre outcomes
+    context "with a full-stack VCR environment", :vcr do
       let(:level_of_help) { "Civil controlled work or family mediation" }
 
       before do
         WebMock.reset!
       end
 
-      # need this complex interaction to be a VCR test so that we get a sensible
-      # outcome as though the whole system is being invoked
-      it "changes client age to under 18 successfully", :vcr do
+      it "changes client age to under 18 with income" do
         within "#table-client_age" do
           click_on "Change"
         end
@@ -183,6 +186,32 @@ RSpec.describe "Change answers after early result", :early_eligibility_flag, typ
         expect(page).to have_current_path(/\A\/check-result/)
         # check that result isn't 'your answers have been deleted'
         expect(page).to have_content "Your client's key eligibility totals"
+      end
+
+      context "with a partner" do
+        let(:name) do
+          fill_in_income_screen(gross: "2600")
+        end
+
+        let(:with_partner) { "Yes" }
+
+        it "can change to below threshold with partner above and submit correctly" do
+          within "#table-income" do
+            click_on "Change"
+          end
+
+          # make client eligible so partner questions get asked
+          name
+          fill_in_forms_until(:partner_other_income)
+          # tip income over to be ineligible
+          fill_in_partner_other_income_screen(values: { friends_or_family: "1200" }, frequencies: { friends_or_family: "Every month" })
+          confirm_screen("outgoings")
+          fill_in_forms_until(:check_answers)
+          click_on "Submit"
+          expect(page).to have_current_path(/\A\/check-result/)
+          # check that result isn't 'your answers have been deleted'
+          expect(page).to have_content "Your client's key eligibility totals"
+        end
       end
     end
   end
@@ -212,7 +241,7 @@ RSpec.describe "Change answers after early result", :early_eligibility_flag, typ
       within "#table-applicant" do
         click_on "Change"
       end
-      fill_in_applicant_screen(passporting: "No", employed: "Employed and in work")
+      fill_in_applicant_screen(passporting: "No")
       fill_in_dependant_details_screen
       fill_in_employment_status_screen
       fill_in_benefits_screen
