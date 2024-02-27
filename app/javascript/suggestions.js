@@ -14,7 +14,7 @@ Input.prototype.init = function () {
     this.suggestions = document.getElementById(suggestionsSourceId)
 
     this.$formGroup.setAttribute('role', 'combobox')
-    this.$formGroup.setAttribute('aria-owns', this.$module.getAttribute('id'))
+    // this.$formGroup.setAttribute('aria-owns', this.$module.getAttribute('id')) [change: as per accessibility report, have removed setting the aria-owns here, as it is already added to the input field]
     this.$formGroup.setAttribute('aria-haspopup', 'listbox')
     this.$formGroup.setAttribute('aria-expanded', 'false')
 
@@ -99,7 +99,7 @@ Input.prototype.updateSuggestionsWithOptions = function (options) {
     li.textContent = option.textContent
     li.setAttribute('role', 'option')
     li.setAttribute('tabindex', '-1')
-    li.setAttribute('aria-selected', option.value === this.$module.value)
+    // li.setAttribute('aria-selected', option.value === this.$module.value) [change: as per accessibility report, have removed setting this aria attribute, so that screen reader's do not announce this is as 'not selected' when receiving focus]
     li.setAttribute('data-value', option.value)
     li.setAttribute('class', 'govuk-input__suggestion')
     // li.addEventListener('mouseenter', this.handleMouseEntered.bind(this))
