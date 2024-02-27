@@ -27,8 +27,13 @@ RSpec.describe "Change answers after early result", :early_eligibility_flag, typ
   end
 
   context "when starting as ineligible on gross income", :stub_cfe_gross_ineligible do
+    # Default to certificated - it's mostly un-interesting
+    let(:level_of_help) { "Civil certificated or licensed legal work" }
+
     before do
       start_assessment
+      fill_in_client_age_screen
+      fill_in_level_of_help_screen(choice: level_of_help)
       fill_in_forms_until(:employment_status)
       fill_in_employment_status_screen(choice: "Employed")
       fill_in_income_screen(gross: "2700")
@@ -153,6 +158,31 @@ RSpec.describe "Change answers after early result", :early_eligibility_flag, typ
         end
         fill_in_client_age_screen(choice: "Under 18")
         confirm_screen("check_answers")
+      end
+    end
+
+    context "when changing to under 18 with income" do
+      let(:level_of_help) { "Civil controlled work or family mediation" }
+
+      before do
+        WebMock.reset!
+      end
+
+      # need this complex interaction to be a VCR test so that we get a sensible
+      # outcome as though the whole system is being invoked
+      it "changes client age to under 18 successfully", :vcr do
+        within "#table-client_age" do
+          click_on "Change"
+        end
+        fill_in_client_age_screen(choice: "Under 18")
+        fill_in_under_18_controlled_legal_rep_screen(choice: "No")
+        fill_in_aggregated_means_screen(choice: "No")
+        fill_in_regular_income_screen(choice: "Yes")
+
+        click_on "Submit"
+        expect(page).to have_current_path(/\A\/check-result/)
+        # check that result isn't 'your answers have been deleted'
+        expect(page).to have_content "Your client's key eligibility totals"
       end
     end
   end
