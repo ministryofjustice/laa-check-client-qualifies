@@ -101,6 +101,7 @@ group :test do
   gem "axe-core-rspec"
   gem "rack_session_access"
   gem "database_cleaner"
+  gem "vcr", require: false
 end
 
 gem "govuk-components"
