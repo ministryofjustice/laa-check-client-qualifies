@@ -71,6 +71,11 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
 
   WebMock.disable_net_connect!(allow_localhost: true, allow: ALLOWED_HOSTS)
+  config.around(:each, :vcr) do |example|
+    WebMock.allow_net_connect!
+    example.run
+    WebMock.disable_net_connect!(allow_localhost: true, allow: ALLOWED_HOSTS)
+  end
 
   config.after(:each, type: :system) do
     errors = page.driver.browser.logs.get(:browser)
