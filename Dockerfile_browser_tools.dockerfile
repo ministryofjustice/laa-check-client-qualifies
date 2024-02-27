@@ -12,7 +12,4 @@ RUN sudo apt install pdftk --allow-unauthenticated
 # Install Puppeteer via Yarn
 RUN yarn add puppeteer@22.1.0
 
-# Tell Puppeteer to skip installing Chromium. We'll be using the installed package.
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
-
 COPY . .
