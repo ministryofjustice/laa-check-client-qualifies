@@ -103,6 +103,10 @@ RUN apk add --no-cache \
         nodejs \
         yarn
 
+
+# Tell Puppeteer to a path does this make sense? 
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+
 # Install latest version of Puppeteer
 RUN yarn add puppeteer@22.3.0
 
