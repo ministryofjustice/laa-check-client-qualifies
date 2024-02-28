@@ -43,7 +43,7 @@ RUN yarn install --frozen-lockfile --check-files --prod
 # Copy all files to /app (except what is defined in .dockerignore)
 COPY . .
 
-COPY $HOME/.cache .
+COPY /.cache .
 
 # make the git commit hash available to the app so it can describe its current version
 RUN git rev-parse --short HEAD > ./VERSION
