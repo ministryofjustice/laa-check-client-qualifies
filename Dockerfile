@@ -104,7 +104,8 @@ RUN apk add --no-cache \
         ca-certificates \
         ttf-freefont \
         nodejs \
-        yarn
+        yarn \
+        npm
 
 # Install Puppeteer via Yarn
 RUN yarn add puppeteer@22.3.0
