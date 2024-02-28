@@ -46,8 +46,6 @@ RUN npx puppeteer browsers install chrome
 # Copy all files to /app (except what is defined in .dockerignore)
 COPY . .
 
-COPY /.cache .
-
 # make the git commit hash available to the app so it can describe its current version
 RUN git rev-parse --short HEAD > ./VERSION
 
@@ -107,6 +105,12 @@ RUN apk add --no-cache \
         ttf-freefont \
         nodejs \
         yarn
+
+# Install Puppeteer via Yarn
+RUN yarn add puppeteer@22.3.0
+
+# Install Chrome using Puppeteer command
+RUN npx puppeteer browsers install chrome
 
 # Copy files generated in the builder images
 COPY --from=builder /app /app
