@@ -95,6 +95,7 @@ RUN apk add --no-cache libpq postgresql-client
 # Install Chromium and Puppeteer for PDF generation
 # Installs latest Chromium package available on Alpine
 RUN apk add --no-cache \
+        chromium \
         nss \
         freetype \
         harfbuzz \
@@ -103,6 +104,9 @@ RUN apk add --no-cache \
         nodejs \
         yarn \
         npm
+
+# Tell Puppeteer where Chromium is (even though it install's it's preferred version of Chrome)
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
 # Install Puppeteer via Yarn
 RUN yarn add puppeteer@22.3.0
