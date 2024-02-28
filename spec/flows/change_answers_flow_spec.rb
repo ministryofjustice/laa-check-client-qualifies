@@ -40,7 +40,7 @@ RSpec.describe "Change answers", type: :feature do
     within "#table-applicant" do
       click_on "Change"
     end
-    fill_in_applicant_screen(passporting: "No", employed: "Employed and in work")
+    fill_in_applicant_screen(passporting: "No")
     fill_in_dependant_details_screen
     fill_in_employment_status_screen
     fill_in_benefits_screen
