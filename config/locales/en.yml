@@ -887,7 +887,7 @@ en:
       immigration_legal_help: Immigration - legal help or help at court
       asylum: Asylum - legal help, help at court, or controlled legal representation (CLR) in the First-tier Tribunal
       legacy_case_guidance:
-        text: Guidance on legacy case Appeals and Reviews in the Upper Tribunal (PDF, 427KB)
+        text: Legacy case Appeals and Reviews in the Upper Tribunal (PDF, 427KB)
     immigration_or_asylum_type_upper_tribunal:
       question: Is this for a matter in the Immigration and Asylum Chamber of the Upper Tribunal?
       help_text_1: This is only for for legal representation for an immigration or asylum matter in the Immigration and Asylum Chamber of the Upper Tribunal, including in relation to an appeal or review from the Immigration and Asylum Chamber of the First-tier Tribunal.
