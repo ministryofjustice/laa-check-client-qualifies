@@ -18,4 +18,4 @@ jobs:
           docker build -f ./Dockerfile_browser_tools.dockerfile . -t checkclientqualifiesdocker/circleci-image:latest_test_img
       - name: Push the Docker image
         run: |
-          docker push checkclientqualifiesdocker/circleci-image:latest
+          docker push checkclientqualifiesdocker/circleci-image:latest_test_img
