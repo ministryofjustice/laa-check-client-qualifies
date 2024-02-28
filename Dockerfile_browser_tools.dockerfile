@@ -10,6 +10,6 @@ RUN sudo add-apt-repository --yes ppa:malteworld/ppa
 RUN sudo apt install pdftk --allow-unauthenticated
 
 # Install Puppeteer via Yarn
-RUN yarn add puppeteer@22.2.0
+RUN yarn add puppeteer
 
 COPY . .
