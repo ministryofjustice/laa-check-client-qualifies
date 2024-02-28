@@ -104,7 +104,7 @@ RUN apk add --no-cache \
         yarn
 
 # Install latest version of Puppeteer
-RUN yarn add puppeteer@22.1.0
+RUN yarn add puppeteer@22.2.0
 
 # Copy files generated in the builder images
 COPY --from=builder /app /app
