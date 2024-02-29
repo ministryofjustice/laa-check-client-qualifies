@@ -97,21 +97,16 @@ RUN apk add --no-cache libpq postgresql-client
 RUN apk add --no-cache \
         nss \
         chromium \
-        build-base gcompat \
-        musl \
         freetype \
         harfbuzz \
         ca-certificates \
         ttf-freefont \
         nodejs \
-        yarn \
-        npm
+        yarn
 
-# Install Puppeteer via Yarn
-RUN yarn add puppeteer@22.3.0
-
-# Install Chrome using Puppeteer command
-RUN npx puppeteer browsers install chrome
+# Tell Puppeteer to skip installing Chrome. We'll be using the installed package.
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
 # Copy files generated in the builder images
 COPY --from=builder /app /app
