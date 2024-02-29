@@ -1211,6 +1211,7 @@ en:
       select_frequency: When does your client normally get this benefit?
       add: Add another benefit
       removed: Benefit removed
+      aria_description_for_input_field: When autocomplete results are available use up and down arrows to review and enter to select. Touch device users, explore by touch or with swipe gestures.
     partner_benefits:
       legend: Does the partner get any benefits?
     partner_benefit_details:

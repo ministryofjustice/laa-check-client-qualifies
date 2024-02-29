@@ -1,6 +1,8 @@
 *.log
 .byebug_history
 .env
+.env.*
+!.env.sample
 .github
 .yarn-integrity
 config/master.key
