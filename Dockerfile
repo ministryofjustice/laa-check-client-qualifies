@@ -3,7 +3,7 @@
 # production: runs the actual app
 
 # Build builder image
-FROM ruby:3.2.2-alpine as builder
+FROM ruby:3.2.3-alpine3.19 as builder
 
 # RUN apk -U upgrade && \
 #     apk add --update --no-cache gcc git libc6-compat libc-dev make nodejs \
@@ -79,7 +79,7 @@ RUN curl https://gitlab.com/api/v4/projects/5024297/packages/generic/pdftk-java/
 
 
 # Build runtime image
-FROM ruby:3.2.2-alpine as production
+FROM ruby:3.2.3-alpine3.19 as production
 
 # The application runs from /app
 WORKDIR /app
