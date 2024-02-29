@@ -112,9 +112,6 @@ ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 COPY --from=builder /app /app
 COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
 COPY --from=pdftkbuilder /build/pdftk /usr/bin/pdftk
-COPY --from=builder /root/.cache/puppeteer /.cache/puppeteer
-
-RUN chown -R 1000:1000 /.cache
 
 USER 1000
 
