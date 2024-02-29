@@ -108,6 +108,9 @@ RUN apk add --no-cache \
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
+# Install latest version of Puppeteer that works with Chromium 108
+RUN yarn add puppeteer@22.1.0
+
 # Copy files generated in the builder images
 COPY --from=builder /app /app
 COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
