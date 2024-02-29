@@ -98,6 +98,7 @@ RUN apk add --no-cache \
         nss \
         chromium \
         build-base gcompat \
+        musl \
         freetype \
         harfbuzz \
         ca-certificates \
