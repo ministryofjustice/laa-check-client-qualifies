@@ -107,6 +107,9 @@ RUN apk add --no-cache \
 # Install Puppeteer via Yarn
 RUN yarn add puppeteer@22.3.0
 
+# Install Chrome using Puppeteer command
+RUN npx puppeteer browsers install chrome
+
 # Move Chrome download to where it does get persisted as per this: https://www.zachleat.com/web/chromium-missing/
 ENV PUPPETEER_CACHE_DIR=~/.cache/puppeteer
 
