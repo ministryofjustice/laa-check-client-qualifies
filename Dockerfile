@@ -116,6 +116,8 @@ COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
 COPY --from=pdftkbuilder /build/pdftk /usr/bin/pdftk
 COPY --from=builder /root/.cache/puppeteer /.cache/puppeteer
 
+RUN chown -R appuser:appgroup /.cache
+
 USER 1000
 
 CMD ["docker/run"]
