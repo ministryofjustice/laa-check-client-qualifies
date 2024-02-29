@@ -114,7 +114,7 @@ RUN npx puppeteer browsers install chrome
 COPY --from=builder /app /app
 COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
 COPY --from=pdftkbuilder /build/pdftk /usr/bin/pdftk
-COPY --from=extended /root/.cache/puppeteer /.cache/puppeteer
+COPY --from=builder /root/.cache/puppeteer /.cache/puppeteer
 
 USER 1000
 
