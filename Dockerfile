@@ -96,6 +96,7 @@ RUN apk add --no-cache libpq postgresql-client
 # Installs latest Chromium package available on Alpine
 RUN apk add --no-cache \
         nss \
+        chromium \
         freetype \
         harfbuzz \
         ca-certificates \
