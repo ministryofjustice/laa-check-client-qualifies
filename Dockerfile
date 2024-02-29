@@ -110,13 +110,11 @@ RUN yarn add puppeteer@22.3.0
 # Install Chrome using Puppeteer command
 RUN npx puppeteer browsers install chrome
 
-# Move Chrome download to where it does get persisted as per this: https://www.zachleat.com/web/chromium-missing/
-ENV PUPPETEER_CACHE_DIR=~/.cache/puppeteer
-
 # Copy files generated in the builder images
 COPY --from=builder /app /app
 COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
 COPY --from=pdftkbuilder /build/pdftk /usr/bin/pdftk
+COPY --from=extended /root/.cache/puppeteer /.cache/puppeteer
 
 USER 1000
 
