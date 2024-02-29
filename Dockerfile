@@ -97,7 +97,6 @@ RUN apk add --no-cache libpq postgresql-client
 RUN apk add --no-cache \
         nss \
         chromium \
-        libc6-compat \
         freetype \
         harfbuzz \
         ca-certificates \
