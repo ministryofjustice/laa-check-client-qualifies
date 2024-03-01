@@ -99,7 +99,6 @@ RUN apk add --no-cache \
         --upgrade \
         nss \
         chromium \
-        chromium-browser \
         freetype \
         harfbuzz \
         ca-certificates \
