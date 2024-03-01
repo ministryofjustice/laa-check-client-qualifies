@@ -95,8 +95,11 @@ RUN apk add --no-cache libpq postgresql-client
 # Install Chromium and Puppeteer for PDF generation
 # Installs latest Chromium package available on Alpine
 RUN apk add --no-cache \
+        --update \
+        --upgrade \
         nss \
         chromium \
+        chromium-browser \
         freetype \
         harfbuzz \
         ca-certificates \
