@@ -19,6 +19,8 @@ executors:
           PGHOST: localhost
           PGUSER: user
           TZ: "Europe/London"
+          PARALLEL_TEST_PROCESSORS: 3
+          PARALLEL_TEST_FIRST_IS_1: true
       - image: cimg/postgres:11.21
         environment:
           POSTGRES_USER: user
@@ -81,6 +83,12 @@ references:
         bundle exec rake db:create db:schema:load
         bundle exec rake db:migrate
 
+  setup_parallel_database: &setup_parallel_database
+    run:
+      name: Parallel Database Setup
+      command: |
+        bundle exec rake parallel:setup
+
 orbs:
   aws-cli: circleci/aws-cli@4.1.2
   aws-ecr: circleci/aws-ecr@9.0.1
@@ -137,22 +145,17 @@ jobs:
           template: basic_fail_1
           branch_pattern: main
   run_specs:
-    parallelism: 3
     executor: test-executor
     steps:
       - checkout
       - attach_workspace:
           at: ./
-      - *setup_database
+      - *setup_parallel_database
       - run:
           name: Run tests
           command: |
-            TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings --timings-type=filename)
-            echo "${TESTFILES}"
-            bundle exec rspec --format progress \
-            --format RspecJunitFormatter \
-            -o /tmp/test-results/rspec/rspec.xml \
-            -- ${TESTFILES}
+            bundle exec parallel_rspec -- --format progress \
+            -- spec/
 
       - store_test_results:
           path: /tmp/test-results/rspec
@@ -166,6 +169,7 @@ jobs:
           root: ./
           paths:
             - coverage_results
+            - tmp/parallel_runtime_rspec.log
 
       - store_artifacts:
           path: coverage

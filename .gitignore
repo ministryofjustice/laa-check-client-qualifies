@@ -26,6 +26,7 @@ log/
 .env.*
 .env
 !.env.sample
+!.env.test
 
 # Ignore puppeteer cache
 .cache

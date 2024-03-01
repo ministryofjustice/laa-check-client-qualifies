@@ -24,11 +24,15 @@ RSpec.describe "Feedback component" do
         expect(page).to have_content("Were you satisfied with this service?")
         click_on "Yes"
         expect(page).to have_content("Your response has been sent, please tell us more")
+        # TODO - temp fix for parallel running
+        sleep 1
         stored_data = SatisfactionFeedback.find_by(satisfied: "yes", outcome: "eligible", level_of_help: "controlled")
         expect(stored_data).not_to be_nil
         fill_in "comment-field", with: "some feedback!"
         click_on "Send"
         expect(page).to have_content("Thank you for your feedback")
+        # TODO - temp fix for parallel running
+        sleep 1
         expect(stored_data.reload.comment).to eq "some feedback!"
       end
     end
@@ -45,6 +49,8 @@ RSpec.describe "Feedback component" do
           fill_in "freetext-input-field", with: "some feedback!"
           click_on "Send"
           expect(page).to have_content("Thank you for your feedback")
+          # TODO - temp fix for parallel running
+          sleep 1
           expect(FreetextFeedback.find_by(text: "some feedback!", page: "check_answers_checks", level_of_help: "certificated")).not_to be_nil
         end
 

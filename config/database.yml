@@ -10,7 +10,7 @@ development:
 
 test:
   <<: *default
-  database: ccq_test
+  database: ccq_test<%= ENV['TEST_ENV_NUMBER'] %>
 
 production:
   <<: *default
