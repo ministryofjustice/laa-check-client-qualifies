@@ -1,15 +1,15 @@
 - data = @model.summary_data(section)
 - status = data.status.dasherize
-- igi = data.ineligible_gross_income == "gross"
+- early_result = data.ineligible_gross_income == "gross" && section != :gross_income
 
-- unless igi && section != :gross_income
+- unless early_result
   - total_calc = @model.send("total_calculated_#{section}")
 
-. class="summary-box summary-box-#{igi && section != :gross_income ? "eligible" : status}"
+. class="summary-box summary-box-#{early_result ? "eligible" : status}"
   p.govuk-body-l class="govuk-!-margin-bottom-0" = t("results.show.section_summaries.heading.#{section}")
   h3.govuk-heading-l class="govuk-!-margin-bottom-2 govuk-!-margin-top-0" = total_calc
 
-  - if igi && section != :gross_income
+  - if early_result
     .govuk-tag
       = t("results.show.section_summaries.not_assessed")
   - elsif data.status == "ineligible"
@@ -30,7 +30,7 @@
                     else
                       t("results.show.section_summaries.matter_types.none")
                     end
-    - if igi && section != :gross_income
+    - if early_result
       => t("results.show.section_summaries.texts.not_assessed_desc")
     - else
       => t("results.show.section_summaries.texts.#{section}.#{data.status}#{upper_snippet}#{lower_snippet}",

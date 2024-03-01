@@ -10,7 +10,6 @@ class ResultsController < ApplicationController
     @model = CalculationResult.new(session_data)
     track_completed_journey(@model)
     track_page_view(page: :view_results)
-    @ineligible_gross_income = session_data.fetch("early_eligibility_selection", nil).nil? ? false : true
     @journey_continues_on_another_page = @check.controlled? && @model.decision == "eligible"
     @feedback = @journey_continues_on_another_page ? :freetext : :satisfaction
   end
