@@ -2262,7 +2262,9 @@ en:
           capital: Disposable capital
         contribution_needed: Contribution needed
         exceeds_upper_limit: Exceeds upper limit
+        not_assessed: Not assessed
         texts:
+          not_assessed_desc: This was not assessed because it would not change the overall result
           gross_income:
             eligible: Your client’s total is below the gross monthly income upper limit (%{upper_threshold}).
             eligible_no_upper_threshold: There is no gross monthly income limit in %{matter_type} matters.
