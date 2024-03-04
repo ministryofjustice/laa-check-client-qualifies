@@ -77,11 +77,12 @@ def fill_in_asylum_support_screen(choice: "No")
   click_on "Save and continue"
 end
 
-def fill_in_applicant_screen(choices = {})
+def fill_in_applicant_screen(partner: "No", passporting: "No")
   confirm_screen "applicant"
 
-  choose choices.fetch(:partner, "No"), name: "applicant_form[partner]"
-  choose choices.fetch(:passporting, "No"), name: "applicant_form[passporting]"
+  choose partner, name: "applicant_form[partner]"
+  choose passporting, name: "applicant_form[passporting]"
+
   click_on "Save and continue"
 end
 

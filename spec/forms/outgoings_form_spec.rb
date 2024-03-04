@@ -13,7 +13,7 @@ RSpec.describe "outgoings", type: :feature do
 
   context "when level of help is 'certificated'" do
     it "shows default guidance text" do
-      expect(page).to have_content "Guidance on outgoings"
+      expect(page).to have_content "Determining outgoings"
     end
   end
 
@@ -21,7 +21,7 @@ RSpec.describe "outgoings", type: :feature do
     let(:level_of_help) { "controlled" }
 
     it "shows alternative guidance" do
-      expect(page).to have_content "Guidance on determining disposable income"
+      expect(page).to have_content "Determining disposable income"
     end
   end
 

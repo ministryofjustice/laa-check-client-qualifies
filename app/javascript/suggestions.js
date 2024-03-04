@@ -1,8 +1,5 @@
-// [change: commented out all polyfills imports]
-// import 'govuk-frontend/vendor/polyfills/Function/prototype/bind'
-// addEventListener, event.target normalization and DOMContentLoaded
-// import '../../vendor/polyfills/Event'
-// import '../../vendor/polyfills/Element/prototype/classList'
+// CCQ based this component on Crime Apply implementation: https://github.com/ministryofjustice/laa-apply-for-criminal-legal-aid/blob/main/app/javascript/local/suggestions.js
+// Crime Apply based their implementation on a GDS component called 'input with suggestions', which was not merged into govuk-frontend: https://github.com/alphagov/govuk-frontend/pull/2453
 
 function Input ($module) {
   this.$module = $module
@@ -17,7 +14,7 @@ Input.prototype.init = function () {
     this.suggestions = document.getElementById(suggestionsSourceId)
 
     this.$formGroup.setAttribute('role', 'combobox')
-    this.$formGroup.setAttribute('aria-owns', this.$module.getAttribute('id'))
+    // this.$formGroup.setAttribute('aria-owns', this.$module.getAttribute('id')) [change: as per accessibility report, have removed setting the aria-owns here, as it is already added to the input field]
     this.$formGroup.setAttribute('aria-haspopup', 'listbox')
     this.$formGroup.setAttribute('aria-expanded', 'false')
 
@@ -102,19 +99,10 @@ Input.prototype.updateSuggestionsWithOptions = function (options) {
     li.textContent = option.textContent
     li.setAttribute('role', 'option')
     li.setAttribute('tabindex', '-1')
-    li.setAttribute('aria-selected', option.value === this.$module.value)
+    // li.setAttribute('aria-selected', option.value === this.$module.value) [change: as per accessibility report, have removed setting this aria attribute, so that screen reader's do not announce this is as 'not selected' when receiving focus]
     li.setAttribute('data-value', option.value)
     li.setAttribute('class', 'govuk-input__suggestion')
     // li.addEventListener('mouseenter', this.handleMouseEntered.bind(this))
-
-    // [change: support captions]
-    if (option.dataset.caption) {
-      var caption = document.createElement('span')
-      caption.textContent = option.dataset.caption
-      caption.setAttribute('class', 'govuk-input__suggestion-caption')
-      li.append(caption)
-    }
-
     this.$ul.appendChild(li)
   }
 
@@ -125,12 +113,6 @@ Input.prototype.updateSuggestionsWithOptions = function (options) {
 
 Input.prototype.handleSuggestionClicked = function (event) {
   var suggestionClicked = event.target
-
-  // [change: support captions]
-  if (suggestionClicked.tagName !== 'li') {
-    suggestionClicked = suggestionClicked.closest('li')
-  }
-
   this.selectSuggestion(suggestionClicked)
 }
 
