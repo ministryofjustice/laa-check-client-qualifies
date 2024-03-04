@@ -15,7 +15,7 @@ class ChangeAnswersController < QuestionFlowController
           if non_finance_step?(step)
             if last_non_finance_step?(last_step_with_data) && CfeService.result(session_data, completed_steps).ineligible_gross_income?
               next_step = nil
-            elsif next_step.present?
+            elsif next_step.present? && !non_finance_step?(next_step)
               flash[:notice] = I18n.t("service.change_eligibility")
             end
           else
