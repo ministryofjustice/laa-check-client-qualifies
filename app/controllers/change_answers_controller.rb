@@ -13,10 +13,13 @@ class ChangeAnswersController < QuestionFlowController
           last_step_with_data = Steps::Helper.last_step_with_valid_data(session_data)
           completed_steps = Steps::Helper.completed_steps_for(session_data, last_step_with_data)
           if non_finance_step?(step)
-            if last_non_finance_step?(last_step_with_data) && CfeService.result(session_data, completed_steps).ineligible_gross_income?
-              next_step = nil
-            elsif next_step.present? && !non_finance_step?(next_step)
-              flash[:notice] = I18n.t("service.change_eligibility")
+            if last_non_finance_step?(last_step_with_data)
+              cfe_result = CfeService.result(session_data, completed_steps)
+              if cfe_result.ineligible_gross_income?
+                next_step = nil
+              elsif next_step.present? && !non_finance_step?(next_step)
+                flash[:notice] = I18n.t("service.change_eligibility")
+              end
             end
           else
             cfe_result = CfeService.result(session_data, completed_steps)
