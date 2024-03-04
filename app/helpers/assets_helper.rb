@@ -12,7 +12,7 @@ module AssetsHelper
 
     return links unless check.smod_applicable?
 
-    links.merge({ t("generic.smod.guidance.text") => document_link(:"lc_guidance_#{check.level_of_help}", :smod) })
+    links.merge({ t("generic.smod.guidance.#{check.level_of_help}_text") => document_link(:"lc_guidance_#{check.level_of_help}", :smod) })
   end
 
   def partner_assets_links(check)

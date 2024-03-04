@@ -33,14 +33,14 @@ RSpec.describe "applicant", type: :feature do
 
   it "shows help text about prisons" do
     expect(page).to have_content "for example one of them is in prison"
-    expect(page).to have_content "Guidance on prisoners"
+    expect(page).to have_content "Prisoners (PDF, 918KB)"
   end
 
   context "when the level of help is controlled" do
     let(:level_of_help) { "controlled" }
 
     it "does not show guidance link" do
-      expect(page).not_to have_content "Guidance on prisoners"
+      expect(page).not_to have_content "Prisoners (PDF, 918KB)"
     end
   end
 end

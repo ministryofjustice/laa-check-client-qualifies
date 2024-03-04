@@ -1,7 +1,7 @@
 module ApplicantHelper
   def applicant_links(check)
     links = {
-      t("question_flow.applicant.passporting_guidance.text") => document_link("lc_guidance_#{check.level_of_help}", :passporting_benefit),
+      t("question_flow.applicant.passporting_guidance.#{check.level_of_help}_text") => document_link("lc_guidance_#{check.level_of_help}", :passporting_benefit),
     }
 
     return links if check.controlled?
