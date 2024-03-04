@@ -83,7 +83,7 @@ references:
 
 orbs:
   aws-cli: circleci/aws-cli@4.1.2
-  aws-ecr: circleci/aws-ecr@9.0.1
+  aws-ecr: circleci/aws-ecr@9.0
   jira: circleci/jira@2.1.0
   slack: circleci/slack@4.5.2
 
