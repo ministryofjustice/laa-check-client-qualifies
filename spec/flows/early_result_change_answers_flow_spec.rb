@@ -244,6 +244,7 @@ RSpec.describe "Change answers after early result", :early_eligibility_flag, typ
       fill_in_applicant_screen(passporting: "No")
       expect(page).not_to have_selector(".govuk-notification-banner")
       fill_in_dependant_details_screen
+      expect(page).not_to have_selector(".govuk-notification-banner")
       fill_in_employment_status_screen
       fill_in_benefits_screen
       fill_in_other_income_screen
