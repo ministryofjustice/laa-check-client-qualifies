@@ -906,6 +906,7 @@ en:
         text: "Guidance on 60 or over disregard (pensioner disregard)"
       heading: Tell us about your client
       partner:
+        definition: Help with definition of a partner
         legend: Does your client have a partner?
         hint_text: "A partner is someone your client is:"
         hint_list:
@@ -924,6 +925,7 @@ en:
         legend: What is your client's employment status?
         hint: "You cannot use this service if your client, or their partner, is self-employed."
       passporting:
+        definition: Help with passporting benefits
         legend: Does your client receive a passporting benefit?
         partner_hint: Also select yes if your client is named on their partner’s passporting benefit claim.
         hint: "They will not need an income assessment if they receive any of these passporting benefits:"
