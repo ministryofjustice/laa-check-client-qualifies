@@ -41,7 +41,7 @@ RUN bundler -v && \
 
 # Install node packages defined in package.json
 COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile --check-files --prod
+RUN yarn install --frozen-lockfile --prod
 RUN npx puppeteer browsers install chrome
 
 # Copy all files to /app (except what is defined in .dockerignore)
