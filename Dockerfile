@@ -26,7 +26,7 @@ RUN adduser --uid 1000 --system appuser --gid 1000
 #RUN apk add --no-cache build-base yarn postgresql13-dev git
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor -o /usr/share/keyrings/yarn-archive-keyring.gpg
 RUN echo "deb [signed-by=/usr/share/keyrings/yarn-archive-keyring.gpg] https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-RUN apt update && apt install -y yarn nodejs git
+RUN apt update && apt install -y yarn nodejs git npm
 
 # Install gems defined in Gemfile
 COPY .ruby-version Gemfile Gemfile.lock ./
@@ -42,6 +42,7 @@ RUN bundler -v && \
 # Install node packages defined in package.json
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile --check-files --prod
+RUN npx puppeteer browsers install chrome
 
 # Copy all files to /app (except what is defined in .dockerignore)
 COPY . .
@@ -96,6 +97,9 @@ WORKDIR /app
 #RUN apk add --no-cache libpq postgresql-client
 RUN apt update
 RUN apt install -y postgresql-client nodejs fonts-freefont-ttf libharfbuzz-bin nss-tlsd
+
+COPY --from=builder /root/.cache/puppeteer /.cache/puppeteer
+RUN chown -R 1000:1000 /.cache
 
 # Install Chromium and Puppeteer for PDF generation
 # Installs latest Chromium package available on Alpine (Chromium 108)
