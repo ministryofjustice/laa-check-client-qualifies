@@ -7,7 +7,6 @@
 .yarn-integrity
 config/master.key
 log
-node_modules
 public/assets
 public/packs
 public/packs-test
