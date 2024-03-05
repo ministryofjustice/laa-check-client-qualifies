@@ -1248,13 +1248,13 @@ en:
       second_caption: Enter 0 for any that do not apply
       friends_or_family:
         question: Does your client get financial help from friends or family?
-        question_hint: For example, money from a family member for rent or bills
+        question_hint: For example, money from a family member for rent or bills.
         label: Financial help from friends or family
         hint: For example, money from a family member for rent or bills. Enter 0 if this does not apply
         instruction: Enter amount
       maintenance:
         question: Does your client get maintenance from a former partner?
-        question_hint: This includes child maintenance
+        question_hint: This includes child maintenance.
         label: Maintenance payments from a former partner
         hint: This includes child maintenance. Enter 0 if this does not apply
         instruction: Enter amount
@@ -1266,7 +1266,7 @@ en:
         instruction: Enter amount
       pension:
         question: Does your client get income from pensions?
-        question_hint: Include the total value of any pensions, including State Pension, workplace and personal pensions
+        question_hint: Include the total value of any pensions, including State Pension, workplace and personal pensions.
         label: Pensions
         hint: Include the total value of any pensions, including State Pension, workplace and personal pensions. Enter 0 if this does not apply.
         instruction: Enter total value of any pensions
@@ -1298,13 +1298,13 @@ en:
       second_caption: Do not add any income you've listed as other income for the client. Enter 0 for any that do not apply.
       friends_or_family:
         question: Does the partner get financial help from friends or family?
-        question_hint: For example, money from a family member for rent or bills
+        question_hint: For example, money from a family member for rent or bills.
         label: Financial help from friends or family
         hint: For example, money from a family member for rent or bills. Enter 0 if this does not apply.
         instruction: Enter amount
       maintenance:
         question: Does the partner get maintenance from a former partner?
-        question_hint: This includes child maintenance
+        question_hint: This includes child maintenance.
         label: Maintenance payments from a former partner
         hint: This includes child maintenance. Enter 0 if this does not apply.
         instruction: Enter amount
@@ -1316,7 +1316,7 @@ en:
         instruction: Enter amount
       pension:
         question: Does the partner get income from pensions?
-        question_hint: Include the total value of any pensions, including State Pension, workplace and personal pensions
+        question_hint: Include the total value of any pensions, including State Pension, workplace and personal pensions.
         label: Pensions
         hint: Include the total value of any pensions, including State Pension, workplace and personal pensions. Enter 0 if this does not apply.
         instruction: Enter total value of any pensions
@@ -1341,7 +1341,7 @@ en:
       second_caption: Enter 0 for any that do not apply
       childcare_payments:
         question: Does your client pay for childcare?
-        question_hint: For example, to a childminder, nanny or nursery
+        question_hint: For example, to a childminder, nanny or nursery.
         label: Childcare payments
         hints:
           - "For example, to a childminder, nanny or nursery. Enter 0 if this does not apply."
@@ -1378,13 +1378,13 @@ en:
       second_caption: Do not add any outgoings you've listed as outgoings for the client. Enter 0 for any that do not apply.
       childcare_payments:
         question: Does the partner pay for childcare?
-        question_hint: For example, to a childminder, nanny or nursery
+        question_hint: For example, to a childminder, nanny or nursery.
         label: Childcare payments
         hints:
           - "For example, to a childminder, nanny or nursery. Enter 0 if this does not apply"
       maintenance_payments:
         question: Does the partner pay maintenance to a former partner?
-        question_hint: This includes child maintenance
+        question_hint: This includes child maintenance.
         label: Maintenance payments to a former partner
         hints:
           - "This includes child maintenance. Enter 0 if this does not apply"
