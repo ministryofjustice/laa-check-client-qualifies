@@ -3,7 +3,7 @@
 # production: runs the actual app
 
 # Build builder image
-FROM ruby:3.2.2-alpine as builder
+FROM ruby:3.2.2-bookworm as builder
 
 # RUN apk -U upgrade && \
 #     apk add --update --no-cache gcc git libc6-compat libc-dev make nodejs \
@@ -11,19 +11,22 @@ FROM ruby:3.2.2-alpine as builder
 
 WORKDIR /app
 
-RUN addgroup -g 1000 -S appgroup \
-  && adduser -u 1000 -S appuser -G appgroup
+RUN addgroup --gid 1000 --system appgroup
+RUN adduser --uid 1000 --system appuser --gid 1000
 
 # Add the timezone (builder image) as it's not configured by default in Alpine
-RUN apk add --update --no-cache tzdata && \
-    cp /usr/share/zoneinfo/Europe/London /etc/localtime && \
-    echo "Europe/London" > /etc/timezone
+#RUN apt get --update --no-cache tzdata && \
+#    cp /usr/share/zoneinfo/Europe/London /etc/localtime && \
+#    echo "Europe/London" > /etc/timezone
 
 # build-base: dependencies for bundle
 # yarn: node package manager
 # postgresql-dev: postgres driver and libraries
 # git: to allow us to create the VERSION file
-RUN apk add --no-cache build-base yarn postgresql13-dev git
+#RUN apk add --no-cache build-base yarn postgresql13-dev git
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor -o /usr/share/keyrings/yarn-archive-keyring.gpg
+RUN echo "deb [signed-by=/usr/share/keyrings/yarn-archive-keyring.gpg] https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+RUN apt update && apt install -y yarn nodejs git
 
 # Install gems defined in Gemfile
 COPY .ruby-version Gemfile Gemfile.lock ./
@@ -79,37 +82,39 @@ RUN curl https://gitlab.com/api/v4/projects/5024297/packages/generic/pdftk-java/
 
 
 # Build runtime image
-FROM ruby:3.2.2-alpine as production
+FROM ruby:3.2.2-slim-bookworm as production
 
 # The application runs from /app
 WORKDIR /app
 
 # Add the timezone (prod image) as it's not configured by default in Alpine
-RUN apk add --update --no-cache tzdata && \
-    cp /usr/share/zoneinfo/Europe/London /etc/localtime && \
-    echo "Europe/London" > /etc/timezone
+#RUN apk add --update --no-cache tzdata && \
+#    cp /usr/share/zoneinfo/Europe/London /etc/localtime && \
+#    echo "Europe/London" > /etc/timezone
 
 # libpq: required to run postgres
-RUN apk add --no-cache libpq postgresql-client
+#RUN apk add --no-cache libpq postgresql-client
+RUN apt update
+RUN apt install -y postgresql-client
 
 # Install Chromium and Puppeteer for PDF generation
 # Installs latest Chromium package available on Alpine (Chromium 108)
-RUN apk add --no-cache \
-        chromium \
-        nss \
-        freetype \
-        harfbuzz \
-        ca-certificates \
-        ttf-freefont \
-        nodejs \
-        yarn
+#RUN apk add --no-cache \
+#        chromium \
+#        nss \
+#        freetype \
+#        harfbuzz \
+#        ca-certificates \
+#        ttf-freefont \
+#        nodejs \
+#        yarn
 
 # Tell Puppeteer to skip installing Chrome. We'll be using the installed package.
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
-ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+#ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+#ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
 # Install latest version of Puppeteer that works with Chromium 108
-RUN yarn add puppeteer@19.2.0
+#RUN yarn add puppeteer@19.2.0
 
 # Copy files generated in the builder images
 COPY --from=builder /app /app
