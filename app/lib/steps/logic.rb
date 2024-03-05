@@ -145,10 +145,6 @@ module Steps
       def check_stops_at_gross_income?(session_data)
         session_data[IneligibleGrossIncomeForm::SELECTION] == IneligibleGrossIncomeForm::VALID_OPTIONS[:gross]
       end
-
-      def data_stops_before_outgoings?(session_data)
-        !session_data.key?(IneligibleGrossIncomeForm::SELECTION) || check_stops_at_gross_income?(session_data)
-      end
     end
   end
 end
