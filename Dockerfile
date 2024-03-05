@@ -95,7 +95,7 @@ WORKDIR /app
 # libpq: required to run postgres
 #RUN apk add --no-cache libpq postgresql-client
 RUN apt update
-RUN apt install -y postgresql-client
+RUN apt install -y postgresql-client nodejs
 
 # Install Chromium and Puppeteer for PDF generation
 # Installs latest Chromium package available on Alpine (Chromium 108)
