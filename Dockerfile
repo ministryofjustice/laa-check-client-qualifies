@@ -94,7 +94,8 @@ WORKDIR /app
 
 RUN apt update
 # possibly don't need to specify all these sub-dependencies any more...
-RUN apt install -y postgresql-client nodejs fonts-freefont-ttf libharfbuzz-bin nss-tlsd pdftk
+# probably need ca-certificates so that chromium can talk to something
+RUN apt install -y postgresql-client nodejs fonts-freefont-ttf libharfbuzz-bin nss-tlsd pdftk ca-certificates
 #RUN apt install -y libatk1.0-0 libatk-bridge2.0-0 libdrm-common
 # install all chromium's dependencies, but then remove chromium itself as we will be installing via puppeteer
 RUN apt install -y chromium
