@@ -645,6 +645,7 @@ en:
     save_and_continue: Save and continue
     check_answers: Check answers
     return_to_check: Return to check
+    flash_banner_title: Important
     change: Change
     level_of_help:
       text: Level of help

@@ -18,6 +18,7 @@ class ChangeAnswersController < QuestionFlowController
               if cfe_result.ineligible_gross_income?
                 next_step = nil
               elsif next_step.present? && !non_finance_step?(next_step) && Steps::Logic.check_stops_at_gross_income?(session_data)
+                session_data.delete IneligibleGrossIncomeForm::SELECTION
                 flash[:notice] = I18n.t("service.change_eligibility")
               end
             end
