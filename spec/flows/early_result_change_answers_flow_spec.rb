@@ -96,6 +96,26 @@ RSpec.describe "Change answers after early result", :early_eligibility_flag, typ
         expect(page).to have_selector(".govuk-notification-banner")
         expect(page).to have_content(eligibility_banner_content)
       end
+
+      context "when level of help and matter type changes to certificated and DA is yes", :outgoings_flow_flag do
+        let(:level_of_help) { "Civil controlled work or family mediation" }
+
+        it "only displays flash message once" do
+          within "#table-level_of_help" do
+            click_on "Change"
+          end
+          fill_in_level_of_help_screen(choice: "Civil certificated or licensed legal work")
+          fill_in_domestic_abuse_applicant_screen(choice: "Yes")
+          confirm_screen("outgoings")
+          expect(page).to have_selector(".govuk-notification-banner")
+          expect(page).to have_content(eligibility_banner_content)
+          fill_in_outgoings_screen
+          click_on "Save and continue"
+          confirm_screen("property")
+          expect(page).not_to have_selector(".govuk-notification-banner")
+          expect(page).not_to have_content(eligibility_banner_content)
+        end
+      end
     end
 
     context "with an early ineligible gross income result and direct journey to check answers, that remains ineligible" do

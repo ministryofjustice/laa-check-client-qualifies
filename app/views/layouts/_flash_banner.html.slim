@@ -1,6 +1,6 @@
 - flash.each do |type, msg|
   .govuk-notification-banner role="region"
     .govuk-notification-banner__header
-      h2.govuk-notification-banner__title = type.humanize
+      h2.govuk-notification-banner__title = type == "notice" ? t("generic.flash_banner_title") : type.humanize
     .govuk-notification-banner__content
       p.govuk-notification-banner__heading = msg
