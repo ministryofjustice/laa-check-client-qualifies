@@ -4,7 +4,6 @@
 .env.*
 !.env.sample
 .github
-.git
 .yarn-integrity
 config/master.key
 log
