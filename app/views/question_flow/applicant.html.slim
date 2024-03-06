@@ -4,15 +4,23 @@
   = back_link(@previous_step, @back_buttons_invoke_browser_back_behaviour)
 
 - content_for :partner_hint
-  p.govuk-hint = t(".partner.hint_text")
-  ul.govuk-list.govuk-list--bullet
-    - t(".partner.hint_list").each
-      li.govuk-hint = _1
-    li.govuk-hint = t(".partner.last_hint")
-  p.govuk-hint = t(".partner.partner_additional.hint_text")
-  ul.govuk-list.govuk-list--bullet
-    - t(".partner.partner_additional.hint_list").each
-      li.govuk-hint = _1
+  = govuk_details(summary_text: t(".partner.definition"))
+    p.govuk-hint = t(".partner.hint_text")
+    ul.govuk-list.govuk-list--bullet
+      - t(".partner.hint_list").each
+        li.govuk-hint = _1
+      li.govuk-hint = t(".partner.last_hint")
+    p.govuk-hint = t(".partner.partner_additional.hint_text")
+    ul.govuk-list.govuk-list--bullet
+      - t(".partner.partner_additional.hint_list").each
+        li.govuk-hint = _1
+
+- content_for :passporting_hint
+  = govuk_details(summary_text: t(".passporting.definition"))
+    p.govuk-hint = t(".passporting.hint")
+    ul.govuk-list.govuk-list--bullet
+      - t(".passporting.valid_benefits").each
+        li.govuk-hint = _1
 
 .govuk-grid-column-two-thirds
   = form_for(@form, url: request.path, method: :put) do |form|
@@ -28,15 +36,7 @@
 
     = form.govuk_collection_radio_buttons :passporting, yes_no_options, :first, :last,
                                           legend: { text: t(".passporting.legend") },
-                                          hint: lambda { \
-                                                  tag.p(t(".passporting.hint"), class: "govuk-hint") + \
-                                                  tag.ul(class: "govuk-list govuk-list--bullet") do \
-                                                    t(".passporting.valid_benefits").map { |benefit| \
-                                                      tag.li(benefit, class: "govuk-hint") \
-                                                    }.join.html_safe \
-                                                   end + \
-                                                  tag.p(t(".passporting.partner_hint"), class: "govuk-hint") \
-                                                }
+                                          hint: -> { content_for(:passporting_hint) }
 
     = form.govuk_submit t("generic.save_and_continue")
 = render "shared/question_sidebar", \
