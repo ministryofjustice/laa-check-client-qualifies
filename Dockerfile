@@ -26,7 +26,7 @@ RUN adduser --uid 1000 --system appuser --gid 1000
 #RUN apk add --no-cache build-base yarn postgresql13-dev git
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor -o /usr/share/keyrings/yarn-archive-keyring.gpg
 RUN echo "deb [signed-by=/usr/share/keyrings/yarn-archive-keyring.gpg] https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-RUN apt update && apt install -y yarn nodejs git npm libatk1.0-0
+RUN apt update && apt install -y yarn nodejs git npm
 
 # Install gems defined in Gemfile
 COPY .ruby-version Gemfile Gemfile.lock ./
@@ -95,7 +95,7 @@ WORKDIR /app
 # libpq: required to run postgres
 #RUN apk add --no-cache libpq postgresql-client
 RUN apt update
-RUN apt install -y postgresql-client nodejs fonts-freefont-ttf libharfbuzz-bin nss-tlsd pdftk
+RUN apt install -y postgresql-client nodejs fonts-freefont-ttf libharfbuzz-bin nss-tlsd pdftk libatk1.0-0
 
 COPY --from=builder /root/.cache/puppeteer /.cache/puppeteer
 RUN chown -R 1000:1000 /.cache
