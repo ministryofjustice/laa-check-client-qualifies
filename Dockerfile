@@ -55,7 +55,7 @@ RUN RAILS_ENV=production SECRET_KEY_BASE=required-to-run-but-not-used \
     bundle exec rails assets:precompile
 
 # Cleanup to save space in the production image
-RUN rm -rf node_modules log/* tmp/* /tmp && \
+RUN rm -rf log/* tmp/* /tmp && \
     rm -rf /usr/local/bundle/cache && \
     rm -rf .env && \
     rm -rf .git && \
