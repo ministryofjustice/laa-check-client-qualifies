@@ -125,6 +125,10 @@ COPY --from=builder /app /app
 COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
 #COPY --from=pdftkbuilder /build/pdftk /usr/bin/pdftk
 
+# make a config directory in $HOME
+RUN mkdir -p /.config/chromium
+RUN chown -R 1000:1000 /.config
+
 RUN mkdir /.cache
 COPY --from=builder /root/.cache/puppeteer /.cache/puppeteer
 RUN chown -R 1000:1000 /.cache
