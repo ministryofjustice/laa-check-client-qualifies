@@ -21,7 +21,6 @@
     ul.govuk-list.govuk-list--bullet
       - t(".passporting.valid_benefits").each
         li.govuk-hint = _1
-    p.govuk-hint = t(".passporting.partner_hint")
 
 .govuk-grid-column-two-thirds
   = form_for(@form, url: request.path, method: :put) do |form|
