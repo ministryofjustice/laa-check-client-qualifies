@@ -5,8 +5,8 @@
 - unless early_result
   - total_calc = @model.send("total_calculated_#{section}")
 
-. class="summary-box summary-box-#{early_result ? "eligible" : status}"
-  p.govuk-body-l class="govuk-!-margin-bottom-0" = t("results.show.section_summaries.heading.#{section}")
+. class="summary-box summary-box-#{early_result ? "not-assessed" : status}"
+  p.govuk-body-l.summary-list-subheader class="govuk-!-margin-bottom-0" = t("results.show.section_summaries.heading.#{section}")
   h3.govuk-heading-l class="govuk-!-margin-bottom-2 govuk-!-margin-top-0" = total_calc
 
   - if early_result

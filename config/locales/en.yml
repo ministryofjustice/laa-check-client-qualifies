@@ -1935,6 +1935,10 @@ en:
       keep_the_evidence_for_under_18: 2. Keep the controlled work form in your records
       file_may_be_audited: Your client’s file may be audited or assessed by the LAA at a later date.
   results:
+    outgoings_table:
+      not_assessed: This was not assessed because it would not change the overall result.
+    capital_table:
+      not_assessed: This was not assessed because it would not change the overall result.
     show:
       likely_to_qualify: Your client is likely to qualify for civil legal aid, for certificated work
       not_likely_to_qualify: Your client is not likely to qualify for civil legal aid, for certificated work
@@ -2264,7 +2268,7 @@ en:
         exceeds_upper_limit: Exceeds upper limit
         not_assessed: Not assessed
         texts:
-          not_assessed_desc: This was not assessed because it would not change the overall result
+          not_assessed_desc: This was not assessed because it would not change the overall result.
           gross_income:
             eligible: Your client’s total is below the gross monthly income upper limit (%{upper_threshold}).
             eligible_no_upper_threshold: There is no gross monthly income limit in %{matter_type} matters.
