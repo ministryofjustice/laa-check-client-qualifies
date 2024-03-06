@@ -92,10 +92,9 @@ WORKDIR /app
 #    cp /usr/share/zoneinfo/Europe/London /etc/localtime && \
 #    echo "Europe/London" > /etc/timezone
 
-# libpq: required to run postgres
-#RUN apk add --no-cache libpq postgresql-client
 RUN apt update
-RUN apt install -y postgresql-client nodejs fonts-freefont-ttf libharfbuzz-bin nss-tlsd pdftk libatk1.0-0
+RUN apt install -y postgresql-client nodejs fonts-freefont-ttf libharfbuzz-bin nss-tlsd pdftk
+RUN apt install -y libatk1.0-0 libatk-bridge2.0-0
 
 COPY --from=builder /root/.cache/puppeteer /.cache/puppeteer
 RUN chown -R 1000:1000 /.cache
