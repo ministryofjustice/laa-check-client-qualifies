@@ -26,7 +26,7 @@ RUN adduser --uid 1000 --system appuser --gid 1000
 #RUN apk add --no-cache build-base yarn postgresql13-dev git
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor -o /usr/share/keyrings/yarn-archive-keyring.gpg
 RUN echo "deb [signed-by=/usr/share/keyrings/yarn-archive-keyring.gpg] https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-RUN apt update && apt install -y yarn nodejs git npm
+RUN apt update && apt install -y yarn nodejs git npm libatk1.0-0
 
 # Install gems defined in Gemfile
 COPY .ruby-version Gemfile Gemfile.lock ./
@@ -55,14 +55,13 @@ RUN RAILS_ENV=production SECRET_KEY_BASE=required-to-run-but-not-used \
     bundle exec rails assets:precompile
 
 # Cleanup to save space in the production image
-RUN rm -rf log/* tmp/* /tmp && \
-    rm -rf /usr/local/bundle/cache && \
-    rm -rf .env && \
-    rm -rf .git && \
-    find /usr/local/bundle/gems -name "*.c" -delete && \
-    find /usr/local/bundle/gems -name "*.h" -delete && \
-    find /usr/local/bundle/gems -name "*.o" -delete && \
-    find /usr/local/bundle/gems -name "*.html" -delete
+# This is not needed as we only copy /app and use a .dockerignore file
+#RUN rm -rf log/* tmp/* /tmp && \
+#    rm -rf /usr/local/bundle/cache && \
+#    find /usr/local/bundle/gems -name "*.c" -delete && \
+#    find /usr/local/bundle/gems -name "*.h" -delete && \
+#    find /usr/local/bundle/gems -name "*.o" -delete && \
+#    find /usr/local/bundle/gems -name "*.html" -delete
 
 RUN chown -R appuser:appgroup /app
 
