@@ -99,6 +99,7 @@ RUN apt install -y postgresql-client nodejs fonts-freefont-ttf libharfbuzz-bin n
 RUN apt install -y chromium
 RUN apt remove -y chromium
 
+RUN mkdir /.cache
 COPY --from=builder /root/.cache/puppeteer /.cache/puppeteer
 RUN chown -R 1000:1000 /.cache
 
