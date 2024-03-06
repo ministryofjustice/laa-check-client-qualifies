@@ -94,7 +94,10 @@ WORKDIR /app
 
 RUN apt update
 RUN apt install -y postgresql-client nodejs fonts-freefont-ttf libharfbuzz-bin nss-tlsd pdftk
-RUN apt install -y libatk1.0-0 libatk-bridge2.0-0 libdrm-common
+#RUN apt install -y libatk1.0-0 libatk-bridge2.0-0 libdrm-common
+# install all chromium's dependencies, but then remove chromium itself as we will be installing via puppeteer
+RUN apt install -y chromium
+RUN apt remove -y chromium
 
 COPY --from=builder /root/.cache/puppeteer /.cache/puppeteer
 RUN chown -R 1000:1000 /.cache
