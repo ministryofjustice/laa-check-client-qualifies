@@ -94,7 +94,7 @@ WORKDIR /app
 
 RUN apt update
 RUN apt install -y postgresql-client nodejs fonts-freefont-ttf libharfbuzz-bin nss-tlsd pdftk
-RUN apt install -y libatk1.0-0 libatk-bridge2.0-0
+RUN apt install -y libatk1.0-0 libatk-bridge2.0-0 libdrm-common
 
 COPY --from=builder /root/.cache/puppeteer /.cache/puppeteer
 RUN chown -R 1000:1000 /.cache
