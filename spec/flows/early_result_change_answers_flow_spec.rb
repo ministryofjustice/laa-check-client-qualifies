@@ -295,7 +295,7 @@ RSpec.describe "Change answers after early result", :early_eligibility_flag, typ
     fill_in_outgoings_screen
     fill_in_housing_costs_screen
     confirm_screen("check_answers")
-    click_on 'Submit'
+    click_on "Submit"
     # check that result isn't 'your answers have been deleted'
     expect(page).to have_content "Your client's key eligibility totals"
   end
