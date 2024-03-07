@@ -134,8 +134,7 @@ RSpec.describe "Change answers after early result", :early_eligibility_flag, typ
       end
       fill_in_level_of_help_screen(choice: "Civil controlled work or family mediation")
       fill_in_immigration_or_asylum_screen(choice: "No")
-      # expect(page).not_to have_selector(".govuk-notification-banner")
-      confirm_screen("outgoings")
+      confirm_screen("check_answers")
     end
 
     it "does not display the flash when they are still ineligible" do
@@ -161,7 +160,7 @@ RSpec.describe "Change answers after early result", :early_eligibility_flag, typ
         confirm_screen("check_answers")
         expect(page).not_to have_selector(".govuk-notification-banner")
         expect(page).not_to have_content(eligibility_banner_content)
-        expect(page).not_to have_content('Client income')
+        expect(page).not_to have_content("Client income")
       end
     end
 
@@ -197,7 +196,7 @@ RSpec.describe "Change answers after early result", :early_eligibility_flag, typ
         fill_in_under_18_controlled_legal_rep_screen(choice: "No")
         fill_in_aggregated_means_screen(choice: "No")
         fill_in_regular_income_screen(choice: "Yes")
-        fill_in_forms_until("check_answers")
+        confirm_screen("check_answers")
         click_on "Submit"
         expect(page).to have_current_path(/\A\/check-result/)
         # check that result isn't 'your answers have been deleted'
