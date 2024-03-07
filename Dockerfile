@@ -89,6 +89,8 @@ RUN npx puppeteer browsers install chrome@122
 # Copy files generated in the builder images
 COPY --from=builder /app /app
 COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
+COPY /root/.cache/puppeteer /.cache/puppeteer
+RUN chown -R 1000:1000 /.cache
 
 USER 1000
 
