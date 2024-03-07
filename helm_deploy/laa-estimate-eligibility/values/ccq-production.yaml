@@ -56,7 +56,7 @@ featureFlags:
   sentry: ENABLED
   overrides: NOT_ENABLED
   indexProduction: ENABLED
-  maintenanceMode: NOT_ENABLED
+  maintenanceMode: ENABLED
   basicAuthentication: NOT_ENABLED
   outgoingsFlow: ENABLED
   conditionalReveals: NOT_ENABLED
