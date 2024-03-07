@@ -164,7 +164,7 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
           "housing_benefit_frequency" => "monthly",
         }
       end
-      let(:relevant_steps) { %i[outgoings partner_outgoings housing_costs] }
+      let(:relevant_steps) { %i[outgoings partner_outgoings housing_costs other_income] }
 
       it "populates the payload with content from the housing costs screen" do
         service.call(session_data, payload, relevant_steps)
