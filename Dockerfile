@@ -64,57 +64,32 @@ RUN chown -R appuser:appgroup /app
 
 USER 1000
 
-# Build PDFTK
-FROM ghcr.io/graalvm/graalvm-ce:22.2.0 as pdftkbuilder
-RUN gu install native-image
-WORKDIR /build
-RUN curl https://gitlab.com/api/v4/projects/5024297/packages/generic/pdftk-java/v3.3.3/pdftk-all.jar --output pdftk-all.jar \
-	&& curl https://gitlab.com/pdftk-java/pdftk/-/raw/v3.3.3/META-INF/native-image/reflect-config.json --output reflect-config.json \
-	&& curl https://gitlab.com/pdftk-java/pdftk/-/raw/v3.3.3/META-INF/native-image/resource-config.json --output resource-config.json \
-	&& native-image --static -jar pdftk-all.jar \
-        -H:Name=pdftk \
-        -H:ResourceConfigurationFiles='resource-config.json' \
-        -H:ReflectionConfigurationFiles='reflect-config.json' \
-        -H:GenerateDebugInfo=0
-
 
 # Build runtime image
-FROM ruby:3.2.2-alpine as production
+FROM ruby:3.2.2-slim-bookworm as production
 
 # The application runs from /app
 WORKDIR /app
 
-# Add the timezone (prod image) as it's not configured by default in Alpine
-RUN apk add --update --no-cache tzdata && \
-    cp /usr/share/zoneinfo/Europe/London /etc/localtime && \
-    echo "Europe/London" > /etc/timezone
 
-# libpq: required to run postgres
-RUN apk add --no-cache libpq postgresql-client
+# possibly don't need to specify all these sub-dependencies any more...
+# probably need ca-certificates so that chromium can talk to something
 
-# Install Chromium and Puppeteer for PDF generation
-# Installs latest Chromium package available on Alpine (Chromium 108)
-RUN apk add --no-cache \
-        chromium \
-        nss \
-        freetype \
-        harfbuzz \
-        ca-certificates \
-        ttf-freefont \
-        nodejs \
-        yarn
+# apt update: command to keep all of our packages up to date in Debian 
+# yarn: node package manager 
+# git: to allow us to create the VERSION file 
+# npm: so that we can run puppeteer via npx
+RUN apt update & apt install -y postgresql-client nodejs fonts-freefont-ttf libharfbuzz-bin nss-tlsd pdftk ca-certificates npm yarn git
 
-# Tell Puppeteer to skip installing Chrome. We'll be using the installed package.
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
-ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+# Install Puppeteer via Yarn
+RUN yarn add puppeteer@22.3.0
 
-# Install latest version of Puppeteer that works with Chromium 108
-RUN yarn add puppeteer@19.2.0
+# Install Chrome using Puppeteer command
+RUN npx puppeteer browsers install chrome
 
 # Copy files generated in the builder images
 COPY --from=builder /app /app
 COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
-COPY --from=pdftkbuilder /build/pdftk /usr/bin/pdftk
 
 USER 1000
 
