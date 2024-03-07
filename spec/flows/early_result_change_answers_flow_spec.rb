@@ -147,26 +147,21 @@ RSpec.describe "Change answers after early result", :early_eligibility_flag, typ
       expect(page).not_to have_content(eligibility_banner_content)
     end
 
-    it "change matter type successfully" do
-      start_assessment
-      fill_in_client_age_screen
-      fill_in_level_of_help_screen(choice: "Civil controlled work or family mediation")
-      fill_in_forms_until(:employment_status)
-      fill_in_employment_status_screen(choice: "Employed")
-      fill_in_income_screen(gross: "3000")
-      fill_in_benefits_screen
-      fill_in_other_income_screen
-      fill_in_ineligible_gross_income_screen(choice: "Go to summary")
-      confirm_screen("check_answers")
-      within "#table-immigration_or_asylum" do
-        click_on "Change"
+    context "with controlled work" do
+      let(:level_of_help) { "Civil controlled work or family mediation" }
+
+      it "changes matter type successfully" do
+        within "#table-immigration_or_asylum" do
+          click_on "Change"
+        end
+        fill_in_immigration_or_asylum_screen(choice: "Yes")
+        fill_in_immigration_or_asylum_type_screen
+        fill_in_asylum_support_screen(choice: "Yes")
+        confirm_screen("check_answers")
+        expect(page).not_to have_selector(".govuk-notification-banner")
+        expect(page).not_to have_content(eligibility_banner_content)
+        expect(page).not_to have_content('Client income')
       end
-      fill_in_immigration_or_asylum_screen(choice: "Yes")
-      fill_in_immigration_or_asylum_type_screen
-      fill_in_asylum_support_screen(choice: "Yes")
-      confirm_screen("check_answers")
-      expect(page).not_to have_selector(".govuk-notification-banner")
-      expect(page).not_to have_content(eligibility_banner_content)
     end
 
     context "when client is under 18" do
