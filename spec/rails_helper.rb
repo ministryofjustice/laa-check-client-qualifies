@@ -176,6 +176,12 @@ RSpec.configure do |config|
   end
 
   config.include ActiveSupport::Testing::TimeHelpers
+
+  config.around(:each, :headless_chrome) do |example|
+    Capybara.current_driver = :headless_chrome
+    example.run
+    Capybara.use_default_driver
+  end
 end
 
 Capybara.configure do |config|

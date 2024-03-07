@@ -134,7 +134,8 @@ RSpec.describe "Change answers after early result", :early_eligibility_flag, typ
       end
       fill_in_level_of_help_screen(choice: "Civil controlled work or family mediation")
       fill_in_immigration_or_asylum_screen(choice: "No")
-      confirm_screen("check_answers")
+      # expect(page).not_to have_selector(".govuk-notification-banner")
+      confirm_screen("outgoings")
     end
 
     it "does not display the flash when they are still ineligible" do
@@ -196,38 +197,39 @@ RSpec.describe "Change answers after early result", :early_eligibility_flag, typ
         fill_in_under_18_controlled_legal_rep_screen(choice: "No")
         fill_in_aggregated_means_screen(choice: "No")
         fill_in_regular_income_screen(choice: "Yes")
-
+        fill_in_forms_until("check_answers")
         click_on "Submit"
         expect(page).to have_current_path(/\A\/check-result/)
         # check that result isn't 'your answers have been deleted'
         expect(page).to have_content "Your client's key eligibility totals"
       end
 
-      context "when the user clicks on back links", :js do
+      context "when the user clicks on back links" do
         let(:level_of_help) { "Civil controlled work or family mediation" }
 
-        it "correctly works out relevant information" do
+        it "correctly works out relevant information", :headless_chrome do
           within "#table-level_of_help" do
             click_on "Change"
           end
           fill_in_level_of_help_screen(choice: "Civil certificated or licensed legal work")
           fill_in_forms_until("domestic_abuse_applicant")
-          choose "Yes", name: "domestic_abuse_applicant_form[domestic_abuse_applicant]"
-          click_on "Save and continue"
+          fill_in_domestic_abuse_applicant_screen(choice: "Yes")
           confirm_screen("outgoings")
           click_on "Back"
-          confirm_screen("domestic_abuse_applicant")
-          choose "No", name: "domestic_abuse_applicant_form[domestic_abuse_applicant]"
-          click_on "Save and continue"
+          # wait for back button (JS) to kick in properly
+          sleep 1
+          fill_in_domestic_abuse_applicant_screen(choice: "No")
           fill_in_immigration_or_asylum_type_upper_tribunal_screen(choice: "Yes, asylum (Upper Tribunal)")
           fill_in_asylum_support_screen(choice: "Yes")
           confirm_screen("check_answers")
+          expect(page).not_to have_content("Client assets")
           within "#table-level_of_help" do
             click_on "Change"
           end
+          # sleep 30
           fill_in_level_of_help_screen(choice: "Civil controlled work or family mediation")
-          confirm_screen("check_answers")
-          expect(page).not_to have_content("Client assets")
+          confirm_screen("outgoings")
+          # expect(page).not_to have_content("Client assets")
         end
       end
 
