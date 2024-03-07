@@ -90,8 +90,6 @@ private
   def non_finance_steps
     Steps::Helper.steps_for_section(session_data, Steps::CaseDetailsSection) +
       Steps::Helper.steps_for_section(session_data, Steps::ApplicantDetailsSection)
-    # non_finance_steps.last == the_step || the_step == :other_income
-    # non_finance_steps.last == the_step
   end
 
   def non_finance_step?(the_step)
