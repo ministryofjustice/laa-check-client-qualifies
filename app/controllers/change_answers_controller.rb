@@ -13,7 +13,6 @@ class ChangeAnswersController < QuestionFlowController
           last_step_with_data = Steps::Helper.last_step_with_valid_data(session_data)
           completed_steps = Steps::Helper.completed_steps_for(session_data, last_step_with_data)
           if non_finance_step?(step)
-            # session_data.delete IneligibleGrossIncomeForm::SELECTION
             if last_step_with_data == non_finance_steps.last
               cfe_result = CfeService.result(session_data, completed_steps)
               if cfe_result.ineligible_gross_income?
