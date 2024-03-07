@@ -75,10 +75,9 @@ WORKDIR /app
 # probably need ca-certificates so that chromium can talk to something
 
 # apt update: command to keep all of our packages up to date in Debian 
-# yarn: node package manager 
 # git: to allow us to create the VERSION file 
 # npm: so that we can run puppeteer via npx
-RUN apt update && apt install -y postgresql-client nodejs fonts-freefont-ttf libharfbuzz-bin nss-tlsd pdftk ca-certificates npm yarn git
+RUN apt update && apt install -y postgresql-client nodejs fonts-freefont-ttf libharfbuzz-bin nss-tlsd pdftk ca-certificates npm git
 
 # Install Puppeteer via npm
 RUN npm i puppeteer@22.3.0
