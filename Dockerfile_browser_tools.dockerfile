@@ -13,6 +13,6 @@ RUN sudo apt install pdftk --allow-unauthenticated
 RUN yarn add puppeteer@22.3.0
 
 # Install Chrome using Puppeteer command
-RUN npx puppeteer browsers install chrome
+RUN npx puppeteer browsers install chrome@122
 
 COPY . .

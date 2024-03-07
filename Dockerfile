@@ -71,9 +71,10 @@ FROM ruby:3.2.2-slim-bookworm as production
 # The application runs from /app
 WORKDIR /app
 
-# # Yarn doesn't have a native Debian package, so we need to download it from its own repo
-# RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor -o /usr/share/keyrings/yarn-archive-keyring.gpg
-# RUN echo "deb [signed-by=/usr/share/keyrings/yarn-archive-keyring.gpg] https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+# Yarn doesn't have a native Debian package, so we need to download it from its own repo
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor -o /usr/share/keyrings/yarn-archive-keyring.gpg
+RUN echo "deb [signed-by=/usr/share/keyrings/yarn-archive-keyring.gpg] https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+
 
 # possibly don't need to specify all these sub-dependencies any more...
 # probably need ca-certificates so that chromium can talk to something
@@ -88,7 +89,7 @@ RUN apt update && apt install -y postgresql-client nodejs fonts-freefont-ttf lib
 RUN yarn add puppeteer@22.3.0
 
 # Install Chrome using Puppeteer command
-RUN npx puppeteer browsers install chrome
+RUN npx puppeteer browsers install chrome@122
 
 # Copy files generated in the builder images
 COPY --from=builder /app /app
