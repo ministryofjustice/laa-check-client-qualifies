@@ -28,13 +28,11 @@ RUN apk add --no-cache build-base yarn postgresql13-dev git
 # Install gems defined in Gemfile
 COPY .ruby-version Gemfile Gemfile.lock ./
 
-# Install gems and remove gem cache
+# Install gems
 RUN bundler -v && \
-    bundle config set no-cache 'true' && \
     bundle config set no-binstubs 'true' && \
     bundle config set without 'development test' && \
-    bundle install --retry=5 --jobs=4 && \
-    rm -rf /usr/local/bundle/cache
+    bundle install --retry=5
 
 # Install node packages defined in package.json
 COPY package.json yarn.lock ./
