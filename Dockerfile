@@ -69,7 +69,8 @@ FROM ruby:3.2.2-slim-bookworm as production
 # The application runs from /app
 WORKDIR /app
 
-RUN gem install bundler && bundle install
+# Copy bundler and gems at this stage, to run bundler
+COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
 
 # apt update: command to keep all of our packages up to date in Debian 
 # npm: so that we can run puppeteer via npx
@@ -83,7 +84,6 @@ RUN npx puppeteer browsers install chrome@122
 
 # Copy files generated in the builder images
 COPY --from=builder /app /app
-COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
 
 USER 1000
 
