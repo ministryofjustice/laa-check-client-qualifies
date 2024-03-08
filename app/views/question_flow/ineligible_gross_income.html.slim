@@ -5,20 +5,25 @@
 .govuk-grid-column-two-thirds
   = render "shared/heading",
           header_text: t("question_flow.early_result.gross_income.title",
-                  cfe_result_number: number_with_precision(@gross_income_excess, precision: 2))
+                  cfe_result_number: as_money_string(@gross_income_excess))
 
-  p.govuk-body class="govuk-!-font-weight-bold" = t("question_flow.early_result.gross_income.para_1")
+  p.govuk-body class="govuk-!-font-weight-bold"
+    - if @check.controlled?
+      = t("question_flow.early_result.gross_income.controlled.para_1")
+    - else
+      = t("question_flow.early_result.gross_income.certificated.para_1")
   p.govuk-body = t("question_flow.early_result.gross_income.para_2")
 
-  = govuk_details(summary_text: t("question_flow.early_result.gross_income.help")) do
-        h2.govuk-heading-s = t("question_flow.early_result.gross_income.go_to_summary")
-        p.govuk-body = t("question_flow.early_result.gross_income.details_para_1")
-        ul.govuk-list.govuk-list--bullet
-        - t("question_flow.early_result.gross_income.details_list").map
-          li.govuk-text = _1
-        p.govuk-body
-        h2.govuk-heading-s = t("question_flow.early_result.gross_income.add_more_details")
-        p.govuk-body = t("question_flow.early_result.gross_income.details_para_2")
+  p.govuk-body
+    - t("question_flow.early_result.gross_income.details_para_1")
+    ul.govuk-list.govuk-list--bullet
+      - t("question_flow.early_result.gross_income.details_list").map
+        li.govuk-text = _1
+    p.govuk-body
+    h2.govuk-heading-s = t("question_flow.early_result.gross_income.skip_questions")
+    p.govuk-body = t("question_flow.early_result.gross_income.skip_q_para")
+    h2.govuk-heading-s = t("question_flow.early_result.gross_income.resume_check")
+    p.govuk-body = t("question_flow.early_result.gross_income.resume_check_para")
 
   .govuk-button-group
     = form_for(@form, url: request.path, method: :put) do |form|
@@ -26,7 +31,7 @@
       = form.govuk_submit t("question_flow.early_result.gross_income.go_to_summary")
     = form_for(@form, url: request.path, method: :put) do |form|
       = form.hidden_field :early_eligibility_selection, value: IneligibleGrossIncomeForm::VALID_OPTIONS[:continue]
-      = form.govuk_submit t("question_flow.early_result.gross_income.add_more_details"), secondary: true
+      = form.govuk_submit t("question_flow.early_result.gross_income.resume_check"), secondary: true
 
 = render "shared/question_sidebar",
         level_of_help: @check.level_of_help,

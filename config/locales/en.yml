@@ -1097,18 +1097,22 @@ en:
         text: Police officer applicants (PDF, 918KB)
     early_result:
       gross_income:
-        title: Monthly income limit exceeded by £%{cfe_result_number}
-        para_1: Your client will not qualify financially for legal aid.
-        para_2: You can go to the summary or add more details to your check, but this will not change the outcome.
+        title: Gross monthly income limit exceeded by £%{cfe_result_number}
+        controlled:
+          para_1: We have enough information to tell you that your client will not qualify for legal aid.
+        certificated:
+          para_1: We have enough information to tell you that your client is not likely to qualify for legal aid.
+        para_2: "You can:"
         help: Help with next steps
         details_para_1: "You can:"
         details_list:
-          - review and change your answers
-          - get the calculation
-          - save your summary
-        details_para_2: You can complete all the questions in the check, before reviewing your answers and getting the summary. Adding more details will not change the outcome. Your client will not qualify as long as the monthly income exceeds the limit.
-        go_to_summary: Go to summary
-        add_more_details: Add more details
+          - skip the remaining questions
+          - resume the check
+        skip_q_para: If you skip the questions, you can review your answers and get a summary of your client's result.
+        resume_check_para: If you resume the check and add more information, this will not change the outcome. Your client will not qualify as long as the gross monthly income exceeds the limit. You can still review the answers and save the result at the end.
+        go_to_summary: Skip remaining questions
+        skip_questions: Skip questions
+        resume_check: Resume check
     partner_income:
       heading: The partner's employment income
       hint: You can find this on the partner's payslips.

@@ -42,7 +42,7 @@ RSpec.describe "Change answers after early result", :early_eligibility_flag, typ
       fill_in_income_screen(gross: "2700")
       fill_in_benefits_screen
       fill_in_other_income_screen
-      fill_in_ineligible_gross_income_screen(choice: "Go to summary")
+      fill_in_ineligible_gross_income_screen(choice: "Skip remaining questions")
       confirm_screen("check_answers")
     end
 
