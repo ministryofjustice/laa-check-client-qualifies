@@ -69,6 +69,8 @@ FROM ruby:3.2.2-slim-bookworm as production
 # The application runs from /app
 WORKDIR /app
 
+RUN gem install bundler && bundle install
+
 # apt update: command to keep all of our packages up to date in Debian 
 # npm: so that we can run puppeteer via npx
 RUN apt update && apt install -y nodejs fonts-freefont-ttf libharfbuzz-bin nss-tlsd pdftk npm postgresql-15
