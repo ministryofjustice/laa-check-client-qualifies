@@ -34,9 +34,7 @@ class ChangeAnswersController < QuestionFlowController
             end
           else
             cfe_result = CfeService.result(session_data, completed_steps)
-            # need to check for partner false, otherwise the flow stops here with a partner even though we have not shown an interruption
-            # screen in that scenario (as the flow hasn't been built yet)
-            if Steps::Logic.check_stops_at_gross_income?(session_data) && !Steps::Logic.partner?(session_data) && cfe_result.ineligible_gross_income?
+            if Steps::Logic.check_stops_at_gross_income?(session_data) && cfe_result.ineligible_gross_income?
               next_step = nil
             end
             if Steps::Logic.check_stops_at_gross_income?(session_data) && !cfe_result.ineligible_gross_income? && next_step.present?

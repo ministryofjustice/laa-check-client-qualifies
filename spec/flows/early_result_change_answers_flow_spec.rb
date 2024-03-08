@@ -142,6 +142,18 @@ RSpec.describe "Change answers after early result", :early_eligibility_flag, typ
         fill_in_income_screen(gross: "2999")
         confirm_screen("check_answers")
       end
+
+      context "with partner" do
+        let(:with_partner) { "Yes" }
+
+        it "change to other income that means the check remains ineligible does not ask partner questions" do
+          within "#table-other_income" do
+            click_on "Change"
+          end
+          fill_in_other_income_screen
+          confirm_screen("check_answers")
+        end
+      end
     end
 
     it "change level of help successfully" do
