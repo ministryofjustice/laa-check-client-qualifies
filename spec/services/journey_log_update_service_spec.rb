@@ -4,7 +4,7 @@ RSpec.describe JourneyLogUpdateService do
   describe ".call" do
     let(:assessment_id) { "assessment-id" }
 
-    it "handles errors without crashing" do
+    it "handles errors without crashing", :throws_cfe_error do
       expect(ErrorService).to receive(:call)
       allow(CompletedUserJourney).to receive(:find_by!).and_raise "Error!"
       expect { described_class.call(assessment_id, {}, form_downloaded: true) }.not_to raise_error

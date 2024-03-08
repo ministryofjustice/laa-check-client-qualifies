@@ -5,7 +5,7 @@ RSpec.describe ChoiceAnalyticsService do
     let(:form) { LevelOfHelpForm.new }
     let(:assessment_code) { "assessment_code" }
 
-    it "handles errors without crashing" do
+    it "handles errors without crashing", :throws_cfe_error do
       expect(ErrorService).to receive(:call)
       allow(AnalyticsEvent).to receive(:create!).and_raise "Error!"
       expect { described_class.call(form, assessment_code, {}) }.not_to raise_error
