@@ -58,6 +58,8 @@ RSpec.describe "Change answers after early result", :early_eligibility_flag, typ
         end
         expect(CfeParamBuilders::Employment).not_to receive(:call)
         fill_in_employment_status_screen(choice: "Unemployed")
+        expect(page).to have_selector(".govuk-notification-banner")
+        expect(page).to have_content(eligibility_banner_content)
         confirm_screen("outgoings")
         fill_in_forms_until("check_answers")
         expect(page).to have_content "Client outgoings"
@@ -85,6 +87,20 @@ RSpec.describe "Change answers after early result", :early_eligibility_flag, typ
         fill_in_forms_until("check_answers")
         click_on "Submit"
         expect(page).to have_current_path(/\A\/check-result/)
+      end
+
+      it "change to passported successfully", :outgoings_flow_flag do
+        within "#table-applicant" do
+          click_on "Change"
+        end
+        fill_in_applicant_screen(passporting: "Yes")
+        confirm_screen("property")
+        expect(page).to have_selector(".govuk-notification-banner")
+        expect(page).to have_content(eligibility_banner_content)
+        fill_in_property_screen
+        confirm_screen("additional_property")
+        expect(page).not_to have_selector(".govuk-notification-banner")
+        expect(page).not_to have_content(eligibility_banner_content)
       end
 
       it "displays the flash message when they become eligible" do
