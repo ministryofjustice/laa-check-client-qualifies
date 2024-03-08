@@ -131,8 +131,8 @@ RSpec.configure do |config|
 
   # This can't be done with before(:each, condition) as the condition is that the key is missing
   # from most of the tests
-  config.before(:each) do |test|
-    expect(ErrorService).not_to receive(:call) unless test.metadata.has_key?(:throws_cfe_error)
+  config.before do |test|
+    expect(ErrorService).not_to receive(:call) unless test.metadata.key?(:throws_cfe_error)
   end
 
   config.before(:suite) do
