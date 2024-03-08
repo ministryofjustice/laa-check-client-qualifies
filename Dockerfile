@@ -71,12 +71,9 @@ FROM ruby:3.2.2-slim-bookworm as production
 # The application runs from /app
 WORKDIR /app
 
-# required to run & connect to postgres
-RUN apt-get install postgresql-15
-
 # apt update: command to keep all of our packages up to date in Debian 
 # npm: so that we can run puppeteer via npx
-RUN apt update && apt install -y nodejs fonts-freefont-ttf libharfbuzz-bin nss-tlsd pdftk npm
+RUN apt update && apt install -y nodejs fonts-freefont-ttf libharfbuzz-bin nss-tlsd pdftk npm postgresql-15
 
 # Install Puppeteer via npm
 RUN npm i puppeteer@22.3.0
