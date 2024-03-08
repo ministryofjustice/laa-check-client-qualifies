@@ -72,7 +72,7 @@ FROM ruby:3.2.2-slim-bookworm as production
 WORKDIR /app
 
 # required to run & connect to postgres
-RUN apt-get install postgresql postgresql-client
+RUN apt-get install postgresql-15
 
 # apt update: command to keep all of our packages up to date in Debian 
 # npm: so that we can run puppeteer via npx
