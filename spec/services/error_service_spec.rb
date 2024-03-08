@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe ErrorService do
+RSpec.describe ErrorService, :throws_cfe_error do
   describe ".call" do
     let(:exception) { :exception }
 

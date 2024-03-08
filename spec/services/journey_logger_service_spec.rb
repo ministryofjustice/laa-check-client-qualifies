@@ -8,7 +8,7 @@ RSpec.describe JourneyLoggerService do
     let(:check) { Check.new(session_data) }
     let(:session_data) { { level_of_help: "controlled", immigration_or_asylum: true, immigration_or_asylum_type: "asylum" }.with_indifferent_access }
 
-    it "handles errors without crashing" do
+    it "handles errors without crashing", :throws_cfe_error do
       expect(ErrorService).to receive(:call)
       allow(CompletedUserJourney).to receive(:create!).and_raise "Error!"
       expect { described_class.call(assessment_id, calculation_result, check, {}) }.not_to raise_error

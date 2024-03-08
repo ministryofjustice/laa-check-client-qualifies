@@ -129,6 +129,12 @@ RSpec.configure do |config|
     ENV["EARLY_ELIGIBILITY_FEATURE_FLAG"] = "disabled"
   end
 
+  # This can't be done with before(:each, condition) as the condition is that the key is missing
+  # from most of the tests
+  config.before do |test|
+    expect(ErrorService).not_to receive(:call) unless test.metadata.key?(:throws_cfe_error)
+  end
+
   config.before(:suite) do
     DatabaseCleaner.clean_with :truncation
   end
