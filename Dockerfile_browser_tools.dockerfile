@@ -9,13 +9,9 @@ RUN sudo apt update --allow-unauthenticated
 RUN sudo add-apt-repository --yes ppa:malteworld/ppa
 RUN sudo apt install pdftk --allow-unauthenticated
 
-# Install Puppeteer via Yarn
+# These 2 lines still need to mirror the actual version
+# used by the application
 RUN yarn add puppeteer@22.3.0
-
-# Install Chrome using Puppeteer command
 RUN npx puppeteer browsers install chrome
-
-# Tell Puppeteer to skip installing Chromium. We'll be using the installed package.
-#ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 
 COPY . .

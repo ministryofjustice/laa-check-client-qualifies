@@ -14,11 +14,6 @@ RUN adduser --uid 1000 --system appuser --gid 1000
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor -o /usr/share/keyrings/yarn-archive-keyring.gpg
 RUN echo "deb [signed-by=/usr/share/keyrings/yarn-archive-keyring.gpg] https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
-# yarn: node package manager
-# git: to allow us to create the VERSION file
-# npm - so that we can run puppeteer via npx
-RUN apt update && apt install -y yarn nodejs git npm
-
 # Install gems defined in Gemfile
 COPY .ruby-version Gemfile Gemfile.lock ./
 
@@ -27,6 +22,9 @@ RUN bundler -v && \
     bundle config set no-binstubs 'true' && \
     bundle config set without 'development test' && \
     bundle cache --retry=5
+
+# Install tools to be used in next step
+RUN apt update && apt install -y yarn nodejs git npm
 
 # Install node packages defined in package.json
 COPY package.json yarn.lock ./
@@ -53,15 +51,11 @@ FROM ruby:3.2.2-slim-bookworm as production
 # The application runs from /app
 WORKDIR /app
 
-# Add the timezone (prod image) as it's not configured by default in Alpine
-#RUN apk add --update --no-cache tzdata && \
-#    cp /usr/share/zoneinfo/Europe/London /etc/localtime && \
-#    echo "Europe/London" > /etc/timezone
-
 RUN apt update
 # possibly don't need to specify all these sub-dependencies any more...
 # probably need ca-certificates so that chromium can talk to something
-RUN apt install -y postgresql-client nodejs fonts-freefont-ttf libharfbuzz-bin nss-tlsd pdftk ca-certificates
+RUN #apt install -y postgresql-client nodejs fonts-freefont-ttf libharfbuzz-bin nss-tlsd pdftk ca-certificates
+RUN apt install -y postgresql-client nodejs pdftk
 
 # install all chromium's dependencies, but then remove chromium itself as we will be installing via puppeteer
 RUN apt install -y chromium
