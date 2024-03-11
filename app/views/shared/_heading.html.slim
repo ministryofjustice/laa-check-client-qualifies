@@ -20,6 +20,8 @@ ruby:
       p.govuk-body-m class="govuk-!-margin-top-5" = t("service.beta_message_pilot_body_1")
       p.govuk-body-m = t("service.beta_message_pilot_body_2_html", public_beta_link: ENV["PRIMARY_HOST"])
 
+= render "layouts/flash_banner"
+
 - case tag
 - when :partner
   .govuk-tag.govuk-tag--purple class="govuk-!-margin-bottom-2" = t("generic.tags.partner")

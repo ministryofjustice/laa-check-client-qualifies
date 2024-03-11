@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "CW Forms", type: :feature do
+RSpec.describe "CW Forms", :stub_cfe_calls, type: :feature do
   it "lets me access the CW form screen after a controlled check" do
     allow(CfeService).to receive(:call).and_return build(:api_result, eligible: "eligible")
     start_assessment

@@ -22,7 +22,7 @@ RSpec.describe "checks/check_answers.html.slim" do
       end
 
       context "when client does not have housing benefit" do
-        let(:session_data) { build(:minimal_complete_session, housing_benefit_value: 0) }
+        let(:session_data) { build(:minimal_complete_session, housing_payments: 0, housing_benefit_value: 0) }
 
         it "renders content" do
           expect(page_text).to include("Housing Benefit£0.00")

@@ -93,6 +93,23 @@ RSpec.configure do |config|
     end
   end
 
+  config.before(:each, :stub_cfe_calls) do
+    stub_request(:post, %r{assessments\z}).to_return(
+      body: FactoryBot.build(:api_result, result: "eligible").to_json,
+      headers: { "Content-Type" => "application/json" },
+    )
+  end
+
+  config.before(:each, :stub_cfe_gross_ineligible) do
+    stub_request(:post, %r{assessments\z}).to_return(
+      body: FactoryBot.build(:api_result,
+                             result_summary: build(:result_summary,
+                                                   gross_income: build(:gross_income_summary,
+                                                                       proceeding_types: build_list(:proceeding_type, 1, result: "ineligible")))).to_json,
+      headers: { "Content-Type" => "application/json" },
+    )
+  end
+
   config.around(:each, :index_production_flag) do |example|
     ENV["INDEX_PRODUCTION_FEATURE_FLAG"] = "enabled"
     example.run
@@ -159,6 +176,12 @@ RSpec.configure do |config|
   end
 
   config.include ActiveSupport::Testing::TimeHelpers
+
+  config.around(:each, :headless_chrome) do |example|
+    Capybara.current_driver = :headless_chrome
+    example.run
+    Capybara.use_default_driver
+  end
 end
 
 Capybara.configure do |config|

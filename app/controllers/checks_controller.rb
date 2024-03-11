@@ -10,7 +10,11 @@ class ChecksController < ApplicationController
 
   def check_answers
     @check = Check.new(session_data)
-    @previous_step = Steps::Helper.last_step(session_data)
+    @previous_step = if Steps::Logic.check_stops_at_gross_income?(session_data)
+                       :ineligible_gross_income
+                     else
+                       Steps::Helper.last_step(session_data)
+                     end
     @sections = CheckAnswers::SectionListerService.call(session_data)
     track_page_view(page: :check_answers)
   end

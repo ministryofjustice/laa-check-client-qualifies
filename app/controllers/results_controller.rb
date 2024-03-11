@@ -4,9 +4,6 @@ class ResultsController < ApplicationController
   def create
     session_data["api_response"] = CfeService.call(session_data, Steps::Helper.relevant_steps(session_data))
     redirect_to result_path(assessment_code:)
-  rescue Cfe::InvalidSessionError => e
-    ErrorService.call(e)
-    render :invalid_session
   end
 
   def show

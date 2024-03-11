@@ -17,6 +17,11 @@ class ApplicationController < ActionController::Base
     render "errors/missing_session"
   end
 
+  rescue_from Cfe::InvalidSessionError do |e|
+    ErrorService.call(e)
+    render "errors/invalid_session"
+  end
+
 private
 
   def assessment_id(code = assessment_code)

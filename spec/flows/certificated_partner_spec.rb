@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Certificated, non-passported flow with partner", type: :feature do
+RSpec.describe "Certificated, non-passported flow with partner", :stub_cfe_calls, type: :feature do
   before do
     start_assessment
     fill_in_forms_until(:applicant)
