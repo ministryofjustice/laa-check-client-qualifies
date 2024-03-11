@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Change answers after early result", :early_eligibility_flag, type: :feature do
   let(:fixed_arbitrary_date) { Date.new(2023, 2, 15) }
-  let(:eligibility_banner_content) { "Based on the answers you changed, your client is now within the limit for legal aid" }
+  let(:eligibility_banner_content) { "Your changes have now put the client within the financial eligibility limits for legal aid. You now need to provide more information." }
 
   before { travel_to fixed_arbitrary_date }
 
