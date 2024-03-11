@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - main
-      - EL-1353-tag-docker-images-with-branch
 
 jobs:
   build-push:
