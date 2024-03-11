@@ -52,24 +52,24 @@ FROM ruby:3.2.2-slim-bookworm as production
 WORKDIR /app
 
 RUN apt update
-# possibly don't need to specify all these sub-dependencies any more...
-# probably need ca-certificates so that chromium can talk to something
-RUN #apt install -y postgresql-client nodejs fonts-freefont-ttf libharfbuzz-bin nss-tlsd pdftk ca-certificates
+# Need postgres for db, node for puppeteer (PDFs) and pdftk for CWForms
 RUN apt install -y postgresql-client nodejs pdftk
 
 # install all chromium's dependencies, but then remove chromium itself as we will be installing via puppeteer
 RUN apt install -y chromium
 RUN apt remove -y chromium
 
-COPY --from=builder /app /app
-COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
-
 # make a config directory in $HOME
 RUN mkdir -p /.config/chromium
 RUN chown -R 1000:1000 /.config
 
 RUN mkdir /.cache
+
+COPY --from=builder /app /app
+COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
 COPY --from=builder /root/.cache/puppeteer /.cache/puppeteer
+
+# Make sure puppeteer browser cache is accessible by running user
 RUN chown -R 1000:1000 /.cache
 
 USER 1000
