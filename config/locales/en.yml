@@ -277,7 +277,7 @@ en:
             property_or_lodger_frequency:
               blank: Select frequency of income from a property or lodger
             pension_frequency:
-              blank: SSelect frequency of income your client gets from pensions
+              blank: Select frequency of income your client gets from pensions
             student_finance_value:
               blank: Enter student finance, if this does not apply enter 0
               not_a_number: Student finance must be a number, if this does not apply enter 0
