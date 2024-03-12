@@ -1,6 +1,6 @@
 class CalculationResult
   CFE_MAX_VALUE = 999_999_999_999
-  Summary = Struct.new(:status, :upper_threshold, :lower_threshold, :no_upper_threshold, :no_lower_threshold, :section, keyword_init: true)
+  Summary = Struct.new(:status, :upper_threshold, :lower_threshold, :no_upper_threshold, :no_lower_threshold, :section, :ineligible_gross_income, keyword_init: true)
 
   include ActionView::Helpers::NumberHelper
 
@@ -12,6 +12,7 @@ class CalculationResult
 
   def initialize(session_data)
     @api_response = CfeResult.new session_data["api_response"]
+    @early_eligibility_selection = session_data.fetch("early_eligibility_selection", nil)
     @level_of_help = session_data.fetch("level_of_help", "certificated")
     @check = Check.new(session_data)
   end
@@ -37,13 +38,14 @@ class CalculationResult
                            end
     thresholds[:no_upper_threshold] = raw_thresholds[:upper_threshold] == CFE_MAX_VALUE
     thresholds[:no_lower_threshold] = raw_thresholds[:upper_threshold] == raw_thresholds[:lower_threshold]
+
     case api_response.result_for(section)
     when "ineligible"
-      Summary.new(**thresholds.merge(status: "ineligible"))
+      Summary.new(**thresholds.merge(status: "ineligible"), ineligible_gross_income: @early_eligibility_selection)
     when "contribution_required"
-      Summary.new(**thresholds.merge(status: "contribution_required_and_overall_#{decision}"))
+      Summary.new(**thresholds.merge(status: "contribution_required_and_overall_#{decision}"), ineligible_gross_income: @early_eligibility_selection)
     else
-      Summary.new(**thresholds.merge(status: "eligible"))
+      Summary.new(**thresholds.merge(status: "eligible"), ineligible_gross_income: @early_eligibility_selection)
     end
   end
 

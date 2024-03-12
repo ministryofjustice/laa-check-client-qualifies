@@ -7,6 +7,7 @@ class ResultsController < ApplicationController
   end
 
   def show
+    @early_eligibility_selection = session_data.fetch("early_eligibility_selection", nil)
     @model = CalculationResult.new(session_data)
     track_completed_journey(@model)
     track_page_view(page: :view_results)
@@ -15,6 +16,7 @@ class ResultsController < ApplicationController
   end
 
   def download
+    @early_eligibility_selection = session_data.fetch("early_eligibility_selection", nil)
     track_page_view(page: :download_results)
     @model = CalculationResult.new(session_data)
     @sections = CheckAnswers::SectionListerService.call(session_data)
