@@ -96,7 +96,7 @@ RSpec.describe "Results page variations", :end2end, type: :feature do
       fill_in_income_screen(gross: "8000", frequency: "Every month")
       fill_in_forms_until(:other_income)
       fill_in_other_income_screen(values: { friends_or_family: "1200" }, frequencies: { friends_or_family: "Every week" })
-      fill_in_ineligible_gross_income_screen(choice: "Go to summary")
+      fill_in_ineligible_gross_income_screen(choice: "Skip remaining questions")
       confirm_screen("check_answers")
       click_on "Submit"
 
