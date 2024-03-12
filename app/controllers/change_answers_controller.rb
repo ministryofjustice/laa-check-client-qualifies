@@ -91,12 +91,10 @@ private
   end
 
   def non_finance_steps
-    Steps::Helper.steps_for_section(session_data, Steps::CaseDetailsSection) +
-      Steps::Helper.steps_for_section(session_data, Steps::ApplicantDetailsSection)
+    Steps::Helper.steps_for_section(session_data, Steps::NonFinancialSection)
   end
 
   def non_finance_step?(the_step)
-    (Steps::Helper.steps_for_section(session_data, Steps::ApplicantDetailsSection) +
-      Steps::Helper.steps_for_section(session_data, Steps::CaseDetailsSection)).include?(the_step)
+    non_finance_steps.include?(the_step)
   end
 end
