@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "New outgoings flow", :outgoings_flow_flag, type: :feature do
+RSpec.describe "New outgoings flow", :stub_cfe_calls, :outgoings_flow_flag, type: :feature do
   it "shows new screen order when there is no partner and passported" do
     start_assessment
     fill_in_forms_until(:applicant)

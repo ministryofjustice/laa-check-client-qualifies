@@ -9,6 +9,40 @@ class ChangeAnswersController < QuestionFlowController
       session_data.merge!(@form.attributes_for_export_to_session)
       if Steps::Helper.last_step_in_group?(session_data, step)
         next_step = next_check_answer_step(step)
+        if FeatureFlags.enabled?(:early_eligibility, session_data)
+          last_step_with_data = Steps::Helper.last_step_with_valid_data(session_data)
+          completed_steps = Steps::Helper.completed_steps_for(session_data, last_step_with_data)
+          if non_finance_step?(step)
+            if last_step_with_data == non_finance_steps.last
+              cfe_result = CfeService.result(session_data, completed_steps)
+              if cfe_result.ineligible_gross_income?
+                next_step = nil
+              elsif next_step.present? && Steps::Logic.check_stops_at_gross_income?(session_data)
+                # this branch is specific to a passported change to yes - they become eligible and we need
+                # to show the banner
+                session_data.delete IneligibleGrossIncomeForm::SELECTION
+                flash[:notice] = I18n.t("service.change_eligibility")
+              end
+            elsif next_step.present? && !non_finance_step?(next_step) && Steps::Logic.check_stops_at_gross_income?(session_data)
+              cfe_result = CfeService.result(session_data, completed_steps)
+              if cfe_result.ineligible_gross_income?
+                next_step = nil
+              else
+                session_data.delete IneligibleGrossIncomeForm::SELECTION
+                flash[:notice] = I18n.t("service.change_eligibility")
+              end
+            end
+          else
+            cfe_result = CfeService.result(session_data, completed_steps)
+            if Steps::Logic.check_stops_at_gross_income?(session_data) && cfe_result.ineligible_gross_income?
+              next_step = nil
+            end
+            if Steps::Logic.check_stops_at_gross_income?(session_data) && !cfe_result.ineligible_gross_income? && next_step.present?
+              session_data.delete IneligibleGrossIncomeForm::SELECTION
+              flash[:notice] = I18n.t("service.change_eligibility")
+            end
+          end
+        end
         if next_step
           redirect_to helpers.check_step_path_from_step(next_step, assessment_code)
         else
@@ -54,5 +88,13 @@ private
 
   def page_name
     "check_#{step}"
+  end
+
+  def non_finance_steps
+    Steps::Helper.steps_for_section(session_data, Steps::NonFinancialSection)
+  end
+
+  def non_finance_step?(the_step)
+    non_finance_steps.include?(the_step)
   end
 end

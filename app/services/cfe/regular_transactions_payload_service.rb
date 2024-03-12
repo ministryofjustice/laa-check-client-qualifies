@@ -7,8 +7,8 @@ module Cfe
         relevant_form?(:housing_costs) ||
         relevant_form?(:benefit_details)
 
-      outgoings_form = instantiate_form(OutgoingsForm)
-      income_form = instantiate_form(OtherIncomeForm)
+      outgoings_form = instantiate_form(OutgoingsForm) if relevant_form? :outgoings
+      income_form = instantiate_form(OtherIncomeForm) if relevant_form? :other_income
       benefit_details_form = instantiate_form(BenefitDetailsForm) if relevant_form?(:benefit_details)
       housing_form = if relevant_form?(:mortgage_or_loan_payment)
                        instantiate_form(MortgageOrLoanPaymentForm)

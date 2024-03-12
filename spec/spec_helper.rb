@@ -117,3 +117,38 @@ RSpec.configure do |config|
   #   # as the one that triggered the failure.
   #   Kernel.srand config.seed
 end
+
+require "vcr"
+
+ACCEPT_HEADERS = %w[Accept].freeze
+
+# RECORD_MODES are :once (default), :none, :new_episodes, :all
+record_mode = ENV["VCR_RECORD_MODE"] ? ENV["VCR_RECORD_MODE"].to_sym : :once
+
+VCR.configure do |config|
+  config.cassette_library_dir = "spec/fixtures/vcr_cassettes"
+  # using this higher-level hook allows WebMock to write-out stub calls when not in VCR-mode
+  config.hook_into :faraday
+  # hook the :vcr tag into RSpec flows
+  config.configure_rspec_metadata!
+  # This allows WebMock to kick in when VCR is set false
+  config.allow_http_connections_when_no_cassette = true
+
+  # CFE version info is in the accept header - so if the accept header is different, it is a different request
+  config.register_request_matcher :accept_headers_with_version do |r1, r2|
+    r1_headers = r1.headers.select { |k, _| ACCEPT_HEADERS.include?(k) }
+    r2_headers = r2.headers.select { |k, _| ACCEPT_HEADERS.include?(k) }
+
+    r1_headers == r2_headers
+  end
+
+  config.default_cassette_options = {
+    record: record_mode,
+    match_requests_on: %i[
+      method
+      uri
+      body
+      accept_headers_with_version
+    ],
+  }
+end

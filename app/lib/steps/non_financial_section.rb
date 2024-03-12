@@ -1,17 +1,49 @@
 module Steps
-  class CaseDetailsSection
+  class NonFinancialSection
     class << self
       def all_steps
         under_18_steps = %i[under_18_clr aggregated_means how_to_aggregate regular_income under_eighteen_assets]
         case_type_steps = %i[domestic_abuse_applicant immigration_or_asylum immigration_or_asylum_type immigration_or_asylum_type_upper_tribunal asylum_support]
-        %i[client_age level_of_help] + under_18_steps + case_type_steps
+        case_details_steps = %i[client_age level_of_help] + under_18_steps + case_type_steps
+
+        applicant_details_steps = %i[applicant dependant_details dependant_income dependant_income_details]
+
+        case_details_steps + applicant_details_steps
       end
 
       def grouped_steps_for(session_data)
-        initial_steps(session_data) + post_level_of_help_steps(session_data)
+        initial_steps(session_data) + post_level_of_help_steps(session_data) + applicant_grouped_steps_for(session_data)
       end
 
     private
+
+      def applicant_grouped_steps_for(session_data)
+        if Steps::Logic.skip_client_questions?(session_data)
+          []
+        else
+          applicant_groups(session_data).map { Steps::Group.new(*_1) }
+        end
+      end
+
+      def applicant_groups(session_data)
+        [[:applicant], dependant_details(session_data)].compact
+      end
+
+      def dependant_details(session_data)
+        return if Steps::Logic.passported?(session_data)
+
+        [:dependant_details, dependant_income(session_data)].flatten.compact
+      end
+
+      def dependant_income(session_data)
+        return unless Steps::Logic.dependants?(session_data)
+
+        [:dependant_income, dependant_income_details(session_data)]
+      end
+
+      def dependant_income_details(session_data)
+        :dependant_income_details if Steps::Logic.dependants_get_income?(session_data)
+      end
 
       def initial_steps(_session_data)
         [Steps::Group.new(:client_age), Steps::Group.new(:level_of_help)]

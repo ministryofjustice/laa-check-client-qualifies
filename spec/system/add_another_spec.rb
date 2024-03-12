@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Add another JS" do
+RSpec.describe "Add another JS", :stub_cfe_calls do
   let(:assessment_code) { :assessment_code }
 
   before do

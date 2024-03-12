@@ -13,7 +13,7 @@ RUN sudo apt install pdftk --allow-unauthenticated
 RUN yarn add puppeteer@21.9.0
 
 # Install Chrome using Puppeteer command
-RUN npx puppeteer browsers install chrome@121
+RUN npx puppeteer browsers install chrome
 
 # Tell Puppeteer to skip installing Chromium. We'll be using the installed package.
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true

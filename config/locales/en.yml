@@ -477,6 +477,8 @@ en:
               not_a_number_when_many: Total money in bank account %{position} must be a number. Enter 0 if this does not apply.
               greater_than_or_equal_to: Total money in bank account must be 0 or more. Enter 0 if this does not apply.
               greater_than_or_equal_to_when_many: Total money in bank account %{position} must be 0 or more. Enter 0 if this does not apply.
+            account_in_dispute:
+              inclusion: Make specs pass
         property_form:
           attributes:
             property_owned:
@@ -625,6 +627,7 @@ en:
     name_for_page_title: Check if your client qualifies for legal aid | GOV.UK
     public_beta_survey_link: https://eu.surveymonkey.com/r/ccqpublicbeta
     beta: Beta
+    change_eligibility: Your changes have now put the client within the financial eligibility limits for legal aid. You now need to provide more information.
     beta_message_html: This is a new service - your <a href="%{survey_link}" target="_blank">feedback</a> will help us improve it
     beta_message_short: This is a new service
     beta_message_pilot_heading: This page is no longer active as the pilot phase is complete.
@@ -640,6 +643,9 @@ en:
     error_summary_title: There is a problem
     error_prefix: "Error:"
     save_and_continue: Save and continue
+    check_answers: Check answers
+    return_to_check: Return to check
+    flash_banner_title: Important
     change: Change
     level_of_help:
       text: Level of help
@@ -906,6 +912,7 @@ en:
         text: "Guidance on 60 or over disregard (pensioner disregard)"
       heading: Tell us about your client
       partner:
+        definition: Help with definition of a partner
         legend: Does your client have a partner?
         hint_text: "A partner is someone your client is:"
         hint_list:
@@ -924,8 +931,8 @@ en:
         legend: What is your client's employment status?
         hint: "You cannot use this service if your client, or their partner, is self-employed."
       passporting:
+        definition: Help with passporting benefits
         legend: Does your client receive a passporting benefit?
-        partner_hint: Also select yes if your client is named on their partner’s passporting benefit claim.
         hint: "They will not need an income assessment if they receive any of these passporting benefits:"
         valid_benefits:
           - Universal Credit
@@ -1088,6 +1095,24 @@ en:
         certificated_text: Employment income (PDF, 918KB)
       police_guidance:
         text: Police officer applicants (PDF, 918KB)
+    early_result:
+      gross_income:
+        title: Gross monthly income limit exceeded by £%{cfe_result_number}
+        controlled:
+          para_1: We have enough information to tell you that your client will not qualify for legal aid.
+        certificated:
+          para_1: We have enough information to tell you that your client is not likely to qualify for legal aid.
+        para_2: "You can:"
+        help: Help with next steps
+        details_para_1: "You can:"
+        details_list:
+          - skip the remaining questions
+          - resume the check
+        skip_q_para: If you skip the questions, you can review your answers and get a summary of your client's result.
+        resume_check_para: If you resume the check and add more information, this will not change the outcome. Your client will not qualify as long as the gross monthly income exceeds the limit. You can still review the answers and save the result at the end.
+        go_to_summary: Skip remaining questions
+        skip_questions: Skip questions
+        resume_check: Resume check
     partner_income:
       heading: The partner's employment income
       hint: You can find this on the partner's payslips.
@@ -1910,6 +1935,10 @@ en:
       keep_the_evidence_for_under_18: 2. Keep the controlled work form in your records
       file_may_be_audited: Your client’s file may be audited or assessed by the LAA at a later date.
   results:
+    outgoings_table:
+      not_assessed: This was not assessed because it would not change the overall result.
+    capital_table:
+      not_assessed: This was not assessed because it would not change the overall result.
     show:
       likely_to_qualify: Your client is likely to qualify for civil legal aid, for certificated work
       not_likely_to_qualify: Your client is not likely to qualify for civil legal aid, for certificated work
@@ -2237,7 +2266,9 @@ en:
           capital: Disposable capital
         contribution_needed: Contribution needed
         exceeds_upper_limit: Exceeds upper limit
+        not_assessed: Not assessed
         texts:
+          not_assessed_desc: This was not assessed because it would not change the overall result.
           gross_income:
             eligible: Your client’s total is below the gross monthly income upper limit (%{upper_threshold}).
             eligible_no_upper_threshold: There is no gross monthly income limit in %{matter_type} matters.
@@ -2314,11 +2345,6 @@ en:
       agency: Agency
       print_this_page: Print this page
       your_answers: Your answers
-    invalid_session:
-      answers_deleted: Your answers have been deleted
-      paragraph_1: We have deleted your answers. This is because the service was updated while you were using it and the answers you gave cannot be saved.
-      paragraph_2: You will need to start again.
-      start_again: Start again
   start:
     index:
       opening_paragraphs:
@@ -2594,6 +2620,11 @@ en:
     subheading_2: How to share results
     subsection_2: To share the results of a check, save the result declaration as a PDF. You can do this on the results page at the end of the check.
     cta: Start a new eligibility check
+  invalid_session:
+    answers_deleted: Your answers have been deleted
+    paragraph_1: We have deleted your answers. This is because the service was updated while you were using it and the answers you gave cannot be saved.
+    paragraph_2: You will need to start again.
+    start_again: Start again
   helps:
     show:
       title: Help

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Accessibility" do
+RSpec.describe "Accessibility", :stub_cfe_calls do
   before { driven_by(:headless_chrome) }
 
   let(:arbitrary_fixed_time) { Time.zone.local(2022, 9, 5, 9, 0, 0) }

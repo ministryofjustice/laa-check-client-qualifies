@@ -36,6 +36,8 @@ module CfeParamBuilders
     }.freeze
 
     def self.build_payments(cfe_translations, form, operation)
+      return [] if form.nil?
+
       cfe_translations.select { |_cfe_name, local_name| value(form, local_name).to_i.positive? }
                       .map do |cfe_name, local_name|
         {
