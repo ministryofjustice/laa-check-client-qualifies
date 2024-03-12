@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "other_income", type: :feature do
+RSpec.describe "other_income", :stub_cfe_calls, type: :feature do
   let(:assessment_code) { :assessment_code }
   let(:feature_flags) { {} }
 

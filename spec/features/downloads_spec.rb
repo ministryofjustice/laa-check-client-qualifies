@@ -1,12 +1,10 @@
 require "rails_helper"
 
-RSpec.describe "Download result", type: :feature do
+RSpec.describe "Download result", :stub_cfe_calls, type: :feature do
   let(:api_response) { FactoryBot.build(:api_result, eligible: "eligible") }
 
   it "gives me a download option for an eligible certificated check" do
     allow(CfeConnection).to receive(:state_benefit_types).and_return([])
-
-    allow(CfeService).to receive(:call).and_return(api_response)
 
     start_assessment
     fill_in_forms_until(:level_of_help)
@@ -19,8 +17,6 @@ RSpec.describe "Download result", type: :feature do
 
   it "gives me a download option for an eligible controlled check" do
     allow(CfeConnection).to receive(:state_benefit_types).and_return([])
-
-    allow(CfeService).to receive(:call).and_return(api_response)
 
     start_assessment
     fill_in_forms_until(:level_of_help)
@@ -37,8 +33,6 @@ RSpec.describe "Download result", type: :feature do
     it "gives me a download option for a certificated check" do
       allow(CfeConnection).to receive(:state_benefit_types).and_return([])
 
-      allow(CfeService).to receive(:call).and_return(api_response)
-
       start_assessment
       fill_in_forms_until(:level_of_help)
       fill_in_level_of_help_screen(choice: "Civil certificated or licensed legal work")
@@ -50,8 +44,6 @@ RSpec.describe "Download result", type: :feature do
 
     it "gives me a download option for a controlled check" do
       allow(CfeConnection).to receive(:state_benefit_types).and_return([])
-
-      allow(CfeService).to receive(:call).and_return(api_response)
 
       start_assessment
       fill_in_forms_until(:level_of_help)

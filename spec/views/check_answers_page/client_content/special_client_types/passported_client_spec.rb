@@ -33,7 +33,9 @@ RSpec.describe "checks/check_answers.html.slim" do
     end
 
     context "with a partner" do
-      let(:session_data) { build(:minimal_complete_session, partner: true, passporting: true) }
+      let(:session_data) do
+        build(:minimal_complete_session, partner: true, passporting: true)
+      end
 
       it "renders partner details and capital sections" do
         expect(text).to include("Partner assets")

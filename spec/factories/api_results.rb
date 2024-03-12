@@ -86,6 +86,7 @@ FactoryBot.define do
 
   factory :gross_income_summary, class: Hash do
     initialize_with { attributes }
+    total_gross_income { 1000.0 }
     proceeding_types { [build(:proceeding_type)] }
   end
 

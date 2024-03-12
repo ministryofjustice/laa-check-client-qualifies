@@ -3,7 +3,13 @@ class QuestionFlowController < ApplicationController
 
   def show
     track_page_view
-    @previous_step = Steps::Helper.previous_step_for(session_data, step)
+    if step == :ineligible_gross_income
+      @previous_step = :other_income
+      relevant_steps = Steps::Helper.completed_steps_for(session_data, @previous_step)
+      @gross_income_excess = CfeService.result(session_data, relevant_steps).gross_income_excess
+    else
+      @previous_step = Steps::Helper.previous_step_for(session_data, step)
+    end
     @form = Flow::Handler.model_from_session(step, session_data)
     render "/question_flow/#{step}"
   end
@@ -35,5 +41,25 @@ protected
 
   def step
     @step ||= Flow::Handler.step_from_url_fragment(params[:step_url_fragment])
+  end
+
+  def tag_from(step)
+    return if Flow::Handler::STEPS.fetch(step)[:tag].nil?
+
+    Flow::Handler::STEPS.fetch(step)[:tag]
+  end
+
+  def last_tag_in_group?(tag)
+    remaining_steps = Steps::Helper.remaining_steps_for(session_data, step)
+
+    return if remaining_steps.blank?
+
+    remaining_tags = []
+    remaining_steps.map do |remaining|
+      remaining_tags << tag_from(remaining)
+    end
+    return unless !remaining_tags.compact.include?(tag) && tag_from(step) == tag
+
+    true
   end
 end

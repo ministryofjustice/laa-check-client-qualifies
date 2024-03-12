@@ -80,4 +80,31 @@ RSpec.describe "Results page variations", :end2end, type: :feature do
 
     key_lines.each { expect(page).to have_content _1 }
   end
+
+  context "when early eligibility journey is enabled and ineligible on gross_income", :early_eligibility_flag, :stub_cfe_calls do
+    before do
+      allow(CfeService).to receive(:result).and_return(instance_double(CfeResult, ineligible_gross_income?: true,
+                                                                                  gross_income_excess: 1000))
+    end
+
+    it "does not show the disposable or capital result" do
+      start_assessment
+      fill_in_forms_until(:applicant)
+      fill_in_applicant_screen(partner: "No", passporting: "No")
+      fill_in_dependant_details_screen
+      fill_in_employment_status_screen(choice: "Employed or self-employed")
+      fill_in_income_screen(gross: "8000", frequency: "Every month")
+      fill_in_forms_until(:other_income)
+      fill_in_other_income_screen(values: { friends_or_family: "1200" }, frequencies: { friends_or_family: "Every week" })
+      fill_in_ineligible_gross_income_screen(choice: "Skip remaining questions")
+      confirm_screen("check_answers")
+      click_on "Submit"
+
+      key_lines = ["Your client is not likely to qualify financially for civil legal aid based on the information you entered",
+                   "Disposable monthly income\nNot assessed\nThis was not assessed because it would not change the overall result",
+                   "Disposable capital\nNot assessed\nThis was not assessed because it would not change the overall result"]
+
+      key_lines.each { expect(page).to have_content _1 }
+    end
+  end
 end
