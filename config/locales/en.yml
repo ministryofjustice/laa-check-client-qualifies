@@ -649,7 +649,6 @@ en:
     check_answers: Check answers
     return_to_check: Return to check
     flash_banner_title: Important
-    change: Change
     level_of_help:
       text: Level of help
       certificated: Civil certificated or licensed legal work
@@ -1626,6 +1625,47 @@ en:
     check_answers:
       heading: Check your answers
       change: Change
+      change_aria_label:
+        client_age: Change Client age
+        under_18_clr: Change controlled legal representation
+        under_eighteen_assets: Change under 18 assets
+        aggregated_means: Change aggregated means
+        regular_income: Change regular income
+        level_of_help: Change Level of help your client needs
+        domestic_abuse_applicant: Change type of matter
+        immigration_or_asylum_type_upper_tribunal: Change type of immigration or asylum matter
+        immigration_or_asylum: Change Matter type
+        immigration_or_asylum_type: Change Immigration or asylum matter
+        asylum_support: Change Asylum support
+        applicant: Change Client details
+        dependant_details: Change Dependants
+        employment_status: Change Employment status
+        income: Change Client employment income %{index}
+        benefits: Change Client benefits
+        benefit_details: Change Client benefit %{index} Details
+        other_income: Change Client other income
+        outgoings: Change Client outgoings and deductions
+        assets: Change Client assets
+        vehicle: Change Vehicles
+        vehicles_details: Change Vehicle %{index} Details
+        property: Change Home client lives in
+        property_entry: Change Home client lives in details
+        housing_costs: Change Housing Costs
+        mortgage_or_loan_payment: Change Mortgage Payment
+        additional_property: Change Client other property
+        additional_property_details: Change client other property %{index} details
+        partner_details: Change Partner Details
+        partner_employment_status: Change Partner employment status
+        partner_income: Change Partner employment income  %{index}
+        partner_other_income: Change Partner other income
+        partner_benefits: Change Partner Benefits
+        partner_benefit_details: Change Partner benefit %{index} details
+        partner_outgoings: Change Partner outgoings and deductions
+        partner_assets: Change Partner assets
+        partner_additional_property: Change Partner other property
+        partner_additional_property_details: Change Partner other property %{index} details
+        dependant_income: Change Dependant income
+        dependant_income_details: Change Dependant income %{index} details
       frequency_options:
         every_week: Every week
         every_two_weeks: Every 2 weeks
