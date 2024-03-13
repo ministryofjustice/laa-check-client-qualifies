@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - EL-1352-debian-slim-image-puppeteer
 
 jobs:
   build-push:
