@@ -34,7 +34,7 @@
   .gem-c-feedback__prompt data-feedback-section="final" hidden=true
     .govuk-width-container
       span.gem-c-feedback__prompt-question-answer
-        h2.govuk-heading-s class="govuk-!-margin-bottom-0 govuk-!-margin-right-2" data-feedback-role="final-message"
+        h2.govuk-heading-s class="govuk-!-margin-bottom-0 govuk-!-margin-right-2" data-feedback-role="final-message" tabIndex="-1"
           = t("feedback.thank_you_message")
 - elsif @feedback == :freetext
   - label = safe_join([tag.h3(t("feedback.freetext.heading")), tag.p(t("feedback.heading_hint"))])
