@@ -40,6 +40,10 @@
   - label = safe_join([tag.h3(t("feedback.freetext.heading")), tag.p(t("feedback.heading_hint"))])
   .gem-c-feedback__prompt data-feedback-section="initial"
     .govuk-width-container
+      .govuk-width-container data-feedback-section="cancel" hidden=true
+        h2.govuk-heading-s class="govuk-!-margin-bottom-3" data-feedback-role="cancel-message" tabIndex="0"
+          = t("feedback.cancel")
+
       .gem-c-feedback__prompt-content
         .gem-c-feedback__prompt-questions--something-is-wrong
           button.gem-c-feedback__prompt-link data-feedback-role="initial-trigger"

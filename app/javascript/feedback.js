@@ -16,6 +16,8 @@ const initFeedback = () => {
 
   onClickElementWithRole("cancel", () => {
     showSection("initial");
+    document.querySelector(`[data-feedback-section="cancel"]`).hidden = false;
+    document.querySelector('[data-feedback-role="cancel-message"]').focus();
   });
 
   onClickElementWithRole("skip", () => {
