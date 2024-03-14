@@ -5,13 +5,22 @@ const initFeedback = () => {
   });
 
   onClickElementWithRole("submit-text", (e) => {
+   const finalMessageElement = document.querySelector('[data-feedback-role="final-message"]');
     if (textBlank()) {
       e.preventDefault();
       showSection(e.target.dataset.feedbackSectionIfBlank);
+
+      // this isn't a 'thank you message' when it's blank and freetext feedback
+      if (finalMessageElement) {
+        finalMessageElement.focus();
+      }
+
+      // there isn't a 'blank' notifcation for satisfaction feedback, but is handled in this function
       showSectionNotification('blank')
+
     } else {
       showSection("final");
-      document.querySelector('[data-feedback-role="final-message"]').focus();
+      finalMessageElement.focus();
     }
   });
 
@@ -22,6 +31,7 @@ const initFeedback = () => {
 
   onClickElementWithRole("skip", () => {
     showSection("final");
+    document.querySelector('[data-feedback-role="final-message"]').focus();
   });
 
   document.querySelectorAll('[data-feedback-role="satisfaction-form"]').forEach((element) => {
@@ -54,7 +64,6 @@ const showSection = (sectionArea) => {
      }
   });
 }
-
 
 const showSectionNotification = (section) => {
   const sectionElement = document.querySelector(`[data-feedback-section="${section}"]`);
