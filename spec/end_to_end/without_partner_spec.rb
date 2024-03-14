@@ -122,6 +122,14 @@ RSpec.describe "Certificated check without partner", type: :feature do
   context "when interacting with the CFE API", :end2end do
     include_context "with a no-partner, non-passported certificated check"
 
+    before do
+      travel_to Date.new(2024, 2, 2)
+    end
+
+    after do
+      travel_back
+    end
+
     it "shows appropriate content on the results screen" do
       click_on "Submit"
 
