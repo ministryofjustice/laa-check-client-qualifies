@@ -44,6 +44,10 @@
         h2.govuk-heading-s class="govuk-!-margin-bottom-3" data-feedback-role="cancel-message" tabIndex="0"
           = t("feedback.cancel")
 
+      .govuk-width-container data-feedback-section="blank" hidden=true
+        h2.govuk-heading-s class="govuk-!-margin-bottom-3" data-feedback-role="blank-message" tabIndex="0"
+          = t("feedback.blank")
+
       .gem-c-feedback__prompt-content
         .gem-c-feedback__prompt-questions--something-is-wrong
           button.gem-c-feedback__prompt-link data-feedback-role="initial-trigger"

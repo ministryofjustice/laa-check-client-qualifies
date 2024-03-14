@@ -8,6 +8,7 @@ const initFeedback = () => {
     if (textBlank()) {
       e.preventDefault();
       showSection(e.target.dataset.feedbackSectionIfBlank);
+      showSectionNotification('blank')
     } else {
       showSection("final");
       document.querySelector('[data-feedback-role="final-message"]').focus();
@@ -16,8 +17,7 @@ const initFeedback = () => {
 
   onClickElementWithRole("cancel", () => {
     showSection("initial");
-    document.querySelector(`[data-feedback-section="cancel"]`).hidden = false;
-    document.querySelector('[data-feedback-role="cancel-message"]').focus();
+    showSectionNotification('cancel')
   });
 
   onClickElementWithRole("skip", () => {
@@ -55,4 +55,22 @@ const showSection = (sectionArea) => {
   });
 }
 
+
+const showSectionNotification = (section) => {
+  const sectionElement = document.querySelector(`[data-feedback-section="${section}"]`);
+  const blankSectionElement = document.querySelector('[data-feedback-section="blank"]');
+  const cancelSectionElement = document.querySelector('[data-feedback-section="cancel"]');
+  
+  if (sectionElement) {
+    if (section === 'blank') {
+      blankSectionElement.hidden = false;
+      cancelSectionElement.hidden = true;
+      document.querySelector('[data-feedback-role="blank-message"]').focus();
+    } else {
+      blankSectionElement.hidden = true;
+      cancelSectionElement.hidden = false;
+      document.querySelector('[data-feedback-role="cancel-message"]').focus();
+    }
+  }
+}
 export default initFeedback;
