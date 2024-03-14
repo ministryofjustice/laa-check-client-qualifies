@@ -22,10 +22,6 @@ module ApplicationHelper
     boolean ? I18n.t("generic.yes_choice") : I18n.t("generic.no_choice")
   end
 
-  def format_money(value)
-    number_with_precision(value, precision: 2, delimiter: ",")
-  end
-
   def decimal_as_money_string(form, field)
     current_value = form.object.attributes[field.to_s]
     as_money_string(current_value)

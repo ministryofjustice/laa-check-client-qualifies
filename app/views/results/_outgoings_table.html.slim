@@ -1,5 +1,5 @@
 - if @early_eligibility_selection == "gross"
-     p class="govuk-body" = t(".not_assessed")
+  p class="govuk-body" = t(".not_assessed")
 - else
   = pdf_friendly_h2(t("results.show.client_outgoings"), "m", @is_pdf)
   = pdf_friendly_p_element(t("results.show.period_conversion_hint"), @is_pdf)
