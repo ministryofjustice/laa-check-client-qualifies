@@ -39,7 +39,7 @@ RSpec.describe "checks/check_answers.html.slim" do
 
       it "renders partner details and capital sections" do
         expect(text).to include("Partner assets")
-        expect(text).to include("Partner details")
+        expect(text).to include("Partner age")
       end
 
       it "does not render partner income and outgoings sections" do
