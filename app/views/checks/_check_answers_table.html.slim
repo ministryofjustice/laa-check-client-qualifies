@@ -10,7 +10,7 @@
       - id_slug = table.index.to_i.positive? ? "table-#{table.screen}-#{table.index}" : "table-#{table.screen}"
       .govuk-summary-card id=(id_slug unless table.skip_change_link)
         .govuk-summary-card__title-wrapper
-          h2.govuk-summary-card__title
+          h3.govuk-summary-card__title
             = t("checks.check_answers.tables.#{table.screen}", variable: (table.index + 1 if table.index))
             - if table.disputed?
               span.moj-badge.moj-badge--blue.moj-badge--large.inline-disputed

@@ -1634,26 +1634,16 @@ en:
         not_applicable: Not applicable
       not_provided: Not provided
       sections:
+        client_detials: Client details
         level_of_help: Level of help
-        case_details: Case details
-        client_details: Client details
         dependants: Dependants
         client_income: Client income
-        partner_details: Partner details
         partner_income: Partner income
-        client_outgoings: Client outgoings
-        partner_outgoings: Partner outgoings
-        client_assets: Client assets
-        partner_assets: Partner assets
+        outgoings: Outgoings
+        assests: Assests
         vehicles: Vehicles
         housing_and_property: Housing and property
       subsections:
-        client_employment_income: Client employment income
-        client_benefits: Client benefits
-        client_other_income: Client other income
-        partner_employment_income: Partner employment income
-        partner_benefits: Partner benefits
-        partner_other_income: Partner other income
         client_other_property: Client other property
         partner_other_property: Partner other property
       tables:
@@ -1676,7 +1666,7 @@ en:
         benefits: Client benefits
         benefit_details: Client benefit %{variable} details
         other_income: Client other income
-        partner_details: Partner details
+        partner_details: Partner age
         partner_employment_status: Partner employment status
         partner_income: Partner employment income %{variable}
         partner_employment: Partner employment income
@@ -1912,7 +1902,6 @@ en:
         percentage_owned: What percentage does the partner own?
       submission_instructions: Now submit your eligibility check
       submission_explanation: We'll use your answers to give you an estimated result of your client's financial eligibility for legal aid.
-      how_to_save_header: How to save your answers
       how_to_save_text: After you submit your eligibility check we'll show you the result and the calculations made to get it. You can print or save the eligibility result page, including your answers.
       call_to_action: Submit eligibility check
     end_of_journey:
