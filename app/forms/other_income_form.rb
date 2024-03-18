@@ -26,6 +26,7 @@ class OtherIncomeForm
                                numericality: { greater_than_or_equal_to: 0, allow_nil: true },
                                is_a_number: true,
                                if: -> { !FeatureFlags.enabled?(:conditional_reveals, check.session_data) }
+    next if income_type == :other
 
     attribute conditional_value_attribute, :gbp
     validates conditional_value_attribute, presence: true,
@@ -42,11 +43,25 @@ class OtherIncomeForm
                                    inclusion: { in: VALID_FREQUENCIES, allow_nil: false },
                                    if: -> { (!FeatureFlags.enabled?(:conditional_reveals, check.session_data) && send(value_attribute).to_i.positive?) || send(boolean_attribute) }
   end
+  attribute :other_conditional_value, :gbp
+  validate :custom_validation_other_conditional_value
 
   delegate :level_of_help, to: :check
 
   def frequencies
     valid_frequencies = level_of_help == "controlled" ? VALID_FREQUENCIES - %w[total] : VALID_FREQUENCIES
     valid_frequencies.map { [_1, I18n.t("question_flow.other_income.frequencies.#{_1}")] }
+  end
+
+  def custom_validation_other_conditional_value
+    if FeatureFlags.enabled?(:conditional_reveals, check.session_data) && send("other_relevant")
+      if other_conditional_value.blank?
+        errors.add(:other_conditional_value, I18n.t("activemodel.errors.models.other_income_form.attributes.other_conditional_value.blank_#{level_of_help}"))
+      elsif !other_conditional_value.is_a?(Numeric)
+        errors.add(:other_conditional_value, I18n.t("activemodel.errors.models.other_income_form.attributes.other_conditional_value.not_a_number_#{level_of_help}"))
+      elsif !other_conditional_value.to_i.positive?
+        errors.add(:other_conditional_value, I18n.t("activemodel.errors.models.other_income_form.attributes.other_conditional_value.greater_than_#{level_of_help}"))
+      end
+    end
   end
 end

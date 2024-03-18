@@ -251,9 +251,12 @@ en:
               not_a_number: Amount of student finance received this academic year must be a number
               greater_than: Amount of student finance received this academic year must be more than 0
             other_conditional_value:
-              blank: Enter amount of income from other sources received in the last 3 months
-              not_a_number: Amount of income from other sources received in the last 3 months must be a number
-              greater_than: Amount of income from other sources received in the last 3 months must be more than 0
+              blank_controlled: Enter amount of income from other sources received in the last month
+              blank_certificated: Enter amount of income from other sources received in the last 3 months
+              not_a_number_controlled: Amount of income from other sources received in the last month must be a number
+              not_a_number_certificated: Amount of income from other sources received in the last 3 months must be a number
+              greater_than_controlled: Amount of income from other sources received in the last month must be more than 0
+              greater_than_certificated: Amount of income from other sources received in the last 3 months must be more than 0
             friends_or_family_value:
               blank: Enter financial help from friends and family, if this does not apply enter 0
               not_a_number: Financial help from friends and family must be a number, if this does not apply enter 0
@@ -1275,15 +1278,15 @@ en:
         question_hint: This includes any type of student loan, grant or bursary. Do not include any tuition fee loans.
         label: Student finance
         hint: This includes any type of student loan, grant or bursary. Do not include any tuition fee loans. Enter 0 if this does not apply
-        certificated_instruction: Enter amount received this academic year
-        controlled_instruction: Enter amount received this academic year
+        certificated_instruction: Amount received this academic year
+        controlled_instruction: Amount received this academic year
       other:
         question: Does your client get income from other sources?
         question_hint: Include any other income your client received. Do not include any government Cost of Living Payments.
         label: Income from other sources
         hint: Include any other income your client received. Do not include any government Cost of Living Payments. Enter 0 if this does not apply
-        certificated_instruction: Enter amount received in the last 3 months
-        controlled_instruction: Enter amount received in the last month
+        certificated_instruction: Amount received in the last 3 months
+        controlled_instruction: Amount received in the last month
       enter_frequency: Select frequency
       amount: Amount
       frequency: Frequency
@@ -1325,15 +1328,15 @@ en:
         question_hint: This includes any type of student loan, grant or bursary. Do not include any tuition fee loans.
         label: Student finance
         hint: This includes any type of student loan, grant or bursary. Do not include any tuition fee loans. Enter 0 if this does not apply.
-        certificated_instruction: Enter amount received this academic year
-        controlled_instruction: Enter amount received this academic year
+        certificated_instruction: Amount received this academic year
+        controlled_instruction: Amount received this academic year
       other:
         question: Does the partner get income from other sources?
         question_hint: Include any other income the partner received. Do not include any government Cost of Living Payments.
         label: Income from other sources
         hint: Include any other income the partner received. Do not include any government Cost of Living Payments. Enter 0 if this does not apply.
-        certificated_instruction: Enter amount received in the last 3 months
-        controlled_instruction: Enter amount received in the last month
+        certificated_instruction: Amount received in the last 3 months
+        controlled_instruction: Amount received in the last month
       enter_frequency: Select frequency
     outgoings:
       heading: Your client's outgoings and deductions
