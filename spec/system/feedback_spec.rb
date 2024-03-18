@@ -23,8 +23,8 @@ RSpec.describe "Feedback component" do
         click_on "Continue to download and finish"
         expect(page).to have_content("Were you satisfied with this service?")
         click_on "Yes"
-        assert page.has_content?("Your response has been sent, please tell us more")
-        assert page.has_content?("Don't include personal information")
+        expect(page).to have_content("Your response has been sent, please tell us more")
+        expect(page).to have_content("Don't include personal information")
         fill_in "comment-field", with: "some feedback!"
         stored_data = SatisfactionFeedback.find_by(satisfied: "yes", outcome: "eligible", level_of_help: "controlled")
         expect(stored_data).not_to be_nil
@@ -45,7 +45,7 @@ RSpec.describe "Feedback component" do
           click_on "Give feedback on this page"
           fill_in "freetext-input-field", with: "some feedback!"
           click_on "Send"
-          assert page.has_content?("Thank you for your feedback")
+          expect(page).to have_content("Thank you for your feedback")
           expect(FreetextFeedback.find_by(text: "some feedback!", page: "check_answers_checks", level_of_help: "certificated")).not_to be_nil
         end
 
@@ -91,7 +91,7 @@ RSpec.describe "Feedback component" do
           click_on "Give feedback on this page"
           fill_in "freetext-input-field", with: "some feedback!"
           click_on "Send"
-          assert page.has_content?("Thank you for your feedback")
+          expect(page).to have_content("Thank you for your feedback")
           expect(FreetextFeedback.find_by(text: "some feedback!", page: "show_results", level_of_help: "controlled")).not_to be_nil
         end
       end
@@ -108,7 +108,7 @@ RSpec.describe "Feedback component" do
           click_on "Give feedback on this page"
           fill_in "freetext-input-field", with: "some feedback!"
           click_on "Send"
-          assert page.has_content?("Thank you for your feedback")
+          expect(page).to have_content("Thank you for your feedback")
           expect(FreetextFeedback.find_by(text: "some feedback!", page: "new_controlled_work_document_selections", level_of_help: "controlled")).not_to be_nil
         end
       end
@@ -122,7 +122,7 @@ RSpec.describe "Feedback component" do
           click_on "Give feedback on this page"
           fill_in "freetext-input-field", with: "some feedback!"
           click_on "Send"
-          assert page.has_content?("Thank you for your feedback")
+          expect(page).to have_content("Thank you for your feedback")
           expect(FreetextFeedback.find_by(text: "some feedback!", page: "index_updates", level_of_help: nil)).not_to be_nil
         end
       end
@@ -134,7 +134,7 @@ RSpec.describe "Feedback component" do
           click_on "Give feedback on this page"
           fill_in "freetext-input-field", with: "some feedback!"
           click_on "Send"
-          assert page.has_content?("Thank you for your feedback")
+          expect(page).to have_content("Thank you for your feedback")
           expect(FreetextFeedback.find_by(text: "some feedback!", page: "show_helps", level_of_help: nil)).not_to be_nil
         end
       end
