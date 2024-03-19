@@ -64,8 +64,8 @@ featureFlags:
   maintenanceMode: NOT_ENABLED
   basicAuthentication: ENABLED
   outgoingsFlow: ENABLED
-  conditionalReveals: NOT_ENABLED
-  earlyEligibility: ENABLED
+  conditionalReveals: ENABLED
+  earlyEligibility: NOT_ENABLED
 
 postgresql:
   enabled: true
