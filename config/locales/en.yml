@@ -1355,7 +1355,7 @@ en:
         hints:
           - "This includes child maintenance. If your client is paying all or part of their ex-partner’s housing costs in the former matrimonial home, include this. Enter 0 if this does not apply."
       legal_aid_payments:
-        question: Does your client make payments toward legal aid for a criminal case?
+        question: Does your client make payments towards legal aid for a criminal case?
         question_hint: ""
         label: Payments towards legal aid in a criminal case
         hints:
@@ -1392,7 +1392,7 @@ en:
         hints:
           - "This includes child maintenance. Enter 0 if this does not apply"
       legal_aid_payments:
-        question: Does the partner make payments toward legal aid for a criminal case?
+        question: Does the partner make payments towards legal aid for a criminal case?
         question_hint: ""
         label: Payments towards legal aid in a criminal case
         hints:
