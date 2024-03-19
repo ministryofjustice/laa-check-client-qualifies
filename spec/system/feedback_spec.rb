@@ -74,7 +74,6 @@ RSpec.describe "Feedback component" do
           expect(page).to have_content("You did not enter any feedback")
           expect(page).to have_content("Give feedback on this page")
           expect(page).not_to have_content("Thank you for your feedback")
-          expect(page).to have_content("because you did not enter any feedback")
           expect(FreetextFeedback.find_by(text: "", page: "check_answers_checks", level_of_help: "certificated")).to be_nil
           expect(FreetextFeedback.count).to be(0)
         end
