@@ -969,6 +969,7 @@ en:
         bullets:
           - foster children (where the fostering allowance for that child has been wholly disregarded from gross income)
           - any child with £338.90 or more income every month (any income below this can be entered on the following pages and will be deducted from the dependant allowance)
+        hidden_text: If yes, enter a number
       adult_dependants:
         legend: Does your client have any adult dependants?
         legend_with_partner: Does your client or their partner have any adult dependants?
@@ -979,6 +980,7 @@ en:
         bullets:
           - anyone who owns any property, vehicles or other assets valued at over £8,000 in total
           - anyone with £338.90 or more income every month (any income below this can be entered on the following pages and will be deducted from the dependant allowance)
+        hidden_text: If yes, enter a number
       how_many_child: How many child dependants are there?
       how_many_adult: How many adult dependants are there?
       guidance:

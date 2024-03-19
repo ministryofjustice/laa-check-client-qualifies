@@ -21,6 +21,12 @@
       - t("question_flow.dependant_details.adult_dependants.bullets").each
         li = _1
 
+- content_for :child_dependants_hidden_text
+  = govuk_visually_hidden(t("question_flow.dependant_details.child_dependants.hidden_text"))
+
+- content_for :adult_dependants_hidden_text
+  = govuk_visually_hidden(t("question_flow.dependant_details.adult_dependants.hidden_text"))
+
 .govuk-grid-column-two-thirds
   = form_for(@form, url: request.path, method: :put) do |form|
     = form.govuk_error_summary t("generic.error_summary_title")
@@ -36,7 +42,9 @@
       = render "shared/radio_button_set",
                form:,
                field_name: :child_dependants,
-               buttons: [{ value: true, options: { label: { text: t("generic.yes_choice") } } },
+               buttons: [{ value: true,
+                           options: { label: { text: t("generic.yes_choice") },
+                                               hint: -> { content_for(:child_dependants_hidden_text) } } },
                          { value: false, options: { label: { text: t("generic.no_choice") } } }]
         = form.govuk_text_field :child_dependants_count,
             width: 5,
@@ -49,7 +57,9 @@
       = render "shared/radio_button_set",
                form:,
                field_name: :adult_dependants,
-               buttons: [{ value: true, options: { label: { text: t("generic.yes_choice") } } },
+               buttons: [{ value: true,
+                           options: { label: { text: t("generic.yes_choice") },
+                                               hint: -> { content_for(:adult_dependants_hidden_text) } } },
                          { value: false, options: { label: { text: t("generic.no_choice") } } }]
         = form.govuk_text_field :adult_dependants_count,
             width: 5,
