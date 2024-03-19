@@ -19,7 +19,8 @@
             - anchor = "section-#{table.index + 1}" if table.index
             = link_to t("checks.check_answers.change"),
                       check_step_path_from_step(table.screen.to_sym, params[:assessment_code], anchor:, begin_editing: true),
-                      class: "change-link govuk-!-margin-top-1"
+                      class: "change-link govuk-!-margin-top-1",
+                      "aria-label": t("checks.check_answers.change_aria_label.#{table.screen}", index: (table.index + 1 if table.index))
         .govuk-summary-card__content
           dl.govuk-summary-list
             - table.fields.each do |field|
