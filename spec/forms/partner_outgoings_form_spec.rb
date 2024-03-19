@@ -70,4 +70,20 @@ RSpec.describe "partner_outgoings", type: :feature do
       expect(session_contents["partner_childcare_payments_frequency"]).to eq "monthly"
     end
   end
+
+  context "when conditional reveals are enabled", :conditional_reveals_flag do
+    it "stores my values correctly" do
+      choose "No", name: "partner_outgoings_form[legal_aid_payments_relevant]"
+      choose "Yes", name: "partner_outgoings_form[maintenance_payments_relevant]"
+
+      fill_in "partner-outgoings-form-maintenance-payments-conditional-value-field", with: "400"
+      choose "Every month", name: "partner_outgoings_form[maintenance_payments_frequency]"
+
+      click_on "Save and continue"
+
+      expect(session_contents["partner_legal_aid_payments_relevant"]).to eq false
+      expect(session_contents["partner_maintenance_payments_conditional_value"]).to eq 400
+      expect(session_contents["partner_maintenance_payments_frequency"]).to eq "monthly"
+    end
+  end
 end
