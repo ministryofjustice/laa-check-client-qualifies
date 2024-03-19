@@ -2727,7 +2727,7 @@ en:
     heading_hint: Don't include personal information.
     thank_you_message: Thank you for your feedback
     cancel: Feedback not sent
-    blank: Feedback not sent, because you did not enter any feedback
+    blank: You did not enter any feedback
     button_send: Send
     button_cancel: Cancel
     button_skip: Skip
