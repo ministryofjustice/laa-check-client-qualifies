@@ -40,4 +40,7 @@
             capital_contribution: @model.capital_contribution,
             income_contribution: @model.income_contribution)
       - if links
-        = link_to t("results.show.section_summaries.see_calculation"), "##{data[:section]}", class: "summary-box-link"
+        = link_to t("results.show.section_summaries.see_calculation"),
+                  "##{data[:section]}",
+                  class: "summary-box-link",
+                  "aria-label": t("results.show.section_summaries.see_calculation_aria_label.#{data[:section]}")
