@@ -59,7 +59,7 @@ RSpec.describe "Feedback component" do
           expect(page).to have_content("Feedback not sent")
           expect(page).to have_content("Give feedback on this page")
           expect(page).not_to have_content("Thank you for your feedback")
-          expect(page).not_to have_content("Feedback not sent, because you did not enter any feedback")
+          expect(page).not_to have_content("You did not enter any feedback")
           expect(FreetextFeedback.find_by(text: "some feedback!", page: "check_answers_checks", level_of_help: "certificated")).to be_nil
           expect(FreetextFeedback.count).to be(0)
         end
@@ -71,7 +71,7 @@ RSpec.describe "Feedback component" do
           click_on "Give feedback on this page"
           fill_in "freetext-input-field", with: ""
           click_on "Send"
-          expect(page).to have_content("Feedback not sent, because you did not enter any feedback")
+          expect(page).to have_content("You did not enter any feedback")
           expect(page).to have_content("Give feedback on this page")
           expect(page).not_to have_content("Thank you for your feedback")
           expect(page).to have_content("because you did not enter any feedback")
