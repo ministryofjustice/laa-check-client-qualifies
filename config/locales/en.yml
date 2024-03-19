@@ -251,9 +251,12 @@ en:
               not_a_number: Amount of student finance received this academic year must be a number
               greater_than: Amount of student finance received this academic year must be more than 0
             other_conditional_value:
-              blank: Enter amount of income from other sources received in the last 3 months
-              not_a_number: Amount of income from other sources received in the last 3 months must be a number
-              greater_than: Amount of income from other sources received in the last 3 months must be more than 0
+              blank_controlled: Enter amount of income from other sources received in the last month
+              blank_certificated: Enter amount of income from other sources received in the last 3 months
+              not_a_number_controlled: Amount of income from other sources received in the last month must be a number
+              not_a_number_certificated: Amount of income from other sources received in the last 3 months must be a number
+              greater_than_controlled: Amount of income from other sources received in the last month must be more than 0
+              greater_than_certificated: Amount of income from other sources received in the last 3 months must be more than 0
             friends_or_family_value:
               blank: Enter financial help from friends and family, if this does not apply enter 0
               not_a_number: Financial help from friends and family must be a number, if this does not apply enter 0
@@ -277,7 +280,7 @@ en:
             property_or_lodger_frequency:
               blank: Select frequency of income from a property or lodger
             pension_frequency:
-              blank: SSelect frequency of income your client gets from pensions
+              blank: Select frequency of income your client gets from pensions
             student_finance_value:
               blank: Enter student finance, if this does not apply enter 0
               not_a_number: Student finance must be a number, if this does not apply enter 0
@@ -1248,13 +1251,13 @@ en:
       second_caption: Enter 0 for any that do not apply
       friends_or_family:
         question: Does your client get financial help from friends or family?
-        question_hint: For example, money from a family member for rent or bills
+        question_hint: For example, money from a family member for rent or bills.
         label: Financial help from friends or family
         hint: For example, money from a family member for rent or bills. Enter 0 if this does not apply
         instruction: Enter amount
       maintenance:
         question: Does your client get maintenance from a former partner?
-        question_hint: This includes child maintenance
+        question_hint: This includes child maintenance.
         label: Maintenance payments from a former partner
         hint: This includes child maintenance. Enter 0 if this does not apply
         instruction: Enter amount
@@ -1266,7 +1269,7 @@ en:
         instruction: Enter amount
       pension:
         question: Does your client get income from pensions?
-        question_hint: Include the total value of any pensions, including State Pension, workplace and personal pensions
+        question_hint: Include the total value of any pensions, including State Pension, workplace and personal pensions.
         label: Pensions
         hint: Include the total value of any pensions, including State Pension, workplace and personal pensions. Enter 0 if this does not apply.
         instruction: Enter total value of any pensions
@@ -1275,15 +1278,15 @@ en:
         question_hint: This includes any type of student loan, grant or bursary. Do not include any tuition fee loans.
         label: Student finance
         hint: This includes any type of student loan, grant or bursary. Do not include any tuition fee loans. Enter 0 if this does not apply
-        certificated_instruction: Enter amount received this academic year
-        controlled_instruction: Enter amount received this academic year
+        certificated_instruction: Amount received this academic year
+        controlled_instruction: Amount received this academic year
       other:
         question: Does your client get income from other sources?
         question_hint: Include any other income your client received. Do not include any government Cost of Living Payments.
         label: Income from other sources
         hint: Include any other income your client received. Do not include any government Cost of Living Payments. Enter 0 if this does not apply
-        certificated_instruction: Enter amount received in the last 3 months
-        controlled_instruction: Enter amount received in the last month
+        certificated_instruction: Amount received in the last 3 months
+        controlled_instruction: Amount received in the last month
       enter_frequency: Select frequency
       amount: Amount
       frequency: Frequency
@@ -1298,13 +1301,13 @@ en:
       second_caption: Do not add any income you've listed as other income for the client. Enter 0 for any that do not apply.
       friends_or_family:
         question: Does the partner get financial help from friends or family?
-        question_hint: For example, money from a family member for rent or bills
+        question_hint: For example, money from a family member for rent or bills.
         label: Financial help from friends or family
         hint: For example, money from a family member for rent or bills. Enter 0 if this does not apply.
         instruction: Enter amount
       maintenance:
         question: Does the partner get maintenance from a former partner?
-        question_hint: This includes child maintenance
+        question_hint: This includes child maintenance.
         label: Maintenance payments from a former partner
         hint: This includes child maintenance. Enter 0 if this does not apply.
         instruction: Enter amount
@@ -1316,7 +1319,7 @@ en:
         instruction: Enter amount
       pension:
         question: Does the partner get income from pensions?
-        question_hint: Include the total value of any pensions, including State Pension, workplace and personal pensions
+        question_hint: Include the total value of any pensions, including State Pension, workplace and personal pensions.
         label: Pensions
         hint: Include the total value of any pensions, including State Pension, workplace and personal pensions. Enter 0 if this does not apply.
         instruction: Enter total value of any pensions
@@ -1325,15 +1328,15 @@ en:
         question_hint: This includes any type of student loan, grant or bursary. Do not include any tuition fee loans.
         label: Student finance
         hint: This includes any type of student loan, grant or bursary. Do not include any tuition fee loans. Enter 0 if this does not apply.
-        certificated_instruction: Enter amount received this academic year
-        controlled_instruction: Enter amount received this academic year
+        certificated_instruction: Amount received this academic year
+        controlled_instruction: Amount received this academic year
       other:
         question: Does the partner get income from other sources?
         question_hint: Include any other income the partner received. Do not include any government Cost of Living Payments.
         label: Income from other sources
         hint: Include any other income the partner received. Do not include any government Cost of Living Payments. Enter 0 if this does not apply.
-        certificated_instruction: Enter amount received in the last 3 months
-        controlled_instruction: Enter amount received in the last month
+        certificated_instruction: Amount received in the last 3 months
+        controlled_instruction: Amount received in the last month
       enter_frequency: Select frequency
     outgoings:
       heading: Your client's outgoings and deductions
@@ -1341,7 +1344,7 @@ en:
       second_caption: Enter 0 for any that do not apply
       childcare_payments:
         question: Does your client pay for childcare?
-        question_hint: For example, to a childminder, nanny or nursery
+        question_hint: For example, to a childminder, nanny or nursery.
         label: Childcare payments
         hints:
           - "For example, to a childminder, nanny or nursery. Enter 0 if this does not apply."
@@ -1352,7 +1355,7 @@ en:
         hints:
           - "This includes child maintenance. If your client is paying all or part of their ex-partner’s housing costs in the former matrimonial home, include this. Enter 0 if this does not apply."
       legal_aid_payments:
-        question: Does your client make payments toward legal aid for a criminal case?
+        question: Does your client make payments towards legal aid for a criminal case?
         question_hint: ""
         label: Payments towards legal aid in a criminal case
         hints:
@@ -1378,18 +1381,18 @@ en:
       second_caption: Do not add any outgoings you've listed as outgoings for the client. Enter 0 for any that do not apply.
       childcare_payments:
         question: Does the partner pay for childcare?
-        question_hint: For example, to a childminder, nanny or nursery
+        question_hint: For example, to a childminder, nanny or nursery.
         label: Childcare payments
         hints:
           - "For example, to a childminder, nanny or nursery. Enter 0 if this does not apply"
       maintenance_payments:
         question: Does the partner pay maintenance to a former partner?
-        question_hint: This includes child maintenance
+        question_hint: This includes child maintenance.
         label: Maintenance payments to a former partner
         hints:
           - "This includes child maintenance. Enter 0 if this does not apply"
       legal_aid_payments:
-        question: Does the partner make payments toward legal aid for a criminal case?
+        question: Does the partner make payments towards legal aid for a criminal case?
         question_hint: ""
         label: Payments towards legal aid in a criminal case
         hints:

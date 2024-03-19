@@ -47,9 +47,43 @@ RSpec.describe "other_income", :stub_cfe_calls, type: :feature do
   context "when conditional reveals are enabled" do
     let(:feature_flags) { { "conditional_reveals" => true } }
 
+    def answer_no_for_previous_fields
+      choose "No", name: "other_income_form[friends_or_family_relevant]"
+      choose "No", name: "other_income_form[maintenance_relevant]"
+      choose "No", name: "other_income_form[property_or_lodger_relevant]"
+      choose "No", name: "other_income_form[pension_relevant]"
+      choose "No", name: "other_income_form[student_finance_relevant]"
+    end
+
     it "shows error messages if radios left blank" do
       click_on "Save and continue"
       expect(page).to have_css(".govuk-error-summary__list")
+    end
+
+    it "shows custom error messages for blank other value" do
+      answer_no_for_previous_fields
+      choose "Yes", name: "other_income_form[other_relevant]"
+      click_on "Save and continue"
+      expect(page).to have_css(".govuk-error-summary__list")
+      expect(page).to have_content("Enter amount of income from other sources received")
+    end
+
+    it "shows custom error messages for other value less than 0" do
+      answer_no_for_previous_fields
+      choose "Yes", name: "other_income_form[other_relevant]"
+      fill_in "other-income-form-other-conditional-value-field", with: "0"
+      click_on "Save and continue"
+      expect(page).to have_css(".govuk-error-summary__list")
+      expect(page).to have_content("Amount of income from other sources received in the last month must be more than 0")
+    end
+
+    it "shows custom error messages for non-numeric other value" do
+      answer_no_for_previous_fields
+      choose "Yes", name: "other_income_form[other_relevant]"
+      fill_in "other-income-form-other-conditional-value-field", with: "pikachu"
+      click_on "Save and continue"
+      expect(page).to have_css(".govuk-error-summary__list")
+      expect(page).to have_content("Amount of income from other sources received in the last month must be a number")
     end
 
     it "stores the chosen values in the session" do
