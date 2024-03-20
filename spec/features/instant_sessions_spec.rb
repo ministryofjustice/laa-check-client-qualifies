@@ -18,7 +18,23 @@ RSpec.describe "Instant sessions page" do
     expect(page).to have_content "Your client qualifies financially for civil legal aid"
   end
 
+  scenario "I request an instant controlled session", :conditional_reveals_flag do
+    visit "instant-controlled"
+    expect(page).to have_content "Check your answers"
+    expect(page).to have_content "Income before any deductions£1.00"
+    expect(page).to have_content "Does your client get financial help from friends or family?\nNo"
+    click_on "Submit"
+    expect(page).to have_content "Your client qualifies financially for civil legal aid"
+  end
+
   scenario "I request a content-rich instant controlled session" do
+    visit "instant-controlled-scenario"
+    expect(page).to have_content "Income before any deductions£1,200.00"
+    click_on "Submit"
+    expect(page).to have_content "Your client qualifies financially for civil legal aid"
+  end
+
+  scenario "I request a content-rich instant controlled session", :conditional_reveals_flag do
     visit "instant-controlled-scenario"
     expect(page).to have_content "Income before any deductions£1,200.00"
     click_on "Submit"
@@ -34,7 +50,21 @@ RSpec.describe "Instant sessions page" do
     expect(page).to have_content "Your client is likely to qualify financially for civil legal aid"
   end
 
+  scenario "I request an instant certificated session", :conditional_reveals_flag do
+    visit "instant-certificated"
+    expect(page).to have_content "Check your answers"
+    expect(page).to have_content "Income before any deductions£1.00"
+    expect(page).to have_content "Does your client get financial help from friends or family?\nNo"
+    click_on "Submit"
+    expect(page).to have_content "Your client is likely to qualify financially for civil legal aid"
+  end
+
   scenario "I typo" do
+    visit "instant-typo"
+    expect(page).to have_content "Page not found"
+  end
+
+  scenario "I typo", :conditional_reveals_flag do
     visit "instant-typo"
     expect(page).to have_content "Page not found"
   end

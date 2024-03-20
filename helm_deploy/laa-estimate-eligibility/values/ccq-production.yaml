@@ -59,7 +59,7 @@ featureFlags:
   maintenanceMode: NOT_ENABLED
   basicAuthentication: NOT_ENABLED
   outgoingsFlow: ENABLED
-  conditionalReveals: NOT_ENABLED
+  conditionalReveals: ENABLED
   earlyEligibility: NOT_ENABLED
 
 geckoboard:
