@@ -1634,13 +1634,13 @@ en:
         not_applicable: Not applicable
       not_provided: Not provided
       sections:
-        client_detials: Client details
+        client_details: Client details
         level_of_help: Level of help
         dependants: Dependants
         client_income: Client income
         partner_income: Partner income
         outgoings: Outgoings
-        assets: Assests
+        assets: Assets
         vehicles: Vehicles
         housing_and_property: Housing and property
       subsections:

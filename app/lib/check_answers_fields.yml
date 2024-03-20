@@ -32,7 +32,7 @@
 # The attribute is also used to construct the I18n key
 # 'money_with_frequency' fields also have an 'alt_attribute' which describes which number to display.
 sections:
-  - label: client_detials
+  - label: client_details
     subsections:
       - tables:
           - screen: client_age
