@@ -28,7 +28,9 @@
                                                 @form.frequencies,
                                                 :first,
                                                 :last,
-                                                legend: -> { tag.p(t("question_flow.outgoings.frequency")) }
+                                                legend: { text: t("question_flow.outgoings.frequency"),
+                                                          size: "s",
+                                                          class: "govuk-!-font-weight-regular" }
     - else
       h2.govuk-heading-m class="govuk-!-margin-bottom-2"
         = t("question_flow.#{i18n_key}.#{type}.label")
@@ -46,6 +48,8 @@
                                             @form.frequencies,
                                             :first,
                                             :last,
-                                            legend: -> { tag.p(t("question_flow.#{i18n_key}.enter_frequency")) }
+                                            legend: { text: t("question_flow.#{i18n_key}.enter_frequency"),
+                                                          size: "s",
+                                                          class: "govuk-!-font-weight-regular" }
 
   = form.govuk_submit t("generic.save_and_continue")
