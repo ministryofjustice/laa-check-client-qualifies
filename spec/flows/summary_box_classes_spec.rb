@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.xdescribe "Ineligible result, on result screen", :vcr, type: :feature do
+RSpec.describe "Ineligible result, on result screen", :vcr, type: :feature do
   it "displays 3 ineligible summary boxes" do
     start_assessment
     fill_in_forms_until(:level_of_help)
