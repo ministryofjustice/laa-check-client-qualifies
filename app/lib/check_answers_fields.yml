@@ -39,6 +39,15 @@ sections:
             fields:
               - attribute: client_age
                 type: select
+          - screen: applicant
+            fields:
+              - attribute: partner
+                type: boolean
+              - attribute: passporting
+                type: boolean
+  - label: case_details
+    subsections:    
+      - tables:       
           - screen: level_of_help
             skip_change_link: true
             fields:
@@ -48,12 +57,6 @@ sections:
               - attribute: controlled_legal_representation
                 type: boolean
                 screen: under_18_clr
-          - screen: applicant
-            fields:
-              - attribute: partner
-                type: boolean
-              - attribute: passporting
-                type: boolean      
           - screen: aggregated_means
             skip_change_link: true
             fields:
@@ -413,8 +416,7 @@ sections:
                 skip_unless: property_owned_with_mortgage?
               - attribute: percentage_owned
                 type: percentage
-      - label: client_other_property
-        tables:
+      - tables:
           - screen: additional_property
             fields:
               - attribute: additional_property_owned
@@ -434,8 +436,7 @@ sections:
                 skip_unless: owned_with_mortgage?
               - attribute: percentage_owned
                 type: percentage
-      - label: partner_other_property
-        tables:
+      - tables:
           - screen: partner_additional_property
             fields:
               - attribute: partner_additional_property_owned
@@ -483,8 +484,6 @@ sections:
                 type: money
               - attribute: partner_valuables
                 type: money
-  - label: vehicles
-    subsections:
       - tables:
           - screen: vehicle
             fields:
