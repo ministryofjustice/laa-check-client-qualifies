@@ -26,7 +26,9 @@
                                                 @form.frequencies,
                                                 :first,
                                                 :last,
-                                                legend: -> { tag.p(t("question_flow.other_income.frequency")) }
+                                                legend: { text: t("question_flow.other_income.frequency"),
+                                                          size: "s",
+                                                          class: "govuk-!-font-weight-regular" }
     - else
       h2.govuk-heading-m class="govuk-!-margin-bottom-2"
         = t("question_flow.#{i18n_key}.#{type}.label")
@@ -44,7 +46,9 @@
                                             @form.frequencies,
                                             :first,
                                             :last,
-                                            legend: -> { tag.p(t("question_flow.#{i18n_key}.enter_frequency")) }
+                                            legend: { text: t("question_flow.#{i18n_key}.enter_frequency"),
+                                                          size: "s",
+                                                          class: "govuk-!-font-weight-regular" }
 
   - OtherIncomeForm::IRREGULAR_INCOME_TYPES.each do |type|
     - if FeatureFlags.enabled?(:conditional_reveals, @check.session_data)
