@@ -9,4 +9,5 @@
     - if screen
       = link_to t("checks.check_answers.change"),
                   check_step_path_from_step(screen.to_sym, params[:assessment_code], begin_editing: true),
-                  class: "inline-change-link"
+                  class: "inline-change-link",
+                  "aria-label": t("checks.check_answers.change_aria_label.#{screen}")
