@@ -1637,8 +1637,8 @@ en:
         immigration_or_asylum: Change Matter type
         immigration_or_asylum_type: Change Immigration or asylum matter
         asylum_support: Change Asylum support
-        applicant: Change Client details
-        dependant_details: Change Dependants
+        applicant: Change Partner and passporting
+        dependant_details: Change Number of dependants
         employment_status: Change Employment status
         income: Change Client employment income %{index}
         benefits: Change Client benefits
@@ -1654,7 +1654,7 @@ en:
         mortgage_or_loan_payment: Change Mortgage Payment
         additional_property: Change Client other property
         additional_property_details: Change client other property %{index} details
-        partner_details: Change Partner Details
+        partner_details: Change Partner age
         partner_employment_status: Change Partner employment status
         partner_income: Change Partner employment income  %{index}
         partner_other_income: Change Partner other income
