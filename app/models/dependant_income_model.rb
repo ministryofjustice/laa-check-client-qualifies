@@ -4,6 +4,7 @@ class DependantIncomeModel
   include SessionPersistable
 
   include MoneyHelper
+  extend MoneyHelper
 
   ATTRIBUTES = %i[amount frequency].freeze
 
@@ -38,6 +39,12 @@ class DependantIncomeModel
       else
         338.90
       end
+    end
+
+    def error_message_content(key, position_tag)
+      I18n.t(key,
+             limit: format_money(dependant_monthly_upper_limit),
+             position: position_tag)
     end
 
     def dependant_income_upper_limits
