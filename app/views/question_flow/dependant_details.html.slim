@@ -22,7 +22,7 @@
           - t("question_flow.dependant_details.child_dependants.paragraphs", limit: dependant_monthly_upper_limit).each do |paragraph|
             p.govuk-text = paragraph
           ul.govuk-list.govuk-list--bullet
-            - t("question_flow.dependant_details.child_dependants.bullets").each
+            - t("question_flow.dependant_details.child_dependants.bullets", limit: dependant_monthly_upper_limit).each
               li = _1
 
       = render "shared/radio_button_set",
@@ -42,7 +42,7 @@
           p.govuk-text = t("question_flow.dependant_details.adult_dependants.paragraph#{'_with_partner' if @check.partner}")
           p.govuk-text = t("question_flow.dependant_details.adult_dependants.exclude")
           ul.govuk-list.govuk-list--bullet
-            - t("question_flow.dependant_details.adult_dependants.bullets").each
+            - t("question_flow.dependant_details.adult_dependants.bullets", limit: dependant_monthly_upper_limit).each
               li = _1
 
       = render "shared/radio_button_set",
