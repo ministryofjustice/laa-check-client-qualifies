@@ -1637,8 +1637,8 @@ en:
         immigration_or_asylum: Change Matter type
         immigration_or_asylum_type: Change Immigration or asylum matter
         asylum_support: Change Asylum support
-        applicant: Change Client details
-        dependant_details: Change Dependants
+        applicant: Change Partner and passporting
+        dependant_details: Change Number of dependants
         employment_status: Change Employment status
         income: Change Client employment income %{index}
         benefits: Change Client benefits
@@ -1654,7 +1654,7 @@ en:
         mortgage_or_loan_payment: Change Mortgage Payment
         additional_property: Change Client other property
         additional_property_details: Change client other property %{index} details
-        partner_details: Change Partner Details
+        partner_details: Change Partner age
         partner_employment_status: Change Partner employment status
         partner_income: Change Partner employment income  %{index}
         partner_other_income: Change Partner other income
@@ -1677,40 +1677,27 @@ en:
         not_applicable: Not applicable
       not_provided: Not provided
       sections:
-        level_of_help: Level of help
-        case_details: Case details
         client_details: Client details
+        case_details: Case details
+        level_of_help: Level of help
         dependants: Dependants
         client_income: Client income
-        partner_details: Partner details
         partner_income: Partner income
-        client_outgoings: Client outgoings
-        partner_outgoings: Partner outgoings
-        client_assets: Client assets
-        partner_assets: Partner assets
-        vehicles: Vehicles
+        outgoings: Outgoings
+        assets: Assets
         housing_and_property: Housing and property
-      subsections:
-        client_employment_income: Client employment income
-        client_benefits: Client benefits
-        client_other_income: Client other income
-        partner_employment_income: Partner employment income
-        partner_benefits: Partner benefits
-        partner_other_income: Partner other income
-        client_other_property: Client other property
-        partner_other_property: Partner other property
       tables:
         client_age: Client age
-        level_of_help: Level of help your client needs
+        level_of_help: Level of help
         aggregated_means: Means tests for under 18s
         type_of_matter: Type of matter
-        asylum_support: Asylum Support
+        asylum_support: Asylum support
         domestic_abuse_applicant: Type of matter
         immigration_or_asylum: Type of matter
         immigration_or_asylum_type: Type of immigration or asylum matter
         immigration_or_asylum_type_upper_tribunal: Type of immigration or asylum matter
-        applicant: Client details
-        dependant_details: Dependants
+        applicant: Partner and passporting
+        dependant_details: Number of dependants
         dependant_income: Dependant income
         dependant_income_details: Dependant %{variable} income
         employment_status: Employment status
@@ -1719,7 +1706,7 @@ en:
         benefits: Client benefits
         benefit_details: Client benefit %{variable} details
         other_income: Client other income
-        partner_details: Partner details
+        partner_details: Partner age
         partner_employment_status: Partner employment status
         partner_income: Partner employment income %{variable}
         partner_employment: Partner employment income
@@ -1955,7 +1942,6 @@ en:
         percentage_owned: What percentage does the partner own?
       submission_instructions: Now submit your eligibility check
       submission_explanation: We'll use your answers to give you an estimated result of your client's financial eligibility for legal aid.
-      how_to_save_header: How to save your answers
       how_to_save_text: After you submit your eligibility check we'll show you the result and the calculations made to get it. You can print or save the eligibility result page, including your answers.
       call_to_action: Submit eligibility check
     end_of_journey:
