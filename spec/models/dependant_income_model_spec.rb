@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe DependantIncomeModel do
   context "when before 8th April 2024" do
     before do
-      travel_to Date.new(2024, 4, 7)
+      travel_to Date.new(2024, 3, 7)
     end
 
     it "has new dependant limits" do
