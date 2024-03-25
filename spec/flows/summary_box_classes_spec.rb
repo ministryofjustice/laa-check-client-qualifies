@@ -1,6 +1,12 @@
 require "rails_helper"
 
 RSpec.describe "Ineligible result, on result screen", :vcr, type: :feature do
+  let(:fixed_arbitrary_date) { Date.new(2023, 2, 15) }
+
+  before do
+    travel_to fixed_arbitrary_date
+  end
+
   it "displays 3 ineligible summary boxes" do
     start_assessment
     fill_in_forms_until(:level_of_help)
