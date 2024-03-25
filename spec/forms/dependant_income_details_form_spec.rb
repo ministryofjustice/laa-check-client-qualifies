@@ -11,8 +11,13 @@ RSpec.describe "dependant_income_details", type: :feature do
   end
 
   before do
+    travel_to Date.new(2024, 2, 2)
     set_session(assessment_code, session_data)
     visit form_path(:dependant_income_details, assessment_code)
+  end
+
+  after do
+    travel_back
   end
 
   it "shows an error message if no value is entered" do

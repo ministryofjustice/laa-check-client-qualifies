@@ -5,14 +5,13 @@
 
   dd.govuk-summary-list__value
     - if conditional
-      . class="govuk-!-margin-bottom-1"
+      div class="govuk-!-margin-bottom-1"
         = yes_no_boolean(boolean)
 
     - if !conditional || boolean
       - if value.nil?
         = t("generic.not_applicable")
       - else
-        . class="govuk-!-margin-bottom-1"
-          | &pound;
+        div class="govuk-!-margin-bottom-1"
           = format_money(value)
         = frequency if value.to_f.positive?

@@ -1,6 +1,14 @@
 require "rails_helper"
 
 RSpec.describe "results/show.html.slim" do
+  before do
+    travel_to Date.new(2024, 2, 2)
+  end
+
+  after do
+    travel_back
+  end
+
   describe "Client financial content" do
     let(:calculation_result) { CalculationResult.new(session_data) }
     let(:session_data) { { api_response:, adult_dependants:, child_dependants: false }.with_indifferent_access }

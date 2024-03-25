@@ -4,8 +4,13 @@ RSpec.describe "dependant_details", type: :feature do
   let(:assessment_code) { :assessment_code }
 
   before do
+    travel_to Date.new(2024, 2, 2)
     set_session(assessment_code, "level_of_help" => "controlled")
     visit form_path(:dependant_details, assessment_code)
+  end
+
+  after do
+    travel_back
   end
 
   it "performs validations" do

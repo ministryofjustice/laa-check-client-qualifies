@@ -70,11 +70,18 @@ private
     key = "activemodel.errors.models.#{model_class.to_s.underscore}.attributes.#{error.attribute}.#{error.type}"
     if number_of_items > 1
       position_tag = tag.span(position, data: { add_another_role: "errorPosition" })
-      content = I18n.t("#{key}_when_many",
-                       position: position_tag)
+      content = build_error_message(model_class, "#{key}_when_many", position_tag)
       tag.span(content.html_safe, data: { add_another_role: "errorMessage", add_another_item_position: position })
     else
-      I18n.t(key)
+      build_error_message(model_class, key, nil)
+    end
+  end
+
+  def build_error_message(model_class, key, position_tag)
+    if model_class.respond_to?(:error_message_content)
+      model_class.error_message_content(key, position_tag)
+    else
+      I18n.t(key, position: position_tag)
     end
   end
 end
