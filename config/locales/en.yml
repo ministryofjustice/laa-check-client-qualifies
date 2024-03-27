@@ -480,8 +480,6 @@ en:
               not_a_number_when_many: Total money in bank account %{position} must be a number. Enter 0 if this does not apply.
               greater_than_or_equal_to: Total money in bank account must be 0 or more. Enter 0 if this does not apply.
               greater_than_or_equal_to_when_many: Total money in bank account %{position} must be 0 or more. Enter 0 if this does not apply.
-            account_in_dispute:
-              inclusion: Make specs pass
         property_form:
           attributes:
             property_owned:

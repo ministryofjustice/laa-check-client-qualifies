@@ -11,18 +11,21 @@ module AddAnotherable
   end
 
   class_methods do
-    # Override SessionPersistable to additionally instantiate `items`
+    # Override SessionPersistable to additionally instantiate items`
     def from_session(session_data)
-      form = instantiate_with_simple_attributes_from_session(session_data)
-
-      form.items = session_data[self::ITEMS_SESSION_KEY]&.each_with_index&.map do |attributes, index|
-        self::ITEM_MODEL.from_session(attributes).tap { add_extra_attributes_to_model_from_session(_1, session_data, index) }
+      model_from_session(session_data).tap do |form|
+        if form.items.blank?
+          form.items = [form.blank_model]
+        end
       end
+    end
 
-      if form.items.blank?
-        form.items = [form.blank_model]
+    def model_from_session(session_data)
+      instantiate_with_simple_attributes_from_session(session_data).tap do |form|
+        form.items = session_data.fetch(self::ITEMS_SESSION_KEY, []).each_with_index.map do |attributes, index|
+          self::ITEM_MODEL.from_session(attributes).tap { add_extra_attributes_to_model_from_session(_1, session_data, index) }
+        end
       end
-      form
     end
 
     # Override SessionPersistable to additionally instantiate `items`
@@ -54,6 +57,7 @@ module AddAnotherable
 private
 
   def items_valid?
+    errors.add(:no_items, "No Items") if items.none?
     return if items.all?(&:valid?)
 
     # Note that the `all` iterator above will terminate the first time it finds an invalid item.

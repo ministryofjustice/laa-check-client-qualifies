@@ -18,6 +18,10 @@ module SessionPersistable
       instantiate_with_simple_attributes_from_session(session_data)
     end
 
+    def model_from_session(session_data)
+      from_session(session_data)
+    end
+
     def from_params(params, session_data)
       instantiate_with_simple_attributes_from_params(params, session_data)
     end
