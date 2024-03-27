@@ -10,6 +10,7 @@
 / conditional_reveal_pattern
 ruby:
   conditional_reveal_pattern ||= nil
+  aria_label ||= nil
   conditional_reveal_id = conditional_reveal_pattern.gsub("ID", counter.to_s) if conditional_reveal_pattern
   id = id_pattern.gsub("ID", counter.to_s)
   name = name_pattern.gsub("ID", counter.to_s)
@@ -29,4 +30,4 @@ ruby:
     name=name
     checked=checked
   ]
-  label.govuk-label.govuk-radios__label [for=id data-add-another-dynamic-elements="for:#{id_pattern}"] = label
+  label.govuk-label.govuk-radios__label [for=id data-add-another-dynamic-elements="for:#{id_pattern}" aria-label=aria_label] = label
