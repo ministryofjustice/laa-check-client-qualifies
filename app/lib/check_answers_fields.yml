@@ -32,12 +32,22 @@
 # The attribute is also used to construct the I18n key
 # 'money_with_frequency' fields also have an 'alt_attribute' which describes which number to display.
 sections:
-  - subsections:
+  - label: client_details
+    subsections:
       - tables:
           - screen: client_age
             fields:
               - attribute: client_age
                 type: select
+          - screen: applicant
+            fields:
+              - attribute: partner
+                type: boolean
+              - attribute: passporting
+                type: boolean
+  - label: case_details
+    subsections:    
+      - tables:       
           - screen: level_of_help
             skip_change_link: true
             fields:
@@ -59,9 +69,6 @@ sections:
               - attribute: under_eighteen_assets
                 type: boolean
                 screen: under_eighteen_assets
-  - label: case_details
-    subsections:
-      - tables:
           - screen: domestic_abuse_applicant
             fields:
               - attribute: domestic_abuse_applicant
@@ -81,15 +88,6 @@ sections:
           - screen: asylum_support
             fields:
               - attribute: asylum_support
-                type: boolean
-  - label: client_details
-    subsections:
-      - tables:
-          - screen: applicant
-            fields:
-              - attribute: partner
-                type: boolean
-              - attribute: passporting
                 type: boolean
   - label: dependants
     subsections:
@@ -122,8 +120,7 @@ sections:
                 type: money
   - label: client_income
     subsections:
-      - label: client_employment_income
-        tables:
+      - tables:
           - screen: employment_status
             fields:
               - attribute: employment_status
@@ -152,8 +149,7 @@ sections:
                 type: money
               - attribute: national_insurance
                 type: money
-      - label: client_benefits
-        tables:
+      - tables:
           - screen: benefits
             fields:
               - attribute: receives_benefits
@@ -168,8 +164,7 @@ sections:
                 type: money
               - attribute: benefit_frequency
                 type: frequency
-      - label: client_other_income
-        tables:
+      - tables:
           - screen: other_income
             fields:
               - attribute: friends_or_family_value
@@ -222,17 +217,14 @@ sections:
                 type: boolean_money
                 alt_attribute: other_relevant
                 skip_unless: conditional_reveals?
-  - label: partner_details
+  - label: partner_income
     subsections:
       - tables:
           - screen: partner_details
             fields:
               - attribute: partner_over_60
                 type: boolean
-  - label: partner_income
-    subsections:
-      - label: partner_employment_income
-        tables:
+      - tables:
           - screen: partner_employment_status
             fields:
               - attribute: partner_employment_status
@@ -261,8 +253,7 @@ sections:
                 type: money
               - attribute: national_insurance
                 type: money
-      - label: partner_benefits
-        tables:
+      - tables:
           - screen: partner_benefits
             fields:
               - attribute: partner_receives_benefits
@@ -277,8 +268,7 @@ sections:
                 type: money
               - attribute: benefit_frequency
                 type: frequency
-      - label: partner_other_income
-        tables:
+      - tables:
           - screen: partner_other_income
             fields:
               - attribute: partner_friends_or_family_value
@@ -331,7 +321,7 @@ sections:
                 type: boolean_money
                 alt_attribute: partner_other_relevant
                 skip_unless: conditional_reveals?
-  - label: client_outgoings
+  - label: outgoings
     subsections:
       - tables:
           - screen: outgoings
@@ -364,8 +354,6 @@ sections:
                 alt_attribute: legal_aid_payments_frequency
                 second_alt_attribute: legal_aid_payments_relevant
                 skip_unless: conditional_reveals?
-  - label: partner_outgoings
-    subsections:
       - tables:
           - screen: partner_outgoings
             fields:
@@ -428,8 +416,7 @@ sections:
                 skip_unless: property_owned_with_mortgage?
               - attribute: percentage_owned
                 type: percentage
-      - label: client_other_property
-        tables:
+      - tables:
           - screen: additional_property
             fields:
               - attribute: additional_property_owned
@@ -449,8 +436,7 @@ sections:
                 skip_unless: owned_with_mortgage?
               - attribute: percentage_owned
                 type: percentage
-      - label: partner_other_property
-        tables:
+      - tables:
           - screen: partner_additional_property
             fields:
               - attribute: partner_additional_property_owned
@@ -469,7 +455,7 @@ sections:
                 skip_unless: owned_with_mortgage?
               - attribute: percentage_owned
                 type: percentage
-  - label: client_assets
+  - label: assets
     subsections:
       - tables:
           - screen: assets
@@ -486,8 +472,6 @@ sections:
               - attribute: valuables
                 type: money
                 disputed_if: valuables_in_dispute
-  - label: partner_assets
-    subsections:
       - tables:
           - screen: partner_assets
             fields:
@@ -500,8 +484,6 @@ sections:
                 type: money
               - attribute: partner_valuables
                 type: money
-  - label: vehicles
-    subsections:
       - tables:
           - screen: vehicle
             fields:

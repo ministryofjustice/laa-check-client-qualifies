@@ -24,7 +24,7 @@ RSpec.describe "checks/check_answers.html.slim" do
 
     it "renders the correct content" do
       expect(page_text).to include("What age is your client?Under 18")
-      expect(page_text).to include("Level of help your client needsWhat level of help does your client need?")
+      expect(page_text).to include("Level of helpWhat level of help does your client need?")
       expect(page_text).to include("What level of help does your client need?Civil controlled work or family mediationChange")
       expect(page_text).to include("Is the work controlled legal representation (CLR)?NoChange")
       expect(page_text).to include("Means tests for under 18sWill you aggregate your client's means with another person's means?NoChange")

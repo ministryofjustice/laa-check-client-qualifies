@@ -22,16 +22,11 @@ unless ENV.fetch("COVERAGE", "true") == "false"
 
     enable_coverage :branch
 
-    # CIRCLE_NODE_TOTAL is a built in CircleCI env_var that only exists when
-    # parallelism is turned on. As this splits the test run, 100% branch and
-    # line coverage is checked by the simplecov_coverage.rake task instead
-    unless ENV["CIRCLE_NODE_TOTAL"]
-      primary_coverage :branch
-      minimum_coverage  branch: 100, line: 100
+    primary_coverage :branch
+    minimum_coverage  branch: 100, line: 100
 
-      SimpleCov.at_exit do
-        SimpleCov.result.format!
-      end
+    SimpleCov.at_exit do
+      SimpleCov.result.format!
     end
   end
 end

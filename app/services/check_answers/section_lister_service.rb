@@ -15,7 +15,7 @@ module CheckAnswers
     end
 
     def call
-      data = YAML.load_file(section_yaml).with_indifferent_access
+      data = YAML.load_file(Rails.root.join("app/lib/check_answers_fields.yml")).with_indifferent_access
       data[:sections].map { build_section(_1) }.select { _1.subsections.any? }
     end
 
@@ -99,14 +99,6 @@ module CheckAnswers
     def build_many_fields(field_data, model, table_label)
       submodel = model.send(field_data[:model])
       submodel.each_with_index.map { build_field(field_data[:template], _1, table_label, index: _2 + 1) }
-    end
-
-    def section_yaml
-      if FeatureFlags.enabled?(:outgoings_flow, @check.session_data)
-        Rails.root.join("app/lib/check_answers_fields.yml")
-      else
-        Rails.root.join("app/lib/check_answers_fields_old_flow.yml")
-      end
     end
   end
 end

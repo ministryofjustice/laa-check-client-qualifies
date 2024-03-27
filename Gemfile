@@ -78,6 +78,7 @@ group :development, :test do
   gem "rubocop-govuk", require: false
   gem "rubocop-performance"
   gem "erb_lint"
+  gem "parallel_tests"
 end
 
 group :development do
