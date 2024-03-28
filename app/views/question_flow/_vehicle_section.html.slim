@@ -28,6 +28,7 @@
            legend: t("question_flow.vehicles_details.vehicle_pcp.legend"),
            hint: t("question_flow.vehicles_details.vehicle_pcp.hint"),
            counter:,
+           hidden_hint: t("generic.yes_choice_hidden_hint_amount"),
            value: model.vehicle_pcp
     = render "shared/add_another/money_field",
               errors: model.errors.messages[:vehicle_finance],

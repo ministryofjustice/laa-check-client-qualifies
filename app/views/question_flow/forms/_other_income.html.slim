@@ -1,4 +1,11 @@
 - partner ||= false
+
+- content_for :amount_and_frequency_hidden_description
+  = govuk_visually_hidden(t("question_flow.other_income.hidden_description_amount_and_frequency"))
+
+- content_for :amount_hidden_description
+  = govuk_visually_hidden(t("question_flow.other_income.hidden_description_amount"))
+
 = form_for(@form, url: request.path, method: :put) do |form|
   = form.govuk_error_summary t("generic.error_summary_title")
   = render "shared/heading",
@@ -14,7 +21,9 @@
         = render "shared/radio_button_set",
                 form:,
                 field_name: :"#{type}_relevant",
-                buttons: [{ value: true, options: { label: { text: t("generic.yes_choice") } } },
+                buttons: [{ value: true,
+                            options: { label: { text: t("generic.yes_choice") },
+                                                hint: -> { content_for(:amount_and_frequency_hidden_description) } } },
                           { value: false, options: { label: { text: t("generic.no_choice") } } }]
           = render "shared/money_input",
                   form:,
@@ -60,7 +69,9 @@
         = render "shared/radio_button_set",
                 form:,
                 field_name: :"#{type}_relevant",
-                buttons: [{ value: true, options: { label: { text: t("generic.yes_choice") } } },
+                buttons: [{ value: true,
+                            options: { label: { text: t("generic.yes_choice") },
+                                                hint: -> { content_for(:amount_hidden_description) } } },
                           { value: false, options: { label: { text: t("generic.no_choice") } } }]
 
           - level = @check.controlled? ? "controlled" : "certificated"

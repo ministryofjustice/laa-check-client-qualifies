@@ -29,6 +29,7 @@
             legend: t("question_flow.additional_property_details.mortgage.radio_label"),
                 hint: t("question_flow.additional_property_details.mortgage.hint"),
             counter:,
+            hidden_hint: t("generic.yes_choice_hidden_hint_amount"),
             value: model.inline_owned_with_mortgage
       = render "shared/add_another/money_field",
                 errors: model.errors.messages[:mortgage],

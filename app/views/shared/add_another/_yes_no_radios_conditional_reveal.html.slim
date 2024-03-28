@@ -9,11 +9,13 @@
 
 / Optional:
 / hint
+/ hidden_hint
 ruby:
   radio_name_pattern = "#{model_name}[items][ID][#{field_name}]"
   radio_name = radio_name_pattern.gsub("ID", counter.to_s)
   conditional_reveal_pattern = "conditional-reveal-ID-#{field_name.dasherize}"
   hint ||= nil
+  hidden_hint ||= nil
   yes_id_pattern = errors.any? ? "#{form_name.dasherize}-items-ID-#{field_name.dasherize}-field-error" : "ID-#{field_name.dasherize}"
 .govuk-form-group class=("govuk-form-group--error" if errors.any?)
   fieldset.govuk-fieldset
@@ -37,6 +39,7 @@ ruby:
                 value: "true",
                 checked: value,
                 label: t("generic.yes_choice"),
+                hidden_hint:,
                 conditional_reveal_pattern:
       .govuk-radios__conditional.govuk-radios__conditional--hidden [id=conditional_reveal_pattern.gsub("ID", counter.to_s)
                                                                     data-add-another-dynamic-elements="id:#{conditional_reveal_pattern}"]
