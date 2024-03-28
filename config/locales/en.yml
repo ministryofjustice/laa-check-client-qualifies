@@ -639,6 +639,7 @@ en:
   generic:
     yes_choice: "Yes"
     no_choice: "No"
+    yes_choice_hidden_hint_amount: If yes, enter amount
     in_work: Employed and in work
     receiving_statutory_pay: Employed and on Statutory Sick Pay or Statutory Maternity Pay
     unemployed: Unemployed

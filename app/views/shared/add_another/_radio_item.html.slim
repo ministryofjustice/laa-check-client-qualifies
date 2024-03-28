@@ -8,9 +8,10 @@
 
 / Optional
 / conditional_reveal_pattern
+/ hidden_hint
 ruby:
   conditional_reveal_pattern ||= nil
-  aria_label ||= nil
+  hidden_hint ||= nil
   conditional_reveal_id = conditional_reveal_pattern.gsub("ID", counter.to_s) if conditional_reveal_pattern
   id = id_pattern.gsub("ID", counter.to_s)
   name = name_pattern.gsub("ID", counter.to_s)
@@ -19,6 +20,7 @@ ruby:
                      else
                        "id:#{id_pattern},name:#{name_pattern}"
                      end
+  dynamic_element_aria_describedby = "hint#{id}" if conditional_reveal_pattern
 
 .govuk-radios__item
   input.govuk-radios__input [
@@ -27,7 +29,10 @@ ruby:
     value=value
     data-aria-controls=conditional_reveal_id
     data-add-another-dynamic-elements=dynamic_elements
+    aria-describedby=dynamic_element_aria_describedby
     name=name
     checked=checked
   ]
-  label.govuk-label.govuk-radios__label [for=id data-add-another-dynamic-elements="for:#{id_pattern}" aria-label=aria_label] = label
+  label.govuk-label.govuk-radios__label [for=id data-add-another-dynamic-elements="for:#{id_pattern}"] = label
+  .govuk-hint.govuk-radios__hint [id=dynamic_element_aria_describedby]
+    span.govuk-visually-hidden = hidden_hint
