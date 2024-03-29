@@ -58,7 +58,7 @@ gem "factory_bot_rails"
 gem "hexapdf"
 
 gem "devise"
-gem "omniauth-google-oauth2"
+gem "omniauth-google-oauth2", ">= 1.1.2"
 gem "omniauth-rails_csrf_protection"
 
 gem "rails_admin"
@@ -75,7 +75,7 @@ group :development, :test do
 
   gem "simplecov", require: false
   gem "slim_lint"
-  gem "rubocop-govuk", require: false
+  gem "rubocop-govuk", ">= 4.16.0", require: false
   gem "rubocop-performance"
   gem "erb_lint"
   gem "parallel_tests"
