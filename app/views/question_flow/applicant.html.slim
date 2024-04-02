@@ -4,10 +4,10 @@
   = back_link(@previous_step, @back_buttons_invoke_browser_back_behaviour)
 
 .govuk-grid-column-two-thirds
-  = form_for(@form, url: request.path, method: :put) do |form|
-    = render "shared/heading",
-             header_text: t(".heading")
+  = render "shared/heading",
+          header_text: t(".heading")
 
+  = form_for(@form, url: request.path, method: :put) do |form|
     = form.govuk_error_summary t("generic.error_summary_title")
 
     = form.govuk_collection_radio_buttons(:partner,
