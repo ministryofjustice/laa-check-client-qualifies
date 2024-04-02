@@ -1,10 +1,10 @@
 - partner ||= false
 
 - content_for :amount_and_frequency_hidden_description
-  = govuk_visually_hidden(t("question_flow.other_income.hidden_description_amount_and_frequency"))
+  = govuk_visually_hidden(t("question_flow.#{i18n_key}.hidden_description_amount_and_frequency"))
 
 - content_for :amount_hidden_description
-  = govuk_visually_hidden(t("question_flow.other_income.hidden_description_amount"))
+  = govuk_visually_hidden(t("question_flow.#{i18n_key}.hidden_description_amount"))
 
 = form_for(@form, url: request.path, method: :put) do |form|
   = form.govuk_error_summary t("generic.error_summary_title")

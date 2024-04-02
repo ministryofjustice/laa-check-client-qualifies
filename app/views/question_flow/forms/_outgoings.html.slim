@@ -1,7 +1,7 @@
 - partner ||= false
 
 - content_for :amount_and_frequency_hidden_description
-  = govuk_visually_hidden(t("question_flow.outgoings.hidden_description_amount_and_frequency"))
+  = govuk_visually_hidden(t("question_flow.#{i18n_key}.hidden_description_amount_and_frequency"))
 
 - conditional_reveals_enabled = FeatureFlags.enabled?(:conditional_reveals, @check.session_data)
 = form_for(@form, url: request.path, method: :put) do |form|
