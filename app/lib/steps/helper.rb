@@ -49,7 +49,7 @@ module Steps
       end
 
       def last_step_for_section(session_data, section)
-        step_groups = all_sections(session_data).find { |s| s.name.demodulize == (section.to_s.camelcase) }.grouped_steps_for(session_data)
+        step_groups = all_sections.find { |s| s.name.demodulize == (section.to_s.camelcase) }.grouped_steps_for(session_data)
         step_groups.last.steps.last
       end
 
@@ -77,20 +77,16 @@ module Steps
       end
 
       def step_groups_for(session_data)
-        all_sections(session_data).map { |section| section.grouped_steps_for(session_data) }.reduce(:+)
+        all_sections.map { |section| section.grouped_steps_for(session_data) }.reduce(:+)
       end
 
-      def all_sections(session_data = nil)
+      def all_sections
         initial_sections = [NonFinancialSection,
                             IncomeSection,
                             PartnerSection,
                             OutgoingsSection]
 
-        if FeatureFlags.enabled?(:outgoings_flow, session_data, without_session_data: session_data.nil?)
-          initial_sections + [PropertySection, AssetsAndVehiclesSection]
-        else
-          initial_sections + [AssetsAndVehiclesSection, PropertySection]
-        end
+        initial_sections + [PropertySection, AssetsAndVehiclesSection]
       end
 
       def remaining_steps(steps, step)

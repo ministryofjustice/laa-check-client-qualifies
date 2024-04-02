@@ -128,12 +128,6 @@ RSpec.configure do |config|
     ENV["BASIC_AUTHENTICATION_FEATURE_FLAG"] = "disabled"
   end
 
-  config.around(:each, :outgoings_flow_flag) do |example|
-    ENV["OUTGOINGS_FLOW_FEATURE_FLAG"] = "enabled"
-    example.run
-    ENV["OUTGOINGS_FLOW_FEATURE_FLAG"] = "disabled"
-  end
-
   config.around(:each, :conditional_reveals_flag) do |example|
     ENV["CONDITIONAL_REVEALS_FEATURE_FLAG"] = "enabled"
     example.run

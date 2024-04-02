@@ -13,7 +13,6 @@ class FeatureFlags
     index_production: "global",
     maintenance_mode: "global",
     basic_authentication: "global",
-    outgoings_flow: "session",
     conditional_reveals: "session",
     early_eligibility: "session",
   }.freeze

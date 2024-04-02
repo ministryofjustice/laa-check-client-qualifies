@@ -46,7 +46,7 @@ RSpec.describe Steps::Helper do
 
       it "returns the correct relevant step" do
         expect(described_class.relevant_steps(session_data))
-          .to eq(%i[client_age level_of_help domestic_abuse_applicant immigration_or_asylum_type_upper_tribunal applicant assets vehicle property additional_property])
+          .to eq(%i[client_age level_of_help domestic_abuse_applicant immigration_or_asylum_type_upper_tribunal applicant property additional_property assets vehicle])
       end
     end
   end

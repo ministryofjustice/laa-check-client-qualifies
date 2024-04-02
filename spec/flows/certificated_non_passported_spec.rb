@@ -10,11 +10,11 @@ RSpec.describe "Certificated, non-passported flow", :stub_cfe_calls, type: :feat
     fill_in_benefits_screen
     fill_in_other_income_screen
     fill_in_outgoings_screen
-    fill_in_assets_screen
-    fill_in_vehicle_screen
     fill_in_property_screen
     fill_in_housing_costs_screen
     fill_in_additional_property_screen
+    fill_in_assets_screen
+    fill_in_vehicle_screen
     confirm_screen("check_answers")
   end
 
@@ -68,7 +68,6 @@ RSpec.describe "Certificated, non-passported flow", :stub_cfe_calls, type: :feat
     start_assessment
     fill_in_forms_until(:property)
     fill_in_property_screen(choice: "Yes, with a mortgage or loan")
-    fill_in_property_entry_screen
     confirm_screen("mortgage_or_loan_payment")
   end
 
@@ -77,6 +76,6 @@ RSpec.describe "Certificated, non-passported flow", :stub_cfe_calls, type: :feat
     fill_in_forms_until(:vehicle)
     fill_in_vehicle_screen(choice: "Yes")
     fill_in_vehicles_details_screen
-    confirm_screen("property")
+    confirm_screen("check_answers")
   end
 end

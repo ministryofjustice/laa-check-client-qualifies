@@ -18,13 +18,13 @@ RSpec.shared_context "with a no-partner, non-passported certificated check" do
     fill_in_benefit_details_screen
     fill_in_other_income_screen(values: { friends_or_family: "200", student_finance: "100" }, frequencies: { friends_or_family: "Every week" })
     fill_in_outgoings_screen
+    fill_in_property_screen(choice: "Yes, with a mortgage or loan")
+    fill_in_mortgage_or_loan_payment_screen(amount: "100")
+    fill_in_property_entry_screen
+    fill_in_additional_property_screen
     fill_in_assets_screen(values: { valuables: "700" })
     fill_in_vehicle_screen(choice: "Yes")
     fill_in_vehicles_details_screen(vehicle_finance: "5")
-    fill_in_property_screen(choice: "Yes, with a mortgage or loan")
-    fill_in_property_entry_screen
-    fill_in_mortgage_or_loan_payment_screen(amount: "100")
-    fill_in_additional_property_screen
   end
 end
 

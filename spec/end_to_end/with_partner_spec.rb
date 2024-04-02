@@ -14,14 +14,14 @@ RSpec.shared_context "with partner data" do
     fill_in_partner_other_income_screen(values: { friends_or_family: "200", other: "100" }, frequencies: { friends_or_family: "Every week" })
     fill_in_outgoings_screen
     fill_in_partner_outgoings_screen
-    fill_in_assets_screen
-    fill_in_partner_assets_screen(values: { valuables: "700" })
-    fill_in_vehicle_screen
     fill_in_property_screen
     fill_in_housing_costs_screen
     fill_in_additional_property_screen
     fill_in_partner_additional_property_screen(choice: "Yes, with a mortgage or loan")
     fill_in_partner_additional_property_details_screen
+    fill_in_assets_screen
+    fill_in_partner_assets_screen(values: { valuables: "700" })
+    fill_in_vehicle_screen
   end
 end
 

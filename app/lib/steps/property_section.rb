@@ -13,24 +13,11 @@ module Steps
       def grouped_steps_for(session_data)
         return [] if Steps::Logic.skip_capital_questions?(session_data)
 
-        if FeatureFlags.enabled?(:outgoings_flow, session_data)
-          [
-            (Steps::Group.new(:property_entry) if Steps::Logic.owns_property?(session_data)),
-            Steps::Group.new(*additional_property_steps(session_data)),
-            partner_additional_property_group(session_data),
-          ].compact
-        else
-          [
-            Steps::Group.new(*property_steps(session_data)),
-            (Steps::OutgoingsSection.housing_costs_group(session_data) unless Steps::Logic.passported?(session_data)),
-            Steps::Group.new(*additional_property_steps(session_data)),
-            partner_additional_property_group(session_data),
-          ].compact
-        end
-      end
-
-      def property_steps(session_data)
-        Steps::Logic.owns_property?(session_data) ? PROPERTY_STEPS : %i[property]
+        [
+          (Steps::Group.new(:property_entry) if Steps::Logic.owns_property?(session_data)),
+          Steps::Group.new(*additional_property_steps(session_data)),
+          partner_additional_property_group(session_data),
+        ].compact
       end
 
       def additional_property_steps(session_data)

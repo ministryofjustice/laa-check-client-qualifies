@@ -9,7 +9,7 @@ RSpec.describe "Controlled work flow", :stub_cfe_calls, type: :feature do
     fill_in_applicant_screen(partner: "Yes")
     fill_in_forms_until(:partner_assets)
     fill_in_partner_assets_screen
-    confirm_screen("property")
+    confirm_screen("check_answers")
   end
 
   it "shows me an immigration or asylum screen instead of a matter type screen" do
@@ -20,7 +20,7 @@ RSpec.describe "Controlled work flow", :stub_cfe_calls, type: :feature do
     fill_in_applicant_screen(partner: "Yes")
     fill_in_forms_until(:partner_assets)
     fill_in_partner_assets_screen
-    confirm_screen("property")
+    confirm_screen("check_answers")
   end
 
   it "lets me specify immigration or asylum details" do
@@ -33,6 +33,6 @@ RSpec.describe "Controlled work flow", :stub_cfe_calls, type: :feature do
     fill_in_applicant_screen(partner: "Yes")
     fill_in_forms_until(:partner_assets)
     fill_in_partner_assets_screen
-    confirm_screen("property")
+    confirm_screen("check_answers")
   end
 end

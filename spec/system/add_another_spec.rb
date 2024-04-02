@@ -151,7 +151,7 @@ RSpec.describe "Add another JS", :stub_cfe_calls do
       fill_in "2-mortgage", with: "Invalid"
       choose "2-inline-owned-with-mortgage-false"
       click_on "Save and continue"
-      expect(page).to have_content "Check your answers" # No validation message is shown because the invalid input is irrelevant
+      expect(page).to have_content "Client assets" # No validation message is shown because the invalid input is irrelevant
     end
   end
 end

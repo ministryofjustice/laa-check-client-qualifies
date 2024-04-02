@@ -89,7 +89,7 @@ RSpec.describe "Change answers after early result", :early_eligibility_flag, typ
         expect(page).to have_current_path(/\A\/check-result/)
       end
 
-      it "change to passported successfully", :outgoings_flow_flag do
+      it "change to passported successfully" do
         within "#table-applicant" do
           click_on "Change"
         end
@@ -113,7 +113,7 @@ RSpec.describe "Change answers after early result", :early_eligibility_flag, typ
         expect(page).to have_content(eligibility_banner_content)
       end
 
-      context "when level of help and matter type changes to certificated and DA is yes", :outgoings_flow_flag do
+      context "when level of help and matter type changes to certificated and DA is yes" do
         let(:level_of_help) { "Civil controlled work or family mediation" }
 
         it "only displays flash message once" do
