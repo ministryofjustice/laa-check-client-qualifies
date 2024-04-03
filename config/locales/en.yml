@@ -2405,7 +2405,7 @@ en:
       valid_case_types:
         - controlled work (including legal help)  or family mediation
         - civil certificated or licensed legal work
-      mental_health_html: The <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>LAA contract management mental health guidance (opens in new tab)</a> explains when a means assessment is not needed for controlled work matters that will potentially involve proceedings before the Mental Health Tribunal (known as non-means, non-MHT matter starts).
+      mental_health_html: The <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>LAA contract management mental health guidance (PDF, 288KB)</a> explains when a means assessment is not needed for controlled work matters that will potentially involve proceedings before the Mental Health Tribunal (known as non-means, non-MHT matter starts).
       client_under_18_heading: Clients under 18
       client_under_18_para_1: Clients aged under 18 do not need a full means test for certificated work matters or controlled legal representation (CLR) matters.
       client_under_18_para_2: "For all other types of controlled work and family mediation matters, clients under 18 must have a full means assessment if any of the following apply:"
