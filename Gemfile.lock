@@ -397,7 +397,7 @@ GEM
       thor (~> 1.0, >= 1.2.2)
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
-    rake (13.1.0)
+    rake (13.2.0)
     rdoc (6.6.3.1)
       psych (>= 4.0.0)
     redis (4.8.0)
@@ -494,10 +494,10 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    sentry-rails (5.17.1)
+    sentry-rails (5.17.2)
       railties (>= 5.0)
-      sentry-ruby (~> 5.17.1)
-    sentry-ruby (5.17.1)
+      sentry-ruby (~> 5.17.2)
+    sentry-ruby (5.17.2)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
     simplecov (0.22.0)
@@ -619,7 +619,7 @@ DEPENDENCIES
   rubocop-govuk
   rubocop-performance
   selenium-webdriver
-  sentry-rails
+  sentry-rails (>= 5.17.2)
   sentry-ruby
   simplecov
   slim-rails
@@ -633,4 +633,4 @@ RUBY VERSION
    ruby 3.2.2p53
 
 BUNDLED WITH
-   2.4.10
+   2.4.6
