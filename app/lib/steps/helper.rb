@@ -81,12 +81,12 @@ module Steps
       end
 
       def all_sections
-        initial_sections = [NonFinancialSection,
-                            IncomeSection,
-                            PartnerSection,
-                            OutgoingsSection]
-
-        initial_sections + [PropertySection, AssetsAndVehiclesSection]
+        [NonFinancialSection,
+         IncomeSection,
+         PartnerSection,
+         OutgoingsSection,
+         PropertySection,
+         AssetsAndVehiclesSection]
       end
 
       def remaining_steps(steps, step)
