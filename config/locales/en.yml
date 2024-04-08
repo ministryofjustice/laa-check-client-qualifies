@@ -88,10 +88,10 @@ en:
             amount:
               blank: Enter income the dependant gets
               blank_when_many: Enter income dependant %{position} gets
-              dependant_monthly_income_too_high: Dependant income must be less than £338.90 per month. If you have counted someone as a dependant and they have income of £338.90 or more per month, you must go back and remove them as a dependant to continue with this check.
-              dependant_monthly_income_too_high_when_many: Dependant %{position} income must be less than £338.90 per month. If you have counted someone as a dependant and they have income of £338.90 or more per month, you must go back and remove them as a dependant to continue with this check.
-              dependant_monthly_equivalent_income_too_high: Dependant income must be less than the equivalent of £338.90 per month. If you have counted someone as a dependant and they have income equivalent to £338.90 or more per month, you must go back and remove them as a dependant to continue with this check.
-              dependant_monthly_equivalent_income_too_high_when_many: Dependant %{position} income must be less than the equivalent of £338.90 per month. If you have counted someone as a dependant and they have income equivalent to £338.90 or more per month, you must go back and remove them as a dependant to continue with this check.
+              dependant_monthly_income_too_high: Dependant income must be less than %{limit} per month. If you have counted someone as a dependant and they have income of %{limit} or more per month, you must go back and remove them as a dependant to continue with this check.
+              dependant_monthly_income_too_high_when_many: Dependant %{position} income must be less than %{limit} per month. If you have counted someone as a dependant and they have income of %{limit} or more per month, you must go back and remove them as a dependant to continue with this check.
+              dependant_monthly_equivalent_income_too_high: Dependant income must be less than the equivalent of %{limit} per month. If you have counted someone as a dependant and they have income equivalent to %{limit} or more per month, you must go back and remove them as a dependant to continue with this check.
+              dependant_monthly_equivalent_income_too_high_when_many: Dependant %{position} income must be less than the equivalent of %{limit} per month. If you have counted someone as a dependant and they have income equivalent to %{limit} or more per month, you must go back and remove them as a dependant to continue with this check.
               greater_than: Income for the dependant must be more than 0
               greater_than_when_many: Income for dependant %{position} must be more than 0
               not_a_number: Income for the dependant must be a number
@@ -637,6 +637,7 @@ en:
   generic:
     yes_choice: "Yes"
     no_choice: "No"
+    yes_choice_hidden_hint_amount: If yes, enter amount
     in_work: Employed and in work
     receiving_statutory_pay: Employed and on Statutory Sick Pay or Statutory Maternity Pay
     unemployed: Unemployed
@@ -956,7 +957,7 @@ en:
     dependant_details:
       legend: Tell us about your client's dependants
       legend_with_partner: Tell us about your client and their partner's dependants
-      income_warning: Do not include any dependants with £338.90 or more income every month
+      income_warning: Do not include any dependants with %{limit} or more income every month
       child_dependants:
         legend: Does your client have any child dependants?
         legend_with_partner: Does your client or their partner have any child dependants?
@@ -968,7 +969,8 @@ en:
           - "Do not include:"
         bullets:
           - foster children (where the fostering allowance for that child has been wholly disregarded from gross income)
-          - any child with £338.90 or more income every month (any income below this can be entered on the following pages and will be deducted from the dependant allowance)
+          - any child with %{limit} or more income every month (any income below this can be entered on the following pages and will be deducted from the dependant allowance)
+        hidden_description: If yes, enter a number
       adult_dependants:
         legend: Does your client have any adult dependants?
         legend_with_partner: Does your client or their partner have any adult dependants?
@@ -978,7 +980,8 @@ en:
         exclude: "Do not include:"
         bullets:
           - anyone who owns any property, vehicles or other assets valued at over £8,000 in total
-          - anyone with £338.90 or more income every month (any income below this can be entered on the following pages and will be deducted from the dependant allowance)
+          - anyone with %{limit} or more income every month (any income below this can be entered on the following pages and will be deducted from the dependant allowance)
+        hidden_description: If yes, enter a number
       how_many_child: How many child dependants are there?
       how_many_adult: How many adult dependants are there?
       guidance:
@@ -1284,6 +1287,8 @@ en:
         hint: Include any other income your client received. Do not include any government Cost of Living Payments. Enter 0 if this does not apply
         certificated_instruction: Amount received in the last 3 months
         controlled_instruction: Amount received in the last month
+      hidden_description_amount_and_frequency: If yes, enter amount and frequency
+      hidden_description_amount: If yes, enter amount
       enter_frequency: Select frequency
       amount: Amount
       frequency: Frequency
@@ -1357,6 +1362,7 @@ en:
         label: Payments towards legal aid in a criminal case
         hints:
           - "Enter 0 if this does not apply"
+      hidden_description_amount_and_frequency: If yes, enter amount and frequency
       enter_amount: Enter amount
       enter_frequency: Select frequency
       amount: Amount
@@ -2156,10 +2162,10 @@ en:
         income_tax: ""
         partner_allowance: A fixed allowance if your client has a partner
         housing_costs: Housing costs minus any Housing Benefit payments your client gets
-        dependants_allowance: An allowance of £338.90 applied for each dependant, minus any income they receive
+        dependants_allowance: An allowance of %{dependant_allowance} applied for each dependant, minus any income they receive
       household_outgoing_hints:
         housing_costs: Housing costs minus any Housing Benefit payments the household gets
-        dependants_allowance: An allowance of £338.90 applied for each dependant, minus any income they receive
+        dependants_allowance: An allowance of %{dependant_allowance} applied for each dependant, minus any income they receive
       partner_outgoing_hints:
         childcare_payments: ""
         maintenance_out: ""
@@ -2403,7 +2409,7 @@ en:
       valid_case_types:
         - controlled work (including legal help)  or family mediation
         - civil certificated or licensed legal work
-      mental_health_html: The <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>LAA contract management mental health guidance (opens in new tab)</a> explains when a means assessment is not needed for controlled work matters that will potentially involve proceedings before the Mental Health Tribunal (known as non-means, non-MHT matter starts).
+      mental_health_html: The <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>LAA contract management mental health guidance (PDF, 288KB)</a> explains when a means assessment is not needed for controlled work matters that will potentially involve proceedings before the Mental Health Tribunal (known as non-means, non-MHT matter starts).
       client_under_18_heading: Clients under 18
       client_under_18_para_1: Clients aged under 18 do not need a full means test for certificated work matters or controlled legal representation (CLR) matters.
       client_under_18_para_2: "For all other types of controlled work and family mediation matters, clients under 18 must have a full means assessment if any of the following apply:"

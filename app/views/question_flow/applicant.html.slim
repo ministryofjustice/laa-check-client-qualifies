@@ -5,10 +5,10 @@
 
 .govuk-grid-column-two-thirds
   = form_for(@form, url: request.path, method: :put) do |form|
-    = render "shared/heading",
-             header_text: t(".heading")
-
     = form.govuk_error_summary t("generic.error_summary_title")
+
+    = render "shared/heading",
+            header_text: t(".heading")
 
     = form.govuk_collection_radio_buttons(:partner,
                                           yes_no_options, :first, :last,
