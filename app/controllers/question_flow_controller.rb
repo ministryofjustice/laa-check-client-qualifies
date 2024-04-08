@@ -10,7 +10,7 @@ class QuestionFlowController < ApplicationController
     else
       @previous_step = Steps::Helper.previous_step_for(session_data, step)
     end
-    @form = Flow::Handler.model_from_session(step, session_data)
+    @form = Flow::Handler.form_from_session(step, session_data)
     render "/question_flow/#{step}"
   end
 

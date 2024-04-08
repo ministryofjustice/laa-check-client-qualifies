@@ -46,8 +46,14 @@ module Flow
     }.freeze
 
     class << self
-      def model_from_session(step, session)
+      # use this for instantiating a form (i.e. only from a controller)
+      def form_from_session(step, session)
         STEPS.fetch(step).fetch(:class).from_session(session)
+      end
+
+      # use this for instantiating a model (i.e. from code that wants to inspect the data)
+      def model_from_session(step, session)
+        STEPS.fetch(step).fetch(:class).model_from_session(session)
       end
 
       def model_from_params(step, params, session)
