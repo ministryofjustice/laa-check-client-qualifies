@@ -17,17 +17,18 @@
     = render "shared/heading",
             header_text: t(legend_key),
             tag: :household
-      = govuk_warning_text(text: t("question_flow.dependant_details.income_warning"))
+      = govuk_warning_text(text: t("question_flow.dependant_details.income_warning",
+              limit: dependant_monthly_upper_limit))
 
     = form.govuk_radio_buttons_fieldset :child_dependants,
             legend: { text: t("question_flow.dependant_details.child_dependants.legend#{'_with_partner' if @check.partner}") } do
 
       = govuk_details(summary_text: t("question_flow.dependant_details.child_dependants.summary")) do
           p.govuk-text = t("question_flow.dependant_details.child_dependants.paragraph_1#{'_with_partner' if @check.partner}")
-          - t("question_flow.dependant_details.child_dependants.paragraphs").each do |paragraph|
+          - t("question_flow.dependant_details.child_dependants.paragraphs", limit: dependant_monthly_upper_limit).each do |paragraph|
             p.govuk-text = paragraph
           ul.govuk-list.govuk-list--bullet
-            - t("question_flow.dependant_details.child_dependants.bullets").each
+            - t("question_flow.dependant_details.child_dependants.bullets", limit: dependant_monthly_upper_limit).each
               li = _1
 
       = render "shared/radio_button_set",
@@ -49,7 +50,7 @@
           p.govuk-text = t("question_flow.dependant_details.adult_dependants.paragraph#{'_with_partner' if @check.partner}")
           p.govuk-text = t("question_flow.dependant_details.adult_dependants.exclude")
           ul.govuk-list.govuk-list--bullet
-            - t("question_flow.dependant_details.adult_dependants.bullets").each
+            - t("question_flow.dependant_details.adult_dependants.bullets", limit: dependant_monthly_upper_limit).each
               li = _1
 
       = render "shared/radio_button_set",
