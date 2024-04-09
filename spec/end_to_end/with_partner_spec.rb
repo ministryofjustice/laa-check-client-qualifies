@@ -83,6 +83,12 @@ RSpec.describe "Certificated check with partner", type: :feature do
   context "when interacting with the CFE API", :end2end do
     include_context "with partner data"
 
+    let(:before_2024_uprating) { Time.zone.local(2024, 2, 15, 14, 23, 21) }
+
+    before do
+      travel_to before_2024_uprating
+    end
+
     it "shows appropriate information on the results page" do
       click_on "Submit"
 
