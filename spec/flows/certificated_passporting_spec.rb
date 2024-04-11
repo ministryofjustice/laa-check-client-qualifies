@@ -8,10 +8,10 @@ RSpec.describe "Certificated, passported flow", type: :feature do
     fill_in_domestic_abuse_applicant_screen
     fill_in_immigration_or_asylum_type_upper_tribunal_screen
     fill_in_applicant_screen(passporting: "Yes")
-    fill_in_assets_screen
-    fill_in_vehicle_screen
     fill_in_property_screen
     fill_in_additional_property_screen
+    fill_in_assets_screen
+    fill_in_vehicle_screen
     confirm_screen("check_answers")
   end
 
@@ -32,7 +32,7 @@ RSpec.describe "Certificated, passported flow", type: :feature do
     fill_in_forms_until(:additional_property)
     fill_in_additional_property_screen(choice: "Yes, owned outright")
     fill_in_additional_property_details_screen
-    confirm_screen("check_answers")
+    confirm_screen("assets")
   end
 
   it "asks for vehicle details if vehicle owned" do
@@ -42,6 +42,6 @@ RSpec.describe "Certificated, passported flow", type: :feature do
     fill_in_forms_until(:vehicle)
     fill_in_vehicle_screen(choice: "Yes")
     fill_in_vehicles_details_screen
-    confirm_screen("property")
+    confirm_screen("check_answers")
   end
 end

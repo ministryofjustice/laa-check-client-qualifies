@@ -1,7 +1,7 @@
 require "rails_helper"
 
-RSpec.describe "New outgoings flow", :stub_cfe_calls, :outgoings_flow_flag, type: :feature do
-  it "shows new screen order when there is no partner and passported" do
+RSpec.describe "outgoings flow", :stub_cfe_calls, type: :feature do
+  it "shows screen order when there is no partner and passported" do
     start_assessment
     fill_in_forms_until(:applicant)
     fill_in_applicant_screen(partner: "No", passporting: "Yes")
@@ -15,7 +15,7 @@ RSpec.describe "New outgoings flow", :stub_cfe_calls, :outgoings_flow_flag, type
     confirm_screen("check_answers")
   end
 
-  it "shows new screen order when there is a partner and passported" do
+  it "shows screen order when there is a partner and passported" do
     start_assessment
     fill_in_forms_until(:applicant)
     fill_in_applicant_screen(partner: "Yes", passporting: "Yes")
@@ -30,7 +30,7 @@ RSpec.describe "New outgoings flow", :stub_cfe_calls, :outgoings_flow_flag, type
     confirm_screen("check_answers")
   end
 
-  it "shows new screen order when there is no partner and not passported" do
+  it "shows screen order when there is no partner and not passported" do
     start_assessment
     fill_in_forms_until(:applicant)
     fill_in_applicant_screen(partner: "No", passporting: "No")
@@ -44,7 +44,7 @@ RSpec.describe "New outgoings flow", :stub_cfe_calls, :outgoings_flow_flag, type
     confirm_screen("check_answers")
   end
 
-  it "shows new screen order when there is a partner and not passported" do
+  it "shows screen order when there is a partner and not passported" do
     start_assessment
     fill_in_forms_until(:applicant)
     fill_in_applicant_screen(partner: "Yes", passporting: "No")

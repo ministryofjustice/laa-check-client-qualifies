@@ -21,13 +21,13 @@ RSpec.describe "Certificated, non-passported flow with partner", :stub_cfe_calls
     fill_in_partner_other_income_screen
     fill_in_outgoings_screen
     fill_in_partner_outgoings_screen
-    fill_in_assets_screen
-    fill_in_partner_assets_screen
-    fill_in_vehicle_screen
     fill_in_property_screen
     fill_in_housing_costs_screen
     fill_in_additional_property_screen
     fill_in_partner_additional_property_screen
+    fill_in_assets_screen
+    fill_in_partner_assets_screen
+    fill_in_vehicle_screen
     confirm_screen("check_answers")
   end
 
@@ -52,13 +52,13 @@ RSpec.describe "Certificated, non-passported flow with partner", :stub_cfe_calls
     fill_in_forms_until(:partner_additional_property)
     fill_in_partner_additional_property_screen(choice: "Yes, owned outright")
     fill_in_partner_additional_property_details_screen
-    confirm_screen("check_answers")
+    confirm_screen("assets")
   end
 
   it "asks for partner additional property details if property owned with a mortgage" do
     fill_in_forms_until(:partner_additional_property)
     fill_in_partner_additional_property_screen(choice: "Yes, with a mortgage or loan")
     fill_in_partner_additional_property_details_screen
-    confirm_screen("check_answers")
+    confirm_screen("assets")
   end
 end
