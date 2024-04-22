@@ -4,7 +4,7 @@
     margin-bottom: 15px;
   }
   
-  @media (min-width: 40.0625em) {
+  @media (min-width: #{map-get($govuk-breakpoints, 'tablet')}) {
     .govuk-button-group-custom {
         display: inline-flex;
         flex-direction: row;
