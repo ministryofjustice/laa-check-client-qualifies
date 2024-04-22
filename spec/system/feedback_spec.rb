@@ -34,8 +34,9 @@ RSpec.describe "Feedback component" do
         expect(stored_data).not_to be_nil
         click_on "Send"
         expect(page).to have_content("Thank you for your feedback")
-        # the form data is sent asynchronously, so have to wait_for for the data to save - (as part of ticket EL-1374)
-        wait_for(stored_data.reload.comment).to eq "some feedback!"
+        # the form data is sent asynchronously, so have to wait/sleep for the data to save - (as part of ticket EL-1374)
+        sleep 1
+        expect(stored_data.reload.comment).to eq "some feedback!"
       end
     end
   end
@@ -51,8 +52,9 @@ RSpec.describe "Feedback component" do
           fill_in "freetext-input-field", with: "some feedback!"
           click_on "Send"
           expect(page).to have_content("Thank you for your feedback")
-          # the form data is sent asynchronously, so have to wait_for for the data to save - (as part of ticket EL-1374)
-          wait_for(FreetextFeedback.find_by(text: "some feedback!", page: "check_answers_checks", level_of_help: "certificated")).not_to be_nil
+          # the form data is sent asynchronously, so have to wait/sleep for the data to save - (as part of ticket EL-1374)
+          sleep 1
+          expect(FreetextFeedback.find_by(text: "some feedback!", page: "check_answers_checks", level_of_help: "certificated")).not_to be_nil
         end
 
         it "I can cancel my freetext feedback", :slow do
@@ -66,6 +68,8 @@ RSpec.describe "Feedback component" do
           expect(page).to have_content("Give feedback on this page")
           expect(page).not_to have_content("Thank you for your feedback")
           expect(page).not_to have_content("You did not enter any feedback")
+          # the form data is sent asynchronously, so have to wait/sleep for the data to save - (as part of ticket EL-1374)
+          sleep 1
           expect(FreetextFeedback.find_by(text: "some feedback!", page: "check_answers_checks", level_of_help: "certificated")).to be_nil
           expect(FreetextFeedback.count).to be(0)
         end
@@ -80,6 +84,8 @@ RSpec.describe "Feedback component" do
           expect(page).to have_content("You did not enter any feedback")
           expect(page).to have_content("Give feedback on this page")
           expect(page).not_to have_content("Thank you for your feedback")
+          # the form data is sent asynchronously, so have to wait/sleep for the data to save - (as part of ticket EL-1374)
+          sleep 1
           expect(FreetextFeedback.find_by(text: "", page: "check_answers_checks", level_of_help: "certificated")).to be_nil
           expect(FreetextFeedback.count).to be(0)
         end
@@ -97,6 +103,8 @@ RSpec.describe "Feedback component" do
           fill_in "freetext-input-field", with: "some feedback!"
           click_on "Send"
           expect(page).to have_content("Thank you for your feedback")
+          # the form data is sent asynchronously, so have to wait/sleep for the data to save - (as part of ticket EL-1374)
+          sleep 1
           expect(FreetextFeedback.find_by(text: "some feedback!", page: "show_results", level_of_help: "controlled")).not_to be_nil
         end
       end
@@ -114,6 +122,8 @@ RSpec.describe "Feedback component" do
           fill_in "freetext-input-field", with: "some feedback!"
           click_on "Send"
           expect(page).to have_content("Thank you for your feedback")
+          # the form data is sent asynchronously, so have to wait/sleep for the data to save - (as part of ticket EL-1374)
+          sleep 1
           expect(FreetextFeedback.find_by(text: "some feedback!", page: "new_controlled_work_document_selections", level_of_help: "controlled")).not_to be_nil
         end
       end
@@ -128,6 +138,8 @@ RSpec.describe "Feedback component" do
           fill_in "freetext-input-field", with: "some feedback!"
           click_on "Send"
           expect(page).to have_content("Thank you for your feedback")
+          # the form data is sent asynchronously, so have to wait/sleep for the data to save - (as part of ticket EL-1374)
+          sleep 1
           expect(FreetextFeedback.find_by(text: "some feedback!", page: "index_updates", level_of_help: nil)).not_to be_nil
         end
       end
@@ -140,6 +152,8 @@ RSpec.describe "Feedback component" do
           fill_in "freetext-input-field", with: "some feedback!"
           click_on "Send"
           expect(page).to have_content("Thank you for your feedback")
+          # the form data is sent asynchronously, so have to wait/sleep for the data to save - (as part of ticket EL-1374)
+          sleep 1
           expect(FreetextFeedback.find_by(text: "some feedback!", page: "show_helps", level_of_help: nil)).not_to be_nil
         end
       end
