@@ -23,8 +23,8 @@ RSpec.describe "Feedback component" do
         click_on "Continue to download and finish"
         expect(page).to have_content("Were you satisfied with this service?")
         click_on "Yes"
-        # wait for comment field to show, before checking anything - (as part of ticket EL-1374)
-        find("#comment-field")
+        # wait for form to show, by checking css on div, before checking anything - (as part of ticket EL-1374)
+        find(".govuk-form-group")
         expect(page).to have_content("Your response has been sent, please tell us more")
         expect(page).to have_content("Don't include personal information")
         # search for input box CSS, before doing anything - (as part of ticket EL-1374)
