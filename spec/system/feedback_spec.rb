@@ -20,15 +20,15 @@ RSpec.describe "Feedback component" do
         click_on "Continue to CW forms"
         choose "CW1 - legal help, help at court or family help (lower)"
         choose "English"
-        # TODO:  temp fix for parallel running
-        sleep 1
         click_on "Continue to download and finish"
         expect(page).to have_content("Were you satisfied with this service?")
         click_on "Yes"
-        # wait for comment field to show before checking anything
+        # wait for comment field to show, before checking anything - (as part of ticket EL-1374)
         find("#comment-field")
         expect(page).to have_content("Your response has been sent, please tell us more")
         expect(page).to have_content("Don't include personal information")
+        # search for input box CSS, before doing anything - (as part of ticket EL-1374)
+        find(".govuk-textarea")
         fill_in "comment-field", with: "some feedback!"
         stored_data = SatisfactionFeedback.find_by(satisfied: "yes", outcome: "eligible", level_of_help: "controlled")
         expect(stored_data).not_to be_nil
