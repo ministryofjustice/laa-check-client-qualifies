@@ -103,6 +103,7 @@ group :test do
   gem "rack_session_access"
   gem "database_cleaner"
   gem "vcr", require: false
+  gem "rspec-wait"
 end
 
 gem "govuk-components"

@@ -34,7 +34,8 @@ RSpec.describe "Feedback component" do
         expect(stored_data).not_to be_nil
         click_on "Send"
         expect(page).to have_content("Thank you for your feedback")
-        expect(stored_data.reload.comment).to eq "some feedback!"
+        # the form data is sent asynchronously, so have to wait_for for the data to save - (as part of ticket EL-1374)
+        wait_for(stored_data.reload.comment).to eq "some feedback!"
       end
     end
   end
@@ -50,7 +51,8 @@ RSpec.describe "Feedback component" do
           fill_in "freetext-input-field", with: "some feedback!"
           click_on "Send"
           expect(page).to have_content("Thank you for your feedback")
-          expect(FreetextFeedback.find_by(text: "some feedback!", page: "check_answers_checks", level_of_help: "certificated")).not_to be_nil
+          # the form data is sent asynchronously, so have to wait_for for the data to save - (as part of ticket EL-1374)
+          wait_for(FreetextFeedback.find_by(text: "some feedback!", page: "check_answers_checks", level_of_help: "certificated")).not_to be_nil
         end
 
         it "I can cancel my freetext feedback", :slow do
