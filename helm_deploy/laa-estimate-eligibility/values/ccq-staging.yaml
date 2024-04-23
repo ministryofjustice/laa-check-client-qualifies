@@ -43,7 +43,7 @@ postgresql:
 
 notifications:
   errorMessageTemplateId: 928f3ea3-0134-4966-b43d-ba7e1369fd5d
-  recipient: patrick.gleeson@digital.justice.gov.uk,michael.blatherwick@digital.justice.gov.uk,william.clarke@digital.justice.gov.uk
+  recipient: michael.blatherwick@digital.justice.gov.uk,william.clarke@digital.justice.gov.uk,stephen.p.dicks@digital.justice.gov.uk,hettie.street@digital.justice.gov.uk,masum.khan@digital.justice.gov.uk
 
 googleTagManager:
   containerId: GTM-WJ98FR4
@@ -80,7 +80,7 @@ sentry:
 
 app:
   primaryHost: ""
-  seedAdmins: patrick.gleeson@digital.justice.gov.uk,michael.blatherwick@digital.justice.gov.uk,william.clarke@digital.justice.gov.uk,masum.khan@digital.justice.gov.uk,hettie.street@digital.justice.gov.uk
+  seedAdmins: michael.blatherwick@digital.justice.gov.uk,william.clarke@digital.justice.gov.uk,stephen.p.dicks@digital.justice.gov.uk,hettie.street@digital.justice.gov.uk,masum.khan@digital.justice.gov.uk
 
 google:
   oauthClientId: 276075615370-ncqvmdi84jruv1jggfg4bu8nlvk1drj0.apps.googleusercontent.com
