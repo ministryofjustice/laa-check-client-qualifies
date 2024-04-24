@@ -25,7 +25,7 @@
     h2.govuk-heading-s = t("question_flow.early_result.gross_income.resume_check")
     p.govuk-body = t("question_flow.early_result.gross_income.resume_check_para")
 
-  .govuk-button-group
+  .govuk-button-group-custom
     = form_for(@form, url: request.path, method: :put) do |form|
       = form.hidden_field :early_eligibility_selection, value: IneligibleGrossIncomeForm::VALID_OPTIONS[:gross]
       = form.govuk_submit t("question_flow.early_result.gross_income.go_to_summary")
