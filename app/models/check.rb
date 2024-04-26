@@ -109,4 +109,8 @@ class Check
   def under_eighteen?
     Steps::Logic.client_under_eighteen?(session_data)
   end
+
+  def housing_benefit_relevant?
+    FeatureFlags.enabled?(:legacy_housing_benefit_without_reveals, session_data) || housing_benefit_relevant
+  end
 end

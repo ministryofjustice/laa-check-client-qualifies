@@ -13,6 +13,15 @@ def fill_in_client_age_screen(choice: "18 to 59")
   click_on "Save and continue"
 end
 
+LEVEL_OF_HELP_CHOICES = {
+  certificated: "Civil certificated or licensed legal work",
+  controlled: "Civil controlled work or family mediation",
+}.freeze
+
+def fill_in_level_of_help_with(value)
+  fill_in_level_of_help_screen(choice: LEVEL_OF_HELP_CHOICES.fetch(value))
+end
+
 def fill_in_level_of_help_screen(choice: "Civil certificated or licensed legal work")
   confirm_screen "level_of_help"
   choose choice
@@ -258,12 +267,19 @@ def fill_in_property_entry_screen
   click_on "Save and continue"
 end
 
-def fill_in_housing_costs_screen(housing_payments: "0", housing_benefit: "0")
+def fill_in_housing_costs_screen(housing_payments: 0, housing_benefit: 0)
   confirm_screen :housing_costs
+
   fill_in "housing_costs_form[housing_payments]", with: housing_payments
   choose "Every month", name: "housing_costs_form[housing_payments_frequency]"
-  fill_in "housing_costs_form[housing_benefit_value]", with: housing_benefit
-  choose "Every month", name: "housing_costs_form[housing_benefit_frequency]"
+
+  if housing_benefit.positive?
+    choose "Yes", name: "housing_costs_form[housing_benefit_relevant]"
+    fill_in "housing_costs_form[housing_benefit_value]", with: housing_benefit
+    choose "Every month", name: "housing_costs_form[housing_benefit_frequency]"
+  else
+    choose "No", name: "housing_costs_form[housing_benefit_relevant]"
+  end
   click_on "Save and continue"
 end
 

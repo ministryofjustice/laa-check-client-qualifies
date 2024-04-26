@@ -16,7 +16,7 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
       "student_finance_relevant" => false,
       "other_relevant" => false,
       "housing_payments" => 0,
-      "housing_benefit_value" => 0,
+      "housing_benefit_relevant" => false,
     }
   end
   let(:relevant_steps) { %i[other_income outgoings] }
@@ -51,7 +51,7 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
           "legal_aid_payments_conditional_value" => 46,
           "legal_aid_payments_frequency" => "monthly",
           "housing_payments" => 0,
-          "housing_benefit_value" => 0,
+          "housing_benefit_relevant" => false,
         }
       end
 
@@ -180,6 +180,7 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
           "housing_payments_frequency" => "monthly",
           "housing_benefit_value" => 119,
           "housing_benefit_frequency" => "monthly",
+          "housing_benefit_relevant" => true,
         }
       end
       let(:relevant_steps) { %i[outgoings partner_outgoings housing_costs other_income] }
@@ -255,7 +256,7 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
 
         it "raises an error" do
           expect { service.call(session_data, payload, relevant_steps) }.to raise_error(
-            "Invalid session detected by HousingCostsForm:\n  Housing payments frequency is not included in the list",
+            "Invalid session detected by HousingCostsForm:\n  Housing payments frequency Select frequency of housing payments.",
           )
         end
       end

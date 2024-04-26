@@ -2,9 +2,11 @@ ruby:
   size ||= nil
   set_aria ||= false
   level ||= nil
+  hint_text ||= ""
   checktype = level == "controlled" ? "controlled_" : nil
 = form.govuk_text_field field,
                         width:,
+                        hint: { text: hint_text },
                         label: { text: label_text, size: },
                         prefix_text: FormsHelper::POUND,
                         value: decimal_as_money_string(form, field),
