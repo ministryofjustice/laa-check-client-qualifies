@@ -50,11 +50,7 @@ module CfeParamBuilders
     end
 
     def self.value(form, local_name)
-      if FeatureFlags.enabled?(:conditional_reveals, form.check.session_data)
-        form.send("#{local_name}_conditional_value") if form.send("#{local_name}_relevant")
-      else
-        form.send("#{local_name}_value")
-      end
+      form.send("#{local_name}_conditional_value") if form.send("#{local_name}_relevant")
     end
 
     def self.build_housing_payments(housing_form)

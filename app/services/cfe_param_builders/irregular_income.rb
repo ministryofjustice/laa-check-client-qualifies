@@ -32,11 +32,7 @@ module CfeParamBuilders
     end
 
     def self.extract_amount(form, attribute)
-      if FeatureFlags.enabled?(:conditional_reveals, form.check.session_data)
-        form.send(:"#{attribute}_relevant") ? form.send(:"#{attribute}_conditional_value") : 0
-      else
-        form.send(:"#{attribute}_value")
-      end
+      form.send(:"#{attribute}_relevant") ? form.send(:"#{attribute}_conditional_value") : 0
     end
   end
 end

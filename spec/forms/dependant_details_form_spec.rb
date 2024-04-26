@@ -4,13 +4,8 @@ RSpec.describe "dependant_details", type: :feature do
   let(:assessment_code) { :assessment_code }
 
   before do
-    travel_to Date.new(2024, 2, 2)
     set_session(assessment_code, "level_of_help" => "controlled")
     visit form_path(:dependant_details, assessment_code)
-  end
-
-  after do
-    travel_back
   end
 
   it "performs validations" do
@@ -36,11 +31,11 @@ RSpec.describe "dependant_details", type: :feature do
     expect(session_contents["adult_dependants_count"]).to eq 1
   end
 
-  it "shows me the new dependant allowance text" do
+  it "shows me the dependant allowance text" do
     expect(page).to have_content(
       "Do not include:\n"\
       "anyone who owns any property, vehicles or other assets valued at over £8,000 in total"\
-      "anyone with £338.90 or more income every month (any income below this can be entered on the following pages and will be deducted from the dependant allowance)",
+      "anyone with £361.70 or more income every month (any income below this can be entered on the following pages and will be deducted from the dependant allowance)",
     )
   end
 end

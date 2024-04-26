@@ -28,7 +28,7 @@ RSpec.describe "Certificated, non-passported flow", :stub_cfe_calls, type: :feat
     fill_in_benefits_screen
     confirm_screen("other_income")
     click_on "Save and continue" # to trigger validation
-    expect(page).to have_content "Enter financial help from friends and family, if this does not apply enter 0"
+    expect(page).to have_content "Select yes if your client gets financial help from friends or family"
     click_on "Back"
     confirm_screen("benefits")
     click_on "Save and continue"

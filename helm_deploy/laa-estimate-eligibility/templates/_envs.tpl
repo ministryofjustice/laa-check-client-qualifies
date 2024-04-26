@@ -69,8 +69,6 @@ env:
     value: {{ .Values.featureFlags.basicAuthentication }}
   - name: OUTGOINGS_FLOW_FEATURE_FLAG
     value: {{ .Values.featureFlags.outgoingsFlow }}
-  - name: CONDITIONAL_REVEALS_FEATURE_FLAG
-    value: {{ .Values.featureFlags.conditionalReveals }}
   - name: EARLY_ELIGIBILITY_FEATURE_FLAG
     value: {{ .Values.featureFlags.earlyEligibility }}
   - name: FEATURE_FLAG_OVERRIDES

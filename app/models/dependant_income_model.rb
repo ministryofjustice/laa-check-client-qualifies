@@ -34,11 +34,7 @@ class DependantIncomeModel
 
   class << self
     def dependant_monthly_upper_limit
-      if FeatureFlags.enabled?(:cfe_2024_uprating, without_session_data: true)
-        361.70
-      else
-        338.90
-      end
+      361.70
     end
 
     def error_message_content(key, position_tag)

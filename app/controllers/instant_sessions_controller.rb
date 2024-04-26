@@ -7,28 +7,15 @@ class InstantSessionsController < ApplicationController
     # To get around this, we force at least one redirect here to guarantee a stable session cookie string
     return redirect_to instant_session_path(session_type: params[:session_type], redirected: true) unless params[:redirected]
 
-    data = if FeatureFlags.enabled?(:conditional_reveals, without_session_data: true)
-             case params[:session_type]
-             when "controlled"
-               FactoryBot.build(:instant_controlled_session)
-             when "controlled-scenario"
-               FactoryBot.build(:rich_instant_controlled_session)
-             when "certificated"
-               FactoryBot.build(:instant_certificated_session)
-             else
-               return render file: "public/404.html", layout: false
-             end
+    data = case params[:session_type]
+           when "controlled"
+             FactoryBot.build(:instant_controlled_session)
+           when "controlled-scenario"
+             FactoryBot.build(:rich_instant_controlled_session)
+           when "certificated"
+             FactoryBot.build(:instant_certificated_session)
            else
-             case params[:session_type]
-             when "controlled"
-               FactoryBot.build(:instant_controlled_session_without_conditional_reveals)
-             when "controlled-scenario"
-               FactoryBot.build(:rich_instant_controlled_session_without_conditional_reveals)
-             when "certificated"
-               FactoryBot.build(:instant_certificated_session_without_conditional_reveals)
-             else
-               return render file: "public/404.html", layout: false
-             end
+             return render file: "public/404.html", layout: false
            end
 
     session[assessment_id] = data.merge("feature_flags" => FeatureFlags.session_flags)
