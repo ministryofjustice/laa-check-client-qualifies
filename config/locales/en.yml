@@ -367,8 +367,8 @@ en:
               greater_than: Amount paid for childcare must be more than 0
             maintenance_payments_conditional_value:
               blank: Enter amount of maintenance paid to a former partner
-              not_a_number: Amount of maintenance paid to a former parter must be a number
-              greater_than: Amount of maintenance paid to a former parter must be more than 0
+              not_a_number: Amount of maintenance paid to a former partner must be a number
+              greater_than: Amount of maintenance paid to a former partner must be more than 0
             legal_aid_payments_conditional_value:
               blank: Enter amount paid toward legal aid in a criminal case
               not_a_number: Amount paid toward legal aid in a criminal case must be a number

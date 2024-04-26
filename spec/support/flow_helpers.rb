@@ -155,35 +155,92 @@ def fill_in_benefit_details_screen(benefit_type: "A", screen_name: :benefit_deta
   click_on "Save and continue"
 end
 
-def fill_in_other_income_screen(screen_name: :other_income, values: {}, frequencies: {})
+def fill_in_other_income_screen(screen_name: :other_income, choice: "No", values: {}, frequencies: {})
   confirm_screen screen_name
-  fill_in "#{screen_name}_form[friends_or_family_value]", with: values.fetch(:friends_or_family, "0")
-  fill_in "#{screen_name}_form[maintenance_value]", with: values.fetch(:maintenance, "0")
-  fill_in "#{screen_name}_form[property_or_lodger_value]", with: values.fetch(:property_or_lodger, "0")
-  fill_in "#{screen_name}_form[pension_value]", with: values.fetch(:pension, "0")
-  fill_in "#{screen_name}_form[student_finance_value]", with: values.fetch(:student_finance, "0")
-  fill_in "#{screen_name}_form[other_value]", with: values.fetch(:other, "0")
-
-  frequencies.each do |k, v|
-    choose v, name: "#{screen_name}_form[#{k}_frequency]"
-  end
+  choose choice, name: "#{screen_name}_form[friends_or_family_relevant]"
+  fill_in "#{screen_name}_form[friends_or_family_conditional_value]", with: values.fetch(:friends_or_family, "0") if page.text.include?("Amount")
+  fill_in "#{screen_name}_form[friends_or_family_frequency]", with: frequencies.fetch(:friends_or_family, "0") if page.text.include?("Frequency?")
+  choose choice, name:  "#{screen_name}_form[maintenance_relevant]"
+  choose choice, name:  "#{screen_name}_form[property_or_lodger_relevant]"
+  choose choice, name:  "#{screen_name}_form[pension_relevant]"
+  choose choice, name:  "#{screen_name}_form[student_finance_relevant]"
+  choose choice, name:  "#{screen_name}_form[other_relevant]"
   click_on "Save and continue"
 end
 
-def fill_in_outgoings_screen(screen_name: :outgoings, values: {}, frequencies: {})
+def fill_in_other_income_screen_with_friends_and_family(screen_name: :other_income)
+  confirm_screen screen_name
+  choose "Yes", name: "#{screen_name}_form[friends_or_family_relevant]"
+  fill_in "#{screen_name}_form[friends_or_family_conditional_value]", with: "1200"
+  choose "Every month", name: "#{screen_name}_form[friends_or_family_frequency]"
+  choose "No", name:  "#{screen_name}_form[maintenance_relevant]"
+  choose "No", name:  "#{screen_name}_form[property_or_lodger_relevant]"
+  choose "No", name:  "#{screen_name}_form[pension_relevant]"
+  choose "No", name:  "#{screen_name}_form[student_finance_relevant]"
+  choose "No", name:  "#{screen_name}_form[other_relevant]"
+  click_on "Save and continue"
+end
+
+def fill_in_partner_other_income_screen_with_family_and_other
+  fill_in_other_income_screen_with_family_and_other(screen_name: :partner_other_income)
+end
+
+def fill_in_other_income_screen_with_family_and_student(screen_name: :other_income)
+  confirm_screen screen_name
+  choose "Yes", name: "#{screen_name}_form[friends_or_family_relevant]"
+  fill_in "#{screen_name}_form[friends_or_family_conditional_value]", with: "200"
+  choose "Every week", name: "#{screen_name}_form[friends_or_family_frequency]"
+  choose "No", name:  "#{screen_name}_form[maintenance_relevant]"
+  choose "No", name:  "#{screen_name}_form[property_or_lodger_relevant]"
+  choose "No", name:  "#{screen_name}_form[pension_relevant]"
+  choose "Yes", name: "#{screen_name}_form[student_finance_relevant]"
+  choose "No", name: "#{screen_name}_form[other_relevant]"
+  fill_in "#{screen_name}_form[student_finance_conditional_value]", with: "100"
+  click_on "Save and continue"
+end
+
+def fill_in_other_income_screen_with_family_and_other(screen_name: :other_income)
+  confirm_screen screen_name
+  choose "Yes", name: "#{screen_name}_form[friends_or_family_relevant]"
+  fill_in "#{screen_name}_form[friends_or_family_conditional_value]", with: "200"
+  choose "Every week", name: "#{screen_name}_form[friends_or_family_frequency]"
+  choose "No", name:  "#{screen_name}_form[maintenance_relevant]"
+  choose "No", name:  "#{screen_name}_form[property_or_lodger_relevant]"
+  choose "No", name:  "#{screen_name}_form[pension_relevant]"
+  choose "No", name:  "#{screen_name}_form[student_finance_relevant]"
+  choose "Yes", name: "#{screen_name}_form[other_relevant]"
+  fill_in "#{screen_name}_form[other_conditional_value]", with: "100"
+  click_on "Save and continue"
+end
+
+def fill_in_other_income_screen_with_ineligible_values(screen_name: :other_income)
+  confirm_screen screen_name
+  choose "Yes", name: "#{screen_name}_form[friends_or_family_relevant]"
+  fill_in "#{screen_name}_form[friends_or_family_conditional_value]", with: "3000"
+  choose "Every month", name: "#{screen_name}_form[friends_or_family_frequency]"
+  choose "No", name:  "#{screen_name}_form[maintenance_relevant]"
+  choose "No", name:  "#{screen_name}_form[property_or_lodger_relevant]"
+  choose "No", name:  "#{screen_name}_form[pension_relevant]"
+  choose "No", name:  "#{screen_name}_form[student_finance_relevant]"
+  choose "No", name:  "#{screen_name}_form[other_relevant]"
+  click_on "Save and continue"
+end
+
+def fill_in_outgoings_screen(screen_name: :outgoings, choice: "No")
   confirm_screen screen_name.to_s
-  if page.text.include? "Does your client pay maintenance to a former partner?"
-    choose "No", name: "#{screen_name}_form[childcare_payments_relevant]" if page.text.include?("childcare")
-    choose "No", name: "#{screen_name}_form[maintenance_payments_relevant]"
-    choose "No", name: "#{screen_name}_form[legal_aid_payments_relevant]"
-  else
-    fill_in "#{screen_name}_form[childcare_payments_value]", with: values.fetch(:childcare, "0") if page.text.include?("Childcare payments")
-    fill_in "#{screen_name}_form[maintenance_payments_value]", with: values.fetch(:maintenance, "0")
-    fill_in "#{screen_name}_form[legal_aid_payments_value]", with: values.fetch(:legal_aid, "0")
-    frequencies.each do |k, v|
-      choose v, name: "#{screen_name}_form[#{k}_payments_frequency]"
-    end
-  end
+  choose choice, name: "#{screen_name}_form[childcare_payments_relevant]" if page.text.include?("childcare")
+  choose choice, name: "#{screen_name}_form[maintenance_payments_relevant]"
+  choose choice, name: "#{screen_name}_form[legal_aid_payments_relevant]"
+  click_on "Save and continue"
+end
+
+def fill_in_outgoings_screen_with_maintenance(screen_name: :outgoings)
+  confirm_screen screen_name.to_s
+  choose "No", name: "#{screen_name}_form[childcare_payments_relevant]" if page.text.include?("childcare")
+  choose "Yes", name: "#{screen_name}_form[maintenance_payments_relevant]"
+  fill_in "#{screen_name}_form[maintenance_payments_conditional_value]", with: "800"
+  choose "Every month", name: "#{screen_name}_form[maintenance_payments_frequency]"
+  choose "No", name: "#{screen_name}_form[legal_aid_payments_relevant]"
   click_on "Save and continue"
 end
 
