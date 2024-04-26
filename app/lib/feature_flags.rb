@@ -14,6 +14,7 @@ class FeatureFlags
     maintenance_mode: { type: "global", default: false },
     basic_authentication: { type: "global", default: false },
     early_eligibility: { type: "session", default: false },
+    legacy_housing_benefit_without_reveals: { type: "session", default: false },
   }.freeze
 
   class << self
