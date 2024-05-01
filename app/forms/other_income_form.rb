@@ -30,10 +30,6 @@ class OtherIncomeForm
 
     frequency_attribute = :"#{income_type}_frequency"
     attribute frequency_attribute, :string
-
-    # validates frequency_attribute, presence: true,
-    #                                inclusion: { in: VALID_FREQUENCIES, allow_nil: false },
-    #                                if: -> { (!FeatureFlags.enabled?(:conditional_reveals, check.session_data) && send(value_attribute).to_i.positive?) || send(boolean_attribute) }
   end
   attribute :other_conditional_value, :gbp
   validate :custom_validation_other_conditional_value

@@ -109,9 +109,4 @@ class Check
   def under_eighteen?
     Steps::Logic.client_under_eighteen?(session_data)
   end
-
-  #  this is used by check_answers_fields.yml
-  # def conditional_reveals?
-  #   FeatureFlags.enabled?(:conditional_reveals, session_data)
-  # end
 end
