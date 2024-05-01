@@ -45,12 +45,6 @@ RSpec.describe "checks/check_answers.html.slim" do
             "Does the partner get income from pensions?Yes£1,000.00Monthly",
             "Does the partner get income from student finance?Yes£350.00",
             "Does the partner get income from other sources?Yes£200.00",
-            # "Financial help from friends or family£50.00Every week",
-            # "Maintenance payments from a former partner£100.00Every 2 weeks",
-            # "Income from a property or lodger£150.00Every 4 weeks",
-            # "Pensions£1,000.00Monthly",
-            # "Student finance£350.00",
-            # "Income from other sources£200.00",
           ])
         end
       end
