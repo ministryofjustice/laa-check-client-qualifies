@@ -13,6 +13,15 @@ def fill_in_client_age_screen(choice: "18 to 59")
   click_on "Save and continue"
 end
 
+LEVEL_OF_HELP_CHOICES = {
+  certificated: "Civil certificated or licensed legal work",
+  controlled: "Civil controlled work or family mediation",
+}.freeze
+
+def fill_in_level_of_help_with(value)
+  fill_in_level_of_help_screen(choice: LEVEL_OF_HELP_CHOICES.fetch(value))
+end
+
 def fill_in_level_of_help_screen(choice: "Civil certificated or licensed legal work")
   confirm_screen "level_of_help"
   choose choice
@@ -289,11 +298,33 @@ def fill_in_vehicles_details_screen(vehicle_finance: "0")
   click_on "Save and continue"
 end
 
-def fill_in_assets_screen(screen_name: :assets, form_name: :client_assets, values: {}, disputed: [])
+def fill_in_assets_screen(bank_account_value: "0", screen_name: :assets, form_name: :client_assets, values: {}, disputed: [])
   confirm_screen screen_name
-  fill_in "bank_account_model[items][1][amount]", with: "0"
-  fill_in "#{form_name}_form[investments]", with: values.fetch(:investments, "0")
-  fill_in "#{form_name}_form[valuables]", with: values.fetch(:valuables, "0")
+  fill_in "bank_account_model[items][1][amount]", with: bank_account_value
+
+  # check for presence of conditional reveal for investments
+  if all("##{form_name.to_s.dasherize}-form-investments-relevant-true-field", visible: false).any?
+    if values.key? :investments
+      choose "Yes", name: "#{form_name}_form[investments_relevant]"
+      fill_in "#{form_name}_form[investments]", with: values.fetch(:investments)
+    else
+      choose "No", name: "#{form_name}_form[investments_relevant]"
+    end
+  else
+    fill_in "#{form_name}_form[investments]", with: values.fetch(:investments, "0")
+  end
+
+  # check for presence of conditional reveal for valuables
+  if all("##{form_name.to_s.dasherize}-form-valuables-relevant-true-field", visible: false).any?
+    if values.key? :valuables
+      choose "Yes", name: "#{form_name}_form[valuables_relevant]"
+      fill_in "#{form_name}_form[valuables]", with: values.fetch(:valuables)
+    else
+      choose "No", name: "#{form_name}_form[valuables_relevant]"
+    end
+  else
+    fill_in "#{form_name}_form[valuables]", with: values.fetch(:valuables, "0")
+  end
 
   disputed.each do |disputed_item|
     check "This asset is a subject matter of dispute",

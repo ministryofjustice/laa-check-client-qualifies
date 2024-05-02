@@ -1,11 +1,13 @@
 require "rails_helper"
 
 RSpec.describe Cfe::AssetsPayloadService do
+  let(:feature_flags) { FeatureFlags.session_flags }
+
   describe ".call" do
     let(:payload) { {} }
 
     before do
-      described_class.call(session_data, payload, relevant_steps)
+      described_class.call(session_data.merge("feature_flags" => feature_flags), payload, relevant_steps)
     end
 
     context "when there is a full set of data" do
@@ -24,7 +26,9 @@ RSpec.describe Cfe::AssetsPayloadService do
             "house_in_dispute" => false,
           }],
           "bank_accounts" => [{ "amount" => 553, "account_in_dispute" => true }],
+          "investments_relevant" => true,
           "investments" => 345,
+          "valuables_relevant" => true,
           "valuables" => 665,
           "investments_in_dispute" => true,
           "valuables_in_dispute" => true,
@@ -70,8 +74,8 @@ RSpec.describe Cfe::AssetsPayloadService do
             "house_in_dispute" => true,
           }],
           "bank_accounts" => [{ "amount" => 0, "account_in_dispute" => false }],
-          "investments" => 0,
-          "valuables" => 0,
+          "investments_relevant" => false,
+          "valuables_relevant" => false,
           "investments_in_dispute" => false,
           "valuables_in_dispute" => false,
         }
@@ -99,8 +103,8 @@ RSpec.describe Cfe::AssetsPayloadService do
             "house_in_dispute" => false,
           }],
           "bank_accounts" => [{ "amount" => 0, "account_in_dispute" => false }],
-          "investments" => 0,
-          "valuables" => 0,
+          "investments_relevant" => false,
+          "valuables_relevant" => false,
           "investments_in_dispute" => false,
           "valuables_in_dispute" => false,
         }
@@ -276,6 +280,7 @@ RSpec.describe Cfe::AssetsPayloadService do
     context "when assets marked as SMOD, but SMOD does not apply" do
       let(:session_data) do
         FactoryBot.build(:minimal_complete_session,
+                         :with_conditional_assets,
                          :with_main_home,
                          :with_zero_capital_assets,
                          bank_accounts: [{ "amount" => 123, "account_in_dispute" => true }],
@@ -290,11 +295,32 @@ RSpec.describe Cfe::AssetsPayloadService do
       end
     end
 
+    context "without conditional assets", :legacy_assets_no_reveal do
+      let(:session_data) do
+        FactoryBot.build(:minimal_complete_session,
+                         :with_main_home,
+                         :with_zero_capital_assets,
+                         bank_accounts: [{ "amount" => 123, "account_in_dispute" => true }],
+                         house_in_dispute: true,
+                         immigration_or_asylum_type_upper_tribunal: "immigration_upper",
+                         investments: 345,
+                         valuables: 665)
+      end
+      let(:relevant_steps) { %i[assets property_entry] }
+
+      it "does not include SMOD in the payload" do
+        expect(payload.dig(:properties, :main_home, :subject_matter_of_dispute)).to eq false
+        expect(payload.dig(:capitals, :bank_accounts, 0, :subject_matter_of_dispute)).to eq false
+      end
+    end
+
     context "when there is no additional property data" do
       let(:session_data) do
         {
           "bank_accounts" => [{ "amount" => 553, "account_in_dispute" => false }],
+          "investments_relevant" => true,
           "investments" => 345,
+          "valuables_relevant" => true,
           "valuables" => 665,
           "investments_in_dispute" => false,
           "valuables_in_dispute" => false,
@@ -313,7 +339,9 @@ RSpec.describe Cfe::AssetsPayloadService do
           "immigration_or_asylum_type_upper_tribunal" => "immigration_upper",
           "asylum_support" => true,
           "bank_accounts" => [{ "amount" => 553, "account_in_dispute" => false }],
+          "investments_relevant" => true,
           "investments" => 345,
+          "valuables_relevant" => true,
           "valuables" => 665,
           "investments_in_dispute" => false,
           "valuables_in_dispute" => false,

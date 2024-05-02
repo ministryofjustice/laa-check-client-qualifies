@@ -17,8 +17,8 @@ RSpec.describe Cfe::PartnerPayloadService do
         "partner_pension_relevant" => false,
         "partner_benefits" => [],
         "partner_bank_accounts" => [{ "amount" => 0 }],
-        "partner_investments" => 0,
-        "partner_valuables" => 0,
+        "partner_investments_relevant" => false,
+        "partner_valuables_relevant" => false,
         "partner_additional_property_owned" => "none",
         "partner_childcare_payments_relevant" => false,
         "partner_maintenance_payments_relevant" => false,
@@ -55,8 +55,9 @@ RSpec.describe Cfe::PartnerPayloadService do
           "partner_childcare_payments_relevant" => false,
           "partner_maintenance_payments_relevant" => false,
           "partner_legal_aid_payments_relevant" => false,
+          "partner_investments_relevant" => true,
           "partner_investments" => 250,
-          "partner_valuables" => 0,
+          "partner_valuables_relevant" => false,
           "partner_additional_property_owned" => "with_mortgage",
           "partner_additional_properties" => [{
             "house_value" => 100_000,
@@ -118,8 +119,8 @@ RSpec.describe Cfe::PartnerPayloadService do
           "partner_over_60" => false,
           "passporting" => true,
           "partner_bank_accounts" => [{ "amount" => 0 }],
-          "partner_investments" => 0,
-          "partner_valuables" => 0,
+          "partner_investments_relevant" => false,
+          "partner_valuables_relevant" => false,
         }
       end
 
@@ -175,8 +176,8 @@ RSpec.describe Cfe::PartnerPayloadService do
           "partner_over_60" => false,
           "passporting" => true,
           "partner_bank_accounts" => [{ "amount" => 0 }],
-          "partner_investments" => 0,
-          "partner_valuables" => 0,
+          "partner_investments_relevant" => false,
+          "partner_valuables_relevant" => false,
           "partner_additional_property_owned" => ownership_status,
           "partner_additional_properties" => [{
             "house_value" => 100_000,

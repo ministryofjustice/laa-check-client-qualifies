@@ -134,6 +134,12 @@ RSpec.configure do |config|
     ENV["EARLY_ELIGIBILITY_FEATURE_FLAG"] = "disabled"
   end
 
+  config.around(:each, :legacy_assets_no_reveal) do |example|
+    ENV["LEGACY_ASSETS_NO_REVEAL_FEATURE_FLAG"] = "enabled"
+    example.run
+    ENV["LEGACY_ASSETS_NO_REVEAL_FEATURE_FLAG"] = "disabled"
+  end
+
   # This can't be done with before(:each, condition) as the condition is that the key is missing
   # from most of the tests
   config.before do |test|
