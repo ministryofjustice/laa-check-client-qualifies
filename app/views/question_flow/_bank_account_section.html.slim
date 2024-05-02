@@ -14,7 +14,8 @@
            field_name: "amount",
            counter:,
            label: t("question_flow.assets.bank_accounts.input"),
-           value: model.amount
+           value: model.amount,
+           hint: t("question_flow.assets.bank_accounts.hint")
 
   - if model.smod_applicable
     = render "shared/add_another/checkbox_field",
@@ -23,3 +24,6 @@
             counter:,
             label: t("generic.dispute"),
             value: model.account_in_dispute
+
+    - if @check.smod_applicable?
+      = render "smod_help"

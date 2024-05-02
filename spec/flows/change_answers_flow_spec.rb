@@ -71,7 +71,7 @@ RSpec.describe "Change answers", :stub_cfe_calls, type: :feature do
     within "#table-assets" do
       click_on "Change"
     end
-    fill_in_assets_screen(values: { investments: "" })
+    fill_in_assets_screen(bank_account_value: "")
     confirm_screen("assets")
     fill_in_assets_screen
     confirm_screen("check_answers")

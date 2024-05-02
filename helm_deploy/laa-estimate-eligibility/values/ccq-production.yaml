@@ -61,6 +61,7 @@ featureFlags:
   outgoingsFlow: ENABLED
   conditionalReveals: ENABLED
   earlyEligibility: ENABLED
+  legacyAssetNoReveals: ENABLED
   legacyHousingBenefitWithoutReveals: ENABLED
 
 geckoboard:
