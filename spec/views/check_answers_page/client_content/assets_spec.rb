@@ -103,6 +103,8 @@ RSpec.describe "checks/check_answers.html.slim" do
                     { "amount" => 50, "account_in_dispute" => savings_in_dispute },
                     { "amount" => 30, "account_in_dispute" => savings_in_dispute },
                   ],
+                  investments_relevant: true,
+                  valuables_relevant: true,
                   investments: 60,
                   valuables: 550,
                   investments_in_dispute:,
@@ -137,20 +139,40 @@ RSpec.describe "checks/check_answers.html.slim" do
         end
 
         context "when no other assets" do
-          let(:session_data) do
-            build(:minimal_complete_session,
-                  bank_accounts: [{ "amount" => 0 }],
-                  investments: 0,
-                  valuables: 0)
+          context "with legacy assets", :legacy_assets_no_reveal do
+            let(:session_data) do
+              build(:minimal_complete_session,
+                    bank_accounts: [{ "amount" => 0 }],
+                    investments: 0,
+                    valuables: 0)
+            end
+
+            it "renders content" do
+              expect_in_text(text, [
+                "Client assetsChange",
+                "Money in bank account 1£0.00",
+                "Investments£0.00",
+                "Valuable items worth £500 or more£0.00",
+              ])
+            end
           end
 
-          it "renders content" do
-            expect_in_text(text, [
-              "Client assetsChange",
-              "Money in bank account 1£0.00",
-              "Investments£0.00",
-              "Valuable items worth £500 or more£0.00",
-            ])
+          context "without legacy assets" do
+            let(:session_data) do
+              build(:minimal_complete_session,
+                    bank_accounts: [{ "amount" => 0 }],
+                    investments_relevant: false,
+                    valuables_relevant: false)
+            end
+
+            it "renders content" do
+              expect_in_text(text, [
+                "Client assetsChange",
+                "Money in bank account 1£0.00",
+                "Does your client have any investments?",
+                "Does your client have valuable items worth £500 or more?",
+              ])
+            end
           end
         end
       end

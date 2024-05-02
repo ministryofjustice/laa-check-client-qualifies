@@ -1,0 +1,5 @@
+- if i18n_key == "assets" || i18n_key == "partner_assets"
+  = govuk_details(summary_text: t("question_flow.#{i18n_key}.bankrupt_title"))
+    p.govuk-text = t("question_flow.#{i18n_key}.bankrupt_text")
+  = govuk_details(summary_text: t("question_flow.#{i18n_key}.prison_title"))
+    p.govuk-text = t("question_flow.#{i18n_key}.prison_text")

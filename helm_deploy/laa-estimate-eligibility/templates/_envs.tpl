@@ -71,6 +71,8 @@ env:
     value: {{ .Values.featureFlags.outgoingsFlow }}
   - name: EARLY_ELIGIBILITY_FEATURE_FLAG
     value: {{ .Values.featureFlags.earlyEligibility }}
+  - name: LEGACY_ASSETS_NO_REVEAL_FEATURE_FLAG
+    value: {{ .Values.featureFlags.legacyAssetReveals }}
   - name: FEATURE_FLAG_OVERRIDES
     value: {{ .Values.featureFlags.overrides }}
   - name: NOTIFICATIONS_API_KEY

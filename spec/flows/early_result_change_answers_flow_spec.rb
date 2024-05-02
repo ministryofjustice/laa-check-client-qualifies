@@ -326,7 +326,7 @@ RSpec.describe "Change answers after early result", :early_eligibility_flag, typ
       within "#table-assets" do
         click_on "Change"
       end
-      fill_in_assets_screen(values: { investments: "" })
+      fill_in_assets_screen(bank_account_value: "")
       confirm_screen("assets")
       fill_in_assets_screen
       confirm_screen("check_answers")
