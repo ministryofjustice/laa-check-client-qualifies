@@ -41,7 +41,7 @@
           legend: { text: t("question_flow.#{i18n_key}.#{type}.question") },
           hint: { text: t("question_flow.#{i18n_key}.#{type}.question_hint") } do
       - if type == :other
-        = render "shared/cost_of_living"
+        = render "shared/cost_of_living", i18n_key:
       = render "shared/radio_button_set",
               form:,
               field_name: :"#{type}_relevant",

@@ -21,10 +21,6 @@
         p.govuk-text = t("question_flow.#{i18n_key}.business_capital_text")
         p.govuk-text = t("question_flow.#{i18n_key}.business_capital_text_html",
                         page_url: document_link(:lc_guidance_certificated, :business_capital))
-    = govuk_details(summary_text: t("question_flow.#{i18n_key}.bankrupt_title"))
-      p.govuk-text = t("question_flow.#{i18n_key}.bankrupt_text")
-    = govuk_details(summary_text: t("question_flow.#{i18n_key}.prison_title"))
-      p.govuk-text = t("question_flow.#{i18n_key}.prison_text")
 
     h2.govuk-heading-m = t("question_flow.assets.bank_accounts.label")
 
@@ -35,7 +31,7 @@
       - t("question_flow.#{i18n_key}.bank_accounts.hints").each do
         .govuk-hint = _1
 
-    = render "shared/cost_of_living"
+    = render "shared/cost_of_living", i18n_key:
     . data-add-another-role="sectionList"
       - @form.items.each_with_index do |bank_account, index|
         = render "bank_account_section",
@@ -95,8 +91,5 @@
       - if show_smod_content
         .govuk-form-group
           = form.govuk_check_box :valuables_in_dispute, true, 0, multiple: false, label: { text: t("generic.dispute") }
-
-    - if show_smod_content
-      = render "smod_help"
 
     = form.govuk_submit t("generic.save_and_continue")
