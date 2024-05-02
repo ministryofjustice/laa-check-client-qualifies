@@ -380,18 +380,12 @@ sections:
                   attribute: amount
                   disputed_if: account_in_dispute
                   type: money
-              - attribute: investments_relevant
-                type: boolean
               - attribute: investments
                 type: money
                 disputed_if: investments_in_dispute
-                skip_unless: investments_relevant?
-              - attribute: valuables_relevant
-                type: boolean
               - attribute: valuables
                 type: money
                 disputed_if: valuables_in_dispute
-                skip_unless: valuables_relevant?
       - tables:
           - screen: partner_assets
             fields:
@@ -400,16 +394,10 @@ sections:
                 template:
                   attribute: amount
                   type: money
-              - attribute: partner_investments_relevant
-                type: boolean
               - attribute: partner_investments
                 type: money
-                skip_unless: partner_investments_relevant?
-              - attribute: partner_valuables_relevant
-                type: boolean
               - attribute: partner_valuables
                 type: money
-                skip_unless: partner_valuables_relevant?
       - tables:
           - screen: vehicle
             fields:

@@ -44,6 +44,13 @@ FactoryBot.define do
     investments_in_dispute { false }
     valuables_in_dispute { false }
 
+    trait :with_conditional_assets do
+      investments_relevant { false }
+      valuables_relevant { false }
+      partner_investments_relevant { false }
+      partner_valuables_relevant { false }
+    end
+
     trait :with_asylum_support do
       immigration_or_asylum_type_upper_tribunal { "immigration_upper" }
       asylum_support { true }
@@ -342,6 +349,13 @@ FactoryBot.define do
     partner_additional_properties do
       [{ "house_value" => 1.0, "mortgage" => 1.0, "percentage_owned" => 1 }]
     end
+
+    trait :with_conditional_assets do
+      investments_relevant { false }
+      valuables_relevant { false }
+      partner_investments_relevant { false }
+      partner_valuables_relevant { false }
+    end
   end
 
   factory :instant_certificated_session, class: Hash do
@@ -431,6 +445,13 @@ FactoryBot.define do
     vehicles do
       [{ "vehicle_value" => 1.0, "vehicle_pcp" => false, "vehicle_finance" => nil, "vehicle_over_3_years_ago" => false, "vehicle_in_regular_use" => false, "vehicle_in_dispute" => nil }]
     end
+
+    trait :with_conditional_assets do
+      investments_relevant { false }
+      valuables_relevant { false }
+      partner_investments_relevant { false }
+      partner_valuables_relevant { false }
+    end
   end
 
   factory :rich_instant_controlled_session, class: Hash do
@@ -514,6 +535,13 @@ FactoryBot.define do
     partner_additional_property_owned { "outright" }
     partner_additional_properties do
       [{ "house_value" => 2000.0, "percentage_owned" => 100 }]
+    end
+
+    trait :with_conditional_assets do
+      investments_relevant { false }
+      valuables_relevant { false }
+      partner_investments_relevant { false }
+      partner_valuables_relevant { false }
     end
   end
 end

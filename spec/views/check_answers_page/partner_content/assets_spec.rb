@@ -21,6 +21,8 @@ RSpec.describe "checks/check_answers.html.slim" do
             build(:minimal_complete_session,
                   :with_partner,
                   partner_bank_accounts: [{ "amount" => 50 }, { "amount" => 20 }],
+                  partner_investments_relevant: true,
+                  partner_valuables_relevant: true,
                   partner_investments: 60,
                   partner_valuables: 550)
           end
@@ -37,21 +39,41 @@ RSpec.describe "checks/check_answers.html.slim" do
         end
 
         context "when there are no other assets" do
-          let(:session_data) do
-            build(:minimal_complete_session,
-                  :with_partner,
-                  partner_bank_accounts: [{ "amount" => 0 }],
-                  partner_investments: 0,
-                  partner_valuables: 0)
+          context "with legacy asset reveals", :legacy_assets_no_reveal do
+            let(:session_data) do
+              build(:minimal_complete_session,
+                    :with_partner,
+                    partner_bank_accounts: [{ "amount" => 0 }],
+                    partner_investments: 0,
+                    partner_valuables: 0)
+            end
+
+            it "renders content" do
+              expect_in_text(page_text_within("#table-partner_assets"), [
+                "Partner assetsChange",
+                "Money in bank account 1£0.00",
+                "Investments£0.00",
+                "Valuable items worth £500 or more£0.00",
+              ])
+            end
           end
 
-          it "renders content" do
-            expect_in_text(page_text_within("#table-partner_assets"), [
-              "Partner assetsChange",
-              "Money in bank account 1£0.00",
-              "Investments£0.00",
-              "Valuable items worth £500 or more£0.00",
-            ])
+          context "without legacy asset reveals" do
+            let(:session_data) do
+              build(:minimal_complete_session,
+                    :with_conditional_assets,
+                    :with_partner,
+                    partner_bank_accounts: [{ "amount" => 0 }])
+            end
+
+            it "renders content" do
+              expect_in_text(page_text_within("#table-partner_assets"), [
+                "Partner assetsChange",
+                "Money in bank account 1£0.00",
+                "Does the partner have any investments?",
+                "Does the partner have valuable items worth £500 or more?",
+              ])
+            end
           end
         end
       end
