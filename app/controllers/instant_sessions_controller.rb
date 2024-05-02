@@ -9,11 +9,23 @@ class InstantSessionsController < ApplicationController
 
     data = case params[:session_type]
            when "controlled"
-             FactoryBot.build(:instant_controlled_session)
+             if FeatureFlags.enabled?(:legacy_assets_no_reveal, without_session_data: true)
+               FactoryBot.build(:instant_controlled_session)
+             else
+               FactoryBot.build(:instant_controlled_session, :with_conditional_assets)
+             end
            when "controlled-scenario"
-             FactoryBot.build(:rich_instant_controlled_session)
+             if FeatureFlags.enabled?(:legacy_assets_no_reveal, without_session_data: true)
+               FactoryBot.build(:rich_instant_controlled_session)
+             else
+               FactoryBot.build(:rich_instant_controlled_session, :with_conditional_assets)
+             end
            when "certificated"
-             FactoryBot.build(:instant_certificated_session)
+             if FeatureFlags.enabled?(:legacy_assets_no_reveal, without_session_data: true)
+               FactoryBot.build(:instant_certificated_session)
+             else
+               FactoryBot.build(:instant_certificated_session, :with_conditional_assets)
+             end
            else
              return render file: "public/404.html", layout: false
            end
