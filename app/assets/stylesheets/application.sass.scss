@@ -1,6 +1,7 @@
 $govuk-global-styles: true;
 $govuk-new-link-styles: true;
 $govuk-assets-path: "/";
+$govuk-new-typography-scale: true;
 
 @import "govuk-frontend/dist/govuk/all";
 // Import required moj components individually, as "moj/all"
