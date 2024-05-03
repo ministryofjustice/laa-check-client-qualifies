@@ -79,29 +79,32 @@ RSpec.describe "Number fields" do
     before do
       set_session(:foo, "level_of_help" => "controlled", "matter_type" => "other")
       visit form_path(:outgoings, "foo")
-      fill_in "outgoings-form-legal-aid-payments-value-field", with: "300"
+      choose "Yes", name: "outgoings_form[legal_aid_payments_relevant]"
+      fill_in "outgoings_form[legal_aid_payments_conditional_value]", with: "300"
       choose "Every month", name: "outgoings_form[legal_aid_payments_frequency]"
       choose "Every month", name: "outgoings_form[maintenance_payments_frequency]"
     end
 
     INVALID_MONEY_VALUES.each do |value|
       it "shows a validation error if I enter '#{value}'" do
-        fill_in "outgoings-form-maintenance-payments-value-field", with: value
+        choose "Yes", name: "outgoings_form[maintenance_payments_relevant]"
+        fill_in "outgoings_form[maintenance_payments_conditional_value]", with: value
         click_on "Save and continue"
         within ".govuk-error-summary__list" do
-          expect(page.text).to eq "Maintenance payments to a former partner must be a number, if this does not apply enter 0"
+          expect(page.text).to eq "Amount of maintenance paid to a former partner must be a number"
         end
       end
     end
 
     VALID_MONEY_VALUES.each do |pair|
       it "allows me to enter '#{pair[:input]}'" do
-        fill_in "outgoings-form-maintenance-payments-value-field", with: pair[:input]
+        choose "Yes", name: "outgoings_form[maintenance_payments_relevant]"
+        fill_in "outgoings_form[maintenance_payments_conditional_value]", with: pair[:input]
         click_on "Save and continue"
-        expect(session_contents["maintenance_payments_value"]).to eq pair[:stored]
+        expect(session_contents["maintenance_payments_conditional_value"]).to eq pair[:stored]
         expect(page).not_to have_css(".govuk-error-summary__list")
         visit form_path(:outgoings, "foo")
-        expect(page).to have_field("outgoings-form-maintenance-payments-value-field", with: pair[:output])
+        expect(page).to have_field("outgoings_form[maintenance_payments_conditional_value]", with: pair[:output])
       end
     end
   end

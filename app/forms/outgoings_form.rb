@@ -23,21 +23,12 @@ class OutgoingsForm
     attribute conditional_value_attribute, :gbp
     attribute frequency_attribute, :string
 
-    validates boolean_attribute, inclusion: { in: [true, false] }, if: -> { FeatureFlags.enabled?(:conditional_reveals, check.session_data) && (payment_type != :childcare_payments || eligible_for_childcare_costs?) }
+    validates boolean_attribute, inclusion: { in: [true, false] }, if: -> { payment_type != :childcare_payments || eligible_for_childcare_costs? }
     validates conditional_value_attribute,
               presence: true,
               numericality: { greater_than: 0, allow_nil: true },
               is_a_number: true,
-              if: -> { FeatureFlags.enabled?(:conditional_reveals, check.session_data) && send(boolean_attribute) && (payment_type != :childcare_payments || eligible_for_childcare_costs?) }
-
-    validates value_attribute,
-              presence: true,
-              numericality: { greater_than_or_equal_to: 0, allow_nil: true },
-              is_a_number: true,
-              if: -> { !FeatureFlags.enabled?(:conditional_reveals, check.session_data) && (payment_type != :childcare_payments || eligible_for_childcare_costs?) }
-    validates frequency_attribute, presence: true,
-                                   inclusion: { in: VALID_FREQUENCIES, allow_nil: false },
-                                   if: -> { (!FeatureFlags.enabled?(:conditional_reveals, check.session_data) && send(value_attribute).to_i.positive?) || send(boolean_attribute) }
+              if: -> { send(boolean_attribute) && (payment_type != :childcare_payments || eligible_for_childcare_costs?) }
   end
 
   delegate :level_of_help, :eligible_for_childcare_costs?, to: :check

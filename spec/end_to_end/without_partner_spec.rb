@@ -16,7 +16,7 @@ RSpec.shared_context "with a no-partner, non-passported certificated check" do
     fill_in_income_screen(frequency: "Every week")
     fill_in_benefits_screen(choice: "Yes")
     fill_in_benefit_details_screen
-    fill_in_other_income_screen(values: { friends_or_family: "200", student_finance: "100" }, frequencies: { friends_or_family: "Every week" })
+    fill_in_other_income_screen_with_family_and_student
     fill_in_outgoings_screen
     fill_in_property_screen(choice: "Yes, with a mortgage or loan")
     fill_in_mortgage_or_loan_payment_screen(amount: "100")
@@ -133,24 +133,24 @@ RSpec.describe "Certificated check without partner", type: :feature do
     it "shows appropriate content on the results screen" do
       click_on "Submit"
 
-      ["Your client is likely to qualify for civil legal aid",
-       "We estimate they will have to pay towards the costs of their case:\n£32.58 per month from their disposable income - these contributions will continue for the duration of the case, however long it lasts£0.00 lump sum payment from their disposable capital - any capital contribution will not exceed the likely costs of their case and they might pay less than this amount",
-       "Employment income\n£4.33",
-       "Benefits received\nThis does not include Housing Benefit\n£4.33",
-       "Financial help from friends and family\n£866.67",
-       "Student finance\n£8.33",
-       "Total monthly income£883.66",
-       "Employment expenses\nA fixed allowance if your client gets a salary or wage\n£45.00",
-       "Housing costs minus any Housing Benefit payments your client gets\n£100.00",
-       "Dependants allowance\nAn allowance of £338.90 applied for each dependant, minus any income they receive\n£334.57",
-       "Total monthly outgoings£479.57",
-       "Assessed disposable monthly income\nTotal monthly income minus total monthly outgoings\n£404.09",
-       "Home client lives in\nHome worth\n£1.00Outstanding mortgage\n-£1.001% share of home equity£0.00Assessed value£0.00",
-       "Vehicle 1\nValue£1.00Assessed value£1.00",
-       "Investments and valuables\n£700.00Total capital\n£701.00",
-       "Total assessed disposable capital£701.00"].each do |line|
-        expect(page).to have_content line
-      end
+      key_lines = ["Your client is likely to qualify for civil legal aid",
+                   "We estimate they will have to pay towards the costs of their case:\n£32.58 per month from their disposable income - these contributions will continue for the duration of the case, however long it lasts£0.00 lump sum payment from their disposable capital - any capital contribution will not exceed the likely costs of their case and they might pay less than this amount",
+                   "Employment income\n£4.33",
+                   "Benefits received\nThis does not include Housing Benefit\n£4.33",
+                   "Financial help from friends and family\n£866.67",
+                   "Student finance\n£8.33",
+                   "Total monthly income£883.66",
+                   "Employment expenses\nA fixed allowance if your client gets a salary or wage\n£45.00",
+                   "Housing costs minus any Housing Benefit payments your client gets\n£100.00",
+                   "Dependants allowance\nAn allowance of £361.70 applied for each dependant, minus any income they receive\n£334.57",
+                   "Total monthly outgoings£479.57",
+                   "Assessed disposable monthly income\nTotal monthly income minus total monthly outgoings\n£404.09",
+                   "Home client lives in\nHome worth\n£1.00Outstanding mortgage\n-£1.001% share of home equity£0.00Assessed value£0.00",
+                   "Vehicle 1\nValue£1.00Assessed value£1.00",
+                   "Investments and valuables\n£700.00Total capital\n£701.00",
+                   "Total assessed disposable capital£701.00"]
+
+      key_lines.each { expect(page).to have_content _1 }
 
       expect(page).not_to have_content "Partner"
     end

@@ -5,10 +5,10 @@ RSpec.describe Cfe::IrregularIncomePayloadService do
   let(:payload) { {} }
   let(:regular_income_session_data) do
     {
-      "friends_or_family_value" => 0,
-      "maintenance_value" => 0,
-      "property_or_lodger_value" => 0,
-      "pension_value" => 0,
+      "friends_or_family_relevant" => false,
+      "maintenance_relevant" => false,
+      "property_or_lodger_relevant" => false,
+      "pension_relevant" => false,
     }
   end
   let(:relevant_steps) { [:other_income] }
@@ -17,8 +17,8 @@ RSpec.describe Cfe::IrregularIncomePayloadService do
     context "when there is no relevant data" do
       let(:session_data) do
         {
-          "student_finance_value" => 0,
-          "other_value" => 0,
+          "student_finance_relevant" => false,
+          "other_relevant" => false,
         }.merge(regular_income_session_data)
       end
 
@@ -47,8 +47,10 @@ RSpec.describe Cfe::IrregularIncomePayloadService do
     context "when there is data" do
       let(:session_data) do
         {
-          "student_finance_value" => 100,
-          "other_value" => 200,
+          "student_finance_relevant" => true,
+          "other_relevant" => true,
+          "student_finance_conditional_value" => 100,
+          "other_conditional_value" => 200,
         }.merge(regular_income_session_data)
       end
 
@@ -64,8 +66,10 @@ RSpec.describe Cfe::IrregularIncomePayloadService do
     context "when there is data for a controlled check" do
       let(:session_data) do
         {
-          "student_finance_value" => 100,
-          "other_value" => 200,
+          "student_finance_relevant" => true,
+          "other_relevant" => true,
+          "student_finance_conditional_value" => 100,
+          "other_conditional_value" => 200,
           "level_of_help" => "controlled",
         }.merge(regular_income_session_data)
       end
