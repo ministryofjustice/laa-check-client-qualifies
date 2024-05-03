@@ -15,7 +15,7 @@ RSpec.describe "Early result journey", :early_eligibility_flag, type: :feature d
       fill_in_employment_status_screen(choice: "Employed or self-employed")
       fill_in_income_screen(gross: "8000", frequency: "Every month")
       fill_in_forms_until(:other_income)
-      fill_in_other_income_screen(values: { friends_or_family: "1200" }, frequencies: { friends_or_family: "Every week" })
+      fill_in_other_income_screen_with_friends_and_family
       fill_in_ineligible_gross_income_screen
       confirm_screen("outgoings")
       fill_in_outgoings_screen
@@ -29,7 +29,7 @@ RSpec.describe "Early result journey", :early_eligibility_flag, type: :feature d
       fill_in_employment_status_screen(choice: "Employed or self-employed")
       fill_in_income_screen(gross: "8000", frequency: "Every month")
       fill_in_forms_until(:other_income)
-      fill_in_other_income_screen(values: { friends_or_family: "1200" }, frequencies: { friends_or_family: "Every week" })
+      fill_in_other_income_screen_with_friends_and_family
       fill_in_ineligible_gross_income_screen(choice: "Skip remaining questions")
       confirm_screen("check_answers")
     end
@@ -42,7 +42,7 @@ RSpec.describe "Early result journey", :early_eligibility_flag, type: :feature d
       fill_in_employment_status_screen(choice: "Employed or self-employed")
       fill_in_income_screen(gross: "8000", frequency: "Every month")
       fill_in_forms_until(:other_income)
-      fill_in_other_income_screen(values: { friends_or_family: "1200" }, frequencies: { friends_or_family: "Every week" })
+      fill_in_other_income_screen_with_friends_and_family
       confirm_screen("ineligible_gross_income")
       click_on "Back"
       confirm_screen("other_income")

@@ -79,7 +79,11 @@ module CheckAnswers
     def build_field(field_data, model, table_label, index: nil)
       return build_many_fields(field_data, model, table_label) if field_data[:many]
       return if field_data[:skip_unless].present? && field_data[:skip_unless].split(",").any? { !model.send(_1) }
+      # check_answers.yml uses skip_if, however we do not utilise this feature at present
+      # instead of removing the line we skip coverage so that we can still use this if necessary
+      # :nocov:
       return if field_data[:skip_if].present? && model.send(field_data[:skip_if])
+      # :nocov:
       return if field_data[:screen] && !Steps::Helper.relevant_steps(@check.session_data).include?(field_data[:screen].to_sym)
 
       addendum = "_partner" if @check.partner && field_data[:partner_dependant_wording]
