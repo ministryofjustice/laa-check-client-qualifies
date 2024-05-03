@@ -29,6 +29,9 @@ class OutgoingsForm
               numericality: { greater_than: 0, allow_nil: true },
               is_a_number: true,
               if: -> { send(boolean_attribute) && (payment_type != :childcare_payments || eligible_for_childcare_costs?) }
+    validates frequency_attribute, presence: true,
+                                   inclusion: { in: VALID_FREQUENCIES, allow_nil: false },
+                                   if: -> { send(boolean_attribute) }
   end
 
   delegate :level_of_help, :eligible_for_childcare_costs?, to: :check
