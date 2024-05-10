@@ -102,7 +102,7 @@ GEM
       erubi (~> 1.4)
       parser (>= 2.4)
       smart_properties
-    bigdecimal (3.1.7)
+    bigdecimal (3.1.8)
     bindex (0.8.1)
     binding_of_caller (1.0.0)
       debug_inspector (>= 0.0.1)
@@ -224,7 +224,7 @@ GEM
       openssl (>= 2.2.1)
     html-attributes-utils (1.0.2)
       activesupport (>= 6.1.4.4)
-    i18n (1.14.4)
+    i18n (1.14.5)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
     interception (0.5)
@@ -308,7 +308,7 @@ GEM
     omniauth-oauth2 (1.8.0)
       oauth2 (>= 1.4, < 3)
       omniauth (~> 2.0)
-    omniauth-rails_csrf_protection (1.0.1)
+    omniauth-rails_csrf_protection (1.0.2)
       actionpack (>= 4.2)
       omniauth (~> 2.0)
     openssl (3.2.0)
@@ -602,7 +602,7 @@ DEPENDENCIES
   hexapdf
   jsbundling-rails
   omniauth-google-oauth2
-  omniauth-rails_csrf_protection
+  omniauth-rails_csrf_protection (>= 1.0.2)
   parallel_tests
   pdf-forms
   pg (~> 1.5)
