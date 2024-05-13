@@ -66,7 +66,7 @@ featureFlags:
   outgoingsFlow: ENABLED
   conditionalReveals: ENABLED
   earlyEligibility: ENABLED
-  legacyAssetReveals: NOT_ENABLED
+  legacyAssetReveals: ENABLED
 
 postgresql:
   enabled: true
