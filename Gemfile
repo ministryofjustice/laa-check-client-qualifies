@@ -59,7 +59,7 @@ gem "hexapdf"
 
 gem "devise"
 gem "omniauth-google-oauth2"
-gem "omniauth-rails_csrf_protection"
+gem "omniauth-rails_csrf_protection", ">= 1.0.2"
 
 gem "rails_admin"
 
