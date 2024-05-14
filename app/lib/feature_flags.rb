@@ -7,12 +7,12 @@ class FeatureFlags
   # "global" - feature flag value should be derived from the env variable
   # "session" - feature flag value should be derived from the session_data of the check
   STATIC_FLAGS = {
-    example: "session",
-    sentry: "global",
-    index_production: "global",
-    maintenance_mode: "global",
-    basic_authentication: "global",
-    early_eligibility: "session",
+    example: { type: "session", default: false },
+    sentry: { type: "global", default: false },
+    index_production: { type: "global", default: false },
+    maintenance_mode: { type: "global", default: false },
+    basic_authentication: { type: "global", default: false },
+    early_eligibility: { type: "session", default: false },
   }.freeze
 
   class << self
@@ -33,7 +33,7 @@ class FeatureFlags
       end
 
       if STATIC_FLAGS.key?(flag)
-        ENV["#{flag.to_s.upcase}_FEATURE_FLAG"]&.casecmp("enabled")&.zero? || false
+        ENV["#{flag.to_s.upcase}_FEATURE_FLAG"]&.casecmp("enabled")&.zero? || STATIC_FLAGS.fetch(flag).fetch(:default)
       elsif ENABLED_AFTER_DATE.key?(flag)
         Time.current.beginning_of_day >= ENABLED_AFTER_DATE.dig(flag, :from)
       else
@@ -54,7 +54,7 @@ class FeatureFlags
     end
 
     def session_flags
-      STATIC_FLAGS.select { |_, v| v == "session" }.each_with_object({}) do |flag, flags|
+      STATIC_FLAGS.select { |_, v| v.fetch(:type) == "session" }.each_with_object({}) do |flag, flags|
         flags[flag.first.to_s] = enabled?(flag.first, without_session_data: true)
       end
     end
