@@ -602,7 +602,7 @@ DEPENDENCIES
   hexapdf
   jsbundling-rails
   omniauth-google-oauth2
-  omniauth-rails_csrf_protection
+  omniauth-rails_csrf_protection (>= 1.0.2)
   parallel_tests
   pdf-forms
   pg (~> 1.5)
