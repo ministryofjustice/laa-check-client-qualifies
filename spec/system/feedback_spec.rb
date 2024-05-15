@@ -29,6 +29,7 @@ RSpec.describe "Feedback component" do
         find("#comment-field")
         fill_in "comment-field", with: "some feedback!"
         stored_data = SatisfactionFeedback.find_by(satisfied: "yes", outcome: "eligible", level_of_help: "controlled")
+        sleep 1
         expect(stored_data).not_to be_nil
         click_on "Send"
         expect(page).to have_content("Thank you for your feedback")
