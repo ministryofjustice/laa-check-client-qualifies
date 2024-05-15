@@ -8,7 +8,7 @@ executors:
   test-executor:
     resource_class: medium
     docker:
-      - image: checkclientqualifiesdocker/circleci-image:puppeteer-2271
+      - image: checkclientqualifiesdocker/circleci-image:puppeteer-2282
         auth:
           username: $DOCKERHUB_USER_CCQ
           password: $DOCKERHUB_PAT_CCQ
