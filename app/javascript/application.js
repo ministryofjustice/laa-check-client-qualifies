@@ -4,7 +4,7 @@ const sentryDsn = document.querySelector("body").dataset.sentryDsn;
 if (sentryDsn) {
   Sentry.init({
     dsn: sentryDsn,
-    integrations: [new Sentry.BrowserTracing(), new Sentry.Replay()],
+    integrations: [Sentry.browserTracingIntegration(), Sentry.replayIntegration()],
     // All errors are captured
     sampleRate: 1,
     // All erroring sessions are replayable
