@@ -4,11 +4,11 @@ executors:
   basic-executor:
     resource_class: small
     docker:
-      - image: cimg/ruby:3.2.2-browsers
+      - image: cimg/ruby:3.3.1-browsers
   test-executor:
     resource_class: medium
     docker:
-      - image: checkclientqualifiesdocker/circleci-image:puppeteer-2282
+      - image: checkclientqualifiesdocker/circleci-image:EL-1495-ruby-331
         auth:
           username: $DOCKERHUB_USER_CCQ
           password: $DOCKERHUB_PAT_CCQ
@@ -28,7 +28,7 @@ executors:
   e2e-executor:
     resource_class: small
     docker:
-      - image: cimg/ruby:3.2.2-browsers
+      - image: cimg/ruby:3.3.1-browsers
         environment:
           VCR_RECORD_MODE: none
           COVERAGE: true
