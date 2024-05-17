@@ -36,4 +36,32 @@ module PropertyHelper
       "question_flow.property_entry.legacy.single"
     end
   end
+
+  def property_hint_content(partner)
+    if partner
+      if FeatureFlags.enabled?(:mtr_accelerated, without_session_data: true)
+        lambda { \
+          tag.p(t("question_flow.property.generic_hint"), class: "govuk-hint") + \
+            govuk_details(summary_text: t("question_flow.property.partner.prison.title"), \
+                          text: t("question_flow.property.partner.prison.hint")) +
+            govuk_details(summary_text: t("question_flow.property.client_away.hint"), \
+                          text: t("question_flow.property.client_away.partner")) \
+        }
+      else
+        lambda { \
+          tag.p(t("question_flow.property.generic_hint"), class: "govuk-hint") + \
+            govuk_details(summary_text: t("question_flow.property.partner.prison.title"), \
+                          text: t("question_flow.property.partner.prison.hint")) \
+        }
+      end
+    elsif FeatureFlags.enabled?(:mtr_accelerated, without_session_data: true)
+      lambda { \
+        tag.p(t("question_flow.property.generic_hint"), class: "govuk-hint") + \
+          govuk_details(summary_text: t("question_flow.property.client_away.hint"), \
+                        text: t("question_flow.property.client_away.single")) \
+      }
+    else
+      { text: t("question_flow.property.generic_hint") }
+    end
+  end
 end

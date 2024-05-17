@@ -1410,10 +1410,17 @@ en:
       enter_amount: Enter amount
       enter_frequency: Select frequency
     property:
-      legend: Does your client own the home they live in?
-      legend_with_partner: Does your client or their partner own the home the client lives in?
-      details_title: Clients in prison
-      hint: If your client is in prison but their partner lives in a property either of them owns, include this as the main dwelling and any housing costs the partner pays.
+      client_away:
+        hint: Clients who are away from their usual home
+        single: Select yes if your client is away from the home they own and usually live in. If they have temporarily left this home due to domestic abuse, selecting yes ensures that the equity disregard is applied.
+        partner: Select yes if your client or their partner owns the home the client usually lives in, but the client is temporarily away from this home. If the client has temporarily left this home due to domestic abuse, selecting yes ensures that the equity disregard is applied.
+      single:
+        legend: Does your client own the home they usually live in?
+      partner:
+        legend: Does your client or their partner own the home the client usually lives in?
+        prison:
+          title: Clients in prison
+          hint: If your client is in prison but their partner lives in a property either of them owns, include this as the main dwelling and any housing costs the partner pays.
       generic_hint: If your client is temporarily away from where they normally live, this means the home the client normally lives in.
       property_owned:
         outright: Yes, owned outright
