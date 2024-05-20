@@ -1,5 +1,6 @@
+- key = property_entry_key(@check.partner)
 - content_for :page_title
-  = t("question_flow.property_entry.heading")
+  = t("#{key}.heading")
 - content_for :back
   = back_link(@previous_step, @back_buttons_invoke_browser_back_behaviour)
 
@@ -8,8 +9,8 @@
 
     = form.govuk_error_summary t("generic.error_summary_title")
     = render "shared/heading",
-             header_text: t("question_flow.property_entry.heading"),
-             post_header_text: t("question_flow.property_entry.hint"),
+             header_text: t("#{key}.heading"),
+             post_header_text: t("#{key}.hint"),
              tag: :household
 
     = render "shared/money_input_with_hint",
@@ -25,19 +26,13 @@
               width: 10,
               label_text: t("question_flow.property_entry.mortgage.input"),
               hint_text: t("question_flow.property_entry.mortgage.input_hint")
-    ruby:
-      percentage_hint_key = if @check.partner
-                              "question_flow.property_entry.percentage_owned.input_hint_with_partner"
-                            else
-                              "question_flow.property_entry.percentage_owned.input_hint"
-                            end
     = render "shared/percentage_input",
               form:,
               field: :percentage_owned,
               width: 3,
               label_text: t("question_flow.property_entry.percentage_owned.input"),
               size: "m",
-              hint_text: t(percentage_hint_key)
+              hint_text: t("#{key}.percentage_owned_hint")
 
     - if @check.smod_applicable?
       .govuk-form-group
