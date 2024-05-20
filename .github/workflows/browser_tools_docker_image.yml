@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - main
-      - EL-1495-ruby-331
+      - puppeteer-2290
 
 jobs:
   build-push:
