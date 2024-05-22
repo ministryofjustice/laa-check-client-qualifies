@@ -4,6 +4,7 @@ RSpec.describe "checks/check_answers.html.slim" do
   let(:sections) { CheckAnswers::SectionListerService.call(session_data) }
 
   before do
+    travel_to Date.new 2024, 3, 12
     assign(:sections, sections)
     assign(:previous_step, Steps::Helper.last_step(session_data))
     params[:assessment_code] = :code
