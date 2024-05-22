@@ -647,61 +647,25 @@ en:
       controlled_text: Trapped capital (PDF, 427KB)
       certificated_text: Trapped capital (opens in new tab)
     disregarded_benefits:
-      text: Government Cost of Living Payments and disregarded benefits
-      cost_of_living:
-        text: Government Cost of Living Payments
-        list_html:
-          - Government Cost of Living Payments are disregarded from the financial eligibility calculation, for example
-          - '&nbsp;'
-          - Pensioner Cost of Living Payment
-          - Cost of Living Payment
-          - Disability Cost of Living Payment
-          - Household support fund
-          - Council tax rebate
-          - Energy Bills Support Scheme (EBSS)
-          - Payments for those who are not served by mains gas
-      disregarded:
-        text: Disregarded benefits
-        list_html:
-          - The following benefits are disregarded from the financial eligibility calculation
-      disability:
-        text: Carer and disability benefits
-        list_html:
-          - Attendance Allowance
-          - Carer’s Allowance
-          - Community Care Direct Payments
-          - Constant Attendance Allowance
-          - Disability Living Allowance (DLA)
-          - Exceptionally Severe Disablement Allowance
-          - Independent Living Fund
-          - Payments on account of benefit
-          - Personal Independence Payments (PIP)
-          - Severe Disablement Allowance
-          - Special Education Needs (SEN) Direct Payment
-          - Welsh Independent Living Grant
-      low_income:
-        text: Low income benefits
-        list_html:
-          - Benefit Transfer Advance (Universal Credit)
-          - Budgeting Advance
-          - Council Tax Reduction
-          - Earnings Top-up (ETU)
-          - Housing Benefit
-          - Social Fund Funeral Payment
-          - Social Fund payments
-      other:
-        text: Other benefits
-        list_html:
-          - Armed Forces Independence Payment
-          - Foster Carers Allowance
-          - Grenfell Tower Residents’ Discretionary Fund
-          - Grenfell Tower fire victims payments
-          - War Pensions Scheme payments
-          - War Widow(er) Pension
-          - Widow’s Pension lump sum payments
-          - Windrush Compensation Scheme payments
+      before_pdf_link: 'Check all '
+      controlled:
+        pdf_text: disregarded benefits (PDF, 427KB)
+      certificated:
+        pdf_text: disregarded benefits (PDF, 918KB)
+      content:
+        - For example, Child Benefit, tax credits or Asylum Support payments.
+        - Do not include Housing Benefit, State Pension or disregarded benefits such as Personal Independence Payments (PIP), Carer’s Allowance, Community Care Direct payments, Fostering allowance, or government Cost of Living Payments. Check the complete list of disregarded benefits.
     benefits:
-      hint: For example, Child Benefit, tax credits or Asylum Support payments. Do not include Housing Benefit, State Pension, government Cost of Living Payments, or any other disregarded benefits.
+      hint: For example, Child Benefit, tax credits or Asylum Support payments.
+      do_not_include: "Do not include:"
+      do_not_include_list:
+        - Housing Benefit
+        - State Pension
+        - Personal Independence Payments (PIP)
+        - Carer’s Allowance
+        - Community Care direct payments
+        - Fostering allowance
+        - Cost of Living Payments
     download_name: Legal aid eligibility assessment
     remove: Remove
     tags:
@@ -1206,7 +1170,7 @@ en:
       value: Enter amount
       frequency: Select frequency
     benefits:
-      legend: Does your client get any  benefits?
+      legend: Does your client get any non-passporting benefits?
       frequencies:
         every_week: Every week
         every_two_weeks: Every 2 weeks
@@ -1856,7 +1820,7 @@ en:
         income_tax: Income tax
         national_insurance: National Insurance
       benefits_fields:
-        receives_benefits: Does your client get any benefits?
+        receives_benefits: Does your client get any non-passporting benefits?
       benefit_details_fields:
         benefit_type: Benefit name
         benefit_amount: Benefit amount
