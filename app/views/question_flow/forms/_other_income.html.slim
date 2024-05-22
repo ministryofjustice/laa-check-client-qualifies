@@ -41,6 +41,7 @@
           legend: { text: t("question_flow.#{i18n_key}.#{type}.question") },
           hint: { text: t("question_flow.#{i18n_key}.#{type}.question_hint") } do
       - if type == :other
+        p.govuk-hint = t("question_flow.#{i18n_key}.#{type}.question_hint_2")
         = render "shared/cost_of_living"
       = render "shared/radio_button_set",
               form:,
