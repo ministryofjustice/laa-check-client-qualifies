@@ -1231,7 +1231,11 @@ en:
         monthly: Every month
     benefit_details:
       heading: Add benefit details
-      hint: Add details of any benefits your client receives. Do not include Housing Benefit, State Pension, government Cost of Living Payments, or any other disregarded benefits.
+      paragraph1: Add details of any non-passported benefits your client receives.
+      paragraph2: Do not include Housing Benefit, State Pension, government Cost of Living Payments, or any other disregarded benefits.
+      paragraph3:
+        controlled_text_html: <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>Check the complete list of all disregarded benefits. (PDF, 427KB)</a>
+        certificated_text_html: <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>Check the complete list of all disregarded benefits. (PDF, 918KB)</a>
       benefit: Benefit
       benefit_type: Benefit name
       benefit_type_hint: Enter the name of a benefit, or select one from the suggestions that appear when you start to enter the name.
@@ -1245,7 +1249,11 @@ en:
     partner_benefit_details:
       heading: Add benefit details
       select_frequency: When does the partner normally get this benefit?
-      hint: Add details of any benefits the partner receives. Do not include Housing Benefit, State Pension, government Cost of Living Payments, or any other disregarded benefits.
+      paragraph1: Add details of any non-passported benefits your client receives.
+      paragraph2: Do not include Housing Benefit, State Pension, government Cost of Living Payments, or any other disregarded benefits.
+      paragraph3:
+        controlled_text_html: <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>Check the complete list of all disregarded benefits. (PDF, 427KB)</a>
+        certificated_text_html: <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>Check the complete list of all disregarded benefits. (PDF, 918KB)</a>
     other_income:
       heading: Your client's other income
       second_caption: Enter 0 for any that do not apply
