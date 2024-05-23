@@ -325,7 +325,7 @@ GEM
       rexml (~> 3.2, >= 3.2.6)
       safe_shell (>= 1.0.3, < 2.0)
     pg (1.5.6)
-    propshaft (0.8.0)
+    propshaft (0.9.0)
       actionpack (>= 7.0.0)
       activesupport (>= 7.0.0)
       rack
@@ -608,7 +608,7 @@ DEPENDENCIES
   parallel_tests
   pdf-forms
   pg (~> 1.5)
-  propshaft
+  propshaft (>= 0.9.0)
   pry-nav
   pry-rescue
   pry-stack_explorer
