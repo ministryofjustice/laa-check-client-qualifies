@@ -1,6 +1,25 @@
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => "/admin", as: "rails_admin"
-  devise_for :admins, controllers: { omniauth_callbacks: "admins/omniauth_callbacks" }
+
+  devise_for :admins, :providers,
+             skip: %i[sessions controllers]
+  devise_scope :admin do
+    get "/auth/google_oauth2/callback" => "admins/omniauth_callbacks#google_oauth2", as: :admin_google_oauth2_omniauth_callback
+    get "/admins/sign_in" => "admins/sessions#new", as: :new_admin_session
+  end
+
+  devise_scope :provider do
+    get "/providers/sign_in" => "providers/sessions#new", as: :new_provider_session
+    post "/providers/sign_in" => "providers/sessions#create", as: :provider_session
+    get "/providers/sign_out", to: "providers/sessions#destroy", as: :providers_logout
+
+    # get callback only happens during tests - real IDP (SAML 2.0) only uses POST
+    match "/providers/auth/saml/callback" => "providers/omniauth_callbacks#saml", via: %i[get post], as: :provider_saml_omniauth_callback
+  end
+
+  # dummy secured endpoint for testing
+  resources :provider_secrets, only: [:index]
+
   root to: "start#index"
 
   resources :start, only: [:index]

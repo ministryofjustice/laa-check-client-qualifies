@@ -1,0 +1,5 @@
+.govuk-grid-column-full
+  .govuk-button-group
+    / = button_to t("devise.sessions.saml"), provider_saml_omniauth_authorize_path, class: "govuk-button"
+    = button_to t("devise.sessions.saml"), "/providers/auth/saml", class: "govuk-button"
+    / = button_to t("devise.sessions.saml"), "/auth/saml", class: "govuk-button"

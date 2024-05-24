@@ -246,6 +246,31 @@ We keep secrets in AWS Secrets Manager. To edit them, visit the [AWS web console
 
 The current values for these are available as secure notes in 1Password for each environment, should they be lost from Kubernetes.
 
+## Portal integration
+
+### Secrets
+   There is only 1 of these (the secret key) which is kept in k8s 'portal_secrets' secret
+   This is a single key X509_KEY which contains the secret key for the certificate used to authenticate with Portal.
+
+```
+    kubectl -n <namespace> create secret generic portal-secrets --from-file=X509_KEY=./private-key.pem
+```
+    where private-key.pem is the private key creeated via openssl: 
+
+    (Last parameter is 'no des' which means don't store a passphrase against it)
+```
+    openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -sha256 -days 3650 -nodes
+```
+
+### Metadata files
+  The metadata files are required by the portal team before they can do their integration - this is a little chicken-and-egg
+  situation as the metadata files are produced by our Rails code at the url <hostname>:/providers/auth/saml/metadata 
+
+  We also store the portal metadata files in our repository - they are in the Portal GitHub, but their repo is private so
+  we can't easily get to them without creating a github access key - it was easier just to copy and paste their config files
+  although this could be a potential future option - the code we inherited from crime apply does have the capability of loading 
+  a Portal metadata file from a URL.
+
 ## Branch naming
 
 We name our branches to start with the Jira ticket ID, followed by a short description of the work.

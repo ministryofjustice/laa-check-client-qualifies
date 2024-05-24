@@ -286,6 +286,7 @@ workflows:
           environment: ccq-uat
           context: laa-check-client-qualifies-uat
           requires:
+            - Deploy staging to new namespace
             - run_specs
             - end2end_tests
             - linters
@@ -317,6 +318,7 @@ workflows:
             branches:
               only:
                 - main
+                - EL-1529-portal-spike
       - deploy:
           name: Deploy production to new namespace
           environment: ccq-production

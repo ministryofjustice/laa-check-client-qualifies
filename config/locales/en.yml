@@ -2450,6 +2450,9 @@ en:
       problem_resolved: Problem resolved
       learn_more: Learn more
       resolved: We have resolved the %{issue_name}.
+  layouts:
+    application:
+      sign_out: Sign Out
   cookie_banner:
     title: Cookies on
     essential_cookies: We use some essential cookies to make this service work.
@@ -2734,6 +2737,7 @@ en:
     invalid_subdomain: "Invalid subdomain provided in state param"
     sessions:
       google: "Sign in with Google"
+      saml: "Sign in with Portal"
   admin:
     actions:
       publish_issue:

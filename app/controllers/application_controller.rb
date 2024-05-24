@@ -5,9 +5,12 @@ class ApplicationController < ActionController::Base
   before_action :force_setting_of_session_cookie,
                 :specify_feedback_widget,
                 :specify_freetext_feedback_page_name,
-                :authenticate,
                 :check_maintenance_mode,
                 :ensure_db_connection
+
+  # don't use our DIY basic auth (used to protect test branches from being used by accident)
+  # when portal is calling us
+  before_action :authenticate, unless: -> { request.path.ends_with?("callback") }
 
   class MissingSessionError < StandardError; end
 
