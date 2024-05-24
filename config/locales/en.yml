@@ -1336,7 +1336,7 @@ en:
       other:
         question: Does the partner get income from other sources?
         question_hint: Include any other income the partner receives, for example interest from savings or income bonds.
-        question_hint_2: Do not include any disregarded compensation or cost of living payments. Check the guidance for a complete list of disregarded payments.
+        question_hint_2: Do not include any disregarded compensation or Cost of Living payments. Check the guidance for a complete list of disregarded payments.
         label: Income from other sources
         hint: Include any other income the partner received. Do not include any government Cost of Living Payments. Enter 0 if this does not apply.
         certificated_instruction: Amount received in the last 3 months
@@ -1463,11 +1463,11 @@ en:
         label: Money in bank accounts
         hints:
           - For example, money in current or savings accounts, ISAs, or child accounts your client is a signatory on.
-          - Do not include any disregarded capital or cost of living payments. Check the guidance for a complete list of disregarded capital.
+          - Do not include any disregarded capital or Cost of Living payments. Check the guidance for a complete list of disregarded capital.
           - Enter 0 if this does not apply.
         with_partner_hints:
           - For example, money in current or savings accounts, ISAs, or child accounts your client is a signatory on. If the client and partner share any joint bank accounts, include these.
-          - Do not include any disregarded capital or cost of living payments. Check the guidance for a complete list of disregarded capital.
+          - Do not include any disregarded capital or Cost of Living payments. Check the guidance for a complete list of disregarded capital.
           - Enter 0 if this does not apply.
         input: Total money in bank account
       add_bank_account: Add another bank account
