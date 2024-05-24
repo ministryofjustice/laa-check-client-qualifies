@@ -41,7 +41,7 @@ module PropertyHelper
     if partner
       if FeatureFlags.enabled?(:mtr_accelerated, without_session_data: true)
         lambda { \
-          tag.p(t("question_flow.property.generic_hint"), class: "govuk-hint") + \
+          tag.p("", class: "govuk-hint") + \
             govuk_details(summary_text: t("question_flow.property.partner.prison.title"), \
                           text: t("question_flow.property.partner.prison.hint")) +
             govuk_details(summary_text: t("question_flow.property.client_away.hint"), \
@@ -56,7 +56,7 @@ module PropertyHelper
       end
     elsif FeatureFlags.enabled?(:mtr_accelerated, without_session_data: true)
       lambda { \
-        tag.p(t("question_flow.property.generic_hint"), class: "govuk-hint") + \
+        tag.p("", class: "govuk-hint") + \
           govuk_details(summary_text: t("question_flow.property.client_away.hint"), \
                         text: t("question_flow.property.client_away.single")) \
       }
