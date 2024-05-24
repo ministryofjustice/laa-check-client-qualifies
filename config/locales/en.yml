@@ -1290,7 +1290,8 @@ en:
         controlled_instruction: Amount received this academic year
       other:
         question: Does your client get income from other sources?
-        question_hint: Include any other income your client received. Do not include any government Cost of Living Payments.
+        question_hint: Include any other income your client receives, for example interest from savings or income bonds.
+        question_hint_2: Do not include any disregarded compensation or cost of living payments. Check the guidance for a complete list of disregarded payments.
         label: Income from other sources
         hint: Include any other income your client received. Do not include any government Cost of Living Payments. Enter 0 if this does not apply
         certificated_instruction: Amount received in the last 3 months
@@ -1342,7 +1343,8 @@ en:
         controlled_instruction: Amount received this academic year
       other:
         question: Does the partner get income from other sources?
-        question_hint: Include any other income the partner received. Do not include any government Cost of Living Payments.
+        question_hint: Include any other income the partner receives, for example interest from savings or income bonds.
+        question_hint_2: Do not include any disregarded compensation or cost of living payments. Check the guidance for a complete list of disregarded payments.
         label: Income from other sources
         hint: Include any other income the partner received. Do not include any government Cost of Living Payments. Enter 0 if this does not apply.
         certificated_instruction: Amount received in the last 3 months
