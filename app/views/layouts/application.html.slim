@@ -13,7 +13,7 @@ html dir="ltr" lang="en-GB" class="govuk-template"
 
     = render "layouts/cookie_banner"
 
-    = govuk_header(service_name: t("service.name"), homepage_url: "https://www.gov.uk")
+    = application_header
 
     .govuk-width-container
       = govuk_phase_banner tag: { text: t("service.beta") },

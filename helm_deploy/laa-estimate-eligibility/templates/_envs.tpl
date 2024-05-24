@@ -130,6 +130,11 @@ env:
       secretKeyRef:
         name: aws-secrets
         key: GOOGLE_OAUTH_CLIENT_SECRET
+  - name: LAA_PORTAL_SP_PRIVATE_KEY
+    valueFrom:
+      secretKeyRef:
+        name: portal-secrets
+        key: X509_KEY
   - name: SEED_ADMINS
     value: {{ .Values.app.seedAdmins }}
 
