@@ -17,6 +17,9 @@ Rails.application.routes.draw do
     match "/providers/auth/saml/callback" => "providers/omniauth_callbacks#saml", via: %i[get post], as: :provider_saml_omniauth_callback
   end
 
+  # dummy secured endpoint for testing
+  resources :provider_secrets, only: [:index]
+
   root to: "start#index"
 
   resources :start, only: [:index]
