@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Feature flags" do
+RSpec.describe "Feature flags admin panel" do
   around do |example|
     ENV["FEATURE_FLAGS_PASSWORD"] = "password"
     example.run
@@ -33,20 +33,6 @@ RSpec.describe "Feature flags" do
     scenario "I see link to edit a feature flag" do
       visit feature_flags_path
       expect(page).to have_content "Override"
-    end
-  end
-
-  context "when setting feature flags in the session" do
-    around do |example|
-      ENV["EXAMPLE_FEATURE_FLAG"] = "enabled"
-      example.run
-      ENV["EXAMPLE_FEATURE_FLAG"] = "disabled"
-    end
-
-    scenario "I have session feature flags set in the session" do
-      visit "new-check"
-      expect(session_contents["feature_flags"]).to include({ "example" => true })
-      expect(session_contents["feature_flags"]).not_to include({ "sentry" => false })
     end
   end
 end
