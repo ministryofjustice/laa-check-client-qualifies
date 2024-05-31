@@ -1271,7 +1271,7 @@ en:
     partner_benefit_details:
       heading: Add benefit details
       select_frequency: When does the partner normally get this benefit?
-      paragraph1: Add details of any non-passported benefits your client receives.
+      paragraph1: Add details of any benefits the partner receives.
       paragraph2: 'Do not include:'
       paragraph2list:
         - Housing Benefits
