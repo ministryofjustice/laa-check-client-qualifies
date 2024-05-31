@@ -145,7 +145,7 @@ RSpec.describe "Certificated check without partner", type: :feature do
                    "Dependants allowance\nAn allowance of £361.70 applied for each dependant, minus any income they receive\n£334.57",
                    "Total monthly outgoings£479.57",
                    "Assessed disposable monthly income\nTotal monthly income minus total monthly outgoings\n£404.09",
-                   "Home client lives in\nHome worth\n£1.00Outstanding mortgage\n-£1.001% share of home equity£0.00Assessed value£0.00",
+                   "Home client lives in\nEstimated value\n£1.00Outstanding mortgage\n-£1.001% share of home equity£0.00Assessed value£0.00",
                    "Vehicle 1\nValue£1.00Assessed value£1.00",
                    "Investments and valuables\n£700.00Total capital\n£701.00",
                    "Total assessed disposable capital£701.00"]
