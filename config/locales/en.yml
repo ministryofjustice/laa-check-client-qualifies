@@ -1213,13 +1213,18 @@ en:
           text: Housing costs (PDF, 427KB)
           link: "{%page_url}"
     mortgage_or_loan_payment:
-      heading: What are the mortgage or loan payments for the home your client lives in?
-      heading_hint_1: Enter the full amount due.
+      legacy:
+        heading: What are the mortgage or loan payments for the home your client lives in?
+        heading_hint_1: Enter the full amount due.
+        heading_hint_2: Enter 0 if this does not apply.
+      mtr_accelerated:
+        heading: What are the mortgage or loan payments for the home your client usually lives in?
+        heading_hint_1: ''
+        heading_hint_2: ''
       living_with_someone_else: Living with someone else
       details_paragraphs:
         - If your client lives with their ex-partner, or someone else whose means are not included in the assessment, enter the amount paid by your client. The Legal Aid Agency will assume that your client is liable for 50% of the housing costs unless there is evidence otherwise. If your client’s share is being paid or partially paid by this person, enter the amount paid on your client’s behalf as income for your client on the previous ‘Your client's other income’ page.
         - You may need to provide evidence for this if you make a full application or open a controlled work file for your client.
-      heading_hint_2: Enter 0 if this does not apply.
       value: Enter amount
       frequency: Select frequency
     benefits:
@@ -1938,7 +1943,9 @@ en:
         vehicle_over_3_years_ago: Was the vehicle bought over 3 years ago?
         vehicle_in_regular_use: Is the vehicle in regular use?
       property_fields:
-        property_owned: Does your client own the home the client lives in?
+        property_owned:
+          legacy: Does your client own the home the client lives in?
+          mtr_accelerated: Does your client own the home the client usually lives in?
         property_owned_options:
           outright: Yes, owned outright
           with_mortgage: Yes, with a mortgage or loan
@@ -1952,7 +1959,9 @@ en:
         housing_payments: Housing payments
         housing_benefit_value: Housing Benefit
       mortgage_or_loan_payment_fields:
-        housing_loan_payments: What are the mortgage or loan payments for the home the client lives in?
+        housing_loan_payments:
+          legacy: What are the mortgage or loan payments for the home the client lives in?
+          mtr_accelerated: What are the mortgage or loan payments for the home the client usually lives in?
       property_entry_fields:
         house_value: Estimated value
         mortgage: Outstanding mortgage

@@ -14,4 +14,12 @@ module PropertyHelper
       t("generic.trapped_capital.#{level_of_help}_text") => (level_of_help == "controlled" ? document_link(:lc_guidance_controlled, :assets) : document_link(:legal_aid_learning)),
     }
   end
+
+  def mortgage_or_loan_key
+    if FeatureFlags.enabled?(:mtr_accelerated, without_session_data: true)
+      "question_flow.mortgage_or_loan_payment.mtr_accelerated"
+    else
+      "question_flow.mortgage_or_loan_payment.legacy"
+    end
+  end
 end

@@ -1,5 +1,6 @@
+- key = mortgage_or_loan_key
 - content_for :page_title
-  = t(".heading")
+  = t("#{key}.heading")
 - content_for :back do
   = back_link(@previous_step, @back_buttons_invoke_browser_back_behaviour)
 
@@ -7,13 +8,13 @@
   = form_for(@form, url: request.path, method: :put) do |form|
     = form.govuk_error_summary t("generic.error_summary_title")
     = render "shared/heading",
-            header_text: t("question_flow.mortgage_or_loan_payment.heading"),
+            header_text: t("#{key}.heading"),
             tag: :household
-      p.govuk-hint = t("question_flow.mortgage_or_loan_payment.heading_hint_1")
+      p.govuk-hint = t("#{key}.heading_hint_1")
       = govuk_details(summary_text: t("question_flow.mortgage_or_loan_payment.living_with_someone_else")) do
         - t("question_flow.mortgage_or_loan_payment.details_paragraphs").each
           p.govuk-body = _1
-      p.govuk-hint = t("question_flow.mortgage_or_loan_payment.heading_hint_2")
+      p.govuk-hint = t("#{key}.heading_hint_2")
     = render "shared/money_input",
             form:,
             field: :housing_loan_payments,
