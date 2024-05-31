@@ -1606,19 +1606,33 @@ en:
           - a caravan (if it is not the client’s main residence)
           - musical instruments, unless the partner is a professional musician
     property_entry:
-      heading: The home your client lives in
-      hint: If you make an application for civil legal aid, the property's value may be excluded from the financial assessment if your client has left their former matrimonial home because of domestic abuse
+      legacy:
+        single:
+          heading: The home your client lives in
+          hint: If you make an application for civil legal aid, the property's value may be excluded from the financial assessment if your client has left their former matrimonial home because of domestic abuse
+          percentage_owned_hint: Your client's name must be on the property deeds, lease, freehold or mortgage
+        with_partner:
+          heading: The home your client lives in
+          hint: If you make an application for civil legal aid, the property's value may be excluded from the financial assessment if your client has left their former matrimonial home because of domestic abuse
+          percentage_owned_hint: Add the percentage the client and partner own together. We do not need to know what percentage each of them owns.
+      mtr_accelerated:
+        single:
+          heading: The home your client usually lives in
+          hint: Your client's name must be on the property deeds, lease, freehold or mortgage.
+          percentage_owned_hint: ''
+        with_partner:
+          heading: The home your client usually lives in
+          hint: Your client or their partner’s name must be on the property deeds, lease, freehold or mortgage.
+          percentage_owned_hint: Add the percentage the client and partner own together. We do not need to know what percentage each of them owns.
       house_value:
-        input: How much is the home they live in worth?
+        input: Home value
         input_hint_certificated: You can use property websites to find the estimated value. If you have more than one valuation, use the highest. Keep a record of where the valuation is from for evidence, as it may be checked if you make an application for legal aid.
         input_hint_controlled: You can use property websites to find the estimated value. If you have more than one valuation, use the highest. Keep a record of where the valuation is from for evidence, as it may be checked at file audit or assessment stage.
       mortgage:
         input: How much is left to pay on the mortgage?
-        input_hint: Check the statement from the mortgage provider or lender and include any other loans secured against the property
+        input_hint: Check the statement from the mortgage provider or lender and include any other loans secured against the property.
       percentage_owned:
         input: What percentage of the home do they own?
-        input_hint: Your client's name must be on the property deeds, lease, freehold or mortgage
-        input_hint_with_partner: Add the percentage the client and partner own together. We do not need to know what percentage each of them owns.
     additional_property_details:
       heading: Client’s other property, holiday home or land
       hint: If your client and their partner share other property, a holiday home or land, include this here
@@ -1764,7 +1778,9 @@ en:
         vehicle: Vehicles
         vehicles_details: Vehicle %{variable} details
         property: Home client lives in
-        property_entry: Home client lives in details
+        property_entry:
+          legacy: Home client lives in details
+          mtr_accelerated: Home client owns and usually lives in details
         housing_costs: Housing costs
         mortgage_or_loan_payment: Housing costs
         additional_property: Client other property
@@ -2277,7 +2293,7 @@ en:
       client_main_home: Home client lives in
       property_rows:
         value:
-          text: Home worth
+          text: Estimated value
           alt_text: Value
           hint: ""
         mortgage:
