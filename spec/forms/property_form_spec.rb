@@ -59,6 +59,16 @@ RSpec.describe "property", type: :feature do
         it "shows old content" do
           expect(page).to have_content("Clients in prison")
         end
+
+        context "with check answers" do
+          before do
+            fill_in_forms_until(:check_answers)
+          end
+
+          it "shows old content" do
+            expect(page).to have_content "Home client lives in"
+          end
+        end
       end
 
       context "with MTR accelerated" do
@@ -66,6 +76,16 @@ RSpec.describe "property", type: :feature do
 
         it "shows new content" do
           expect(page).to have_content("Clients who are away from their usual home")
+        end
+
+        context "with check answers" do
+          before do
+            fill_in_forms_until(:check_answers)
+          end
+
+          it "shows new content" do
+            expect(page).to have_content "Home client usually lives in"
+          end
         end
       end
     end

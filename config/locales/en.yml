@@ -1751,7 +1751,9 @@ en:
         partner_assets: Partner assets
         vehicle: Vehicles
         vehicles_details: Vehicle %{variable} details
-        property: Home client lives in
+        property:
+          legacy: Home client lives in
+          mtr_accelerated: Home client usually lives in
         property_entry:
           legacy: Home client lives in details
           mtr_accelerated: Home client owns and usually lives in details
