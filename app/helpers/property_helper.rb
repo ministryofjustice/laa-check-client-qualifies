@@ -22,4 +22,18 @@ module PropertyHelper
       "question_flow.mortgage_or_loan_payment.legacy"
     end
   end
+
+  def property_entry_key(partner)
+    if FeatureFlags.enabled?(:mtr_accelerated, without_session_data: true)
+      if partner
+        "question_flow.property_entry.mtr_accelerated.with_partner"
+      else
+        "question_flow.property_entry.mtr_accelerated.single"
+      end
+    elsif partner
+      "question_flow.property_entry.legacy.with_partner"
+    else
+      "question_flow.property_entry.legacy.single"
+    end
+  end
 end
