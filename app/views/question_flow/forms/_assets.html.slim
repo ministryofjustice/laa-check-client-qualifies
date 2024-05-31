@@ -29,13 +29,20 @@
     h2.govuk-heading-m = t("question_flow.assets.bank_accounts.label")
 
     - if @check.partner && i18n_key == "assets"
-      - t("question_flow.#{i18n_key}.bank_accounts.with_partner_hints").each do
-        .govuk-hint = _1
+        p.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.paragraph1")
+        ul.govuk-list.govuk-list--bullet
+          - t("question_flow.#{i18n_key}.bank_accounts.list_with_partner").each do
+            li.govuk-body = _1
+        p.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.paragraph2")
     - else
-      - t("question_flow.#{i18n_key}.bank_accounts.hints").each do
-        .govuk-hint = _1
+        p.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.paragraph1")
+        ul.govuk-list.govuk-list--bullet
+          - t("question_flow.#{i18n_key}.bank_accounts.list").each do
+            li.govuk-body = _1
+        p.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.paragraph2")
+        p.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.paragraph3") if @check.partner
 
-    = render "shared/cost_of_living"
+    = render "shared/cost_of_living_payments"
     . data-add-another-role="sectionList"
       - @form.items.each_with_index do |bank_account, index|
         = render "bank_account_section",
