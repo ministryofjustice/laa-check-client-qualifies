@@ -40,10 +40,6 @@ RSpec.describe "partner_assets", type: :feature do
     end
   end
 
-  it "shows content about special applicants" do
-    expect(page).to have_content "Partners in prison"
-  end
-
   context "when the check is certificated" do
     let(:level_of_help) { "certificated" }
 

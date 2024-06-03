@@ -17,9 +17,7 @@
           li.govuk-body = _1
       p.govuk-body = t("question_flow.#{i18n_key}.paragraph3.#{@check.level_of_help}_text_html",
                      page_url: document_link(:"lc_guidance_#{@check.level_of_help}", :disregarded_payments))
-      = govuk_details(summary_text: t("question_flow.benefit_details.benefit_detail_heading"))
-        - t("question_flow.benefit_details.benefit_summary_text").each
-          div = _1
+      = render "shared/cost_of_living_payments"
     . data-add-another-role="sectionList"
       - @form.items.each_with_index do |benefit, index|
         = render "benefit_section", removeable: index.positive?, model: benefit, i18n_key:, counter: index + 1

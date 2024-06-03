@@ -1249,15 +1249,6 @@ en:
       paragraph3:
         controlled_text_html: Check all <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>disregarded benefits (PDF, 427KB).</a>
         certificated_text_html: Check all <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>disregarded benefits (PDF, 918KB).</a>
-      benefit_detail_heading: Examples of Cost Living Payments
-      benefit_summary_text:
-        - Pensioner Cost of Living Payment
-        - Cost of Living Payment
-        - Disability Cost of Living Payment
-        - Household support fund
-        - Council tax rebates
-        - Energy Bills Support Scheme (EBSS)
-        - Alternative Fuel Payment
       benefit: Benefit
       benefit_type: Benefit name
       benefit_type_hint: Enter the name of a benefit, or select one from the suggestions that appear when you start to enter the name.
@@ -1374,7 +1365,7 @@ en:
       other:
         question: Does the partner get income from other sources?
         question_hint: Include any other income the partner receives, for example interest from savings or income bonds.
-        question_hint_2: Do not include any disregarded compensation or cost of living payments. Check the guidance for a complete list of disregarded payments.
+        question_hint_2: Do not include any disregarded compensation or Cost of Living payments. Check the guidance for a complete list of disregarded payments.
         label: Income from other sources
         hint: Include any other income the partner received. Do not include any government Cost of Living Payments. Enter 0 if this does not apply.
         certificated_instruction: Amount received in the last 3 months
@@ -1491,29 +1482,31 @@ en:
         text: Vehicles (PDF, 918KB)
     assets:
       legend: Client assets
-      hint: Enter 0 for any that do not apply
       partner_second_hint: If any of these assets are owned by both the client and partner, enter the full value here. Do not enter them again on the partner questions that follow.
       business_capital_title: Business capital for self-employed clients
       business_capital_text: This service does not currently collect or include the value of any business capital held by your client or their partner. However the LAA may collect and include this when you make an application.
       business_capital_text_html: See the <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>Lord Chancellor’s guidance</a> for more information on when and how it may be assessed at application stage.
       bankrupt_title: Clients who are bankrupt
       bankrupt_text: If your client is bankrupt, any capital assets vested in the trustee in bankruptcy will not be included in the capital assessment.
-      prison_title: Clients in prison
-      prison_text: If your client is in prison, include the balance of any private, spends or savings accounts as money in bank accounts.
       prisoner_guidance:
         text: Clients who are prisoners (PDF, 918KB)
       bankrupt_guidance:
         text: Clients who are bankrupt (PDF, 918KB)
       bank_accounts:
         label: Money in bank accounts
-        hints:
-          - For example, money in current or savings accounts, ISAs, or child accounts your client is a signatory on.
-          - Do not include any government Cost of Living Payments owed to your client.
-          - Enter 0 if this does not apply.
-        with_partner_hints:
-          - For example, money in current or savings accounts, ISAs, or child accounts your client is a signatory on. If the client and partner share any joint bank accounts, include these.
-          - Do not include any government Cost of Living Payments owed to your client.
-          - Enter 0 if this does not apply.
+        paragraph1: 'For example:'
+        list:
+          - current or savings accounts
+          - ISAs
+          - child accounts your client is a signatory on
+          - prison accounts
+        list_with_partner:
+          - current or savings accounts
+          - joint accounts with partner
+          - ISAs
+          - child accounts your client is a signatory on
+          - prison accounts
+        paragraph2: Do not include Cost of Living Payments.
         input: Total money in bank account
       add_bank_account: Add another bank account
       bank_account: Bank account
@@ -1571,25 +1564,25 @@ en:
     partner_assets:
       legend: Partner assets
       hints:
-        - Enter 0 for any that do not apply.
-        - Do not enter any assets if you listed them as owned by your client on the previous page.
+        - Do not enter any assets if you already entered them as your client's.
       business_capital_title: Business capital for self-employed clients
       business_capital_text: This service does not currently collect or include the value of any business capital held by your client or their partner. However the LAA may collect and include this when you make an application.
       business_capital_text_html: See the <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>Lord Chancellor’s guidance (opens in new tab)</a> for more information on when and how it may be assessed at application stage.
       bankrupt_title: Partners who are bankrupt
       bankrupt_text: If the partner is bankrupt, any capital assets vested in the trustee in bankruptcy will not be included in the capital assessment.
-      prison_title: Partners in prison
-      prison_text: If the partner is in prison, include the balance of any private, spends or savings accounts as money in bank accounts.
       prisoner_guidance:
         text: Clients with partners who are prisoners (PDF, 918KB)
       bankrupt_guidance:
         text: Clients with partners who are bankrupt (PDF, 918KB)
       bank_accounts:
-        hints:
-          - For example, money in current or savings accounts, ISAs, or child accounts the partner is a signatory on.
-          - Do not include any joint bank accounts if you entered them as your client's assets on the previous page.
-          - Do not include any government Cost of Living Payments owed to the partner.
-          - Enter 0 if this does not apply.
+        paragraph1: 'For example:'
+        list:
+          - current or savings accounts
+          - ISAs
+          - child accounts your client is a signatory on
+          - prison accounts
+        paragraph2: Do not include any joint bank accounts if you already entered them as your client's
+        paragraph3: Do not include Cost of Living Payments.
       investments:
         label: Investments
         hints:
@@ -2684,6 +2677,16 @@ en:
       - Council tax rebate
       - Energy Bills Support Scheme (EBSS)
       - Payments for those who are not served by mains gas
+  cost_of_living_summary_and_details:
+     header: Examples of Cost Living Payments
+     list:
+      - Pensioner Cost of Living Payment
+      - Cost of Living Payment
+      - Disability Cost of Living Payment
+      - Household support fund
+      - Council tax rebates
+      - Energy Bills Support Scheme (EBSS)
+      - Alternative Fuel Payment
   controlled_work_document_selections:
     new:
       title: Select a controlled work (CW) form to download with your answers
