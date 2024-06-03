@@ -1570,8 +1570,6 @@ en:
       business_capital_text_html: See the <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>Lord Chancellor’s guidance (opens in new tab)</a> for more information on when and how it may be assessed at application stage.
       bankrupt_title: Partners who are bankrupt
       bankrupt_text: If the partner is bankrupt, any capital assets vested in the trustee in bankruptcy will not be included in the capital assessment.
-      prison_title: Partners in prison
-      prison_text: If the partner is in prison, include the balance of any private, spends or savings accounts as money in bank accounts.
       prisoner_guidance:
         text: Clients with partners who are prisoners (PDF, 918KB)
       bankrupt_guidance:
