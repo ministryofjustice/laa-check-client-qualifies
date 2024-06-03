@@ -1488,8 +1488,6 @@ en:
       business_capital_text_html: See the <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>Lord Chancellor’s guidance</a> for more information on when and how it may be assessed at application stage.
       bankrupt_title: Clients who are bankrupt
       bankrupt_text: If your client is bankrupt, any capital assets vested in the trustee in bankruptcy will not be included in the capital assessment.
-      prison_title: Clients in prison
-      prison_text: If your client is in prison, include the balance of any private, spends or savings accounts as money in bank accounts.
       prisoner_guidance:
         text: Clients who are prisoners (PDF, 918KB)
       bankrupt_guidance:
@@ -1508,7 +1506,7 @@ en:
           - ISAs
           - child accounts your client is a signatory on
           - prison accounts
-        paragraph2: Do not include Cost of Living Payments
+        paragraph2: Do not include Cost of Living Payments.
         input: Total money in bank account
       add_bank_account: Add another bank account
       bank_account: Bank account
@@ -1585,8 +1583,8 @@ en:
           - ISAs
           - child accounts your client is a signatory on
           - prison accounts
-        paragraph2: Do not include any joint bank accounts if you already entered them as your clients's
-        paragraph3: Do not include Cost of Living Payments
+        paragraph2: Do not include any joint bank accounts if you already entered them as your client's
+        paragraph3: Do not include Cost of Living Payments.
       investments:
         label: Investments
         hints:
