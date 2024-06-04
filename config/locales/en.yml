@@ -1579,9 +1579,9 @@ en:
         list:
           - current or savings accounts
           - ISAs
-          - child accounts your client is a signatory on
+          - child accounts the partner is a signatory on
           - prison accounts
-        paragraph2: Do not include any joint bank accounts if you already entered them as your client's
+        paragraph2: Do not include any joint bank accounts if you already entered them as your client's.
         paragraph3: Do not include Cost of Living Payments.
       investments:
         label: Investments
