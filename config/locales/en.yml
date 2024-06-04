@@ -1213,13 +1213,18 @@ en:
           text: Housing costs (PDF, 427KB)
           link: "{%page_url}"
     mortgage_or_loan_payment:
-      heading: What are the mortgage or loan payments for the home your client lives in?
-      heading_hint_1: Enter the full amount due.
+      legacy:
+        heading: What are the mortgage or loan payments for the home your client lives in?
+        heading_hint_1: Enter the full amount due.
+        heading_hint_2: Enter 0 if this does not apply.
+      mtr_accelerated:
+        heading: What are the mortgage or loan payments for the home your client usually lives in?
+        heading_hint_1: ''
+        heading_hint_2: ''
       living_with_someone_else: Living with someone else
       details_paragraphs:
         - If your client lives with their ex-partner, or someone else whose means are not included in the assessment, enter the amount paid by your client. The Legal Aid Agency will assume that your client is liable for 50% of the housing costs unless there is evidence otherwise. If your client’s share is being paid or partially paid by this person, enter the amount paid on your client’s behalf as income for your client on the previous ‘Your client's other income’ page.
         - You may need to provide evidence for this if you make a full application or open a controlled work file for your client.
-      heading_hint_2: Enter 0 if this does not apply.
       value: Enter amount
       frequency: Select frequency
     benefits:
@@ -1231,7 +1236,28 @@ en:
         monthly: Every month
     benefit_details:
       heading: Add benefit details
-      hint: Add details of any benefits your client receives. Do not include Housing Benefit, State Pension, government Cost of Living Payments, or any other disregarded benefits.
+      paragraph1: Add details of any non-passported benefits your client receives.
+      paragraph2: 'Do not include:'
+      paragraph2list:
+        - Housing Benefits
+        - State Pension
+        - Personal Independence Payments (PIP)
+        - Carer’s Allowance
+        - Community Care direct payments
+        - Fostering allowance
+        - Cost of Living Payments
+      paragraph3:
+        controlled_text_html: Check all <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>disregarded benefits (PDF, 427KB).</a>
+        certificated_text_html: Check all <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>disregarded benefits (PDF, 918KB).</a>
+      benefit_detail_heading: Examples of Cost Living Payments
+      benefit_summary_text:
+        - Pensioner Cost of Living Payment
+        - Cost of Living Payment
+        - Disability Cost of Living Payment
+        - Household support fund
+        - Council tax rebates
+        - Energy Bills Support Scheme (EBSS)
+        - Alternative Fuel Payment
       benefit: Benefit
       benefit_type: Benefit name
       benefit_type_hint: Enter the name of a benefit, or select one from the suggestions that appear when you start to enter the name.
@@ -1245,7 +1271,19 @@ en:
     partner_benefit_details:
       heading: Add benefit details
       select_frequency: When does the partner normally get this benefit?
-      hint: Add details of any benefits the partner receives. Do not include Housing Benefit, State Pension, government Cost of Living Payments, or any other disregarded benefits.
+      paragraph1: Add details of any benefits the partner receives.
+      paragraph2: 'Do not include:'
+      paragraph2list:
+        - Housing Benefits
+        - State Pension
+        - Personal Independence Payments (PIP)
+        - Carer’s Allowance
+        - Community Care direct payments
+        - Fostering allowance
+        - Cost of Living Payments
+      paragraph3:
+        controlled_text_html: Check all <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>disregarded benefits (PDF, 427KB).</a>
+        certificated_text_html: Check all <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>disregarded benefits (PDF, 918KB).</a>
     other_income:
       heading: Your client's other income
       second_caption: Enter 0 for any that do not apply
@@ -1405,10 +1443,17 @@ en:
       enter_amount: Enter amount
       enter_frequency: Select frequency
     property:
-      legend: Does your client own the home they live in?
-      legend_with_partner: Does your client or their partner own the home the client lives in?
-      details_title: Clients in prison
-      hint: If your client is in prison but their partner lives in a property either of them owns, include this as the main dwelling and any housing costs the partner pays.
+      client_away:
+        hint: Clients who are away from their usual home
+        single: Select yes if your client is away from the home they own and usually live in. If they have temporarily left this home due to domestic abuse, selecting yes ensures that the equity disregard is applied.
+        partner: Select yes if your client or their partner owns the home the client usually lives in, but the client is temporarily away from this home. If the client has temporarily left this home due to domestic abuse, selecting yes ensures that the equity disregard is applied.
+      single:
+        legend: Does your client own the home they usually live in?
+      partner:
+        legend: Does your client or their partner own the home the client usually lives in?
+        prison:
+          title: Clients in prison
+          hint: If your client is in prison but their partner lives in a property either of them owns, include this as the main dwelling and any housing costs the partner pays.
       generic_hint: If your client is temporarily away from where they normally live, this means the home the client normally lives in.
       property_owned:
         outright: Yes, owned outright
@@ -1568,19 +1613,33 @@ en:
           - a caravan (if it is not the client’s main residence)
           - musical instruments, unless the partner is a professional musician
     property_entry:
-      heading: The home your client lives in
-      hint: If you make an application for civil legal aid, the property's value may be excluded from the financial assessment if your client has left their former matrimonial home because of domestic abuse
+      legacy:
+        single:
+          heading: The home your client lives in
+          hint: If you make an application for civil legal aid, the property's value may be excluded from the financial assessment if your client has left their former matrimonial home because of domestic abuse
+          percentage_owned_hint: Your client's name must be on the property deeds, lease, freehold or mortgage
+        with_partner:
+          heading: The home your client lives in
+          hint: If you make an application for civil legal aid, the property's value may be excluded from the financial assessment if your client has left their former matrimonial home because of domestic abuse
+          percentage_owned_hint: Add the percentage the client and partner own together. We do not need to know what percentage each of them owns.
+      mtr_accelerated:
+        single:
+          heading: The home your client usually lives in
+          hint: Your client's name must be on the property deeds, lease, freehold or mortgage.
+          percentage_owned_hint: ''
+        with_partner:
+          heading: The home your client usually lives in
+          hint: Your client or their partner’s name must be on the property deeds, lease, freehold or mortgage.
+          percentage_owned_hint: Add the percentage the client and partner own together. We do not need to know what percentage each of them owns.
       house_value:
-        input: How much is the home they live in worth?
+        input: Home value
         input_hint_certificated: You can use property websites to find the estimated value. If you have more than one valuation, use the highest. Keep a record of where the valuation is from for evidence, as it may be checked if you make an application for legal aid.
         input_hint_controlled: You can use property websites to find the estimated value. If you have more than one valuation, use the highest. Keep a record of where the valuation is from for evidence, as it may be checked at file audit or assessment stage.
       mortgage:
         input: How much is left to pay on the mortgage?
-        input_hint: Check the statement from the mortgage provider or lender and include any other loans secured against the property
+        input_hint: Check the statement from the mortgage provider or lender and include any other loans secured against the property.
       percentage_owned:
         input: What percentage of the home do they own?
-        input_hint: Your client's name must be on the property deeds, lease, freehold or mortgage
-        input_hint_with_partner: Add the percentage the client and partner own together. We do not need to know what percentage each of them owns.
     additional_property_details:
       heading: Client’s other property, holiday home or land
       hint: If your client and their partner share other property, a holiday home or land, include this here
@@ -1725,8 +1784,12 @@ en:
         partner_assets: Partner assets
         vehicle: Vehicles
         vehicles_details: Vehicle %{variable} details
-        property: Home client lives in
-        property_entry: Home client lives in details
+        property:
+          legacy: Home client lives in
+          mtr_accelerated: Home client usually lives in
+        property_entry:
+          legacy: Home client lives in details
+          mtr_accelerated: Home client owns and usually lives in details
         housing_costs: Housing costs
         mortgage_or_loan_payment: Housing costs
         additional_property: Client other property
@@ -1905,7 +1968,9 @@ en:
         vehicle_over_3_years_ago: Was the vehicle bought over 3 years ago?
         vehicle_in_regular_use: Is the vehicle in regular use?
       property_fields:
-        property_owned: Does your client own the home the client lives in?
+        property_owned:
+          legacy: Does your client own the home the client lives in?
+          mtr_accelerated: Does your client own the home the client usually lives in?
         property_owned_options:
           outright: Yes, owned outright
           with_mortgage: Yes, with a mortgage or loan
@@ -1919,7 +1984,9 @@ en:
         housing_payments: Housing payments
         housing_benefit_value: Housing Benefit
       mortgage_or_loan_payment_fields:
-        housing_loan_payments: What are the mortgage or loan payments for the home the client lives in?
+        housing_loan_payments:
+          legacy: What are the mortgage or loan payments for the home the client lives in?
+          mtr_accelerated: What are the mortgage or loan payments for the home the client usually lives in?
       property_entry_fields:
         house_value: Estimated value
         mortgage: Outstanding mortgage
@@ -2235,7 +2302,7 @@ en:
       client_main_home: Home client lives in
       property_rows:
         value:
-          text: Home worth
+          text: Estimated value
           alt_text: Value
           hint: ""
         mortgage:

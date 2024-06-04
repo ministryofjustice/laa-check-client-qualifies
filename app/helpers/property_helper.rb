@@ -14,4 +14,54 @@ module PropertyHelper
       t("generic.trapped_capital.#{level_of_help}_text") => (level_of_help == "controlled" ? document_link(:lc_guidance_controlled, :assets) : document_link(:legal_aid_learning)),
     }
   end
+
+  def mortgage_or_loan_key
+    if FeatureFlags.enabled?(:mtr_accelerated, without_session_data: true)
+      "question_flow.mortgage_or_loan_payment.mtr_accelerated"
+    else
+      "question_flow.mortgage_or_loan_payment.legacy"
+    end
+  end
+
+  def property_entry_key(partner)
+    if FeatureFlags.enabled?(:mtr_accelerated, without_session_data: true)
+      if partner
+        "question_flow.property_entry.mtr_accelerated.with_partner"
+      else
+        "question_flow.property_entry.mtr_accelerated.single"
+      end
+    elsif partner
+      "question_flow.property_entry.legacy.with_partner"
+    else
+      "question_flow.property_entry.legacy.single"
+    end
+  end
+
+  def property_hint_content(partner)
+    if partner
+      if FeatureFlags.enabled?(:mtr_accelerated, without_session_data: true)
+        lambda { \
+          tag.p("", class: "govuk-hint") + \
+            govuk_details(summary_text: t("question_flow.property.partner.prison.title"), \
+                          text: t("question_flow.property.partner.prison.hint")) +
+            govuk_details(summary_text: t("question_flow.property.client_away.hint"), \
+                          text: t("question_flow.property.client_away.partner")) \
+        }
+      else
+        lambda { \
+          tag.p(t("question_flow.property.generic_hint"), class: "govuk-hint") + \
+            govuk_details(summary_text: t("question_flow.property.partner.prison.title"), \
+                          text: t("question_flow.property.partner.prison.hint")) \
+        }
+      end
+    elsif FeatureFlags.enabled?(:mtr_accelerated, without_session_data: true)
+      lambda { \
+        tag.p("", class: "govuk-hint") + \
+          govuk_details(summary_text: t("question_flow.property.client_away.hint"), \
+                        text: t("question_flow.property.client_away.single")) \
+      }
+    else
+      { text: t("question_flow.property.generic_hint") }
+    end
+  end
 end
