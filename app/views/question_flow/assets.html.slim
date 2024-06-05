@@ -7,7 +7,7 @@
   = render "question_flow/forms/assets",
            i18n_key: "assets",
            show_smod_content: @check.smod_applicable?,
-           hints: [t("question_flow.assets.hint"), (t("question_flow.assets.partner_second_hint") if @check.partner)].compact
+           hints: [(t("question_flow.assets.partner_second_hint") if @check.partner)].compact
 
 = render "shared/question_sidebar",
         level_of_help: @check.level_of_help,
