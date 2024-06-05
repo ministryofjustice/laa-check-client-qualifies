@@ -16,16 +16,25 @@ class PropertyEntryForm
             is_a_number: true,
             presence: { if: -> { owned_with_mortgage? } }
 
-  attribute :percentage_owned, :fully_validatable_integer
+  attribute :percentage_owned, :float
   validates :percentage_owned,
-            numericality: { greater_than: 0, only_integer: true, less_than_or_equal_to: 100, allow_nil: true, message: :within_range },
-            is_a_number: true,
+            numericality: { greater_than: 0, less_than_or_equal_to: 100, allow_nil: true, message: :within_range },
             presence: true
+
+  validate :percentage_owned_has_one_decimal_place
 
   attribute :house_in_dispute, :boolean
   validates :house_in_dispute, inclusion: { in: [true, false] }, allow_nil: false, if: :smod_applicable?
 
   def owned_with_mortgage?
     property_owned == "with_mortgage"
+  end
+
+private
+
+  def percentage_owned_has_one_decimal_place
+    if percentage_owned.present? && (percentage_owned.to_s.split(".").last.size > 1)
+      errors.add(:percentage_owned, "must have at most one digit after the decimal place")
+    end
   end
 end
