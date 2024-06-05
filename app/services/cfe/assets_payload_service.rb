@@ -29,7 +29,7 @@ module Cfe
             outstanding_mortgage: (model.mortgage if model.owned_with_mortgage?) || 0,
             percentage_owned: model.percentage_owned,
             subject_matter_of_dispute: (model.house_in_dispute && smod_applicable?) || false,
-            shared_with_housing_assoc: false,
+            shared_with_housing_assoc: true,
           }
         end
       end
@@ -41,7 +41,7 @@ module Cfe
           outstanding_mortgage: (property_entry_form.mortgage if property_entry_form.owned_with_mortgage?) || 0,
           percentage_owned: property_entry_form.percentage_owned,
           subject_matter_of_dispute: (property_entry_form.house_in_dispute && smod_applicable?) || false,
-          shared_with_housing_assoc: false,
+          shared_with_housing_assoc: true,
         }
       end
 
@@ -55,7 +55,7 @@ module Cfe
           outstanding_mortgage: 0,
           percentage_owned: 0,
           subject_matter_of_dispute: false,
-          shared_with_housing_assoc: false,
+          shared_with_housing_assoc: true,
         }
       properties = { main_home: }
       properties[:additional_properties] = additional_properties if additional_properties

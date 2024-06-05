@@ -64,7 +64,7 @@ module Cfe
           value: model.house_value,
           outstanding_mortgage: (model.mortgage if model.owned_with_mortgage?) || 0,
           percentage_owned: model.percentage_owned,
-          shared_with_housing_assoc: false,
+          shared_with_housing_assoc: true,
         }
       end
     end
