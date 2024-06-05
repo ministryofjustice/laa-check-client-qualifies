@@ -66,7 +66,7 @@ RSpec.describe "Certificated check with partner", type: :feature do
         expect(content["additional_properties"]).to eq([{
           "outstanding_mortgage" => 1.0,
           "percentage_owned" => 1,
-          "shared_with_housing_assoc" => false,
+          "shared_with_housing_assoc" => true,
           "value" => 1.0,
         }])
       }.to_return(
