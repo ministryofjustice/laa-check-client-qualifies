@@ -9,6 +9,7 @@ class FeatureFlags
   # the values of some feature flags will come from the session and not the env variables.
   # "global" - feature flag value should be derived from the env variable
   # "session" - feature flag value should be derived from the session_data of the check
+  # "default" - where a flag is not set this is the value the check or tests should fall back to
   STATIC_FLAGS = {
     # example and example2 are just here for tests and should not be used in code.
     example: { type: "session", default: false },
