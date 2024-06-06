@@ -7,6 +7,9 @@ on:
 
 jobs:
   delete_uat_job:
+    # Adding a condition so that the `pull_request` workflow cathes merged PRs, if not caught when the PR closes. Have had some instances when the job runs but the UAT pod still exists.
+    # As per this documentation https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#running-your-pull_request-workflow-when-a-pull-request-merges
+    if: github.event.pull_request.merged == true || github.event.pull_request.merged == false
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
