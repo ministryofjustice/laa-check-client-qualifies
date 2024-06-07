@@ -301,10 +301,9 @@ end
 def fill_in_assets_screen(bank_account_value: "0", screen_name: :assets, form_name: :client_assets, values: {}, disputed: [])
   confirm_screen screen_name
   fill_in "bank_account_model[items][1][amount]", with: bank_account_value
-  # yesno_hint_investments = "##{form_name.to_s.dasherize}-form-investments-relevant-true-conditional"
-  # yesno_hint_valuables = "##{form_name.to_s.dasherize}-form-valuables-relevant-true-conditional"
 
-  if !FeatureFlags.enabled?(:legacy_assets_no_reveal, without_session_data: true)
+  # check for presence of conditional reveal for investments
+  if all("##{form_name.to_s.dasherize}-form-investments-relevant-true-field", visible: false).any?
     if values.key? :investments
       choose "Yes", name: "#{form_name}_form[investments_relevant]"
       fill_in "#{form_name}_form[investments]", with: values.fetch(:investments)
@@ -315,7 +314,8 @@ def fill_in_assets_screen(bank_account_value: "0", screen_name: :assets, form_na
     fill_in "#{form_name}_form[investments]", with: values.fetch(:investments, "0")
   end
 
-  if !FeatureFlags.enabled?(:legacy_assets_no_reveal, without_session_data: true)
+  # check for presence of conditional reveal for valuables
+  if all("##{form_name.to_s.dasherize}-form-valuables-relevant-true-field", visible: false).any?
     if values.key? :valuables
       choose "Yes", name: "#{form_name}_form[valuables_relevant]"
       fill_in "#{form_name}_form[valuables]", with: values.fetch(:valuables)
