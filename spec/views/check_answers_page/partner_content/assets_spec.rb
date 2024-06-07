@@ -1,7 +1,8 @@
 require "rails_helper"
 
 RSpec.describe "checks/check_answers.html.slim" do
-  let(:sections) { CheckAnswers::SectionListerService.call(session_data) }
+  let(:sections) { CheckAnswers::SectionListerService.call(session_data.merge("feature_flags" => feature_flags)) }
+  let(:feature_flags) { FeatureFlags.session_flags }
 
   before do
     assign(:sections, sections)

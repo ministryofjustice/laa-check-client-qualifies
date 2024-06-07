@@ -1,11 +1,13 @@
 require "rails_helper"
 
 RSpec.describe Cfe::AssetsPayloadService do
+  let(:feature_flags) { FeatureFlags.session_flags }
+
   describe ".call" do
     let(:payload) { {} }
 
     before do
-      described_class.call(session_data, payload, relevant_steps)
+      described_class.call(session_data.merge("feature_flags" => feature_flags), payload, relevant_steps)
     end
 
     context "when there is a full set of data" do
