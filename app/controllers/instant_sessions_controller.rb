@@ -7,7 +7,7 @@ class InstantSessionsController < ApplicationController
     # To get around this, we force at least one redirect here to guarantee a stable session cookie string
     return redirect_to instant_session_path(session_type: params[:session_type], redirected: true) unless params[:redirected]
 
-    blank_session = {"feature_flags" => FeatureFlags.session_flags }
+    blank_session = { "feature_flags" => FeatureFlags.session_flags }
     data = case params[:session_type]
            when "controlled"
              if FeatureFlags.enabled?(:legacy_assets_no_reveal, blank_session)
