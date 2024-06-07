@@ -1,14 +1,23 @@
 require "rails_helper"
 
 RSpec.describe "partner_assets", type: :feature do
-  let(:assessment_code) { :assessment_code }
   let(:level_of_help) { "controlled" }
-  let(:session) { { "level_of_help" => level_of_help } }
+  let(:self_employed) { false }
 
   before do
-    set_session(assessment_code, session)
-    visit form_path(:partner_assets, assessment_code)
-  end
+    start_assessment
+    fill_in_forms_until(:level_of_help)
+    fill_in_level_of_help_with(level_of_help.to_sym)
+    fill_in_forms_until(:applicant)
+    fill_in_applicant_screen(partner: "Yes")
+
+    if self_employed
+      fill_in_forms_until(:partner_employment_status)
+      fill_in_partner_employment_status_screen(choice: "Employed or self-employed")
+      fill_in_partner_income_screen(type: "Self-employment income")
+    end
+    fill_in_forms_until(:partner_assets)
+ end
 
   context "without conditional reveal assets", :legacy_assets_no_reveal do
     it "stores the chosen values in the session" do
@@ -43,15 +52,8 @@ RSpec.describe "partner_assets", type: :feature do
       expect(page).to have_content "Clients with partners who are prisoners"
     end
 
-    context "when client is self-employed" do
-      let(:session) do
-        {
-          "level_of_help" => level_of_help,
-          "partner" => true,
-          "partner_employment_status" => "in_work",
-          "partner_incomes" => [{ "income_type" => "self_employment" }],
-        }
-      end
+    context "when partner is self-employed" do
+      let(:self_employed) { true }
 
       it "shows content about self-employed applicants" do
         expect(page).to have_content "Business capital for self-employed clients"
