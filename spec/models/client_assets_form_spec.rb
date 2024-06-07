@@ -1,8 +1,9 @@
 require "rails_helper"
 
 RSpec.describe ClientAssetsForm do
+  let(:feature_flags) { FeatureFlags.session_flags }
   let(:form) do
-    described_class.new(attributes, Check.new)
+    described_class.new(attributes, Check.new({ "feature_flags" => feature_flags }))
   end
 
   let(:blank_form) do
