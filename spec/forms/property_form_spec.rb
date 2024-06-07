@@ -41,7 +41,7 @@ RSpec.describe "property", type: :feature do
         end
       end
 
-      context "with MTR accelerated" do
+      context "with MTR accelerated", :mtr_accelerated_flag do
         let(:content_date) { after_date }
 
         it "shows new content" do
@@ -71,7 +71,7 @@ RSpec.describe "property", type: :feature do
         end
       end
 
-      context "with MTR accelerated" do
+      context "with MTR accelerated", :mtr_accelerated_flag do
         let(:content_date) { after_date }
 
         it "shows new content" do
