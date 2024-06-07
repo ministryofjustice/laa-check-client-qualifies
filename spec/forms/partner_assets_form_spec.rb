@@ -17,7 +17,7 @@ RSpec.describe "partner_assets", type: :feature do
       fill_in_partner_income_screen(type: "Self-employment income")
     end
     fill_in_forms_until(:partner_assets)
- end
+  end
 
   context "without conditional reveal assets", :legacy_assets_no_reveal do
     it "stores the chosen values in the session" do
