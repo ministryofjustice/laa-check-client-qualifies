@@ -122,6 +122,12 @@ RSpec.configure do |config|
     ENV["MAINTENANCE_MODE_FEATURE_FLAG"] = "disabled"
   end
 
+  config.around(:each, :mtr_accelerated_flag) do |example|
+    ENV["MTR_ACCELERATED_FEATURE_FLAG"] = "enabled"
+    example.run
+    ENV["MTR_ACCELERATED_FEATURE_FLAG"] = "disabled"
+  end
+
   config.around(:each, :basic_authentication_flag) do |example|
     ENV["BASIC_AUTHENTICATION_FEATURE_FLAG"] = "enabled"
     example.run
