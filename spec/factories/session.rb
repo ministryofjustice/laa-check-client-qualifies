@@ -13,7 +13,6 @@ FactoryBot.define do
     child_dependants_count { nil }
     adult_dependants { false }
     adult_dependants_count { nil }
-    housing_benefit { false }
     add_benefit { false }
     friends_or_family_value { 0 }
     friends_or_family_frequency { "" }
@@ -43,6 +42,10 @@ FactoryBot.define do
     valuables { 0 }
     investments_in_dispute { false }
     valuables_in_dispute { false }
+
+    trait :with_conditional_housing_benefit do
+      housing_benefit_relevant { false }
+    end
 
     trait :with_asylum_support do
       immigration_or_asylum_type_upper_tribunal { "immigration_upper" }
@@ -172,7 +175,6 @@ FactoryBot.define do
     gross_income { 123 }
     income_tax { 1 }
     national_insurance { 1 }
-    housing_benefit { true }
     housing_benefit_value { 234 }
     housing_benefit_frequency { "every_week" }
     benefits do
@@ -257,6 +259,10 @@ FactoryBot.define do
     partner_bank_accounts { [{ "amount" => 548 }] }
     partner_investments { 997 }
     partner_valuables { 234 }
+
+    trait :with_conditional_housing_benefit do
+      housing_benefit_relevant { true }
+    end
   end
 
   factory :instant_controlled_session, class: Hash do
@@ -468,7 +474,7 @@ FactoryBot.define do
     legal_aid_payments_relevant { true }
     housing_payments { 1200.0 }
     housing_payments_frequency { "monthly" }
-    housing_benefit { true }
+    housing_benefit_relevant { true }
     housing_benefit_value { 100 }
     housing_benefit_frequency { "monthly" }
     childcare_payments_conditional_value { 80.0 }
@@ -514,6 +520,10 @@ FactoryBot.define do
     partner_additional_property_owned { "outright" }
     partner_additional_properties do
       [{ "house_value" => 2000.0, "percentage_owned" => 100 }]
+    end
+
+    trait :with_conditional_housing_benefit do
+      housing_benefit_relevant { true }
     end
   end
 end

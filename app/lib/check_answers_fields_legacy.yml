@@ -312,12 +312,9 @@ sections:
               - attribute: housing_payments
                 type: money_with_frequency
                 alt_attribute: housing_payments_frequency
-              - attribute: housing_benefit_relevant
-                type: boolean
               - attribute: housing_benefit_value
                 type: money_with_frequency
                 alt_attribute: housing_benefit_frequency
-                skip_unless: housing_benefit_relevant?
           - screen: mortgage_or_loan_payment
             fields:
               - attribute: housing_loan_payments
