@@ -25,7 +25,7 @@ RSpec.describe "checks/check_answers.html.slim" do
         end
       end
 
-      context "without conditional reveals", :legacy_housing_benefit_without_reveals do
+      context "without conditional reveals", :legacy_assets_no_reveal do
         let(:session_data) { build(:minimal_complete_session, housing_benefit_value: 400, housing_benefit_frequency: "every_week") }
 
         it "renders content" do
@@ -45,7 +45,7 @@ RSpec.describe "checks/check_answers.html.slim" do
         end
       end
 
-      context "without conditional reveals", :legacy_housing_benefit_without_reveals do
+      context "without conditional reveals", :legacy_assets_no_reveal do
         let(:session_data) { build(:minimal_complete_session, housing_payments: 0, housing_benefit_value: 0) }
 
         it "renders content" do

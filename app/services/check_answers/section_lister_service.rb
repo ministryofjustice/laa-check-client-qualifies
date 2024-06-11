@@ -16,7 +16,7 @@ module CheckAnswers
 
     def call
       filename = if FeatureFlags.enabled?(:legacy_assets_no_reveal, @check.session_data)
-                   "app/lib/check_answers_legacy_assets.yml"
+                   "app/lib/check_answers_fields_legacy.yml"
                  else
                    "app/lib/check_answers_fields.yml"
                  end
