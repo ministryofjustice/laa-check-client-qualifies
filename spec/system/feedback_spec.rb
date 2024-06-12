@@ -28,6 +28,7 @@ RSpec.describe "Feedback component" do
         expect(page).to have_content("Don't include personal information")
         find("#comment-field")
         fill_in "comment-field", with: "some feedback!"
+        sleep 1
         stored_data = SatisfactionFeedback.find_by(satisfied: "yes", outcome: "eligible", level_of_help: "controlled")
         sleep 1
         expect(stored_data).not_to be_nil

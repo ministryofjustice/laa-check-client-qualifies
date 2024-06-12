@@ -15,13 +15,12 @@ module CheckAnswers
     end
 
     def call
-      section_yaml = if FeatureFlags.enabled?(:legacy_housing_benefit_without_reveals, @check.session_data)
-                       Rails.root.join("app/lib/check_answers_fields_legacy.yml")
-                     else
-                       Rails.root.join("app/lib/check_answers_fields.yml")
-                     end
-
-      data = YAML.load_file(section_yaml).with_indifferent_access
+      filename = if FeatureFlags.enabled?(:legacy_assets_no_reveal, @check.session_data)
+                   "app/lib/check_answers_fields_legacy.yml"
+                 else
+                   "app/lib/check_answers_fields.yml"
+                 end
+      data = YAML.load_file(Rails.root.join(filename)).with_indifferent_access
       data[:sections].map { build_section(_1) }.select { _1.subsections.any? }
     end
 

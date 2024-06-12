@@ -110,6 +110,22 @@ class Check
     Steps::Logic.client_under_eighteen?(session_data)
   end
 
+  def investments_relevant?
+    FeatureFlags.enabled?(:legacy_assets_no_reveal, session_data) || investments_relevant
+  end
+
+  def partner_investments_relevant?
+    FeatureFlags.enabled?(:legacy_assets_no_reveal, session_data) || partner_investments_relevant
+  end
+
+  def valuables_relevant?
+    FeatureFlags.enabled?(:legacy_assets_no_reveal, session_data) || valuables_relevant
+  end
+
+  def partner_valuables_relevant?
+    FeatureFlags.enabled?(:legacy_assets_no_reveal, session_data) || partner_valuables_relevant
+  end
+
   def housing_benefit_relevant?
     FeatureFlags.enabled?(:legacy_housing_benefit_without_reveals, session_data) || housing_benefit_relevant
   end

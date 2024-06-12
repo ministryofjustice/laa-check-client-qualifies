@@ -1,7 +1,11 @@
 - partner ||= false
-. [data-module="add-another"
-   data-add-another-removed-feedback-text=t("question_flow.assets.removed")
-   data-add-another-hide-message-text=t("generic.hide_this_message")]
+
+- content_for :amount_hidden_description
+  = govuk_visually_hidden(t("question_flow.other_income.hidden_description_amount"))
+
+div [data-module="add-another"
+  data-add-another-removed-feedback-text=t("question_flow.assets.removed")
+  data-add-another-hide-message-text=t("generic.hide_this_message")]
   .add-another-template-area data-add-another-role="template"
     = render "bank_account_section",
              removeable: true,
@@ -11,18 +15,25 @@
   = form_for(@form, url: request.path, method: :put) do |form|
 
     = form.govuk_error_summary t("generic.error_summary_title")
-    = render "shared/heading",
-              header_text: t("question_flow.#{i18n_key}.legend"),
-              post_header_texts: hints,
-              tag: (:partner if partner)
+    - heading_options = { header_text: t("question_flow.#{i18n_key}.legend"), tag: (:partner if partner) }
+    - if FeatureFlags.enabled?(:legacy_assets_no_reveal, @check.session_data)
+      - heading_options[:post_header_texts] = hints
+    - elsif @check.partner && i18n_key == "assets"
+      - heading_options[:post_header_text] = t("question_flow.#{i18n_key}.cr_hint")
+    - elsif i18n_key == "partner_assets"
+      - heading_options[:post_header_text] = t("question_flow.#{i18n_key}.hint")
+
+    = render "shared/heading", heading_options
+
+    - if i18n_key == "assets" || i18n_key == "partner_assets"
+      = govuk_details(summary_text: t("question_flow.#{i18n_key}.bankrupt_title"))
+        p.govuk-text = t("question_flow.#{i18n_key}.bankrupt_text")
 
     - if !@check.controlled? && ((partner && @check.partner_self_employed?) || (!partner && @check.client_self_employed?))
       = govuk_details(summary_text: t("question_flow.#{i18n_key}.business_capital_title"))
         p.govuk-text = t("question_flow.#{i18n_key}.business_capital_text")
         p.govuk-text = t("question_flow.#{i18n_key}.business_capital_text_html",
                         page_url: document_link(:lc_guidance_certificated, :business_capital))
-    = govuk_details(summary_text: t("question_flow.#{i18n_key}.bankrupt_title"))
-      p.govuk-text = t("question_flow.#{i18n_key}.bankrupt_text")
 
     h2.govuk-heading-m = t("question_flow.assets.bank_accounts.label")
 
@@ -41,7 +52,8 @@
         p.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.paragraph3") if @check.partner
 
     = render "shared/cost_of_living_payments"
-    . data-add-another-role="sectionList"
+
+    div data-add-another-role="sectionList"
       - @form.items.each_with_index do |bank_account, index|
         = render "bank_account_section",
                   removeable: index.positive?,
@@ -51,57 +63,130 @@
     .govuk-button-group
       button.govuk-button.govuk-button--secondary type="button" data-add-another-role="add" = t("question_flow.assets.add_bank_account")
 
-    = form.govuk_fieldset legend: { text: t("question_flow.#{i18n_key}.investments.label") } do
+    - if !FeatureFlags.enabled?(:legacy_assets_no_reveal, @check.session_data)
+      = form.govuk_radio_buttons_fieldset :investments_relevant,
+              legend: { text: t("question_flow.#{i18n_key}.investments.label") } do
 
-      - if @check.partner && i18n_key == "assets"
-        - t("question_flow.#{i18n_key}.investments.with_partner_hints").each
-          .govuk-hint = _1
-      - else
-        - t("question_flow.#{i18n_key}.investments.hints").each
-          .govuk-hint = _1
+        - if @check.partner && i18n_key == "assets"
+          - t("question_flow.#{i18n_key}.investments.hint.with_partner").each
+            .govuk-hint = _1
+        - elsif i18n_key == "assets"
+          - t("question_flow.#{i18n_key}.investments.hint.single").each
+            .govuk-hint = _1
+        - elsif i18n_key == "partner_assets"
+          - t("question_flow.#{i18n_key}.investments.hints").each
+            .govuk-hint = _1
 
-      = render "shared/money_input",
+        = render "shared/radio_button_set",
+                form:,
+                field_name: :investments_relevant,
+                buttons: [{ value: true,
+                        options: { label: { text: t("generic.yes_choice") },
+                                hint: -> { content_for(:amount_hidden_description) } } },
+                        { value: false, options: { label: { text: t("generic.no_choice") } } }]
+
+          = render "shared/money_input",
+                  form:,
+                  field: :investments,
+                  width: 5,
+                  label_text: t("question_flow.#{i18n_key}.investments.input")
+
+          - if show_smod_content
+            .govuk-form-group
+              = form.govuk_check_box :investments_in_dispute, true, 0, multiple: false, label: { text: t("generic.dispute") }
+    - else
+      = form.govuk_fieldset legend: { text: t("question_flow.#{i18n_key}.investments.label") } do
+
+        - if @check.partner && i18n_key == "assets"
+          - t("question_flow.#{i18n_key}.investments.with_partner_hints").each
+            .govuk-hint = _1
+        - else
+          - t("question_flow.#{i18n_key}.investments.hints").each
+            .govuk-hint = _1
+
+        = render "shared/money_input",
               form:,
               field: :investments,
               width: 5,
               label_text: t("question_flow.#{i18n_key}.investments.input")
 
-      - if show_smod_content
-        .govuk-form-group
-          = form.govuk_check_box :investments_in_dispute, true, 0, multiple: false, label: { text: t("generic.dispute") }
+        - if show_smod_content
+          .govuk-form-group
+            = form.govuk_check_box :investments_in_dispute, true, 0, multiple: false, label: { text: t("generic.dispute") }
 
-    = form.govuk_fieldset legend: { text: t("question_flow.assets.valuables.label") } do
+    - if !FeatureFlags.enabled?(:legacy_assets_no_reveal, @check.session_data)
+      = form.govuk_radio_buttons_fieldset :valuables_relevant,
+              legend: { text: t("question_flow.#{i18n_key}.valuables.label") } do
 
-      - if @check.partner && i18n_key == "assets"
-        - t("question_flow.assets.valuables.#{@check.level_of_help}_with_partner_hints").each
-          .govuk-hint = _1
-      - else
-        - t("question_flow.#{i18n_key}.valuables.#{@check.level_of_help}_hints").each
-          .govuk-hint = _1
+        - if @check.partner && i18n_key == "assets"
+          - t("question_flow.assets.valuables.hint.#{@check.level_of_help}.with_partner").each
+            .govuk-hint = _1
+        - elsif i18n_key == "assets"
+          - t("question_flow.assets.valuables.hint.#{@check.level_of_help}.single").each
+            .govuk-hint = _1
+        - elsif i18n_key == "partner_assets"
+          - t("question_flow.partner_assets.valuables.#{@check.level_of_help}_hints").each
+            .govuk-hint = _1
 
-      = govuk_details(summary_text: t("question_flow.assets.valuables.details_header")) do
-        p.govuk-body = t("question_flow.assets.valuables.details_subheader_1")
-        ul.govuk-list.govuk-list--bullet
-          - t("question_flow.#{i18n_key}.valuables.details_bullets_1").each do |bullet|
-            li = bullet
-          - if @check.controlled?
-            li = t("question_flow.assets.valuables.controlled_details_bullets_1_addendum")
-        p.govuk-body = t("question_flow.assets.valuables.details_subheader_2")
-        ul.govuk-list.govuk-list--bullet
-          - t("question_flow.assets.valuables.details_bullets_2").each do |bullet|
-            li = bullet
+        = govuk_details(summary_text: t("question_flow.assets.valuables.details_header")) do
+          p.govuk-body = t("question_flow.assets.valuables.details_subheader_1")
+          ul.govuk-list.govuk-list--bullet
+            - t("question_flow.#{i18n_key}.valuables.details_bullets_1").each do |bullet|
+              li = bullet
+            - if @check.controlled?
+              li = t("question_flow.assets.valuables.controlled_details_bullets_1_addendum")
+          p.govuk-body = t("question_flow.assets.valuables.details_subheader_2")
+          ul.govuk-list.govuk-list--bullet
+            - t("question_flow.assets.valuables.details_bullets_2").each do |bullet|
+              li = bullet
 
-      = render "shared/money_input",
+        = render "shared/radio_button_set",
                 form:,
-                field: :valuables,
-                width: 5,
-                label_text: t("question_flow.assets.valuables.input")
+                field_name: :valuables_relevant,
+                buttons: [{ value: true,
+                        options: { label: { text: t("generic.yes_choice") },
+                                hint: -> { content_for(:amount_hidden_description) } } },
+                        { value: false, options: { label: { text: t("generic.no_choice") } } }]
 
-      - if show_smod_content
-        .govuk-form-group
-          = form.govuk_check_box :valuables_in_dispute, true, 0, multiple: false, label: { text: t("generic.dispute") }
+          = render "shared/money_input",
+                  form:,
+                  field: :valuables,
+                  width: 5,
+                  label_text: t("question_flow.#{i18n_key}.valuables.input")
 
-    - if show_smod_content
-      = render "smod_help"
+          - if show_smod_content
+            .govuk-form-group
+              = form.govuk_check_box :valuables_in_dispute, true, 0, multiple: false, label: { text: t("generic.dispute") }
+    - else
+      = form.govuk_fieldset legend: { text: t("question_flow.#{i18n_key}.valuables.label") } do
+
+        - if @check.partner && i18n_key == "assets"
+          - t("question_flow.assets.valuables.#{@check.level_of_help}_with_partner_hints").each
+            .govuk-hint = _1
+        - else
+          - t("question_flow.#{i18n_key}.valuables.#{@check.level_of_help}_hints").each
+            .govuk-hint = _1
+
+        = govuk_details(summary_text: t("question_flow.assets.valuables.details_header")) do
+          p.govuk-body = t("question_flow.assets.valuables.details_subheader_1")
+          ul.govuk-list.govuk-list--bullet
+            - t("question_flow.#{i18n_key}.valuables.details_bullets_1").each do |bullet|
+              li = bullet
+            - if @check.controlled?
+              li = t("question_flow.assets.valuables.controlled_details_bullets_1_addendum")
+          p.govuk-body = t("question_flow.assets.valuables.details_subheader_2")
+          ul.govuk-list.govuk-list--bullet
+            - t("question_flow.assets.valuables.details_bullets_2").each do |bullet|
+              li = bullet
+
+        = render "shared/money_input",
+                  form:,
+                  field: :valuables,
+                  width: 5,
+                  label_text: t("question_flow.assets.valuables.input")
+
+        - if show_smod_content
+          .govuk-form-group
+            = form.govuk_check_box :valuables_in_dispute, true, 0, multiple: false, label: { text: t("generic.dispute") }
 
     = form.govuk_submit t("generic.save_and_continue")
