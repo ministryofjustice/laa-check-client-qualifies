@@ -23,10 +23,6 @@ Rails.application.routes.draw do
   get "/auth/subdomain_redirect", to: "oauth_redirects#subdomain_redirect", as: :subdomain_redirect
   post "/auth/google/redirect", to: "oauth_redirects#google_redirect", as: :google_oauth_redirect
 
-  authenticate :admin, ->(admin) { admin.persisted? } do
-    mount Blazer::Engine, at: "data"
-  end
-
   # Catch and redirect old-format URLs
   get "estimates/:assessment_code/build_estimates/:step", to: "redirects#build_estimate"
   get "estimates/:assessment_code/check_answers/:step", to: "redirects#check"

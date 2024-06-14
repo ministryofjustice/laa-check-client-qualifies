@@ -186,12 +186,6 @@ The iOS screenreader, was also having difficulty announcing the numbers in our t
 
 Call this method (with the relevant arguments, for this method’s parameters) anytime you want to create a table cell with a number in it, for the use in a PDF.
 
-### Data analysis
-
-We use Blazer for our Cloud Platform environments.
-You can access the UI at `/data`, with username "blazer" and a password that is stored in 1Password alongside the other secrets for any given environment.
-Blazer has readonly access to the database so it can't accidentally be used to overwrite real data.
-
 ## Retrieving user-entered data for a given check
 
 User-entered values are stored in the session. However, rather than retrieve values directly from the session, most places retrieve them from associated
@@ -240,7 +234,6 @@ We keep secrets in AWS Secrets Manager. To edit them, visit the [AWS web console
 * NOTIFICATIONS_API_KEY
 * SECRET_KEY_BASE
 * GECKOBOARD_API_KEY
-* BLAZER_DATABASE_PASSWORD
 * BASIC_AUTH_PASSWORD
 * GOOGLE_OAUTH_CLIENT_SECRET
 
