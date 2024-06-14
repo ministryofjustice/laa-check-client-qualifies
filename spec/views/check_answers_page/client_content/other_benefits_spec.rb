@@ -37,7 +37,7 @@ RSpec.describe "checks/check_answers.html.slim" do
 
         it "renders the correct benefits content" do
           expect_in_text(text, [
-            "Does your client get any benefits?Yes",
+            "Does your client get any non-passporting benefits?Yes",
             "Client benefit 1 details",
             "Benefit nameChild Benefit",
             "Benefit amount£100.00",
@@ -62,7 +62,7 @@ RSpec.describe "checks/check_answers.html.slim" do
         let(:session_data) { build(:minimal_complete_session, receives_benefits: false) }
 
         it "renders content" do
-          expect(text).to include("Does your client get any benefits?No")
+          expect(text).to include("Does your client get any non-passporting benefits?No")
         end
       end
     end

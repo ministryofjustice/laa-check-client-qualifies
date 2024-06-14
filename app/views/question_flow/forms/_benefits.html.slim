@@ -1,10 +1,25 @@
 = form_for(@form, url: request.path, method: :put) do |form|
   = form.govuk_error_summary t("generic.error_summary_title")
   = form.govuk_radio_buttons_fieldset :receives_benefits,
-          legend:,
-          hint: { text: t("generic.benefits.hint") } do
+          legend: do
 
-    = render "shared/disregarded_benefits_details"
+    p.govuk-body
+      = t("generic.benefits.hint")
+
+    p.govuk-body
+      = t("generic.benefits.do_not_include")
+    p.govuk-body
+      ul.govuk-list.govuk-list--bullet
+        - t("generic.benefits.do_not_include_list").each do |item|
+          li
+            = item
+
+    = govuk_details(summary_text: t("cost_of_living_details.header"))
+      ul.govuk-list.govuk-list--bullet
+        - t("cost_of_living_details.list").each
+          li = _1
+
+    = render "shared/disregarded_benefits_details", level_of_help: @check.level_of_help
 
     = render "shared/radio_button_set",
                form:,

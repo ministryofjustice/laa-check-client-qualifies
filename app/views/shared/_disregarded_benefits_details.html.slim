@@ -1,7 +1,6 @@
-= govuk_details(summary_text: t("generic.disregarded_benefits.text")) do
-  - types = (%i[cost_of_living disregarded] + %i[disability low_income other])
-  - types.each do |benefit_type|
-    b = t("generic.disregarded_benefits.#{benefit_type}.text")
-    p.govuk-body
-      - t("generic.disregarded_benefits.#{benefit_type}.list_html").each do
-        div = _1
+p.govuk-body-m
+  = t("generic.disregarded_benefits.before_pdf_link")
+  = link_to t("generic.disregarded_benefits.#{level_of_help}.pdf_text"),
+    document_link(:"lc_guidance_#{level_of_help}", :disregarded_payments),
+        target: "_blank", rel: "noreferrer noopener", class: "govuk-link"
+  = "."
