@@ -113,3 +113,6 @@ google:
 
 metabase:
   enabled: false
+
+portal:
+  idp_metadata_file: config/saml/metadata/portal-idp-uat.xml
