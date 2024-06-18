@@ -79,15 +79,15 @@ private
   end
 
   def authenticate
-    return unless FeatureFlags.enabled?(:basic_authentication, without_session_data: true)
-
-    # MOJ DOM1 laptops have HTTP Basic Authentication disabled in Edge, so we provide our own
-    # 'basic authentication' UI
-    if cookies.signed[BASIC_AUTHENTICATION_COOKIE]
-      session["user_return_to"] = nil
-    else
-      session["user_return_to"] = request.path
-      redirect_to new_basic_authentication_session_path
+    if FeatureFlags.enabled?(:basic_authentication, without_session_data: true) && !request.path.ends_with?("callback")
+      # MOJ DOM1 laptops have HTTP Basic Authentication disabled in Edge, so we provide our own
+      # 'basic authentication' UI
+      if cookies.signed[BASIC_AUTHENTICATION_COOKIE]
+        session["user_return_to"] = nil
+      else
+        session["user_return_to"] = request.path
+        redirect_to new_basic_authentication_session_path
+      end
     end
   end
 
