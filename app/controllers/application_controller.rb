@@ -5,9 +5,10 @@ class ApplicationController < ActionController::Base
   before_action :force_setting_of_session_cookie,
                 :specify_feedback_widget,
                 :specify_freetext_feedback_page_name,
-                :authenticate,
                 :check_maintenance_mode,
                 :ensure_db_connection
+
+  before_action :authenticate, unless: -> { request.path.ends_with?("callback") }
 
   class MissingSessionError < StandardError; end
 
@@ -79,15 +80,15 @@ private
   end
 
   def authenticate
-    if FeatureFlags.enabled?(:basic_authentication, without_session_data: true) && !request.path.ends_with?("callback")
-      # MOJ DOM1 laptops have HTTP Basic Authentication disabled in Edge, so we provide our own
-      # 'basic authentication' UI
-      if cookies.signed[BASIC_AUTHENTICATION_COOKIE]
-        session["user_return_to"] = nil
-      else
-        session["user_return_to"] = request.path
-        redirect_to new_basic_authentication_session_path
-      end
+    return unless FeatureFlags.enabled?(:basic_authentication, without_session_data: true)
+
+    # MOJ DOM1 laptops have HTTP Basic Authentication disabled in Edge, so we provide our own
+    # 'basic authentication' UI
+    if cookies.signed[BASIC_AUTHENTICATION_COOKIE]
+      session["user_return_to"] = nil
+    else
+      session["user_return_to"] = request.path
+      redirect_to new_basic_authentication_session_path
     end
   end
 
