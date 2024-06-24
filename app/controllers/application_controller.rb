@@ -5,9 +5,10 @@ class ApplicationController < ActionController::Base
   before_action :force_setting_of_session_cookie,
                 :specify_feedback_widget,
                 :specify_freetext_feedback_page_name,
-                :authenticate,
                 :check_maintenance_mode,
                 :ensure_db_connection
+
+  before_action :authenticate, unless: -> { request.path.ends_with?("callback") }
 
   class MissingSessionError < StandardError; end
 

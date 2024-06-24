@@ -74,4 +74,15 @@ module ApplicationHelper
   def timestamp_for_filenames
     Time.zone.now.in_time_zone("London").strftime("%Y-%m-%d %Hh%Mm%Ss")
   end
+
+  def application_header
+    if signed_in? && current_provider.present?
+      govuk_header(homepage_url: "https://www.gov.uk", service_name: t("service.name"), service_url: root_path) do |header|
+        header.with_navigation_item(text: current_provider.email, href: nil, active: false, html_attributes: { aria: { role: "paragraph" } }, classes: "app-header__auth-user")
+        header.with_navigation_item(text: t(".sign_out"), href: providers_logout_path, active: false, html_attributes: { aria: { role: "button" } })
+      end
+    else
+      govuk_header(homepage_url: "https://www.gov.uk", service_name: t("service.name"), service_url: root_path)
+    end
+  end
 end
