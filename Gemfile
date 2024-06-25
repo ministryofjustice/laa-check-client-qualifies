@@ -32,7 +32,7 @@ gem "cssbundling-rails"
 
 # Add gems for sentry error reporting
 gem "sentry-ruby"
-gem "sentry-rails"
+gem "sentry-rails", ">= 5.18.0"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
@@ -75,7 +75,7 @@ group :development, :test do
 
   gem "simplecov", require: false
   gem "slim_lint"
-  gem "rubocop-govuk", require: false
+  gem "rubocop-govuk", ">= 5.0.0", require: false
   gem "rubocop-performance"
   gem "erb_lint"
   gem "parallel_tests"
