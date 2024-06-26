@@ -10,6 +10,6 @@ class AddBlazerPermissions < ActiveRecord::Migration[7.0]
       GRANT SELECT ON ALL TABLES IN SCHEMA public TO blazer;
       ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO blazer;
       COMMIT;",
-      )
+    )
   end
 end
