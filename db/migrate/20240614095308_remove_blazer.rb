@@ -45,6 +45,7 @@ class RemoveBlazer < ActiveRecord::Migration[7.1]
     end
 
     # remove read-only blazer role created in 20230426104843_add_blazer_permissions.rb
-    ApplicationRecord.connection.execute("DROP OWNED BY blazer; DROP ROLE blazer;")
+    ApplicationRecord.connection.execute("SELECT 'DROP OWNED BY blazer' FROM pg_roles WHERE rolname = 'blazer\gexec';")
+    ApplicationRecord.connection.execute("DROP ROLE if exists blazer;")
   end
 end
