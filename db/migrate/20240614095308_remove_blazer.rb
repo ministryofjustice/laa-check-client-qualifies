@@ -45,7 +45,14 @@ class RemoveBlazer < ActiveRecord::Migration[7.1]
     end
 
     # remove read-only blazer role created in 20230426104843_add_blazer_permissions.rb
-    ApplicationRecord.connection.execute("SELECT 'DROP OWNED BY blazer' FROM pg_roles WHERE rolname = 'blazer\gexec';")
+    # https://stackoverflow.com/questions/65585493/how-to-execute-drop-owned-by-only-if-the-user-exists
+    drop_owned = ApplicationRecord.connection.execute("SELECT 'DROP OWNED BY blazer' AS a FROM pg_roles WHERE rolname = 'blazer';")
+
+    # check number of SQL rows affected (which is same as rows returned)
+    if drop_owned.cmd_tuples.positive?
+      # The 'a' here is the same as the 'AS a' in the above select statement
+      ApplicationRecord.connection.execute(drop_owned[0]["a"])
+    end
     ApplicationRecord.connection.execute("DROP ROLE if exists blazer;")
   end
 end
