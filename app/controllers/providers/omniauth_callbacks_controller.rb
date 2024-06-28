@@ -9,6 +9,8 @@ module Providers
       # office_codes: info_hash['office_codes'],
       # roles: info_hash['roles']
 
+      # we don't need to check here that the user has role 'CCQ' but we might need to
+      # double-check whether this a correct assumption (and that portal doesn't enforce this)
       sign_in_and_redirect provider, event: :authentication
     end
 

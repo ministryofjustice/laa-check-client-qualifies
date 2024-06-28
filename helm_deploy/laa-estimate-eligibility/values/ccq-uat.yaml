@@ -116,3 +116,4 @@ metabase:
 
 portal:
   idp_metadata_file: config/saml/metadata/portal-idp-uat.xml
+  x509_cert_file: config/saml/certificates/cert-uat.xml

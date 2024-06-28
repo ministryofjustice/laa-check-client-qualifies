@@ -135,6 +135,8 @@ env:
       secretKeyRef:
         name: portal-secrets
         key: X509_KEY
+  - name: LAA_PORTAL_X509_CERT
+    value: {{ .Values.portal.x509_cert_file }}
   - name: LAA_PORTAL_IDP_METADATA_FILE
     value: {{ .Values.portal.idp_metadata_file }}
   - name: SEED_ADMINS

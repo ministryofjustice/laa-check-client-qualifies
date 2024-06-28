@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     post "/providers/sign_in" => "providers/sessions#create", as: :provider_session
     get "/providers/sign_out", to: "providers/sessions#destroy", as: :providers_logout
 
+    # get callback only happens during tests - real IDP (SAML 2.0) only uses POST
     match "/providers/auth/saml/callback" => "providers/omniauth_callbacks#saml", via: %i[get post], as: :provider_saml_omniauth_callback
   end
 
