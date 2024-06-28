@@ -52,6 +52,7 @@ gem "geckoboard-ruby"
 
 gem "pdf-forms"
 gem "rexml"
+gem "blazer"
 gem "factory_bot_rails"
 
 gem "hexapdf"

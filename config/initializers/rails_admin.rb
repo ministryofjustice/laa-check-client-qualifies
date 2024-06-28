@@ -57,6 +57,11 @@ RailsAdmin.config do |config|
   config.excluded_models.push(
     "AnalyticsEvent",
     "CompletedUserJourney",
+    "Blazer::Audit",
+    "Blazer::Check",
+    "Blazer::Dashboard",
+    "Blazer::DashboardQuery",
+    "Blazer::Query",
     "ActiveStorage::Attachment",
     "ActiveStorage::Blob",
     "ActiveStorage::VariantRecord",
