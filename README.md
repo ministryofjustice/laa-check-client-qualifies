@@ -263,8 +263,8 @@ The current values for these are available as secure notes in 1Password for each
 ```
 
 ### Metadata files
-  The metadata files are required by the portal team before they can do their integration - this is a little checken-and-egf
-  situation as the metadata files are produced by our Rails code at the url <hostname>:/auth/saml/metadata 
+  The metadata files are required by the portal team before they can do their integration - this is a little chicken-and-egg
+  situation as the metadata files are produced by our Rails code at the url <hostname>:/providers/auth/saml/metadata 
 
   We also store the portal metadata files in our repository - they are in the Portal GitHub, but their repo is private so
   we can't easily get to them without creating a github access key - it was easier just to copy and paste their config files
