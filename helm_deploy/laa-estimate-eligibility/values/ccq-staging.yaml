@@ -93,4 +93,4 @@ metabase:
 
 portal:
   idp_metadata_file: config/saml/metadata/portal-idp-stg.xml
-  x509_cert_file: config/saml/certificates/cert-staging.xml
+  x509_cert_file: cert-staging.xml
