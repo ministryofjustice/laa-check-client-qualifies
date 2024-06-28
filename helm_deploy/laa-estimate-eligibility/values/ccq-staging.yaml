@@ -90,3 +90,6 @@ google:
 
 metabase:
   enabled: true
+
+portal:
+ idp_metadata_file: config/saml/metadata/portal-idp-stg.xml
