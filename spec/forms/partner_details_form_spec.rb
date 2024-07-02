@@ -18,6 +18,6 @@ RSpec.describe "partner_details", type: :feature do
     choose "Yes", name: "partner_details_form[over_60]"
     click_on "Save and continue"
 
-    expect(session_contents["partner_over_60"]).to eq true
+    expect(session_contents["partner_over_60"]).to be true
   end
 end

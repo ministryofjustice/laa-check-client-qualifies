@@ -20,7 +20,7 @@ RSpec.describe JourneyLogUpdateService do
       it "saves the new details to the database" do
         record = create :completed_user_journey, assessment_id:, form_downloaded: false
         described_class.call(assessment_id, {}, form_downloaded: true)
-        expect(record.reload.form_downloaded).to eq true
+        expect(record.reload.form_downloaded).to be true
       end
     end
   end

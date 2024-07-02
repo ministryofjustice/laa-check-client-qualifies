@@ -9,9 +9,7 @@ RSpec.describe "Feature flags" do
 
   context "when in readonly mode" do
     before do
-      allow(FeatureFlags).to receive(:static).and_return(%i[static_flag])
-      allow(FeatureFlags).to receive(:time_dependant).and_return(%i[time_dependant_flag])
-      allow(FeatureFlags).to receive(:enabled?).and_return(false)
+      allow(FeatureFlags).to receive_messages(static: %i[static_flag], time_dependant: %i[time_dependant_flag], enabled?: false)
       allow(FeatureFlags).to receive(:enabled?).with(:static_flag, without_session_data: true).and_return(true)
       allow(FeatureFlags).to receive(:enabled?).with(:time_dependant_flag, without_session_data: true).and_return(false)
     end

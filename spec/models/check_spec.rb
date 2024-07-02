@@ -3,15 +3,15 @@ require "rails_helper"
 RSpec.describe Check do
   describe "#respond_to?" do
     it "returns true for a defined method" do
-      expect(described_class.new.respond_to?(:level_of_help)).to eq true
+      expect(described_class.new.respond_to?(:level_of_help)).to be true
     end
 
     it "returns true for an inferred method" do
-      expect(described_class.new.respond_to?(:employment_status)).to eq true
+      expect(described_class.new.respond_to?(:employment_status)).to be true
     end
 
     it "returns false for a non-existent method" do
-      expect(described_class.new.respond_to?(:nonsense)).to eq false
+      expect(described_class.new.respond_to?(:nonsense)).to be false
     end
   end
 
@@ -33,7 +33,7 @@ RSpec.describe Check do
           ],
         },
       )
-      expect(check.any_smod_assets?).to eq true
+      expect(check.any_smod_assets?).to be true
     end
 
     it "returns true if there's a SMOD property" do
@@ -47,7 +47,7 @@ RSpec.describe Check do
           ],
         },
       )
-      expect(check.any_smod_assets?).to eq true
+      expect(check.any_smod_assets?).to be true
     end
   end
 end

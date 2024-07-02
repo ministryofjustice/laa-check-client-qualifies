@@ -18,7 +18,7 @@ RSpec.describe ErrorService, :throws_cfe_error do
       before { allow(FeatureFlags).to receive(:enabled?).with(:sentry, without_session_data: true).and_return(false) }
 
       it "passes the exception to ExceptionNotifier" do
-        notifier = instance_double("ExceptionNotifier::TemplatedNotifier")
+        notifier = instance_double(ExceptionNotifier::TemplatedNotifier)
         allow(ExceptionNotifier::TemplatedNotifier).to receive(:new).and_return(notifier)
         expect(notifier).to receive(:call).with(exception)
         described_class.call(exception)

@@ -11,7 +11,7 @@ RSpec.describe CalculationResult do
       main_home: FactoryBot.build(:property_api_result, value: 0),
     )
 
-    expect(described_class.new("api_response" => data).client_owns_main_home?).to eq false
+    expect(described_class.new("api_response" => data).client_owns_main_home?).to be false
   end
 
   describe "#client_main_home_rows" do

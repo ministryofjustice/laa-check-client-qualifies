@@ -17,6 +17,6 @@ RSpec.describe "vehicle", type: :feature do
     choose "Yes"
     click_on "Save and continue"
 
-    expect(session_contents["vehicle_owned"]).to eq true
+    expect(session_contents["vehicle_owned"]).to be true
   end
 end

@@ -4,12 +4,12 @@ RSpec.describe FeatureFlags do
   describe "example_2125_flag flag" do
     it "returns false before it comes into effect" do
       travel_to "2124-12-31"
-      expect(described_class.enabled?(:example_2125_flag, without_session_data: true)).to eq false
+      expect(described_class.enabled?(:example_2125_flag, without_session_data: true)).to be false
     end
 
     it "returns true when it comes into effect" do
       travel_to "2125-01-01"
-      expect(described_class.enabled?(:example_2125_flag, without_session_data: true)).to eq true
+      expect(described_class.enabled?(:example_2125_flag, without_session_data: true)).to be true
     end
   end
 
@@ -24,14 +24,14 @@ RSpec.describe FeatureFlags do
       end
 
       it "defaults to global flag when the flag does not exist in the session_data" do
-        expect(described_class.enabled?(:sentry, session_data)).to eq true
+        expect(described_class.enabled?(:sentry, session_data)).to be true
       end
 
       context "when flag is specified in the session_data" do
         let(:session_data) { { "feature_flags" => { "sentry" => false } } }
 
         it "returns the value from the session_data" do
-          expect(described_class.enabled?(:sentry, session_data)).to eq false
+          expect(described_class.enabled?(:sentry, session_data)).to be false
         end
       end
 
@@ -39,7 +39,7 @@ RSpec.describe FeatureFlags do
         let(:session_data) { {} }
 
         it "returns the global value" do
-          expect(described_class.enabled?(:sentry, session_data)).to eq true
+          expect(described_class.enabled?(:sentry, session_data)).to be true
         end
       end
     end
@@ -77,13 +77,13 @@ RSpec.describe FeatureFlags do
     end
 
     it "returns true if the env var is set" do
-      expect(described_class.overrideable?).to eq true
+      expect(described_class.overrideable?).to be true
     end
 
     it "allows DB overrides to override values" do
-      expect(described_class.enabled?(:example, without_session_data: true)).to eq false
+      expect(described_class.enabled?(:example, without_session_data: true)).to be false
       FeatureFlagOverride.create! key: "example", value: true
-      expect(described_class.enabled?(:example, without_session_data: true)).to eq true
+      expect(described_class.enabled?(:example, without_session_data: true)).to be true
     end
   end
 end

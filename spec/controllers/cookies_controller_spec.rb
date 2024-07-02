@@ -47,7 +47,7 @@ RSpec.describe CookiesController, type: :controller do
     it "deletes an existing browser id cookie if cookies are rejected" do
       cookies[:browser_id] = "FOO"
       patch :update, params: { cookies: "reject" }
-      expect(response.cookies[:browser_id]).to eq nil
+      expect(response.cookies[:browser_id]).to be_nil
     end
   end
 end

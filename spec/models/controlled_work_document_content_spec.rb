@@ -48,7 +48,7 @@ RSpec.describe ControlledWorkDocumentContent do
             },
           },
         }
-        expect(described_class.new(session_data).non_smod_additional_properties_percentage_owned).to eq nil
+        expect(described_class.new(session_data).non_smod_additional_properties_percentage_owned).to be_nil
       end
     end
   end
@@ -86,13 +86,13 @@ RSpec.describe ControlledWorkDocumentContent do
 
     describe "#client_rent" do
       it "returns nil" do
-        expect(described_class.new(session_data).client_rent).to eq nil
+        expect(described_class.new(session_data).client_rent).to be_nil
       end
     end
 
     describe "#partner_rent" do
       it "returns nil" do
-        expect(described_class.new(session_data).partner_rent).to eq nil
+        expect(described_class.new(session_data).partner_rent).to be_nil
       end
     end
   end
@@ -117,13 +117,13 @@ RSpec.describe ControlledWorkDocumentContent do
 
     describe "#client_mortgage" do
       it "returns zero" do
-        expect(described_class.new(session_data).client_mortgage).to eq nil
+        expect(described_class.new(session_data).client_mortgage).to be_nil
       end
     end
 
     describe "#partner_mortgage" do
       it "returns zero" do
-        expect(described_class.new(session_data).partner_mortgage).to eq nil
+        expect(described_class.new(session_data).partner_mortgage).to be_nil
       end
     end
 
@@ -213,37 +213,37 @@ RSpec.describe ControlledWorkDocumentContent do
       describe "smod methods" do
         describe "#smod_main_home_value" do
           it "returns a response" do
-            expect(described_class.new(session_data).smod_main_home_value).to eq nil
+            expect(described_class.new(session_data).smod_main_home_value).to be_nil
           end
         end
 
         describe "smod_main_home_outstanding_mortgage" do
           it "returns a response" do
-            expect(described_class.new(session_data).smod_main_home_outstanding_mortgage).to eq nil
+            expect(described_class.new(session_data).smod_main_home_outstanding_mortgage).to be_nil
           end
         end
 
         describe "smod_main_home_percentage_owned" do
           it "returns a response" do
-            expect(described_class.new(session_data).smod_main_home_percentage_owned).to eq nil
+            expect(described_class.new(session_data).smod_main_home_percentage_owned).to be_nil
           end
         end
 
         describe "smod_main_home_net_value" do
           it "returns a response" do
-            expect(described_class.new(session_data).smod_main_home_net_value).to eq nil
+            expect(described_class.new(session_data).smod_main_home_net_value).to be_nil
           end
         end
 
         describe "smod_main_home_assessed_equity" do
           it "returns a response" do
-            expect(described_class.new(session_data).smod_main_home_assessed_equity).to eq nil
+            expect(described_class.new(session_data).smod_main_home_assessed_equity).to be_nil
           end
         end
 
         describe "smod_main_home_net_equity" do
           it "returns a response" do
-            expect(described_class.new(session_data).smod_main_home_net_equity).to eq nil
+            expect(described_class.new(session_data).smod_main_home_net_equity).to be_nil
           end
         end
       end
@@ -262,13 +262,13 @@ RSpec.describe ControlledWorkDocumentContent do
 
       describe "#smod_assets?" do
         it "returns no response" do
-          expect(described_class.new(session_data).smod_assets?).to eq nil
+          expect(described_class.new(session_data).smod_assets?).to be_nil
         end
       end
 
       describe "#combined_non_disputed_capital?" do
         it "returns nil" do
-          expect(described_class.new(session_data).combined_non_disputed_capital).to eq nil
+          expect(described_class.new(session_data).combined_non_disputed_capital).to be_nil
         end
       end
     end

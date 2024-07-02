@@ -10,7 +10,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
   it "retrieves values from the session based on mappings" do
     mappings = [{ section: "general", fields: [{ name: "foo", type: "text", source: "aggregate_partner?" }] }]
     session_data = { "partner" => "true" }
-    expect(described_class.call(session_data, mappings)["foo"]).to eq true
+    expect(described_class.call(session_data, mappings)["foo"]).to be true
   end
 
   it "raises an error if an unrecognised section is found" do

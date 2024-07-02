@@ -39,8 +39,8 @@ RSpec.describe "outgoings", type: :feature do
 
     click_on "Save and continue"
 
-    expect(session_contents["legal_aid_payments_relevant"]).to eq false
-    expect(session_contents["maintenance_payments_relevant"]).to eq true
+    expect(session_contents["legal_aid_payments_relevant"]).to be false
+    expect(session_contents["maintenance_payments_relevant"]).to be true
     expect(session_contents["maintenance_payments_conditional_value"]).to eq 300
     expect(session_contents["maintenance_payments_frequency"]).to eq "every_two_weeks"
   end
