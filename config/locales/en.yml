@@ -1543,7 +1543,7 @@ en:
         label: Does the partner have any investments?
         hints:
           - For example, shares in a public limited company, unit trusts or capital bonds.
-          - Do not include any investments if you entered them as your client's assets on the previous page.
+          - Do not include any investments already entered for your client.
         input: Total of all investments
       valuables:
         input: Total of all valuable items
