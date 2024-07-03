@@ -19,6 +19,6 @@ RSpec.describe "aggregated_means", type: :feature do
   it "stores the chosen value in the session" do
     choose "Yes"
     click_on "Save and continue"
-    expect(session_contents["aggregated_means"]).to eq true
+    expect(session_contents["aggregated_means"]).to be true
   end
 end

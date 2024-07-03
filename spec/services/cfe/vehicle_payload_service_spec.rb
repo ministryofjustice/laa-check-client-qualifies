@@ -83,7 +83,7 @@ RSpec.describe Cfe::VehiclePayloadService do
 
       it "does not add SMOD to the payload" do
         described_class.call(session_data, payload, relevant_steps)
-        expect(payload.dig(:vehicles, 0, :subject_matter_of_dispute)).to eq false
+        expect(payload.dig(:vehicles, 0, :subject_matter_of_dispute)).to be false
       end
     end
   end

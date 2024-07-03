@@ -27,8 +27,8 @@ RSpec.describe "applicant", type: :feature do
     choose "Yes", name: "applicant_form[passporting]"
     click_on "Save and continue"
 
-    expect(session_contents["partner"]).to eq true
-    expect(session_contents["passporting"]).to eq true
+    expect(session_contents["partner"]).to be true
+    expect(session_contents["passporting"]).to be true
   end
 
   it "shows help text about prisons" do

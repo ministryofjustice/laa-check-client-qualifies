@@ -17,6 +17,6 @@ RSpec.describe "domestic_abuse_applicant", type: :feature do
   it "stores the chosen value in the session" do
     choose "Yes"
     click_on "Save and continue"
-    expect(session_contents["domestic_abuse_applicant"]).to eq true
+    expect(session_contents["domestic_abuse_applicant"]).to be true
   end
 end

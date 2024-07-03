@@ -20,7 +20,7 @@ RSpec.describe ChildcareEligibilityService do
       let(:income_type) { "employment" }
 
       it "returns true" do
-        expect(described_class.call(check)).to eq true
+        expect(described_class.call(check)).to be true
       end
     end
 
@@ -28,7 +28,7 @@ RSpec.describe ChildcareEligibilityService do
       let(:income_type) { "self_employment" }
 
       it "returns true" do
-        expect(described_class.call(check)).to eq true
+        expect(described_class.call(check)).to be true
       end
     end
 
@@ -36,7 +36,7 @@ RSpec.describe ChildcareEligibilityService do
       let(:income_type) { "statutory_pay" }
 
       it "returns false" do
-        expect(described_class.call(check)).to eq false
+        expect(described_class.call(check)).to be false
       end
     end
   end
@@ -52,7 +52,7 @@ RSpec.describe ChildcareEligibilityService do
     end
 
     it "returns true" do
-      expect(described_class.call(check)).to eq true
+      expect(described_class.call(check)).to be true
     end
   end
 
@@ -67,7 +67,7 @@ RSpec.describe ChildcareEligibilityService do
     end
 
     it "returns false" do
-      expect(described_class.call(check)).to eq false
+      expect(described_class.call(check)).to be false
     end
   end
 
@@ -82,7 +82,7 @@ RSpec.describe ChildcareEligibilityService do
     end
 
     it "returns false" do
-      expect(described_class.call(check)).to eq false
+      expect(described_class.call(check)).to be false
     end
   end
 
@@ -98,7 +98,7 @@ RSpec.describe ChildcareEligibilityService do
     end
 
     it "returns false" do
-      expect(described_class.call(check)).to eq false
+      expect(described_class.call(check)).to be false
     end
   end
 
@@ -114,7 +114,7 @@ RSpec.describe ChildcareEligibilityService do
     end
 
     it "returns true" do
-      expect(described_class.call(check)).to eq true
+      expect(described_class.call(check)).to be true
     end
   end
 
@@ -133,7 +133,7 @@ RSpec.describe ChildcareEligibilityService do
     end
 
     it "returns true" do
-      expect(described_class.call(check)).to eq true
+      expect(described_class.call(check)).to be true
     end
   end
 end

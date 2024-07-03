@@ -50,7 +50,7 @@ RSpec.describe "cw_selection", type: :feature do
       )
     end
 
-    it " does not show the alert when there is no pensioner disregard applied" do
+    it "does not show the alert when there is no pensioner disregard applied" do
       expect(page).not_to have_content "60 or over disregard (also known as the pensioner disregard)"
     end
   end

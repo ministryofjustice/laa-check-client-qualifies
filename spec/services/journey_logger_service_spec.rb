@@ -18,16 +18,16 @@ RSpec.describe JourneyLoggerService do
       it "saves the right details to the database" do
         described_class.call(assessment_id, calculation_result, check, {})
         output = CompletedUserJourney.find_by(assessment_id:)
-        expect(output.certificated).to eq false
-        expect(output.partner).to eq false
-        expect(output.passported).to eq false
-        expect(output.main_dwelling_owned).to eq false
-        expect(output.vehicle_owned).to eq false
-        expect(output.smod_assets).to eq false
+        expect(output.certificated).to be false
+        expect(output.partner).to be false
+        expect(output.passported).to be false
+        expect(output.main_dwelling_owned).to be false
+        expect(output.vehicle_owned).to be false
+        expect(output.smod_assets).to be false
         expect(output.outcome).to eq "ineligible"
-        expect(output.capital_contribution).to eq false
-        expect(output.income_contribution).to eq false
-        expect(output.asylum_support).to eq false
+        expect(output.capital_contribution).to be false
+        expect(output.income_contribution).to be false
+        expect(output.asylum_support).to be false
         expect(output.matter_type).to eq "asylum"
         expect(output.session.with_indifferent_access).to eq session_data
       end
@@ -64,16 +64,16 @@ RSpec.describe JourneyLoggerService do
       it "saves the right details to the database" do
         described_class.call(assessment_id, calculation_result, check, {})
         output = CompletedUserJourney.find_by(assessment_id:)
-        expect(output.certificated).to eq true
-        expect(output.partner).to eq true
-        expect(output.person_over_60).to eq true
-        expect(output.passported).to eq false
-        expect(output.main_dwelling_owned).to eq true
-        expect(output.vehicle_owned).to eq true
-        expect(output.smod_assets).to eq true
+        expect(output.certificated).to be true
+        expect(output.partner).to be true
+        expect(output.person_over_60).to be true
+        expect(output.passported).to be false
+        expect(output.main_dwelling_owned).to be true
+        expect(output.vehicle_owned).to be true
+        expect(output.smod_assets).to be true
         expect(output.outcome).to eq "contribution_required"
-        expect(output.capital_contribution).to eq true
-        expect(output.income_contribution).to eq true
+        expect(output.capital_contribution).to be true
+        expect(output.income_contribution).to be true
       end
     end
 
@@ -87,7 +87,7 @@ RSpec.describe JourneyLoggerService do
       it "correctly tracks this" do
         described_class.call(assessment_id, calculation_result, check, {})
         output = CompletedUserJourney.find_by(assessment_id:)
-        expect(output.passported).to eq true
+        expect(output.passported).to be true
       end
     end
 
@@ -105,8 +105,8 @@ RSpec.describe JourneyLoggerService do
       it "correctly identifies that there are no smod assets" do
         described_class.call(assessment_id, calculation_result, check, {})
         output = CompletedUserJourney.find_by(assessment_id:)
-        expect(output.smod_assets).to eq false
-        expect(output.asylum_support).to eq false
+        expect(output.smod_assets).to be false
+        expect(output.asylum_support).to be false
       end
 
       context "when asylum supported" do
@@ -121,7 +121,7 @@ RSpec.describe JourneyLoggerService do
         it "tracks asylum support" do
           described_class.call(assessment_id, calculation_result, check, {})
           output = CompletedUserJourney.find_by(assessment_id:)
-          expect(output.asylum_support).to eq true
+          expect(output.asylum_support).to be true
         end
       end
 
@@ -164,7 +164,7 @@ RSpec.describe JourneyLoggerService do
       it "updates an existing record" do
         existing_record = FactoryBot.create(:completed_user_journey, assessment_id:, partner: true)
         described_class.call(assessment_id, calculation_result, check, {})
-        expect(existing_record.reload.partner).to eq false
+        expect(existing_record.reload.partner).to be false
       end
     end
 

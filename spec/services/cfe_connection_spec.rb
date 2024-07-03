@@ -9,7 +9,7 @@ RSpec.describe CfeConnection do
 
   describe "#assess" do
     it "reformats raised errors" do
-      faraday_client = instance_double("MockableFaradayClient")
+      faraday_client = instance_double(MockableFaradayClient)
       allow(connection).to receive(:cfe_connection).and_return faraday_client
       allow(faraday_client).to receive(:post).and_return(OpenStruct.new(
                                                            status: 422,
@@ -56,7 +56,7 @@ RSpec.describe CfeConnection do
     end
 
     it "returns an empty array if CFE returns an error" do
-      faraday_client = instance_double("MockableFaradayClient")
+      faraday_client = instance_double(MockableFaradayClient)
       allow(connection).to receive(:cfe_connection).and_return faraday_client
       allow(faraday_client).to receive(:get).and_raise("Unexpected error")
       expect(connection.state_benefit_types).to eq []

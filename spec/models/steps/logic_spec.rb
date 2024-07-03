@@ -9,7 +9,7 @@ RSpec.describe Steps::Logic do
         "immigration_or_asylum_type_upper_tribunal" => "immigration_upper",
       }
 
-      expect(described_class.employed?(session_data)).to eq false
+      expect(described_class.employed?(session_data)).to be false
     end
   end
 
@@ -20,7 +20,7 @@ RSpec.describe Steps::Logic do
         "receives_benefits" => true,
       }
 
-      expect(described_class.benefits?(session_data)).to eq false
+      expect(described_class.benefits?(session_data)).to be false
     end
   end
 
@@ -30,7 +30,7 @@ RSpec.describe Steps::Logic do
         "partner" => false,
       }
 
-      expect(described_class.partner_owns_additional_property?(session_data)).to eq false
+      expect(described_class.partner_owns_additional_property?(session_data)).to be false
     end
   end
 
@@ -41,7 +41,7 @@ RSpec.describe Steps::Logic do
         "partner_employment_status" => "in_work",
       }
 
-      expect(described_class.partner_employed?(session_data)).to eq false
+      expect(described_class.partner_employed?(session_data)).to be false
     end
   end
 
@@ -52,7 +52,7 @@ RSpec.describe Steps::Logic do
         "partner_receives_benefits" => true,
       }
 
-      expect(described_class.partner_benefits?(session_data)).to eq false
+      expect(described_class.partner_benefits?(session_data)).to be false
     end
   end
 
@@ -63,7 +63,7 @@ RSpec.describe Steps::Logic do
         "partner_receives_benefits" => true,
       }
 
-      expect(described_class.dependants?(session_data)).to eq false
+      expect(described_class.dependants?(session_data)).to be false
     end
   end
 
@@ -74,7 +74,7 @@ RSpec.describe Steps::Logic do
         "partner_receives_benefits" => true,
       }
 
-      expect(described_class.dependants_get_income?(session_data)).to eq false
+      expect(described_class.dependants_get_income?(session_data)).to be false
     end
   end
 end

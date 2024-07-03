@@ -70,19 +70,19 @@ RSpec.describe "other_income", :stub_cfe_calls, type: :feature do
 
     click_on "Save and continue"
 
-    expect(session_contents["friends_or_family_relevant"]).to eq false
-    expect(session_contents["maintenance_relevant"]).to eq true
+    expect(session_contents["friends_or_family_relevant"]).to be false
+    expect(session_contents["maintenance_relevant"]).to be true
     expect(session_contents["maintenance_conditional_value"]).to eq 300
     expect(session_contents["maintenance_frequency"]).to eq "every_two_weeks"
-    expect(session_contents["property_or_lodger_relevant"]).to eq true
+    expect(session_contents["property_or_lodger_relevant"]).to be true
     expect(session_contents["property_or_lodger_conditional_value"]).to eq 45
     expect(session_contents["property_or_lodger_frequency"]).to eq "every_week"
-    expect(session_contents["pension_relevant"]).to eq true
+    expect(session_contents["pension_relevant"]).to be true
     expect(session_contents["pension_conditional_value"]).to eq 34
     expect(session_contents["pension_frequency"]).to eq "monthly"
-    expect(session_contents["student_finance_relevant"]).to eq true
+    expect(session_contents["student_finance_relevant"]).to be true
     expect(session_contents["student_finance_conditional_value"]).to eq 100
-    expect(session_contents["other_relevant"]).to eq true
+    expect(session_contents["other_relevant"]).to be true
     expect(session_contents["other_conditional_value"]).to eq 67
   end
 end

@@ -132,7 +132,7 @@ RSpec.describe Cfe::AssetsPayloadService do
       let(:relevant_steps) { [:asylum_support] }
 
       it "does not populate the payload" do
-        expect(payload[:capitals]).to eq nil
+        expect(payload[:capitals]).to be_nil
       end
     end
 
@@ -145,7 +145,7 @@ RSpec.describe Cfe::AssetsPayloadService do
       let(:relevant_steps) { [] }
 
       it "does not populate the payload" do
-        expect(payload[:properties]).to eq nil
+        expect(payload[:properties]).to be_nil
       end
     end
 
@@ -290,8 +290,8 @@ RSpec.describe Cfe::AssetsPayloadService do
       let(:relevant_steps) { %i[assets property_entry] }
 
       it "does not include SMOD in the payload" do
-        expect(payload.dig(:properties, :main_home, :subject_matter_of_dispute)).to eq false
-        expect(payload.dig(:capitals, :bank_accounts, 0, :subject_matter_of_dispute)).to eq false
+        expect(payload.dig(:properties, :main_home, :subject_matter_of_dispute)).to be false
+        expect(payload.dig(:capitals, :bank_accounts, 0, :subject_matter_of_dispute)).to be false
       end
     end
 
@@ -309,8 +309,8 @@ RSpec.describe Cfe::AssetsPayloadService do
       let(:relevant_steps) { %i[assets property_entry] }
 
       it "does not include SMOD in the payload" do
-        expect(payload.dig(:properties, :main_home, :subject_matter_of_dispute)).to eq false
-        expect(payload.dig(:capitals, :bank_accounts, 0, :subject_matter_of_dispute)).to eq false
+        expect(payload.dig(:properties, :main_home, :subject_matter_of_dispute)).to be false
+        expect(payload.dig(:capitals, :bank_accounts, 0, :subject_matter_of_dispute)).to be false
       end
     end
 
@@ -329,7 +329,7 @@ RSpec.describe Cfe::AssetsPayloadService do
       let(:relevant_steps) { [] }
 
       it "does not additional property data" do
-        expect(payload[:properties]).to eq(nil)
+        expect(payload[:properties]).to be_nil
       end
     end
 
@@ -350,7 +350,7 @@ RSpec.describe Cfe::AssetsPayloadService do
       let(:relevant_steps) { Steps::Helper.relevant_steps(session_data) }
 
       it "returns correct result" do
-        expect(payload[:capitals]).to eq nil
+        expect(payload[:capitals]).to be_nil
       end
     end
   end

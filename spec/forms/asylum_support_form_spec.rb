@@ -19,7 +19,7 @@ RSpec.describe "asylum_support", type: :feature do
   it "stores the chosen value in the session" do
     choose "Yes"
     click_on "Save and continue"
-    expect(session_contents["asylum_support"]).to eq true
+    expect(session_contents["asylum_support"]).to be true
   end
 
   it "has no extra piece of guidance" do

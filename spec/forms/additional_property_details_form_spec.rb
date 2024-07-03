@@ -22,7 +22,7 @@ RSpec.describe "additional_property_details", type: :feature do
     stored_values = session_contents["additional_properties"][0]
     expect(stored_values["house_value"]).to eq 100_000
     expect(stored_values["percentage_owned"]).to eq 10
-    expect(stored_values["house_in_dispute"]).to eq true
+    expect(stored_values["house_in_dispute"]).to be true
   end
 
   context "when client has a partner" do

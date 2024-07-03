@@ -23,11 +23,11 @@ RSpec.describe "vehicles_details", type: :feature do
     check "This asset is a subject matter of dispute", id: "1-vehicle_in_dispute"
     click_on "Save and continue"
     expect(session_contents.dig("vehicles", 0, "vehicle_value")).to eq 123
-    expect(session_contents.dig("vehicles", 0, "vehicle_pcp")).to eq true
+    expect(session_contents.dig("vehicles", 0, "vehicle_pcp")).to be true
     expect(session_contents.dig("vehicles", 0, "vehicle_finance")).to eq 456
-    expect(session_contents.dig("vehicles", 0, "vehicle_over_3_years_ago")).to eq true
-    expect(session_contents.dig("vehicles", 0, "vehicle_in_regular_use")).to eq true
-    expect(session_contents.dig("vehicles", 0, "vehicle_in_dispute")).to eq true
+    expect(session_contents.dig("vehicles", 0, "vehicle_over_3_years_ago")).to be true
+    expect(session_contents.dig("vehicles", 0, "vehicle_in_regular_use")).to be true
+    expect(session_contents.dig("vehicles", 0, "vehicle_in_dispute")).to be true
   end
 
   context "when this is an immigration check" do

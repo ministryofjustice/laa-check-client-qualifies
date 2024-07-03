@@ -38,7 +38,7 @@ RSpec.describe "partner_outgoings", type: :feature do
 
     click_on "Save and continue"
 
-    expect(session_contents["partner_legal_aid_payments_relevant"]).to eq false
+    expect(session_contents["partner_legal_aid_payments_relevant"]).to be false
     expect(session_contents["partner_maintenance_payments_conditional_value"]).to eq 400
     expect(session_contents["partner_maintenance_payments_frequency"]).to eq "monthly"
   end

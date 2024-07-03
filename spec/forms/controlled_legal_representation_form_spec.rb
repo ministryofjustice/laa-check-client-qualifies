@@ -19,6 +19,6 @@ RSpec.describe "under_18_clr", type: :feature do
   it "stores the chosen value in the session" do
     choose "Yes"
     click_on "Save and continue"
-    expect(session_contents["controlled_legal_representation"]).to eq true
+    expect(session_contents["controlled_legal_representation"]).to be true
   end
 end

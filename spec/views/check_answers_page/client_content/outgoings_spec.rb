@@ -11,10 +11,10 @@ RSpec.describe "checks/check_answers.html.slim" do
     render template: "checks/check_answers"
   end
 
-  describe "client sections: " do
+  describe "client sections:" do
     let(:text) { page_text }
 
-    describe "outgoings: " do
+    describe "outgoings:" do
       context "when multiple outgoings" do
         let(:session_data) do
           build(:minimal_complete_session,

@@ -36,7 +36,7 @@ RSpec.describe "property_entry", type: :feature do
 
     expect(session_contents["house_value"]).to eq 100_000
     expect(session_contents["percentage_owned"]).to eq 10
-    expect(session_contents["house_in_dispute"]).to eq true
+    expect(session_contents["house_in_dispute"]).to be true
   end
 
   context "when client has a mortgage" do

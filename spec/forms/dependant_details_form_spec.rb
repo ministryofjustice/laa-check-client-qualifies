@@ -25,8 +25,8 @@ RSpec.describe "dependant_details", type: :feature do
     end
     click_on "Save and continue"
 
-    expect(session_contents["child_dependants"]).to eq true
-    expect(session_contents["adult_dependants"]).to eq true
+    expect(session_contents["child_dependants"]).to be true
+    expect(session_contents["adult_dependants"]).to be true
     expect(session_contents["child_dependants_count"]).to eq 2
     expect(session_contents["adult_dependants_count"]).to eq 1
   end
