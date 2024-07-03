@@ -17,21 +17,6 @@ AllCops:
     - 'config/environments/development.rb'
     - 'config/environments/test.rb'
 
-RSpec/NoExpectationExample:
-  Exclude:
-    - 'spec/flows/under_eighteen_flow_spec.rb'
-    - 'spec/flows/controlled_work_spec.rb'
-    - 'spec/flows/self_employment_flow_spec.rb'
-    - 'spec/flows/outgoings_flow_spec.rb'
-    - 'spec/flows/household_flow_spec.rb'
-    - 'spec/flows/early_result_spec.rb'
-    - 'spec/flows/early_result_change_answers_flow_spec.rb'
-    - 'spec/flows/change_answers_flow_spec.rb'
-    - 'spec/flows/certificated_passporting_spec.rb'
-    - 'spec/flows/asylum_and_immigration_flow_spec.rb'
-    - 'spec/flows/certificated_partner_spec.rb'
-    - 'spec/flows/certificated_non_passported_spec.rb'
-
 Bundler/OrderedGems:
   Enabled: false
 
