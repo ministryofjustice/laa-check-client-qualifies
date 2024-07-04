@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   root to: "start#index"
 
   resources :start, only: [:index]
-  get '/start/portal_signed_out', to: 'start#portal_signed_out'
+  get "/start/portal_signed_out", to: "start#portal_signed_out"
   resources :status, only: [:index]
 
   resource :cookies, only: %i[show update]
