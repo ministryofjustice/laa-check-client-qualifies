@@ -4,6 +4,9 @@ class StartController < ApplicationController
 
   def index; end
 
+  def portal_signed_out
+  end
+
   def track_referrer
     return if params[:ref].blank?
 

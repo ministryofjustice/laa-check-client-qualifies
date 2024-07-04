@@ -29,7 +29,7 @@ RSpec.describe OauthRedirectsController, type: :controller do
 
     it "redirects to an appropriate subdomain" do
       get :subdomain_redirect, params: { state: "https://valid-subdomain.cloud-platform.service.justice.gov.uk?state=foo", code: "bar" }
-      expect(response).to redirect_to "https://valid-subdomain.cloud-platform.service.justice.gov.uk/admins/auth/google_oauth2/callback?state=foo&code=bar"
+      expect(response).to redirect_to "https://valid-subdomain.cloud-platform.service.justice.gov.uk/auth/google_oauth2/callback?state=foo&code=bar"
     end
   end
 end
