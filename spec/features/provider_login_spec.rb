@@ -13,12 +13,12 @@ RSpec.describe "Provider login", type: :feature do
       visit "/"
     end
 
-    it 'displays the user in the banner' do
+    it "displays the user in the banner" do
       expect(page).to have_content(email_address)
     end
 
     it "goes to the signed out start page on sign out" do
-      click_on 'Sign Out'
+      click_on "Sign Out"
       expect(page).to have_content("You are now signed out of the application")
     end
   end
