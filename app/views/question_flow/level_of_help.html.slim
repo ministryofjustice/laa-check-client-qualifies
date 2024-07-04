@@ -8,26 +8,11 @@
     = form.govuk_error_summary t("generic.error_summary_title")
     = render "shared/heading", header_text: t(".title")
 
-    = govuk_details(summary_text: t(".controlled_header")) do
-      p.govuk-body = t(".includes")
-
-      ul.govuk-list.govuk-list--bullet
-        - t(".controlled_types").each do |bullet|
-          li = bullet
-
-      p.govuk-body = t(".also_includes")
-      ul.govuk-list.govuk-list--bullet
-        - t(".controlled_chambers").each do |bullet|
-          li = bullet
-
-    = govuk_details(summary_text: t(".certificated_header")) do
-      p.govuk-body = t(".certificated_explanation")
-
     = form.govuk_radio_buttons_fieldset :level_of_help, legend: { text: t(".select_a_level") }
       = render "shared/radio_button_set",
                form:,
                field_name: :level_of_help,
-               buttons: [{ value: "controlled", options: { label: { text: t(".controlled") }, hint: { text: t(".controlled_hint") } } },
+               buttons: [{ value: "controlled", options: { label: { text: t(".controlled") } } },
                          { value: "certificated", options: { label: { text: t(".certificated") } } }]
 
     = form.govuk_submit t("generic.save_and_continue")
