@@ -8,7 +8,7 @@
     = form.govuk_error_summary t("generic.error_summary_title")
     = render "shared/heading", header_text: t(".title")
 
-    = form.govuk_radio_buttons_fieldset :level_of_help, legend: { text: t(".select_a_level") }
+    = form.govuk_radio_buttons_fieldset :level_of_help, legend: nil
       = render "shared/radio_button_set",
                form:,
                field_name: :level_of_help,

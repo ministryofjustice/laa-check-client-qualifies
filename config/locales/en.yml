@@ -712,7 +712,6 @@ en:
     level_of_help:
       title: What level of help does your client need?
       includes: "This includes:"
-      select_a_level: Select a level of help
       controlled: Civil controlled work or family mediation
       certificated: Civil certificated or licensed legal work
       controlled_guidance:
