@@ -1519,6 +1519,8 @@ en:
     partner_assets:
       legend: Partner assets
       hint: Do not include any assets already entered for your client.
+      hints:
+        - Do not include any assets already entered for your client.
       business_capital_title: Business capital for self-employed clients
       business_capital_text: This service does not currently collect or include the value of any business capital held by your client or their partner. However the LAA may collect and include this when you make an application.
       business_capital_text_html: See the <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>Lord Chancellor’s guidance (opens in new tab)</a> for more information on when and how it may be assessed at application stage.
@@ -1588,7 +1590,7 @@ en:
         input: What percentage of the home do they own?
     additional_property_details:
       heading: Client’s other property, holiday home or land
-      hint: If your client and their partner share other property, a holiday home or land, include this here.
+      hint: If your client and their partner share other property, a holiday home or land, include this here
       additional_property: Other property, holiday home or land
       house_value:
         input: How much is the property, holiday home or land worth?
@@ -1609,7 +1611,7 @@ en:
         input: How much is the property, holiday home or land worth?
       mortgage:
         input: How much is left to pay on the mortgage?
-        input_hint: Check the statement from the mortgage provider or lender and include any other loans secured against the property.
+        input_hint: Check the statement from the mortgage provider or lender and include any other loans secured against the property
       percentage_owned:
         input: What percentage share does the partner own?
     vehicles_details:
@@ -1625,7 +1627,7 @@ en:
         hint: This means the vehicle is used at least once every 2 weeks for things like work, shopping or driving children to school
       vehicle_over_3_years_ago:
         legend: Was the vehicle bought over 3 years ago?
-   
+        hint: ""
       vehicle_pcp:
         legend: Are there any payments left on the vehicle?
         hint: Include any outstanding payments on loans, hire purchase (HP) or personal contract purchase (PCP) agreements
