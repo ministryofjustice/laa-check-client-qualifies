@@ -2420,7 +2420,7 @@ en:
       you_should_not_use_this_service_if: "You should not use this service if:"
       invalid_case_types_html:
         - it's for a certificated check if your client (or their partner) is a self-employed company director - make an application using the Legal Aid Portal
-        - you are a member of the public – use the <a href="%{page_url}" rel='noreferrer noopener' target='_blank'>legal aid checker</a> instead
+        - you are a member of the public – use the <a href="%{page_url}">legal aid checker</a> instead
       what_youll_need: Before you start
       youll_need_information: "To do the check, you'll need information from your client (and their partner) about their:"
       before_start:
