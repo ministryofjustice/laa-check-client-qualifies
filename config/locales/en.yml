@@ -2407,31 +2407,31 @@ en:
   start:
     index:
       opening_paragraphs:
-        - This service will ask you questions about your client, then tell you if they are likely to get civil legal aid, based on their financial situation.
-        - It normally takes about 5 minutes to answer all the questions. It might take longer if your client's financial affairs are complicated. At the end it will show the check result and calculations, which you can save or print.
-      service_function: If the check says your client is likely to qualify for legal aid
-      service_function_paragraphs:
-        - This service assesses whether your client's case is likely to meet the financial criteria for legal aid. It cannot tell you if the merits or the type of case are in scope for civil legal aid.
-        - For controlled work and family mediation, if you decide your client's case is in scope for civil legal aid using the relevant legislation and guidance, you should complete the relevant controlled work (CW) form. This service can add your answers to most of the CW forms, which you can download as a PDF.
-        - For certificated or licensed work, to get a final decision you must submit an application with supporting evidence to LAA.
+        - This service tells you if your client is likely to get civil legal aid, based on their financial situation.
+        - It does not assess the scope or merits of the case.
+        - It normally takes about 5 minutes to complete.
+      controlled_work: Controlled work and family mediation
+      controlled_paragraphs:
+        - If your client is eligible, you can download a controlled work form with your answers included.
+      certificated_work: Certificated and licensed work
+      certificated_paragraphs:
+        - We will tell you if your client is likely to be eligible. Submit an application with supporting evidence to get a full decision.
       when_you_should_not_use_this_service: When you should not use this service
       you_should_not_use_this_service_if: "You should not use this service if:"
       invalid_case_types_html:
-        - it's for a certificated check if your client (or their partner) is a self-employed company director
-        - you are a member of the public – use the <a href="%{page_url}" rel='noreferrer noopener' target='_blank'>legal aid checker</a> instead
-      what_youll_need: What you'll need
-      youll_need_information: "You'll need information from your client (and their partner) about their:"
+        - it's for a certificated check if your client (or their partner) is a self-employed company director - make an application using the Legal Aid Portal
+        - you are a member of the public – use the <a href="%{page_url}">legal aid checker</a> instead
+      what_youll_need: Before you start
+      youll_need_information: "To do the check, you'll need information from your client (and their partner) about their:"
+      before_start:
+        link: "Read the civil legal aid: means testing guidance"
+        side_link: "Civil legal aid: means testing guidance"
+        post_link: " to find out if you need to do a means test and whether your client is in scope."
       required_information_types:
         - income, including any benefits they claim
         - outgoings, like housing costs, maintenance payments and childcare costs
         - savings and investments
         - assets, like property and vehicles
-      case_types: Case types
-      this_must_be_for_a_case: "This must be for a case that would be:"
-      valid_case_types:
-        - controlled work (including legal help)  or family mediation
-        - civil certificated or licensed legal work
-      mental_health_html: The <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>LAA contract management mental health guidance (PDF, 288KB)</a> explains when a means assessment is not needed for controlled work matters that will potentially involve proceedings before the Mental Health Tribunal (known as non-means, non-MHT matter starts).
       client_under_18_heading: Clients under 18
       client_under_18_para_1: Clients aged under 18 do not need a full means test for certificated work matters or controlled legal representation (CLR) matters.
       client_under_18_para_2: "For all other types of controlled work and family mediation matters, clients under 18 must have a full means assessment if any of the following apply:"
@@ -2444,7 +2444,7 @@ en:
       see_all_updates: See all updates
       related_content:
         legal_aid_checker_for_public:
-          text: Legal aid checker for members of the public (opens in new tab)
+          text: Legal aid checker for members of the public
     issue_banner:
       problem_identified: A problem has been identified
       problem_resolved: Problem resolved

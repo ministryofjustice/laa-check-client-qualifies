@@ -1,0 +1,6 @@
+h2.govuk-heading-s class="govuk-!-margin-bottom-0 govuk-!-padding-top-0" = t("generic.guidance_title")
+ul class="govuk-list govuk-!-font-size-16"
+  - links.each do |text, dest|
+    li
+      p
+        = link_to text.to_s, dest, class: "govuk-link govuk-body-m"
