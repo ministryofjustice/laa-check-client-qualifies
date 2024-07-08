@@ -2,17 +2,18 @@ class ExternalLinkService
   class << self
     def call(document:, sub_section: nil, page_number_only: false)
       if page_number_only
-        mapping[:external_links].dig(document, :sections).fetch(sub_section)
+        external_links.dig(document, :sections).fetch(sub_section)
       elsif sub_section
-        "#{mapping[:external_links].dig(document, :page_url)}#page=#{mapping[:external_links].dig(document, :sections).fetch(sub_section)}"
+        "#{external_links.dig(document, :page_url)}#page=#{external_links.dig(document, :sections).fetch(sub_section)}"
       else
-        mapping[:external_links].dig(document, :page_url)
+        external_links.dig(document, :page_url)
       end
     end
 
-    def mapping
+    private
+
+    def external_links
       {
-        external_links: {
           mental_health_guidance: {
             page_url: "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1143984/Mental_Health_Guidance_-_Contract_management_-_GOV.UK_2023.pdf",
           },
@@ -95,7 +96,9 @@ class ExternalLinkService
           laa_cw_forms: {
             page_url: "https://www.gov.uk/government/collections/controlled-work-application-forms",
           },
-        },
+          means_testing_guidance: {
+            page_url: "https://www.gov.uk/guidance/civil-legal-aid-means-testing",
+          }
       }.with_indifferent_access
     end
   end

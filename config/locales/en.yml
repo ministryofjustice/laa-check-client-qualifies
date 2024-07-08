@@ -2443,7 +2443,7 @@ en:
       see_all_updates: See all updates
       related_content:
         legal_aid_checker_for_public:
-          text: Legal aid checker for members of the public (opens in new tab)
+          text: Legal aid checker for members of the public
     issue_banner:
       problem_identified: A problem has been identified
       problem_resolved: Problem resolved

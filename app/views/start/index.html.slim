@@ -17,8 +17,8 @@
 
   h2 class="govuk-heading-m" = t(".what_youll_need")
   p class="govuk-body"
-    = link_to t(".before_start.link"), "https://www.gov.uk/guidance/funding-and-costs-assessment-for-civil-and-crime-matters", \
-            target: "_blank", rel: "noreferrer noopener", class: "govuk-link govuk-body-m"
+    = link_to t(".before_start.link"), document_link(:means_testing_guidance), \
+            class: "govuk-link govuk-body-m"
     = t(".before_start.post_link")
 
   p class="govuk-body" = t(".youll_need_information")
@@ -47,6 +47,7 @@
       = link_to t(".see_all_updates"), updates_path
 
 = render "layouts/sidebar"
-  = render "shared/related_content",
+  = render "shared/related_without_new_tab",
            links: { t("start.index.related_content.legal_aid_checker_for_public.text") => \
-                      document_link(:legal_aid_checker_for_public) }
+                      document_link(:legal_aid_checker_for_public),
+           t("start.index.before_start.link") => document_link(:means_testing_guidance)}
