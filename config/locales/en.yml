@@ -2425,6 +2425,7 @@ en:
       youll_need_information: "To do the check, you'll need information from your client (and their partner) about their:"
       before_start:
         link: "Read the civil legal aid: means testing guidance"
+        side_link: "Civil legal aid: means testing guidance"
         post_link: " to find out if you need to do a means test and whether your client is in scope."
       required_information_types:
         - income, including any benefits they claim
