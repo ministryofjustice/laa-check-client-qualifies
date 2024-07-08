@@ -104,6 +104,11 @@ Result screen tests are held in `spec/views/results/` mock a response payload fr
 
 ### Integration tests
 
+The version of chromedriver has to be constantly updated to keep pace with chrome - we use chrome to generate PDFs, so switching to firefox is not an option.
+After performing 'brew upgrade chromedriver' the first call will produce an warning dialog about trusting the binary. This can be suppressed with:
+
+xattr -d com.apple.quarantine /opt/homebrew/bin/chromedriver
+
 #### UI flow tests
 
 UI flow tests are held in `spec/flows`, and are RSpec `feature` specs. Each test describes a different journey from the start page to the check answers page, making explicit what screens are reached. These flows do not explore validation errors (which are covered in form tests), or data passed to CFE. They do specify explicitly which
