@@ -1519,7 +1519,7 @@ en:
     partner_assets:
       legend: Partner assets
       hint: Do not include any assets already entered for your client.
-       business_capital_title: Business capital for self-employed clients
+      business_capital_title: Business capital for self-employed clients
       business_capital_text: This service does not currently collect or include the value of any business capital held by your client or their partner. However the LAA may collect and include this when you make an application.
       business_capital_text_html: See the <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>Lord Chancellor’s guidance (opens in new tab)</a> for more information on when and how it may be assessed at application stage.
       bankrupt_title: Partners who are bankrupt
