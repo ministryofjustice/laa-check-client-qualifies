@@ -19,7 +19,7 @@ module CheckAnswers
                  end
       data = YAML.load_file(Rails.root.join(filename)).with_indifferent_access
       yml_sections = data[:sections].map { build_section(_1) }.select { _1.subsections.any? }
-      [ClientDetailsSection.new(@check), CaseDetailsSection.new(@check)] + yml_sections
+      [ClientDetailsSection.new(@check), CaseDetailsSection.new(@check), DependantsSection.new(@check)] + yml_sections
     end
 
   private
@@ -93,13 +93,13 @@ module CheckAnswers
       disputed = field_data[:disputed_if].present? && @check.smod_applicable? && model.send(field_data.fetch(:disputed_if))
 
       FieldData.new(label: "#{table_label}_fields.#{field_data.fetch(:attribute)}#{addendum}",
-                type: field_data[:type].to_sym,
-                value: model.send(field_data[:attribute]),
-                disputed?: disputed,
-                index:,
-                screen: field_data[:screen],
-                alt_value: (model.send(field_data[:alt_attribute]) if field_data[:alt_attribute]),
-                relevancy_value: (model.send(field_data[:relevancy_attribute_name]) if field_data[:relevancy_attribute_name]))
+                    type: field_data[:type].to_sym,
+                    value: model.send(field_data[:attribute]),
+                    disputed?: disputed,
+                    index:,
+                    screen: field_data[:screen],
+                    alt_value: (model.send(field_data[:alt_attribute]) if field_data[:alt_attribute]),
+                    relevancy_value: (model.send(field_data[:relevancy_attribute_name]) if field_data[:relevancy_attribute_name]))
     end
 
     def build_many_fields(field_data, model, table_label)

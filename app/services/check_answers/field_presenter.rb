@@ -4,22 +4,21 @@ module CheckAnswers
   class FieldPresenter
     attr_reader :type, :screen
 
-    def initialize(table_label:, attribute:, type:, check:, screen:, partner_dependant_wording: false)
+    def initialize(table_label:, attribute:, type:, model:, screen: nil, partner_dependant_wording: false)
       @table_label = table_label
       @attribute = attribute
       @type = type
-      @check = check
+      @model = model
       @partner_dependant_wording = partner_dependant_wording
       @screen = screen
     end
 
     def value
-      @check.public_send(@attribute)
+      @model.public_send(@attribute)
     end
 
     def label
-      # addendum = "_partner" if @check.partner && @partner_dependant_wording
-      addendum = nil
+      addendum = "_partner" if @model.partner && @partner_dependant_wording
 
       "#{@table_label}_fields.#{@attribute}#{addendum}"
     end
