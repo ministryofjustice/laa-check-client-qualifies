@@ -1,6 +1,6 @@
-- @sections.each do |section|
+- sections.each do |section|
   - if section.label
-    = pdf_friendly_h2(t("checks.check_answers.sections.#{section.label}"), "l", @is_pdf, "govuk-!-margin-top-9")
+    = pdf_friendly_h2(t("checks.check_answers.sections.#{section.label}"), "l", is_pdf, "govuk-!-margin-top-9")
 
   - section.subsections.each do |subsection|
     - subsection.tables.each do |table|
@@ -22,47 +22,47 @@
           dl.govuk-summary-list
             - table.fields.each do |field|
               - case field.type
-              - when "money"
+              - when :money
                 = render "checks/money_check_answer",
                           label_text: t("checks.check_answers.#{field.label}", variable: field.index),
                           value_text: field.value,
                           disputed_asset: field.disputed?
-              - when "boolean"
+              - when :boolean
                 = render "checks/check_answer",
                           label_text: t("checks.check_answers.#{field.label}"),
                           value_text: yes_no_boolean(field.value),
                           screen: (field.screen if change_links)
-              - when "number_or_text"
+              - when :number_or_text
                 = render "checks/check_answer",
                           label_text: t(check_answers_field_key(field)),
                           value_text: field.value || t("generic.not_applicable")
-              - when "percentage"
+              - when :percentage
                 = render "checks/check_answer",
                           label_text: t(check_answers_field_key(field)),
                           value_text: (field.value ? "#{field.value}%" : t("generic.not_applicable"))
-              - when "select"
+              - when :select
                 - value_key = field.value ? "#{field.label}_options.#{field.value}" : "not_provided"
                 = render "checks/check_answer",
                           label_text: t(check_answers_field_key(field)),
                           value_text: t("checks.check_answers.#{value_key}"),
                           screen: (field.screen if change_links)
-              - when "frequency"
+              - when :frequency
                 = render "checks/check_answer",
                           label_text: t(check_answers_field_key(field)),
                           value_text: t("checks.check_answers.frequency_options.#{field.value || 'not_applicable'}")
-              - when "money_with_frequency"
+              - when :money_with_frequency
                 - alt_value = field.alt_value if field.value&.to_f&.positive?
                 = render "checks/money_with_frequency",
                           label_text: t(check_answers_field_key(field)),
                           value: field.value,
                           frequency: t("checks.check_answers.frequency_options.#{alt_value || 'not_applicable'}")
-              - when "optional_money_with_frequency"
+              - when :optional_money_with_frequency
                 = render "checks/optional_money_with_frequency",
                           label_text: t(check_answers_field_key(field)),
                           value: field.value,
                           relevant: field.relevancy_value,
                           frequency: t("checks.check_answers.frequency_options.#{field.alt_value || 'not_applicable'}")
-              - when "optional_money"
+              - when :optional_money
                 = render "checks/optional_money_check_answer",
                           label_text: t(check_answers_field_key(field)),
                           value_text: field.value,

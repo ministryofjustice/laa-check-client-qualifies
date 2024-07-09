@@ -59,4 +59,4 @@
     = render "capital_table", caption_size: "s"
 
   = pdf_friendly_h2(t(".your_answers"), "l", @is_pdf, "govuk-!-margin-bottom-9 govuk-!-margin-top-9")
-  = render "checks/check_answers_table", change_links: false
+  = render "checks/check_answers_table", sections: @sections, is_pdf: @is_pdf, change_links: false

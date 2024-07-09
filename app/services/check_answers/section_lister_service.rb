@@ -1,8 +1,5 @@
 module CheckAnswers
   class SectionListerService
-    Section = Struct.new(:label, :subsections, keyword_init: true)
-    Subsection = Struct.new(:tables, keyword_init: true)
-    Table = Struct.new(:screen, :index, :disputed?, :fields, :skip_change_link, keyword_init: true)
     Field = Struct.new(:label, :type, :value, :alt_value, :relevancy_value, :disputed?, :index, :screen, keyword_init: true)
 
     def self.call(session_data)
@@ -21,7 +18,8 @@ module CheckAnswers
                    "app/lib/check_answers_fields.yml"
                  end
       data = YAML.load_file(Rails.root.join(filename)).with_indifferent_access
-      data[:sections].map { build_section(_1) }.select { _1.subsections.any? }
+      yml_sections = data[:sections].map { build_section(_1) }.select { _1.subsections.any? }
+      [ClientDetailsSection.new(@check)] + yml_sections
     end
 
   private
@@ -94,8 +92,8 @@ module CheckAnswers
 
       disputed = field_data[:disputed_if].present? && @check.smod_applicable? && model.send(field_data.fetch(:disputed_if))
 
-      Field.new(label: "#{table_label}_fields.#{field_data.fetch(:attribute)}#{addendum}",
-                type: field_data[:type],
+      FieldData.new(label: "#{table_label}_fields.#{field_data.fetch(:attribute)}#{addendum}",
+                type: field_data[:type].to_sym,
                 value: model.send(field_data[:attribute]),
                 disputed?: disputed,
                 index:,

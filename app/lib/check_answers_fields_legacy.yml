@@ -32,19 +32,19 @@
 # The attribute is also used to construct the I18n key
 # 'money_with_frequency' fields also have an 'alt_attribute' which describes which number to display.
 sections:
-  - label: client_details
-    subsections:
-      - tables:
-          - screen: client_age
-            fields:
-              - attribute: client_age
-                type: select
-          - screen: applicant
-            fields:
-              - attribute: partner
-                type: boolean
-              - attribute: passporting
-                type: boolean
+#  - label: client_details
+#    subsections:
+#      - tables:
+#          - screen: client_age
+#            fields:
+#              - attribute: client_age
+#                type: select
+#          - screen: applicant
+#            fields:
+#              - attribute: partner
+#                type: boolean
+#              - attribute: passporting
+#                type: boolean
   - label: case_details
     subsections:    
       - tables:       
