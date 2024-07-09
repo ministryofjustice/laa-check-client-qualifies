@@ -125,16 +125,6 @@ sections:
             fields:
               - attribute: employment_status
                 type: select
-          - screen: employment
-            fields:
-              - attribute: frequency
-                type: frequency
-              - attribute: gross_income
-                type: money
-              - attribute: income_tax
-                type: money
-              - attribute: national_insurance
-                type: money
         add_another_tables:
           - screen: income
             attribute: incomes
@@ -201,16 +191,6 @@ sections:
             fields:
               - attribute: partner_employment_status
                 type: select
-          - screen: partner_employment
-            fields:
-              - attribute: partner_frequency
-                type: frequency
-              - attribute: partner_gross_income
-                type: money
-              - attribute: partner_income_tax
-                type: money
-              - attribute: partner_national_insurance
-                type: money
         add_another_tables:
           - screen: partner_income
             attribute: partner_incomes

@@ -1,7 +1,7 @@
 module CheckAnswers
   class SectionListerService
     Section = Struct.new(:label, :subsections, keyword_init: true)
-    Subsection = Struct.new(:label, :tables, keyword_init: true)
+    Subsection = Struct.new(:tables, keyword_init: true)
     Table = Struct.new(:screen, :index, :disputed?, :fields, :skip_change_link, keyword_init: true)
     Field = Struct.new(:label, :type, :value, :alt_value, :second_alt_value, :disputed?, :index, :screen, keyword_init: true)
 
@@ -36,8 +36,7 @@ module CheckAnswers
     end
 
     def build_subsection(subsection_data)
-      Subsection.new(label: subsection_data[:label],
-                     tables: build_tables(subsection_data))
+      Subsection.new(tables: build_tables(subsection_data))
     end
 
     def build_tables(subsection_data)
