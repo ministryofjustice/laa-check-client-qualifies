@@ -19,7 +19,7 @@ module CheckAnswers
                  end
       data = YAML.load_file(Rails.root.join(filename)).with_indifferent_access
       yml_sections = data[:sections].map { build_section(_1) }.select { _1.subsections.any? }
-      [ClientDetailsSection.new(@check)] + yml_sections
+      [ClientDetailsSection.new(@check), CaseDetailsSection.new(@check)] + yml_sections
     end
 
   private
@@ -85,8 +85,8 @@ module CheckAnswers
       # instead of removing the line we skip coverage so that we can still use this if necessary
       # :nocov:
       return if field_data[:skip_if].present? && model.send(field_data[:skip_if])
-      # :nocov:
       return if field_data[:screen] && !Steps::Helper.relevant_steps(@check.session_data).include?(field_data[:screen].to_sym)
+      # :nocov:
 
       addendum = "_partner" if @check.partner && field_data[:partner_dependant_wording]
 
