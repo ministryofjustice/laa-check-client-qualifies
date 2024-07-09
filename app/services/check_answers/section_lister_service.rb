@@ -1,9 +1,6 @@
 module CheckAnswers
   class SectionListerService
-    Section = Struct.new(:label, :subsections, keyword_init: true)
-    Subsection = Struct.new(:tables, keyword_init: true)
-    Table = Struct.new(:screen, :index, :disputed?, :fields, :skip_change_link, keyword_init: true)
-    Field = Struct.new(:label, :type, :value, :alt_value, :relevancy_value, :disputed?, :index, :screen, keyword_init: true)
+    FieldData = Struct.new(:label, :type, :value, :alt_value, :relevancy_value, :disputed?, :index, :screen, keyword_init: true)
 
     def self.call(session_data)
       check = Check.new(session_data)
@@ -17,7 +14,16 @@ module CheckAnswers
     def call
       filename = "app/lib/check_answers_fields.yml"
       data = YAML.load_file(Rails.root.join(filename)).with_indifferent_access
-      data[:sections].map { build_section(_1) }.select { _1.subsections.any? }
+      sections = [
+        ClientDetailsSection.new(@check),
+        CaseDetailsSection.new(@check),
+        DependantsSection.new(@check),
+        ClientIncomeSection.new(@check),
+        PartnerIncomeSection.new(@check),
+      ] + data[:sections].map { build_section(_1) }
+      sections.select do
+        _1.subsections.any?
+      end
     end
 
   private
@@ -83,21 +89,21 @@ module CheckAnswers
       # instead of removing the line we skip coverage so that we can still use this if necessary
       # :nocov:
       return if field_data[:skip_if].present? && model.send(field_data[:skip_if])
-      # :nocov:
       return if field_data[:screen] && !Steps::Helper.relevant_steps(@check.session_data).include?(field_data[:screen].to_sym)
+      # :nocov:
 
       addendum = "_partner" if @check.partner && field_data[:partner_dependant_wording]
 
       disputed = field_data[:disputed_if].present? && @check.smod_applicable? && model.send(field_data.fetch(:disputed_if))
 
-      Field.new(label: "#{table_label}_fields.#{field_data.fetch(:attribute)}#{addendum}",
-                type: field_data[:type],
-                value: model.send(field_data[:attribute]),
-                disputed?: disputed,
-                index:,
-                screen: field_data[:screen],
-                alt_value: (model.send(field_data[:alt_attribute]) if field_data[:alt_attribute]),
-                relevancy_value: (model.send(field_data[:relevancy_attribute_name]) if field_data[:relevancy_attribute_name]))
+      FieldData.new(label: "#{table_label}_fields.#{field_data.fetch(:attribute)}#{addendum}",
+                    type: field_data[:type].to_sym,
+                    value: model.send(field_data[:attribute]),
+                    disputed?: disputed,
+                    index:,
+                    screen: field_data[:screen],
+                    alt_value: (model.send(field_data[:alt_attribute]) if field_data[:alt_attribute]),
+                    relevancy_value: (model.send(field_data[:relevancy_attribute_name]) if field_data[:relevancy_attribute_name]))
     end
 
     def build_many_fields(field_data, model, table_label)
