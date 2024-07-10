@@ -23,6 +23,7 @@ module CheckAnswers
         CaseDetailsSection.new(@check),
         DependantsSection.new(@check),
         ClientIncomeSection.new(@check),
+        PartnerIncomeSection.new(@check),
       ] + data[:sections].map { build_section(_1) }
       sections.select do
         _1.subsections.any?

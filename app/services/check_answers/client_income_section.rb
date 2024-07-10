@@ -41,7 +41,7 @@ module CheckAnswers
                   ])
       end
 
-      other_income = [
+      other_income =
         Table.new(screen: :other_income, skip_change_link: false, index: nil, disputed?: nil,
                   fields: [
                     BooleanMoneyWithFrequencyPresenter.new(table_label: :other_income, attribute: :friends_or_family_conditional_value,
@@ -66,12 +66,12 @@ module CheckAnswers
                     BooleanMoneyPresenter.new(table_label: :other_income, attribute: :other_conditional_value,
                                               model: @check,
                                               alt_attribute: :other_relevant),
-                  ]),
-      ]
+                  ])
+
       [
         subsection_for([employment_table] + add_another_tables),
         subsection_for([benefits] + benefits_add),
-        subsection_for(other_income),
+        subsection_for([other_income]),
       ].compact
     end
 
