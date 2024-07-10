@@ -3,11 +3,10 @@
     = label_text
 
   dd.govuk-summary-list__value
-    - if conditional
-      div class="govuk-!-margin-bottom-1"
-        = yes_no_boolean(boolean)
+    div class="govuk-!-margin-bottom-1"
+      = yes_no_boolean(boolean)
 
-    - if !conditional || boolean
+    - if boolean
       - if value.nil?
         = t("generic.not_applicable")
       - else

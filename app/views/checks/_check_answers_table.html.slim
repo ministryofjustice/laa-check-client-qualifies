@@ -52,16 +52,14 @@
                           value_text: t("checks.check_answers.frequency_options.#{field.value || 'not_applicable'}")
               - when "money_with_frequency"
                 - alt_value = field.alt_value if field.value&.to_f&.positive?
-                = render "checks/money_and_frequency_check_answer",
+                = render "checks/money_with_frequency",
                           label_text: t(check_answers_field_key(field)),
-                          conditional: false,
                           value: field.value,
                           frequency: t("checks.check_answers.frequency_options.#{alt_value || 'not_applicable'}")
               - when "boolean_money_with_frequency"
-                = render "checks/money_and_frequency_check_answer",
+                = render "checks/boolean_money_with_frequency",
                           label_text: t(check_answers_field_key(field)),
                           value: field.value,
-                          conditional: true,
                           boolean: field.second_alt_value,
                           frequency: t("checks.check_answers.frequency_options.#{field.alt_value || 'not_applicable'}")
               - when "boolean_money"
