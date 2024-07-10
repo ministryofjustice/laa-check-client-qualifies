@@ -54,7 +54,6 @@
                 - alt_value = field.alt_value if field.value&.to_f&.positive?
                 = render "checks/money_with_frequency",
                           label_text: t(check_answers_field_key(field)),
-                          conditional: false,
                           value: field.value,
                           frequency: t("checks.check_answers.frequency_options.#{alt_value || 'not_applicable'}")
               - when "optional_money_with_frequency"
