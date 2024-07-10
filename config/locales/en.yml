@@ -1271,6 +1271,7 @@ en:
         total: Total in last 3 months
     partner_other_income:
       heading: The partner's other income
+      caption: Do not add include income already entered for your client.
       second_caption: Do not add any income you've listed as other income for the client. Enter 0 for any that do not apply.
       friends_or_family:
         question: Does the partner get financial help from friends or family?
