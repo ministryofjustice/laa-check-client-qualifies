@@ -12,15 +12,20 @@ module CheckAnswers
       @index = index
     end
 
+    def screen
+      nil
+    end
+
+    def disputed?
+      nil
+    end
+
     def value
       @model.public_send(@attribute)
     end
 
     def label
-      # addendum = "_partner" if @check.partner && @partner_dependant_wording
-      addendum = nil
-
-      "#{@table_label}_fields.#{@attribute}#{addendum}"
+      "#{@table_label}_fields.#{@attribute}"
     end
   end
 end

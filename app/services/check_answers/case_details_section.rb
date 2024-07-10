@@ -61,10 +61,11 @@ module CheckAnswers
 
       tables = table_data.map { |screen, data|
         table_fields = data.fetch(:fields).select { |f| f.screen.nil? || Steps::Helper.relevant_steps(@check.session_data).include?(f.screen) }
+        # The if table_fields.any? can be deleted w/o any tests failing, so we need more coverage around this area
         Table.new(screen:, skip_change_link: data.fetch(:skip_change_link), index: nil, disputed?: false, fields: table_fields) if table_fields.any?
       }.compact
 
-      [Subsection.new(tables: tables.select { |t| Steps::Helper.relevant_steps(@check.session_data).include?(t.screen) })]
+      [Subsection.new(tables:)]
     end
   end
 end

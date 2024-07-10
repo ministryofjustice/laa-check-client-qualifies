@@ -18,8 +18,15 @@ module CheckAnswers
                    "app/lib/check_answers_fields.yml"
                  end
       data = YAML.load_file(Rails.root.join(filename)).with_indifferent_access
-      yml_sections = data[:sections].map { build_section(_1) }.select { _1.subsections.any? }
-      [ClientDetailsSection.new(@check), CaseDetailsSection.new(@check), DependantsSection.new(@check)] + yml_sections
+      sections = [
+        ClientDetailsSection.new(@check),
+        CaseDetailsSection.new(@check),
+        DependantsSection.new(@check),
+        ClientIncomeSection.new(@check),
+      ] + data[:sections].map { build_section(_1) }
+      sections.select do
+        _1.subsections.any?
+      end
     end
 
   private

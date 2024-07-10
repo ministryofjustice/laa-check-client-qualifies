@@ -18,6 +18,7 @@ module CheckAnswers
     end
 
     def label
+      # This can be deleted w/o any tests failing, so we need more coverage around this area
       addendum = "_partner" if @model.partner && @partner_dependant_wording
 
       "#{@table_label}_fields.#{@attribute}#{addendum}"
