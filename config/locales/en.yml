@@ -2408,31 +2408,31 @@ en:
   start:
     index:
       opening_paragraphs:
-        - This service will ask you questions about your client, then tell you if they are likely to get civil legal aid, based on their financial situation.
-        - It normally takes about 5 minutes to answer all the questions. It might take longer if your client's financial affairs are complicated. At the end it will show the check result and calculations, which you can save or print.
-      service_function: If the check says your client is likely to qualify for legal aid
-      service_function_paragraphs:
-        - This service assesses whether your client's case is likely to meet the financial criteria for legal aid. It cannot tell you if the merits or the type of case are in scope for civil legal aid.
-        - For controlled work and family mediation, if you decide your client's case is in scope for civil legal aid using the relevant legislation and guidance, you should complete the relevant controlled work (CW) form. This service can add your answers to most of the CW forms, which you can download as a PDF.
-        - For certificated or licensed work, to get a final decision you must submit an application with supporting evidence to LAA.
+        - This service tells you if your client is likely to get civil legal aid, based on their financial situation.
+        - It does not assess the scope or merits of the case.
+        - It normally takes about 5 minutes to complete.
+      controlled_work: Controlled work and family mediation
+      controlled_paragraphs:
+        - If your client is eligible, you can download a controlled work form with your answers included.
+      certificated_work: Certificated and licensed work
+      certificated_paragraphs:
+        - We will tell you if your client is likely to be eligible. Submit an application with supporting evidence to get a full decision.
       when_you_should_not_use_this_service: When you should not use this service
       you_should_not_use_this_service_if: "You should not use this service if:"
       invalid_case_types_html:
-        - it's for a certificated check if your client (or their partner) is a self-employed company director
-        - you are a member of the public – use the <a href="%{page_url}" rel='noreferrer noopener' target='_blank'>legal aid checker</a> instead
-      what_youll_need: What you'll need
-      youll_need_information: "You'll need information from your client (and their partner) about their:"
+        - it's for a certificated check if your client (or their partner) is a self-employed company director - make an application using the Legal Aid Portal
+        - you are a member of the public – use the <a href="%{page_url}">legal aid checker</a> instead
+      what_youll_need: Before you start
+      youll_need_information: "To do the check, you'll need information from your client (and their partner) about their:"
+      before_start:
+        link: "Read the civil legal aid: means testing guidance"
+        side_link: "Civil legal aid: means testing guidance"
+        post_link: " to find out if you need to do a means test and whether your client is in scope."
       required_information_types:
         - income, including any benefits they claim
         - outgoings, like housing costs, maintenance payments and childcare costs
         - savings and investments
         - assets, like property and vehicles
-      case_types: Case types
-      this_must_be_for_a_case: "This must be for a case that would be:"
-      valid_case_types:
-        - controlled work (including legal help)  or family mediation
-        - civil certificated or licensed legal work
-      mental_health_html: The <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>LAA contract management mental health guidance (PDF, 288KB)</a> explains when a means assessment is not needed for controlled work matters that will potentially involve proceedings before the Mental Health Tribunal (known as non-means, non-MHT matter starts).
       client_under_18_heading: Clients under 18
       client_under_18_para_1: Clients aged under 18 do not need a full means test for certificated work matters or controlled legal representation (CLR) matters.
       client_under_18_para_2: "For all other types of controlled work and family mediation matters, clients under 18 must have a full means assessment if any of the following apply:"
@@ -2445,7 +2445,7 @@ en:
       see_all_updates: See all updates
       related_content:
         legal_aid_checker_for_public:
-          text: Legal aid checker for members of the public (opens in new tab)
+          text: Legal aid checker for members of the public
     issue_banner:
       problem_identified: A problem has been identified
       problem_resolved: Problem resolved
@@ -2607,13 +2607,13 @@ en:
         - navigate most of the website using speech recognition software
         - listen to most of the website using a screen reader (including the most recent versions of JAWS, NVDA and VoiceOver)
       p1_extra_text: We’ve also made the website text as simple as possible to understand.
-      p1_extra_html: "<a href='https://mcmw.abilitynet.org.uk/' target='_blank' rel='noreferrer noopener'>AbilityNet</a> has advice on making your device easier to use if you have a disability."
+      p1_extra_html: "<a rel='external' href='https://mcmw.abilitynet.org.uk/'>AbilityNet</a> has advice on making your device easier to use if you have a disability."
       p12_heading: Reporting accessibility problems with this website
       p12_html: "We’re always looking to improve the accessibility of this website. If you find any problems not listed on this page or think we’re not meeting accessibility requirements, contact us by email at <a href='mailto:eligibility@justice.gov.uk'>eligibility@justice.gov.uk</a>."
       p13_heading: Enforcement procedure
       p13_text:
         - "The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the ‘accessibility regulations’)."
-      p13_html: If you’re not happy with how we respond to your complaint, <a rel="external" href="https://www.equalityadvisoryservice.com/" target='_blank' rel='noreferrer noopener'>contact the Equality Advisory and Support Service (<abbr title="Equality Advisory and Support Service">EASS</abbr>)</a>.
+      p13_html: If you’re not happy with how we respond to your complaint, <a rel="external" href="https://www.equalityadvisoryservice.com/">contact the Equality Advisory and Support Service (<abbr title="Equality Advisory and Support Service">EASS</abbr>)</a>.
       p14_heading: Contacting us
       p14_html: "Contact us by email at <a href='mailto:eligibility@justice.gov.uk'>eligibility@justice.gov.uk</a>."
       headed_paragraph2:
@@ -2621,12 +2621,12 @@ en:
         text_html:
           - "The Legal Aid Agency is committed to making its websites accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018."
       p31_heading: Compliance status
-      p31_html: This website is fully compliant with levels A, AA and AAA of the <a href="https://www.w3.org/TR/WCAG21/" target='_blank' rel='noreferrer noopener'>Web Content Accessibility Guidelines version 2.1</a>.
+      p31_html: This website is fully compliant with <a rel="external" href="https://www.w3.org/TR/WCAG22/">Web Content Accessibility Guidelines (WCAG) V2.2 Level A and Level AA</a>.
       headed_paragraph4:
         heading: Preparation of this accessibility statement
         text_html:
-          - This statement was prepared on 12 December 2022. It was last reviewed on 20 July 2023.
-          - This website was last tested on 4 January 2023. The test was carried out by <a href="https://digitalaccessibilitycentre.org" target='_blank' rel='noreferrer noopener'>Digital Accessibility Centre (DAC)</a>.
+          - This statement was prepared on 12 December 2022. It was last reviewed on 03 July 2024.
+          - This website was last tested on 03 July 2024. The test was carried out by <a rel="external" href="http://www.uservision.co.uk/">UserVision</a>.
   cost_of_living_details:
     header: Government Cost of Living Payments
     text: Government Cost of Living Payments are disregarded from the financial eligibility calculation, for example
