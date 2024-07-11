@@ -32,6 +32,7 @@ class JourneyLoggerService
         asylum_support: check.asylum_support || false,
         matter_type: matter_type(check),
         session: check.session_data,
+        office_code: check.portal_user_office_code,
       }
     end
 

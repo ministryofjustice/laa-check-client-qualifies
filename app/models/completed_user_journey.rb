@@ -16,4 +16,5 @@ class CompletedUserJourney < ApplicationRecord
   attribute :form_downloaded, :boolean
   attribute :asylum_support, :boolean
   attribute :matter_type, :string
+  attribute :office_code, :string
 end
