@@ -129,12 +129,4 @@ class Check
   def housing_benefit_relevant?
     FeatureFlags.enabled?(:legacy_housing_benefit_without_reveals, session_data) || housing_benefit_relevant
   end
-
-  def portal_user_office_code
-    # is the the user singed in via portal
-    # if so get their e-mail address
-    # do an API call to `provide_api`
-    # check e-mail address against `provide_api` to find office code
-    # return first office code
-  end
 end
