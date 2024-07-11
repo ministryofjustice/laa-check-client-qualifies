@@ -250,7 +250,8 @@ The current values for these are available as secure notes in 1Password for each
    There is only 1 of these (the secret key) which is kept in k8s 'portal_secrets' secret
    This is a single key X509_KEY which contains the secret key for the certificate used to authenticate with Portal.
 
-    (Last parameter is 'no des' which means don't store a passphrase against it)
+    Last parameter is 'no DES' (Data Encryption Standard) (rather than nodes) which means don't store a passphrase against it
+    https://en.wikipedia.org/wiki/Data_Encryption_Standard
 ```
     openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -sha256 -days 3650 -nodes
 ```
