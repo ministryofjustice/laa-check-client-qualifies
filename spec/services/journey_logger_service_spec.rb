@@ -7,16 +7,17 @@ RSpec.describe JourneyLoggerService do
     let(:api_result) { FactoryBot.build(:api_result) }
     let(:check) { Check.new(session_data) }
     let(:session_data) { { level_of_help: "controlled", immigration_or_asylum: true, immigration_or_asylum_type: "asylum" }.with_indifferent_access }
+    let(:office_code) { "" }
 
     it "handles errors without crashing", :throws_cfe_error do
       expect(ErrorService).to receive(:call)
       allow(CompletedUserJourney).to receive(:create!).and_raise "Error!"
-      expect { described_class.call(assessment_id, calculation_result, check, {}) }.not_to raise_error
+      expect { described_class.call(assessment_id, calculation_result, check, office_code, {}) }.not_to raise_error
     end
 
     context "with minimal data" do
       it "saves the right details to the database" do
-        described_class.call(assessment_id, calculation_result, check, {})
+        described_class.call(assessment_id, calculation_result, check, office_code, {})
         output = CompletedUserJourney.find_by(assessment_id:)
         expect(output.certificated).to be false
         expect(output.partner).to be false
@@ -30,7 +31,7 @@ RSpec.describe JourneyLoggerService do
         expect(output.asylum_support).to be false
         expect(output.matter_type).to eq "asylum"
         expect(output.session.with_indifferent_access).to eq session_data
-        expect(output.office_code).to be_nil
+        expect(output.office_code).to eq ""
       end
 
       it "skips saving in no-analytics mode" do
