@@ -1,0 +1,4 @@
+.govuk-grid-column-full
+  .govuk-button-group
+    / There is no route to /providers/auth/saml as its done with Rack Middleware
+    = button_to t("devise.sessions.saml"), "/providers/auth/saml", class: "govuk-button"
