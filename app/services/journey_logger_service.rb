@@ -1,18 +1,9 @@
 class JourneyLoggerService
   class << self
-    def call(assessment_id, calculation_result, check, cookies, office_code)
+    def call(assessment_id, calculation_result, check, cookies, current_provider)
       return if cookies[CookiesController::NO_ANALYTICS_MODE]
 
-      def portal_user_office_code
-        # is the the user singed in via portal
-        # if so get their e-mail address
-        # do an API call to `provide_api`
-        # check e-mail address against `provide_api` to find office code
-        # return first office code
-        office_code
-      end
-
-      attributes = build_attributes(calculation_result, check)
+      attributes = build_attributes(calculation_result, check, current_provider)
       CompletedUserJourney.transaction do
         if (journey = CompletedUserJourney.find_by(assessment_id:))
           journey.update!(attributes)
@@ -26,7 +17,7 @@ class JourneyLoggerService
 
   private
 
-    def build_attributes(calculation_result, check)
+    def build_attributes(calculation_result, check, current_provider)
       {
         completed: Date.current,
         certificated: !check.controlled?,
@@ -43,7 +34,7 @@ class JourneyLoggerService
         asylum_support: check.asylum_support || false,
         matter_type: matter_type(check),
         session: check.session_data,
-        office_code: :office_code,
+        office_code: current_provider.office_codes,
       }
     end
 
@@ -64,5 +55,9 @@ class JourneyLoggerService
         check.immigration_or_asylum_type
       end
     end
+
+    # def portal_user_office_code(current_provider)
+    #   current_provider.office_codes if signed_in? && current_provider.present?
+    # end
   end
 end

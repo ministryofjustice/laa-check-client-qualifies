@@ -30,6 +30,7 @@ RSpec.describe JourneyLoggerService do
         expect(output.asylum_support).to be false
         expect(output.matter_type).to eq "asylum"
         expect(output.session.with_indifferent_access).to eq session_data
+        expect(output.office_code).to be false
       end
 
       it "skips saving in no-analytics mode" do
