@@ -114,4 +114,8 @@ private
   rescue StandardError
     nil
   end
+
+  def portal_user_office_code
+    @office_code = current_provider.office_codes if signed_in? && current_provider.present?
+  end
 end

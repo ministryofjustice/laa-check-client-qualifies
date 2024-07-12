@@ -1,9 +1,9 @@
 class JourneyLoggerService
   class << self
-    def call(assessment_id, calculation_result, check, cookies, current_provider)
+    def call(assessment_id, calculation_result, check, cookies, office_code)
       return if cookies[CookiesController::NO_ANALYTICS_MODE]
 
-      attributes = build_attributes(calculation_result, check, current_provider)
+      attributes = build_attributes(calculation_result, check, office_code)
       CompletedUserJourney.transaction do
         if (journey = CompletedUserJourney.find_by(assessment_id:))
           journey.update!(attributes)
@@ -17,7 +17,7 @@ class JourneyLoggerService
 
   private
 
-    def build_attributes(calculation_result, check, current_provider)
+    def build_attributes(calculation_result, check, office_code)
       {
         completed: Date.current,
         certificated: !check.controlled?,
@@ -34,7 +34,7 @@ class JourneyLoggerService
         asylum_support: check.asylum_support || false,
         matter_type: matter_type(check),
         session: check.session_data,
-        office_code: current_provider.office_codes,
+        office_code:,
       }
     end
 
@@ -55,9 +55,5 @@ class JourneyLoggerService
         check.immigration_or_asylum_type
       end
     end
-
-    # def portal_user_office_code(current_provider)
-    #   current_provider.office_codes if signed_in? && current_provider.present?
-    # end
   end
 end
