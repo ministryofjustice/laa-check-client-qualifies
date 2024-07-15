@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-# This code can't be reached yet, as we have no-way of signing in to the portal (SdP initiated login)
-# but it seems a shame not to include it in the PR
-#
-# :nocov:
 module Providers
   class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     skip_before_action :verify_authenticity_token, only: %i[saml]
@@ -24,4 +20,3 @@ module Providers
     end
   end
 end
-# :nocov:
