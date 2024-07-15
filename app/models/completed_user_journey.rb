@@ -1,4 +1,6 @@
 class CompletedUserJourney < ApplicationRecord
+  # Defining attributes explicitly on the model has very little practical effect (although it can help casting attributes to the right type as soon as they're assigned, rather than waiting until they've been saved to the database and reloaded).
+  # Having them listed on the model itself makes it easier to find them. BUT only if Devs keep them in sync.
   attribute :assessment_id, :string
   attribute :session, :json
   attribute :certificated, :boolean
@@ -16,4 +18,5 @@ class CompletedUserJourney < ApplicationRecord
   attribute :form_downloaded, :boolean
   attribute :asylum_support, :boolean
   attribute :matter_type, :string
+  attribute :office_code, :string
 end
