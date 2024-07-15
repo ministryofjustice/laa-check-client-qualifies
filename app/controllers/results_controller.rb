@@ -44,6 +44,6 @@ private
   end
 
   def track_completed_journey(calculation_result)
-    JourneyLoggerService.call(assessment_id, calculation_result, @check, cookies, @office_code)
+    JourneyLoggerService.call(assessment_id, calculation_result, @check, cookies, portal_user_office_code)
   end
 end

@@ -116,6 +116,6 @@ private
   end
 
   def portal_user_office_code
-    @office_code = current_provider.office_codes if signed_in? && current_provider.present?
+    current_provider.office_codes.first.to_s if signed_in? && current_provider.present?
   end
 end

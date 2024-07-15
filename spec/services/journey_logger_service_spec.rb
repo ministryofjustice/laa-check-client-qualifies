@@ -7,17 +7,17 @@ RSpec.describe JourneyLoggerService do
     let(:api_result) { FactoryBot.build(:api_result) }
     let(:check) { Check.new(session_data) }
     let(:session_data) { { level_of_help: "controlled", immigration_or_asylum: true, immigration_or_asylum_type: "asylum" }.with_indifferent_access }
-    let(:office_code) { "" }
+    let(:portal_user_office_code) { "office-code" }
 
     it "handles errors without crashing", :throws_cfe_error do
       expect(ErrorService).to receive(:call)
       allow(CompletedUserJourney).to receive(:create!).and_raise "Error!"
-      expect { described_class.call(assessment_id, calculation_result, check, office_code, {}) }.not_to raise_error
+      expect { described_class.call(assessment_id, calculation_result, check, portal_user_office_code, {}) }.not_to raise_error
     end
 
     context "with minimal data" do
       it "saves the right details to the database" do
-        described_class.call(assessment_id, calculation_result, check, office_code, {})
+        described_class.call(assessment_id, calculation_result, check, portal_user_office_code, {})
         output = CompletedUserJourney.find_by(assessment_id:)
         expect(output.certificated).to be false
         expect(output.partner).to be false
@@ -31,11 +31,11 @@ RSpec.describe JourneyLoggerService do
         expect(output.asylum_support).to be false
         expect(output.matter_type).to eq "asylum"
         expect(output.session.with_indifferent_access).to eq session_data
-        expect(output.office_code).to eq ""
+        expect(output.office_code).to eq "office-code"
       end
 
       it "skips saving in no-analytics mode" do
-        described_class.call(assessment_id, calculation_result, check, { no_analytics_mode: true })
+        described_class.call(assessment_id, calculation_result, check, portal_user_office_code, { no_analytics_mode: true })
         expect(CompletedUserJourney.count).to eq 0
       end
     end
@@ -64,7 +64,7 @@ RSpec.describe JourneyLoggerService do
       end
 
       it "saves the right details to the database" do
-        described_class.call(assessment_id, calculation_result, check, {})
+        described_class.call(assessment_id, calculation_result, check, portal_user_office_code, {})
         output = CompletedUserJourney.find_by(assessment_id:)
         expect(output.certificated).to be true
         expect(output.partner).to be true
@@ -87,7 +87,7 @@ RSpec.describe JourneyLoggerService do
       end
 
       it "correctly tracks this" do
-        described_class.call(assessment_id, calculation_result, check, {})
+        described_class.call(assessment_id, calculation_result, check, portal_user_office_code, {})
         output = CompletedUserJourney.find_by(assessment_id:)
         expect(output.passported).to be true
       end
@@ -105,7 +105,7 @@ RSpec.describe JourneyLoggerService do
       end
 
       it "correctly identifies that there are no smod assets" do
-        described_class.call(assessment_id, calculation_result, check, {})
+        described_class.call(assessment_id, calculation_result, check, portal_user_office_code, {})
         output = CompletedUserJourney.find_by(assessment_id:)
         expect(output.smod_assets).to be false
         expect(output.asylum_support).to be false
@@ -121,7 +121,7 @@ RSpec.describe JourneyLoggerService do
         end
 
         it "tracks asylum support" do
-          described_class.call(assessment_id, calculation_result, check, {})
+          described_class.call(assessment_id, calculation_result, check, portal_user_office_code, {})
           output = CompletedUserJourney.find_by(assessment_id:)
           expect(output.asylum_support).to be true
         end
@@ -137,7 +137,7 @@ RSpec.describe JourneyLoggerService do
         end
 
         it "tracks it as an asylum upper tribunal case" do
-          described_class.call(assessment_id, calculation_result, check, {})
+          described_class.call(assessment_id, calculation_result, check, portal_user_office_code, {})
           output = CompletedUserJourney.find_by(assessment_id:)
           expect(output.matter_type).to eq "asylum"
         end
@@ -153,7 +153,7 @@ RSpec.describe JourneyLoggerService do
         end
 
         it "tracks a domestic abuse case" do
-          described_class.call(assessment_id, calculation_result, check, {})
+          described_class.call(assessment_id, calculation_result, check, portal_user_office_code, {})
           output = CompletedUserJourney.find_by(assessment_id:)
           expect(output.matter_type).to eq "domestic_abuse"
         end
@@ -165,7 +165,7 @@ RSpec.describe JourneyLoggerService do
 
       it "updates an existing record" do
         existing_record = FactoryBot.create(:completed_user_journey, assessment_id:, partner: true)
-        described_class.call(assessment_id, calculation_result, check, {})
+        described_class.call(assessment_id, calculation_result, check, portal_user_office_code, {})
         expect(existing_record.reload.partner).to be false
       end
     end
@@ -174,7 +174,7 @@ RSpec.describe JourneyLoggerService do
       let(:session_data) { { "client_age" => "over_60" } }
 
       it "saves age to the completed user journey" do
-        described_class.call(assessment_id, calculation_result, check, session_data)
+        described_class.call(assessment_id, calculation_result, check, portal_user_office_code, session_data)
         output = CompletedUserJourney.find_by(assessment_id:)
         expect(output.client_age).to eq "over_60"
       end
