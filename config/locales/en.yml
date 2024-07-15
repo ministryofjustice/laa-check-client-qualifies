@@ -711,25 +711,9 @@ en:
 
     level_of_help:
       title: What level of help does your client need?
-      controlled_header: Civil controlled work or family mediation
       includes: "This includes:"
-      controlled_types:
-        - legal help
-        - help at court
-        - help with family mediation
-        - family mediation
-        - family help (lower)
-      also_includes: "It also includes legal representation for proceedings in:"
-      controlled_chambers:
-        - the Health, Education and Social Care Chamber of the First-tier Tribunal under the Mental Health Act 1983 or paragraph 5(2) of the Schedule to the Repatriation of Prisoners Act 1984
-        - the Mental Health Review Tribunal for Wales
-        - the Immigration and Asylum Chamber of the First tier Tribunal
-      certificated_header: Civil certificated or licensed legal work
-      certificated_explanation: This includes full representation and family help (higher).
-      select_a_level: Select a level of help
       controlled: Civil controlled work or family mediation
       certificated: Civil certificated or licensed legal work
-      controlled_hint: For example, legal help
       controlled_guidance:
         text: Controlled work (PDF, 427KB)
       certificated_guidance:
