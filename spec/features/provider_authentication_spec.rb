@@ -1,8 +1,10 @@
 require "rails_helper"
 
 RSpec.describe "Provider authentication" do
+  let(:mock_auth) { build(:mock_saml_auth) }
+
   before do
-    OmniAuth.config.mock_auth[:saml] = LaaPortal::SamlStrategy.mock_auth
+    OmniAuth.config.mock_auth[:saml] = mock_auth
   end
 
   context "without an existing record" do
@@ -15,7 +17,7 @@ RSpec.describe "Provider authentication" do
 
   context "with an existing record" do
     before do
-      create(:provider, email: "provider@example.com")
+      create(:provider, email: mock_auth.info["email"])
     end
 
     scenario "callback" do

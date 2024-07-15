@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Provider login", type: :feature do
   before do
-    OmniAuth.config.mock_auth[:saml] = LaaPortal::SamlStrategy.mock_auth
+    OmniAuth.config.mock_auth[:saml] = build(:mock_saml_auth)
   end
 
   context "when signed in" do
