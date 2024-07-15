@@ -56,18 +56,17 @@
                           label_text: t(check_answers_field_key(field)),
                           value: field.value,
                           frequency: t("checks.check_answers.frequency_options.#{alt_value || 'not_applicable'}")
-              - when "boolean_money_with_frequency"
-                = render "checks/boolean_money_with_frequency",
+              - when "optional_money_with_frequency"
+                = render "checks/optional_money_with_frequency",
                           label_text: t(check_answers_field_key(field)),
                           value: field.value,
-                          boolean: field.second_alt_value,
+                          relevant: field.relevancy_value,
                           frequency: t("checks.check_answers.frequency_options.#{field.alt_value || 'not_applicable'}")
-              - when "boolean_money"
-                = render "checks/money_check_answer",
+              - when "optional_money"
+                = render "checks/optional_money_check_answer",
                           label_text: t(check_answers_field_key(field)),
                           value_text: field.value,
                           disputed_asset: field.disputed?,
-                          conditional: true,
-                          boolean: field.alt_value
+                          relevant: field.relevancy_value
               - else
                 - raise "Unknown field_type #{field.type}"

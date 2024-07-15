@@ -4,9 +4,9 @@
 
   dd.govuk-summary-list__value
     div class="govuk-!-margin-bottom-1"
-      = yes_no_boolean(boolean)
+      = yes_no_boolean(relevant)
 
-    - if boolean
+    - if relevant
       - if value.nil?
         = t("generic.not_applicable")
       - else
