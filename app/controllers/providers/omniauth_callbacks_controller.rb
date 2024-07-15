@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# This code can't be reached yet, as we have no-way of signing in to the portal (SdP initiated login)
+# This code can't be reached yet, as we have no-way of signing in to the portal (SP initiated login)
 # but it seems a shame not to include it in the PR
 #
 # :nocov:
@@ -11,7 +11,7 @@ module Providers
     def saml
       info_hash = request.env["omniauth.auth"].info
 
-      provider = Provider.find_or_create_by! email: info_hash["email"]
+      provider = Provider.find_or_create_by! email: info_hash["email"], first_office_code: info_hash["office_codes"].first
 
       # Portal has checked that we have the correct role, so we can just sign in
       sign_in_and_redirect provider, event: :authentication

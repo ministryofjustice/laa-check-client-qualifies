@@ -9,7 +9,7 @@ RSpec.describe "Provider login", type: :feature do
     let(:email_address) { Faker::Internet.email }
 
     before do
-      sign_in create(:provider, email: email_address)
+      sign_in create(:provider, email: email_address, first_office_code: "LAA")
       visit "/"
     end
 
