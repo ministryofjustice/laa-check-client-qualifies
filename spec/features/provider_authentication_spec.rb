@@ -17,13 +17,14 @@ RSpec.describe "Provider authentication" do
 
   context "with an existing record" do
     before do
-      create(:provider, email: mock_auth.info["email"], first_office_code: mock_auth.info["LAA"])
+      create(:provider, email: mock_auth.info.fetch("email"), first_office_code: Faker::String.random)
     end
 
     scenario "callback" do
       expect {
         visit provider_saml_omniauth_callback_path
       }.not_to change(Provider, :count)
+      expect(Provider.last.reload.first_office_code).to eq(mock_auth.info.fetch("office_codes").first)
     end
   end
 end
