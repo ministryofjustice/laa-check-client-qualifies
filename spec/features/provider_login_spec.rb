@@ -38,7 +38,7 @@ RSpec.describe "Provider login", type: :feature do
       click_on "Submit"
     end
 
-    it "displays the user in the banner" do
+    it "displays the result panel content" do
       expect(page).to have_content("Your client is likely to qualify for civil legal aid")
     end
   end
