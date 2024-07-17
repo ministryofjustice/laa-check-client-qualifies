@@ -17,7 +17,3 @@ en:
         accessibility: Accessibility statement
         no_analytics: No-analytics mode
         updates: Updates
-  start:
-    portal_sign_out:
-      complete_whilst_signed_out: ""
-      opening_paragraphs: ""
