@@ -51,7 +51,7 @@ gem "govuk_notify_rails", "~> 2.2.0"
 gem "geckoboard-ruby"
 
 gem "pdf-forms"
-gem "rexml"
+gem "rexml", ">= 3.3.2"
 gem "factory_bot_rails"
 
 gem "hexapdf"
