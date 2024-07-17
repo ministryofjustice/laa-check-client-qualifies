@@ -113,3 +113,7 @@ google:
 
 metabase:
   enabled: false
+
+portal:
+  idp_metadata_file: config/saml/metadata/portal-idp-uat.xml
+  x509_cert_file: cert-uat.pem
