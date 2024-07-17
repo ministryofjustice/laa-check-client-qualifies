@@ -38,7 +38,7 @@ runs:
       run: |
         if [ $BRANCH_NAME == "not_given" ]
         then
-          if [ $GITHUB_EVENT_NAME == "pull_request" ]
+          if [ $GITHUB_EVENT_NAME == "pull_request_target" ]
           then
             branch=$GITHUB_HEAD_REF
           else
