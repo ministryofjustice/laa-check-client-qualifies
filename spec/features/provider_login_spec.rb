@@ -9,7 +9,7 @@ RSpec.describe "Provider login", type: :feature do
     let(:email_address) { Faker::Internet.email }
 
     before do
-      sign_in create(:provider, email: email_address, first_office_code: "LAA")
+      sign_in create(:provider, email: email_address, first_office_code: "1Q630KL")
       visit "/"
     end
 
@@ -27,7 +27,7 @@ RSpec.describe "Provider login", type: :feature do
     let(:email_address) { Faker::Internet.email }
 
     before do
-      sign_in create(:provider, email: email_address, first_office_code: "LAA")
+      sign_in create(:provider, email: email_address, first_office_code: "1Q630KL")
       visit "/"
       stub_request(:post, %r{v6/assessments\z}).to_return(
         body: build(:api_result, eligible: "eligible").to_json,
