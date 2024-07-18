@@ -1255,6 +1255,7 @@ en:
         total: Total in last 3 months
     partner_other_income:
       heading: The partner's other income
+      caption: Do not include income already entered for your client.
       second_caption: Do not add any income you've listed as other income for the client. Enter 0 for any that do not apply.
       friends_or_family:
         question: Does the partner get financial help from friends or family?
@@ -1335,7 +1336,7 @@ en:
           text: Determining disposable income (PDF, 427KB)
     partner_outgoings:
       heading: The partner's outgoings and deductions
-      caption: Do not add any outgoings you've listed as outgoings for the client.
+      caption: Do not include any outgoings already entered for your client.
       second_caption: Do not add any outgoings you've listed as outgoings for the client. Enter 0 for any that do not apply.
       childcare_payments:
         question: Does the partner pay for childcare?
@@ -1396,7 +1397,7 @@ en:
       legend: Does the partner own any other property, a holiday home or land?
       hints:
         - This can be the sole property owned if not the home the client lives in, even if the property is abroad or not providing an income.
-        - Do not add property, a holiday home or land you’ve already told us about.
+        - Do not include any property or land already entered for your client.
     vehicle:
       vehicle_owned:
         legend: Does your client own a vehicle?
@@ -1450,7 +1451,7 @@ en:
           - Enter 0 if this does not apply.
         with_partner_hints:
           - For example, shares in a public limited company, unit trusts or capital bonds. Include any jointly owned by the client and partner.
-          - Do not include any investments if you entered them as your client's assets on the previous page.
+          - Do not include any investments already entered for your client.
         input: Total of all investments
       valuables:
         label: Does your client have valuable items worth £500 or more?
@@ -1502,9 +1503,9 @@ en:
         text: Disregarded capital (PDF, 918KB)
     partner_assets:
       legend: Partner assets
-      hint: Do not include any assets if you have already input them as your client's.
+      hint: Do not include any assets already entered for your client.
       hints:
-        - Do not enter any assets if you already entered them as your client's.
+        - Do not include any assets already entered for your client.
       business_capital_title: Business capital for self-employed clients
       business_capital_text: This service does not currently collect or include the value of any business capital held by your client or their partner. However the LAA may collect and include this when you make an application.
       business_capital_text_html: See the <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>Lord Chancellor’s guidance (opens in new tab)</a> for more information on when and how it may be assessed at application stage.
@@ -1521,23 +1522,23 @@ en:
           - ISAs
           - child accounts the partner is a signatory on
           - prison accounts
-        paragraph2: Do not include any joint bank accounts if you already entered them as your client's.
+        paragraph2: Do not include any joint bank accounts already entered for your client.
         paragraph3: Do not include Cost of Living Payments.
       investments:
         label: Does the partner have any investments?
         hints:
           - For example, shares in a public limited company, unit trusts or capital bonds.
-          - Do not include any investments if you entered them as your client's assets on the previous page.
+          - Do not include any investments already entered for your client.
         input: Total of all investments
       valuables:
         input: Total of all valuable items
         label: Does the partner have valuable items worth £500 or more?
         certificated_hints:
           - If you have more than one valuation for any of these valuable items, use the highest. Keep a record of where the valuation is from for evidence, as it may be checked if you make an application for legal aid.
-          - Do not include any valuable items if you entered them as your client's assets on the previous page.
+          - Do not include any valuable items already entered for your client.
         controlled_hints:
           - If you have more than one valuation for any of these valuable items, use the highest. Keep a record of where the valuation is from for evidence, as it may be checked at file audit or assessment stage.
-          - Do not include any valuable items if you entered them as your client's assets on the previous page.
+          - Do not include any valuable items already entered for your client.
         details_bullets_1:
           - jewellery (but not wedding, engagement or eternity rings)
           - art
@@ -1590,7 +1591,7 @@ en:
       removed: Property, holiday home or land removed
     partner_additional_property_details:
       heading: The partner's other property, holiday home or land
-      hint: Do not add property, a holiday home or land you’ve already told us about
+      hint: Do not include any property or land already entered for your client.
       house_value:
         input: How much is the property, holiday home or land worth?
       mortgage:
