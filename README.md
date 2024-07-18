@@ -266,6 +266,11 @@ The current values for these are available as secure notes in 1Password for each
   The metadata files are required by the portal team before they can do their integration - this is a little chicken-and-egg
   situation as the metadata files are produced by our Rails code at the url <hostname>:/providers/auth/saml/metadata 
 
+  Once you have the `xml` metadata (from visiting <hostname>:/providers/auth/saml/metadata), copy and paste the metadata into appropriate file (`uat.xml` or `stg.xml` etc). 
+  Remove the errant "..." from the file and format it with your IDE. 
+
+  Then let the portal team know that you branch the new metadata for portal to "point back to". Once that is done, you can test out on this UAT branch: https://portal.uat.legalservices.gov.uk
+
   We also store the portal metadata files in our repository - they are in the Portal GitHub, but their repo is private so
   we can't easily get to them without creating a github access key - it was easier just to copy and paste their config files
   although this could be a potential future option - the code we inherited from crime apply does have the capability of loading 
