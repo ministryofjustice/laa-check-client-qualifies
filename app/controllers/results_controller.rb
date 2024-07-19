@@ -44,6 +44,10 @@ private
   end
 
   def track_completed_journey(calculation_result)
-    JourneyLoggerService.call(assessment_id, calculation_result, @check, cookies)
+    if signed_in? && current_provider.present?
+      JourneyLoggerService.call(assessment_id, calculation_result, @check, current_provider.first_office_code, cookies)
+    else
+      JourneyLoggerService.call(assessment_id, calculation_result, @check, nil, cookies)
+    end
   end
 end
