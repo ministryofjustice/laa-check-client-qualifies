@@ -27,14 +27,14 @@ module CheckAnswers
                                                               model: check,
                                                               alt_attribute: "#{attribute_prefix}pension_frequency".to_sym,
                                                               relevancy_attribute: "#{attribute_prefix}pension_relevant".to_sym),
-                      BooleanMoneyPresenter.new(table_label: other_income_field,
-                                                attribute: "#{attribute_prefix}student_finance_conditional_value".to_sym,
-                                                model: check,
-                                                alt_attribute: "#{attribute_prefix}student_finance_relevant".to_sym),
-                      BooleanMoneyPresenter.new(table_label: other_income_field,
-                                                attribute: "#{attribute_prefix}other_conditional_value".to_sym,
-                                                model: check,
-                                                alt_attribute: "#{attribute_prefix}other_relevant".to_sym),
+                      OptionalMoneyPresenter.new(table_label: other_income_field,
+                                                 attribute: "#{attribute_prefix}student_finance_conditional_value".to_sym,
+                                                 model: check,
+                                                 relevancy_attribute: "#{attribute_prefix}student_finance_relevant".to_sym),
+                      OptionalMoneyPresenter.new(table_label: other_income_field,
+                                                 attribute: "#{attribute_prefix}other_conditional_value".to_sym,
+                                                 model: check,
+                                                 relevancy_attribute: "#{attribute_prefix}other_relevant".to_sym),
                     ])
         [other_income]
       end
