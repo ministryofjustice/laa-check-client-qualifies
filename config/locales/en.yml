@@ -2501,6 +2501,7 @@ en:
         - your Internet Protocol (IP) address
         - details of which version of <a href='https://www.gov.uk/support/browsers/'>web browser</a> you used
         - information on how you use the site, using <a href='/cookies/'>cookies</a> and page tagging techniques
+      portal_users_html: If you access the service via the LAA Portal, then we collect your portal login and office account number - check the <a href='https://www.gov.uk/government/publications/laa-online-portal-help-and-information#attachment_6742318'>LAA Portal terms and conditions.</a>
       with_consent_html: "Where you provide your consent, we use <a href='https://support.google.com/analytics/topic/2919631/'>Google Analytics</a> cookies. Google Analytics processes information about:"
       privacy_bullets_two:
         - the pages you visit
@@ -2539,7 +2540,7 @@ en:
       how_long_heading: How long we keep your data
       how_long_section:
         - We will only retain your data for as long as it is needed for the purposes set out on this page.
-        - We will retain summary logs of interactions with the service for five years, but these logs are fully anonymous.
+        - We will delete data that identifies specific users after 7 days. We will retain summary logs of interactions with the service for five years, but these logs are fully anonymous.
         - We will delete access log data which contain your IP address after 30 days.
       where_stored_heading: Where your data is processed and stored
       where_stored: We design, build and run our systems to make sure that your data is as safe as possible at all stages, both while it’s processed and when it’s stored. All personal data is processed in the EEA.
@@ -2584,7 +2585,7 @@ en:
         - SK9 5AF
       changes_heading: Changes to this policy
       changes_text: We may change this privacy policy. In that case, the ‘last updated’ date at the bottom of this page will also change. Any changes to this privacy policy will apply to you and your data immediately.
-      last_updated: Last updated 28 April 2023
+      last_updated: Last updated 18 July 2024
   accessibilities:
     show:
       title: Accessibility statement
