@@ -10,6 +10,7 @@
   = form.govuk_error_summary t("generic.error_summary_title")
   = render "shared/heading",
             header_text: t("question_flow.#{i18n_key}.heading"),
+            post_header_text: (t("question_flow.#{i18n_key}.caption") if partner),
             tag: (:partner if partner)
   - OtherIncomeForm::REGULAR_INCOME_TYPES.each do |type|
     = form.govuk_radio_buttons_fieldset :"#{type}_relevant",
