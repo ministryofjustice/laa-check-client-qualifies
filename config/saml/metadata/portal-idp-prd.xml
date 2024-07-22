@@ -1,0 +1,87 @@
+<md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#"
+                     xmlns:enc="http://www.w3.org/2001/04/xmlenc#"
+                     xmlns:mdattr="urn:oasis:names:tc:SAML:metadata:attribute"
+                     xmlns:mdext="urn:oasis:names:tc:SAML:metadata:extension"
+                     xmlns:ns10="urn:oasis:names:tc:SAML:profiles:v1metadata"
+                     xmlns:query="urn:oasis:names:tc:SAML:metadata:ext:query"
+                     xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
+                     xmlns:x500="urn:oasis:names:tc:SAML:2.0:profiles:attribute:X500"
+                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     ID="id-tsnPyqRqsSPgztgtcuHEP8rvbDN0SP4gVdtQJGKy" cacheDuration="P30DT0H0M0S"
+                     entityID="LAA_Identity_Provider" validUntil="2028-09-23T13:10:23Z">
+    <dsig:Signature>
+        <dsig:SignedInfo>
+            <dsig:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+            <dsig:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+            <dsig:Reference URI="#id-tsnPyqRqsSPgztgtcuHEP8rvbDN0SP4gVdtQJGKy">
+                <dsig:Transforms>
+                    <dsig:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+                    <dsig:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+                </dsig:Transforms>
+                <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                <dsig:DigestValue>5YkQRPzkJCzw6TS91Daqw/xx7Z0=</dsig:DigestValue>
+            </dsig:Reference>
+        </dsig:SignedInfo>
+        <dsig:SignatureValue>
+            YPv+F3iKkvCNSIs0CgAs0woJ8Z06G4V6P3s9XxBdkPoVJsqdf7cB5seYGROVkuetJLA/vvB2jurbW0oRTaQmMquENMAZ3+ziIPVyMajPGOext1HTThl6os/6z5JhVtkvUpWcMya1A/5r5Y2nV1eC7mps1tL6b53zwpsfSiqytm5dXKrjnmPLaQNWV1zN8ROVTfSy3UnN9S+5/Ft4eMLKEpQDTxD+QtPDAC8XcCAwqEpi2jNLJJWcEfPBqtAjXRnLVGasUEawRFNjXlCzmtdKRpnxZ8RNItrElEb2CrSetHEHrxZVZP05Xq3/KWnfy0O2FfAUK0R8ydrzTSlzZMCHpeveZ/n4zkeJJ1MWEAspAUcOtxDzeAw2uTnn0uFMnedNdyhV102+SToRwggn0YoB3bj6u+oJkSzwUci1hYpDATToRerFjJzKJE6Mg1mCtmn3XeveEBzGUiOJfbzMMrVL6hxM4pIY21OK06/3zIeZszcBHz3w43s+x/bf8ELQe9RM
+        </dsig:SignatureValue>
+        <dsig:KeyInfo>
+            <dsig:X509Data>
+                <dsig:X509Certificate>
+                    MIIEJTCCAo2gAwIBAgIBZjANBgkqhkiG9w0BAQsFADA1MTMwMQYDVQQDEyppcC0xMC0yMDUtNC0xNjEuZXUtd2VzdC0yLmNvbXB1dGUuaW50ZXJuYWwwHhcNMTgwOTI2MTMxMDIzWhcNMjgwOTIzMTMxMDIzWjA1MTMwMQYDVQQDEyppcC0xMC0yMDUtNC0xNjEuZXUtd2VzdC0yLmNvbXB1dGUuaW50ZXJuYWwwggGiMA0GCSqGSIb3DQEBAQUAA4IBjwAwggGKAoIBgQCIA2BAZx34oqyItUBPipzi5OLiQgtHBSOFmHZs0Zt37XHm7a/brxGCDrGOUYbasGYjDagW7JRjoLVLlIXMwVg2VZa/3oApb3Q1v5masxgs40p9H6kKJZGL0uYD2sC2aB6QfxmqyPbkOSkFjY+Pak5ZXdEXjXd6XlOkxDKg4YObaLeAsTXfKdqdOWq4vDOO+BjFdXhRLnJFG5khtSqGbvTNNedZQGhWhgBYhcV5btASIC1B2qpmopjokRoA88smoUTMfgS6iuqBnouWeKuKm8O9fg1PNtHYwDr7jjVf2LI4NdZcICdVwg73LA/SFD7k/bLXTxKQBhWeDy4I3w17ylVZ47Pl3eYg4jElOfFY8eQPCHlb6aN2isYp6kFkS+M2gr9/fUFx3OV5WTi5542xiXI6CaZFmu808vlCPuGRGDEJFqNk903l+xo42AHs/TbydO44xm+Ir+zNeK5Ut6qbA1s9h7DC7Y6RNRUGICeKSAEKE3NCd7e5m9/gWkHyd2OA34kCAwEAAaNAMD4wDAYDVR0TAQH/BAIwADAPBgNVHQ8BAf8EBQMDB9gAMB0GA1UdDgQWBBQx4qeujkCdisxk8z2d13UrEd4GvDANBgkqhkiG9w0BAQsFAAOCAYEAfCexO7VQZOwHJS4mOF5+Dtu5sMT4cuPwKC0V29me9Bgc9uG8M+AkaluxsU34DFiUEwl2C9JK5eDiiUFAm4Fqe+nCPIjjnOOl2RD5LtpIBLigAaXTS/RXOroc03uUQsSLiVTm349xibGIEfhWXpuOuPZbnXAlmz+1UfwzKmPzuNIzjpSwi56N5X+iMDpPKRP+vOwyHF6f3wR+E3a0yJM5vyc7F3A7bD4o/7qHOL3GpxyEDaeXywnfW0vwSNykrl4NzHv4trnzttfGTKNTrFDemW5xto4tJJrf938fcgOdIAG+71Uo0oTSrJeNIpIG5No8oEHwqKeVy4c8TbA/nNNSnIIvfVuGXOBwB5/3FlxkkWLxbT2JBectE+KKpgj+cbmBEoN/fm5PWZuRZRCuBoRHfUbyYL07AYxaUHcQAObMYWCjOahGZH48NvRzUVJuonmwDITAqVP6fAE/BQO5WM4vP6uN4Vb1y2beBn4P8Tp6FhM9oVoM6uH9pXCFGjlktQ46
+                </dsig:X509Certificate>
+            </dsig:X509Data>
+        </dsig:KeyInfo>
+    </dsig:Signature>
+    <md:IDPSSODescriptor WantAuthnRequestsSigned="false"
+                         protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+        <md:KeyDescriptor use="signing">
+            <dsig:KeyInfo>
+                <dsig:X509Data>
+                    <dsig:X509Certificate>
+                        MIIEJTCCAo2gAwIBAgIBZjANBgkqhkiG9w0BAQsFADA1MTMwMQYDVQQDEyppcC0xMC0yMDUtNC0xNjEuZXUtd2VzdC0yLmNvbXB1dGUuaW50ZXJuYWwwHhcNMTgwOTI2MTMxMDIzWhcNMjgwOTIzMTMxMDIzWjA1MTMwMQYDVQQDEyppcC0xMC0yMDUtNC0xNjEuZXUtd2VzdC0yLmNvbXB1dGUuaW50ZXJuYWwwggGiMA0GCSqGSIb3DQEBAQUAA4IBjwAwggGKAoIBgQCIA2BAZx34oqyItUBPipzi5OLiQgtHBSOFmHZs0Zt37XHm7a/brxGCDrGOUYbasGYjDagW7JRjoLVLlIXMwVg2VZa/3oApb3Q1v5masxgs40p9H6kKJZGL0uYD2sC2aB6QfxmqyPbkOSkFjY+Pak5ZXdEXjXd6XlOkxDKg4YObaLeAsTXfKdqdOWq4vDOO+BjFdXhRLnJFG5khtSqGbvTNNedZQGhWhgBYhcV5btASIC1B2qpmopjokRoA88smoUTMfgS6iuqBnouWeKuKm8O9fg1PNtHYwDr7jjVf2LI4NdZcICdVwg73LA/SFD7k/bLXTxKQBhWeDy4I3w17ylVZ47Pl3eYg4jElOfFY8eQPCHlb6aN2isYp6kFkS+M2gr9/fUFx3OV5WTi5542xiXI6CaZFmu808vlCPuGRGDEJFqNk903l+xo42AHs/TbydO44xm+Ir+zNeK5Ut6qbA1s9h7DC7Y6RNRUGICeKSAEKE3NCd7e5m9/gWkHyd2OA34kCAwEAAaNAMD4wDAYDVR0TAQH/BAIwADAPBgNVHQ8BAf8EBQMDB9gAMB0GA1UdDgQWBBQx4qeujkCdisxk8z2d13UrEd4GvDANBgkqhkiG9w0BAQsFAAOCAYEAfCexO7VQZOwHJS4mOF5+Dtu5sMT4cuPwKC0V29me9Bgc9uG8M+AkaluxsU34DFiUEwl2C9JK5eDiiUFAm4Fqe+nCPIjjnOOl2RD5LtpIBLigAaXTS/RXOroc03uUQsSLiVTm349xibGIEfhWXpuOuPZbnXAlmz+1UfwzKmPzuNIzjpSwi56N5X+iMDpPKRP+vOwyHF6f3wR+E3a0yJM5vyc7F3A7bD4o/7qHOL3GpxyEDaeXywnfW0vwSNykrl4NzHv4trnzttfGTKNTrFDemW5xto4tJJrf938fcgOdIAG+71Uo0oTSrJeNIpIG5No8oEHwqKeVy4c8TbA/nNNSnIIvfVuGXOBwB5/3FlxkkWLxbT2JBectE+KKpgj+cbmBEoN/fm5PWZuRZRCuBoRHfUbyYL07AYxaUHcQAObMYWCjOahGZH48NvRzUVJuonmwDITAqVP6fAE/BQO5WM4vP6uN4Vb1y2beBn4P8Tp6FhM9oVoM6uH9pXCFGjlktQ46
+                    </dsig:X509Certificate>
+                    <dsig:X509IssuerSerial>
+                        <dsig:X509IssuerName>CN=ip-10-205-4-161.eu-west-2.compute.internal</dsig:X509IssuerName>
+                        <dsig:X509SerialNumber>102</dsig:X509SerialNumber>
+                    </dsig:X509IssuerSerial>
+                    <dsig:X509SubjectName>CN=ip-10-205-4-161.eu-west-2.compute.internal</dsig:X509SubjectName>
+                </dsig:X509Data>
+            </dsig:KeyInfo>
+        </md:KeyDescriptor>
+        <md:KeyDescriptor use="encryption">
+            <dsig:KeyInfo>
+                <dsig:X509Data>
+                    <dsig:X509Certificate>
+                        MIIEJTCCAo2gAwIBAgIBZjANBgkqhkiG9w0BAQsFADA1MTMwMQYDVQQDEyppcC0xMC0yMDUtNC0xNjEuZXUtd2VzdC0yLmNvbXB1dGUuaW50ZXJuYWwwHhcNMTgwOTI2MTMxMDIzWhcNMjgwOTIzMTMxMDIzWjA1MTMwMQYDVQQDEyppcC0xMC0yMDUtNC0xNjEuZXUtd2VzdC0yLmNvbXB1dGUuaW50ZXJuYWwwggGiMA0GCSqGSIb3DQEBAQUAA4IBjwAwggGKAoIBgQCIA2BAZx34oqyItUBPipzi5OLiQgtHBSOFmHZs0Zt37XHm7a/brxGCDrGOUYbasGYjDagW7JRjoLVLlIXMwVg2VZa/3oApb3Q1v5masxgs40p9H6kKJZGL0uYD2sC2aB6QfxmqyPbkOSkFjY+Pak5ZXdEXjXd6XlOkxDKg4YObaLeAsTXfKdqdOWq4vDOO+BjFdXhRLnJFG5khtSqGbvTNNedZQGhWhgBYhcV5btASIC1B2qpmopjokRoA88smoUTMfgS6iuqBnouWeKuKm8O9fg1PNtHYwDr7jjVf2LI4NdZcICdVwg73LA/SFD7k/bLXTxKQBhWeDy4I3w17ylVZ47Pl3eYg4jElOfFY8eQPCHlb6aN2isYp6kFkS+M2gr9/fUFx3OV5WTi5542xiXI6CaZFmu808vlCPuGRGDEJFqNk903l+xo42AHs/TbydO44xm+Ir+zNeK5Ut6qbA1s9h7DC7Y6RNRUGICeKSAEKE3NCd7e5m9/gWkHyd2OA34kCAwEAAaNAMD4wDAYDVR0TAQH/BAIwADAPBgNVHQ8BAf8EBQMDB9gAMB0GA1UdDgQWBBQx4qeujkCdisxk8z2d13UrEd4GvDANBgkqhkiG9w0BAQsFAAOCAYEAfCexO7VQZOwHJS4mOF5+Dtu5sMT4cuPwKC0V29me9Bgc9uG8M+AkaluxsU34DFiUEwl2C9JK5eDiiUFAm4Fqe+nCPIjjnOOl2RD5LtpIBLigAaXTS/RXOroc03uUQsSLiVTm349xibGIEfhWXpuOuPZbnXAlmz+1UfwzKmPzuNIzjpSwi56N5X+iMDpPKRP+vOwyHF6f3wR+E3a0yJM5vyc7F3A7bD4o/7qHOL3GpxyEDaeXywnfW0vwSNykrl4NzHv4trnzttfGTKNTrFDemW5xto4tJJrf938fcgOdIAG+71Uo0oTSrJeNIpIG5No8oEHwqKeVy4c8TbA/nNNSnIIvfVuGXOBwB5/3FlxkkWLxbT2JBectE+KKpgj+cbmBEoN/fm5PWZuRZRCuBoRHfUbyYL07AYxaUHcQAObMYWCjOahGZH48NvRzUVJuonmwDITAqVP6fAE/BQO5WM4vP6uN4Vb1y2beBn4P8Tp6FhM9oVoM6uH9pXCFGjlktQ46
+                    </dsig:X509Certificate>
+                    <dsig:X509IssuerSerial>
+                        <dsig:X509IssuerName>CN=ip-10-205-4-161.eu-west-2.compute.internal</dsig:X509IssuerName>
+                        <dsig:X509SerialNumber>102</dsig:X509SerialNumber>
+                    </dsig:X509IssuerSerial>
+                    <dsig:X509SubjectName>CN=ip-10-205-4-161.eu-west-2.compute.internal</dsig:X509SubjectName>
+                </dsig:X509Data>
+            </dsig:KeyInfo>
+            <md:EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#rsa-1_5"/>
+            <md:EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#aes128-cbc"/>
+            <md:EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#aes192-cbc"/>
+            <md:EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#aes256-cbc"/>
+            <md:EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#tripledes-cbc"/>
+        </md:KeyDescriptor>
+        <md:ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP"
+                                      Location="https://portal.legalservices.gov.uk/oamfed/idp/soap" index="1"
+                                      isDefault="true"/>
+        <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+                                Location="https://portal.legalservices.gov.uk/oamfed/idp/samlv20"
+                                ResponseLocation="https://portal.legalservices.gov.uk/oamfed/idp/samlv20"/>
+        <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+                                Location="https://portal.legalservices.gov.uk/oamfed/idp/samlv20"
+                                ResponseLocation="https://portal.legalservices.gov.uk/oamfed/idp/samlv20"/>
+        <md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+                                Location="https://portal.legalservices.gov.uk/oamfed/idp/samlv20"/>
+        <md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP"
+                                Location="https://portal.legalservices.gov.uk/oamfed/idp/soap"/>
+        <md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+                                Location="https://portal.legalservices.gov.uk/oamfed/idp/samlv20"/>
+    </md:IDPSSODescriptor>
+</md:EntityDescriptor>

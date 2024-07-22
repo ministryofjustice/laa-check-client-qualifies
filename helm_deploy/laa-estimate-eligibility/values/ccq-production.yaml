@@ -92,6 +92,6 @@ metabase:
   enabled: true
 
 portal:
-  idp_metadata_file: config/saml/metadata/portal-idp-prod.xml
+  idp_metadata_file: config/saml/metadata/portal-idp-prd.xml
   x509_cert_file: cert-production.pem
 
