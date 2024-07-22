@@ -59,9 +59,19 @@ module CheckAnswers
         },
       }
 
+      # This version passes all the tests, so lots of scenarios are missing.
+      # tables = table_data.map { |screen, data|
+      #   table_fields = data.fetch(:fields)
+      #   Table.new(screen:, skip_change_link: data.fetch(:skip_change_link), index: nil, disputed?: false, fields: table_fields)
+      # }
+      # screen == nil means that the field can't be removed by this naive filter.
+      # Hence the only scenarios missing are:
+      # 1. Under 18 and CLR - aggregated means table only shown when true
+      # 2. under_18_clr - IIRC only shown iff under 18 and controlled work.
+      # This could be part of the 'turn around' where the model provides the rule, and the flow interrogates the model
+      # to determine screen validity
       tables = table_data.map { |screen, data|
         table_fields = data.fetch(:fields).select { |f| f.screen.nil? || Steps::Helper.relevant_steps(@check.session_data).include?(f.screen) }
-        # The if table_fields.any? can be deleted w/o any tests failing, so we need more coverage around this area
         Table.new(screen:, skip_change_link: data.fetch(:skip_change_link), index: nil, disputed?: false, fields: table_fields) if table_fields.any?
       }.compact
 

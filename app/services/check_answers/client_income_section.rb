@@ -30,6 +30,14 @@ module CheckAnswers
   private
 
     def subsection_for(possible_tables)
+      # with this version, the only test that fails is early_result_change_answers_flow_spec.rb:191
+      # which fails as the ClientIncome section is present when it shouldn't be.
+      # Again these sections should be shown iff the relevant data is filled out
+      #
+      # currently the flow (early eligibility) determines whether this data is shown or not by collapsing all the tables
+      # each table should be collapsible via employment yes/no, benefits yes/no, other income yes/no
+      # same for partner income
+      # tables = possible_tables
       tables = possible_tables.select { Steps::Helper.relevant_steps(@check.session_data).include?(_1.screen) }
       Subsection.new(tables:) if tables.any?
     end
