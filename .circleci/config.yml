@@ -282,7 +282,7 @@ workflows:
           requires:
             - install_dependencies
       - deploy:
-          name: Deploy UAT
+          name: Deploy to UAT
           environment: ccq-uat
           context: laa-check-client-qualifies-uat
           requires:
@@ -298,7 +298,7 @@ workflows:
                 pipeline_id: << pipeline.id >>
                 pipeline_number: << pipeline.number >>
       - deploy:
-          name: Deploy staging
+          name: Deploy to Staging
           environment: ccq-staging
           context: laa-check-client-qualifies-staging
           requires:
@@ -306,6 +306,7 @@ workflows:
             - end2end_tests
             - linters
             - build_and_push
+            - Deploy to UAT
           post-steps:
             - jira/notify:
                 job_type: deployment
@@ -317,16 +318,21 @@ workflows:
             branches:
               only:
                 - main
-      - production_deploy_approval:
-          type: approval
-          requires:
-            - Deploy staging
-          filters:
-            branches:
-              only:
-                - main
+
+# Keeping this step commented out because we will need
+# again in the future, the requires production_deploy_approval
+# in Deploy to Production is also commented out
+
+#      - production_deploy_approval:
+#          type: approval
+#          requires:
+#            - Deploy to Staging
+#          filters:
+#            branches:
+#              only:
+#                - main
       - deploy:
-          name: Deploy production
+          name: Deploy to Production
           environment: ccq-production
           context: laa-check-client-qualifies-production
           requires:
@@ -334,7 +340,8 @@ workflows:
             - end2end_tests
             - linters
             - build_and_push
-            - production_deploy_approval
+            - Deploy to Staging
+#            - production_deploy_approval
           post-steps:
             - jira/notify:
                 job_type: deployment
