@@ -318,14 +318,19 @@ workflows:
             branches:
               only:
                 - main
-      - production_deploy_approval:
-          type: approval
-          requires:
-            - Deploy staging
-          filters:
-            branches:
-              only:
-                - main
+
+# Keeping this step commented out because we will need
+# again in the future, the requires production_deploy_approval
+# in Deploy to Production is also commented out
+
+#      - production_deploy_approval:
+#          type: approval
+#          requires:
+#            - Deploy to Staging
+#          filters:
+#            branches:
+#              only:
+#                - main
       - deploy:
           name: Deploy to Production
           environment: ccq-production
@@ -336,7 +341,7 @@ workflows:
             - linters
             - build_and_push
             - Deploy to Staging
-            - production_deploy_approval
+#            - production_deploy_approval
           post-steps:
             - jira/notify:
                 job_type: deployment
