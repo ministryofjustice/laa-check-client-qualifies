@@ -417,16 +417,12 @@ en:
         assets_form:
           attributes:
             investments:
-              legacy_blank: Enter the total value of investments. Enter 0 if this does not apply.
               blank: Enter the total value of investments.
-              legacy_not_a_number: The total value of all investments must be a number. Enter 0 if this does not apply.
               not_a_number: The total value of all investments must be a number.
               greater_than_or_equal_to: The total value of all investments must be 0 or more.
               greater_than: The total value of all investments must be greater than 0.
             valuables:
-              legacy_blank: Enter the total value of items worth £500 or more. Enter 0 if this does not apply.
               blank: Enter the total value of items worth £500 or more.
-              legacy_not_a_number: Value of items worth £500 or more must be a number. Enter 0 if this does not apply.
               not_a_number: Value of items worth £500 or more must be a number.
               below_500: Valuable items must be £500 or more. Enter 0 if this does not apply.
               greater_than_or_equal_to:  Valuable items must be £500 or more.

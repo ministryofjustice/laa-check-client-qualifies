@@ -140,12 +140,6 @@ RSpec.configure do |config|
     ENV["EARLY_ELIGIBILITY_FEATURE_FLAG"] = "disabled"
   end
 
-  config.around(:each, :legacy_assets_no_reveal) do |example|
-    ENV["LEGACY_ASSETS_NO_REVEAL_FEATURE_FLAG"] = "enabled"
-    example.run
-    ENV["LEGACY_ASSETS_NO_REVEAL_FEATURE_FLAG"] = "disabled"
-  end
-
   config.around(:each, :legacy_housing_benefit_without_reveals) do |example|
     ENV["LEGACY_HOUSING_BENEFIT_WITHOUT_REVEALS_FEATURE_FLAG"] = "enabled"
     example.run

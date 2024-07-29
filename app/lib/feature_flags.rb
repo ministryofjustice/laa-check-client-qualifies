@@ -17,7 +17,6 @@ class FeatureFlags
     # This should go back to being a time-based feature flag once the SI date has been re-set
     # after the election on 4th July 2024
     mtr_accelerated: { type: "global", default: false },
-    legacy_assets_no_reveal: { type: "session", default: false },
   }.freeze
 
   class << self

@@ -9,7 +9,7 @@ RSpec.describe "Instant sessions page" do
     allow(CfeConnection).to receive(:assess).and_return(api_response)
   end
 
-  context "without conditional reveals for assets enabled", :legacy_assets_no_reveal do
+  context "without conditional reveals for assets enabled" do
     scenario "I request an instant controlled session" do
       visit "instant-controlled"
       expect(page).to have_content "Check your answers"

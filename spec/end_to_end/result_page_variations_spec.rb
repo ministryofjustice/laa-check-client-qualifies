@@ -64,7 +64,7 @@ RSpec.describe "Results page variations", :end2end, type: :feature do
     key_lines.each { expect(page).to have_content _1 }
   end
 
-  it "disregards capital when the client is over 60", :legacy_assets_no_reveal do
+  it "disregards capital when the client is over 60" do
     start_assessment
     fill_in_client_age_screen(choice: "60 or over")
     fill_in_forms_until(:applicant)

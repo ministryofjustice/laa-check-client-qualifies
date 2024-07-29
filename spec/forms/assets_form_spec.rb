@@ -21,19 +21,6 @@ RSpec.describe "assets", type: :feature do
     fill_in_forms_until(:assets)
   end
 
-  context "without conditional reveal assets", :legacy_assets_no_reveal do
-    it "stores the chosen values in the session" do
-      fill_in "bank_account_model[items][1][amount]", with: "234"
-      fill_in "client_assets_form[investments]", with: "345"
-      fill_in "client_assets_form[valuables]", with: "4560"
-      click_on "Save and continue"
-
-      expect(session_contents["bank_accounts"][0]["amount"]).to eq 234
-      expect(session_contents["investments"]).to eq 345
-      expect(session_contents["valuables"]).to eq 4560
-    end
-  end
-
   context "with conditional reveal assets" do
     it "stores the chosen values in the session" do
       fill_in "bank_account_model[items][1][amount]", with: "234"
@@ -102,24 +89,12 @@ RSpec.describe "assets", type: :feature do
     let(:valuables_content) { "Does your client have valuable items" }
     let(:investments_content) { "Does your client have any investments?" }
 
-    context "with legacy non-reveals", :legacy_assets_no_reveal do
-      it "hides the reveal question for valuables" do
-        expect(page).not_to have_content valuables_content
-      end
-
-      it "hides the reveal question for investments" do
-        expect(page).not_to have_content investments_content
-      end
+    it "shows the reveal question for valuables" do
+      expect(page).to have_content valuables_content
     end
 
-    context "with asset reveals" do
-      it "shows the reveal question for valuables" do
-        expect(page).to have_content valuables_content
-      end
-
-      it "shows the reveal question for investments" do
-        expect(page).to have_content investments_content
-      end
+    it "shows the reveal question for investments" do
+      expect(page).to have_content investments_content
     end
   end
 end
