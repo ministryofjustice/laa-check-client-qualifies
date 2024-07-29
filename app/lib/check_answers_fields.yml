@@ -125,16 +125,6 @@ sections:
             fields:
               - attribute: employment_status
                 type: select
-          - screen: employment
-            fields:
-              - attribute: frequency
-                type: frequency
-              - attribute: gross_income
-                type: money
-              - attribute: income_tax
-                type: money
-              - attribute: national_insurance
-                type: money
         add_another_tables:
           - screen: income
             attribute: incomes
@@ -168,27 +158,27 @@ sections:
           - screen: other_income
             fields:
               - attribute: friends_or_family_conditional_value
-                type: boolean_money_with_frequency
+                type: optional_money_with_frequency
                 alt_attribute: friends_or_family_frequency
-                second_alt_attribute: friends_or_family_relevant
+                relevancy_attribute_name: friends_or_family_relevant
               - attribute: maintenance_conditional_value
-                type: boolean_money_with_frequency
+                type: optional_money_with_frequency
                 alt_attribute: maintenance_frequency
-                second_alt_attribute: maintenance_relevant
+                relevancy_attribute_name: maintenance_relevant
               - attribute: property_or_lodger_conditional_value
-                type: boolean_money_with_frequency
+                type: optional_money_with_frequency
                 alt_attribute: property_or_lodger_frequency
-                second_alt_attribute: property_or_lodger_relevant
+                relevancy_attribute_name: property_or_lodger_relevant
               - attribute: pension_conditional_value
-                type: boolean_money_with_frequency
+                type: optional_money_with_frequency
                 alt_attribute: pension_frequency
-                second_alt_attribute: pension_relevant
+                relevancy_attribute_name: pension_relevant
               - attribute: student_finance_conditional_value
-                type: boolean_money
-                alt_attribute: student_finance_relevant
+                type: optional_money
+                relevancy_attribute_name: student_finance_relevant
               - attribute: other_conditional_value
-                type: boolean_money
-                alt_attribute: other_relevant
+                type: optional_money
+                relevancy_attribute_name: other_relevant
   - label: partner_income
     subsections:
       - tables:
@@ -201,16 +191,6 @@ sections:
             fields:
               - attribute: partner_employment_status
                 type: select
-          - screen: partner_employment
-            fields:
-              - attribute: partner_frequency
-                type: frequency
-              - attribute: partner_gross_income
-                type: money
-              - attribute: partner_income_tax
-                type: money
-              - attribute: partner_national_insurance
-                type: money
         add_another_tables:
           - screen: partner_income
             attribute: partner_incomes
@@ -244,61 +224,61 @@ sections:
           - screen: partner_other_income
             fields:
               - attribute: partner_friends_or_family_conditional_value
-                type: boolean_money_with_frequency
+                type: optional_money_with_frequency
                 alt_attribute: partner_friends_or_family_frequency
-                second_alt_attribute: partner_friends_or_family_relevant
+                relevancy_attribute_name: partner_friends_or_family_relevant
               - attribute: partner_maintenance_conditional_value
-                type: boolean_money_with_frequency
+                type: optional_money_with_frequency
                 alt_attribute: partner_maintenance_frequency
-                second_alt_attribute: partner_maintenance_relevant
+                relevancy_attribute_name: partner_maintenance_relevant
               - attribute: partner_property_or_lodger_conditional_value
-                type: boolean_money_with_frequency
+                type: optional_money_with_frequency
                 alt_attribute: partner_property_or_lodger_frequency
-                second_alt_attribute: partner_property_or_lodger_relevant
+                relevancy_attribute_name: partner_property_or_lodger_relevant
               - attribute: partner_pension_conditional_value
-                type: boolean_money_with_frequency
+                type: optional_money_with_frequency
                 alt_attribute: partner_pension_frequency
-                second_alt_attribute: partner_pension_relevant
+                relevancy_attribute_name: partner_pension_relevant
               - attribute: partner_student_finance_conditional_value
-                type: boolean_money
-                alt_attribute: partner_student_finance_relevant
+                type: optional_money
+                relevancy_attribute_name: partner_student_finance_relevant
               - attribute: partner_other_conditional_value
-                type: boolean_money
-                alt_attribute: partner_other_relevant
+                type: optional_money
+                relevancy_attribute_name: partner_other_relevant
   - label: outgoings
     subsections:
       - tables:
           - screen: outgoings
             fields:
               - attribute: childcare_payments_conditional_value
-                type: boolean_money_with_frequency
+                type: optional_money_with_frequency
                 alt_attribute: childcare_payments_frequency
-                second_alt_attribute: childcare_payments_relevant
+                relevancy_attribute_name: childcare_payments_relevant
                 skip_unless: eligible_for_childcare_costs?
               - attribute: maintenance_payments_conditional_value
-                type: boolean_money_with_frequency
+                type: optional_money_with_frequency
                 alt_attribute: maintenance_payments_frequency
-                second_alt_attribute: maintenance_payments_relevant
+                relevancy_attribute_name: maintenance_payments_relevant
               - attribute: legal_aid_payments_conditional_value
-                type: boolean_money_with_frequency
+                type: optional_money_with_frequency
                 alt_attribute: legal_aid_payments_frequency
-                second_alt_attribute: legal_aid_payments_relevant
+                relevancy_attribute_name: legal_aid_payments_relevant
       - tables:
           - screen: partner_outgoings
             fields:
               - attribute: partner_childcare_payments_conditional_value
-                type: boolean_money_with_frequency
+                type: optional_money_with_frequency
                 alt_attribute: partner_childcare_payments_frequency
-                second_alt_attribute: partner_childcare_payments_relevant
+                relevancy_attribute_name: partner_childcare_payments_relevant
                 skip_unless: eligible_for_childcare_costs?
               - attribute: partner_maintenance_payments_conditional_value
-                type: boolean_money_with_frequency
+                type: optional_money_with_frequency
                 alt_attribute: partner_maintenance_payments_frequency
-                second_alt_attribute: partner_maintenance_payments_relevant
+                relevancy_attribute_name: partner_maintenance_payments_relevant
               - attribute: partner_legal_aid_payments_conditional_value
-                type: boolean_money_with_frequency
+                type: optional_money_with_frequency
                 alt_attribute: partner_legal_aid_payments_frequency
-                second_alt_attribute: partner_legal_aid_payments_relevant
+                relevancy_attribute_name: partner_legal_aid_payments_relevant
   - label: housing_and_property
     subsections:
       - tables:

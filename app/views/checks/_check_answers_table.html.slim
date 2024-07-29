@@ -3,9 +3,6 @@
     = pdf_friendly_h2(t("checks.check_answers.sections.#{section.label}"), "l", @is_pdf, "govuk-!-margin-top-9")
 
   - section.subsections.each do |subsection|
-    - if subsection.label
-      = pdf_friendly_h2(t("checks.check_answers.subsections.#{subsection.label}"), "m", @is_pdf)
-
     - subsection.tables.each do |table|
       - id_slug = table.index.to_i.positive? ? "table-#{table.screen}-#{table.index}" : "table-#{table.screen}"
       .govuk-summary-card id=(id_slug unless table.skip_change_link)
@@ -55,23 +52,21 @@
                           value_text: t("checks.check_answers.frequency_options.#{field.value || 'not_applicable'}")
               - when "money_with_frequency"
                 - alt_value = field.alt_value if field.value&.to_f&.positive?
-                = render "checks/money_and_frequency_check_answer",
+                = render "checks/money_with_frequency",
                           label_text: t(check_answers_field_key(field)),
                           value: field.value,
                           frequency: t("checks.check_answers.frequency_options.#{alt_value || 'not_applicable'}")
-              - when "boolean_money_with_frequency"
-                = render "checks/money_and_frequency_check_answer",
+              - when "optional_money_with_frequency"
+                = render "checks/optional_money_with_frequency",
                           label_text: t(check_answers_field_key(field)),
                           value: field.value,
-                          conditional: true,
-                          boolean: field.second_alt_value,
+                          relevant: field.relevancy_value,
                           frequency: t("checks.check_answers.frequency_options.#{field.alt_value || 'not_applicable'}")
-              - when "boolean_money"
-                = render "checks/money_check_answer",
+              - when "optional_money"
+                = render "checks/optional_money_check_answer",
                           label_text: t(check_answers_field_key(field)),
                           value_text: field.value,
                           disputed_asset: field.disputed?,
-                          conditional: true,
-                          boolean: field.alt_value
+                          relevant: field.relevancy_value
               - else
                 - raise "Unknown field_type #{field.type}"

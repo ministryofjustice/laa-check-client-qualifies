@@ -1,9 +1,9 @@
 module CheckAnswers
   class SectionListerService
     Section = Struct.new(:label, :subsections, keyword_init: true)
-    Subsection = Struct.new(:label, :tables, keyword_init: true)
+    Subsection = Struct.new(:tables, keyword_init: true)
     Table = Struct.new(:screen, :index, :disputed?, :fields, :skip_change_link, keyword_init: true)
-    Field = Struct.new(:label, :type, :value, :alt_value, :second_alt_value, :disputed?, :index, :screen, keyword_init: true)
+    Field = Struct.new(:label, :type, :value, :alt_value, :relevancy_value, :disputed?, :index, :screen, keyword_init: true)
 
     def self.call(session_data)
       check = Check.new(session_data)
@@ -36,8 +36,7 @@ module CheckAnswers
     end
 
     def build_subsection(subsection_data)
-      Subsection.new(label: subsection_data[:label],
-                     tables: build_tables(subsection_data))
+      Subsection.new(tables: build_tables(subsection_data))
     end
 
     def build_tables(subsection_data)
@@ -102,7 +101,7 @@ module CheckAnswers
                 index:,
                 screen: field_data[:screen],
                 alt_value: (model.send(field_data[:alt_attribute]) if field_data[:alt_attribute]),
-                second_alt_value: (model.send(field_data[:second_alt_attribute]) if field_data[:second_alt_attribute]))
+                relevancy_value: (model.send(field_data[:relevancy_attribute_name]) if field_data[:relevancy_attribute_name]))
     end
 
     def build_many_fields(field_data, model, table_label)
