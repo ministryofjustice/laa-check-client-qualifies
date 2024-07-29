@@ -16,4 +16,12 @@ RSpec.describe OldDataRemovalService do
     expect(AnalyticsEvent.count).to eq 1
     expect(CompletedUserJourney.count).to eq 1
   end
+
+  it "deletes old providers, but keeps newer ones" do
+    create(:provider, created_at: 3.weeks.ago)
+    create(:provider)
+    create(:provider)
+
+    expect { described_class.call }.to change(Provider, :count).by(-1)
+  end
 end
