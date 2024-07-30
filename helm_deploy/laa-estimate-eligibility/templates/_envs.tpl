@@ -75,6 +75,8 @@ env:
     value: {{ .Values.featureFlags.legacyAssetNoReveals }}
   - name: LEGACY_HOUSING_BENEFIT_WITHOUT_REVEALS_FEATURE_FLAG
     value: {{ .Values.featureFlags.legacyHousingBenefitWithoutReveals }}
+  - name: SHARED_OWNERSHIP_FEATURE_FLAG
+    value: {{ .Values.featureFlags.sharedOwnership }}
   - name: FEATURE_FLAG_OVERRIDES
     value: {{ .Values.featureFlags.overrides }}
   - name: NOTIFICATIONS_API_KEY
