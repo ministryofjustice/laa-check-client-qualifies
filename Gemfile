@@ -16,10 +16,10 @@ gem "pg", "~> 1.5"
 gem "puma", "~> 6.4"
 
 # Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
-gem "jsbundling-rails"
+gem "jsbundling-rails", ">= 1.3.1"
 
 # Bundle and process CSS [https://github.com/rails/cssbundling-rails]
-gem "cssbundling-rails"
+gem "cssbundling-rails", ">= 1.4.1"
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
