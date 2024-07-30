@@ -63,6 +63,7 @@ featureFlags:
   earlyEligibility: ENABLED
   legacyAssetNoReveals: NOT_ENABLED
   legacyHousingBenefitWithoutReveals: NOT_ENABLED
+  sharedOwnership: NOT_ENABLED
 
 geckoboard:
   metricsDataset: "ccq_monthly_metrics_staging"
