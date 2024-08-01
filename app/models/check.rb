@@ -127,6 +127,6 @@ class Check
   end
 
   def housing_benefit_relevant?
-    FeatureFlags.enabled?(:legacy_housing_benefit_without_reveals, session_data) || housing_benefit_relevant
+    housing_benefit_relevant
   end
 end

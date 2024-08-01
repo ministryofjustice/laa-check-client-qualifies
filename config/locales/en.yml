@@ -487,7 +487,6 @@ en:
               greater_than: Housing Benefit must be more than 0
               greater_than_or_equal_to: Housing Benefit must be must be 0 or more
               exceeds_costs: Housing Benefit cannot be higher than housing costs
-              housing_benefit_legacy_presence: Enter the Housing Benefit amount. Enter 0 if this does not apply.
             housing_payments_frequency:
               inclusion: Select frequency of housing payments.
             housing_benefit_frequency:
