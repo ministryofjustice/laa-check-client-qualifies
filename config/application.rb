@@ -38,5 +38,14 @@ module LaaEstimateFinancialEligibilityForLegalAid
     config.sentry_dsn = ENV["SENTRY_DSN"]&.strip
     config.check_financial_eligibility_host = ENV.fetch("CFE_HOST",
                                                         "https://cfe-civil-staging.cloud-platform.service.justice.gov.uk")
+
+    overrides = Rails.root.join("app/overrides").to_s
+    Rails.autoloaders.main.ignore(overrides)
+
+    config.to_prepare do
+      Dir.glob("#{overrides}/**/*_override.rb").sort.each do |override|
+        load override
+      end
+    end
   end
 end
