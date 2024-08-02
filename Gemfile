@@ -51,7 +51,7 @@ gem "govuk_notify_rails", "~> 2.2.0"
 gem "geckoboard-ruby"
 
 gem "pdf-forms"
-gem "rexml"
+gem "rexml", ">= 3.3.3"
 gem "factory_bot_rails"
 
 gem "hexapdf"
@@ -77,7 +77,7 @@ group :development, :test do
   gem "slim_lint"
   gem "rubocop-govuk", require: false
   gem "rubocop-performance"
-  gem "erb_lint"
+  gem "erb_lint", ">= 0.6.0"
   gem "parallel_tests"
 end
 
