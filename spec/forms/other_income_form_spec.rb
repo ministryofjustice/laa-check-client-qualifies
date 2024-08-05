@@ -1,11 +1,9 @@
 require "rails_helper"
 
 RSpec.describe "other_income", :stub_cfe_calls, type: :feature do
-  let(:assessment_code) { :assessment_code }
-
   before do
-    set_session(assessment_code, "level_of_help" => "controlled")
-    visit form_path(:other_income, assessment_code)
+    start_assessment
+    fill_in_forms_until(:other_income)
   end
 
   def answer_no_for_previous_fields
@@ -35,7 +33,7 @@ RSpec.describe "other_income", :stub_cfe_calls, type: :feature do
     fill_in "other-income-form-other-conditional-value-field", with: "0"
     click_on "Save and continue"
     expect(page).to have_css(".govuk-error-summary__list")
-    expect(page).to have_content("Amount of income from other sources received in the last month must be more than 0")
+    expect(page).to have_content("Amount of income from other sources received in the last 3 months must be more than 0")
   end
 
   it "shows custom error messages for non-numeric other value" do
@@ -44,7 +42,7 @@ RSpec.describe "other_income", :stub_cfe_calls, type: :feature do
     fill_in "other-income-form-other-conditional-value-field", with: "pikachu"
     click_on "Save and continue"
     expect(page).to have_css(".govuk-error-summary__list")
-    expect(page).to have_content("Amount of income from other sources received in the last month must be a number")
+    expect(page).to have_content("Amount of income from other sources received in the last 3 months must be a number")
   end
 
   it "stores the chosen values in the session" do
