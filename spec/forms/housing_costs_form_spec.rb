@@ -10,35 +10,6 @@ RSpec.describe "housing_costs", type: :feature do
     fill_in_forms_until(:housing_costs)
   end
 
-  context "with legacy housing costs form", :legacy_housing_benefit_without_reveals do
-    it "stores my housing payments responses in the session" do
-      fill_in "housing-costs-form-housing-payments-field", with: "20"
-      choose "Every 2 weeks", name: "housing_costs_form[housing_payments_frequency]"
-      fill_in "housing-costs-form-housing-benefit-value-field", with: "40"
-      choose "Every 4 weeks", name: "housing_costs_form[housing_benefit_frequency]"
-      click_on "Save and continue"
-
-      expect(session_contents["housing_payments"]).to eq 20
-      expect(session_contents["housing_payments_frequency"]).to eq "every_two_weeks"
-      expect(session_contents["housing_benefit_value"]).to eq 40
-      expect(session_contents["housing_benefit_frequency"]).to eq "every_four_weeks"
-    end
-
-    context "when the level of help is certificated" do
-      let(:level_of_help) { :certificated }
-
-      it "shows 'Total in last 3 months' radio" do
-        fill_in "housing-costs-form-housing-payments-field", with: "2000"
-        choose "Total in last 3 months", name: "housing_costs_form[housing_payments_frequency]"
-        fill_in "housing-costs-form-housing-benefit-value-field", with: "40"
-        choose "Every 2 weeks", name: "housing_costs_form[housing_benefit_frequency]"
-        click_on "Save and continue"
-
-        expect(session_contents["housing_payments_frequency"]).to eq "total"
-      end
-    end
-  end
-
   it "performs validations if I enter invalid values" do
     fill_in "housing-costs-form-housing-payments-field", with: "1 1"
     choose "Every 2 weeks", name: "housing_costs_form[housing_payments_frequency]"

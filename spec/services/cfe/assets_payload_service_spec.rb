@@ -295,25 +295,6 @@ RSpec.describe Cfe::AssetsPayloadService do
       end
     end
 
-    context "without conditional assets", :legacy_assets_no_reveal do
-      let(:session_data) do
-        FactoryBot.build(:minimal_complete_session,
-                         :with_main_home,
-                         :with_zero_capital_assets,
-                         bank_accounts: [{ "amount" => 123, "account_in_dispute" => true }],
-                         house_in_dispute: true,
-                         immigration_or_asylum_type_upper_tribunal: "immigration_upper",
-                         investments: 345,
-                         valuables: 665)
-      end
-      let(:relevant_steps) { %i[assets property_entry] }
-
-      it "does not include SMOD in the payload" do
-        expect(payload.dig(:properties, :main_home, :subject_matter_of_dispute)).to be false
-        expect(payload.dig(:capitals, :bank_accounts, 0, :subject_matter_of_dispute)).to be false
-      end
-    end
-
     context "when there is no additional property data" do
       let(:session_data) do
         {

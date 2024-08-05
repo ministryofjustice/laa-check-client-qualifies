@@ -71,10 +71,6 @@ env:
     value: {{ .Values.featureFlags.outgoingsFlow }}
   - name: EARLY_ELIGIBILITY_FEATURE_FLAG
     value: {{ .Values.featureFlags.earlyEligibility }}
-  - name: LEGACY_ASSETS_NO_REVEAL_FEATURE_FLAG
-    value: {{ .Values.featureFlags.legacyAssetNoReveals }}
-  - name: LEGACY_HOUSING_BENEFIT_WITHOUT_REVEALS_FEATURE_FLAG
-    value: {{ .Values.featureFlags.legacyHousingBenefitWithoutReveals }}
   - name: SHARED_OWNERSHIP_FEATURE_FLAG
     value: {{ .Values.featureFlags.sharedOwnership }}
   - name: FEATURE_FLAG_OVERRIDES

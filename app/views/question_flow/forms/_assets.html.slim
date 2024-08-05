@@ -16,9 +16,7 @@ div [data-module="add-another"
 
     = form.govuk_error_summary t("generic.error_summary_title")
     - heading_options = { header_text: t("question_flow.#{i18n_key}.legend"), tag: (:partner if partner) }
-    - if FeatureFlags.enabled?(:legacy_assets_no_reveal, @check.session_data)
-      - heading_options[:post_header_texts] = hints
-    - elsif @check.partner && i18n_key == "assets"
+    - if @check.partner && i18n_key == "assets"
       - heading_options[:post_header_text] = t("question_flow.#{i18n_key}.cr_hint")
     - elsif i18n_key == "partner_assets"
       - heading_options[:post_header_text] = t("question_flow.#{i18n_key}.hint")
@@ -63,7 +61,6 @@ div [data-module="add-another"
     .govuk-button-group
       button.govuk-button.govuk-button--secondary type="button" data-add-another-role="add" = t("question_flow.assets.add_bank_account")
 
-    - if !FeatureFlags.enabled?(:legacy_assets_no_reveal, @check.session_data)
       = form.govuk_radio_buttons_fieldset :investments_relevant,
               legend: { text: t("question_flow.#{i18n_key}.investments.label") } do
 
@@ -94,27 +91,7 @@ div [data-module="add-another"
           - if show_smod_content
             .govuk-form-group
               = form.govuk_check_box :investments_in_dispute, true, 0, multiple: false, label: { text: t("generic.dispute") }
-    - else
-      = form.govuk_fieldset legend: { text: t("question_flow.#{i18n_key}.investments.label") } do
 
-        - if @check.partner && i18n_key == "assets"
-          - t("question_flow.#{i18n_key}.investments.with_partner_hints").each
-            .govuk-hint = _1
-        - else
-          - t("question_flow.#{i18n_key}.investments.hints").each
-            .govuk-hint = _1
-
-        = render "shared/money_input",
-              form:,
-              field: :investments,
-              width: 5,
-              label_text: t("question_flow.#{i18n_key}.investments.input")
-
-        - if show_smod_content
-          .govuk-form-group
-            = form.govuk_check_box :investments_in_dispute, true, 0, multiple: false, label: { text: t("generic.dispute") }
-
-    - if !FeatureFlags.enabled?(:legacy_assets_no_reveal, @check.session_data)
       = form.govuk_radio_buttons_fieldset :valuables_relevant,
               legend: { text: t("question_flow.#{i18n_key}.valuables.label") } do
 
@@ -157,36 +134,5 @@ div [data-module="add-another"
           - if show_smod_content
             .govuk-form-group
               = form.govuk_check_box :valuables_in_dispute, true, 0, multiple: false, label: { text: t("generic.dispute") }
-    - else
-      = form.govuk_fieldset legend: { text: t("question_flow.#{i18n_key}.valuables.label") } do
-
-        - if @check.partner && i18n_key == "assets"
-          - t("question_flow.assets.valuables.#{@check.level_of_help}_with_partner_hints").each
-            .govuk-hint = _1
-        - else
-          - t("question_flow.#{i18n_key}.valuables.#{@check.level_of_help}_hints").each
-            .govuk-hint = _1
-
-        = govuk_details(summary_text: t("question_flow.assets.valuables.details_header")) do
-          p.govuk-body = t("question_flow.assets.valuables.details_subheader_1")
-          ul.govuk-list.govuk-list--bullet
-            - t("question_flow.#{i18n_key}.valuables.details_bullets_1").each do |bullet|
-              li = bullet
-            - if @check.controlled?
-              li = t("question_flow.assets.valuables.controlled_details_bullets_1_addendum")
-          p.govuk-body = t("question_flow.assets.valuables.details_subheader_2")
-          ul.govuk-list.govuk-list--bullet
-            - t("question_flow.assets.valuables.details_bullets_2").each do |bullet|
-              li = bullet
-
-        = render "shared/money_input",
-                  form:,
-                  field: :valuables,
-                  width: 5,
-                  label_text: t("question_flow.assets.valuables.input")
-
-        - if show_smod_content
-          .govuk-form-group
-            = form.govuk_check_box :valuables_in_dispute, true, 0, multiple: false, label: { text: t("generic.dispute") }
 
     = form.govuk_submit t("generic.save_and_continue")

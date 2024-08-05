@@ -33,21 +33,13 @@
       - t(".housing_payments.details_paragraphs").each
         p.govuk-body = _1
 
-    - if FeatureFlags.enabled?(:legacy_housing_benefit_without_reveals, @check.session_data)
-      = render "shared/money_input",
-              form:,
-              field: :housing_payments,
-              width: 10,
-              label_text: t(".legacy_value"),
-              set_aria: true
-    - else
-      = render "shared/money_input",
-              form:,
-              field: :housing_payments,
-              width: 10,
-              hint_text: t(".housing_payment_zero_hint"),
-              label_text: t(".mtr_accelerated_value"),
-              set_aria: true
+    = render "shared/money_input",
+            form:,
+            field: :housing_payments,
+            width: 10,
+            hint_text: t(".housing_payment_zero_hint"),
+            label_text: t(".mtr_accelerated_value"),
+            set_aria: true
     = form.govuk_collection_radio_buttons :housing_payments_frequency,
                                           @form.housing_payment_frequencies,
                                           :first,
@@ -57,41 +49,27 @@
     - content_for :amount_and_frequency_hidden_description
       = govuk_visually_hidden(t("generic.hidden_description_amount_and_frequency"))
 
-    - if FeatureFlags.enabled?(:legacy_housing_benefit_without_reveals, @check.session_data)
-      p.govuk-hint = t(".#{hint_key}")
-      = render "shared/money_input",
+    = form.govuk_radio_buttons_fieldset :housing_benefit_relevant,
+              legend: { text: t(".housing_benefits.label") },
+              hint: { text: t(".#{hint_key}") } do
+      = render "shared/radio_button_set",
               form:,
-              field: :housing_benefit_value,
-              width: 10,
-              label_text: t("question_flow.housing_costs.legacy_value"),
-              set_aria: true
-      = form.govuk_collection_radio_buttons :housing_benefit_frequency,
-              @form.frequencies,
-              :first,
-              :last,
-              legend: -> { tag.p(t("question_flow.housing_costs.frequency")) }
-    - else
-      = form.govuk_radio_buttons_fieldset :housing_benefit_relevant,
-                legend: { text: t(".housing_benefits.label") },
-                hint: { text: t(".#{hint_key}") } do
-        = render "shared/radio_button_set",
+              field_name: :housing_benefit_relevant,
+              buttons: [{ value: true,
+                      options: { label: { text: t("generic.yes_choice") },
+                              hint: -> { content_for(:amount_and_frequency_hidden_description) } } },
+                      { value: false, options: { label: { text: t("generic.no_choice") } } }]
+        = render "shared/money_input",
                 form:,
-                field_name: :housing_benefit_relevant,
-                buttons: [{ value: true,
-                        options: { label: { text: t("generic.yes_choice") },
-                                hint: -> { content_for(:amount_and_frequency_hidden_description) } } },
-                        { value: false, options: { label: { text: t("generic.no_choice") } } }]
-          = render "shared/money_input",
-                  form:,
-                  field: :housing_benefit_value,
-                  width: 10,
-                  label_text: t("question_flow.housing_costs.housing_benefit_value"),
-                  set_aria: true
-          = form.govuk_collection_radio_buttons :housing_benefit_frequency,
-                                                @form.frequencies,
-                                                :first,
-                                                :last,
-                                                legend: -> { tag.p(t("question_flow.housing_costs.frequency")) }
+                field: :housing_benefit_value,
+                width: 10,
+                label_text: t("question_flow.housing_costs.housing_benefit_value"),
+                set_aria: true
+        = form.govuk_collection_radio_buttons :housing_benefit_frequency,
+                                              @form.frequencies,
+                                              :first,
+                                              :last,
+                                              legend: -> { tag.p(t("question_flow.housing_costs.frequency")) }
 
     = form.govuk_submit t("generic.save_and_continue")
 
