@@ -13,8 +13,10 @@ module Steps
       def grouped_steps_for(session_data)
         return [] if Steps::Logic.skip_capital_questions?(session_data)
 
+        check = Check.new session_data
+
         [
-          (Steps::Group.new(:property_entry) if Steps::Logic.owns_property?(session_data)),
+          (Steps::Group.new(:property_entry) if check.owns_property?),
           Steps::Group.new(*additional_property_steps(session_data)),
           partner_additional_property_group(session_data),
         ].compact
