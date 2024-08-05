@@ -54,7 +54,7 @@ class Check
   end
 
   def owns_property?
-    Steps::Logic.owns_property?(session_data)
+    !Steps::Logic.skip_capital_questions?(session_data) && session_data["property_owned"]&.in?(PropertyForm::OWNED_OPTIONS.map(&:to_s))
   end
 
   def any_smod_assets?
@@ -108,6 +108,14 @@ class Check
 
   def under_eighteen?
     Steps::Logic.client_under_eighteen?(session_data)
+  end
+
+  def owns_property_outright?
+    !Steps::Logic.skip_capital_questions?(session_data) && session_data["property_owned"] == "outright"
+  end
+
+  def owns_property_with_mortgage_or_loan?(session_data)
+    !Steps::Logic.skip_capital_questions?(session_data) && session_data["property_owned"] == "with_mortgage"
   end
 
   def investments_relevant?
