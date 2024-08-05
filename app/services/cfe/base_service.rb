@@ -1,32 +1,15 @@
 module Cfe
   class BaseService
-    def self.call(session_data, payload, relevant_steps)
-      new(session_data, payload, relevant_steps).call
-    end
+    class << self
+      def BaseService.instantiate_form(session_data, form_class)
+        form_class.model_from_session(session_data).tap do |form|
+          raise Cfe::InvalidSessionError, form unless form.valid?
+        end
+      end
 
-    def initialize(session_data, payload, relevant_steps)
-      @session_data = session_data
-      @payload = payload
-      @relevant_steps = relevant_steps
-    end
-
-  private
-
-    def instantiate_form(form_class)
-      form = form_class.from_session(@session_data)
-      raise Cfe::InvalidSessionError, form unless form.valid?
-
-      form
-    end
-
-    attr_reader :payload, :relevant_steps
-
-    def check
-      @check ||= Check.new(@session_data)
-    end
-
-    def relevant_form?(form_name)
-      relevant_steps.include?(form_name)
+      def completed_form?(completed_steps, form_name)
+        completed_steps.include?(form_name)
+      end
     end
   end
 end

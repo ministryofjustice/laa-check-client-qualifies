@@ -51,11 +51,12 @@ module Flow
         STEPS.fetch(step).fetch(:class).from_session(session)
       end
 
-      # use this for instantiating a model (i.e. from code that wants to inspect the data)
+      # use this for instantiating a model (i.e. from code that wants to read/use the data)
       def model_from_session(step, session)
         STEPS.fetch(step).fetch(:class).model_from_session(session)
       end
 
+      # use this for instantiating a form (e.g, in a controller to edit the data)
       def model_from_params(step, params, session)
         STEPS.fetch(step).fetch(:class).from_params(params, session)
       end

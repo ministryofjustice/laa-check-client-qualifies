@@ -2,9 +2,9 @@ class CfeService
   class << self
     def call(session_data, relevant_steps)
       payload = {}
-      Cfe::AssessmentPayloadService.call(session_data, payload, relevant_steps)
-      Cfe::DependantsPayloadService.call(session_data, payload, relevant_steps)
-      Cfe::ProceedingsPayloadService.call(session_data, payload, relevant_steps)
+      Cfe::AssessmentPayloadService.call(session_data, payload)
+      Cfe::DependantsPayloadService.call(session_data, payload)
+      Cfe::ProceedingsPayloadService.call(session_data, payload)
       Cfe::EmploymentIncomePayloadService.call(session_data, payload, relevant_steps)
       Cfe::IrregularIncomePayloadService.call(session_data, payload, relevant_steps)
       Cfe::VehiclePayloadService.call(session_data, payload, relevant_steps)

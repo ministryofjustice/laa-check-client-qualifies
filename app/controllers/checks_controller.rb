@@ -22,7 +22,7 @@ class ChecksController < ApplicationController
   def end_of_journey
     @model = CalculationResult.new(session_data)
     @check = Check.new(session_data)
-    @form = ControlledWorkDocumentSelection.from_session(session_data)
+    @form = ControlledWorkDocumentSelection.model_from_session(session_data)
     track_page_view(page: :end_of_journey)
   end
 

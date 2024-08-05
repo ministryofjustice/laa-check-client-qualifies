@@ -10,7 +10,7 @@ class ChangeAnswersController < QuestionFlowController
       # that was loaded by our base class which looks quite awkward
       session_data.merge!(@form.attributes_for_export_to_session)
       if @check.consistent?
-        if Steps::Helper.last_step_in_group?(session_data, step)
+        if Steps::Helper.last_step_in_group?(@check, step)
           # if we have a 'check stops' block, it may have been removed even if we're consistent
           # e.g. going from employed to unemployed
           # but only check this if we have financial information in the check

@@ -29,7 +29,7 @@ class Check
                   else
                     attribute
                   end
-    form_class.from_session(session_data).send(method_name)
+    form_class.model_from_session(session_data).send(method_name)
   end
 
   def respond_to_missing?(attribute, include_private = false)
@@ -54,7 +54,7 @@ class Check
   end
 
   def owns_property?
-    Steps::Logic.owns_property?(session_data)
+    !Steps::Logic.skip_capital_questions?(session_data) && session_data["property_owned"]&.in?(PropertyForm::OWNED_OPTIONS.map(&:to_s))
   end
 
   def any_smod_assets?
@@ -110,6 +110,14 @@ class Check
     Steps::Logic.client_under_eighteen?(session_data)
   end
 
+  def owns_property_outright?
+    !Steps::Logic.skip_capital_questions?(session_data) && session_data["property_owned"] == "outright"
+  end
+
+  def owns_property_with_mortgage_or_loan?(session_data)
+    !Steps::Logic.skip_capital_questions?(session_data) && session_data["property_owned"] == "with_mortgage"
+  end
+
   def investments_relevant?
     investments_relevant
   end
@@ -147,4 +155,32 @@ class Check
       Steps::Helper.consistent?(session_data)
     end
   end
+
+  def owns_vehicle?
+    !Steps::Logic.skip_capital_questions?(session_data) && session_data["vehicle_owned"]
+  end
+
+  def under_18_controlled_clr?
+    Steps::Logic.controlled_clr?(session_data)
+  end
+
+  def passported?
+    Steps::Logic.passported?(session_data)
+  end
+
+  def non_means_tested?
+    Steps::Logic.skip_client_questions?(session_data)
+  end
+
+  def certificated?
+    !Steps::Logic.controlled?(session_data)
+  end
+
+  # def skip_income_questions?
+  #   Steps::Logic.skip_income_questions?(session_data)
+  # end
+  #
+  # def employed?
+  #   Steps::Logic.employed?(session_data)
+  # end
 end

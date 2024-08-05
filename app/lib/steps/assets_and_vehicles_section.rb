@@ -24,7 +24,7 @@ module Steps
       def vehicle_steps(session_data)
         return if Steps::Logic.controlled?(session_data)
 
-        steps = Steps::Logic.owns_vehicle?(session_data) ? %i[vehicle vehicles_details] : %i[vehicle]
+        steps = Check.new(session_data).owns_vehicle? ? %i[vehicle vehicles_details] : %i[vehicle]
         Steps::Group.new(*steps)
       end
     end

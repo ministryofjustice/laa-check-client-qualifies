@@ -30,17 +30,17 @@ module Steps
         steps_for_section(session_data, Steps::NonFinancialSection)
       end
 
-      def next_step_for(session_data, step)
-        remaining_steps_for(session_data, step).first
+      def next_step_for(check, step)
+        remaining_steps_for(check, step).first
       end
 
       # upcoming steps i.e. future steps in journey
-      def remaining_steps_for(session_data, step)
-        remaining_steps(steps_list_for(session_data), step)
+      def remaining_steps_for(check, step)
+        remaining_steps(steps_list_for(check.session_data), step)
       end
 
-      def previous_step_for(session_data, step)
-        next_step(steps_list_for(session_data).reverse, step)
+      def previous_step_for(check, step)
+        next_step(steps_list_for(check.session_data).reverse, step)
       end
 
       # all previous steps and this one
@@ -48,8 +48,8 @@ module Steps
         previous_steps(steps_list_for(session_data), step) + [step]
       end
 
-      def last_step_in_group?(session_data, step)
-        step_group = step_groups_for(session_data).detect { |group| group.steps.include?(step) }
+      def last_step_in_group?(check, step)
+        step_group = step_groups_for(check.session_data).detect { |group| group.steps.include?(step) }
         step == step_group.steps.last
       end
 

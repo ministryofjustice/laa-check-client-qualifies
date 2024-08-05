@@ -5,10 +5,10 @@ class QuestionFlowController < ApplicationController
     track_page_view
     if step == :ineligible_gross_income
       @previous_step = :other_income
-      relevant_steps = Steps::Helper.completed_steps_for(session_data, @previous_step)
-      @gross_income_excess = CfeService.result(session_data, relevant_steps).gross_income_excess
+      completed_steps = Steps::Helper.completed_steps_for(session_data, @previous_step)
+      @gross_income_excess = CfeService.result(session_data, completed_steps).gross_income_excess
     else
-      @previous_step = Steps::Helper.previous_step_for(session_data, step)
+      @previous_step = Steps::Helper.previous_step_for(@check, step)
     end
     @form = Flow::Handler.form_from_session(step, session_data)
     render "/question_flow/#{step}"
@@ -43,7 +43,7 @@ protected
   end
 
   def last_tag_in_group?(tag)
-    remaining_steps = Steps::Helper.remaining_steps_for(session_data, step)
+    remaining_steps = Steps::Helper.remaining_steps_for(@check, step)
 
     return if remaining_steps.blank?
 

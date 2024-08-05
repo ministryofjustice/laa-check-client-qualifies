@@ -1,6 +1,6 @@
 class FormsController < QuestionFlowController
   def update
-    @previous_step = Steps::Helper.previous_step_for(session_data, step)
+    @previous_step = Steps::Helper.previous_step_for(@check, step)
     @form = Flow::Handler.model_from_params(step, params, session_data)
 
     if @form.valid?
@@ -28,7 +28,7 @@ private
     elsif last_tag_in_group?(:gross_income) && CfeService.result(session_data, Steps::Helper.completed_steps_for(session_data, step)).ineligible_gross_income?
       :ineligible_gross_income
     else
-      Steps::Helper.next_step_for(session_data, step)
+      Steps::Helper.next_step_for(@check, step)
     end
   end
 end

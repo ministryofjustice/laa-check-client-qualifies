@@ -72,24 +72,8 @@ module Steps
         non_means_tested?(session_data)
       end
 
-      def owns_property?(session_data)
-        !skip_capital_questions?(session_data) && session_data["property_owned"]&.in?(PropertyForm::OWNED_OPTIONS.map(&:to_s))
-      end
-
-      def owns_property_outright?(session_data)
-        !skip_capital_questions?(session_data) && session_data["property_owned"] == "outright"
-      end
-
-      def owns_property_with_mortgage_or_loan?(session_data)
-        !skip_capital_questions?(session_data) && session_data["property_owned"] == "with_mortgage"
-      end
-
       def owns_additional_property?(session_data)
         !skip_capital_questions?(session_data) && session_data["additional_property_owned"]&.in?(AdditionalPropertyForm::OWNED_OPTIONS.map(&:to_s))
-      end
-
-      def owns_vehicle?(session_data)
-        !skip_capital_questions?(session_data) && session_data["vehicle_owned"]
       end
 
       def employed?(session_data)

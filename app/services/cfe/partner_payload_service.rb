@@ -1,79 +1,82 @@
 module Cfe
-  class PartnerPayloadService < BaseService
-    def call
-      return unless relevant_form?(:partner_details)
+  class PartnerPayloadService
+    class << self
+      def call(session_data, payload, relevant_steps)
+        return unless BaseService.completed_form?(relevant_steps, :partner_details)
 
-      @partner_details_form = instantiate_form(PartnerDetailsForm)
-      partner_financials = {
-        partner:,
-        irregular_incomes:,
-        employment_details:,
-        self_employment_details:,
-        regular_transactions:,
-        additional_properties:,
-        dependants: [],
-        vehicles: [],
-      }
-      partner_financials[:capitals] = capitals if capitals
-      payload[:partner] = partner_financials
-    end
+        partner_details_form = BaseService.instantiate_form(session_data, PartnerDetailsForm)
+        check = Check.new session_data
+        partner_financials = {
+          partner: partner(partner_details_form, check),
+          irregular_incomes: irregular_incomes(session_data, relevant_steps),
+          employment_details: employment_details(session_data, relevant_steps),
+          self_employment_details: self_employment_details(session_data, relevant_steps),
+          regular_transactions: regular_transactions(session_data, relevant_steps),
+          additional_properties: additional_properties(session_data, relevant_steps),
+          dependants: [],
+          vehicles: [],
+        }
+        partner_financials[:capitals] = capitals(session_data, relevant_steps) if capitals(session_data, relevant_steps)
+        payload[:partner] = partner_financials
+      end
 
-    def partner
-      @partner ||= {
-        date_of_birth: @partner_details_form.over_60 ? 70.years.ago.to_date : 50.years.ago.to_date,
-        employed: check.partner_employed?,
-      }
-    end
-
-    def irregular_incomes
-      return [] unless relevant_form?(:partner_other_income)
-
-      form = instantiate_form(PartnerOtherIncomeForm)
-      CfeParamBuilders::IrregularIncome.call(form)
-    end
-
-    def employment_details
-      return [] unless relevant_form?(:partner_income)
-
-      form = PartnerIncomeForm.from_session(@session_data)
-      CfeParamBuilders::Employment.call(form)
-    end
-
-    def self_employment_details
-      return [] unless relevant_form?(:partner_income)
-
-      form = PartnerIncomeForm.from_session(@session_data)
-      CfeParamBuilders::SelfEmployment.call(form)
-    end
-
-    def regular_transactions
-      return [] if !relevant_form?(:partner_other_income) && !relevant_form?(:partner_outgoings)
-
-      outgoings_form = instantiate_form(PartnerOutgoingsForm) if relevant_form?(:partner_outgoings)
-      income_form = instantiate_form(PartnerOtherIncomeForm) if relevant_form?(:partner_other_income)
-      benefits_form = instantiate_form(PartnerBenefitDetailsForm) if relevant_form?(:partner_benefit_details)
-      CfeParamBuilders::RegularTransactions.call(income_form, outgoings_form, benefits_form)
-    end
-
-    def additional_properties
-      return [] unless relevant_form?(:partner_additional_property_details)
-
-      form = instantiate_form(PartnerAdditionalPropertyDetailsForm)
-      form.items.map do |model|
+      def partner(partner_details_form, check)
         {
-          value: model.house_value,
-          outstanding_mortgage: (model.mortgage if model.owned_with_mortgage?) || 0,
-          percentage_owned: model.percentage_owned,
-          shared_with_housing_assoc: false,
+          date_of_birth: partner_details_form.over_60 ? 70.years.ago.to_date : 50.years.ago.to_date,
+          employed: check.partner_employed?,
         }
       end
-    end
 
-    def capitals
-      return unless relevant_form?(:partner_assets)
+      def irregular_incomes(session_data, relevant_steps)
+        return [] unless BaseService.completed_form?(relevant_steps, :partner_other_income)
 
-      assets_form = instantiate_form(PartnerAssetsForm)
-      CfeParamBuilders::Capitals.call(assets_form)
+        form = BaseService.instantiate_form(session_data, PartnerOtherIncomeForm)
+        CfeParamBuilders::IrregularIncome.call(form)
+      end
+
+      def employment_details(session_data, relevant_steps)
+        return [] unless BaseService.completed_form?(relevant_steps, :partner_income)
+
+        form = PartnerIncomeForm.from_session(session_data)
+        CfeParamBuilders::Employment.call(form)
+      end
+
+      def self_employment_details(session_data, relevant_steps)
+        return [] unless BaseService.completed_form?(relevant_steps, :partner_income)
+
+        form = PartnerIncomeForm.model_from_session(session_data)
+        CfeParamBuilders::SelfEmployment.call(form)
+      end
+
+      def regular_transactions(session_data, relevant_steps)
+        return [] if !BaseService.completed_form?(relevant_steps, :partner_other_income) && !BaseService.completed_form?(relevant_steps, :partner_outgoings)
+
+        outgoings_form = BaseService.instantiate_form(session_data, PartnerOutgoingsForm) if BaseService.completed_form?(relevant_steps, :partner_outgoings)
+        income_form = BaseService.instantiate_form(session_data, PartnerOtherIncomeForm) if BaseService.completed_form?(relevant_steps, :partner_other_income)
+        benefits_form = BaseService.instantiate_form(session_data, PartnerBenefitDetailsForm) if BaseService.completed_form?(relevant_steps, :partner_benefit_details)
+        CfeParamBuilders::RegularTransactions.call(income_form, outgoings_form, benefits_form)
+      end
+
+      def additional_properties(session_data, relevant_steps)
+        return [] unless BaseService.completed_form?(relevant_steps, :partner_additional_property_details)
+
+        form = BaseService.instantiate_form(session_data, PartnerAdditionalPropertyDetailsForm)
+        form.items.map do |model|
+          {
+            value: model.house_value,
+            outstanding_mortgage: (model.mortgage if model.owned_with_mortgage?) || 0,
+            percentage_owned: model.percentage_owned,
+            shared_with_housing_assoc: false,
+          }
+        end
+      end
+
+      def capitals(session_data, relevant_steps)
+        return unless BaseService.completed_form?(relevant_steps, :partner_assets)
+
+        assets_form = BaseService.instantiate_form(session_data, PartnerAssetsForm)
+        CfeParamBuilders::Capitals.call(assets_form)
+      end
     end
   end
 end
