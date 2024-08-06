@@ -1,7 +1,9 @@
 class IssueUpdate < ApplicationRecord
   belongs_to :issue
-  # This attribute has to be duplicated here so that the default works
-  attribute :utc_timestamp, :datetime, default: -> { Time.zone.now }
+  # Default the timestamp to the current time if not set
+  before_validation do |issue_update|
+    issue_update.utc_timestamp ||= Time.zone.now
+  end
   validates :content, :utc_timestamp, presence: true
 
   def time_for_display
