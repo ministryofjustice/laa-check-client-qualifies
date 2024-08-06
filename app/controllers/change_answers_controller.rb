@@ -6,50 +6,37 @@ class ChangeAnswersController < QuestionFlowController
 
     if @form.valid?
       track_choices(@form)
+      # Note that this merge! has the side effect of altering the session data in the '@check' variable
+      # that was loaded by our base class which looks quite awkward
       session_data.merge!(@form.attributes_for_export_to_session)
-      if Steps::Helper.last_step_in_group?(session_data, step)
-        next_step = next_check_answer_step(step)
-        last_step_with_data = Steps::Helper.last_step_with_valid_data(session_data)
-        completed_steps = Steps::Helper.completed_steps_for(session_data, last_step_with_data)
-        if non_finance_step?(step)
-          if last_step_with_data == non_finance_steps.last
+      if @check.consistent?
+        if Steps::Helper.last_step_in_group?(session_data, step)
+          # if we have a 'check stops' block, it may have been removed even if we're consistent
+          # e.g. going from employed to unemployed
+          # but only check this if we have financial information in the check
+          if Steps::Logic.check_stops_at_gross_income?(session_data) && !Steps::Logic.skip_client_questions?(session_data)
+            last_step_with_data = Steps::Helper.last_step_with_valid_data(session_data)
+            completed_steps = Steps::Helper.completed_steps_for(session_data, last_step_with_data)
             cfe_result = CfeService.result(session_data, completed_steps)
+
             if cfe_result.ineligible_gross_income?
-              next_step = nil
-            elsif next_step.present? && Steps::Logic.check_stops_at_gross_income?(session_data)
-              # this branch is specific to a passported change to yes - they become eligible and we need
-              # to show the banner
-              session_data.delete IneligibleGrossIncomeForm::SELECTION
-              flash[:notice] = I18n.t("service.change_eligibility")
-            end
-          elsif next_step.present? && !non_finance_step?(next_step) && Steps::Logic.check_stops_at_gross_income?(session_data)
-            cfe_result = CfeService.result(session_data, completed_steps)
-            if cfe_result.ineligible_gross_income?
-              next_step = nil
+              # no change - go back to check answers
+              save_and_redirect_to_check_answers
             else
+              # eligibility changed - remove 'ineligible' block and show notification
               session_data.delete IneligibleGrossIncomeForm::SELECTION
               flash[:notice] = I18n.t("service.change_eligibility")
+              redirect_to_next_question
             end
+          else
+            save_and_redirect_to_check_answers
           end
         else
-          cfe_result = CfeService.result(session_data, completed_steps)
-          if Steps::Logic.check_stops_at_gross_income?(session_data) && cfe_result.ineligible_gross_income?
-            next_step = nil
-          end
-          if Steps::Logic.check_stops_at_gross_income?(session_data) && !cfe_result.ineligible_gross_income? && next_step.present?
-            session_data.delete IneligibleGrossIncomeForm::SELECTION
-            flash[:notice] = I18n.t("service.change_eligibility")
-          end
-        end
-        if next_step
+          next_step = Steps::Helper.next_step_for(session_data, step)
           redirect_to helpers.check_step_path_from_step(next_step, assessment_code)
-        else
-          # Promote the temporary copy of the answers to overwrite the original answers
-          session[assessment_id] = session_data
-          redirect_to check_answers_path(assessment_code:, anchor:)
         end
       else
-        redirect_to helpers.check_step_path_from_step(Steps::Helper.next_step_for(session_data, step), assessment_code)
+        redirect_to_next_question
       end
     else
       track_validation_error
@@ -58,6 +45,20 @@ class ChangeAnswersController < QuestionFlowController
   end
 
 private
+
+  def save_and_redirect_to_check_answers
+    # Promote the temporary copy of the answers to overwrite the original answers
+    session[assessment_id] = session_data
+    redirect_to check_answers_path(assessment_code:, anchor:)
+  end
+
+  def redirect_to_next_question
+    next_check_answer_step = Steps::Helper.remaining_steps_for(session_data, step)
+                 .drop_while { |thestep|
+                   Flow::Handler.model_from_session(thestep, session_data).valid?
+                 }.first
+    redirect_to helpers.check_step_path_from_step(next_check_answer_step, assessment_code)
+  end
 
   # While we're in a 'change answers loop', we want to be working with a temporary copy of the answers
   # stored in a section of the session called 'pending'.
@@ -86,13 +87,5 @@ private
 
   def page_name
     "check_#{step}"
-  end
-
-  def non_finance_steps
-    Steps::Helper.steps_for_section(session_data, Steps::NonFinancialSection)
-  end
-
-  def non_finance_step?(the_step)
-    non_finance_steps.include?(the_step)
   end
 end

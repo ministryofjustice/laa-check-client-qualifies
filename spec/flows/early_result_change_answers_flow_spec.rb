@@ -160,7 +160,7 @@ RSpec.describe "Change answers after early result", type: :feature do
       within "#table-level_of_help" do
         click_on "Change"
       end
-      fill_in_level_of_help_screen(choice: "Civil controlled work or family mediation")
+      fill_in_level_of_help_with(:controlled)
       fill_in_immigration_or_asylum_screen(choice: "No")
       confirm_screen("check_answers")
     end

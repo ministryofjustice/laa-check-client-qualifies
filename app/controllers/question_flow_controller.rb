@@ -24,13 +24,6 @@ protected
     params[:assessment_code].presence
   end
 
-  def next_check_answer_step(step)
-    Steps::Helper.remaining_steps_for(session_data, step)
-      .drop_while { |thestep|
-        Flow::Handler.model_from_session(thestep, session_data).valid?
-      }.first
-  end
-
   def page_name
     step
   end
