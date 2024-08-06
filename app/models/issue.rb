@@ -1,8 +1,6 @@
 class Issue < ApplicationRecord
   enum :status, { draft: "draft", active: "active", resolved: "resolved" }
   has_many :issue_updates
-  attribute :title, :string
-  attribute :banner_content, :string
 
   # This is a non-database attribute
   attribute :initial_update_content, :string
@@ -34,3 +32,17 @@ class Issue < ApplicationRecord
     errors.add(:initial_update_content, :blank)
   end
 end
+
+#------------------------------------------------------------------------------
+# Issue
+#
+# Name           SQL Type             Null    Primary Default
+# -------------- -------------------- ------- ------- ----------
+# id             bigint               false   true              
+# title          character varying    false   false             
+# banner_content text                 false   false             
+# status         character varying    false   false             
+# created_at     timestamp(6) without time zone false   false             
+# updated_at     timestamp(6) without time zone false   false             
+#
+#------------------------------------------------------------------------------
