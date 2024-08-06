@@ -68,6 +68,7 @@ module Steps
         skip_client_questions?(session_data) || passported?(session_data)
       end
 
+      # We only skip capital questions when the client is non-financally eligible
       def skip_capital_questions?(session_data)
         skip_client_questions?(session_data)
       end
