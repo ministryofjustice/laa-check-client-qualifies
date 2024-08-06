@@ -318,6 +318,7 @@ workflows:
             branches:
               only:
                 - main
+                - EL-1660-reset_session-on-login
 
 # Keeping this step commented out because we will need
 # again in the future, the requires production_deploy_approval
