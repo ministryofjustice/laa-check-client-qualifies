@@ -17,7 +17,7 @@ RSpec.describe "Provider authentication" do
 
   context "with an existing record" do
     before do
-      create(:provider, email: mock_auth.info.fetch("email"), first_office_code: Faker::String.random)
+      create(:provider, email: mock_auth.info.fetch("email"), first_office_code: Faker::Alphanumeric.alpha)
     end
 
     scenario "callback" do
