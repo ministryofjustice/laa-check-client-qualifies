@@ -38,11 +38,11 @@ end
 #
 # Name           SQL Type             Null    Primary Default
 # -------------- -------------------- ------- ------- ----------
-# id             bigint               false   true              
-# title          character varying    false   false             
-# banner_content text                 false   false             
-# status         character varying    false   false             
-# created_at     timestamp(6) without time zone false   false             
-# updated_at     timestamp(6) without time zone false   false             
+# id             bigint               false   true
+# title          character varying    false   false
+# banner_content text                 false   false
+# status         character varying    false   false
+# created_at     timestamp(6) without time zone false   false
+# updated_at     timestamp(6) without time zone false   false
 #
 #------------------------------------------------------------------------------

@@ -16,11 +16,11 @@ end
 #
 # Name          SQL Type             Null    Primary Default
 # ------------- -------------------- ------- ------- ----------
-# id            bigint               false   true              
-# issue_id      bigint               true    false             
-# content       text                 false   false             
-# utc_timestamp timestamp(6) without time zone false   false             
-# created_at    timestamp(6) without time zone false   false             
-# updated_at    timestamp(6) without time zone false   false             
+# id            bigint               false   true
+# issue_id      bigint               true    false
+# content       text                 false   false
+# utc_timestamp timestamp(6) without time zone false   false
+# created_at    timestamp(6) without time zone false   false
+# updated_at    timestamp(6) without time zone false   false
 #
 #------------------------------------------------------------------------------

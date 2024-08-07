@@ -49,12 +49,12 @@ end
 #
 # Name        SQL Type             Null    Primary Default
 # ----------- -------------------- ------- ------- ----------
-# id          bigint               false   true              
-# title       character varying    false   false             
-# tag         character varying    true    false             
-# released_on date                 false   false             
-# published   boolean              false   false   false     
-# created_at  timestamp(6) without time zone false   false             
-# updated_at  timestamp(6) without time zone false   false             
+# id          bigint               false   true
+# title       character varying    false   false
+# tag         character varying    true    false
+# released_on date                 false   false
+# published   boolean              false   false   false
+# created_at  timestamp(6) without time zone false   false
+# updated_at  timestamp(6) without time zone false   false
 #
 #------------------------------------------------------------------------------

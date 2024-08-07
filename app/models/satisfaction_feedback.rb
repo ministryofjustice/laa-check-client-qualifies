@@ -9,12 +9,12 @@ end
 #
 # Name          SQL Type             Null    Primary Default
 # ------------- -------------------- ------- ------- ----------
-# id            bigint               false   true              
-# satisfied     character varying    false   false             
-# level_of_help character varying    false   false             
-# outcome       character varying    false   false             
-# created_at    timestamp(6) without time zone false   false             
-# updated_at    timestamp(6) without time zone false   false             
-# comment       text                 true    false             
+# id            bigint               false   true
+# satisfied     character varying    false   false
+# level_of_help character varying    false   false
+# outcome       character varying    false   false
+# created_at    timestamp(6) without time zone false   false
+# updated_at    timestamp(6) without time zone false   false
+# comment       text                 true    false
 #
 #------------------------------------------------------------------------------
