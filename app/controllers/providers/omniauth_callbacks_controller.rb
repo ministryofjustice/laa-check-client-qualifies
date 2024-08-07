@@ -18,6 +18,11 @@ module Providers
 
       # reset the session on login, otherwise the session expires after 14 days
       # and logouts crash because there is no session data (SAML_UID) to logout with
+      # This may need to change if we want to preserve check data over a login
+      # https://stackoverflow.com/questions/4812813/rails-login-reset-session
+      #
+      # Some docs suggest that devise maybe doing this behind the scenes, so
+      # this might be an investigation if changing this doesn't work.
       reset_session
       # Portal has checked that we have the correct role, so we can just sign in
       sign_in_and_redirect provider, event: :authentication
