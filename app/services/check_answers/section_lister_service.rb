@@ -20,6 +20,7 @@ module CheckAnswers
         DependantsSection.new(@check),
         ClientIncomeSection.new(@check),
         PartnerIncomeSection.new(@check),
+        OutgoingsSection.new(@check),
       ] + data[:sections].map { build_section(_1) }
       sections.select do
         _1.subsections.any?
@@ -82,15 +83,13 @@ module CheckAnswers
       field_set.map { build_field(_1, model, table_label) }.flatten.compact
     end
 
+    # This method is going away as part of this change, so disable coverage as bits of it stop being used
+    # :nocov:
     def build_field(field_data, model, table_label, index: nil)
       return build_many_fields(field_data, model, table_label) if field_data[:many]
       return if field_data[:skip_unless].present? && field_data[:skip_unless].split(",").any? { !model.send(_1) }
-      # check_answers.yml uses skip_if, however we do not utilise this feature at present
-      # instead of removing the line we skip coverage so that we can still use this if necessary
-      # :nocov:
       return if field_data[:skip_if].present? && model.send(field_data[:skip_if])
       return if field_data[:screen] && !Steps::Helper.relevant_steps(@check.session_data).include?(field_data[:screen].to_sym)
-      # :nocov:
 
       addendum = "_partner" if @check.partner && field_data[:partner_dependant_wording]
 
@@ -105,6 +104,7 @@ module CheckAnswers
                     alt_value: (model.send(field_data[:alt_attribute]) if field_data[:alt_attribute]),
                     relevancy_value: (model.send(field_data[:relevancy_attribute_name]) if field_data[:relevancy_attribute_name]))
     end
+    # :nocov:
 
     def build_many_fields(field_data, model, table_label)
       submodel = model.send(field_data[:model])

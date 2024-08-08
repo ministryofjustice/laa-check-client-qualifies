@@ -32,40 +32,6 @@
 # The attribute is also used to construct the I18n key
 # 'money_with_frequency' fields also have an 'alt_attribute' which describes which number to display.
 sections:
-  - label: outgoings
-    subsections:
-      - tables:
-          - screen: outgoings
-            fields:
-              - attribute: childcare_payments_conditional_value
-                type: optional_money_with_frequency
-                alt_attribute: childcare_payments_frequency
-                relevancy_attribute_name: childcare_payments_relevant
-                skip_unless: eligible_for_childcare_costs?
-              - attribute: maintenance_payments_conditional_value
-                type: optional_money_with_frequency
-                alt_attribute: maintenance_payments_frequency
-                relevancy_attribute_name: maintenance_payments_relevant
-              - attribute: legal_aid_payments_conditional_value
-                type: optional_money_with_frequency
-                alt_attribute: legal_aid_payments_frequency
-                relevancy_attribute_name: legal_aid_payments_relevant
-      - tables:
-          - screen: partner_outgoings
-            fields:
-              - attribute: partner_childcare_payments_conditional_value
-                type: optional_money_with_frequency
-                alt_attribute: partner_childcare_payments_frequency
-                relevancy_attribute_name: partner_childcare_payments_relevant
-                skip_unless: eligible_for_childcare_costs?
-              - attribute: partner_maintenance_payments_conditional_value
-                type: optional_money_with_frequency
-                alt_attribute: partner_maintenance_payments_frequency
-                relevancy_attribute_name: partner_maintenance_payments_relevant
-              - attribute: partner_legal_aid_payments_conditional_value
-                type: optional_money_with_frequency
-                alt_attribute: partner_legal_aid_payments_frequency
-                relevancy_attribute_name: partner_legal_aid_payments_relevant
   - label: housing_and_property
     subsections:
       - tables:
