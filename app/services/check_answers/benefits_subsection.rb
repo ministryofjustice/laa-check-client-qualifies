@@ -13,9 +13,9 @@ module CheckAnswers
         benefits_add = (benefits || []).map.with_index do |model, index|
           Table.new(screen: benefits_field_name, skip_change_link: false, index:, disputed?: nil,
                     fields: [
-                      SubFieldPresenter.new(table_label: benefits_field_name, attribute: :benefit_type, type: :number_or_text, model:, index:),
-                      SubFieldPresenter.new(table_label: benefits_field_name, attribute: :benefit_amount, type: :money, model:, index:),
-                      SubFieldPresenter.new(table_label: benefits_field_name, attribute: :benefit_frequency, type: :frequency, model:, index:),
+                      SubFieldPresenter.new(table_label: benefits_field_name, attribute: :benefit_type, type: :number_or_text, model:),
+                      MoneySubFieldPresenter.new(table_label: benefits_field_name, attribute: :benefit_amount, model:, index:, disputed: false),
+                      SubFieldPresenter.new(table_label: benefits_field_name, attribute: :benefit_frequency, type: :frequency, model:),
                     ])
         end
 
