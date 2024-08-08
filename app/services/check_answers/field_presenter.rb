@@ -13,6 +13,14 @@ module CheckAnswers
       @screen = screen
     end
 
+    # def index
+    #   nil
+    # end
+    #
+    # def disputed?
+    #   false
+    # end
+
     def value
       @model.public_send(@attribute)
     end

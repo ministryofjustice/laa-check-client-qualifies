@@ -129,4 +129,8 @@ class Check
   def housing_benefit_relevant?
     housing_benefit_relevant
   end
+
+  def owns_property_outright?
+    Steps::Logic.owns_property_outright?(session_data)
+  end
 end
