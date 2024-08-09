@@ -18,7 +18,7 @@ module Steps
     private
 
       def applicant_grouped_steps_for(session_data)
-        if Steps::Logic.skip_client_questions?(session_data)
+        if Steps::Logic.non_means_tested?(session_data)
           []
         else
           applicant_groups(session_data).map { Steps::Group.new(*_1) }

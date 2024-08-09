@@ -134,7 +134,7 @@ class Check
   # e.g. at least one 'employment' set if client is not unemployed
   # implement using data rather than Steps::Logic (although the knowledge is probably in Steps::Logic)
   def consistent?
-    if Steps::Logic.skip_client_questions?(session_data)
+    if Steps::Logic.non_means_tested?(session_data)
       # We are non-financially eligible
       true
     elsif !Steps::Helper.non_financial_consistent?(session_data)

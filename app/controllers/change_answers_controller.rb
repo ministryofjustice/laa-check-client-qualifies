@@ -14,7 +14,7 @@ class ChangeAnswersController < QuestionFlowController
           # if we have a 'check stops' block, it may have been removed even if we're consistent
           # e.g. going from employed to unemployed
           # but only check this if we have financial information in the check
-          if Steps::Logic.check_stops_at_gross_income?(session_data) && !Steps::Logic.skip_client_questions?(session_data)
+          if Steps::Logic.check_stops_at_gross_income?(session_data) && !Steps::Logic.non_means_tested?(session_data)
             last_step_with_data = Steps::Helper.last_step_with_valid_data(session_data)
             completed_steps = Steps::Helper.completed_steps_for(session_data, last_step_with_data)
             cfe_result = CfeService.result(session_data, completed_steps)
