@@ -15,11 +15,11 @@ module CheckAnswers
       filename = "app/lib/check_answers_fields.yml"
       data = YAML.load_file(Rails.root.join(filename)).with_indifferent_access
       sections = [
-        Sections::ClientDetailsSection.new(@check),
+        Sections::ClientDetails.new(@check),
         Sections::CaseDetails.new(@check),
-        Sections::DependantsSection.new(@check),
-        Sections::ClientIncomeSection.new(@check),
-        Sections::PartnerIncomeSection.new(@check),
+        Sections::Dependants.new(@check),
+        Sections::ClientIncome.new(@check),
+        Sections::PartnerIncome.new(@check),
         Sections::Outgoings.new(@check),
         Sections::HousingAndProperty.new(@check),
       ] + data[:sections].map { build_section(_1) }

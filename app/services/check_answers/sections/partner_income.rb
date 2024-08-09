@@ -2,7 +2,7 @@
 
 module CheckAnswers
   module Sections
-    class PartnerIncomeSection < Base
+    class PartnerIncome < Base
       def initialize(check)
         super(check:, label: :partner_income)
       end

@@ -2,7 +2,7 @@
 
 module CheckAnswers
   module Sections
-    class ClientDetailsSection < Base
+    class ClientDetails < Base
       def initialize(check)
         super(check:, label: :client_details)
       end

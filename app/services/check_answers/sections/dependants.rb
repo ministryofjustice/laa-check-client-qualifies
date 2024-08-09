@@ -2,7 +2,7 @@
 
 module CheckAnswers
   module Sections
-    class DependantsSection < Base
+    class Dependants < Base
       def initialize(check)
         super(check:, label: :dependants)
       end
