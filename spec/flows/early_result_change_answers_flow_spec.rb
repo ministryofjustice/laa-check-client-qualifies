@@ -249,7 +249,7 @@ RSpec.describe "Change answers after early result", :early_eligibility_flag, typ
           fill_in_immigration_or_asylum_type_upper_tribunal_screen(choice: "Yes, asylum (Upper Tribunal)")
           fill_in_asylum_support_screen(choice: "Yes")
           confirm_screen("check_answers")
-          sleep 100
+          sleep 30
           expect(page).not_to have_content("Client assets")
           within "#table-level_of_help" do
             click_on "Change"
