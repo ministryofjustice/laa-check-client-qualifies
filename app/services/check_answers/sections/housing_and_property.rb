@@ -31,7 +31,7 @@ module CheckAnswers
                        Table.new(screen: :mortgage_or_loan_payment, skip_change_link: false, index: nil, disputed?: nil,
                                  fields: [
                                    MoneyWithFrequencyPresenter.new(table_label: :mortgage_or_loan_payment, attribute: :housing_loan_payments, model: @check,
-                                                                   alt_attribute: :housing_payments_loan_frequency),
+                                                                   frequency_attribute: :housing_payments_loan_frequency),
 
                                  ])
                      end
@@ -52,11 +52,11 @@ module CheckAnswers
       def housing_costs_fields(label)
         [
           MoneyWithFrequencyPresenter.new(table_label: label, attribute: :housing_payments, model: @check,
-                                          alt_attribute: :housing_payments_frequency),
+                                          frequency_attribute: :housing_payments_frequency),
           FieldPresenter.new(table_label: label, attribute: :housing_benefit_relevant, type: :boolean, model: @check),
           if @check.housing_benefit_relevant?
             MoneyWithFrequencyPresenter.new(table_label: label, attribute: :housing_benefit_value, model: @check,
-                                            alt_attribute: :housing_benefit_frequency)
+                                            frequency_attribute: :housing_benefit_frequency)
           end,
         ].compact
       end
