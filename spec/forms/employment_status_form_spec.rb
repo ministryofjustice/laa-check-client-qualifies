@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "employment status form", type: :feature do
+RSpec.describe "employment status form", :might_call_cfe, type: :feature do
   let(:level_of_help) { :certificated }
 
   before do

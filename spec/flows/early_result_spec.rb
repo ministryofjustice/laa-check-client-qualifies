@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Early result journey", :early_eligibility_flag, type: :feature do
+RSpec.describe "Early result journey", type: :feature do
   context "when I am ineligible on gross income" do
     before do
       allow(CfeService).to receive(:result).and_return(instance_double(CfeResult, ineligible_gross_income?: true,

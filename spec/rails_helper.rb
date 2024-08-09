@@ -100,6 +100,10 @@ RSpec.configure do |config|
     )
   end
 
+  config.before(:each, :might_call_cfe) do
+    allow(CfeService).to receive(:result).and_return(instance_double(CfeResult, ineligible_gross_income?: false))
+  end
+
   config.before(:each, :stub_cfe_gross_ineligible) do
     stub_request(:post, %r{assessments\z}).to_return(
       body: FactoryBot.build(:api_result,
@@ -132,12 +136,6 @@ RSpec.configure do |config|
     ENV["BASIC_AUTHENTICATION_FEATURE_FLAG"] = "enabled"
     example.run
     ENV["BASIC_AUTHENTICATION_FEATURE_FLAG"] = "disabled"
-  end
-
-  config.around(:each, :early_eligibility_flag) do |example|
-    ENV["EARLY_ELIGIBILITY_FEATURE_FLAG"] = "enabled"
-    example.run
-    ENV["EARLY_ELIGIBILITY_FEATURE_FLAG"] = "disabled"
   end
 
   config.around(:each, :shared_ownership) do |example|

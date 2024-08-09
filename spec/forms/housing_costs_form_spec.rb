@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "housing_costs", type: :feature do
+RSpec.describe "housing_costs", :might_call_cfe, type: :feature do
   let(:level_of_help) { :controlled }
 
   before do

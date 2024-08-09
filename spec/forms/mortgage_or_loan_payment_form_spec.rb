@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "mortgage_or_loan_payment", type: :feature do
+RSpec.describe "mortgage_or_loan_payment", :might_call_cfe, type: :feature do
   let(:content_date) { Time.zone.today }
 
   before do

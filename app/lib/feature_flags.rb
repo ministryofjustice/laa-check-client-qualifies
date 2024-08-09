@@ -12,7 +12,6 @@ class FeatureFlags
     index_production: { type: "global", default: false },
     maintenance_mode: { type: "global", default: false },
     basic_authentication: { type: "global", default: false },
-    early_eligibility: { type: "session", default: false },
     # This should go back to being a time-based feature flag once the SI date has been re-set
     # after the election on 4th July 2024
     mtr_accelerated: { type: "global", default: false },
