@@ -77,14 +77,14 @@ module CheckAnswers
                                  FieldPresenter.new(table_label: screen, attribute: additional_property_attribute, type: :select, model: @check),
                                ])
         add_anothers = (properties || []).map.with_index do |model, index|
-          house_value = SubFieldPresenter.new(table_label: details_screen, attribute: :house_value, type: :money, model:, index:)
+          house_value = MoneySubFieldPresenter.new(table_label: details_screen, attribute: :house_value, index:, model:, disputed: false)
           inline_owned = if model.show_inline_mortgage_ownership_question?
-                           SubFieldPresenter.new(table_label: details_screen, attribute: :inline_owned_with_mortgage, type: :boolean, model:, index:)
+                           SubFieldPresenter.new(table_label: details_screen, attribute: :inline_owned_with_mortgage, type: :boolean, model:)
                          end
           mortgage = if model.owned_with_mortgage?
                        MoneySubFieldPresenter.new(table_label: details_screen, attribute: :mortgage, model:, index:, disputed: false)
                      end
-          percent = SubFieldPresenter.new(table_label: details_screen, attribute: :percentage_owned, type: :percentage, model:, index:)
+          percent = SubFieldPresenter.new(table_label: details_screen, attribute: :percentage_owned, type: :percentage, model:)
 
           Table.new(screen: details_screen, index:,
                     disputed?: model.house_in_dispute, skip_change_link: false,

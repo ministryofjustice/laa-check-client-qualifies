@@ -7,6 +7,7 @@ module CheckAnswers
       @disputed = disputed
     end
 
+    # top level field so never has an index
     def index
       nil
     end

@@ -97,13 +97,13 @@ module CheckAnswers
                     fields: [
                       MoneySubFieldPresenter.new(table_label: :vehicles_details, attribute: :vehicle_value,
                                                  model:, index:, disputed: false),
-                      SubFieldPresenter.new(table_label: :vehicles_details, attribute: :vehicle_pcp, type: :boolean, model:, index:),
+                      SubFieldPresenter.new(table_label: :vehicles_details, attribute: :vehicle_pcp, type: :boolean, model:),
                       if model.vehicle_pcp
                         MoneySubFieldPresenter.new(table_label: :vehicles_details, attribute: :vehicle_finance,
                                                    model:, index:, disputed: false)
                       end,
-                      SubFieldPresenter.new(table_label: :vehicles_details, attribute: :vehicle_over_3_years_ago, type: :boolean, model:, index:),
-                      SubFieldPresenter.new(table_label: :vehicles_details, attribute: :vehicle_in_regular_use, type: :boolean, model:, index:),
+                      SubFieldPresenter.new(table_label: :vehicles_details, attribute: :vehicle_over_3_years_ago, type: :boolean, model:),
+                      SubFieldPresenter.new(table_label: :vehicles_details, attribute: :vehicle_in_regular_use, type: :boolean, model:),
                     ].compact)
         end
         #      - tables:

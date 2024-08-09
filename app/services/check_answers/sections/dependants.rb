@@ -43,7 +43,7 @@ module CheckAnswers
           Table.new(screen: :dependant_income_details, skip_change_link: false,
                     index:, disputed?: false, fields: [
                       SubFieldPresenter.new(table_label: :dependant_income_details, attribute: :frequency, type: :frequency,
-                                            model:, index:),
+                                            model:),
                       MoneySubFieldPresenter.new(table_label: :dependant_income_details, attribute: :amount,
                                                  model:, index:, disputed: false),
                     ])
