@@ -56,20 +56,20 @@ module Steps
         immigration_or_asylum?(session_data) && session_data["asylum_support"]
       end
 
-      def skip_client_questions?(session_data)
+      def non_means_tested?(session_data)
         under_eighteen_no_means_test_required?(session_data) || asylum_supported?(session_data)
       end
 
       def passported?(session_data)
-        !skip_client_questions?(session_data) && session_data["passporting"]
+        !non_means_tested?(session_data) && session_data["passporting"]
       end
 
       def skip_income_questions?(session_data)
-        skip_client_questions?(session_data) || passported?(session_data)
+        non_means_tested?(session_data) || passported?(session_data)
       end
 
       def skip_capital_questions?(session_data)
-        skip_client_questions?(session_data)
+        non_means_tested?(session_data)
       end
 
       def owns_property?(session_data)
@@ -105,7 +105,7 @@ module Steps
       end
 
       def partner?(session_data)
-        !skip_client_questions?(session_data) && session_data["partner"]
+        !non_means_tested?(session_data) && session_data["partner"]
       end
 
       def partner_owns_additional_property?(session_data)
