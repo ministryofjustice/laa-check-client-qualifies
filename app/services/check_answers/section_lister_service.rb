@@ -13,7 +13,7 @@ module CheckAnswers
 
     def call
       filename = "app/lib/check_answers_fields.yml"
-      data = YAML.load_file(Rails.root.join(filename)).with_indifferent_access
+      YAML.load_file(Rails.root.join(filename)).with_indifferent_access
       sections = [
         Sections::ClientDetails.new(@check),
         Sections::CaseDetails.new(@check),
@@ -22,7 +22,9 @@ module CheckAnswers
         Sections::PartnerIncome.new(@check),
         Sections::Outgoings.new(@check),
         Sections::HousingAndProperty.new(@check),
-      ] + data[:sections].map { build_section(_1) }
+        Sections::Assets.new(@check),
+      ]
+      # + data[:sections].map { build_section(_1) }
       sections.select do
         _1.subsections.any?
       end

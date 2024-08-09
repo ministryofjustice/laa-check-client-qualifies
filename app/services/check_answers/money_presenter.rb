@@ -2,8 +2,9 @@
 
 module CheckAnswers
   class MoneyPresenter < FieldPresenter
-    def initialize(table_label:, attribute:, model:)
+    def initialize(table_label:, attribute:, model:, disputed: false)
       super(table_label:, attribute:, type: :money, screen: nil, model:)
+      @disputed = disputed
     end
 
     def index
@@ -11,7 +12,7 @@ module CheckAnswers
     end
 
     def disputed?
-      false
+      @disputed
     end
   end
 end

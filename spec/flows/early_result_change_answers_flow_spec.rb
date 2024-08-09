@@ -234,7 +234,7 @@ RSpec.describe "Change answers after early result", :early_eligibility_flag, typ
       context "when the user clicks on back links" do
         let(:level_of_help) { "Civil controlled work or family mediation" }
 
-        it "correctly works out relevant information", :headless_chrome do
+        it "correctly works out relevant information", :js do
           within "#table-level_of_help" do
             click_on "Change"
           end
@@ -249,6 +249,7 @@ RSpec.describe "Change answers after early result", :early_eligibility_flag, typ
           fill_in_immigration_or_asylum_type_upper_tribunal_screen(choice: "Yes, asylum (Upper Tribunal)")
           fill_in_asylum_support_screen(choice: "Yes")
           confirm_screen("check_answers")
+          sleep 100
           expect(page).not_to have_content("Client assets")
           within "#table-level_of_help" do
             click_on "Change"
