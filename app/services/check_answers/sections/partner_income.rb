@@ -7,8 +7,6 @@ module CheckAnswers
         super(check:, label: :partner_income)
       end
 
-      # other than partner_details, this is almost a straight copy of client_income_section with some field names changed.
-      # this isn't very DRY - can't imagine any scenario where the partner and client finances would be that different.
       def subsections
         partner_details = Table.new(screen: :partner_details, index: nil, disputed?: false, skip_change_link: false, fields: [
           FieldPresenter.new(table_label: :partner_details, attribute: :partner_over_60, type: :boolean, model: @check),

@@ -92,7 +92,7 @@ module CheckAnswers
                             FieldPresenter.new(table_label: :vehicle, attribute: :vehicle_owned, type: :boolean, model: @check, partner_dependant_wording: true),
                           ])
         add_another_tables = (@check.vehicles || []).map.with_index do |model, index|
-          Table.new(screen: :vehicles_details, index: index,
+          Table.new(screen: :vehicles_details, index:,
                     disputed?: model.vehicle_in_dispute, skip_change_link: false,
                     fields: [
                       MoneySubFieldPresenter.new(table_label: :vehicles_details, attribute: :vehicle_value,

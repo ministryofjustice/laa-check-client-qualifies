@@ -133,4 +133,16 @@ class Check
   def owns_property_outright?
     Steps::Logic.owns_property_outright?(session_data)
   end
+
+  def skip_client_questions?
+    Steps::Logic.skip_client_questions?(session_data)
+  end
+
+  def skip_income_questions?
+    Steps::Logic.skip_income_questions?(session_data)
+  end
+
+  def partner?
+    Steps::Logic.partner?(session_data)
+  end
 end
