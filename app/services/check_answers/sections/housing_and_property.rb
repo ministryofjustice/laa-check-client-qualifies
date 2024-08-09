@@ -35,14 +35,13 @@ module CheckAnswers
 
                                  ])
                      end
-        mort_field = if @check.property_owned_with_mortgage?
-                       MoneyPresenter.new(table_label: :property_entry, attribute: :mortgage, model: @check)
-                     end
         prop_entry_table = if @check.owns_property?
                              Table.new(screen: :property_entry, skip_change_link: false, index: nil, disputed?: @check.house_in_dispute,
                                        fields: [
                                          MoneyPresenter.new(table_label: :property_entry, attribute: :house_value, model: @check),
-                                         mort_field,
+                                         if @check.property_owned_with_mortgage?
+                                           MoneyPresenter.new(table_label: :property_entry, attribute: :mortgage, model: @check)
+                                         end,
                                          FieldPresenter.new(table_label: :property_entry, attribute: :percentage_owned, type: :percentage, model: @check),
                                        ].compact)
                            end
@@ -72,8 +71,8 @@ module CheckAnswers
                                    :partner_additional_property_details, :partner_additional_property_owned
       end
 
-      def additional_property_tables screen, properties, details_screen, additional_property_attribute
-        additional = Table.new(screen: screen, skip_change_link: false, index: nil, disputed?: nil,
+      def additional_property_tables(screen, properties, details_screen, additional_property_attribute)
+        additional = Table.new(screen:, skip_change_link: false, index: nil, disputed?: nil,
                                fields: [
                                  FieldPresenter.new(table_label: screen, attribute: additional_property_attribute, type: :select, model: @check),
                                ])
