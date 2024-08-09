@@ -60,7 +60,6 @@ featureFlags:
   basicAuthentication: NOT_ENABLED
   outgoingsFlow: ENABLED
   conditionalReveals: ENABLED
-  earlyEligibility: ENABLED
   sharedOwnership: NOT_ENABLED
 
 geckoboard:

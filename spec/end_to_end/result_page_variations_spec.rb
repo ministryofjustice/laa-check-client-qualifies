@@ -81,7 +81,7 @@ RSpec.describe "Results page variations", :end2end, type: :feature do
     key_lines.each { expect(page).to have_content _1 }
   end
 
-  context "when early eligibility journey is enabled and ineligible on gross_income", :early_eligibility_flag, :stub_cfe_calls do
+  context "when early eligibility journey is enabled and ineligible on gross_income", :stub_cfe_calls do
     before do
       allow(CfeService).to receive(:result).and_return(instance_double(CfeResult, ineligible_gross_income?: true,
                                                                                   gross_income_excess: 1000))

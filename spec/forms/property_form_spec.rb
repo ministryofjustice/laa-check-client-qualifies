@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "property", type: :feature do
+RSpec.describe "property", :might_call_cfe, type: :feature do
   let(:partner) { false }
   let(:content_date) { Time.zone.today }
 
