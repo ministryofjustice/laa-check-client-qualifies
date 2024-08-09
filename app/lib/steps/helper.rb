@@ -82,7 +82,7 @@ module Steps
       # this method to filter what is valid.
       def relevant_steps(session_data)
         # if the list is *very* short (i.e. non-means) then use it rather then up to incopme
-        if Steps::Logic.skip_client_questions?(session_data)
+        if Steps::Logic.non_means_tested?(session_data)
           steps_list_for(session_data)
         elsif Steps::Logic.check_stops_at_gross_income?(session_data)
           completed_steps_for(session_data, :other_income)
