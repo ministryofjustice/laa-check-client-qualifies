@@ -93,7 +93,7 @@ RSpec.configure do |config|
     end
   end
 
-  config.before(:each, :stub_cfe_calls) do
+  config.before(:each, :stub_cfe_calls_with_webmock) do
     stub_request(:post, %r{assessments\z}).to_return(
       body: FactoryBot.build(:api_result, result: "eligible").to_json,
       headers: { "Content-Type" => "application/json" },

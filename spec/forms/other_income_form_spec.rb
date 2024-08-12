@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "other_income", :stub_cfe_calls, type: :feature do
+RSpec.describe "other_income", :stub_cfe_calls_with_webmock, type: :feature do
   before do
     start_assessment
     fill_in_forms_until(:other_income)
