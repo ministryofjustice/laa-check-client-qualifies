@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - main
-      - puppeteer-2215
+      - EL-1689-puppeteer23
 
 jobs:
   build-push:
