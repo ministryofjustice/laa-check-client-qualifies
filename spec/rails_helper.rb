@@ -100,7 +100,9 @@ RSpec.configure do |config|
     )
   end
 
-  config.before(:each, :might_call_cfe) do
+  # This allows CFE to be called for early eligibility but return 'keep going'
+  # for those tests that don't care (and typically stop at check answers anyway)
+  config.before(:each, :calls_cfe_early_returns_not_ineligible) do
     allow(CfeService).to receive(:result).and_return(instance_double(CfeResult, ineligible_gross_income?: false))
   end
 

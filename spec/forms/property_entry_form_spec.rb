@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "property_entry", :might_call_cfe, type: :feature do
+RSpec.describe "property_entry", :calls_cfe_early_returns_not_ineligible, type: :feature do
   let(:property_owned) { "Yes, owned outright" }
   let(:immigration_or_asylum) { false }
   let(:partner) { false }

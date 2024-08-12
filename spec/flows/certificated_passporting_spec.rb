@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Certificated, passported flow", :might_call_cfe, type: :feature do
+RSpec.describe "Certificated, passported flow", :calls_cfe_early_returns_not_ineligible, type: :feature do
   before do
     start_assessment
   end
