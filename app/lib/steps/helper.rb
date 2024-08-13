@@ -14,20 +14,16 @@ module Steps
       end
 
       def consistent?(session_data)
-        x = steps_list_for(session_data)
-                     .reject do |thestep|
-                       Flow::Handler.model_from_session(thestep, session_data).valid?
-                     end
-        x.none?
+        steps_list_for(session_data)
+          .reject { |thestep| Flow::Handler.model_from_session(thestep, session_data).valid? }
+          .none?
       end
 
       # check consistency just for non-financial questions (asylum, under 18 etc)
       def non_financial_consistent?(session_data)
-        x = non_finance_steps(session_data)
-                     .reject do |thestep|
-                       Flow::Handler.model_from_session(thestep, session_data).valid?
-                     end
-        x.none?
+        non_finance_steps(session_data)
+          .reject { |thestep| Flow::Handler.model_from_session(thestep, session_data).valid? }
+          .none?
       end
 
       def non_finance_steps(session_data)
