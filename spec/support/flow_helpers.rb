@@ -297,6 +297,7 @@ def fill_in_vehicle_screen(choice: "No", screen_name: :vehicle)
 end
 
 def fill_in_vehicles_details_screen(vehicle_finance: "0")
+  confirm_screen :vehicles_details
   fill_in "vehicle_model[items][1][vehicle_value]", with: "1"
   choose (vehicle_finance == "0" ? "No" : "Yes"), name: "vehicle_model[items][1][vehicle_pcp]"
   choose "No", name: "vehicle_model[items][1][vehicle_over_3_years_ago]"

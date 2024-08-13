@@ -129,4 +129,22 @@ class Check
   def housing_benefit_relevant?
     housing_benefit_relevant
   end
+
+  # return true/false iff our data represents a consistent data set with no missing questions
+  # e.g. at least one 'employment' set if client is not unemployed
+  # implement using data rather than Steps::Logic (although the knowledge is probably in Steps::Logic)
+  def consistent?
+    if Steps::Logic.non_means_tested?(session_data)
+      # We are non-financially eligible
+      true
+    elsif !Steps::Helper.non_financial_consistent?(session_data)
+      # If the pre-finance questions aren't complete, then any 'block'
+      # on gross income should be disregarded
+      false
+    elsif Steps::Logic.check_stops_at_gross_income?(session_data)
+      true
+    else
+      Steps::Helper.consistent?(session_data)
+    end
+  end
 end
