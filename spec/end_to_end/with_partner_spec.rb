@@ -39,7 +39,7 @@ RSpec.describe "Certificated check with partner", type: :feature do
 
     include_context "with partner data"
 
-    it "sends the right data to CFE for certificated work", :stub_cfe_calls do
+    it "sends the right data to CFE for certificated work", :stub_cfe_calls_with_webmock do
       WebMock.reset!
 
       stub = stub_request(:post, %r{assessments\z}).with { |request|

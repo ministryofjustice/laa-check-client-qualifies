@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "benefit_details", type: :feature do
+RSpec.describe "benefit_details", :calls_cfe_early_returns_not_ineligible, type: :feature do
   before do
     allow(CfeConnection).to receive(:state_benefit_types).and_return([])
     start_assessment

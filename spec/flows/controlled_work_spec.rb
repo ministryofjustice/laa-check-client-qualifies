@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Controlled work flow", :stub_cfe_calls, type: :feature do
+RSpec.describe "Controlled work flow", :stub_cfe_calls_with_webmock, type: :feature do
   before do
     start_assessment
     fill_in_forms_until(:level_of_help)

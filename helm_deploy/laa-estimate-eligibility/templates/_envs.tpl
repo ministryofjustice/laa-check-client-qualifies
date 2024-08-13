@@ -69,8 +69,6 @@ env:
     value: {{ .Values.featureFlags.basicAuthentication }}
   - name: OUTGOINGS_FLOW_FEATURE_FLAG
     value: {{ .Values.featureFlags.outgoingsFlow }}
-  - name: EARLY_ELIGIBILITY_FEATURE_FLAG
-    value: {{ .Values.featureFlags.earlyEligibility }}
   - name: SHARED_OWNERSHIP_FEATURE_FLAG
     value: {{ .Values.featureFlags.sharedOwnership }}
   - name: FEATURE_FLAG_OVERRIDES

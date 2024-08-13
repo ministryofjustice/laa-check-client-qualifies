@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "partner_assets", type: :feature do
+RSpec.describe "partner_assets", :calls_cfe_early_returns_not_ineligible, type: :feature do
   let(:level_of_help) { "controlled" }
   let(:self_employed) { false }
 

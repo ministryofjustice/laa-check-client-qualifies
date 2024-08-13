@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Change answers after early result", :early_eligibility_flag, type: :feature do
+RSpec.describe "Change answers after early result", type: :feature do
   let(:fixed_arbitrary_date) { Date.new(2023, 2, 15) }
   let(:eligibility_banner_content) { "Your changes have now put the client within the financial eligibility limits for legal aid. You now need to provide more information." }
 
@@ -66,7 +66,7 @@ RSpec.describe "Change answers after early result", :early_eligibility_flag, typ
         click_on "Submit"
       end
 
-      it "change employment income successfully after early ineligible gross income result", :stub_cfe_calls do
+      it "change employment income successfully after early ineligible gross income result", :stub_cfe_calls_with_webmock do
         within "#table-income" do
           click_on "Change"
         end
@@ -288,7 +288,7 @@ RSpec.describe "Change answers after early result", :early_eligibility_flag, typ
     end
   end
 
-  context "when the cfe result is eligible", :stub_cfe_calls do
+  context "when the cfe result is eligible", :stub_cfe_calls_with_webmock do
     it "does not save my changes if I back out of them" do
       start_assessment
       fill_in_forms_until(:employment_status)
