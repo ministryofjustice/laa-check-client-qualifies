@@ -10,57 +10,22 @@ module CheckAnswers
       def subsections
         [
           Subsection.new(tables: client_asset_tables),
-          Subsection.new(tables: partner_asset_tables),
-          Subsection.new(tables: vehicle_tables),
-        ]
+          if @check.partner?
+            Subsection.new(tables: partner_asset_tables)
+          end,
+          unless @check.controlled?
+            Subsection.new(tables: vehicle_tables)
+          end,
+        ].compact
       end
 
     private
 
       def client_asset_tables
         asset_tables(screen: :assets, attribute_prefix: "", investments_disputed: @check.investments_in_dispute, valuables_disputed: @check.valuables_in_dispute)
-        #      - tables:
-        #          - screen: assets
-        #            fields:
-        #              - many: true
-        #                model: bank_accounts
-        #                template:
-        #                  attribute: amount
-        #                  disputed_if: account_in_dispute
-        #                  type: money
-        #              - attribute: investments_relevant
-        #                type: boolean
-        #              - attribute: investments
-        #                type: money
-        #                disputed_if: investments_in_dispute
-        #                skip_unless: investments_relevant?
-        #              - attribute: valuables_relevant
-        #                type: boolean
-        #              - attribute: valuables
-        #                type: money
-        #                disputed_if: valuables_in_dispute
-        #                skip_unless: valuables_relevant?
       end
 
       def partner_asset_tables
-        #      - tables:
-        #          - screen: partner_assets
-        #            fields:
-        #              - many: true
-        #                model: partner_bank_accounts
-        #                template:
-        #                  attribute: amount
-        #                  type: money
-        #              - attribute: partner_investments_relevant
-        #                type: boolean
-        #              - attribute: partner_investments
-        #                type: money
-        #                skip_unless: partner_investments_relevant?
-        #              - attribute: partner_valuables_relevant
-        #                type: boolean
-        #              - attribute: partner_valuables
-        #                type: money
-        #                skip_unless: partner_valuables_relevant?
         asset_tables(screen: :partner_assets, attribute_prefix: "partner_", investments_disputed: false, valuables_disputed: false)
       end
 
@@ -106,28 +71,6 @@ module CheckAnswers
                       SubFieldPresenter.new(table_label: :vehicles_details, attribute: :vehicle_in_regular_use, type: :boolean, model:),
                     ].compact)
         end
-        #      - tables:
-        #          - screen: vehicle
-        #            fields:
-        #              - attribute: vehicle_owned
-        #                type: boolean
-        #                partner_dependant_wording: true
-        #      - add_another_tables:
-        #          - screen: vehicles_details
-        #            disputed_if: vehicle_in_dispute
-        #            attribute: vehicles
-        #            fields:
-        #              - attribute: vehicle_value
-        #                type: money
-        #              - attribute: vehicle_pcp
-        #                type: boolean
-        #              - attribute: vehicle_finance
-        #                type: money
-        #                skip_unless: vehicle_pcp
-        #              - attribute: vehicle_over_3_years_ago
-        #                type: boolean
-        #              - attribute: vehicle_in_regular_use
-        #                type: boolean
         [table] + add_another_tables
       end
     end

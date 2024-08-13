@@ -152,8 +152,8 @@ class Check
     Steps::Logic.owns_property_outright?(session_data)
   end
 
-  def skip_client_questions?
-    Steps::Logic.skip_client_questions?(session_data)
+  def non_means_tested?
+    Steps::Logic.non_means_tested?(session_data)
   end
 
   def skip_income_questions?
@@ -162,5 +162,9 @@ class Check
 
   def partner?
     Steps::Logic.partner?(session_data)
+  end
+
+  def controlled_clr?
+    Steps::Logic.controlled_clr?(session_data)
   end
 end

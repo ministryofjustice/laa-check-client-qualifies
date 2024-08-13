@@ -32,14 +32,16 @@ module CheckAnswers
               adult_dep_count,
             ].compact,
           dependant_income: [
-            FieldPresenter.new(table_label: :dependant_income, attribute: :dependants_get_income, type: :boolean,
-                               model: @check),
-          ],
+            if @check.adult_dependants || @check.child_dependants
+              FieldPresenter.new(table_label: :dependant_income, attribute: :dependants_get_income, type: :boolean,
+                                 model: @check)
+            end,
+          ].compact,
         }
-        tables = table_data.map do |screen, fields|
-          Table.new(screen:, skip_change_link: false, index: nil, disputed?: false, fields:)
-        end
-        add_another_tables = (@check.dependant_incomes || []).map.with_index do |model, index|
+        main_tables = table_data.map { |screen, fields|
+          Table.new(screen:, skip_change_link: false, index: nil, disputed?: false, fields:) if fields.any?
+        }.compact
+        income_tables = (@check.dependant_incomes || []).map.with_index do |model, index|
           Table.new(screen: :dependant_income_details, skip_change_link: false,
                     index:, disputed?: false, fields: [
                       SubFieldPresenter.new(table_label: :dependant_income_details, attribute: :frequency, type: :frequency,
@@ -48,7 +50,7 @@ module CheckAnswers
                                                  model:, index:, disputed: false),
                     ])
         end
-        [Subsection.new(tables: tables + add_another_tables)]
+        [Subsection.new(tables: main_tables + income_tables)]
       end
     end
   end

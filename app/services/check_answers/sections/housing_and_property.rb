@@ -11,8 +11,10 @@ module CheckAnswers
         [
           Subsection.new(tables: property_tables),
           Subsection.new(tables: additional_property),
-          Subsection.new(tables: partner_additional_property),
-        ]
+          if @check.partner?
+            Subsection.new(tables: partner_additional_property)
+          end,
+        ].compact
       end
 
     private
@@ -71,12 +73,12 @@ module CheckAnswers
                                    :partner_additional_property_details, :partner_additional_property_owned
       end
 
-      def additional_property_tables(screen, properties, details_screen, additional_property_attribute)
+      def additional_property_tables(screen, additional_properties, details_screen, additional_property_attribute)
         additional = Table.new(screen:, skip_change_link: false, index: nil, disputed?: nil,
                                fields: [
                                  FieldPresenter.new(table_label: screen, attribute: additional_property_attribute, type: :select, model: @check),
                                ])
-        add_anothers = (properties || []).map.with_index do |model, index|
+        property_tables = (additional_properties || []).map.with_index do |model, index|
           house_value = MoneySubFieldPresenter.new(table_label: details_screen, attribute: :house_value, index:, model:, disputed: false)
           inline_owned = if model.show_inline_mortgage_ownership_question?
                            SubFieldPresenter.new(table_label: details_screen, attribute: :inline_owned_with_mortgage, type: :boolean, model:)
@@ -90,7 +92,7 @@ module CheckAnswers
                     disputed?: model.house_in_dispute, skip_change_link: false,
                     fields: [house_value, inline_owned, mortgage, percent].compact)
         end
-        [additional] + add_anothers
+        [additional] + property_tables
       end
     end
   end

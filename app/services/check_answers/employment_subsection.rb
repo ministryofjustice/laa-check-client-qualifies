@@ -9,7 +9,7 @@ module CheckAnswers
                                         FieldPresenter.new(table_label: status_field_name, attribute: status_field_name, type: :select, model: check),
                                       ])
 
-        emp_add = (incomes || []).map.with_index do |model, index|
+        employments = (incomes || []).map.with_index do |model, index|
           Table.new(screen: income_field_name, index:,
                     disputed?: false, skip_change_link: false,
                     fields: [
@@ -20,7 +20,7 @@ module CheckAnswers
                       MoneySubFieldPresenter.new(table_label: income_field_name, attribute: :national_insurance, index:, model:, disputed: false),
                     ])
         end
-        [employment_status] + emp_add
+        [employment_status] + employments
       end
     end
   end

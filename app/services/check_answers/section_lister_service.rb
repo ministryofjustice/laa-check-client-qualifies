@@ -10,7 +10,7 @@ module CheckAnswers
           Sections::ClientDetails.new(check),
           Sections::CaseDetails.new(check),
         ]
-        if check.skip_client_questions?
+        if check.non_means_tested?
           non_finance_sections
         else
           assets = [
@@ -26,12 +26,16 @@ module CheckAnswers
               non_finance_sections + assets
             end
           else
-            finance_sections = [
+            pre = [
               Sections::Dependants.new(check),
               Sections::ClientIncome.new(check),
-              Sections::PartnerIncome.new(check),
-              Sections::Outgoings.new(check),
             ]
+            post = [Sections::Outgoings.new(check)]
+            finance_sections = if check.partner?
+                                 pre + [Sections::PartnerIncome.new(check)] + post
+                               else
+                                 pre + post
+                               end
             non_finance_sections + finance_sections + assets
           end
         end
