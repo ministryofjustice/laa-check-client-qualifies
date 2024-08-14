@@ -11,7 +11,6 @@ RSpec.describe Cfe::IrregularIncomePayloadService do
       "pension_relevant" => false,
     }
   end
-  let(:relevant_steps) { [:other_income] }
 
   describe ".call" do
     context "when there is no relevant data" do
@@ -24,7 +23,7 @@ RSpec.describe Cfe::IrregularIncomePayloadService do
 
       it "adds no payments to the payload" do
         # they have seen the form - they have filled it in with 0
-        service.call(session_data, payload, relevant_steps)
+        service.call(session_data, payload)
         expect(payload.dig(:irregular_incomes, :payments)).to eq([])
       end
     end
@@ -39,7 +38,7 @@ RSpec.describe Cfe::IrregularIncomePayloadService do
 
       it "adds no payments to the payload" do
         # they haven't seen the form
-        service.call(session_data, payload, relevant_steps)
+        service.call(session_data, payload)
         expect(payload.dig(:irregular_incomes, :payments)).to be_nil
       end
     end
@@ -55,7 +54,7 @@ RSpec.describe Cfe::IrregularIncomePayloadService do
       end
 
       it "adds data to the payload" do
-        service.call(session_data, payload, relevant_steps)
+        service.call(session_data, payload)
         expect(payload.dig(:irregular_incomes, :payments)).to eq(
           [{ amount: 100, frequency: "annual", income_type: "student_loan" },
            { amount: 200, frequency: "quarterly", income_type: "unspecified_source" }],
@@ -75,7 +74,7 @@ RSpec.describe Cfe::IrregularIncomePayloadService do
       end
 
       it "uses an appropriate frequency" do
-        service.call(session_data, payload, relevant_steps)
+        service.call(session_data, payload)
         expect(payload.dig(:irregular_incomes, :payments)).to eq(
           [{ amount: 100, frequency: "annual", income_type: "student_loan" },
            { amount: 200, frequency: "monthly", income_type: "unspecified_source" }],
