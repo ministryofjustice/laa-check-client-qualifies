@@ -176,11 +176,11 @@ class Check
     !Steps::Logic.controlled?(session_data)
   end
 
-  # def skip_income_questions?
-  #   Steps::Logic.skip_income_questions?(session_data)
-  # end
-  #
-  # def employed?
-  #   Steps::Logic.employed?(session_data)
-  # end
+  def skip_income_questions?
+    Steps::Logic.skip_income_questions?(session_data)
+  end
+
+  def employed?
+    Steps::Logic.employed?(session_data)
+  end
 end
