@@ -7,7 +7,7 @@ class CfeService
       Cfe::ProceedingsPayloadService.call(session_data, payload)
       Cfe::EmploymentIncomePayloadService.call(session_data, payload)
       Cfe::IrregularIncomePayloadService.call(session_data, payload)
-      Cfe::VehiclePayloadService.call(session_data, payload, relevant_steps)
+      Cfe::VehiclePayloadService.call(session_data, payload)
       Cfe::AssetsPayloadService.call(session_data, payload, relevant_steps)
       Cfe::RegularTransactionsPayloadService.call(session_data, payload, relevant_steps)
       Cfe::ApplicantPayloadService.call(session_data, payload, relevant_steps)
