@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module CheckAnswers
-  class FieldPresenter
+  class PartnerDependantFieldPresenter
     attr_reader :type
 
     def initialize(table_label:, attribute:, type:, model:)
@@ -20,7 +20,11 @@ module CheckAnswers
     end
 
     def label
-      "#{@table_label}_fields.#{@attribute}"
+      if @model.partner
+        "#{@table_label}_fields.#{@attribute}_partner"
+      else
+        "#{@table_label}_fields.#{@attribute}"
+      end
     end
   end
 end

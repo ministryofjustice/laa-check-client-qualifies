@@ -8,15 +8,15 @@ module CheckAnswers
       end
 
       def subsections
-        child_deps = FieldPresenter.new(table_label: :dependant_details, attribute: :child_dependants, type: :boolean,
-                                        model: @check, partner_dependant_wording: true)
+        child_deps = PartnerDependantFieldPresenter.new(table_label: :dependant_details, attribute: :child_dependants, type: :boolean,
+                                                        model: @check)
         child_dep_count = if @check.child_dependants
                             FieldPresenter.new(table_label: :dependant_details, attribute: :child_dependants_count,
                                                type: :number_or_text,
                                                model: @check)
                           end
-        adult_deps = FieldPresenter.new(table_label: :dependant_details, attribute: :adult_dependants, type: :boolean,
-                                        model: @check, partner_dependant_wording: true)
+        adult_deps = PartnerDependantFieldPresenter.new(table_label: :dependant_details, attribute: :adult_dependants, type: :boolean,
+                                                        model: @check)
         adult_dep_count = if @check.adult_dependants
                             FieldPresenter.new(table_label: :dependant_details, attribute: :adult_dependants_count,
                                                type: :number_or_text,

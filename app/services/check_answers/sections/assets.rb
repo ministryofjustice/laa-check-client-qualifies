@@ -54,7 +54,7 @@ module CheckAnswers
       def vehicle_tables
         table = Table.new(screen: :vehicle, skip_change_link: false, index: nil, disputed?: nil,
                           fields: [
-                            FieldPresenter.new(table_label: :vehicle, attribute: :vehicle_owned, type: :boolean, model: @check, partner_dependant_wording: true),
+                            PartnerDependantFieldPresenter.new(table_label: :vehicle, attribute: :vehicle_owned, type: :boolean, model: @check),
                           ])
         add_another_tables = (@check.vehicles || []).map.with_index do |model, index|
           Table.new(screen: :vehicles_details, index:,

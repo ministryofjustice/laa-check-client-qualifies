@@ -11,19 +11,19 @@ module CheckAnswers
                               OptionalMoneyWithFrequencyPresenter.new(table_label: label,
                                                                       attribute: "#{attribute_prefix}childcare_payments_conditional_value".to_sym,
                                                                       model: check,
-                                                                      frequency_attribute: "#{attribute_prefix}childcare_payments_frequency".to_sym,
-                                                                      relevancy_attribute: "#{attribute_prefix}childcare_payments_relevant".to_sym)
+                                                                      frequency_value: check.public_send("#{attribute_prefix}childcare_payments_frequency".to_sym),
+                                                                      relevancy_value: check.public_send("#{attribute_prefix}childcare_payments_relevant".to_sym))
                             end,
                             OptionalMoneyWithFrequencyPresenter.new(table_label: label,
                                                                     attribute: "#{attribute_prefix}maintenance_payments_conditional_value".to_sym,
                                                                     model: check,
-                                                                    frequency_attribute: "#{attribute_prefix}maintenance_payments_frequency".to_sym,
-                                                                    relevancy_attribute: "#{attribute_prefix}maintenance_payments_relevant".to_sym),
+                                                                    frequency_value: check.public_send("#{attribute_prefix}maintenance_payments_frequency".to_sym),
+                                                                    relevancy_value: check.public_send("#{attribute_prefix}maintenance_payments_relevant".to_sym)),
                             OptionalMoneyWithFrequencyPresenter.new(table_label: label,
                                                                     attribute: "#{attribute_prefix}legal_aid_payments_conditional_value".to_sym,
                                                                     model: check,
-                                                                    frequency_attribute: "#{attribute_prefix}legal_aid_payments_frequency".to_sym,
-                                                                    relevancy_attribute: "#{attribute_prefix}legal_aid_payments_relevant".to_sym),
+                                                                    frequency_value: check.public_send("#{attribute_prefix}legal_aid_payments_frequency".to_sym),
+                                                                    relevancy_value: check.public_send("#{attribute_prefix}legal_aid_payments_relevant".to_sym)),
                           ].compact
         [table]
       end

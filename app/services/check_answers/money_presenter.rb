@@ -3,7 +3,7 @@
 module CheckAnswers
   class MoneyPresenter < FieldPresenter
     def initialize(table_label:, attribute:, model:, disputed: false)
-      super(table_label:, attribute:, type: :money, screen: nil, model:)
+      super(table_label:, attribute:, type: :money, model:)
       @disputed = disputed
     end
 

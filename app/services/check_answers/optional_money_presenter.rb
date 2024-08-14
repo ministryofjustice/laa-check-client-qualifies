@@ -2,17 +2,15 @@
 
 module CheckAnswers
   class OptionalMoneyPresenter < FieldPresenter
-    def initialize(table_label:, attribute:, model:, relevancy_attribute:)
-      super(table_label:, attribute:, type: :optional_money, screen: nil, model:)
-      @relevancy_attribute = relevancy_attribute
+    attr_reader :relevancy_value
+
+    def initialize(table_label:, attribute:, model:, relevancy_value:)
+      super(table_label:, attribute:, type: :optional_money, model:)
+      @relevancy_value = relevancy_value
     end
 
     def disputed?
       false
-    end
-
-    def relevancy_value
-      @model.public_send(@relevancy_attribute)
     end
   end
 end

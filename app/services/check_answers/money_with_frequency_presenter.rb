@@ -2,13 +2,11 @@
 
 module CheckAnswers
   class MoneyWithFrequencyPresenter < FieldPresenter
-    def initialize(table_label:, attribute:, model:, frequency_attribute:)
-      super(table_label:, attribute:, type: :money_with_frequency, screen: nil, model:)
-      @frequency_attribute = frequency_attribute
-    end
+    attr_reader :frequency_value
 
-    def frequency_value
-      @model.public_send(@frequency_attribute)
+    def initialize(table_label:, attribute:, model:, frequency_value:)
+      super(table_label:, attribute:, type: :money_with_frequency, model:)
+      @frequency_value = frequency_value
     end
   end
 end

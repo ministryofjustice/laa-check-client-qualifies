@@ -1,7 +1,5 @@
 module CheckAnswers
   class SectionListerService
-    FieldData = Struct.new(:label, :type, :value, :alt_value, :relevancy_value, :disputed?, :index, :screen, keyword_init: true)
-
     class << self
       def call(session_data)
         check = Check.new(session_data)
