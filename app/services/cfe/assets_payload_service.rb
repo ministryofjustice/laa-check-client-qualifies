@@ -10,6 +10,7 @@ module Cfe
 
       def capitals(session_data, payload, completed_steps)
         return unless BaseService.completed_form?(completed_steps, :assets)
+
         check = Check.new session_data
         # return if check.non_means_tested?
 
