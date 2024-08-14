@@ -114,7 +114,7 @@ class Check
     !Steps::Logic.skip_capital_questions?(session_data) && session_data["property_owned"] == "outright"
   end
 
-  def owns_property_with_mortgage_or_loan?(session_data)
+  def owns_property_with_mortgage_or_loan?
     !Steps::Logic.skip_capital_questions?(session_data) && session_data["property_owned"] == "with_mortgage"
   end
 
@@ -186,5 +186,9 @@ class Check
 
   def owns_additional_property?
     Steps::Logic.owns_additional_property?(session_data)
+  end
+
+  def any_benefits?
+    (benefits || []).any?
   end
 end

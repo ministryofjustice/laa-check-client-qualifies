@@ -24,7 +24,7 @@ module Steps
 
       def housing_costs_group(session_data)
         check = Check.new session_data
-        step = if check.owns_property_with_mortgage_or_loan?(session_data)
+        step = if check.owns_property_with_mortgage_or_loan?
                  :mortgage_or_loan_payment
                elsif !check.owns_property_outright?
                  :housing_costs
