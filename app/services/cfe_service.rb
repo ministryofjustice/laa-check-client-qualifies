@@ -10,7 +10,7 @@ class CfeService
       Cfe::VehiclePayloadService.call(session_data, payload)
       Cfe::AssetsPayloadService.call(session_data, payload, relevant_steps)
       Cfe::RegularTransactionsPayloadService.call(session_data, payload, relevant_steps)
-      Cfe::ApplicantPayloadService.call(session_data, payload, relevant_steps)
+      Cfe::ApplicantPayloadService.call(session_data, payload)
       Cfe::PartnerPayloadService.call(session_data, payload, relevant_steps)
       CfeConnection.assess(payload)
     end
