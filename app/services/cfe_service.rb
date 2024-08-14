@@ -1,6 +1,6 @@
 class CfeService
   class << self
-    def call(session_data, relevant_steps)
+    def call(session_data, completed_steps)
       payload = {}
       Cfe::AssessmentPayloadService.call(session_data, payload)
       Cfe::DependantsPayloadService.call(session_data, payload)
@@ -8,10 +8,10 @@ class CfeService
       Cfe::EmploymentIncomePayloadService.call(session_data, payload)
       Cfe::IrregularIncomePayloadService.call(session_data, payload)
       Cfe::VehiclePayloadService.call(session_data, payload)
-      Cfe::AssetsPayloadService.call(session_data, payload, relevant_steps)
-      Cfe::RegularTransactionsPayloadService.call(session_data, payload, relevant_steps)
+      Cfe::AssetsPayloadService.call(session_data, payload, completed_steps)
+      Cfe::RegularTransactionsPayloadService.call(session_data, payload, completed_steps)
       Cfe::ApplicantPayloadService.call(session_data, payload)
-      Cfe::PartnerPayloadService.call(session_data, payload, relevant_steps)
+      Cfe::PartnerPayloadService.call(session_data, payload, completed_steps)
       CfeConnection.assess(payload)
     end
 
