@@ -1,19 +1,17 @@
 module Cfe
   class AssetsPayloadService
-    # delegate :smod_applicable?, to: :check
-
     class << self
       def call(session_data, payload, relevant_steps)
         capitals session_data, payload, relevant_steps
-        properties session_data, payload, relevant_steps
+        properties session_data, payload
       end
 
     private
 
       def capitals(session_data, payload, completed_steps)
         return unless BaseService.completed_form?(completed_steps, :assets)
-
         check = Check.new session_data
+        # return if check.non_means_tested?
 
         asset_form = BaseService.instantiate_form(session_data, ClientAssetsForm)
         capitals = CfeParamBuilders::Capitals.call(asset_form, smod_applicable: check.smod_applicable?)
@@ -23,9 +21,10 @@ module Cfe
         payload[:capitals] = capitals
       end
 
-      def properties(session_data, payload, completed_steps)
+      def properties(session_data, payload)
         check = Check.new session_data
-        if BaseService.completed_form?(completed_steps, :additional_property_details)
+        # if BaseService.completed_form?(completed_steps, :additional_property_details)
+        if check.owns_additional_property?
           additionals_form = BaseService.instantiate_form(session_data, AdditionalPropertyDetailsForm)
           additional_properties = additionals_form.items.map do |model|
             {
@@ -38,7 +37,8 @@ module Cfe
           end
         end
 
-        if BaseService.completed_form?(completed_steps, :property_entry)
+        # if BaseService.completed_form?(completed_steps, :property_entry)
+        if check.owns_property?
           property_entry_form = BaseService.instantiate_form(session_data, PropertyEntryForm)
           main_home = {
             value: property_entry_form.house_value,

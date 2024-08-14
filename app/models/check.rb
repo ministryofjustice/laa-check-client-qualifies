@@ -183,4 +183,8 @@ class Check
   def employed?
     Steps::Logic.employed?(session_data)
   end
+
+  def owns_additional_property?
+    Steps::Logic.owns_additional_property?(session_data)
+  end
 end
