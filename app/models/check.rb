@@ -169,7 +169,7 @@ class Check
   end
 
   def non_means_tested?
-    Steps::Logic.skip_client_questions?(session_data)
+    Steps::Logic.non_means_tested?(session_data)
   end
 
   def certificated?

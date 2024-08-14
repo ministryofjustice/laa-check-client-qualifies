@@ -32,7 +32,7 @@ class ChangeAnswersController < QuestionFlowController
             save_and_redirect_to_check_answers
           end
         else
-          next_step = Steps::Helper.next_step_for(session_data, step)
+          next_step = Steps::Helper.next_step_for(@check, step)
           redirect_to helpers.check_step_path_from_step(next_step, assessment_code)
         end
       else
@@ -53,7 +53,7 @@ private
   end
 
   def redirect_to_next_question
-    next_check_answer_step = Steps::Helper.remaining_steps_for(session_data, step)
+    next_check_answer_step = Steps::Helper.remaining_steps_for(@check, step)
                  .drop_while { |thestep|
                    Flow::Handler.model_from_session(thestep, session_data).valid?
                  }.first

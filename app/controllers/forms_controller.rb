@@ -23,7 +23,7 @@ private
   def calculate_next_step(session_data, step)
     if step == :ineligible_gross_income
       if Steps::Logic.user_chose_to_continue_check?(session_data)
-        Steps::Helper.next_step_for(session_data, Steps::Helper.last_step_for_section(session_data, :income_section))
+        Steps::Helper.next_step_for(@check, Steps::Helper.last_step_for_section(session_data, :income_section))
       end
     elsif last_tag_in_group?(:gross_income) && CfeService.result(session_data, Steps::Helper.completed_steps_for(session_data, step)).ineligible_gross_income?
       :ineligible_gross_income
