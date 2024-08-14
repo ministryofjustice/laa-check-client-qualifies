@@ -16,7 +16,7 @@ module Cfe
         income_form = BaseService.instantiate_form(session_data, OtherIncomeForm)
         # benefit_details_form = BaseService.instantiate_form(session_data, BenefitDetailsForm) if BaseService.completed_form?(relevant_steps, :benefit_details)
         benefit_details_form = BaseService.instantiate_form(session_data, BenefitDetailsForm) if check.any_benefits?
-        housing_form = if BaseService.completed_form?(relevant_steps, :mortgage_or_loan_payment)
+        housing_form = if check.owns_property_with_mortgage_or_loan?
                          BaseService.instantiate_form(session_data, MortgageOrLoanPaymentForm)
                        elsif BaseService.completed_form?(relevant_steps, :housing_costs)
                          BaseService.instantiate_form(session_data, HousingCostsForm)
