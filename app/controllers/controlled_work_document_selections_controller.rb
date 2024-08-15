@@ -1,7 +1,7 @@
 class ControlledWorkDocumentSelectionsController < ApplicationController
   def new
     track_page_view(page: :cw_form_selection)
-    @form = ControlledWorkDocumentSelection.from_session(session_data)
+    @form = ControlledWorkDocumentSelection.model_from_session(session_data)
     @check = Check.new(session_data)
     @model = CalculationResult.new(session_data)
   end
@@ -20,7 +20,7 @@ class ControlledWorkDocumentSelectionsController < ApplicationController
   end
 
   def download
-    @form = ControlledWorkDocumentSelection.from_session(session_data)
+    @form = ControlledWorkDocumentSelection.model_from_session(session_data)
     handle_download
   end
 
