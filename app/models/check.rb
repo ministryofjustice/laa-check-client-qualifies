@@ -29,7 +29,7 @@ class Check
                   else
                     attribute
                   end
-    form_class.from_session(session_data).send(method_name)
+    form_class.model_from_session(session_data).send(method_name)
   end
 
   def respond_to_missing?(attribute, include_private = false)

@@ -30,18 +30,18 @@ class ControlledWorkDocumentContent < Check
   end
 
   def client_capital_relevant?
-    Steps::Helper.relevant_steps(session_data).include?(:assets)
+    !Steps::Logic.non_means_tested?(session_data)
   end
 
   def partner_capital_relevant?
-    Steps::Helper.relevant_steps(session_data).include?(:partner_assets)
+    !Steps::Logic.non_means_tested?(session_data) && Steps::Logic.partner?(session_data)
   end
 
   def client_income_relevant?
-    Steps::Helper.relevant_steps(session_data).include?(:other_income)
+    !Steps::Logic.non_means_tested?(session_data) && !Steps::Logic.passported?(session_data)
   end
 
   def partner_income_relevant?
-    Steps::Helper.relevant_steps(session_data).include?(:partner_other_income)
+    !Steps::Logic.non_means_tested?(session_data) && !Steps::Logic.passported?(session_data) && Steps::Logic.partner?(session_data)
   end
 end
