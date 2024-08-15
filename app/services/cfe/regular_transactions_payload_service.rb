@@ -1,18 +1,18 @@
 module Cfe
   class RegularTransactionsPayloadService < BaseService
     def call
-      return unless relevant_form?(:outgoings) ||
-        relevant_form?(:other_income) ||
-        relevant_form?(:mortgage_or_loan_payment) ||
-        relevant_form?(:housing_costs) ||
-        relevant_form?(:benefit_details)
+      return unless completed_form?(:outgoings) ||
+        completed_form?(:other_income) ||
+        completed_form?(:mortgage_or_loan_payment) ||
+        completed_form?(:housing_costs) ||
+        completed_form?(:benefit_details)
 
-      outgoings_form = instantiate_form(OutgoingsForm) if relevant_form? :outgoings
-      income_form = instantiate_form(OtherIncomeForm) if relevant_form? :other_income
-      benefit_details_form = instantiate_form(BenefitDetailsForm) if relevant_form?(:benefit_details)
-      housing_form = if relevant_form?(:mortgage_or_loan_payment)
+      outgoings_form = instantiate_form(OutgoingsForm) if completed_form? :outgoings
+      income_form = instantiate_form(OtherIncomeForm) if completed_form? :other_income
+      benefit_details_form = instantiate_form(BenefitDetailsForm) if completed_form?(:benefit_details)
+      housing_form = if completed_form?(:mortgage_or_loan_payment)
                        instantiate_form(MortgageOrLoanPaymentForm)
-                     elsif relevant_form?(:housing_costs)
+                     elsif completed_form?(:housing_costs)
                        instantiate_form(HousingCostsForm)
                      end
 

@@ -3,11 +3,11 @@ require "rails_helper"
 RSpec.describe Cfe::EmploymentIncomePayloadService do
   let(:payload) { {} }
 
-  before { described_class.call(session_data, payload, relevant_steps) }
+  before { described_class.call(session_data, payload, completed_steps) }
 
   context "when the client is not employed" do
     let(:session_data) { { "employment_status" => "unemployed" } }
-    let(:relevant_steps) { [:employment_status] }
+    let(:completed_steps) { [:employment_status] }
 
     it "does not populate any payload" do
       expect(payload[:employment]).to be_nil
@@ -44,7 +44,7 @@ RSpec.describe Cfe::EmploymentIncomePayloadService do
         ],
       }
     end
-    let(:relevant_steps) { [:income] }
+    let(:completed_steps) { [:income] }
 
     it "populates the employment payload" do
       expect(payload[:employment_details]).to eq(
@@ -103,7 +103,7 @@ RSpec.describe Cfe::EmploymentIncomePayloadService do
         ],
       }
     end
-    let(:relevant_steps) { %i[employment_status income] }
+    let(:completed_steps) { %i[employment_status income] }
 
     it "returns a result which defers to the employment status" do
       expect(payload[:employment]).to be_nil

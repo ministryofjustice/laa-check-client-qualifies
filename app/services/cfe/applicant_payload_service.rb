@@ -6,8 +6,8 @@ module Cfe
 
     def build_applicant
       ret = { date_of_birth: }
-      ret[:receives_qualifying_benefit] = check.passporting if relevant_form?(:applicant)
-      ret[:receives_asylum_support] = check.asylum_support if relevant_form?(:asylum_support)
+      ret[:receives_qualifying_benefit] = check.passporting if completed_form?(:applicant)
+      ret[:receives_asylum_support] = check.asylum_support if completed_form?(:asylum_support)
       ret
     end
 
