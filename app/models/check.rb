@@ -147,4 +147,89 @@ class Check
       Steps::Helper.consistent?(session_data)
     end
   end
+
+  def owns_vehicle?
+    Steps::Logic.owns_vehicle?(session_data)
+  end
+
+  def owns_property_with_mortgage_or_loan?
+    Steps::Logic.owns_property_with_mortgage_or_loan?(session_data)
+  end
+
+  # def owns_property_outright?
+  #   Steps::Logic.owns_property_outright?(session_data)
+  # end
+
+  def under_18_controlled_clr?
+    Steps::Logic.controlled_clr?(session_data)
+  end
+
+  def passported?
+    Steps::Logic.passported?(session_data)
+  end
+
+  def non_means_tested?
+    Steps::Logic.non_means_tested?(session_data)
+  end
+
+  def certificated?
+    !Steps::Logic.controlled?(session_data)
+  end
+
+  def skip_income_questions?
+    Steps::Logic.skip_income_questions?(session_data)
+  end
+
+  def has_assets?
+    !Steps::Logic.skip_capital_questions?(session_data) && session_data.key?("investments_relevant")
+  end
+
+  def employed?
+    Steps::Logic.employed?(session_data)
+  end
+
+  def owns_additional_property?
+    Steps::Logic.owns_additional_property?(session_data)
+  end
+
+  def has_housing_costs?
+    session_data.key?("housing_benefit_relevant")
+  end
+
+  def has_outgoings?
+    session_data.key?("childcare_payments_conditional_value")
+  end
+
+  def any_benefits?
+    (benefits || []).any?
+  end
+
+  def has_other_income?
+    session_data.key?("friends_or_family_conditional_value")
+  end
+
+  def has_partner_details?
+    session_data.key?("partner_over_60")
+  end
+
+  def has_partner_other_income?
+    session_data.key?("partner_friends_or_family_conditional_value")
+  end
+
+  def has_partner_outgoings?
+    session_data.key?("partner_maintenance_payments_conditional_value")
+  end
+
+  def has_partner_benefits?
+    (partner_benefits || []).any?
+  end
+
+  def partner_owns_additional_property?
+    Steps::Logic.partner_owns_additional_property?(session_data)
+  end
+
+  # def has_partner_assets?
+  #   Steps::Logic.partner?(session_data) &&
+  #     session_data.key?("partner_investments_relevant")
+  # end
 end

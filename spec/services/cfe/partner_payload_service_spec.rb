@@ -68,12 +68,7 @@ RSpec.describe Cfe::PartnerPayloadService do
       end
 
       it "constructs a valid payload" do
-        described_class.call(session_data, payload, %i[partner_details
-                                                       partner_benefits
-                                                       partner_benefit_details
-                                                       partner_other_income
-                                                       partner_assets
-                                                       partner_additional_property_details])
+        described_class.call(session_data, payload)
         partner = payload[:partner]
         expect(partner[:partner]).to eq({ employed: false, date_of_birth: 70.years.ago.to_date })
         expect(partner[:irregular_incomes]).to eq([{ amount: 1_000, frequency: "annual", income_type: "student_loan" }])
@@ -99,7 +94,7 @@ RSpec.describe Cfe::PartnerPayloadService do
       let(:session_data) { minimal_partner_info }
 
       it "constructs a valid payload" do
-        described_class.call(session_data, payload, %i[partner_details partner_assets])
+        described_class.call(session_data, payload)
         partner = payload[:partner]
         expect(partner[:partner]).to eq({ employed: false, date_of_birth: 50.years.ago.to_date })
         expect(partner[:irregular_incomes]).to eq([])
@@ -125,7 +120,7 @@ RSpec.describe Cfe::PartnerPayloadService do
       end
 
       it "constructs a valid payload" do
-        described_class.call(session_data, payload, %i[partner_details partner_assets])
+        described_class.call(session_data, payload)
         partner = payload[:partner]
         expect(partner[:partner]).to eq({ employed: false, date_of_birth: 50.years.ago.to_date })
         expect(partner[:irregular_incomes]).to eq([])
@@ -146,7 +141,7 @@ RSpec.describe Cfe::PartnerPayloadService do
       end
 
       it "adds nothing to the payload" do
-        described_class.call(session_data, payload, %i[])
+        described_class.call(session_data, payload)
         expect(payload[:partner]).to be_nil
       end
     end
@@ -163,7 +158,7 @@ RSpec.describe Cfe::PartnerPayloadService do
       end
 
       it "adds details to the payload" do
-        described_class.call(session_data, payload, %i[partner_details partner_outgoings])
+        described_class.call(session_data, payload)
         partner = payload[:partner]
         expect(partner[:regular_transactions]).to eq([{ amount: 34, category: :maintenance_out, frequency: :three_monthly, operation: :debit }])
       end
@@ -191,7 +186,7 @@ RSpec.describe Cfe::PartnerPayloadService do
         let(:ownership_status) { "outright" }
 
         it "adds details to the payload" do
-          described_class.call(session_data, payload, %i[partner_details partner_additional_property_details])
+          described_class.call(session_data, payload)
           partner = payload[:partner]
           expect(partner[:additional_properties]).to eq([{ outstanding_mortgage: 0,
                                                            percentage_owned: 100,
@@ -204,7 +199,7 @@ RSpec.describe Cfe::PartnerPayloadService do
         let(:ownership_status) { "with_mortgage" }
 
         it "adds details to the payload" do
-          described_class.call(session_data, payload, %i[partner_details partner_additional_property_details])
+          described_class.call(session_data, payload)
           partner = payload[:partner]
           expect(partner[:additional_properties]).to eq([{ outstanding_mortgage: 50_000,
                                                            percentage_owned: 100,
@@ -219,7 +214,7 @@ RSpec.describe Cfe::PartnerPayloadService do
         let(:session_data) { minimal_partner_info.merge({ "partner_employment_status" => "unemployed" }) }
 
         it "does not populate any payload" do
-          described_class.call(session_data, payload, %i[partner_details partner_employment_status])
+          described_class.call(session_data, payload)
           expect(payload[:partner][:employment_details]).to eq []
           expect(payload[:partner][:self_employment_details]).to eq []
         end
@@ -256,7 +251,7 @@ RSpec.describe Cfe::PartnerPayloadService do
         end
 
         it "populates the employment payload" do
-          described_class.call(session_data, payload, %i[partner_details partner_employment_status partner_income])
+          described_class.call(session_data, payload)
           expect(payload[:partner][:employment_details]).to eq(
             [
               { income: { frequency: "monthly",
@@ -276,7 +271,7 @@ RSpec.describe Cfe::PartnerPayloadService do
         end
 
         it "populates the self-employment payload" do
-          described_class.call(session_data, payload, %i[partner_details partner_employment_status partner_income])
+          described_class.call(session_data, payload)
           expect(payload[:partner][:self_employment_details]).to eq(
             [
               { income: { frequency: "three_monthly", gross: 500, tax: -100, national_insurance: -0 } },

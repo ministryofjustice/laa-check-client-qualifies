@@ -10,7 +10,9 @@ module Cfe
   private
 
     def capitals
-      return unless completed_form?(:assets)
+      # This check is hard to remove as CFE gets called early w/o the assets form being completed
+      # return unless completed_form?(:assets)
+      return unless check.has_assets?
 
       asset_form = instantiate_form(ClientAssetsForm)
       capitals = CfeParamBuilders::Capitals.call(asset_form, smod_applicable: smod_applicable?)
@@ -21,7 +23,7 @@ module Cfe
     end
 
     def properties
-      if completed_form?(:additional_property_details)
+      if check.owns_additional_property?
         additionals_form = instantiate_form(AdditionalPropertyDetailsForm)
         additional_properties = additionals_form.items.map do |model|
           {
@@ -34,7 +36,7 @@ module Cfe
         end
       end
 
-      if completed_form?(:property_entry)
+      if check.owns_property?
         property_entry_form = instantiate_form(PropertyEntryForm)
         main_home = {
           value: property_entry_form.house_value,

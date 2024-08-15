@@ -7,7 +7,7 @@ RSpec.describe Cfe::AssetsPayloadService do
     let(:payload) { {} }
 
     before do
-      described_class.call(session_data.merge("feature_flags" => feature_flags), payload, completed_steps)
+      described_class.call(session_data.merge("feature_flags" => feature_flags), payload)
     end
 
     context "when there is a full set of data" do
@@ -34,7 +34,6 @@ RSpec.describe Cfe::AssetsPayloadService do
           "valuables_in_dispute" => true,
         }
       end
-      let(:completed_steps) { %i[assets property_entry additional_property_details] }
 
       it "populates the payload appropriately" do
         expect(payload[:capitals]).to eq(
@@ -142,7 +141,6 @@ RSpec.describe Cfe::AssetsPayloadService do
                          :with_no_main_home,
                          :with_zero_capital_assets)
       end
-      let(:completed_steps) { [] }
 
       it "does not populate the payload" do
         expect(payload[:properties]).to be_nil
@@ -162,7 +160,6 @@ RSpec.describe Cfe::AssetsPayloadService do
                            "house_in_dispute" => false,
                          }])
       end
-      let(:completed_steps) { [:additional_property_details] }
 
       it "adds a fake main home to the payload" do
         expect(payload[:properties]).to eq(
@@ -200,7 +197,6 @@ RSpec.describe Cfe::AssetsPayloadService do
                            "house_in_dispute" => true,
                          }])
       end
-      let(:completed_steps) { %i[additional_property_details] }
 
       it "populates the payload with the right SMOD value" do
         expect(payload[:properties]).to eq(
@@ -234,7 +230,6 @@ RSpec.describe Cfe::AssetsPayloadService do
                          property_owned: "outright",
                          house_value: 100_000)
       end
-      let(:completed_steps) { %i[property_entry] }
 
       it "populates the payload with appropriate details including zero mortgage" do
         expect(payload[:properties]).to eq(
@@ -260,7 +255,6 @@ RSpec.describe Cfe::AssetsPayloadService do
                          house_in_dispute: true,
                          house_value: 100_000)
       end
-      let(:completed_steps) { %i[property_entry] }
 
       it "populates the payload with appropriate flag" do
         expect(payload[:properties]).to eq(
@@ -287,7 +281,6 @@ RSpec.describe Cfe::AssetsPayloadService do
                          house_in_dispute: true,
                          immigration_or_asylum_type_upper_tribunal: "immigration_upper")
       end
-      let(:completed_steps) { %i[assets property_entry] }
 
       it "does not include SMOD in the payload" do
         expect(payload.dig(:properties, :main_home, :subject_matter_of_dispute)).to be false
@@ -307,7 +300,6 @@ RSpec.describe Cfe::AssetsPayloadService do
           "valuables_in_dispute" => false,
         }
       end
-      let(:completed_steps) { [] }
 
       it "does not additional property data" do
         expect(payload[:properties]).to be_nil
@@ -328,7 +320,6 @@ RSpec.describe Cfe::AssetsPayloadService do
           "valuables_in_dispute" => false,
         }
       end
-      let(:completed_steps) { Steps::Helper.relevant_steps(session_data) }
 
       it "returns correct result" do
         expect(payload[:capitals]).to be_nil

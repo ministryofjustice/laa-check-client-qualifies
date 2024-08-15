@@ -19,7 +19,6 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
       "housing_benefit_relevant" => false,
     }
   end
-  let(:completed_steps) { %i[other_income outgoings] }
 
   describe ".call" do
     context "when there a full set of income and outgoings data" do
@@ -56,7 +55,7 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
       end
 
       it "adds an appropriate payload" do
-        service.call(session_data, payload, completed_steps)
+        service.call(session_data, payload)
         expect(payload[:regular_transactions]).to eq(
           [{ amount: 45,
              category: :friends_or_family,
@@ -92,10 +91,9 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
 
     context "when there is no relevant data" do
       let(:session_data) { empty_session_data }
-      let(:completed_steps) { [:other_income] }
 
       it "adds no payments" do
-        service.call(session_data, payload, completed_steps)
+        service.call(session_data, payload)
         expect(payload[:regular_transactions]).to eq([])
       end
     end
@@ -114,10 +112,9 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
           ],
         )
       end
-      let(:completed_steps) { [:benefit_details] }
 
       it "adds benefit payments" do
-        service.call(session_data, payload, completed_steps)
+        service.call(session_data, payload)
         expect(payload[:regular_transactions]).to eq(
           [
             { amount: 100,
@@ -139,10 +136,9 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
           "passporting" => true,
         }
       end
-      let(:completed_steps) { [] }
 
       it "adds nothing to the payment" do
-        service.call(session_data, payload, completed_steps)
+        service.call(session_data, payload)
         expect(payload[:regular_transactions]).to be_nil
       end
     end
@@ -183,10 +179,9 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
           "housing_benefit_relevant" => true,
         }
       end
-      let(:completed_steps) { %i[outgoings partner_outgoings housing_costs other_income] }
 
       it "populates the payload with content from the housing costs screen" do
-        service.call(session_data, payload, completed_steps)
+        service.call(session_data, payload)
         expect(payload[:regular_transactions]).to eq(
           [{ amount: 45,
              category: :friends_or_family,
@@ -234,10 +229,9 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
             "housing_payments" => 0,
           })
         end
-        let(:completed_steps) { %i[property housing_costs] }
 
         it "does not include rent or mortgage in the payload" do
-          service.call(session_data, payload, completed_steps)
+          service.call(session_data, payload)
           expect(payload[:regular_transactions]).to eq(
             [],
           )
@@ -252,10 +246,9 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
             "housing_payments_frequency" => "invalid",
           })
         end
-        let(:completed_steps) { %i[property housing_costs] }
 
         it "raises an error" do
-          expect { service.call(session_data, payload, completed_steps) }.to raise_error(
+          expect { service.call(session_data, payload) }.to raise_error(
             "Invalid session detected by HousingCostsForm:\n  Housing payments frequency Select frequency of housing payments.",
           )
         end
@@ -269,10 +262,9 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
             "housing_payments_loan_frequency" => "monthly",
           })
         end
-        let(:completed_steps) { %i[property mortgage_or_loan_payment] }
 
         it "populates the payload with content from the mortgage or loan screen" do
-          service.call(session_data, payload, completed_steps)
+          service.call(session_data, payload)
           expect(payload[:regular_transactions]).to eq(
             [{ amount: 140,
                category: :rent_or_mortgage,
@@ -290,10 +282,9 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
             "housing_payments_loan_frequency" => "monthly",
           })
         end
-        let(:completed_steps) { %i[property mortgage_or_loan_payment] }
 
         it "does not populate the payload with content from the mortgage or loan screen" do
-          service.call(session_data, payload, completed_steps)
+          service.call(session_data, payload)
           expect(payload[:regular_transactions]).to eq(
             [],
           )
@@ -306,10 +297,9 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
             "property_owned" => "outright",
           })
         end
-        let(:completed_steps) { %i[other_income property] }
 
         it "populates the payload with content from the mortgage or loan screen" do
-          service.call(session_data, payload, completed_steps)
+          service.call(session_data, payload)
           expect(payload[:regular_transactions]).to eq(
             [],
           )
@@ -322,10 +312,9 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
             "passporting" => true,
           }
         end
-        let(:completed_steps) { [] }
 
         it "adds nothing to the payment" do
-          service.call(session_data, payload, completed_steps)
+          service.call(session_data, payload)
           expect(payload[:regular_transactions]).to be_nil
         end
       end

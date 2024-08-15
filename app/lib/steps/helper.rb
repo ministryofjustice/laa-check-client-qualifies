@@ -6,13 +6,6 @@ module Steps
         all_sections.map(&:all_steps).reduce(:+).uniq
       end
 
-      def last_step_with_valid_data(session_data)
-        steps_list_for(session_data)
-                     .take_while { |thestep|
-                       Flow::Handler.model_from_session(thestep, session_data).valid?
-                     }.last
-      end
-
       def consistent?(session_data)
         steps_list_for(session_data)
           .reject { |thestep| Flow::Handler.model_from_session(thestep, session_data).valid? }

@@ -7,8 +7,9 @@ module Cfe
         level_of_help: form.level_of_help,
       }
 
-      assessment[:controlled_legal_representation] = check.controlled_legal_representation if completed_form?(:under_18_clr)
-      assessment[:not_aggregated_no_income_low_capital] = check.not_aggregated_no_income_low_capital? if completed_form?(:aggregated_means)
+      assessment[:controlled_legal_representation] = check.controlled_legal_representation if check.under_eighteen? && check.controlled?
+      assessment[:not_aggregated_no_income_low_capital] = check.not_aggregated_no_income_low_capital? if check.under_eighteen? && check.controlled? && !check.under_18_controlled_clr?
+
       payload[:assessment] = assessment
     end
   end

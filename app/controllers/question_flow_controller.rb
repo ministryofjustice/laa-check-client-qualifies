@@ -5,8 +5,7 @@ class QuestionFlowController < ApplicationController
     track_page_view
     if step == :ineligible_gross_income
       @previous_step = :other_income
-      completed_steps = Steps::Helper.completed_steps_for(session_data, @previous_step)
-      @gross_income_excess = CfeService.result(session_data, completed_steps).gross_income_excess
+      @gross_income_excess = CfeService.result(session_data).gross_income_excess
     else
       @previous_step = Steps::Helper.previous_step_for(session_data, step)
     end

@@ -1,7 +1,7 @@
 module Cfe
   class PartnerPayloadService < BaseService
     def call
-      return unless completed_form?(:partner_details)
+      return unless check.has_partner_details?
 
       @partner_details_form = instantiate_form(PartnerDetailsForm)
       partner_financials = {
@@ -14,7 +14,7 @@ module Cfe
         dependants: [],
         vehicles: [],
       }
-      partner_financials[:capitals] = capitals if capitals
+      partner_financials[:capitals] = capitals
       payload[:partner] = partner_financials
     end
 
@@ -26,37 +26,40 @@ module Cfe
     end
 
     def irregular_incomes
-      return [] unless completed_form?(:partner_other_income)
+      return [] unless check.has_partner_other_income?
 
       form = instantiate_form(PartnerOtherIncomeForm)
       CfeParamBuilders::IrregularIncome.call(form)
     end
 
     def employment_details
-      return [] unless completed_form?(:partner_income)
+      return [] unless check.partner_employed?
 
       form = PartnerIncomeForm.from_session(@session_data)
       CfeParamBuilders::Employment.call(form)
     end
 
     def self_employment_details
-      return [] unless completed_form?(:partner_income)
+      return [] unless check.partner_employed?
 
       form = PartnerIncomeForm.from_session(@session_data)
       CfeParamBuilders::SelfEmployment.call(form)
     end
 
     def regular_transactions
-      return [] if !completed_form?(:partner_other_income) && !completed_form?(:partner_outgoings)
-
-      outgoings_form = instantiate_form(PartnerOutgoingsForm) if completed_form?(:partner_outgoings)
-      income_form = instantiate_form(PartnerOtherIncomeForm) if completed_form?(:partner_other_income)
-      benefits_form = instantiate_form(PartnerBenefitDetailsForm) if completed_form?(:partner_benefit_details)
-      CfeParamBuilders::RegularTransactions.call(income_form, outgoings_form, benefits_form)
+      if check.has_partner_other_income? || check.has_partner_outgoings?
+        outgoings_form = instantiate_form(PartnerOutgoingsForm) if check.has_partner_outgoings?
+        income_form = instantiate_form(PartnerOtherIncomeForm) if check.has_partner_other_income?
+        benefits_form = instantiate_form(PartnerBenefitDetailsForm) if check.has_partner_benefits?
+        CfeParamBuilders::RegularTransactions.call(income_form, outgoings_form, benefits_form)
+      else
+        []
+      end
     end
 
     def additional_properties
-      return [] unless completed_form?(:partner_additional_property_details)
+      # return [] unless completed_form?(:partner_additional_property_details)
+      return [] unless check.partner_owns_additional_property?
 
       form = instantiate_form(PartnerAdditionalPropertyDetailsForm)
       form.items.map do |model|
@@ -70,8 +73,6 @@ module Cfe
     end
 
     def capitals
-      return unless completed_form?(:partner_assets)
-
       assets_form = instantiate_form(PartnerAssetsForm)
       CfeParamBuilders::Capitals.call(assets_form)
     end

@@ -15,7 +15,7 @@ RSpec.describe Cfe::ApplicantPayloadService do
       let(:client_age) { "standard" }
 
       it "populates the payload appropriately" do
-        service.call(session_data, payload, [:applicant])
+        service.call(session_data, payload)
         expect(payload[:applicant]).to eq(
           {
             date_of_birth: 50.years.ago.to_date,
@@ -29,7 +29,7 @@ RSpec.describe Cfe::ApplicantPayloadService do
       let(:client_age) { "over_60" }
 
       it "populates the payload appropriately" do
-        service.call(session_data, payload, [:applicant])
+        service.call(session_data, payload)
         expect(payload[:applicant]).to eq(
           {
             date_of_birth: 70.years.ago.to_date,
@@ -43,7 +43,7 @@ RSpec.describe Cfe::ApplicantPayloadService do
       let(:client_age) { "under_18" }
 
       it "populates the payload appropriately" do
-        service.call(session_data, payload, [])
+        service.call(session_data, payload)
         expect(payload[:applicant]).to eq(
           {
             date_of_birth: 17.years.ago.to_date,
@@ -62,7 +62,7 @@ RSpec.describe Cfe::ApplicantPayloadService do
       end
 
       it "populates the payload appropriately" do
-        service.call(session_data, payload, [:asylum_support])
+        service.call(session_data, payload)
         expect(payload[:applicant]).to eq(
           {
             date_of_birth: 50.years.ago.to_date,
@@ -84,7 +84,7 @@ RSpec.describe Cfe::ApplicantPayloadService do
       end
 
       it "populates the payload appropriately" do
-        service.call(session_data, payload, %i[applicant asylum_support])
+        service.call(session_data, payload)
         expect(payload[:applicant]).to eq(
           {
             date_of_birth: 50.years.ago.to_date,

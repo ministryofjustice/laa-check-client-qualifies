@@ -1,7 +1,7 @@
 module Cfe
   class IrregularIncomePayloadService < BaseService
     def call
-      return unless completed_form?(:other_income)
+      return if check.skip_income_questions?
 
       form = instantiate_form(OtherIncomeForm)
 
