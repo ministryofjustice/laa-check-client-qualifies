@@ -15,7 +15,7 @@ RSpec.describe Cfe::DependantsPayloadService do
 
   let(:payload) { {} }
   let(:arbitrary_fixed_time) { Time.zone.local(2022, 10, 17, 9, 0, 0) }
-  let(:relevant_steps) { [:dependant_details] }
+  let(:completed_steps) { [:dependant_details] }
 
   describe ".call" do
     before do
@@ -30,7 +30,7 @@ RSpec.describe Cfe::DependantsPayloadService do
       let(:dependant_incomes) { nil }
 
       it "populates the payload successfully" do
-        service.call(session_data, payload, relevant_steps)
+        service.call(session_data, payload, completed_steps)
         expect(payload[:dependants].count).to eq child_dependants + adult_dependants
 
         valid_child_count = payload[:dependants].count do |item|
@@ -62,7 +62,7 @@ RSpec.describe Cfe::DependantsPayloadService do
       let(:dependant_incomes) { nil }
 
       it "does not populate the payload" do
-        service.call(session_data, payload, relevant_steps)
+        service.call(session_data, payload, completed_steps)
         expect(payload[:dependants]).to eq []
       end
     end
@@ -73,10 +73,10 @@ RSpec.describe Cfe::DependantsPayloadService do
           "passporting" => true,
         }
       end
-      let(:relevant_steps) { [] }
+      let(:completed_steps) { [] }
 
       it "does not populate the payload" do
-        service.call(session_data, payload, relevant_steps)
+        service.call(session_data, payload, completed_steps)
         expect(payload[:dependants]).to be_nil
       end
     end
@@ -94,7 +94,7 @@ RSpec.describe Cfe::DependantsPayloadService do
       end
 
       it "adds incomes to the right places" do
-        service.call(session_data, payload, relevant_steps)
+        service.call(session_data, payload, completed_steps)
         expect(payload[:dependants].count).to eq child_dependants + adult_dependants
 
         adult_with_income = payload[:dependants].find do |item|

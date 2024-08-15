@@ -10,7 +10,7 @@ module Cfe
   private
 
     def capitals
-      return unless relevant_form?(:assets)
+      return unless completed_form?(:assets)
 
       asset_form = instantiate_form(ClientAssetsForm)
       capitals = CfeParamBuilders::Capitals.call(asset_form, smod_applicable: smod_applicable?)
@@ -21,7 +21,7 @@ module Cfe
     end
 
     def properties
-      if relevant_form?(:additional_property_details)
+      if completed_form?(:additional_property_details)
         additionals_form = instantiate_form(AdditionalPropertyDetailsForm)
         additional_properties = additionals_form.items.map do |model|
           {
@@ -34,7 +34,7 @@ module Cfe
         end
       end
 
-      if relevant_form?(:property_entry)
+      if completed_form?(:property_entry)
         property_entry_form = instantiate_form(PropertyEntryForm)
         main_home = {
           value: property_entry_form.house_value,
