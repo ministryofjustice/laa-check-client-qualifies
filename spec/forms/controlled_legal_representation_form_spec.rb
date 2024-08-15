@@ -19,8 +19,6 @@ RSpec.describe "under_18_clr", type: :feature do
   end
 
   context "with check answers" do
-    let(:means_test_check_answers) { "Means tests for under 18s" }
-
     context "with under 18 clr" do
       before do
         choose "Yes"
@@ -31,9 +29,19 @@ RSpec.describe "under_18_clr", type: :feature do
         expect(session_contents["controlled_legal_representation"]).to be true
       end
 
-      it "displays the data in check answers" do
-        fill_in_forms_until(:check_answers)
-        expect(page).not_to have_content means_test_check_answers
+      context "when on check answers" do
+        before do
+          fill_in_forms_until(:check_answers)
+        end
+
+        it "shows correct sections" do
+          expect(all(".govuk-summary-card__title").map(&:text))
+            .to eq(
+              ["Client age",
+               "Partner and passporting",
+               "Level of help"],
+            )
+        end
       end
     end
 
@@ -41,11 +49,17 @@ RSpec.describe "under_18_clr", type: :feature do
       before do
         choose "No"
         click_on "Save and continue"
+        fill_in_forms_until(:check_answers)
       end
 
-      it "displays the data in check answers" do
-        fill_in_forms_until(:check_answers)
-        expect(page).to have_content means_test_check_answers
+      it "shows correct sections" do
+        expect(all(".govuk-summary-card__title").map(&:text))
+          .to eq(
+            ["Client age",
+             "Partner and passporting",
+             "Level of help",
+             "Means tests for under 18s"],
+          )
       end
     end
   end

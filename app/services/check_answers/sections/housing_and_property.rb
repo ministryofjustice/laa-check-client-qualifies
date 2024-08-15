@@ -25,7 +25,7 @@ module CheckAnswers
                                    fields: [
                                      PartnerDependantFieldPresenter.new(table_label: :property, attribute: :property_owned, type: :select, model: @check),
                                    ])
-        housing_costs = unless @check.owns_property_outright?
+        housing_costs = unless @check.owns_property?
                           Table.new(screen: :housing_costs, skip_change_link: false, index: nil, disputed?: nil,
                                     fields: housing_costs_fields(:housing_costs))
                         end

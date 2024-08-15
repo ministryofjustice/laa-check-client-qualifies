@@ -7,28 +7,61 @@ RSpec.describe "Certificated, non-passported flow with partner", :stub_cfe_calls
     fill_in_applicant_screen(partner: "Yes")
   end
 
-  it "asks for all partner details" do
-    start_assessment
-    fill_in_forms_until(:applicant)
-    fill_in_applicant_screen(partner: "Yes", passporting: "No")
-    fill_in_dependant_details_screen
-    fill_in_employment_status_screen
-    fill_in_benefits_screen
-    fill_in_other_income_screen
-    fill_in_partner_details_screen
-    fill_in_partner_employment_status_screen
-    fill_in_partner_benefits_screen
-    fill_in_partner_other_income_screen
-    fill_in_outgoings_screen
-    fill_in_partner_outgoings_screen
-    fill_in_property_screen
-    fill_in_housing_costs_screen
-    fill_in_additional_property_screen
-    fill_in_partner_additional_property_screen
-    fill_in_assets_screen
-    fill_in_partner_assets_screen
-    fill_in_vehicle_screen
-    confirm_screen("check_answers")
+  context "when asking for all partner details" do
+    before do
+      start_assessment
+      fill_in_forms_until(:applicant)
+      fill_in_applicant_screen(partner: "Yes", passporting: "No")
+      fill_in_dependant_details_screen
+      fill_in_employment_status_screen
+      fill_in_benefits_screen
+      fill_in_other_income_screen
+      fill_in_partner_details_screen
+      fill_in_partner_employment_status_screen
+      fill_in_partner_benefits_screen
+      fill_in_partner_other_income_screen
+      fill_in_outgoings_screen
+      fill_in_partner_outgoings_screen
+      fill_in_property_screen
+      fill_in_housing_costs_screen
+      fill_in_additional_property_screen
+      fill_in_partner_additional_property_screen
+      fill_in_assets_screen
+      fill_in_partner_assets_screen
+      fill_in_vehicle_screen
+    end
+
+    it "hits check answers" do
+      confirm_screen("check_answers")
+    end
+
+    it "shows correct sections" do
+      expect(all(".govuk-summary-card__title").map(&:text))
+        .to eq(
+          ["Client age",
+           "Partner and passporting",
+           "Level of help",
+           "Type of matter",
+           "Type of immigration or asylum matter",
+           "Number of dependants",
+           "Employment status",
+           "Client benefits",
+           "Client other income",
+           "Partner age",
+           "Partner employment status",
+           "Partner benefits",
+           "Partner other income",
+           "Client outgoings and deductions",
+           "Partner outgoings and deductions",
+           "Home client lives in",
+           "Housing costs",
+           "Client other property",
+           "Partner other property",
+           "Client assets",
+           "Partner assets",
+           "Vehicles"],
+        )
+    end
   end
 
   it "asks for employment details if relevant" do

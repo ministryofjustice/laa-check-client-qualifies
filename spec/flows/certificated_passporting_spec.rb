@@ -16,22 +16,65 @@ RSpec.describe "Certificated, passported flow", :calls_cfe_early_returns_not_ine
     end
 
     context "with passporting" do
-      it "doesnt show income section" do
+      before do
         fill_in_applicant_screen(passporting: "Yes")
         fill_in_property_screen
         fill_in_additional_property_screen
         fill_in_assets_screen
         fill_in_vehicle_screen
         confirm_screen(:check_answers)
+      end
+
+      it "doesnt show income section" do
         expect(page).not_to have_content(income_section_text)
+      end
+
+      it "shows correct sections" do
+        expect(all(".govuk-summary-card__title").map(&:text))
+          .to eq(
+            ["Client age",
+             "Partner and passporting",
+             "Level of help",
+             "Type of matter",
+             "Type of immigration or asylum matter",
+             "Home client lives in",
+             "Housing costs",
+             "Client other property",
+             "Client assets",
+             "Vehicles"],
+          )
       end
     end
 
     context "without passporting" do
-      it "shows income section as questions have been asked" do
+      before do
         fill_in_applicant_screen(passporting: "No")
         fill_in_forms_until(:check_answers)
+      end
+
+      it "shows income section as questions have been asked" do
         expect(page).to have_content(income_section_text)
+      end
+
+      it "shows correct sections" do
+        expect(all(".govuk-summary-card__title").map(&:text))
+          .to eq(
+            ["Client age",
+             "Partner and passporting",
+             "Level of help",
+             "Type of matter",
+             "Type of immigration or asylum matter",
+             "Number of dependants",
+             "Employment status",
+             "Client benefits",
+             "Client other income",
+             "Client outgoings and deductions",
+             "Home client lives in",
+             "Housing costs",
+             "Client other property",
+             "Client assets",
+             "Vehicles"],
+          )
       end
     end
   end

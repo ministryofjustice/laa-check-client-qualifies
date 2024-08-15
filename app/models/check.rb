@@ -148,10 +148,6 @@ class Check
     end
   end
 
-  def owns_property_outright?
-    Steps::Logic.owns_property_outright?(session_data)
-  end
-
   def non_means_tested?
     Steps::Logic.non_means_tested?(session_data)
   end

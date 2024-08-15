@@ -8,14 +8,31 @@ RSpec.describe "Under 18 flow", type: :feature do
     fill_in_client_age_screen(choice: "Under 18")
   end
 
-  it "shows additional questions for u18 controlled checks" do
-    fill_in_level_of_help_screen(choice: "Civil controlled work or family mediation")
-    fill_in_under_18_controlled_legal_rep_screen(choice: "No")
-    fill_in_aggregated_means_screen(choice: "No")
-    fill_in_regular_income_screen(choice: "No")
-    fill_in_under_eighteen_assets_screen(choice: "No")
-    confirm_screen(:check_answers)
-    expect(page).to have_content clr_text
+  context "with u18 controlled checks" do
+    before do
+      fill_in_level_of_help_screen(choice: "Civil controlled work or family mediation")
+      fill_in_under_18_controlled_legal_rep_screen(choice: "No")
+      fill_in_aggregated_means_screen(choice: "No")
+      fill_in_regular_income_screen(choice: "No")
+      fill_in_under_eighteen_assets_screen(choice: "No")
+    end
+
+    it "shows additional questions" do
+      confirm_screen(:check_answers)
+      expect(page).to have_content clr_text
+    end
+
+    it "shows correct sections" do
+      expect(all(".govuk-summary-card__title").map(&:text))
+        .to eq(
+          [
+            "Client age",
+            "Partner and passporting",
+            "Level of help",
+            "Means tests for under 18s",
+          ],
+        )
+    end
   end
 
   it "exits early for certificated work" do
