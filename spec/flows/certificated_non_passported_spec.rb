@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Certificated, non-passported flow", :stub_cfe_calls, type: :feature do
+RSpec.describe "Certificated, non-passported flow", :stub_cfe_calls_with_webmock, type: :feature do
   it "allows me a direct route to the check answers page" do
     start_assessment
     fill_in_forms_until(:applicant)

@@ -15,11 +15,7 @@ module CheckAnswers
     end
 
     def call
-      filename = if FeatureFlags.enabled?(:legacy_assets_no_reveal, @check.session_data)
-                   "app/lib/check_answers_fields_legacy.yml"
-                 else
-                   "app/lib/check_answers_fields.yml"
-                 end
+      filename = "app/lib/check_answers_fields.yml"
       data = YAML.load_file(Rails.root.join(filename)).with_indifferent_access
       data[:sections].map { build_section(_1) }.select { _1.subsections.any? }
     end

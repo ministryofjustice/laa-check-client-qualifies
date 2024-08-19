@@ -24,15 +24,6 @@ RSpec.describe "checks/check_answers.html.slim" do
           expect(page_text).to include("Housing Benefit£400.00Every week")
         end
       end
-
-      context "without conditional reveals", :legacy_assets_no_reveal do
-        let(:session_data) { build(:minimal_complete_session, housing_benefit_value: 400, housing_benefit_frequency: "every_week") }
-
-        it "renders content" do
-          expect(page_text).not_to include("Is Housing Benefit claimed at the home the client lives in?Yes")
-          expect(page_text).to include("Housing Benefit£400.00Every week")
-        end
-      end
     end
 
     context "when client does not have housing benefit" do
@@ -42,15 +33,6 @@ RSpec.describe "checks/check_answers.html.slim" do
         it "renders content" do
           expect(page_text).to include("Is Housing Benefit claimed at the home the client lives in?No")
           expect(page_text).not_to include("Housing Benefit£0.00")
-        end
-      end
-
-      context "without conditional reveals", :legacy_assets_no_reveal do
-        let(:session_data) { build(:minimal_complete_session, housing_payments: 0, housing_benefit_value: 0) }
-
-        it "renders content" do
-          expect(page_text).not_to include("Is Housing Benefit claimed at the home the client lives in?No")
-          expect(page_text).to include("Housing Benefit£0.00")
         end
       end
     end

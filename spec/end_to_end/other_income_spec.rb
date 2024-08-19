@@ -59,7 +59,7 @@ RSpec.shared_context "with controlled other income" do
 end
 
 RSpec.describe "Other income", type: :feature do
-  context "with stubbing", :stub_cfe_calls do
+  context "with stubbing", :stub_cfe_calls_with_webmock do
     context "when the check is for certificated work" do
       include_context "with certificated other income"
       before do

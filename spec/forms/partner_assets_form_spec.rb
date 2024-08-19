@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "partner_assets", type: :feature do
+RSpec.describe "partner_assets", :calls_cfe_early_returns_not_ineligible, type: :feature do
   let(:level_of_help) { "controlled" }
   let(:self_employed) { false }
 
@@ -17,19 +17,6 @@ RSpec.describe "partner_assets", type: :feature do
       fill_in_partner_income_screen(type: "Self-employment income")
     end
     fill_in_forms_until(:partner_assets)
-  end
-
-  context "without conditional reveal assets", :legacy_assets_no_reveal do
-    it "stores the chosen values in the session" do
-      fill_in "bank_account_model[items][1][amount]", with: "234"
-      fill_in "partner_assets_form[investments]", with: "345"
-      fill_in "partner_assets_form[valuables]", with: "4560"
-      click_on "Save and continue"
-
-      expect(session_contents["partner_bank_accounts"][0]["amount"]).to eq 234
-      expect(session_contents["partner_investments"]).to eq 345
-      expect(session_contents["partner_valuables"]).to eq 4560
-    end
   end
 
   it "stores the chosen values in the session" do

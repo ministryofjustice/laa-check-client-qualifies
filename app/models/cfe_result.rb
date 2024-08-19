@@ -6,10 +6,6 @@ class CfeResult
   end
 
   def ineligible_gross_income?
-    # For clients under 18, proceeding type will be blank.
-    # We need to protect against this in change loops.
-    return false if api_response.dig(:result_summary, :gross_income, :proceeding_types).compact_blank.blank?
-
     api_response.dig(:result_summary, :gross_income, :proceeding_types).first[:result] == "ineligible"
   end
 

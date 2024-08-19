@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Download result", :stub_cfe_calls, type: :feature do
+RSpec.describe "Download result", :stub_cfe_calls_with_webmock, type: :feature do
   let(:api_response) { FactoryBot.build(:api_result, eligible: "eligible") }
 
   it "gives me a download option for an eligible certificated check" do

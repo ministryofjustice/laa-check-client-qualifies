@@ -1,7 +1,4 @@
 class ChangeLog < ApplicationRecord
-  attribute :released_on, :date
-  attribute :title, :string
-  attribute :published, :boolean, default: false
   enum :tag, { mtr: "mtr", policy_update: "policy_update", feature: "feature" }
 
   before_save :apply_govuk_classes
@@ -46,3 +43,18 @@ class ChangeLog < ApplicationRecord
     self.content = GovukStyleService.call(content)
   end
 end
+
+#------------------------------------------------------------------------------
+# ChangeLog
+#
+# Name        SQL Type             Null    Primary Default
+# ----------- -------------------- ------- ------- ----------
+# id          bigint               false   true
+# title       character varying    false   false
+# tag         character varying    true    false
+# released_on date                 false   false
+# published   boolean              false   false   false
+# created_at  timestamp(6) without time zone false   false
+# updated_at  timestamp(6) without time zone false   false
+#
+#------------------------------------------------------------------------------

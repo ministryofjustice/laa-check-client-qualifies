@@ -8,19 +8,6 @@ RSpec.describe HousingCostsForm do
   context "with no data" do
     let(:attributes) { {} }
 
-    context "without conditional reveals", :legacy_housing_benefit_without_reveals do
-      it "errors" do
-        expect(form).not_to be_valid
-        expect(form.errors.messages)
-          .to eq(
-            {
-              housing_benefit_value: ["Enter the Housing Benefit amount. Enter 0 if this does not apply."],
-              housing_payments: ["Enter the housing payments amount. Enter 0 if this does not apply."],
-            },
-          )
-      end
-    end
-
     context "with conditional reveals" do
       it "errors" do
         expect(form).not_to be_valid
@@ -36,14 +23,6 @@ RSpec.describe HousingCostsForm do
   end
 
   context "with zero benefits" do
-    context "without conditional reveals", :legacy_housing_benefit_without_reveals do
-      let(:attributes) { { housing_payments: 0, housing_benefit_value: 0 } }
-
-      it "doesnt error" do
-        expect(form).to be_valid
-      end
-    end
-
     context "with conditional reveals" do
       context "when relevant" do
         let(:attributes) { { housing_payments: 0, housing_benefit_relevant: true, housing_benefit_value: 0 } }
@@ -71,16 +50,6 @@ RSpec.describe HousingCostsForm do
   end
 
   context "with negative benefits" do
-    context "without conditional reveals", :legacy_housing_benefit_without_reveals do
-      let(:attributes) { { housing_payments: 0, housing_benefit_frequency: "monthly", housing_benefit_value: -1 } }
-
-      it "errors" do
-        expect(form).not_to be_valid
-        expect(form.errors.messages)
-          .to eq({ housing_benefit_value: ["Housing Benefit must be must be 0 or more"] })
-      end
-    end
-
     context "with conditional reveals" do
       context "when relevant" do
         let(:attributes) { { housing_payments: 0, housing_benefit_relevant: true, housing_benefit_value: -1 } }
@@ -108,18 +77,6 @@ RSpec.describe HousingCostsForm do
   end
 
   context "when benefits exceeds costs" do
-    context "without conditional reveals", :legacy_housing_benefit_without_reveals do
-      let(:attributes) { { housing_payments: 34, housing_payments_frequency: "every_week", housing_benefit_frequency: "every_week", housing_benefit_value: 45 } }
-
-      it "detects if benefit exceeds costs" do
-        expect(form).not_to be_valid
-        expect(form.errors.messages)
-          .to eq(
-            { housing_benefit_value: ["Housing Benefit cannot be higher than housing costs"] },
-          )
-      end
-    end
-
     context "with conditional reveals" do
       context "when relevant" do
         let(:attributes) do
@@ -156,16 +113,6 @@ RSpec.describe HousingCostsForm do
   end
 
   context "with benefits but zero costs" do
-    context "without conditional reveals", :legacy_housing_benefit_without_reveals do
-      let(:attributes) { { housing_payments: 0, housing_benefit_frequency: "every_week", housing_benefit_value: 45 } }
-
-      it "detects if benefit exceeds costs" do
-        expect(form).not_to be_valid
-        expect(form.errors.messages)
-          .to eq({ housing_benefit_value: ["Housing Benefit cannot be higher than housing costs"] })
-      end
-    end
-
     context "with conditional reveals" do
       context "when relevant" do
         let(:attributes) do
@@ -199,16 +146,6 @@ RSpec.describe HousingCostsForm do
   end
 
   context "without payment frequency" do
-    context "without conditional reveals", :legacy_housing_benefit_without_reveals do
-      let(:attributes) { { housing_payments: 34, housing_benefit_frequency: "monthly", housing_benefit_value: 23 } }
-
-      it "errors correctly" do
-        expect(form).not_to be_valid
-        expect(form.errors.messages)
-          .to eq({ housing_payments_frequency: ["Select frequency of housing payments."] })
-      end
-    end
-
     context "with conditional reveals" do
       let(:attributes) do
         { housing_payments: 34,

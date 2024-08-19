@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "outgoings flow", :stub_cfe_calls, type: :feature do
+RSpec.describe "outgoings flow", :stub_cfe_calls_with_webmock, type: :feature do
   it "shows screen order when there is no partner and passported" do
     start_assessment
     fill_in_forms_until(:applicant)

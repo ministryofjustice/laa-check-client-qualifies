@@ -93,11 +93,17 @@ RSpec.configure do |config|
     end
   end
 
-  config.before(:each, :stub_cfe_calls) do
+  config.before(:each, :stub_cfe_calls_with_webmock) do
     stub_request(:post, %r{assessments\z}).to_return(
       body: FactoryBot.build(:api_result, result: "eligible").to_json,
       headers: { "Content-Type" => "application/json" },
     )
+  end
+
+  # This allows CFE to be called for early eligibility but return 'keep going'
+  # for those tests that don't care (and typically stop at check answers anyway)
+  config.before(:each, :calls_cfe_early_returns_not_ineligible) do
+    allow(CfeService).to receive(:result).and_return(instance_double(CfeResult, ineligible_gross_income?: false))
   end
 
   config.before(:each, :stub_cfe_gross_ineligible) do
@@ -132,24 +138,6 @@ RSpec.configure do |config|
     ENV["BASIC_AUTHENTICATION_FEATURE_FLAG"] = "enabled"
     example.run
     ENV["BASIC_AUTHENTICATION_FEATURE_FLAG"] = "disabled"
-  end
-
-  config.around(:each, :early_eligibility_flag) do |example|
-    ENV["EARLY_ELIGIBILITY_FEATURE_FLAG"] = "enabled"
-    example.run
-    ENV["EARLY_ELIGIBILITY_FEATURE_FLAG"] = "disabled"
-  end
-
-  config.around(:each, :legacy_assets_no_reveal) do |example|
-    ENV["LEGACY_ASSETS_NO_REVEAL_FEATURE_FLAG"] = "enabled"
-    example.run
-    ENV["LEGACY_ASSETS_NO_REVEAL_FEATURE_FLAG"] = "disabled"
-  end
-
-  config.around(:each, :legacy_housing_benefit_without_reveals) do |example|
-    ENV["LEGACY_HOUSING_BENEFIT_WITHOUT_REVEALS_FEATURE_FLAG"] = "enabled"
-    example.run
-    ENV["LEGACY_HOUSING_BENEFIT_WITHOUT_REVEALS_FEATURE_FLAG"] = "disabled"
   end
 
   config.around(:each, :shared_ownership) do |example|

@@ -96,7 +96,7 @@ module CfeParamBuilders
     end
 
     def self.build_housing_benefits(housing_form)
-      if housing_form.is_a?(HousingCostsForm) && housing_form.is_housing_benefit_relevant?
+      if housing_form.is_a?(HousingCostsForm) && housing_form.housing_benefit_relevant
         [
           {
             operation: :credit,

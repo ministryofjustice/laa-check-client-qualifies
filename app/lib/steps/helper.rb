@@ -13,6 +13,23 @@ module Steps
                      }.last
       end
 
+      def consistent?(session_data)
+        steps_list_for(session_data)
+          .reject { |thestep| Flow::Handler.model_from_session(thestep, session_data).valid? }
+          .none?
+      end
+
+      # check consistency just for non-financial questions (asylum, under 18 etc)
+      def non_financial_consistent?(session_data)
+        non_finance_steps(session_data)
+          .reject { |thestep| Flow::Handler.model_from_session(thestep, session_data).valid? }
+          .none?
+      end
+
+      def non_finance_steps(session_data)
+        steps_for_section(session_data, Steps::NonFinancialSection)
+      end
+
       def next_step_for(session_data, step)
         remaining_steps_for(session_data, step).first
       end
@@ -61,7 +78,7 @@ module Steps
       # this method to filter what is valid.
       def relevant_steps(session_data)
         # if the list is *very* short (i.e. non-means) then use it rather then up to incopme
-        if Steps::Logic.skip_client_questions?(session_data)
+        if Steps::Logic.non_means_tested?(session_data)
           steps_list_for(session_data)
         elsif Steps::Logic.check_stops_at_gross_income?(session_data)
           completed_steps_for(session_data, :other_income)
