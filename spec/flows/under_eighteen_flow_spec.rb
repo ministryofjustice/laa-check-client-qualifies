@@ -27,7 +27,6 @@ RSpec.describe "Under 18 flow", type: :feature do
         .to eq(
           [
             "Client age",
-            "Partner and passporting",
             "Level of help",
             "Means tests for under 18s",
           ],

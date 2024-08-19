@@ -33,7 +33,6 @@ RSpec.describe "Asylum and immigration flow", type: :feature do
       expect(all(".govuk-summary-card__title").map(&:text))
         .to eq(
           ["Client age",
-           "Partner and passporting",
            "Level of help",
            "Type of matter",
            "Type of immigration or asylum matter",

@@ -38,7 +38,6 @@ RSpec.describe "under_18_clr", type: :feature do
           expect(all(".govuk-summary-card__title").map(&:text))
             .to eq(
               ["Client age",
-               "Partner and passporting",
                "Level of help"],
             )
         end
@@ -56,7 +55,6 @@ RSpec.describe "under_18_clr", type: :feature do
         expect(all(".govuk-summary-card__title").map(&:text))
           .to eq(
             ["Client age",
-             "Partner and passporting",
              "Level of help",
              "Means tests for under 18s"],
           )

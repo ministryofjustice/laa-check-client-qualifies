@@ -38,7 +38,6 @@ RSpec.describe "Certificated, passported flow", :calls_cfe_early_returns_not_ine
              "Type of matter",
              "Type of immigration or asylum matter",
              "Home client lives in",
-             "Housing costs",
              "Client other property",
              "Client assets",
              "Vehicles"],

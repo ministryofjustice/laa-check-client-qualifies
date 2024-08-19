@@ -25,18 +25,20 @@ module CheckAnswers
                                    fields: [
                                      PartnerDependantFieldPresenter.new(table_label: :property, attribute: :property_owned, type: :select, model: @check),
                                    ])
-        housing_costs = unless @check.owns_property?
-                          Table.new(screen: :housing_costs, skip_change_link: false, index: nil, disputed?: nil,
-                                    fields: housing_costs_fields(:housing_costs))
-                        end
-        mort_table = if @check.property_owned_with_mortgage?
-                       Table.new(screen: :mortgage_or_loan_payment, skip_change_link: false, index: nil, disputed?: nil,
-                                 fields: [
-                                   MoneyWithFrequencyPresenter.new(table_label: :mortgage_or_loan_payment, attribute: :housing_loan_payments, model: @check,
-                                                                   frequency_value: @check.housing_payments_loan_frequency),
+        housing_costs = unless @check.skip_income_questions?
+                          if @check.owns_property_with_mortgage_or_loan?
+                            Table.new(screen: :mortgage_or_loan_payment, skip_change_link: false, index: nil, disputed?: nil,
+                                      fields: [
+                                        MoneyWithFrequencyPresenter.new(table_label: :mortgage_or_loan_payment, attribute: :housing_loan_payments, model: @check,
+                                                                        frequency_value: @check.housing_payments_loan_frequency),
 
-                                 ])
-                     end
+                                      ])
+                          elsif !@check.owns_property_outright?
+                            Table.new(screen: :housing_costs, skip_change_link: false, index: nil, disputed?: nil,
+                                      fields: housing_costs_fields(:housing_costs))
+                          end
+                        end
+
         prop_entry_table = if @check.owns_property?
                              Table.new(screen: :property_entry, skip_change_link: false, index: nil, disputed?: @check.house_in_dispute,
                                        fields: [
@@ -48,7 +50,7 @@ module CheckAnswers
                                        ].compact)
                            end
 
-        [property_table, housing_costs, mort_table, prop_entry_table].compact
+        [property_table, housing_costs, prop_entry_table].compact
       end
 
       def housing_costs_fields(label)

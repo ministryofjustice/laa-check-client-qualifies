@@ -163,4 +163,12 @@ class Check
   def controlled_clr?
     Steps::Logic.controlled_clr?(session_data)
   end
+
+  def owns_property_with_mortgage_or_loan?
+    Steps::Logic.owns_property_with_mortgage_or_loan?(session_data)
+  end
+
+  def owns_property_outright?
+    Steps::Logic.owns_property_outright?(session_data)
+  end
 end
