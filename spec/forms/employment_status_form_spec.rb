@@ -18,8 +18,6 @@ RSpec.describe "employment status form", :calls_cfe_early_returns_not_ineligible
   end
 
   context "with check_answers" do
-    let(:employment_text) { "Client employment income" }
-
     context "when employed" do
       before do
         choose "Employed or self-employed", name: "employment_status_form[employment_status]"
@@ -30,9 +28,32 @@ RSpec.describe "employment status form", :calls_cfe_early_returns_not_ineligible
         expect(session_contents["employment_status"]).to eq "in_work"
       end
 
-      it "shows check answers" do
-        fill_in_forms_until(:check_answers)
-        expect(page).to have_content employment_text
+      context "when on check answers" do
+        before do
+          fill_in_forms_until(:check_answers)
+        end
+
+        it "shows correct sections" do
+          expect(all(".govuk-summary-card__title").map(&:text))
+            .to eq(
+              ["Client age",
+               "Partner and passporting",
+               "Level of help",
+               "Type of matter",
+               "Type of immigration or asylum matter",
+               "Number of dependants",
+               "Employment status",
+               "Client employment income 1",
+               "Client benefits",
+               "Client other income",
+               "Client outgoings and deductions",
+               "Home client lives in",
+               "Housing costs",
+               "Client other property",
+               "Client assets",
+               "Vehicles"],
+            )
+        end
       end
     end
 
@@ -46,9 +67,31 @@ RSpec.describe "employment status form", :calls_cfe_early_returns_not_ineligible
         expect(session_contents["employment_status"]).to eq "unemployed"
       end
 
-      it "shows check answers" do
-        fill_in_forms_until(:check_answers)
-        expect(page).not_to have_content employment_text
+      context "when on check answers" do
+        before do
+          fill_in_forms_until(:check_answers)
+        end
+
+        it "shows correct sections" do
+          expect(all(".govuk-summary-card__title").map(&:text))
+            .to eq(
+              ["Client age",
+               "Partner and passporting",
+               "Level of help",
+               "Type of matter",
+               "Type of immigration or asylum matter",
+               "Number of dependants",
+               "Employment status",
+               "Client benefits",
+               "Client other income",
+               "Client outgoings and deductions",
+               "Home client lives in",
+               "Housing costs",
+               "Client other property",
+               "Client assets",
+               "Vehicles"],
+            )
+        end
       end
     end
   end

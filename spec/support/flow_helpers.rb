@@ -302,7 +302,9 @@ def fill_in_vehicles_details_screen(vehicle_finance: "0")
   choose (vehicle_finance == "0" ? "No" : "Yes"), name: "vehicle_model[items][1][vehicle_pcp]"
   choose "No", name: "vehicle_model[items][1][vehicle_over_3_years_ago]"
   choose "No", name: "vehicle_model[items][1][vehicle_in_regular_use]"
-  fill_in "vehicle_model[items][1][vehicle_finance]", with: vehicle_finance
+  if vehicle_finance != "0"
+    fill_in "vehicle_model[items][1][vehicle_finance]", with: vehicle_finance
+  end
   click_on "Save and continue"
 end
 

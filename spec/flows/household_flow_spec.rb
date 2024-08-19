@@ -29,24 +29,53 @@ RSpec.describe "Household section flow", :stub_cfe_calls_with_webmock, type: :fe
     confirm_screen("check_answers")
   end
 
-  it "runs through a full non-passported application without a partner" do
-    start_assessment
-    fill_in_forms_until(:applicant)
-    fill_in_applicant_screen(partner: "No", passporting: "No")
-    fill_in_dependant_details_screen
-    fill_in_employment_status_screen
-    fill_in_benefits_screen
-    fill_in_other_income_screen
-    fill_in_outgoings_screen
-    fill_in_property_screen(choice: "Yes, with a mortgage or loan")
-    fill_in_mortgage_or_loan_payment_screen
-    fill_in_property_entry_screen
-    fill_in_additional_property_screen(choice: "Yes, owned outright")
-    fill_in_additional_property_details_screen
-    fill_in_assets_screen
-    fill_in_vehicle_screen(choice: "Yes")
-    fill_in_vehicles_details_screen
-    confirm_screen("check_answers")
+  context "with a full non-passported application without a partner" do
+    before do
+      start_assessment
+      fill_in_forms_until(:applicant)
+      fill_in_applicant_screen(partner: "No", passporting: "No")
+      fill_in_dependant_details_screen
+      fill_in_employment_status_screen
+      fill_in_benefits_screen
+      fill_in_other_income_screen
+      fill_in_outgoings_screen
+      fill_in_property_screen(choice: "Yes, with a mortgage or loan")
+      fill_in_mortgage_or_loan_payment_screen
+      fill_in_property_entry_screen
+      fill_in_additional_property_screen(choice: "Yes, owned outright")
+      fill_in_additional_property_details_screen
+      fill_in_assets_screen
+      fill_in_vehicle_screen(choice: "Yes")
+      fill_in_vehicles_details_screen
+    end
+
+    it "runs through a full non-passported application without a partner" do
+      confirm_screen("check_answers")
+    end
+
+    it "shows correct sections" do
+      expect(all(".govuk-summary-card__title").map(&:text))
+        .to eq(
+          ["Client age",
+           "Partner and passporting",
+           "Level of help",
+           "Type of matter",
+           "Type of immigration or asylum matter",
+           "Number of dependants",
+           "Employment status",
+           "Client benefits",
+           "Client other income",
+           "Client outgoings and deductions",
+           "Home client lives in",
+           "Housing costs",
+           "Home client lives in details",
+           "Client other property",
+           "Client other property 1 details",
+           "Client assets",
+           "Vehicles",
+           "Vehicle 1 details"],
+        )
+    end
   end
 
   it "runs through a full passported application with a partner" do
