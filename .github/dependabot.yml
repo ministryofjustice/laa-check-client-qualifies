@@ -13,6 +13,8 @@ updates:
       combined-dependencies:
         patterns:
           - "*"
+        exclude-patterns:
+          - "rails*"
   - package-ecosystem: "terraform"
     directory: "/terraform"
     schedule:
@@ -37,3 +39,5 @@ updates:
       combined-dependencies:
         patterns:
           - "*"
+        exclude-patterns:
+          - "puppeteer"
