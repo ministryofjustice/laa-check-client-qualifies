@@ -46,7 +46,7 @@ gem "bootsnap", require: false
 gem "grover"
 
 gem "exception_notification"
-gem "govuk_notify_rails", "~> 2.2.0"
+gem "govuk_notify_rails", "~> 3.0.0"
 
 gem "geckoboard-ruby"
 
