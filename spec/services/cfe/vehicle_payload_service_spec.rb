@@ -55,7 +55,6 @@ RSpec.describe Cfe::VehiclePayloadService do
           "asylum_support" => true,
         }
       end
-      let(:completed_steps) { [:asylum_support] }
 
       it "does not set the payload" do
         described_class.call(session_data, payload)
