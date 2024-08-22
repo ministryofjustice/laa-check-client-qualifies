@@ -10,8 +10,6 @@ module Cfe
   private
 
     def capitals
-      # This check is hard to remove as CFE gets called early w/o the assets form being completed
-      # return unless completed_form?(:assets)
       return unless check.has_assets?
 
       asset_form = instantiate_form(ClientAssetsForm)

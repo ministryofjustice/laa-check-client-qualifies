@@ -156,10 +156,6 @@ class Check
     Steps::Logic.owns_property_with_mortgage_or_loan?(session_data)
   end
 
-  # def owns_property_outright?
-  #   Steps::Logic.owns_property_outright?(session_data)
-  # end
-
   def under_18_controlled_clr?
     Steps::Logic.controlled_clr?(session_data)
   end
@@ -227,9 +223,4 @@ class Check
   def partner_owns_additional_property?
     Steps::Logic.partner_owns_additional_property?(session_data)
   end
-
-  # def has_partner_assets?
-  #   Steps::Logic.partner?(session_data) &&
-  #     session_data.key?("partner_investments_relevant")
-  # end
 end

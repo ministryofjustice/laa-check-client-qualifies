@@ -58,7 +58,6 @@ module Cfe
     end
 
     def additional_properties
-      # return [] unless completed_form?(:partner_additional_property_details)
       return [] unless check.partner_owns_additional_property?
 
       form = instantiate_form(PartnerAdditionalPropertyDetailsForm)
