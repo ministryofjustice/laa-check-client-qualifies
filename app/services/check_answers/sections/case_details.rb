@@ -12,6 +12,8 @@ module CheckAnswers
         tables = [level_of_help_table]
         if @check.under_eighteen?
           tables += [aggregated_means_table] unless @check.controlled_clr?
+          tables += [immigration_or_asylum_table] if @check.under_eighteen_assets? || @check.under_eighteen_regular_income? || @check.aggregated_means?
+          tables += [immigration_or_asylum_type_table, asylum_support_table] if @check.immigration_or_asylum?
         else
           tables += if @check.controlled?
                       [immigration_or_asylum_table]
@@ -55,9 +57,13 @@ module CheckAnswers
         Table.new(screen: :aggregated_means, skip_change_link: true, index: nil, disputed?: false,
                   fields: [
                     FieldWithScreenPresenter.new(table_label: :aggregated_means, screen: :aggregated_means, attribute: :aggregated_means, type: :boolean, model: @check),
-                    FieldWithScreenPresenter.new(table_label: :aggregated_means, screen: :regular_income, attribute: :regular_income, type: :boolean, model: @check),
-                    FieldWithScreenPresenter.new(table_label: :aggregated_means, screen: :under_eighteen_assets, attribute: :under_eighteen_assets, type: :boolean, model: @check),
-                  ])
+                    unless @check.aggregated_means?
+                      FieldWithScreenPresenter.new(table_label: :aggregated_means, screen: :regular_income, attribute: :regular_income, type: :boolean, model: @check)
+                    end,
+                    unless @check.under_eighteen_regular_income? || @check.aggregated_means?
+                      FieldWithScreenPresenter.new(table_label: :aggregated_means, screen: :under_eighteen_assets, attribute: :under_eighteen_assets, type: :boolean, model: @check)
+                    end,
+                  ].compact)
       end
 
       def immigration_or_asylum_table

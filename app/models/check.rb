@@ -110,6 +110,18 @@ class Check
     Steps::Logic.client_under_eighteen?(session_data)
   end
 
+  def under_eighteen_assets?
+    Steps::Logic.under_eighteen_assets?(session_data)
+  end
+
+  def under_eighteen_regular_income?
+    Steps::Logic.under_eighteen_regular_income?(session_data)
+  end
+
+  def aggregated_means?
+    Steps::Logic.aggregated_means?(session_data)
+  end
+
   def investments_relevant?
     investments_relevant
   end
