@@ -41,7 +41,18 @@ RSpec.describe "Under 18 flow", :stub_cfe_calls_with_webmock, type: :feature do
       fill_in_level_of_help_screen(choice: "Civil controlled work or family mediation")
       fill_in_under_18_controlled_legal_rep_screen(choice: "No")
       fill_in_aggregated_means_screen(choice: "Yes")
-      fill_in_forms_until(:check_answers)
+      fill_in_how_to_aggregate_screen
+      fill_in_immigration_or_asylum_screen
+      fill_in_applicant_screen
+      fill_in_dependant_details_screen
+      fill_in_employment_status_screen
+      fill_in_benefits_screen
+      fill_in_other_income_screen
+      fill_in_outgoings_screen
+      fill_in_property_screen
+      fill_in_housing_costs_screen
+      fill_in_additional_property_screen
+      fill_in_assets_screen
     end
 
     it "hits check answers" do
@@ -153,6 +164,58 @@ RSpec.describe "Under 18 flow", :stub_cfe_calls_with_webmock, type: :feature do
             "Level of help",
             "Means tests for under 18s",
             "Type of matter",
+            "Number of dependants",
+            "Employment status",
+            "Client benefits",
+            "Client other income",
+            "Client outgoings and deductions",
+            "Home client lives in",
+            "Housing costs",
+            "Client other property",
+            "Client assets",
+          ],
+        )
+    end
+  end
+
+  context "with u18 controlled checks with assets and immigration" do
+    before do
+      fill_in_level_of_help_screen(choice: "Civil controlled work or family mediation")
+      fill_in_under_18_controlled_legal_rep_screen(choice: "No")
+      fill_in_aggregated_means_screen(choice: "No")
+      fill_in_regular_income_screen(choice: "No")
+      fill_in_under_eighteen_assets_screen(choice: "Yes")
+      fill_in_immigration_or_asylum_screen(choice: "Yes")
+      fill_in_immigration_or_asylum_type_screen
+      fill_in_asylum_support_screen
+      fill_in_applicant_screen
+      fill_in_dependant_details_screen
+      fill_in_employment_status_screen
+      fill_in_benefits_screen
+      fill_in_other_income_screen
+      fill_in_outgoings_screen
+      fill_in_property_screen
+      fill_in_housing_costs_screen
+      fill_in_additional_property_screen
+      fill_in_assets_screen
+      confirm_screen("check_answers")
+    end
+
+    it "hits check answers" do
+      confirm_screen(:check_answers)
+    end
+
+    it "shows correct sections" do
+      expect(all(".govuk-summary-card__title").map(&:text))
+        .to eq(
+          [
+            "Client age",
+            "Partner and passporting",
+            "Level of help",
+            "Means tests for under 18s",
+            "Type of matter",
+            "Type of immigration or asylum matter",
+            "Asylum support",
             "Number of dependants",
             "Employment status",
             "Client benefits",
