@@ -1594,6 +1594,7 @@ en:
         input_hint: Check the statement from the mortgage provider or lender and include any other loans secured against the property
       percentage_owned:
         input: What percentage share does the partner own?
+        hint: ""
     vehicles_details:
       heading: Tell us about the vehicle
       vehicle: Vehicle
