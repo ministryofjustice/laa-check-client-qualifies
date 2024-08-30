@@ -59,7 +59,7 @@
             field_name: "percentage_owned",
             counter:,
             label: t("question_flow.#{i18n_key}.percentage_owned.input"),
-            hint: (t("question_flow.additional_property_details.percentage_owned.hint") if @check.partner && !partner),
+            hint: t("question_flow.#{i18n_key}.percentage_owned.hint"),
             value: model.percentage_owned,
             label_size: "m"
 
