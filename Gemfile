@@ -57,7 +57,7 @@ gem "factory_bot_rails"
 gem "hexapdf"
 
 gem "devise"
-gem "omniauth-google-oauth2"
+gem "omniauth-google-oauth2", ">= 1.1.3"
 gem "omniauth-rails_csrf_protection", ">= 1.0.2"
 gem "omniauth-saml", "~> 2.1.0"
 
