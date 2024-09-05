@@ -110,6 +110,18 @@ class Check
     Steps::Logic.client_under_eighteen?(session_data)
   end
 
+  def under_eighteen_assets?
+    Steps::Logic.under_eighteen_assets?(session_data)
+  end
+
+  def under_eighteen_regular_income?
+    Steps::Logic.under_eighteen_regular_income?(session_data)
+  end
+
+  def aggregated_means?
+    Steps::Logic.aggregated_means?(session_data)
+  end
+
   def investments_relevant?
     investments_relevant
   end
@@ -146,5 +158,29 @@ class Check
     else
       Steps::Helper.consistent?(session_data)
     end
+  end
+
+  def non_means_tested?
+    Steps::Logic.non_means_tested?(session_data)
+  end
+
+  def skip_income_questions?
+    Steps::Logic.skip_income_questions?(session_data)
+  end
+
+  def partner?
+    Steps::Logic.partner?(session_data)
+  end
+
+  def controlled_clr?
+    Steps::Logic.controlled_clr?(session_data)
+  end
+
+  def owns_property_with_mortgage_or_loan?
+    Steps::Logic.owns_property_with_mortgage_or_loan?(session_data)
+  end
+
+  def owns_property_outright?
+    Steps::Logic.owns_property_outright?(session_data)
   end
 end

@@ -96,5 +96,24 @@ RSpec.describe "assets", :calls_cfe_early_returns_not_ineligible, type: :feature
     it "shows the reveal question for investments" do
       expect(page).to have_content investments_content
     end
+
+    it "shows correct sections" do
+      expect(all(".govuk-summary-card__title").map(&:text))
+        .to eq(
+          ["Client age",
+           "Partner and passporting",
+           "Level of help",
+           "Type of matter",
+           "Number of dependants",
+           "Employment status",
+           "Client benefits",
+           "Client other income",
+           "Client outgoings and deductions",
+           "Home client lives in",
+           "Housing costs",
+           "Client other property",
+           "Client assets"],
+        )
+    end
   end
 end
