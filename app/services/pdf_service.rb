@@ -24,13 +24,12 @@ class PdfService
         initial_pdf.write(pdf_data.force_encoding("UTF-8"))
         initial_pdf.rewind
 
-        pdf = Origami::PDF.read(initial_pdf.path)
-        pdf.root[:Lang] = "en-GB"
-
+        # Use qpdf to modify catalog metadata
         Tempfile.open("modified_pdf") do |modified_pdf|
-          pdf.save!(modified_pdf.path)
-          modified_pdf.rewind
+          # Set the Lang attribute in the catalog to "en-GB"
+          `qpdf --empty --pages #{initial_pdf.path} -- #{modified_pdf.path} --set-catalog /Lang=en-GB`
 
+          modified_pdf.rewind
           yield modified_pdf.read
         end
       end
