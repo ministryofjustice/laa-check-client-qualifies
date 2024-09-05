@@ -28,7 +28,7 @@ class PdfService
         pdf.root[:Lang] = "en-GB"
 
         Tempfile.open("modified_pdf") do |modified_pdf|
-          pdf.save(modified_pdf.path)
+          pdf.save!(modified_pdf.path)
           modified_pdf.rewind
 
           yield modified_pdf.read
