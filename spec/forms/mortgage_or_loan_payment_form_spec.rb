@@ -54,6 +54,26 @@ RSpec.describe "mortgage_or_loan_payment", :calls_cfe_early_returns_not_ineligib
         fill_in_forms_until(:check_answers)
       end
 
+      it "shows correct sections" do
+        expect(all(".govuk-summary-card__title").map(&:text))
+          .to eq(
+            ["Client age",
+             "Partner and passporting",
+             "Level of help",
+             "Type of matter",
+             "Number of dependants",
+             "Employment status",
+             "Client benefits",
+             "Client other income",
+             "Client outgoings and deductions",
+             "Home client lives in",
+             "Housing costs",
+             "Home client lives in details",
+             "Client other property",
+             "Client assets"],
+          )
+      end
+
       context "without MTR accelerated" do
         let(:content_date) { before_date }
 

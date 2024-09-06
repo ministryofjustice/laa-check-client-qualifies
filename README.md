@@ -15,8 +15,8 @@ Currently CCQ only enables checks relating to civil legal aid; however a future 
 
 - Ruby version
 
-  - Ruby version 3.1.3
-  - Rails 7.0.x
+  - Ruby version 3.3.4
+  - Rails 7.1.x
 
 - System dependencies
   - postgres
@@ -42,8 +42,6 @@ brew services start postgresql@14
 ```
 
 You will also need pdftk. There is a [Mac installer](https://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/pdftk_server-2.02-mac_osx-10.11-setup.pkg) for convenience.
-
-If you are running Ruby version 3.1.3, then [Bundler](https://bundler.io/) should already be installed. You may run into an error here if you are not using the correct Ruby version:
 
 ```
 bundle install
