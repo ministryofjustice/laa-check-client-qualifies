@@ -274,6 +274,16 @@ The current values for these are available as secure notes in 1Password for each
   although this could be a potential future option - the code we inherited from crime apply does have the capability of loading 
   a Portal metadata file from a URL.
 
+## Manual Puppeteer upgrade
+
+The application uses puppeteer as part of its testing pipeline - namely as part of the browser tools dockerfile. This is pinned to a specific puppeteer version, but because Chrome updates quite regularly, we have to manually update this when a new release comes out. 
+
+Here is an example PR of what the update looks like: https://github.com/ministryofjustice/laa-check-client-qualifies/pull/1482/files
+
+Note we use a custom image inside browser tools dockerfile - when you create the branch with the puppeteer upgrade, you'll also need to add the branch name inside the YAML file that pushes the changes to Docker (`browser_tools_docker_image.yml`), and update the CircleCI config accordingly.
+
+You can see our custom Docker image here - this will update once you've pushed a new image: https://hub.docker.com/r/checkclientqualifiesdocker/circleci-image/tags
+
 ## Branch naming
 
 We name our branches to start with the Jira ticket ID, followed by a short description of the work.
