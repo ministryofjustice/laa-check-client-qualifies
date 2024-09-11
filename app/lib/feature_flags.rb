@@ -16,6 +16,7 @@ class FeatureFlags
     # after the election on 4th July 2024
     mtr_accelerated: { type: "global", default: false },
     shared_ownership: { type: "session", default: false },
+    ee_banner: { type: "session", default: false },
   }.freeze
 
   class << self
