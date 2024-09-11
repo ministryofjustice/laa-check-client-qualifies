@@ -284,6 +284,14 @@ Note we use a custom image inside browser tools dockerfile - when you create the
 
 You can see our custom Docker image here - this will update once you've pushed a new image: https://hub.docker.com/r/checkclientqualifiesdocker/circleci-image/tags
 
+Steps to follow are:
+
+1. create an appropriately named branch referencing the puppeteer version upgrade i.e. `puppeteer-22**`
+2. update Dockerfile_browser_tools.dockerfile & package.json with the new puppeteer version
+3. run `yarn install` to update yarn.lock
+4. add your branch name to .github/workflows/browser_tools_docker_image.yml so the new image gets pushed to Dockerhub
+5. update .circleci/config.yml to reference the new image
+
 ## Branch naming
 
 We name our branches to start with the Jira ticket ID, followed by a short description of the work.
