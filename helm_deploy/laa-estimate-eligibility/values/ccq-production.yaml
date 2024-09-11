@@ -60,6 +60,7 @@ featureFlags:
   basicAuthentication: NOT_ENABLED
   outgoingsFlow: ENABLED
   conditionalReveals: ENABLED
+  cwFormUpdates: NOT_ENABLED
   sharedOwnership: NOT_ENABLED
 
 geckoboard:
