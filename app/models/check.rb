@@ -183,4 +183,8 @@ class Check
   def owns_property_outright?
     Steps::Logic.owns_property_outright?(session_data)
   end
+
+  def early_ineligible_result?
+    @session_data.dig("early_result", "result") == "ineligible"
+  end
 end

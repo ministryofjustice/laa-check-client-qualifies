@@ -6,7 +6,11 @@ class CfeResult
   end
 
   def ineligible_gross_income?
-    api_response.dig(:result_summary, :gross_income, :proceeding_types).first[:result] == "ineligible"
+    early_gross_income_result == "ineligible"
+  end
+
+  def early_gross_income_result
+    api_response.dig(:result_summary, :gross_income, :proceeding_types).first[:result]
   end
 
   def decision

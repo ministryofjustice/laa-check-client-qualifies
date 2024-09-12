@@ -1,0 +1,2 @@
+- if FeatureFlags.enabled?(:ee_banner, @check.session_data) && @check.early_ineligible_result?
+  = govuk_details(summary_text: "some banner", text: "hello")
