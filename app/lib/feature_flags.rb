@@ -17,6 +17,7 @@ class FeatureFlags
     mtr_accelerated: { type: "global", default: false },
     cw_form_updates: { type: "global", default: false },
     shared_ownership: { type: "session", default: false },
+    ee_banner: { type: "session", default: false },
   }.freeze
 
   class << self

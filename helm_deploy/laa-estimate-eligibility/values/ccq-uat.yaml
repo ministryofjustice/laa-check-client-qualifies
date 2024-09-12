@@ -67,6 +67,7 @@ featureFlags:
   conditionalReveals: ENABLED
   cwFormUpdates: ENABLED
   sharedOwnership: ENABLED
+  eeBanner: ENABLED
 
 postgresql:
   enabled: true

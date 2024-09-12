@@ -62,6 +62,7 @@ featureFlags:
   conditionalReveals: ENABLED
   cwFormUpdates: NOT_ENABLED
   sharedOwnership: NOT_ENABLED
+  eeBanner: NOT_ENABLED
 
 geckoboard:
   metricsDataset: "ccq_monthly_metrics_production"
