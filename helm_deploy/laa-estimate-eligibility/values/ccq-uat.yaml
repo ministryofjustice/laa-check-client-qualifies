@@ -65,7 +65,7 @@ featureFlags:
   basicAuthentication: ENABLED
   outgoingsFlow: ENABLED
   conditionalReveals: ENABLED
-  cwFormUpdates: NOT_ENABLED
+  cwFormUpdates: ENABLED
   sharedOwnership: ENABLED
 
 postgresql:
