@@ -373,14 +373,29 @@ RSpec.describe "Under 18 flow", :stub_cfe_calls_with_webmock, type: :feature do
     end
   end
 
-  it "exits early for certificated work" do
-    fill_in_client_age_screen(choice: "Under 18")
-    fill_in_level_of_help_screen(choice: "Civil certificated")
-    confirm_screen(:check_answers)
-    expect(page).not_to have_content clr_text
+  context "when doing a certificated check" do
+    before do
+      fill_in_client_age_screen(choice: "Under 18")
+      fill_in_level_of_help_screen(choice: "Civil certificated")
+    end
+
+    it "hits check answers" do
+      confirm_screen(:check_answers)
+      expect(page).not_to have_content clr_text
+    end
+
+    it "shows correct sections" do
+      expect(all(".govuk-summary-card__title").map(&:text))
+        .to eq(
+          [
+            "Client age",
+            "Level of help",
+          ],
+        )
+    end
   end
 
-  it "exits early if means are aggregated certificated work" do
+  it "exits early if means are aggregated for controlled work" do
     fill_in_client_age_screen(choice: "Under 18")
     fill_in_level_of_help_screen(choice: "Civil controlled work or family mediation")
     fill_in_under_18_controlled_legal_rep_screen(choice: "No")
