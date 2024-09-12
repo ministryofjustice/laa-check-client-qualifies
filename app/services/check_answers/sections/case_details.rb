@@ -13,7 +13,7 @@ module CheckAnswers
         if @check.under_eighteen?
           tables += [aggregated_means_table] unless @check.controlled_clr? || !@check.controlled?
           tables += [immigration_or_asylum_table] if @check.under_eighteen_assets? || @check.under_eighteen_regular_income? || @check.aggregated_means?
-          tables += [immigration_or_asylum_type_table, asylum_support_table] if @check.immigration_or_asylum? && !@check.controlled_clr?
+          tables += [immigration_or_asylum_type_table, asylum_support_table] if @check.immigration_or_asylum && !@check.controlled_clr?
         else
           tables += if @check.controlled?
                       [immigration_or_asylum_table]
