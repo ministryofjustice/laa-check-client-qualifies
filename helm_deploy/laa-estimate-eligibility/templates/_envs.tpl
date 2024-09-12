@@ -69,8 +69,12 @@ env:
     value: {{ .Values.featureFlags.basicAuthentication }}
   - name: OUTGOINGS_FLOW_FEATURE_FLAG
     value: {{ .Values.featureFlags.outgoingsFlow }}
+  - name: CW_FORM_UPDATE_FEATURE_FLAG
+    value: {{ .Values.featureFlags.cwFormUpdates }}
   - name: SHARED_OWNERSHIP_FEATURE_FLAG
     value: {{ .Values.featureFlags.sharedOwnership }}
+  - name: EE_BANNER_FEATURE_FLAG
+    value: {{ .Values.featureFlags.eeBanner }}
   - name: FEATURE_FLAG_OVERRIDES
     value: {{ .Values.featureFlags.overrides }}
   - name: NOTIFICATIONS_API_KEY
