@@ -54,6 +54,31 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       expect(result).to include(representative_sample)
     end
 
+    it "can successfully populate the new fields on the CW1 form (other income section)" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_new.yml")).map(&:with_indifferent_access)
+      result = described_class.call(session_data, mappings)
+      representative_sample = {
+        "Child under 18" => "No",
+        "Means test required" => "Yes_2", # This is always checked as CCQ is only relevant to means tested cases
+        "Passported" => "No", # Not passporting
+        "Client in receipt of asylum support" => "No", # Asylum supported not given
+        "Please complete Part A Capital Subject matter of dispute" => "No_4", # No SMOD
+        "Has partner whose means are to be agrgregated" => "Yes_3", # Has a partner
+        "undefined_26" => "250,000", # Property worth £250,000
+        "undefined_42" => "555", # Valuables
+        "undefined_40" => "222", # Investments
+        "undefined_38" => "111", # Savings
+        "undefined_30" => "25", # Percentage owned
+        "pensions_client" => "0", # Percentage owned
+        "studentfinance_client" => "0", # Percentage owned
+        "friendsandfamily_client" => "0", # Percentage owned
+        "property_client" => "0", # Percentage owned
+        "otherincome_client" => "0", # Percentage owned
+        "benefits_client" => "0", # Percentage owned
+      }
+      expect(result).to include(representative_sample)
+    end
+
     context "when client is under 18" do
       let(:session_data) do
         build(:minimal_complete_session,

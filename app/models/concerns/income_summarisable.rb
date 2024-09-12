@@ -39,6 +39,34 @@ module IncomeSummarisable
     from_cfe_payload("result_summary.disposable_income.combined_total_disposable_income")
   end
 
+  def client_benefits
+    from_cfe_payload("assessment.gross_income.state_benefits.monthly_equivalents.all_sources.value")
+  end
+
+  def client_maintenance_in
+    from_cfe_payload("assessment.gross_income.other_income.monthly_equivalents.all_sources.maintenance_in.value")
+  end
+
+  def client_pensions
+    from_cfe_payload("assessment.gross_income.other_income.monthly_equivalents.all_sources.pension.value")
+  end
+
+  def client_student_finance
+    from_cfe_payload("assessment.gross_income.irregular_income.monthly_equivalents.student_loan.value")
+  end
+
+  def client_friends_and_family
+    from_cfe_payload("assessment.gross_income.other_income.monthly_equivalents.all_sources.friends_or_family.value")
+  end
+
+  def client_property_lodger_income
+    from_cfe_payload("assessment.gross_income.other_income.monthly_equivalents.all_sources.property_or_lodger.value")
+  end
+
+  def client_other_income
+    from_cfe_payload("assessment.gross_income.irregular_income.monthly_equivalents.unspecified_source.value")
+  end
+
 private
 
   def employment_income(prefix = "")
