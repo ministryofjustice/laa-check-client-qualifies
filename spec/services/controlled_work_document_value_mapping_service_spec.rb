@@ -132,6 +132,30 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       expect(result).to include(representative_sample)
     end
 
+    it "can successfully populate Welsh CW1 form fields including new income fields", :cw_form_updates_flag do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_welsh_new.yml")).map(&:with_indifferent_access)
+      result = described_class.call(session_data, mappings)
+      representative_sample = {
+        "Matter type" => "Means test required", # This is always checked as CCQ is only relevant to means tested cases
+        "Passported" => "Nac ydy", # Not passporting
+        "Asylum support" => "Nac ydyw", # Asylum supported not given
+        "Client's assets claimed by opponent" => "Nac ydy", # No SMOD
+        "Partner" => "Ie", # Has a partner
+        "FillText136" => "250,000", # Property worth £250,000
+        "FillText112" => "555", # Valuables
+        "FillText111" => "222", # Investments
+        "FillText148" => "111", # Savings
+        "FillText140" => "25", # Percentage owned
+        "pensions_client" => "0", # Percentage owned
+        "studentfinance_client" => "0", # Percentage owned
+        "friendsandfamily_client" => "0", # Percentage owned
+        "property_client" => "0", # Percentage owned
+        "otherincome_client" => "0", # Percentage owned
+        "benefits_client" => "0", # Percentage owned
+      }
+      expect(result).to include(representative_sample)
+    end
+
     it "can successfully populate a CW2 IMM form (template with CCQ header)" do
       mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw2.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
