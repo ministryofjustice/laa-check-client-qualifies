@@ -220,7 +220,7 @@ GEM
       openssl (>= 2.2.1)
     html-attributes-utils (1.0.2)
       activesupport (>= 6.1.4.4)
-    i18n (1.14.5)
+    i18n (1.14.6)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
     interception (0.5)
@@ -309,14 +309,14 @@ GEM
     omniauth-rails_csrf_protection (1.0.2)
       actionpack (>= 4.2)
       omniauth (~> 2.0)
-    omniauth-saml (2.1.0)
-      omniauth (~> 2.0)
-      ruby-saml (~> 1.12)
+    omniauth-saml (2.2.1)
+      omniauth (~> 2.1)
+      ruby-saml (~> 1.17)
     openssl (3.2.0)
     orm_adapter (0.5.0)
     pagy (9.0.8)
     parallel (1.26.3)
-    parallel_tests (4.7.1)
+    parallel_tests (4.7.2)
       parallel
     parser (3.3.5.0)
       ast (~> 2.4.1)
@@ -326,7 +326,7 @@ GEM
       rexml (~> 3.2, >= 3.2.6)
       safe_shell (>= 1.0.3, < 2.0)
     pg (1.5.8)
-    propshaft (0.9.1)
+    propshaft (1.0.0)
       actionpack (>= 7.0.0)
       activesupport (>= 7.0.0)
       rack
@@ -604,7 +604,7 @@ DEPENDENCIES
   jsbundling-rails
   omniauth-google-oauth2
   omniauth-rails_csrf_protection (>= 1.0.2)
-  omniauth-saml (~> 2.1.0)
+  omniauth-saml (~> 2.2.1)
   parallel_tests
   pdf-forms
   pg (~> 1.5)
