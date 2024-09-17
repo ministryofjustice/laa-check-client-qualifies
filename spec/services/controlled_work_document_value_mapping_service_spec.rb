@@ -132,7 +132,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
       expect(result).to include(representative_sample)
     end
 
-    it "can successfully populate Welsh CW1 form fields including new income fields", :cw_form_updates_flag do
+    it "can successfully populate Welsh CW1 form with the added other income fields" do
       mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_welsh_new.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
@@ -146,12 +146,13 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
         "FillText111" => "222", # Investments
         "FillText148" => "111", # Savings
         "FillText140" => "25", # Percentage owned
-        "pensions_client" => "0", # Percentage owned
-        "studentfinance_client" => "0", # Percentage owned
-        "friendsandfamily_client" => "0", # Percentage owned
-        "property_client" => "0", # Percentage owned
-        "otherincome_client" => "0", # Percentage owned
-        "benefits_client" => "0", # Percentage owned
+        "property_client" => "6.50",
+        "otherincome_client" => "50",
+        "benefits_client" => "0",
+        "pensions_partner" => "25",
+        "studentfinance_partner" => "199",
+        "friendsandfamily_partner" => "15",
+        "property_partner" => "10",
       }
       expect(result).to include(representative_sample)
     end

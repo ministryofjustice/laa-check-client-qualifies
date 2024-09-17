@@ -261,10 +261,15 @@
       type: text
       source: client_gross_income
 
+    # Benefits & Tax Credits / Client
+    - name: benefits_client
+      type: text
+      source: client_benefits
+
     # Maintenance from former partner / Client
     - name: maintenance_client
       type: text
-      source: client_maintenance_in
+      source: client_maintenance
 
     # Pensions / Client
     - name: pensions_client
@@ -291,15 +296,40 @@
       type: text
       source: client_other_income
 
-    # Benefits & Tax Credits / Client
-    - name: benefits_client
+    # Benefits & Tax Credits / Partner
+    - name: benefits_partner
       type: text
-      source: client_benefits
+      source: partner_benefits
 
-    # Other income / Client
-    - name: FillText152
+    # Maintenance from former partner / Partner
+    - name: maintenance_partner
       type: text
-      source: client_non_employment_income
+      source: partner_maintenance
+
+    # Pensions / Partner
+    - name: pensions_partner
+      type: text
+      source: partner_pensions
+
+    # Student Finance / Partner
+    - name: studentfinance_partner
+      type: text
+      source: partner_student_finance
+
+    # Family or Friends / Partner
+    - name: friendsandfamily_partner
+      type: text
+      source: partner_friends_and_family
+
+    # Property or Lodger / Partner
+    - name: property_partner
+      type: text
+      source: partner_property_lodger_income
+
+    # Other Income / Partner
+    - name: otherincome_partner
+      type: text
+      source: partner_other_income
 
     # Total gross income / Client
     - name: FillText154
