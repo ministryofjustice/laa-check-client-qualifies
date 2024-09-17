@@ -139,7 +139,7 @@ RSpec.configure do |config|
     example.run
     ENV["BASIC_AUTHENTICATION_FEATURE_FLAG"] = "disabled"
   end
-  
+
   config.around(:each, :cw_form_updates) do |example|
     ENV["CW_FORM_UPDATES_FEATURE_FLAG"] = "enabled"
     example.run
