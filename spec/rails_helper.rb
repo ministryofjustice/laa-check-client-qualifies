@@ -141,9 +141,9 @@ RSpec.configure do |config|
   end
 
   config.around(:each, :cw_form_updates) do |example|
-    ENV["CW_FORM_UPDATE_FEATURE_FLAG"] = "enabled"
+    ENV["CW_FORM_UPDATES_FEATURE_FLAG"] = "enabled"
     example.run
-    ENV["CW_FORM_UPDATE_FEATURE_FLAG"] = "disabled"
+    ENV["CW_FORM_UPDATES_FEATURE_FLAG"] = "disabled"
   end
 
   config.around(:each, :shared_ownership) do |example|

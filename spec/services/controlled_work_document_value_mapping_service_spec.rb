@@ -27,11 +27,14 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
         :with_partner,
         :with_partner_income_outgoings_data,
         :with_partner_assets_information,
+        :with_other_income,
         bank_accounts: [{ "amount" => 111, "account_in_dispute" => false }],
         investments: 222,
         valuables: 555,
         percentage_owned: 25,
-        api_response: FactoryBot.build(:api_result, main_home: FactoryBot.build(:property_api_result, value: 250_000)).with_indifferent_access,
+        api_response: FactoryBot.build(:api_result,
+                                       main_home: FactoryBot.build(:property_api_result, value: 250_000),
+                                       assessment: FactoryBot.build(:assessment)).with_indifferent_access,
       )
     end
 
@@ -69,12 +72,20 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
         "undefined_40" => "222", # Investments
         "undefined_38" => "111", # Savings
         "undefined_30" => "25", # Percentage owned
-        "pensions_client" => "0", # Percentage owned
-        "studentfinance_client" => "0", # Percentage owned
-        "friendsandfamily_client" => "0", # Percentage owned
-        "property_client" => "0", # Percentage owned
-        "otherincome_client" => "0", # Percentage owned
-        "benefits_client" => "0", # Percentage owned
+        "pensions_client" => "15",
+        "maintenance_client" => "5",
+        "studentfinance_client" => "108",
+        "friendsandfamily_client" => "47.67",
+        "property_client" => "6.50",
+        "otherincome_client" => "50",
+        "benefits_client" => "0",
+        "pensions_partner" => "25",
+        "studentfinance_partner" => "199",
+        "friendsandfamily_partner" => "15",
+        "property_partner" => "10",
+        "otherincome_partner" => "77",
+        "benefits_partner" => "0",
+        "maintenance_partner" => "20",
       }
       expect(result).to include(representative_sample)
     end

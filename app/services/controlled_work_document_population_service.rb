@@ -10,7 +10,7 @@ class ControlledWorkDocumentPopulationService
   class << self
     def call(session_data, model)
       Dir.mktmpdir do |dir|
-        # Commenting this out until all the new DQ forms are updated then this will be reinstated
+        # Commenting this out until all the new CW forms are updated then this will be reinstated
         # form_key = "#{model.form_type}#{'_welsh' if model.language == 'welsh'}"
         # We will use the method below to add _new suffix
         form_key = generate_form_key(model)
