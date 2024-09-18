@@ -53,7 +53,6 @@ RSpec.describe "checks/check_answers.html.slim" do
         let(:session_data) do
           build(:minimal_complete_session,
                 :with_partner,
-                :with_other_income,
                 partner_friends_or_family_relevant: false,
                 partner_maintenance_relevant: false,
                 partner_property_or_lodger_relevant: false,
