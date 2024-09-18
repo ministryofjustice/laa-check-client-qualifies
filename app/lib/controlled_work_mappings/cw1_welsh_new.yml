@@ -416,10 +416,6 @@
       type: text
       source: partner_gross_income
 
-    # Other income / Partner
-    - name: FillText153
-      type: text
-      source: partner_non_employment_income
     # Total gross income / Partner
     - name: FillText163
       type: text
