@@ -152,7 +152,7 @@ RSpec.configure do |config|
     ENV["SHARED_OWNERSHIP_FEATURE_FLAG"] = "disabled"
   end
 
-  config.around(:each, :ee_banner_flag) do |example|
+  config.around(:each, :ee_banner) do |example|
     ENV["EE_BANNER_FEATURE_FLAG"] = "enabled"
     example.run
     ENV["EE_BANNER_FEATURE_FLAG"] = "disabled"
