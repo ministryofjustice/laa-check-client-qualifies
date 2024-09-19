@@ -373,14 +373,60 @@ RSpec.describe "Under 18 flow", :stub_cfe_calls_with_webmock, type: :feature do
     end
   end
 
-  it "exits early for certificated work" do
-    fill_in_client_age_screen(choice: "Under 18")
-    fill_in_level_of_help_screen(choice: "Civil certificated")
-    confirm_screen(:check_answers)
-    expect(page).not_to have_content clr_text
+  context "when starting with over 18 controlled check that is an immigration matter type, change answer to under 18" do
+    before do
+      fill_in_client_age_screen(choice: "18 to 59")
+      fill_in_level_of_help_screen(choice: "Civil controlled work or family mediation")
+      fill_in_immigration_or_asylum_screen(choice: "Yes")
+      fill_in_immigration_or_asylum_type_screen(choice: "Immigration - controlled legal representation (CLR) in the First-tier Tribunal")
+      fill_in_asylum_support_screen
+      fill_in_forms_until(:check_answers)
+      within "#table-client_age" do
+        click_on "Change"
+      end
+      fill_in_client_age_screen(choice: "Under 18")
+      fill_in_under_18_controlled_legal_rep_screen(choice: "No")
+      fill_in_aggregated_means_screen(choice: "No")
+      fill_in_regular_income_screen(choice: "No")
+      fill_in_under_eighteen_assets_screen(choice: "No")
+      confirm_screen("check_answers")
+    end
+
+    it "shows correct sections" do
+      expect(all(".govuk-summary-card__title").map(&:text))
+        .to eq(
+          [
+            "Client age",
+            "Level of help",
+            "Means tests for under 18s",
+          ],
+        )
+    end
   end
 
-  it "exits early if means are aggregated certificated work" do
+  context "when doing a certificated check" do
+    before do
+      fill_in_client_age_screen(choice: "Under 18")
+      fill_in_level_of_help_screen(choice: "Civil certificated")
+    end
+
+    it "hits check answers" do
+      confirm_screen(:check_answers)
+      expect(page).not_to have_content clr_text
+    end
+
+    it "shows correct sections" do
+      expect(all(".govuk-summary-card__title").map(&:text))
+        .to eq(
+          [
+            "Client age",
+            "Level of help",
+          ],
+        )
+    end
+  end
+
+  it "exits early if means are aggregated for controlled work" do
     fill_in_client_age_screen(choice: "Under 18")
     fill_in_level_of_help_screen(choice: "Civil controlled work or family mediation")
     fill_in_under_18_controlled_legal_rep_screen(choice: "No")
