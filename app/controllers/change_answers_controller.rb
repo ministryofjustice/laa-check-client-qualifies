@@ -36,7 +36,7 @@ class ChangeAnswersController < QuestionFlowController
           redirect_to helpers.check_step_path_from_step(next_step, assessment_code)
         end
       # this branch is neccessary to surface the ":how_to_aggregate" screen when changing answers
-      elsif next_step && step == :aggregated_means
+      elsif step == :aggregated_means
         redirect_to helpers.check_step_path_from_step(next_step, assessment_code)
       else
         redirect_to_next_question
