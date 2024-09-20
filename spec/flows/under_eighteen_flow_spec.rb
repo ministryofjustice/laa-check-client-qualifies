@@ -435,11 +435,47 @@ RSpec.describe "Under 18 flow", :stub_cfe_calls_with_webmock, type: :feature do
     confirm_screen("immigration_or_asylum")
   end
 
+  context "when doing a certificated check and then changing to a controlled" do
+    before do
+      fill_in_client_age_screen(choice: "Under 18")
+      fill_in_level_of_help_screen(choice: "Civil certificated")
+      confirm_screen(:check_answers)
+      within "#table-level_of_help" do
+        click_on "Change"
+      end
+      fill_in_level_of_help_screen(choice: "Civil controlled work or family mediation")
+      fill_in_under_18_controlled_legal_rep_screen(choice: "No")
+      fill_in_aggregated_means_screen(choice: "Yes")
+    end
+
+    it "shows correct confirm screen" do
+      confirm_screen(:how_to_aggregate)
+    end
+  end
+
   it "exits to Check your answers if it is Controlled Legal Representation work" do
     fill_in_client_age_screen(choice: "Under 18")
     fill_in_level_of_help_screen(choice: "Civil controlled work or family mediation")
     fill_in_under_18_controlled_legal_rep_screen(choice: "Yes")
     confirm_screen(:check_answers)
+  end
+
+  context "when doing an U18 controlled CLR check and then changing to U18 controlled CLR to 'no'" do
+    before do
+      fill_in_client_age_screen(choice: "Under 18")
+      fill_in_level_of_help_screen(choice: "Civil controlled work or family mediation")
+      fill_in_under_18_controlled_legal_rep_screen(choice: "Yes")
+      confirm_screen(:check_answers)
+      within "#table-under_18_clr" do
+        click_on "Change"
+      end
+      fill_in_under_18_controlled_legal_rep_screen(choice: "No")
+      fill_in_aggregated_means_screen(choice: "Yes")
+    end
+
+    it "shows correct confirm screen" do
+      confirm_screen(:how_to_aggregate)
+    end
   end
 
   it "exits early if regular income" do

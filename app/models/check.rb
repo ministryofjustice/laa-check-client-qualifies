@@ -142,7 +142,7 @@ class Check
     housing_benefit_relevant
   end
 
-  # return true/false iff our data represents a consistent data set with no missing questions
+  # return true/false if our data represents a consistent data set with no missing questions
   # e.g. at least one 'employment' set if client is not unemployed
   # implement using data rather than Steps::Logic (although the knowledge is probably in Steps::Logic)
   def consistent?
