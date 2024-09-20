@@ -183,4 +183,8 @@ class Check
   def owns_property_outright?
     Steps::Logic.owns_property_outright?(session_data)
   end
+
+  def gross_early_eligibility_exit?
+    session_data["early_eligibility_selection"] == "gross"
+  end
 end
