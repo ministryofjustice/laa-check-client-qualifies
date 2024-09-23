@@ -66,6 +66,7 @@ RSpec.describe "Early result journey", type: :feature do
                                             gross_income_excess: 0,
                                             gross_income_result: "eligible")
         allow(CfeService).to receive(:result).and_return(first, second)
+        allow(CfeService).to receive(:call).and_return build(:api_result, eligible: "ineligible")
         start_assessment
         fill_in_forms_until(:applicant)
         fill_in_applicant_screen(partner: "No", passporting: "No")
@@ -80,19 +81,23 @@ RSpec.describe "Early result journey", type: :feature do
         confirm_screen("outgoings")
         expect(page).to have_content("Gross monthly income limit exceeded")
         fill_in_outgoings_screen
+        expect(page).not_to have_content("Gross monthly income limit exceeded")
+        fill_in_forms_until(:check_answers)
+        click_on "Submit"
+        expect(page).to have_current_path(/\A\/check-result/)
+        expect(page).to have_content "Your client's key eligibility totals"
       end
 
       it "when I go straight to results the check" do
-        allow(CfeService).to receive(:call).and_return build(:api_result, eligible: "ineligible")
         confirm_screen("outgoings")
         expect(page).to have_content("Gross monthly income limit exceeded")
         click_on "Go to results page"
         expect(page).to have_current_path(/\A\/check-result/)
+        expect(page).to have_content "Your client's key eligibility totals"
       end
 
-      # i've used this test to document the current behaviour of the banner
       context "when the early eligibility changes" do
-        it "back links work as expected" do
+        it "back links and banner work as expected" do
           confirm_screen("outgoings")
           expect(page).to have_content("Gross monthly income limit exceeded")
           click_on "Back"
@@ -108,6 +113,32 @@ RSpec.describe "Early result journey", type: :feature do
           confirm_screen("outgoings")
           expect(page).not_to have_content("Gross monthly income limit exceeded")
         end
+      end
+    end
+
+    context "when I am eligible" do
+      before do
+        allow(CfeService).to receive_messages(result: instance_double(CfeResult, ineligible_gross_income?: true,
+                                                                                 gross_income_excess: 0,
+                                                                                 gross_income_result: "eligible"), call: build(:api_result, eligible: "ineligible"))
+        start_assessment
+        fill_in_forms_until(:applicant)
+        fill_in_applicant_screen(partner: "No", passporting: "No")
+        fill_in_dependant_details_screen
+        fill_in_employment_status_screen(choice: "Employed or self-employed")
+        fill_in_income_screen(gross: "100", frequency: "Every month")
+        fill_in_forms_until(:other_income)
+        fill_in_other_income_screen_with_friends_and_family
+      end
+
+      it "banner does not display and I can submit the check" do
+        confirm_screen("outgoings")
+        expect(page).not_to have_content("Gross monthly income limit exceeded")
+        fill_in_outgoings_screen
+        fill_in_forms_until(:check_answers)
+        click_on "Submit"
+        expect(page).to have_current_path(/\A\/check-result/)
+        expect(page).to have_content "Your client's key eligibility totals"
       end
     end
   end
