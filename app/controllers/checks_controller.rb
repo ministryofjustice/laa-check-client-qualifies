@@ -34,7 +34,7 @@ private
   end
 
   def clear_early_result
-    session_data.dig("early_result")&.clear
+    session_data["early_result"]&.clear
   end
 
   def specify_feedback_widget
