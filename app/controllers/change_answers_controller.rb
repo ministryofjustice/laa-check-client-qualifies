@@ -11,7 +11,7 @@ class ChangeAnswersController < QuestionFlowController
       session_data.merge!(@form.attributes_for_export_to_session)
       if FeatureFlags.enabled?(:ee_banner, session_data)
         next_step = step_with_inconsistent_data
-        if next_step
+        if next_step && step != :aggregated_means
           redirect_to helpers.check_step_path_from_step(next_step, assessment_code)
         elsif Steps::Helper.last_step_in_group?(session_data, step)
           save_and_redirect_to_check_answers
