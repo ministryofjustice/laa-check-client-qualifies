@@ -5,14 +5,6 @@ class CfeResult
     @api_response = api_response.deep_symbolize_keys
   end
 
-  def ineligible_gross_income?
-    early_gross_income_result == "ineligible"
-  end
-
-  def early_gross_income_result
-    api_response.dig(:result_summary, :gross_income, :proceeding_types).first[:result]
-  end
-
   def decision
     @decision ||= begin
       # In some circumstances CFE can return other results, such as 'partially_eligible'.
@@ -26,9 +18,17 @@ class CfeResult
     end
   end
 
+  def ineligible_gross_income?
+    gross_income_result == "ineligible"
+  end
+
+  def gross_income_result
+    api_response.dig(:result_summary, :gross_income, :proceeding_types, 0, :result)
+  end
+
   def gross_income_excess
     total_gross_income = api_response.dig(:result_summary, :gross_income, :total_gross_income)
-    upper_threshold = api_response.dig(:result_summary, :gross_income, :proceeding_types).first[:upper_threshold]
+    upper_threshold = api_response.dig(:result_summary, :gross_income, :proceeding_types, 0, :upper_threshold)
     total_gross_income - upper_threshold
   end
 

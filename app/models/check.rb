@@ -185,6 +185,10 @@ class Check
   end
 
   def early_ineligible_result?
-    @session_data.dig("early_result", "result") == "ineligible"
+    session_data.dig("early_result", "result") == "ineligible"
+  end
+
+  def gross_income_excess
+    session_data.dig("early_result", "gross_income_excess")
   end
 end

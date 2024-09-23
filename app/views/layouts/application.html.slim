@@ -25,11 +25,7 @@ html dir="ltr" lang="en-GB" class="govuk-template"
           = yield :back
 
       main#main-content.govuk-main-wrapper role="main"
-        div class="govuk-grid-column-two-thirds"
-          = render partial: "question_flow/early_eligibility_banner" if @check
         div class="govuk-grid-row"
-          - if content_for?(:sidebar)
-            = yield :sidebar
           = yield
 
     = render partial: "layouts/feedback"

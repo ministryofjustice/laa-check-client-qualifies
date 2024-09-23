@@ -1,4 +1,4 @@
-- if @early_eligibility_selection == "gross"
+- if @early_eligibility_selection == "gross" || @early_assessment == "gross_income"
   p class="govuk-body" = t(".not_assessed")
 - else
   = pdf_friendly_h2(t("results.show.client_outgoings"), "m", @is_pdf)

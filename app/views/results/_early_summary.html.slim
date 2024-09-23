@@ -1,0 +1,45 @@
+- data = @model.summary_data(section)
+- status = data.status.dasherize
+
+- if @early_assessment == section.to_s
+  - total_calc = @model.send("total_calculated_#{section}")
+
+. class="summary-box summary-box-#{@early_assessment == section.to_s ? status : "not-assessed"}"
+  p.govuk-body-l.summary-list-subheader class="govuk-!-margin-bottom-0" = t("results.show.section_summaries.heading.#{section}")
+  h3.govuk-heading-l class="govuk-!-margin-bottom-2 govuk-!-margin-top-0" = total_calc
+
+  - if @early_assessment != section.to_s
+    .govuk-tag
+      = t("results.show.section_summaries.not_assessed")
+  - elsif data.status == "ineligible"
+    .govuk-tag.govuk-tag--custom-red
+      = t("results.show.section_summaries.exceeds_upper_limit")
+  - elsif data.status == "contribution_required_and_overall_contribution_required"
+    .govuk-tag
+      = t("results.show.section_summaries.contribution_needed")
+
+  p.govuk-body class="govuk-!-margin-top-3"
+    - upper_snippet = "_no_upper_threshold" if data.no_upper_threshold
+    - lower_snippet = "_no_lower_threshold" if data.no_lower_threshold
+    ruby:
+      matter_type = if @model.domestic_abuse_applicant
+                      t("results.show.section_summaries.matter_types.domestic_abuse_applicant")
+                    elsif @model.immigration_or_asylum_type_upper_tribunal
+                      t("results.show.section_summaries.matter_types.#{@model.immigration_or_asylum_type_upper_tribunal}")
+                    else
+                      t("results.show.section_summaries.matter_types.none")
+                    end
+    - if @early_assessment != section.to_s
+      => t("results.show.section_summaries.texts.not_assessed_desc")
+    - else
+      => t("results.show.section_summaries.texts.#{section}.#{data.status}#{upper_snippet}#{lower_snippet}",
+            upper_threshold: data.upper_threshold,
+            lower_threshold: data.lower_threshold,
+            matter_type:,
+            capital_contribution: @model.capital_contribution,
+            income_contribution: @model.income_contribution)
+      - if links
+        = link_to t("results.show.section_summaries.see_calculation"),
+                  "##{data[:section]}",
+                  class: "summary-box-link",
+                  "aria-label": t("results.show.section_summaries.see_calculation_aria_label.#{data[:section]}")

@@ -38,10 +38,13 @@ private
   end
 
   def calculate_early_result
+    # for other groupings, we'll be able to implement like below (disposable, partner gross)
+    # we could also consider a check at each page in the gross income section
     if last_tag_in_group?(:gross_income)
       cfe_result = CfeService.result(session_data, Steps::Helper.completed_steps_for(session_data, step))
-      session_data["early_result"] = { "result" => cfe_result.early_gross_income_result,
+      session_data["early_result"] = { "result" => cfe_result.gross_income_result,
                                        "gross_income_excess" => cfe_result.gross_income_excess }
+      # add analytics tracking here? completed user journeys
     end
   end
 end

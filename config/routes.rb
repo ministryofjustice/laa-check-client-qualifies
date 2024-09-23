@@ -72,6 +72,8 @@ Rails.application.routes.draw do
 
   get "check-result/:assessment_code", to: "results#show", as: :result
   post "check-result/:assessment_code", to: "results#create"
+  # instead of passing down 'early', we could move to passing the step
+  post "check-result/:assessment_code/early", to: "results#early_result", as: :early_result
 
   get ":step_url_fragment/:assessment_code", to: "forms#show", as: :step
   put ":step_url_fragment/:assessment_code", to: "forms#update"

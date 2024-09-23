@@ -6,7 +6,6 @@
 .govuk-grid-column-two-thirds
   = render "question_flow/forms/outgoings", i18n_key: "outgoings"
 
-- content_for :sidebar
-  = render "shared/question_sidebar",
-          level_of_help: @check.level_of_help,
-          links: outgoings_links(@check.level_of_help)
+= render "shared/question_sidebar",
+        level_of_help: @check.level_of_help,
+        links: outgoings_links(@check.level_of_help)

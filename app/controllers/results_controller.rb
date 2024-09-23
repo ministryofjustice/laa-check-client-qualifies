@@ -6,9 +6,19 @@ class ResultsController < ApplicationController
     redirect_to result_path(assessment_code:)
   end
 
+  def early_result
+    # hard coding this at the moment - we could look for last step with valid data but that might cause issues if
+    # banner displayed on multiple pages OR we can send the step down in the param?
+    session_data["api_response"] = CfeService.call(session_data, Steps::Helper.completed_steps_for(session_data, :other_income))
+    session_data["early_result"].merge!("type" => "gross_income")
+    redirect_to result_path(assessment_code:)
+  end
+
   def show
+    @early_assessment = session_data.dig("early_result", "type")
     @early_eligibility_selection = session_data.fetch("early_eligibility_selection", nil)
     @model = CalculationResult.new(session_data)
+    # we'll need to move this tracking point or do something with it
     track_completed_journey(@model)
     track_page_view(page: :view_results)
     @journey_continues_on_another_page = @check.controlled? && @model.decision == "eligible"
@@ -16,6 +26,7 @@ class ResultsController < ApplicationController
   end
 
   def download
+    @early_assessment = session_data.dig("early_result", "type")
     @early_eligibility_selection = session_data.fetch("early_eligibility_selection", nil)
     track_page_view(page: :download_results)
     @model = CalculationResult.new(session_data)
