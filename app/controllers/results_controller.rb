@@ -54,9 +54,7 @@ private
   end
 
   def set_early_result_type
-    if @previous_step == :other_income
-      session_data["early_result"]["type"] = "gross_income"
-    end
+    session_data["early_result"]["type"] = "gross_income"
   end
 
   def track_completed_journey(calculation_result)
