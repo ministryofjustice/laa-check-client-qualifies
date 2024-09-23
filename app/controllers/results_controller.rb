@@ -7,10 +7,9 @@ class ResultsController < ApplicationController
   end
 
   def early_result
-    # hard coding this at the moment - we could look for last step with valid data but that might cause issues if
-    # banner displayed on multiple pages OR we can send the step down in the param?
-    session_data["api_response"] = CfeService.call(session_data, Steps::Helper.completed_steps_for(session_data, :other_income))
-    session_data["early_result"]["type"] = "gross_income"
+    @previous_step = params[:step].to_sym
+    session_data["api_response"] = CfeService.call(session_data, Steps::Helper.completed_steps_for(session_data, @previous_step))
+    set_early_result_type
     redirect_to result_path(assessment_code:)
   end
 
@@ -52,6 +51,12 @@ private
 
   def load_check
     @check = Check.new(session_data)
+  end
+
+  def set_early_result_type
+    if @previous_step == :other_income
+      session_data["early_result"]["type"] = "gross_income"
+    end
   end
 
   def track_completed_journey(calculation_result)
