@@ -19,19 +19,16 @@ class PdfService
 
   class << self
     def with_pdf_data_from_html_string(html_string, display_url)
-      Tempfile.open("initial_pdf") do |initial_pdf|
+      Tempfile.open("initial_pdf", binmode: true) do |initial_pdf|
         pdf_data = Grover.new(html_string, **GROVER_OPTIONS.merge(display_url:)).to_pdf
-        initial_pdf.write(pdf_data.force_encoding("UTF-8"))
+        initial_pdf.write(pdf_data)
         initial_pdf.rewind
 
-        # Grover doesn't know how to set language metadata in the PDF 'Catalog'
-        # (see https://github.com/Studiosity/grover/issues/190#issuecomment-1517122470)
-        # so we do it manually here
-        editable = HexaPDF::Document.open(initial_pdf.path)
-        editable.catalog.value[:Lang] = "en-GB"
+        pdf = Prawn::Document.new(template: initial_pdf.path)
+        pdf.state.store.root.data[:Lang] = "en-GB"
 
-        Tempfile.open("modified_pdf") do |modified_pdf|
-          editable.write(modified_pdf.path)
+        Tempfile.open("modified_pdf", binmode: true) do |modified_pdf|
+          pdf.render_file(modified_pdf.path)
           modified_pdf.rewind
 
           yield modified_pdf.read

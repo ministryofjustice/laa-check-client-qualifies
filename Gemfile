@@ -54,7 +54,8 @@ gem "pdf-forms"
 gem "rexml", ">= 3.3.4"
 gem "factory_bot_rails"
 
-gem "hexapdf"
+# gem "hexapdf"
+gem "prawn"
 
 gem "devise"
 gem "omniauth-google-oauth2"
