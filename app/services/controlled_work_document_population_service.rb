@@ -10,7 +10,10 @@ class ControlledWorkDocumentPopulationService
   class << self
     def call(session_data, model)
       Dir.mktmpdir do |dir|
-        form_key = "#{model.form_type}#{'_welsh' if model.language == 'welsh'}"
+        # Commenting this out until all the new CW forms are updated then this will be reinstated
+        # form_key = "#{model.form_type}#{'_welsh' if model.language == 'welsh'}"
+        # We will use the method below to add _new suffix
+        form_key = generate_form_key(model)
         file_name = "#{dir}/output-form.pdf"
         pdftk = PdfForms.new(`which pdftk`.chomp)
         pdftk.fill_form template_path(form_key), file_name, values(session_data, form_key)
@@ -20,15 +23,19 @@ class ControlledWorkDocumentPopulationService
 
     TEMPLATES = {
       "cw1" => "lib/cw1-form.pdf",
+      "cw1_new" => "lib/cw1-form-new.pdf",
       "cw2" => "lib/cw2imm-form-2023-8-21.pdf",
       "cw5" => "lib/cw5-form.pdf",
       "cw1_and_2" => "lib/cw1-and-2-form-2023-8-21.pdf",
       "civ_means_7" => "lib/civ-means-7-form.pdf",
+      "civ_means_7_new" => "lib/civ-means-7-form-new.pdf",
       "cw1_welsh" => "lib/cw1-form-welsh.pdf",
+      "cw1_welsh_new" => "lib/cw1-form-welsh-new.pdf",
       "cw2_welsh" => "lib/cw2imm-form-welsh.pdf",
       "cw5_welsh" => "lib/cw5-form-welsh.pdf",
       "cw1_and_2_welsh" => "lib/cw1-and-2-form-welsh.pdf",
       "civ_means_7_welsh" => "lib/civ-means-7-form-welsh.pdf",
+      "civ_means_7_welsh_new" => "lib/civ-means-7-form-welsh-new.pdf",
     }.freeze
 
     def template_path(form_key)
@@ -38,6 +45,18 @@ class ControlledWorkDocumentPopulationService
     def values(session_data, form_key)
       mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/#{form_key}.yml")).map(&:with_indifferent_access)
       ControlledWorkDocumentValueMappingService.call(session_data, mappings)
+    end
+
+    def generate_form_key(model)
+      form_key = model.form_type
+      form_key += "_welsh" if model.language == "welsh"
+
+      # when the flag is enabled we check the form_type to determine whether form_key has the _new suffix
+      if FeatureFlags.enabled?(:cw_form_updates, without_session_data: true) && (model.form_type == "cw1" || model.form_type == "civ_means_7")
+        form_key += "_new"
+      end
+
+      form_key
     end
   end
 end

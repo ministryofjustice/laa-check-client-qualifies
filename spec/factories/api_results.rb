@@ -64,6 +64,94 @@ FactoryBot.define do
     net_value { 110_000 }
   end
 
+  factory :gross_income_api_result, class: Hash do
+    initialize_with { attributes }
+
+    other_income do
+      {
+        monthly_equivalents: {
+          all_sources: {
+            pension: 15,
+            maintenance_in: 5,
+            friends_or_family: 47.67,
+            property_or_lodger: 6.5,
+          },
+        },
+      }
+    end
+
+    state_benefits do
+      {
+        monthly_equivalents: {
+          all_sources: 0,
+          bank_transactions: [],
+          cash_transactions: 0,
+        },
+      }
+    end
+
+    irregular_income do
+      {
+        monthly_equivalents: {
+          student_loan: 108,
+          unspecified_source: 50,
+        },
+      }
+    end
+
+    employment_income { [] }
+  end
+
+  factory :partner_gross_income_api_result, class: Hash do
+    initialize_with { attributes }
+
+    other_income do
+      {
+        monthly_equivalents: {
+          all_sources: {
+            pension: 25,
+            maintenance_in: 20,
+            friends_or_family: 15,
+            property_or_lodger: 10,
+          },
+          bank_transactions: {
+            pension: 0,
+            maintenance_in: 0,
+            friends_or_family: 0,
+            property_or_lodger: 0,
+          },
+          cash_transactions: {
+            pension: 0,
+            maintenance_in: 0,
+            friends_or_family: 0,
+            property_or_lodger: 0,
+          },
+        },
+      }
+    end
+
+    state_benefits do
+      {
+        monthly_equivalents: {
+          all_sources: 0,
+          bank_transactions: [],
+          cash_transactions: 0,
+        },
+      }
+    end
+
+    irregular_income do
+      {
+        monthly_equivalents: {
+          student_loan: 199,
+          unspecified_source: 77,
+        },
+      }
+    end
+
+    employment_income { [] }
+  end
+
   factory :proceeding_type, class: Hash do
     initialize_with { attributes }
     ccms_code { "SE003" }
@@ -108,6 +196,7 @@ FactoryBot.define do
 
   factory :assessment, class: Hash do
     initialize_with { attributes }
+
     capital do
       {
         capital_items: {
@@ -135,5 +224,8 @@ FactoryBot.define do
         },
       }
     end
+
+    gross_income { FactoryBot.build(:gross_income_api_result) }
+    partner_gross_income { FactoryBot.build(:partner_gross_income_api_result) }
   end
 end
