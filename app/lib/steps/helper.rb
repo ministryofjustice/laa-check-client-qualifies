@@ -77,7 +77,7 @@ module Steps
       # If you are working with the data you should call
       # this method to filter what is valid.
       def relevant_steps(session_data)
-        # if the list is *very* short (i.e. non-means) then use it rather then up to incopme
+        # if the list is *very* short (i.e. non-means) then use it rather then up to income
         if Steps::Logic.non_means_tested?(session_data)
           steps_list_for(session_data)
         elsif Steps::Logic.check_stops_at_gross_income?(session_data)
