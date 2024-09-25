@@ -27,7 +27,6 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
         :with_partner,
         :with_partner_income_outgoings_data,
         :with_partner_assets_information,
-        :with_other_income,
         bank_accounts: [{ "amount" => 111, "account_in_dispute" => false }],
         investments: 222,
         valuables: 555,
@@ -225,6 +224,42 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
         "FillText36" => "110,000", # Client's share of total net equity
         "FillText57" => "90,000", # Main home / outstanding mortgage
         "FillText56" => "250,000", # Main home / current market value
+      }
+      expect(result).to include(representative_sample)
+    end
+
+    it "can successfully populate new CIVMEANS7 form (other income fields)" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/civ_means_7_new.yml")).map(&:with_indifferent_access)
+      result = described_class.call(session_data, mappings)
+      representative_sample = {
+        "Passported" => "No",
+        "FillText36" => "110,000", # Client's share of total net equity
+        "FillText57" => "90,000", # Main home / outstanding mortgage
+        "FillText56" => "250,000", # Main home / current market value
+        "pensions_client" => "15",
+        "maintenance_client" => "5",
+        "studentfinance_client" => "108",
+        "benefits_client" => "0",
+        "property_partner" => "10",
+        "otherincome_partner" => "77",
+        "benefits_partner" => "0",
+        "maintenance_partner" => "20",
+      }
+      expect(result).to include(representative_sample)
+    end
+
+    it "can successfully populate a Welsh CIVMEANS7 form with the added other income fields" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/civ_means_7_welsh_new.yml")).map(&:with_indifferent_access)
+      result = described_class.call(session_data, mappings)
+      representative_sample = {
+        "Passported" => "Nac ydy",
+        "FillText30" => "110,000", # Client's share of total net equity
+        "FillText22" => "90,000", # Main home / outstanding mortgage
+        "FillText21" => "250,000", # Main home / current market value
+        "maintenance_client" => "5",
+        "studentfinance_client" => "108",
+        "property_partner" => "10",
+        "otherincome_partner" => "77",
       }
       expect(result).to include(representative_sample)
     end
