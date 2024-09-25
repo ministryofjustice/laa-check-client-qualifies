@@ -27,11 +27,14 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
         :with_partner,
         :with_partner_income_outgoings_data,
         :with_partner_assets_information,
+        :with_other_income,
         bank_accounts: [{ "amount" => 111, "account_in_dispute" => false }],
         investments: 222,
         valuables: 555,
         percentage_owned: 25,
-        api_response: FactoryBot.build(:api_result, main_home: FactoryBot.build(:property_api_result, value: 250_000)).with_indifferent_access,
+        api_response: FactoryBot.build(:api_result,
+                                       main_home: FactoryBot.build(:property_api_result, value: 250_000),
+                                       assessment: FactoryBot.build(:assessment)).with_indifferent_access,
       )
     end
 
@@ -50,6 +53,39 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
         "undefined_40" => "222", # Investments
         "undefined_38" => "111", # Savings
         "undefined_30" => "25", # Percentage owned
+      }
+      expect(result).to include(representative_sample)
+    end
+
+    it "can successfully populate the new fields on the CW1 form (other income section)" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_new.yml")).map(&:with_indifferent_access)
+      result = described_class.call(session_data, mappings)
+      representative_sample = {
+        "Child under 18" => "No",
+        "Means test required" => "Yes_2", # This is always checked as CCQ is only relevant to means tested cases
+        "Passported" => "No", # Not passporting
+        "Client in receipt of asylum support" => "No", # Asylum supported not given
+        "Please complete Part A Capital Subject matter of dispute" => "No_4", # No SMOD
+        "Has partner whose means are to be agrgregated" => "Yes_3", # Has a partner
+        "undefined_26" => "250,000", # Property worth £250,000
+        "undefined_42" => "555", # Valuables
+        "undefined_40" => "222", # Investments
+        "undefined_38" => "111", # Savings
+        "undefined_30" => "25", # Percentage owned
+        "pensions_client" => "15",
+        "maintenance_client" => "5",
+        "studentfinance_client" => "108",
+        "friendsandfamily_client" => "47.67",
+        "property_client" => "6.50",
+        "otherincome_client" => "50",
+        "benefits_client" => "0",
+        "pensions_partner" => "25",
+        "studentfinance_partner" => "199",
+        "friendsandfamily_partner" => "15",
+        "property_partner" => "10",
+        "otherincome_partner" => "77",
+        "benefits_partner" => "0",
+        "maintenance_partner" => "20",
       }
       expect(result).to include(representative_sample)
     end
@@ -92,6 +128,31 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
         "FillText111" => "222", # Investments
         "FillText148" => "111", # Savings
         "FillText140" => "25", # Percentage owned
+      }
+      expect(result).to include(representative_sample)
+    end
+
+    it "can successfully populate Welsh CW1 form with the added other income fields" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_welsh_new.yml")).map(&:with_indifferent_access)
+      result = described_class.call(session_data, mappings)
+      representative_sample = {
+        "Matter type" => "Means test required", # This is always checked as CCQ is only relevant to means tested cases
+        "Passported" => "Nac ydy", # Not passporting
+        "Asylum support" => "Nac ydyw", # Asylum supported not given
+        "Client's assets claimed by opponent" => "Nac ydy", # No SMOD
+        "Partner" => "Ie", # Has a partner
+        "FillText136" => "250,000", # Property worth £250,000
+        "FillText112" => "555", # Valuables
+        "FillText111" => "222", # Investments
+        "FillText148" => "111", # Savings
+        "FillText140" => "25", # Percentage owned
+        "property_client" => "6.50",
+        "otherincome_client" => "50",
+        "benefits_client" => "0",
+        "pensions_partner" => "25",
+        "studentfinance_partner" => "199",
+        "friendsandfamily_partner" => "15",
+        "property_partner" => "10",
       }
       expect(result).to include(representative_sample)
     end
