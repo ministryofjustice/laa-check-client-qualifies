@@ -86,14 +86,14 @@ FactoryBot.define do
     trait :with_other_income do
       friends_or_family_value { 40 }
       friends_or_family_frequency { "every_week" }
-      maintenance_value { 125 }
+      maintenance_value { 12 }
       maintenance_frequency { "every_two_weeks" }
-      property_or_lodger_value { 155 }
+      property_or_lodger_value { 15 }
       property_or_lodger_frequency { "every_four_weeks" }
-      pension_value { 1234 }
+      pension_value { 123 }
       pension_frequency { "monthly" }
-      student_finance_value { 359 }
-      other_value { 259 }
+      student_finance_value { 1200 }
+      other_value { 59 }
     end
 
     trait :with_outgoings do
