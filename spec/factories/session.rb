@@ -83,19 +83,6 @@ FactoryBot.define do
       national_insurance { 112 }
     end
 
-    trait :with_other_income do
-      friends_or_family_value { 40 }
-      friends_or_family_frequency { "every_week" }
-      maintenance_value { 12 }
-      maintenance_frequency { "every_two_weeks" }
-      property_or_lodger_value { 15 }
-      property_or_lodger_frequency { "every_four_weeks" }
-      pension_value { 123 }
-      pension_frequency { "monthly" }
-      student_finance_value { 1200 }
-      other_value { 59 }
-    end
-
     trait :with_outgoings do
       housing_payments_value { 555 }
       housing_payments_frequency { "monthly" }
