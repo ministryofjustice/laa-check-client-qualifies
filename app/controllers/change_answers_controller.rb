@@ -9,6 +9,7 @@ class ChangeAnswersController < QuestionFlowController
       # Note that this merge! has the side effect of altering the session data in the '@check' variable
       # that was loaded by our base class which looks quite awkward
       session_data.merge!(@form.attributes_for_export_to_session)
+      next_step = Steps::Helper.next_step_for(session_data, step)
       if @check.consistent?
         if Steps::Helper.last_step_in_group?(session_data, step)
           # if we have a 'check stops' block, it may have been removed even if we're consistent
@@ -32,9 +33,11 @@ class ChangeAnswersController < QuestionFlowController
             save_and_redirect_to_check_answers
           end
         else
-          next_step = Steps::Helper.next_step_for(session_data, step)
           redirect_to helpers.check_step_path_from_step(next_step, assessment_code)
         end
+      # this branch is neccessary to surface the ":how_to_aggregate" screen when changing answers
+      elsif step == :aggregated_means
+        redirect_to helpers.check_step_path_from_step(next_step, assessment_code)
       else
         redirect_to_next_question
       end
