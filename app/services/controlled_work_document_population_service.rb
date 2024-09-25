@@ -29,6 +29,7 @@ class ControlledWorkDocumentPopulationService
       "cw1_and_2" => "lib/cw1-and-2-form-2023-8-21.pdf",
       "civ_means_7" => "lib/civ-means-7-form.pdf",
       "cw1_welsh" => "lib/cw1-form-welsh.pdf",
+      "cw1_welsh_new" => "lib/cw1-form-welsh-new.pdf",
       "cw2_welsh" => "lib/cw2imm-form-welsh.pdf",
       "cw5_welsh" => "lib/cw5-form-welsh.pdf",
       "cw1_and_2_welsh" => "lib/cw1-and-2-form-welsh.pdf",
@@ -44,14 +45,12 @@ class ControlledWorkDocumentPopulationService
       ControlledWorkDocumentValueMappingService.call(session_data, mappings)
     end
 
-    # :nocov:
     def generate_form_key(model)
       form_key = "#{model.form_type}#{'_welsh' if model.language == 'welsh'}"
-      if form_key == "cw1" && FeatureFlags.enabled?(:cw_form_updates, without_session_data: true)
+      if form_key == "cw1" || form_key == "cw1_welsh" && FeatureFlags.enabled?(:cw_form_updates, without_session_data: true)
         form_key += "_new"
       end
       form_key
     end
-    # :nocov:
   end
 end
