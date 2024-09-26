@@ -1,5 +1,6 @@
 - data = @model.summary_data(section)
 - status = data.status.dasherize
+/ ee_banner: conditionals and reference to early_result can be removed when FF is removed
 - early_result = data.ineligible_gross_income == "gross" && section != :gross_income
 
 - unless early_result

@@ -1,14 +1,14 @@
 - data = @model.summary_data(section)
 - status = data.status.dasherize
 
-- if @early_assessment == section.to_s
+- if @early_result_type == section.to_s
   - total_calc = @model.send("total_calculated_#{section}")
 
-. class="summary-box summary-box-#{@early_assessment == section.to_s ? status : "not-assessed"}"
+. class="summary-box summary-box-#{@early_result_type == section.to_s ? status : "not-assessed"}"
   p.govuk-body-l.summary-list-subheader class="govuk-!-margin-bottom-0" = t("results.show.section_summaries.heading.#{section}")
   h3.govuk-heading-l class="govuk-!-margin-bottom-2 govuk-!-margin-top-0" = total_calc
 
-  - if @early_assessment != section.to_s
+  - if @early_result_type != section.to_s
     .govuk-tag
       = t("results.show.section_summaries.not_assessed")
   - elsif data.status == "ineligible"
@@ -29,7 +29,7 @@
                     else
                       t("results.show.section_summaries.matter_types.none")
                     end
-    - if @early_assessment != section.to_s
+    - if @early_result_type != section.to_s
       => t("results.show.section_summaries.texts.not_assessed_desc")
     - else
       => t("results.show.section_summaries.texts.#{section}.#{data.status}#{upper_snippet}#{lower_snippet}",

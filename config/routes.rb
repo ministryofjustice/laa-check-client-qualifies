@@ -72,7 +72,7 @@ Rails.application.routes.draw do
 
   get "check-result/:assessment_code", to: "results#show", as: :result
   post "check-result/:assessment_code", to: "results#create"
-  post "check-result/:assessment_code/:step", to: "results#early_result", as: :early_result
+  post "check-result/:assessment_code/:step", to: "results#early_result_redirect", as: :early_result_redirect
 
   get ":step_url_fragment/:assessment_code", to: "forms#show", as: :step
   put ":step_url_fragment/:assessment_code", to: "forms#update"

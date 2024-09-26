@@ -34,6 +34,7 @@ private
   end
 
   def clear_early_result
+    # not all checks have an early result e.g. passported clients, U18 etc
     session_data["early_result"]&.clear
   end
 
