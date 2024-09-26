@@ -856,6 +856,7 @@ en:
         definition: Help with passporting benefits
         legend: Does your client receive a passporting benefit?
         hint: "They will not need an income assessment if they receive any of these passporting benefits:"
+        partner_hint: Also select yes if you client is named on their partner's passporting benefit claim.
         valid_benefits:
           - Universal Credit
           - Income Support
