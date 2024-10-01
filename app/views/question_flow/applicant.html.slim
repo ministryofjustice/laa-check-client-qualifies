@@ -33,6 +33,7 @@
           ul.govuk-list.govuk-list--bullet
             - t(".passporting.valid_benefits").each
               li.govuk-hint = _1
+          p.govuk-hint = t(".passporting.partner_hint")
 
     = form.govuk_submit t("generic.save_and_continue")
 = render "shared/question_sidebar", \
