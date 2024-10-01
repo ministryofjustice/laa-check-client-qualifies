@@ -18,9 +18,12 @@ class PdfService
   }.freeze
 
   class << self
+    require "prawn"
+
     def with_pdf_data_from_html_string(html_string, display_url)
       Tempfile.open("initial_pdf", binmode: true) do |initial_pdf|
         pdf_data = Grover.new(html_string, **GROVER_OPTIONS.merge(display_url:)).to_pdf
+        initial_pdf.binmode
         initial_pdf.write(pdf_data)
         initial_pdf.rewind
 
@@ -28,6 +31,7 @@ class PdfService
         pdf.state.store.root.data[:Lang] = "en-GB"
 
         Tempfile.open("modified_pdf", binmode: true) do |modified_pdf|
+          modified_pdf.binmode
           pdf.render_file(modified_pdf.path)
           modified_pdf.rewind
 
