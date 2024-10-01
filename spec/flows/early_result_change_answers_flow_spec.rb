@@ -90,7 +90,25 @@ RSpec.describe "Change answers after early result", type: :feature do
     end
 
     context "when starting as eligible on gross income" do
-      it "does not display banner from Change Answers page" do
+      before do
+        start_assessment
+        stub_cfe_gross_eligible
+        fill_in_forms_until(:employment_status)
+        fill_in_employment_status_screen(choice: "Employed")
+        fill_in_income_screen(gross: "1000")
+        fill_in_benefits_screen
+        fill_in_other_income_screen
+        confirm_screen("outgoings")
+        fill_in_forms_until("check_answers")
+      end
+
+      it "does not display banner" do
+        within "#table-income" do
+          click_on "Change"
+        end
+        fill_in_income_screen(gross: "3000", frequency: "Every month")
+        confirm_screen("check_answers")
+        expect(page).not_to have_content("Gross monthly income limit exceeded")
       end
     end
   end
