@@ -1,0 +1,37 @@
+name: Raise Dependabot Jira Issue
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  gajira:
+    name: Raise Jira Issue
+    runs-on: ubuntu-latest
+    if: ${{ contains(github.event.pull_request.labels, 'dependencies') }}
+    steps:
+    - name: Login
+      uses: atlassian/gajira-login@master
+      env:
+        JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+        JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
+        JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+
+    - name: Process PR data
+      id: process_pr_data
+      run: |
+        repo_name=$(echo "$GITHUB_REPOSITORY" | cut -d'/' -f2 | sed 's/ *(.*)//')
+        pr_body="${{ github.event.pull_request.body }}"
+        stripped_body=$(echo "$pr_body" | sed 's/<[^>]*>//g')
+
+        echo "repo_name=$repo_name" >> $GITHUB_ENV
+        echo "stripped_body=$stripped_body" >> $GITHUB_ENV
+
+    - name: Create Jira ticket
+      id: create
+      uses: atlassian/gajira-create@master
+      with:
+          project: EL
+          issuetype: Task
+          summary: "Dependabot: -  ${{ env.repo_name }} -  ${{ github.event.pull_request.title }}"
+          description: ${{ env.stripped_body }}
