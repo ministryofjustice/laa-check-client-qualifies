@@ -23,10 +23,9 @@ jobs:
       run: |
         repo_name=$(echo "$GITHUB_REPOSITORY" | cut -d'/' -f2 | sed 's/ *(.*)//')
         pr_body="${{ github.event.pull_request.body }}"
-        stripped_body=$(echo "$pr_body" | sed 's/<[^>]*>//g')
 
         echo "repo_name=$repo_name" >> $GITHUB_ENV
-        echo "stripped_body=$stripped_body" >> $GITHUB_ENV
+        echo "pr_body=$pr_body" >> $GITHUB_ENV
 
     - name: Create Jira ticket
       id: create
@@ -35,4 +34,4 @@ jobs:
           project: EL
           issuetype: Task
           summary: "Dependabot: -  ${{ env.repo_name }} -  ${{ github.event.pull_request.title }}"
-          description: ${{ env.stripped_body }}
+          description: ${{ env.pr_body }}

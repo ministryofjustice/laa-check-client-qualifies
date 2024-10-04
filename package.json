@@ -2,15 +2,15 @@
   "name": "laa-check-client-qualifies",
   "private": "true",
   "dependencies": {
-    "@ministryofjustice/frontend": "^2.2.2",
+    "@ministryofjustice/frontend": "^2.2.4",
     "@rails/ujs": "^7.1.400",
-    "@sentry/browser": "8.30.0",
+    "@sentry/browser": "8.33.0",
     "esbuild": "^0.24.0",
     "govuk-frontend": "^5.6.0",
     "jquery": "^3.7.1",
     "puppeteer": "23.4.0",
     "rails_admin": "3.2.0",
-    "sass": "^1.79.3"
+    "sass": "^1.79.4"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets",
