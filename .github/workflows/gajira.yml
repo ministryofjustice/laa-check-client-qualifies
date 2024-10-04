@@ -18,20 +18,17 @@ jobs:
         JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
         JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
 
-    - name: Process PR data
-      id: process_pr_data
-      run: |
-        repo_name=$(echo "$GITHUB_REPOSITORY" | cut -d'/' -f2 | sed 's/ *(.*)//')
-        pr_body="${{ github.event.pull_request.body }}"
-
-        echo "repo_name=$repo_name" >> $GITHUB_ENV
-        echo "pr_body=$pr_body" >> $GITHUB_ENV
-
     - name: Create Jira ticket
       id: create
       uses: atlassian/gajira-create@master
       with:
           project: EL
           issuetype: Task
-          summary: "Dependabot: -  ${{ env.repo_name }} -  ${{ github.event.pull_request.title }}"
-          description: ${{ env.pr_body }}
+          summary: |
+            Dependabot: - PR# ${{github.event.number}}, ${{ github.event.pull_request.title }}  
+          description: |
+            Repo link: https://github.com/${{ github.repository }}   
+            PR no. ${{ github.event.pull_request.number }} 
+            PR title: ${{ github.event.pull_request.title }}  
+            PR description: ${{ github.event.pull_request.body }}  
+            In addition, please resolve other issues, if any. 
