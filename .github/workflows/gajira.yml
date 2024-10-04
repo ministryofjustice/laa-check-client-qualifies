@@ -25,10 +25,8 @@ jobs:
           project: EL
           issuetype: Task
           summary: |
-            Dependabot: - PR# ${{github.event.number}}, ${{ github.event.pull_request.title }}  
+            Dependabot: ${{ github.event.pull_request.title }}, GitHub PR#${{github.event.number}}  
           description: |
-            Repo link: https://github.com/${{ github.repository }}   
-            PR no. ${{ github.event.pull_request.number }} 
-            PR title: ${{ github.event.pull_request.title }}  
-            PR description: ${{ github.event.pull_request.body }}  
+            ${{ github.event.pull_request.body }}
+            Repo link: https://github.com/${{ github.repository }}
             In addition, please resolve other issues, if any. 
