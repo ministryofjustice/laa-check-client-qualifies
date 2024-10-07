@@ -31,4 +31,4 @@ jobs:
             PR link: https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }}
             
             In addition, please resolve other issues, if any. 
-          epic: EL-1779
+          fields: '{"customfield_10900": "EL-1779"}'
