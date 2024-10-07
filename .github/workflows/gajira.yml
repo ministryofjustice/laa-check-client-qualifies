@@ -25,8 +25,10 @@ jobs:
           project: EL
           issuetype: Task
           summary: |
-            Dependabot: ${{ github.event.pull_request.title }}, GitHub PR#${{github.event.number}}  
+            CCQ Dependabot: ${{ github.event.pull_request.title }}, GitHub PR#${{github.event.number}}  
           description: |
-            ${{ github.event.pull_request.body }}
-            Repo link: https://github.com/${{ github.repository }}
+            Please view the PR for further information.
+            PR link: https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }}
+            
             In addition, please resolve other issues, if any. 
+          epic: EL-1779
