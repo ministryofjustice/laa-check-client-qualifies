@@ -62,5 +62,6 @@ RailsAdmin.config do |config|
     "ActiveStorage::VariantRecord",
     "ActionText::RichText",
     "ActionText::EncryptedRichText",
+    "Provider",
   )
 end
