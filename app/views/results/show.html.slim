@@ -9,15 +9,21 @@
 
 .govuk-grid-column-full
   = render "shared/heading"
-  .govuk-panel.panel-blue.govuk-panel--confirmation class="govuk-!-text-align-left govuk-!-margin-bottom-9"
+  .govuk-panel.panel-blue-white-text.govuk-panel--confirmation class="govuk-!-text-align-left govuk-!-margin-bottom-9"
     .govuk-panel__body
       = render "result_panel_content"
 
   - if @model.any_calculations_performed?
-    h2.govuk-heading-m = t(".section_summaries.your_clients_key_eligibility_totals")
-    .summary-box-holder class="govuk-!-margin-bottom-5"
-      - %i[gross_income disposable_income capital].each
-        = render("summary", section: _1, links: true) if @model.calculated?(_1)
+    - if FeatureFlags.enabled?(:ee_banner, @check.session_data) && @early_result_type
+      h2.govuk-heading-m = t(".section_summaries.your_clients_key_eligibility_totals")
+      .summary-box-holder class="govuk-!-margin-bottom-5"
+        - %i[gross_income disposable_income capital].each
+          = render("early_summary", section: _1, links: true) if @model.calculated?(_1)
+    - else
+      h2.govuk-heading-m = t(".section_summaries.your_clients_key_eligibility_totals")
+      .summary-box-holder class="govuk-!-margin-bottom-5"
+        - %i[gross_income disposable_income capital].each
+          = render("summary", section: _1, links: true) if @model.calculated?(_1)
 
   - if @journey_continues_on_another_page
     h2.govuk-heading-m = t(".save_results")

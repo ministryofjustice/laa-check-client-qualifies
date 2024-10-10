@@ -1,5 +1,6 @@
 class ChecksController < ApplicationController
   before_action :redirect_to_primary_host, only: :new
+  before_action :clear_early_result, only: :check_answers
 
   def new
     new_assessment_code = SecureRandom.uuid
@@ -30,6 +31,11 @@ private
 
   def assessment_code
     params[:assessment_code]
+  end
+
+  def clear_early_result
+    # not all checks have an early result e.g. passported clients, U18 etc
+    session_data["early_result"]&.clear
   end
 
   def specify_feedback_widget
