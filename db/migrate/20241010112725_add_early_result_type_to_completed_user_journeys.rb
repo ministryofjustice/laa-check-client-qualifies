@@ -1,4 +1,4 @@
-class AmmenedCompletedUserJourneyForEarlyResultType < ActiveRecord::Migration[7.1]
+class AddEarlyResultTypeToCompletedUserJourneys < ActiveRecord::Migration[7.1]
   def change
     change_table :completed_user_journeys, bulk: true do |t|
       t.column :early_result_type, :string, null: true
