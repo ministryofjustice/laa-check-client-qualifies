@@ -1027,6 +1027,7 @@ en:
           para_1: We have enough information to tell you that your client will not qualify for legal aid.
         certificated:
           para_1: We have enough information to tell you that your client is not likely to qualify for legal aid.
+        go_to_results: Go to results page
         para_2: "You can:"
         help: Help with next steps
         details_para_1: "You can:"
