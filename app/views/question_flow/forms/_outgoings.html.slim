@@ -5,6 +5,7 @@
 
 = form_for(@form, url: request.path, method: :put) do |form|
   = form.govuk_error_summary t("generic.error_summary_title")
+  = render partial: "question_flow/early_result_banner"
   = render "shared/heading",
            header_text: t("question_flow.#{i18n_key}.heading"),
            post_header_text: t("question_flow.#{i18n_key}.caption"),

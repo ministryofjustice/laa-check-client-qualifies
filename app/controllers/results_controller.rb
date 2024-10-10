@@ -6,9 +6,19 @@ class ResultsController < ApplicationController
     redirect_to result_path(assessment_code:)
   end
 
+  def early_result_redirect
+    @previous_step = params[:step].to_sym
+    session_data["api_response"] = CfeService.call(session_data, Steps::Helper.completed_steps_for(session_data, @previous_step))
+    set_early_result_type
+    redirect_to result_path(assessment_code:)
+  end
+
   def show
+    # ee_banner @early_eligibility_selection can be removed when FF is removed
+    @early_result_type = session_data.dig("early_result", "type")
     @early_eligibility_selection = session_data.fetch("early_eligibility_selection", nil)
     @model = CalculationResult.new(session_data)
+    # we'll need to move this tracking point or do something with it
     track_completed_journey(@model)
     track_page_view(page: :view_results)
     @journey_continues_on_another_page = @check.controlled? && @model.decision == "eligible"
@@ -16,6 +26,8 @@ class ResultsController < ApplicationController
   end
 
   def download
+    # ee_banner @early_eligibility_selection can be removed when FF is removed
+    @early_result_type = session_data.dig("early_result", "type")
     @early_eligibility_selection = session_data.fetch("early_eligibility_selection", nil)
     track_page_view(page: :download_results)
     @model = CalculationResult.new(session_data)
@@ -41,6 +53,10 @@ private
 
   def load_check
     @check = Check.new(session_data)
+  end
+
+  def set_early_result_type
+    session_data["early_result"]["type"] = "gross_income"
   end
 
   def track_completed_journey(calculation_result)
