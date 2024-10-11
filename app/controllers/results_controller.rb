@@ -9,7 +9,6 @@ class ResultsController < ApplicationController
   def early_result_redirect
     @previous_step = params[:step].to_sym
     session_data["api_response"] = CfeService.call(session_data, Steps::Helper.completed_steps_for(session_data, @previous_step))
-    set_early_result_type
     redirect_to result_path(assessment_code:)
   end
 
@@ -18,7 +17,6 @@ class ResultsController < ApplicationController
     @early_result_type = session_data.dig("early_result", "type")
     @early_eligibility_selection = session_data.fetch("early_eligibility_selection", nil)
     @model = CalculationResult.new(session_data)
-    # we'll need to move this tracking point or do something with it
     track_completed_journey(@model)
     track_page_view(page: :view_results)
     @journey_continues_on_another_page = @check.controlled? && @model.decision == "eligible"
@@ -55,15 +53,11 @@ private
     @check = Check.new(session_data)
   end
 
-  def set_early_result_type
-    session_data["early_result"]["type"] = "gross_income"
-  end
-
   def track_completed_journey(calculation_result)
-    if signed_in? && current_provider.present?
-      JourneyLoggerService.call(assessment_id, calculation_result, @check, current_provider.first_office_code, cookies) unless early_result_redirect
-    else
-      JourneyLoggerService.call(assessment_id, calculation_result, @check, nil, cookies) unless early_result_redirect
-    end
+    office_code = signed_in? && current_provider.present? ? current_provider.first_office_code : nil
+
+    # We have the method `clear_early_result` on the ChecksController, so if a user goes back or ever see the check/change answers screen this will create a new entry into CompletedUserJourney
+    # The intention is that we are not counting that as a continuation an early ineligible result but as a new journey
+    JourneyLoggerService.call(assessment_id, calculation_result, @check, office_code, cookies) unless @check.early_ineligible_result?
   end
 end

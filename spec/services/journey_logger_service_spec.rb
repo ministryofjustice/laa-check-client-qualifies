@@ -32,6 +32,7 @@ RSpec.describe JourneyLoggerService do
         expect(output.matter_type).to eq "asylum"
         expect(output.session.with_indifferent_access).to eq session_data
         expect(output.office_code).to eq "office-code"
+        expect(output.early_result_type).to be_nil
       end
 
       it "skips saving in no-analytics mode" do
@@ -76,6 +77,7 @@ RSpec.describe JourneyLoggerService do
         expect(output.outcome).to eq "contribution_required"
         expect(output.capital_contribution).to be true
         expect(output.income_contribution).to be true
+        expect(output.early_result_type).to be_nil
       end
     end
 
@@ -177,6 +179,28 @@ RSpec.describe JourneyLoggerService do
         described_class.call(assessment_id, calculation_result, check, portal_user_office_code, session_data)
         output = CompletedUserJourney.find_by(assessment_id:)
         expect(output.client_age).to eq "over_60"
+      end
+    end
+
+    context "when it is an early ineligible result for gross income" do
+      let(:session_data) do
+        {
+          immigration_or_asylum: false,
+          partner: false,
+          passporting: false,
+          early_result: { "result" => "ineligible",
+                          "type" => "gross_income" },
+        }.with_indifferent_access
+      end
+
+      it "saves `early_result_type` and `outcome` to completed user journey" do
+        described_class.call(assessment_id, calculation_result, check, portal_user_office_code, {})
+        output = CompletedUserJourney.find_by(assessment_id:)
+        expect(output.asylum_support).to be false
+        expect(output.partner).to be false
+        expect(output.passported).to be false
+        expect(output.outcome).to eq "ineligible"
+        expect(output.early_result_type).to eq "client_gross"
       end
     end
   end
