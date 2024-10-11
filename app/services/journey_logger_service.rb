@@ -35,7 +35,7 @@ class JourneyLoggerService
         matter_type: matter_type(check),
         session: check.session_data,
         office_code: portal_user_office_code,
-        early_result_type: early_result_type(check),
+        early_result_type: check.early_result_type_gross_income? ? "client_gross" : nil,
       }
     end
 
@@ -54,16 +54,6 @@ class JourneyLoggerService
         "other"
       else
         check.immigration_or_asylum_type
-      end
-    end
-
-    def early_result_type(check)
-      if check.early_ineligible_result? && check.is_early_result_type_gross_income? && !check.partner?
-        "client_gross"
-      elsif check.early_ineligible_result? && check.is_early_result_type_gross_income? && check.partner?
-        "partner_gross"
-      elsif check.early_ineligible_result? && !check.is_early_result_type_gross_income?
-        "disposable"
       end
     end
   end
