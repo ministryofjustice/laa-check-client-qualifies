@@ -61,9 +61,9 @@ private
 
   def track_completed_journey(calculation_result)
     if signed_in? && current_provider.present?
-      JourneyLoggerService.call(assessment_id, calculation_result, @check, current_provider.first_office_code, cookies)
+      JourneyLoggerService.call(assessment_id, calculation_result, @check, current_provider.first_office_code, cookies) unless early_result_redirect
     else
-      JourneyLoggerService.call(assessment_id, calculation_result, @check, nil, cookies)
+      JourneyLoggerService.call(assessment_id, calculation_result, @check, nil, cookies) unless early_result_redirect
     end
   end
 end
