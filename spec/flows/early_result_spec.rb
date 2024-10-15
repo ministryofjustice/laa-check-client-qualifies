@@ -33,6 +33,19 @@ RSpec.describe "Early result journey", type: :feature do
       fill_in_other_income_screen_with_friends_and_family
       fill_in_ineligible_gross_income_screen(choice: "Skip remaining questions")
       confirm_screen("check_answers")
+      expect(all(".govuk-summary-card__title").map(&:text))
+        .to eq(
+          ["Client age",
+           "Partner and passporting",
+           "Level of help",
+           "Type of matter",
+           "Type of immigration or asylum matter",
+           "Number of dependants",
+           "Employment status",
+           "Client employment income 1",
+           "Client benefits",
+           "Client other income"],
+        )
     end
 
     it "back links work as expected" do
