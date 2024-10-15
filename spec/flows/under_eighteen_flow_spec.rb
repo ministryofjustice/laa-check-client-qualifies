@@ -36,6 +36,54 @@ RSpec.describe "Under 18 flow", :stub_cfe_calls_with_webmock, type: :feature do
     end
   end
 
+  context "with under 18 changing answers" do
+    before do
+      fill_in_client_age_screen(choice: "Under 18")
+      fill_in_level_of_help_screen(choice: "Civil controlled work or family mediation")
+      fill_in_under_18_controlled_legal_rep_screen(choice: "No")
+      fill_in_aggregated_means_screen(choice: "No")
+      fill_in_regular_income_screen(choice: "No")
+      fill_in_under_eighteen_assets_screen(choice: "No")
+      fill_in_forms_until(:check_answers)
+    end
+
+    it "shows correct sections for under 18 no means test" do
+      expect(all(".govuk-summary-card__title").map(&:text))
+        .to eq(
+          [
+            "Client age",
+            "Level of help",
+            "Means tests for under 18s",
+          ],
+        )
+    end
+
+    it "show correct sections when answers are changed" do
+      within "#table-under_eighteen_assets" do
+        find('a[aria-label="Change under 18 assets"]').click
+      end
+      fill_in_under_eighteen_assets_screen(choice: "Yes")
+      fill_in_forms_until(:check_answers)
+      expect(all(".govuk-summary-card__title").map(&:text))
+        .to eq(
+          ["Client age",
+           "Partner and passporting",
+           "Level of help",
+           "Means tests for under 18s",
+           "Type of matter",
+           "Number of dependants",
+           "Employment status",
+           "Client benefits",
+           "Client other income",
+           "Client outgoings and deductions",
+           "Home client lives in",
+           "Housing costs",
+           "Client other property",
+           "Client assets"],
+        )
+    end
+  end
+
   context "with u18 controlled checks with aggregated means" do
     before do
       fill_in_client_age_screen(choice: "Under 18")

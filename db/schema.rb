@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_15_104344) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_10_143225) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -93,11 +93,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_15_104344) do
     t.boolean "partner", null: false
     t.boolean "person_over_60", null: false
     t.boolean "passported", null: false
-    t.boolean "main_dwelling_owned", null: false
-    t.boolean "vehicle_owned", null: false
-    t.boolean "smod_assets", null: false
+    t.boolean "main_dwelling_owned"
+    t.boolean "vehicle_owned"
+    t.boolean "smod_assets"
     t.string "outcome", null: false
-    t.boolean "capital_contribution", null: false
+    t.boolean "capital_contribution"
     t.boolean "income_contribution", null: false
     t.date "completed"
     t.boolean "form_downloaded", default: false
@@ -106,6 +106,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_15_104344) do
     t.string "client_age"
     t.jsonb "session"
     t.string "office_code"
+    t.string "early_result_type"
     t.index ["assessment_id"], name: "index_completed_user_journeys_on_assessment_id", unique: true
   end
 
