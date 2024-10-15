@@ -12,7 +12,6 @@ require "axe-rspec"
 require "pry-rescue/rspec" if Rails.env.development?
 require "database_cleaner/active_record"
 
-
 Capybara.register_driver :headless_chrome do |app|
   options = Selenium::WebDriver::Chrome::Options.new
   options.add_argument("--headless=new")
@@ -170,27 +169,23 @@ RSpec.configure do |config|
     expect(ErrorService).not_to receive(:call) unless test.metadata.key?(:throws_cfe_error)
   end
 
-  RSpec.configure do |config|
-    config.use_transactional_fixtures = false
+  RSpec.configure do |test|
+    test.use_transactional_fixtures = false
 
-    config.before(:suite) do
-      DatabaseCleaner[:active_record].clean_with(:truncation)
+    # Clean the database before the suite runs
+    test.before(:suite) do
+      DatabaseCleaner.clean_with(:truncation)
     end
 
-    config.before(:each) do
-      DatabaseCleaner[:active_record].strategy = :transaction
+    # Use truncation before each test runs
+    test.before do
+      DatabaseCleaner.strategy = :truncation
+      DatabaseCleaner.start
     end
 
-    config.before(:each, js: true) do
-      DatabaseCleaner[:active_record].strategy = :truncation
-    end
-
-    config.before(:each) do
-      DatabaseCleaner[:active_record].start
-    end
-
-    config.after(:each) do
-      DatabaseCleaner[:active_record].clean
+    # Clean the database after each test
+    test.after do
+      DatabaseCleaner.clean
     end
   end
 
