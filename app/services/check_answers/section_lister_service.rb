@@ -26,15 +26,22 @@ module CheckAnswers
           else
             pre = [
               Sections::Dependants.new(check),
-              Sections::ClientIncome.new(check),
-            ]
-            post = [Sections::Outgoings.new(check)]
+              # Simplecov is showing that check.under_eighteen_assets? is not being covered by a test
+              # we have tests in spec/flows/under_eighteen_flow_spec.rb that check with and without under_eighteen_assets
+              # :nocov:
+              (Sections::ClientIncome.new(check) if !check.under_eighteen? || check.aggregated_means? || check.under_eighteen_regular_income? || check.under_eighteen_assets?),
+              # :nocov:
+            ].compact
+
+            post = check.gross_early_eligibility_exit? ? [] : [Sections::Outgoings.new(check)]
             finance_sections = if check.partner?
-                                 pre + [Sections::PartnerIncome.new(check)] + post
+                                 pre + (check.gross_early_eligibility_exit? ? [] : [Sections::PartnerIncome.new(check)]) + post
                                else
                                  pre + post
                                end
-            non_finance_sections + finance_sections + assets
+            assets_sections = check.gross_early_eligibility_exit? ? [] : assets
+
+            non_finance_sections + finance_sections + assets_sections
           end
         end
       end

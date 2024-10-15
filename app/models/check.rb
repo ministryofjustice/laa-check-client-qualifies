@@ -184,6 +184,10 @@ class Check
     Steps::Logic.owns_property_outright?(session_data)
   end
 
+  def gross_early_eligibility_exit?
+    session_data["early_eligibility_selection"] == "gross"
+  end
+
   def early_ineligible_result?
     session_data.dig("early_result", "result") == "ineligible"
   end
