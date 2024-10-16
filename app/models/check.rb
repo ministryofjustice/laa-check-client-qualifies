@@ -200,7 +200,7 @@ class Check
     session_data.dig("early_result", "gross_income_excess")
   end
 
-  def early_result_type_gross_income?
-    session_data.dig("early_result", "type") == "gross_income"
+  def early_result_type
+    session_data.dig("early_result", "type")
   end
 end

@@ -200,7 +200,7 @@ RSpec.describe JourneyLoggerService do
         expect(output.partner).to be false
         expect(output.passported).to be false
         expect(output.outcome).to eq "ineligible"
-        expect(output.early_result_type).to eq "client_gross"
+        expect(output.early_result_type).to eq "gross_income"
       end
     end
   end

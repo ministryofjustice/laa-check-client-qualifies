@@ -35,7 +35,7 @@ class JourneyLoggerService
         matter_type: matter_type(check),
         session: check.session_data,
         office_code: portal_user_office_code,
-        early_result_type: check.early_result_type_gross_income? ? "client_gross" : nil,
+        early_result_type: check.early_result_type,
       }
     end
 
