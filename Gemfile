@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.3.4"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.1.3"
+gem "rails", "~> 7.2.1"
 
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft", ">= 0.9.0"
@@ -102,7 +102,7 @@ group :test do
   gem "webmock", require: false
   gem "axe-core-rspec"
   gem "rack_session_access"
-  gem "database_cleaner"
+  gem "database_cleaner-active_record"
   gem "vcr", require: false
 end
 

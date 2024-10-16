@@ -7,7 +7,8 @@ class VehiclesDetailsForm
   ITEMS_SESSION_KEY = "vehicles".freeze
   ITEM_MODEL = VehicleModel
   ATTRIBUTES = %i[vehicles].freeze
-  alias_attribute :vehicles, :items
+  alias_method :vehicles, :items
+  alias_method :vehicles=, :items=
 
   class << self
     def add_extra_attributes_to_model_from_session(vehicle_model, session_data, _)
