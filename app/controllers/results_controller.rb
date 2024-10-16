@@ -17,7 +17,11 @@ class ResultsController < ApplicationController
     @early_result_type = session_data.dig("early_result", "type")
     @early_eligibility_selection = session_data.fetch("early_eligibility_selection", nil)
     @model = CalculationResult.new(session_data)
-    track_completed_journey(@model)
+
+    # We have the method `clear_early_result` on the ChecksController, so if a user goes back or ever see the check/change answers screen this will create a new entry into CompletedUserJourney
+    # The intention is that we are not counting that as a continuation an early ineligible result but as a new journey
+    track_completed_journey(@model) unless @check.early_ineligible_result?
+
     track_page_view(page: :view_results)
     @journey_continues_on_another_page = @check.controlled? && @model.decision == "eligible"
     @feedback = @journey_continues_on_another_page ? :freetext : :satisfaction
@@ -56,8 +60,6 @@ private
   def track_completed_journey(calculation_result)
     office_code = signed_in? && current_provider.present? ? current_provider.first_office_code : nil
 
-    # We have the method `clear_early_result` on the ChecksController, so if a user goes back or ever see the check/change answers screen this will create a new entry into CompletedUserJourney
-    # The intention is that we are not counting that as a continuation an early ineligible result but as a new journey
-    JourneyLoggerService.call(assessment_id, calculation_result, @check, office_code, cookies) unless @check.early_ineligible_result?
+    JourneyLoggerService.call(assessment_id, calculation_result, @check, office_code, cookies)
   end
 end
