@@ -7,7 +7,8 @@ class AdditionalPropertyDetailsForm
   ITEMS_SESSION_KEY = "additional_properties".freeze
   ITEM_MODEL = AdditionalPropertyModel
   ATTRIBUTES = %i[additional_properties].freeze
-  alias_attribute :additional_properties, :items
+  alias_method :additional_properties, :items
+  alias_method :additional_properties=, :items=
 
   class << self
     def add_extra_attributes_to_model_from_session(model, session_data, index)
