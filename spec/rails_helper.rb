@@ -10,6 +10,7 @@ require "unused_i18n_key_checker"
 require "rspec/rails"
 require "axe-rspec"
 require "pry-rescue/rspec" if Rails.env.development?
+require "database_cleaner/active_record"
 
 Capybara.register_driver :headless_chrome do |app|
   options = Selenium::WebDriver::Chrome::Options.new
@@ -168,11 +169,24 @@ RSpec.configure do |config|
     expect(ErrorService).not_to receive(:call) unless test.metadata.key?(:throws_cfe_error)
   end
 
-  config.before(:suite) do
-    DatabaseCleaner.clean_with :truncation
-  end
-  config.after(:suite) do
-    DatabaseCleaner.clean_with :truncation
+  RSpec.configure do |test|
+    test.use_transactional_fixtures = false
+
+    # Clean the database before the suite runs
+    test.before(:suite) do
+      DatabaseCleaner.clean_with(:truncation)
+    end
+
+    # Use truncation before each test runs
+    test.before do
+      DatabaseCleaner.strategy = :truncation
+      DatabaseCleaner.start
+    end
+
+    # Clean the database after each test
+    test.after do
+      DatabaseCleaner.clean
+    end
   end
 
   config.after(:suite) do

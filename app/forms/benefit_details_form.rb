@@ -7,7 +7,8 @@ class BenefitDetailsForm
   ITEMS_SESSION_KEY = "benefits".freeze
   ITEM_MODEL = BenefitModel
   ATTRIBUTES = %i[benefits].freeze
-  alias_attribute :benefits, :items
+  alias_method :benefits, :items
+  alias_method :benefits=, :items=
 
   def benefit_list
     @benefit_list ||= begin
