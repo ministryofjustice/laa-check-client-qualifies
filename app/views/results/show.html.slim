@@ -5,7 +5,10 @@
     = t(@check.controlled? ? ".controlled_qualifies" : ".likely_to_qualify")
 
 - content_for :back do
-  = link_to t("generic.back"), check_answers_path(assessment_code: params[:assessment_code]), class: "govuk-back-link"
+  - if FeatureFlags.enabled?(:ee_banner, @check.session_data) && @early_result_type
+    = back_link(@previous_step, true)
+  -else
+    = link_to t("generic.back"), check_answers_path(assessment_code: params[:assessment_code]), class: "govuk-back-link"
 
 .govuk-grid-column-full
   = render "shared/heading"
