@@ -68,6 +68,7 @@ featureFlags:
   cwFormUpdates: ENABLED
   sharedOwnership: ENABLED
   eeBanner: ENABLED
+  mtr_accelerated: ENABLED
 
 postgresql:
   enabled: true

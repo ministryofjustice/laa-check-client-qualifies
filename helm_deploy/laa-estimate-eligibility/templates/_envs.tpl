@@ -75,6 +75,8 @@ env:
     value: {{ .Values.featureFlags.sharedOwnership }}
   - name: EE_BANNER_FEATURE_FLAG
     value: {{ .Values.featureFlags.eeBanner }}
+  - name: MTR_ACCELERATED_FEATURE_FLAG
+    value: {{ .Values.featureFlags.mtr_accelerated }}
   - name: FEATURE_FLAG_OVERRIDES
     value: {{ .Values.featureFlags.overrides }}
   - name: NOTIFICATIONS_API_KEY
