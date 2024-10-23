@@ -13,7 +13,8 @@ class ClientAssetsForm < AssetsForm
 
   ITEMS_SESSION_KEY = "bank_accounts".freeze
   ITEM_MODEL = BankAccountModel
-  alias_attribute :bank_accounts, :items
+  alias_method :bank_accounts, :items
+  alias_method :bank_accounts=, :items=
 
   class << self
     def add_extra_attributes_to_model_from_session(bank_account_model, session_data, _)
