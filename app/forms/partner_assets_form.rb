@@ -6,5 +6,6 @@ class PartnerAssetsForm < AssetsForm
 
   ITEMS_SESSION_KEY = "partner_bank_accounts".freeze
   ITEM_MODEL = BankAccountModel
-  alias_attribute :bank_accounts, :items
+  alias_method :bank_accounts, :items
+  alias_method :bank_accounts=, :items=
 end
