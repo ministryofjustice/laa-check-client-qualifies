@@ -109,6 +109,18 @@ RSpec.describe "Early result journey", type: :feature do
         expect(page).to have_content "Your client's key eligibility totals"
       end
 
+      it "when I go straight to results and use the back button it shows the banner" do
+        confirm_screen("outgoings")
+        outgoings_url = current_path
+        expect(page).to have_content("Gross monthly income limit exceeded")
+        click_on "Go to results page"
+        expect(page).to have_current_path(/\A\/check-result/)
+        expect(page).to have_content "Your client's key eligibility totals"
+        visit outgoings_url # simulates using the back button to return to outgoings
+        expect(page).to have_content("Gross monthly income limit exceeded by")
+        expect(page).to have_content("Go to results page")
+      end
+
       context "when the early eligibility changes" do
         it "back links and banner work as expected" do
           confirm_screen("outgoings")
