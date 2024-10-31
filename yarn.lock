@@ -927,10 +927,10 @@ queue-tick@^1.0.1:
   resolved "https://registry.yarnpkg.com/queue-tick/-/queue-tick-1.0.1.tgz#f6f07ac82c1fd60f82e098b417a80e52f1f4c142"
   integrity sha512-kJt5qhMxoszgU/62PLP1CJytzd2NKetjSRnyuj31fDd3Rlcz3fzlFdFLD1SItunPwyqEOkca6GbV612BWfaBag==
 
-rails_admin@3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/rails_admin/-/rails_admin-3.2.0.tgz#89b201279487e7c0fcd3c041ac114319b675e81f"
-  integrity sha512-efTnZDWtQETa+lHPQCUW/8not0s++TU0dBy6WOHggQhdTqiDJe65hKDYWpF5iF5sL19D2RBCfJ2PyFoKNTsDyw==
+rails_admin@3.2.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/rails_admin/-/rails_admin-3.2.1.tgz#ee2b71ccdff6a988a7a2336b026a04bf18255760"
+  integrity sha512-7PmhCxf3x25Ayb0oQYCkkEHZSyPEpJi2EU1T/6O3BdcpHG7z6Fe+SuMY42FWuBP9MsoVBxRR9lbBA0gxDdXyjg==
   dependencies:
     "@babel/runtime" "^7.16.7"
     "@fortawesome/fontawesome-free" ">=5.15.0 <7.0.0"
