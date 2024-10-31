@@ -81,7 +81,7 @@ references:
       name: Database Setup
       command: |
         bundle exec rake db:create db:schema:load
-        bundle exec rake db:migrate
+        bundle exec rake db:migrate:with_data
 
   setup_parallel_database: &setup_parallel_database
     run:
@@ -323,14 +323,14 @@ workflows:
 # again in the future, the requires production_deploy_approval
 # in Deploy to Production is also commented out
 
-#      - production_deploy_approval:
-#          type: approval
-#          requires:
-#            - Deploy to Staging
-#          filters:
-#            branches:
-#              only:
-#                - main
+      - production_deploy_approval:
+          type: approval
+          requires:
+            - Deploy to Staging
+          filters:
+            branches:
+              only:
+                - main
       - deploy:
           name: Deploy to Production
           environment: ccq-production
@@ -341,7 +341,7 @@ workflows:
             - linters
             - build_and_push
             - Deploy to Staging
-#            - production_deploy_approval
+            - production_deploy_approval
           post-steps:
             - jira/notify:
                 job_type: deployment
