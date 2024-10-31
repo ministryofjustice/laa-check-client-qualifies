@@ -307,6 +307,7 @@ workflows:
             - linters
             - build_and_push
             - Deploy to UAT
+            - staging_deploy_approval
           post-steps:
             - jira/notify:
                 job_type: deployment
@@ -322,6 +323,14 @@ workflows:
 # Keeping this step commented out because we will need
 # again in the future, the requires production_deploy_approval
 # in Deploy to Production is also commented out
+      - staging_deploy_approval:
+          type: approval
+          requires:
+            - Deploy to UAT
+          filters:
+            branches:
+              only:
+                - main
 
       - production_deploy_approval:
           type: approval
