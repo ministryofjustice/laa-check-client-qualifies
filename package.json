@@ -10,7 +10,7 @@
     "jquery": "^3.7.1",
     "puppeteer": "23.6.0",
     "rails_admin": "3.2.0",
-    "sass": "^1.79.4"
+    "sass": "^1.79.5"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets",
