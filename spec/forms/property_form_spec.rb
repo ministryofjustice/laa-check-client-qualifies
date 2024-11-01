@@ -29,8 +29,8 @@ RSpec.describe "property", :calls_cfe_early_returns_not_ineligible, type: :featu
   end
 
   context "when MTR accelerated is in effect" do
-    let(:before_date) { Date.new(2023, 2, 15) }
-    let(:after_date) { Date.new(2024, 7, 15) }
+    let(:before_date) { Date.new(2024, 2, 15) }
+    let(:after_date) { Date.new(2024, 11, 20) }
 
     context "when single" do
       context "without MTR accelerated" do
@@ -41,7 +41,7 @@ RSpec.describe "property", :calls_cfe_early_returns_not_ineligible, type: :featu
         end
       end
 
-      context "with MTR accelerated", :mtr_accelerated_flag do
+      context "with MTR accelerated" do
         let(:content_date) { after_date }
 
         it "shows new content" do
@@ -71,7 +71,7 @@ RSpec.describe "property", :calls_cfe_early_returns_not_ineligible, type: :featu
         end
       end
 
-      context "with MTR accelerated", :mtr_accelerated_flag do
+      context "with MTR accelerated" do
         let(:content_date) { after_date }
 
         it "shows new content" do
