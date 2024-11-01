@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_10_143225) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_01_120059) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -107,6 +107,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_10_143225) do
     t.jsonb "session"
     t.string "office_code"
     t.string "early_result_type"
+    t.boolean "early_eligibility_result"
     t.index ["assessment_id"], name: "index_completed_user_journeys_on_assessment_id", unique: true
   end
 
