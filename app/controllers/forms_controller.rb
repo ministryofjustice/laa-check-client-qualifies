@@ -42,7 +42,7 @@ private
       cfe_result = CfeService.result(session_data, Steps::Helper.completed_steps_for(session_data, step))
       session_data["early_result"] = { "result" => cfe_result.gross_income_result,
                                        "gross_income_excess" => cfe_result.gross_income_excess,
-                                       "type" => "gross_income" } # I think we have to set this here so we have it in the session, when calling the `JourneyLoggerService`
+                                       "type" => "gross_income" }
       if @check.early_ineligible_result?
         track_completed_journey_for_early_result
       end

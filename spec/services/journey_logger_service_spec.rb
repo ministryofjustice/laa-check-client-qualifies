@@ -33,6 +33,7 @@ RSpec.describe JourneyLoggerService do
         expect(output.session.with_indifferent_access).to eq session_data
         expect(output.office_code).to eq "office-code"
         expect(output.early_result_type).to be_nil
+        expect(output.early_eligibility_result).to be false
       end
 
       it "skips saving in no-analytics mode" do
@@ -78,6 +79,7 @@ RSpec.describe JourneyLoggerService do
         expect(output.capital_contribution).to be true
         expect(output.income_contribution).to be true
         expect(output.early_result_type).to be_nil
+        expect(output.early_eligibility_result).to be false
       end
     end
 
@@ -201,6 +203,7 @@ RSpec.describe JourneyLoggerService do
         expect(output.passported).to be false
         expect(output.outcome).to eq "ineligible"
         expect(output.early_result_type).to eq "gross_income"
+        expect(output.early_eligibility_result).to be true
       end
     end
   end

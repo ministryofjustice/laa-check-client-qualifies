@@ -36,6 +36,7 @@ class JourneyLoggerService
         session: check.session_data,
         office_code: portal_user_office_code,
         early_result_type: check.early_result_type,
+        early_eligibility_result: check.early_ineligible_result?,
       }
     end
 
