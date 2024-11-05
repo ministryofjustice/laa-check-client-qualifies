@@ -5,8 +5,13 @@ class JourneyLoggerService
 
       attributes = build_attributes(calculation_result, check, portal_user_office_code)
       CompletedUserJourney.transaction do
-        if (journey = CompletedUserJourney.find_by(assessment_id:))
-          journey.update!(attributes)
+        existing_journey_with_early_check = CompletedUserJourney.find_by(assessment_id:, early_eligibility_result: true)
+        existing_journey = CompletedUserJourney.find_by(assessment_id:)
+
+        if existing_journey_with_early_check
+          existing_journey_with_early_check.update!(attributes)
+        elsif existing_journey
+          existing_journey.update!(attributes)
         else
           CompletedUserJourney.create!(attributes.merge(assessment_id:))
         end

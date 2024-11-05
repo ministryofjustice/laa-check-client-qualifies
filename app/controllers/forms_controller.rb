@@ -53,7 +53,6 @@ private
     session_data["api_response"] = CfeService.call(session_data, Steps::Helper.completed_steps_for(session_data, step))
     calculation_result = CalculationResult.new(session_data)
     office_code = signed_in? && current_provider.present? ? current_provider.first_office_code : nil
-    assessment_id_with_early_result_suffix = "#{assessment_id}_early_result" # This is so we do not overrite newly created early result entry, if an user decides to carry on with check or change answers
-    JourneyLoggerService.call(assessment_id_with_early_result_suffix, calculation_result, @check, office_code, cookies)
+    JourneyLoggerService.call(assessment_id, calculation_result, @check, office_code, cookies)
   end
 end
