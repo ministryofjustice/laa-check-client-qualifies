@@ -73,6 +73,10 @@ class Check
     property_owned == "with_mortgage"
   end
 
+  def domestic_abuse_applicant?
+    Steps::Logic.domestic_abuse_applicant?(session_data)
+  end
+
   def immigration_matter?
     if controlled?
       # For controlled work, "immigration_legal_help" is treated like "asylum"
