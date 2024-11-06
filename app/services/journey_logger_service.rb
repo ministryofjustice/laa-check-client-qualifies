@@ -6,7 +6,7 @@ class JourneyLoggerService
       attributes = build_attributes(calculation_result, check, portal_user_office_code)
       CompletedUserJourney.transaction do
         early_result_type = check.early_ineligible_result?
-        existing_journey = CompletedUserJourney.find_by(assessment_id:, early_eligibility_result: early_result_type ||= nil)
+        existing_journey = CompletedUserJourney.find_by(assessment_id:, early_eligibility_result: early_result_type || nil)
 
         if existing_journey
           existing_journey.update!(attributes)
