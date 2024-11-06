@@ -1,6 +1,7 @@
 class FeatureFlags
   ENABLED_AFTER_DATE = {
     example_2125_flag: { from: "2125-01-01", public: false },
+    mtr_accelerated: { from: "2024-11-20", public: false },
   }.freeze
 
   # the values of some feature flags will come from the session and not the env variables.
@@ -12,9 +13,6 @@ class FeatureFlags
     index_production: { type: "global", default: false },
     maintenance_mode: { type: "global", default: false },
     basic_authentication: { type: "global", default: false },
-    # This should go back to being a time-based feature flag once the SI date has been re-set
-    # after the election on 4th July 2024
-    mtr_accelerated: { type: "global", default: false },
     cw_form_updates: { type: "global", default: false },
     shared_ownership: { type: "session", default: false },
     ee_banner: { type: "session", default: false },

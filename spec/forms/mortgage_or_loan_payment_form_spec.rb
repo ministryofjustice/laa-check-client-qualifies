@@ -30,8 +30,8 @@ RSpec.describe "mortgage_or_loan_payment", :calls_cfe_early_returns_not_ineligib
   end
 
   context "when MTR accelerated is in effect" do
-    let(:before_date) { Date.new(2023, 2, 15) }
-    let(:after_date) { Date.new(2024, 7, 15) }
+    let(:before_date) { Date.new(2024, 2, 15) }
+    let(:after_date) { Date.new(2024, 11, 20) }
 
     context "without MTR accelerated" do
       let(:content_date) { before_date }
@@ -41,7 +41,7 @@ RSpec.describe "mortgage_or_loan_payment", :calls_cfe_early_returns_not_ineligib
       end
     end
 
-    context "with MTR accelerated", :mtr_accelerated_flag do
+    context "with MTR accelerated" do
       let(:content_date) { after_date }
 
       it "shows new content" do
@@ -82,7 +82,7 @@ RSpec.describe "mortgage_or_loan_payment", :calls_cfe_early_returns_not_ineligib
         end
       end
 
-      context "with MTR accelerated", :mtr_accelerated_flag do
+      context "with MTR accelerated" do
         let(:content_date) { after_date }
 
         it "shows new content" do
