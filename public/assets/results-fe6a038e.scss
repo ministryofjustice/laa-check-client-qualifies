@@ -1,0 +1,62 @@
+tr.solid-top-border {
+  border-top: 2px solid #000
+}
+
+tr.solid-bottom-border {
+  border-bottom: 2px solid #000
+}
+
+.no-bottom-border {
+  border-bottom: 0;
+}
+
+// make the confirmation panel a neutral colour
+.panel-blue-white-text {
+  background: govuk-colour("blue");
+
+  // All text on the blue background should be white for accessibility and legibility purposes.
+  // However, several govuk classes that provide handy spacing and typography rules also dictate a dark text colour.
+  // Therefore we use this strong rule to ensure that text stays white even when we use those classes.
+  * {
+    color: white !important;
+  }
+}
+
+.summary-box-holder {
+  @media (min-width: 40.0625em) {
+    display: flex;
+    align-items: stretch;
+  }
+
+  &.pdf-summary-box {
+    display: flex;
+    align-items: stretch;
+  }
+}
+
+.summary-box {
+  max-width: 312px;
+  margin-right: 12px;
+  margin-bottom: 12px;
+  padding: 15px 10px;
+  page-break-inside: avoid;
+}
+
+.summary-box-eligible,
+.summary-box-not-assessed,
+.summary-box-contribution-required-and-overall-ineligible {
+  background-color: govuk-colour("light-grey")
+}
+
+.summary-box-contribution-required-and-overall-contribution-required {
+  background-color: #E4EEF7;
+}
+
+.summary-box-ineligible {
+  background-color: #F9E3E0;
+}
+
+.govuk-tag.govuk-tag--custom-red {
+  background-color: #942514;
+  color: white;
+}

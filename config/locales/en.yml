@@ -642,11 +642,11 @@ en:
       controlled_text: Trapped capital (PDF, 427KB)
       certificated_text: Trapped capital (opens in new tab)
     disregarded_benefits:
-      before_pdf_link: 'Check all '
+      before_pdf_link: 'Some benefits should not be included, check the '
       controlled:
-        pdf_text: disregarded benefits (PDF, 427KB)
+        pdf_text: guidance (PDF, 427KB)
       certificated:
-        pdf_text: disregarded benefits (PDF, 918KB)
+        pdf_text: guidance (PDF, 918KB)
       content:
         - For example, Child Benefit, tax credits or Asylum Support payments.
         - Do not include Housing Benefit, State Pension or disregarded benefits such as Personal Independence Payments (PIP), Carer’s Allowance, Community Care Direct payments, Fostering allowance, or government Cost of Living Payments. Check the complete list of disregarded benefits.
@@ -1151,7 +1151,7 @@ en:
       value: Enter amount
       frequency: Select frequency
     benefits:
-      legend: Does your client get any non-passporting benefits?
+      legend: "Does your client get any </br> non-passporting benefits?"
       frequencies:
         every_week: Every week
         every_two_weeks: Every 2 weeks
@@ -2617,7 +2617,7 @@ en:
           - This statement was prepared on 12 December 2022. It was last reviewed on 03 July 2024.
           - This website was last tested on 03 July 2024. The test was carried out by <a rel="external" href="http://www.uservision.co.uk/">UserVision</a>.
   cost_of_living_details:
-    header: Government Cost of Living Payments
+    header: Examples of Cost of Living Payments
     text: Government Cost of Living Payments are disregarded from the financial eligibility calculation, for example
     list:
       - Pensioner Cost of Living Payment
@@ -2626,7 +2626,7 @@ en:
       - Household support fund
       - Council tax rebate
       - Energy Bills Support Scheme (EBSS)
-      - Payments for those who are not served by mains gas
+      - Alternative Fuel Payment
   cost_of_living_summary_and_details:
      header: Examples of Cost Living Payments
      list:

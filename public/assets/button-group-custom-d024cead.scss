@@ -1,0 +1,13 @@
+.govuk-button-group-custom {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+  }
+  
+  @media (min-width: #{map-get($govuk-breakpoints, 'tablet')}) {
+    .govuk-button-group-custom {
+        display: inline-flex;
+        flex-direction: row;
+        gap: 20px;
+    }
+  }

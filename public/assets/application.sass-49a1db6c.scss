@@ -1,0 +1,27 @@
+$govuk-global-styles: true;
+$govuk-new-link-styles: true;
+$govuk-assets-path: "/";
+$govuk-new-typography-scale: true;
+
+@import "govuk-frontend/dist/govuk/all";
+// Import required moj components individually, as "moj/all"
+// tries to import govuk/base which exists as _base.scss but the pipeline can't find it.
+// Also, components list doesn't seem to include badge anyway?
+@import "@ministryofjustice/frontend/moj/components/badge/badge";
+@import "@ministryofjustice/frontend/moj/components/banner/banner";
+
+@import "panel-grey.scss";
+@import "sidebar";
+@import "results";
+@import "width";
+@import "add-another";
+@import "check-answers";
+@import "summary-lists";
+@import "feedback";
+@import "button-group-custom";
+@import "early-result-banner";
+@import "custom_legend";
+
+// NOTE: suggestions input component not yet part of GOV.UK frontend
+// https://github.com/alphagov/govuk-frontend/pull/2453
+@import "suggestions";

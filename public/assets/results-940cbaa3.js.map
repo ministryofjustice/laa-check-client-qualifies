@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../javascript/results.js"],
+  "sourcesContent": ["const initResults = () => {\n  document.querySelectorAll(\".summary-box-link\").forEach((link) => {\n    link.addEventListener(\"click\", () => {\n      const expansionButton = document.querySelector(`#${link.href.split(\"#\")[1]} .govuk-accordion__section-button`);\n      if (expansionButton.getAttribute(\"aria-expanded\") === \"false\") {\n        expansionButton.click();\n      }\n    });\n  });\n}\n\nexport default initResults;"],
+  "mappings": ";;AAAA,MAAM,cAAc,MAAM;AACxB,aAAS,iBAAiB,mBAAmB,EAAE,QAAQ,CAAC,SAAS;AAC/D,WAAK,iBAAiB,SAAS,MAAM;AACnC,cAAM,kBAAkB,SAAS,cAAc,IAAI,KAAK,KAAK,MAAM,GAAG,EAAE,CAAC,CAAC,mCAAmC;AAC7G,YAAI,gBAAgB,aAAa,eAAe,MAAM,SAAS;AAC7D,0BAAgB,MAAM;AAAA,QACxB;AAAA,MACF,CAAC;AAAA,IACH,CAAC;AAAA,EACH;AAEA,MAAO,kBAAQ;",
+  "names": []
+}

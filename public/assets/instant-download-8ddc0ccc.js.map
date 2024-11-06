@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../javascript/instant-download.js"],
+  "sourcesContent": ["const initInstantDownload = () => {\n  document.querySelectorAll('[data-module=\"instant-download\"]').forEach((link) => {\n    link.click();\n  })\n}\n\nexport default initInstantDownload;\n"],
+  "mappings": ";;AAAA,MAAM,sBAAsB,MAAM;AAChC,aAAS,iBAAiB,kCAAkC,EAAE,QAAQ,CAAC,SAAS;AAC9E,WAAK,MAAM;AAAA,IACb,CAAC;AAAA,EACH;AAEA,MAAO,2BAAQ;",
+  "names": []
+}

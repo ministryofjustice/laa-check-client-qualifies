@@ -1,0 +1,11 @@
+.custom-legend {
+  word-break: keep-all;
+  white-space: normal;
+  background-color: red;  // For visibility, remove this later if needed
+  border-color: govuk-colour("yellow");
+  color: #0d6efd;
+}
+
+.custom-legend span {
+  display: inline-block;
+}

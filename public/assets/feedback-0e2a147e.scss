@@ -1,0 +1,160 @@
+// CSS for feedback components borrowed from GOV.UK Publishing Components Repo 
+// https://github.com/alphagov/govuk_publishing_components/blob/main/app/assets/stylesheets/govuk_publishing_components/components/_feedback.scss
+
+.gem-c-feedback__prompt {
+  background-color: govuk-colour("light-grey");
+  color: govuk-colour("black");
+  border-top: 1px solid $govuk-border-colour;
+  outline: 0;
+  // Added in
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+// New style added in
+.gem-c-feedback__prompt-white {
+  background-color: govuk-colour("white");
+  color: govuk-colour("black");
+  border-top: 1px solid $govuk-border-colour;
+  outline: 0;
+  // Added in
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+
+.gem-c-feedback__prompt-content {
+  display: flex;
+  flex-direction: column;
+  // Changed govuk-spacing from 3 to 0
+  padding: 0 govuk-spacing(0);
+
+  @include govuk-media-query($from: tablet) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.gem-c-feedback__prompt-questions--something-is-wrong {
+  border-top: 1px solid $govuk-border-colour;
+  // Added in
+  display: flex;
+
+  @include govuk-media-query($from: tablet) {
+    border: 0;
+  }
+}
+
+.gem-c-feedback__prompt-question-answer {
+  display: flex;
+  align-items: center;
+  // Added in
+  column-gap: 10px;
+  
+  @include govuk-media-query($until: mobile) {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
+.gem-c-feedback__prompt-link {
+  @include govuk-font(19);
+  background: transparent;
+  color: govuk-colour("black");
+  box-shadow: 0 3px 0 govuk-colour("black");
+  border: 1px govuk-colour("black") solid;
+  margin-bottom: 0;
+  width: 100%;
+  // Added in
+  padding: 8px;
+  text-align: center;
+
+  @include govuk-media-query($from: tablet) {
+    @include govuk-font(16);
+  }
+
+  &:focus,
+  &:focus:not(:active):not(:hover) {
+    background: govuk-colour("yellow");
+    border-color: govuk-colour("black");
+    box-shadow: 0 5px  0 govuk-colour("black");
+  }
+
+  &:active {
+    color: govuk-colour("black");
+  }
+
+  &:hover {
+    background: govuk-colour("mid-grey");
+    color: govuk-colour("black");
+  }
+}
+
+// New style added in
+.gem-c-feedback__prompt-link-small-button {
+  @include govuk-font(19);
+  background: transparent;
+  color: govuk-colour("black");
+  box-shadow: 0 3px 0 govuk-colour("black");
+  border: 1px govuk-colour("black") solid;
+  margin-bottom: 0;
+  // Added in
+  width: 120px;
+  padding: 8px;
+  text-align: center;
+  margin-right: 15px;
+  padding: govuk-spacing(0) 6;
+
+  @include govuk-media-query($from: tablet) {
+    @include govuk-font(16);
+  }
+
+  &:focus,
+  &:focus:not(:active):not(:hover) {
+    background: govuk-colour("yellow");
+    border-color: govuk-colour("black");
+    box-shadow: 0 5px  0 govuk-colour("black");
+  }
+
+  &:active {
+    color: govuk-colour("black");
+  }
+
+  &:hover {
+    background: govuk-colour("mid-grey");
+    color: govuk-colour("black");
+  }
+}
+
+.gem-c-feedback__form-heading {
+  @include govuk-text-colour;
+  @include govuk-font(24, $weight: bold);
+  margin: 0 0 govuk-spacing(3) 0;
+}
+
+.gem-c-feedback__form-paragraph {
+  @include govuk-text-colour;
+  @include govuk-font(19);
+  margin: 0 0 govuk-spacing(6) 0;
+}
+
+.gem-c-feedback__close {
+  margin: 0 govuk-spacing(2);
+  @include govuk-media-query($until: tablet) {
+    margin: govuk-spacing(4) 0 0;
+  }
+}
+
+// static.css on GOV.UK overwrites the component styles using input[type="text"]
+// so we need to apply  govuk-input styles using a stronger selector
+.gem-c-feedback .gem-c-input[type="text"] {
+  @include govuk-font($size: 19);
+  margin: 0;
+  padding: govuk-spacing(1);
+  border: $govuk-border-width-form-element solid $govuk-input-border-colour;
+
+  &:focus {
+    outline: $govuk-focus-width solid $govuk-focus-colour;
+  }
+}

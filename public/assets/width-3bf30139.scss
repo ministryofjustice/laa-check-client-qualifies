@@ -1,0 +1,5 @@
+// widen the default actions column so that
+// 'Disputed Asset' doesn't wrap in check answers screen
+.govuk-summary-list__actions {
+  width: 30%;
+}
