@@ -99,7 +99,7 @@ div [data-module="add-another"
         - if FeatureFlags.enabled?(:mtr_accelerated, @check.session_data) && !@check.controlled?
           = govuk_details(summary_text: t("help_with_trusts.header"))
             p.govuk-body = t("help_with_trusts.paragraph_1")
-            p.govuk-body = t("help_with_trusts.paragraph_2_html", page_url_3: document_link(:lc_guidance_certificated, :smod))
+            p.govuk-body = t("help_with_trusts.paragraph_2_html", page_url_3: document_link(:lc_guidance_certificated, :trusts))
 
         = render "shared/radio_button_set",
                 form:,

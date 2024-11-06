@@ -55,6 +55,7 @@ class ExternalLinkService
             vehicle: 52,
             properties_guidance: 54,
             additional_properties_guidance: 56,
+            trusts: 61,
             capital: 66,
             over_60: 68,
             self_employed: 71,
