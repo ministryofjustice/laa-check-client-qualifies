@@ -1430,7 +1430,11 @@ en:
           - ISAs
           - child accounts your client is a signatory on
           - prison accounts
-        paragraph2: Do not include Cost of Living Payments.
+        paragraph2_legacy: Do not include Cost of Living Payments.
+        paragraph2: Do not include any disregarded capital or Cost of Living Payments.
+        paragraph3: "Check the guidance for:"
+        list_link_disregarded_capital_html: <a href="%{page_url}" target="_blank" rel="noreferrer noopener">mandatory and discretionary disregarded capital (PDF, 450KB)</a>
+        list_link_exercising_discretion_html: <a href="%{page_url_2}" target="_blank" rel="noreferrer noopener">the principles for exercising discretion (PDF, 68KB)</a>
         input: Total money in bank account
         hint:  Enter 0 if this does not apply.
       add_bank_account: Add another bank account
@@ -1520,7 +1524,11 @@ en:
           - child accounts the partner is a signatory on
           - prison accounts
         paragraph2: Do not include any joint bank accounts already entered for your client.
-        paragraph3: Do not include Cost of Living Payments.
+        paragraph3_legacy: Do not include Cost of Living Payments.
+        paragraph3: Do not include any disregarded capital or Cost of Living Payments.
+        paragraph4: "Check the guidance for:"
+        list_link_disregarded_capital_html: <a href="%{page_url}" target="_blank" rel="noreferrer noopener">mandatory and discretionary disregarded capital (PDF, 450KB)</a>
+        list_link_exercising_discretion_html: <a href="%{page_url_2}" target="_blank" rel="noreferrer noopener">the principles for exercising discretion (PDF, 68KB)</a>
       investments:
         label: Does the partner have any investments?
         hints:
@@ -2637,6 +2645,10 @@ en:
       - Council tax rebates
       - Energy Bills Support Scheme (EBSS)
       - Alternative Fuel Payment
+  help_with_trusts:
+     header: Help with trusts
+     paragraph_1: This service does not currently collect or include the capital value of any interest in trusts held by the client or the partner. However the LAA will need evidence of any such trust fund or settlement and may include this when you make an application.
+     paragraph_2_html: See the <a href="%{page_url_3}" target="_blank" rel="noreferrer noopener">Lord Chancellor's guidance (PDF, 918KB)</a> for more information on how this is assessed at application stage.
   controlled_work_document_selections:
     new:
       title: Select a controlled work (CW) form to download with your answers
