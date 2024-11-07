@@ -18,8 +18,6 @@ class ResultsController < ApplicationController
     @early_eligibility_selection = session_data.fetch("early_eligibility_selection", nil)
     @model = CalculationResult.new(session_data)
 
-    # We have the method `clear_early_result` on the ChecksController, so if a user goes back or ever see the check/change answers screen this will create a new entry into CompletedUserJourney
-    # The intention is that we are not counting that as a continuation an early ineligible result but as a new journey
     track_completed_journey(@model) unless @check.early_ineligible_result?
 
     track_page_view(page: :view_results)

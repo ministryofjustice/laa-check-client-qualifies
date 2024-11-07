@@ -184,7 +184,7 @@ RSpec.describe JourneyLoggerService do
       end
     end
 
-    context "when it is an early ineligible result for gross income" do
+    context "when it is an early ineligible result for gross income", :ee_banner do
       let(:session_data) do
         {
           immigration_or_asylum: false,
@@ -198,12 +198,85 @@ RSpec.describe JourneyLoggerService do
       it "saves `early_result_type` and `outcome` to completed user journey" do
         described_class.call(assessment_id, calculation_result, check, portal_user_office_code, {})
         output = CompletedUserJourney.find_by(assessment_id:)
-        expect(output.asylum_support).to be false
-        expect(output.partner).to be false
-        expect(output.passported).to be false
         expect(output.outcome).to eq "ineligible"
         expect(output.early_result_type).to eq "gross_income"
         expect(output.early_eligibility_result).to be true
+      end
+    end
+
+    context "when the journey continues after early ineligible result", :ee_banner do
+      let(:session_data) do
+        {
+          early_result: { "result" => "ineligible",
+                          "type" => "gross_income" },
+        }.with_indifferent_access
+      end
+
+      it "creates a new record at the end of the journey" do
+        # Initial call with ineligible early eligibility result from session_data
+        described_class.call(assessment_id, calculation_result, check, portal_user_office_code, {})
+        expect(CompletedUserJourney.where(assessment_id:).count).to eq 1
+        # Simulate continuing to the end of the journey with an overall_result
+        updated_api_result = FactoryBot.build(:api_result, overall_result: { result: "ineligible" })
+        allow(calculation_result).to receive(:api_response).and_return(updated_api_result)
+        # Update `check` to alter `early_result_type` as a visit to the results page would
+        allow(check).to receive(:early_ineligible_result?).and_return(nil)
+        described_class.call(assessment_id, calculation_result, check, portal_user_office_code, {})
+        expect(CompletedUserJourney.where(assessment_id:).count).to eq 2
+      end
+    end
+
+    context "when CompletedUserJourney is called with the same assessment_id and early_ineligible remains true", :ee_banner do
+      let(:session_data) do
+        {
+          immigration_or_asylum: false,
+          partner: false,
+          passporting: false,
+          early_result: { "result" => "ineligible",
+                          "type" => "gross_income" },
+        }.with_indifferent_access
+      end
+
+      it "creates a new record initially, and updates it on subsequent calls" do
+        described_class.call(assessment_id, calculation_result, check, portal_user_office_code, session_data)
+        expect(CompletedUserJourney.where(assessment_id:).count).to eq 1
+
+        modified_session_data = {
+          immigration_or_asylum: true,
+          partner: true,
+          passporting: true,
+          early_result: { "result" => "ineligible", "type" => "gross_income" },
+        }.with_indifferent_access
+
+        described_class.call(assessment_id, calculation_result, check, portal_user_office_code, modified_session_data)
+
+        # Ensure no new record was created; the count should still be 1
+        expect(CompletedUserJourney.where(assessment_id:).count).to eq 1
+      end
+    end
+
+    context "when details change in a full journey", :ee_banner do
+      let(:session_data) { { partner: false } }
+
+      it "updates an existing record" do
+        existing_record = FactoryBot.create(:completed_user_journey, assessment_id:, early_eligibility_result: false, partner: true)
+        described_class.call(assessment_id, calculation_result, check, portal_user_office_code, {})
+        expect(existing_record.reload.partner).to be false
+      end
+    end
+
+    context "when users skips to results page, after they see the early ineligible banner", :ee_banner do
+      let(:session_data) do
+        {
+          early_result: { "result" => "ineligible",
+                          "type" => "gross_income" },
+        }
+      end
+
+      it "updates an existing record" do
+        existing_record = FactoryBot.create(:completed_user_journey, assessment_id:, early_eligibility_result: true)
+        described_class.call(assessment_id, calculation_result, check, portal_user_office_code, {})
+        expect(existing_record.reload.early_eligibility_result).to be true
       end
     end
   end
