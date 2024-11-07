@@ -41,7 +41,7 @@ div [data-module="add-another"
           - t("question_flow.#{i18n_key}.bank_accounts.list_with_partner").each do
             li.govuk-body = _1
 
-        - if FeatureFlags.enabled?(:mtr_accelerated, @check.session_data)
+        - if FeatureFlags.enabled?(:mtr_accelerated, without_session_data: true)
           p.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.paragraph2")
           p.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.paragraph3")
           ul.govuk-list.govuk-list--bullet
@@ -58,7 +58,7 @@ div [data-module="add-another"
           - t("question_flow.#{i18n_key}.bank_accounts.list").each do
             li.govuk-body = _1
 
-        - if FeatureFlags.enabled?(:mtr_accelerated, @check.session_data)
+        - if FeatureFlags.enabled?(:mtr_accelerated, without_session_data: true)
           p.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.paragraph2")
           p.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.paragraph3") if @check.partner
           p.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.paragraph4") if @check.partner
@@ -96,7 +96,7 @@ div [data-module="add-another"
           - t("question_flow.#{i18n_key}.investments.hints").each
             .govuk-hint = _1
 
-        - if FeatureFlags.enabled?(:mtr_accelerated, @check.session_data) && !@check.controlled?
+        - if FeatureFlags.enabled?(:mtr_accelerated, without_session_data: true) && !@check.controlled?
           = govuk_details(summary_text: t("help_with_trusts.header"))
             p.govuk-body = t("help_with_trusts.paragraph_1")
             p.govuk-body = t("help_with_trusts.paragraph_2_html", page_url_3: document_link(:lc_guidance_certificated, :trusts))
