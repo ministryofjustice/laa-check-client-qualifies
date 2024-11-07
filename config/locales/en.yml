@@ -641,6 +641,9 @@ en:
     trapped_capital:
       controlled_text: Trapped capital (PDF, 427KB)
       certificated_text: Trapped capital (opens in new tab)
+    equity_disregard_for_domestic_abuse:
+      controlled_text: Equity disregard for domestic abuse (PDF, 427KB)
+      certificated_text: Equity disregard for domestic abuse (PDF, 918KB)
     disregarded_benefits:
       before_pdf_link: 'Check all '
       controlled:
@@ -1148,7 +1151,9 @@ en:
       details_paragraphs:
         - If your client lives with their ex-partner, or someone else whose means are not included in the assessment, enter the amount paid by your client. The Legal Aid Agency will assume that your client is liable for 50% of the housing costs unless there is evidence otherwise. If your client’s share is being paid or partially paid by this person, enter the amount paid on your client’s behalf as income for your client on the ‘Your client's other income’ page.
         - You may need to provide evidence for this if you make a full application or open a controlled work file for your client.
-      value: Enter amount
+      value_legacy: Enter amount
+      value: Enter full amount due
+      hint: Enter 0 if this does not apply
       frequency: Select frequency
     benefits:
       legend: Does your client get any non-passporting benefits?
@@ -1358,8 +1363,10 @@ en:
     property:
       client_away:
         hint: Clients who are away from their usual home
-        single: Select yes if your client is away from the home they own and usually live in. If they have temporarily left this home due to domestic abuse, selecting yes ensures that the equity disregard is applied.
-        partner: Select yes if your client or their partner owns the home the client usually lives in, but the client is temporarily away from this home. If the client has temporarily left this home due to domestic abuse, selecting yes ensures that the equity disregard is applied.
+        single_paragraph_1: Select yes if your client is temporarily away from the home they own and usually live in.
+        single_paragraph_2: If they have temporarily left this home due to domestic abuse, selecting yes ensures the equity disregard is applied.
+        partner_paragraph_1: Select yes if your client is temporarily away from the home they own and usually live in.
+        partner_paragraph_2: If they have temporarily left this home due to domestic abuse, selecting yes ensures the equity disregard is applied.
       single:
         legend: Does your client own the home they usually live in?
       partner:
