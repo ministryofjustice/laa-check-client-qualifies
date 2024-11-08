@@ -1365,7 +1365,7 @@ en:
         hint: Clients who are away from their usual home
         single_paragraph_1: Select yes if your client is temporarily away from the home they own and usually live in.
         single_paragraph_2: If they have temporarily left this home due to domestic abuse, selecting yes ensures the equity disregard is applied.
-        partner_paragraph_1: Select yes if your client is temporarily away from the home they own and usually live in.
+        partner_paragraph_1: Select yes if your client or their partner owns the home the client usually lives in, but the client is temporarily away from this home.
         partner_paragraph_2: If they have temporarily left this home due to domestic abuse, selecting yes ensures the equity disregard is applied.
       single:
         legend: Does your client own the home they usually live in?
