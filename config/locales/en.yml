@@ -2635,8 +2635,18 @@ en:
       - Council tax rebate
       - Energy Bills Support Scheme (EBSS)
       - Payments for those who are not served by mains gas
-  cost_of_living_summary_and_details:
+  cost_of_living_summary_and_details_legacy:
      header: Examples of Cost Living Payments
+     list:
+      - Pensioner Cost of Living Payment
+      - Cost of Living Payment
+      - Disability Cost of Living Payment
+      - Household support fund
+      - Council tax rebates
+      - Energy Bills Support Scheme (EBSS)
+      - Alternative Fuel Payment
+  cost_of_living_summary_and_details:
+     header: Examples of Cost of Living Payments
      list:
       - Pensioner Cost of Living Payment
       - Cost of Living Payment

@@ -60,7 +60,7 @@ div [data-module="add-another"
 
         - if FeatureFlags.enabled?(:mtr_accelerated, without_session_data: true)
           p.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.paragraph2")
-          p.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.paragraph3") if @check.partner
+          p.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.paragraph3")
           p.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.paragraph4") if @check.partner
           ul.govuk-list.govuk-list--bullet
             li.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.list_link_disregarded_capital_html",
