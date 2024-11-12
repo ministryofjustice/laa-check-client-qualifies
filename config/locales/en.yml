@@ -2657,7 +2657,8 @@ en:
       - Alternative Fuel Payment
   help_with_trusts:
      header: Help with trusts
-     paragraph_1: This service does not currently collect or include the capital value of any interest in trusts held by the client or the partner. However the LAA will need evidence of any such trust fund or settlement and may include this when you make an application.
+     paragraph_1: This service does not currently collect or include the capital value of any interest in trusts held by the client. However the LAA will need evidence of any such trust fund or settlement and may include this when you make an application.
+     paragraph_1_partner: This service does not currently collect or include the capital value of any interest in trusts held by the client or the partner. However the LAA will need evidence of any such trust fund or settlement and may include this when you make an application.
      paragraph_2_html: See the <a href="%{page_url_3}" target="_blank" rel="noreferrer noopener">Lord Chancellor's guidance (PDF, 918KB)</a> for more information on how this is assessed at application stage.
   controlled_work_document_selections:
     new:
