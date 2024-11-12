@@ -1,5 +1,8 @@
-= govuk_details(summary_text: t("cost_of_living_details.header"))
+- suffix = FeatureFlags.enabled?(:mtr_accelerated, without_session_data: true) ? "" : "_legacy"
+- summary_text = t("cost_of_living_details.header#{suffix}")
+
+= govuk_details(summary_text:)
   p.govuk-body = t("cost_of_living_details.text")
   p.govuk-body
-    - t("cost_of_living_details.list").each
+    - t("cost_of_living_details.list#{suffix}").each
       div = _1

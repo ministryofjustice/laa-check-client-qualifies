@@ -6,6 +6,10 @@
 .govuk-grid-column-two-thirds
   = render "question_flow/forms/other_income", i18n_key: "other_income"
 
+- links = []
+- if FeatureFlags.enabled?(:mtr_accelerated, without_session_data: true)
+  - links = { t("question_flow.other_income.guidance.text") => document_link(:lc_guidance_controlled) }
+
 = render "shared/question_sidebar",
         level_of_help: @check.level_of_help,
-        links: []
+        links:
