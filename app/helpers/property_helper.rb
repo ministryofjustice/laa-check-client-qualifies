@@ -9,10 +9,18 @@ module PropertyHelper
   def non_smod_property_links(level_of_help, additional_property)
     guidance_type = additional_property ? "additional_properties_guidance" : "properties_guidance"
 
-    {
-      t("question_flow.property.#{guidance_type}.#{level_of_help}.text") => document_link(:"lc_guidance_#{level_of_help}", :"#{guidance_type}"),
-      t("generic.trapped_capital.#{level_of_help}_text") => (level_of_help == "controlled" ? document_link(:lc_guidance_controlled, :assets) : document_link(:legal_aid_learning)),
-    }
+    if FeatureFlags.enabled?(:mtr_accelerated, without_session_data: true) && guidance_type == "properties_guidance"
+      {
+        t("question_flow.property.#{guidance_type}.#{level_of_help}.text") => document_link(:"lc_guidance_#{level_of_help}", :"#{guidance_type}"),
+        t("generic.equity_disregard_for_domestic_abuse.#{level_of_help}_text") => (level_of_help == "controlled" ? document_link(:lc_guidance_controlled) : document_link(:lc_guidance_certificated)),
+        t("generic.trapped_capital.#{level_of_help}_text") => (level_of_help == "controlled" ? document_link(:lc_guidance_controlled, :assets) : document_link(:legal_aid_learning)),
+      }
+    else
+      {
+        t("question_flow.property.#{guidance_type}.#{level_of_help}.text") => document_link(:"lc_guidance_#{level_of_help}", :"#{guidance_type}"),
+        t("generic.trapped_capital.#{level_of_help}_text") => (level_of_help == "controlled" ? document_link(:lc_guidance_controlled, :assets) : document_link(:legal_aid_learning)),
+      }
+    end
   end
 
   def mortgage_or_loan_key
@@ -42,10 +50,10 @@ module PropertyHelper
       if FeatureFlags.enabled?(:mtr_accelerated, without_session_data: true)
         lambda { \
           tag.p("", class: "govuk-hint") + \
-            govuk_details(summary_text: t("question_flow.property.partner.prison.title"), \
-                          text: t("question_flow.property.partner.prison.hint")) +
             govuk_details(summary_text: t("question_flow.property.client_away.hint"), \
-                          text: t("question_flow.property.client_away.partner")) \
+                          text: tag.p(t("question_flow.property.client_away.partner_paragraph_1")) + tag.p(t("question_flow.property.client_away.partner_paragraph_2"))) +
+            govuk_details(summary_text: t("question_flow.property.partner.prison.title"), \
+                          text: t("question_flow.property.partner.prison.hint")) \
         }
       else
         lambda { \
@@ -58,7 +66,7 @@ module PropertyHelper
       lambda { \
         tag.p("", class: "govuk-hint") + \
           govuk_details(summary_text: t("question_flow.property.client_away.hint"), \
-                        text: t("question_flow.property.client_away.single")) \
+                        text: tag.p(t("question_flow.property.client_away.single_paragraph_1")) + tag.p(t("question_flow.property.client_away.single_paragraph_2"))) \
       }
     else
       { text: t("question_flow.property.generic_hint") }
