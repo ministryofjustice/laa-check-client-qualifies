@@ -3,6 +3,10 @@
 
 = govuk_details(summary_text:)
   p.govuk-body = t("cost_of_living_details.text")
-  p.govuk-body
-    - t("cost_of_living_details.list#{suffix}").each
-      div = _1
+  - if FeatureFlags.enabled?(:mtr_accelerated, without_session_data: true)
+    ul
+      - t("cost_of_living_details.list").each do |item|
+        li.govuk-text = item
+  - else
+    - t("cost_of_living_details.list_legacy").each do |item|
+      .govuk-text = item
