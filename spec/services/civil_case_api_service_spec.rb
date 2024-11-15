@@ -1,5 +1,7 @@
 # spec/services/civil_case_api_service_spec.rb
 require 'rails_helper'
+require 'civil_case_api_service'
+
 
 RSpec.describe CivilCaseApiService, type: :service do
   let(:assessment_id) { '12345' }
