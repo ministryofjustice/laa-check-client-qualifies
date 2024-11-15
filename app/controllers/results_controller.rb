@@ -3,6 +3,7 @@ class ResultsController < ApplicationController
 
   def create
     session_data["api_response"] = CfeService.call(session_data, Steps::Helper.relevant_steps(session_data))
+    CivilCaseApiService.save_session_data(assessment_code, session_data) if user_signed_in?
     redirect_to result_path(assessment_code:)
   end
 
@@ -10,10 +11,15 @@ class ResultsController < ApplicationController
     @previous_step = params[:step].to_sym
     session_data["api_response"] = CfeService.call(session_data, Steps::Helper.completed_steps_for(session_data, @previous_step))
     set_early_result_type
+    CivilCaseApiService.save_session_data(assessment_code, session_data) if user_signed_in?
     redirect_to result_path(assessment_code:)
   end
 
   def show
+    if params[:assessment_id].present? && user_signed_in?
+      session_data = CivilCaseApiService.fetch_session_data(params[:assessment_id])
+    end
+
     # ee_banner @early_eligibility_selection can be removed when FF is removed
     @early_result_type = session_data.dig("early_result", "type")
     @early_eligibility_selection = session_data.fetch("early_eligibility_selection", nil)
@@ -29,7 +35,7 @@ class ResultsController < ApplicationController
     if params[:assessment_id].present? && user_signed_in?
       session_data = CivilCaseApiService.fetch_session_data(params[:assessment_id])
     end
-    
+
     # ee_banner @early_eligibility_selection can be removed when FF is removed
     @early_result_type = session_data.dig("early_result", "type")
     @early_eligibility_selection = session_data.fetch("early_eligibility_selection", nil)
