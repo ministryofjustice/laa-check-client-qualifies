@@ -1,4 +1,5 @@
 class ResultsController < ApplicationController
+  before_action :authenticate_user!
   before_action :load_check, only: %i[show download]
 
   def create

@@ -40,7 +40,7 @@ class CivilCaseApiService
     http.use_ssl = true
     request = Net::HTTP::Post.new(uri.path, { "Content-Type" => "application/json" })
     request["Authorization"] = "Bearer #{token}"
-    request.body = { session_data: session_data }.to_json
+    request.body = { session_data: }.to_json
     http.request(request)
   end
 end
