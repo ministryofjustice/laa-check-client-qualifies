@@ -141,5 +141,24 @@ env:
     value: {{ .Values.portal.idp_metadata_file }}
   - name: SEED_ADMINS
     value: {{ .Values.app.seedAdmins }}
-
+  - name: CIVIL_CASE_API_USERNAME
+    valueFrom:
+      secretKeyRef:
+        name: civil-case-api-secrets
+        key: username
+  - name: CIVIL_CASE_API_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: civil-case-api-secrets
+        key: password
+  - name: CIVIL_CASE_API_CLIENT_ID
+    valueFrom:
+      secretKeyRef:
+        name: civil-case-api-secrets
+        key: client_id
+  - name: CIVIL_CASE_API_CLIENT_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: civil-case-api-secrets
+        key: client_secret
 {{- end }}
