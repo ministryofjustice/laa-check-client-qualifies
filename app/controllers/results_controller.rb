@@ -26,6 +26,10 @@ class ResultsController < ApplicationController
   end
 
   def download
+    if params[:assessment_id].present? && user_signed_in?
+      session_data = CivilCaseApiService.fetch_session_data(params[:assessment_id])
+    end
+    
     # ee_banner @early_eligibility_selection can be removed when FF is removed
     @early_result_type = session_data.dig("early_result", "type")
     @early_eligibility_selection = session_data.fetch("early_eligibility_selection", nil)
