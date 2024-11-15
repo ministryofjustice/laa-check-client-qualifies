@@ -1,22 +1,22 @@
 class CivilCaseApiService
-  require 'net/http'
-  require 'uri'
-  require 'json'
+  require "net/http"
+  require "uri"
+  require "json"
 
-  BASE_URL = "https://www.staging.civil-case-api.cloud-platform.service.justice.gov.uk"
+  BASE_URL = "https://www.staging.civil-case-api.cloud-platform.service.justice.gov.uk".freeze
 
   def self.get_token
     uri = URI.parse("#{BASE_URL}/token")
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
-    request = Net::HTTP::Post.new(uri.path, { 'Content-Type' => 'application/x-www-form-urlencoded', 'accept' => 'application/json' })
+    request = Net::HTTP::Post.new(uri.path, { "Content-Type" => "application/x-www-form-urlencoded", "accept" => "application/json" })
     request.set_form_data({
-      'grant_type' => 'password',
-      'username' => ENV['CIVIL_CASE_API_USERNAME'],
-      'password' => ENV['CIVIL_CASE_API_PASSWORD'],
-      'scope' => '',
-      'client_id' => ENV['CIVIL_CASE_API_CLIENT_ID'],
-      'client_secret' => ENV['CIVIL_CASE_API_CLIENT_SECRET']
+      "grant_type" => "password",
+      "username" => ENV["CIVIL_CASE_API_USERNAME"],
+      "password" => ENV["CIVIL_CASE_API_PASSWORD"],
+      "scope" => "",
+      "client_id" => ENV["CIVIL_CASE_API_CLIENT_ID"],
+      "client_secret" => ENV["CIVIL_CASE_API_CLIENT_SECRET"],
     })
     response = http.request(request)
     JSON.parse(response.body)["access_token"]
@@ -38,10 +38,10 @@ class CivilCaseApiService
     uri = URI.parse("#{BASE_URL}/cases/#{assessment_id}/session_data")
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
-    request = Net::HTTP::Post.new(uri.path, { 'Content-Type' => 'application/json' })
+    request = Net::HTTP::Post.new(uri.path, { "Content-Type" => "application/json" })
     request["Authorization"] = "Bearer #{token}"
-    request.body = { session_data: session_data }.to_json
-    response = http.request(request)
+    request.body = { session_data: }.to_json
+    http.request(request)
     # Handle the response if needed
   end
 end
