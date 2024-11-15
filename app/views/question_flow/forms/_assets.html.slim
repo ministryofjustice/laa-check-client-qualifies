@@ -46,9 +46,9 @@ div [data-module="add-another"
           p.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.paragraph3")
           ul.govuk-list.govuk-list--bullet
             li.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.list_link_disregarded_capital_html",
-                            page_url: document_link(:"lc_guidance_#{@check.level_of_help}", :smod))
+                            page_url: document_link(:"lc_guidance_#{@check.level_of_help}", :mandatory_discretionary_disreguarded_benefits))
             li.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.list_link_exercising_discretion_html",
-                            page_url_2: document_link(:"lc_guidance_#{@check.level_of_help}", :smod))
+                            page_url_2: document_link(:"lc_guidance_#{@check.level_of_help}", :principles_for_exercising_discretion))
         - else
           p.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.paragraph2_legacy")
 
