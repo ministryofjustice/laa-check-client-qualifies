@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe ExternalLinkService do
+RSpec.describe ExternalLinkService, :mtr_accelerated do
   describe ".call" do
     it "shows controlled LC Guidance links" do
       result = described_class.call(document: :lc_guidance_controlled)
