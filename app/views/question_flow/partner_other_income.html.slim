@@ -8,7 +8,9 @@
 
 - links = []
 - if FeatureFlags.enabled?(:mtr_accelerated, without_session_data: true)
-  - links = { t("question_flow.other_income.guidance.text") => document_link(:lc_guidance_controlled) }
+  - level = @check.controlled? ? "controlled" : "certificated"
+  - links = { t("question_flow.other_income.guidance.#{level}_text") => \
+             document_link(:"lc_guidance_#{@check.level_of_help}", :income) }
 
 = render "shared/question_sidebar",
         level_of_help: @check.level_of_help,

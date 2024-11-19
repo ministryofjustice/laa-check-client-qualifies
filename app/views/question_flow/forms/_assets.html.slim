@@ -45,10 +45,10 @@ div [data-module="add-another"
           p.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.paragraph2")
           p.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.paragraph3")
           ul.govuk-list.govuk-list--bullet
-            li.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.list_link_disregarded_capital_html",
-                            page_url: document_link(:"lc_guidance_#{@check.level_of_help}", :smod))
-            li.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.list_link_exercising_discretion_html",
-                            page_url_2: document_link(:"lc_guidance_#{@check.level_of_help}", :smod))
+            li.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.list_link_disregarded_capital_#{@check.level_of_help}_html",
+                            page_url: document_link(:"lc_guidance_#{@check.level_of_help}", :mandatory_discretionary_disreguarded_capital))
+            li.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.list_link_exercising_discretion_#{@check.level_of_help}_html",
+                            page_url_2: document_link(:"lc_guidance_#{@check.level_of_help}", :principles_for_exercising_discretion_assets))
         - else
           p.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.paragraph2_legacy")
 
@@ -63,10 +63,10 @@ div [data-module="add-another"
           p.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.paragraph3")
           p.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.paragraph4") if @check.partner
           ul.govuk-list.govuk-list--bullet
-            li.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.list_link_disregarded_capital_html",
-                            page_url: document_link(:"lc_guidance_#{@check.level_of_help}", :smod))
-            li.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.list_link_exercising_discretion_html",
-                            page_url_2: document_link(:"lc_guidance_#{@check.level_of_help}", :smod))
+            li.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.list_link_disregarded_capital_#{@check.level_of_help}_html",
+                            page_url: document_link(:"lc_guidance_#{@check.level_of_help}", :mandatory_discretionary_disreguarded_capital))
+            li.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.list_link_exercising_discretion_#{@check.level_of_help}_html",
+                            page_url_2: document_link(:"lc_guidance_#{@check.level_of_help}", :principles_for_exercising_discretion_assets))
         - else
           p.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.paragraph2")
           p.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.paragraph3_legacy") if @check.partner
