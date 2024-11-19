@@ -1,13 +1,13 @@
 class ExternalLinkService
   class << self
     def call(document:, sub_section: nil, page_number_only: false)
-      external_link_method = FeatureFlags.enabled?(:mtr_accelerated, without_session_data: true) ? external_links : external_links_legacy
+      external_link_selection = FeatureFlags.enabled?(:mtr_accelerated, without_session_data: true) ? external_links : external_links_legacy
       if page_number_only
-        external_link_method.dig(document, :sections).fetch(sub_section)
+        external_link_selection.dig(document, :sections).fetch(sub_section)
       elsif sub_section
-        "#{external_link_method.dig(document, :page_url)}#page=#{external_link_method.dig(document, :sections).fetch(sub_section)}"
+        "#{external_link_selection.dig(document, :page_url)}#page=#{external_link_selection.dig(document, :sections).fetch(sub_section)}"
       else
-        external_link_method.dig(document, :page_url)
+        external_link_selection.dig(document, :page_url)
       end
     end
 
