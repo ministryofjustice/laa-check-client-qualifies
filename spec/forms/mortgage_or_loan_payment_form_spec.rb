@@ -37,25 +37,11 @@ RSpec.describe "mortgage_or_loan_payment", :calls_cfe_early_returns_not_ineligib
       fill_in_forms_until(:check_answers)
     end
 
-    it "shows correct sections" do
-      expect(all(".govuk-summary-card__title").map(&:text))
-        .to eq(
-          ["Client age",
-           "Partner and passporting",
-           "Level of help",
-           "Type of matter",
-           "Number of dependants",
-           "Employment status",
-           "Client benefits",
-           "Client other income",
-           "Client outgoings and deductions",
-           "Home client usually lives in",
-           "Housing costs",
-           "Home client owns and usually lives in details",
-           "Client other property",
-           "Client assets"],
-        )
-    end
+    context "with MTR accelerated" do
+      it "shows new content" do
+        expect(page).to have_content("What are the mortgage or loan payments for the home the client usually lives in?")
+      end
+
       it "shows correct sections" do
         expect(all(".govuk-summary-card__title").map(&:text))
           .to eq(
@@ -74,35 +60,6 @@ RSpec.describe "mortgage_or_loan_payment", :calls_cfe_early_returns_not_ineligib
              "Client other property",
              "Client assets"],
           )
-      end
-
-    context "with MTR accelerated" do
-      let(:content_date) { after_date }
-    it "shows correct sections" do
-      expect(all(".govuk-summary-card__title").map(&:text))
-        .to eq(
-          ["Client age",
-           "Partner and passporting",
-           "Level of help",
-           "Type of matter",
-           "Number of dependants",
-           "Employment status",
-           "Client benefits",
-           "Client other income",
-           "Client outgoings and deductions",
-           "Home client usually lives in",
-           "Housing costs",
-           "Home client owns and usually lives in details",
-           "Client other property",
-           "Client assets"],
-        )
-    end
-
-    context "with MTR accelerated" do
-      let(:content_date) { after_date }
-
-      it "shows new content" do
-        expect(page).to have_content("What are the mortgage or loan payments for the home the client usually lives in?")
       end
     end
   end
