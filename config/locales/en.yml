@@ -657,8 +657,7 @@ en:
         - For example, Child Benefit, tax credits or Asylum Support payments.
         - Do not include Housing Benefit, State Pension or disregarded benefits such as Personal Independence Payments (PIP), Carer’s Allowance, Community Care Direct payments, Fostering allowance, or government Cost of Living Payments. Check the complete list of disregarded benefits.
     benefits:
-      hint: For example, Child Benefit, tax credits or Asylum Support payments.
-      do_not_include: "Do not include:"
+      hint: For example, Child Benefit, tax credits or asylum support payments.
       do_not_include_list:
         - Housing Benefit
         - State Pension
