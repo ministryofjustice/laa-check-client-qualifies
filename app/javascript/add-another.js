@@ -160,8 +160,10 @@ const setNumbering = (section, counter) => {
 }
 
 const setUpRadios = (section) => {
-  if (section.querySelector('input[type="radio"]')) {
+  const radioContainer = section.querySelector('[data-module="govuk-radios"]'); 
+  if (radioContainer && !radioContainer.dataset.radiosInitialized) { 
     const radios = new Radios(section);
+    radioContainer.dataset.radiosInitialized = true;
   }
 }
 
