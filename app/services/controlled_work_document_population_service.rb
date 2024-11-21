@@ -26,7 +26,7 @@ class ControlledWorkDocumentPopulationService
       "cw1_new" => "lib/cw1-form-new.pdf",
       "cw2" => "lib/cw2imm-form-2023-8-21.pdf",
       "cw5" => "lib/cw5-form.pdf",
-      "cw1_and_2" => "lib/cw1-and-2-form-2023-8-21.pdf",
+      "cw1_and_2" => "lib/cw1-and-2-form-2024-09-20.pdf",
       "civ_means_7" => "lib/civ-means-7-form.pdf",
       "civ_means_7_new" => "lib/civ-means-7-form-new.pdf",
       "cw1_welsh" => "lib/cw1-form-welsh.pdf",

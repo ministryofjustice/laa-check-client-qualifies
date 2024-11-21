@@ -15,11 +15,21 @@
         - t("question_flow.mortgage_or_loan_payment.details_paragraphs").each
           p.govuk-body = _1
       p.govuk-hint = t("#{key}.heading_hint_2")
-    = render "shared/money_input",
+
+    - if FeatureFlags.enabled?(:mtr_accelerated, without_session_data: true)
+        = render "shared/money_input",
             form:,
             field: :housing_loan_payments,
             width: 10,
-            label_text: t("question_flow.mortgage_or_loan_payment.value")
+            label_text: t("question_flow.mortgage_or_loan_payment.value"),
+            hint_text: t("question_flow.mortgage_or_loan_payment.hint")
+    - else
+        = render "shared/money_input",
+            form:,
+            field: :housing_loan_payments,
+            width: 10,
+            label_text: t("question_flow.mortgage_or_loan_payment.value_legacy")
+
     = form.govuk_collection_radio_buttons :housing_payments_loan_frequency,
                                           @form.housing_payment_frequencies,
                                           :first,

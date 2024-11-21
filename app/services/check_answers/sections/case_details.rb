@@ -17,6 +17,8 @@ module CheckAnswers
         else
           tables += if @check.controlled?
                       [immigration_or_asylum_table]
+                    elsif @check.domestic_abuse_applicant?
+                      [domestic_abuse_table]
                     else
                       [domestic_abuse_table, immigration_or_asylum_type_upper_tribunal_table]
                     end

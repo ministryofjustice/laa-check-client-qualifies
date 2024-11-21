@@ -44,6 +44,39 @@ RSpec.describe "Certificated, non-passported flow", :stub_cfe_calls_with_webmock
     end
   end
 
+  context "when doing a certificated, domestic abuse case" do
+    before do
+      start_assessment
+      fill_in_forms_until(:domestic_abuse_applicant)
+      fill_in_domestic_abuse_applicant_screen(choice: "Yes")
+      fill_in_forms_until(:check_answers)
+    end
+
+    it "hits check answers" do
+      confirm_screen("check_answers")
+    end
+
+    it "shows correct sections" do
+      expect(all(".govuk-summary-card__title").map(&:text))
+        .to eq(
+          ["Client age",
+           "Partner and passporting",
+           "Level of help",
+           "Type of matter",
+           "Number of dependants",
+           "Employment status",
+           "Client benefits",
+           "Client other income",
+           "Client outgoings and deductions",
+           "Home client lives in",
+           "Housing costs",
+           "Client other property",
+           "Client assets",
+           "Vehicles"],
+        )
+    end
+  end
+
   # This test was inspired by the bug documented here https://dsdmoj.atlassian.net/browse/EL-1383
   it "allows me to save my answers after a validation error" do
     start_assessment

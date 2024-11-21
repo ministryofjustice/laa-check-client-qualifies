@@ -6,7 +6,7 @@
 .govuk-grid-column-two-thirds
   = render "shared/heading"
   = render "question_flow/forms/benefits",
-           legend: { text: t(".legend"),
+           legend: { text: t(".legend").html_safe,
                      size: "xl",
                      tag: "h1" }
 
