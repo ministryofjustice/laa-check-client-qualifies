@@ -1236,8 +1236,8 @@ en:
         question_hint: "Check the guidance for:"
         list_benefits_controlled_html: <a href="%{page_url}" target='_blank' rel='noreferrer noopener'> mandatory and discretionary disregarded payments (PDF, 940KB)</a>
         list_income_controlled_html: <a href="%{page_url_2}" target='_blank' rel='noreferrer noopener'>the principles for exercising discretion (PDF, 940KB)</a>
-        list_benefits_certificated_html: <a href="%{page_url}" target='_blank' rel='noreferrer noopener'> mandatory and discretionary disregarded payments (PDF, 1.5MB)</a>
-        list_income_certificated_html: <a href="%{page_url_2}" target='_blank' rel='noreferrer noopener'>the principles for exercising discretion (PDF, 1.5MB)</a>
+        list_benefits_certificated_html: <a href="%{page_url}" target='_blank' rel='noreferrer noopener'> mandatory and discretionary disregarded payments (PDF, 1.51MB)</a>
+        list_income_certificated_html: <a href="%{page_url_2}" target='_blank' rel='noreferrer noopener'>the principles for exercising discretion (PDF, 1.51MB)</a>
         question_hint_2: Do not include any disregarded compensation or cost of living payments. Check the guidance for a complete list of disregarded payments.
         label: Income from other sources
         hint: Include any other income your client received. Do not include any government Cost of Living Payments. Enter 0 if this does not apply
@@ -1255,7 +1255,7 @@ en:
         total: Total in last 3 months
       guidance:
         controlled_text: Income (PDF, 980KB)
-        certificated_text: Income (PDF, 1.5MB)
+        certificated_text: Income (PDF, 1.51MB)
     partner_other_income:
       heading: The partner's other income
       caption: Do not include income already entered for your client.
@@ -1298,8 +1298,8 @@ en:
         question_hint: "Check the guidance for:"
         list_benefits_controlled_html: <a href="%{page_url}" target='_blank' rel='noreferrer noopener'> mandatory and discretionary disregarded payments (PDF, 940KB)</a>
         list_income_controlled_html: <a href="%{page_url_2}" target='_blank' rel='noreferrer noopener'>the principles for exercising discretion (PDF, 940KB)</a>
-        list_benefits_certificated_html: <a href="%{page_url}" target='_blank' rel='noreferrer noopener'> mandatory and discretionary disregarded payments (PDF, 1.5MB)</a>
-        list_income_certificated_html: <a href="%{page_url_2}" target='_blank' rel='noreferrer noopener'>the principles for exercising discretion (PDF, 1.5MB)</a>
+        list_benefits_certificated_html: <a href="%{page_url}" target='_blank' rel='noreferrer noopener'> mandatory and discretionary disregarded payments (PDF, 1.51MB)</a>
+        list_income_certificated_html: <a href="%{page_url_2}" target='_blank' rel='noreferrer noopener'>the principles for exercising discretion (PDF, 1.51MB)</a>
         question_hint_2: Do not include any disregarded compensation or Cost of Living payments. Check the guidance for a complete list of disregarded payments.
         label: Income from other sources
         hint: Include any other income the partner received. Do not include any government Cost of Living Payments. Enter 0 if this does not apply.
@@ -1447,8 +1447,8 @@ en:
         paragraph3: "Check the guidance for:"
         list_link_disregarded_capital_controlled_html: <a href="%{page_url}" target="_blank" rel="noreferrer noopener">mandatory and discretionary disregarded capital (PDF, 940KB)</a>
         list_link_exercising_discretion_controlled_html: <a href="%{page_url_2}" target="_blank" rel="noreferrer noopener">the principles for exercising discretion (PDF, 940KB)</a>
-        list_link_disregarded_capital_certificated_html: <a href="%{page_url}" target="_blank" rel="noreferrer noopener">mandatory and discretionary disregarded capital (PDF, 1.5MB)</a>
-        list_link_exercising_discretion_certificated_html: <a href="%{page_url_2}" target="_blank" rel="noreferrer noopener">the principles for exercising discretion (PDF, 1.5MB)</a>
+        list_link_disregarded_capital_certificated_html: <a href="%{page_url}" target="_blank" rel="noreferrer noopener">mandatory and discretionary disregarded capital (PDF, 1.51MB)</a>
+        list_link_exercising_discretion_certificated_html: <a href="%{page_url_2}" target="_blank" rel="noreferrer noopener">the principles for exercising discretion (PDF, 1.51MB)</a>
         input: Total money in bank account
         hint:  Enter 0 if this does not apply.
       add_bank_account: Add another bank account
@@ -1542,8 +1542,8 @@ en:
         paragraph4: "Check the guidance for:"
         list_link_disregarded_capital_controlled_html: <a href="%{page_url}" target="_blank" rel="noreferrer noopener">mandatory and discretionary disregarded capital (PDF, 940KB)</a>
         list_link_exercising_discretion_controlled_html: <a href="%{page_url_2}" target="_blank" rel="noreferrer noopener">the principles for exercising discretion (PDF, 940KB)</a>
-        list_link_disregarded_capital_certificated_html: <a href="%{page_url}" target="_blank" rel="noreferrer noopener">mandatory and discretionary disregarded capital (PDF, 1.5MB)</a>
-        list_link_exercising_discretion_certificated_html: <a href="%{page_url_2}" target="_blank" rel="noreferrer noopener">the principles for exercising discretion (PDF, 1.5MB)</a>
+        list_link_disregarded_capital_certificated_html: <a href="%{page_url}" target="_blank" rel="noreferrer noopener">mandatory and discretionary disregarded capital (PDF, 1.51MB)</a>
+        list_link_exercising_discretion_certificated_html: <a href="%{page_url_2}" target="_blank" rel="noreferrer noopener">the principles for exercising discretion (PDF, 1.51MB)</a>
       investments:
         label: Does the partner have any investments?
         hints:
@@ -2646,7 +2646,7 @@ en:
      header: Help with trusts
      paragraph_1: This service does not currently collect or include the capital value of any interest in trusts held by the client. However the LAA will need evidence of any such trust fund or settlement and may include this when you make an application.
      paragraph_1_partner: This service does not currently collect or include the capital value of any interest in trusts held by the client or the partner. However the LAA will need evidence of any such trust fund or settlement and may include this when you make an application.
-     paragraph_2_html: See the <a href="%{page_url_3}" target="_blank" rel="noreferrer noopener">Lord Chancellor's guidance (PDF, 1.5MB)</a> for more information on how this is assessed at application stage.
+     paragraph_2_html: See the <a href="%{page_url_3}" target="_blank" rel="noreferrer noopener">Lord Chancellor's guidance (PDF, 1.51MB)</a> for more information on how this is assessed at application stage.
   controlled_work_document_selections:
     new:
       title: Select a controlled work (CW) form to download with your answers
