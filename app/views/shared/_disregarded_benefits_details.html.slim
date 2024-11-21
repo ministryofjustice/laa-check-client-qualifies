@@ -1,6 +1,9 @@
+- suffix = FeatureFlags.enabled?(:mtr_accelerated, without_session_data: true) ? "" : "_legacy"
+- summary_text = t("generic.disregarded_benefits.before_pdf_link#{suffix}")
+
 p.govuk-body-m
-  = t("generic.disregarded_benefits.before_pdf_link")
-  = link_to t("generic.disregarded_benefits.#{level_of_help}.pdf_text"),
+  = summary_text
+  = link_to t("generic.disregarded_benefits.#{level_of_help}.pdf_text#{suffix}"),
     document_link(:"lc_guidance_#{level_of_help}", :disregarded_payments),
         target: "_blank", rel: "noreferrer noopener", class: "govuk-link"
   = "."

@@ -5,6 +5,8 @@
 
     p.govuk-body
       = t("generic.benefits.hint")
+      - if FeatureFlags.enabled?(:mtr_accelerated, without_session_data: true)
+        = render "shared/disregarded_benefits_details", level_of_help: @check.level_of_help
 
     p.govuk-body
       = t("generic.benefits.do_not_include")
@@ -14,12 +16,11 @@
           li
             = item
 
-    = govuk_details(summary_text: t("cost_of_living_details.header"))
-      ul.govuk-list.govuk-list--bullet
-        - t("cost_of_living_details.list").each
-          li = _1
+    = render "shared/cost_of_living_payments"
 
-    = render "shared/disregarded_benefits_details", level_of_help: @check.level_of_help
+    - unless FeatureFlags.enabled?(:mtr_accelerated, without_session_data: true)
+      = render "shared/disregarded_benefits_details",
+              level_of_help: @check.level_of_help
 
     = render "shared/radio_button_set",
                form:,

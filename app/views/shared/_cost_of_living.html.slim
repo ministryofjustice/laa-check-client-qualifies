@@ -1,5 +1,10 @@
-= govuk_details(summary_text: t("cost_of_living_details.header"))
-  p.govuk-body = t("cost_of_living_details.text")
-  p.govuk-body
-    - t("cost_of_living_details.list").each
-      div = _1
+- suffix = FeatureFlags.enabled?(:mtr_accelerated, without_session_data: true) ? "" : "_legacy"
+- summary_text = t("cost_of_living_details.header#{suffix}")
+
+= govuk_details(summary_text:)
+  - if FeatureFlags.enabled?(:mtr_accelerated, without_session_data: true)
+    - t("cost_of_living_details.list").each do |item|
+      li.govuk-text = item
+  - else
+    - t("cost_of_living_details.list_legacy").each do |item|
+      .govuk-text = item
