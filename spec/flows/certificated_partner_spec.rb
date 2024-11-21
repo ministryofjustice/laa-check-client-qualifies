@@ -53,7 +53,7 @@ RSpec.describe "Certificated, non-passported flow with partner", :stub_cfe_calls
            "Partner other income",
            "Client outgoings and deductions",
            "Partner outgoings and deductions",
-           "Home client lives in",
+           "Home client usually lives in",
            "Housing costs",
            "Client other property",
            "Partner other property",

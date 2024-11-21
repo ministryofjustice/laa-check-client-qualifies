@@ -41,16 +41,13 @@ div [data-module="add-another"
           - t("question_flow.#{i18n_key}.bank_accounts.list_with_partner").each do
             li.govuk-body = _1
 
-        - if FeatureFlags.enabled?(:mtr_accelerated, without_session_data: true)
-          p.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.paragraph2")
-          p.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.paragraph3")
-          ul.govuk-list.govuk-list--bullet
-            li.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.list_link_disregarded_capital_html",
-                            page_url: document_link(:"lc_guidance_#{@check.level_of_help}", :smod))
-            li.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.list_link_exercising_discretion_html",
-                            page_url_2: document_link(:"lc_guidance_#{@check.level_of_help}", :smod))
-        - else
-          p.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.paragraph2_legacy")
+        p.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.paragraph2")
+        p.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.paragraph3")
+        ul.govuk-list.govuk-list--bullet
+          li.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.list_link_disregarded_capital_#{@check.level_of_help}_html",
+                          page_url: document_link(:"lc_guidance_#{@check.level_of_help}", :mandatory_discretionary_disreguarded_capital))
+          li.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.list_link_exercising_discretion_#{@check.level_of_help}_html",
+                          page_url_2: document_link(:"lc_guidance_#{@check.level_of_help}", :principles_for_exercising_discretion_assets))
 
     - else
         p.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.paragraph1")
@@ -58,18 +55,14 @@ div [data-module="add-another"
           - t("question_flow.#{i18n_key}.bank_accounts.list").each do
             li.govuk-body = _1
 
-        - if FeatureFlags.enabled?(:mtr_accelerated, without_session_data: true)
-          p.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.paragraph2")
-          p.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.paragraph3")
-          p.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.paragraph4") if @check.partner
-          ul.govuk-list.govuk-list--bullet
-            li.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.list_link_disregarded_capital_html",
-                            page_url: document_link(:"lc_guidance_#{@check.level_of_help}", :smod))
-            li.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.list_link_exercising_discretion_html",
-                            page_url_2: document_link(:"lc_guidance_#{@check.level_of_help}", :smod))
-        - else
-          p.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.paragraph2")
-          p.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.paragraph3_legacy") if @check.partner
+        p.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.paragraph2")
+        p.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.paragraph3")
+        p.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.paragraph4") if @check.partner
+        ul.govuk-list.govuk-list--bullet
+          li.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.list_link_disregarded_capital_#{@check.level_of_help}_html",
+                          page_url: document_link(:"lc_guidance_#{@check.level_of_help}", :mandatory_discretionary_disreguarded_capital))
+          li.govuk-body = t("question_flow.#{i18n_key}.bank_accounts.list_link_exercising_discretion_#{@check.level_of_help}_html",
+                          page_url_2: document_link(:"lc_guidance_#{@check.level_of_help}", :principles_for_exercising_discretion_assets))
 
     = render "shared/cost_of_living_payments"
 
@@ -96,7 +89,7 @@ div [data-module="add-another"
           - t("question_flow.#{i18n_key}.investments.hints").each
             .govuk-hint = _1
 
-        - if FeatureFlags.enabled?(:mtr_accelerated, without_session_data: true) && !@check.controlled?
+        - unless @check.controlled?
           = govuk_details(summary_text: t("help_with_trusts.header"))
             p.govuk-body = t("help_with_trusts.paragraph_1#{'_partner' if @check.partner}")
             p.govuk-body = t("help_with_trusts.paragraph_2_html", page_url_3: document_link(:lc_guidance_certificated, :trusts))
