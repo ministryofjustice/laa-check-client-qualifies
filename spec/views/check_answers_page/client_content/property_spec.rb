@@ -29,8 +29,8 @@ RSpec.describe "checks/check_answers.html.slim" do
 
         it "renders content" do
           expect_in_text(text, [
-            "Does your client own the home the client lives in?Yes, with a mortgage or loan",
-            "Home client lives in detailsChange",
+            "Does your client own the home the client usually lives in?Yes, with a mortgage or loan",
+            "Home client owns and usually lives in detailsChange",
             "Estimated value£200,000.00",
             "Outstanding mortgage£5,000.00",
             "Percentage share owned50%",
@@ -58,8 +58,8 @@ RSpec.describe "checks/check_answers.html.slim" do
 
         it "renders content" do
           expect_in_text(text, [
-            "Does your client own the home the client lives in?Yes, owned outright",
-            "Home client lives in detailsChange",
+            "Does your client own the home the client usually lives in?Yes, owned outright",
+            "Home client owns and usually lives in detailsChange",
             "Estimated value£200,000.00",
             "Percentage share owned50%",
           ])
@@ -77,7 +77,7 @@ RSpec.describe "checks/check_answers.html.slim" do
         end
 
         it "renders content" do
-          expect(text).to include("Does your client own the home the client lives in?No")
+          expect(text).to include("Does your client own the home the client usually lives in?No")
         end
       end
     end

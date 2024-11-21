@@ -9,7 +9,7 @@ module PropertyHelper
   def non_smod_property_links(level_of_help, additional_property)
     guidance_type = additional_property ? "additional_properties_guidance" : "properties_guidance"
 
-    if FeatureFlags.enabled?(:mtr_accelerated, without_session_data: true) && guidance_type == "properties_guidance"
+    if guidance_type == "properties_guidance"
       {
         t("question_flow.property.#{guidance_type}.#{level_of_help}.text") => document_link(:"lc_guidance_#{level_of_help}", :"#{guidance_type}"),
         t("generic.equity_disregard_for_domestic_abuse.#{level_of_help}_text") => (level_of_help == "controlled" ? document_link(:lc_guidance_controlled, :equity_disreguard_for_domestic_abuse) : document_link(:lc_guidance_certificated, :equity_disreguard_for_domestic_abuse)),
@@ -24,52 +24,32 @@ module PropertyHelper
   end
 
   def mortgage_or_loan_key
-    if FeatureFlags.enabled?(:mtr_accelerated, without_session_data: true)
-      "question_flow.mortgage_or_loan_payment.mtr_accelerated"
-    else
-      "question_flow.mortgage_or_loan_payment.legacy"
-    end
+    "question_flow.mortgage_or_loan_payment"
   end
 
   def property_entry_key(partner)
-    if FeatureFlags.enabled?(:mtr_accelerated, without_session_data: true)
-      if partner
-        "question_flow.property_entry.mtr_accelerated.with_partner"
-      else
-        "question_flow.property_entry.mtr_accelerated.single"
-      end
-    elsif partner
-      "question_flow.property_entry.legacy.with_partner"
+    if partner
+      "question_flow.property_entry.with_partner"
     else
-      "question_flow.property_entry.legacy.single"
+      "question_flow.property_entry.single"
     end
   end
 
   def property_hint_content(partner)
     if partner
-      if FeatureFlags.enabled?(:mtr_accelerated, without_session_data: true)
-        lambda { \
-          tag.p("", class: "govuk-hint") + \
-            govuk_details(summary_text: t("question_flow.property.client_away.hint"), \
-                          text: tag.p(t("question_flow.property.client_away.partner_paragraph_1")) + tag.p(t("question_flow.property.client_away.partner_paragraph_2"))) +
-            govuk_details(summary_text: t("question_flow.property.partner.prison.title"), \
-                          text: t("question_flow.property.partner.prison.hint")) \
-        }
-      else
-        lambda { \
-          tag.p(t("question_flow.property.generic_hint"), class: "govuk-hint") + \
-            govuk_details(summary_text: t("question_flow.property.partner.prison.title"), \
-                          text: t("question_flow.property.partner.prison.hint")) \
-        }
-      end
-    elsif FeatureFlags.enabled?(:mtr_accelerated, without_session_data: true)
+      lambda { \
+        tag.p("", class: "govuk-hint") + \
+          govuk_details(summary_text: t("question_flow.property.client_away.hint"), \
+                        text: tag.p(t("question_flow.property.client_away.partner_paragraph_1")) + tag.p(t("question_flow.property.client_away.partner_paragraph_2"))) +
+          govuk_details(summary_text: t("question_flow.property.partner.prison.title"), \
+                        text: t("question_flow.property.partner.prison.hint")) \
+      }
+    else
       lambda { \
         tag.p("", class: "govuk-hint") + \
           govuk_details(summary_text: t("question_flow.property.client_away.hint"), \
                         text: tag.p(t("question_flow.property.client_away.single_paragraph_1")) + tag.p(t("question_flow.property.client_away.single_paragraph_2"))) \
       }
-    else
-      { text: t("question_flow.property.generic_hint") }
     end
   end
 end

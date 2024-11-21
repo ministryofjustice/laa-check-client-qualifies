@@ -4,10 +4,8 @@ RSpec.describe "property_entry", :calls_cfe_early_returns_not_ineligible, type: 
   let(:property_owned) { "Yes, owned outright" }
   let(:immigration_or_asylum) { false }
   let(:partner) { false }
-  let(:content_date) { Time.zone.today }
 
   before do
-    travel_to content_date
     start_assessment
     fill_in_forms_until(:level_of_help)
     fill_in_level_of_help_screen(choice: "Civil controlled work or family mediation")
@@ -69,41 +67,16 @@ RSpec.describe "property_entry", :calls_cfe_early_returns_not_ineligible, type: 
   end
 
   context "when MTR accelerated takes effect" do
-    let(:before_date) { Date.new(2024, 2, 15) }
-    let(:after_date) { Date.new(2024, 11, 20) }
-
     context "when single" do
-      context "without MTR accelerated" do
-        let(:content_date) { before_date }
-
-        it "shows old content" do
-          expect(page).to have_content("The home your client lives in")
-        end
-      end
-
-      context "with MTR accelerated" do
-        let(:content_date) { after_date }
-
-        it "shows new content" do
-          expect(page).to have_content("The home your client usually lives in")
-        end
+      it "shows new content" do
+        expect(page).to have_content("The home your client usually lives in")
       end
     end
 
     context "with partner" do
       let(:partner) { true }
 
-      context "without MTR accelerated" do
-        let(:content_date) { before_date }
-
-        it "shows old content" do
-          expect(page).to have_content("former matrimonial home because of domestic abuse")
-        end
-      end
-
       context "with MTR accelerated" do
-        let(:content_date) { after_date }
-
         it "shows new content" do
           expect(page).to have_content("Your client or their partner’s name must be on the property deeds, lease, freehold or mortgage.")
         end
@@ -115,18 +88,7 @@ RSpec.describe "property_entry", :calls_cfe_early_returns_not_ineligible, type: 
         fill_in_forms_until(:check_answers)
       end
 
-      context "without MTR accelerated" do
-        let(:content_date) { before_date }
-
-        it "shows old content" do
-          expect(page).to have_content("Does your client own the home the client lives in?")
-          expect(page).to have_content("Home client lives in details")
-        end
-      end
-
       context "with MTR accelerated" do
-        let(:content_date) { after_date }
-
         it "shows new content" do
           expect(page).to have_content("Does your client own the home the client usually lives in?")
           expect(page).to have_content("Home client owns and usually lives in details")
