@@ -109,7 +109,7 @@ RSpec.describe "assets", :calls_cfe_early_returns_not_ineligible, type: :feature
            "Client benefits",
            "Client other income",
            "Client outgoings and deductions",
-           "Home client lives in",
+           "Home client usually lives in",
            "Housing costs",
            "Client other property",
            "Client assets"],
