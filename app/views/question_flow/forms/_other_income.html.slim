@@ -38,54 +38,32 @@
                                                         class: "govuk-!-font-weight-regular" }
 
   - OtherIncomeForm::IRREGULAR_INCOME_TYPES.each do |type|
-    - if FeatureFlags.enabled?(:mtr_accelerated, without_session_data: true)
-      = form.govuk_radio_buttons_fieldset :"#{type}_relevant",
-              legend: { text: t("question_flow.#{i18n_key}.#{type}.question") },
-              hint: (type != :other ? { text: t("question_flow.#{i18n_key}.#{type}.question_hint") } : nil) do
-        - if type == :other
-          - level = @check.controlled? ? "controlled" : "certificated"
-          p.govuk-hint = t("question_flow.#{i18n_key}.#{type}.question_mtr_hint_one")
-          p.govuk-hint = t("question_flow.#{i18n_key}.#{type}.question_mtr_hint")
-          ul.govuk-list.govuk-list--bullet
-            li.govuk-body = t("question_flow.#{i18n_key}.#{type}.mtr_list_benefits_#{level}_html",
-                            page_url: document_link(:"lc_guidance_#{@check.level_of_help}", :mandatory_discretionary_disreguarded_benefits))
-            li.govuk-body = t("question_flow.#{i18n_key}.#{type}.mtr_list_income_#{level}_html",
-                            page_url_2: document_link(:"lc_guidance_#{@check.level_of_help}", :principles_for_exercising_discretion_income))
-          = render "shared/cost_of_living"
-        = render "shared/radio_button_set",
-                form:,
-                field_name: :"#{type}_relevant",
-                buttons: [{ value: true,
-                        options: { label: { text: t("generic.yes_choice") },
-                                hint: -> { content_for(:amount_hidden_description) } } },
-                        { value: false, options: { label: { text: t("generic.no_choice") } } }]
-
-          - level = @check.controlled? ? "controlled" : "certificated"
-          = render "shared/money_input",
-                  form:,
-                  field: :"#{type}_conditional_value",
-                  width: 10,
-                  label_text: t("question_flow.#{i18n_key}.#{type}.#{level}_instruction")
-    - else
-      = form.govuk_radio_buttons_fieldset :"#{type}_relevant",
+    = form.govuk_radio_buttons_fieldset :"#{type}_relevant",
             legend: { text: t("question_flow.#{i18n_key}.#{type}.question") },
-            hint: { text: t("question_flow.#{i18n_key}.#{type}.question_hint") } do
-        - if type == :other
-          p.govuk-hint = t("question_flow.#{i18n_key}.#{type}.question_hint_2")
-          = render "shared/cost_of_living"
-        = render "shared/radio_button_set",
-                form:,
-                field_name: :"#{type}_relevant",
-                buttons: [{ value: true,
-                            options: { label: { text: t("generic.yes_choice") },
-                                                hint: -> { content_for(:amount_hidden_description) } } },
-                          { value: false, options: { label: { text: t("generic.no_choice") } } }]
+            hint: (type != :other ? { text: t("question_flow.#{i18n_key}.#{type}.question_hint") } : nil) do
+      - if type == :other
+        - level = @check.controlled? ? "controlled" : "certificated"
+        p.govuk-hint = t("question_flow.#{i18n_key}.#{type}.question_hint_one")
+        p.govuk-hint = t("question_flow.#{i18n_key}.#{type}.question_hint")
+        ul.govuk-list.govuk-list--bullet
+          li.govuk-body = t("question_flow.#{i18n_key}.#{type}.list_benefits_#{level}_html",
+                          page_url: document_link(:"lc_guidance_#{@check.level_of_help}", :mandatory_discretionary_disreguarded_benefits))
+          li.govuk-body = t("question_flow.#{i18n_key}.#{type}.list_income_#{level}_html",
+                          page_url_2: document_link(:"lc_guidance_#{@check.level_of_help}", :principles_for_exercising_discretion_income))
+        = render "shared/cost_of_living"
+      = render "shared/radio_button_set",
+              form:,
+              field_name: :"#{type}_relevant",
+              buttons: [{ value: true,
+                      options: { label: { text: t("generic.yes_choice") },
+                              hint: -> { content_for(:amount_hidden_description) } } },
+                      { value: false, options: { label: { text: t("generic.no_choice") } } }]
 
-          - level = @check.controlled? ? "controlled" : "certificated"
-          = render "shared/money_input",
-                  form:,
-                  field: :"#{type}_conditional_value",
-                  width: 10,
-                  label_text: t("question_flow.#{i18n_key}.#{type}.#{level}_instruction")
+        - level = @check.controlled? ? "controlled" : "certificated"
+        = render "shared/money_input",
+                form:,
+                field: :"#{type}_conditional_value",
+                width: 10,
+                label_text: t("question_flow.#{i18n_key}.#{type}.#{level}_instruction")
 
   = form.govuk_submit t("generic.save_and_continue")
