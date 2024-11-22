@@ -153,8 +153,14 @@ const setNumbering = (section, counter) => {
   }
   section.querySelectorAll('[data-add-another-dynamic-elements]').forEach((element) => {
     element.dataset.addAnotherDynamicElements.split(",").forEach((pairString) => {
-      const parts = pairString.split(":");
-      element.setAttribute(parts[0], parts[1].replace("ID", counter + 1))
+      const [attribute, valueTemplate] = pairString.split(":");
+      const newValue = valueTemplate.replace("ID", counter + 1);
+      element.setAttribute(attribute, newValue);
+
+      // Handle aria-controls specifically if the attribute is `data-aria-controls`
+      if (attribute === "data-aria-controls") {
+        element.setAttribute("aria-controls", newValue);
+      }
     });
   })
 }
@@ -163,7 +169,7 @@ const setUpRadios = (section) => {
   const radioContainer = section.querySelector('[data-module="govuk-radios"]'); 
   if (radioContainer && !radioContainer.dataset.radiosInitialized) { 
     const radios = new Radios(section);
-    radioContainer.dataset.radiosInitialized = true;
+    radioContainer.dataset.radiosInitialized = true; // This is to handle `govuk-frontend` 5.7.0, not allowing us to initialising components twice 
   }
 }
 
