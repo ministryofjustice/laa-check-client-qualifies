@@ -199,4 +199,8 @@ class Check
   def gross_income_excess
     session_data.dig("early_result", "gross_income_excess")
   end
+
+  def early_result_type
+    session_data.dig("early_result", "type")
+  end
 end

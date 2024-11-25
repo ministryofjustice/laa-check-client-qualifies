@@ -4,8 +4,12 @@ class JourneyLoggerService
       return if cookies[CookiesController::NO_ANALYTICS_MODE]
 
       attributes = build_attributes(calculation_result, check, portal_user_office_code)
+      early_ineligible_result = FeatureFlags.enabled?(:ee_banner, check.session_data) ? check.early_ineligible_result? : nil
+
       CompletedUserJourney.transaction do
-        if (journey = CompletedUserJourney.find_by(assessment_id:))
+        journey = CompletedUserJourney.find_by(assessment_id:, early_eligibility_result: early_ineligible_result)
+
+        if journey
           journey.update!(attributes)
         else
           CompletedUserJourney.create!(attributes.merge(assessment_id:))
@@ -35,6 +39,8 @@ class JourneyLoggerService
         matter_type: matter_type(check),
         session: check.session_data,
         office_code: portal_user_office_code,
+        early_result_type: check.early_result_type,
+        early_eligibility_result: check.early_ineligible_result?,
       }
     end
 
