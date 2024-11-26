@@ -133,6 +133,43 @@ RSpec.describe "Add another JS", :stub_cfe_calls_with_webmock do
       click_on "remove-2"
       expect(page).to have_content "Enter the estimated value of vehicle 2"
     end
+
+    it "lets me remove a vehicle and I can still interact with conditional reveals", :slow do
+      fill_in "1-vehicle-value", with: "123"
+      choose "No", name: "vehicle_model[items][1][vehicle_pcp]"
+      choose "No", name: "vehicle_model[items][1][vehicle_over_3_years_ago]"
+      choose "No", name: "vehicle_model[items][1][vehicle_in_regular_use]"
+      click_on "Add another vehicle"
+
+      fill_in "2-vehicle-value", with: "456"
+      choose "No", name: "vehicle_model[items][2][vehicle_pcp]"
+      choose "No", name: "vehicle_model[items][2][vehicle_over_3_years_ago]"
+      choose "No", name: "vehicle_model[items][2][vehicle_in_regular_use]"
+      click_on "Add another vehicle"
+
+      fill_in "3-vehicle-value", with: "789"
+      choose "No", name: "vehicle_model[items][3][vehicle_pcp]"
+      choose "No", name: "vehicle_model[items][3][vehicle_over_3_years_ago]"
+      choose "No", name: "vehicle_model[items][3][vehicle_in_regular_use]"
+
+      click_on "Save and continue"
+
+      click_on "Back"
+
+      click_on "remove-2"
+
+      fill_in "2-vehicle-value", with: "456"
+      choose "Yes", name: "vehicle_model[items][2][vehicle_pcp]"
+      fill_in "2-vehicle-finance", with: "123"
+      choose "No", name: "vehicle_model[items][2][vehicle_over_3_years_ago]"
+      choose "No", name: "vehicle_model[items][2][vehicle_in_regular_use]"
+      click_on "Save and continue"
+
+      click_on "Back"
+
+      expect(find(id: "1-vehicle-value").value).to eq "123"
+      expect(find(id: "2-vehicle-value").value).to eq "456"
+    end
   end
 
   describe "additional properties" do
