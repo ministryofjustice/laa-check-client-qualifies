@@ -10,10 +10,8 @@
     = render "shared/heading",
               header_text: t("question_flow.#{i18n_key}.heading"),
               tag: (:partner if partner)
-      p.govuk-body = t("question_flow.#{i18n_key}.paragraph1")
-      p.govuk-body = t("question_flow.#{i18n_key}.paragraph3.#{@check.level_of_help}_text_html",
-              page_url: document_link(:"lc_guidance_#{@check.level_of_help}", :disregarded_payments))
-      p.govuk-body = t("question_flow.#{i18n_key}.paragraph2")
+      p.govuk-body = t("question_flow.#{i18n_key}.paragraph1_#{@check.level_of_help}_html",
+                     page_url: document_link(:"lc_guidance_#{@check.level_of_help}", :disregarded_payments))
       ul.govuk-list.govuk-list--bullet
         - t("question_flow.#{i18n_key}.paragraph2list").each
           li.govuk-body = _1

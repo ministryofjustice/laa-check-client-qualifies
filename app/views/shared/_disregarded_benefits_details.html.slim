@@ -1,8 +1,0 @@
-- summary_text = t("generic.disregarded_benefits.before_pdf_link")
-
-p.govuk-body-m
-  = summary_text
-  = link_to t("generic.disregarded_benefits.#{level_of_help}.pdf_text"),
-    document_link(:"lc_guidance_#{level_of_help}", :disregarded_payments),
-        target: "_blank", rel: "noreferrer noopener", class: "govuk-link"
-  = "."
