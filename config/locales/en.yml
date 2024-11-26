@@ -1221,7 +1221,7 @@ en:
       other:
         question: Does your client get income from other sources?
         question_hint: Include any other income your client receives, for example interest from savings or income bonds.
-        question_hint_one: For example, interest from savings or income bonds. Do not include any disregarded payments or Cost of Living Payments.
+        question_hint_one: For example, interest from savings or income bonds. Do not include any disregarded income or Cost of Living Payments.
         question_hint: "Check the guidance for:"
         list_benefits_controlled_html: <a href="%{page_url}" target='_blank' rel='noreferrer noopener'> mandatory and discretionary disregarded payments (PDF, 940KB)</a>
         list_income_controlled_html: <a href="%{page_url_2}" target='_blank' rel='noreferrer noopener'>the principles for exercising discretion (PDF, 940KB)</a>
@@ -1283,7 +1283,7 @@ en:
       other:
         question: Does the partner get income from other sources?
         question_hint: Include any other income the partner receives, for example interest from savings or income bonds.
-        question_hint_one: For example, interest from savings or income bonds. Do not include any disregarded payments or Cost of Living Payments.
+        question_hint_one: For example, interest from savings or income bonds. Do not include any disregarded income or Cost of Living Payments.
         question_hint: "Check the guidance for:"
         list_benefits_controlled_html: <a href="%{page_url}" target='_blank' rel='noreferrer noopener'> mandatory and discretionary disregarded payments (PDF, 940KB)</a>
         list_income_controlled_html: <a href="%{page_url_2}" target='_blank' rel='noreferrer noopener'>the principles for exercising discretion (PDF, 940KB)</a>
