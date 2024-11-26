@@ -6,7 +6,7 @@
     "@rails/ujs": "^7.1.402",
     "@sentry/browser": "8.37.1",
     "esbuild": "^0.24.0",
-    "govuk-frontend": "^5.6.0",
+    "govuk-frontend": "^5.7.1",
     "jquery": "^3.7.1",
     "puppeteer": "23.6.0",
     "rails_admin": "3.2.1",
