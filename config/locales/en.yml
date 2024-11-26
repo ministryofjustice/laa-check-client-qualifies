@@ -629,17 +629,17 @@ en:
     dispute: This asset is a subject matter of dispute
     disputed_asset: Disputed asset
     disregarded_benefits_guidance:
-      controlled_text: Disregarded benefits (PDF, 427KB)
-      certificated_text: Disregarded benefits (PDF, 918KB)
+      controlled_text: Disregarded benefits (PDF, 940KB)
+      certificated_text: Disregarded benefits (PDF, 1.51MB)
     smod:
       guidance:
-        controlled_text: Subject matter of dispute (PDF, 427KB)
-        certificated_text: Subject matter of dispute (PDF, 918KB)
+        controlled_text: Subject matter of dispute (PDF, 940KB)
+        certificated_text: Subject matter of dispute (PDF, 1.51MB)
     smod_help: Help with subject matter of dispute
     smod_help_text: Any asset owned or partially owned by your client that is the subject of a claim by their opponent in a case is the subject matter of dispute.
     smod_help_text_two: These assets will be disregarded from the calculation, up to a total of £100,000. See Regulation 38 of The Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 for more information.
     trapped_capital:
-      controlled_text: Trapped capital (PDF, 427KB)
+      controlled_text: Trapped capital (PDF, 940KB)
       certificated_text: Trapped capital (opens in new tab)
     equity_disregard_for_domestic_abuse:
       controlled_text: Equity disregard for domestic abuse (PDF, 940KB)
@@ -700,12 +700,12 @@ en:
         standard: 18 to 59
         over_60: 60 or over
       guidance:
-        controlled: Controlled work (PDF, 427KB)
-        certificated: Certificated work (PDF, 918KB)
-        under_18_controlled: Controlled work - child applicants (PDF, 427KB)
-        under_18_certificated: Certificated work - child applicants (PDF, 918KB)
-        over_60_controlled: Controlled work - over 60s (PDF, 427KB)
-        over_60_certificated: Certificated work - over 60s (PDF, 918KB)
+        controlled: Controlled work (PDF, 940KB)
+        certificated: Certificated work (PDF, 1.51MB)
+        under_18_controlled: Controlled work - child applicants (PDF, 940KB)
+        under_18_certificated: Certificated work - child applicants (PDF, 1.51MB)
+        over_60_controlled: Controlled work - over 60s (PDF, 940KB)
+        over_60_certificated: Certificated work - over 60s (PDF, 1.51MB)
 
     level_of_help:
       title: What level of help does your client need?
@@ -713,9 +713,9 @@ en:
       controlled: Civil controlled work or family mediation
       certificated: Civil certificated or licensed legal work
       controlled_guidance:
-        text: Controlled work (PDF, 427KB)
+        text: Controlled work (PDF, 940KB)
       certificated_guidance:
-        text: Certificated work (PDF, 918KB)
+        text: Certificated work (PDF, 1.51MB)
       mental_health_guidance:
         text: Mental Health (PDF, 288KB)
 
@@ -727,9 +727,9 @@ en:
       section_2: (ii) the Mental Health Review Tribunal for Wales; or
       section_3: (iii) the Immigration and Asylum Chamber of the First tier Tribunal.
       guidance:
-        controlled: Controlled work (PDF, 427KB)
+        controlled: Controlled work (PDF, 940KB)
         mental_health: Mental Health (PDF, 288KB)
-        clr: Controlled legal representation (CLR) for child applicants - Controlled work (PDF, 427KB)
+        clr: Controlled legal representation (CLR) for child applicants - Controlled work (PDF, 940KB)
     aggregated_means:
       title: Will you aggregate your client's means with another person's means?
       explainer: If your client's means are aggregated with the means of another person, such as a maintaining adult, they must have a full means test.
@@ -743,7 +743,7 @@ en:
         - a parent or guardian has a conflict of interest in the matter
         - the client is financially independent
         - the client is in local authority or foster care
-      guidance: Means aggregation for under 18s (PDF, 427KB)
+      guidance: Means aggregation for under 18s (PDF, 940KB)
     how_to_aggregate:
       title: You are going to aggregate your client's means with another person's means
       panel_text: If your client's means are aggregated with the means of another person, such as a maintaining adult, they must have a full means test.
@@ -774,30 +774,30 @@ en:
         - holiday jobs
         - pocket money
         - any maintenance paid for the child
-      guidance: Income (PDF, 427KB)
+      guidance: Income (PDF, 940KB)
     under_eighteen_assets:
       title: Does your client have assets worth £2,500 or more?
       hints:
         - For example, money in bank accounts, investments, valuable items, property or land.
         - If they have any assets like this, they must have a full means test.
-      guidance: Assets (PDF, 427KB)
+      guidance: Assets (PDF, 940KB)
     asylum_support:
       question: Does your client get Asylum Support?
       help_text_1: This means Asylum Support as defined in Section 4 or Section 95 of the Immigration and Asylum Act 1999.
       help_text_2: Your client will not need an income or capital assessment if they receive this type of Asylum Support.
       help_text_3: Also select yes if your client is named in their partner's Asylum Support claim.
       guidance:
-        controlled_text: Asylum Support (PDF, 427KB)
-        certificated_text: Asylum Support (PDF, 918KB)
-      tribunal_guidance_text: Controlled work (PDF, 427KB)
+        controlled_text: Asylum Support (PDF, 940KB)
+        certificated_text: Asylum Support (PDF, 1.51MB)
+      tribunal_guidance_text: Controlled work (PDF, 940KB)
     domestic_abuse_applicant:
       question: Is your client an applicant in a domestic abuse case?
       paragraph_1: This must be for legal representation for a domestic abuse matter (injunction or other order for protection from harm, or committal for breach), FGM protection order, or forced marriage protection order.
       paragraph_2: We need to know this for the check calculations because upper eligibility limits are waived if your client is an applicant in a domestic abuse matter.
       domestic_abuse_guidance:
-        text: Domestic abuse or violence (PDF, 918KB)
+        text: Domestic abuse or violence (PDF, 1.51MB)
       tribunal_guidance:
-        text: Upper Tribunal matters (PDF, 918KB)
+        text: Upper Tribunal matters (PDF, 1.51MB)
       immigration_and_asylum_header: Immigration and asylum matters
       immigration_and_asylum_certificated_paragraph: These must be for matters in the Immigration and Asylum Chamber of the Upper Tribunal including in relation to an appeal or review from the Immigration and Asylum Chamber of the First-tier Tribunal.
       immigration_header_certificated: Immigration (Upper Tribunal)
@@ -818,7 +818,7 @@ en:
       immigration_legal_help: Immigration - legal help or help at court
       asylum: Asylum - legal help, help at court, or controlled legal representation (CLR) in the First-tier Tribunal
       legacy_case_guidance:
-        text: Legacy case Appeals and Reviews in the Upper Tribunal (PDF, 427KB)
+        text: Legacy case Appeals and Reviews in the Upper Tribunal (PDF, 940KB)
     immigration_or_asylum_type_upper_tribunal:
       question: Is this for a matter in the Immigration and Asylum Chamber of the Upper Tribunal?
       help_text_1: This is only for for legal representation for an immigration or asylum matter in the Immigration and Asylum Chamber of the Upper Tribunal, including in relation to an appeal or review from the Immigration and Asylum Chamber of the First-tier Tribunal.
@@ -831,8 +831,8 @@ en:
       none: "No"
     applicant:
       passporting_guidance:
-        controlled_text: Passporting (PDF, 427KB)
-        certificated_text: Passporting (PDF, 918KB)
+        controlled_text: Passporting (PDF, 940KB)
+        certificated_text: Passporting (PDF, 1.51MB)
       pensioner_guidance:
         text: "Guidance on 60 or over disregard (pensioner disregard)"
       heading: Tell us about your client
@@ -851,7 +851,7 @@ en:
             - is an opponent in the case
             - has a contrary interest in the case - this means they want a different outcome to your client
       prisoner_guidance:
-        text: Prisoners (PDF, 918KB)
+        text: Prisoners (PDF, 1.51MB)
       employed:
         legend: What is your client's employment status?
         hint: "You cannot use this service if your client, or their partner, is self-employed."
@@ -910,8 +910,8 @@ en:
       how_many_child: How many child dependants are there?
       how_many_adult: How many adult dependants are there?
       guidance:
-        controlled_text: Dependants (PDF, 427KB)
-        certificated_text: Dependants (PDF, 918KB)
+        controlled_text: Dependants (PDF, 940KB)
+        certificated_text: Dependants (PDF, 1.51MB)
     dependant_income:
       legend: Do any of the dependants aged 16 or over get regular income?
       hint: "Examples of dependant income:"
@@ -921,8 +921,8 @@ en:
         - benefits received by an adult dependant
         - earnings from part-time work if the dependant works more than 16 hours per week
       guidance:
-        controlled_text: Dependants' income (PDF, 427KB)
-        certificated_text: Dependants' income (PDF, 918KB)
+        controlled_text: Dependants' income (PDF, 940KB)
+        certificated_text: Dependants' income (PDF, 1.51MB)
     dependant_income_details:
       legend: Add income for dependants aged 16 or over
       hint: Income they receive will be deducted from your client’s dependant allowance.
@@ -1019,10 +1019,10 @@ en:
       removed: Employment income removed
       income: Employment income
       guidance:
-        controlled_text: Employment income (PDF, 427KB)
-        certificated_text: Employment income (PDF, 918KB)
+        controlled_text: Employment income (PDF, 940KB)
+        certificated_text: Employment income (PDF, 1.51MB)
       police_guidance:
-        text: Police officer applicants (PDF, 918KB)
+        text: Police officer applicants (PDF, 1.51MB)
     early_result:
       gross_income:
         title: Gross monthly income limit exceeded by £%{cfe_result_number}
@@ -1097,7 +1097,7 @@ en:
             - if the drawings exceed the declared net profits of the business, or the business is making a loss, use the value of any monthly drawings for personal use made by the partner
           last_paragraph: If the partner is paid in cash, enter any money taken out of their earnings for personal use.
       police_guidance:
-        text: Police officer applicants (PDF, 918KB)
+        text: Police officer applicants (PDF, 1.51MB)
     housing_costs:
       heading: Housing costs
       heading_hint:
@@ -1132,10 +1132,10 @@ en:
       frequency: Select frequency
       guidance_on_housing_costs:
         certificated:
-          text: Housing costs (PDF, 918KB)
+          text: Housing costs (PDF, 1.51MB)
           link: "{%page_url}"
         controlled:
-          text: Housing costs (PDF, 427KB)
+          text: Housing costs (PDF, 940KB)
           link: "{%page_url}"
       housing_payment_hint: Enter full amount due
     mortgage_or_loan_payment:
@@ -1167,8 +1167,8 @@ en:
         - Fostering allowance
         - Cost of Living Payments
       paragraph3:
-        controlled_text_html: Some benefits should not be included, check the <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>guidance (PDF, 427KB).</a>
-        certificated_text_html: Some benefits should not be included, check the <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>guidance (PDF, 918KB).</a>
+        controlled_text_html: Some benefits should not be included, check the <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>guidance (PDF, 940KB).</a>
+        certificated_text_html: Some benefits should not be included, check the <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>guidance (PDF, 1.51MB).</a>
       benefit: Benefit
       benefit_type: Benefit name
       benefit_type_hint: Enter the name of a benefit, or select one from the suggestions that appear when you start to enter the name.
@@ -1193,8 +1193,8 @@ en:
         - Fostering allowance
         - Cost of Living Payments
       paragraph3:
-        controlled_text_html: Some benefits should not be included, check the <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>guidance (PDF, 427KB).</a>
-        certificated_text_html: Some benefits should not be included, check the <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>guidance (PDF, 918KB).</a>
+        controlled_text_html: Some benefits should not be included, check the <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>guidance (PDF, 940KB).</a>
+        certificated_text_html: Some benefits should not be included, check the <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>guidance (PDF, 1.51MB).</a>
     other_income:
       heading: Your client's other income
       second_caption: Enter 0 for any that do not apply
@@ -1236,8 +1236,8 @@ en:
         question_hint: "Check the guidance for:"
         list_benefits_controlled_html: <a href="%{page_url}" target='_blank' rel='noreferrer noopener'> mandatory and discretionary disregarded payments (PDF, 940KB)</a>
         list_income_controlled_html: <a href="%{page_url_2}" target='_blank' rel='noreferrer noopener'>the principles for exercising discretion (PDF, 940KB)</a>
-        list_benefits_certificated_html: <a href="%{page_url}" target='_blank' rel='noreferrer noopener'> mandatory and discretionary disregarded payments (PDF, 1.5MB)</a>
-        list_income_certificated_html: <a href="%{page_url_2}" target='_blank' rel='noreferrer noopener'>the principles for exercising discretion (PDF, 1.5MB)</a>
+        list_benefits_certificated_html: <a href="%{page_url}" target='_blank' rel='noreferrer noopener'> mandatory and discretionary disregarded payments (PDF, 1.51MB)</a>
+        list_income_certificated_html: <a href="%{page_url_2}" target='_blank' rel='noreferrer noopener'>the principles for exercising discretion (PDF, 1.51MB)</a>
         question_hint_2: Do not include any disregarded compensation or cost of living payments. Check the guidance for a complete list of disregarded payments.
         label: Income from other sources
         hint: Include any other income your client received. Do not include any government Cost of Living Payments. Enter 0 if this does not apply
@@ -1254,8 +1254,8 @@ en:
         monthly: Every month
         total: Total in last 3 months
       guidance:
-        controlled_text: Income (PDF, 980KB)
-        certificated_text: Income (PDF, 1.5MB)
+        controlled_text: Income (PDF, 940KB)
+        certificated_text: Income (PDF, 1.51MB)
     partner_other_income:
       heading: The partner's other income
       caption: Do not include income already entered for your client.
@@ -1298,8 +1298,8 @@ en:
         question_hint: "Check the guidance for:"
         list_benefits_controlled_html: <a href="%{page_url}" target='_blank' rel='noreferrer noopener'> mandatory and discretionary disregarded payments (PDF, 940KB)</a>
         list_income_controlled_html: <a href="%{page_url_2}" target='_blank' rel='noreferrer noopener'>the principles for exercising discretion (PDF, 940KB)</a>
-        list_benefits_certificated_html: <a href="%{page_url}" target='_blank' rel='noreferrer noopener'> mandatory and discretionary disregarded payments (PDF, 1.5MB)</a>
-        list_income_certificated_html: <a href="%{page_url_2}" target='_blank' rel='noreferrer noopener'>the principles for exercising discretion (PDF, 1.5MB)</a>
+        list_benefits_certificated_html: <a href="%{page_url}" target='_blank' rel='noreferrer noopener'> mandatory and discretionary disregarded payments (PDF, 1.51MB)</a>
+        list_income_certificated_html: <a href="%{page_url_2}" target='_blank' rel='noreferrer noopener'>the principles for exercising discretion (PDF, 1.51MB)</a>
         question_hint_2: Do not include any disregarded compensation or Cost of Living payments. Check the guidance for a complete list of disregarded payments.
         label: Income from other sources
         hint: Include any other income the partner received. Do not include any government Cost of Living Payments. Enter 0 if this does not apply.
@@ -1340,9 +1340,9 @@ en:
         total: Total in last 3 months
       guidance_on_outgoings:
         certificated:
-          text: Determining outgoings (PDF, 918KB)
+          text: Determining outgoings (PDF, 1.51MB)
         controlled:
-          text: Determining disposable income (PDF, 427KB)
+          text: Determining disposable income (PDF, 940KB)
     partner_outgoings:
       heading: The partner's outgoings and deductions
       caption: Do not include any outgoings already entered for your client.
@@ -1387,17 +1387,17 @@ en:
         none: "No"
       properties_guidance:
         certificated:
-          text: Properties (PDF, 918KB)
+          text: Properties (PDF, 1.51MB)
           link: "%page_url"
         controlled:
-          text: Properties (PDF, 427KB)
+          text: Properties (PDF, 940KB)
           link: "%page_url"
       additional_properties_guidance:
         certificated:
-          text: Properties owned that are not the 'main house' (PDF, 918KB)
+          text: Properties owned that are not the 'main house' (PDF, 1.51MB)
           link: "%page_url"
         controlled:
-          text: Properties owned that are not the 'main house' (PDF, 427KB)
+          text: Properties owned that are not the 'main house' (PDF, 940KB)
           link: "%page_url"
     additional_property:
       legend: Does your client own any other property, a holiday home or land?
@@ -1414,7 +1414,7 @@ en:
         legend_with_partner: Does your client or their partner own a vehicle?
         hint: "This includes cars, vans and motorcycles"
       guidance:
-        text: Vehicles (PDF, 918KB)
+        text: Vehicles (PDF, 1.51MB)
     assets:
       legend: Client assets
       cr_hint: If any of these assets are owned by both the client and partner, enter the full value here. Do not enter them again on the partner questions that follow.
@@ -1426,9 +1426,9 @@ en:
       bankrupt_title: Clients who are bankrupt
       bankrupt_text: If your client is bankrupt, any capital assets vested in the trustee in bankruptcy will not be included in the capital assessment.
       prisoner_guidance:
-        text: Clients who are prisoners (PDF, 918KB)
+        text: Clients who are prisoners (PDF, 1.51MB)
       bankrupt_guidance:
-        text: Clients who are bankrupt (PDF, 918KB)
+        text: Clients who are bankrupt (PDF, 1.51MB)
       bank_accounts:
         label: Money in bank accounts
         paragraph1: 'For example:'
@@ -1447,8 +1447,8 @@ en:
         paragraph3: "Check the guidance for:"
         list_link_disregarded_capital_controlled_html: <a href="%{page_url}" target="_blank" rel="noreferrer noopener">mandatory and discretionary disregarded capital (PDF, 940KB)</a>
         list_link_exercising_discretion_controlled_html: <a href="%{page_url_2}" target="_blank" rel="noreferrer noopener">the principles for exercising discretion (PDF, 940KB)</a>
-        list_link_disregarded_capital_certificated_html: <a href="%{page_url}" target="_blank" rel="noreferrer noopener">mandatory and discretionary disregarded capital (PDF, 1.5MB)</a>
-        list_link_exercising_discretion_certificated_html: <a href="%{page_url_2}" target="_blank" rel="noreferrer noopener">the principles for exercising discretion (PDF, 1.5MB)</a>
+        list_link_disregarded_capital_certificated_html: <a href="%{page_url}" target="_blank" rel="noreferrer noopener">mandatory and discretionary disregarded capital (PDF, 1.51MB)</a>
+        list_link_exercising_discretion_certificated_html: <a href="%{page_url_2}" target="_blank" rel="noreferrer noopener">the principles for exercising discretion (PDF, 1.51MB)</a>
         input: Total money in bank account
         hint:  Enter 0 if this does not apply.
       add_bank_account: Add another bank account
@@ -1511,11 +1511,11 @@ en:
         input: Total of all valuable items
       guidance:
         controlled:
-          text: Assets and capital, including disregarded capital (PDF, 427KB)
+          text: Assets and capital, including disregarded capital (PDF, 940KB)
         certificated:
-          text: Assets and capital (PDF, 918KB)
+          text: Assets and capital (PDF, 1.51MB)
       disregarded_capital_guidance:
-        text: Disregarded capital (PDF, 918KB)
+        text: Disregarded capital (PDF, 1.51MKB)
     partner_assets:
       legend: Partner assets
       hint: Do not include any assets already entered for your client.
@@ -1527,9 +1527,9 @@ en:
       bankrupt_title: Partners who are bankrupt
       bankrupt_text: If the partner is bankrupt, any capital assets vested in the trustee in bankruptcy will not be included in the capital assessment.
       prisoner_guidance:
-        text: Clients with partners who are prisoners (PDF, 918KB)
+        text: Clients with partners who are prisoners (PDF, 1.51MB)
       bankrupt_guidance:
-        text: Clients with partners who are bankrupt (PDF, 918KB)
+        text: Clients with partners who are bankrupt (PDF, 1.51MB)
       bank_accounts:
         paragraph1: 'For example:'
         list:
@@ -1542,8 +1542,8 @@ en:
         paragraph4: "Check the guidance for:"
         list_link_disregarded_capital_controlled_html: <a href="%{page_url}" target="_blank" rel="noreferrer noopener">mandatory and discretionary disregarded capital (PDF, 940KB)</a>
         list_link_exercising_discretion_controlled_html: <a href="%{page_url_2}" target="_blank" rel="noreferrer noopener">the principles for exercising discretion (PDF, 940KB)</a>
-        list_link_disregarded_capital_certificated_html: <a href="%{page_url}" target="_blank" rel="noreferrer noopener">mandatory and discretionary disregarded capital (PDF, 1.5MB)</a>
-        list_link_exercising_discretion_certificated_html: <a href="%{page_url_2}" target="_blank" rel="noreferrer noopener">the principles for exercising discretion (PDF, 1.5MB)</a>
+        list_link_disregarded_capital_certificated_html: <a href="%{page_url}" target="_blank" rel="noreferrer noopener">mandatory and discretionary disregarded capital (PDF, 1.51MB)</a>
+        list_link_exercising_discretion_certificated_html: <a href="%{page_url_2}" target="_blank" rel="noreferrer noopener">the principles for exercising discretion (PDF, 1.51MB)</a>
       investments:
         label: Does the partner have any investments?
         hints:
@@ -2346,9 +2346,9 @@ en:
           capital-calculation-section: See Capital calculation
     legislation_table:
       paragraph_1_controlled_html: This calculation was made using the rules for controlled work in <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>The Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 (opens in new tab)</a> and the <a href="%{page_url_2}" target='_blank' rel='noreferrer noopener' aria-label="Link opens a search page which includes a list of amendments to The Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 (opens in new tab)">amendments to these Regulations (opens in new tab)</a>.
-      paragraph_2_controlled_html: Guidance on determining financial eligibility for controlled work and family mediation can be found in the <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>guide to determining controlled work (PDF, 427KB)</a>.
+      paragraph_2_controlled_html: Guidance on determining financial eligibility for controlled work and family mediation can be found in the <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>guide to determining controlled work (PDF, 940KB)</a>.
       paragraph_1_certificated_html: This calculation was made using the rules for certificated work in <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>The Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 (opens in new tab)</a> and the <a href="%{page_url_2}" target='_blank' rel='noreferrer noopener' aria-label="Link opens a search page which includes a list of amendments to The Civil Legal Aid (Financial Resources and Payment for Services) Regulations 2013 (opens in new tab)">amendments to these Regulations (opens in new tab)</a>.
-      paragraph_2_certificated_html: Guidance on determining financial eligibility for certificated work can be found in the <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>guide to determining certificated work (PDF, 918KB)</a>.
+      paragraph_2_certificated_html: Guidance on determining financial eligibility for certificated work can be found in the <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>guide to determining certificated work (PDF, 1.51MB)</a>.
     limits_table:
       calculation_information: We’ve used the information you provided to compare your client’s income and outgoings. This allows us to calculate their monthly disposable income.
       limits_heading: Limits
@@ -2646,7 +2646,7 @@ en:
      header: Help with trusts
      paragraph_1: This service does not currently collect or include the capital value of any interest in trusts held by the client. However the LAA will need evidence of any such trust fund or settlement and may include this when you make an application.
      paragraph_1_partner: This service does not currently collect or include the capital value of any interest in trusts held by the client or the partner. However the LAA will need evidence of any such trust fund or settlement and may include this when you make an application.
-     paragraph_2_html: See the <a href="%{page_url_3}" target="_blank" rel="noreferrer noopener">Lord Chancellor's guidance (PDF, 1.5MB)</a> for more information on how this is assessed at application stage.
+     paragraph_2_html: See the <a href="%{page_url_3}" target="_blank" rel="noreferrer noopener">Lord Chancellor's guidance (PDF, 1.51MB)</a> for more information on how this is assessed at application stage.
   controlled_work_document_selections:
     new:
       title: Select a controlled work (CW) form to download with your answers
