@@ -702,7 +702,7 @@ en:
       guidance:
         controlled: Controlled work (PDF, 940KB)
         certificated: Certificated work (PDF, 1.51MB)
-        under_18_controlled: Controlled work - child applicants (PDF, 1.51MB)
+        under_18_controlled: Controlled work - child applicants (PDF, 940KB)
         under_18_certificated: Certificated work - child applicants (PDF, 1.51MB)
         over_60_controlled: Controlled work - over 60s (PDF, 940KB)
         over_60_certificated: Certificated work - over 60s (PDF, 1.51MB)
@@ -818,7 +818,7 @@ en:
       immigration_legal_help: Immigration - legal help or help at court
       asylum: Asylum - legal help, help at court, or controlled legal representation (CLR) in the First-tier Tribunal
       legacy_case_guidance:
-        text: Legacy case Appeals and Reviews in the Upper Tribunal (PDF, 427KB)
+        text: Legacy case Appeals and Reviews in the Upper Tribunal (PDF, 940KB)
     immigration_or_asylum_type_upper_tribunal:
       question: Is this for a matter in the Immigration and Asylum Chamber of the Upper Tribunal?
       help_text_1: This is only for for legal representation for an immigration or asylum matter in the Immigration and Asylum Chamber of the Upper Tribunal, including in relation to an appeal or review from the Immigration and Asylum Chamber of the First-tier Tribunal.
@@ -1254,7 +1254,7 @@ en:
         monthly: Every month
         total: Total in last 3 months
       guidance:
-        controlled_text: Income (PDF, 980KB)
+        controlled_text: Income (PDF, 940KB)
         certificated_text: Income (PDF, 1.51MB)
     partner_other_income:
       heading: The partner's other income
