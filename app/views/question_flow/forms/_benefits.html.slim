@@ -3,12 +3,9 @@
   = form.govuk_radio_buttons_fieldset :receives_benefits,
           legend: do
 
-    p.govuk-body
-      = t("generic.benefits.hint")
-      = render "shared/disregarded_benefits_details", level_of_help: @check.level_of_help
+    p.govuk-body = t("generic.benefits.hint_#{@check.level_of_help}_html", \
+                   page_url: document_link(:"lc_guidance_#{@check.level_of_help}", :disregarded_payments))
 
-    p.govuk-body
-      = t("generic.benefits.do_not_include")
     p.govuk-body
       ul.govuk-list.govuk-list--bullet
         - t("generic.benefits.do_not_include_list").each do |item|
