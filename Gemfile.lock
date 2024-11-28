@@ -189,7 +189,6 @@ GEM
       net-http-persistent (>= 4.0.4, < 5)
     faraday-retry (2.2.1)
       faraday (~> 2.0)
-    geckoboard-ruby (0.4.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
     govuk-components (5.7.1)
@@ -584,7 +583,6 @@ DEPENDENCIES
   faraday
   faraday-net_http_persistent
   faraday-retry
-  geckoboard-ruby
   govuk-components
   govuk_design_system_formbuilder
   govuk_notify_rails (~> 3.0.0)
