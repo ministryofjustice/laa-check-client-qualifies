@@ -64,7 +64,7 @@ RSpec.describe "other_income", :stub_cfe_calls_with_webmock, type: :feature do
 
     fill_in "other-income-form-student-finance-conditional-value-field", with: "100"
 
-    fill_in "other-income-form-other-conditional-value-field", with: "67"
+    fill_in "other-income-form-other-conditional-value-field", with: "0.11"
 
     click_on "Save and continue"
 
@@ -81,6 +81,6 @@ RSpec.describe "other_income", :stub_cfe_calls_with_webmock, type: :feature do
     expect(session_contents["student_finance_relevant"]).to be true
     expect(session_contents["student_finance_conditional_value"]).to eq 100
     expect(session_contents["other_relevant"]).to be true
-    expect(session_contents["other_conditional_value"]).to eq 67
+    expect(session_contents["other_conditional_value"]).to eq 0.11
   end
 end
