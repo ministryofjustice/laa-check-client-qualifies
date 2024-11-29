@@ -51,7 +51,7 @@ class OtherIncomeForm
         errors.add(:other_conditional_value, I18n.t("activemodel.errors.models.other_income_form.attributes.other_conditional_value.blank_#{level_of_help}"))
       elsif !other_conditional_value.is_a?(Numeric)
         errors.add(:other_conditional_value, I18n.t("activemodel.errors.models.other_income_form.attributes.other_conditional_value.not_a_number_#{level_of_help}"))
-      elsif !other_conditional_value.to_i.positive?
+      elsif !other_conditional_value.positive?
         errors.add(:other_conditional_value, I18n.t("activemodel.errors.models.other_income_form.attributes.other_conditional_value.greater_than_#{level_of_help}"))
       end
     end
