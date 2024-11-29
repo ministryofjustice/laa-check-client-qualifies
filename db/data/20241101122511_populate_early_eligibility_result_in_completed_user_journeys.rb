@@ -8,4 +8,10 @@ class PopulateEarlyEligibilityResultInCompletedUserJourneys < ActiveRecord::Migr
       check.update_columns(early_eligibility_result:)
     end
   end
+
+  def down
+    CompletedUserJourney.find_each do |check|
+      check.update_columns(early_eligibility_result: nil)
+    end
+  end
 end
