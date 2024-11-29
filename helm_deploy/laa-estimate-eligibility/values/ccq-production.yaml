@@ -56,13 +56,13 @@ featureFlags:
   sentry: ENABLED
   overrides: NOT_ENABLED
   indexProduction: ENABLED
-  maintenanceMode: NOT_ENABLED
+  maintenanceMode: ENABLED
   basicAuthentication: NOT_ENABLED
   outgoingsFlow: ENABLED
   conditionalReveals: ENABLED
   cwFormUpdates: ENABLED
   sharedOwnership: NOT_ENABLED
-  eeBanner: NOT_ENABLED
+  eeBanner: ENABLED
 
 geckoboard:
   metricsDataset: "ccq_monthly_metrics_production"
