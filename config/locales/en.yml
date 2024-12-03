@@ -1143,7 +1143,8 @@ en:
       hint: Enter 0 if this does not apply
       frequency: Select frequency
     benefits:
-      legend: "Does your client get any </br>non-passporting benefits?"
+      legend_title: Does your client get any non-passporting benefits?
+      legend_html: "Does your client get any </br>non-passporting benefits?"
       frequencies:
         every_week: Every week
         every_two_weeks: Every 2 weeks

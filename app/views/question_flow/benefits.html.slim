@@ -1,12 +1,12 @@
 - content_for :page_title
-  = t(".legend")
+  = t(".legend_title")
 - content_for :back
   = back_link(@previous_step, @back_buttons_invoke_browser_back_behaviour)
 
 .govuk-grid-column-two-thirds
   = render "shared/heading"
   = render "question_flow/forms/benefits",
-           legend: { text: t(".legend").html_safe,
+           legend: { text: t(".legend_html"),
                      size: "xl",
                      tag: "h1" }
 
