@@ -43,7 +43,7 @@
     .govuk-button-group
       = link_to t(".save_as_pdf"),
             download_result_path(params[:assessment_code]),
-            target: "_blank", rel: "noopener", class: "govuk-button govuk-button--secondary"
+            target: "_blank", rel: "noopener", class: "govuk-button govuk-button--secondary", id: "save_as_pdf_controlled"
 
     h2.govuk-heading-m = t(".complete_a_cw_form")
     p.govuk-body = t(".complete_a_cw_form_paragraph#{'_under_eighteen' if @check.under_eighteen_no_means_test_required?}")
@@ -94,5 +94,5 @@
   - unless @journey_continues_on_another_page || @check.under_eighteen_no_means_test_required?
     .govuk-button-group
       = link_to t(".save_as_pdf"), download_result_path(params[:assessment_code]),
-                                    target: "_blank", rel: "noopener", class: "govuk-button"
+                                    target: "_blank", rel: "noopener", class: "govuk-button", id: "save_as_pdf_certificated"
       = link_to t(".start_another_check"), new_check_path, class: "govuk-button govuk-button--secondary", data: { module: "govuk-button" }
