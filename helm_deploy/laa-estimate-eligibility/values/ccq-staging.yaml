@@ -62,17 +62,7 @@ featureFlags:
   conditionalReveals: ENABLED
   cwFormUpdates: ENABLED
   sharedOwnership: NOT_ENABLED
-  eeBanner: NOT_ENABLED
-
-geckoboard:
-  metricsDataset: "ccq_monthly_metrics_staging"
-  allMetricsDataset: "ccq_all_metrics_staging"
-  lastPagesDataset: "ccq_last_pages_staging"
-  validationsDataset: "ccq_validations_staging"
-  allJourneysDataset: "ccq_all_journeys_staging"
-  monthlyJourneysDataset: "ccq_monthly_journeys_staging"
-  recentJourneysDataset: "ccq_recent_journeys_staging"
-  enabled: not_enabled
+  eeBanner: ENABLED
 
 sentry:
   # Despite looking very secret-y, the key here is _not_ a secret, as it will appear in every HTTP response header

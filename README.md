@@ -51,8 +51,8 @@ Create the development and test databases and run migrations
 
 ```
 bundle exec rails db:create
-bundle exec rails db:migrate
-bundle exec rails db:migrate RAILS_ENV=test
+bundle exec rails db:migrate:with_data
+bundle exec rails db:migrate:with_data RAILS_ENV=test
 ```
 
 Install [Yarn](https://classic.yarnpkg.com/en/) (you can use Homebrew for this) and run the below:
@@ -236,7 +236,6 @@ It is also possible to manually deploy to an environment from the command line, 
 We keep secrets in AWS Secrets Manager. To edit them, visit the [AWS web console](https://justice-cloud-platform.eu.auth0.com/samlp/mQev56oEa7mrRCKAZRxSnDSoYt6Y7r5m?connection=github). The following secrets are currently stored in a secret called "aws-secrets" in each namespace we use:
 * NOTIFICATIONS_API_KEY
 * SECRET_KEY_BASE
-* GECKOBOARD_API_KEY
 * BASIC_AUTH_PASSWORD
 * GOOGLE_OAUTH_CLIENT_SECRET
 

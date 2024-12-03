@@ -48,8 +48,6 @@ gem "grover"
 gem "exception_notification"
 gem "govuk_notify_rails", "~> 3.0.0"
 
-gem "geckoboard-ruby"
-
 gem "pdf-forms"
 gem "rexml", ">= 3.3.4"
 gem "factory_bot_rails"
@@ -58,6 +56,8 @@ gem "devise"
 gem "omniauth-google-oauth2"
 gem "omniauth-rails_csrf_protection", ">= 1.0.2"
 gem "omniauth-saml", "~> 2.2.1"
+
+gem "data_migrate"
 
 gem "rails_admin"
 
