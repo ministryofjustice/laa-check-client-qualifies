@@ -86,27 +86,6 @@ env:
     value:  {{ .Values.notifications.errorMessageTemplateId }}
   - name: NOTIFICATIONS_RECIPIENT
     value: {{ .Values.notifications.recipient }}
-  - name: GECKOBOARD_API_KEY
-    valueFrom:
-      secretKeyRef:
-        name: aws-secrets
-        key: GECKOBOARD_API_KEY
-  - name: GECKOBOARD_METRIC_DATASET_NAME
-    value:  {{ .Values.geckoboard.metricsDataset }}
-  - name: GECKOBOARD_LAST_PAGE_DATASET_NAME
-    value:  {{ .Values.geckoboard.lastPagesDataset }}
-  - name: GECKOBOARD_ALL_METRIC_DATASET_NAME
-    value:  {{ .Values.geckoboard.allMetricsDataset }}
-  - name: GECKOBOARD_VALIDATION_DATASET_NAME
-    value:  {{ .Values.geckoboard.validationsDataset }}
-  - name: GECKOBOARD_ALL_JOURNEYS_DATASET_NAME
-    value:  {{ .Values.geckoboard.allJourneysDataset }}
-  - name: GECKOBOARD_MONTHLY_JOURNEYS_DATASET_NAME
-    value:  {{ .Values.geckoboard.monthlyJourneysDataset }}
-  - name: GECKOBOARD_RECENT_JOURNEYS_DATASET_NAME
-    value:  {{ .Values.geckoboard.recentJourneysDataset }}
-  - name: GECKOBOARD_ENABLED
-    value: {{ .Values.geckoboard.enabled }}
   - name: BLAZER_DATABASE_PASSWORD
     valueFrom:
       secretKeyRef:
