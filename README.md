@@ -51,8 +51,8 @@ Create the development and test databases and run migrations
 
 ```
 bundle exec rails db:create
-bundle exec rails db:migrate
-bundle exec rails db:migrate RAILS_ENV=test
+bundle exec rails db:migrate:with_data
+bundle exec rails db:migrate:with_data RAILS_ENV=test
 ```
 
 Install [Yarn](https://classic.yarnpkg.com/en/) (you can use Homebrew for this) and run the below:

@@ -62,7 +62,7 @@ featureFlags:
   conditionalReveals: ENABLED
   cwFormUpdates: ENABLED
   sharedOwnership: NOT_ENABLED
-  eeBanner: NOT_ENABLED
+  eeBanner: ENABLED
 
 sentry:
   # Despite looking very secret-y, the key here is _not_ a secret, as it will appear in every HTTP response header

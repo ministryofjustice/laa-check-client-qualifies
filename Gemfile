@@ -57,6 +57,8 @@ gem "omniauth-google-oauth2"
 gem "omniauth-rails_csrf_protection", ">= 1.0.2"
 gem "omniauth-saml", "~> 2.2.1"
 
+gem "data_migrate"
+
 gem "rails_admin"
 
 group :development, :test do
