@@ -8,7 +8,7 @@ module CfeParamBuilders
     end
 
     def self.bank_accounts(form, smod_applicable)
-      form.bank_accounts.select { _1.amount.to_i.positive? }.map do |bank_account|
+      form.bank_accounts.select { _1.amount.to_f.positive? }.map do |bank_account|
         {
           value: bank_account.amount,
           description: "Liquid Asset",
@@ -27,7 +27,7 @@ module CfeParamBuilders
          value: form.valuables,
          description: "Non Liquid Asset",
          subject_matter_of_dispute: smod_applicable && form.valuables_in_dispute,
-       }].select { _1[:value].to_i.positive? }
+       }].select { _1[:value].to_f.positive? }
     end
   end
 end
