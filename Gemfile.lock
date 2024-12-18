@@ -142,7 +142,7 @@ GEM
       activerecord (>= 5.a)
       database_cleaner-core (~> 2.0.0)
     database_cleaner-core (2.0.1)
-    date (3.3.4)
+    date (3.4.1)
     debug (1.9.2)
       irb (~> 1.10)
       reline (>= 0.3.8)
@@ -260,7 +260,7 @@ GEM
       uri
     net-http-persistent (4.0.4)
       connection_pool (~> 2.2)
-    net-imap (0.5.0)
+    net-imap (0.5.1)
       date
       net-protocol
     net-pop (0.1.2)
@@ -270,11 +270,11 @@ GEM
     net-smtp (0.5.0)
       net-protocol
     nio4r (2.7.4)
-    nokogiri (1.17.0-arm64-darwin)
+    nokogiri (1.17.1-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.17.0-x86_64-darwin)
+    nokogiri (1.17.1-x86_64-darwin)
       racc (~> 1.4)
-    nokogiri (1.17.0-x86_64-linux)
+    nokogiri (1.17.1-x86_64-linux)
       racc (~> 1.4)
     notifications-ruby-client (6.2.0)
       jwt (>= 1.5, < 3)
@@ -375,12 +375,12 @@ GEM
     rails-html-sanitizer (1.6.1)
       loofah (~> 2.21)
       nokogiri (>= 1.15.7, != 1.16.7, != 1.16.6, != 1.16.5, != 1.16.4, != 1.16.3, != 1.16.2, != 1.16.1, != 1.16.0.rc1, != 1.16.0)
-    rails_admin (3.2.1)
+    rails_admin (3.3.0)
       activemodel-serializers-xml (>= 1.0)
       csv
       kaminari (>= 0.14, < 2.0)
       nested_form (~> 0.3)
-      rails (>= 6.0, < 8)
+      rails (>= 6.0, < 9)
       turbo-rails (>= 1.0, < 3)
     railties (7.2.2)
       actionpack (= 7.2.2)
