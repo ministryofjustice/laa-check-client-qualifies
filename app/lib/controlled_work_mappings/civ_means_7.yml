@@ -52,6 +52,7 @@
       source: smod_assets?
       yes_value: "Yes"
       no_value: "No"
+
 - section: smod_capital
   fields:
     # Main home / current market value (SMOD)
@@ -133,6 +134,7 @@
     - name: FillText101
       type: text
       source: smod_total_capital
+
 - section: capital
   fields:
     # Main home / current market value (non-SMOD)
@@ -254,10 +256,75 @@
       type: text
       source: client_gross_income
 
-    # Other income / Client
-    - name: FillText84
+    # Benefits & Tax Credits / Client
+    - name: benefits_client
       type: text
-      source: client_non_employment_income
+      source: client_benefits
+
+    # Maintenance from former partner / Client
+    - name: maintenance_client
+      type: text
+      source: client_maintenance
+
+    # Pensions / Client
+    - name: pensions_client
+      type: text
+      source: client_pensions
+
+    # Student Finance / Client
+    - name: studentfinance_client
+      type: text
+      source: client_student_finance
+
+    # Family or Friends / Client
+    - name: friendsandfamily_client
+      type: text
+      source: client_friends_and_family
+
+    # Property or Lodger / Client
+    - name: property_client
+      type: text
+      source: client_property_lodger_income
+
+    # Other Income / Client
+    - name: otherincome_client
+      type: text
+      source: client_other_income
+
+    # Benefits & Tax Credits / Partner
+    - name: benefits_partner
+      type: text
+      source: partner_benefits
+
+    # Maintenance from former partner / Partner
+    - name: maintenance_partner
+      type: text
+      source: partner_maintenance
+
+    # Pensions / Partner
+    - name: pensions_partner
+      type: text
+      source: partner_pensions
+
+    # Student Finance / Partner
+    - name: studentfinance_partner
+      type: text
+      source: partner_student_finance
+
+    # Family or Friends / Partner
+    - name: friendsandfamily_partner
+      type: text
+      source: partner_friends_and_family
+
+    # Property or Lodger / Partner
+    - name: property_partner
+      type: text
+      source: partner_property_lodger_income
+
+    # Other Income / Partner
+    - name: otherincome_partner
+      type: text
+      source: partner_other_income
 
     # Total gross income / Client
     - name: FillText86
