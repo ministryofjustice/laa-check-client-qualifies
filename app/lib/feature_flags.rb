@@ -12,7 +12,6 @@ class FeatureFlags
     index_production: { type: "global", default: false },
     maintenance_mode: { type: "global", default: false },
     basic_authentication: { type: "global", default: false },
-    cw_form_updates: { type: "global", default: false },
     shared_ownership: { type: "session", default: false },
     ee_banner: { type: "session", default: false },
   }.freeze
