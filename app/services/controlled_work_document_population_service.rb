@@ -27,7 +27,7 @@ class ControlledWorkDocumentPopulationService
       "cw1_welsh" => "lib/cw1-form-welsh-CCQoct24.pdf",
       "cw2_welsh" => "lib/cw2imm-form-welsh-CCQoct24.pdf",
       "cw5_welsh" => "lib/cw5-form-welsh-CCQoct24.pdf",
-      "cw1_and_2_welsh" => "lib/cw1-form-welsh-CCQoct24.pdf",
+      "cw1_and_2_welsh" => "lib/cw1-and-2-form-welsh-CCQoct24.pdf",
       "civ_means_7_welsh" => "lib/civ-means-7-form-welsh-CCQoct24.pdf",
     }.freeze
 
