@@ -57,7 +57,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
     end
 
     it "can successfully populate the new fields on the CW1 form (other income section)" do
-      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_new.yml")).map(&:with_indifferent_access)
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
         "Child under 18" => "No",
@@ -132,7 +132,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
     end
 
     it "can successfully populate Welsh CW1 form with the added other income fields" do
-      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_welsh_new.yml")).map(&:with_indifferent_access)
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_welsh.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
         "Matter type" => "Means test required", # This is always checked as CCQ is only relevant to means tested cases
@@ -229,7 +229,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
     end
 
     it "can successfully populate new CIVMEANS7 form (other income fields)" do
-      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/civ_means_7_new.yml")).map(&:with_indifferent_access)
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/civ_means_7.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
         "Passported" => "No",
@@ -249,7 +249,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
     end
 
     it "can successfully populate a Welsh CIVMEANS7 form with the added other income fields" do
-      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/civ_means_7_welsh_new.yml")).map(&:with_indifferent_access)
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/civ_means_7_welsh.yml")).map(&:with_indifferent_access)
       result = described_class.call(session_data, mappings)
       representative_sample = {
         "Passported" => "Nac ydy",

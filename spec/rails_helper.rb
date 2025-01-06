@@ -139,12 +139,6 @@ RSpec.configure do |config|
     ENV["BASIC_AUTHENTICATION_FEATURE_FLAG"] = "disabled"
   end
 
-  config.around(:each, :cw_form_updates) do |example|
-    ENV["CW_FORM_UPDATES_FEATURE_FLAG"] = "enabled"
-    example.run
-    ENV["CW_FORM_UPDATES_FEATURE_FLAG"] = "disabled"
-  end
-
   config.around(:each, :shared_ownership) do |example|
     ENV["SHARED_OWNERSHIP_FEATURE_FLAG"] = "enabled"
     example.run
