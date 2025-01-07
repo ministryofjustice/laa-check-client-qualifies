@@ -87,16 +87,6 @@ postgresql:
     persistence:
       enabled: true
 
-geckoboard:
-  metricsDataset: "ccq_monthly_metrics_uat"
-  allMetricsDataset: "ccq_all_metrics_uat"
-  validationsDataset: "ccq_validations_uat"
-  lastPagesDataset: "ccq_last_pages_uat"
-  allJourneysDataset: "ccq_all_journeys_uat"
-  monthlyJourneysDataset: "ccq_monthly_journeys_uat"
-  recentJourneysDataset: "ccq_recent_journeys_uat"
-  enabled: not_enabled
-
 sentry:
   # Despite looking very secret-y, the key here is _not_ a secret, as it will appear in every HTTP response header
   cspReportEndpoint: https://o345774.ingest.sentry.io/api/6747538/security/?sentry_key=53f41c70bd59430cbf0855fd6f79cf86

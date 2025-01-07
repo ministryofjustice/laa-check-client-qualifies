@@ -63,6 +63,47 @@ RSpec.describe Cfe::AssetsPayloadService do
       end
     end
 
+    context "when there is a full set of data which include amounts lower than pound sterling" do
+      let(:session_data) do
+        {
+          "property_owned" => "with_mortgage",
+          "house_value" => 234_234,
+          "mortgage" => 123_123,
+          "percentage_owned" => 80,
+          "house_in_dispute" => false,
+          "additional_property_owned" => "with_mortgage",
+          "additional_properties" => [{
+            "house_value" => 123,
+            "mortgage" => 1313,
+            "percentage_owned" => 44,
+            "house_in_dispute" => false,
+          }],
+          "bank_accounts" => [{ "amount" => 0.99, "account_in_dispute" => true }],
+          "investments_relevant" => true,
+          "investments" => 0.98,
+          "valuables_relevant" => true,
+          "valuables" => 665,
+          "investments_in_dispute" => true,
+          "valuables_in_dispute" => true,
+        }
+      end
+      let(:relevant_steps) { %i[assets property_entry additional_property_details] }
+
+      it "populates the payload appropriately" do
+        expect(payload[:capitals]).to eq(
+          { bank_accounts: [{ description: "Liquid Asset",
+                              subject_matter_of_dispute: true,
+                              value: 0.99 }],
+            non_liquid_capital: [{ description: "Non Liquid Asset",
+                                   subject_matter_of_dispute: true,
+                                   value: 0.98 },
+                                 { description: "Non Liquid Asset",
+                                   subject_matter_of_dispute: true,
+                                   value: 665 }] },
+        )
+      end
+    end
+
     context "when an additional property is owned with a mortgage" do
       let(:session_data) do
         {

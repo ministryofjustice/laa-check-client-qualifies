@@ -90,6 +90,74 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
       end
     end
 
+    context "when the full set of income and outgoings data, include amounts lower than pound sterling" do
+      let(:session_data) do
+        {
+          "friends_or_family_relevant" => true,
+          "maintenance_relevant" => true,
+          "property_or_lodger_relevant" => true,
+          "pension_relevant" => true,
+          "student_finance_relevant" => true,
+          "other_relevant" => true,
+          "friends_or_family_conditional_value" => 0.99,
+          "friends_or_family_frequency" => "every_week",
+          "maintenance_conditional_value" => 0.98,
+          "maintenance_frequency" => "every_two_weeks",
+          "property_or_lodger_conditional_value" => 0.97,
+          "property_or_lodger_frequency" => "every_four_weeks",
+          "pension_conditional_value" => 0.96,
+          "pension_frequency" => "monthly",
+          "student_finance_conditional_value" => 89,
+          "other_conditional_value" => 9,
+          "childcare_payments_relevant" => true,
+          "maintenance_payments_relevant" => true,
+          "legal_aid_payments_relevant" => true,
+          "childcare_payments_conditional_value" => 0.95,
+          "childcare_payments_frequency" => "every_two_weeks",
+          "maintenance_payments_conditional_value" => 0.94,
+          "maintenance_payments_frequency" => "total",
+          "legal_aid_payments_conditional_value" => 0.93,
+          "legal_aid_payments_frequency" => "monthly",
+          "housing_payments" => 0,
+          "housing_benefit_relevant" => false,
+        }
+      end
+
+      it "adds an appropriate payload" do
+        service.call(session_data, payload, relevant_steps)
+        expect(payload[:regular_transactions]).to eq(
+          [{ amount: 0.99,
+             category: :friends_or_family,
+             frequency: :weekly,
+             operation: :credit },
+           { amount: 0.98,
+             category: :maintenance_in,
+             frequency: :two_weekly,
+             operation: :credit },
+           { amount: 0.97,
+             category: :property_or_lodger,
+             frequency: :four_weekly,
+             operation: :credit },
+           { amount: 0.96,
+             category: :pension,
+             frequency: :monthly,
+             operation: :credit },
+           { amount: 0.95,
+             category: :child_care,
+             frequency: :two_weekly,
+             operation: :debit },
+           { amount: 0.94,
+             category: :maintenance_out,
+             frequency: :three_monthly,
+             operation: :debit },
+           { amount: 0.93,
+             category: :legal_aid,
+             frequency: :monthly,
+             operation: :debit }],
+        )
+      end
+    end
+
     context "when there is no relevant data" do
       let(:session_data) { empty_session_data }
       let(:relevant_steps) { [:other_income] }

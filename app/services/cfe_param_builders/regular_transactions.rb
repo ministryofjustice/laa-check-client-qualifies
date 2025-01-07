@@ -38,7 +38,7 @@ module CfeParamBuilders
     def self.build_payments(cfe_translations, form, operation)
       return [] if form.nil?
 
-      cfe_translations.select { |_cfe_name, local_name| value(form, local_name).to_i.positive? }
+      cfe_translations.select { |_cfe_name, local_name| value(form, local_name).to_f.positive? }
                       .map do |cfe_name, local_name|
         {
           operation:,
@@ -56,7 +56,7 @@ module CfeParamBuilders
     def self.build_housing_payments(housing_form)
       case housing_form
       when MortgageOrLoanPaymentForm
-        return [] if housing_form.housing_loan_payments.to_i.zero?
+        return [] if housing_form.housing_loan_payments.to_f <= 0
 
         [
           {
@@ -67,7 +67,7 @@ module CfeParamBuilders
           },
         ]
       when HousingCostsForm
-        return [] if housing_form.housing_payments.to_i.zero?
+        return [] if housing_form.housing_payments.to_f <= 0
 
         [
           {
