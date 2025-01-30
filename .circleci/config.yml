@@ -297,6 +297,21 @@ workflows:
                 environment_type: testing
                 pipeline_id: << pipeline.id >>
                 pipeline_number: << pipeline.number >>
+
+      - staging_deploy_approval:
+          type: approval
+          requires:
+            - run_specs
+            - end2end_tests
+            - linters
+            - build_and_push
+      - deploy:
+          name: Direct Deploy to Staging
+          environment: ccq-staging
+          context: laa-check-client-qualifies-staging
+          requires:
+            - staging_deploy_approval
+
       - deploy:
           name: Deploy to Staging
           environment: ccq-staging
@@ -306,6 +321,7 @@ workflows:
             - end2end_tests
             - linters
             - build_and_push
+            - staging_deploy_approval
             - Deploy to UAT
           post-steps:
             - jira/notify:
