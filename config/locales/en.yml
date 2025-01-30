@@ -597,10 +597,10 @@ en:
   service:
     name: Check if your client qualifies for legal aid
     name_for_page_title: Check if your client qualifies for legal aid | GOV.UK
-    public_beta_survey_link: https://eu.surveymonkey.com/r/ccqpublicbeta
+    public_beta_survey_link: https://www.smartsurvey.co.uk/s/FS38PT/
     beta: Beta
     change_eligibility: Your changes have now put the client within the financial eligibility limits for legal aid. You now need to provide more information.
-    beta_message_html: This is a new service - your <a href="%{survey_link}" target="_blank">feedback</a> will help us improve it
+    beta_message_html: This is a new service - your <a href="%{survey_link}" target="_blank" id="smart_survey_link_banner">feedback</a> will help us improve it
     beta_message_short: This is a new service
     beta_message_pilot_heading: This page is no longer active as the pilot phase is complete.
     beta_message_pilot_body_1: Thank you for taking part.
