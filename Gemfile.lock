@@ -206,7 +206,7 @@ GEM
     govuk_notify_rails (3.0.0)
       notifications-ruby-client (~> 6.2)
       rails (>= 4.1.0)
-    grover (1.2.2)
+    grover (1.2.3)
       nokogiri (~> 1)
     hashdiff (1.1.1)
     hashie (5.0.0)
@@ -341,7 +341,7 @@ GEM
       date
       stringio
     public_suffix (6.0.1)
-    puma (6.5.0)
+    puma (6.6.0)
       nio4r (~> 2.0)
     racc (1.8.1)
     rack (2.2.10)
@@ -491,10 +491,10 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    sentry-rails (5.22.2)
+    sentry-rails (5.22.3)
       railties (>= 5.0)
-      sentry-ruby (~> 5.22.2)
-    sentry-ruby (5.22.2)
+      sentry-ruby (~> 5.22.3)
+    sentry-ruby (5.22.3)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
     simplecov (0.22.0)
@@ -610,7 +610,7 @@ DEPENDENCIES
   pry-nav
   pry-rescue
   pry-stack_explorer
-  puma (~> 6.5)
+  puma (~> 6.6)
   rack_session_access
   rails (~> 7.2.2)
   rails_admin
