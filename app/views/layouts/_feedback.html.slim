@@ -10,12 +10,14 @@
                                         type: "satisfaction",
                                         satisfied: "yes"),
                                         local: false, data: { feedback_role: "satisfaction-form" }) do |form|
+          input type="hidden" name="page" value=@satisfaction_feedback_page_name
           = form.govuk_submit "Yes", class: "gem-c-feedback__prompt-link-small-button", data: { feedback_role: "initial-trigger" }
 
         = form_with(url: feedbacks_path(assessment_code: params[:assessment_code],
                                         type: "satisfaction",
                                         satisfied: "no"),
                                         local: false, data: { feedback_role: "satisfaction-form" }) do |form|
+          input type="hidden" name="page" value=@satisfaction_feedback_page_name
           = form.govuk_submit "No", class: "gem-c-feedback__prompt-link-small-button", data: { feedback_role: "initial-trigger" }
 
   .gem-c-feedback__prompt-white data-feedback-section="message" hidden=true

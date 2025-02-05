@@ -39,6 +39,32 @@ RSpec.describe "Feedback component" do
         expect(stored_data.reload.comment).to eq "some feedback!"
       end
     end
+
+    context "when on the results page" do
+      it "I can successfully submit satisfaction feedback", :slow do
+        start_assessment
+        fill_in_client_age_screen
+        fill_in_level_of_help_screen(choice: "Civil controlled work or family mediation")
+        fill_in_forms_until(:check_answers)
+        click_on "Submit"
+        expect(page).to have_content("Were you satisfied with this service?")
+        click_on "No"
+        find('[data-feedback-section="message"]')
+        expect(page).to have_content("Your response has been sent, please tell us more")
+        expect(page).to have_content("Don't include personal information")
+        find("#comment-field")
+        fill_in "comment-field", with: "some feedback!"
+        sleep 1
+        stored_data = SatisfactionFeedback.find_by(satisfied: "no", outcome: "eligible", level_of_help: "controlled", page: "show_results")
+        sleep 1
+        expect(stored_data).not_to be_nil
+        click_on "Send"
+        expect(page).to have_content("Thank you for your feedback")
+        # the form data is sent asynchronously, so have to wait/sleep for the data to save - (as part of ticket EL-1374)
+        sleep 1
+        expect(stored_data.reload.comment).to eq "some feedback!"
+      end
+    end
   end
 
   describe "Freetext feedback" do
@@ -88,24 +114,6 @@ RSpec.describe "Feedback component" do
           sleep 1
           expect(FreetextFeedback.find_by(text: "", page: "check_answers_checks", level_of_help: "certificated")).to be_nil
           expect(FreetextFeedback.count).to be(0)
-        end
-      end
-
-      context "when on the results page" do
-        it "I can successfully submit freetext feedback", :slow do
-          start_assessment
-          fill_in_client_age_screen
-          fill_in_level_of_help_screen(choice: "Civil controlled work or family mediation")
-          fill_in_forms_until(:check_answers)
-          click_on "Submit"
-          expect(page).to have_content("Give feedback on this page")
-          click_on "Give feedback on this page"
-          fill_in "freetext-input-field", with: "some feedback!"
-          click_on "Send"
-          expect(page).to have_content("Thank you for your feedback")
-          # the form data is sent asynchronously, so have to wait/sleep for the data to save - (as part of ticket EL-1374)
-          sleep 1
-          expect(FreetextFeedback.find_by(text: "some feedback!", page: "show_results", level_of_help: "controlled")).not_to be_nil
         end
       end
 

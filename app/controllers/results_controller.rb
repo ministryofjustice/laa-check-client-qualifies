@@ -1,5 +1,6 @@
 class ResultsController < ApplicationController
   before_action :load_check, only: %i[show download]
+  before_action :specify_satisfaction_feedback_page_name
 
   def create
     session_data["api_response"] = CfeService.call(session_data, Steps::Helper.relevant_steps(session_data))
@@ -62,5 +63,9 @@ private
 
   def specify_feedback_widget
     @feedback = :satisfaction
+  end
+
+  def specify_satisfaction_feedback_page_name
+    @satisfaction_feedback_page_name = page_name
   end
 end
