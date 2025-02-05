@@ -22,7 +22,6 @@ class ResultsController < ApplicationController
 
     track_page_view(page: :view_results)
     @journey_continues_on_another_page = @check.controlled? && @model.decision == "eligible"
-    @feedback = @journey_continues_on_another_page ? :freetext : :satisfaction
   end
 
   def download
@@ -59,5 +58,9 @@ private
     office_code = signed_in? && current_provider.present? ? current_provider.first_office_code : nil
 
     JourneyLoggerService.call(assessment_id, calculation_result, @check, office_code, cookies)
+  end
+
+  def specify_feedback_widget
+    @feedback = :satisfaction
   end
 end
