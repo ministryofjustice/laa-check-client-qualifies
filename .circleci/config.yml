@@ -311,6 +311,11 @@ workflows:
           context: laa-check-client-qualifies-staging
           requires:
             - staging_deploy_approval
+      # when you direct deploy to staging it will create a new deployment, it will not deploy to main
+      # however it will have an RDS attached so it
+      # one issues with this at the moment is that we already deploy to UAT so we have an ingress created in UAT
+      # we need to delete the UAT deployment to free up the ingress name for the staging env to use it
+      # perhaps when this direct deploy to staging is used we also comment out UAT deploy as we will not need a UAT deploy
 
       - deploy:
           name: Deploy to Staging

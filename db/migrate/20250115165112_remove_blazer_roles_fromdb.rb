@@ -1,19 +1,20 @@
 class RemoveBlazerRolesFromdb < ActiveRecord::Migration[7.2]
   def change
-    # Check if the 'blazer' role exists and prepare the 'DROP OWNED BY' command if it does
-    drop_owned = ApplicationRecord.connection.execute("SELECT 'DROP OWNED BY blazer' AS a FROM pg_roles WHERE rolname = 'blazer';")
+    # Check if the 'blazer' role exists
+    role_exists = ApplicationRecord.connection.execute("SELECT 1 FROM pg_roles WHERE rolname = 'blazer';").any?
 
-    if drop_owned.cmd_tuples.positive?
-      Rails.logger.debug "Role 'blazer' exists. Dropping owned objects by 'blazer'..."
-      # Execute the 'DROP OWNED BY' statement
-      ApplicationRecord.connection.execute(drop_owned[0]["a"])
-      Rails.logger.debug "'DROP OWNED BY blazer' executed successfully."
+    if role_exists
+      Rails.logger.debug "Role 'blazer' exists. Reassigning owned objects and dropping role..."
+
+      # Reassign owned objects to postgres before dropping
+      ApplicationRecord.connection.execute("REASSIGN OWNED BY blazer TO postgres;")
+      Rails.logger.debug "Reassigned owned objects from 'blazer' to 'postgres'."
+
+      # Drop the role
+      ApplicationRecord.connection.execute("DROP ROLE IF EXISTS blazer;")
+      Rails.logger.debug "Role 'blazer' has been dropped."
     else
-      Rails.logger.debug "Role 'blazer' does not exist. No need to drop owned objects."
+      Rails.logger.debug "Role 'blazer' does not exist. Skipping migration."
     end
-
-    # Drop the role itself if it exists
-    ApplicationRecord.connection.execute("DROP ROLE IF EXISTS blazer;")
-    Rails.logger.debug "Role 'blazer' has been dropped (if it existed)."
   end
 end
