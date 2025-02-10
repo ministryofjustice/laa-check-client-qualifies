@@ -19,7 +19,7 @@ class ControlledWorkDocumentPopulationService
     end
 
     TEMPLATES = {
-      "cw1" => "lib/cw1-form-CCQ_v2_Feb25.pdf",
+      "cw1" => "lib/cw1-form-CCQ_v3_Feb25.pdf",
       "cw2" => "lib/cw2imm-form-CCQ_v2_Feb25.pdf",
       "cw5" => "lib/cw5-form-CCQ_v2_Feb25.pdf",
       "cw1_and_2" => "lib/cw1-and-2-form-CCQ_v2_Feb25.pdf",
