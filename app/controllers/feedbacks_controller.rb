@@ -11,6 +11,7 @@ class FeedbacksController < ApplicationController
         satisfied: params[:satisfied],
         level_of_help:,
         outcome:,
+        page: params[:page],
       )
       user_satisfaction_feedback_ids << model.id
       render json: { id: model.id }, status: :created

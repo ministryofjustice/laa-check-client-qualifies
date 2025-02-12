@@ -1,5 +1,6 @@
 class ResultsController < ApplicationController
   before_action :load_check, only: %i[show download]
+  before_action :specify_satisfaction_feedback_page_name
 
   def create
     session_data["api_response"] = CfeService.call(session_data, Steps::Helper.relevant_steps(session_data))
@@ -22,7 +23,6 @@ class ResultsController < ApplicationController
 
     track_page_view(page: :view_results)
     @journey_continues_on_another_page = @check.controlled? && @model.decision == "eligible"
-    @feedback = @journey_continues_on_another_page ? :freetext : :satisfaction
   end
 
   def download
@@ -59,5 +59,13 @@ private
     office_code = signed_in? && current_provider.present? ? current_provider.first_office_code : nil
 
     JourneyLoggerService.call(assessment_id, calculation_result, @check, office_code, cookies)
+  end
+
+  def specify_feedback_widget
+    @feedback = :satisfaction
+  end
+
+  def specify_satisfaction_feedback_page_name
+    @satisfaction_feedback_page_name = page_name
   end
 end

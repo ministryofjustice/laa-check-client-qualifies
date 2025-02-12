@@ -1,6 +1,7 @@
 class ChecksController < ApplicationController
   before_action :redirect_to_primary_host, only: :new
   before_action :clear_early_result, only: :check_answers
+  before_action :specify_satisfaction_feedback_page_name
 
   def new
     new_assessment_code = SecureRandom.uuid
@@ -40,5 +41,9 @@ private
 
   def specify_feedback_widget
     @feedback = action_name == "end_of_journey" ? :satisfaction : :freetext
+  end
+
+  def specify_satisfaction_feedback_page_name
+    @satisfaction_feedback_page_name = page_name
   end
 end
