@@ -2,16 +2,48 @@ require "rails_helper"
 
 RSpec.describe AnalyticsService do
   describe ".call" do
+    let(:assessment_code) { "just-another-assessment-code" }
+
     it "handles errors without crashing", :throws_cfe_error do
+      allow(described_class).to receive(:valid_page?).and_return(true)
+      allow(AnalyticsEvent).to receive(:create!).and_raise(StandardError)
       expect(ErrorService).to receive(:call)
 
-      expect { described_class.call(event_type: nil, page: "some_page", assessment_code: nil, cookies: {}) }.not_to raise_error
+      expect { described_class.call(event_type: nil, page: "some_page", assessment_code: assessment_code, cookies: {}) }.not_to raise_error
     end
 
     it "respects no-analytics mode" do
       cookies = { CookiesController::NO_ANALYTICS_MODE => "true" }
-      described_class.call(event_type: nil, page: "some_page", assessment_code: nil, cookies:)
+      described_class.call(event_type: nil, page: "some_page", assessment_code: assessment_code, cookies:)
       expect(AnalyticsEvent.count).to eq 0
+    end
+
+    it "creates an analytics event for whitelisted page" do
+      cookies = { ApplicationController::BROWSER_ID_COOKIE => "browser123" }
+      page = "client_age"
+
+      expect {
+        described_class.call(
+          event_type: "click",
+          page: page,
+          assessment_code: assessment_code,
+          cookies: cookies,
+        )
+      }.to change(AnalyticsEvent, :count).by(1)
+    end
+
+    it "does not create an analytics event for non-whitelisted page" do
+      cookies = { ApplicationController::BROWSER_ID_COOKIE => "browser123" }
+      page = "not-property_entry"
+
+      expect {
+        described_class.call(
+          event_type: "click",
+          page: page,
+          assessment_code: assessment_code,
+          cookies: cookies,
+        )
+      }.not_to change(AnalyticsEvent, :count)
     end
   end
 end
