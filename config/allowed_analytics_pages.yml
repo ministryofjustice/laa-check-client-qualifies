@@ -171,3 +171,4 @@ allowed_pages:
   - vehicle_details
   - vehicles_details
   - view_results
+  - old-calculator
