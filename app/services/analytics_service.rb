@@ -22,7 +22,7 @@ class AnalyticsService
   private
 
     def valid_page?(page)
-      ALLOWED_PAGES.include?(page)
+      ALLOWED_PAGES.include?(page.to_s)
     end
   end
 end
