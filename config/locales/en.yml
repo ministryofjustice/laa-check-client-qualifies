@@ -608,6 +608,7 @@ en:
   generic:
     yes_choice: "Yes"
     no_choice: "No"
+    no_continue_with_means_check_choice: "No, continue with the means check"
     yes_choice_hidden_hint_amount: If yes, enter amount
     in_work: Employed and in work
     receiving_statutory_pay: Employed and on Statutory Sick Pay or Statutory Maternity Pay
@@ -781,6 +782,8 @@ en:
       help_text_1: This means Asylum Support as defined in Section 4 or Section 95 of the Immigration and Asylum Act 1999.
       help_text_2: Your client will not need an income or capital assessment if they receive this type of Asylum Support.
       help_text_3: Also select yes if your client is named in their partner's Asylum Support claim.
+      details_summary_text: If your client does not have evidence of Asylum Support
+      details_text_html : If your client does not have <a href="%{page_url}" target="_blank" rel="noreferrer noopener">evidence</a> consider answering no to this question instead of waiting. They are likely to pass the means test and be eligible for legal aid if you complete a full means check.
       guidance:
         controlled_text: Asylum Support (PDF, 940KB)
         certificated_text: Asylum Support (PDF, 1.51MB)
