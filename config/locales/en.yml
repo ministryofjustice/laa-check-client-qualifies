@@ -783,7 +783,7 @@ en:
       help_text_2: Your client will not need an income or capital assessment if they receive this type of Asylum Support.
       help_text_3: Also select yes if your client is named in their partner's Asylum Support claim.
       details_summary_text: If your client does not have evidence of Asylum Support
-      details_text_html : If your client does not have <a href="%{page_url}" target="_blank" rel="noreferrer noopener">evidence</a> consider answering no to this question instead of waiting. They are likely to pass the means test and be eligible for legal aid if you complete a full means check.
+      details_text_html : If your client does not have <a href="%{page_url}" target="_blank" rel="noreferrer noopener">evidence (PDF, 940KB)</a>, consider answering no to this question instead of waiting. They are likely to pass the means test and be eligible for legal aid if you complete a full means check.
       guidance:
         controlled_text: Asylum Support (PDF, 940KB)
         certificated_text: Asylum Support (PDF, 1.51MB)
