@@ -32,9 +32,6 @@ RSpec.describe "asylum_support", type: :feature do
 
     it "has an extra piece of guidance" do
       expect(page).to have_content "Controlled work"
-    end
-
-    it "has details summary component" do
       expect(page).to have_content "If your client does not have evidence of Asylum Support"
     end
   end
