@@ -6,6 +6,11 @@ module FormsHelper
     [false, I18n.t("generic.no_choice")],
   ].freeze
 
+  YES_NO_CONTINUE_WITH_MEANS_CHECK_OPTIONS = [
+    [true, I18n.t("generic.yes_choice")],
+    [false, I18n.t("generic.no_continue_with_means_check_choice")],
+  ].freeze
+
   PROPERTY_OPTIONS = [
     [:with_mortgage, I18n.t("question_flow.property.property_owned.with_mortgage")],
     [:outright, I18n.t("question_flow.property.property_owned.outright")],
@@ -40,6 +45,10 @@ module FormsHelper
 
   def yes_no_options
     YES_NO_OPTIONS
+  end
+
+  def yes_no_continue_with_means_check_options
+    YES_NO_CONTINUE_WITH_MEANS_CHECK_OPTIONS
   end
 
   def immigration_or_asylum_type_options
