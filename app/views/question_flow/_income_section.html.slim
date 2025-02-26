@@ -13,7 +13,7 @@
            model_name: "income_model",
            field_name: "income_type",
            options: model.income_type_options,
-           form_name: "income_form",
+           form_name: (partner ? "partner_income_form" : "income_form"),
            counter:,
            value: model.income_type,
            legend_size: "m"
@@ -24,7 +24,7 @@
            model_name: "income_model",
            field_name: "income_frequency",
            options: model.income_frequency_options,
-           form_name: "income_form",
+           form_name: (partner ? "partner_income_form" : "income_form"),
            counter:,
            value: model.income_frequency,
            legend_size: "m",
@@ -32,7 +32,7 @@
 
   = render "shared/add_another/money_field",
            errors: model.errors.messages[:gross_income],
-           form_name: "income_form",
+           form_name: (partner ? "partner_income_form" : "income_form"),
            model_name: "income_model",
            field_name: "gross_income",
            counter:,
@@ -58,7 +58,7 @@
 
   = render "shared/add_another/money_field",
            errors: model.errors.messages[:income_tax],
-           form_name: "income_form",
+           form_name: (partner ? "partner_income_form" : "income_form"),
            model_name: "income_model",
            field_name: "income_tax",
            counter:,
@@ -68,7 +68,7 @@
 
   = render "shared/add_another/money_field",
            errors: model.errors.messages[:national_insurance],
-           form_name: "income_form",
+           form_name: (partner ? "partner_income_form" : "income_form"),
            model_name: "income_model",
            field_name: "national_insurance",
            counter:,

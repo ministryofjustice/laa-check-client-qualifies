@@ -3,7 +3,7 @@
    data-add-another-removed-feedback-text=t("question_flow.income.removed")
    data-add-another-hide-message-text=t("generic.hide_this_message")]
   .add-another-template-area data-add-another-role="template"
-    = render "income_section", i18n_key:, removeable: true, model: @form.blank_model
+    = render "income_section", i18n_key:, removeable: true, model: @form.blank_model, partner: partner
 
   = form_for(@form, url: request.path, method: :put) do |form|
     = form.govuk_error_summary t("generic.error_summary_title")
@@ -34,7 +34,7 @@
           li.govuk_text = _1
     . data-add-another-role="sectionList"
       - @form.items.each_with_index do |income, index|
-        = render "income_section", i18n_key:, removeable: index.positive?, model: income, counter: index + 1
+        = render "income_section", i18n_key:, removeable: index.positive?, model: income, counter: index + 1, partner: partner
     .govuk-button-group
       button.govuk-button.govuk-button--secondary type="button" data-add-another-role="add" = t("question_flow.income.add")
 
