@@ -10,8 +10,7 @@ class AnalyticsService
   class << self
     def call(event_type:, page:, assessment_code:, cookies:)
       return if cookies[CookiesController::NO_ANALYTICS_MODE]
-      return unless valid_event_type?(event_type)
-      return unless valid_page?(page)
+      return unless valid_event_type?(event_type) || valid_page?(page)
 
       browser_id = cookies[ApplicationController::BROWSER_ID_COOKIE]
       AnalyticsEvent.create!(
