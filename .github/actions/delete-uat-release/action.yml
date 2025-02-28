@@ -79,6 +79,8 @@ runs:
         then
           helm delete $release_name
           echo "message=\"Deleted UAT release ${release_name}\"" >> $GITHUB_OUTPUT
+          kubectl delete pvc data-$release_name-postgresql-0
+          echo "message=\"Deleted PVC for release ${release_name}\"" >> $GITHUB_OUTPUT
         else
           echo "message=\"UAT release, ${release_name}, not found\"" >> $GITHUB_OUTPUT
         fi
