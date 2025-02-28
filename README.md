@@ -199,7 +199,9 @@ When the `FEATURE_FLAG_OVERRIDES` env var is set to `enabled`, it is possible to
 env values for both static and time-based feature flags. The username is "flags" and the password is a secret stored alongside our other secrets in K8s.
 
 ### Allow Lists
-We use allow lists for the `page` field in the AnalyticsEvents tables. This was added in response to unsuccessful SQLi attacks against this field. As a result when a new page is added to the service it will also need to be added to the `config/allowed_analytics_pages.yml`. If a page is not included it will trigger a sentry error.
+We use allow lists for the `event_type` & `page` field in the AnalyticsEvents tables. This was added in response to unsuccessful SQLi attacks against these field. As a result:
+- when a new page is added to the service it will also need to be added to the `config/allowed_analytics_pages.yml`. If a page is not included it will trigger a sentry error.
+- when a new link is added to the service using `app/services/external_link_service.rb`, it will also need to be added to the `config/allowed_analytics_event_types.yml`. If a link is not included it will trigger a sentry error.
 
 ### Saving as PDF
 We use Grover to save pages as PDF files for download, which in turn uses Puppeteer. For it to work, the app needs to make HTTP requests to the app, to load assets. This means that it only works in a multi-threaded environment. To run the app multithreadedly in development mode, set the `MULTI_THREAD` environment variable, e.g.:
