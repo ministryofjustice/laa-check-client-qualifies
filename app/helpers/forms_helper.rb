@@ -39,7 +39,7 @@ module FormsHelper
     ]
 
     # Only include shared_ownership for PropertyForm
-    if form_object.instance_of?(PropertyForm)
+    if FeatureFlags.enabled?(:maintenance_mode, without_session_data: true) && form_object.instance_of?(PropertyForm)
       options.insert(1, [:shared_ownership, I18n.t("question_flow.property.property_owned.shared_ownership")])
     end
 
