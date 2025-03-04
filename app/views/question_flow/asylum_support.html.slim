@@ -17,6 +17,7 @@
                               tag.p(t(".help_text_2"), class: "govuk-body") + \
                               tag.p(t(".help_text_3"), class: "govuk-body") + \
                               govuk_details(summary_text: t(".details_summary_text"),
+                                                        id: "asylum_support_details_controlled",
                                                         text: t(".details_text_html",
                                                         page_url: document_link(:lc_guidance_controlled, :evidence)))\
                         }
