@@ -11,13 +11,6 @@ module FormsHelper
     [false, I18n.t("generic.no_continue_with_means_check_choice")],
   ].freeze
 
-  # PROPERTY_OPTIONS = [
-  #   [:with_mortgage, I18n.t("question_flow.property.property_owned.with_mortgage")],
-  #   [:shared_ownership, I18n.t("question_flow.property.property_owned.shared_ownership")],
-  #   [:outright, I18n.t("question_flow.property.property_owned.outright")],
-  #   [:none, I18n.t("question_flow.property.property_owned.none")],
-  # ].freeze
-
   CLIENT_AGE_OPTIONS = [
     [:under_18, I18n.t("question_flow.client_age.options.under_18")],
     [:standard, I18n.t("question_flow.client_age.options.standard")],
@@ -37,11 +30,7 @@ module FormsHelper
   ].freeze
 
   def property_options(form)
-    # Extract actual form object
     form_object = form.is_a?(GOVUKDesignSystemFormBuilder::FormBuilder) ? form.object : form
-
-    Rails.logger.info "Property Options - Form Object Class: #{form_object.class}"
-    Rails.logger.info "Form is a PropertyForm? #{form_object.instance_of?(PropertyForm)}"
 
     options = [
       [:with_mortgage, I18n.t("question_flow.property.property_owned.with_mortgage")],
@@ -49,26 +38,13 @@ module FormsHelper
       [:none, I18n.t("question_flow.property.property_owned.none")],
     ]
 
-    # Only include shared_ownership for PropertyForm (not subclasses)
+    # Only include shared_ownership for PropertyForm
     if form_object.instance_of?(PropertyForm)
       options.insert(1, [:shared_ownership, I18n.t("question_flow.property.property_owned.shared_ownership")])
     end
 
     options
   end
-
-  # def property_options(form)
-  #   options = [
-  #     [:with_mortgage, I18n.t("question_flow.property.property_owned.with_mortgage")],
-  #     [:outright, I18n.t("question_flow.property.property_owned.outright")],
-  #     [:none, I18n.t("question_flow.property.property_owned.none")],
-  #   ]
-  #
-  #   # Only include shared_ownership for PropertyForm (main home)
-  #   options.insert(1, [:shared_ownership, I18n.t("question_flow.property.property_owned.shared_ownership")]) if form.is_a?(PropertyForm)
-  #
-  #   options
-  # end
 
   def client_age_options
     CLIENT_AGE_OPTIONS
