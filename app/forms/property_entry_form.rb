@@ -28,4 +28,8 @@ class PropertyEntryForm
   def owned_with_mortgage?
     property_owned == "with_mortgage"
   end
+
+  def shared_ownership?
+    property_owned == "shared_ownership"
+  end
 end

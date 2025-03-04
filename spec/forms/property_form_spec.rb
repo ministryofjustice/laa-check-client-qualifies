@@ -26,6 +26,17 @@ RSpec.describe "property", :calls_cfe_early_returns_not_ineligible, type: :featu
     expect(session_contents["property_owned"]).to eq "outright"
   end
 
+  it "shows the shared ownership option", :shared_ownership do
+    expect(page).to have_field("Yes, through a shared ownership scheme", type: "radio")
+  end
+
+  it "stores my shared ownership response in the session", :shared_ownership do
+    choose "Yes, through a shared ownership scheme"
+    click_on "Save and continue"
+
+    expect(session_contents["property_owned"]).to eq "shared_ownership"
+  end
+
   context "when MTR accelerated is in effect" do
     context "when single" do
       it "shows new content" do

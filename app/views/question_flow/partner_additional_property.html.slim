@@ -7,7 +7,7 @@
   = form_for(@form, url: request.path, method: :put) do |form|
     = form.govuk_error_summary t("generic.error_summary_title")
     = render "shared/heading", tag: :partner
-    = form.govuk_collection_radio_buttons :property_owned, property_options, :first, :last,
+    = form.govuk_collection_radio_buttons :property_owned, property_options(form), :first, :last,
                                           legend: { text: t(".legend"), size: "xl", tag: "h1" },
                                           hint: -> { t(".hints").map { tag.p(_1, class: "govuk-hint") }.join.html_safe }
 
