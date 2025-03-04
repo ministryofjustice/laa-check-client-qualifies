@@ -19,4 +19,8 @@ RSpec.describe "additional_property", type: :feature do
 
     expect(session_contents["additional_property_owned"]).to eq "outright"
   end
+
+  it "does not show the shared ownership option", :shared_ownership do
+    expect(page).not_to have_field("Yes, through a shared ownership scheme", type: "radio")
+  end
 end

@@ -11,12 +11,6 @@ module FormsHelper
     [false, I18n.t("generic.no_continue_with_means_check_choice")],
   ].freeze
 
-  PROPERTY_OPTIONS = [
-    [:with_mortgage, I18n.t("question_flow.property.property_owned.with_mortgage")],
-    [:outright, I18n.t("question_flow.property.property_owned.outright")],
-    [:none, I18n.t("question_flow.property.property_owned.none")],
-  ].freeze
-
   CLIENT_AGE_OPTIONS = [
     [:under_18, I18n.t("question_flow.client_age.options.under_18")],
     [:standard, I18n.t("question_flow.client_age.options.standard")],
@@ -35,8 +29,21 @@ module FormsHelper
     [:none, I18n.t("question_flow.immigration_or_asylum_type_upper_tribunal.none")],
   ].freeze
 
-  def property_options
-    PROPERTY_OPTIONS
+  def property_options(form)
+    form_object = form.is_a?(GOVUKDesignSystemFormBuilder::FormBuilder) ? form.object : form
+
+    options = [
+      [:with_mortgage, I18n.t("question_flow.property.property_owned.with_mortgage")],
+      [:outright, I18n.t("question_flow.property.property_owned.outright")],
+      [:none, I18n.t("question_flow.property.property_owned.none")],
+    ]
+
+    # Only include shared_ownership for PropertyForm
+    if FeatureFlags.enabled?(:shared_ownership, without_session_data: true) && form_object.instance_of?(PropertyForm)
+      options.insert(1, [:shared_ownership, I18n.t("question_flow.property.property_owned.shared_ownership")])
+    end
+
+    options
   end
 
   def client_age_options

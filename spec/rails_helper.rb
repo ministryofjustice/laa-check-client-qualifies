@@ -139,16 +139,16 @@ RSpec.configure do |config|
     ENV["BASIC_AUTHENTICATION_FEATURE_FLAG"] = "disabled"
   end
 
-  config.around(:each, :shared_ownership) do |example|
-    ENV["SHARED_OWNERSHIP_FEATURE_FLAG"] = "enabled"
-    example.run
-    ENV["SHARED_OWNERSHIP_FEATURE_FLAG"] = "disabled"
-  end
-
   config.around(:each, :ee_banner) do |example|
     ENV["EE_BANNER_FEATURE_FLAG"] = "enabled"
     example.run
     ENV["EE_BANNER_FEATURE_FLAG"] = "disabled"
+  end
+
+  config.around(:each, :shared_ownership) do |example|
+    ENV["SHARED_OWNERSHIP_FEATURE_FLAG"] = "enabled"
+    example.run
+    ENV["SHARED_OWNERSHIP_FEATURE_FLAG"] = "disabled"
   end
 
   # This can't be done with before(:each, condition) as the condition is that the key is missing

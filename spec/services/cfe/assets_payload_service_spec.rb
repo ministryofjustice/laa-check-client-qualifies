@@ -292,6 +292,29 @@ RSpec.describe Cfe::AssetsPayloadService do
       end
     end
 
+    context "when main property is owned in a shared_ownership model", :shared_ownership do
+      let(:session_data) do
+        FactoryBot.build(:minimal_complete_session,
+                         :with_main_shared_ownership,
+                         :with_zero_capital_assets)
+      end
+      let(:relevant_steps) { %i[property_entry] }
+
+      it "populates the payload with appropriate details including zero mortgage" do
+        expect(payload[:properties]).to eq(
+          {
+            main_home: {
+              outstanding_mortgage: 123_234,
+              percentage_owned: 50,
+              shared_with_housing_assoc: true,
+              subject_matter_of_dispute: false,
+              value: 200_234,
+            },
+          },
+        )
+      end
+    end
+
     context "when main property is owned outright and disputed" do
       let(:session_data) do
         FactoryBot.build(:minimal_complete_session,

@@ -17,7 +17,7 @@ ruby:
 
     = render "shared/heading", tag: :household
     = form.govuk_collection_radio_buttons :property_owned,
-              property_options, :first, :last,
+              property_options(form), :first, :last,
               legend: { text: t(legend_key), size: "xl", tag: "h1" },
               hint: hint_content
 

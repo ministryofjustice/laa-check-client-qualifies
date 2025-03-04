@@ -38,10 +38,10 @@ module Cfe
         property_entry_form = instantiate_form(PropertyEntryForm)
         main_home = {
           value: property_entry_form.house_value,
-          outstanding_mortgage: (property_entry_form.mortgage if property_entry_form.owned_with_mortgage?) || 0,
+          outstanding_mortgage: (property_entry_form.mortgage if property_entry_form.owned_with_mortgage? || property_entry_form.shared_ownership?) || 0,
           percentage_owned: property_entry_form.percentage_owned,
           subject_matter_of_dispute: (property_entry_form.house_in_dispute && smod_applicable?) || false,
-          shared_with_housing_assoc: false,
+          shared_with_housing_assoc: property_entry_form.shared_ownership?,
         }
       end
 
