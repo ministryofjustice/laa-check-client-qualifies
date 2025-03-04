@@ -46,7 +46,7 @@ module FormsHelper
     options = [
       [:with_mortgage, I18n.t("question_flow.property.property_owned.with_mortgage")],
       [:outright, I18n.t("question_flow.property.property_owned.outright")],
-      [:none, I18n.t("question_flow.property.property_owned.none")]
+      [:none, I18n.t("question_flow.property.property_owned.none")],
     ]
 
     # Only include shared_ownership for PropertyForm (not subclasses)
@@ -56,8 +56,6 @@ module FormsHelper
 
     options
   end
-
-
 
   # def property_options(form)
   #   options = [
