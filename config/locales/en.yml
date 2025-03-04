@@ -1376,6 +1376,7 @@ en:
           hint: If your client is in prison but their partner lives in a property either of them owns, include this as the main dwelling and any housing costs the partner pays.
       property_owned:
         outright: Yes, owned outright
+        shared_ownership: Yes, through a shared ownership scheme
         with_mortgage: Yes, with a mortgage or loan
         none: "No"
       properties_guidance:
@@ -1908,11 +1909,13 @@ en:
         property_owned: Does your client own the home the client usually lives in?
         property_owned_options:
           outright: Yes, owned outright
+          shared_ownership: Yes, through a shared ownership scheme
           with_mortgage: Yes, with a mortgage or loan
           none: "No"
         property_owned_partner: Does your client or their partner own the home the client lives in?
         property_owned_partner_options:
           outright: Yes, owned outright
+          shared_ownership: Yes, through a shared ownership scheme
           with_mortgage: Yes, with a mortgage or loan
           none: "No"
       housing_costs_fields:
