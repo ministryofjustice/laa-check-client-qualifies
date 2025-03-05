@@ -1393,6 +1393,8 @@ en:
         controlled:
           text: Properties owned that are not the 'main house' (PDF, 940KB)
           link: "%page_url"
+    property_landlord:
+      legend: Is the landlord the only other joint-owner?
     additional_property:
       legend: Does your client own any other property, a holiday home or land?
       hint: This can be the sole property owned if not the home the client lives in, even if the property is abroad or not providing an income.

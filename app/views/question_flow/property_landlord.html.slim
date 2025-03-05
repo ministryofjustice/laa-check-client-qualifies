@@ -1,0 +1,14 @@
+- content_for :page_title
+  = t(".legend")
+.govuk-grid-column-two-thirds
+  = form_for(@form, url: request.path, method: :put) do |form|
+
+    = form.govuk_error_summary t("generic.error_summary_title")
+    = render "shared/heading", tag: :household
+    = form.govuk_collection_radio_buttons :property_landlord,
+        yes_no_options, :first, :last,
+        legend: { text: t(".legend"), size: "xl", tag: "h1" }
+
+    = form.govuk_submit t("generic.save_and_continue")
+
+= render "property_sidebar", level_of_help: @check.level_of_help, smod_applicable: @check.smod_applicable?
