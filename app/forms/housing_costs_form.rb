@@ -1,67 +1,16 @@
-class HousingCostsForm
-  include ActiveModel::Model
-  include ActiveModel::Attributes
-  include SessionPersistable
-
-  ATTRIBUTES = %i[
-    housing_payments
-    housing_payments_frequency
-    housing_benefit_value
-    housing_benefit_frequency
-    housing_benefit_relevant
-  ].tap { |attrs|
-    if FeatureFlags.enabled?(:shared_ownership, without_session_data: true)
-      attrs << :mortgage
-      attrs << :mortgage_frequency
-    end
-  }.freeze
+class HousingCostsForm < BaseHousingCostsForm
+  ATTRIBUTES = (BaseHousingCostsForm::ATTRIBUTES + %i[housing_payments housing_payments_frequency]).freeze
 
   attribute :housing_payments, :gbp
-  validates :housing_payments, numericality: { greater_than_or_equal_to: 0, allow_nil: true }, presence: true, is_a_number: true
+  validates :housing_payments,
+            numericality: { greater_than_or_equal_to: 0, allow_nil: true },
+            presence: true,
+            is_a_number: true
 
   attribute :housing_payments_frequency, :string
   validates :housing_payments_frequency,
             inclusion: { in: OutgoingsForm::VALID_FREQUENCIES, allow_nil: false },
             if: -> { housing_payments.to_i.positive? }
-
-  attribute :housing_benefit_relevant, :boolean
-  validates :housing_benefit_relevant,
-            inclusion: { in: [true, false], allow_nil: false }
-
-  attribute :housing_benefit_value, :gbp
-  validates :housing_benefit_value,
-            numericality: { greater_than: 0 },
-            presence: true,
-            is_a_number: true,
-            if: -> { housing_benefit_relevant }
-
-  attribute :housing_benefit_frequency, :string
-  validates :housing_benefit_frequency,
-            inclusion: { in: BenefitModel::FREQUENCY_OPTIONS, allow_nil: false },
-            if: -> { housing_benefit_relevant }
-
-  #  may need to think about this, when the flag is on the usual form now requires a value for mortgage but it is not an option
-  # may need to check session data and make this dependent on 'shared_ownership' being selected.
-  # on additional_property we make mortgage dependent with `if: :owned_with_mortgage?`
-  if FeatureFlags.enabled?(:shared_ownership, without_session_data: true)
-    attribute :mortgage, :gbp
-    validates :mortgage,
-              numericality: { greater_than_or_equal_to: 0, allow_nil: false },
-              is_a_number: true
-
-    attribute :mortgage_frequency, :string
-    validates :mortgage_frequency,
-              inclusion: { in: OutgoingsForm::VALID_FREQUENCIES, allow_nil: false },
-              if: -> { mortgage.to_i.positive? }
-  end
-
-  validate :housing_benefit_does_not_exceed_costs
-
-  delegate :level_of_help, :partner, to: :check
-
-  def frequencies
-    BenefitModel::FREQUENCY_OPTIONS.map { [_1, I18n.t("question_flow.benefits.frequencies.#{_1}")] }
-  end
 
   def housing_payment_frequencies
     valid_frequencies = level_of_help == "controlled" ? OutgoingsForm::VALID_FREQUENCIES - %w[total] : OutgoingsForm::VALID_FREQUENCIES
@@ -70,28 +19,9 @@ class HousingCostsForm
 
 private
 
-  def housing_benefit_does_not_exceed_costs
-    return unless errors.none? && housing_benefit_relevant && housing_benefit_value.to_i.positive? && housing_benefit_frequency.present?
+  def total_annual_housing_costs
+    return 0 if housing_payments_frequency.blank?
 
-    annual_housing_payment_value = housing_payments * annual_multiplier(housing_payments_frequency)
-    annual_housing_benefit_value = housing_benefit_value * annual_multiplier(housing_benefit_frequency)
-    return if annual_housing_payment_value >= annual_housing_benefit_value
-
-    errors.add(:housing_benefit_value, :exceeds_costs)
-  end
-
-  def annual_multiplier(frequency)
-    case frequency
-    when "every_week"
-      52
-    when "every_two_weeks"
-      26
-    when "every_four_weeks"
-      13
-    when "monthly"
-      12
-    else # The only other value that could be called is "total", meaning total in last 3 months
-      4
-    end
+    housing_payments * annual_multiplier(housing_payments_frequency)
   end
 end

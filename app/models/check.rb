@@ -203,4 +203,8 @@ class Check
   def early_result_type
     session_data.dig("early_result", "type")
   end
+
+  def shared_ownership?
+    session_data["property_owned"] == "shared_ownership"
+  end
 end
