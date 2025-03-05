@@ -84,6 +84,10 @@ module Steps
         !skip_capital_questions?(session_data) && session_data["property_owned"] == "with_mortgage"
       end
 
+      def owns_property_shared_ownership?(session_data)
+        !skip_capital_questions?(session_data) && session_data["property_owned"] == "shared_ownership"
+      end
+
       def owns_additional_property?(session_data)
         !skip_capital_questions?(session_data) && session_data["additional_property_owned"]&.in?(AdditionalPropertyForm::OWNED_OPTIONS.map(&:to_s))
       end
