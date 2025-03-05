@@ -1,91 +1,86 @@
-/TODO this if statement needs to have an additional check to see that property_owned is set to shared_ownership in session_data
-/ the work to add this to session_data is in EL-1577
-- if !FeatureFlags.enabled?(:shared_ownership, @check.session_data)
-  = render "shared_ownership"
-- else
-  - content_for :page_title
-    = t(".heading")
-  - content_for :back do
-    = back_link(@previous_step, @back_buttons_invoke_browser_back_behaviour)
+- content_for :page_title
+  = t(".heading")
+- content_for :back do
+  = back_link(@previous_step, @back_buttons_invoke_browser_back_behaviour)
 
-  .govuk-grid-column-two-thirds
-    = form_for(@form, url: request.path, method: :put) do |form|
-      = form.govuk_error_summary t("generic.error_summary_title")
+.govuk-grid-column-two-thirds
+  = form_for(@form, url: request.path, method: :put) do |form|
+    = form.govuk_error_summary t("generic.error_summary_title")
 
-      ruby:
-        partner_key = if @check.partner
-                        "heading_hint_partner"
-                      else
-                        "heading_hint"
-                      end
-        hint_key = if @check.partner
-                     "housing_benefits.hint_bullet_partner"
-                   else
-                     "housing_benefits.hint_bullet_client"
-                   end
+    ruby:
+      partner_key = if @check.partner
+                      "heading_hint_partner"
+                    else
+                      "heading_hint"
+                    end
+      hint_key = if @check.partner
+                   "housing_benefits.hint_bullet_partner"
+                 else
+                   "housing_benefits.hint_bullet_client"
+                 end
 
-      = render "shared/heading",
-              header_text: t(".heading"),
-              post_header_texts: t(".#{partner_key}"),
-              tag: :household
+    = render "shared/heading",
+            header_text: t(".heading"),
+            post_header_texts: t(".#{partner_key}"),
+            tag: :household
 
-      h2.govuk-heading-m
-        = t(".housing_payments.label")
+    h2.govuk-heading-m
+      = t(".housing_payments.label")
 
-      - t(".housing_payments.hint_paragraphs_1").each do
-        p.govuk-hint = _1
+    - t(".housing_payments.hint_paragraphs_1").each do
+      p.govuk-hint = _1
 
-      = govuk_details(summary_text: t(".housing_payments.what_to_include_with_housing_payments")) do
-        - t(".housing_payments.what_to_include_details").each do
-          p.govuk-body = _1
+    = govuk_details(summary_text: t(".housing_payments.what_to_include_with_housing_payments")) do
+      - t(".housing_payments.what_to_include_details").each do
+        p.govuk-body = _1
 
-      = govuk_details(summary_text: t(".housing_payments.living_with_someone_else")) do
-        - t(".housing_payments.details_paragraphs").each do
-          p.govuk-body = _1
+    = govuk_details(summary_text: t(".housing_payments.living_with_someone_else")) do
+      - t(".housing_payments.details_paragraphs").each do
+        p.govuk-body = _1
 
-      = render "shared/money_input",
+    = render "shared/money_input",
+            form: form,
+            field: :housing_payments,
+            width: 10,
+            hint_text: t(".housing_payment_zero_hint"),
+            label_text: t(".value"),
+            set_aria: true
+
+    = form.govuk_collection_radio_buttons :housing_payments_frequency,
+            @form.housing_payment_frequencies,
+            :first,
+            :last,
+            legend: -> { tag.p(t(".frequency")) }
+
+    - content_for :amount_and_frequency_hidden_description
+    = govuk_visually_hidden(t("generic.hidden_description_amount_and_frequency"))
+
+    = form.govuk_radio_buttons_fieldset :housing_benefit_relevant,
+            legend: { text: t(".housing_benefits.label") },
+            hint: { text: t(".#{hint_key}") } do
+      = render "shared/radio_button_set",
               form: form,
-              field: :housing_payments,
+              field_name: :housing_benefit_relevant,
+              buttons: [{ value: true,
+                      options: { label: { text: t("generic.yes_choice") },
+                              hint: -> { content_for(:amount_and_frequency_hidden_description) } } },
+                      { value: false, options: { label: { text: t("generic.no_choice") } } }]
+
+        = render "shared/money_input",
+              form: form,
+              field: :housing_benefit_value,
               width: 10,
-              hint_text: t(".housing_payment_zero_hint"),
-              label_text: t(".value"),
+              label_text: t("question_flow.housing_costs.housing_benefit_value"),
               set_aria: true
 
-      = form.govuk_collection_radio_buttons :housing_payments_frequency,
-              @form.housing_payment_frequencies,
+        = form.govuk_collection_radio_buttons :housing_benefit_frequency,
+              @form.frequencies,
               :first,
               :last,
-              legend: -> { tag.p(t(".frequency")) }
+              legend: -> { tag.p(t("question_flow.housing_costs.frequency")) }
 
-      - content_for :amount_and_frequency_hidden_description
-      = govuk_visually_hidden(t("generic.hidden_description_amount_and_frequency"))
+    = form.govuk_submit t("generic.save_and_continue")
 
-      = form.govuk_radio_buttons_fieldset :housing_benefit_relevant,
-              legend: { text: t(".housing_benefits.label") },
-              hint: { text: t(".#{hint_key}") } do
-        = render "shared/radio_button_set",
-                form: form,
-                field_name: :housing_benefit_relevant,
-                buttons: [{ value: true,
-                        options: { label: { text: t("generic.yes_choice") },
-                                hint: -> { content_for(:amount_and_frequency_hidden_description) } } },
-                        { value: false, options: { label: { text: t("generic.no_choice") } } }]
-
-          = render "shared/money_input",
-                form: form,
-                field: :housing_benefit_value,
-                width: 10,
-                label_text: t("question_flow.housing_costs.housing_benefit_value"),
-                set_aria: true
-
-          = form.govuk_collection_radio_buttons :housing_benefit_frequency,
-                @form.frequencies,
-                :first,
-                :last,
-                legend: -> { tag.p(t("question_flow.housing_costs.frequency")) }
-
-      = form.govuk_submit t("generic.save_and_continue")
-
-  = render "shared/question_sidebar",
-          level_of_help: @check.level_of_help,
-          links: housing_costs_links(@check.level_of_help)
+= render "shared/question_sidebar",
+        level_of_help: @check.level_of_help,
+        links: housing_costs_links(@check.level_of_help)

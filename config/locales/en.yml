@@ -495,6 +495,28 @@ en:
               inclusion: Select frequency of housing payments.
             housing_benefit_frequency:
               inclusion: Select frequency of Housing Benefit.
+        shared_ownership_housing_costs_form:
+          attributes:
+            housing_benefit_relevant:
+              inclusion: Select yes if your client gets Housing Benefit for this home
+            rent:
+              blank: Enter the rent amount.
+              not_a_number: Rent must be a number.
+            housing_benefit_value:
+              blank: Enter the Housing Benefit amount.
+              not_a_number: Housing Benefit must be a number.
+              greater_than: Housing Benefit must be more than 0
+              greater_than_or_equal_to: Housing Benefit must be must be 0 or more
+              exceeds_costs: Housing Benefit cannot be higher than housing costs
+            rent_frequency:
+              inclusion: Select frequency of rent payments.
+            housing_benefit_frequency:
+              inclusion: Select frequency of Housing Benefit.
+            shared_ownership_mortgage:
+              not_a_number: Mortgage payment must be a number. Enter 0 if this does not apply.
+              inclusion: Enter the mortgage payment. Enter 0 if this does not apply.
+            mortgage_frequency:
+              inclusion: Select frequency of mortgage payments.
         mortgage_or_loan_payment_form:
           attributes:
             housing_loan_payments:
@@ -687,8 +709,10 @@ en:
       maintenance_payments_value: Enter amount of maintenance payments to a former partner
       legal_aid_payments_value: Enter amount paid towards legal aid in a criminal case
       housing_payments_value: Enter amount of housing payments
+      rent: Enter amount of rent payments
       housing_payments: Enter amount of housing payments
       housing_benefit_value: Enter the amount of housing benefit
+      shared_ownership_mortgage: Enter the mortgage payment
     client_age:
       title: What age is your client?
       need_to_know: "We need to know this for the check calculations because:"
@@ -1140,7 +1164,7 @@ en:
           text: Housing costs (PDF, 940KB)
           link: "{%page_url}"
       housing_payment_hint: Enter full amount due
-    shared_ownership:
+    shared_ownership_housing_costs:
       heading: Housing costs
       heading_hint:
         - "Enter the housing costs for the home your client lives in."
@@ -1161,6 +1185,7 @@ en:
           - "If your client is paying all or part of their ex-partner's housing costs for the former matrimonial home, do not include this here - add it as maintenance payments to a former partner instead."
       housing_benefits:
         label: Does your client get Housing Benefit for this home?
+        partner_label: Does your client or their partner get Housing Benefit for this home?
         hint_bullet_client: "Include any Housing Benefit paid to the client or landlord."
         hint_bullet_partner: "Include any Housing Benefit paid to the client, partner or landlord."
       housing_benefit_value: Amount

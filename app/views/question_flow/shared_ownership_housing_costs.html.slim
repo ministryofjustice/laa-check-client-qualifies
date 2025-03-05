@@ -37,10 +37,10 @@
 
     = render "shared/money_input_no_label",
             form:,
-            field: :housing_payments,
+            field: :rent,
             width: 10,
             set_aria: true
-    = form.govuk_collection_radio_buttons :housing_payments_frequency,
+    = form.govuk_collection_radio_buttons :rent_frequency,
             @form.frequencies,
             :first,
             :last,
@@ -50,7 +50,7 @@
       = t(".mortgage_payments.label")
     = render "shared/money_input_no_label",
               form:,
-              field: :mortgage,
+              field: :shared_ownership_mortgage,
               hint_text: t(".zero_hint"),
               width: 10,
               set_aria: true
@@ -64,8 +64,8 @@
     = govuk_visually_hidden(t("generic.hidden_description_amount_and_frequency"))
 
     = form.govuk_radio_buttons_fieldset :housing_benefit_relevant,
-            legend: { text: t(".housing_benefits.label") },
-            hint: { text: t(".#{hint_key}") } do
+            legend: { text: t(@check.partner ? ".housing_benefits.partner_label" : ".housing_benefits.label") },
+                hint: { text: t(".#{hint_key}") } do
       = render "shared/radio_button_set",
               form:,
               field_name: :housing_benefit_relevant,
@@ -78,14 +78,14 @@
                 form:,
                 field: :housing_benefit_value,
                 width: 10,
-                label_text: t("question_flow.shared_ownership.housing_benefit_value"),
+                label_text: t("question_flow.shared_ownership_housing_costs.housing_benefit_value"),
                 set_aria: true
 
         = form.govuk_collection_radio_buttons :housing_benefit_frequency,
                 @form.frequencies,
                 :first,
                 :last,
-                legend: -> { tag.p(t("question_flow.shared_ownership.frequency")) }
+                legend: -> { tag.p(t("question_flow.shared_ownership_housing_costs.frequency")) }
 
     = form.govuk_submit t("generic.save_and_continue")
 

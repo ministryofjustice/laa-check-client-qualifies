@@ -3,7 +3,7 @@ module Steps
     PROPERTY_STEPS = %i[property property_landlord cannot_use_service property_entry].freeze
     ADDITIONAL_PROPERTY_STEPS = %i[additional_property additional_property_details].freeze
     ADDITIONAL_PARTNER_PROPERTY_STEPS = %i[partner_additional_property partner_additional_property_details].freeze
-    HOUSING_COSTS_STEPS = %i[housing_costs mortgage_or_loan_payment].freeze
+    HOUSING_COSTS_STEPS = %i[housing_costs shared_ownership_housing_costs mortgage_or_loan_payment].freeze
 
     class << self
       def all_steps
