@@ -1,0 +1,94 @@
+- content_for :page_title
+
+- content_for :back do
+  = back_link(@previous_step, @back_buttons_invoke_browser_back_behaviour)
+
+.govuk-grid-column-two-thirds
+  = form_for(@form, url: request.path, method: :put) do |form|
+    = form.govuk_error_summary t("generic.error_summary_title")
+
+    ruby:
+      partner_key = if @check.partner
+                      "heading_hint_partner"
+                    else
+                      "heading_hint"
+                    end
+      hint_key = if @check.partner
+                   "housing_benefits.hint_bullet_partner"
+                 else
+                   "housing_benefits.hint_bullet_client"
+                 end
+
+    = render "shared/heading",
+            header_text: t(".heading"),
+            post_header_texts: t(".#{partner_key}"),
+            tag: :household
+
+    = govuk_details(summary_text: t(".housing_payments.what_to_include_with_housing_payments")) do
+      - t(".housing_payments.what_to_include_details").each do
+        p.govuk-body = _1
+
+    = govuk_details(summary_text: t(".housing_payments.living_with_someone_else")) do
+      - t(".housing_payments.details_paragraphs").each do
+        p.govuk-body = _1
+
+    h2.govuk-heading-m
+      = t(".housing_payments.label")
+
+    = render "shared/money_input_no_label",
+            form:,
+            field: :housing_payments,
+            width: 10,
+            set_aria: true
+    = form.govuk_collection_radio_buttons :housing_payments_frequency,
+            @form.frequencies,
+            :first,
+            :last,
+            legend: -> { tag.p(t(".frequency")) }
+
+    h2.govuk-heading-m
+      = t(".mortgage_payments.label")
+    = render "shared/money_input_no_label",
+              form:,
+              field: :housing_payments,
+              hint_text: t(".zero_hint"),
+              width: 10,
+              set_aria: true
+    = form.govuk_collection_radio_buttons :housing_payments_frequency,
+              @form.frequencies,
+              :first,
+              :last,
+              legend: -> { tag.p(t(".frequency")) }
+
+    - content_for :amount_and_frequency_hidden_description
+    = govuk_visually_hidden(t("generic.hidden_description_amount_and_frequency"))
+
+    = form.govuk_radio_buttons_fieldset :housing_benefit_relevant,
+            legend: { text: t(".housing_benefits.label") },
+            hint: { text: t(".#{hint_key}") } do
+      = render "shared/radio_button_set",
+              form:,
+              field_name: :housing_benefit_relevant,
+              buttons: [{ value: true,
+                      options: { label: { text: t("generic.yes_choice") },
+                              hint: -> { content_for(:amount_and_frequency_hidden_description) } } },
+                      { value: false, options: { label: { text: t("generic.no_choice") } } }]
+
+        = render "shared/money_input",
+                form:,
+                field: :housing_benefit_value,
+                width: 10,
+                label_text: t("question_flow.shared_ownership.housing_benefit_value"),
+                set_aria: true
+
+        = form.govuk_collection_radio_buttons :housing_benefit_frequency,
+                @form.frequencies,
+                :first,
+                :last,
+                legend: -> { tag.p(t("question_flow.shared_ownership.frequency")) }
+
+    = form.govuk_submit t("generic.save_and_continue")
+
+= render "shared/question_sidebar",
+        level_of_help: @check.level_of_help,
+        links: housing_costs_links(@check.level_of_help)
