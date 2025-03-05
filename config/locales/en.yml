@@ -1932,6 +1932,7 @@ en:
         additional_property_owned: Does your client own any other property, a holiday home or land?
         additional_property_owned_options:
           outright: Yes, owned outright
+          shared_ownership: Yes, through a shared ownership scheme
           with_mortgage: Yes, with a mortgage or loan
           none: "No"
       additional_property_details_fields:
@@ -1943,6 +1944,7 @@ en:
         partner_additional_property_owned: Does the partner own any other property, a holiday home or land?
         partner_additional_property_owned_options:
           outright: Yes, owned outright
+          shared_ownership: Yes, through a shared ownership scheme
           with_mortgage: Yes, with a mortgage or loan
           none: "No"
       partner_additional_property_details_fields:
