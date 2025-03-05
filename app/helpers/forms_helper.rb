@@ -29,8 +29,14 @@ module FormsHelper
     [:none, I18n.t("question_flow.immigration_or_asylum_type_upper_tribunal.none")],
   ].freeze
 
+  # this method has been implemented to handle the differences between property and additional property
+  # with regard to shared_with_housing_assoc: attribute. I think this should be refactored to be removed
+  # and we should use the valid_options from PropertyForm/AdditionalPropertyFrom to populate the radio buttons
+  # which can then be tested in e.g spec/forms/property_form_spec.rb
   def property_options(form)
+    # :nocov:
     form_object = form.is_a?(GOVUKDesignSystemFormBuilder::FormBuilder) ? form.object : form
+    # :nocov:
 
     options = [
       [:with_mortgage, I18n.t("question_flow.property.property_owned.with_mortgage")],

@@ -300,7 +300,7 @@ RSpec.describe Cfe::AssetsPayloadService do
       end
       let(:relevant_steps) { %i[property_entry] }
 
-      it "populates the payload with appropriate details including zero mortgage" do
+      it "populates the payload with shared_with_housing_assoc set to true" do
         expect(payload[:properties]).to eq(
           {
             main_home: {
