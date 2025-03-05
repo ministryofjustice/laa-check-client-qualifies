@@ -474,6 +474,10 @@ en:
               within_range: The percentage that they own of the home must be between 1 and 100
               not_a_number: The percentage that they own of the home must be a number between 1 and 100
               not_an_integer: The percentage that they own of the home must be a whole number
+        property_landlord_form:
+          attributes:
+            property_landlord:
+              inclusion: Select yes if the landlord is the only other joint-owner
         housing_costs_form:
           attributes:
             housing_benefit_relevant:
