@@ -1,0 +1,14 @@
+ruby:
+  size ||= nil
+  set_aria ||= false
+  level ||= nil
+  hint_text ||= ""
+  checktype = level == "controlled" ? "controlled_" : nil
+= form.govuk_text_field field,
+        width:,
+        hint: { text: hint_text },
+        label: nil,
+        prefix_text: FormsHelper::POUND,
+        value: decimal_as_money_string(form, field),
+        inputmode: "decimal",
+        "aria-label": set_aria ? t("question_flow.aria_label.#{checktype}#{field}").to_s : nil

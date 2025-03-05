@@ -1140,6 +1140,41 @@ en:
           text: Housing costs (PDF, 940KB)
           link: "{%page_url}"
       housing_payment_hint: Enter full amount due
+    shared_ownership:
+      heading: Housing costs
+      heading_hint:
+        - "Enter the housing costs for the home your client lives in."
+      heading_hint_partner:
+        - "Enter the housing costs for the home your client lives in."
+        - "If your client and their partner live separately, do not include the partner’s housing costs."
+      housing_payments:
+        label: What is the rent?
+        living_with_someone_else: Living with someone else
+        details_paragraphs:
+          - If your client lives with their ex-partner, or someone else whose means are not included in the assessment, enter the amount paid by your client.
+          - The Legal Aid Agency will assume that your client is liable for 50% of the housing costs unless there is evidence otherwise. If your client’s share is being paid or partially paid by this person, enter the amount paid on your client’s behalf as income for your client on the ‘Your client's other income’ page.
+          - You may need to provide evidence for this if you make a full application or open a controlled work file for your client.
+        what_to_include_with_housing_payments: What to include with housing payments
+        what_to_include_details:
+          - "Do not make any deductions for Housing Benefit."
+          - "If your client is paying board and lodgings, enter the portion of the costs that relates to lodgings or, if you are unsure, 50% of the total costs."
+          - "If your client is paying all or part of their ex-partner's housing costs for the former matrimonial home, do not include this here - add it as maintenance payments to a former partner instead."
+      housing_benefits:
+        label: Does your client get Housing Benefit for this home?
+        hint_bullet_client: "Include any Housing Benefit paid to the client or landlord."
+        hint_bullet_partner: "Include any Housing Benefit paid to the client, partner or landlord."
+      housing_benefit_value: Amount
+      frequency: Frequency
+      mortgage_payments:
+        label: What is the mortgage payment?
+      guidance_on_housing_costs:
+        certificated:
+          text: Housing costs (PDF, 1.51MB)
+          link: "{%page_url}"
+        controlled:
+          text: Housing costs (PDF, 940KB)
+          link: "{%page_url}"
+      zero_hint: Enter 0 if this does not apply.
     mortgage_or_loan_payment:
       heading: What are the mortgage or loan payments for the home your client usually lives in?
       living_with_someone_else: Living with someone else
