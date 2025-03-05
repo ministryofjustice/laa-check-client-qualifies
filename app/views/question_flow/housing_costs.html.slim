@@ -1,4 +1,6 @@
-- if FeatureFlags.enabled?(:shared_ownership, @check.session_data)
+/TODO this if statement needs to have an additional check to see that property_owned is set to shared_ownership in session_data
+/ the work to add this to session_data is in EL-1577
+- if !FeatureFlags.enabled?(:shared_ownership, @check.session_data)
   = render "shared_ownership"
 - else
   - content_for :page_title
@@ -69,14 +71,14 @@
                                 hint: -> { content_for(:amount_and_frequency_hidden_description) } } },
                         { value: false, options: { label: { text: t("generic.no_choice") } } }]
 
-        = render "shared/money_input",
+          = render "shared/money_input",
                 form: form,
                 field: :housing_benefit_value,
                 width: 10,
                 label_text: t("question_flow.housing_costs.housing_benefit_value"),
                 set_aria: true
 
-        = form.govuk_collection_radio_buttons :housing_benefit_frequency,
+          = form.govuk_collection_radio_buttons :housing_benefit_frequency,
                 @form.frequencies,
                 :first,
                 :last,
