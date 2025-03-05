@@ -3,7 +3,18 @@ class HousingCostsForm
   include ActiveModel::Attributes
   include SessionPersistable
 
-  ATTRIBUTES = %i[housing_payments housing_payments_frequency housing_benefit_value housing_benefit_frequency housing_benefit_relevant].freeze
+  ATTRIBUTES = %i[
+    housing_payments
+    housing_payments_frequency
+    housing_benefit_value
+    housing_benefit_frequency
+    housing_benefit_relevant
+  ].tap { |attrs|
+    if FeatureFlags.enabled?(:shared_ownership, without_session_data: true)
+      attrs << :mortgage
+      attrs << :mortgage_frequency
+    end
+  }.freeze
 
   attribute :housing_payments, :gbp
   validates :housing_payments, numericality: { greater_than_or_equal_to: 0, allow_nil: true }, presence: true, is_a_number: true
@@ -28,6 +39,21 @@ class HousingCostsForm
   validates :housing_benefit_frequency,
             inclusion: { in: BenefitModel::FREQUENCY_OPTIONS, allow_nil: false },
             if: -> { housing_benefit_relevant }
+
+  #  may need to think about this, when the flag is on the usual form now requires a value for mortgage but it is not an option
+  # may need to check session data and make this dependent on 'shared_ownership' being selected.
+  # on additional_property we make mortgage dependent with `if: :owned_with_mortgage?`
+  if FeatureFlags.enabled?(:shared_ownership, without_session_data: true)
+    attribute :mortgage, :gbp
+    validates :mortgage,
+              numericality: { greater_than_or_equal_to: 0, allow_nil: false },
+              is_a_number: true
+
+    attribute :mortgage_frequency, :string
+    validates :mortgage_frequency,
+              inclusion: { in: OutgoingsForm::VALID_FREQUENCIES, allow_nil: false },
+              if: -> { mortgage.to_i.positive? }
+  end
 
   validate :housing_benefit_does_not_exceed_costs
 

@@ -50,11 +50,11 @@
       = t(".mortgage_payments.label")
     = render "shared/money_input_no_label",
               form:,
-              field: :housing_payments,
+              field: :mortgage,
               hint_text: t(".zero_hint"),
               width: 10,
               set_aria: true
-    = form.govuk_collection_radio_buttons :housing_payments_frequency,
+    = form.govuk_collection_radio_buttons :mortgage_frequency,
               @form.frequencies,
               :first,
               :last,
