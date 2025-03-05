@@ -22,6 +22,7 @@ allowed_pages:
   - check_asylum_support
   - check_benefit_details
   - check_benefits
+  - check_cannot_use_service
   - check_client_age
   - check_dependant_details
   - check_dependant_income
@@ -71,6 +72,7 @@ allowed_pages:
   - check_vehicle
   - check_vehicle_details
   - check_vehicles_details
+  - cannot_use_service
   - civil_legal_aid_eligibility_calculator
   - client_age
   - create_benefits
