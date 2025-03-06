@@ -52,6 +52,6 @@ private
   end
 
   def outcome
-    session_data.dig("api_response", "result_summary", "overall_result", "result")
+    session_data.dig("api_response", "result_summary", "overall_result", "result") || "not_applicable_shared_housing"
   end
 end
