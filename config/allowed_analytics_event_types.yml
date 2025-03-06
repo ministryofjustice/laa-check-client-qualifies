@@ -2,6 +2,7 @@
 # New `event_type` fields will need to be added here to prevent AnalyticsService from throwing an error
 allowed_event_types:
 - certificated_level_of_help_chosen
+- click_controlled_work_form
 - click_laa_cw_forms
 - click_lc_guidance_certificated
 - click_lc_guidance_certificated_additional_properties_guidance

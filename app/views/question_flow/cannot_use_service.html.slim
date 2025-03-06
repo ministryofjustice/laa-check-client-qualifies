@@ -1,0 +1,25 @@
+- content_for :page_title
+  = t("question_flow.property.cannot_use_service.title")
+- content_for :back
+  = back_link(@previous_step, @back_buttons_invoke_browser_back_behaviour)
+
+.govuk-grid-column-two-thirds
+  = render "shared/heading"
+    h1.govuk-heading-xl = t("question_flow.property.cannot_use_service.title")
+    p.govuk-body = t("question_flow.property.cannot_use_service.paragraph_1_#{@check.level_of_help}#{'_partner' if @check.partner}")
+
+    - if @check.controlled?
+      p.govuk-body = t("question_flow.property.cannot_use_service.paragraph_2_controlled_html",
+                   page_url: document_link(:controlled_work_form))
+    - else
+      p.govuk-body = t("question_flow.property.cannot_use_service.paragraph_2_certificated")
+
+    = link_to t("question_flow.property.cannot_use_service.start_a_new_check"),
+      new_check_path,
+      class: "govuk-button",
+      role: "button",
+      id: "start_a_new_check"
+
+= render "shared/question_sidebar",
+          level_of_help: @check.level_of_help,
+          links: {}

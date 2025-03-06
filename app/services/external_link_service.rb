@@ -113,6 +113,9 @@ class ExternalLinkService
         means_testing_guidance: {
           page_url: "https://www.gov.uk/guidance/civil-legal-aid-means-testing",
         },
+        controlled_work_form: {
+          page_url: "https://www.gov.uk/government/collections/controlled-work-application-forms",
+        },
       }.with_indifferent_access
     end
   end
