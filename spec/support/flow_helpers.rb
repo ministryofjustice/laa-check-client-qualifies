@@ -267,6 +267,12 @@ def fill_in_property_entry_screen
   click_on "Save and continue"
 end
 
+def fill_in_housing_shared_who_screen(choice: "Yes")
+  confirm_screen :property_landlord
+  choose choice
+  click_on "Save and continue"
+end
+
 def fill_in_housing_costs_screen(housing_payments: 0, housing_benefit: 0)
   confirm_screen :housing_costs
 
