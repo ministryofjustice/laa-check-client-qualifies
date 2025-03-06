@@ -11,11 +11,13 @@ module FormsHelper
     [false, I18n.t("generic.no_continue_with_means_check_choice")],
   ].freeze
 
-  PROPERTY_OPTIONS = [
-    [:with_mortgage, I18n.t("question_flow.property.property_owned.with_mortgage")],
-    [:outright, I18n.t("question_flow.property.property_owned.outright")],
-    [:none, I18n.t("question_flow.property.property_owned.none")],
-  ].freeze
+  # TODO: reinstate this and the old property_options method below when the feature is turned on
+  # PROPERTY_OPTIONS = [
+  #   [:with_mortgage, I18n.t("question_flow.property.property_owned.with_mortgage")],
+  #   [:shared_ownership, I18n.t("question_flow.property.property_owned.shared_ownership")],
+  #   [:outright, I18n.t("question_flow.property.property_owned.outright")],
+  #   [:none, I18n.t("question_flow.property.property_owned.none")],
+  # ].freeze
 
   CLIENT_AGE_OPTIONS = [
     [:under_18, I18n.t("question_flow.client_age.options.under_18")],
@@ -36,8 +38,23 @@ module FormsHelper
   ].freeze
 
   def property_options
-    PROPERTY_OPTIONS
+    options = [
+      [:with_mortgage, I18n.t("question_flow.property.property_owned.with_mortgage")],
+      [:outright, I18n.t("question_flow.property.property_owned.outright")],
+      [:none, I18n.t("question_flow.property.property_owned.none")],
+    ]
+
+    if FeatureFlags.enabled?(:shared_ownership, without_session_data: true)
+      options.insert(1, [:shared_ownership, I18n.t("question_flow.property.property_owned.shared_ownership")])
+    end
+
+    options.freeze
   end
+
+  # TODO: reinstate this method and the PROPERTY_OPTIONS constant above when the feature is turned on
+  # def property_options
+  #   PROPERTY_OPTIONS
+  # end
 
   def client_age_options
     CLIENT_AGE_OPTIONS

@@ -75,6 +75,14 @@ FactoryBot.define do
       house_in_dispute { false }
     end
 
+    trait :with_main_shared_ownership do
+      property_owned { "shared_ownership" }
+      house_value { 200_234 }
+      mortgage { 123_234 }
+      percentage_owned { 50 }
+      house_in_dispute { false }
+    end
+
     trait :with_employment do
       employment_status { "in_work" }
       frequency { "monthly" }
