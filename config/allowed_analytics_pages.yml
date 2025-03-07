@@ -58,10 +58,12 @@ allowed_pages:
   - check_partner_other_income
   - check_partner_outgoings
   - check_partner_property
+  - check_partner_property_landlord
   - check_partner_property_entry
   - check_partner_vehicle
   - check_partner_vehicle_details
   - check_property
+  - check_property_landlord
   - check_property_entry
   - check_regular_income
   - check_under_18_clr
