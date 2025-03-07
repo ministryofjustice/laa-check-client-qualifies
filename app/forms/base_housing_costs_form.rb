@@ -55,9 +55,6 @@ private
       return if annual_housing_payment_value >= annual_housing_benefit_value
 
       errors.add(:housing_benefit_value, :exceeds_costs)
-    rescue StandardError
-      # If calculation fails, skip this validation
-      nil
     end
   end
 
@@ -72,6 +69,8 @@ private
   end
 
   def total_annual_housing_costs
+    # :nocov:
     0 # Override in subclasses to sum relevant costs
+    # :nocov:
   end
 end

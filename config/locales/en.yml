@@ -509,7 +509,7 @@ en:
               greater_than_or_equal_to: Housing Benefit must be must be 0 or more
               exceeds_costs: Housing Benefit cannot be higher than housing costs
             rent_frequency:
-              inclusion: Select frequency of rent.
+              inclusion: Select frequency of rent payments.
             housing_benefit_frequency:
               inclusion: Select frequency of Housing Benefit.
             mortgage:
