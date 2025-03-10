@@ -24,6 +24,7 @@ module CheckAnswers
                                    skip_change_link: false, index: nil, disputed?: nil,
                                    fields: [
                                      PartnerDependantFieldPresenter.new(table_label: :property, attribute: :property_owned, type: :select, model: @check),
+                                     PartnerDependantFieldPresenter.new(table_label: :property, attribute: :property_landlord, type: :boolean, model: @check),
                                    ])
         housing_costs = unless @check.skip_income_questions?
                           if @check.owns_property_with_mortgage_or_loan?

@@ -1973,6 +1973,7 @@ en:
         vehicle_in_regular_use: Is the vehicle in regular use?
       property_fields:
         property_owned: Does your client own the home the client usually lives in?
+        property_landlord: Is the landlord the only other joint-owner?
         property_owned_options:
           outright: Yes, owned outright
           shared_ownership: Yes, through a shared ownership scheme
