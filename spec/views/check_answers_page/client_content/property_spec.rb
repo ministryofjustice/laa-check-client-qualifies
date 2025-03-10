@@ -30,7 +30,7 @@ RSpec.describe "checks/check_answers.html.slim" do
         it "renders content" do
           expect_in_text(text, [
             "Does your client own the home the client usually lives in?Yes, with a mortgage or loan",
-            "Home client owns and usually lives in detailsChange",
+            "Home client lives in equityChange",
             "Estimated value£200,000.00",
             "Outstanding mortgage£5,000.00",
             "Percentage share owned50%",
@@ -59,7 +59,7 @@ RSpec.describe "checks/check_answers.html.slim" do
         it "renders content" do
           expect_in_text(text, [
             "Does your client own the home the client usually lives in?Yes, owned outright",
-            "Home client owns and usually lives in detailsChange",
+            "Home client lives in equityChange",
             "Estimated value£200,000.00",
             "Percentage share owned50%",
           ])
@@ -78,6 +78,70 @@ RSpec.describe "checks/check_answers.html.slim" do
 
         it "renders content" do
           expect(text).to include("Does your client own the home the client usually lives in?No")
+        end
+      end
+
+      context "when home is owned with shared ownerhip" do
+        let(:session_data) do
+          build(:minimal_complete_session,
+                property_owned: "shared_ownership",
+                house_value: 200_000,
+                mortgage: 5_000,
+                percentage_owned: 50,
+                house_in_dispute:,
+                property_landlord: true,
+                shared_ownership_mortgage: 500,
+                rent: 250,
+                combined_frequency: "monthly",
+                housing_benefit_relevant: true,
+                housing_benefit_value: 200,
+                housing_benefit_frequency: "monthly")
+        end
+
+        let(:house_in_dispute) { false }
+
+        it "renders content" do
+          expect_in_text(text, [
+            "Does your client own the home the client usually lives in?Yes, through a shared ownership scheme",
+            "Is the landlord the only other joint-owner?Yes",
+            "Mortgage£500.00Monthly",
+            "Rent£250.00Monthly",
+            "Housing Benefit£200.00Monthly",
+            "Home client lives in equityChange",
+            "Estimated value£200,000.00",
+            "Outstanding mortgage£5,000.00",
+            "Percentage share owned50%",
+          ])
+        end
+
+        context "with no housing benefit" do
+          let(:session_data) do
+            build(:minimal_complete_session,
+                  property_owned: "shared_ownership",
+                  house_value: 200_000,
+                  mortgage: 5_000,
+                  percentage_owned: 50,
+                  house_in_dispute:,
+                  property_landlord: true,
+                  shared_ownership_mortgage: 500,
+                  rent: 250,
+                  combined_frequency: "monthly",
+                  housing_benefit_relevant: false)
+          end
+
+          it "renders content" do
+            expect_in_text(text, [
+              "Does your client own the home the client usually lives in?Yes, through a shared ownership scheme",
+              "Is the landlord the only other joint-owner?Yes",
+              "Mortgage£500.00Monthly",
+              "Rent£250.00Monthly",
+              "Is Housing Benefit claimed at the home the client lives in?No",
+              "Home client lives in equityChange",
+              "Estimated value£200,000.00",
+              "Outstanding mortgage£5,000.00",
+              "Percentage share owned50%",
+            ])
+          end
         end
       end
     end
