@@ -1,5 +1,5 @@
 class SharedOwnershipHousingCostsForm < BaseHousingCostsForm
-  ATTRIBUTES = (BaseHousingCostsForm::ATTRIBUTES + %i[mortgage mortgage_frequency rent rent_frequency]).freeze
+  ATTRIBUTES = (BaseHousingCostsForm::ATTRIBUTES + %i[shared_ownership_mortgage mortgage_frequency rent rent_frequency]).freeze
 
   attribute :shared_ownership_mortgage, :gbp
   validates :shared_ownership_mortgage,
