@@ -5,7 +5,7 @@ RSpec.describe SharedOwnershipHousingCostsForm do
 
   let(:base_attributes) do
     {
-      mortgage: 0,
+      shared_ownership_mortgage: 0,
       mortgage_frequency: nil,
       rent: 0,
       rent_frequency: nil,
@@ -15,7 +15,7 @@ RSpec.describe SharedOwnershipHousingCostsForm do
 
   context "when form is submitted and" do
     context "when mortgage is positive" do
-      let(:attributes) { base_attributes.merge(mortgage: 500, mortgage_frequency: "monthly") }
+      let(:attributes) { base_attributes.merge(shared_ownership_mortgage: 500, mortgage_frequency: "monthly") }
 
       it "is valid with a valid frequency" do
         expect(form).to be_valid
@@ -53,7 +53,7 @@ RSpec.describe SharedOwnershipHousingCostsForm do
     context "when rent is zero" do
       let(:attributes) do
         {
-          mortgage: 500,
+          shared_ownership_mortgage: 500,
           mortgage_frequency: "monthly",
           rent_frequency: nil,
           housing_benefit_relevant: false,
@@ -68,7 +68,7 @@ RSpec.describe SharedOwnershipHousingCostsForm do
   end
 
   describe "#housing_payment_frequencies" do
-    let(:attributes) { base_attributes.merge(mortgage: 500, mortgage_frequency: "monthly") }
+    let(:attributes) { base_attributes.merge(shared_ownership_mortgage: 500, mortgage_frequency: "monthly") }
 
     it "returns a mapped list of valid frequencies" do
       expect(form.housing_payment_frequencies).to eq(
@@ -85,7 +85,7 @@ RSpec.describe SharedOwnershipHousingCostsForm do
     end
 
     context "when mortgage and rent are present with frequencies" do
-      let(:attributes) { base_attributes.merge(mortgage: 500, mortgage_frequency: "monthly", rent: 700, rent_frequency: "weekly") }
+      let(:attributes) { base_attributes.merge(shared_ownership_mortgage: 500, mortgage_frequency: "monthly", rent: 700, rent_frequency: "weekly") }
 
       it "calculates the total correctly" do
         expect(form.send(:total_annual_housing_costs)).to eq((500 * 12) + (700 * 52))
@@ -93,7 +93,7 @@ RSpec.describe SharedOwnershipHousingCostsForm do
     end
 
     context "when only mortgage is present with frequency" do
-      let(:attributes) { base_attributes.merge(mortgage: 500, mortgage_frequency: "monthly") }
+      let(:attributes) { base_attributes.merge(shared_ownership_mortgage: 500, mortgage_frequency: "monthly") }
 
       it "calculates the total correctly" do
         expect(form.send(:total_annual_housing_costs)).to eq(500 * 12)

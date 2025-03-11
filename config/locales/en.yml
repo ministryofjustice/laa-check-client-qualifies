@@ -512,7 +512,7 @@ en:
               inclusion: Select frequency of rent payments.
             housing_benefit_frequency:
               inclusion: Select frequency of Housing Benefit.
-            mortgage:
+            shared_ownership_mortgage:
               not_a_number: Mortgage payment must be a number. Enter 0 if this does not apply.
               inclusion: Enter the mortgage payment. Enter 0 if this does not apply.
             mortgage_frequency:
@@ -712,7 +712,7 @@ en:
       rent: Enter amount of rent payments
       housing_payments: Enter amount of housing payments
       housing_benefit_value: Enter the amount of housing benefit
-      mortgage: Enter the mortgage payment
+      shared_ownership_mortgage: Enter the mortgage payment
     client_age:
       title: What age is your client?
       need_to_know: "We need to know this for the check calculations because:"
