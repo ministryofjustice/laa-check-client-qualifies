@@ -2,7 +2,7 @@
   ruby:
     text = header_with_hint(
             "results.show.client_outgoing_types.#{outgoing_type}",
-            ("results.show.#{person}_outgoing_hints.#{outgoing_type}" unless FeatureFlags.enabled?(:shared_ownership, @check.session_data)),
+            "results.show.#{person}_outgoing_hints.#{outgoing_type}",
             hint_args: {
                dependant_allowance: dependant_monthly_upper_limit,
             })
