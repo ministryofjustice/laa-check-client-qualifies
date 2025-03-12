@@ -117,9 +117,17 @@ class CalculationResult
   end
 
   def household_outgoing_rows
-    data = { housing_costs: api_response.disposable_income_result_row(:net_housing_costs) }
+    data = { housing_mortgage: api_response.disposable_income_result_row(FeatureFlags.enabled?(:shared_ownership, @check.session_data) ? :shared_ownership_mortgage : {}) }
+
+    housing_costs = api_response.disposable_income_result_row(FeatureFlags.enabled?(:shared_ownership, @check.session_data) ? :housing_costs : :net_housing_costs)
+    data[:housing_costs] = housing_costs
+
+    housing_benefit = api_response.disposable_income_result_row(:housing_benefit)
+    data[:housing_benefit] = housing_benefit if FeatureFlags.enabled?(:shared_ownership, @check.session_data)
+
     dependants_allowance = api_response.disposable_income_result_row(:dependant_allowance)
     data[:dependants_allowance] = dependants_allowance if @check.adult_dependants || @check.child_dependants
+
     data.transform_values { |v| monetise(v) }
   end
 
