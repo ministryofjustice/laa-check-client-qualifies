@@ -508,15 +508,13 @@ en:
               greater_than: Housing Benefit must be more than 0
               greater_than_or_equal_to: Housing Benefit must be must be 0 or more
               exceeds_costs: Housing Benefit cannot be higher than housing costs
-            rent_frequency:
+            combined_frequency:
               inclusion: Select frequency of rent payments.
             housing_benefit_frequency:
               inclusion: Select frequency of Housing Benefit.
             shared_ownership_mortgage:
               not_a_number: Mortgage payment must be a number. Enter 0 if this does not apply.
               inclusion: Enter the mortgage payment. Enter 0 if this does not apply.
-            mortgage_frequency:
-              inclusion: Select frequency of mortgage payments.
         mortgage_or_loan_payment_form:
           attributes:
             housing_loan_payments:

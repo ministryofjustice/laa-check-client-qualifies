@@ -350,6 +350,28 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
         end
       end
 
+      context "when client or their partner own their home shared with a housing association" do
+        let(:session_data) do
+          empty_session_data.merge({
+            "property_owned" => "shared_ownership",
+            "rent" => 140,
+            "shared_ownership_mortgage" => 140,
+            "combined_frequency" => "monthly",
+          })
+        end
+        let(:relevant_steps) { %i[property shared_ownership_housing_costs] }
+
+        it "populates the payload with content from the shared housing costs screen" do
+          service.call(session_data, payload, relevant_steps)
+          expect(payload[:regular_transactions]).to eq(
+            [{ amount: 280,
+               category: :rent_or_mortgage,
+               frequency: :monthly,
+               operation: :debit }],
+          )
+        end
+      end
+
       context "when client owns their home with mortgage but it has zero payments" do
         let(:session_data) do
           empty_session_data.merge({
@@ -365,6 +387,23 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
           expect(payload[:regular_transactions]).to eq(
             [],
           )
+        end
+      end
+
+      context "when combined_rent_and_mortgage is zero or negative" do
+        let(:session_data) do
+          empty_session_data.merge(
+            "rent" => 0,
+            "shared_ownership_mortgage" => 0,
+            "combined_frequency" => "monthly",
+            "housing_benefit_relevant" => false,
+          )
+        end
+        let(:relevant_steps) { %i[shared_ownership_housing_costs] }
+
+        it "returns an empty array" do
+          service.call(session_data, payload, relevant_steps)
+          expect(payload[:regular_transactions]).to eq([])
         end
       end
 

@@ -6,25 +6,24 @@ RSpec.describe SharedOwnershipHousingCostsForm do
   let(:base_attributes) do
     {
       shared_ownership_mortgage: 0,
-      mortgage_frequency: nil,
       rent: 0,
-      rent_frequency: nil,
+      combined_frequency: nil,
       housing_benefit_relevant: false,
     }
   end
 
   context "when form is submitted and" do
     context "when mortgage is positive" do
-      let(:attributes) { base_attributes.merge(shared_ownership_mortgage: 500, mortgage_frequency: "monthly") }
+      let(:attributes) { base_attributes.merge(shared_ownership_mortgage: 500, combined_frequency: "monthly") }
 
       it "is valid with a valid frequency" do
         expect(form).to be_valid
       end
 
       it "is invalid without a frequency" do
-        attributes[:mortgage_frequency] = nil
+        attributes[:combined_frequency] = nil
         expect(form).not_to be_valid
-        expect(form.errors.messages[:mortgage_frequency]).to include("Select frequency of mortgage payments.")
+        expect(form.errors.messages[:combined_frequency]).to include("Select frequency of rent payments.")
       end
     end
 
@@ -37,16 +36,16 @@ RSpec.describe SharedOwnershipHousingCostsForm do
     end
 
     context "when rent is positive" do
-      let(:attributes) { base_attributes.merge(rent: 700, rent_frequency: "monthly") }
+      let(:attributes) { base_attributes.merge(rent: 700, combined_frequency: "monthly") }
 
       it "is valid with a valid frequency" do
         expect(form).to be_valid
       end
 
       it "is invalid without a frequency" do
-        attributes[:rent_frequency] = nil
+        attributes[:combined_frequency] = nil
         expect(form).not_to be_valid
-        expect(form.errors.messages[:rent_frequency]).to include("Select frequency of rent payments.")
+        expect(form.errors.messages[:combined_frequency]).to include("Select frequency of rent payments.")
       end
     end
 
@@ -54,8 +53,7 @@ RSpec.describe SharedOwnershipHousingCostsForm do
       let(:attributes) do
         {
           shared_ownership_mortgage: 500,
-          mortgage_frequency: "monthly",
-          rent_frequency: nil,
+          combined_frequency: "monthly",
           housing_benefit_relevant: false,
           rent: 0,
         }
@@ -68,7 +66,7 @@ RSpec.describe SharedOwnershipHousingCostsForm do
   end
 
   describe "#housing_payment_frequencies" do
-    let(:attributes) { base_attributes.merge(shared_ownership_mortgage: 500, mortgage_frequency: "monthly") }
+    let(:attributes) { base_attributes.merge(shared_ownership_mortgage: 500, combined_frequency: "monthly") }
 
     it "returns a mapped list of valid frequencies" do
       expect(form.housing_payment_frequencies).to eq(
@@ -85,15 +83,15 @@ RSpec.describe SharedOwnershipHousingCostsForm do
     end
 
     context "when mortgage and rent are present with frequencies" do
-      let(:attributes) { base_attributes.merge(shared_ownership_mortgage: 500, mortgage_frequency: "monthly", rent: 700, rent_frequency: "weekly") }
+      let(:attributes) { base_attributes.merge(shared_ownership_mortgage: 500, combined_frequency: "monthly", rent: 700) }
 
       it "calculates the total correctly" do
-        expect(form.send(:total_annual_housing_costs)).to eq((500 * 12) + (700 * 52))
+        expect(form.send(:total_annual_housing_costs)).to eq((500 * 12) + (700 * 12))
       end
     end
 
     context "when only mortgage is present with frequency" do
-      let(:attributes) { base_attributes.merge(shared_ownership_mortgage: 500, mortgage_frequency: "monthly") }
+      let(:attributes) { base_attributes.merge(shared_ownership_mortgage: 500, combined_frequency: "monthly") }
 
       it "calculates the total correctly" do
         expect(form.send(:total_annual_housing_costs)).to eq(500 * 12)
@@ -101,7 +99,7 @@ RSpec.describe SharedOwnershipHousingCostsForm do
     end
 
     context "when only rent is present with frequency" do
-      let(:attributes) { base_attributes.merge(rent: 700, rent_frequency: "weekly") }
+      let(:attributes) { base_attributes.merge(rent: 700, combined_frequency: "weekly") }
 
       it "calculates the total correctly" do
         expect(form.send(:total_annual_housing_costs)).to eq(700 * 52)

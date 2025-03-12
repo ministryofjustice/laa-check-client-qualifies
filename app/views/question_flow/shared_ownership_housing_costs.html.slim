@@ -40,25 +40,21 @@
             field: :rent,
             width: 10,
             set_aria: true
-    = form.govuk_collection_radio_buttons :rent_frequency,
-            @form.frequencies,
-            :first,
-            :last,
-            legend: -> { tag.p(t(".frequency")) }
 
     h2.govuk-heading-m
       = t(".mortgage_payments.label")
     = render "shared/money_input_no_label",
-              form:,
-              field: :shared_ownership_mortgage,
-              hint_text: t(".zero_hint"),
-              width: 10,
-              set_aria: true
-    = form.govuk_collection_radio_buttons :mortgage_frequency,
-              @form.frequencies,
-              :first,
-              :last,
-              legend: -> { tag.p(t(".frequency")) }
+            form:,
+            field: :shared_ownership_mortgage,
+            hint_text: t(".zero_hint"),
+            width: 10,
+            set_aria: true
+
+    = form.govuk_collection_radio_buttons :combined_frequency,
+            @form.frequencies,
+            :first,
+            :last,
+            legend: -> { tag.p(t(".frequency")) }
 
     - content_for :amount_and_frequency_hidden_description
     = govuk_visually_hidden(t("generic.hidden_description_amount_and_frequency"))
