@@ -156,6 +156,8 @@ RSpec.describe HousingCostsForm do
       end
 
       it "errors correctly" do
+        # added in a secondary error message here to fix the test but this might not be the best approach
+        # the validation around :housing_benefit_value is proving to be tricky
         expect(form).not_to be_valid
         expect(form.errors.messages)
           .to eq({ housing_benefit_value: ["Housing Benefit cannot be higher than housing costs"],

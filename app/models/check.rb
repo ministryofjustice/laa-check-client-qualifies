@@ -188,6 +188,10 @@ class Check
     Steps::Logic.owns_property_outright?(session_data)
   end
 
+  def owns_property_shared_ownership?
+    Steps::Logic.owns_property_shared_ownership?(session_data)
+  end
+
   def gross_early_eligibility_exit?
     session_data["early_eligibility_selection"] == "gross"
   end
