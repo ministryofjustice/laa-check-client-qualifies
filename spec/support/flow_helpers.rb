@@ -259,7 +259,7 @@ def fill_in_property_screen(choice: "No", screen_name: :property)
   click_on "Save and continue"
 end
 
-def fill_in_property_landlord_screen(choice: "No", screen_name: :property_landlord)
+def fill_in_property_landlord_screen(choice: "Yes", screen_name: :property_landlord)
   confirm_screen screen_name
   choose choice, name: "#{screen_name}_form[property_landlord]"
   click_on "Save and continue"

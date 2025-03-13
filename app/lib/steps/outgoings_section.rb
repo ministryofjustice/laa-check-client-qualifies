@@ -2,8 +2,7 @@ module Steps
   class OutgoingsSection
     class << self
       def all_steps
-        %i[outgoings partner_outgoings property property_landlord shared_ownership_housing_costs mortgage_or_loan_payment housing_costs]
-        %i[outgoings partner_outgoings property property_landlord cannot_use_service mortgage_or_loan_payment housing_costs]
+        %i[outgoings partner_outgoings property property_landlord cannot_use_service shared_ownership_housing_costs mortgage_or_loan_payment housing_costs]
       end
 
       def grouped_steps_for(session_data)
