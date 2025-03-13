@@ -49,13 +49,9 @@ class CalculationResult
     end
   end
 
-  def domestic_abuse_applicant
-    @check.domestic_abuse_applicant
-  end
+  delegate :domestic_abuse_applicant, to: :@check
 
-  def immigration_or_asylum_type_upper_tribunal
-    @check.immigration_or_asylum_type_upper_tribunal
-  end
+  delegate :immigration_or_asylum_type_upper_tribunal, to: :@check
 
   def capital_contribution
     @capital_contribution ||= monetise(api_response.raw_capital_contribution)
