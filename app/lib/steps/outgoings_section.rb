@@ -22,7 +22,7 @@ module Steps
             (Steps::Group.new(:partner_outgoings) if Steps::Logic.partner?(session_data)),
             Steps::Group.new(:property),
             (Steps::Group.new(:property_landlord) if Steps::Logic.owns_property_shared_ownership?(session_data)),
-            (Steps::Group.new(:cannot_use_service) if Steps::Logic.landlord_is_not_the_only_joint_owner?(session_data)),
+            Steps::Group.new(Steps::Logic.landlord_is_not_the_only_joint_owner?(session_data) ? :cannot_use_service : :property_entry),
             housing_costs_group(session_data),
           ].compact
         end

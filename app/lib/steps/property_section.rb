@@ -13,11 +13,19 @@ module Steps
       def grouped_steps_for(session_data)
         return [] if Steps::Logic.skip_capital_questions?(session_data)
 
-        [
-          (Steps::Group.new(:property_entry) if Steps::Logic.owns_property?(session_data)),
+        steps = []
+
+        # Skip property_entry if the user has already been there
+        if session_data["property_owned"] != "shared_ownership" && Steps::Logic.owns_property?(session_data)
+          steps << Steps::Group.new(:property_entry)
+        end
+
+        steps += [
           Steps::Group.new(*additional_property_steps(session_data)),
           partner_additional_property_group(session_data),
         ].compact
+
+        steps
       end
 
       def additional_property_steps(session_data)
