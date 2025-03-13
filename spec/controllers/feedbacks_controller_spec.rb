@@ -5,9 +5,9 @@ RSpec.describe FeedbacksController, type: :controller do
     # This long string is the corresponding assessment_id when the assessment_code is "1234" and cookies["SessionData"] is blank
     let(:session) do
       { "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4" =>
-                      { "level_of_help" => "controlled",
-                        "api_response" =>
-                        { "result_summary" => { "overall_result" => { "result" => "eligible" } } } } }
+      { "level_of_help" => "controlled",
+        "api_response" =>
+        { "result_summary" => { "overall_result" => { "result" => "eligible" } } } } }
     end
 
     it "saves freetext feedback correctly" do
@@ -26,6 +26,20 @@ RSpec.describe FeedbacksController, type: :controller do
 
     it "raise error when an invalid feedback type is entered" do
       expect { post :create, params: { type: "foo", text: "bar", page: "some page" } }.to raise_error("Feedback type needs to be specified")
+    end
+
+    context "when providing satisfaction feedback, before receiving eligibility outcome" do
+      let(:session) do
+        { "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4" =>
+        { "level_of_help" => "controlled",
+          "api_response" =>
+          { "result_summary" => { "overall_result" => { "result" => nil } } } } }
+      end
+
+      it "saves satisfaction feedback correctly when visiting `cannot-use-service` page" do
+        post :create, session:, params: { assessment_code: "1234", type: "satisfaction", satisfied: "yes" }
+        expect(SatisfactionFeedback.find_by(satisfied: "yes", level_of_help: "controlled", outcome: "not_applicable_shared_housing")).not_to be_nil
+      end
     end
   end
 end
