@@ -19,7 +19,7 @@
             width: 10,
             label_text: t("question_flow.property_entry.house_value.input"),
             hint_text: t("question_flow.property_entry.house_value.input_hint_#{@check.level_of_help}")
-    - if @form.owned_with_mortgage?
+    - if @form.owned_with_mortgage? || @form.shared_ownership?
       = render "shared/money_input_with_hint",
               form:,
               field: :mortgage,
