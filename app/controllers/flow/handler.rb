@@ -39,6 +39,7 @@ module Flow
       partner_outgoings: { class: PartnerOutgoingsForm, url_fragment: "partner-outgoings" },
       partner_assets: { class: PartnerAssetsForm, url_fragment: "partner-assets" },
       housing_costs: { class: HousingCostsForm, url_fragment: "housing-costs" },
+      shared_ownership_housing_costs: { class: SharedOwnershipHousingCostsForm, url_fragment: "shared-ownership-housing-costs" },
       mortgage_or_loan_payment: { class: MortgageOrLoanPaymentForm, url_fragment: "client-mortgage-loan-payments" },
       additional_property: { class: AdditionalPropertyForm, url_fragment: "does-client-own-other-property-holiday-home-land" },
       additional_property_details: { class: AdditionalPropertyDetailsForm, url_fragment: "client-other-property-holiday-home-land-details" },

@@ -67,6 +67,7 @@ allowed_pages:
   - check_property_landlord
   - check_property_entry
   - check_regular_income
+  - check_shared_ownership_housing_costs
   - check_under_18_clr
   - check_under_eighteen_assets
   - check_vehicle
@@ -162,6 +163,7 @@ allowed_pages:
   - property_entry
   - regular_income
   - results_show
+  - shared_ownership_housing_costs
   - show_accessibilities
   - show_cookies
   - show_helps
