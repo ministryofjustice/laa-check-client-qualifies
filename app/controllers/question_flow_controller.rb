@@ -55,4 +55,12 @@ protected
 
     true
   end
+
+  def specify_feedback_widget
+    @feedback = if step == :cannot_use_service
+                  :satisfaction
+                else
+                  :freetext
+                end
+  end
 end

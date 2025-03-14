@@ -1397,6 +1397,15 @@ en:
         controlled:
           text: Properties owned that are not the 'main house' (PDF, 940KB)
           link: "%page_url"
+      cannot_use_service:
+        title: You cannot use this service
+        paragraph_1_controlled: This service cannot calculate housing costs if your client joint-owns with the landlord and someone else.
+        paragraph_1_controlled_partner: This service cannot calculate housing costs if your client or their partner joint-owns with the landlord and someone else.
+        paragraph_1_certificated: This service cannot calculate your client's capital if they joint-own with the landlord and someone else.
+        paragraph_1_certificated_partner: This service cannot calculate capital if your client or their partner joint-own with the landlord and someone else.
+        paragraph_2_controlled_html: Use a <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>controlled work form</a> instead.
+        paragraph_2_certificated: To get a calculation, apply for legal aid using CCMS.
+        start_a_new_check: Start a new check
     property_landlord:
       legend: Is the landlord the only other joint-owner?
     additional_property:
