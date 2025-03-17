@@ -1,10 +1,21 @@
+- mortgage = @check.owns_property_shared_ownership? && outgoing_type.to_s == "housing_costs" ? "_mortgage" : ""
 - body.with_row do |row|
   ruby:
-    text = header_with_hint(
-            "results.show.client_outgoing_types.#{outgoing_type}",
-            ("results.show.#{person}_outgoing_hints.#{outgoing_type}" unless FeatureFlags.enabled?(:shared_ownership, @check.session_data)),
-            hint_args: {
-               dependant_allowance: dependant_monthly_upper_limit,
-            })
+    text = if @model.allowed_housing_costs_exceed_cap? && outgoing_type.to_s == "housing_costs" && !@check.partner? && !@check.dependants?
+              header_with_two_hints(
+              "results.show.client_outgoing_types.#{outgoing_type}",
+              "results.show.#{person}_outgoing_hints.#{outgoing_type}#{mortgage}",
+              "results.show.#{person}_outgoing_hints.housing_costs_cap",
+              hint_args: {
+                dependant_allowance: dependant_monthly_upper_limit,
+              })
+           else
+             header_with_hint(
+              "results.show.client_outgoing_types.#{outgoing_type}",
+              "results.show.#{person}_outgoing_hints.#{outgoing_type}#{mortgage}",
+              hint_args: {
+                dependant_allowance: dependant_monthly_upper_limit,
+              })
+           end
   - row.with_cell(header: true, text:)
   - pdf_friendly_numeric_table_cell(row, money_amount, bold_text: false)

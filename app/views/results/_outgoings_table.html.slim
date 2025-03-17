@@ -1,5 +1,3 @@
-- shared_ownership_flag = FeatureFlags.enabled?(:shared_ownership, @check.session_data)
-
 / ee_banner @early_eligibility_selection can be removed when FF is removed
 - if @early_eligibility_selection == "gross" || @early_result_type == "gross_income"
   p class="govuk-body" = t(".not_assessed")
@@ -24,7 +22,8 @@
 
     = pdf_friendly_h2(t("results.show.household_outgoings"), "m", @is_pdf)
 
-    = pdf_friendly_p_element(t("results.show.period_conversion_hint"), @is_pdf) unless shared_ownership_flag
+    = pdf_friendly_p_element(t("results.show.period_conversion_hint"), @is_pdf)
+
     = govuk_table do |table|
       - table.with_body do |body|
         - @model.household_outgoing_rows.each do |outgoing_type, money_amount|

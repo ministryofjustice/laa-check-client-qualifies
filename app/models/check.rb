@@ -176,6 +176,10 @@ class Check
     Steps::Logic.partner?(session_data)
   end
 
+  def dependants?
+    Steps::Logic.dependants?(session_data)
+  end
+
   def controlled_clr?
     Steps::Logic.controlled_clr?(session_data)
   end

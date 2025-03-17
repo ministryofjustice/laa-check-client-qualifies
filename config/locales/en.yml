@@ -2232,9 +2232,6 @@ en:
       partner_outgoings: Partner's monthly outgoings
       client_outgoing_types:
         housing_costs: Housing payments
-        housing_benefit: Housing Benefit
-        housing_rent: Housing rent
-        housing_mortgage: Mortgage payments
         childcare_payments: Childcare payments
         maintenance_out: Maintenance payments to a former partner
         legal_aid: Payments towards legal aid in a criminal case
@@ -2252,15 +2249,13 @@ en:
         income_tax: ""
         partner_allowance: A fixed allowance if your client has a partner
         housing_costs: Housing costs minus any Housing Benefit payments your client gets
-        housing_benefit: ""
-        housing_rent: ""
-        housing_mortgage: ""
+        housing_costs_mortgage: Rent and mortgage costs minus any Housing Benefits the household gets
+        housing_costs_cap: Housing costs are capped at £545 for single clients without dependants
         dependants_allowance: An allowance of %{dependant_allowance} applied for each dependant, minus any income they receive
       household_outgoing_hints:
         housing_costs: Housing costs minus any Housing Benefit payments the household gets
-        housing_benefit: ""
-        housing_rent: ""
-        housing_mortgage: ""
+        housing_costs_mortgage: Rent and mortgage costs minus any Housing Benefits the household gets
+        housing_costs_cap: Housing costs are capped at £545 for single clients without dependants
         dependants_allowance: An allowance of %{dependant_allowance} applied for each dependant, minus any income they receive
       partner_outgoing_hints:
         childcare_payments: ""
