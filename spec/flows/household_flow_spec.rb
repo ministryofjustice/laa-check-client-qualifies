@@ -16,6 +16,7 @@ RSpec.describe "Household section flow", :stub_cfe_calls_with_webmock, type: :fe
     fill_in_outgoings_screen
     fill_in_partner_outgoings_screen
     fill_in_property_screen(choice: "Yes, with a mortgage or loan")
+    puts page.html
     fill_in_mortgage_or_loan_payment_screen
     fill_in_property_entry_screen
     fill_in_additional_property_screen(choice: "Yes, owned outright")
