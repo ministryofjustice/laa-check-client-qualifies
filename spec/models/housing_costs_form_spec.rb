@@ -112,11 +112,12 @@ RSpec.describe HousingCostsForm do
     end
   end
 
-  context "with benefits but zero costs" do
+  context "with benefits" do
     context "with conditional reveals" do
       context "when relevant" do
         let(:attributes) do
-          { housing_payments: 0,
+          { housing_payments: 1,
+            housing_payments_frequency: "monthly",
             housing_benefit_relevant: true,
             housing_benefit_frequency: "every_week",
             housing_benefit_value: 45 }
@@ -157,7 +158,8 @@ RSpec.describe HousingCostsForm do
       it "errors correctly" do
         expect(form).not_to be_valid
         expect(form.errors.messages)
-          .to eq({ housing_payments_frequency: ["Select frequency of housing payments."] })
+          .to eq({ housing_benefit_value: ["Housing Benefit cannot be higher than housing costs"],
+                   housing_payments_frequency: ["Select frequency of housing payments."] })
       end
     end
   end

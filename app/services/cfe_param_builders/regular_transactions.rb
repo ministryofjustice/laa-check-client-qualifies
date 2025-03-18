@@ -77,6 +77,17 @@ module CfeParamBuilders
             amount: housing_form.housing_payments,
           },
         ]
+      when SharedOwnershipHousingCostsForm
+        return [] if housing_form.combined_rent_and_mortgage.to_f <= 0
+
+        [
+          {
+            operation: :debit,
+            category: :rent_or_mortgage,
+            frequency: CFE_FREQUENCIES.fetch(housing_form.combined_frequency),
+            amount: housing_form.combined_rent_and_mortgage,
+          },
+        ]
       else
         []
       end
