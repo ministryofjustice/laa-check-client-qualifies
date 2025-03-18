@@ -104,8 +104,8 @@ RSpec.describe "checks/check_answers.html.slim" do
           expect_in_text(text, [
             "Does your client own the home the client usually lives in?Yes, through a shared ownership scheme",
             "Is the landlord the only other joint-owner?Yes",
-            "Mortgage£500.00Monthly",
             "Rent£250.00Monthly",
+            "Mortgage£500.00Monthly",
             "Housing Benefit£200.00Monthly",
             "Home client lives in equityChange",
             "Estimated value£200,000.00",
@@ -133,8 +133,8 @@ RSpec.describe "checks/check_answers.html.slim" do
             expect_in_text(text, [
               "Does your client own the home the client usually lives in?Yes, through a shared ownership scheme",
               "Is the landlord the only other joint-owner?Yes",
-              "Mortgage£500.00Monthly",
               "Rent£250.00Monthly",
+              "Mortgage£500.00Monthly",
               "Is Housing Benefit claimed at the home the client lives in?No",
               "Home client lives in equityChange",
               "Estimated value£200,000.00",

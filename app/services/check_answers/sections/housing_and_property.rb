@@ -39,9 +39,9 @@ module CheckAnswers
                           elsif @check.owns_property_shared_ownership?
                             Table.new(screen: :shared_ownership_housing_costs, skip_change_link: false, index: nil, disputed?: nil,
                                       fields: [
-                                        MoneyWithFrequencyPresenter.new(table_label: :housing_costs, attribute: :shared_ownership_mortgage, model: @check,
-                                                                        frequency_value: @check.combined_frequency),
                                         MoneyWithFrequencyPresenter.new(table_label: :housing_costs, attribute: :rent, model: @check,
+                                                                        frequency_value: @check.combined_frequency),
+                                        MoneyWithFrequencyPresenter.new(table_label: :housing_costs, attribute: :shared_ownership_mortgage, model: @check,
                                                                         frequency_value: @check.combined_frequency),
                                         if @check.housing_benefit_relevant?
                                           MoneyWithFrequencyPresenter.new(table_label: :housing_costs, attribute: :housing_benefit_value, model: @check,
