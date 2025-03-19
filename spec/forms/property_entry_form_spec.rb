@@ -91,7 +91,7 @@ RSpec.describe "property_entry", :calls_cfe_early_returns_not_ineligible, type: 
       context "with MTR accelerated" do
         it "shows new content" do
           expect(page).to have_content("Does your client own the home the client usually lives in?")
-          expect(page).to have_content("Home client owns and usually lives in details")
+          expect(page).to have_content("Home client lives in equity")
         end
       end
     end
