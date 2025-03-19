@@ -69,7 +69,7 @@ RSpec.describe "Household section flow", :stub_cfe_calls_with_webmock, type: :fe
            "Client outgoings and deductions",
            "Home client usually lives in",
            "Housing costs",
-           "Home client owns and usually lives in details",
+           "Home client lives in equity",
            "Client other property",
            "Client other property 1 details",
            "Client assets",
