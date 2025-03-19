@@ -6,7 +6,7 @@ RSpec.describe DependantIncomeModel do
 
     before { travel_to fixed_arbitrary_date }
 
-    it "has new dependant limits" do
+    it "shows current dependant limits" do
       expect(described_class.dependant_income_upper_limits).to eq({ "every_four_weeks" => 332.96,
                                                                     "every_two_weeks" => 166.48,
                                                                     "every_week" => 83.24,
@@ -19,7 +19,8 @@ RSpec.describe DependantIncomeModel do
     let(:fixed_arbitrary_date) { Date.new(2025, 4, 7) }
 
     before { travel_to fixed_arbitrary_date }
-    it "has new dependant limits" do
+
+    it "shows new dependant limits" do
       expect(described_class.dependant_income_upper_limits).to eq({ "every_four_weeks" => 338.64,
                                                                     "every_two_weeks" => 169.32,
                                                                     "every_week" => 84.66,
