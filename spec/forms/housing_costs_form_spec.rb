@@ -56,7 +56,8 @@ RSpec.describe "housing_costs", :calls_cfe_early_returns_not_ineligible, type: :
       end
 
       it "shows the conditional reveal answer" do
-        expect(page).to have_content "Is Housing Benefit claimed at the home the client lives in?"
+        expect(page).not_to have_content "Is Housing Benefit claimed at the home the client lives in?"
+        expect(page).to have_content "Housing Benefit"
         expect(page).to have_content "12.67"
         expect(page).to have_content "Monthly"
       end

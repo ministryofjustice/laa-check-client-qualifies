@@ -56,7 +56,7 @@ RSpec.describe "mortgage_or_loan_payment", :calls_cfe_early_returns_not_ineligib
              "Client outgoings and deductions",
              "Home client usually lives in",
              "Housing costs",
-             "Home client owns and usually lives in details",
+             "Home client lives in equity",
              "Client other property",
              "Client assets"],
           )

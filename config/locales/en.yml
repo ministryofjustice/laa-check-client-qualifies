@@ -495,6 +495,26 @@ en:
               inclusion: Select frequency of housing payments.
             housing_benefit_frequency:
               inclusion: Select frequency of Housing Benefit.
+        shared_ownership_housing_costs_form:
+          attributes:
+            housing_benefit_relevant:
+              inclusion: Select yes if your client gets Housing Benefit for this home
+            rent:
+              blank: Enter the rent amount.
+              not_a_number: Rent must be a number.
+            housing_benefit_value:
+              blank: Enter the Housing Benefit amount.
+              not_a_number: Housing Benefit must be a number.
+              greater_than: Housing Benefit must be more than 0
+              greater_than_or_equal_to: Housing Benefit must be must be 0 or more
+              exceeds_costs: Housing Benefit cannot be higher than housing costs
+            combined_frequency:
+              inclusion: Select frequency of rent payments.
+            housing_benefit_frequency:
+              inclusion: Select frequency of Housing Benefit.
+            shared_ownership_mortgage:
+              not_a_number: Mortgage payment must be a number. Enter 0 if this does not apply.
+              inclusion: Enter the mortgage payment. Enter 0 if this does not apply.
         mortgage_or_loan_payment_form:
           attributes:
             housing_loan_payments:
@@ -687,8 +707,10 @@ en:
       maintenance_payments_value: Enter amount of maintenance payments to a former partner
       legal_aid_payments_value: Enter amount paid towards legal aid in a criminal case
       housing_payments_value: Enter amount of housing payments
+      rent: Enter amount of rent payments
       housing_payments: Enter amount of housing payments
       housing_benefit_value: Enter the amount of housing benefit
+      shared_ownership_mortgage: Enter the mortgage payment
     client_age:
       title: What age is your client?
       need_to_know: "We need to know this for the check calculations because:"
@@ -1140,6 +1162,42 @@ en:
           text: Housing costs (PDF, 940KB)
           link: "{%page_url}"
       housing_payment_hint: Enter full amount due
+    shared_ownership_housing_costs:
+      heading: Housing costs
+      heading_hint:
+        - "Enter the housing costs for the home your client lives in."
+      heading_hint_partner:
+        - "Enter the housing costs for the home your client lives in."
+        - "If your client and their partner live separately, do not include the partner’s housing costs."
+      housing_payments:
+        label: What is the rent?
+        living_with_someone_else: Living with someone else
+        details_paragraphs:
+          - If your client lives with their ex-partner, or someone else whose means are not included in the assessment, enter the amount paid by your client.
+          - The Legal Aid Agency will assume that your client is liable for 50% of the housing costs unless there is evidence otherwise. If your client’s share is being paid or partially paid by this person, enter the amount paid on your client’s behalf as income for your client on the ‘Your client's other income’ page.
+          - You may need to provide evidence for this if you make a full application or open a controlled work file for your client.
+        what_to_include_with_housing_payments: What to include with housing payments
+        what_to_include_details:
+          - "Do not make any deductions for Housing Benefit."
+          - "If your client is paying board and lodgings, enter the portion of the costs that relates to lodgings or, if you are unsure, 50% of the total costs."
+          - "If your client is paying all or part of their ex-partner's housing costs for the former matrimonial home, do not include this here - add it as maintenance payments to a former partner instead."
+      housing_benefits:
+        label: Does your client get Housing Benefit for this home?
+        partner_label: Does your client or their partner get Housing Benefit for this home?
+        hint_bullet_client: "Include any Housing Benefit paid to the client or landlord."
+        hint_bullet_partner: "Include any Housing Benefit paid to the client, partner or landlord."
+      housing_benefit_value: Amount
+      frequency: Frequency
+      mortgage_payments:
+        label: What is the mortgage payment?
+      guidance_on_housing_costs:
+        certificated:
+          text: Housing costs (PDF, 1.51MB)
+          link: "{%page_url}"
+        controlled:
+          text: Housing costs (PDF, 940KB)
+          link: "{%page_url}"
+      zero_hint: Enter 0 if this does not apply.
     mortgage_or_loan_payment:
       heading: What are the mortgage or loan payments for the home your client usually lives in?
       living_with_someone_else: Living with someone else
@@ -1669,6 +1727,7 @@ en:
         property: Change Home client lives in
         property_entry: Change Home client lives in details
         housing_costs: Change Housing Costs
+        shared_ownership_housing_costs: Change Housing Costs
         mortgage_or_loan_payment: Change Mortgage Payment
         additional_property: Change Client other property
         additional_property_details: Change client other property %{index} details
@@ -1738,9 +1797,10 @@ en:
         vehicle: Vehicles
         vehicles_details: Vehicle %{variable} details
         property: Home client usually lives in
-        property_entry: Home client owns and usually lives in details
+        property_entry: Home client lives in equity
         housing_costs: Housing costs
         mortgage_or_loan_payment: Housing costs
+        shared_ownership_housing_costs: Housing costs
         additional_property: Client other property
         additional_property_details: Client other property %{variable} details
         partner_additional_property: Partner other property
@@ -1922,6 +1982,8 @@ en:
         vehicle_in_regular_use: Is the vehicle in regular use?
       property_fields:
         property_owned: Does your client own the home the client usually lives in?
+        property_landlord: Is the landlord the only other joint-owner?
+        property_landlord_partner: Is the landlord the only other joint-owner?
         property_owned_options:
           outright: Yes, owned outright
           shared_ownership: Yes, through a shared ownership scheme
@@ -1935,6 +1997,8 @@ en:
           none: "No"
       housing_costs_fields:
         housing_payments: Housing payments
+        shared_ownership_mortgage: Mortgage
+        rent: Rent
         housing_benefit_relevant: Is Housing Benefit claimed at the home the client lives in?
         housing_benefit_value: Housing Benefit
       mortgage_or_loan_payment_fields:

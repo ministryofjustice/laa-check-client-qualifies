@@ -20,7 +20,7 @@ RSpec.describe "checks/check_answers.html.slim" do
         end
 
         it "renders content" do
-          expect(page_text).to include("Is Housing Benefit claimed at the home the client lives in?Yes")
+          expect(page_text).not_to include("Is Housing Benefit claimed at the home the client lives in?")
           expect(page_text).to include("Housing Benefit£400.00Every week")
         end
       end
