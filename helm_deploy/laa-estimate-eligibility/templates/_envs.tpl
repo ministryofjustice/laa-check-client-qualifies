@@ -67,8 +67,6 @@ env:
     value: {{ .Values.featureFlags.maintenanceMode }}
   - name: BASIC_AUTHENTICATION_FEATURE_FLAG
     value: {{ .Values.featureFlags.basicAuthentication }}
-  - name: OUTGOINGS_FLOW_FEATURE_FLAG
-    value: {{ .Values.featureFlags.outgoingsFlow }}
   - name: SHARED_OWNERSHIP_FEATURE_FLAG
     value: {{ .Values.featureFlags.sharedOwnership }}
   - name: EE_BANNER_FEATURE_FLAG
