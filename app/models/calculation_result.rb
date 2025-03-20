@@ -1,5 +1,6 @@
 class CalculationResult
   CFE_MAX_VALUE = 999_999_999_999
+  ALLOWED_HOUSING_COSTS_CAP = 545
   Summary = Struct.new(:status, :upper_threshold, :lower_threshold, :no_upper_threshold, :no_lower_threshold, :section, :ineligible_gross_income, keyword_init: true)
 
   include ActionView::Helpers::NumberHelper
@@ -121,6 +122,10 @@ class CalculationResult
     dependants_allowance = api_response.disposable_income_result_row(:dependant_allowance)
     data[:dependants_allowance] = dependants_allowance if @check.adult_dependants || @check.child_dependants
     data.transform_values { |v| monetise(v) }
+  end
+
+  def allowed_housing_costs_exceed_cap?
+    (api_response.allowed_housing_costs || 0) >= ALLOWED_HOUSING_COSTS_CAP
   end
 
   def client_owns_main_home?

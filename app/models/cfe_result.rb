@@ -112,6 +112,10 @@ class CfeResult
     api_response.dig(:result_summary, :disposable_income, row)
   end
 
+  def allowed_housing_costs
+    api_response.dig(:result_summary, :disposable_income, :allowed_housing_costs)
+  end
+
   def raw_gross_outgoings
     api_response.dig(:result_summary, :disposable_income, :combined_total_outgoings_and_allowances)
   end
