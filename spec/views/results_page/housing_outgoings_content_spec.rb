@@ -168,30 +168,11 @@ RSpec.describe "results/show.html.slim" do
           eligible: "eligible",
           result_summary: {
             overall_result: {
-              result: "eligible",
-              capital_contribution: 0.0,
-              income_contribution: 0.0,
-              proceeding_types: [
-                {
-                  ccms_code: "SE003",
-                  upper_threshold: 0.0,
-                  lower_threshold: 0.0,
-                  result: "eligible",
-                  client_involvement_type: "A",
-                },
-              ],
+              proceeding_types: [],
             },
             gross_income: {
               total_gross_income: 0.0,
-              proceeding_types: [
-                {
-                  ccms_code: "SE003",
-                  upper_threshold: 2657.0,
-                  lower_threshold: 0.0,
-                  result: "eligible",
-                  client_involvement_type: "A",
-                },
-              ],
+              proceeding_types: [],
               combined_total_gross_income: 0.0,
             },
             disposable_income: {
@@ -206,16 +187,7 @@ RSpec.describe "results/show.html.slim" do
               maintenance_allowance: 0.0,
               total_outgoings_and_allowances: 1186.57,
               total_disposable_income: -1186.57,
-              employment_income: {
-                gross_income: 0.0,
-                benefits_in_kind: 0.0,
-                tax: 0.0,
-                national_insurance: 0.0,
-                prisoner_levy: 0.0,
-                student_debt_repayment: 0.0,
-                fixed_employment_deduction: 0.0,
-                net_employment_income: 0.0,
-              },
+              employment_income: {},
               proceeding_types: [
                 {
                   ccms_code: "SE003",
@@ -243,15 +215,7 @@ RSpec.describe "results/show.html.slim" do
               assessed_capital: 0.0,
               total_capital_with_smod: 0,
               disputed_non_property_disregard: 0,
-              proceeding_types: [
-                {
-                  ccms_code: "SE003",
-                  upper_threshold: 8000.0,
-                  lower_threshold: 8000.0,
-                  result: "eligible",
-                  client_involvement_type: "A",
-                },
-              ],
+              proceeding_types: [],
               combined_disputed_capital: 0,
               combined_non_disputed_capital: 0,
               capital_contribution: 0.0,
@@ -286,23 +250,11 @@ RSpec.describe "results/show.html.slim" do
               maintenance_allowance: 0.0,
               total_outgoings_and_allowances: 0.0,
               total_disposable_income: 0.0,
-              employment_income: {
-                gross_income: 0.0,
-                benefits_in_kind: 0.0,
-                tax: 0.0,
-                national_insurance: 0.0,
-                prisoner_levy: 0.0,
-                student_debt_repayment: 0.0,
-                fixed_employment_deduction: 0.0,
-                net_employment_income: 0.0,
-              },
+              employment_income: {},
             },
           },
           assessment: {
             id: "ccq-shared-housing-content",
-            client_reference_id: nil,
-            submission_date: "2025-03-19",
-            level_of_help: "controlled",
             applicant: {
               date_of_birth: "1975-03-19",
               involvement_type: "applicant",
@@ -312,72 +264,12 @@ RSpec.describe "results/show.html.slim" do
             },
             gross_income: {
               employment_income: [],
-              irregular_income: {
-                monthly_equivalents: {
-                  student_loan: 0.0,
-                  unspecified_source: 0.0,
-                },
-              },
-              state_benefits: {
-                monthly_equivalents: {
-                  all_sources: 0.0,
-                  cash_transactions: 0.0,
-                  bank_transactions: [],
-                },
-              },
-              other_income: {
-                monthly_equivalents: {
-                  all_sources: {
-                    friends_or_family: 0.0,
-                    maintenance_in: 0.0,
-                    property_or_lodger: 0.0,
-                    pension: 0.0,
-                  },
-                  bank_transactions: {
-                    friends_or_family: 0,
-                    maintenance_in: 0,
-                    property_or_lodger: 0,
-                    pension: 0,
-                  },
-                  cash_transactions: {
-                    friends_or_family: 0.0,
-                    maintenance_in: 0.0,
-                    property_or_lodger: 0.0,
-                    pension: 0.0,
-                  },
-                },
-              },
+              irregular_income: {},
+              state_benefits: {},
+              other_income: {},
             },
             disposable_income: {
-              monthly_equivalents: {
-                all_sources: {
-                  child_care: 0.0,
-                  rent_or_mortgage: 0.0,
-                  maintenance_out: 0.0,
-                  legal_aid: 0.0,
-                  pension_contribution: 0.0,
-                  council_tax: 0.0,
-                  priority_debt_repayment: 0.0,
-                },
-                bank_transactions: {
-                  child_care: 0.0,
-                  rent_or_mortgage: 0.0,
-                  maintenance_out: 0.0,
-                  legal_aid: 0.0,
-                  pension_contribution: 0.0,
-                  council_tax: 0.0,
-                  priority_debt_repayment: 0.0,
-                },
-                cash_transactions: {
-                  child_care: 0.0,
-                  rent_or_mortgage: 0.0,
-                  maintenance_out: 0.0,
-                  legal_aid: 0.0,
-                  pension_contribution: 0.0,
-                  council_tax: 0.0,
-                  priority_debt_repayment: 0.0,
-                },
-              },
+              monthly_equivalents: {},
               childcare_allowance: 0.0,
               deductions: {
                 dependants_allowance: 361.7,
@@ -411,72 +303,12 @@ RSpec.describe "results/show.html.slim" do
             },
             partner_gross_income: {
               employment_income: [],
-              irregular_income: {
-                monthly_equivalents: {
-                  student_loan: 0.0,
-                  unspecified_source: 0.0,
-                },
-              },
-              state_benefits: {
-                monthly_equivalents: {
-                  all_sources: 0.0,
-                  cash_transactions: 0.0,
-                  bank_transactions: [],
-                },
-              },
-              other_income: {
-                monthly_equivalents: {
-                  all_sources: {
-                    friends_or_family: 0.0,
-                    maintenance_in: 0.0,
-                    property_or_lodger: 0.0,
-                    pension: 0.0,
-                  },
-                  bank_transactions: {
-                    friends_or_family: 0,
-                    maintenance_in: 0,
-                    property_or_lodger: 0,
-                    pension: 0,
-                  },
-                  cash_transactions: {
-                    friends_or_family: 0.0,
-                    maintenance_in: 0.0,
-                    property_or_lodger: 0.0,
-                    pension: 0.0,
-                  },
-                },
-              },
+              irregular_income: {},
+              state_benefits: {},
+              other_income: {},
             },
             partner_disposable_income: {
-              monthly_equivalents: {
-                all_sources: {
-                  child_care: 0.0,
-                  rent_or_mortgage: 0.0,
-                  maintenance_out: 0.0,
-                  legal_aid: 0.0,
-                  pension_contribution: 0.0,
-                  council_tax: 0.0,
-                  priority_debt_repayment: 0.0,
-                },
-                bank_transactions: {
-                  child_care: 0.0,
-                  rent_or_mortgage: 0.0,
-                  maintenance_out: 0.0,
-                  legal_aid: 0.0,
-                  pension_contribution: 0.0,
-                  council_tax: 0.0,
-                  priority_debt_repayment: 0.0,
-                },
-                cash_transactions: {
-                  child_care: 0.0,
-                  rent_or_mortgage: 0.0,
-                  maintenance_out: 0.0,
-                  legal_aid: 0.0,
-                  pension_contribution: 0.0,
-                  council_tax: 0.0,
-                  priority_debt_repayment: 0.0,
-                },
-              },
+              monthly_equivalents: {},
               childcare_allowance: 0.0,
               deductions: {
                 dependants_allowance: 0.0,
