@@ -6,7 +6,7 @@
 .govuk-grid-column-two-thirds
   = render "shared/heading"
     h1.govuk-heading-xl = t("question_flow.property.cannot_use_service.title")
-    p.govuk-body id='jointOwnersExitPage'
+    p.govuk-body id='joint-owners-exit-page-text'
       = t("question_flow.property.cannot_use_service.paragraph_1_#{@check.level_of_help}#{'_partner' if @check.partner}")
 
     - if @check.controlled?
