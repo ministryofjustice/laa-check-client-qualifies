@@ -24,7 +24,10 @@ module CheckAnswers
                                    skip_change_link: false, index: nil, disputed?: nil,
                                    fields: [
                                      PartnerDependantFieldPresenter.new(table_label: :property, attribute: :property_owned, type: :select, model: @check),
-                                   ])
+                                     if @check.owns_property_shared_ownership?
+                                       PartnerDependantFieldPresenter.new(table_label: :property, attribute: :property_landlord, type: :boolean, model: @check)
+                                     end,
+                                   ].compact)
         housing_costs = unless @check.skip_income_questions?
                           if @check.owns_property_with_mortgage_or_loan?
                             Table.new(screen: :mortgage_or_loan_payment, skip_change_link: false, index: nil, disputed?: nil,
@@ -33,6 +36,20 @@ module CheckAnswers
                                                                         frequency_value: @check.housing_payments_loan_frequency),
 
                                       ])
+                          elsif @check.owns_property_shared_ownership?
+                            Table.new(screen: :shared_ownership_housing_costs, skip_change_link: false, index: nil, disputed?: nil,
+                                      fields: [
+                                        MoneyWithFrequencyPresenter.new(table_label: :housing_costs, attribute: :rent, model: @check,
+                                                                        frequency_value: @check.combined_frequency),
+                                        MoneyWithFrequencyPresenter.new(table_label: :housing_costs, attribute: :shared_ownership_mortgage, model: @check,
+                                                                        frequency_value: @check.combined_frequency),
+                                        if @check.housing_benefit_relevant?
+                                          MoneyWithFrequencyPresenter.new(table_label: :housing_costs, attribute: :housing_benefit_value, model: @check,
+                                                                          frequency_value: @check.housing_benefit_frequency)
+                                        else
+                                          FieldPresenter.new(table_label: :housing_costs, attribute: :housing_benefit_relevant, type: :boolean, model: @check)
+                                        end,
+                                      ].compact)
                           elsif !@check.owns_property_outright?
                             Table.new(screen: :housing_costs, skip_change_link: false, index: nil, disputed?: nil,
                                       fields: housing_costs_fields(:housing_costs))
@@ -43,7 +60,7 @@ module CheckAnswers
                              Table.new(screen: :property_entry, skip_change_link: false, index: nil, disputed?: @check.house_in_dispute,
                                        fields: [
                                          MoneyPresenter.new(table_label: :property_entry, attribute: :house_value, model: @check),
-                                         if @check.property_owned_with_mortgage?
+                                         if @check.property_owned_with_mortgage? || @check.owns_property_shared_ownership?
                                            MoneyPresenter.new(table_label: :property_entry, attribute: :mortgage, model: @check)
                                          end,
                                          FieldPresenter.new(table_label: :property_entry, attribute: :percentage_owned, type: :percentage, model: @check),
@@ -57,10 +74,11 @@ module CheckAnswers
         [
           MoneyWithFrequencyPresenter.new(table_label: label, attribute: :housing_payments, model: @check,
                                           frequency_value: @check.housing_payments_frequency),
-          FieldPresenter.new(table_label: label, attribute: :housing_benefit_relevant, type: :boolean, model: @check),
           if @check.housing_benefit_relevant?
             MoneyWithFrequencyPresenter.new(table_label: label, attribute: :housing_benefit_value, model: @check,
                                             frequency_value: @check.housing_benefit_frequency)
+          else
+            FieldPresenter.new(table_label: label, attribute: :housing_benefit_relevant, type: :boolean, model: @check)
           end,
         ].compact
       end

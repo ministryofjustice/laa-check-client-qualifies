@@ -58,9 +58,6 @@ featureFlags:
   indexProduction: ENABLED
   maintenanceMode: NOT_ENABLED
   basicAuthentication: NOT_ENABLED
-  outgoingsFlow: ENABLED
-  conditionalReveals: ENABLED
-  cwFormUpdates: ENABLED
   sharedOwnership: NOT_ENABLED
   eeBanner: ENABLED
 

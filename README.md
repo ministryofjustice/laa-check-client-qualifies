@@ -97,6 +97,30 @@ You can run tests with the command:
 bundle exec rspec
 ```
 
+# Running Tests with Parallel Tests in Ruby
+
+This service uses the `parallel_tests` gem to run tests faster by parallelizing them across multiple workers. If you encounter database errors when running tests locally, follow these steps to ensure everything is set up correctly.
+
+## Resolving the `ActiveRecord::NoDatabaseError`
+
+If you see an error like the following when running tests:
+
+`ActiveRecord::NoDatabaseError: We could not find your database: ccq_test3`
+
+You can try tio rectify it with the following commands
+
+```bash
+   bin/rails db:create RAILS_ENV=test
+```
+```bash
+RAILS_ENV=test bundle exec rake parallel:prepare
+```
+```bash
+bundle exec parallel_rspec spec -n 4
+```
+in this example 4 is the number of parallel processes to use.
+
+
 ### Unit tests
 **The below is not a comprehensive list of tests, and we are pragmatic about how best to test any given piece functionality. Classes not comprehensively exercised by the below tests get their own unit tests.**
 
