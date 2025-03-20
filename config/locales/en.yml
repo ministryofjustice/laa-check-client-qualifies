@@ -498,16 +498,16 @@ en:
         shared_ownership_housing_costs_form:
           attributes:
             housing_benefit_relevant:
-              inclusion: Select yes if your client gets Housing Benefit for this home
+              inclusion: Select yes if your client gets Housing Benefit for this home.
             rent:
               blank: Enter the rent amount.
-              not_a_number: Rent must be a number.
+              not_a_number: Rent must be a number. Enter 0 if this does not apply.
             housing_benefit_value:
               blank: Enter the Housing Benefit amount.
               not_a_number: Housing Benefit must be a number.
-              greater_than: Housing Benefit must be more than 0
-              greater_than_or_equal_to: Housing Benefit must be must be 0 or more
-              exceeds_costs: Housing Benefit cannot be higher than housing costs
+              greater_than: Housing Benefit must be more than 0.
+              greater_than_or_equal_to: Housing Benefit must be must be 0 or more.
+              exceeds_costs: Housing Benefit cannot be higher than housing costs.
             combined_frequency:
               inclusion: Select frequency of rent payments.
             housing_benefit_frequency:
@@ -1165,11 +1165,19 @@ en:
     shared_ownership_housing_costs:
       heading: Housing costs
       heading_hint:
-        - "Enter the housing costs for the home your client lives in."
+        - "Enter the housing costs for the shared ownership scheme home your client lives in."
       heading_hint_partner:
-        - "Enter the housing costs for the home your client lives in."
+        - "Enter the housing costs for the shared ownership scheme home your client lives in."
         - "If your client and their partner live separately, do not include the partner’s housing costs."
+      payment_frequency: Select frequency of mortgage and rent payments
       housing_payments:
+        payment_frequency_help: Help with different payment frequencies
+        payment_frequency_details:
+          - "If the payment frequencies for mortgage and rent are different, choose one and calculate the other to match. For example, to use monthly payments:"
+        calculation_methods_list:
+          - "if paid weekly, multiply the payment by 52 and divide by 12"
+          - "if paid every 2 weeks, multiply the payment by 26 and divide by 12"
+          - "if paid every 4 weeks, multiply the payment by 13 and divide by 12"
         label: What is the rent?
         living_with_someone_else: Living with someone else
         details_paragraphs:
