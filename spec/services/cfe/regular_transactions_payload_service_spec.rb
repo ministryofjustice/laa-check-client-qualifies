@@ -372,6 +372,63 @@ RSpec.describe Cfe::RegularTransactionsPayloadService do
         end
       end
 
+      context "when client or their partner jointly own their home with housing benefits and tell us via SharedOwnershipHousingCostsForm" do
+        let(:session_data) do
+          empty_session_data.merge({
+            "property_owned" => "shared_ownership",
+            "shared_ownership_mortgage" => 20,
+            "rent" => 20,
+            "combined_frequency" => "monthly",
+            "housing_benefit_relevant" => true,
+            "housing_benefit_value" => 10,
+            "housing_benefit_frequency" => "monthly",
+          })
+        end
+        let(:relevant_steps) { %i[property shared_ownership_housing_costs] }
+
+        it "populates the payload with content from the shared housing costs screen" do
+          service.call(session_data, payload, relevant_steps)
+          expect(payload[:regular_transactions]).to eq(
+            [{ amount: 40,
+               category: :rent_or_mortgage,
+               frequency: :monthly,
+               operation: :debit },
+             { amount: 10,
+               category: :housing_benefit,
+               frequency: :monthly,
+               operation: :credit }],
+          )
+        end
+      end
+
+      context "when client does not own home, has housing payments with housing benefits and they tell us via HousingCostsForm" do
+        let(:session_data) do
+          empty_session_data.merge({
+            "property_owned" => "none",
+            "housing_payments" => 40,
+            "housing_payments_frequency" => "monthly",
+            "housing_benefit_relevant" => true,
+            "housing_benefit_value" => 10,
+            "housing_benefit_frequency" => "monthly",
+          })
+        end
+        let(:relevant_steps) { %i[property housing_costs] }
+
+        it "populates the payload with content from the shared housing costs screen" do
+          service.call(session_data, payload, relevant_steps)
+          expect(payload[:regular_transactions]).to eq(
+            [{ amount: 40,
+               category: :rent_or_mortgage,
+               frequency: :monthly,
+               operation: :debit },
+             { amount: 10,
+               category: :housing_benefit,
+               frequency: :monthly,
+               operation: :credit }],
+          )
+        end
+      end
+
       context "when client owns their home with mortgage but it has zero payments" do
         let(:session_data) do
           empty_session_data.merge({
