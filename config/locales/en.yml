@@ -1465,10 +1465,10 @@ en:
           link: "%page_url"
       cannot_use_service:
         title: You cannot use this service
-        paragraph_1_controlled: You cannot use this service if your client joint-owns a shared-ownership property with the landlord and someone else.
-        paragraph_1_controlled_partner: You cannot use this service if your client or their partner joint-owns a shared-ownership property with the landlord and someone else.
-        paragraph_1_certificated: You cannot use this service if your client joint-owns a shared-ownership property with the landlord and someone else.
-        paragraph_1_certificated_partner: You cannot use this service if your client or their partner joint-owns a shared-ownership property with the landlord and someone else.
+        paragraph_1_controlled: You cannot use this service if your client joint-owns a shared ownership property with the landlord and someone else.
+        paragraph_1_controlled_partner: You cannot use this service if your client or their partner joint-owns a shared ownership property with the landlord and someone else.
+        paragraph_1_certificated: You cannot use this service if your client joint-owns a shared ownership property with the landlord and someone else.
+        paragraph_1_certificated_partner: You cannot use this service if your client or their partner joint-owns a shared ownership property with the landlord and someone else.
         paragraph_2_controlled_html: Use a <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>controlled work form</a> instead.
         paragraph_2_certificated: To get a calculation, apply for legal aid using CCMS.
         start_a_new_check: Start a new check
