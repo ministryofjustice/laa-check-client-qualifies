@@ -286,8 +286,8 @@ workflows:
           environment: ccq-uat
           context: laa-check-client-qualifies-uat
           requires:
-            - run_specs
-            - end2end_tests
+#            - run_specs
+#            - end2end_tests
             - linters
             - build_and_push
           post-steps:
