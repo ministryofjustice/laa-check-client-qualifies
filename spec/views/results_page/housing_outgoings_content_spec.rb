@@ -78,7 +78,7 @@ RSpec.describe "results/show.html.slim" do
 
     it "displays housing cap when client is single and has no dependants", :shared_ownership do
       expect(page_text).to match(/Housing payments(.+)£545.00/)
-      expect(page_text).to have_content("Rent and mortgage costs minus any Housing Benefits the household gets")
+      expect(page_text).to have_content("Rent and mortgage costs minus any Housing Benefits your client gets")
       expect(page_text).to have_content("Housing costs are capped at £545 for single clients without dependants")
     end
 
@@ -151,6 +151,9 @@ RSpec.describe "results/show.html.slim" do
                 dependants_allowance: 361.7,
               },
             },
+            partner_capital: {
+              capital_items: {},
+            },
           },
         )
       end
@@ -158,6 +161,7 @@ RSpec.describe "results/show.html.slim" do
       it "does not display housing cap" do
         expect(page_text).to match(/Housing payments(.+)£600.00/)
         expect(page_text).to have_content("Rent and mortgage costs minus any Housing Benefits the household gets")
+        expect(page_text).not_to have_content("Rent and mortgage costs minus any Housing Benefits your client gets")
         expect(page_text).not_to have_content("Housing costs are capped at £545 for single clients without dependants")
         expect(page_text).to have_content("An allowance of £361.70 applied for each dependant, minus any income they receive")
       end

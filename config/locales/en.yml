@@ -2249,7 +2249,7 @@ en:
         income_tax: ""
         partner_allowance: A fixed allowance if your client has a partner
         housing_costs: Housing costs minus any Housing Benefit payments your client gets
-        housing_costs_mortgage: Rent and mortgage costs minus any Housing Benefits the household gets
+        housing_costs_mortgage: Rent and mortgage costs minus any Housing Benefits your client gets
         housing_costs_cap: Housing costs are capped at £545 for single clients without dependants
         dependants_allowance: An allowance of %{dependant_allowance} applied for each dependant, minus any income they receive
       household_outgoing_hints:
