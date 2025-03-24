@@ -4,13 +4,13 @@
   "dependencies": {
     "@ministryofjustice/frontend": "^3.7.0",
     "@rails/ujs": "^7.1.501",
-    "@sentry/browser": "9.5.0",
+    "@sentry/browser": "9.8.0",
     "esbuild": "^0.25.1",
     "govuk-frontend": "^5.9.0",
     "jquery": "^3.7.1",
     "puppeteer": "24.3.0",
     "rails_admin": "3.3.0",
-    "sass": "^1.85.1"
+    "sass": "^1.86.0"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets",
