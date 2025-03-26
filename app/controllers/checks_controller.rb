@@ -21,6 +21,11 @@ class ChecksController < ApplicationController
     track_page_view(page: :check_answers)
   end
 
+  def cannot_use_service_additional_properties
+    @check = Check.new(session_data)
+    @previous_step = :additional_property
+  end
+
   def end_of_journey
     @model = CalculationResult.new(session_data)
     @check = Check.new(session_data)
