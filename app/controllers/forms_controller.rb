@@ -12,7 +12,9 @@ class FormsController < QuestionFlowController
                     calculate_next_step(session_data, step)
                   end
       calculate_early_result if FeatureFlags.enabled?(:ee_banner, session_data)
-      if next_step
+      if cannot_use_service?
+        redirect_to cannot_use_service_additional_properties_path assessment_code:
+      elsif next_step
         redirect_to helpers.step_path_from_step(next_step, assessment_code)
       else
         redirect_to check_answers_path assessment_code:
@@ -54,5 +56,9 @@ private
     calculation_result = CalculationResult.new(session_data)
     office_code = signed_in? && current_provider.present? ? current_provider.first_office_code : nil
     JourneyLoggerService.call(assessment_id, calculation_result, @check, office_code, cookies)
+  end
+
+  def cannot_use_service?
+    step == :additional_property && session_data["additional_property_owned"] == "shared_ownership"
   end
 end

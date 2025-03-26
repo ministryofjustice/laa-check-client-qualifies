@@ -1706,6 +1706,13 @@ en:
         input: Value of payments left on the vehicle
       vehicle_in_dispute: This asset is a subject matter of dispute
   checks:
+    cannot_use_service_additional_properties:
+      title: You cannot use this service
+      paragraph_1: You cannot use this service if your client owns a shared ownership property that they do not live in.
+      paragraph_1_partner: You cannot use this service if your client or their partner owns a shared ownership property that they do not live in.
+      paragraph_2_controlled_html: Use a <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>controlled work form</a> instead.
+      paragraph_2_certificated: To get a calculation, apply for legal aid using CCMS.
+      start_a_new_check: Start a new check
     check_answers:
       heading: Check your answers
       change: Change
