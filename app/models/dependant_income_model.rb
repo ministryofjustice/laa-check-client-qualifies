@@ -44,7 +44,7 @@ class DependantIncomeModel
     end
 
     def dependant_income_upper_limits
-      weekly_limit = dependant_monthly_upper_limit * 12 / 365 * 7
+      weekly_limit = dependant_monthly_upper_limit * 12 / 52
       {
         "every_week" => weekly_limit.round(2),
         "every_two_weeks" => (weekly_limit * 2).round(2),
