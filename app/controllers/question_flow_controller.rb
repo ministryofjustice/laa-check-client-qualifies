@@ -63,4 +63,8 @@ protected
                   :freetext
                 end
   end
+
+  def cannot_use_service?
+    step == :additional_property && session_data["additional_property_owned"] == "shared_ownership"
+  end
 end

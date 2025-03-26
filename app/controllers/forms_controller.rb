@@ -57,8 +57,4 @@ private
     office_code = signed_in? && current_provider.present? ? current_provider.first_office_code : nil
     JourneyLoggerService.call(assessment_id, calculation_result, @check, office_code, cookies)
   end
-
-  def cannot_use_service?
-    step == :additional_property && session_data["additional_property_owned"] == "shared_ownership"
-  end
 end
