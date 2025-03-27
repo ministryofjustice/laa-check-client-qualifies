@@ -59,7 +59,7 @@ RSpec.describe "dependant_income_details", type: :feature do
       it "does not trigger the error" do
         fill_in "1-amount", with: "hello world"
         click_on "Save and continue"
-        expect(page).not_to have_content "Dependant income must be less than the equivalent of £361.70 per month."
+        expect(page).not_to have_content "If this dependant gets income equivalent to %{limit} or more per month, go back and remove them as a dependant to continue with this check."
         expect(page).to have_content "Select when the dependant normally gets this income"
         expect(page).to have_content "Income for the dependant must be a number"
       end
@@ -72,14 +72,14 @@ RSpec.describe "dependant_income_details", type: :feature do
         fill_in "1-amount", with: monthly_limit
         choose "1-frequency-monthly"
         click_on "Save and continue"
-        expect(page).to have_content "Dependant income must be less than £361.70 per month."
+        expect(page).to have_content "If this dependant gets income equivalent to £361.70 or more per month, go back and remove them as a dependant to continue with this check."
       end
 
       it "does not show an error message when below the limit" do
         fill_in "1-amount", with: "361.69"
         choose "1-frequency-monthly"
         click_on "Save and continue"
-        expect(page).not_to have_content "Dependant income must be less than £361.70 per month."
+        expect(page).not_to have_content "If this dependant gets income equivalent to %{limit} or more per month, go back and remove them as a dependant to continue with this check."
       end
     end
 
