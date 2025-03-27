@@ -11,8 +11,8 @@ class ChangeAnswersController < QuestionFlowController
       session_data.merge!(@form.attributes_for_export_to_session)
       if FeatureFlags.enabled?(:ee_banner, session_data)
         next_step = step_with_inconsistent_data
-        if cannot_use_service?
-          redirect_to cannot_use_service_additional_properties_path assessment_code:
+        if Steps::Helper.cannot_use_service?(session_data, step)
+          redirect_to cannot_use_service_path assessment_code:, step:
         # we need to check for aggregated_means so we know when to show the ":how_to_aggregate" screen when in a change loop
         elsif next_step && step != :aggregated_means
           redirect_to helpers.check_step_path_from_step(next_step, assessment_code)

@@ -12,8 +12,8 @@ class FormsController < QuestionFlowController
                     calculate_next_step(session_data, step)
                   end
       calculate_early_result if FeatureFlags.enabled?(:ee_banner, session_data)
-      if cannot_use_service?
-        redirect_to cannot_use_service_additional_properties_path assessment_code:
+      if Steps::Helper.cannot_use_service?(session_data, step)
+        redirect_to cannot_use_service_path assessment_code:, step:
       elsif next_step
         redirect_to helpers.step_path_from_step(next_step, assessment_code)
       else
