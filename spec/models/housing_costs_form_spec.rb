@@ -150,6 +150,7 @@ RSpec.describe HousingCostsForm do
     context "with conditional reveals" do
       let(:attributes) do
         { housing_payments: 34,
+          housing_payments_frequency: "weekly",
           housing_benefit_relevant: true,
           housing_benefit_frequency: "monthly",
           housing_benefit_value: 23 }
@@ -177,6 +178,37 @@ RSpec.describe HousingCostsForm do
 
     it "skips comparison due to unprocessable inputs" do
       expect(form).to be_invalid
+    end
+  end
+
+  context "with invalid housing payment type and no frequency" do
+    let(:attributes) do
+      { housing_payments: "1p",
+        housing_benefit_relevant: true,
+        housing_benefit_frequency: "monthly",
+        housing_benefit_value: 23 }
+    end
+
+    it "errors correctly" do
+      expect(form).not_to be_valid
+      expect(form.errors.messages)
+        .to eq({ housing_payments: ["Housing payments must be a number. Enter 0 if this does not apply.", "Housing payments must be a number. Enter 0 if this does not apply."],
+                 housing_payments_frequency: ["Select frequency of housing payments."] })
+    end
+  end
+
+  context "when calculating annualised_housing_benefit" do
+    it "adds error if housing benefit exceeds annual housing cost" do
+      form = described_class.new(
+        housing_payments: 150,
+        housing_payments_frequency: "monthly",
+        housing_benefit_value: 155,
+        housing_benefit_frequency: "monthly",
+        housing_benefit_relevant: true,
+      )
+
+      expect(form).not_to be_valid
+      expect(form.errors[:housing_benefit_value]).to include("Housing Benefit cannot be higher than housing costs")
     end
   end
 end
