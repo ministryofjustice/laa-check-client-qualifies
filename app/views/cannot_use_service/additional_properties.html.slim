@@ -1,5 +1,5 @@
 - content_for :page_title
-  = t("checks.cannot_use_service_additional_properties.title")
+  = t(".title")
 - content_for :back
   = back_link(@previous_step, @back_buttons_invoke_browser_back_behaviour)
 
@@ -12,7 +12,7 @@
     p.govuk-body = t(".paragraph_2_controlled_html",
                    page_url: document_link(:controlled_work_form))
   - else
-    p.govuk-body = t("paragraph_2_certificated")
+    p.govuk-body = t(".paragraph_2_certificated")
 
   = link_to t(".start_a_new_check"),
     new_check_path,
