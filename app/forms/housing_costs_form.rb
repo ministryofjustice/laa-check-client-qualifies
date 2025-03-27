@@ -20,7 +20,7 @@ class HousingCostsForm < BaseHousingCostsForm
 private
 
   def total_annual_housing_costs
-    return 0 if housing_payments_frequency.blank?
+    return 0 if housing_payments.blank? || housing_payments_frequency.blank?
 
     housing_payments * annual_multiplier(housing_payments_frequency)
   end

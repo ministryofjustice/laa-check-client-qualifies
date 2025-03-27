@@ -19,6 +19,39 @@ RSpec.describe "housing_costs", :calls_cfe_early_returns_not_ineligible, type: :
     expect(page).to have_css(".govuk-error-summary__list")
   end
 
+  it "handles non-numeric housing benefit values without crashing" do
+    fill_in "housing-costs-form-housing-payments-field", with: "100"
+    choose "Every 2 weeks", name: "housing_costs_form[housing_payments_frequency]"
+    choose "Yes", name: "housing_costs_form[housing_benefit_relevant]"
+    fill_in "housing-costs-form-housing-benefit-value-field", with: "forty" # non-numeric
+    choose "Every week", name: "housing_costs_form[housing_benefit_frequency]"
+    click_on "Save and continue"
+
+    expect(page).to have_css(".govuk-error-summary__list", text: "Housing Benefit must be a number.")
+  end
+
+  it "handles housing benefit values without frequency without crashing" do
+    fill_in "housing-costs-form-housing-payments-field", with: "100"
+    choose "Every 2 weeks", name: "housing_costs_form[housing_payments_frequency]"
+    choose "Yes", name: "housing_costs_form[housing_benefit_relevant]"
+    fill_in "housing-costs-form-housing-benefit-value-field", with: "40"
+    click_on "Save and continue"
+
+    expect(page).to have_css(".govuk-error-summary__list", text: "Select frequency of Housing Benefit.")
+  end
+
+  it "allows user to progress and stores data if value and frequency are valid" do
+    fill_in "housing-costs-form-housing-payments-field", with: "200"
+    choose "Every 2 weeks", name: "housing_costs_form[housing_payments_frequency]"
+    choose "Yes", name: "housing_costs_form[housing_benefit_relevant]"
+    fill_in "housing-costs-form-housing-benefit-value-field", with: "100"
+    choose "Every week", name: "housing_costs_form[housing_benefit_frequency]"
+    click_on "Save and continue"
+
+    expect(session_contents["housing_benefit_value"]).to eq 100
+    expect(session_contents["housing_benefit_frequency"]).to eq "every_week"
+  end
+
   it "stores my housing payments responses in the session" do
     fill_in "housing-costs-form-housing-payments-field", with: "20"
     choose "Every 2 weeks", name: "housing_costs_form[housing_payments_frequency]"
