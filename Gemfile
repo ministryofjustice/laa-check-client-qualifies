@@ -104,6 +104,7 @@ group :test do
   gem "rack_session_access"
   gem "database_cleaner-active_record"
   gem "vcr", require: false
+  gem "rails-controller-testing"
 end
 
 gem "govuk-components"
