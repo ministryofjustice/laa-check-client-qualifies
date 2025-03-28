@@ -32,12 +32,32 @@
       - t(".housing_payments.details_paragraphs").each do
         p.govuk-body = _1
 
+    h1.govuk-heading-m
+      = t(".payment_frequency")
+
+    = govuk_details(summary_text: t(".housing_payments.payment_frequency_help")) do
+      - t(".housing_payments.payment_frequency_details").each do
+        p.govuk-body = _1
+      ul.govuk-list.govuk-list--bullet
+        - t(".housing_payments.calculation_methods_list").each
+          li.govuk-hint = _1
+
+    = form.govuk_collection_radio_buttons :combined_frequency,
+            @form.frequencies,
+            :first,
+            :last,
+            legend: nil
+
+    - content_for :amount_and_frequency_hidden_description
+    = govuk_visually_hidden(t("generic.hidden_description_amount_and_frequency"))
+
     h2.govuk-heading-m
       = t(".housing_payments.label")
 
     = render "shared/money_input_no_label",
             form:,
             field: :rent,
+            hint_text: t(".zero_hint"),
             width: 10,
             set_aria: true
 
@@ -49,15 +69,6 @@
             hint_text: t(".zero_hint"),
             width: 10,
             set_aria: true
-
-    = form.govuk_collection_radio_buttons :combined_frequency,
-            @form.frequencies,
-            :first,
-            :last,
-            legend: -> { tag.p(t(".frequency")) }
-
-    - content_for :amount_and_frequency_hidden_description
-    = govuk_visually_hidden(t("generic.hidden_description_amount_and_frequency"))
 
     = form.govuk_radio_buttons_fieldset :housing_benefit_relevant,
             legend: { text: t(@check.partner ? ".housing_benefits.partner_label" : ".housing_benefits.label") },
