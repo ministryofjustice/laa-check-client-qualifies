@@ -87,6 +87,10 @@ module Steps
         end
       end
 
+      def cannot_use_service?(session_data, step)
+        additional_property_shared_ownership?(session_data, step) || partner_additional_property_shared_ownership?(session_data, step)
+      end
+
     private
 
       def steps_list_for(session_data)
@@ -116,6 +120,14 @@ module Steps
 
       def next_step(steps, step)
         steps.each_cons(2).detect { |old, _new| old == step }&.last
+      end
+
+      def additional_property_shared_ownership?(session_data, step)
+        step == :additional_property && session_data["additional_property_owned"] == "shared_ownership"
+      end
+
+      def partner_additional_property_shared_ownership?(session_data, step)
+        step == :partner_additional_property && session_data["partner_additional_property_owned"] == "shared_ownership"
       end
     end
   end
