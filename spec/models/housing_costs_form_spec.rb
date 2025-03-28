@@ -163,4 +163,20 @@ RSpec.describe HousingCostsForm do
       end
     end
   end
+
+  context "with unprocessable housing benefit value" do
+    let(:attributes) do
+      {
+        housing_payments: 10,
+        housing_payments_frequency: "every_week",
+        housing_benefit_relevant: true,
+        housing_benefit_frequency: "invalid_frequency",
+        housing_benefit_value: "not_a_number",
+      }
+    end
+
+    it "skips comparison due to unprocessable inputs" do
+      expect(form).to be_invalid
+    end
+  end
 end
