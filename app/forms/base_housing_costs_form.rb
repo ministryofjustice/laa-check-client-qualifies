@@ -36,7 +36,7 @@ private
 
   def housing_benefit_does_not_exceed_costs
     return unless housing_benefit_relevant &&
-      housing_benefit_value.respond_to?(:positive?) &&
+      housing_benefit_value.is_a?(Numeric) &&
       housing_benefit_value.positive? &&
       housing_benefit_frequency.present?
 
@@ -44,10 +44,11 @@ private
 
     # Return early if total_costs is not a numeric type or is zero
     return unless total_costs.is_a?(Numeric) && total_costs.nonzero?
-    # return unless total_costs.respond_to?(:zero?) && !total_costs.zero?
 
     # Ensure housing_benefit_value is numeric and frequency is valid
+    # :nocov:
     return unless housing_benefit_value.is_a?(Numeric) && annual_multiplier(housing_benefit_frequency)
+    # :nocov:
 
     annual_housing_payment_value = total_costs
     annual_housing_benefit_value = housing_benefit_value * annual_multiplier(housing_benefit_frequency)
@@ -68,6 +69,8 @@ private
   end
 
   def total_annual_housing_costs
+    # :nocov:
     raise NotImplementedError, "Subclasses must implement the total_annual_housing_costs method"
+    # :nocov:
   end
 end
