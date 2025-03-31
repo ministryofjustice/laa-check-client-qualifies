@@ -835,8 +835,6 @@ en:
       passporting_guidance:
         controlled_text: Passporting (PDF, 940KB)
         certificated_text: Passporting (PDF, 1.51MB)
-      pensioner_guidance:
-        text: "Guidance on 60 or over disregard (pensioner disregard)"
       heading: Tell us about your client
       partner:
         definition: Help with definition of a partner
@@ -854,9 +852,6 @@ en:
             - has a contrary interest in the case - this means they want a different outcome to your client
       prisoner_guidance:
         text: Prisoners (PDF, 1.51MB)
-      employed:
-        legend: What is your client's employment status?
-        hint: "You cannot use this service if your client, or their partner, is self-employed."
       passporting:
         definition: Help with passporting benefits
         legend: Does your client receive a passporting benefit?
@@ -868,19 +863,11 @@ en:
           - income-based Jobseeker's Allowance (JSA)
           - income-related Employment and Support Allowance (ESA)
           - Guarantee Credit element of Pension Credit
-    forms:
-      employment:
-        gross_income: Gross pay, before any deductions
-        income_tax: Income tax
-        national_insurance: National Insurance
     partner_details:
       partner_heading: Tell us about the partner
       partner_over_60:
         legend: Is the partner aged 60 or over?
         hint: Clients with partners aged 60 or over may have some of their capital excluded from a financial eligibility assessment.
-      partner_employed:
-        legend: What is the partner's employment status?
-        hint: "You cannot use this service if your client or their partner is self-employed."
     dependant_details:
       legend: Tell us about your client's dependants
       legend_with_partner: Tell us about your client and their partner's dependants
@@ -1034,7 +1021,6 @@ en:
           para_1: We have enough information to tell you that your client is not likely to qualify for legal aid.
         go_to_results: Go to results page
         para_2: "You can:"
-        help: Help with next steps
         details_para_1: "You can:"
         details_list:
           - skip the remaining questions
@@ -1121,13 +1107,10 @@ en:
           - "Do not make any deductions for Housing Benefit."
           - "If your client is paying board and lodgings, enter the portion of the costs that relates to lodgings or, if you are unsure, 50% of the total costs."
           - "If your client is paying all or part of their ex-partner's housing costs for the former matrimonial home, do not include this here - add it as maintenance payments to a former partner instead."
-        hint_paragraphs_2:
-          - "Enter 0 if this does not apply."
       housing_benefits:
         label: Is Housing Benefit claimed at the home the client lives in?
         hint_bullet_client: "Include any Housing Benefit paid to the client or landlord."
         hint_bullet_partner: "Include any Housing Benefit paid to the client, partner or landlord."
-      legacy_value: Enter amount
       housing_benefit_value: Enter amount
       value: Enter amount
       housing_payment_zero_hint: Enter 0 if this does not apply.
@@ -1139,7 +1122,6 @@ en:
         controlled:
           text: Housing costs (PDF, 940KB)
           link: "{%page_url}"
-      housing_payment_hint: Enter full amount due
     shared_ownership_housing_costs:
       heading: Housing costs
       heading_hint:
@@ -1238,36 +1220,21 @@ en:
         - Cost of Living Payments
     other_income:
       heading: Your client's other income
-      second_caption: Enter 0 for any that do not apply
       friends_or_family:
         question: Does your client get financial help from friends or family?
         question_hint: For example, money from a family member for rent or bills.
-        label: Financial help from friends or family
-        hint: For example, money from a family member for rent or bills. Enter 0 if this does not apply
-        instruction: Enter amount
       maintenance:
         question: Does your client get maintenance from a former partner?
         question_hint: This includes child maintenance.
-        label: Maintenance payments from a former partner
-        hint: This includes child maintenance. Enter 0 if this does not apply
-        instruction: Enter amount
       property_or_lodger:
         question: Does your client get income from a property or lodger?
         question_hint: ""
-        label: Income from a property or lodger
-        hint: Enter 0 if this does not apply
-        instruction: Enter amount
       pension:
         question: Does your client get income from pensions?
         question_hint: Include the total value of any pensions, including State Pension, workplace and personal pensions.
-        label: Pensions
-        hint: Include the total value of any pensions, including State Pension, workplace and personal pensions. Enter 0 if this does not apply.
-        instruction: Enter total value of any pensions
       student_finance:
         question: Does your client get income from student finance?
         question_hint: This includes any type of student loan, grant or bursary. Do not include any tuition fee loans.
-        label: Student finance
-        hint: This includes any type of student loan, grant or bursary. Do not include any tuition fee loans. Enter 0 if this does not apply
         certificated_instruction: Amount received this academic year
         controlled_instruction: Amount received this academic year
       other:
@@ -1279,13 +1246,9 @@ en:
         list_income_controlled_html: <a href="%{page_url_2}" target='_blank' rel='noreferrer noopener'>the principles for exercising discretion (PDF, 940KB)</a>
         list_benefits_certificated_html: <a href="%{page_url}" target='_blank' rel='noreferrer noopener'> mandatory and discretionary disregarded payments (PDF, 1.51MB)</a>
         list_income_certificated_html: <a href="%{page_url_2}" target='_blank' rel='noreferrer noopener'>the principles for exercising discretion (PDF, 1.51MB)</a>
-        question_hint_2: Do not include any disregarded compensation or cost of living payments. Check the guidance for a complete list of disregarded payments.
-        label: Income from other sources
-        hint: Include any other income your client received. Do not include any government Cost of Living Payments. Enter 0 if this does not apply
         certificated_instruction: Amount received in the last 3 months
         controlled_instruction: Amount received in the last month
       hidden_description_amount: If yes, enter amount
-      enter_frequency: Select frequency
       amount: Amount
       frequency: Frequency
       frequencies:
@@ -1300,36 +1263,21 @@ en:
     partner_other_income:
       heading: The partner's other income
       caption: Do not include income already entered for your client.
-      second_caption: Do not add any income you've listed as other income for the client. Enter 0 for any that do not apply.
       friends_or_family:
         question: Does the partner get financial help from friends or family?
         question_hint: For example, money from a family member for rent or bills.
-        label: Financial help from friends or family
-        hint: For example, money from a family member for rent or bills. Enter 0 if this does not apply.
-        instruction: Enter amount
       maintenance:
         question: Does the partner get maintenance from a former partner?
         question_hint: This includes child maintenance.
-        label: Maintenance payments from a former partner
-        hint: This includes child maintenance. Enter 0 if this does not apply.
-        instruction: Enter amount
       property_or_lodger:
         question: Does the partner get income from a property or lodger?
         question_hint: ""
-        label: Income from a property or lodger
-        hint: "Enter 0 if this does not apply"
-        instruction: Enter amount
       pension:
         question: Does the partner get income from pensions?
         question_hint: Include the total value of any pensions, including State Pension, workplace and personal pensions.
-        label: Pensions
-        hint: Include the total value of any pensions, including State Pension, workplace and personal pensions. Enter 0 if this does not apply.
-        instruction: Enter total value of any pensions
       student_finance:
         question: Does the partner get income from student finance?
         question_hint: This includes any type of student loan, grant or bursary. Do not include any tuition fee loans.
-        label: Student finance
-        hint: This includes any type of student loan, grant or bursary. Do not include any tuition fee loans. Enter 0 if this does not apply.
         certificated_instruction: Amount received this academic year
         controlled_instruction: Amount received this academic year
       other:
@@ -1341,36 +1289,20 @@ en:
         list_income_controlled_html: <a href="%{page_url_2}" target='_blank' rel='noreferrer noopener'>the principles for exercising discretion (PDF, 940KB)</a>
         list_benefits_certificated_html: <a href="%{page_url}" target='_blank' rel='noreferrer noopener'> mandatory and discretionary disregarded payments (PDF, 1.51MB)</a>
         list_income_certificated_html: <a href="%{page_url_2}" target='_blank' rel='noreferrer noopener'>the principles for exercising discretion (PDF, 1.51MB)</a>
-        question_hint_2: Do not include any disregarded compensation or Cost of Living payments. Check the guidance for a complete list of disregarded payments.
-        label: Income from other sources
-        hint: Include any other income the partner received. Do not include any government Cost of Living Payments. Enter 0 if this does not apply.
         certificated_instruction: Amount received in the last 3 months
         controlled_instruction: Amount received in the last month
-      enter_frequency: Select frequency
     outgoings:
       heading: Your client's outgoings and deductions
       caption: ""
-      second_caption: Enter 0 for any that do not apply
       childcare_payments:
         question: Does your client pay for childcare?
         question_hint: For example, to a childminder, nanny or nursery.
-        label: Childcare payments
-        hints:
-          - "For example, to a childminder, nanny or nursery. Enter 0 if this does not apply."
       maintenance_payments:
         question: Does your client pay maintenance to a former partner?
         question_hint: This includes child maintenance. If your client is paying all or part of their ex-partner’s housing costs in the former matrimonial home, include this.
-        label: Maintenance payments to a former partner
-        hints:
-          - "This includes child maintenance. If your client is paying all or part of their ex-partner’s housing costs in the former matrimonial home, include this. Enter 0 if this does not apply."
       legal_aid_payments:
         question: Does your client make payments towards legal aid for a criminal case?
         question_hint: ""
-        label: Payments towards legal aid in a criminal case
-        hints:
-          - "Enter 0 if this does not apply"
-      enter_amount: Enter amount
-      enter_frequency: Select frequency
       amount: Amount
       frequency: Frequency
       frequencies:
@@ -1387,27 +1319,15 @@ en:
     partner_outgoings:
       heading: The partner's outgoings and deductions
       caption: Do not include any outgoings already entered for your client.
-      second_caption: Do not add any outgoings you've listed as outgoings for the client. Enter 0 for any that do not apply.
       childcare_payments:
         question: Does the partner pay for childcare?
         question_hint: For example, to a childminder, nanny or nursery.
-        label: Childcare payments
-        hints:
-          - "For example, to a childminder, nanny or nursery. Enter 0 if this does not apply"
       maintenance_payments:
         question: Does the partner pay maintenance to a former partner?
         question_hint: This includes child maintenance.
-        label: Maintenance payments to a former partner
-        hints:
-          - "This includes child maintenance. Enter 0 if this does not apply"
       legal_aid_payments:
         question: Does the partner make payments towards legal aid for a criminal case?
         question_hint: ""
-        label: Payments towards legal aid in a criminal case
-        hints:
-          - Enter 0 if this does not apply
-      enter_amount: Enter amount
-      enter_frequency: Select frequency
     property:
       client_away:
         hint: Clients who are away from their usual home
@@ -1471,7 +1391,6 @@ en:
     assets:
       legend: Client assets
       cr_hint: If any of these assets are owned by both the client and partner, enter the full value here. Do not enter them again on the partner questions that follow.
-      hint: Enter 0 if this does not apply.
       partner_second_hint: If any of these assets are owned by both the client and partner, enter the full value here. Do not enter them again on the partner questions that follow.
       business_capital_title: Business capital for self-employed clients
       business_capital_text: This service does not currently collect or include the value of any business capital held by your client or their partner. However the LAA may collect and include this when you make an application.
@@ -1514,21 +1433,9 @@ en:
             - For example, shares in a public limited company, unit trusts or capital bonds.
           with_partner:
             - For example, shares in a public limited company, unit trusts or capital bonds. Include any jointly owned by the client and partner.
-        hints:
-          - For example, shares in a public limited company, unit trusts or capital bonds.
-          - Enter 0 if this does not apply.
-        with_partner_hints:
-          - For example, shares in a public limited company, unit trusts or capital bonds. Include any jointly owned by the client and partner.
-          - Do not include any investments already entered for your client.
         input: Total of all investments
       valuables:
         label: Does your client have valuable items worth £500 or more?
-        certificated_with_partner_hints:
-          - If you have more than one valuation for any of these valuable items, use the highest. Keep a record of where the valuation is from for evidence, as it may be checked if you make an application for legal aid.
-          - Include any jointly owned by the client and partner.
-        controlled_with_partner_hints:
-          - If you have more than one valuation for any of these valuable items, use the highest. Keep a record of where the valuation is from for evidence, as it may be checked at file audit or assessment stage.
-          - Include any jointly owned by the client and partner.
         hint:
           controlled:
             single:
@@ -1540,10 +1447,6 @@ en:
               - If you have more than one valuation for any of these valuable items, use the highest. Keep a record of where the valuation is from for evidence, as it may be checked if you make an application for legal aid.
             with_partner:
               - If you have more than one valuation for any of these valuable items, use the highest. Keep a record of where the valuation is from for evidence, as it may be checked if you make an application for legal aid.
-        certificated_hints:
-          - If you have more than one valuation for any of these valuable items, use the highest. Keep a record of where the valuation is from for evidence, as it may be checked if you make an application for legal aid.
-        controlled_hints:
-          - If you have more than one valuation for any of these valuable items, use the highest. Keep a record of where the valuation is from for evidence, as it may be checked at file audit or assessment stage.
         details_header: What valuable items to include
         details_subheader_1: "Include things like:"
         details_bullets_1:
@@ -1655,11 +1558,6 @@ en:
     partner_additional_property_details:
       heading: The partner's other property, holiday home or land
       hint: Do not include any property or land already entered for your client.
-      house_value:
-        input: How much is the property, holiday home or land worth?
-      mortgage:
-        input: How much is left to pay on the mortgage?
-        input_hint: Check the statement from the mortgage provider or lender and include any other loans secured against the property
       percentage_owned:
         input: What percentage share does the partner own?
         hint: ""
