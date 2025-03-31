@@ -63,6 +63,7 @@ Rails.application.routes.draw do
   get "new-check", to: "checks#new", as: :new_check
   get "check-answers/:assessment_code", to: "checks#check_answers", as: :check_answers
   get "service-end/:assessment_code", to: "checks#end_of_journey", as: :end_of_journey
+  get "cannot-use-service/:assessment_code/:step", to: "cannot_use_service#additional_properties", as: :cannot_use_service
 
   get "/download/:assessment_code", to: "results#download", as: :download_result
   get "/cw-form/:assessment_code", to: "controlled_work_document_selections#download", as: :download_cw_form

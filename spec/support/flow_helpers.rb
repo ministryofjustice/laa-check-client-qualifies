@@ -447,6 +447,8 @@ def confirm_screen(expected)
   path = page.current_path
   if expected.to_sym == :check_answers
     expect(path).to start_with "/check-answers"
+  elsif expected.to_sym == :cannot_use_service
+    expect(path).to start_with "/cannot-use-service"
   else
     expect(path).to start_with "/#{Flow::Handler.url_fragment(expected.to_sym)}"
   end

@@ -2062,6 +2062,14 @@ en:
       keep_the_evidence: 3. Keep the evidence together with the controlled work form in your records
       keep_the_evidence_for_under_18: 2. Keep the controlled work form in your records
       file_may_be_audited: Your client’s file may be audited or assessed by the LAA at a later date.
+  cannot_use_service:
+    additional_properties:
+      title: You cannot use this service
+      paragraph_1: You cannot use this service if your client owns a shared ownership property that they do not live in.
+      paragraph_1_partner: You cannot use this service if your client or their partner owns a shared ownership property that they do not live in.
+      paragraph_2_controlled_html: Use a <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>controlled work form</a> instead.
+      paragraph_2_certificated: To get a calculation, apply for legal aid using CCMS.
+      start_a_new_check: Start a new check
   results:
     outgoings_table:
       not_assessed: This was not assessed because it would not change the overall result.
