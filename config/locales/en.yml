@@ -721,7 +721,6 @@ en:
 
     level_of_help:
       title: What level of help does your client need?
-      includes: "This includes:"
       controlled: Civil controlled work or family mediation
       certificated: Civil certificated or licensed legal work
       controlled_guidance:
@@ -812,17 +811,6 @@ en:
         text: Domestic abuse or violence (PDF, 1.51MB)
       tribunal_guidance:
         text: Upper Tribunal matters (PDF, 1.51MB)
-      immigration_and_asylum_header: Immigration and asylum matters
-      immigration_and_asylum_certificated_paragraph: These must be for matters in the Immigration and Asylum Chamber of the Upper Tribunal including in relation to an appeal or review from the Immigration and Asylum Chamber of the First-tier Tribunal.
-      immigration_header_certificated: Immigration (Upper Tribunal)
-      immigration_certificated_paragraph_one: This must be for legal representation for an immigration matter in the Immigration and Asylum Chamber of the Upper Tribunal including in relation to an appeal or review from the Immigration and Asylum Chamber of the First-tier Tribunal.
-      immigration_certificated_paragraph_two_html: Guidance for this is in paragraphs 25 to 29, 32(1), 32A(1) of Part 1 of Schedule 1 to the <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>Legal Aid, Sentencing and Punishment of Offenders Act 2012</a> (LASPO).
-      asylum_header_certificated: Asylum (Upper Tribunal)
-      asylum_certificated_paragraph_one: This must be for legal representation for an asylum matter in the Immigration and Asylum Chamber of the Upper Tribunal including in relation to an appeal or review from the Immigration and Asylum Chamber of the First-tier Tribunal
-      asylum_certificated_paragraph_two_html: Guidance for this is in paragraphs 24 to 30, 32(1) and 32A(1) of Part 1 of Schedule 1 to the <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>Legal Aid, Sentencing and Punishment of Offenders Act 2012</a> (LASPO).
-      domestic_abuse_header: Domestic abuse
-      domestic_abuse_paragraph: This must be for legal representation for a domestic abuse matter (injunction or other order for protection from harm, or committal for breach), FGM protection order, or forced marriage protection order.
-      select_a_matter_type: Select a matter type
     immigration_or_asylum:
       title: Is this an immigration or asylum matter?
     immigration_or_asylum_type:
