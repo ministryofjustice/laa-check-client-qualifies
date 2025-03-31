@@ -51,6 +51,11 @@ module Steps
       def last_step_in_group?(session_data, step)
         step_group = step_groups_for(session_data).detect { |group| group.steps.include?(step) }
         step == step_group.steps.last
+        # step_group = step_groups_for(session_data).detect { |group| group.steps.include?(step) }
+        # is_last = step == step_group.steps.last
+        # puts "Step group for #{step}: #{step_group&.steps}"
+        # puts "Is #{step} the last step in its group? #{is_last}"
+        # is_last
       end
 
       def valid_step?(session_data, step)
@@ -100,6 +105,17 @@ module Steps
       def step_groups_for(session_data)
         all_sections.map { |section| section.grouped_steps_for(session_data) }.reduce(:+)
       end
+      # debug steps groups
+      # def step_groups_for(session_data)
+      #   grouped_steps = all_sections.map { |section|
+      #     section_steps = section.grouped_steps_for(session_data)
+      #     puts "Grouped steps for section #{section.name}: #{section_steps.map(&:steps)}"
+      #     section_steps
+      #   }.reduce(:+)
+      #
+      #   puts "Final grouped steps: #{grouped_steps.map(&:steps)}"
+      #   grouped_steps
+      # end
 
       def all_sections
         [NonFinancialSection,

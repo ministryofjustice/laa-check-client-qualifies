@@ -2,7 +2,7 @@ module Steps
   class OutgoingsSection
     class << self
       def all_steps
-        %i[outgoings partner_outgoings property property_landlord cannot_use_service shared_ownership_housing_costs mortgage_or_loan_payment housing_costs]
+        %i[outgoings partner_outgoings property property_landlord cannot_use_service shared_ownership_housing_costs mortgage_or_loan_payment housing_costs property_entry]
       end
 
       def grouped_steps_for(session_data)
@@ -29,14 +29,14 @@ module Steps
       end
 
       def housing_costs_group(session_data)
-        step = if session_data["property_owned"] == "shared_ownership"
-                 :shared_ownership_housing_costs
-               elsif Steps::Logic.owns_property_with_mortgage_or_loan?(session_data)
-                 :mortgage_or_loan_payment
-               elsif !Steps::Logic.owns_property_outright?(session_data)
-                 :housing_costs
-               end
-        Steps::Group.new(step) if step
+        steps = if session_data["property_owned"] == "shared_ownership"
+                  %i[shared_ownership_housing_costs property_entry]
+                elsif Steps::Logic.owns_property_with_mortgage_or_loan?(session_data)
+                  [:mortgage_or_loan_payment]
+                elsif !Steps::Logic.owns_property_outright?(session_data)
+                  [:housing_costs]
+                end
+        Steps::Group.new(*steps) if steps
       end
     end
   end
