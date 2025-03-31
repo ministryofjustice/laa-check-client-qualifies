@@ -43,13 +43,11 @@ private
     total_costs = total_annual_housing_costs
 
     # Return early if total_costs is not a numeric type or is zero
-    return unless total_costs.respond_to?(:zero?) && !total_costs.zero?
+    return unless total_costs.is_a?(Numeric) && total_costs.nonzero?
+    # return unless total_costs.respond_to?(:zero?) && !total_costs.zero?
 
     # Ensure housing_benefit_value is numeric and frequency is valid
-    # this line stubbornly refuses to be tested so adding a nocov as a refactor is required here
-    # :nocov:
-    return unless housing_benefit_value.respond_to?(:*) && annual_multiplier(housing_benefit_frequency)
-    # :nocov:
+    return unless housing_benefit_value.is_a?(Numeric) && annual_multiplier(housing_benefit_frequency)
 
     annual_housing_payment_value = total_costs
     annual_housing_benefit_value = housing_benefit_value * annual_multiplier(housing_benefit_frequency)
@@ -70,8 +68,6 @@ private
   end
 
   def total_annual_housing_costs
-    # :nocov:
-    0 # Override in subclasses to sum relevant costs
-    # :nocov:
+    raise NotImplementedError, "Subclasses must implement the total_annual_housing_costs method"
   end
 end
