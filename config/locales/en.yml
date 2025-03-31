@@ -634,15 +634,10 @@ en:
     no_choice: "No"
     no_continue_with_means_check_choice: "No, continue with the means check"
     yes_choice_hidden_hint_amount: If yes, enter amount
-    in_work: Employed and in work
-    receiving_statutory_pay: Employed and on Statutory Sick Pay or Statutory Maternity Pay
-    unemployed: Unemployed
     back: Back
     error_summary_title: There is a problem
     error_prefix: "Error:"
     save_and_continue: Save and continue
-    check_answers: Check answers
-    return_to_check: Return to check
     flash_banner_title: Important
     level_of_help:
       text: Level of help
@@ -650,7 +645,6 @@ en:
       controlled: Civil controlled work or family mediation
     guidance_title: Guidance
     not_applicable: Not applicable
-    opens_in_new_tab: (opens in new tab)
     dispute: This asset is a subject matter of dispute
     disputed_asset: Disputed asset
     disregarded_benefits_guidance:
@@ -669,10 +663,6 @@ en:
     equity_disregard_for_domestic_abuse:
       controlled_text: Equity disregard for domestic abuse (PDF, 940KB)
       certificated_text: Equity disregard for domestic abuse (PDF, 1.5MB)
-    disregarded_benefits:
-      content:
-        - For example, Child Benefit, tax credits or Asylum Support payments.
-        - Do not include Housing Benefit, State Pension or disregarded benefits such as Personal Independence Payment (PIP), Carer’s Allowance, Community Care Direct payments, Fostering allowance, or government Cost of Living Payments. Check the complete list of disregarded benefits.
     benefits:
       hint_controlled_html: 'For example, Child Benefit, tax credits or asylum support payments. <a href="%{page_url}" target="_blank" rel="noreferrer noopener">Check the guidance (PDF, 940KB)</a> to find out which benefits you do not need to tell us about for this question, for example:'
       hint_certificated_html: 'For example, Child Benefit, tax credits or asylum support payments. <a href="%{page_url}" target="_blank" rel="noreferrer noopener">Check the guidance (PDF, 1.51MB)</a> to find out which benefits you do not need to tell us about for this question, for example:'
