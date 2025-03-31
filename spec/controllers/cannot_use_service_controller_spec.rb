@@ -19,5 +19,19 @@ RSpec.describe CannotUseServiceController, type: :controller do
       get :additional_properties, params: { assessment_code:, step: }
       expect(response).to render_template("additional_properties")
     end
+
+    it "tracks the page view" do
+      expect(controller).to receive(:track_page_view).with(page: "cannot-use-service_additional_property")
+      get :additional_properties, params: { assessment_code:, step: }
+    end
+
+    context "when the previous step is partner_additional_property" do
+      let(:step) { "partner_additional_property" }
+
+      it "tracks the page view" do
+        expect(controller).to receive(:track_page_view).with(page: "cannot-use-service_partner_additional_property")
+        get :additional_properties, params: { assessment_code:, step: }
+      end
+    end
   end
 end

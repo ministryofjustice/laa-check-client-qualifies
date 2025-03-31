@@ -4,6 +4,7 @@ class CannotUseServiceController < ApplicationController
   def additional_properties
     @check = Check.new(session_data)
     @previous_step = previous_step
+    track_page_view(page: page_name)
   end
 
 private
@@ -21,6 +22,10 @@ private
   end
 
   def specify_satisfaction_feedback_page_name
-    @satisfaction_feedback_page_name = "cannot_use_service_#{previous_step}"
+    @satisfaction_feedback_page_name = page_name
+  end
+
+  def page_name
+    "cannot-use-service_#{previous_step}"
   end
 end
