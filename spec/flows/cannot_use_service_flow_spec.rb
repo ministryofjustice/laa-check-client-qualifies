@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Cannot use service flow", :ee_banner, :shared_ownership, :stub_cfe_calls_with_webmock, type: :feature do
-  context "when the client has a shared ownersship property" do
+  context "when the client has a shared ownership property" do
     it "shows me a screen to indicate that I cannot use the service" do
       start_assessment
       fill_in_forms_until(:applicant)
@@ -14,7 +14,7 @@ RSpec.describe "Cannot use service flow", :ee_banner, :shared_ownership, :stub_c
     end
   end
 
-  context "when the client's partner has a shared ownersship property" do
+  context "when the client's partner has a shared ownership property" do
     it "shows me a screen to indicate that I cannot use the service" do
       start_assessment
       fill_in_forms_until(:applicant)
