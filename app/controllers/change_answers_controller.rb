@@ -19,7 +19,6 @@ class ChangeAnswersController < QuestionFlowController
         elsif next_step && step != :aggregated_means
           redirect_to helpers.check_step_path_from_step(next_step, assessment_code)
         elsif Steps::Helper.last_step_in_group?(session_data, step)
-          #  check answers thinks it is at the last step but it isnt in normal flow???!
           save_and_redirect_to_check_answers
         else
           # this is the mini-loop - it isn't the last step in the section, we have

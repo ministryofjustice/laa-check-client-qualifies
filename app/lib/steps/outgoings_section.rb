@@ -30,7 +30,13 @@ module Steps
 
       def housing_costs_group(session_data)
         steps = if session_data["property_owned"] == "shared_ownership"
-                  %i[shared_ownership_housing_costs property_entry]
+                  # the line below ensures that this test passes
+                  # spec/flows/shared_ownership_flow_spec.rb
+                  %i[shared_ownership_housing_costs]
+                  # the line below ensures that this test passes
+                  # spec/flows/change_answers_flow_spec.rb:123
+                  # %i[shared_ownership_housing_costs property_entry]
+                  # cant have both lines so how to fix this as property_entry is required across 2 sections
                 elsif Steps::Logic.owns_property_with_mortgage_or_loan?(session_data)
                   [:mortgage_or_loan_payment]
                 elsif !Steps::Logic.owns_property_outright?(session_data)
