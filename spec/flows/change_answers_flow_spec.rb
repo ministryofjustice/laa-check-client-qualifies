@@ -90,4 +90,34 @@ RSpec.describe "Change answers", :stub_cfe_calls_with_webmock, type: :feature do
     fill_in_immigration_or_asylum_screen
     confirm_screen("check_answers")
   end
+
+  context "when changing answers related to joint ownership", :ee_banner, :shared_ownership do
+    it "redirects to the exit page when the user selects 'No' after initial selection `Yes, with a mortgage or loan`" do
+      start_assessment
+      fill_in_forms_until(:property)
+      fill_in_property_screen(choice: "Yes, with a mortgage or loan")
+      fill_in_forms_until(:check_answers)
+      within "#table-property" do
+        click_on "Change"
+      end
+      fill_in_property_screen(choice: "Yes, through a shared ownership scheme")
+      fill_in_housing_shared_who_screen(choice: "No")
+      confirm_screen(:cannot_use_service)
+      expect(page).to have_content "You cannot use this service if your client joint-owns a shared ownership property with the landlord and someone else."
+    end
+
+    it "redirects to the exit page when the user selects 'No' after initial selection `Yes, owned outright`" do
+      start_assessment
+      fill_in_forms_until(:property)
+      fill_in_property_screen(choice: "Yes, owned outright")
+      fill_in_forms_until(:check_answers)
+      within "#table-property" do
+        click_on "Change"
+      end
+      fill_in_property_screen(choice: "Yes, through a shared ownership scheme")
+      fill_in_housing_shared_who_screen(choice: "No")
+      confirm_screen(:cannot_use_service)
+      expect(page).to have_content "You cannot use this service if your client joint-owns a shared ownership property with the landlord and someone else."
+    end
+  end
 end
