@@ -91,6 +91,10 @@ module Steps
         additional_property_shared_ownership?(session_data, step) || partner_additional_property_shared_ownership?(session_data, step)
       end
 
+      def display_property_entry_in_change_answers?(session_data, step)
+        passported_shared_ownership?(session_data, step) || non_passported_shared_ownership?(session_data, step)
+      end
+
     private
 
       def steps_list_for(session_data)
@@ -122,6 +126,13 @@ module Steps
         steps.each_cons(2).detect { |old, _new| old == step }&.last
       end
 
+      def passported_shared_ownership?(session_data, step)
+        step == :property_landlord && !Steps::Logic.landlord_is_not_the_only_joint_owner?(session_data)
+      end
+
+      def non_passported_shared_ownership?(session_data, step)
+        step == :shared_ownership_housing_costs && !Steps::Logic.landlord_is_not_the_only_joint_owner?(session_data)
+      end
       def additional_property_shared_ownership?(session_data, step)
         step == :additional_property && session_data["additional_property_owned"] == "shared_ownership"
       end
