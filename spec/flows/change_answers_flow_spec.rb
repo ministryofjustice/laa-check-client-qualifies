@@ -77,21 +77,43 @@ RSpec.describe "Change answers", :stub_cfe_calls_with_webmock, type: :feature do
     confirm_screen("check_answers")
   end
 
-  it "shows the home-client-lives-in page when the user changes from `Yes, owned outright` to `Yes, through a shared ownership scheme`", :ee_banner, :shared_ownership do
-    start_assessment
-    fill_in_forms_until(:property)
-    fill_in_property_screen(choice: "Yes, owned outright")
-    fill_in_forms_until(:check_answers)
-    within "#table-property" do
-      click_on "Change"
+  context "with shared ownership", :ee_banner, :shared_ownership do
+    it "shows the home-client-lives-in page when the user changes from `Yes, owned outright` to `Yes, through a shared ownership scheme`" do
+      start_assessment
+      fill_in_forms_until(:property)
+      fill_in_property_screen(choice: "Yes, owned outright")
+      fill_in_forms_until(:check_answers)
+      within "#table-property" do
+        click_on "Change"
+      end
+      fill_in_property_screen(choice: "Yes, through a shared ownership scheme")
+      fill_in_property_landlord_screen
+      # currently fails on the line below because it goes to property_entry and not to shared_ownership_housing_costs
+      fill_in_shared_ownership_housing_costs_screen(rent: 125, mortgage: 125, housing_benefit: 120.00)
+      confirm_screen(:property_entry)
+      expect(page).to have_content "The home your client usually lives in"
+      expect(page).to have_content "How much is left to pay on the mortgage?"
     end
-    fill_in_property_screen(choice: "Yes, through a shared ownership scheme")
-    fill_in_property_landlord_screen
-    fill_in_shared_ownership_housing_costs_screen(rent: 125, mortgage: 125, housing_benefit: 120.00)
-    confirm_screen(:property_entry)
-    expect(page).to have_content "The home your client usually lives in"
-    expect(page).to have_content "How much is left to pay on the mortgage?"
+
+    it "directs passported users to the correct screen" do
+      start_assessment
+      fill_in_forms_until(:applicant)
+      fill_in_applicant_screen(passporting: "Yes")
+      fill_in_forms_until(:property)
+      fill_in_property_screen(choice: "Yes, owned outright")
+      fill_in_forms_until(:check_answers)
+      within "#table-property" do
+        click_on "Change"
+      end
+      fill_in_property_screen(choice: "Yes, through a shared ownership scheme")
+      fill_in_property_landlord_screen
+      confirm_screen(:property_entry)
+      fill_in_property_entry_screen
+      confirm_screen(:check_answers)
+    end
+
   end
+
 
   it "can handle a switch from certificated domestic abuse to controlled" do
     start_assessment

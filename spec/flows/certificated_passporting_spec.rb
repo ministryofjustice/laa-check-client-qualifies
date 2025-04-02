@@ -45,6 +45,7 @@ RSpec.describe "Certificated, passported flow", :calls_cfe_early_returns_not_ine
       end
     end
 
+
     context "without passporting" do
       before do
         fill_in_applicant_screen(passporting: "No")
