@@ -111,9 +111,7 @@ RSpec.describe "Change answers", :stub_cfe_calls_with_webmock, type: :feature do
       fill_in_property_entry_screen
       confirm_screen(:check_answers)
     end
-
   end
-
 
   it "can handle a switch from certificated domestic abuse to controlled" do
     start_assessment
