@@ -127,12 +127,13 @@ module Steps
       end
 
       def passported_shared_ownership?(session_data, step)
-        step == :property_landlord && !Steps::Logic.landlord_is_not_the_only_joint_owner?(session_data)
+        step == :property_landlord && Steps::Logic.skip_income_questions?(session_data)
       end
 
-      def non_passported_shared_ownership?(session_data, step)
-        step == :shared_ownership_housing_costs && !Steps::Logic.landlord_is_not_the_only_joint_owner?(session_data)
+      def non_passported_shared_ownership?(_session_data, step)
+        step == :shared_ownership_housing_costs
       end
+
       def additional_property_shared_ownership?(session_data, step)
         step == :additional_property && session_data["additional_property_owned"] == "shared_ownership"
       end
