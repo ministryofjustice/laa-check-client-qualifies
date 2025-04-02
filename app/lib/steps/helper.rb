@@ -51,11 +51,6 @@ module Steps
       def last_step_in_group?(session_data, step)
         step_group = step_groups_for(session_data).detect { |group| group.steps.include?(step) }
         step == step_group.steps.last
-        # step_group = step_groups_for(session_data).detect { |group| group.steps.include?(step) }
-        # is_last = step == step_group.steps.last
-        # puts "Step group for #{step}: #{step_group&.steps}"
-        # puts "Is #{step} the last step in its group? #{is_last}"
-        # is_last
       end
 
       def valid_step?(session_data, step)

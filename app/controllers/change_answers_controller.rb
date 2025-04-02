@@ -13,6 +13,8 @@ class ChangeAnswersController < QuestionFlowController
         next_step = step_with_inconsistent_data
         if Steps::Helper.cannot_use_service?(session_data, step)
           redirect_to cannot_use_service_path assessment_code:, step:
+        elsif step == :shared_ownership_housing_costs && !Steps::Logic.landlord_is_not_the_only_joint_owner?(session_data)
+          redirect_to helpers.check_step_path_from_step(:property_entry, assessment_code)
         # we need to check for aggregated_means so we know when to show the ":how_to_aggregate" screen when in a change loop
         elsif next_step && step != :aggregated_means
           redirect_to helpers.check_step_path_from_step(next_step, assessment_code)

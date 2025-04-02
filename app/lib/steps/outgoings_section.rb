@@ -24,33 +24,24 @@ module Steps
             (Steps::Group.new(:property_landlord) if Steps::Logic.owns_property_shared_ownership?(session_data)),
             (Steps::Group.new(:cannot_use_service) if Steps::Logic.landlord_is_not_the_only_joint_owner?(session_data)),
             housing_costs_group(session_data),
+            (property_entry_for_shared_ownership if session_data["property_owned"] == "shared_ownership"),
           ].compact
         end
       end
 
+      def property_entry_for_shared_ownership
+        Steps::Group.new(:property_entry)
+      end
+
       def housing_costs_group(session_data)
-        # step = if session_data["property_owned"] == "shared_ownership"
-        #          :shared_ownership_housing_costs
-        #        elsif Steps::Logic.owns_property_with_mortgage_or_loan?(session_data)
-        #          :mortgage_or_loan_payment
-        #        elsif !Steps::Logic.owns_property_outright?(session_data)
-        #          :housing_costs
-        #        end
-        # Steps::Group.new(step) if step
-        steps = if session_data["property_owned"] == "shared_ownership"
-                  # the line below ensures that this test passes
-                  # spec/flows/shared_ownership_flow_spec.rb
-                  # %i[shared_ownership_housing_costs]
-                  # the line below ensures that this test passes
-                  # spec/flows/change_answers_flow_spec.rb:123
-                  %i[shared_ownership_housing_costs property_entry]
-                  # cant have both lines so how to fix this as property_entry is required across 2 sections
-                elsif Steps::Logic.owns_property_with_mortgage_or_loan?(session_data)
-                  [:mortgage_or_loan_payment]
-                elsif !Steps::Logic.owns_property_outright?(session_data)
-                  [:housing_costs]
-                end
-        Steps::Group.new(*steps) if steps
+        step = if session_data["property_owned"] == "shared_ownership"
+                 :shared_ownership_housing_costs
+               elsif Steps::Logic.owns_property_with_mortgage_or_loan?(session_data)
+                 :mortgage_or_loan_payment
+               elsif !Steps::Logic.owns_property_outright?(session_data)
+                 :housing_costs
+               end
+        Steps::Group.new(step) if step
       end
     end
   end
