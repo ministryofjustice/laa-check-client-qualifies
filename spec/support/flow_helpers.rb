@@ -279,6 +279,23 @@ def fill_in_housing_shared_who_screen(choice: "Yes")
   click_on "Save and continue"
 end
 
+def fill_in_shared_ownership_housing_costs_screen(rent: 100, mortgage: 100, housing_benefit: 95)
+  confirm_screen :shared_ownership_housing_costs
+
+  choose "Every month", name: "shared_ownership_housing_costs_form[combined_frequency]"
+  fill_in "shared_ownership_housing_costs_form[rent]", with: rent
+  fill_in "shared_ownership_housing_costs_form[shared_ownership_mortgage]", with: mortgage
+
+  if housing_benefit.positive?
+    choose "Yes", name: "shared_ownership_housing_costs_form[housing_benefit_relevant]"
+    fill_in "shared_ownership_housing_costs_form[housing_benefit_value]", with: housing_benefit
+    choose "Every month", name: "shared_ownership_housing_costs_form[housing_benefit_frequency]"
+  else
+    choose "No", name: "shared_ownership_housing_costs_form[housing_benefit_relevant]"
+  end
+  click_on "Save and continue"
+end
+
 def fill_in_housing_costs_screen(housing_payments: 0, housing_benefit: 0)
   confirm_screen :housing_costs
 
