@@ -11,9 +11,7 @@ class ChangeAnswersController < QuestionFlowController
       session_data.merge!(@form.attributes_for_export_to_session)
       if FeatureFlags.enabled?(:ee_banner, session_data)
         next_step = step_with_inconsistent_data
-        if Steps::Logic.landlord_is_not_the_only_joint_owner?(session_data)
-          redirect_to helpers.step_path_from_step(:cannot_use_service, assessment_code)
-        elsif Steps::Helper.cannot_use_service?(session_data, step)
+        if Steps::Helper.cannot_use_service?(session_data, step)
           redirect_to cannot_use_service_path assessment_code:, step:
         # we need to check for shared_ownership_housing_costs to determine if we need to show property_entry screen when in the change loop
         elsif Steps::Helper.display_property_entry_in_change_answers?(session_data, step)
