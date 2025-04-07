@@ -254,7 +254,7 @@ You can see our custom Docker image here - this will update once you've pushed a
 
 Steps to follow are:
 
-1. create an appropriately named branch referencing the puppeteer version upgrade i.e. `puppeteer-22**`
+1. create an appropriately named branch referencing the puppeteer version upgrade i.e. `puppeteer-24**`
 2. update Dockerfile_browser_tools.dockerfile & package.json with the new puppeteer version
 3. run `yarn install` to update yarn.lock
 4. add your branch name to .github/workflows/browser_tools_docker_image.yml so the new image gets pushed to Dockerhub
