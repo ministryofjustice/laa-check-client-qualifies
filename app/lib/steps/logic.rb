@@ -88,10 +88,6 @@ module Steps
         !skip_capital_questions?(session_data) && session_data["property_owned"] == "shared_ownership"
       end
 
-      def landlord_is_not_the_only_joint_owner?(session_data)
-        session_data["property_landlord"] == false
-      end
-
       def owns_additional_property?(session_data)
         !skip_capital_questions?(session_data) && session_data["additional_property_owned"]&.in?(AdditionalPropertyForm::OWNED_OPTIONS.map(&:to_s))
       end

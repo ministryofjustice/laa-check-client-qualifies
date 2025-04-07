@@ -11,19 +11,21 @@ module Steps
             []
           else
             [
-              Steps::Group.new(:property),
-              (Steps::Group.new(:property_landlord) if Steps::Logic.owns_property_shared_ownership?(session_data)),
+              property_group(session_data),
             ].compact
           end
         else
           [
             Steps::Group.new(:outgoings),
             (Steps::Group.new(:partner_outgoings) if Steps::Logic.partner?(session_data)),
-            Steps::Group.new(:property),
-            (Steps::Group.new(:property_landlord) if Steps::Logic.owns_property_shared_ownership?(session_data)),
+            property_group(session_data),
             housing_costs_group(session_data),
           ].compact
         end
+      end
+
+      def property_group(session_data)
+        Steps::Logic.owns_property_shared_ownership?(session_data) ? Steps::Group.new(:property, :property_landlord) : Steps::Group.new(:property)
       end
 
       def housing_costs_group(session_data)
