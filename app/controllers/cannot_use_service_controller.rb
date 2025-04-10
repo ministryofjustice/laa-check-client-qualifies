@@ -31,6 +31,6 @@ private
   end
 
   def page_name
-    "cannot-use-service_#{previous_step}"
+    "cannot-use-service-#{previous_step}"
   end
 end
