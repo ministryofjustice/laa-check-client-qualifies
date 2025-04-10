@@ -26,7 +26,6 @@ module Flow
       property: { class: PropertyForm, url_fragment: "property-ownership" },
       property_landlord: { class: PropertyLandlordForm, url_fragment: "housing-shared-who" },
       property_entry: { class: PropertyEntryForm, url_fragment: "home-client-lives-in" },
-      cannot_use_service: { class: CannotUseServiceForm, url_fragment: "cannot-use-service" },
       vehicle: { class: VehicleForm, url_fragment: "vehicle-ownership" },
       vehicles_details: { class: VehiclesDetailsForm, url_fragment: "vehicle-details" },
       assets: { class: ClientAssetsForm, url_fragment: "client-assets" },

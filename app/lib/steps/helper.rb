@@ -88,6 +88,10 @@ module Steps
       end
 
       def cannot_use_service?(session_data, step)
+        cannot_use_service_main_property?(session_data, step) || cannot_use_service_additional_property?(session_data, step)
+      end
+
+      def cannot_use_service_additional_property?(session_data, step)
         additional_property_shared_ownership?(session_data, step) || partner_additional_property_shared_ownership?(session_data, step)
       end
 
@@ -140,6 +144,10 @@ module Steps
 
       def partner_additional_property_shared_ownership?(session_data, step)
         step == :partner_additional_property && session_data["partner_additional_property_owned"] == "shared_ownership"
+      end
+
+      def cannot_use_service_main_property?(session_data, step)
+        step == :property_landlord && session_data["property_landlord"] == false
       end
     end
   end
