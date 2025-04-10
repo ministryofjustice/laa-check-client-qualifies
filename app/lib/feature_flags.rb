@@ -1,7 +1,6 @@
 class FeatureFlags
   ENABLED_AFTER_DATE = {
     example_2125_flag: { from: "2125-01-01", public: false },
-    thresholds_2025: { from: "2025-04-07", public: true },
   }.freeze
 
   # the values of some feature flags will come from the session and not the env variables.
