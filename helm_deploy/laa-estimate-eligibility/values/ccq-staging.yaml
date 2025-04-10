@@ -58,7 +58,7 @@ featureFlags:
   indexProduction: NOT_ENABLED
   maintenanceMode: NOT_ENABLED
   basicAuthentication: ENABLED
-  sharedOwnership: NOT_ENABLED
+  sharedOwnership: ENABLED
   eeBanner: ENABLED
 
 sentry:
