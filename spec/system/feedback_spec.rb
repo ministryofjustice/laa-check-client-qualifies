@@ -14,7 +14,31 @@ RSpec.describe "Feedback component" do
       it "I can successfully submit satisfaction feedback", :slow do
         start_assessment
         fill_in_client_age_screen
+        # confirm_screen("level_of_help")
         fill_in_level_of_help_screen(choice: "Civil controlled work or family mediation")
+        # confirm_screen("immigration_or_asylum")
+        # fill_in_immigration_or_asylum_screen
+        # confirm_screen("applicant")
+        # fill_in_applicant_screen
+        # confirm_screen("dependant_details")
+        # fill_in_dependant_details_screen
+        # confirm_screen("employment_status")
+        # fill_in_employment_status_screen
+        # confirm_screen("benefits")
+        # fill_in_benefits_screen
+        # confirm_screen("other_income")
+        # fill_in_other_income_screen
+        # confirm_screen("outgoings")
+        # fill_in_outgoings_screen
+        # confirm_screen("property")
+        # fill_in_property_screen
+        # confirm_screen("housing_costs")
+        # fill_in_housing_costs_screen
+        # confirm_screen("additional_property")
+        # fill_in_additional_property_screen
+        # confirm_screen("assets")
+        # fill_in_assets_screen
+        # confirm_screen("check_answers")
         fill_in_forms_until(:check_answers)
         click_on "Submit"
         click_on "Continue to CW forms"
