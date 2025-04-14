@@ -2,7 +2,7 @@
   "name": "laa-check-client-qualifies",
   "private": "true",
   "dependencies": {
-    "@ministryofjustice/frontend": "5.1.0",
+    "@ministryofjustice/frontend": "5.1.2",
     "@rails/ujs": "^7.1.501",
     "@sentry/browser": "9.10.1",
     "esbuild": "^0.25.2",
