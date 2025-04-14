@@ -88,7 +88,15 @@ module Steps
       end
 
       def cannot_use_service?(session_data, step)
+        cannot_use_service_main_property?(session_data, step) || cannot_use_service_additional_property?(session_data, step)
+      end
+
+      def cannot_use_service_additional_property?(session_data, step)
         additional_property_shared_ownership?(session_data, step) || partner_additional_property_shared_ownership?(session_data, step)
+      end
+
+      def display_property_entry_in_change_answers?(session_data, step)
+        passported_shared_ownership?(session_data, step) || non_passported_shared_ownership?(session_data, step)
       end
 
     private
@@ -122,12 +130,24 @@ module Steps
         steps.each_cons(2).detect { |old, _new| old == step }&.last
       end
 
+      def passported_shared_ownership?(session_data, step)
+        step == :property_landlord && Steps::Logic.skip_income_questions?(session_data)
+      end
+
+      def non_passported_shared_ownership?(_session_data, step)
+        step == :shared_ownership_housing_costs
+      end
+
       def additional_property_shared_ownership?(session_data, step)
         step == :additional_property && session_data["additional_property_owned"] == "shared_ownership"
       end
 
       def partner_additional_property_shared_ownership?(session_data, step)
         step == :partner_additional_property && session_data["partner_additional_property_owned"] == "shared_ownership"
+      end
+
+      def cannot_use_service_main_property?(session_data, step)
+        step == :property_landlord && session_data["property_landlord"] == false
       end
     end
   end

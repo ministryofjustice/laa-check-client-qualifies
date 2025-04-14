@@ -6,7 +6,7 @@
 .govuk-grid-column-two-thirds
   = render "shared/heading", header_text: t(".title")
   p.govuk-body
-    = t(".paragraph_1#{'_partner' if @check.partner}")
+    = t(".paragraph_1#{'_additional_property' if @additional_property}#{'_partner' if @check.partner}")
 
   - if @check.controlled?
     p.govuk-body = t(".paragraph_2_controlled_html",

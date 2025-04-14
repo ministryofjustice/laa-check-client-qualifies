@@ -77,6 +77,42 @@ RSpec.describe "Change answers", :stub_cfe_calls_with_webmock, type: :feature do
     confirm_screen("check_answers")
   end
 
+  context "with shared ownership", :ee_banner, :shared_ownership do
+    it "shows the home-client-lives-in page when the user changes from `Yes, owned outright` to `Yes, through a shared ownership scheme`" do
+      start_assessment
+      fill_in_forms_until(:property)
+      fill_in_property_screen(choice: "Yes, owned outright")
+      fill_in_forms_until(:check_answers)
+      within "#table-property" do
+        click_on "Change"
+      end
+      fill_in_property_screen(choice: "Yes, through a shared ownership scheme")
+      fill_in_property_landlord_screen
+      # currently fails on the line below because it goes to property_entry and not to shared_ownership_housing_costs
+      fill_in_shared_ownership_housing_costs_screen(rent: 125, mortgage: 125, housing_benefit: 120.00)
+      confirm_screen(:property_entry)
+      expect(page).to have_content "The home your client usually lives in"
+      expect(page).to have_content "How much is left to pay on the mortgage?"
+    end
+
+    it "directs passported users to the correct screen" do
+      start_assessment
+      fill_in_forms_until(:applicant)
+      fill_in_applicant_screen(passporting: "Yes")
+      fill_in_forms_until(:property)
+      fill_in_property_screen(choice: "Yes, owned outright")
+      fill_in_forms_until(:check_answers)
+      within "#table-property" do
+        click_on "Change"
+      end
+      fill_in_property_screen(choice: "Yes, through a shared ownership scheme")
+      fill_in_property_landlord_screen
+      confirm_screen(:property_entry)
+      fill_in_property_entry_screen
+      confirm_screen(:check_answers)
+    end
+  end
+
   it "can handle a switch from certificated domestic abuse to controlled" do
     start_assessment
     fill_in_forms_until(:level_of_help)
@@ -89,5 +125,35 @@ RSpec.describe "Change answers", :stub_cfe_calls_with_webmock, type: :feature do
     fill_in_level_of_help_screen(choice: "Civil controlled work or family mediation")
     fill_in_immigration_or_asylum_screen
     confirm_screen("check_answers")
+  end
+
+  context "when changing answers related to joint ownership", :ee_banner, :shared_ownership do
+    it "redirects to the exit page when the user selects 'No' after initial selection `Yes, with a mortgage or loan`" do
+      start_assessment
+      fill_in_forms_until(:property)
+      fill_in_property_screen(choice: "Yes, with a mortgage or loan")
+      fill_in_forms_until(:check_answers)
+      within "#table-property" do
+        click_on "Change"
+      end
+      fill_in_property_screen(choice: "Yes, through a shared ownership scheme")
+      fill_in_housing_shared_who_screen(choice: "No")
+      confirm_screen(:cannot_use_service)
+      expect(page).to have_content "You cannot use this service if your client joint-owns a shared ownership property with the landlord and someone else."
+    end
+
+    it "redirects to the exit page when the user selects 'No' after initial selection `Yes, owned outright`" do
+      start_assessment
+      fill_in_forms_until(:property)
+      fill_in_property_screen(choice: "Yes, owned outright")
+      fill_in_forms_until(:check_answers)
+      within "#table-property" do
+        click_on "Change"
+      end
+      fill_in_property_screen(choice: "Yes, through a shared ownership scheme")
+      fill_in_housing_shared_who_screen(choice: "No")
+      confirm_screen(:cannot_use_service)
+      expect(page).to have_content "You cannot use this service if your client joint-owns a shared ownership property with the landlord and someone else."
+    end
   end
 end

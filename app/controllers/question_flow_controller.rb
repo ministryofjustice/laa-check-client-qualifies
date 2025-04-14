@@ -7,6 +7,8 @@ class QuestionFlowController < ApplicationController
       @previous_step = :other_income
       relevant_steps = Steps::Helper.completed_steps_for(session_data, @previous_step)
       @gross_income_excess = CfeService.result(session_data, relevant_steps).gross_income_excess
+    elsif step == :property_landlord
+      @previous_step = :property
     else
       @previous_step = Steps::Helper.previous_step_for(session_data, step)
     end
@@ -57,10 +59,6 @@ protected
   end
 
   def specify_feedback_widget
-    @feedback = if step == :cannot_use_service
-                  :satisfaction
-                else
-                  :freetext
-                end
+    @feedback = :freetext
   end
 end
