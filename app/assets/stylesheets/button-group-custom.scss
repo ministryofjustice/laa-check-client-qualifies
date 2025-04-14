@@ -1,3 +1,5 @@
+@use "govuk-frontend/dist/govuk/all" as *; // This means we can use GOV.UK variables i.e. `$govuk-etc`
+
 .govuk-button-group-custom {
     display: flex;
     flex-direction: column;
