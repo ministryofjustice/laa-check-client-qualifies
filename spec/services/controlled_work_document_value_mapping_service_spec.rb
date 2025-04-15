@@ -406,6 +406,53 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
     end
   end
 
+  context "with main property being shared ownership" do
+    let(:session_data) do
+      FactoryBot.build(
+        :minimal_complete_session,
+        level_of_help: "controlled",
+        immigration_or_asylum: "false",
+        asylum_support: false,
+        partner: false,
+        property_owned: "shared_ownership",
+        house_value: 150_000,
+        mortgage: 5_000,
+        percentage_owned: 50,
+        property_landlord: true,
+        shared_ownership_mortgage: 500,
+        rent: 250,
+        combined_frequency: "monthly",
+        housing_benefit_relevant: true,
+        housing_benefit_value: 200,
+        housing_benefit_frequency: "monthly",
+        api_response: FactoryBot.build(:api_result,
+                                       main_home: FactoryBot.build(:shared_main_property_api_result, value: 150_000)),
+      )
+    end
+
+    it "can successfully populate CW1 form fields (template with CCQ header)" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1.yml")).map(&:with_indifferent_access)
+      result = described_class.call(session_data, mappings)
+      representative_sample = {
+        "Means test required" => "Yes_2", # Means test required
+        "Client in receipt of asylum support" => "No", # Asylum supported not given
+        "Has partner whose means are to be agrgregated" => "No_2", # No partner
+      }
+      expect(result).to include(representative_sample)
+    end
+
+    it "can successfully populate Welsh CW1 form fields" do
+      mappings = YAML.load_file(Rails.root.join("app/lib/controlled_work_mappings/cw1_welsh.yml")).map(&:with_indifferent_access)
+      result = described_class.call(session_data, mappings)
+      representative_sample = {
+        "Matter type" => "Means test required", # Means test required
+        "Asylum support" => "Nac ydyw", # Asylum supported not given
+        "Partner" => "Na", # No partner
+      }
+      expect(result).to include(representative_sample)
+    end
+  end
+
   context "with asylum_support" do
     let(:session_data) do
       FactoryBot.build(
