@@ -1,7 +1,5 @@
 - content_for :page_title
   = t(".title")
-- content_for :back
-  = back_link(@previous_step, @back_buttons_invoke_browser_back_behaviour)
 
 .govuk-grid-column-two-thirds
   = render "shared/heading", header_text: t(".title")
