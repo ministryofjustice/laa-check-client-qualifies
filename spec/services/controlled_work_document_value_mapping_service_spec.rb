@@ -415,7 +415,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
         asylum_support: false,
         partner: false,
         property_owned: "shared_ownership",
-        house_value: 200_000,
+        house_value: 150_000,
         mortgage: 5_000,
         percentage_owned: 50,
         property_landlord: true,
@@ -426,7 +426,7 @@ RSpec.describe ControlledWorkDocumentValueMappingService do
         housing_benefit_value: 200,
         housing_benefit_frequency: "monthly",
         api_response: FactoryBot.build(:api_result,
-                                       main_home: FactoryBot.build(:property_api_result, value: 200_234)),
+                                       main_home: FactoryBot.build(:shared_main_property_api_result, value: 150_000)),
       )
     end
 

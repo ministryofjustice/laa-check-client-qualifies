@@ -64,6 +64,21 @@ FactoryBot.define do
     net_value { 110_000 }
   end
 
+  factory :shared_main_property_api_result, class: Hash do
+    initialize_with { attributes }
+
+    value { 150_000.0 }
+    outstanding_mortgage { 5_000.0 }
+    net_equity { 70_000.0 }
+    assessed_equity { 0.0 }
+    shared_with_housing_assoc { true }
+    transaction_allowance { 0 }
+    smod_allowance { 0 }
+    main_home_equity_disregard { 0 }
+    percentage_owned { 50.0 }
+    net_value { 145_000 }
+  end
+
   factory :gross_income_api_result, class: Hash do
     initialize_with { attributes }
 
