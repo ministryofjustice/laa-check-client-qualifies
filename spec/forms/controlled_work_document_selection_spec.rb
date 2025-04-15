@@ -107,4 +107,48 @@ RSpec.describe "cw_selection", type: :feature do
       expect(page).not_to have_content "CIV Means 7 - family mediation"
     end
   end
+
+  context "when the client's main home is shared ownership" do
+    let(:session_data) do
+      { "level_of_help" => "controlled",
+        "client_age" => "standard",
+        "immigration_or_asylum" => false,
+        "asylum_support" => false,
+        "partner" => false,
+        "property_owned" => "shared_ownership",
+        "house_value" => 150_000,
+        "mortgage" => 5_000,
+        "percentage_owned" => 50,
+        "property_landlord" => true,
+        "shared_ownership_mortgage" => 500,
+        "rent" => 250,
+        "combined_frequency" => "monthly",
+        "housing_benefit_relevant" => true,
+        "housing_benefit_value" => 200,
+        "housing_benefit_frequency" => "monthly",
+        "api_response" => api_response }
+    end
+
+    it "shows all CW forms forms" do
+      expect(page).to have_content "CW1 - legal help, help at court or family help (lower)"
+      expect(page).to have_content "CW2 (IMM) - immigration"
+      expect(page).to have_content "CW1&2 - mental health"
+      expect(page).to have_content "CW5 - help with family mediation"
+      expect(page).to have_content "CIV Means 7 - family mediation"
+    end
+
+    it "allows me to proceed if I make a selection" do
+      choose "CW1 - legal help, help at court or family help (lower)"
+      choose "English"
+      click_on "Continue to download and finish"
+      expect(page).to have_content "You've reached the end of this service"
+    end
+
+    it "allows me to proceed in Welsh when I select a CW1 form" do
+      choose "CW1 - legal help, help at court or family help (lower)"
+      choose "Welsh"
+      click_on "Continue to download and finish"
+      expect(page).to have_content "You've reached the end of this service"
+    end
+  end
 end
