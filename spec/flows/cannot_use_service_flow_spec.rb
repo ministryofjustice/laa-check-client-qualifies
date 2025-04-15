@@ -23,6 +23,7 @@ RSpec.describe "Cannot use service flow", :ee_banner, :shared_ownership, :stub_c
       fill_in_forms_until(:property)
       fill_in_property_screen(choice: "No")
       fill_in_forms_until(:check_answers)
+      confirm_screen("check_answers")
       within "#table-property" do
         click_on "Change"
       end
