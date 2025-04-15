@@ -1,6 +1,8 @@
 // CSS for feedback components borrowed from GOV.UK Publishing Components Repo 
 // https://github.com/alphagov/govuk_publishing_components/blob/main/app/assets/stylesheets/govuk_publishing_components/components/_feedback.scss
 
+@use "govuk-frontend/dist/govuk/all" as *; // This means we can use GOV.UK variables i.e. `$govuk-etc`
+
 .gem-c-feedback__prompt {
   background-color: govuk-colour("light-grey");
   color: govuk-colour("black");
