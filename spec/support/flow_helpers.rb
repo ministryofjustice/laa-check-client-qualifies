@@ -475,6 +475,7 @@ def fill_in_forms_until(target)
   current_page = nil
   loop do
     new_current_page = current_path.split("/").map(&:presence).compact.first
+    # sleep 5
     raise "Infinite loop detected on screen #{current_page}" if current_page == new_current_page
 
     current_page = new_current_page
