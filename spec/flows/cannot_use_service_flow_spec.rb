@@ -23,15 +23,17 @@ RSpec.describe "Cannot use service flow", :ee_banner, :shared_ownership, :stub_c
       fill_in_forms_until(:property)
       fill_in_property_screen(choice: "No")
       fill_in_forms_until(:check_answers)
+      confirm_screen("check_answers")
       within "#table-property" do
         click_on "Change"
       end
       confirm_screen(:property)
       fill_in_property_screen(choice: "Yes, through a shared ownership scheme")
+      property_screen_url = current_path
       fill_in_property_landlord_screen(choice: "No")
       expect(page).to have_content "You cannot use this service"
       expect(page).to have_content "You cannot use this service if your client joint-owns a shared ownership property with the landlord and someone else."
-      click_on "Back"
+      visit property_screen_url # simulate clicking 'back' on the browser
       confirm_screen(:property_landlord)
       click_on "Back"
       confirm_screen(:property)
@@ -76,11 +78,35 @@ RSpec.describe "Cannot use service flow", :ee_banner, :shared_ownership, :stub_c
         click_on "Change"
       end
       confirm_screen(:additional_property)
+      additional_property_screen_url = current_path
       fill_in_additional_property_screen(choice: "Yes, through a shared ownership scheme")
       expect(page).to have_content "You cannot use this service"
       expect(page).to have_content "You cannot use this service if your client owns a shared ownership property that they do not live in."
-      click_on "Back"
+      visit additional_property_screen_url # simulate clicking 'back' on the browser
       confirm_screen(:additional_property)
+    end
+  end
+
+  context "when the client starts with ownership other than shared ownership, and they change their answers" do
+    it "shows me the correct flow of screens" do
+      start_assessment
+      fill_in_forms_until(:property)
+      fill_in_property_screen(choice: "Yes, with a mortgage or loan")
+      fill_in_mortgage_or_loan_payment_screen
+      fill_in_property_entry_screen
+      fill_in_forms_until(:check_answers)
+      within "#table-property" do
+        click_on "Change"
+      end
+      confirm_screen(:property)
+      fill_in_property_screen(choice: "Yes, through a shared ownership scheme")
+      property_landlord_screen_url = current_path
+      fill_in_property_landlord_screen(choice: "No")
+      confirm_screen(:cannot_use_service)
+      expect(page).to have_content "You cannot use this service"
+      visit property_landlord_screen_url # simulate clicking 'back' on the browser
+      fill_in_property_landlord_screen(choice: "Yes")
+      confirm_screen(:shared_ownership_housing_costs)
     end
   end
 end
