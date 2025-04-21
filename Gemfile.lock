@@ -80,12 +80,12 @@ GEM
       public_suffix (>= 2.0.2, < 7.0)
     annotate_models (1.0.1)
     ast (2.4.3)
-    axe-core-api (4.10.2)
+    axe-core-api (4.10.3)
       dumb_delegator
       ostruct
       virtus
-    axe-core-rspec (4.10.2)
-      axe-core-api (= 4.10.2)
+    axe-core-rspec (4.10.3)
+      axe-core-api (= 4.10.3)
       dumb_delegator
       ostruct
       virtus
@@ -162,7 +162,7 @@ GEM
       dotenv (= 3.1.8)
       railties (>= 6.1)
     drb (2.2.1)
-    dumb_delegator (1.0.0)
+    dumb_delegator (1.1.0)
     erb_lint (0.9.0)
       activesupport
       better_html (>= 2.0.1)
