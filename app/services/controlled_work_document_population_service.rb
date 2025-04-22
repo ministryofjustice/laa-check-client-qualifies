@@ -16,11 +16,8 @@ class ControlledWorkDocumentPopulationService
         file_name = "#{dir}/output-form.pdf"
         pdftk = PdfForms.new(`which pdftk`.chomp)
         pdftk.fill_form template_path(form_key), filled_path, values(session_data, form_key)
-        # Simplecov is showing that this branch is not covered, but there are tests to look at this
-        # :nocov:
         if Steps::Logic.owns_property_shared_ownership?(session_data)
           pdftk.call_pdftk filled_path, "background", background_path, "output", file_name
-        # :nocov:
         else
           FileUtils.cp filled_path, file_name
         end
