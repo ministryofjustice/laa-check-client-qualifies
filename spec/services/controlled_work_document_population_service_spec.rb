@@ -18,8 +18,7 @@ RSpec.describe ControlledWorkDocumentPopulationService do
 
     before do
       allow(PdfForms).to receive(:new).and_return(pdftk_instance)
-      allow(described_class).to receive(:template_path).and_return(template_path)
-      allow(described_class).to receive(:values).and_return({})
+      allow(described_class).to receive_messages(template_path: template_path, values: {})
       allow(File).to receive(:read).and_return("PDF_CONTENT")
       allow(FileUtils).to receive(:cp).and_return(true)
     end
