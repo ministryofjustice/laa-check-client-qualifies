@@ -2,19 +2,23 @@ require "rails_helper"
 
 RSpec.describe ControlledWorkDocumentPopulationService do
   describe ".call" do
+    # rubocop:disable RSpec/VerifiedDoubles
     let(:pdftk_instance) { double("PdfForms", fill_form: true, call_pdftk: true) }
+    # rubocop:enable RSpec/VerifiedDoubles
     let(:template_path) { "template/path.pdf" }
     let(:filled_path) { /filled-form\.pdf$/ }
     let(:background_path) { "lib/CWforms_SharedOwnership_english.pdf" }
     let(:file_name) { /output-form\.pdf$/ }
     let(:session_data) { { "property_owned" => property_status } }
 
+    # rubocop:disable RSpec/VerifiedDoubles
     let(:model) do
       double(
         form_type: "SharedOwnership",
         language: "english",
       )
     end
+    # rubocop:enable RSpec/VerifiedDoubles
 
     before do
       allow(PdfForms).to receive(:new).and_return(pdftk_instance)
