@@ -11,9 +11,16 @@ class ControlledWorkDocumentPopulationService
     def call(session_data, model)
       Dir.mktmpdir do |dir|
         form_key = "#{model.form_type}#{'_welsh' if model.language == 'welsh'}"
+        background_path = model.language == "welsh" ? "lib/CWforms_SharedOwnership_welsh.pdf" : "lib/CWforms_SharedOwnership_english.pdf"
+        filled_path = "#{dir}/filled-form.pdf"
         file_name = "#{dir}/output-form.pdf"
         pdftk = PdfForms.new(`which pdftk`.chomp)
-        pdftk.fill_form template_path(form_key), file_name, values(session_data, form_key)
+        pdftk.fill_form template_path(form_key), filled_path, values(session_data, form_key)
+        if Steps::Logic.owns_property_shared_ownership?(session_data)
+          pdftk.call_pdftk filled_path, "background", background_path, "output", file_name
+        else
+          FileUtils.cp filled_path, file_name
+        end
         yield File.read(file_name).force_encoding("BINARY")
       end
     end
