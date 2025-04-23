@@ -64,7 +64,6 @@ featureFlags:
   maintenanceMode: NOT_ENABLED
   basicAuthentication: ENABLED
   sharedOwnership: ENABLED
-  eeBanner: ENABLED
 
 postgresql:
   enabled: true
