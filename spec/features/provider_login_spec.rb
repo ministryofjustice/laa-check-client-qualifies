@@ -43,7 +43,7 @@ RSpec.describe "Provider login", type: :feature do
     end
   end
 
-  context "when signed in I can complete an early eligibility check", :ee_banner do
+  context "when signed in I can complete an early eligibility check" do
     let(:email_address) { Faker::Internet.email }
 
     before do

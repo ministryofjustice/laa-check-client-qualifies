@@ -4,7 +4,7 @@ class JourneyLoggerService
       return if cookies[CookiesController::NO_ANALYTICS_MODE]
 
       attributes = build_attributes(calculation_result, check, portal_user_office_code)
-      early_ineligible_result = FeatureFlags.enabled?(:ee_banner, check.session_data) ? check.early_ineligible_result? : nil
+      early_ineligible_result = check.early_ineligible_result?
 
       CompletedUserJourney.transaction do
         journey = CompletedUserJourney.find_by(assessment_id:, early_eligibility_result: early_ineligible_result)

@@ -21,7 +21,7 @@ RSpec.describe ResultsController, type: :controller do
   end
 
   describe "GET #show" do
-    context "when @check.early_ineligible_result? is true", :ee_banner do
+    context "when @check.early_ineligible_result? is true" do
       before do
         allow(check).to receive(:early_ineligible_result?).and_return(true)
       end
@@ -32,7 +32,7 @@ RSpec.describe ResultsController, type: :controller do
       end
     end
 
-    context "when @check.early_ineligible_result? is false", :ee_banner do
+    context "when @check.early_ineligible_result? is false" do
       before do
         allow(check).to receive(:early_ineligible_result?).and_return(false)
       end

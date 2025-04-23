@@ -77,7 +77,7 @@ RSpec.describe "Change answers", :stub_cfe_calls_with_webmock, type: :feature do
     confirm_screen("check_answers")
   end
 
-  context "with shared ownership", :ee_banner, :shared_ownership do
+  context "with shared ownership", :shared_ownership do
     it "shows the home-client-lives-in page when the user changes from `Yes, owned outright` to `Yes, through a shared ownership scheme`" do
       start_assessment
       fill_in_forms_until(:property)
@@ -127,7 +127,7 @@ RSpec.describe "Change answers", :stub_cfe_calls_with_webmock, type: :feature do
     confirm_screen("check_answers")
   end
 
-  context "when changing answers related to joint ownership", :ee_banner, :shared_ownership do
+  context "when changing answers related to joint ownership", :shared_ownership do
     it "redirects to the exit page when the user selects 'No' after initial selection `Yes, with a mortgage or loan`" do
       start_assessment
       fill_in_forms_until(:property)

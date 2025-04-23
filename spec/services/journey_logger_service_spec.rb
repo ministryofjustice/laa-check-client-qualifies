@@ -164,16 +164,6 @@ RSpec.describe JourneyLoggerService do
       end
     end
 
-    context "when details change" do
-      let(:session_data) { { partner: false } }
-
-      it "updates an existing record" do
-        existing_record = FactoryBot.create(:completed_user_journey, assessment_id:, partner: true)
-        described_class.call(assessment_id, calculation_result, check, portal_user_office_code, {})
-        expect(existing_record.reload.partner).to be false
-      end
-    end
-
     context "when client is over 60" do
       let(:session_data) { { "client_age" => "over_60" } }
 
@@ -184,7 +174,7 @@ RSpec.describe JourneyLoggerService do
       end
     end
 
-    context "when it is an early ineligible result for gross income", :ee_banner do
+    context "when it is an early ineligible result for gross income" do
       let(:session_data) do
         {
           immigration_or_asylum: false,
@@ -204,7 +194,7 @@ RSpec.describe JourneyLoggerService do
       end
     end
 
-    context "when the journey continues after early ineligible result", :ee_banner do
+    context "when the journey continues after early ineligible result" do
       let(:session_data) do
         {
           early_result: { "result" => "ineligible",
@@ -226,7 +216,7 @@ RSpec.describe JourneyLoggerService do
       end
     end
 
-    context "when CompletedUserJourney is called with the same assessment_id and early_ineligible remains true", :ee_banner do
+    context "when CompletedUserJourney is called with the same assessment_id and early_ineligible remains true" do
       let(:session_data) do
         {
           immigration_or_asylum: false,
@@ -255,7 +245,7 @@ RSpec.describe JourneyLoggerService do
       end
     end
 
-    context "when details change in a full journey", :ee_banner do
+    context "when details change in a full journey" do
       let(:session_data) { { partner: false } }
 
       it "updates an existing record" do
@@ -265,7 +255,7 @@ RSpec.describe JourneyLoggerService do
       end
     end
 
-    context "when users skips to results page, after they see the early ineligible banner", :ee_banner do
+    context "when users skips to results page, after they see the early ineligible banner" do
       let(:session_data) do
         {
           early_result: { "result" => "ineligible",
