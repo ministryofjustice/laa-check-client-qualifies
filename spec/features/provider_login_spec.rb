@@ -53,11 +53,9 @@ RSpec.describe "Provider login", type: :feature do
         body: build(:api_result, eligible: "eligible").to_json,
         headers: { "Content-Type" => "application/json" },
       )
-      first = instance_double(CfeResult, ineligible_gross_income?: true,
-                                         gross_income_excess: 100,
+      first = instance_double(CfeResult, gross_income_excess: 100,
                                          gross_income_result: "ineligible")
-      second = instance_double(CfeResult, ineligible_gross_income?: false,
-                                          gross_income_excess: 0,
+      second = instance_double(CfeResult, gross_income_excess: 0,
                                           gross_income_result: "eligible")
       allow(CfeService).to receive(:result).and_return(first, second)
       allow(CfeService).to receive(:call).and_return build(:api_result, eligible: "ineligible")

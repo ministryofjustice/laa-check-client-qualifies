@@ -18,10 +18,6 @@ class CfeResult
     end
   end
 
-  def ineligible_gross_income?
-    gross_income_result == "ineligible"
-  end
-
   def gross_income_result
     api_response.dig(:result_summary, :gross_income, :proceeding_types, 0, :result)
   end

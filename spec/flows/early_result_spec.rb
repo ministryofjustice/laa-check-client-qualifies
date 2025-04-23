@@ -5,11 +5,9 @@ RSpec.describe "Early result journey", type: :feature do
     let(:partner_value) { "No" }
 
     before do
-      first = instance_double(CfeResult, ineligible_gross_income?: true,
-                                         gross_income_excess: 100,
+      first = instance_double(CfeResult, gross_income_excess: 100,
                                          gross_income_result: "ineligible")
-      second = instance_double(CfeResult, ineligible_gross_income?: false,
-                                          gross_income_excess: 0,
+      second = instance_double(CfeResult, gross_income_excess: 0,
                                           gross_income_result: "eligible")
       allow(CfeService).to receive(:result).and_return(first, second)
       allow(CfeService).to receive(:call).and_return build(:api_result, eligible: "ineligible")
@@ -96,8 +94,7 @@ RSpec.describe "Early result journey", type: :feature do
 
   context "when I am eligible" do
     before do
-      allow(CfeService).to receive_messages(result: instance_double(CfeResult, ineligible_gross_income?: true,
-                                                                               gross_income_excess: 0,
+      allow(CfeService).to receive_messages(result: instance_double(CfeResult, gross_income_excess: 0,
                                                                                gross_income_result: "eligible"), call: build(:api_result, eligible: "ineligible"))
       start_assessment
       fill_in_forms_until(:applicant)

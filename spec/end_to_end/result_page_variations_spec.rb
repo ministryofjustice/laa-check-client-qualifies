@@ -83,8 +83,7 @@ RSpec.describe "Results page variations", :end2end, type: :feature do
 
   context "when early ineligible on gross_income", :stub_cfe_calls_with_webmock do
     before do
-      allow(CfeService).to receive(:result).and_return(instance_double(CfeResult, ineligible_gross_income?: true,
-                                                                                  gross_income_excess: 1000, gross_income_result: "ineligible"))
+      allow(CfeService).to receive(:result).and_return(instance_double(CfeResult, gross_income_excess: 1000, gross_income_result: "ineligible"))
     end
 
     it "does not show the disposable or capital result" do
