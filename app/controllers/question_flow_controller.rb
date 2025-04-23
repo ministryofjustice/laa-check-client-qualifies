@@ -3,15 +3,11 @@ class QuestionFlowController < ApplicationController
 
   def show
     track_page_view
-    if step == :ineligible_gross_income
-      @previous_step = :other_income
-      relevant_steps = Steps::Helper.completed_steps_for(session_data, @previous_step)
-      @gross_income_excess = CfeService.result(session_data, relevant_steps).gross_income_excess
-    elsif step == :property_landlord
-      @previous_step = :property
-    else
-      @previous_step = Steps::Helper.previous_step_for(session_data, step)
-    end
+    @previous_step = if step == :property_landlord
+                       :property
+                     else
+                       Steps::Helper.previous_step_for(session_data, step)
+                     end
     @form = Flow::Handler.form_from_session(step, session_data)
     render "/question_flow/#{step}"
   end

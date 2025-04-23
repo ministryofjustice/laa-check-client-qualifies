@@ -41,14 +41,6 @@ private
     redirect_to check_answers_path(assessment_code:, anchor:)
   end
 
-  def redirect_to_next_question
-    next_check_answer_step = Steps::Helper.remaining_steps_for(session_data, step)
-                 .drop_while { |thestep|
-                   Flow::Handler.model_from_session(thestep, session_data).valid?
-                 }.first
-    redirect_to helpers.check_step_path_from_step(next_check_answer_step, assessment_code)
-  end
-
   def step_with_inconsistent_data
     Steps::Helper.remaining_steps_for(session_data, step)
     .drop_while { |thestep|
