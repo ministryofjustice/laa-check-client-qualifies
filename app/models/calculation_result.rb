@@ -9,7 +9,7 @@ class CalculationResult
 
   delegate :decision, :calculated?, :has_partner?, :ineligible?, :pensioner_disregard_applied?,
            :raw_capital_contribution, :raw_income_contribution,
-           :smod_applied?, to: :@api_response
+           :smod_applied?, :main_home_is_shared_ownership?, to: :@api_response
 
   def initialize(session_data)
     @api_response = CfeResult.new session_data["api_response"]

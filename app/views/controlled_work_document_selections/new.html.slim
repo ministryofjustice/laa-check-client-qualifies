@@ -10,8 +10,21 @@
                         heading: t("controlled_work_document_selections.new.banner.heading"),
                         body: t("controlled_work_document_selections.new.banner.body")
 
+    - if @model.main_home_is_shared_ownership?
+      - body_content = capture do
+        p.govuk-body = t("controlled_work_document_selections.new.banner_shared_ownership.para1")
+        ul.govuk-list.govuk-list--bullet
+          - t("controlled_work_document_selections.new.banner_shared_ownership.list").each do |bullet|
+            li = bullet
+        p.govuk-body = t("controlled_work_document_selections.new.banner_shared_ownership.para2")
+
+      - banner_shared_ownership = render "shared/banner",
+                                          heading: t("controlled_work_document_selections.new.banner_shared_ownership.heading"),
+                                          body: body_content
+
     p.govuk-text class="govuk-!-margin-bottom-5" = t("controlled_work_document_selections.new.explainer")
     = banner
+    = banner_shared_ownership
 
   = form_for(@form, url: controlled_work_document_selection_path(assessment_code: params[:assessment_code])) do |form|
     = form.govuk_error_summary t("generic.error_summary_title")

@@ -116,6 +116,10 @@ class CfeResult
     api_response.dig(:result_summary, :disposable_income, :allowed_housing_costs)
   end
 
+  def main_home_is_shared_ownership?
+    api_response.dig(:assessment, :capital, :capital_items, :properties, :main_home, :shared_with_housing_assoc)
+  end
+
   def raw_gross_outgoings
     api_response.dig(:result_summary, :disposable_income, :combined_total_outgoings_and_allowances)
   end
