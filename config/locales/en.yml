@@ -2579,6 +2579,13 @@ en:
       banner:
         heading: 60 or over disregard (also known as the pensioner disregard)
         body: Your client is eligible for the 60 or over disregard (also known as the pensioner disregard). CW forms do not have a field to record this in the financial eligibility section. We will correctly apply this to your client’s capital. You do not need to make any changes to the form.
+      banner_shared_ownership:
+        heading: Shared ownership
+        para1: 'Controlled work (CW) forms do not have a field to record shared ownership in the housing costs section. We will:'
+        list:
+        - include shared ownership in the eligibility calculation
+        - combine rent and mortgage costs on the CW form
+        para2: This means you will not need to change this part of the form.
       form_type_title: Which controlled work (CW) form do you need?
       language_title: Which language do you need the form in?
       option:

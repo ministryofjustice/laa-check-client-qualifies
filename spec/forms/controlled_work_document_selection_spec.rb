@@ -55,6 +55,52 @@ RSpec.describe "cw_selection", type: :feature do
     end
   end
 
+  context "when main home is shared ownership" do
+    let(:api_response) do
+      FactoryBot.build(
+        :api_result,
+        assessment: {
+          capital: {
+            capital_items: {
+              properties: {
+                main_home: {
+                  shared_with_housing_assoc: true,
+                },
+              },
+            },
+          },
+        },
+      )
+    end
+
+    it "shows the shared ownership alert" do
+      expect(page).to have_content "Shared ownership"
+    end
+  end
+
+  context "when main home is not shared ownership" do
+    let(:api_response) do
+      FactoryBot.build(
+        :api_result,
+        assessment: {
+          capital: {
+            capital_items: {
+              properties: {
+                main_home: {
+                  shared_with_housing_assoc: false,
+                },
+              },
+            },
+          },
+        },
+      )
+    end
+
+    it "does not show the alert when main home is not shared ownership" do
+      expect(page).not_to have_content "Shared ownership"
+    end
+  end
+
   it "allows me to proceed if I make a selection" do
     choose "CW1 - legal help, help at court or family help (lower)"
     choose "English"
