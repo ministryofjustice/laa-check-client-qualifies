@@ -119,6 +119,11 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
+    capybara-lockstep (2.2.3)
+      activesupport (>= 4.2)
+      capybara (>= 3.0)
+      ruby2_keywords
+      selenium-webdriver (>= 4.0)
     capybara-selenium (0.0.6)
       capybara
       selenium-webdriver
@@ -495,6 +500,7 @@ GEM
     ruby-saml (1.18.0)
       nokogiri (>= 1.13.10)
       rexml
+    ruby2_keywords (0.0.5)
     rubyzip (2.4.1)
     safe_shell (1.1.0)
     securerandom (0.4.1)
@@ -595,6 +601,7 @@ DEPENDENCIES
   axe-core-rspec
   bootsnap
   capybara
+  capybara-lockstep
   capybara-selenium
   cssbundling-rails
   data_migrate
