@@ -6,30 +6,6 @@ module Steps
         all_sections.map(&:all_steps).reduce(:+).uniq
       end
 
-      def last_step_with_valid_data(session_data)
-        steps_list_for(session_data)
-                     .take_while { |thestep|
-                       Flow::Handler.model_from_session(thestep, session_data).valid?
-                     }.last
-      end
-
-      def consistent?(session_data)
-        steps_list_for(session_data)
-          .reject { |thestep| Flow::Handler.model_from_session(thestep, session_data).valid? }
-          .none?
-      end
-
-      # check consistency just for non-financial questions (asylum, under 18 etc)
-      def non_financial_consistent?(session_data)
-        non_finance_steps(session_data)
-          .reject { |thestep| Flow::Handler.model_from_session(thestep, session_data).valid? }
-          .none?
-      end
-
-      def non_finance_steps(session_data)
-        steps_for_section(session_data, Steps::NonFinancialSection)
-      end
-
       def next_step_for(session_data, step)
         remaining_steps_for(session_data, step).first
       end
@@ -65,26 +41,10 @@ module Steps
         steps_list_for(session_data || {}).last
       end
 
-      def last_step_for_section(session_data, section)
-        step_groups = all_sections.find { |s| s.name.demodulize == (section.to_s.camelcase) }.grouped_steps_for(session_data)
-        step_groups.last.steps.last
-      end
-
-      def steps_for_section(session_data, section)
-        section.grouped_steps_for(session_data).map(&:steps).reduce([], :+)
-      end
-
       # If you are working with the data you should call
       # this method to filter what is valid.
       def relevant_steps(session_data)
-        # if the list is *very* short (i.e. non-means) then use it rather then up to income
-        if Steps::Logic.non_means_tested?(session_data)
-          steps_list_for(session_data)
-        elsif Steps::Logic.check_stops_at_gross_income?(session_data)
-          completed_steps_for(session_data, :other_income)
-        else
-          steps_list_for(session_data)
-        end
+        steps_list_for(session_data)
       end
 
       def cannot_use_service?(session_data, step)

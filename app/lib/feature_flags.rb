@@ -13,7 +13,6 @@ class FeatureFlags
     maintenance_mode: { type: "global", default: false },
     basic_authentication: { type: "global", default: false },
     shared_ownership: { type: "session", default: false },
-    ee_banner: { type: "session", default: false },
   }.freeze
 
   class << self

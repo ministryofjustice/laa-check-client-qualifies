@@ -81,10 +81,9 @@ RSpec.describe "Results page variations", :end2end, type: :feature do
     key_lines.each { expect(page).to have_content _1 }
   end
 
-  context "when early eligibility journey is enabled and ineligible on gross_income", :stub_cfe_calls_with_webmock do
+  context "when early ineligible on gross_income", :stub_cfe_calls_with_webmock do
     before do
-      allow(CfeService).to receive(:result).and_return(instance_double(CfeResult, ineligible_gross_income?: true,
-                                                                                  gross_income_excess: 1000))
+      allow(CfeService).to receive(:result).and_return(instance_double(CfeResult, gross_income_excess: 1000, gross_income_result: "ineligible"))
     end
 
     it "does not show the disposable or capital result" do
@@ -96,45 +95,15 @@ RSpec.describe "Results page variations", :end2end, type: :feature do
       fill_in_income_screen(gross: "8000", frequency: "Every month")
       fill_in_forms_until(:other_income)
       fill_in_other_income_screen_with_friends_and_family
-      fill_in_ineligible_gross_income_screen(choice: "Skip remaining questions")
-      confirm_screen("check_answers")
-      click_on "Submit"
+      confirm_screen(:outgoings)
+      expect(page).to have_content("Gross monthly income limit exceeded")
+      click_on "Go to results page"
 
       key_lines = ["Your client is not likely to qualify financially for civil legal aid based on the information you entered",
                    "Disposable monthly income\nNot assessed\nThis was not assessed because it would not change the overall result",
                    "Disposable capital\nNot assessed\nThis was not assessed because it would not change the overall result"]
 
       key_lines.each { expect(page).to have_content _1 }
-    end
-  end
-
-  context "when ee_banner is switched on", :ee_banner do
-    # we need to remove this stubbing once we remove the feature flag
-    context "when early ineligible on gross_income", :stub_cfe_calls_with_webmock do
-      before do
-        allow(CfeService).to receive(:result).and_return(instance_double(CfeResult, ineligible_gross_income?: true,
-                                                                                    gross_income_excess: 1000, gross_income_result: "ineligible"))
-      end
-
-      it "does not show the disposable or capital result" do
-        start_assessment
-        fill_in_forms_until(:applicant)
-        fill_in_applicant_screen(partner: "No", passporting: "No")
-        fill_in_dependant_details_screen
-        fill_in_employment_status_screen(choice: "Employed or self-employed")
-        fill_in_income_screen(gross: "8000", frequency: "Every month")
-        fill_in_forms_until(:other_income)
-        fill_in_other_income_screen_with_friends_and_family
-        confirm_screen(:outgoings)
-        expect(page).to have_content("Gross monthly income limit exceeded")
-        click_on "Go to results page"
-
-        key_lines = ["Your client is not likely to qualify financially for civil legal aid based on the information you entered",
-                     "Disposable monthly income\nNot assessed\nThis was not assessed because it would not change the overall result",
-                     "Disposable capital\nNot assessed\nThis was not assessed because it would not change the overall result"]
-
-        key_lines.each { expect(page).to have_content _1 }
-      end
     end
   end
 end

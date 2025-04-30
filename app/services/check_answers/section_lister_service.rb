@@ -33,13 +33,13 @@ module CheckAnswers
               # :nocov:
             ].compact
 
-            post = check.gross_early_eligibility_exit? ? [] : [Sections::Outgoings.new(check)]
+            post = [Sections::Outgoings.new(check)]
             finance_sections = if check.partner?
-                                 pre + (check.gross_early_eligibility_exit? ? [] : [Sections::PartnerIncome.new(check)]) + post
+                                 pre + [Sections::PartnerIncome.new(check)] + post
                                else
                                  pre + post
                                end
-            assets_sections = check.gross_early_eligibility_exit? ? [] : assets
+            assets_sections = assets
 
             non_finance_sections + finance_sections + assets_sections
           end

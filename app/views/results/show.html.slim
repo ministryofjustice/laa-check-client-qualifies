@@ -5,7 +5,7 @@
     = t(@check.controlled? ? ".controlled_qualifies" : ".likely_to_qualify")
 
 - content_for :back do
-  - if FeatureFlags.enabled?(:ee_banner, @check.session_data) && @early_result_type
+  - if @early_result_type
     = back_link(@previous_step, true)
   -else
     = link_to t("generic.back"), check_answers_path(assessment_code: params[:assessment_code]), class: "govuk-back-link"
@@ -17,7 +17,7 @@
       = render "result_panel_content"
 
   - if @model.any_calculations_performed?
-    - if FeatureFlags.enabled?(:ee_banner, @check.session_data) && @early_result_type
+    - if @early_result_type
       h2.govuk-heading-m = t(".section_summaries.your_clients_key_eligibility_totals")
       .summary-box-holder class="govuk-!-margin-bottom-5"
         - %i[gross_income disposable_income capital].each

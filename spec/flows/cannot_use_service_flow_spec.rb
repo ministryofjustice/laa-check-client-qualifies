@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Cannot use service flow", :ee_banner, :shared_ownership, :stub_cfe_calls_with_webmock, type: :feature do
+RSpec.describe "Cannot use service flow", :shared_ownership, :stub_cfe_calls_with_webmock, type: :feature do
   context "when the client's main home is shared ownership and the landlord is not the only other joint owner" do
     it "shows me a screen to indicate that I cannot use the service" do
       start_assessment

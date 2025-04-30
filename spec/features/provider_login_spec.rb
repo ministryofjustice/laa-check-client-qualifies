@@ -43,7 +43,7 @@ RSpec.describe "Provider login", type: :feature do
     end
   end
 
-  context "when signed in I can complete an early eligibility check", :ee_banner do
+  context "when signed in I can complete an early eligibility check" do
     let(:email_address) { Faker::Internet.email }
 
     before do
@@ -53,13 +53,11 @@ RSpec.describe "Provider login", type: :feature do
         body: build(:api_result, eligible: "eligible").to_json,
         headers: { "Content-Type" => "application/json" },
       )
-      first = instance_double(CfeResult, ineligible_gross_income?: true,
-                                         gross_income_excess: 100,
-                                         gross_income_result: "ineligible")
-      second = instance_double(CfeResult, ineligible_gross_income?: false,
-                                          gross_income_excess: 0,
-                                          gross_income_result: "eligible")
-      allow(CfeService).to receive(:result).and_return(first, second)
+      ineligible_result = instance_double(CfeResult, gross_income_excess: 100,
+                                                     gross_income_result: "ineligible")
+      eligible_result = instance_double(CfeResult, gross_income_excess: 0,
+                                                   gross_income_result: "eligible")
+      allow(CfeService).to receive(:result).and_return(ineligible_result, eligible_result)
       allow(CfeService).to receive(:call).and_return build(:api_result, eligible: "ineligible")
       start_assessment
       fill_in_forms_until(:applicant)
