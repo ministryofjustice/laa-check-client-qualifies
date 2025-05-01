@@ -7,7 +7,7 @@
 - content_for :back do
   - if @early_result_type
     = back_link(@previous_step, true)
-  -else
+  - else
     = link_to t("generic.back"), check_answers_path(assessment_code: params[:assessment_code]), class: "govuk-back-link"
 
 .govuk-grid-column-full
