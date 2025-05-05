@@ -173,10 +173,10 @@
   resolved "https://registry.yarnpkg.com/@hotwired/turbo/-/turbo-7.3.0.tgz#2226000fff1aabda9fd9587474565c9929dbf15d"
   integrity sha512-Dcu+NaSvHLT7EjrDrkEmH4qET2ZJZ5IcCWmNXxNQTBwlnE5tBZfN6WxZ842n5cHV52DH/AKNirbPBtcEXDLW4g==
 
-"@ministryofjustice/frontend@5.1.2":
-  version "5.1.2"
-  resolved "https://registry.yarnpkg.com/@ministryofjustice/frontend/-/frontend-5.1.2.tgz#0eb44cd9f1e2e322dd24792f1e2bd66f8f4b56da"
-  integrity sha512-ZpxmefOMLdm4CQGctz4KLIlbgJGHTjhJXohKAygZoA+/pP+paGmbeGIDkdjW7wRF5etld+ERZ9yqNeoMmm+VAw==
+"@ministryofjustice/frontend@5.1.3":
+  version "5.1.3"
+  resolved "https://registry.yarnpkg.com/@ministryofjustice/frontend/-/frontend-5.1.3.tgz#b85a7978d4f3bd7bf1423be88077ef1578fdd6df"
+  integrity sha512-h6/riC6zDo5scevzZz1RByRo3AnX4k2ywFMTX47Irq9y7keyhalyfO5D0+VAJMpX0ADuNLg3f2tJh+cumH/PBA==
 
 "@parcel/watcher-android-arm64@2.5.0":
   version "2.5.0"
@@ -300,51 +300,51 @@
   resolved "https://registry.yarnpkg.com/@rails/ujs/-/ujs-7.1.501.tgz#e560a7b6885a12a659c4beb47f4336c8a9353056"
   integrity sha512-7EDRGUlgns12IgP3SXVSaxA3CwRzbLOypPXn1EqEZiZ/NS/PwaQ/oa7Z2VRO4B46JifoVr0PYg+G5ERSGQJHxQ==
 
-"@sentry-internal/browser-utils@9.14.0":
-  version "9.14.0"
-  resolved "https://registry.yarnpkg.com/@sentry-internal/browser-utils/-/browser-utils-9.14.0.tgz#d864b6c6c41fb409baa5df5080443f7c33bf7b86"
-  integrity sha512-pDk9XUu9zf7lcT9QX0nTObPNp/y0xQyy1Dj+5/8TSB3vAfe0LQcooKGl/D1h7EoIXVHUozZk5JC/dH+gz6BXRg==
+"@sentry-internal/browser-utils@9.15.0":
+  version "9.15.0"
+  resolved "https://registry.yarnpkg.com/@sentry-internal/browser-utils/-/browser-utils-9.15.0.tgz#999f0205fd6dc380f35c4a1133c64454c06a0fc3"
+  integrity sha512-tIM+9zXCefkInRiNmBkXKgkamRjEOlAcf768cBKlMWVOatfNrSEB0UEV7qkAYqnQGWkbPkHFMbFJxWptydLODw==
   dependencies:
-    "@sentry/core" "9.14.0"
+    "@sentry/core" "9.15.0"
 
-"@sentry-internal/feedback@9.14.0":
-  version "9.14.0"
-  resolved "https://registry.yarnpkg.com/@sentry-internal/feedback/-/feedback-9.14.0.tgz#d003ad6cddee140f7e82dbf649cf47e40489f6f9"
-  integrity sha512-D+PiEUWbDT0vqmaTiOs6OzXwVRVFgf7BCkFs48qsN9sAPwUgT+5zh2oo/rU2r0NrmMcvJVtSY+ezwPMk8BgGsg==
+"@sentry-internal/feedback@9.15.0":
+  version "9.15.0"
+  resolved "https://registry.yarnpkg.com/@sentry-internal/feedback/-/feedback-9.15.0.tgz#dd3194e93765521559645fea2f2f864e62156134"
+  integrity sha512-jyN0r57WL8V5ViwZpiNvbIhF9I89jxn6mtIQcyV85EjIXDyzJmeTgxc/FIU0kcDVv6zso3qnGRJUxGK+GvoYZg==
   dependencies:
-    "@sentry/core" "9.14.0"
+    "@sentry/core" "9.15.0"
 
-"@sentry-internal/replay-canvas@9.14.0":
-  version "9.14.0"
-  resolved "https://registry.yarnpkg.com/@sentry-internal/replay-canvas/-/replay-canvas-9.14.0.tgz#30516c5555c6646401ea97540a459a064910b1c4"
-  integrity sha512-GhCSqc0oNzRiLhQsi9LCXgUmIwdHdvzVIsX4fihoFYWfgWSSj5YLqeEkb3CMM8htM6vheSFzIbPLlRS8fjCrPQ==
+"@sentry-internal/replay-canvas@9.15.0":
+  version "9.15.0"
+  resolved "https://registry.yarnpkg.com/@sentry-internal/replay-canvas/-/replay-canvas-9.15.0.tgz#7ec2a8bb8f571b78506cdba208ee6ed00faa7f40"
+  integrity sha512-a1/oiXwcW5OmILjD7/R2UEsPQWXJBUr0u388uCKDUGeyXLxBBbIJGS5E8oLwVQLVxhVJrODgxvT19z9OVcbn7g==
   dependencies:
-    "@sentry-internal/replay" "9.14.0"
-    "@sentry/core" "9.14.0"
+    "@sentry-internal/replay" "9.15.0"
+    "@sentry/core" "9.15.0"
 
-"@sentry-internal/replay@9.14.0":
-  version "9.14.0"
-  resolved "https://registry.yarnpkg.com/@sentry-internal/replay/-/replay-9.14.0.tgz#491d12930175e814c097b9b6ba097f47b4f4770c"
-  integrity sha512-wgt397/PtpfVQ9t779a0L+hGH3JN9doXv3+9Wj98MLWwhymvJBjpjCFUBLScO5iP6imewTbRqQHbq7XS7I+x1A==
+"@sentry-internal/replay@9.15.0":
+  version "9.15.0"
+  resolved "https://registry.yarnpkg.com/@sentry-internal/replay/-/replay-9.15.0.tgz#7c6522b6b9d410f0f4b0b963777d2894fc11967f"
+  integrity sha512-lv6ENRmfeBuod6Tr1WgLeF0+wIIXlHWNAGofsaNUvm8UKS7USicFsQWKOZPk4UyjTfrEClPp2vx+o7aUcZS6TQ==
   dependencies:
-    "@sentry-internal/browser-utils" "9.14.0"
-    "@sentry/core" "9.14.0"
+    "@sentry-internal/browser-utils" "9.15.0"
+    "@sentry/core" "9.15.0"
 
-"@sentry/browser@9.14.0":
-  version "9.14.0"
-  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-9.14.0.tgz#159ca710028891e1e9b160d491ddfb774cf1ed67"
-  integrity sha512-acxFbFEei3hzKr/IW3OmkzHlwohRaRBG0872nIhLYV2f/BgZmR6eV5zrUoELMmt2cgoLmDYyfp1734OoplfDbw==
+"@sentry/browser@9.15.0":
+  version "9.15.0"
+  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-9.15.0.tgz#a690b2bd5fb7ca18789887424e4c0773fd8262c8"
+  integrity sha512-ppHESKFVQFpAb3rQI2ateDkmMytVcvAWsjZrZ3hF9iEnO3iTIIu32ib5nqQUL4KKXZQovYnDrSlDcdv3ZwX/8Q==
   dependencies:
-    "@sentry-internal/browser-utils" "9.14.0"
-    "@sentry-internal/feedback" "9.14.0"
-    "@sentry-internal/replay" "9.14.0"
-    "@sentry-internal/replay-canvas" "9.14.0"
-    "@sentry/core" "9.14.0"
+    "@sentry-internal/browser-utils" "9.15.0"
+    "@sentry-internal/feedback" "9.15.0"
+    "@sentry-internal/replay" "9.15.0"
+    "@sentry-internal/replay-canvas" "9.15.0"
+    "@sentry/core" "9.15.0"
 
-"@sentry/core@9.14.0":
-  version "9.14.0"
-  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-9.14.0.tgz#4d51bf0ff719a8dee821d31be4abf1afd73f6c6e"
-  integrity sha512-OLfucnP3LAL5bxVNWc2RVOHCX7fk9Er5bWPCS+O5cPjqNUUz0HQHhVh2Vhei5C0kYZZM4vy4BQit5T9LrlOaNA==
+"@sentry/core@9.15.0":
+  version "9.15.0"
+  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-9.15.0.tgz#590f16a15596ce01db49d9d80b31cb18048ca9a4"
+  integrity sha512-lBmo3bzzaYUesdzc2H5K3fajfXyUNuj5koqyFoCAI8rnt9CBl7SUc/P07+E5eipF8mxgiU3QtkI7ALzRQN8pqQ==
 
 "@tootallnate/quickjs-emscripten@^0.23.0":
   version "0.23.0"
@@ -738,10 +738,10 @@ get-uri@^6.0.1:
     debug "^4.3.4"
     fs-extra "^8.1.0"
 
-govuk-frontend@^5.9.0:
-  version "5.9.0"
-  resolved "https://registry.yarnpkg.com/govuk-frontend/-/govuk-frontend-5.9.0.tgz#4064ac692019e60f030d6311c49330a6454a5689"
-  integrity sha512-8NzmyoDtRFYyHs413DfNPR8Zo6qw6Q02Mruxml/Yfy+EueaOI/JZ4gVM8d0pqzJmTiMcJuHhvxqYEgBRmqeoyA==
+govuk-frontend@^5.10.0:
+  version "5.10.0"
+  resolved "https://registry.yarnpkg.com/govuk-frontend/-/govuk-frontend-5.10.0.tgz#812a5a14e4466130603b60b9da3d43a6b06b7069"
+  integrity sha512-9tjpB8PDwsDqutkQPJXfDalLvNOeKxzFhV7me21s/oyn7HcTg/ei/GC3Y4JvNsXauzjOkxv4eeCHntKeySkdMg==
 
 graceful-fs@^4.1.6, graceful-fs@^4.2.0:
   version "4.2.11"
