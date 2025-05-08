@@ -38,16 +38,14 @@ Use [Homebrew](https://brew.sh/) to install any dependencies. The Homebrew docum
 Install `PostgreSQL`. You will need to select a version if using brew. Run the below command, changing the version number as appropriate:
 
 ```bash
-brew install postgresql@17
+brew install postgresql@14
 ```
 
 You will be prompted on the command line to start the server with something like:
 
 ```bash
-brew services start postgresql@17
+brew services start postgresql@14
 ```
-
-If you need to run multiple different versions of postgres locally you can also consider using the [postgres.app](https://postgresapp.com/) which provides mac users an app and gui to do this.
 
 You will also need `pdftk`. There is a [Mac installer](https://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/pdftk_server-2.02-mac_osx-10.11-setup.pkg) for convenience.
 
