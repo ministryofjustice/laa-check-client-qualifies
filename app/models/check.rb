@@ -150,6 +150,10 @@ class Check
     Steps::Logic.non_means_tested?(session_data)
   end
 
+  def passported?
+    Steps::Logic.passported?(session_data)
+  end
+
   def skip_income_questions?
     Steps::Logic.skip_income_questions?(session_data)
   end

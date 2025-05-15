@@ -89,6 +89,18 @@ RSpec.describe "Early result journey", type: :feature do
         expect(page).not_to have_content("Gross monthly income limit exceeded")
         fill_in_partner_outgoings_screen
       end
+
+      context "when I use the back button to change the passporting benefit value to Yes" do
+        it "does not display the banner on the partner details page" do
+          confirm_screen("partner_details")
+          expect(page).to have_content("Gross monthly income limit exceeded")
+          6.times { click_on "Back" }
+          confirm_screen("applicant")
+          fill_in_applicant_screen(partner: partner_value, passporting: "Yes")
+          confirm_screen("partner_details")
+          expect(page).not_to have_content("Gross monthly income limit exceeded")
+        end
+      end
     end
   end
 
