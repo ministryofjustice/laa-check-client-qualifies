@@ -8,7 +8,6 @@ CCQ is effectively a front end for [CFE Civil](https://github.com/ministryofjust
 
 CCQ only knows about the specifics of the eligibility ruleset to the extent that this knowledge is needed in order to be able to ask the right questions.
 
-
 ## Documentation for developers
 
 ### Dependencies
