@@ -29,14 +29,9 @@
   h2.govuk-heading-m = t(".when_you_should_not_use_this_service")
   p.govuk-body = t(".you_should_not_use_this_service_if")
 
-  - if FeatureFlags.enabled?(:shared_ownership, without_session_data: true)
-    ul.govuk-list.govuk-list--bullet
-      - t(".invalid_case_types_html", page_url: document_link(:legal_aid_checker_for_public)).each
-        li = _1
-  - else
-    ul.govuk-list.govuk-list--bullet
-      - t(".invalid_case_types_legacy_html", page_url: document_link(:legal_aid_checker_for_public)).each
-        li = _1
+  ul.govuk-list.govuk-list--bullet
+    - t(".invalid_case_types_html", page_url: document_link(:legal_aid_checker_for_public)).each
+      li = _1
 
   = link_to start_button_label(:start_button),
     new_check_path,
