@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "shared_ownership_housing_costs", :calls_cfe_early_returns_not_ineligible, :shared_ownership, type: :feature do
+RSpec.describe "shared_ownership_housing_costs", :calls_cfe_early_returns_not_ineligible, type: :feature do
   let(:level_of_help) { :controlled }
 
   before do

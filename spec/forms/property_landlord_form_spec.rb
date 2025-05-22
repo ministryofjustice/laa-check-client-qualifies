@@ -18,19 +18,19 @@ RSpec.describe "property_landlord", :calls_cfe_early_returns_not_ineligible, typ
       fill_in_property_screen(choice: property_owned)
     end
 
-    it "shows an error message if no value is entered", :shared_ownership do
+    it "shows an error message if no value is entered" do
       click_on "Save and continue"
       expect(page).to have_content title
       expect(page).to have_content "Select yes if the landlord is the only other joint-owner"
     end
 
-    it "stores the chosen value in the session", :shared_ownership do
+    it "stores the chosen value in the session" do
       choose "Yes"
       click_on "Save and continue"
       expect(session_contents["property_landlord"]).to be true
     end
 
-    it "stores the chosen value in the session and subsequent page in `cannot-use-service`", :shared_ownership do
+    it "stores the chosen value in the session and subsequent page in `cannot-use-service`" do
       choose "No"
       click_on "Save and continue"
       expect(session_contents["property_landlord"]).to be false
@@ -49,13 +49,13 @@ RSpec.describe "property_landlord", :calls_cfe_early_returns_not_ineligible, typ
       fill_in_property_screen(choice: property_owned)
     end
 
-    it "shows an error message if no value is entered", :shared_ownership do
+    it "shows an error message if no value is entered" do
       click_on "Save and continue"
       expect(page).to have_content title
       expect(page).to have_content "Select yes if the landlord is the only other joint-owner"
     end
 
-    it "stores the chosen value in the session", :shared_ownership do
+    it "stores the chosen value in the session" do
       choose "Yes"
       click_on "Save and continue"
       expect(session_contents["property_landlord"]).to be true
@@ -76,13 +76,13 @@ RSpec.describe "property_landlord", :calls_cfe_early_returns_not_ineligible, typ
       fill_in_property_screen(choice: property_owned)
     end
 
-    it "shows an error message if no value is entered", :shared_ownership do
+    it "shows an error message if no value is entered" do
       click_on "Save and continue"
       expect(page).to have_content title
       expect(page).to have_content "Select yes if the landlord is the only other joint-owner"
     end
 
-    it "stores the chosen value in the session", :shared_ownership do
+    it "stores the chosen value in the session" do
       choose "Yes"
       click_on "Save and continue"
       expect(session_contents["property_landlord"]).to be true
