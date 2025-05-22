@@ -58,7 +58,6 @@ featureFlags:
   indexProduction: ENABLED
   maintenanceMode: NOT_ENABLED
   basicAuthentication: NOT_ENABLED
-  sharedOwnership: ENABLED
 
 sentry:
   # Despite looking very secret-y, the key here is _not_ a secret, as it will appear in every HTTP response header
