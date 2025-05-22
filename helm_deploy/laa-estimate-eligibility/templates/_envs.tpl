@@ -67,8 +67,6 @@ env:
     value: {{ .Values.featureFlags.maintenanceMode }}
   - name: BASIC_AUTHENTICATION_FEATURE_FLAG
     value: {{ .Values.featureFlags.basicAuthentication }}
-  - name: SHARED_OWNERSHIP_FEATURE_FLAG
-    value: {{ .Values.featureFlags.sharedOwnership }}
   - name: FEATURE_FLAG_OVERRIDES
     value: {{ .Values.featureFlags.overrides }}
   - name: NOTIFICATIONS_API_KEY
