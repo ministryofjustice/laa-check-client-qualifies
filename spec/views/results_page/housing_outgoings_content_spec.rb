@@ -76,13 +76,13 @@ RSpec.describe "results/show.html.slim" do
       render template: "results/show"
     end
 
-    it "displays housing cap when client is single and has no dependants", :shared_ownership do
+    it "displays housing cap when client is single and has no dependants" do
       expect(page_text).to match(/Housing payments(.+)£545.00/)
       expect(page_text).to have_content("Rent and mortgage costs minus any Housing Benefits your client gets")
       expect(page_text).to have_content("Housing costs are capped at £545 for single clients without dependants")
     end
 
-    context "when client has a partner and dependant", :shared_ownership do
+    context "when client has a partner and dependant" do
       let(:session_data) do
         {
           partner: true,

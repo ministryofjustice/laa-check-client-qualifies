@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "shared ownership work flow", :shared_ownership, :stub_cfe_calls_with_webmock, type: :feature do
+RSpec.describe "shared ownership work flow", :stub_cfe_calls_with_webmock, type: :feature do
   it "allows me to reach check answers via the shared ownership questions" do
     start_assessment
     fill_in_forms_until(:property)

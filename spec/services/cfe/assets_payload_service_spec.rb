@@ -292,7 +292,7 @@ RSpec.describe Cfe::AssetsPayloadService do
       end
     end
 
-    context "when main property is owned in a shared_ownership model", :shared_ownership do
+    context "when main property is owned in a shared_ownership model" do
       let(:session_data) do
         FactoryBot.build(:minimal_complete_session,
                          :with_main_shared_ownership,
