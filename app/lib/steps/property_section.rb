@@ -14,7 +14,6 @@ module Steps
         return [] if Steps::Logic.skip_capital_questions?(session_data)
 
         [
-          (Steps::Group.new(:property_entry) if Steps::Logic.owns_property?(session_data)),
           Steps::Group.new(*additional_property_steps(session_data)),
           partner_additional_property_group(session_data),
         ].compact

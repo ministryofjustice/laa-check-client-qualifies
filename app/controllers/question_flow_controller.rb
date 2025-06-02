@@ -3,11 +3,7 @@ class QuestionFlowController < ApplicationController
 
   def show
     track_page_view
-    @previous_step = if step == :property_landlord
-                       :property
-                     else
-                       Steps::Helper.previous_step_for(session_data, step)
-                     end
+    @previous_step = Steps::Helper.previous_step_for(session_data, step)
     @form = Flow::Handler.form_from_session(step, session_data)
     render "/question_flow/#{step}"
   end
