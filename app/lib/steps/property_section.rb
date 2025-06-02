@@ -1,20 +1,17 @@
 module Steps
   class PropertySection
-    PROPERTY_STEPS = %i[property property_landlord property_entry].freeze
     ADDITIONAL_PROPERTY_STEPS = %i[additional_property additional_property_details].freeze
     ADDITIONAL_PARTNER_PROPERTY_STEPS = %i[partner_additional_property partner_additional_property_details].freeze
-    HOUSING_COSTS_STEPS = %i[housing_costs shared_ownership_housing_costs mortgage_or_loan_payment].freeze
 
     class << self
       def all_steps
-        PROPERTY_STEPS + ADDITIONAL_PROPERTY_STEPS + ADDITIONAL_PARTNER_PROPERTY_STEPS + HOUSING_COSTS_STEPS
+        ADDITIONAL_PROPERTY_STEPS + ADDITIONAL_PARTNER_PROPERTY_STEPS
       end
 
       def grouped_steps_for(session_data)
         return [] if Steps::Logic.skip_capital_questions?(session_data)
 
         [
-          (Steps::Group.new(:property_entry) if Steps::Logic.owns_property?(session_data)),
           Steps::Group.new(*additional_property_steps(session_data)),
           partner_additional_property_group(session_data),
         ].compact
