@@ -1,5 +1,5 @@
 doctype html
-html dir="ltr" lang="en-GB" class="govuk-template"
+html dir="ltr" lang="en-GB" class="govuk-template govuk-template--rebranded"
   head
     = render "layouts/analytics_head"
     title
@@ -11,16 +11,16 @@ html dir="ltr" lang="en-GB" class="govuk-template"
     = csp_meta_tag
 
     = tag.meta name: "viewport", content: "width=device-width, initial-scale=1"
-    = tag.meta property: "og:image", content: asset_path("images/govuk-opengraph-image.png")
-    = tag.meta name: "theme-color", content: "#0b0c0c"
+    = tag.meta property: "og:image", content: asset_path("rebrand/images/govuk-opengraph-image.png")
+    = tag.meta name: "theme-color", content: "#1d70b8"
     = tag.meta name: "robots", content: "noindex"
     meta charset="UTF-8"
 
-    = favicon_link_tag asset_path("images/favicon.ico"), rel: "icon", sizes: "48x48"
-    = favicon_link_tag asset_path("images/favicon.svg"), rel: "icon", sizes: "any", type: "image/svg+xml"
-    = favicon_link_tag asset_path("images/govuk-icon-mask.svg"), rel: "mask-icon", color: "#0b0c0c"
-    = favicon_link_tag asset_path("images/govuk-icon-180.png"), rel: "apple-touch-icon"
-    link rel="manifest" href=asset_path("manifest.json")
+    = favicon_link_tag asset_path("rebrand/images/favicon.ico"), rel: "icon", sizes: "48x48"
+    = favicon_link_tag asset_path("rebrand/images/favicon.svg"), rel: "icon", sizes: "any", type: "image/svg+xml"
+    = favicon_link_tag asset_path("rebrand/images/govuk-icon-mask.svg"), rel: "mask-icon", color: "#1d70b8"
+    = favicon_link_tag asset_path("rebrand/images/govuk-icon-180.png"), rel: "apple-touch-icon"
+    link rel="manifest" href=asset_path("rebrand/manifest.json")
 
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = stylesheet_link_tag "pdf"

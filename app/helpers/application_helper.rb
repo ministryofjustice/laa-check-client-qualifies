@@ -82,7 +82,7 @@ module ApplicationHelper
         header.with_navigation_item(text: t(".sign_out"), href: providers_logout_path, active: false, html_attributes: { aria: { role: "button" } })
       end
     else
-      govuk_header(homepage_url: "https://www.gov.uk", service_name: t("service.name"), service_url: root_path)
+      govuk_header(homepage_url: "https://www.gov.uk")
     end
   end
 end
