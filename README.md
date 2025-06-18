@@ -275,6 +275,20 @@ It knows how answers to certain questions affect the relevance of certain other 
 **Check** provides access to all _relevant_ data for a check. For any attribute it uses Steps::Helper and Flow::Handler to determine whether,
 given the other answers supplied, the attribute is relevant. If not, when asked for that attribute it will return `nil`. Otherwise it will return that attribute.
 
+### Flow logic and steps
+As the user progresses through CCQ they will be shown a series of forms or steps. Steps are defined in app/lib/steps and are ordered into the following sections.
+
+* NonFinancialSection
+* IncomeSection
+* PartnerSection
+* OutgoingsSection
+* PropertySection
+* AssetsAndVehiclesSection
+
+The sections reflect the sections on the Check your answers page.
+
+Additionally, steps are ordered into groups, each containing one or more steps. The significance of the groups is that when a user reaches the Check your answers page, if they select to change an answer, they will be shown the page corresponding to the step with the answer they want to change and then pages for any other subsequent steps within the same group.
+
 ### I18n
 We keep all user-facing content strings in locale files. In particular, `config/locales/en.yml` contains nearly every piece of text on the site.
 
