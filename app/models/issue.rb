@@ -18,7 +18,7 @@ class Issue < ApplicationRecord
   end
 
   def self.issues_for_updates_page
-    Issue.joins(:issue_updates).where(status: [statuses[:active], statuses[:resolved]]).uniq
+    Issue.includes(:issue_updates).where(status: [statuses[:active], statuses[:resolved]]).where.not(issue_updates: { issue_id: nil }).references(:issue_updates).uniq
   end
 
   def title_for_sentences
