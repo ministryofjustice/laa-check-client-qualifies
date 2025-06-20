@@ -2,7 +2,7 @@
 - status = data.status.dasherize
 
 - if @early_result_type == section.to_s
-  - total_calc = @model.send("total_calculated_#{section}")
+  - total_calc = @model.send("total_calculated_without_zeros_#{section}")
 
 . class="summary-box summary-box-#{@early_result_type == section.to_s ? status : "not-assessed"}"
   p.govuk-body-l.summary-list-subheader class="govuk-!-margin-bottom-0" = t("results.show.section_summaries.heading.#{section}")
@@ -39,7 +39,8 @@
             capital_contribution: @model.capital_contribution,
             income_contribution: @model.income_contribution)
       - if links
-        = link_to t("results.show.section_summaries.see_calculation"),
-                  "##{data[:section]}",
-                  class: "summary-box-link",
-                  "aria-label": t("results.show.section_summaries.see_calculation_aria_label.#{data[:section]}")
+        p.govuk-body-m
+          = link_to t("results.show.section_summaries.see_calculation"),
+                    "##{data[:section]}",
+                    class: "summary-box-link",
+                    "aria-label": t("results.show.section_summaries.see_calculation_aria_label.#{data[:section]}")
