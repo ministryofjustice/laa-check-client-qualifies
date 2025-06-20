@@ -13,7 +13,7 @@
       = t("results.show.section_summaries.not_assessed")
   - elsif data.status == "ineligible"
     .govuk-tag.govuk-tag--custom-red
-      = t("results.show.section_summaries.exceeds_upper_limit")
+      = t("results.show.section_summaries.exceeds_upper_limit_#{section}", upper_threshold: data.upper_threshold)
   - elsif data.status == "contribution_required_and_overall_contribution_required"
     .govuk-tag
       = t("results.show.section_summaries.contribution_needed")
