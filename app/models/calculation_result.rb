@@ -239,13 +239,13 @@ private
     if threshold
       difference = (number_as_float - threshold).abs
 
-      if difference < 1
-        # Within £1 of the threshold, by checking the decimal - show pence only if needed
-        precision = (number_as_float % 1).zero? ? 0 : 2
-      else
-        # More than £1 from the threshold — show pounds only
-        precision = 0
-      end
+      precision = if difference < 1
+                    # Within £1 of the threshold, by checking the decimal - show pence only if needed
+                    (number_as_float % 1).zero? ? 0 : 2
+                  else
+                    # More than £1 from the threshold — show pounds only
+                    0
+                  end
     else
       # No threshold given — show pence only if not .00
       precision = (number_as_float % 1).zero? ? 0 : 2
