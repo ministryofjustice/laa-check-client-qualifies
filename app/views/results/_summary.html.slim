@@ -4,7 +4,7 @@
 - early_result = data.ineligible_gross_income == "gross" && section != :gross_income
 
 - unless early_result
-  - total_calc = @model.send("total_calculated_#{section}")
+  - total_calc = @model.send("total_calculated_without_zeros_#{section}")
 
 . class="summary-box summary-box-#{early_result ? "not-assessed" : status}"
   p.govuk-body-l.summary-list-subheader class="govuk-!-margin-bottom-0" = t("results.show.section_summaries.heading.#{section}")
