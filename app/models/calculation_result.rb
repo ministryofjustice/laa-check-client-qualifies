@@ -66,6 +66,10 @@ class CalculationResult
     monetise(api_response.raw_total_calculated_gross_income)
   end
 
+  def total_calculated_without_zeros_gross_income
+    monetise_without_zeros(api_response.raw_total_calculated_gross_income, threshold: api_response.raw_gross_income_upper_threshold)
+  end
+
   def gross_outgoings
     monetise(api_response.raw_gross_outgoings)
   end
@@ -78,8 +82,16 @@ class CalculationResult
     monetise(api_response.raw_total_calculated_disposable_income)
   end
 
+  def total_calculated_without_zeros_disposable_income
+    monetise_without_zeros(api_response.raw_total_calculated_disposable_income, threshold: api_response.raw_disposable_income_upper_threshold)
+  end
+
   def total_calculated_capital
     monetise(api_response.raw_total_calculated_capital)
+  end
+
+  def total_calculated_without_zeros_capital
+    monetise_without_zeros(api_response.raw_total_calculated_capital, threshold: api_response.raw_capital_upper_threshold)
   end
 
   def disposable_income_upper_threshold
@@ -216,6 +228,30 @@ private
     return I18n.t("generic.not_applicable") if number.nil? || number == CFE_MAX_VALUE
 
     number_to_currency(number, unit: "£", separator: ".", delimiter: ",", precision:)
+  end
+
+  def monetise_without_zeros(number, threshold: nil)
+    return I18n.t("generic.not_applicable") if number.nil? || number == CFE_MAX_VALUE
+
+    number_as_float = number.to_f
+    precision = 2
+
+    if threshold
+      difference = (number_as_float - threshold).abs
+
+      precision = if difference < 1
+                    # Within £1 of the threshold, by checking the decimal - show pence only if needed
+                    (number_as_float % 1).zero? ? 0 : 2
+                  else
+                    # More than £1 from the threshold — show pounds only
+                    0
+                  end
+    else
+      # No threshold given — show pence only if not .00
+      precision = (number_as_float % 1).zero? ? 0 : 2
+    end
+
+    number_to_currency(number_as_float, unit: "£", separator: ".", delimiter: ",", precision:)
   end
 
   def income_rows(prefix:)
