@@ -69,7 +69,7 @@ module Steps
         [NonFinancialSection,
          IncomeSection,
          PartnerSection,
-         OutgoingsSection,
+         OutgoingsAndPropertySection,
          AdditionalPropertySection,
          AssetsAndVehiclesSection]
       end

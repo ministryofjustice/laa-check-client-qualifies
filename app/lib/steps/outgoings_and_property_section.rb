@@ -1,5 +1,5 @@
 module Steps
-  class OutgoingsSection
+  class OutgoingsAndPropertySection
     class << self
       def all_steps
         %i[outgoings partner_outgoings property property_landlord property_entry shared_ownership_housing_costs mortgage_or_loan_payment housing_costs]
