@@ -1,5 +1,5 @@
 module Steps
-  class PropertySection
+  class AdditionalPropertySection
     ADDITIONAL_PROPERTY_STEPS = %i[additional_property additional_property_details].freeze
     ADDITIONAL_PARTNER_PROPERTY_STEPS = %i[partner_additional_property partner_additional_property_details].freeze
 

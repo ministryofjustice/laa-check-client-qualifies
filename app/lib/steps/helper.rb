@@ -70,7 +70,7 @@ module Steps
          IncomeSection,
          PartnerSection,
          OutgoingsSection,
-         PropertySection,
+         AdditionalPropertySection,
          AssetsAndVehiclesSection]
       end
 
