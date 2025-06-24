@@ -53,11 +53,18 @@ WORKDIR /app
 
 RUN apt update
 # Need postgres for db, node for puppeteer (PDFs) and pdftk for CWForms
-RUN apt install -y postgresql-client nodejs pdftk
+RUN apt install -y nodejs pdftk
 
 # install all chromium's dependencies, but then remove chromium itself as we will be installing via puppeteer
 RUN apt install -y chromium
 RUN apt remove -y chromium
+
+# install postgreql-client-17 as it is not part of base image
+RUN apt-get update && apt-get install -y wget gnupg lsb-release ca-certificates \
+  && echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list \
+  && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor -o /etc/apt/trusted.gpg.d/pgdg.gpg \
+  && apt-get update && apt-get install -y postgresql-client-17 \
+  && rm -rf /var/lib/apt/lists/*
 
 # make a config directory in $HOME
 RUN mkdir -p /.config/chromium
