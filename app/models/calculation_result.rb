@@ -231,27 +231,25 @@ private
   end
 
   def monetise_without_zeros(number, threshold: nil)
-    return I18n.t("generic.not_applicable") if number.nil? || number == CFE_MAX_VALUE
+    return I18n.t("generic.not_applicable") if number.blank? || number == CFE_MAX_VALUE
 
     number_as_float = number.to_f
-    precision = 2
-
-    if threshold
-      difference = (number_as_float - threshold).abs
-
-      precision = if difference < 1
-                    # Within £1 of the threshold, by checking the decimal - show pence only if needed
-                    (number_as_float % 1).zero? ? 0 : 2
-                  else
-                    # More than £1 from the threshold — show pounds only
-                    0
-                  end
-    else
-      # No threshold given — show pence only if not .00
-      precision = (number_as_float % 1).zero? ? 0 : 2
-    end
+    precision = calculate_precision(number_as_float, threshold)
 
     number_to_currency(number_as_float, unit: "£", separator: ".", delimiter: ",", precision:)
+  end
+
+  def calculate_precision(number, threshold)
+    return (number % 1).zero? ? 0 : 2 unless threshold
+
+    difference = (number - threshold).abs
+    if difference < 1
+      # Within £1 of the threshold, by checking the decimal - show pence only if needed
+      (number % 1).zero? ? 0 : 2
+    else
+      # More than £1 from the threshold — show pounds only
+      0
+    end
   end
 
   def income_rows(prefix:)
