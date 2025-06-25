@@ -59,7 +59,7 @@ class CalculationResult
   end
 
   def capital_contribution_without_zeros
-     monetise_without_zeros(api_response.raw_capital_contribution)
+    monetise_without_zeros(api_response.raw_capital_contribution)
   end
 
   def income_contribution
@@ -240,7 +240,7 @@ private
 
   def monetise_without_zeros(number)
     return I18n.t("generic.not_applicable") if number.nil? || number == CFE_MAX_VALUE
-    
+
     # This will show the pence value, but not .00
     precision = (number % 1).zero? ? 0 : 2
 
