@@ -19,8 +19,8 @@
   - elsif data.status == "contribution_required_and_overall_contribution_required"
     .govuk-tag
       = t("results.show.section_summaries.contribution_needed_#{section}",
-           capital_contribution: @model.capital_contribution,
-           income_contribution: @model.income_contribution)
+           capital_contribution: @model.capital_contribution_without_zeros,
+           income_contribution: @model.income_contribution_without_zeros)
 
   p.govuk-body class="govuk-!-margin-top-3"
     - upper_snippet = "_no_upper_threshold" if data.no_upper_threshold
