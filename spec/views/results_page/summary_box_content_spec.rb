@@ -207,6 +207,32 @@ RSpec.describe "results/show.html.slim" do
         end
       end
 
+      context "when contribution required and income contribution does not have pence value" do
+        let(:disposable_income_proceeding_type) { build(:proceeding_type, result: "contribution_required", lower_threshold: 500, upper_threshold: 999_999_999_999) }
+        let(:overall_result) { "contribution_required" }
+        let(:result_summary) do
+          build(
+            :result_summary,
+            overall_result: {
+              result: overall_result,
+              income_contribution: 123.00,
+              capital_contribution: 0,
+            },
+            gross_income: build(
+              :gross_income_summary,
+              combined_total_gross_income: 600,
+              proceeding_types: [gross_income_proceeding_type],
+            ),
+          )
+        end
+
+        it "shows an appropriate message", :aggregate_failures do
+          puts "\n=== Page Text ===\n#{page_text}\n=== End Page Text ===\n"
+          $stdout.flush
+          expect(page_text).to include "Contribution needed (£123 per month)"
+        end
+      end
+
       context "when contribution required and there is no upper threshold" do
         let(:disposable_income_proceeding_type) { build(:proceeding_type, result: "contribution_required", lower_threshold: 500, upper_threshold: 999_999_999_999) }
         let(:overall_result) { "contribution_required" }
