@@ -58,12 +58,24 @@ class CalculationResult
     @capital_contribution ||= monetise(api_response.raw_capital_contribution)
   end
 
+  def capital_contribution_without_zeros
+    monetise_without_zeros(api_response.raw_capital_contribution)
+  end
+
   def income_contribution
     @income_contribution ||= monetise(api_response.raw_income_contribution)
   end
 
+  def income_contribution_without_zeros
+    monetise_without_zeros(api_response.raw_income_contribution)
+  end
+
   def total_calculated_gross_income
     monetise(api_response.raw_total_calculated_gross_income)
+  end
+
+  def total_calculated_without_zeros_gross_income
+    monetise_without_zeros_with_threshold(api_response.raw_total_calculated_gross_income, threshold: api_response.raw_gross_income_upper_threshold)
   end
 
   def gross_outgoings
@@ -78,8 +90,16 @@ class CalculationResult
     monetise(api_response.raw_total_calculated_disposable_income)
   end
 
+  def total_calculated_without_zeros_disposable_income
+    monetise_without_zeros_with_threshold(api_response.raw_total_calculated_disposable_income, threshold: api_response.raw_disposable_income_upper_threshold)
+  end
+
   def total_calculated_capital
     monetise(api_response.raw_total_calculated_capital)
+  end
+
+  def total_calculated_without_zeros_capital
+    monetise_without_zeros_with_threshold(api_response.raw_total_calculated_capital, threshold: api_response.raw_capital_upper_threshold)
   end
 
   def disposable_income_upper_threshold
@@ -216,6 +236,37 @@ private
     return I18n.t("generic.not_applicable") if number.nil? || number == CFE_MAX_VALUE
 
     number_to_currency(number, unit: "£", separator: ".", delimiter: ",", precision:)
+  end
+
+  def monetise_without_zeros(number)
+    return I18n.t("generic.not_applicable") if number.nil? || number == CFE_MAX_VALUE
+
+    # This will show the pence value, but not .00
+    precision = (number % 1).zero? ? 0 : 2
+
+    number_to_currency(number, unit: "£", separator: ".", delimiter: ",", precision:)
+  end
+
+  def monetise_without_zeros_with_threshold(number, threshold: nil)
+    return I18n.t("generic.not_applicable") if number.blank? || number == CFE_MAX_VALUE
+
+    number_as_float = number.to_f
+    precision = calculate_precision(number_as_float, threshold)
+
+    number_to_currency(number_as_float, unit: "£", separator: ".", delimiter: ",", precision:)
+  end
+
+  def calculate_precision(number, threshold)
+    return (number % 1).zero? ? 0 : 2 unless threshold
+
+    difference = (number - threshold).abs
+    if difference < 1
+      # Within £1 of the threshold, by checking the decimal - show pence only if needed
+      (number % 1).zero? ? 0 : 2
+    else
+      # More than £1 from the threshold — show pounds only
+      0
+    end
   end
 
   def income_rows(prefix:)
