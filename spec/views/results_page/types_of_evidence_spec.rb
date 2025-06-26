@@ -27,7 +27,7 @@ RSpec.describe "results/show.html.slim" do
       it "shows relevant text" do
         expect(page_text).to include "3 months of Prisoner Income and Expenditure Statements (PIES)"
         expect(page_text).to include "If the client or any partner are self-employed:"
-        expect(page_text).to include "Most recent set of trading accounts or self-assessment tax return"
+        expect(page_text).to include "most recent set of trading accounts or self-assessment tax return"
       end
     end
   end
