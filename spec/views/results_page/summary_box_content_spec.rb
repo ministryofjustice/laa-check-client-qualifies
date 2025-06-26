@@ -208,28 +208,83 @@ RSpec.describe "results/show.html.slim" do
       end
 
       context "when contribution required and income contribution does not have pence value" do
-        let(:disposable_income_proceeding_type) { build(:proceeding_type, result: "contribution_required", lower_threshold: 500, upper_threshold: 999_999_999_999) }
+        let(:disposable_income_proceeding_type) { build(:proceeding_type, result: "contribution_required", lower_threshold: 315, upper_threshold: 999_999_999_999) }
         let(:overall_result) { "contribution_required" }
         let(:result_summary) do
           build(
             :result_summary,
             overall_result: {
               result: overall_result,
-              income_contribution: 123.00,
+              income_contribution: 67.00,
               capital_contribution: 0,
             },
-            gross_income: build(
-              :gross_income_summary,
-              combined_total_gross_income: 600,
-              proceeding_types: [gross_income_proceeding_type],
+            disposable_income: build(
+              :disposable_income_summary,
+              combined_total_disposable_income: 494.43,
+              proceeding_types: [disposable_income_proceeding_type],
             ),
           )
         end
 
-        it "shows an appropriate message", :aggregate_failures do
-          puts "\n=== Page Text ===\n#{page_text}\n=== End Page Text ===\n"
-          $stdout.flush
-          expect(page_text).to include "Contribution needed (£123 per month)"
+        it "shows an appropriate message, without the pence" do
+          expect(page_text).to include "Contribution needed (£67 per month)"
+          expect(page_text).to include "Disposable monthly income"\
+                                       "£494"
+          expect(page_text).to include "Above lower limit (£315)"
+        end
+      end
+
+      context "when contribution required and income contribution does have some pence value" do
+        let(:disposable_income_proceeding_type) { build(:proceeding_type, result: "contribution_required", lower_threshold: 400, upper_threshold: 999_999_999_999) }
+        let(:overall_result) { "contribution_required" }
+        let(:result_summary) do
+          build(
+            :result_summary,
+            overall_result: {
+              result: overall_result,
+              income_contribution: 23.23,
+              capital_contribution: 0,
+            },
+            disposable_income: build(
+              :disposable_income_summary,
+              combined_total_disposable_income: 494.43,
+              proceeding_types: [disposable_income_proceeding_type],
+            ),
+          )
+        end
+
+        it "shows an appropriate message, without the pence" do
+          expect(page_text).to include "Contribution needed (£23.23 per month)"
+          expect(page_text).to include "Disposable monthly income"\
+                                       "£494"
+          expect(page_text).to include "Above lower limit (£400)"
+        end
+      end
+
+      context "when contribution required but income contribution does not have number, for some reason" do
+        let(:disposable_income_proceeding_type) { build(:proceeding_type, result: "contribution_required", lower_threshold: 400, upper_threshold: 999_999_999_999) }
+        let(:overall_result) { "contribution_required" }
+        let(:result_summary) do
+          build(
+            :result_summary,
+            overall_result: {
+              result: overall_result,
+              income_contribution: nil,
+              capital_contribution: 0,
+            },
+            disposable_income: build(
+              :disposable_income_summary,
+              combined_total_disposable_income: 494.43,
+              proceeding_types: [disposable_income_proceeding_type],
+            ),
+          )
+        end
+
+        it "shows an appropriate message, without any contribution needed" do
+          expect(page_text).to include "Contribution needed (Not applicable per month)"
+          expect(page_text).to include "Disposable monthly income"\
+                                       "£494"
+          expect(page_text).to include "Above lower limit (£400)"
         end
       end
 
