@@ -13,7 +13,7 @@ class ChangeAnswersController < QuestionFlowController
       if Steps::Helper.cannot_use_service?(session_data, step)
         redirect_to cannot_use_service_path assessment_code:, step:
       # we need to check for shared_ownership_housing_costs to determine if we need to show property_entry screen when in the change loop
-      elsif Steps::Helper.display_property_entry_in_change_answers?(session_data, step)
+      elsif step == :shared_ownership_housing_costs
         redirect_to helpers.check_step_path_from_step(:property_entry, assessment_code)
       # we need to check for aggregated_means so we know when to show the ":how_to_aggregate" screen when in a change loop
       elsif next_step && step != :aggregated_means
