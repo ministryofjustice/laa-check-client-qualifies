@@ -1994,8 +1994,7 @@ en:
         - 3 months of Prisoner Income and Expenditure Statements (PIES) and evidence as set out above for ‘outside’ income (if the client or partner is a prisoner)
         - if the client or any partner’s access to capital is affected by bankruptcy or a restraint or freezing order covering their assets, relevant documentation such as a copy of the bankruptcy order, a statement of assets and liabilities (if available), a copy of restraint order and any variations sought
         - if the client or any partner holds assets as a trustee on behalf of another person, documentary evidence of the trust arrangement
-      certificated_how_calculated: How we calculated whether your client is likely to be financially eligible for civil certificated legal aid work
-      controlled_how_calculated: How we calculated your client’s financial eligibility
+      how_calculated: How we calculated your client’s financial eligibility
       legacy_controlled_types_of_evidence:
         - bank statements covering the most recent month
         - evidence of any benefits or financial support your client received from the government, local authorities or third parties dated in the last 6 months
@@ -2269,7 +2268,7 @@ en:
       calculation_information: We’ve used the information you provided to compare your client’s income and outgoings. This allows us to calculate their monthly disposable income.
       limits_heading: Limits
       outgoings_explanation: "For some outgoings, you may see figures that differ from what you entered. This is because some outgoing amounts are capped or disregarded in certain situations. For example:"
-      outgoings_explanation_controlled_html: For some outgoings, you may see figures that differ from what you entered. This is because some outgoing amounts are capped or disregarded in certain situations. For example, housing costs are capped at £545 per month if your client is single and does not have any dependants (<a href="%{page_url}" target='_blank' rel='noreferrer noopener'>Regulation 28(7) of the 2013 Regulations (opens in new tab)</a>)
+      outgoings_explanation_controlled_html: For some outgoings, you may see figures that differ from what you entered. This is because some outgoing amounts are capped or disregarded in certain situations. For example, housing costs are capped at £545 per month if your client is single and does not have any dependants (<a href="%{page_url}" target='_blank' rel='noreferrer noopener'>Regulation 28(7) of the 2013 Regulations (opens in new tab)</a>).
       list_html:
         - housing costs are capped at £545 per month if your client is single and does not have any dependants (<a href="%{page_url_2}" target='_blank' rel='noreferrer noopener'>Regulation 28(7) of the 2013 Regulations (opens in new tab)</a>)
       certificated_last_item: if your client’s income or capital is between the applicable upper and lower income limits, they may qualify for legal aid but may have to make a monthly or lump sum contribution towards the cost of their case

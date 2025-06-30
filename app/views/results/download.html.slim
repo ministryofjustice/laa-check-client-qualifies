@@ -44,7 +44,7 @@
     = pdf_friendly_p_element(t("results.show.what_happens_next_controlled_ineligible_next_step"), @is_pdf)
 
   - if @model.any_calculations_performed?
-    = pdf_friendly_h2(t("results.show.#{@model.level_of_help}_how_calculated"), "m", @is_pdf)
+    = pdf_friendly_h2(t("results.show.how_calculated"), "m", @is_pdf)
 
   - if @model.calculated?(:gross_income)
     = pdf_friendly_h2(t("results.show.income_calculation"), "m", @is_pdf)
