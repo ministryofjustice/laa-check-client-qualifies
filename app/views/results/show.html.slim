@@ -66,7 +66,7 @@
     p.govuk-body = t(".what_happens_next_controlled_ineligible_next_step")
 
   - if @model.any_calculations_performed?
-    h2.govuk-heading-m = t(".#{@model.level_of_help}_how_calculated")
+    h2.govuk-heading-m = t(".how_calculated")
     = govuk_accordion do |accordion|
       - accordion.with_section(heading_text: t(".legislation_header"))
         = render "legislation_table", caption_size: "m"
