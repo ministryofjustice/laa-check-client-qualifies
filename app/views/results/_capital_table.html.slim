@@ -1,5 +1,4 @@
-/ ee_banner @early_eligibility_selection can be removed when FF is removed
-- if @early_eligibility_selection == "gross" || @early_result_type == "gross_income"
+- if @early_result_type == "gross_income"
      p class="govuk-body" = t(".not_assessed")
 - else
   - if @is_pdf == true

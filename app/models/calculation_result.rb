@@ -13,7 +13,6 @@ class CalculationResult
 
   def initialize(session_data)
     @api_response = CfeResult.new session_data["api_response"]
-    @early_eligibility_selection = session_data.fetch("early_eligibility_selection", nil)
     @level_of_help = session_data.fetch("level_of_help", "certificated")
     @check = Check.new(session_data)
   end
@@ -42,11 +41,11 @@ class CalculationResult
 
     case api_response.result_for(section)
     when "ineligible"
-      Summary.new(**thresholds.merge(status: "ineligible"), ineligible_gross_income: @early_eligibility_selection)
+      Summary.new(**thresholds.merge(status: "ineligible"))
     when "contribution_required"
-      Summary.new(**thresholds.merge(status: "contribution_required_and_overall_#{decision}"), ineligible_gross_income: @early_eligibility_selection)
+      Summary.new(**thresholds.merge(status: "contribution_required_and_overall_#{decision}"))
     else
-      Summary.new(**thresholds.merge(status: "eligible"), ineligible_gross_income: @early_eligibility_selection)
+      Summary.new(**thresholds.merge(status: "eligible"))
     end
   end
 
