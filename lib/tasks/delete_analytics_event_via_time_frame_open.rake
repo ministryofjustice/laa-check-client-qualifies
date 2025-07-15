@@ -1,12 +1,12 @@
 namespace :migrate do
-  desc "EL-2268: Delete unwanted data from AnalyticEvent table based on assessment code"
+  desc "EL-2268: Delete unwanted data from AnalyticEvent table based on the time frame they are open"
   # Rake task to delete unwanted analytics event data.
-  # Call with "rake migrate:delete_analytics_events_based_on_assessment_code[mock]"
-  # e.g. rake "migrate:delete_analytics_events_based_on_assessment_code[false]"
+  # Call with "rake migrate:delete_analytics_events_based_on_time_frame_open[mock]"
+  # e.g. rake "migrate:delete_analytics_events_based_on_time_frame_open[false]"
   # Running with mock=true will output the number of records to be deleted without actually deleting any
   # (to allow for testing).
 
-  task :delete_analytics_events_based_on_assessment_code, %i[mock] => :environment do |_task, args|
+  task :delete_analytics_events_based_on_time_frame_open, %i[mock] => :environment do |_task, args|
     if args.count != 1
       Rails.logger.info "call with rake migrate:delete_analytics_events[mock]"
       next
@@ -21,13 +21,13 @@ namespace :migrate do
       2d99ea5a-8350-49bf-b0d2-3f6cca958c0f
     ]
 
-    targetted_codes_from_analytics_events = AnalyticsEvent.where(assessment_code: codes_to_delete)
-    analytics_count = targetted_codes_from_analytics_events.count
+    targetted_data_from_analytics_events = AnalyticsEvent.where(assessment_code: codes_to_delete)
+    analytics_count = targetted_data_from_analytics_events.count
 
     if analytics_count.zero?
       Rails.logger.info "delete_analytics_events: No events AnalyticsEvent data found, with those criteria"
     elsif mock
-      targetted_codes_from_analytics_events.in_batches(&:delete_all)
+      targetted_data_from_analytics_events.in_batches(&:delete_all)
       Rails.logger.info "delete_analytics_events: #{analytics_count} AnalyticsEvent data deleted"
     else
       Rails.logger.info "delete_analytics_events: #{analytics_count} AnalyticsEvent data would have been deleted"
