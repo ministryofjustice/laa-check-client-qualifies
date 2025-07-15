@@ -8,12 +8,12 @@ namespace :migrate do
 
   task :delete_analytics_events_based_on_assessment_code, %i[mock] => :environment do |_task, args|
     if args.count != 1
-      Rails.logger.info "call with rake migrate:delete_analytics_events[mock]"
+      Rails.logger.info 'call with rake "migrate:delete_analytics_events_based_on_assessment_code[mock]"'
       next
     end
 
     mock = args[:mock].to_s.downcase.strip != "false"
-    Rails.logger.info "delete_analytics_events: mock=#{mock}"
+    Rails.logger.info "delete_analytics_events_based_on_assessment_code: mock=#{mock}"
 
     codes_to_delete = %w[
       b5123acb-3582-4dad-9021-0eb6e0bc527f
@@ -25,13 +25,13 @@ namespace :migrate do
     analytics_count = targetted_codes_from_analytics_events.count
 
     if analytics_count.zero?
-      Rails.logger.info "delete_analytics_events: No events AnalyticsEvent data found, with those criteria"
+      Rails.logger.info "delete_analytics_events_based_on_assessment_code: No events AnalyticsEvent data found, with those criteria"
     elsif mock
       targetted_codes_from_analytics_events.in_batches(&:delete_all)
-      Rails.logger.info "delete_analytics_events: #{analytics_count} AnalyticsEvent data deleted"
+      Rails.logger.info "delete_analytics_events_based_on_assessment_code: #{analytics_count} AnalyticsEvent data deleted"
     else
-      Rails.logger.info "delete_analytics_events: #{analytics_count} AnalyticsEvent data would have been deleted"
+      Rails.logger.info "delete_analytics_events_based_on_assessment_code: #{analytics_count} AnalyticsEvent data would have been deleted"
     end
-    Rails.logger.info "delete_analytics_events: #{AnalyticsEvent.count} AnalyticsEvent data remain"
+    Rails.logger.info "delete_analytics_events_based_on_assessment_code: #{AnalyticsEvent.count} AnalyticsEvent data remain"
   end
 end

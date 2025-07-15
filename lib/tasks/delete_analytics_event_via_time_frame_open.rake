@@ -8,30 +8,31 @@ namespace :migrate do
 
   task :delete_analytics_events_based_on_time_frame_open, %i[mock] => :environment do |_task, args|
     if args.count != 1
-      Rails.logger.info "call with rake migrate:delete_analytics_events[mock]"
+      Rails.logger.info 'call with rake "migrate:delete_analytics_events_based_on_time_frame_open[mock]"'
       next
     end
 
     mock = args[:mock].to_s.downcase.strip != "false"
-    Rails.logger.info "delete_analytics_events: mock=#{mock}"
+    Rails.logger.info "delete_analytics_events_based_on_time_frame_open: mock=#{mock}"
 
-    codes_to_delete = %w[
-      b5123acb-3582-4dad-9021-0eb6e0bc527f
-      789874e6-a388-4f45-beab-927e1cc8a3d2
-      2d99ea5a-8350-49bf-b0d2-3f6cca958c0f
-    ]
+    duration_threshold_days = 30
 
-    targetted_data_from_analytics_events = AnalyticsEvent.where(assessment_code: codes_to_delete)
-    analytics_count = targetted_data_from_analytics_events.count
+    targetted_codes_from_analytics_events = AnalyticsEvent.select('assessment_code, MIN(created_at::date) AS min_date, MAX(created_at::date) AS max_date').group(:assessment_code)
 
-    if analytics_count.zero?
-      Rails.logger.info "delete_analytics_events: No events AnalyticsEvent data found, with those criteria"
+    assessment_codes_to_delete = targetted_codes_from_analytics_events.select do |record|
+      (record.max_date - record.min_date).to_i > duration_threshold_days
+    end.map(&:assessment_code)
+
+    analytics_count = assessment_codes_to_delete.size
+
+    if assessment_codes_to_delete.empty? 
+      Rails.logger.info "delete_analytics_events_based_on_time_frame_open: No events AnalyticsEvent data found, with those criteria"
     elsif mock
-      targetted_data_from_analytics_events.in_batches(&:delete_all)
-      Rails.logger.info "delete_analytics_events: #{analytics_count} AnalyticsEvent data deleted"
+      Rails.logger.info "delete_analytics_events_based_on_time_frame_open: #{analytics_count} assessment codes (with multiple analytics events) for AnalyticsEvent table would have been deleted"
     else
-      Rails.logger.info "delete_analytics_events: #{analytics_count} AnalyticsEvent data would have been deleted"
+      AnalyticsEvent.where(assessment_code: assessment_codes_to_delete).in_batches(&:delete_all)
+      Rails.logger.info"delete_analytics_events_based_on_time_frame_open: #{analytics_count} assessment codes (with multiple analytics events) for AnalyticsEvent table have been deleted"
     end
-    Rails.logger.info "delete_analytics_events: #{AnalyticsEvent.count} AnalyticsEvent data remain"
+    Rails.logger.info "delete_analytics_events_based_on_time_frame_open: #{AnalyticsEvent.count} AnalyticsEvent data remain"
   end
 end
