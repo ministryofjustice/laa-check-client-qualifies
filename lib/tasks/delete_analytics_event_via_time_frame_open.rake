@@ -19,6 +19,7 @@ namespace :migrate do
 
     targetted_codes_from_analytics_events = AnalyticsEvent
       .select("assessment_code, MIN(created_at::date) AS min_date, MAX(created_at::date) AS max_date")
+      .where.not(assessment_code: nil)
       .group(:assessment_code)
       .having("MAX(created_at::date) - MIN(created_at::date) > ?", duration_threshold_days)
 
