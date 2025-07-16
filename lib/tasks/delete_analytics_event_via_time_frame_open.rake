@@ -17,11 +17,12 @@ namespace :migrate do
 
     duration_threshold_days = 30
 
-    targetted_codes_from_analytics_events = AnalyticsEvent.select("assessment_code, MIN(created_at::date) AS min_date, MAX(created_at::date) AS max_date").group(:assessment_code)
+    targetted_codes_from_analytics_events = AnalyticsEvent
+      .select("assessment_code, MIN(created_at::date) AS min_date, MAX(created_at::date) AS max_date")
+      .group(:assessment_code)
+      .having("MAX(created_at::date) - MIN(created_at::date) > ?", duration_threshold_days)
 
-    assessment_codes_to_delete = targetted_codes_from_analytics_events.select { |record|
-      (record.max_date - record.min_date).to_i > duration_threshold_days
-    }.map(&:assessment_code)
+    assessment_codes_to_delete = targetted_codes_from_analytics_events.map(&:assessment_code)
 
     analytics_count = assessment_codes_to_delete.size
 
