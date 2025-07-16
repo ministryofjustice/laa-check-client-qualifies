@@ -27,10 +27,10 @@ namespace :migrate do
     if analytics_count.zero?
       Rails.logger.info "delete_analytics_events_based_on_assessment_code: No events AnalyticsEvent data found, with those criteria"
     elsif mock
+      Rails.logger.info "delete_analytics_events_based_on_assessment_code: #{analytics_count} AnalyticsEvent data would have been deleted"
+    else
       targetted_codes_from_analytics_events.in_batches(&:delete_all)
       Rails.logger.info "delete_analytics_events_based_on_assessment_code: #{analytics_count} AnalyticsEvent data deleted"
-    else
-      Rails.logger.info "delete_analytics_events_based_on_assessment_code: #{analytics_count} AnalyticsEvent data would have been deleted"
     end
     Rails.logger.info "delete_analytics_events_based_on_assessment_code: #{AnalyticsEvent.count} AnalyticsEvent data remain"
   end
