@@ -7,7 +7,7 @@ ruby "3.3.4"
 gem "rails", "~> 7.2.2"
 
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
-gem "propshaft", ">= 0.9.0"
+gem "propshaft", ">= 1.2.0"
 
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.5"
