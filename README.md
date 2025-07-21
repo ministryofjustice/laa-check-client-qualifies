@@ -334,10 +334,24 @@ It is also possible to manually deploy to an environment from the command line, 
 
 ### Secrets
 We keep secrets in AWS Secrets Manager. To edit them, visit the [AWS web console](https://justice-cloud-platform.eu.auth0.com/samlp/mQev56oEa7mrRCKAZRxSnDSoYt6Y7r5m?connection=github). The following secrets are currently stored in a secret called "aws-secrets" in each namespace we use:
-* NOTIFICATIONS_API_KEY
 * SECRET_KEY_BASE
+* NOTIFICATIONS_API_KEY
+* BLAZER_DATABASE_PASSWORD
+* SLACK_WEBHOOK_URL
 * BASIC_AUTH_PASSWORD
 * GOOGLE_OAUTH_CLIENT_SECRET
+
+#### Accessing AWS Web console secrets
+- Refer to [Cloud Platform for accessing the AWS console](https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/accessing-the-cloud-console.html#accessing-the-aws-console-read-only)
+- Make sure your region is London
+- On the 'Console Home', find the recently visited tab
+- Click 'info' and add 'Secrets Manager' if you don't have it already
+- Search for 'check' in the Secrets search bar. You are looking for:
+    - live-laa-check-client-uat-[alphanumeric]
+    - live-laa-check-client-staging-[alphanumeric]
+    - live-laa-check-client-production-[alphanumeric]
+- On the 'Secret Value' click 'Retrieve secret value'
+- View or Edit as necessary
 
 ### Portal integration
 
