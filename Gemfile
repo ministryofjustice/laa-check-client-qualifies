@@ -4,10 +4,10 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.3.4"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.2.2"
+gem "rails", "~> 8.0.0"
 
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
-gem "propshaft", ">= 0.9.0"
+gem "propshaft", ">= 1.2.0"
 
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.5"
@@ -75,7 +75,7 @@ group :development, :test do
 
   gem "simplecov", require: false
   gem "slim_lint"
-  gem "rubocop-govuk", require: false
+  gem "rubocop-govuk", ">= 5.1.18", require: false
   gem "rubocop-performance"
   gem "erb_lint"
   gem "parallel_tests"
