@@ -45,7 +45,7 @@ gem "bootsnap", require: false
 
 gem "grover"
 
-gem "exception_notification"
+gem "exception_notification", ">= 5.0.1"
 gem "govuk_notify_rails", "~> 3.0.0"
 
 gem "pdf-forms"
