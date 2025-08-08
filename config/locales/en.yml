@@ -1931,25 +1931,13 @@ en:
         - You told us your client is in receipt of Section 4 or Section 95 Asylum Support, which makes them automatically financially eligible for civil certificated legal aid for proceedings in the Immigration and Asylum chamber of the Upper Tribunal without income, outgoing and capital calculations.
         - This is not a guarantee that your client will get civil legal aid. For a final decision, an application and supporting evidence must be submitted to the Legal Aid Agency (LAA) for assessment. A full assessment supported by evidence may generate a different result.
         - "The LAA will also consider:"
-      controlled_asylum_support_eligible_paragraphs:
-        - Your client qualifies financially for civil legal aid, based on the information you have entered. Before you (or a provider of advice or services funded by legal aid) proceed with your client’s case, it must also be within scope for legal aid and satisfy the relevant merits criteria set out in the relevant legislation and guidance.
-        - You told us your client is in receipt of Section 4 or Section 95 Asylum Support. This makes them automatically financially eligible for civil controlled work relating to legal help and help at court for immigration and asylum proceedings, as well as controlled legal representation in the Immigration and Asylum chamber of the first tier or upper tribunal without income, outgoing and capital calculations.
-        - This assessment has been made in line with the latest version of the Lord Chancellor’s Guidance on Determining Eligibility for Controlled Work.
       under_eighteen_certificated_header: Your client qualifies for civil legal aid without a means test, for certificated work
       under_eighteen_certificated_paragraphs:
         - Your client qualifies for civil legal aid without a means test, based on the information you have entered. Before you (or a provider of advice or services funded by legal aid) proceed with your client’s case, it must also be within scope for legal aid and satisfy the relevant merits criteria set out in the relevant legislation and guidance.
         - You told us your client is under 18. This makes them automatically eligible for civil certificated or licensed legal work without a means test.
         - These calculations were made in line with the latest version of the Lord Chancellor's Guidance on Determining Financial Eligibility for Certificated Work.
       under_eighteen_controlled_header: Your client qualifies for civil legal aid without a full means test, for controlled work and family mediation
-      under_eighteen_controlled_paragraphs:
-        - Your client qualifies for civil legal aid without a full means test, based on the information you have entered. Before you (or a provider of advice or services funded by legal aid) proceed with your client’s case, it must also be within scope for legal aid and satisfy the relevant merits criteria set out in the relevant legislation and guidance.
-        - You told us your client is under 18, their means cannot be aggregated with another person’s, they don’t have assets worth £2,500 or more, and they don’t get regular income. This makes them eligible for controlled work and family mediation without a full means test.
-        - This assessment has been made in line with the latest version of the Lord Chancellor's Guidance on Determining Financial Eligibility for Controlled Work.
       under_eighteen_controlled_clr_header: Your client qualifies for civil legal aid without a means test, for controlled legal representation
-      under_eighteen_controlled_clr_paragraphs:
-        - Your client qualifies for civil legal aid without a means test, based on the information you have entered. Before you (or a provider of advice or services funded by legal aid) proceed with your client’s case, it must also be within scope for legal aid and satisfy the relevant merits criteria set out in the relevant legislation and guidance.
-        - You told us your client is under 18. This makes them automatically eligible for controlled legal representation (CLR) without a means test.
-        - This assessment has been made in line with the latest version of the Lord Chancellor's Guidance on Determining Financial Eligibility for Controlled Work.
       save_results: Save results and answers as a PDF
       save_results_intro: 'The PDF will include:'
       save_results_bullets:
@@ -1963,6 +1951,21 @@ en:
       complete_a_cw_form: Complete a controlled work form
       complete_a_cw_form_paragraph: You will need to complete the relevant controlled work form and keep for your records, along with any evidence provided by your client. Your client’s file may be audited and assessed by the LAA at a later date.
       complete_a_cw_form_paragraph_under_eighteen: You will need to complete the relevant controlled work form and keep for your records. Your client’s file may be audited and assessed by the LAA at a later date.
+      add_to_a_cw_form: Add your answers to a controlled work form
+      add_to_a_cw_form_paragraph: To apply for legal aid for your client you must complete a controlled work form and keep it for your records, with any evidence provided by your client. Your client’s file may be audited and assessed by the LAA at a later date.
+      add_to_a_cw_form_paragraph_two: Select the relevant controlled work form and we'll add your answers to it when you download it.
+      check_scope_and_merits:
+        header: Check the scope and merits
+        under_18_controlled_asylum_support_paragraph: You told us your client is in receipt of Section 4 or Section 95 Asylum Support. This makes them automatically financially eligible for civil controlled work relating to legal help and help at court for immigration and asylum proceedings, as well as controlled legal representation in the Immigration and Asylum chamber of the first tier or upper tribunal without income, outgoing and capital calculations.
+        under_18_controlled_asylum_support_paragraph_two: Before you, or a provider of advice or services funded by legal aid, proceed with your client's case, it must also be within scope for legal aid and satisfy the relevant merits criteria set out in the relevant legislation and guidance.
+        under_18_controlled_paragraph: You told us your client is under 18, their means cannot be aggregated with another person's, they don't have assets worth £2,500 or more, and they don't get regular income. This makes them eligible for controlled work and family mediation without a full means test.
+        under_18_controlled_paragraph_two: Before you, or a provider of advice or services funded by legal aid, proceed with your client's case, it must also be within scope for legal aid and satisfy the relevant merits criteria set out in the relevant legislation and guidance.
+        under_18_controlled_clr_paragraph: You told us your client is under 18. This makes them automatically eligible for controlled legal representation (CLR) without a means test.
+        under_18_controlled_clr_paragraph_two: Before you, or a provider of advice or services funded by legal aid, proceed with your client's case, it must also be within scope for legal aid and satisfy the relevant merits criteria set out in the relevant legislation and guidance.
+      relevant_legislation_and_guidance:
+        header: Relevant legislation and guidance
+        paragraph_html: This assessment was made using the rules for controlled work (opens in new tab) and the amendments to these rules (opens in new tab).
+        paragraph_two_html: Guidance on determining financial eligibility for controlled work and family mediation can be found in the guide to determining controlled work (PDF, 940KB).
       download_a_cw_form_header: Download a controlled work form with your answers included
       what_happens_next: What happens next
       what_happens_next_controlled_ineligible_next_step: You may wish to discuss your client’s options, for example they can pay for legal support or get advice from a charity or advice organisation.
@@ -2155,6 +2158,7 @@ en:
       client_assessed_capital: Disposable capital
       start_another_check: Start another eligibility check
       continue_to_cw: Continue to CW forms
+      select_a_cw_form: Select a controlled work form
       save_as_pdf: Save results and answers as a printable PDF
       client_main_home: Home client lives in
       property_rows:

@@ -1,0 +1,22 @@
+h2.govuk-heading-m = t("results.show.add_to_a_cw_form")
+p.govuk-body = t("results.show.add_to_a_cw_form_paragraph")
+p.govuk-body = t("results.show.add_to_a_cw_form_paragraph_two")
+
+= link_to t("results.show.select_a_cw_form"),
+          controlled_work_document_selection_path(assessment_code: params[:assessment_code]),
+          class: "govuk-button", data: { module: "govuk-button" }
+
+ruby:
+  level_of_help = if @check.controlled?
+                    @check.controlled_legal_representation ? "controlled_clr" : "controlled"
+                  else
+                    "certificated"
+                  end
+
+h2.govuk-heading-m = t("results.show.check_scope_and_merits.header")
+p.govuk-body = t("results.show.check_scope_and_merits.under_18_#{level_of_help}#{'_asylum_support' if @check.asylum_support}_paragraph")
+p.govuk-body = t("results.show.check_scope_and_merits.under_18_#{level_of_help}#{'_asylum_support' if @check.asylum_support}_paragraph_two")
+
+h2.govuk-heading-m = t("results.show.relevant_legislation_and_guidance.header")
+p.govuk-body = t("results.show.relevant_legislation_and_guidance.paragraph_html")
+p.govuk-body = t("results.show.relevant_legislation_and_guidance.paragraph_two_html")
