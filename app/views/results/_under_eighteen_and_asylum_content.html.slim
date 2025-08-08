@@ -18,5 +18,8 @@ p.govuk-body = t("results.show.check_scope_and_merits.under_18_#{level_of_help}#
 p.govuk-body = t("results.show.check_scope_and_merits.under_18_#{level_of_help}#{'_asylum_support' if @check.asylum_support}_paragraph_two")
 
 h2.govuk-heading-m = t("results.show.relevant_legislation_and_guidance.header")
-p.govuk-body = t("results.show.relevant_legislation_and_guidance.paragraph_html")
-p.govuk-body = t("results.show.relevant_legislation_and_guidance.paragraph_two_html")
+p.govuk-body = t("results.show.relevant_legislation_and_guidance.paragraph_html",
+               page_url: document_link(:legislation_CLAR_2013),
+               page_url_2: document_link(:legislation_ammendments))
+p.govuk-body = t("results.show.relevant_legislation_and_guidance.paragraph_two_html",
+               page_url_3: document_link(:lc_guidance_controlled))

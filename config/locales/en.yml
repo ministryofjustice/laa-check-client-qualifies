@@ -1964,8 +1964,8 @@ en:
         under_18_controlled_clr_paragraph_two: Before you, or a provider of advice or services funded by legal aid, proceed with your client's case, it must also be within scope for legal aid and satisfy the relevant merits criteria set out in the relevant legislation and guidance.
       relevant_legislation_and_guidance:
         header: Relevant legislation and guidance
-        paragraph_html: This assessment was made using the rules for controlled work (opens in new tab) and the amendments to these rules (opens in new tab).
-        paragraph_two_html: Guidance on determining financial eligibility for controlled work and family mediation can be found in the guide to determining controlled work (PDF, 940KB).
+        paragraph_html: This assessment was made using the <a href="%{page_url}" target='_blank' rel='noreferrer noopener'>rules for controlled work (opens in new tab)</a> and the <a href="%{page_url_2}" target='_blank' rel='noreferrer noopener'> amendments to these rules (opens in new tab)</a>.
+        paragraph_two_html: Guidance on determining financial eligibility for controlled work and family mediation can be found in the <a href="%{page_url_3}" target='_blank' rel='noreferrer noopener'>guide to determining controlled work (PDF, 940KB)</a>.
       download_a_cw_form_header: Download a controlled work form with your answers included
       what_happens_next: What happens next
       what_happens_next_controlled_ineligible_next_step: You may wish to discuss your client’s options, for example they can pay for legal support or get advice from a charity or advice organisation.
