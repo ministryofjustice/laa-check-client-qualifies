@@ -5,10 +5,36 @@
 
 echo "🔧 Setting up Solid Cache for local testing..."
 
+# Add PostgreSQL to PATH for this session
+export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
+
+# Check if PostgreSQL is installed
+if ! command -v psql &> /dev/null; then
+    echo "❌ PostgreSQL not found!"
+    echo ""
+    echo "🍺 Install PostgreSQL with Homebrew:"
+    echo "   brew install postgresql@15"
+    echo "   brew services start postgresql@15"
+    echo ""
+    echo "🐳 Or use Docker:"
+    echo "   docker run --name postgres-cache-test -e POSTGRES_PASSWORD=password -p 5432:5432 -d postgres:15"
+    exit 1
+fi
+
+# Check if PostgreSQL is running
+if ! /opt/homebrew/opt/postgresql@15/bin/pg_isready &> /dev/null; then
+    echo "❌ PostgreSQL is not running!"
+    echo "🚀 Start PostgreSQL:"
+    echo "   brew services start postgresql@15"
+    exit 1
+fi
+
+echo "✅ PostgreSQL is running"
+
 # 1. Create the cache databases
 echo "📊 Creating cache databases..."
-createdb ccq_development_cache
-createdb ccq_test_cache
+/opt/homebrew/opt/postgresql@15/bin/createdb ccq_development_cache 2>/dev/null || echo "   (ccq_development_cache already exists)"
+/opt/homebrew/opt/postgresql@15/bin/createdb ccq_test_cache 2>/dev/null || echo "   (ccq_test_cache already exists)"
 
 # 2. Run the cache migrations
 echo "🚀 Running cache migrations..."

@@ -2,16 +2,16 @@
 
 class CreateSolidCacheTables < ActiveRecord::Migration[8.0]
   def change
-    create_table :solid_cache_entries, id: :binary, limit: 20, force: true do |t|
+    create_table :solid_cache_entries, force: :cascade do |t|
       t.binary :key, limit: 1024, null: false
-      t.text :value, limit: 512.megabytes, null: false
+      t.binary :value, limit: 536870912, null: false
       t.datetime :created_at, null: false
-      t.integer :key_hash, null: false, limit: 8
-      t.integer :byte_size, null: false, limit: 4
-
-      t.index :key_hash
+      t.integer :key_hash, limit: 8, null: false
+      t.integer :byte_size, limit: 4, null: false
+      
+      t.index :byte_size
       t.index [:key_hash, :byte_size]
-      t.index :created_at
+      t.index :key_hash, unique: true
     end
   end
 end

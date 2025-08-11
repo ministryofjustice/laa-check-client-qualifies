@@ -6,19 +6,13 @@ default: &default
     namespace: <%= Rails.env %>
 
 development:
-  database: cache  # Use cache database for development testing
-  store_options:
-    <<: *default
-    max_size: <%= 50.megabytes %>  # Smaller cache for development
+  database: cache
+  <<: *default
 
 test:
-  database: cache  # Use cache database for test environment
-  store_options:
-    <<: *default
-    max_size: <%= 50.megabytes %>
+  database: cache
+  <<: *default
 
 production:
   database: cache
-  store_options:
-    <<: *default
-    max_size: <%= 5.gigabytes %>  # Larger cache for production
+  <<: *default
