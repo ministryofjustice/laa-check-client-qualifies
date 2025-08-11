@@ -23,14 +23,16 @@ Rails.application.configure do
     config.action_controller.perform_caching = true
     config.action_controller.enable_fragment_cache_logging = true
 
+    # Use Solid Cache for development testing
+    config.cache_store = :solid_cache_store
+
     config.public_file_server.headers = {
       "Cache-Control" => "public, max-age=#{2.days.to_i}"
     }
   else
     config.action_controller.perform_caching = false
+    config.cache_store = :null_store  # No caching when disabled
   end
-
-  config.cache_store = :memory_store
   config.session_store :cache_store, key: LaaEstimateFinancialEligibilityForLegalAid::SESSION_COOKIE_NAME, expire_after: 7.days
 
   # Print deprecation notices to the Rails logger.

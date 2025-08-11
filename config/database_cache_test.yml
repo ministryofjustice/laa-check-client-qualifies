@@ -1,0 +1,32 @@
+# Temporary SQLite configuration for Solid Cache testing
+# This file demonstrates Solid Cache without requiring PostgreSQL
+
+development:
+  primary: &primary_development
+    adapter: postgresql
+    encoding: unicode
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 25 } %>
+    timeout: 5000
+    database: ccq_development
+  cache:
+    adapter: sqlite3
+    database: db/cache_development.sqlite3
+    pool: 5
+    timeout: 5000
+    migrations_paths:
+      - db/cache_migrate
+
+test:
+  primary: &primary_test
+    adapter: postgresql
+    encoding: unicode
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 25 } %>
+    timeout: 5000
+    database: ccq_test<%= ENV['TEST_ENV_NUMBER'] %>
+  cache:
+    adapter: sqlite3
+    database: db/cache_test.sqlite3
+    pool: 5
+    timeout: 5000
+    migrations_paths:
+      - db/cache_migrate
