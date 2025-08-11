@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.3.4"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.2.2"
+gem "rails", "~> 8.0.2"
 
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft", ">= 0.9.0"
@@ -115,3 +115,5 @@ gem "faraday-net_http_persistent"
 gem "faraday-retry"
 gem "slim-rails"
 gem "redis-rails"
+
+gem "solid_cache", "~> 1.0"
