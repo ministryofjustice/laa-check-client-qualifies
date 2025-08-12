@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - main
-      - puppeteer-24160
+      - puppeteer-2416
 
 jobs:
   build-push:
