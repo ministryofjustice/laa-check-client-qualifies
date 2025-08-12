@@ -181,6 +181,33 @@ FactoryBot.define do
   factory :disposable_income_summary, class: Hash do
     initialize_with { attributes }
     proceeding_types { [build(:proceeding_type)] }
+
+    factory :disposable_income_summary_when_single_and_no_dependants do
+      gross_housing_costs { 600.0 }
+      housing_costs { 600.0 }
+      housing_benefit { 55.0 }
+      net_housing_costs { 545.0 }
+      allowed_housing_costs { 545.0 }
+      total_outgoings_and_allowances { 545.0 }
+      total_disposable_income { -545.0 }
+      combined_total_outgoings_and_allowances { 545.0 }
+      combined_total_disposable_income { -545.0 }
+    end
+
+    factory :disposable_income_summary_with_partner_and_dependants do
+      dependant_allowance { 361.7 }
+      dependant_allowance_under_16 { 361.7 }
+      gross_housing_costs { 600.0 }
+      housing_costs { 600.0 }
+      housing_benefit { 0.0 }
+      net_housing_costs { 600.0 }
+      allowed_housing_costs { 600.0 }
+      total_outgoings_and_allowances { 1186.57 }
+      total_disposable_income { -1186.57 }
+      combined_total_outgoings_and_allowances { 1186.57 }
+      combined_total_disposable_income { -1186.57 }
+      partner_allowance { 224.87 }
+    end
   end
 
   factory :capital_summary, class: Hash do

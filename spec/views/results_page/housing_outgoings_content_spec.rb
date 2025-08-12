@@ -26,25 +26,7 @@ RSpec.describe "results/show.html.slim" do
           gross_income: {
             proceeding_types: [],
           },
-          disposable_income: {
-            gross_housing_costs: 600.0,
-            housing_costs: 600.0,
-            net_housing_costs: 545.0,
-            allowed_housing_costs: 545.0,
-            total_outgoings_and_allowances: 545.0,
-            total_disposable_income: -545.0,
-            proceeding_types: [
-              {
-                ccms_code: "SE003",
-                upper_threshold: 733.0,
-                lower_threshold: 733.0,
-                result: "eligible",
-                client_involvement_type: "A",
-              },
-            ],
-            combined_total_disposable_income: -545.0,
-            combined_total_outgoings_and_allowances: 545.0,
-          },
+          disposable_income: build(:disposable_income_summary_when_single_and_no_dependants),
           capital: {
             proceeding_types: [],
           },
@@ -110,29 +92,7 @@ RSpec.describe "results/show.html.slim" do
             gross_income: {
               proceeding_types: [],
             },
-            disposable_income: {
-              dependant_allowance_under_16: 361.7,
-              dependant_allowance: 361.7,
-              gross_housing_costs: 600.0,
-              housing_costs: 600.0,
-              housing_benefit: 0.0,
-              net_housing_costs: 600.0,
-              allowed_housing_costs: 600.0,
-              total_outgoings_and_allowances: 1186.57,
-              total_disposable_income: -1186.57,
-              proceeding_types: [
-                {
-                  ccms_code: "SE003",
-                  upper_threshold: 733.0,
-                  lower_threshold: 733.0,
-                  result: "eligible",
-                  client_involvement_type: "A",
-                },
-              ],
-              combined_total_disposable_income: -1186.57,
-              combined_total_outgoings_and_allowances: 1186.57,
-              partner_allowance: 224.87,
-            },
+            disposable_income: build(:disposable_income_summary_with_partner_and_dependants),
             capital: {
               proceeding_types: [],
             },
