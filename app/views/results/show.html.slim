@@ -17,7 +17,7 @@
       = render "result_panel_content"
 
   - if @check.controlled? && (@check.asylum_support || @check.under_eighteen_no_means_test_required?)
-    = render "under_eighteen_and_asylum_content"
+    = render "under_eighteen_and_asylum_content", download_option: true
 
   - if @model.any_calculations_performed?
     - if @early_result_type

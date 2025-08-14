@@ -19,6 +19,9 @@
   h2.govuk-heading-l = t("service.name")
   = render "result_panel_content"
 
+  - if @check.controlled? && (@check.asylum_support || @check.under_eighteen_no_means_test_required?)
+    = render "under_eighteen_and_asylum_content", download_option: false
+
   - if @model.any_calculations_performed?
     = pdf_friendly_h2(t("results.show.section_summaries.your_clients_key_eligibility_totals"), "m", @is_pdf)
     .summary-box-holder class="govuk-!-margin-bottom-5 #{"pdf-summary-box" if @is_pdf}"
