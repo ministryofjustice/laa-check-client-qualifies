@@ -16,6 +16,9 @@
     .govuk-panel__body
       = render "result_panel_content"
 
+  - if @check.controlled? && (@check.asylum_support || @check.under_eighteen_no_means_test_required?)
+    = render "under_eighteen_and_asylum_content", download_option: true
+
   - if @model.any_calculations_performed?
     - if @early_result_type
       h2.govuk-heading-m = t(".section_summaries.your_clients_key_eligibility_totals")
@@ -45,13 +48,14 @@
             download_result_path(params[:assessment_code]),
             target: "_blank", rel: "noopener", class: "govuk-button govuk-button--secondary", id: "save_as_pdf_controlled"
 
-    h2.govuk-heading-m = t(".complete_a_cw_form")
-    p.govuk-body = t(".complete_a_cw_form_paragraph#{'_under_eighteen' if @check.under_eighteen_no_means_test_required?}")
-    h2.govuk-heading-s = t(".download_a_cw_form_header")
+    - unless @check.controlled? && (@check.asylum_support || @check.under_eighteen_no_means_test_required?)
+      h2.govuk-heading-m = t(".complete_a_cw_form")
+      p.govuk-body = t(".complete_a_cw_form_paragraph#{'_under_eighteen' if @check.under_eighteen_no_means_test_required?}")
+      h2.govuk-heading-s = t(".download_a_cw_form_header")
 
-    = link_to t("results.show.continue_to_cw"),
-              controlled_work_document_selection_path(assessment_code: params[:assessment_code]),
-              class: "govuk-button", data: { module: "govuk-button" }
+      = link_to t("results.show.continue_to_cw"),
+                controlled_work_document_selection_path(assessment_code: params[:assessment_code]),
+                class: "govuk-button", data: { module: "govuk-button" }
 
   - elsif @check.under_eighteen_no_means_test_required?
     = render "under_eighteen_next_steps", download_option: true

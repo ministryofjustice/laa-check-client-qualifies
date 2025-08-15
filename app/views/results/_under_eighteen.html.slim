@@ -6,4 +6,5 @@ ruby:
                   end
 = pdf_friendly_h1(t("results.show.under_eighteen_#{level_of_help}_header"), @is_pdf)
 
-= pdf_friendly_paragraphs(t("results.show.under_eighteen_#{level_of_help}_paragraphs"), @is_pdf)
+- if level_of_help == "certificated"
+  = pdf_friendly_paragraphs(t("results.show.under_eighteen_certificated_paragraphs"), @is_pdf)
