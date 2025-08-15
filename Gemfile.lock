@@ -448,7 +448,7 @@ GEM
     rspec-mocks (3.13.5)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
-    rspec-rails (8.0.1)
+    rspec-rails (8.0.2)
       actionpack (>= 7.2)
       activesupport (>= 7.2)
       railties (>= 7.2)
@@ -459,7 +459,7 @@ GEM
     rspec-support (3.13.4)
     rspec_junit_formatter (0.6.0)
       rspec-core (>= 2, < 4, != 2.12.0)
-    rubocop (1.78.0)
+    rubocop (1.79.2)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
@@ -467,7 +467,7 @@ GEM
       parser (>= 3.3.0.2)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 2.9.3, < 3.0)
-      rubocop-ast (>= 1.45.1, < 2.0)
+      rubocop-ast (>= 1.46.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 4.0)
     rubocop-ast (1.46.0)
@@ -476,18 +476,18 @@ GEM
     rubocop-capybara (2.22.1)
       lint_roller (~> 1.1)
       rubocop (~> 1.72, >= 1.72.1)
-    rubocop-govuk (5.1.18)
-      rubocop (= 1.78.0)
+    rubocop-govuk (5.1.20)
+      rubocop (= 1.79.2)
       rubocop-ast (= 1.46.0)
       rubocop-capybara (= 2.22.1)
-      rubocop-rails (= 2.32.0)
+      rubocop-rails (= 2.33.3)
       rubocop-rake (= 0.7.1)
       rubocop-rspec (= 3.6.0)
     rubocop-performance (1.25.0)
       lint_roller (~> 1.1)
       rubocop (>= 1.75.0, < 2.0)
       rubocop-ast (>= 1.38.0, < 2.0)
-    rubocop-rails (2.32.0)
+    rubocop-rails (2.33.3)
       activesupport (>= 4.2.0)
       lint_roller (~> 1.1)
       rack (>= 1.1)
@@ -642,9 +642,9 @@ DEPENDENCIES
   redis-rails
   rexml (>= 3.3.4)
   rspec
-  rspec-rails
+  rspec-rails (>= 8.0.2)
   rspec_junit_formatter
-  rubocop-govuk
+  rubocop-govuk (>= 5.1.19)
   rubocop-performance
   selenium-webdriver
   sentry-rails (>= 5.18.2)
