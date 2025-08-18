@@ -492,10 +492,10 @@ chokidar@^4.0.0:
   dependencies:
     readdirp "^4.0.1"
 
-chromium-bidi@7.2.0:
-  version "7.2.0"
-  resolved "https://registry.yarnpkg.com/chromium-bidi/-/chromium-bidi-7.2.0.tgz#3bbd593362d09af83c955baf8d0ebf88ab3aa06b"
-  integrity sha512-gREyhyBstermK+0RbcJLbFhcQctg92AGgDe/h/taMJEOLRdtSswBAO9KmvltFSQWgM2LrwWu5SIuEUbdm3JsyQ==
+chromium-bidi@7.3.1:
+  version "7.3.1"
+  resolved "https://registry.yarnpkg.com/chromium-bidi/-/chromium-bidi-7.3.1.tgz#021b8864cbd5ad0401620a7eb4ef5a2a0011591b"
+  integrity sha512-i+BMGluhZZc4Jic9L1aHJBTfaopxmCqQxGklyMcqFx4fvF3nI4BJ3bCe1ad474nvYRIo/ZN/VrdA4eOaRZua4Q==
   dependencies:
     mitt "^3.0.1"
     zod "^3.24.1"
@@ -1003,28 +1003,28 @@ pump@^3.0.0:
     end-of-stream "^1.1.0"
     once "^1.3.1"
 
-puppeteer-core@24.16.0:
-  version "24.16.0"
-  resolved "https://registry.yarnpkg.com/puppeteer-core/-/puppeteer-core-24.16.0.tgz#17fb9571ca7bcdc95c58d8c0df8fc2d5bf323b09"
-  integrity sha512-tZ0tJiOYaDGTRzzr2giDpf8O/55JsoqkrafS1Xu4H6S8oP4eeL6RbZzY9OzjShSf5EQvx/zAc55QKpDqzXos/Q==
+puppeteer-core@24.16.2:
+  version "24.16.2"
+  resolved "https://registry.yarnpkg.com/puppeteer-core/-/puppeteer-core-24.16.2.tgz#f210ca0efefb7ded0f40fb783878968913b83206"
+  integrity sha512-areKSSQzpoHa5nCk3uD/o504yjrW5ws0N6jZfdFZ3a4H+Q7NBgvuDydjN5P87jN4Rj+eIpLcK3ELOThTtYuuxg==
   dependencies:
     "@puppeteer/browsers" "2.10.6"
-    chromium-bidi "7.2.0"
+    chromium-bidi "7.3.1"
     debug "^4.4.1"
     devtools-protocol "0.0.1475386"
     typed-query-selector "^2.12.0"
     ws "^8.18.3"
 
-puppeteer@24.16.0:
-  version "24.16.0"
-  resolved "https://registry.yarnpkg.com/puppeteer/-/puppeteer-24.16.0.tgz#267d4325db2a6ca22e04dc7ae111800c5e8979cb"
-  integrity sha512-5qxFGOpdAzYexoPwKPEF4L/IYKYOFE1MxWsqcp7K33HySM8N8S/yZwSQCaV0rzmJsTLX5LxU4zt65+ceNiVDgQ==
+puppeteer@24.16.2:
+  version "24.16.2"
+  resolved "https://registry.yarnpkg.com/puppeteer/-/puppeteer-24.16.2.tgz#e3c08b26b7832779c0e1dbef0542f5242aadde16"
+  integrity sha512-eNjKzwjITM4Lvho6iHb+VQamadUBgc8TsjAApsKi5N8DXipxAaAZWssBOFsrIOLo4eYWYj0Qk5gmr4wBSqzJWw==
   dependencies:
     "@puppeteer/browsers" "2.10.6"
-    chromium-bidi "7.2.0"
+    chromium-bidi "7.3.1"
     cosmiconfig "^9.0.0"
     devtools-protocol "0.0.1475386"
-    puppeteer-core "24.16.0"
+    puppeteer-core "24.16.2"
     typed-query-selector "^2.12.0"
 
 queue-tick@^1.0.1:
