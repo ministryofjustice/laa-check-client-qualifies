@@ -3,9 +3,9 @@
   "private": "true",
   "dependencies": {
     "@ministryofjustice/frontend": "5.1.5",
-    "@rails/ujs": "^7.1.501",
-    "@sentry/browser": "10.3.0",
-    "esbuild": "^0.25.8",
+    "@rails/ujs": "^7.1.502",
+    "@sentry/browser": "10.5.0",
+    "esbuild": "^0.25.9",
     "govuk-frontend": "^5.11.1",
     "jquery": "^3.7.1",
     "puppeteer": "24.16.0",
