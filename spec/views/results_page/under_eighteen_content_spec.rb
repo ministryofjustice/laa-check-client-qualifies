@@ -41,7 +41,7 @@ RSpec.describe "results/show.html.slim" do
 
       it "shows relevant legislation and guidance section" do
         expect(page_text).to include "This assessment was made using the rules for controlled work (opens in new tab) and the amendments to these rules (opens in new tab)."
-        expect(page_text).to include "Guidance on determining financial eligibility for controlled work and family mediation can be found in the guide to determining controlled work (PDF, 940KB)."
+        expect(page_text).to include "Guidance on determining financial eligibility for controlled work and family mediation can be found in the guide to determining controlled work (PDF, 599KB)."
       end
 
       it "shows an appropriate PDF description" do

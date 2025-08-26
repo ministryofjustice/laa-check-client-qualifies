@@ -5,13 +5,13 @@ RSpec.describe DocumentsController, type: :controller do
     it "tracks the link if there is a subsection" do
       get :show, params: { id: "lc_guidance_controlled", sub_section: "asylum_support", assessment_code: "foo", referrer: "other_income" }
       expect(AnalyticsEvent.find_by(page: "other_income", event_type: "click_lc_guidance_controlled_asylum_support", assessment_code: "foo")).not_to be_nil
-      expect(response.headers["Location"]).to eq "https://assets.publishing.service.gov.uk/media/673602d2b613efc3f182312e/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_controlled_work_and_family_mediation_November_2024.pdf#page=7"
+      expect(response.headers["Location"]).to eq "https://assets.publishing.service.gov.uk/media/684ff44229fb1002010c4e6c/LC_s_guidance_on_determining_financial_eligibility__controlled_and_mediation_.pdf#page=7"
     end
 
     it "tracks the link if there is no subsection" do
       get :show, params: { id: "lc_guidance_controlled", assessment_code: "foo", referrer: "other_income" }
       expect(AnalyticsEvent.find_by(page: "other_income", event_type: "click_lc_guidance_controlled", assessment_code: "foo")).not_to be_nil
-      expect(response.headers["Location"]).to eq "https://assets.publishing.service.gov.uk/media/673602d2b613efc3f182312e/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_controlled_work_and_family_mediation_November_2024.pdf"
+      expect(response.headers["Location"]).to eq "https://assets.publishing.service.gov.uk/media/684ff44229fb1002010c4e6c/LC_s_guidance_on_determining_financial_eligibility__controlled_and_mediation_.pdf"
     end
 
     it "tracks the CW forms link and redirects successfully" do
@@ -29,7 +29,7 @@ RSpec.describe DocumentsController, type: :controller do
     it "tracks nothing if there is no referrer param" do
       get :show, params: { id: "lc_guidance_controlled", assessment_code: "foo" }
       expect(AnalyticsEvent.find_by(event_type: "click_lc_guidance_controlled", assessment_code: "foo")).to be_nil
-      expect(response.headers["Location"]).to eq "https://assets.publishing.service.gov.uk/media/673602d2b613efc3f182312e/Lord_Chancellor_s_guide_to_determining_financial_eligibility_for_controlled_work_and_family_mediation_November_2024.pdf"
+      expect(response.headers["Location"]).to eq "https://assets.publishing.service.gov.uk/media/684ff44229fb1002010c4e6c/LC_s_guidance_on_determining_financial_eligibility__controlled_and_mediation_.pdf"
     end
   end
 end
