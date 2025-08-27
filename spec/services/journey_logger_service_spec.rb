@@ -7,17 +7,16 @@ RSpec.describe JourneyLoggerService do
     let(:api_result) { FactoryBot.build(:api_result) }
     let(:check) { Check.new(session_data) }
     let(:session_data) { { level_of_help: "controlled", immigration_or_asylum: true, immigration_or_asylum_type: "asylum" }.with_indifferent_access }
-    let(:portal_user_office_code) { "office-code" }
 
     it "handles errors without crashing", :throws_cfe_error do
       expect(ErrorService).to receive(:call)
       allow(CompletedUserJourney).to receive(:create!).and_raise "Error!"
-      expect { described_class.call(assessment_id, calculation_result, check, portal_user_office_code, {}) }.not_to raise_error
+      expect { described_class.call(assessment_id, calculation_result, check, {}) }.not_to raise_error
     end
 
     context "with minimal data" do
       it "saves the right details to the database" do
-        described_class.call(assessment_id, calculation_result, check, portal_user_office_code, {})
+        described_class.call(assessment_id, calculation_result, check, {})
         output = CompletedUserJourney.find_by(assessment_id:)
         expect(output.certificated).to be false
         expect(output.partner).to be false
@@ -31,13 +30,13 @@ RSpec.describe JourneyLoggerService do
         expect(output.asylum_support).to be false
         expect(output.matter_type).to eq "asylum"
         expect(output.session.with_indifferent_access).to eq session_data
-        expect(output.office_code).to eq "office-code"
+        expect(output.office_code).to be_nil
         expect(output.early_result_type).to be_nil
         expect(output.early_eligibility_result).to be false
       end
 
       it "skips saving in no-analytics mode" do
-        described_class.call(assessment_id, calculation_result, check, portal_user_office_code, { no_analytics_mode: true })
+        described_class.call(assessment_id, calculation_result, check, { no_analytics_mode: true })
         expect(CompletedUserJourney.count).to eq 0
       end
     end
@@ -66,7 +65,7 @@ RSpec.describe JourneyLoggerService do
       end
 
       it "saves the right details to the database" do
-        described_class.call(assessment_id, calculation_result, check, portal_user_office_code, {})
+        described_class.call(assessment_id, calculation_result, check, {})
         output = CompletedUserJourney.find_by(assessment_id:)
         expect(output.certificated).to be true
         expect(output.partner).to be true
@@ -91,7 +90,7 @@ RSpec.describe JourneyLoggerService do
       end
 
       it "correctly tracks this" do
-        described_class.call(assessment_id, calculation_result, check, portal_user_office_code, {})
+        described_class.call(assessment_id, calculation_result, check, {})
         output = CompletedUserJourney.find_by(assessment_id:)
         expect(output.passported).to be true
       end
@@ -109,7 +108,7 @@ RSpec.describe JourneyLoggerService do
       end
 
       it "correctly identifies that there are no smod assets" do
-        described_class.call(assessment_id, calculation_result, check, portal_user_office_code, {})
+        described_class.call(assessment_id, calculation_result, check, {})
         output = CompletedUserJourney.find_by(assessment_id:)
         expect(output.smod_assets).to be false
         expect(output.asylum_support).to be false
@@ -125,7 +124,7 @@ RSpec.describe JourneyLoggerService do
         end
 
         it "tracks asylum support" do
-          described_class.call(assessment_id, calculation_result, check, portal_user_office_code, {})
+          described_class.call(assessment_id, calculation_result, check, {})
           output = CompletedUserJourney.find_by(assessment_id:)
           expect(output.asylum_support).to be true
         end
@@ -141,7 +140,7 @@ RSpec.describe JourneyLoggerService do
         end
 
         it "tracks it as an asylum upper tribunal case" do
-          described_class.call(assessment_id, calculation_result, check, portal_user_office_code, {})
+          described_class.call(assessment_id, calculation_result, check, {})
           output = CompletedUserJourney.find_by(assessment_id:)
           expect(output.matter_type).to eq "asylum"
         end
@@ -157,7 +156,7 @@ RSpec.describe JourneyLoggerService do
         end
 
         it "tracks a domestic abuse case" do
-          described_class.call(assessment_id, calculation_result, check, portal_user_office_code, {})
+          described_class.call(assessment_id, calculation_result, check, {})
           output = CompletedUserJourney.find_by(assessment_id:)
           expect(output.matter_type).to eq "domestic_abuse"
         end
@@ -168,7 +167,7 @@ RSpec.describe JourneyLoggerService do
       let(:session_data) { { "client_age" => "over_60" } }
 
       it "saves age to the completed user journey" do
-        described_class.call(assessment_id, calculation_result, check, portal_user_office_code, session_data)
+        described_class.call(assessment_id, calculation_result, check, session_data)
         output = CompletedUserJourney.find_by(assessment_id:)
         expect(output.client_age).to eq "over_60"
       end
@@ -186,7 +185,7 @@ RSpec.describe JourneyLoggerService do
       end
 
       it "saves `early_result_type` and `outcome` to completed user journey" do
-        described_class.call(assessment_id, calculation_result, check, portal_user_office_code, {})
+        described_class.call(assessment_id, calculation_result, check, {})
         output = CompletedUserJourney.find_by(assessment_id:)
         expect(output.outcome).to eq "ineligible"
         expect(output.early_result_type).to eq "gross_income"
@@ -204,14 +203,14 @@ RSpec.describe JourneyLoggerService do
 
       it "creates a new record at the end of the journey" do
         # Initial call with ineligible early eligibility result from session_data
-        described_class.call(assessment_id, calculation_result, check, portal_user_office_code, {})
+        described_class.call(assessment_id, calculation_result, check, {})
         expect(CompletedUserJourney.where(assessment_id:).count).to eq 1
         # Simulate continuing to the end of the journey with an overall_result
         updated_api_result = FactoryBot.build(:api_result, overall_result: { result: "ineligible" })
         allow(calculation_result).to receive(:api_response).and_return(updated_api_result)
         # Update `check` to alter `early_result_type` as a visit to the results page would
         allow(check).to receive(:early_ineligible_result?).and_return(nil)
-        described_class.call(assessment_id, calculation_result, check, portal_user_office_code, {})
+        described_class.call(assessment_id, calculation_result, check, {})
         expect(CompletedUserJourney.where(assessment_id:).count).to eq 2
       end
     end
@@ -228,7 +227,7 @@ RSpec.describe JourneyLoggerService do
       end
 
       it "creates a new record initially, and updates it on subsequent calls" do
-        described_class.call(assessment_id, calculation_result, check, portal_user_office_code, session_data)
+        described_class.call(assessment_id, calculation_result, check, session_data)
         expect(CompletedUserJourney.where(assessment_id:).count).to eq 1
 
         modified_session_data = {
@@ -238,7 +237,7 @@ RSpec.describe JourneyLoggerService do
           early_result: { "result" => "ineligible", "type" => "gross_income" },
         }.with_indifferent_access
 
-        described_class.call(assessment_id, calculation_result, check, portal_user_office_code, modified_session_data)
+        described_class.call(assessment_id, calculation_result, check, modified_session_data)
 
         # Ensure no new record was created; the count should still be 1
         expect(CompletedUserJourney.where(assessment_id:).count).to eq 1
@@ -250,7 +249,7 @@ RSpec.describe JourneyLoggerService do
 
       it "updates an existing record" do
         existing_record = FactoryBot.create(:completed_user_journey, assessment_id:, early_eligibility_result: false, partner: true)
-        described_class.call(assessment_id, calculation_result, check, portal_user_office_code, {})
+        described_class.call(assessment_id, calculation_result, check, {})
         expect(existing_record.reload.partner).to be false
       end
     end
@@ -265,7 +264,7 @@ RSpec.describe JourneyLoggerService do
 
       it "updates an existing record" do
         existing_record = FactoryBot.create(:completed_user_journey, assessment_id:, early_eligibility_result: true)
-        described_class.call(assessment_id, calculation_result, check, portal_user_office_code, {})
+        described_class.call(assessment_id, calculation_result, check, {})
         expect(existing_record.reload.early_eligibility_result).to be true
       end
     end

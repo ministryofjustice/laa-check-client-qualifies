@@ -38,7 +38,6 @@ private
   def track_completed_journey_for_early_result
     session_data["api_response"] = CfeService.call(session_data, Steps::Helper.completed_steps_for(session_data, step))
     calculation_result = CalculationResult.new(session_data)
-    office_code = signed_in? && current_provider.present? ? current_provider.first_office_code : nil
-    JourneyLoggerService.call(assessment_id, calculation_result, @check, office_code, cookies)
+    JourneyLoggerService.call(assessment_id, calculation_result, @check, cookies)
   end
 end
