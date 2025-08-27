@@ -52,9 +52,7 @@ private
   end
 
   def track_completed_journey(calculation_result)
-    office_code = signed_in? && current_provider.present? ? current_provider.first_office_code : nil
-
-    JourneyLoggerService.call(assessment_id, calculation_result, @check, office_code, cookies)
+    JourneyLoggerService.call(assessment_id, calculation_result, @check, cookies)
   end
 
   def specify_feedback_widget
