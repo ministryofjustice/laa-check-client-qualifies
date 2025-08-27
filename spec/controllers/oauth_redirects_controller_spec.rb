@@ -31,5 +31,27 @@ RSpec.describe OauthRedirectsController, type: :controller do
       get :subdomain_redirect, params: { state: "https://valid-subdomain.cloud-platform.service.justice.gov.uk?state=foo", code: "bar" }
       expect(response).to redirect_to "https://valid-subdomain.cloud-platform.service.justice.gov.uk/admins/auth/google_oauth2/callback?state=foo&code=bar"
     end
+
+    it "rescues URI::InvalidURIError and redirects to sign in with a notice" do
+      get :subdomain_redirect, params: { state: "http://\nnot-a-valid-uri" }
+      expect(response).to redirect_to "/admins/sign_in"
+      expect(flash[:notice]).to eq "Invalid subdomain provided in state param"
+    end
+
+    it "redirects to the admin-scoped callback path with preserved state and google params" do
+      state_url = "https://valid-subdomain.cloud-platform.service.justice.gov.uk?state=abc123"
+      get :subdomain_redirect, params: {
+        state: state_url,
+        code: "up-up-down-down-left-right-left-right-b-a",
+        scope: "email profile",
+        authuser: "0",
+        hd: "justice.gov.uk",
+        prompt: "none",
+      }
+
+      expect(response).to redirect_to(
+        "https://valid-subdomain.cloud-platform.service.justice.gov.uk/admins/auth/google_oauth2/callback?state=abc123&authuser=0&code=up-up-down-down-left-right-left-right-b-a&hd=justice.gov.uk&prompt=none&scope=email+profile",
+      )
+    end
   end
 end
