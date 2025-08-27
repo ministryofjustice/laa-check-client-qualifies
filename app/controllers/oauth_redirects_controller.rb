@@ -27,7 +27,7 @@ class OauthRedirectsController < ApplicationController
   def subdomain_redirect
     uri = URI.parse(params[:state])
     if uri.hostname.ends_with?("cloud-platform.service.justice.gov.uk") || request.host == uri.hostname
-      uri.path = admin_google_oauth2_omniauth_callback_path
+      uri.path = Rails.application.routes.url_helpers.admin_google_oauth2_omniauth_callback_path
       uri.query += "&#{params.slice(:code, :scope, :authuser, :hd, :prompt).permit!.to_query}"
       redirect_to uri.to_s, allow_other_host: true
     else

@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => "/admin", as: "rails_admin"
-
   devise_for :admins, controllers: { omniauth_callbacks: "admins/omniauth_callbacks" }
 
   root to: "start#index"
@@ -24,6 +23,21 @@ Rails.application.routes.draw do
   get "robots.txt", to: "robots#index"
   get "/auth/subdomain_redirect", to: "oauth_redirects#subdomain_redirect", as: :subdomain_redirect
   post "/auth/google/redirect", to: "oauth_redirects#google_redirect", as: :google_oauth_redirect
+
+  # Compatibility redirects from `/auth/*` → `/admins/auth/*`, preserving query params
+  match "/auth/:provider/callback",
+        to: redirect(status: 302) { |params, req|
+          qs = req.query_string
+          "/admins/auth/#{params[:provider]}/callback#{qs.present? ? "?#{qs}" : ''}"
+        },
+        via: %i[get post]
+
+  match "/auth/:provider",
+        to: redirect(status: 302) { |params, req|
+          qs = req.query_string
+          "/admins/auth/#{params[:provider]}#{qs.present? ? "?#{qs}" : ''}"
+        },
+        via: %i[get post]
 
   # Catch and redirect old-format URLs
   get "estimates/:assessment_code/build_estimates/:step", to: "redirects#build_estimate"
