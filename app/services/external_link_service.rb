@@ -50,7 +50,7 @@ class ExternalLinkService
           page_url: "https://assets.publishing.service.gov.uk/media/684ff4a09d538361ad2da71b/Lord_Chancellor_s_guide_to_determining_financial_eligibility__Certificated_.pdf",
           sections: {
             smod: 8,
-            passporting_benefit: 10,
+            passporting_benefit: 11,
             domestic_abuse: 12,
             under_18: 14,
             income: 23,
