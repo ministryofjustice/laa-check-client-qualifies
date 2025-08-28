@@ -5,7 +5,7 @@ module AssetsHelper
     }
 
     if check.level_of_help == "certificated"
-      links[t("question_flow.assets.disregarded_capital_guidance.text")] = document_link(:lc_guidance_certificated, :capital)
+      links[t("question_flow.assets.disregarded_capital_guidance.text")] = document_link(:lc_guidance_certificated, :mandatory_discretionary_disregarded_capital)
       links[t("question_flow.assets.prisoner_guidance.text")] = document_link(:lc_guidance_certificated, :prisoner)
       links[t("question_flow.assets.bankrupt_guidance.text")] = document_link(:lc_guidance_certificated, :bankruptcy)
     end
