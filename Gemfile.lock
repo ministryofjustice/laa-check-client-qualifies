@@ -308,9 +308,6 @@ GEM
     omniauth-rails_csrf_protection (1.0.2)
       actionpack (>= 4.2)
       omniauth (~> 2.0)
-    omniauth-saml (2.2.4)
-      omniauth (~> 2.1)
-      ruby-saml (~> 1.18)
     orm_adapter (0.5.0)
     ostruct (0.6.1)
     pagy (9.3.4)
@@ -500,9 +497,6 @@ GEM
       lint_roller (~> 1.1)
       rubocop (~> 1.72, >= 1.72.1)
     ruby-progressbar (1.13.0)
-    ruby-saml (1.18.1)
-      nokogiri (>= 1.13.10)
-      rexml
     ruby2_keywords (0.0.5)
     rubyzip (3.0.1)
     safe_shell (1.1.0)
@@ -626,7 +620,6 @@ DEPENDENCIES
   jsbundling-rails
   omniauth-google-oauth2
   omniauth-rails_csrf_protection (>= 1.0.2)
-  omniauth-saml (~> 2.2.4)
   parallel_tests
   pdf-forms
   pg (~> 1.6)

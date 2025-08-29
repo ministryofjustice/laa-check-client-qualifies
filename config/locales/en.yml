@@ -619,6 +619,7 @@ en:
             language:
               blank: Select which language you need the form in
   service:
+    homepage_url: https://www.gov.uk
     name: Check if your client qualifies for legal aid
     name_for_page_title: Check if your client qualifies for legal aid | GOV.UK
     public_beta_survey_link: https://www.smartsurvey.co.uk/s/FS38PT/
