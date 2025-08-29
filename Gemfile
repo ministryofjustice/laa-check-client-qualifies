@@ -55,7 +55,6 @@ gem "factory_bot_rails"
 gem "devise"
 gem "omniauth-google-oauth2"
 gem "omniauth-rails_csrf_protection", ">= 1.0.2"
-gem "omniauth-saml", "~> 2.2.4"
 
 gem "data_migrate"
 

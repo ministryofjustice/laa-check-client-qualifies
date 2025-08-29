@@ -1,26 +1,10 @@
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => "/admin", as: "rails_admin"
-
-  devise_for :admins, :providers,
-             skip: %i[sessions controllers]
-  devise_scope :admin do
-    get "/auth/google_oauth2/callback" => "admins/omniauth_callbacks#google_oauth2", as: :admin_google_oauth2_omniauth_callback
-    get "/admins/sign_in" => "admins/sessions#new", as: :new_admin_session
-  end
-
-  devise_scope :provider do
-    get "/providers/sign_in" => "providers/sessions#new", as: :new_provider_session
-    post "/providers/sign_in" => "providers/sessions#create", as: :provider_session
-    get "/providers/sign_out", to: "providers/sessions#destroy", as: :providers_logout
-
-    # get callback only happens during tests - real IDP (SAML 2.0) only uses POST
-    match "/providers/auth/saml/callback" => "providers/omniauth_callbacks#saml", via: %i[get post], as: :provider_saml_omniauth_callback
-  end
+  devise_for :admins, controllers: { omniauth_callbacks: "admins/omniauth_callbacks" }
 
   root to: "start#index"
 
   resources :start, only: [:index]
-  get "/start/portal_signed_out", to: "start#portal_signed_out"
   resources :status, only: [:index]
 
   resource :cookies, only: %i[show update]
@@ -39,6 +23,21 @@ Rails.application.routes.draw do
   get "robots.txt", to: "robots#index"
   get "/auth/subdomain_redirect", to: "oauth_redirects#subdomain_redirect", as: :subdomain_redirect
   post "/auth/google/redirect", to: "oauth_redirects#google_redirect", as: :google_oauth_redirect
+
+  # Compatibility redirects from `/auth/*` → `/admins/auth/*`, preserving query params
+  match "/auth/:provider/callback",
+        to: redirect(status: 302) { |params, req|
+          qs = req.query_string
+          "/admins/auth/#{params[:provider]}/callback#{qs.present? ? "?#{qs}" : ''}"
+        },
+        via: %i[get post]
+
+  match "/auth/:provider",
+        to: redirect(status: 302) { |params, req|
+          qs = req.query_string
+          "/admins/auth/#{params[:provider]}#{qs.present? ? "?#{qs}" : ''}"
+        },
+        via: %i[get post]
 
   # Catch and redirect old-format URLs
   get "estimates/:assessment_code/build_estimates/:step", to: "redirects#build_estimate"

@@ -3,17 +3,12 @@ require "rails_helper"
 RSpec.describe ResultsController, type: :controller do
   include Devise::Test::ControllerHelpers
 
-  let(:email_address) { "test@testing.com" }
   let(:assessment_code) { "123456" }
   let(:session_data) { { "some" => "data", "assessment_code" => assessment_code } }
   let(:calculation_result) { instance_double(CalculationResult) }
   let(:check) { instance_double(Check, controlled?: false, early_ineligible_result?: false) }
 
   before do
-    OmniAuth.config.mock_auth[:saml] = build(:mock_saml_auth)
-    provider = create(:provider, email: email_address, first_office_code: "1Q630KL")
-    sign_in provider
-
     allow(controller).to receive(:session_data).and_return(session_data)
     allow(CalculationResult).to receive(:new).and_return(calculation_result)
     allow(Check).to receive(:new).and_return(check)
