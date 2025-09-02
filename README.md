@@ -353,36 +353,6 @@ We keep secrets in AWS Secrets Manager. To edit them, visit the [AWS web console
 - On the 'Secret Value' click 'Retrieve secret value'
 - View or Edit as necessary
 
-### Portal integration
-
-#### Secrets
-There is only 1 of these (the secret key) which is kept in k8s 'portal_secrets' secret. This is a single key `X509_KEY` which contains the secret key for the certificate used to authenticate with Portal.
-
-Last parameter is `no DES` (Data Encryption Standard) (rather than nodes) which means don't store a passphrase against it https://en.wikipedia.org/wiki/Data_Encryption_Standard
-
-```bash
-openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -sha256 -days 3650 -nodes
-```
-
-```bash
-kubectl -n <namespace> create secret generic portal-secrets --from-file=X509_KEY=./private-key.pem
-```
-where `private-key.pem` is the private key creeated via openssl.
-
-#### Metadata files
-The metadata files are required by the portal team before they can do their integration - this is a little chicken-and-egg
-situation as the metadata files are produced by our Rails code at the url `<hostname>:/providers/auth/saml/metadata`
-
-Once you have the `xml` metadata (from visiting `<hostname>:/providers/auth/saml/metadata)`), copy and paste the metadata into appropriate file (`uat.xml` or `stg.xml` etc). 
-Remove the errant "..." from the file and format it with your IDE. 
-
-Then let the portal team know that you branch the new metadata for portal to "point back to". Once that is done, you can test out on this UAT branch: https://portal.uat.legalservices.gov.uk
-
-We also store the portal metadata files in our repository - they are in the Portal GitHub, but their repo is private so
-we can't easily get to them without creating a github access key - it was easier just to copy and paste their config files
-although this could be a potential future option - the code we inherited from crime apply does have the capability of loading 
-a Portal metadata file from a URL.
-
 ### Branch naming
 
 We name our branches to start with the Jira ticket ID, followed by a short description of the work.

@@ -180,9 +180,6 @@ RSpec.configure do |config|
 
   config.include ActiveSupport::Testing::TimeHelpers
 
-  # add devise helpers so that we can run integration tests using portal
-  config.include Devise::Test::IntegrationHelpers, type: :feature
-
   config.around(:each, :headless_chrome) do |example|
     Capybara.current_driver = :headless_chrome
     example.run

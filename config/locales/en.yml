@@ -619,6 +619,7 @@ en:
             language:
               blank: Select which language you need the form in
   service:
+    homepage_url: https://www.gov.uk
     name: Check if your client qualifies for legal aid
     name_for_page_title: Check if your client qualifies for legal aid | GOV.UK
     public_beta_survey_link: https://www.smartsurvey.co.uk/s/FS38PT/
@@ -2311,11 +2312,6 @@ en:
       print_this_page: Print this page
       your_answers: Your answers
   start:
-    portal_signed_out:
-      complete_whilst_signed_out: Complete a check whilst signed out
-      signed_out: Signed out
-      opening_paragraphs:
-        - You are now signed out of the application
     index:
       opening_paragraphs:
         - This service tells you if your client is likely to get civil legal aid, based on their financial situation.
@@ -2359,9 +2355,6 @@ en:
       problem_resolved: Problem resolved
       learn_more: Learn more
       resolved: We have resolved the %{issue_name}.
-  layouts:
-    application:
-      sign_out: Sign Out
   cookie_banner:
     title: Cookies on
     essential_cookies: We use some essential cookies to make this service work.
@@ -2420,7 +2413,6 @@ en:
         - your Internet Protocol (IP) address
         - details of which version of <a href='https://www.gov.uk/support/browsers/'>web browser</a> you used
         - information on how you use the site, using <a href='/cookies/'>cookies</a> and page tagging techniques
-      portal_users_html: If you access the service via the LAA Portal, then we collect your portal login and office account number - check the <a href='https://www.gov.uk/government/publications/laa-online-portal-help-and-information#attachment_6742318'>LAA Portal terms and conditions.</a>
       with_consent_html: "Where you provide your consent, we use <a href='https://support.google.com/analytics/topic/2919631/'>Google Analytics</a> cookies. Google Analytics processes information about:"
       privacy_bullets_two:
         - the pages you visit
@@ -2459,7 +2451,7 @@ en:
       how_long_heading: How long we keep your data
       how_long_section:
         - We will only retain your data for as long as it is needed for the purposes set out on this page.
-        - We will delete data that identifies specific users after 7 days. We will retain summary logs of interactions with the service for five years, but these logs are fully anonymous.
+        - We will retain summary logs of interactions with the service for five years, but these logs are fully anonymous.
         - We will delete access log data which contain your IP address after 30 days.
       where_stored_heading: Where your data is processed and stored
       where_stored: We design, build and run our systems to make sure that your data is as safe as possible at all stages, both while it’s processed and when it’s stored. All personal data is processed in the EEA.
@@ -2504,7 +2496,7 @@ en:
         - SK9 5AF
       changes_heading: Changes to this policy
       changes_text: We may change this privacy policy. In that case, the ‘last updated’ date at the bottom of this page will also change. Any changes to this privacy policy will apply to you and your data immediately.
-      last_updated: Last updated 18 July 2024
+      last_updated: Last updated 28 August 2025
   accessibilities:
     show:
       title: Accessibility statement
@@ -2659,7 +2651,6 @@ en:
     invalid_subdomain: "Invalid subdomain provided in state param"
     sessions:
       google: "Sign in with Google"
-      saml: "Sign in with Portal"
   admin:
     actions:
       publish_issue:
