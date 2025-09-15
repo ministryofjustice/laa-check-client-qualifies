@@ -23,6 +23,14 @@ spec:
         - name: api
           image: '{{ .Values.image.repository }}:{{ .Values.image.tag }}'
           imagePullPolicy: IfNotPresent
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
 {{ include "app.envs" . | nindent 10 }}
           ports:
             - name: http
