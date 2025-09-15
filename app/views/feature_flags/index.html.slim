@@ -5,15 +5,15 @@
       table.with_caption(size: "m", text: t(".time_based"))
       table.with_body do |body|
         body.with_row do |row|
-          row.with_cell(text: t("feature_flags.index.flag"), header: true)
-          row.with_cell(text: t("feature_flags.index.enabled"), header: true)
-          row.with_cell(text: t("feature_flags.index.override"), header: true) if FeatureFlags.overrideable?
+          row.with_cell(text: t(".flag"), header: true)
+          row.with_cell(text: t(".enabled"), header: true)
+          row.with_cell(text: t(".override"), header: true) if FeatureFlags.overrideable?
         end
         FeatureFlags.time_dependant.each do |flag|
           body.with_row do |row|
             row.with_cell(text: flag)
             row.with_cell(text: FeatureFlags.enabled?(flag, without_session_data: true) ? t("generic.yes_choice") : t("generic.no_choice"))
-            row.with_cell(text: link_to(t("feature_flags.index.override"), rails_admin_path)) if FeatureFlags.overrideable?
+            row.with_cell(text: link_to(t(".override"), rails_admin_path)) if FeatureFlags.overrideable?
           end
         end
       end
@@ -22,15 +22,15 @@
       table.with_caption(size: "m", text: t(".static"))
       table.with_body do |body|
         body.with_row do |row|
-          row.with_cell(text: t("feature_flags.index.flag"), header: true)
-          row.with_cell(text: t("feature_flags.index.enabled"), header: true)
-          row.with_cell(text: t("feature_flags.index.override"), header: true) if FeatureFlags.overrideable?
+          row.with_cell(text: t(".flag"), header: true)
+          row.with_cell(text: t(".enabled"), header: true)
+          row.with_cell(text: t(".override"), header: true) if FeatureFlags.overrideable?
         end
         FeatureFlags.static.each do |flag|
           body.with_row do |row|
             row.with_cell(text: flag)
             row.with_cell(text: FeatureFlags.enabled?(flag, without_session_data: true) ? t("generic.yes_choice") : t("generic.no_choice"))
-            row.with_cell(text: link_to(t("feature_flags.index.override"), rails_admin_path)) if FeatureFlags.overrideable?
+            row.with_cell(text: link_to(t(".override"), rails_admin_path)) if FeatureFlags.overrideable?
           end
         end
       end
