@@ -17,10 +17,22 @@ spec:
       backoffLimit: 1
       template:
         spec:
+          securityContext:
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
           containers:
           - name: metrics
             image: '{{ .Values.image.repository }}:{{ .Values.image.tag }}'
             imagePullPolicy: IfNotPresent
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
+              runAsNonRoot: true
+              seccompProfile:
+                type: RuntimeDefault
             command: ['rake', "job:data:clear"]
 {{ include "app.envs" . | nindent 12 }}
             resources:
