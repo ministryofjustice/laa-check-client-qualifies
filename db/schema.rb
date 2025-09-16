@@ -111,9 +111,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_27_102123) do
     t.index ["assessment_id"], name: "index_completed_user_journeys_on_assessment_id"
   end
 
-  create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
-  end
-
   create_table "feature_flag_overrides", force: :cascade do |t|
     t.string "key"
     t.boolean "value"

@@ -2593,6 +2593,11 @@ en:
       override: Override
     edit:
       value: Override value
+  govuk_component:
+    table_component:
+      flag: Flag
+      enabled: Enabled?
+      override: Override
   missing_session:
     title: You cannot access this page
     intro: "You cannot access this eligibility check for one of the following reasons:"
