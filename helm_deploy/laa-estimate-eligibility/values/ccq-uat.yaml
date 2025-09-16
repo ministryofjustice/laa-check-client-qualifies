@@ -28,8 +28,10 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: "cd-serviceaccount"
 
-podSecurityContext: {}
-# fsGroup: 2000
+podSecurityContext:
+  runAsNonRoot: true
+  seccompProfile:
+    type: RuntimeDefault
 
 service:
   type: ClusterIP
@@ -37,6 +39,15 @@ service:
 
 securityContext:
   runAsUser: 1000
+  allowPrivilegeEscalation: false
+  capabilities:
+    add:
+      - SYS_ADMIN    # Required for pdftk system command execution
+      - CHOWN        # Required for file ownership changes in temp directories
+      - SETUID       # Required for process spawning with different user contexts
+    drop:
+      - ALL
+  readOnlyRootFilesystem: false  # Required for PDF generation temp files
 
 ingress:
   hosts:

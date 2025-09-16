@@ -19,10 +19,14 @@ spec:
         app: {{ template "app.name" . }}
         release: {{ .Release.Name }}
     spec:
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: api
           image: '{{ .Values.image.repository }}:{{ .Values.image.tag }}'
           imagePullPolicy: IfNotPresent
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
 {{ include "app.envs" . | nindent 10 }}
           ports:
             - name: http
