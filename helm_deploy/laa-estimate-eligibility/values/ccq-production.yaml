@@ -18,11 +18,18 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: "cd-serviceaccount"
 
-podSecurityContext: {}
-# fsGroup: 2000
+podSecurityContext:
+  runAsNonRoot: true
+  seccompProfile:
+    type: RuntimeDefault
 
 securityContext:
- runAsUser: 1000
+  runAsUser: 1000
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - ALL
+  readOnlyRootFilesystem: false  # Required for PDF generation temp files
 
 service:
   type: ClusterIP
