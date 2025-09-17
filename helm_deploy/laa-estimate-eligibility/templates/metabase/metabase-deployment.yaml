@@ -39,10 +39,6 @@ spec:
           runAsUser: 1000
           runAsGroup: 1000
           capabilities:
-            add:
-              - SYS_ADMIN    # Required for Rack 3.x compatibility
-              - CHOWN        # Required for file operations
-              - SETUID       # Required for process spawning
             drop:
               - ALL
           readOnlyRootFilesystem: false

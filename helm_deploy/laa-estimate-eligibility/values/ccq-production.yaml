@@ -27,10 +27,6 @@ securityContext:
   runAsUser: 1000
   allowPrivilegeEscalation: false
   capabilities:
-    add:
-      - SYS_ADMIN    # Required for pdftk system command execution
-      - CHOWN        # Required for file ownership changes in temp directories
-      - SETUID       # Required for process spawning with different user contexts
     drop:
       - ALL
   readOnlyRootFilesystem: false  # Required for PDF generation temp files
