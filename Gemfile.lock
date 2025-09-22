@@ -199,10 +199,10 @@ GEM
       faraday (~> 2.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    govuk-components (5.11.3)
+    govuk-components (5.11.1)
       html-attributes-utils (~> 1.0.0, >= 1.0.0)
       pagy (>= 6, < 10)
-      view_component (>= 4.0, < 4.1)
+      view_component (>= 3.18, < 3.24)
     govuk_design_system_formbuilder (5.11.0)
       actionview (>= 6.1)
       activemodel (>= 6.1)
@@ -217,6 +217,10 @@ GEM
     hashie (5.0.0)
     html-attributes-utils (1.0.2)
       activesupport (>= 6.1.4.4)
+    httparty (0.23.1)
+      csv
+      mini_mime (>= 1.0.0)
+      multi_xml (>= 0.5.2)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
@@ -552,9 +556,10 @@ GEM
     vcr (6.3.1)
       base64
     version_gem (1.1.4)
-    view_component (4.0.2)
-      activesupport (>= 7.1.0, < 8.1)
+    view_component (3.23.2)
+      activesupport (>= 5.2.0, < 8.1)
       concurrent-ruby (~> 1)
+      method_source (~> 1.0)
     virtus (2.0.0)
       axiom-types (~> 0.1)
       coercible (~> 1.0)
@@ -615,6 +620,7 @@ DEPENDENCIES
   govuk_design_system_formbuilder
   govuk_notify_rails (~> 3.0.0)
   grover
+  httparty
   jsbundling-rails
   omniauth-google-oauth2
   omniauth-rails_csrf_protection (>= 1.0.2)
@@ -645,6 +651,7 @@ DEPENDENCIES
   slim_lint
   tzinfo-data
   vcr
+  view_component (~> 3.23)
   web-console
   webmock
 

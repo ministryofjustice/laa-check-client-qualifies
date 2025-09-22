@@ -109,8 +109,10 @@ end
 
 gem "govuk-components"
 gem "govuk_design_system_formbuilder"
+gem "view_component", "~> 3.23" # Pin to 3.x to avoid PDF generation issues
 gem "faraday"
 gem "faraday-net_http_persistent"
 gem "faraday-retry"
+gem "httparty"
 gem "slim-rails"
 gem "redis-rails"
