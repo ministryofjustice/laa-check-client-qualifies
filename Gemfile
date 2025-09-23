@@ -44,6 +44,8 @@ gem "bootsnap", require: false
 # gem "image_processing", "~> 1.2"
 
 gem "grover"
+gem "pdfkit", "~> 0.8.7"
+gem "wkhtmltopdf-binary", "~> 0.12.6"
 
 gem "exception_notification"
 gem "govuk_notify_rails", "~> 3.0.0"

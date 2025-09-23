@@ -324,6 +324,7 @@ GEM
       cliver (~> 0.3.2)
       rexml (~> 3.2, >= 3.2.6)
       safe_shell (>= 1.0.3, < 2.0)
+    pdfkit (0.8.7.3)
     pg (1.6.2-arm64-darwin)
     pg (1.6.2-x86_64-darwin)
     pg (1.6.2-x86_64-linux)
@@ -581,6 +582,7 @@ GEM
       base64
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    wkhtmltopdf-binary (0.12.6.10)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.7.3)
@@ -626,6 +628,7 @@ DEPENDENCIES
   omniauth-rails_csrf_protection (>= 1.0.2)
   parallel_tests
   pdf-forms
+  pdfkit (~> 0.8.7)
   pg (~> 1.6)
   propshaft (>= 0.9.0)
   pry-nav
@@ -654,6 +657,7 @@ DEPENDENCIES
   view_component (~> 3.23)
   web-console
   webmock
+  wkhtmltopdf-binary (~> 0.12.6)
 
 RUBY VERSION
    ruby 3.3.4p94
