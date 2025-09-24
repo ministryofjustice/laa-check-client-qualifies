@@ -14,7 +14,12 @@ class PdfService
       height: 4800,
     },
     emulate_media: "screen",
-    launch_args: ["--font-render-hinting=medium", "--no-sandbox", "--force-renderer-accessibility"],
+    launch_args: [
+      "--disable-gpu",
+      "--font-render-hinting=medium",
+      "--no-sandbox",
+      "--force-renderer-accessibility"
+    ],
   }.freeze
 
   class << self
