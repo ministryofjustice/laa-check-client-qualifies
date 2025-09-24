@@ -23,7 +23,7 @@ class ControlledWorkDocumentSelectionsController < ApplicationController
     @form = ControlledWorkDocumentSelection.from_session(session_data)
     # TEMPORARILY DISABLED FOR RAILS 8 TESTING - pdftk functionality removed
     # handle_download
-    render plain: "CW Form downloads temporarily disabled for Rails 8 compatibility testing", status: 503
+    render plain: "CW Form downloads temporarily disabled for Rails 8 compatibility testing", status: :service_unavailable
   end
 
 private
