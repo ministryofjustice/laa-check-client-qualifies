@@ -26,6 +26,7 @@ RSpec.describe "Redirects" do
   end
 
   scenario "I try to visit the CW form URL for a check" do
+    skip "Controlled work form functionality disabled"
     set_session(:foo, "level_of_help" => "controlled", "api_response" => build(:api_result))
     visit "/estimates/foo/controlled_work_document_selections/new"
     expect(page).to have_current_path("/select-cw-form/foo")

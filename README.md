@@ -19,7 +19,6 @@ CCQ only knows about the specifics of the eligibility ruleset to the extent that
 - System dependencies
   - postgres
   - yarn
-  - pdftk
   - puppeteer
   - ministryofjustice/frontend
   - govuk-frontend
@@ -47,8 +46,6 @@ brew services start postgresql@17
 ```
 
 If you need to run multiple different versions of postgres locally you can also consider using the [postgres.app](https://postgresapp.com/) which provides mac users an app and gui to do this.
-
-You will also need `pdftk`. There is a [Mac installer](https://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/pdftk_server-2.02-mac_osx-10.11-setup.pkg) for convenience.
 
 ```bash
 bundle install

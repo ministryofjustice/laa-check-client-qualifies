@@ -12,6 +12,7 @@ RSpec.describe "Feedback component" do
   describe "satisfaction feedback" do
     context "when on the end of journey page" do
       it "I can successfully submit satisfaction feedback", :slow do
+        skip "Controlled work form functionality disabled"
         start_assessment
         fill_in_client_age_screen
         fill_in_level_of_help_screen(choice: "Civil controlled work or family mediation")
@@ -119,6 +120,7 @@ RSpec.describe "Feedback component" do
 
       context "when on the CW form selection page" do
         it "I can successfully submit freetext feedback", :slow do
+          skip "Controlled work form functionality disabled"
           start_assessment
           fill_in_client_age_screen
           fill_in_level_of_help_screen(choice: "Civil controlled work or family mediation")

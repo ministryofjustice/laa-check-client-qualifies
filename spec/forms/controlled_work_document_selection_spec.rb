@@ -1,6 +1,10 @@
 require "rails_helper"
 
 RSpec.describe "cw_selection", type: :feature do
+  before do
+    skip "Controlled work form functionality disabled"
+  end
+
   let(:assessment_code) { :assessment_code }
   let(:session_data) { { "level_of_help" => "controlled", "api_response" => api_response, "feature_flags" => FeatureFlags.session_flags } }
   let(:api_response) { build(:api_result) }

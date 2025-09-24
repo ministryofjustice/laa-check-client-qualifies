@@ -52,8 +52,8 @@ FROM ruby:3.3.4-slim-bookworm as production
 WORKDIR /app
 
 RUN apt update
-# Need postgres for db, node for puppeteer (PDFs) and pdftk for CWForms
-RUN apt install -y nodejs pdftk
+# Need postgres for db, node for puppeteer (PDFs)
+RUN apt install -y nodejs
 
 # install all chromium's dependencies, but then remove chromium itself as we will be installing via puppeteer
 RUN apt install -y chromium

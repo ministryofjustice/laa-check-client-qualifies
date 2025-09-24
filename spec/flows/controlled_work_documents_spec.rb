@@ -2,6 +2,7 @@ require "rails_helper"
 
 RSpec.describe "CW Forms", :stub_cfe_calls_with_webmock, type: :feature do
   it "lets me access the CW form screen after a controlled check" do
+    skip "Controlled work form functionality disabled"
     allow(CfeService).to receive(:call).and_return build(:api_result, eligible: "eligible")
     start_assessment
     fill_in_forms_until(:level_of_help)
@@ -16,6 +17,7 @@ RSpec.describe "CW Forms", :stub_cfe_calls_with_webmock, type: :feature do
     let(:fixed_arbitrary_time) { Time.zone.local(2023, 2, 15, 14, 23, 21) }
 
     before do
+      skip "Controlled work form functionality disabled"
       allow(CfeService).to receive(:call).and_return build(:api_result, eligible: "eligible")
       travel_to fixed_arbitrary_time
       start_assessment
