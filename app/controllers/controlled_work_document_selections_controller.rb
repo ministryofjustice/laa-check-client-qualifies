@@ -21,7 +21,9 @@ class ControlledWorkDocumentSelectionsController < ApplicationController
 
   def download
     @form = ControlledWorkDocumentSelection.from_session(session_data)
-    handle_download
+    # TEMPORARILY DISABLED FOR RAILS 8 TESTING - pdftk functionality removed
+    # handle_download
+    render plain: "CW Form downloads temporarily disabled for Rails 8 compatibility testing", status: 503
   end
 
 private
@@ -35,15 +37,16 @@ private
   end
 
   def handle_download
-    track_page_view(page: "download_#{@form.form_type}#{'_welsh' if @form.language == 'welsh'}")
-    JourneyLogUpdateService.call(assessment_id, cookies, form_downloaded: true)
-    ControlledWorkDocumentPopulationService.call(session_data, @form) do |file|
-      prefix = "#{I18n.t('generic.welsh_in_welsh')} " if @form.language == "welsh"
-      form_name = I18n.t("checks.end_of_journey.form_types.#{@form.form_type}")
-      timestamp = helpers.timestamp_for_filenames
-      send_data file,
-                filename: "#{prefix}#{form_name} #{timestamp}.pdf",
-                type: "application/pdf"
-    end
+    # REMOVED FOR RAILS 8 TESTING - This method used ControlledWorkDocumentPopulationService with pdftk
+    # track_page_view(page: "download_#{@form.form_type}#{'_welsh' if @form.language == 'welsh'}")
+    # JourneyLogUpdateService.call(assessment_id, cookies, form_downloaded: true)
+    # ControlledWorkDocumentPopulationService.call(session_data, @form) do |file|
+    #   prefix = "#{I18n.t('generic.welsh_in_welsh')} " if @form.language == "welsh"
+    #   form_name = I18n.t("checks.end_of_journey.form_types.#{@form.form_type}")
+    #   timestamp = helpers.timestamp_for_filenames
+    #   send_data file,
+    #             filename: "#{prefix}#{form_name} #{timestamp}.pdf",
+    #             type: "application/pdf"
+    # end
   end
 end

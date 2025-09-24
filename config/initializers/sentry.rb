@@ -1,4 +1,4 @@
-sentry_dsn = Rails.configuration.sentry_dsn
+sentry_dsn = ENV["SENTRY_DSN"]&.strip
 if sentry_dsn.present? && ENV["SENTRY_FEATURE_FLAG"]&.casecmp("enabled")&.zero?
   Sentry.init do |config|
     config.dsn = sentry_dsn
