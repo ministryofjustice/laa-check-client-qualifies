@@ -3,16 +3,13 @@ require "rails_helper"
 RSpec.describe "cw_selection", type: :feature do
   before do
     skip "Controlled work form functionality disabled"
+    set_session(assessment_code, session_data)
+    visit controlled_work_document_selection_path(assessment_code:)
   end
 
   let(:assessment_code) { :assessment_code }
   let(:session_data) { { "level_of_help" => "controlled", "api_response" => api_response, "feature_flags" => FeatureFlags.session_flags } }
   let(:api_response) { build(:api_result) }
-
-  before do
-    set_session(assessment_code, session_data)
-    visit controlled_work_document_selection_path(assessment_code:)
-  end
 
   it "shows an error message if no value is entered" do
     click_on "Continue to download and finish"
