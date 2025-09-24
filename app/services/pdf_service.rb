@@ -18,7 +18,7 @@ class PdfService
       "--disable-gpu",
       "--font-render-hinting=medium",
       "--no-sandbox",
-      "--force-renderer-accessibility"
+      "--force-renderer-accessibility",
     ],
   }.freeze
 
