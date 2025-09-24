@@ -6,6 +6,9 @@ ruby "3.3.4"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.2.2"
 
+# Allow Rack 3.x for Rails 8 compatibility
+gem "rack", "~> 3.1"
+
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft", ">= 0.9.0"
 
