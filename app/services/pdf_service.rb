@@ -1,5 +1,6 @@
 class PdfService
   GROVER_OPTIONS = {
+    cache: true,
     format: "A4",
     margin: {
       top: "2cm",
@@ -10,10 +11,12 @@ class PdfService
     prefer_css_page_size: true,
     print_background: true,
     viewport: {
-      width: 2400,
-      height: 4800,
+      width: 1080,
+      height: 1920,
     },
-    emulate_media: "screen",
+    emulate_media: "print",
+    scale: 0.9,
+    navigation_timeout: 60000,
     launch_args: [
       "--disable-gpu",
       "--font-render-hinting=medium",
