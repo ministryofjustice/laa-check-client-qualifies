@@ -7,9 +7,23 @@ metadata:
   annotations:
     "helm.sh/hook": test-success
 spec:
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 65534  # nobody user for busybox
+    runAsGroup: 65534
+    seccompProfile:
+      type: RuntimeDefault
   containers:
     - name: wget
       image: busybox
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+            - ALL
+        runAsNonRoot: true
+        runAsUser: 65534
+        runAsGroup: 65534
       command: ['wget']
       args:  ['{{ include "app.fullname" . }}:{{ .Values.service.port }}']
   restartPolicy: Never
