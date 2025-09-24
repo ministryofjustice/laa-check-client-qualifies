@@ -16,7 +16,7 @@ class PdfService
     },
     emulate_media: "print",
     scale: 0.9,
-    navigation_timeout: 60000,
+    navigation_timeout: 60_000,
     launch_args: [
       "--disable-gpu",
       "--font-render-hinting=medium",
