@@ -87,17 +87,13 @@ references:
     run:
       name: Parallel Database Setup
       command: |
-        # Create all databases (primary and cache) for test environment
+        # Create test databases
         bin/rails db:create RAILS_ENV=test
-        # Load main application schema into primary databases
+        # Load main application schema (includes cache tables)
         RAILS_ENV=test bin/rails db:schema:load
-        # Run cache database migrations to set up Solid Cache schema
-        RAILS_ENV=test bin/rails db:migrate:cache
-        # Create parallel test databases (both primary and cache)
+        # Create and setup parallel test databases
         RAILS_ENV=test bundle exec rake parallel:create
-        # Load schemas for parallel databases - need to do both primary and cache separately
-        RAILS_ENV=test bundle exec rake parallel:load_schema:primary
-        RAILS_ENV=test bundle exec rake parallel:load_schema:cache
+        RAILS_ENV=test bundle exec rake parallel:load_schema
 
 orbs:
   aws-cli: circleci/aws-cli@4.1.2
