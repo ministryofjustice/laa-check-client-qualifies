@@ -20,7 +20,7 @@ class PdfService
     launch_args: [
       "--disable-gpu",
       "--font-render-hinting=medium",
-      # "--no-sandbox",
+      "--no-sandbox",
       "--force-renderer-accessibility",
     ],
   }.freeze
