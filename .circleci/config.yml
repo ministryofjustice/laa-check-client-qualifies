@@ -93,10 +93,11 @@ references:
         RAILS_ENV=test bin/rails db:schema:load
         # Run cache database migrations to set up Solid Cache schema
         RAILS_ENV=test bin/rails db:migrate:cache
-        # Create parallel test databases
+        # Create parallel test databases (both primary and cache)
         RAILS_ENV=test bundle exec rake parallel:create
-        # Load schemas for parallel databases (this handles both primary and cache DBs)
-        RAILS_ENV=test bundle exec rake parallel:load_schema
+        # Load schemas for parallel databases - need to do both primary and cache separately
+        RAILS_ENV=test bundle exec rake parallel:load_schema:primary
+        RAILS_ENV=test bundle exec rake parallel:load_schema:cache
 
 orbs:
   aws-cli: circleci/aws-cli@4.1.2
