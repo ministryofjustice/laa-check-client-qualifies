@@ -44,7 +44,6 @@ Rails.application.configure do
 
   # Use a different cache store in production.
   config.cache_store = :solid_cache_store
-  config.cache_store = :solid_cache_store
   # Note - this should probably match the CFE lifetime setting (currently 2 weeks)
   config.session_store :cache_store,
                        key: LaaEstimateFinancialEligibilityForLegalAid::SESSION_COOKIE_NAME,
