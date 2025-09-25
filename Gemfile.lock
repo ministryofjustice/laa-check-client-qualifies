@@ -533,6 +533,10 @@ GEM
     snaky_hash (2.0.1)
       hashie
       version_gem (~> 1.1, >= 1.1.1)
+    solid_cache (1.0.7)
+      activejob (>= 7.2)
+      activerecord (>= 7.2)
+      railties (>= 7.2)
     stringio (3.1.7)
     temple (0.10.4)
     thor (1.4.0)
@@ -643,6 +647,7 @@ DEPENDENCIES
   simplecov
   slim-rails
   slim_lint
+  solid_cache (~> 1.0)
   tzinfo-data
   vcr
   web-console

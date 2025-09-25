@@ -114,3 +114,5 @@ gem "faraday-net_http_persistent"
 gem "faraday-retry"
 gem "slim-rails"
 gem "redis-rails"
+
+gem "solid_cache", "~> 1.0"
