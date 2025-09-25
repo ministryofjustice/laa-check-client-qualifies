@@ -87,8 +87,8 @@ references:
     run:
       name: Parallel Database Setup
       command: |
-        bundle exec rake db:schema:load
-        bundle exec rake parallel:setup
+        bin/rails db:create RAILS_ENV=test
+        RAILS_ENV=test bundle exec rake parallel:prepare
 
 orbs:
   aws-cli: circleci/aws-cli@4.1.2
