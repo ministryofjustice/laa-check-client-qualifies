@@ -25,7 +25,9 @@ Rails.application.configure do
   # Show full error reports and disable caching.
   config.consider_all_requests_local = true
   config.action_controller.perform_caching = false
+  # :nocov:
   config.cache_store = :solid_cache_store
+  # :nocov:
   config.session_store :cache_store, key: LaaEstimateFinancialEligibilityForLegalAid::SESSION_COOKIE_NAME
 
   # Raise exceptions instead of rendering exception templates.
