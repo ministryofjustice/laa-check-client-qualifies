@@ -14,10 +14,10 @@ RSpec.describe ApplicationController, type: :controller do
         # Mock the connection to raise StandardError during reconnect
         allow(ActiveRecord::Base.connection).to receive(:active?).and_return(false)
         allow(ActiveRecord::Base.connection).to receive(:reconnect!).and_raise(StandardError, "Connection error")
-        
+
         # The ensure_db_connection method is called as a before_action, so we trigger it by making a request
         expect { get :index }.not_to raise_error
-        
+
         # The controller should still respond normally despite the database connection error
         expect(response).to have_http_status(:success)
       end
