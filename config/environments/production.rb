@@ -43,9 +43,7 @@ Rails.application.configure do
   config.log_tags = [:request_id]
 
   # Use a different cache store in production.
-  # :nocov:
   config.cache_store = :solid_cache_store
-  # :nocov:
   # Note - this should probably match the CFE lifetime setting (currently 2 weeks)
   config.session_store :cache_store,
                        key: LaaEstimateFinancialEligibilityForLegalAid::SESSION_COOKIE_NAME,
