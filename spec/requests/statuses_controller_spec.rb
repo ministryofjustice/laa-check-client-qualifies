@@ -19,7 +19,7 @@ RSpec.describe "status requests" do
     end
 
     it "returns false if there is a problem reading from the database" do
-      allow(ActiveRecord::Base).to receive(:connection).and_raise(PG::UndefinedTable)
+      allow(HealthCheckService).to receive(:database_healthy?).and_return(false)
       get("/health")
       expect(response).not_to be_successful
     end

@@ -20,6 +20,9 @@ unless ENV.fetch("COVERAGE", "true") == "false"
     add_filter "app/mailers/exception_alert_mailer.rb"
     add_filter "app/lib/exception_notifier/templated_notifier.rb"
     add_filter "lib/tasks/"
+    add_filter "db/migrate/"
+    add_filter "config/environments/"
+    add_filter "config/cache.yml"
 
     enable_coverage :branch
 
