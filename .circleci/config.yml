@@ -21,7 +21,7 @@ executors:
           TZ: "Europe/London"
           PARALLEL_TEST_PROCESSORS: 5
           PARALLEL_TEST_FIRST_IS_1: true
-      - image: cimg/postgres:17.6
+      - image: cimg/postgres:17.4
         environment:
           POSTGRES_USER: user
           POSTGRES_DB: ccq_test
@@ -59,7 +59,7 @@ executors:
           POSTGRES_PASSWORD: postgres
   cloud-platform-executor:
     docker:
-      - image: ministryofjustice/cloud-platform-tools:2.1
+      - image: ministryofjustice/cloud-platform-tools:latest
         environment:
           GITHUB_TEAM_NAME_SLUG: check-client-qualifies
           TZ: Europe/London
