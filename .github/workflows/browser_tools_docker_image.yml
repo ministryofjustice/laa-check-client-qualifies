@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - main
-      - puppeteer-24101
+      - puppeteer-2422
 
 jobs:
   build-push:
@@ -14,7 +14,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USER_CCQ }}
           password: ${{ secrets.DOCKERHUB_PAT_CCQ }}
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Build the Docker image
         run: |
           docker build -f ./Dockerfile_browser_tools.dockerfile . -t checkclientqualifiesdocker/circleci-image:${{ github.ref_name }}

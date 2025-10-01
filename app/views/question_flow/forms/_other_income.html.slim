@@ -47,7 +47,7 @@
         p.govuk-hint = t("question_flow.#{i18n_key}.#{type}.question_hint")
         ul.govuk-list.govuk-list--bullet
           li.govuk-body = t("question_flow.#{i18n_key}.#{type}.list_benefits_#{level}_html",
-                          page_url: document_link(:"lc_guidance_#{@check.level_of_help}", :mandatory_discretionary_disreguarded_benefits))
+                          page_url: document_link(:"lc_guidance_#{@check.level_of_help}", :mandatory_discretionary_disregarded_benefits))
           li.govuk-body = t("question_flow.#{i18n_key}.#{type}.list_income_#{level}_html",
                           page_url_2: document_link(:"lc_guidance_#{@check.level_of_help}", :principles_for_exercising_discretion_income))
         = render "shared/cost_of_living"

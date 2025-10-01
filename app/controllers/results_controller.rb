@@ -14,9 +14,7 @@ class ResultsController < ApplicationController
   end
 
   def show
-    # ee_banner @early_eligibility_selection can be removed when FF is removed
     @early_result_type = session_data.dig("early_result", "type")
-    @early_eligibility_selection = session_data.fetch("early_eligibility_selection", nil)
     @model = CalculationResult.new(session_data)
 
     track_completed_journey(@model) unless @check.early_ineligible_result?
@@ -26,9 +24,7 @@ class ResultsController < ApplicationController
   end
 
   def download
-    # ee_banner @early_eligibility_selection can be removed when FF is removed
     @early_result_type = session_data.dig("early_result", "type")
-    @early_eligibility_selection = session_data.fetch("early_eligibility_selection", nil)
     track_page_view(page: :download_results)
     @model = CalculationResult.new(session_data)
     @sections = CheckAnswers::SectionListerService.call(session_data)
@@ -56,9 +52,7 @@ private
   end
 
   def track_completed_journey(calculation_result)
-    office_code = signed_in? && current_provider.present? ? current_provider.first_office_code : nil
-
-    JourneyLoggerService.call(assessment_id, calculation_result, @check, office_code, cookies)
+    JourneyLoggerService.call(assessment_id, calculation_result, @check, cookies)
   end
 
   def specify_feedback_widget

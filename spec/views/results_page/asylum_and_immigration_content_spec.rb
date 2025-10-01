@@ -36,6 +36,22 @@ RSpec.describe "results/show.html.slim" do
             expect(rendered).to include "You told us your client is in receipt of Section 4 or Section 95 Asylum Support. "\
                                         "This makes them automatically financially eligible for civil controlled work"
           end
+
+          it "shows appropriate scopes and merits" do
+            expect(page_text).to include "You told us your client is in receipt of Section 4 or Section 95 Asylum Support. This makes them automatically financially eligible for civil controlled work relating to legal help and help at court for immigration and asylum proceedings, as well as controlled legal representation in the Immigration and Asylum chamber of the first tier or upper tribunal without income, outgoing and capital calculations."
+            expect(page_text).to include "Before you, or a provider of advice or services funded by legal aid, proceed with your client's case, it must also be within scope for legal aid and satisfy the relevant merits criteria set out in the relevant legislation and guidance."
+          end
+
+          it "shows relevant legislation and guidance section" do
+            expect(page_text).to include "This assessment was made using the rules for controlled work (opens in new tab) and the amendments to these rules (opens in new tab)."
+            expect(page_text).to include "Guidance on determining financial eligibility for controlled work and family mediation can be found in the guide to determining controlled work (PDF, 599KB)."
+          end
+
+          it "does not show CTA for all other result pages" do
+            expect(page_text).not_to include "Complete a controlled work form"
+            expect(page_text).not_to include "You will need to complete the relevant controlled work form and keep for your records, along with any evidence provided by your client. Your client’s file may be audited and assessed by the LAA at a later date."
+            expect(page_text).not_to include "Download a controlled work form with your answers included"
+          end
         end
 
         context "when not receiving asylum support" do

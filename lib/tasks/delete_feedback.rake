@@ -1,7 +1,7 @@
 namespace :migrate do
   desc "EL-2213: Delete unwanted feedback from Satisfaction Feedback table"
   # Rake task to delete unwanted feedback.
-  # Call with "rake migrate:delete_feecback[mock, 'start_date_time', 'end_date_time']"
+  # Call with "rake migrate:delete_feedback[mock, 'start_date_time', 'end_date_time']"
   # e.g. rake "migrate:delete_feedback[false, '2025-04-24 14:26:00', '2025-04-24 14:27:00']"
   # Running with mock=true will output the number of records to be deleted without actually deleting any
   # (to allow for testing).

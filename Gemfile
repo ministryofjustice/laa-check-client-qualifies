@@ -10,10 +10,10 @@ gem "rails", "~> 8.0.0"
 gem "propshaft", ">= 0.9.0"
 
 # Use postgresql as the database for Active Record
-gem "pg", "~> 1.5"
+gem "pg", "~> 1.6"
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", "~> 6.6"
+gem "puma", "~> 7.0"
 
 # Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
 gem "jsbundling-rails"
@@ -55,7 +55,6 @@ gem "factory_bot_rails"
 gem "devise"
 gem "omniauth-google-oauth2"
 gem "omniauth-rails_csrf_protection", ">= 1.0.2"
-gem "omniauth-saml", "~> 2.2.4"
 
 gem "data_migrate"
 
@@ -114,4 +113,5 @@ gem "faraday"
 gem "faraday-net_http_persistent"
 gem "faraday-retry"
 gem "slim-rails"
-gem "redis-rails"
+
+gem "solid_cache", "~> 1.0"

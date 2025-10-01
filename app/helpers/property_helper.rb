@@ -12,7 +12,7 @@ module PropertyHelper
     if guidance_type == "properties_guidance"
       {
         t("question_flow.property.#{guidance_type}.#{level_of_help}.text") => document_link(:"lc_guidance_#{level_of_help}", :"#{guidance_type}"),
-        t("generic.equity_disregard_for_domestic_abuse.#{level_of_help}_text") => (level_of_help == "controlled" ? document_link(:lc_guidance_controlled, :equity_disreguard_for_domestic_abuse) : document_link(:lc_guidance_certificated, :equity_disreguard_for_domestic_abuse)),
+        t("generic.equity_disregard_for_domestic_abuse.#{level_of_help}_text") => (level_of_help == "controlled" ? document_link(:lc_guidance_controlled, :equity_disregard_for_domestic_abuse) : document_link(:lc_guidance_certificated, :equity_disregard_for_domestic_abuse)),
         t("generic.trapped_capital.#{level_of_help}_text") => (level_of_help == "controlled" ? document_link(:lc_guidance_controlled, :assets) : document_link(:legal_aid_learning)),
       }
     else

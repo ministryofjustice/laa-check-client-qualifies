@@ -8,7 +8,7 @@ executors:
   test-executor:
     resource_class: medium
     docker:
-      - image: checkclientqualifiesdocker/circleci-image:puppeteer-24101
+      - image: checkclientqualifiesdocker/circleci-image:puppeteer-2422
         auth:
           username: $DOCKERHUB_USER_CCQ
           password: $DOCKERHUB_PAT_CCQ
@@ -87,8 +87,13 @@ references:
     run:
       name: Parallel Database Setup
       command: |
-        bundle exec rake db:schema:load
-        bundle exec rake parallel:setup
+        # Create test databases
+        bin/rails db:create RAILS_ENV=test
+        # Load main application schema (includes cache tables)
+        RAILS_ENV=test bin/rails db:schema:load
+        # Create and setup parallel test databases
+        RAILS_ENV=test bundle exec rake parallel:create
+        RAILS_ENV=test bundle exec rake parallel:load_schema
 
 orbs:
   aws-cli: circleci/aws-cli@4.1.2

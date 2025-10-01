@@ -29,13 +29,29 @@ RSpec.describe "results/show.html.slim" do
         expect(page_text).to include "Your client qualifies for civil legal aid without a means test, for controlled legal representation"
       end
 
+      it "shows appropriate next steps" do
+        expect(page_text).to include "To apply for legal aid for your client you must complete a controlled work form and keep it for your records, with any evidence provided by your client. Your client’s file may be audited and assessed by the LAA at a later date."
+        expect(page_text).to include "Select the relevant controlled work form and we'll add your answers to it when you download it."
+      end
+
+      it "shows appropriate scopes and merits" do
+        expect(page_text).to include "You told us your client is under 18. This makes them automatically eligible for controlled legal representation (CLR) without a means test."
+        expect(page_text).to include "Before you, or a provider of advice or services funded by legal aid, proceed with your client's case, it must also be within scope for legal aid and satisfy the relevant merits criteria set out in the relevant legislation and guidance."
+      end
+
+      it "shows relevant legislation and guidance section" do
+        expect(page_text).to include "This assessment was made using the rules for controlled work (opens in new tab) and the amendments to these rules (opens in new tab)."
+        expect(page_text).to include "Guidance on determining financial eligibility for controlled work and family mediation can be found in the guide to determining controlled work (PDF, 599KB)."
+      end
+
       it "shows an appropriate PDF description" do
         expect(page_text).to include "The PDF will include:the eligibility declarationthe answers you input into this service"
       end
 
-      it "shows appropriate next steps" do
-        expect(page_text).to include "You will need to complete the relevant controlled work form and keep for your records. Your client’s file may be audited and assessed by the LAA at a later date."
-        expect(page_text).to include "Download a controlled work form with your answers included"
+      it "does not show CTA for all other result pages" do
+        expect(page_text).not_to include "Complete a controlled work form"
+        expect(page_text).not_to include "You will need to complete the relevant controlled work form and keep for your records, along with any evidence provided by your client. Your client’s file may be audited and assessed by the LAA at a later date."
+        expect(page_text).not_to include "Download a controlled work form with your answers included"
       end
     end
 
@@ -56,13 +72,24 @@ RSpec.describe "results/show.html.slim" do
         expect(page_text).to include "Your client qualifies for civil legal aid without a full means test, for controlled work and family mediation"
       end
 
+      it "shows appropriate next steps" do
+        expect(page_text).to include "To apply for legal aid for your client you must complete a controlled work form and keep it for your records, with any evidence provided by your client. Your client’s file may be audited and assessed by the LAA at a later date."
+        expect(page_text).to include "Select the relevant controlled work form and we'll add your answers to it when you download it."
+      end
+
+      it "shows appropriate scopes and merits" do
+        expect(page_text).to include "You told us your client is under 18, their means cannot be aggregated with another person's, they don't have assets worth £2,500 or more, and they don't get regular income. This makes them eligible for controlled work and family mediation without a full means test."
+        expect(page_text).to include "Before you, or a provider of advice or services funded by legal aid, proceed with your client's case, it must also be within scope for legal aid and satisfy the relevant merits criteria set out in the relevant legislation and guidance."
+      end
+
       it "shows an appropriate PDF description" do
         expect(page_text).to include "The PDF will include:the eligibility declarationthe answers you input into this service"
       end
 
-      it "shows appropriate next steps" do
-        expect(page_text).to include "You will need to complete the relevant controlled work form and keep for your records. Your client’s file may be audited and assessed by the LAA at a later date."
-        expect(page_text).to include "Download a controlled work form with your answers included"
+      it "does not show CTA for all other result pages" do
+        expect(page_text).not_to include "Complete a controlled work form"
+        expect(page_text).not_to include "You will need to complete the relevant controlled work form and keep for your records, along with any evidence provided by your client. Your client’s file may be audited and assessed by the LAA at a later date."
+        expect(page_text).not_to include "Download a controlled work form with your answers included"
       end
     end
 

@@ -1,14 +1,19 @@
 p.govuk-body = t(".calculation_information")
 h3.govuk-heading-m = t(".limits_heading")
-p.govuk-body = t(".outgoings_explanation")
 
 - lower_limits = @model.level_of_help == "certificated" && !@check.immigration_or_asylum?
 - upper_limit_could_be_waived = @model.level_of_help == "certificated" && !@check.immigration_or_asylum?
-- t(".list_html", page_url: document_link(:legislation_CLAR_2013_childcare),
-                  page_url_2: document_link(:legislation_CLAR_2013_housing)).each do |reason|
-    p.govuk-body = reason
-- if lower_limits
-  p.govuk-body = t(".certificated_last_item")
+
+- if @model.level_of_help == "certificated"
+  p.govuk-body = t(".outgoings_explanation")
+  ul.govuk-list.govuk-list--bullet
+    - t(".list_html", page_url: document_link(:legislation_CLAR_2013_childcare),
+                      page_url_2: document_link(:legislation_CLAR_2013_housing)).each do |reason|
+        li.govuk-body = reason
+    - if lower_limits
+      li.govuk-body = t(".certificated_last_item")
+- else
+  p.govuk-body = t(".outgoings_explanation_controlled_html", page_url: document_link(:legislation_CLAR_2013_housing))
 
 - if lower_limits
   p.govuk-body = t(".upper_and_lower_monetary_limits")

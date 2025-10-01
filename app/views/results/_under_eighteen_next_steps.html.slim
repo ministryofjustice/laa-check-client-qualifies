@@ -9,5 +9,6 @@
           download_result_path(params[:assessment_code]),
           target: "_blank", rel: "noopener", class: "govuk-button govuk-button--secondary", id: "save_as_pdf_certificated"
 
-= pdf_friendly_h2(t("results.show.what_happens_next"), "m", @is_pdf)
-= pdf_friendly_p_element(t("results.show.next_steps_paragraph_1"), @is_pdf)
+- unless @check.controlled?
+  = pdf_friendly_h2(t("results.show.what_happens_next"), "m", @is_pdf)
+  = pdf_friendly_p_element(t("results.show.next_steps_paragraph_1"), @is_pdf)

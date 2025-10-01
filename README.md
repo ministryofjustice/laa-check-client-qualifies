@@ -275,6 +275,20 @@ It knows how answers to certain questions affect the relevance of certain other 
 **Check** provides access to all _relevant_ data for a check. For any attribute it uses Steps::Helper and Flow::Handler to determine whether,
 given the other answers supplied, the attribute is relevant. If not, when asked for that attribute it will return `nil`. Otherwise it will return that attribute.
 
+### Flow logic and steps
+As the user progresses through CCQ they will be shown a series of forms or steps. Steps are defined in app/lib/steps and are ordered into the following sections.
+
+* NonFinancialSection
+* IncomeSection
+* PartnerSection
+* OutgoingsSection
+* PropertySection
+* AssetsAndVehiclesSection
+
+The sections reflect the sections on the Check your answers page.
+
+Additionally, steps are ordered into groups, each containing one or more steps. The significance of the groups is that when a user reaches the Check your answers page, if they select to change an answer, they will be shown the page corresponding to the step with the answer they want to change and then pages for any other subsequent steps within the same group.
+
 ### I18n
 We keep all user-facing content strings in locale files. In particular, `config/locales/en.yml` contains nearly every piece of text on the site.
 
@@ -320,40 +334,24 @@ It is also possible to manually deploy to an environment from the command line, 
 
 ### Secrets
 We keep secrets in AWS Secrets Manager. To edit them, visit the [AWS web console](https://justice-cloud-platform.eu.auth0.com/samlp/mQev56oEa7mrRCKAZRxSnDSoYt6Y7r5m?connection=github). The following secrets are currently stored in a secret called "aws-secrets" in each namespace we use:
-* NOTIFICATIONS_API_KEY
 * SECRET_KEY_BASE
+* NOTIFICATIONS_API_KEY
+* BLAZER_DATABASE_PASSWORD
+* SLACK_WEBHOOK_URL
 * BASIC_AUTH_PASSWORD
 * GOOGLE_OAUTH_CLIENT_SECRET
 
-### Portal integration
-
-#### Secrets
-There is only 1 of these (the secret key) which is kept in k8s 'portal_secrets' secret. This is a single key `X509_KEY` which contains the secret key for the certificate used to authenticate with Portal.
-
-Last parameter is `no DES` (Data Encryption Standard) (rather than nodes) which means don't store a passphrase against it https://en.wikipedia.org/wiki/Data_Encryption_Standard
-
-```bash
-openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -sha256 -days 3650 -nodes
-```
-
-```bash
-kubectl -n <namespace> create secret generic portal-secrets --from-file=X509_KEY=./private-key.pem
-```
-where `private-key.pem` is the private key creeated via openssl.
-
-#### Metadata files
-The metadata files are required by the portal team before they can do their integration - this is a little chicken-and-egg
-situation as the metadata files are produced by our Rails code at the url `<hostname>:/providers/auth/saml/metadata`
-
-Once you have the `xml` metadata (from visiting `<hostname>:/providers/auth/saml/metadata)`), copy and paste the metadata into appropriate file (`uat.xml` or `stg.xml` etc). 
-Remove the errant "..." from the file and format it with your IDE. 
-
-Then let the portal team know that you branch the new metadata for portal to "point back to". Once that is done, you can test out on this UAT branch: https://portal.uat.legalservices.gov.uk
-
-We also store the portal metadata files in our repository - they are in the Portal GitHub, but their repo is private so
-we can't easily get to them without creating a github access key - it was easier just to copy and paste their config files
-although this could be a potential future option - the code we inherited from crime apply does have the capability of loading 
-a Portal metadata file from a URL.
+#### Accessing AWS Web console secrets
+- Refer to [Cloud Platform for accessing the AWS console](https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/accessing-the-cloud-console.html#accessing-the-aws-console-read-only)
+- Make sure your region is London
+- On the 'Console Home', find the recently visited tab
+- Click 'info' and add 'Secrets Manager' if you don't have it already
+- Search for 'check' in the Secrets search bar. You are looking for:
+    - live-laa-check-client-uat-[alphanumeric]
+    - live-laa-check-client-staging-[alphanumeric]
+    - live-laa-check-client-production-[alphanumeric]
+- On the 'Secret Value' click 'Retrieve secret value'
+- View or Edit as necessary
 
 ### Branch naming
 
