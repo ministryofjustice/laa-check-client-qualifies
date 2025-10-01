@@ -18,13 +18,13 @@ spec:
       template:
         spec:
           securityContext:
-            {{- toYaml .Values.podSecurityContext | nindent 8 }}
+            {{- toYaml .Values.podSecurityContext | nindent 12 }}
           containers:
           - name: metrics
             image: '{{ .Values.image.repository }}:{{ .Values.image.tag }}'
             imagePullPolicy: IfNotPresent
             command: ['rake', "job:data:clear"]
-{{ include "app.envs" . | nindent 12 }}
+{{ include "app.envs" . | nindent 14 }}
             resources:
               limits:
                 cpu: 200m
