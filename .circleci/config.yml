@@ -59,7 +59,7 @@ executors:
           POSTGRES_PASSWORD: postgres
   cloud-platform-executor:
     docker:
-      - image: ministryofjustice/cloud-platform-tools:latest
+      - image: ministryofjustice/cloud-platform-tools:2.11.0
         environment:
           GITHUB_TEAM_NAME_SLUG: check-client-qualifies
           TZ: Europe/London

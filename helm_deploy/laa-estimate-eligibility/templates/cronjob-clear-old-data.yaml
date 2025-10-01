@@ -17,6 +17,8 @@ spec:
       backoffLimit: 1
       template:
         spec:
+          securityContext:
+            {{- toYaml .Values.podSecurityContext | nindent 8 }}
           containers:
           - name: metrics
             image: '{{ .Values.image.repository }}:{{ .Values.image.tag }}'
