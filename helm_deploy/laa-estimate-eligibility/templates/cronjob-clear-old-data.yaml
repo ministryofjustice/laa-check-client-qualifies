@@ -20,18 +20,18 @@ spec:
           securityContext:
             {{- toYaml .Values.podSecurityContext | nindent 12 }}
           containers:
-          - name: metrics
-            image: '{{ .Values.image.repository }}:{{ .Values.image.tag }}'
-            imagePullPolicy: IfNotPresent
-            securityContext:
-              {{- toYaml .Values.securityContext | nindent 14 }}
-            command: ['rake', "job:data:clear"]
-{{ include "app.envs" . | nindent 16 }}
-            resources:
-              limits:
-                cpu: 200m
-                memory: 256Mi
-              requests:
-                cpu: 100m
-                memory: 128Mi
+            - name: metrics
+              image: '{{ .Values.image.repository }}:{{ .Values.image.tag }}'
+              imagePullPolicy: IfNotPresent
+              command: ['rake', 'job:data:clear']
+{{ include "app.envs" . | nindent 14 }}
+              securityContext:
+                {{- toYaml .Values.securityContext | nindent 16 }}
+              resources:
+                limits:
+                  cpu: 200m
+                  memory: 256Mi
+                requests:
+                  cpu: 100m
+                  memory: 128Mi
           restartPolicy: Never
