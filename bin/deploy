@@ -29,6 +29,8 @@ deploy_main() {
                           --install --wait \
                           --namespace=${K8S_NAMESPACE} \
                           --values ./helm_deploy/laa-estimate-eligibility/values/$ENVIRONMENT.yaml \
+                          --set postgresql.image.repository=bitnamilegacy/postgresql \
+                          --set global.security.allowInsecureImages=true \
                           --set image.repository="$ECR_ENDPOINT_CCQ" \
                           --set image.tag="main-$CIRCLE_SHA1"
 }
