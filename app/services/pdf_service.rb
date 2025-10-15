@@ -14,7 +14,18 @@ class PdfService
       height: 4800,
     },
     emulate_media: "screen",
-    launch_args: ["--font-render-hinting=medium", "--no-sandbox", "--force-renderer-accessibility"],
+    launch_args: [
+      "--font-render-hinting=medium",
+      "--no-sandbox",
+      "--disable-dev-shm-usage",
+      "--disable-gpu",
+      "--disable-software-rasterizer",
+      "--disable-background-timer-throttling",
+      "--disable-renderer-backgrounding",
+      "--disable-features=TranslateUI",
+      "--no-first-run"
+    ],
+    timeout: 30000, # 30 seconds timeout
   }.freeze
 
   class << self
