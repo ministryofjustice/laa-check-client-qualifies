@@ -23,9 +23,9 @@ class PdfService
       "--disable-background-timer-throttling",
       "--disable-renderer-backgrounding",
       "--disable-features=TranslateUI",
-      "--no-first-run"
+      "--no-first-run",
     ],
-    timeout: 30000, # 30 seconds timeout
+    timeout: 30_000, # 30 seconds timeout
   }.freeze
 
   class << self
