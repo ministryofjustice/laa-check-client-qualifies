@@ -1,9 +1,8 @@
 name: Delete UAT release
 
 on:
-  pull_request_target:
-    types:
-      - closed
+  pull_request:
+    types: [closed]
 
 jobs:
   delete_uat_job:
