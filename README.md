@@ -71,6 +71,10 @@ yarn build
 yarn build:css
 ```
 
+In order for the DB caching to work you may need to run
+```bash
+bundle exec rails dev:cache
+```
 ### Running locally
 
 To change settings for your local development environment, copy your `.env.sample` file to a new file and rename it to `.env.development`.

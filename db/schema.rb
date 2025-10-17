@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_09_25_170249) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_25_170249) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension "pg_catalog.plpgsql"
 
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
@@ -109,6 +109,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_25_170249) do
     t.string "early_result_type"
     t.boolean "early_eligibility_result"
     t.index ["assessment_id"], name: "index_completed_user_journeys_on_assessment_id"
+  end
+
+  create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
   end
 
   create_table "feature_flag_overrides", force: :cascade do |t|
