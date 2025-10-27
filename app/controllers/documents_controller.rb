@@ -1,7 +1,7 @@
 class DocumentsController < ApplicationController
   def show
     redirect_url = ExternalLinkService.call(document: params[:id], sub_section: params[:sub_section])
-    
+
     # Return 404 for invalid document IDs (e.g., bot probes like wp.php, admin.php)
     return head :not_found if redirect_url.nil?
 
