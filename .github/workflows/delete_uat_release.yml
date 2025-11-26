@@ -8,7 +8,7 @@ jobs:
   delete_uat_job:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Delete from UAT namespace
         id: delete_uat
         uses: ./.github/actions/delete-uat-release
