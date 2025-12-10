@@ -2,10 +2,10 @@
   "name": "laa-check-client-qualifies",
   "private": "true",
   "dependencies": {
-    "@ministryofjustice/frontend": "7.1.0",
+    "@ministryofjustice/frontend": "7.1.1",
     "@rails/ujs": "^7.1.600",
-    "@sentry/browser": "10.28.0",
-    "esbuild": "^0.27.0",
+    "@sentry/browser": "10.29.0",
+    "esbuild": "^0.27.1",
     "govuk-frontend": "^5.13.0",
     "jquery": "^3.7.1",
     "puppeteer": "24.32.0",
