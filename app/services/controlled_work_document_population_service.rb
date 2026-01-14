@@ -30,7 +30,7 @@ class ControlledWorkDocumentPopulationService
       "cw2" => "lib/cw2imm-form-CCQ_v3_Apr25.pdf",
       "cw5" => "lib/cw5-form-CCQ_v3_Apr25.pdf",
       "cw1_and_2" => "lib/cw1-and-2-form-CCQ_v3_Apr25.pdf",
-      "civ_means_7" => "lib/civ-means-7-form-CCQ_v3_Apr25.pdf",
+      "civ_means_7" => "lib/civ-means-7-form-CCQ_v3.5_Apr25.pdf",
       "cw1_welsh" => "lib/cw1-form-welsh-CCQ_v3_Apr25.pdf",
       "cw2_welsh" => "lib/cw2imm-form-welsh-CCQ_v3_Apr25.pdf",
       "cw5_welsh" => "lib/cw5-form-welsh-CCQ_v3_Apr25.pdf",
