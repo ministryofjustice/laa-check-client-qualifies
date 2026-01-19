@@ -29,30 +29,6 @@ CCQ only knows about the specifics of the eligibility ruleset to the extent that
   - jquery
   - rails_admin
   - sass
-  - prek (pre-commit)
-
-### Prek Installation
-Ensure prek is installed globally
-
-Linux / MacOS
-
-curl --proto '=https' --tlsv1.2 \
--LsSf https://raw.githubusercontent.com/ministryofjustice/devsecops-hooks/e85ca6127808ef407bc1e8ff21efed0bbd32bb1a/prek/prek-installer.sh | sh
-
-Windows
-
-powershell -ExecutionPolicy ByPass \
--c "irm https://raw.githubusercontent.com/ministryofjustice/devsecops-hooks/e85ca6127808ef407bc1e8ff21efed0bbd32bb1a/prek/prek-installer.ps1 | iex"
-
-### Activate Prek 
-
-Execute the following command in the repository directory
-
-prek install
-
-### Running pre-commit 
-
-prek run
 
 ### Setting up the app
 
@@ -380,6 +356,36 @@ We keep secrets in AWS Secrets Manager. To edit them, visit the [AWS web console
     - live-laa-check-client-production-[alphanumeric]
 - On the 'Secret Value' click 'Retrieve secret value'
 - View or Edit as necessary
+
+### DevSecOps pre-commit hooks
+CCQ uses the Ministry of Justice pre-commit hooks for scanning hardcoded secrets and credentials. More information can be [found here](https://github.com/ministryofjustice/devsecops-hooks).
+
+The DevSecOps pre-commit hooks are a lightweight, Docker-based security scanner that integrate with Git workflows to prevent hardcoded secrets from being committed to your repository.
+
+To set-up locally:
+
+- Sign into your Docker Desktop locally
+
+- Ensure prek is installed globally
+
+
+```shell
+curl --proto '=https' --tlsv1.2 \
+-LsSf https://raw.githubusercontent.com/ministryofjustice/devsecops-hooks/e85ca6127808ef407bc1e8ff21efed0bbd32bb1a/prek/prek-installer.sh | sh
+```
+
+
+- Activate Prek, by executing the following command in the repository directory
+
+```shell
+prek install
+```
+
+- Run the pre-commit hook
+
+```shell
+prek run
+```
 
 ### Branch naming
 
