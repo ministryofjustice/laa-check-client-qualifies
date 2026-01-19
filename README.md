@@ -357,6 +357,36 @@ We keep secrets in AWS Secrets Manager. To edit them, visit the [AWS web console
 - On the 'Secret Value' click 'Retrieve secret value'
 - View or Edit as necessary
 
+### DevSecOps pre-commit hooks
+CCQ uses the Ministry of Justice pre-commit hooks for scanning hardcoded secrets and credentials. More information can be [found here](https://github.com/ministryofjustice/devsecops-hooks).
+
+The DevSecOps pre-commit hooks are a lightweight, Docker-based security scanner that integrate with Git workflows to prevent hardcoded secrets from being committed to your repository.
+
+To set-up locally:
+
+- Sign into your Docker Desktop locally
+
+- Ensure prek is installed globally
+
+
+```shell
+curl --proto '=https' --tlsv1.2 \
+-LsSf https://raw.githubusercontent.com/ministryofjustice/devsecops-hooks/e85ca6127808ef407bc1e8ff21efed0bbd32bb1a/prek/prek-installer.sh | sh
+```
+
+
+- Activate Prek, by executing the following command in the repository directory
+
+```shell
+prek install
+```
+
+- Run the pre-commit hook
+
+```shell
+prek run
+```
+
 ### Branch naming
 
 We name our branches to start with the Jira ticket ID, followed by a short description of the work.
