@@ -40,12 +40,12 @@ module CfeParamBuilders
 
       cfe_translations.select { |_cfe_name, local_name| value(form, local_name).to_f.positive? }
                       .map do |cfe_name, local_name|
-        {
-          operation:,
-          category: cfe_name,
-          frequency: CFE_FREQUENCIES.fetch(form.send("#{local_name}_frequency")),
-          amount: value(form, local_name),
-        }
+                        {
+                          operation:,
+                          category: cfe_name,
+                          frequency: CFE_FREQUENCIES.fetch(form.send("#{local_name}_frequency")),
+                          amount: value(form, local_name),
+                        }
       end
     end
 
