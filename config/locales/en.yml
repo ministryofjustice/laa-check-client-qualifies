@@ -625,7 +625,7 @@ en:
     public_beta_survey_link: https://www.smartsurvey.co.uk/s/FS38PT/
     beta: Beta
     change_eligibility: Your changes have now put the client within the financial eligibility limits for legal aid. You now need to provide more information.
-    beta_message_html: This is a new service. Help us improve it <a href="%{survey_link}" target="_blank" id="smart_survey_link_banner">by giving your feedback (opens in new tab).</a>
+    beta_message_html: This is a new service. Help us improve it by <a href="%{survey_link}" target="_blank" id="smart_survey_link_banner">giving your feedback (opens in new tab)</a>.
     beta_message_short: This is a new service
     beta_message_pilot_heading: This page is no longer active as the pilot phase is complete.
     beta_message_pilot_body_1: Thank you for taking part.
