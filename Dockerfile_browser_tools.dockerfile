@@ -1,6 +1,6 @@
 # Build custom docker image for test-executor
 # Use the cimg/ruby:3.3.4-browsers image as the base image to extend out
-FROM cimg/ruby:3.3.4-browsers
+FROM cimg/ruby:3.3.4-node-browsers
 
 WORKDIR /app
 
