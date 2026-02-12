@@ -13,8 +13,8 @@ CCQ only knows about the specifics of the eligibility ruleset to the extent that
 ### Dependencies
 
 - Ruby & Rails version
-  - Ruby 3.3.4
-  - Rails 7.2.2
+  - Ruby 3.3.7
+  - Rails 8.1.2
 
 - System dependencies
   - postgres
