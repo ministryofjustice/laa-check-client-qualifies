@@ -31,6 +31,8 @@ RSpec.describe "dependant_details", type: :feature do
     expect(session_contents["adult_dependants_count"]).to eq 1
   end
 
+  # This test will fail after the 6th April when the new thresholds come into force.
+  # To fix this test, change the value `367.87` on line 40 below to `381.86`
   it "shows me the dependant allowance text" do
     expect(page).to have_content(
       "Do not include:\n"\

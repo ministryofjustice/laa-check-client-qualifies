@@ -11,7 +11,7 @@ RSpec.describe "dependant_income_details", type: :feature do
   end
 
   before do
-    travel_to Date.new(2024, 2, 2)
+    travel_to Date.new(2026, 3, 22)
     set_session(assessment_code, session_data)
     visit form_path(:dependant_income_details, assessment_code)
   end
@@ -76,7 +76,7 @@ RSpec.describe "dependant_income_details", type: :feature do
       end
 
       it "does not show an error message when below the limit" do
-        fill_in "1-amount", with: "361.69"
+        fill_in "1-amount", with: "361.67"
         choose "1-frequency-monthly"
         click_on "Save and continue"
         expect(page).not_to have_content "If this dependant gets income equivalent to %{limit} or more per month, go back and remove them as a dependant to continue with this check."
