@@ -8,12 +8,13 @@
     "esbuild": "^0.27.4",
     "govuk-frontend": "^5.14.0",
     "jquery": "^4.0.0",
-    "puppeteer": "24.38.0",
+    "puppeteer": "24.39.1",
     "rails_admin": "3.3.0",
     "sass": "^1.98.0"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets",
     "build:css": "sass ./app/assets/stylesheets/rails_admin.scss:./app/assets/builds/rails_admin.css ./app/assets/stylesheets/application.sass.scss:./app/assets/builds/application.css  ./app/assets/stylesheets/pdf.scss:./app/assets/builds/pdf.css --no-source-map --load-path=node_modules --load-path=. --quiet-deps"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
