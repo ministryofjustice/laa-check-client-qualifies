@@ -8,7 +8,7 @@
     "esbuild": "^0.27.4",
     "govuk-frontend": "^5.14.0",
     "jquery": "^4.0.0",
-    "puppeteer": "24.39.1",
+    "puppeteer": "24.40.0",
     "rails_admin": "3.3.0",
     "sass": "^1.98.0"
   },
