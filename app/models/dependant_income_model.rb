@@ -34,7 +34,7 @@ class DependantIncomeModel
 
   class << self
     def dependant_monthly_upper_limit
-      367.87
+      FeatureFlags.enabled?(:thresholds_2026, without_session_data: true) ? 381.86 : 367.87
     end
 
     def error_message_content(key, position_tag)
