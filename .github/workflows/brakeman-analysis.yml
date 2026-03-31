@@ -10,4 +10,4 @@ on:
 
 jobs:
   brakeman:
-    uses: ministryofjustice/laa-reusable-github-actions/.github/workflows/brakeman.yml@main
+    uses: ministryofjustice/laa-reusable-github-actions/.github/workflows/brakeman.yml@e0b6695b8ec0679ae36920155fd06539c685a096
