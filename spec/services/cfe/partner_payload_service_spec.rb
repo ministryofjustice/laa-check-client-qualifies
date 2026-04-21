@@ -46,11 +46,11 @@ RSpec.describe Cfe::PartnerPayloadService do
           "partner_property_or_lodger_relevant" => false,
           "partner_pension_relevant" => false,
           "partner_receives_benefits" => true,
-          "partner_benefits" => [
+          "partner_benefits" => [{
             "benefit_type" => "Child benefit",
             "benefit_frequency" => "every_week",
             "benefit_amount" => 45,
-          ],
+          }],
           "partner_bank_accounts" => [{ "amount" => 1_000 }],
           "partner_childcare_payments_relevant" => false,
           "partner_maintenance_payments_relevant" => false,
