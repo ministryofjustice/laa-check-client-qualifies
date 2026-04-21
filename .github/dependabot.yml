@@ -6,6 +6,8 @@
 version: 2
 updates:
   - package-ecosystem: "bundler"
+    cooldown:
+      default-days: 3
     directory: "/"
     schedule:
       interval: "weekly"
@@ -41,6 +43,8 @@ updates:
           - "minor"
           - "patch"
   - package-ecosystem: "npm"
+    cooldown:
+      default-days: 3
     directory: "/"
     schedule:
       interval: "weekly"
