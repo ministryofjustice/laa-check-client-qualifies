@@ -32,6 +32,8 @@ updates:
           - "minor"
           - "patch"
   - package-ecosystem: "github-actions"
+    cooldown:
+      default-days: 3
     directory: "/"
     schedule:
       interval: "weekly"
