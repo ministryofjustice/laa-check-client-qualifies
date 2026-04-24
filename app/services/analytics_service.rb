@@ -9,6 +9,7 @@ class AnalyticsService
 
   class << self
     def call(event_type:, page:, assessment_code:, cookies:)
+      return unless ModeConfig.analytics_enabled?
       return if cookies[CookiesController::NO_ANALYTICS_MODE]
       return unless valid_event_type?(event_type) || valid_page?(page)
 

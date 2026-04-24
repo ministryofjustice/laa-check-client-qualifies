@@ -2,12 +2,12 @@ class ApplicationController < ActionController::Base
   BROWSER_ID_COOKIE = :browser_id
   BASIC_AUTHENTICATION_COOKIE = :basic_authenticated
   default_form_builder GOVUKDesignSystemFormBuilder::FormBuilder
-  before_action :force_setting_of_session_cookie,
-                :specify_feedback_widget,
+  before_action :force_setting_of_session_cookie, unless: -> { ModeConfig.embedded? }
+  before_action :specify_feedback_widget,
                 :specify_freetext_feedback_page_name,
                 :authenticate,
                 :check_maintenance_mode,
-                :ensure_db_connection
+                :ensure_db_connection, if: -> { ModeConfig.database_enabled? }
 
   class MissingSessionError < StandardError; end
 

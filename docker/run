@@ -2,7 +2,8 @@
 
 set -e
 
-./docker/wait_for_pg
-
-bundle exec rails db:migrations:run_with_retry
+if [ "$CCQ_MODE" != "embedded" ]; then
+    ./docker/wait_for_pg
+    bundle exec rails db:migrations:run_with_retry
+fi
 bundle exec rails server -b 0.0.0.0
