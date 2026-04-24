@@ -50,7 +50,7 @@ class FeatureFlags
     end
 
     def overrideable?
-      ENV["FEATURE_FLAG_OVERRIDES"]&.casecmp("enabled")&.zero?
+      ENV["FEATURE_FLAG_OVERRIDES"]&.casecmp("enabled")&.zero? && ModeConfig.database_enabled?
     end
 
     def session_flags

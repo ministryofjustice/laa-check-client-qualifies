@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => "/admin", as: "rails_admin"
-  devise_for :admins, controllers: { omniauth_callbacks: "admins/omniauth_callbacks" }
-
+  devise_for :admins,
+             controllers: (
+               ModeConfig.oauth_enabled? ? { omniauth_callbacks: "admins/omniauth_callbacks" } : {}
+             )
   root to: "start#index"
 
   resources :start, only: [:index]
