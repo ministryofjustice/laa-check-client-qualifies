@@ -1,6 +1,9 @@
 class HealthCheckService
   def self.call
-    database_healthy? && short_term_persistence_healthy?
+    db_ok = ModeConfig.database_enabled? ? database_healthy? : true
+    redis_ok = ModeConfig.redis_enabled? ? short_term_persistence_healthy? : true
+
+    db_ok && redis_ok
   rescue StandardError
     false
   end
