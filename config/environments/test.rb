@@ -25,15 +25,7 @@ Rails.application.configure do
   # Show full error reports and disable caching.
   config.consider_all_requests_local = true
   config.action_controller.perform_caching = false
-  config.cache_store = if ModeConfig.embedded?
-                         [:redis_cache_store,
-                          {
-                            url: ENV["REDIS_URL"],
-                            namespace: "ccq",
-                          }]
-                       else
-                         :solid_cache_store
-                       end
+  config.cache_store = ModeConfig.cache_store
   config.session_store :cache_store, key: LaaEstimateFinancialEligibilityForLegalAid::SESSION_COOKIE_NAME
 
   # Raise exceptions instead of rendering exception templates.
@@ -61,6 +53,9 @@ Rails.application.configure do
 
   # We don't use ActiveStorage, but we need this minimal config so that we can use ActionText
   config.active_storage.service = :local
+
+  # Disable caching classes when the rspec_watcher is running
+  config.enable_reloading = ENV['RSPEC_WATCHER'] == 'true'
 end
 
 OmniAuth.config.test_mode = true

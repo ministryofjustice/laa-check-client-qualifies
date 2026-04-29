@@ -43,15 +43,7 @@ Rails.application.configure do
   config.log_tags = [:request_id]
 
   # Use a different cache store in production.
-  config.cache_store = if ModeConfig.embedded?
-                         [:redis_cache_store,
-                          {
-                            url: ENV["REDIS_URL"],
-                            namespace: "ccq",
-                          }]
-                       else
-                         :solid_cache_store
-                       end
+  config.cache_store = ModeConfig.cache_store
 
   # Note - this should probably match the CFE lifetime setting (currently 2 weeks)
   config.session_store :cache_store,

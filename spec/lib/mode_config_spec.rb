@@ -14,6 +14,8 @@ RSpec.describe "mode_config" do
       expect(ModeConfig.analytics_enabled?).to be(true)
       expect(ModeConfig.document_generation_enabled?).to be(true)
       expect(ModeConfig.authenticated_flow_enabled?).to be(false)
+
+      expect(ModeConfig.cache_store).to eq(:solid_cache_store)
     end
 
     it "returns the correct capabilities for embedded mode" do
@@ -24,6 +26,8 @@ RSpec.describe "mode_config" do
       expect(ModeConfig.analytics_enabled?).to be(false)
       expect(ModeConfig.document_generation_enabled?).to be(false)
       expect(ModeConfig.authenticated_flow_enabled?).to be(true)
+
+      expect(ModeConfig.cache_store).to eq([:redis_cache_store, { namespace: "ccq-embedded", url: nil }])
     end
 
     it "raises an error for an unknown mode" do

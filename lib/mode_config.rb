@@ -32,6 +32,16 @@ class ModeConfig
   def self.embedded?   = mode == "embedded"
   def self.standalone? = mode == "standalone"
 
+  def self.cache_store = if embedded?
+                           [:redis_cache_store,
+                            {
+                              url: ENV["REDIS_URL"],
+                              namespace: "ccq-embedded",
+                            }]
+                         else
+                           :solid_cache_store
+                         end
+
   DEFAULTS["standalone"].each_key do |capability|
     define_singleton_method("#{capability}?") { DEFAULTS.dig(mode, capability) }
   end
