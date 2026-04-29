@@ -99,7 +99,6 @@ group :test do
   gem "capybara-lockstep"
   gem "faker"
   gem "rspec"
-  gem "rspec-watcher"
   gem "selenium-webdriver"
   gem "capybara-selenium"
   gem "webmock", require: false
