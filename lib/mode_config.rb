@@ -32,15 +32,26 @@ class ModeConfig
   def self.embedded?   = mode == "embedded"
   def self.standalone? = mode == "standalone"
 
-  def self.cache_store = if embedded?
-                           [:redis_cache_store,
-                            {
-                              url: ENV["REDIS_URL"],
-                              namespace: "ccq-embedded",
-                            }]
-                         else
-                           :solid_cache_store
-                         end
+  def self.cache_store
+    return :solid_cache_store unless embedded?
+
+    config = Rails.application.config_for(:redis).symbolize_keys
+
+    [
+      config[:adapter].to_sym,
+      config.except(:adapter),
+    ]
+  end
+
+  # def self.cache_store
+  #   config = Rails.application.config_for(:cache)[mode.to_s].symbolize_keys
+
+  #   if config.nil?
+  #     raise "Missing configuration for '#{mode}' in config/cache.yml"
+  #   end
+
+  #   [config[:adapter].to_sym, config.except(:adapter)]
+  # end
 
   DEFAULTS["standalone"].each_key do |capability|
     define_singleton_method("#{capability}?") { DEFAULTS.dig(mode, capability) }

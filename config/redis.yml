@@ -1,0 +1,15 @@
+default_settings: &default_settings
+  adapter: redis_cache_store
+  namespace: ccq-embedded
+  url: <%= ENV['REDIS_URL'] || "redis://localhost:6379/0" %>
+
+development:
+  <<: *default_settings
+
+test:
+  <<: *default_settings
+  url: redis://localhost:6379/<%= ENV['TEST_ENV_NUMBER'].presence || '1' %>
+
+production:
+  <<: *default_settings
+  url: <%= ENV['REDIS_URL'] %>
