@@ -51,11 +51,10 @@ Rails.application.configure do
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
 
-  # We don't use ActiveStorage, but we need this minimal config so that we can use ActionText
-  config.active_storage.service = :local
-
-  # Disable caching classes when the rspec_watcher is running
-  config.enable_reloading = ENV['RSPEC_WATCHER'] == 'true'
+  unless ModeConfig.embedded?
+    # We don't use ActiveStorage, but we need this minimal config so that we can use ActionText
+    config.active_storage.service = :local
+  end
 end
 
 OmniAuth.config.test_mode = true
