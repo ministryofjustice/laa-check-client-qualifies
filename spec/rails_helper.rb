@@ -1,6 +1,8 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
-require "spec_helper"
 ENV["RAILS_ENV"] ||= "test"
+ENV["CCQ_MODE"] ||= "standalone"
+
+require "spec_helper"
 require_relative "../config/environment"
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
@@ -45,6 +47,30 @@ Dir[Rails.root.join("spec/support/**/*.rb")].sort.each { |f| require f }
 
 ALLOWED_HOSTS = ["https://chromedriver.storage.googleapis.com",
                  "https://github.com"].freeze
+
+# Tag all specs so that regular tests run as normal,
+# embedded tests only run in embedded mode,
+# standalone tests don't run in embedded mode unless shared
+RSpec.configure do |config|
+  # Automatically classify every test based on its location and tags
+  config.define_derived_metadata do |metadata|
+    embedded_spec = metadata[:file_path].match?(%r{/spec/_embedded/})
+    tagged_as_embedded = (metadata[:ccq_mode] == :embedded)
+
+    if embedded_spec
+      metadata[:embedded_specs] = true
+    elsif !tagged_as_embedded
+      metadata[:standalone_specs] = true
+    end
+  end
+
+  # apply filters based on the boot mode
+  if ENV["CCQ_MODE"] == "embedded"
+    config.filter_run_excluding standalone_specs: true
+  else
+    config.filter_run_excluding embedded_specs: true
+  end
+end
 
 RSpec.configure do |config|
   # If you're not using ActiveRecord, or you'd prefer not to run each of your

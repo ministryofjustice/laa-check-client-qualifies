@@ -1,5 +1,14 @@
-.PHONY: watch
+.PHONY: test-prepare test-all test test-embedded
 
-# The command to run the watcher
-watch:
-	RAILS_ENV=test bundle exec rake rspec_watcher:watch
+test-prepare:
+	RAILS_ENV=test bundle exec rake parallel:prepare
+
+test-all:
+	bundle exec parallel_rspec spec -n 10
+
+test:
+	bundle exec rspec
+
+# rails_helper.rb:51
+test-embedded:
+	CCQ_MODE=embedded bundle exec rspec
