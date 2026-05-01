@@ -1,5 +1,5 @@
 require_relative "boot"
-require_relative "../lib/mode_config"
+require_relative "../app/lib/mode_config"
 
 require "rails"
 # Pick the frameworks you want:
