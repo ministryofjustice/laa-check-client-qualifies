@@ -36,10 +36,9 @@ class ModeConfig
     return :solid_cache_store unless embedded?
 
     config = Rails.application.config_for(:redis).symbolize_keys
-
     [
-      config[:adapter].to_sym,
-      config.except(:adapter),
+      :redis_cache_store,
+      config,
     ]
   end
 
