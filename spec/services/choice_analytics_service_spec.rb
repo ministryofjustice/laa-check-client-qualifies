@@ -11,9 +11,10 @@ RSpec.describe ChoiceAnalyticsService do
       expect { described_class.call(form, assessment_code, {}) }.not_to raise_error
     end
 
-    it "respects analytics_enabled? false" do
+    it "respects ModeConfig.analytics_enabled? false" do
       allow(ModeConfig).to receive(:analytics_enabled?).and_return(false)
       expect(described_class.call(anything, anything, anything)).to be_nil
+      expect(AnalyticsEvent.count).to eq 0
     end
 
     it "respects no-analytics cookie" do
