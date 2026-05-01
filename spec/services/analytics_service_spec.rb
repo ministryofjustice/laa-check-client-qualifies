@@ -12,7 +12,13 @@ RSpec.describe AnalyticsService do
       expect { described_class.call(event_type: "an_event_type", page: "some_page", assessment_code: assessment_code, cookies: {}) }.not_to raise_error
     end
 
-    it "respects no-analytics mode" do
+    it "respects ModeConfig.analytics_enabled? false" do
+      allow(ModeConfig).to receive(:analytics_enabled?).and_return(false)
+      expect(described_class.call(anything, anything, anything, anything)).to be_nil
+      expect(AnalyticsEvent.count).to eq 0
+    end
+
+    it "respects no-analytics cookie" do
       cookies = { CookiesController::NO_ANALYTICS_MODE => "true" }
       described_class.call(event_type: "an_event_type", page: "some_page", assessment_code: assessment_code, cookies:)
       expect(AnalyticsEvent.count).to eq 0
