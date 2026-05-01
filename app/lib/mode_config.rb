@@ -42,16 +42,6 @@ class ModeConfig
     ]
   end
 
-  # def self.cache_store
-  #   config = Rails.application.config_for(:cache)[mode.to_s].symbolize_keys
-
-  #   if config.nil?
-  #     raise "Missing configuration for '#{mode}' in config/cache.yml"
-  #   end
-
-  #   [config[:adapter].to_sym, config.except(:adapter)]
-  # end
-
   DEFAULTS["standalone"].each_key do |capability|
     define_singleton_method("#{capability}?") { DEFAULTS.dig(mode, capability) }
   end
