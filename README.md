@@ -10,6 +10,12 @@ CCQ only knows about the specifics of the eligibility ruleset to the extent that
 
 ## Documentation for developers
 
+### Running modes
+
+By default, CCQ will run in `standalone` mode. This repository deploys standalone CCQ to production, where it serves [check-your-client-qualifies-for-legal-aid.service.gov.uk](https://check-your-client-qualifies-for-legal-aid.service.gov.uk/).
+
+CCQ also has an `embedded` mode, which allows it to be deployed as a journey fragment for other services. You can find `embedded` mode information in [README.embedded.md](README.embedded.md)
+
 ### Dependencies
 
 - Ruby & Rails version
