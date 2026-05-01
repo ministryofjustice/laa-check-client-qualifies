@@ -27,7 +27,7 @@ RSpec.describe "mode_config" do
       expect(ModeConfig.document_generation_enabled?).to be(false)
       expect(ModeConfig.authenticated_flow_enabled?).to be(true)
 
-      expect(ModeConfig.cache_store).to eq([:redis_cache_store, { namespace: "ccq-embedded", url: "redis://localhost:6379/1" }])
+      expect(ModeConfig.cache_store).to eq([:redis_cache_store, { namespace: "ccq-embedded", url: "redis://localhost:6379/#{ENV['TEST_ENV_NUMBER'].presence || 1}" }])
     end
 
     it "raises an error for an unknown mode" do
