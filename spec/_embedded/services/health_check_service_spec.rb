@@ -2,9 +2,9 @@ require "rails_helper"
 
 RSpec.describe HealthCheckService do
   describe ".call" do
-    context "when both database and cache are healthy" do
+    context "when cache is healthy" do
       it "returns true" do
-        allow(described_class).to receive_messages(database_healthy?: true, short_term_persistence_healthy?: true)
+        allow(described_class).to receive_messages(short_term_persistence_healthy?: true)
 
         expect(described_class.call).to be(true)
       end
@@ -20,7 +20,7 @@ RSpec.describe HealthCheckService do
 
     context "when cache is unhealthy" do
       it "returns false" do
-        allow(described_class).to receive_messages(database_healthy?: true, short_term_persistence_healthy?: false)
+        allow(described_class).to receive_messages(short_term_persistence_healthy?: false)
 
         expect(described_class.call).to be(false)
       end
@@ -31,40 +31,6 @@ RSpec.describe HealthCheckService do
         allow(described_class).to receive(:short_term_persistence_healthy?).and_raise(StandardError, "Cache error")
 
         expect(described_class.call).to be(false)
-      end
-    end
-  end
-
-  describe ".database_healthy?" do
-    context "when connection is active" do
-      it "returns true" do
-        allow(ActiveRecord::Base.connection).to receive(:active?).and_return(true)
-
-        expect(described_class.database_healthy?).to be(true)
-      end
-    end
-
-    context "when connection is not active" do
-      it "returns false" do
-        allow(ActiveRecord::Base.connection).to receive(:active?).and_return(false)
-
-        expect(described_class.database_healthy?).to be(false)
-      end
-    end
-
-    context "when PG::ConnectionBad is raised" do
-      it "returns false" do
-        allow(ActiveRecord::Base.connection).to receive(:active?).and_raise(PG::ConnectionBad)
-
-        expect(described_class.database_healthy?).to be(false)
-      end
-    end
-
-    context "when PG::UndefinedTable is raised" do
-      it "returns false" do
-        allow(ActiveRecord::Base.connection).to receive(:active?).and_raise(PG::UndefinedTable, "Table not found")
-
-        expect(described_class.database_healthy?).to be(false)
       end
     end
   end
