@@ -1,7 +1,7 @@
 class JourneyLoggerService
   class << self
     def call(assessment_id, calculation_result, check, cookies)
-      return if cookies[CookiesController::NO_ANALYTICS_MODE]
+      return if cookies[CookiesController::NO_ANALYTICS_MODE] || !ModeConfig.analytics_enabled
 
       attributes = build_attributes(calculation_result, check)
       early_ineligible_result = check.early_ineligible_result?
