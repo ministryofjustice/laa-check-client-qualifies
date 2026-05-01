@@ -14,7 +14,9 @@ RSpec.describe AnalyticsService do
 
     it "respects ModeConfig.analytics_enabled? false" do
       allow(ModeConfig).to receive(:analytics_enabled?).and_return(false)
-      expect(described_class.call(anything, anything, anything, anything)).to be_nil
+      cookies = { ApplicationController::BROWSER_ID_COOKIE => "browser123" }
+
+      expect(described_class.call(event_type: "an_event_type", page: "some_page", assessment_code: assessment_code, cookies:)).to be_nil
       expect(AnalyticsEvent.count).to eq 0
     end
 
