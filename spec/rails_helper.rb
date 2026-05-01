@@ -48,9 +48,8 @@ Dir[Rails.root.join("spec/support/**/*.rb")].sort.each { |f| require f }
 ALLOWED_HOSTS = ["https://chromedriver.storage.googleapis.com",
                  "https://github.com"].freeze
 
-# Tag all specs so that regular tests run as normal,
-# embedded tests only run in embedded mode,
-# standalone tests don't run in embedded mode unless shared
+# CCQ_MODE=embedded bundle exec rspec will only run specs
+# under spec/_embedded
 RSpec.configure do |config|
   # Automatically classify every test based on its location and tags
   config.define_derived_metadata do |metadata|
