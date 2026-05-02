@@ -30,11 +30,8 @@ executors:
       - image: cimg/ruby:3.3.7-browsers
         environment:
           VCR_RECORD_MODE: none
-          COVERAGE: true
           RAILS_ENV: test
           TZ: "Europe/London"
-          
-          CCQ_MODE: embedded
           REDIS_URL: redis://localhost:6379/0
       - image: cimg/redis:7.0
   e2e-executor:
@@ -198,15 +195,14 @@ jobs:
           at: ./
       - run:
           name: Run tests
+          environment:
+            CCQ_MODE: embedded
           command: |
             # this may need parallelising at some point
-            CCQ_MODE=embedded bundle exec rspec
+            bundle exec rspec
 
       - store_test_results:
           path: /tmp/test-results/rspec
-
-      - store_artifacts:
-          path: coverage
 
   end2end_tests:
     executor: e2e-executor
