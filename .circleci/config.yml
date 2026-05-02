@@ -26,6 +26,7 @@ executors:
           POSTGRES_USER: user
           POSTGRES_DB: ccq_test
   embedded-test-executor:
+    resource_class: small
     docker:
       - image: cimg/ruby:3.3.7-browsers
         environment:
