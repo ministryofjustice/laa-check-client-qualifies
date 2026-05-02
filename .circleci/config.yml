@@ -25,6 +25,18 @@ executors:
         environment:
           POSTGRES_USER: user
           POSTGRES_DB: ccq_test
+  embedded-test-executor:
+    docker:
+      - image: cimg/ruby:3.3.7-browsers
+        environment:
+          VCR_RECORD_MODE: none
+          COVERAGE: true
+          RAILS_ENV: test
+          TZ: "Europe/London"
+          
+          CCQ_MODE: embedded
+          REDIS_URL: redis://localhost:6379/0
+      - image: cimg/redis:7.0
   e2e-executor:
     resource_class: small
     docker:
@@ -177,6 +189,25 @@ jobs:
           event: fail
           template: basic_fail_1
           branch_pattern: main
+  
+  run_embedded_specs:
+    executor: embedded-test-executor
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ./
+      - run:
+          name: Run tests
+          command: |
+            # this may need parallelising at some point
+            CCQ_MODE=embedded bundle exec rspec
+
+      - store_test_results:
+          path: /tmp/test-results/rspec
+
+      - store_artifacts:
+          path: coverage
+
   end2end_tests:
     executor: e2e-executor
     steps:
@@ -278,6 +309,9 @@ workflows:
           requires:
             - install_dependencies
       - run_specs:
+          requires:
+            - install_dependencies
+      - run_embedded_specs:
           requires:
             - install_dependencies
       - end2end_tests:
