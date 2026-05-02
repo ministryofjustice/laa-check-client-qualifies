@@ -198,11 +198,10 @@ jobs:
           name: Run tests
           environment:
             CCQ_MODE: embedded
-            COVERAGE: false
             DISABLE_BOOTSNAP: 1
           command: |
             # this may need parallelising at some point
-            bundle exec rspec --backtrace
+            COVERAGE=false bundle exec rspec
 
       - store_test_results:
           path: /tmp/test-results/rspec
