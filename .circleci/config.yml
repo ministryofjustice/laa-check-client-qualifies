@@ -31,6 +31,7 @@ executors:
       - image: cimg/ruby:3.3.7-browsers
         environment:
           VCR_RECORD_MODE: none
+          COVERAGE: false
           RAILS_ENV: test
           TZ: "Europe/London"
           REDIS_URL: redis://localhost:6379/0
@@ -196,10 +197,9 @@ jobs:
           at: ./
       - run:
           name: Run tests
-          environment:
-            CCQ_MODE: embedded
           command: |
             # this may need parallelising at some point
+            export CCQ_MODE=embedded
             bundle exec rspec
 
       - store_test_results:
