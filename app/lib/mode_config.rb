@@ -21,24 +21,23 @@ class ModeConfig
   }.freeze
 
   def self.mode
-    @mode ||= begin
-      raw = ENV.fetch("CCQ_MODE", "standalone")
-      raise ArgumentError, "Unknown CCQ_MODE: #{raw}" unless MODES.include?(raw)
+    # Using memoization for mode can cause weird behaviour with
+    # dotenv based on load order in application.rb
+    raw = ENV.fetch("CCQ_MODE", "standalone")
+    raise ArgumentError, "Unknown CCQ_MODE: #{raw}" unless MODES.include?(raw)
 
-      raw
-    end
+    raw
   end
 
   def self.embedded?   = mode == "embedded"
   def self.standalone? = mode == "standalone"
 
   def self.cache_store
-    return :solid_cache_store unless embedded?
+    return :solid_cache_store if standalone?
 
-    config = Rails.application.config_for(:redis).symbolize_keys
     [
       :redis_cache_store,
-      config,
+      Rails.application.config_for(:redis).symbolize_keys,
     ]
   end
 
