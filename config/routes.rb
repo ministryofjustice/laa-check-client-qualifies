@@ -1,3 +1,7 @@
+# TODO: figure out if we can split this file to make
+# it easier to maintain.
+# Need to be careful with priority ordering.
+
 Rails.application.routes.draw do
   if ModeConfig.admin_enabled?
     mount RailsAdmin::Engine => "/admin", as: "rails_admin"
@@ -10,25 +14,31 @@ Rails.application.routes.draw do
                )
   end
 
-  root to: "start#index"
-
-  resources :start, only: [:index]
   resources :status, only: [:index]
-
-  resource :cookies, only: %i[show update]
-  resource :privacy, as: :privacy, only: :show
-  resource :accessibility, only: :show
-  resource :help, only: :show
-  resources :feature_flags, only: %i[index], path: "feature-flags"
-  resources :updates, only: :index
-  resources :basic_authentication_sessions, only: %i[new create]
-  resources :documents, only: :show
-  resources :feedbacks, only: %i[create update]
-
   get "/health", to: "status#health"
-  get "/no-analytics", to: "cookies#no_analytics_mode"
-  get "instant-:session_type", to: "instant_sessions#create", as: :instant_session
   get "robots.txt", to: "robots#index"
+
+  if ModeConfig.embedded?
+    root to: "status#index"
+  end
+
+  if ModeConfig.standalone?
+    root to: "start#index"
+    resources :start, only: [:index]
+
+    resource :cookies, only: %i[show update]
+    resource :privacy, as: :privacy, only: :show
+    resource :accessibility, only: :show
+    resource :help, only: :show
+    resources :feature_flags, only: %i[index], path: "feature-flags"
+    resources :updates, only: :index
+    resources :basic_authentication_sessions, only: %i[new create]
+    resources :documents, only: :show
+    resources :feedbacks, only: %i[create update]
+
+    get "/no-analytics", to: "cookies#no_analytics_mode"
+    get "instant-:session_type", to: "instant_sessions#create", as: :instant_session
+  end
 
   if ModeConfig.oauth_enabled?
     get "/auth/subdomain_redirect", to: "oauth_redirects#subdomain_redirect", as: :subdomain_redirect
@@ -50,8 +60,8 @@ Rails.application.routes.draw do
           via: %i[get post]
   end
 
-  # Catch and redirect old-format URLs
-  unless ModeConfig.embedded?
+  if ModeConfig.standalone?
+    # Catch and redirect old-format URLs
     get "estimates/:assessment_code/build_estimates/:step", to: "redirects#build_estimate"
     get "estimates/:assessment_code/check_answers/:step", to: "redirects#check"
     put "estimates/:assessment_code/build_estimates/:step", to: "redirects#build_estimate"

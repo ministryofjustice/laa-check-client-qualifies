@@ -45,8 +45,12 @@ Dir[Rails.root.join("spec/support/**/*.rb")].sort.each { |f| require f }
 #   exit 1
 # end
 
-ALLOWED_HOSTS = ["https://chromedriver.storage.googleapis.com",
-                 "https://github.com"].freeze
+ALLOWED_HOSTS = [
+  # only uncomment this if you need to - prefer running CFE locally
+  # "https://cfe-civil-staging.cloud-platform.service.justice.gov.uk",
+  "https://chromedriver.storage.googleapis.com",
+  "https://github.com",
+].freeze
 
 # CCQ_MODE=embedded bundle exec rspec will only run specs
 # under spec/_embedded
