@@ -202,7 +202,7 @@ jobs:
             DISABLE_BOOTSNAP: 1
           command: |
             # this may need parallelising at some point
-            bundle exec rspec
+            bundle exec rspec --backtrace
 
       - store_test_results:
           path: /tmp/test-results/rspec
