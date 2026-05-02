@@ -1,4 +1,4 @@
-.PHONY: test-prepare test-all test test-embedded
+.PHONY: test-prepare test-all test test-embedded check
 
 test-prepare:
 	RAILS_ENV=test bundle exec rake parallel:prepare
@@ -9,6 +9,8 @@ test-all:
 test:
 	bundle exec rspec
 
-# rails_helper.rb:51
 test-embedded:
 	CCQ_MODE=embedded bundle exec rspec
+
+zeitwerk-check:
+	DISABLE_SPRING=1 DISABLE_BOOTSNAP=1 CI=true bundle exec rake zeitwerk:check
