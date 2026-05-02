@@ -55,6 +55,7 @@ ALLOWED_HOSTS = [
 # CCQ_MODE=embedded bundle exec rspec will only run specs
 # under spec/_embedded
 RSpec.configure do |config|
+  raise "this should break everything"
   # Automatically classify every test based on its location and tags
   config.define_derived_metadata do |metadata|
     embedded_spec = metadata[:file_path].match?(%r{/spec/_embedded/})
