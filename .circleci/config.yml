@@ -324,10 +324,6 @@ workflows:
               only:
                 - main
 
-# Keeping this step commented out because we will need
-# again in the future, the requires production_deploy_approval
-# in Deploy to Production is also commented out
-
       - production_deploy_approval:
            type: approval
            requires:
