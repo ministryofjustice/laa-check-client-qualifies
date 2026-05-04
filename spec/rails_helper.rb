@@ -52,26 +52,32 @@ ALLOWED_HOSTS = [
   "https://github.com",
 ].freeze
 
-# CCQ_MODE=embedded bundle exec rspec will only run specs
-# under spec/_embedded
 RSpec.configure do |config|
-  # Automatically classify every test based on its location and tags
+  # tags specs as `:embedded_only` if they're under spec/_embedded
+  #
+  # tags specs as `:standalone_only` if they're not under spec/_embedded
+  # and not marked with `ccq_mode: :embedded`
   config.define_derived_metadata do |metadata|
     embedded_spec = metadata[:file_path].match?(%r{/spec/_embedded/})
     tagged_as_embedded = (metadata[:ccq_mode] == :embedded)
 
     if embedded_spec
-      metadata[:embedded_specs] = true
+      metadata[:embedded_only] = true
     elsif !tagged_as_embedded
-      metadata[:standalone_specs] = true
+      metadata[:standalone_only] = true
     end
   end
 
-  # apply filters based on the boot mode
+  # spec/_embedded specs should only be run with CCQ_MODE=embedded
+  # most specs under /spec should only run in CCQ_MODE=standalone (default)
+  #
+  # there are shared component specs which exercise branches for both
+  # modes, these are configured with appropriate metadata manually.
+  # see `spec/services/health_check_service_spec.rb` for example.
   if ENV["CCQ_MODE"] == "embedded"
-    config.filter_run_excluding standalone_specs: true
+    config.filter_run_excluding standalone_only: true
   else
-    config.filter_run_excluding embedded_specs: true
+    config.filter_run_excluding embedded_only: true
   end
 end
 
