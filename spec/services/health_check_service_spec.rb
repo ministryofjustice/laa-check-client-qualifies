@@ -1,8 +1,8 @@
 require "rails_helper"
 
-RSpec.describe HealthCheckService do
+RSpec.describe HealthCheckService, ccq_mode: :embedded do
   describe ".call" do
-    context "when database is enabled" do
+    context "when database is enabled", :standalone_only do
       before do
         allow(ModeConfig).to receive(:database_enabled?).and_return(true)
       end
@@ -92,7 +92,7 @@ RSpec.describe HealthCheckService do
     end
   end
 
-  describe ".database_healthy?" do
+  describe ".database_healthy?", :standalone_only do
     context "when connection is active" do
       it "returns true" do
         allow(ActiveRecord::Base.connection).to receive(:active?).and_return(true)
