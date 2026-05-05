@@ -169,6 +169,8 @@ jobs:
       - *setup_parallel_database
       - run:
           name: Run tests
+          environment:
+            CCQ_MODE: standalone
           command: |
             bundle exec rake parallel:spec
 
