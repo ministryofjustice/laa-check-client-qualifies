@@ -1,5 +1,12 @@
 version: 2.1
 
+orbs:
+  aws-cli: circleci/aws-cli@4.1.2
+  aws-ecr: circleci/aws-ecr@9.0
+  jira: circleci/jira@2.1.0
+  slack: circleci/slack@4.5.2
+
+##########################################################################################
 executors:
   basic-executor:
     resource_class: small
@@ -64,6 +71,7 @@ executors:
           GITHUB_TEAM_NAME_SLUG: check-client-qualifies
           TZ: Europe/London
 
+##########################################################################################
 references:
   authenticate_k8s: &authenticate_k8s
     run:
@@ -95,12 +103,7 @@ references:
         RAILS_ENV=test bundle exec rake parallel:create
         RAILS_ENV=test bundle exec rake parallel:load_schema
 
-orbs:
-  aws-cli: circleci/aws-cli@4.1.2
-  aws-ecr: circleci/aws-ecr@9.0
-  jira: circleci/jira@2.1.0
-  slack: circleci/slack@4.5.2
-
+##########################################################################################
 jobs:
   install_dependencies:
     executor: basic-executor
@@ -109,7 +112,8 @@ jobs:
       - attach_workspace:
           at: ~/
       - restore_cache:
-          key: check-client-qualifies-{{ checksum "Gemfile.lock" }}-v1-{{ checksum "yarn.lock" }}
+          key: check-client-qualifies-{{ checksum "Gemfile.lock" }}-v1-{{ checksum
+            "yarn.lock" }}
       - run:
           name: Which bundler?
           command: bundle -v
@@ -134,7 +138,8 @@ jobs:
           name: Compile assets for test run
           command: bundle exec rake test:prepare
       - save_cache:
-          key: check-client-qualifies-{{ checksum "Gemfile.lock" }}-v1-{{ checksum "yarn.lock" }}
+          key: check-client-qualifies-{{ checksum "Gemfile.lock" }}-v1-{{ checksum
+            "yarn.lock" }}
           paths:
             - vendor/bundle
             - node_modules
@@ -150,6 +155,8 @@ jobs:
           event: fail
           template: basic_fail_1
           branch_pattern: main
+
+  #########################################
   run_specs:
     executor: test-executor
     steps:
@@ -161,15 +168,12 @@ jobs:
           name: Run tests
           command: |
             bundle exec rake parallel:spec
-
       - store_test_results:
           path: /tmp/test-results/rspec
-
       - persist_to_workspace:
           root: ./
           paths:
             - tmp/parallel_runtime_rspec.log
-
       - store_artifacts:
           path: coverage
       - slack/notify:
@@ -177,6 +181,8 @@ jobs:
           event: fail
           template: basic_fail_1
           branch_pattern: main
+
+  #########################################
   end2end_tests:
     executor: e2e-executor
     steps:
@@ -191,6 +197,8 @@ jobs:
           name: Run CFE End to End tests
           command: |
             COVERAGE=false bundle exec rspec -t end2end --format documentation spec/**/**_spec.rb
+
+  #########################################
   linters:
     executor: basic-executor
     resource_class: medium
@@ -211,6 +219,8 @@ jobs:
           event: fail
           template: basic_fail_1
           branch_pattern: main
+
+  #########################################
   build_and_push:
     executor:
       name: aws-ecr/default
@@ -238,6 +248,8 @@ jobs:
           job_type: build
           pipeline_id: << pipeline.id >>
           pipeline_number: << pipeline.number >>
+
+  #########################################
   deploy:
     parameters:
       environment:
@@ -249,20 +261,24 @@ jobs:
           docker_layer_caching: true
       - *authenticate_k8s
       - run:
-          name: Deploy LAA Check-your-client-qualifies-for-legal-aid service to << parameters.environment >>
+          name: Deploy LAA Check-your-client-qualifies-for-legal-aid service to <<
+            parameters.environment >>
           command: |
             ./bin/deploy << parameters.environment >>
       - slack/notify:
           channel: eligibility-alerts-<< parameters.environment >>
           event: fail
           template: basic_fail_1
+
+  #########################################
   deploy_infrastructure_uat:
     executor: cloud-platform-executor
     steps:
       - checkout
       - *authenticate_k8s
       - run:
-          name: Deploy LAA Check-your-client-qualifies-for-legal-aid service's /infrastructure to UAT
+          name: Deploy LAA Check-your-client-qualifies-for-legal-aid service's
+            /infrastructure to UAT
           command: |
             kubectl apply --record=false -f ./infrastructure/laa-check-client-qualifies-uat/
       - slack/notify:
@@ -270,9 +286,12 @@ jobs:
           event: fail
           template: basic_fail_1
 
+##########################################################################################
 workflows:
   run_ci:
     jobs:
+      - slack/on-hold:
+          channel: rcw-engineering
       - install_dependencies
       - linters:
           requires:
@@ -286,6 +305,8 @@ workflows:
       - build_and_push:
           requires:
             - install_dependencies
+
+      #########################################
       - deploy:
           name: Deploy to UAT
           environment: ccq-uat
@@ -302,6 +323,8 @@ workflows:
                 environment_type: testing
                 pipeline_id: << pipeline.id >>
                 pipeline_number: << pipeline.number >>
+
+      #########################################
       - deploy:
           name: Deploy to Staging
           environment: ccq-staging
@@ -324,14 +347,17 @@ workflows:
               only:
                 - main
 
+      #########################################
       - production_deploy_approval:
-           type: approval
-           requires:
-             - Deploy to Staging
-           filters:
-             branches:
-               only:
-                 - main
+          type: approval
+          requires:
+            - Deploy to Staging
+          filters:
+            branches:
+              only:
+                - main
+
+      #########################################
       - deploy:
           name: Deploy to Production
           environment: ccq-production
@@ -354,6 +380,8 @@ workflows:
             branches:
               only:
                 - main
+
+      #########################################
       - deploy_infrastructure_uat:
           context: laa-check-client-qualifies-uat
           filters:
