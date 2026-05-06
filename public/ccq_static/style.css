@@ -3053,7 +3053,7 @@ screen and (forced-colors:active) {
     }
 }
 
-@media screen\0 and (min-width:40.0625em) {
+@media screen and (min-width:40.0625em) {
     .govuk-details__summary-text {
         margin-bottom: 20px
     }
