@@ -348,6 +348,12 @@ workflows:
                 - main
 
       #########################################
+      - slack/on-hold:
+          channel: rcw-engineering
+          mentions: '@mnm-engineers'
+          requires:
+            - Deploy to Staging
+
       - production_deploy_approval:
           type: approval
           requires:
