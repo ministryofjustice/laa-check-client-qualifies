@@ -34,7 +34,7 @@ class ResultsController < ApplicationController
       layout: "download_application",
     })
 
-    PdfService.with_pdf_data_from_html_string(html, request.base_url) do |pdf_data|
+    PdfService.with_pdf_data_from_html_string(html, "http://localhost:3000") do |pdf_data|
       send_data pdf_data,
                 filename: "#{I18n.t('generic.download_name')} - #{helpers.timestamp_for_filenames}.pdf",
                 type: "application/pdf"
