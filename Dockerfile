@@ -27,9 +27,9 @@ RUN bundler -v && \
 RUN apt update && apt install -y yarn nodejs git npm
 
 # Install node packages defined in package.json
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile --prod
-RUN npx puppeteer browsers install chrome
 
 # Copy all files to /app (except what is defined in .dockerignore)
 COPY . .
@@ -48,36 +48,43 @@ USER 1000
 # Build runtime image
 FROM ruby:3.3.7-slim-bookworm as production
 
-# The application runs from /app
 WORKDIR /app
 
-RUN apt update
-# Need postgres for db, node for puppeteer (PDFs) and pdftk for CWForms
-RUN apt install -y nodejs pdftk
+# Install all deps in one layer
+RUN apt-get update && \
+    apt-get install --no-install-recommends -y \
+        wget \
+        gnupg \
+        lsb-release \
+        ca-certificates \
+        nodejs \
+        pdftk \
+        chromium \
+        fontconfig \
+        fonts-liberation \
+        fonts-dejavu-core \
+        && \
+    # install postgreql-client-17 as it is not part of base image
+    echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
+    wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor -o /etc/apt/trusted.gpg.d/pgdg.gpg && \
+    apt-get update && apt-get install -y postgresql-client-17 && \
+    rm -rf /var/lib/apt/lists/*
 
-# install all chromium's dependencies, but then remove chromium itself as we will be installing via puppeteer
-RUN apt install -y chromium
-RUN apt remove -y chromium
+# Install GDS fonts, rebuild font cache
+COPY public/ccq/assets/static/gds-transport-bold.woff2 \
+     public/ccq/assets/static/gds-transport-light.woff2 \
+    /usr/share/fonts/truetype/govuk/
+RUN fc-cache -f -v
 
-# install postgreql-client-17 as it is not part of base image
-RUN apt-get update && apt-get install -y wget gnupg lsb-release ca-certificates \
-  && echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list \
-  && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor -o /etc/apt/trusted.gpg.d/pgdg.gpg \
-  && apt-get update && apt-get install -y postgresql-client-17 \
-  && rm -rf /var/lib/apt/lists/*
+# Tell puppeteer which chromium to use
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
 
-# make a config directory in $HOME
 RUN mkdir -p /.config/chromium
 RUN chown -R 1000:1000 /.config
-
 RUN mkdir /.cache
 
 COPY --from=builder /app /app
 COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
-COPY --from=builder /root/.cache/puppeteer /.cache/puppeteer
-
-# Make sure puppeteer browser cache is accessible by running user
-RUN chown -R 1000:1000 /.cache
 
 USER 1000
 
