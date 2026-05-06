@@ -283,8 +283,6 @@ jobs:
 workflows:
   run_ci:
     jobs:
-      - slack/on-hold:
-          channel: rick-test-mnm-slackbot
       - install_dependencies
       - linters:
           requires:
