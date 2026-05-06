@@ -335,6 +335,7 @@ workflows:
           type: approval
           requires:
             - Deploy to Staging
+            - slack/on-hold
           filters:
             branches:
               only:
