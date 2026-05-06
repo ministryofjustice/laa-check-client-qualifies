@@ -102,7 +102,7 @@ references:
         RAILS_ENV=test bundle exec rake parallel:create
         RAILS_ENV=test bundle exec rake parallel:load_schema
 
-#   JOBS        ################################################################################
+#     JOBS      ################################################################################
 jobs:
   install_dependencies:
     executor: basic-executor
