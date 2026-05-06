@@ -85,12 +85,12 @@ GEM
       public_suffix (>= 2.0.2, < 8.0)
     annotate_models (1.0.1)
     ast (2.4.3)
-    axe-core-api (4.11.2)
+    axe-core-api (4.11.3)
       dumb_delegator
       ostruct
       virtus
-    axe-core-rspec (4.11.2)
-      axe-core-api (= 4.11.2)
+    axe-core-rspec (4.11.3)
+      axe-core-api (= 4.11.3)
       dumb_delegator
       ostruct
       virtus
@@ -111,7 +111,7 @@ GEM
     bindex (0.8.1)
     binding_of_caller (2.0.0)
       debug_inspector (>= 1.2.0)
-    bootsnap (1.23.0)
+    bootsnap (1.24.1)
       msgpack (~> 1.2)
     builder (3.3.0)
     capybara (3.40.0)
@@ -374,7 +374,7 @@ GEM
       date
       stringio
     public_suffix (7.0.5)
-    puma (8.0.0)
+    puma (8.0.1)
       nio4r (~> 2.0)
     racc (1.8.1)
     rack (3.2.6)

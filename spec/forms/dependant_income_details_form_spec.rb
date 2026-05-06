@@ -66,13 +66,13 @@ RSpec.describe "dependant_income_details", type: :feature do
     end
 
     context "when choosing monthly frequency" do
-      let(:monthly_limit) { "367.87" }
+      let(:monthly_limit) { "381.86" }
 
       it "shows an error message when on the limit" do
         fill_in "1-amount", with: monthly_limit
         choose "1-frequency-monthly"
         click_on "Save and continue"
-        expect(page).to have_content "If this dependant gets income equivalent to £367.87 or more per month, go back and remove them as a dependant to continue with this check."
+        expect(page).to have_content "If this dependant gets income equivalent to £381.86 or more per month, go back and remove them as a dependant to continue with this check."
       end
 
       it "does not show an error message when below the limit" do
@@ -84,56 +84,56 @@ RSpec.describe "dependant_income_details", type: :feature do
     end
 
     context "when choosing three month total frequency" do
-      let(:three_month_limit) { "1103.61" }
+      let(:three_month_limit) { "1145.58" }
 
       it "shows an error message when on the limit" do
         fill_in "1-amount", with: three_month_limit
         choose "1-frequency-three_months"
         click_on "Save and continue"
-        expect(page).to have_content "If this dependant gets income equivalent to £367.87 or more per month, go back and remove them as a dependant"
+        expect(page).to have_content "If this dependant gets income equivalent to £381.86 or more per month, go back and remove them as a dependant"
       end
 
       it "does not show an error message when below the limit" do
         fill_in "1-amount", with: "1085.09"
         choose "1-frequency-three_months"
         click_on "Save and continue"
-        expect(page).not_to have_content "If this dependant gets income equivalent to £367.87 or more per month, go back and remove them as a dependant"
+        expect(page).not_to have_content "If this dependant gets income equivalent to £381.86 or more per month, go back and remove them as a dependant"
       end
     end
 
     context "when choosing weekly frequency" do
-      let(:weekly_limit) { "84.89" }
+      let(:weekly_limit) { "88.12" }
 
       it "shows an error message when on the limit" do
         fill_in "1-amount", with: weekly_limit
         choose "1-frequency-every_week"
         click_on "Save and continue"
-        expect(page).to have_content "If this dependant gets income equivalent to £367.87 or more per month, go back and remove them as a dependant"
+        expect(page).to have_content "If this dependant gets income equivalent to £381.86 or more per month, go back and remove them as a dependant"
       end
 
       it "does not show an error message when below the limit" do
         fill_in "1-amount", with: "83.46"
         choose "1-frequency-every_week"
         click_on "Save and continue"
-        expect(page).not_to have_content "If this dependant gets income equivalent to £367.87 or more per month, go back and remove them as a dependant"
+        expect(page).not_to have_content "If this dependant gets income equivalent to £381.86 or more per month, go back and remove them as a dependant"
       end
     end
 
     context "when choosing fortnightly frequency" do
-      let(:fortnightly_limit) { "169.79" }
+      let(:fortnightly_limit) { "176.24" }
 
       it "shows an error message when on the limit" do
         fill_in "1-amount", with: fortnightly_limit
         choose "1-frequency-every_two_weeks"
         click_on "Save and continue"
-        expect(page).to have_content "If this dependant gets income equivalent to £367.87 or more per month, go back and remove them as a dependant"
+        expect(page).to have_content "If this dependant gets income equivalent to £381.86 or more per month, go back and remove them as a dependant"
       end
 
       it "does not show an error message when below the limit" do
         fill_in "1-amount", with: "166.93"
         choose "1-frequency-every_two_weeks"
         click_on "Save and continue"
-        expect(page).not_to have_content "If this dependant gets income equivalent to £367.87 or more per month, go back and remove them as a dependant"
+        expect(page).not_to have_content "If this dependant gets income equivalent to £381.86 or more per month, go back and remove them as a dependant"
       end
     end
   end
