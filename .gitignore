@@ -14,6 +14,10 @@ terraform.tfstate
 /app/assets/builds/*
 !/app/assets/builds/.keep
 
+# specific path enables 
+public/ccq/assets/*
+!public/ccq/assets/static*
+
 /node_modules
 *.iml
 .idea/

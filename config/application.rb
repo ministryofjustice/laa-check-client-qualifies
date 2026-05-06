@@ -52,6 +52,7 @@ module LaaEstimateFinancialEligibilityForLegalAid
 
     overrides = Rails.root.join("app/overrides").to_s
     Rails.autoloaders.main.ignore(overrides)
+    Rails.application.config.assets.prefix = "/ccq/assets"
 
     config.to_prepare do
       Dir.glob("#{overrides}/**/*_override.rb").sort.each do |override|
