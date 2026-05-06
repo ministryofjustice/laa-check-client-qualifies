@@ -7,8 +7,8 @@
 .yarn-integrity
 config/master.key
 log
-public/ccq/assets
-public/assets
+public/ccq/assets/*
+!public/ccq/assets/static*
 public/packs
 public/packs-test
 storage
