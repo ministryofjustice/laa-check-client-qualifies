@@ -111,8 +111,7 @@ jobs:
       - attach_workspace:
           at: ~/
       - restore_cache:
-          key: check-client-qualifies-{{ checksum "Gemfile.lock" }}-v1-{{ checksum
-            "yarn.lock" }}
+          key: check-client-qualifies-{{ checksum "Gemfile.lock" }}-v1-{{ checksum "yarn.lock" }}
       - run:
           name: Which bundler?
           command: bundle -v
@@ -137,8 +136,7 @@ jobs:
           name: Compile assets for test run
           command: bundle exec rake test:prepare
       - save_cache:
-          key: check-client-qualifies-{{ checksum "Gemfile.lock" }}-v1-{{ checksum
-            "yarn.lock" }}
+          key: check-client-qualifies-{{ checksum "Gemfile.lock" }}-v1-{{ checksum "yarn.lock" }}
           paths:
             - vendor/bundle
             - node_modules
