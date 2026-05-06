@@ -1,0 +1,46 @@
+include               /etc/nginx/maps.conf;
+# Do not include nginx version in error pages or Server header
+server_tokens         off;
+# Prevent oversized request bodies; sufficient for all expected form submissions
+client_max_body_size  10m;
+
+server {
+  listen 8080;
+
+  # MoJ CP/EKS ranges
+  set_real_ip_from   10.0.0.0/8;
+  set_real_ip_from   172.16.0.0/12;
+  real_ip_header     X-Forwarded-For;
+  real_ip_recursive  on;
+
+  location /ccq/assets/ {
+    include     /etc/nginx/proxy.conf;
+    proxy_pass  http://${NGINX_UPSTREAM_CCQ};
+    
+    # Strip session cookies from assets for performance
+    proxy_hide_header        Set-Cookie;
+    proxy_ignore_headers     Set-Cookie;
+
+    # Force browser caching
+    expires                  30d;
+    add_header Cache-Control "public, max-age=2592000";
+    access_log               off;
+  }
+
+  # match anything with `/eligibility` and forward the whole thing to CCQ
+  location ~ /eligibility(/|$) {
+    include     /etc/nginx/proxy.conf;
+    proxy_pass  http://${NGINX_UPSTREAM_CCQ};
+  }
+}
+
+# Health endpoint on a separate port so it is never reachable via the ingress
+server {
+  listen 9090;
+
+  location /nginx-health {
+    access_log off;
+    add_header Content-Type text/plain;
+    return 200 "ok";
+  }
+}
