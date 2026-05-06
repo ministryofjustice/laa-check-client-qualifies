@@ -171,7 +171,7 @@ RSpec.describe "results/show.html.slim" do
       expect(page_text).to include "Income tax£5.00"
       expect(page_text).to include "National Insurance£10.00"
       expect(page_text).to include "Employment expensesA fixed allowance if your client gets a salary or wage£3.34"
-      expect(page_text).to include "Dependants allowanceAn allowance of £367.87 applied for each dependant, minus any income they receive£13.00"
+      expect(page_text).to include "Dependants allowanceAn allowance of £381.86 applied for each dependant, minus any income they receive£13.00"
       expect(page_text).to include "Partner allowanceA fixed allowance if your client has a partner£858.34"
       expect(page_text).to include "Total monthly outgoings£5,483"
       expect(page_text).to include "Assessed disposable monthly incomeTotal monthly income minus total monthly outgoings£12,345.00"
