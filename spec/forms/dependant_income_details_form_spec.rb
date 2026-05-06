@@ -84,7 +84,7 @@ RSpec.describe "dependant_income_details", type: :feature do
     end
 
     context "when choosing three month total frequency" do
-      let(:three_month_limit) { "1103.61" }
+      let(:three_month_limit) { "1145.58" }
 
       it "shows an error message when on the limit" do
         fill_in "1-amount", with: three_month_limit
@@ -102,7 +102,7 @@ RSpec.describe "dependant_income_details", type: :feature do
     end
 
     context "when choosing weekly frequency" do
-      let(:weekly_limit) { "84.89" }
+      let(:weekly_limit) { "88.12" }
 
       it "shows an error message when on the limit" do
         fill_in "1-amount", with: weekly_limit
@@ -120,7 +120,7 @@ RSpec.describe "dependant_income_details", type: :feature do
     end
 
     context "when choosing fortnightly frequency" do
-      let(:fortnightly_limit) { "169.79" }
+      let(:fortnightly_limit) { "176.24" }
 
       it "shows an error message when on the limit" do
         fill_in "1-amount", with: fortnightly_limit
