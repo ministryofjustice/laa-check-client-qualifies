@@ -1,3 +1,5 @@
+return unless ModeConfig.admin_enabled?
+
 require Rails.root.join("app/lib/rails_admin/config/actions.rb")
 
 RailsAdmin.config do |config|

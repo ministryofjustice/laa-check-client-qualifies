@@ -43,7 +43,8 @@ Rails.application.configure do
   config.log_tags = [:request_id]
 
   # Use a different cache store in production.
-  config.cache_store = :solid_cache_store
+  config.cache_store = ModeConfig.cache_store
+
   # Note - this should probably match the CFE lifetime setting (currently 2 weeks)
   config.session_store :cache_store,
                        key: LaaEstimateFinancialEligibilityForLegalAid::SESSION_COOKIE_NAME,
@@ -85,6 +86,8 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   # config.active_record.dump_schema_after_migration = false
 
-  # We don't use ActiveStorage, but we need this minimal config so that we can use ActionText
-  config.active_storage.service = :local
+  unless ModeConfig.embedded?
+    # We don't use ActiveStorage, but we need this minimal config so that we can use ActionText
+    config.active_storage.service = :local
+  end
 end

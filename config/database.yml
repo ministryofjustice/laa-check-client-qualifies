@@ -1,5 +1,5 @@
 default: &default
-  adapter: postgresql
+  adapter: "<%= ENV['CCQ_MODE'] == 'embedded' ? 'nulldb' : 'postgresql' %>"
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 25 } %>
   timeout: 5000
@@ -14,7 +14,7 @@ test:
 
 production:
   <<: *default
-  host: <%= ENV['POSTGRES_HOST'] %>
-  username: <%= ENV['POSTGRES_USER'] %>
-  password: <%= ENV['POSTGRES_PASSWORD'] %>
-  database: <%= ENV['POSTGRES_DATABASE'] %>
+  host: <%= ENV['POSTGRES_HOST'] unless ENV['CCQ_MODE'] == 'embedded' %>
+  username: <%= ENV['POSTGRES_USER'] unless ENV['CCQ_MODE'] == 'embedded' %>
+  password: <%= ENV['POSTGRES_PASSWORD'] unless ENV['CCQ_MODE'] == 'embedded' %>
+  database: <%= ENV['POSTGRES_DATABASE'] unless ENV['CCQ_MODE'] == 'embedded' %>

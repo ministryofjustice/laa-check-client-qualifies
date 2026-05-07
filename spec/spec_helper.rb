@@ -12,10 +12,8 @@
 # the additional setup, and require it from the spec files that actually need
 # it.
 
-require "simplecov"
-require "rack_session_access/capybara"
-
-unless ENV.fetch("COVERAGE", "true") == "false"
+unless ENV.fetch("COVERAGE", "true") == "false" || ENV.fetch("CCQ_MODE", "standalone") == "embedded"
+  require "simplecov"
   SimpleCov.start "rails" do
     add_filter "app/mailers/exception_alert_mailer.rb"
     add_filter "app/lib/exception_notifier/templated_notifier.rb"
@@ -34,6 +32,8 @@ unless ENV.fetch("COVERAGE", "true") == "false"
     end
   end
 end
+
+require "rack_session_access/capybara"
 
 # This is needed to allow webmock to capture requests from non-VCR tests
 require "webmock/rspec"

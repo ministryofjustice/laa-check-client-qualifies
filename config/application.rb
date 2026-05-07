@@ -5,11 +5,18 @@ require "rails"
 require "active_model/railtie"
 # require "active_job/railtie"
 require "active_record/railtie"
-require "active_storage/engine"
 require "action_controller/railtie"
 # require "action_mailer/railtie"
 # require "action_mailbox/engine"
-require "action_text/engine"
+
+# .env files aren't loaded until dotenv is required by
+# Bundler (unless using Foreman, which loads .env early)
+CCQ_BOOT_MODE = ENV.fetch("CCQ_MODE", "standalone")
+if CCQ_BOOT_MODE == "standalone"
+  require "active_storage/engine"
+  require "action_text/engine"
+end
+
 require "action_view/railtie"
 # require "action_cable/engine"
 require "rails/test_unit/railtie"
@@ -17,6 +24,7 @@ require "rails/test_unit/railtie"
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
+require_relative "../app/lib/mode_config"
 
 module LaaEstimateFinancialEligibilityForLegalAid
   SESSION_COOKIE_NAME = "SessionData".freeze

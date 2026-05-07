@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "status requests" do
+RSpec.describe "status requests", ccq_mode: :embedded do
   let(:response_json) { JSON.parse(response.body) }
 
   describe "GET /status" do
@@ -18,7 +18,7 @@ RSpec.describe "status requests" do
       expect(response_json).to eq("healthy" => true)
     end
 
-    it "returns false if there is a problem reading from the database" do
+    it "returns false if there is a problem reading from the database", :standalone_only do
       allow(HealthCheckService).to receive(:database_healthy?).and_return(false)
       get("/health")
       expect(response).not_to be_successful
@@ -42,7 +42,7 @@ RSpec.describe "status requests" do
       expect(response).not_to be_successful
     end
 
-    it "responds to an inactive connection" do
+    it "responds to an inactive connection", :standalone_only do
       allow(ActiveRecord::Base.connection).to receive(:active?).and_return(false, true)
       expect(ActiveRecord::Base.connection).to receive(:reconnect!)
       get("/health")
