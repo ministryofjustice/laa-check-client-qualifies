@@ -1,56 +1,98 @@
 require "rails_helper"
 
-RSpec.describe HealthCheckService do
+RSpec.describe HealthCheckService, ccq_mode: :embedded do
   describe ".call" do
-    context "when both database and cache are healthy" do
-      it "returns true" do
-        allow(described_class).to receive_messages(database_healthy?: true, short_term_persistence_healthy?: true)
+    context "when database is enabled", :standalone_only do
+      before do
+        allow(ModeConfig).to receive(:database_enabled?).and_return(true)
+      end
 
-        expect(described_class.call).to be(true)
+      context "when both database and cache are healthy" do
+        it "returns true" do
+          allow(described_class).to receive_messages(database_healthy?: true, short_term_persistence_healthy?: true)
+
+          expect(described_class.call).to be(true)
+        end
+      end
+
+      context "with real integration" do
+        it "actually checks both database and cache health" do
+          # This test exercises the real code paths
+          result = described_class.call
+          expect(result).to be(true)
+        end
+      end
+
+      context "when database is unhealthy" do
+        it "returns false" do
+          allow(described_class).to receive_messages(database_healthy?: false, short_term_persistence_healthy?: true)
+
+          expect(described_class.call).to be(false)
+        end
+      end
+
+      context "when cache is unhealthy" do
+        it "returns false" do
+          allow(described_class).to receive_messages(database_healthy?: true, short_term_persistence_healthy?: false)
+
+          expect(described_class.call).to be(false)
+        end
+      end
+
+      context "when an exception is raised" do
+        it "returns false" do
+          allow(described_class).to receive(:database_healthy?).and_raise(StandardError, "Something went wrong")
+
+          expect(described_class.call).to be(false)
+        end
+
+        it "handles exceptions from short_term_persistence_healthy?" do
+          allow(described_class).to receive(:database_healthy?).and_return(true)
+          allow(described_class).to receive(:short_term_persistence_healthy?).and_raise(StandardError, "Cache error")
+
+          expect(described_class.call).to be(false)
+        end
       end
     end
 
-    context "with real integration" do
-      it "actually checks both database and cache health" do
-        # This test exercises the real code paths
-        result = described_class.call
-        expect(result).to be(true)
-      end
-    end
-
-    context "when database is unhealthy" do
-      it "returns false" do
-        allow(described_class).to receive_messages(database_healthy?: false, short_term_persistence_healthy?: true)
-
-        expect(described_class.call).to be(false)
-      end
-    end
-
-    context "when cache is unhealthy" do
-      it "returns false" do
-        allow(described_class).to receive_messages(database_healthy?: true, short_term_persistence_healthy?: false)
-
-        expect(described_class.call).to be(false)
-      end
-    end
-
-    context "when an exception is raised" do
-      it "returns false" do
-        allow(described_class).to receive(:database_healthy?).and_raise(StandardError, "Something went wrong")
-
-        expect(described_class.call).to be(false)
+    context "when database is disabled" do
+      before do
+        allow(ModeConfig).to receive(:database_enabled?).and_return(false)
       end
 
-      it "handles exceptions from short_term_persistence_healthy?" do
-        allow(described_class).to receive(:database_healthy?).and_return(true)
-        allow(described_class).to receive(:short_term_persistence_healthy?).and_raise(StandardError, "Cache error")
+      context "with real integration" do
+        it "actually checks cache health" do
+          # This test exercises the real code paths
+          result = described_class.call
+          expect(result).to be(true)
+        end
+      end
 
-        expect(described_class.call).to be(false)
+      context "when cache is unhealthy" do
+        it "returns false" do
+          allow(described_class).to receive_messages(short_term_persistence_healthy?: false)
+
+          expect(described_class.call).to be(false)
+        end
+      end
+
+      context "when an exception is raised" do
+        it "returns false" do
+          allow(described_class).to receive(:short_term_persistence_healthy?).and_raise(StandardError, "Something went wrong")
+
+          expect(described_class.call).to be(false)
+        end
+
+        it "handles exceptions from short_term_persistence_healthy?" do
+          allow(described_class).to receive(:short_term_persistence_healthy?).and_raise(StandardError, "Cache error")
+
+          expect(described_class.call).to be(false)
+        end
       end
     end
   end
 
-  describe ".database_healthy?" do
+  describe ".database_healthy?", :standalone_only do
     context "when connection is active" do
       it "returns true" do
         allow(ActiveRecord::Base.connection).to receive(:active?).and_return(true)

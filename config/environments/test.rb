@@ -25,7 +25,7 @@ Rails.application.configure do
   # Show full error reports and disable caching.
   config.consider_all_requests_local = true
   config.action_controller.perform_caching = false
-  config.cache_store = :solid_cache_store
+  config.cache_store = ModeConfig.cache_store
   config.session_store :cache_store, key: LaaEstimateFinancialEligibilityForLegalAid::SESSION_COOKIE_NAME
 
   # Raise exceptions instead of rendering exception templates.
@@ -51,8 +51,10 @@ Rails.application.configure do
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
 
-  # We don't use ActiveStorage, but we need this minimal config so that we can use ActionText
-  config.active_storage.service = :local
+  unless ModeConfig.embedded?
+    # We don't use ActiveStorage, but we need this minimal config so that we can use ActionText
+    config.active_storage.service = :local
+  end
 end
 
 OmniAuth.config.test_mode = true

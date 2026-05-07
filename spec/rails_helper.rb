@@ -1,6 +1,8 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
-require "spec_helper"
 ENV["RAILS_ENV"] ||= "test"
+ENV["CCQ_MODE"] ||= "standalone"
+
+require "spec_helper"
 require_relative "../config/environment"
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
@@ -43,8 +45,41 @@ Dir[Rails.root.join("spec/support/**/*.rb")].sort.each { |f| require f }
 #   exit 1
 # end
 
-ALLOWED_HOSTS = ["https://chromedriver.storage.googleapis.com",
-                 "https://github.com"].freeze
+ALLOWED_HOSTS = [
+  # only uncomment this if you need to - prefer running CFE locally
+  # "https://cfe-civil-staging.cloud-platform.service.justice.gov.uk",
+  "https://chromedriver.storage.googleapis.com",
+  "https://github.com",
+].freeze
+
+RSpec.configure do |config|
+  # tags specs as `:embedded_only` if they're under spec/_embedded
+  #
+  # tags specs as `:standalone_only` if they're not under spec/_embedded
+  # and not marked with `ccq_mode: :embedded`
+  config.define_derived_metadata do |metadata|
+    embedded_spec = metadata[:file_path].match?(%r{/spec/_embedded/})
+    tagged_as_embedded = (metadata[:ccq_mode] == :embedded)
+
+    if embedded_spec
+      metadata[:embedded_only] = true
+    elsif !tagged_as_embedded
+      metadata[:standalone_only] = true
+    end
+  end
+
+  # spec/_embedded specs should only be run with CCQ_MODE=embedded
+  # most specs under /spec should only run in CCQ_MODE=standalone (default)
+  #
+  # there are shared component specs which exercise branches for both
+  # modes, these are configured with appropriate metadata manually.
+  # see `spec/services/health_check_service_spec.rb` for example.
+  if ENV["CCQ_MODE"] == "embedded"
+    config.filter_run_excluding standalone_only: true
+  else
+    config.filter_run_excluding embedded_only: true
+  end
+end
 
 RSpec.configure do |config|
   # If you're not using ActiveRecord, or you'd prefer not to run each of your

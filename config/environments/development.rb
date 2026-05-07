@@ -24,7 +24,7 @@ Rails.application.configure do
     config.action_controller.enable_fragment_cache_logging = true
 
     # Use Solid Cache for development testing
-    config.cache_store = :solid_cache_store
+    config.cache_store = ModeConfig.cache_store
 
     config.public_file_server.headers = {
       "Cache-Control" => "public, max-age=#{2.days.to_i}"
@@ -60,6 +60,8 @@ Rails.application.configure do
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
 
-  # We don't use ActiveStorage, but we need this minimal config so that we can use ActionText
-  config.active_storage.service = :local
+  unless ModeConfig.embedded?
+    # We don't use ActiveStorage, but we need this minimal config so that we can use ActionText
+    config.active_storage.service = :local
+  end
 end

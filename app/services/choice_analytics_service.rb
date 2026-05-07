@@ -1,5 +1,6 @@
 class ChoiceAnalyticsService
   def self.call(form, assessment_code, cookies)
+    return unless ModeConfig.analytics_enabled?
     return if cookies[CookiesController::NO_ANALYTICS_MODE]
 
     browser_id = cookies[ApplicationController::BROWSER_ID_COOKIE]

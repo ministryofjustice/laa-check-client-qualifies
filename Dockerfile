@@ -3,7 +3,7 @@
 # production: runs the actual app
 
 # Build builder image
-FROM ruby:3.3.7-bookworm as builder
+FROM ruby:3.3.7-bookworm AS builder
 
 WORKDIR /app
 
@@ -46,7 +46,7 @@ RUN chown -R appuser:appgroup /app
 USER 1000
 
 # Build runtime image
-FROM ruby:3.3.7-slim-bookworm as production
+FROM ruby:3.3.7-slim-bookworm AS production
 
 WORKDIR /app
 
