@@ -59,7 +59,9 @@ services:
       RAILS_SERVE_STATIC_FILES: true
       RAILS_LOG_TO_STDOUT: true
       SECRET_KEY_BASE: dev-secret
+
       DISABLE_SECURE_COOKIES: true
+      PDF_DISPLAY_URL: http://localhost:3000
 
       POSTGRES_HOST: postgres
       POSTGRES_USER: postgres
