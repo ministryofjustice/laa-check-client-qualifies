@@ -1,0 +1,104 @@
+services:
+  ############# embedded mode #############
+  nginx:
+    container_name: ccq-embedded-nginx
+    image: nginxinc/nginx-unprivileged:alpine
+    ports:
+      - 8080:8080
+    volumes:
+      - ./docker/compose/nginx/default.conf.template:/etc/nginx/templates/default.conf.template:ro
+      - ./docker/compose/nginx/proxy.conf:/etc/nginx/proxy.conf:ro
+      - ./docker/compose/nginx/maps.conf:/etc/nginx/maps.conf:ro
+    depends_on:
+      - ccq-embedded
+    environment:
+      NGINX_UPSTREAM_CCQ: ccq-embedded:3000
+
+  ccq-embedded:
+    container_name: ccq-embedded
+    image: laa-check-client-qualifies:latest
+    platform: linux/amd64
+    pull_policy: never # `make build`
+    expose:
+      - 3000
+    depends_on:
+      redis:
+        condition: service_healthy
+    environment:
+      RAILS_ENV: production
+      RAILS_SERVE_STATIC_FILES: true # won't serve assets without this
+      RAILS_LOG_TO_STDOUT: true # logs to a file without this
+      SECRET_KEY_BASE: dev-secret # doesn't work without it
+      DISABLE_SECURE_COOKIES: true
+
+      CCQ_MODE: embedded
+      REDIS_URL: redis://redis:6379
+
+  redis:
+    container_name: ccq-embedded-redis
+    image: "redis:7.2-alpine"
+    ports:
+      - 6379:6379
+    command: >
+      redis-server --maxmemory 256mb  --maxmemory-policy allkeys-lru --save ""
+      --appendonly no
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  ############# standalone mode #############
+  ccq-standalone:
+    container_name: ccq-standalone
+    image: laa-check-client-qualifies:latest
+    platform: linux/amd64
+    pull_policy: never # `make build`
+    environment:
+      RAILS_ENV: production
+      RAILS_SERVE_STATIC_FILES: true
+      RAILS_LOG_TO_STDOUT: true
+      SECRET_KEY_BASE: dev-secret
+
+      DISABLE_SECURE_COOKIES: true
+      PDF_DISPLAY_URL: http://localhost:3000
+
+      POSTGRES_HOST: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DATABASE: ccq
+    ports:
+      - "3001:3000"
+    depends_on:
+      migrator:
+        condition: service_completed_successfully
+
+  migrator:
+    container_name: ccq-standalone-postgres-migrator
+    image: laa-check-client-qualifies:latest
+    platform: linux/amd64
+    pull_policy: never # `make build`
+    command: bundle exec rails db:prepare
+    environment:
+      RAILS_ENV: production
+      SECRET_KEY_BASE: dev-secret
+      POSTGRES_HOST: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DATABASE: ccq
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  postgres:
+    container_name: ccq-standalone-postgres
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: ccq
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 2s
+      timeout: 2s
+      retries: 5

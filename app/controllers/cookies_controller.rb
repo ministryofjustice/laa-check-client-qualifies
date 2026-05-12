@@ -5,7 +5,7 @@ class CookiesController < ApplicationController
   NO_ANALYTICS_MODE = :no_analytics_mode
   def update
     choice = params[:cookies] == "accept" ? "accepted" : "rejected"
-    cookies[COOKIE_CHOICE_NAME] = { value: choice, expires: 1.year, httponly: true, secure: Rails.env.production? }
+    cookies[COOKIE_CHOICE_NAME] = { value: choice, expires: 1.year, httponly: true, secure: Rails.env.production? && ENV["DISABLE_SECURE_COOKIES"] != "true" }
     set_browser_id_cookie(params[:cookies] == "accept")
 
     redirect_to build_return_to_url(choice)
@@ -14,7 +14,7 @@ class CookiesController < ApplicationController
   def show; end
 
   def no_analytics_mode
-    cookies[NO_ANALYTICS_MODE] = { value: "true", httponly: true, secure: Rails.env.production? }
+    cookies[NO_ANALYTICS_MODE] = { value: "true", httponly: true, secure: Rails.env.production? && ENV["DISABLE_SECURE_COOKIES"] != "true" }
     redirect_to root_path
   end
 
@@ -35,7 +35,7 @@ private
     return if cookies[BROWSER_ID_COOKIE].present? == accept_cookies
 
     if accept_cookies
-      cookies[BROWSER_ID_COOKIE] = { value: SecureRandom.uuid, expires: 1.year, httponly: true, secure: Rails.env.production? }
+      cookies[BROWSER_ID_COOKIE] = { value: SecureRandom.uuid, expires: 1.year, httponly: true, secure: Rails.env.production? && ENV["DISABLE_SECURE_COOKIES"] != "true" }
     else
       cookies.delete(BROWSER_ID_COOKIE)
     end

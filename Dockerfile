@@ -1,85 +1,104 @@
-# This template builds two images, to optimise caching:
-# builder: builds gems and node modules
-# production: runs the actual app
+ARG YARN_VERSION=1.22.22
 
-# Build builder image
-FROM ruby:3.3.7-bookworm AS builder
+############################################################
+FROM ruby:3.3.7-slim-bookworm AS base
+
+ARG TARGETARCH
+RUN if [ "$TARGETARCH" != "amd64" ]; then \
+      echo "This image must be built as linux/amd64."; \
+      echo "PDF generation uses Puppeteer-managed Chrome, which is only available as amd64."; \
+      exit 1; \
+    fi
+
+ARG YARN_VERSION
+
+ENV RAILS_ENV=production \
+    RACK_ENV=production \
+    NODE_ENV=production \
+    BUNDLE_WITHOUT="development test" \
+    BUNDLE_DEPLOYMENT=true \
+    BUNDLE_PATH=/usr/local/bundle \
+    PUPPETEER_CACHE_DIR=/usr/local/share/puppeteer \
+    HOME=/home/user \
+    XDG_CONFIG_HOME=/home/user/.config \
+    YARN_VERSION=${YARN_VERSION}
 
 WORKDIR /app
 
-RUN addgroup --gid 1000 --system appgroup
-RUN adduser --uid 1000 --system appuser --gid 1000
+############################################################
+FROM base AS builder
 
-# Yarn doesn't have a native Debian package, so we need to download it from its own repo
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor -o /usr/share/keyrings/yarn-archive-keyring.gpg
-RUN echo "deb [signed-by=/usr/share/keyrings/yarn-archive-keyring.gpg] https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+# Install native build dependencies, remove cache
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+      build-essential ca-certificates curl git \
+      libpq-dev libyaml-dev nodejs npm pkg-config && \
+    npm install -g yarn@${YARN_VERSION} && \
+    npm cache clean --force && \
+    rm -rf /var/lib/apt/lists/*
 
-# Install gems defined in Gemfile
+# Install ruby gems, remove cache
 COPY .ruby-version Gemfile Gemfile.lock ./
+RUN bundle install --jobs=4 --retry=5 && \
+    bundle clean --force && \
+    rm -rf \
+      /usr/local/bundle/cache/*.gem \
+      /usr/local/bundle/ruby/*/cache \
+      /usr/local/bundle/ruby/*/bundler/gems/*/.git
 
-# Install gems
-RUN bundler -v && \
-    bundle config set no-binstubs 'true' && \
-    bundle config set without 'development test' && \
-    bundle cache --retry=5
-
-# Install tools to be used in next step
-RUN apt update && apt install -y yarn nodejs git npm
-
-# Install node packages defined in package.json
+# install production Node packages
+# puppeteer by default installs various things we don't need - skip in this stage
 COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile --prod
-RUN npx puppeteer browsers install chrome
+RUN PUPPETEER_SKIP_DOWNLOAD=true \
+    yarn install --frozen-lockfile --production=true && \
+    yarn cache clean && \
+    rm -rf /root/.cache /tmp/* /var/tmp/*
 
-# Copy all files to /app (except what is defined in .dockerignore)
+# Copy everything to WORKDIR
 COPY . .
 
-# make the git commit hash available to the app so it can describe its current version
+# Persist commit SHA so app can describe its current version
 RUN git rev-parse --short HEAD > ./VERSION
 
-# Precompile assets
-RUN RAILS_ENV=production SECRET_KEY_BASE=required-to-run-but-not-used \
+# SECRET_KEY_BASE required but not used
+RUN SECRET_KEY_BASE=anything \
     bundle exec rails assets:precompile
 
-RUN chown -R appuser:appgroup /app
+############################################################
+FROM base AS runner
 
-USER 1000
+# Install runtime packages and PostgreSQL client 17.
+# curl/gnupg are only needed to add the PGDG repo.
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends ca-certificates curl gnupg && \
+    \
+    curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
+      gpg --dearmor -o /usr/share/keyrings/postgresql-archive-keyring.gpg && \
+    echo "deb [signed-by=/usr/share/keyrings/postgresql-archive-keyring.gpg] https://apt.postgresql.org/pub/repos/apt bookworm-pgdg main" > \
+      /etc/apt/sources.list.d/postgresql.list && \
+    \
+    apt-get update && \
+    apt-get install -y --no-install-recommends libpq5 nodejs pdftk postgresql-client-17 && \
+    apt-get remove -y curl gnupg && \
+    rm -rf /var/lib/apt/lists/* /root/.cache /tmp/* /var/tmp/*
 
-# Build runtime image
-FROM ruby:3.3.7-slim-bookworm AS production
+# do this here so COPY --chown can be used,
+# avoids recursive chown on big copied directories
+RUN addgroup --gid 1000 --system group && \
+    adduser --uid 1000 --system user --gid 1000 && \
+    mkdir -p /home/user/.cache /home/user/.config/chromium && \
+    chown -R 1000:1000 /home/user && \
+    chown 1000:1000 /app
 
-# The application runs from /app
-WORKDIR /app
+COPY --from=builder --chown=1000:1000 /usr/local/bundle /usr/local/bundle
+COPY --from=builder --chown=1000:1000 /app /app
 
-RUN apt update
-# Need postgres for db, node for puppeteer (PDFs) and pdftk for CWForms
-RUN apt install -y nodejs pdftk
+# Install Puppeteer's managed Chrome and required Linux dependencies.
+RUN apt-get update && \
+    ./node_modules/.bin/puppeteer browsers install chrome --install-deps && \
+    rm -rf /var/lib/apt/lists/* /root/.cache /tmp/* /var/tmp/*
 
-# install all chromium's dependencies, but then remove chromium itself as we will be installing via puppeteer
-RUN apt install -y chromium
-RUN apt remove -y chromium
-
-# install postgreql-client-17 as it is not part of base image
-RUN apt-get update && apt-get install -y wget gnupg lsb-release ca-certificates \
-  && echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list \
-  && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor -o /etc/apt/trusted.gpg.d/pgdg.gpg \
-  && apt-get update && apt-get install -y postgresql-client-17 \
-  && rm -rf /var/lib/apt/lists/*
-
-# make a config directory in $HOME
-RUN mkdir -p /.config/chromium
-RUN chown -R 1000:1000 /.config
-
-RUN mkdir /.cache
-
-COPY --from=builder /app /app
-COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
-COPY --from=builder /root/.cache/puppeteer /.cache/puppeteer
-
-# Make sure puppeteer browser cache is accessible by running user
-RUN chown -R 1000:1000 /.cache
-
+# Run as non-root user
 USER 1000
 
 CMD ["docker/run"]
-

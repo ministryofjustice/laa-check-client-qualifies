@@ -49,7 +49,7 @@ Rails.application.configure do
   config.session_store :cache_store,
                        key: LaaEstimateFinancialEligibilityForLegalAid::SESSION_COOKIE_NAME,
                        expire_after: 14.days,
-                       secure: true,
+                       secure: ENV["DISABLE_SECURE_COOKIES"] != "true", # docker compose runs in production mode
                        same_site: :lax
 
   # Use a real queuing backend for Active Job (and separate queues per environment).

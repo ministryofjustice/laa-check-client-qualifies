@@ -34,7 +34,7 @@ class ResultsController < ApplicationController
       layout: "download_application",
     })
 
-    PdfService.with_pdf_data_from_html_string(html, request.base_url) do |pdf_data|
+    PdfService.with_pdf_data_from_html_string(html, pdf_display_url) do |pdf_data|
       send_data pdf_data,
                 filename: "#{I18n.t('generic.download_name')} - #{helpers.timestamp_for_filenames}.pdf",
                 type: "application/pdf"
@@ -61,5 +61,12 @@ private
 
   def specify_satisfaction_feedback_page_name
     @satisfaction_feedback_page_name = page_name
+  end
+
+  # Grover renders HTML inside Chromium. In Docker (local), Chromium needs an
+  # internal app URL to resolve relative assets. Normal deployments can use
+  # the public request base URL.
+  def pdf_display_url
+    ENV["PDF_DISPLAY_URL"].presence || request.base_url
   end
 end

@@ -1,7 +1,7 @@
 .PHONY: build test-prepare test-all test test-embedded check
 
 build:
-	docker build -t laa-check-client-qualifies:latest .
+	docker build --platform linux/amd64 -t laa-check-client-qualifies:latest .
 
 test-prepare:
 	RAILS_ENV=test bundle exec rake parallel:prepare
