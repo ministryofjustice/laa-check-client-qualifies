@@ -29,7 +29,13 @@ private
   end
 
   def session_data
-    session[assessment_id].tap { raise MissingSessionError if _1.nil? }
+    journey_store.read
+  rescue JourneyDataStore::KeyNotFound
+    raise MissingSessionError
+  end
+
+  def journey_store
+    @journey_store ||= JourneyDataStore::SessionStore.new(session, assessment_id)
   end
 
   def track_page_view(page: page_name)
