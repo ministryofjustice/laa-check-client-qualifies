@@ -101,4 +101,23 @@ Rails.application.routes.draw do
     get ":step_url_fragment/:assessment_code/check", to: "change_answers#show", as: :check_step
     put ":step_url_fragment/:assessment_code/check", to: "change_answers#update"
   end
+
+  if ModeConfig.authenticated_flow_enabled?
+    scope "authenticated/:resource_id" do
+      # Landing route — entry point from the host service
+      get "/", to: "authenticated_landings#show", as: :authenticated_landing
+
+      # Reuses the existing question flow controllers (they inherit from AuthenticatedBaseController)
+      get "check-answers", to: "authenticated_checks#check_answers", as: :authenticated_check_answers
+      get "check-result", to: "authenticated_results#show", as: :authenticated_result
+      post "check-result", to: "authenticated_results#create"
+      post "check-result/:step", to: "authenticated_results#early_result_redirect", as: :authenticated_early_result_redirect
+      ### post "complete", to: "authenticated_results#complete", as: :authenticated_complete ### ????
+      get "cannot-use-service/:step", to: "authenticated_cannot_use_service#show", as: :authenticated_cannot_use_service
+      get ":step_url_fragment", to: "authenticated_forms#show", as: :authenticated_step
+      put ":step_url_fragment", to: "authenticated_forms#update"
+      get ":step_url_fragment/check", to: "authenticated_change_answers#show", as: :authenticated_check_step
+      put ":step_url_fragment/check", to: "authenticated_change_answers#update"
+    end
+  end
 end
