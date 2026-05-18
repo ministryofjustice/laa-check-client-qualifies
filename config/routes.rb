@@ -9,9 +9,25 @@ Rails.application.routes.draw do
 
   if ModeConfig.oauth_enabled?
     devise_for :admins,
-               controllers: (
-                 ModeConfig.oauth_enabled? ? { omniauth_callbacks: "admins/omniauth_callbacks" } : {}
-               )
+               controllers: { omniauth_callbacks: "admins/omniauth_callbacks" }
+
+    get "/auth/subdomain_redirect", to: "oauth_redirects#subdomain_redirect", as: :subdomain_redirect
+    post "/auth/google/redirect", to: "oauth_redirects#google_redirect", as: :google_oauth_redirect
+
+    # Compatibility redirects from `/auth/*` → `/admins/auth/*`, preserving query params
+    match "/auth/:provider/callback",
+          to: redirect(status: 302) { |params, req|
+            qs = req.query_string
+            "/admins/auth/#{params[:provider]}/callback#{qs.present? ? "?#{qs}" : ''}"
+          },
+          via: %i[get post]
+
+    match "/auth/:provider",
+          to: redirect(status: 302) { |params, req|
+            qs = req.query_string
+            "/admins/auth/#{params[:provider]}#{qs.present? ? "?#{qs}" : ''}"
+          },
+          via: %i[get post]
   end
 
   resources :status, only: [:index]
@@ -38,29 +54,7 @@ Rails.application.routes.draw do
 
     get "/no-analytics", to: "cookies#no_analytics_mode"
     get "instant-:session_type", to: "instant_sessions#create", as: :instant_session
-  end
 
-  if ModeConfig.oauth_enabled?
-    get "/auth/subdomain_redirect", to: "oauth_redirects#subdomain_redirect", as: :subdomain_redirect
-    post "/auth/google/redirect", to: "oauth_redirects#google_redirect", as: :google_oauth_redirect
-
-    # Compatibility redirects from `/auth/*` → `/admins/auth/*`, preserving query params
-    match "/auth/:provider/callback",
-          to: redirect(status: 302) { |params, req|
-            qs = req.query_string
-            "/admins/auth/#{params[:provider]}/callback#{qs.present? ? "?#{qs}" : ''}"
-          },
-          via: %i[get post]
-
-    match "/auth/:provider",
-          to: redirect(status: 302) { |params, req|
-            qs = req.query_string
-            "/admins/auth/#{params[:provider]}#{qs.present? ? "?#{qs}" : ''}"
-          },
-          via: %i[get post]
-  end
-
-  if ModeConfig.standalone?
     # Catch and redirect old-format URLs
     get "estimates/:assessment_code/build_estimates/:step", to: "redirects#build_estimate"
     get "estimates/:assessment_code/check_answers/:step", to: "redirects#check"
@@ -105,19 +99,18 @@ Rails.application.routes.draw do
   if ModeConfig.authenticated_flow_enabled?
     scope "authenticated/:resource_id" do
       # Landing route — entry point from the host service
-      get "/", to: "authenticated_landings#show", as: :authenticated_landing
+      get "/", to: "embedded_landings#show", as: :embedded_landing
 
-      # Reuses the existing question flow controllers (they inherit from AuthenticatedBaseController)
-      get "check-answers", to: "authenticated_checks#check_answers", as: :authenticated_check_answers
-      get "check-result", to: "authenticated_results#show", as: :authenticated_result
-      post "check-result", to: "authenticated_results#create"
-      post "check-result/:step", to: "authenticated_results#early_result_redirect", as: :authenticated_early_result_redirect
+      get "check-answers", to: "embedded_checks#check_answers", as: :embedded_check_answers
+      get "check-result", to: "embedded_results#show", as: :embedded_result
+      post "check-result", to: "embedded_results#create"
+      post "check-result/:step", to: "embedded_results#early_result_redirect", as: :embedded_early_result_redirect
       ### post "complete", to: "authenticated_results#complete", as: :authenticated_complete ### ????
-      get "cannot-use-service/:step", to: "authenticated_cannot_use_service#show", as: :authenticated_cannot_use_service
-      get ":step_url_fragment", to: "authenticated_forms#show", as: :authenticated_step
-      put ":step_url_fragment", to: "authenticated_forms#update"
-      get ":step_url_fragment/check", to: "authenticated_change_answers#show", as: :authenticated_check_step
-      put ":step_url_fragment/check", to: "authenticated_change_answers#update"
+      get "cannot-use-service/:step", to: "embedded_cannot_use_service#show", as: :authenticated_cannot_use_service
+      get ":step_url_fragment", to: "embedded_forms#show", as: :authenticated_step
+      put ":step_url_fragment", to: "embedded_forms#update"
+      get ":step_url_fragment/check", to: "embedded_change_answers#show", as: :authenticated_check_step
+      put ":step_url_fragment/check", to: "embedded_change_answers#update"
     end
   end
 end

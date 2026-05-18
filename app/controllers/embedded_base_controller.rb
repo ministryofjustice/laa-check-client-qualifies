@@ -1,13 +1,13 @@
-class AuthenticatedBaseController < ApplicationController
+class EmbeddedBaseController < ApplicationController
   skip_before_action :authenticate, :check_maintenance_mode, :specify_feedback_widget, :specify_freetext_feedback_page_name
   after_action :persist_journey_data, if: -> { @session_data_cache.present? }
 
   rescue_from Cfe::InvalidSessionError do
-    redirect_to :authenticated_landing
+    redirect_to :embedded_landing
   end
 
   rescue_from ApplicationController::MissingSessionError do
-    redirect_to :authenticated_landing
+    redirect_to :embedded_landing
   end
 
   around_action :tag_logs_with_resource_id

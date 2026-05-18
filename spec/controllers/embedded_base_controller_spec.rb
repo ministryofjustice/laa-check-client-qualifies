@@ -1,4 +1,4 @@
-RSpec.describe AuthenticatedBaseController, type: :controller do
+RSpec.describe EmbeddedBaseController, ccq_mode: :embedded, type: :controller do
   let(:resource_id) { "test_resource_id" }
   let(:controller) { described_class.new.tap { |c| c.params = { resource_id: resource_id } } }
   let(:journey_store) { instance_double(JourneyDataStore::RedisStore) }
@@ -66,15 +66,15 @@ RSpec.describe AuthenticatedBaseController, type: :controller do
   end
 
   describe "rescue_from Cfe::InvalidSessionError" do
-    it "redirects to the authenticated landing page" do
-      expect(controller).to receive(:redirect_to).with(:authenticated_landing)
+    it "redirects to the embedded landing page" do
+      expect(controller).to receive(:redirect_to).with(:embedded_landing)
       controller.send(:rescue_with_handler, Cfe::InvalidSessionError.new(ApplicantForm.new))
     end
   end
 
   describe "rescue_from ApplicationController::MissingSessionError" do
-    it "redirects to the authenticated landing page" do
-      expect(controller).to receive(:redirect_to).with(:authenticated_landing)
+    it "redirects to the embedded landing page" do
+      expect(controller).to receive(:redirect_to).with(:embedded_landing)
       controller.send(:rescue_with_handler, ApplicationController::MissingSessionError.new(ApplicantForm.new))
     end
   end

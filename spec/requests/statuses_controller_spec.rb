@@ -13,6 +13,8 @@ RSpec.describe "status requests", ccq_mode: :embedded do
 
   describe "GET /health" do
     it "is successful and healthy returns true" do
+      allow(Rails.cache).to receive(:write).and_return(true)
+      allow(Rails.cache).to receive(:read).and_return("ok")
       get("/health")
       expect(response).to be_successful
       expect(response_json).to eq("healthy" => true)
