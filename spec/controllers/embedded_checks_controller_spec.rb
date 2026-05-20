@@ -1,3 +1,5 @@
+require "rails_helper"
+
 RSpec.describe EmbeddedChecksController, ccq_mode: :embedded, type: :controller do
   let(:resource_id) { "test_resource_id" }
   let(:session_data) { { "key" => "value" } }
@@ -11,7 +13,7 @@ RSpec.describe EmbeddedChecksController, ccq_mode: :embedded, type: :controller 
     allow(controller).to receive(:track_page_view)
   end
 
-  describe "GET #check_answers" do
+  describe "GET #check_answers", :embedded_only do
     before do
       get :check_answers, params: { resource_id: resource_id }
     end

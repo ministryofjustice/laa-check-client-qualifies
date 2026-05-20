@@ -1,5 +1,7 @@
+require "rails_helper"
+
 RSpec.describe EmbeddedCannotUseServiceController, ccq_mode: :embedded, type: :controller do
-  describe "GET #show" do
+  describe "GET #show", :embedded_only do
     let(:resource_id) { "test_resource_id" }
     let(:session_data) { { "key" => "value" } }
     let(:controller) { described_class.new.tap { |c| c.params = { resource_id: resource_id, step: "test_step" } } }

@@ -1,3 +1,5 @@
+# require "rails_helper"
+
 # RSpec.describe EmbeddedFormsController, type: :controller do
 #   let(:resource_id) { "test_resource_id" }
 #   let(:session_data) { { "key" => "value" } }

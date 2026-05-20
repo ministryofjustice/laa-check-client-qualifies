@@ -97,19 +97,19 @@ Rails.application.routes.draw do
   end
 
   if ModeConfig.authenticated_flow_enabled?
-    scope "authenticated/:resource_id" do
+    scope "embedded/:resource_id" do
       # Landing route — entry point from the host service
-      get "/", to: "embedded_landings#show", as: :embedded_landing
+      get "/", to: "embedded_landings#show", as: :landing
 
-      get "check-answers", to: "embedded_checks#check_answers", as: :embedded_check_answers
-      get "check-result", to: "embedded_results#show", as: :embedded_result
+      get "check-answers", to: "embedded_checks#check_answers", as: :check_answers
+      get "check-result", to: "embedded_results#show", as: :result
       post "check-result", to: "embedded_results#create"
-      post "check-result/:step", to: "embedded_results#early_result_redirect", as: :embedded_early_result_redirect
-      ### post "complete", to: "authenticated_results#complete", as: :authenticated_complete ### ????
-      get "cannot-use-service/:step", to: "embedded_cannot_use_service#show", as: :authenticated_cannot_use_service
-      get ":step_url_fragment", to: "embedded_forms#show", as: :authenticated_step
+      post "check-result/:step", to: "embedded_results#early_result_redirect", as: :early_result_redirect
+      ### post "complete", to: "embedded_results#complete", as: :embedded_complete ### ????
+      get "cannot-use-service/:step", to: "embedded_cannot_use_service#show", as: :cannot_use_service
+      get ":step_url_fragment", to: "embedded_forms#show", as: :step
       put ":step_url_fragment", to: "embedded_forms#update"
-      get ":step_url_fragment/check", to: "embedded_change_answers#show", as: :authenticated_check_step
+      get ":step_url_fragment/check", to: "embedded_change_answers#show", as: :check_step
       put ":step_url_fragment/check", to: "embedded_change_answers#update"
     end
   end

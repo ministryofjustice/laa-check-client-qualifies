@@ -1,3 +1,5 @@
+require "rails_helper"
+
 RSpec.describe EmbeddedBaseController, ccq_mode: :embedded, type: :controller do
   let(:resource_id) { "test_resource_id" }
   let(:controller) { described_class.new.tap { |c| c.params = { resource_id: resource_id } } }
@@ -7,7 +9,7 @@ RSpec.describe EmbeddedBaseController, ccq_mode: :embedded, type: :controller do
     allow(JourneyDataStore::RedisStore).to receive(:new).with(resource_id).and_return(journey_store)
   end
 
-  describe "#session_data" do
+  describe "#session_data", :embedded_only do
     context "when session data is present" do
       let(:session_data) { { "key" => "value" } }
 
@@ -31,7 +33,7 @@ RSpec.describe EmbeddedBaseController, ccq_mode: :embedded, type: :controller do
     end
   end
 
-  describe "#persist_journey_data" do
+  describe "#persist_journey_data", :embedded_only do
     let(:session_data_cache) { { "key" => "value" } }
 
     before do
@@ -45,36 +47,36 @@ RSpec.describe EmbeddedBaseController, ccq_mode: :embedded, type: :controller do
     end
   end
 
-  describe "#tag_logs_with_resource_id" do
+  describe "#tag_logs_with_resource_id", :embedded_only do
     it "tags logs with the resource_id" do
       expect(Rails.logger).to receive(:tagged).with("resource_id:#{resource_id}", any_args)
       controller.send(:tag_logs_with_resource_id) {}
     end
   end
 
-  describe "#journey_store" do
+  describe "#journey_store", :embedded_only do
     it "initializes a JourneyDataStore::RedisStore with the resource_id" do
       expect(JourneyDataStore::RedisStore).to receive(:new).with(resource_id)
       controller.send(:journey_store)
     end
   end
 
-  describe "#assessment_code" do
+  describe "#assessment_code", :embedded_only do
     it "returns the resource_id as the assessment code" do
       expect(controller.send(:assessment_code)).to eq(resource_id)
     end
   end
 
-  describe "rescue_from Cfe::InvalidSessionError" do
+  describe "rescue_from Cfe::InvalidSessionError", :embedded_only do
     it "redirects to the embedded landing page" do
-      expect(controller).to receive(:redirect_to).with(:embedded_landing)
+      expect(controller).to receive(:redirect_to).with(:landing)
       controller.send(:rescue_with_handler, Cfe::InvalidSessionError.new(ApplicantForm.new))
     end
   end
 
-  describe "rescue_from ApplicationController::MissingSessionError" do
+  describe "rescue_from ApplicationController::MissingSessionError", :embedded_only do
     it "redirects to the embedded landing page" do
-      expect(controller).to receive(:redirect_to).with(:embedded_landing)
+      expect(controller).to receive(:redirect_to).with(:landing)
       controller.send(:rescue_with_handler, ApplicationController::MissingSessionError.new(ApplicantForm.new))
     end
   end

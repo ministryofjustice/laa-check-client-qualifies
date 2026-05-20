@@ -1,3 +1,5 @@
+require "rails_helper"
+
 RSpec.describe EmbeddedChangeAnswersController, ccq_mode: :embedded, type: :controller do
   let(:resource_id) { "test_resource_id" }
   let(:session_data) { { "key" => "value" } }
@@ -12,7 +14,7 @@ RSpec.describe EmbeddedChangeAnswersController, ccq_mode: :embedded, type: :cont
     allow(Flow::Handler).to receive(:form_from_session).and_return(double("form"))
   end
 
-  describe "GET #show" do
+  describe "GET #show", :embedded_only do
     before do
       get :show, params: { resource_id: resource_id, step_url_fragment: "client-age-group" }
     end
