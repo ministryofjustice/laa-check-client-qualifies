@@ -31,4 +31,12 @@ RSpec.describe EmbeddedChecksController, ccq_mode: :embedded, type: :controller 
       expect(assigns(:sections).map(&:label)).to eq(CheckAnswers::SectionListerService.call(session_data).map(&:label))
     end
   end
+
+  describe "#clear_early_result", :embedded_only do
+    it "clears early result from session data cache" do
+      controller.instance_variable_set(:@session_data_cache, session_data.merge("early_result" => "some result"))
+      controller.send(:clear_early_result)
+      expect(controller.instance_variable_get(:@session_data_cache)).not_to have_key("early_result")
+    end
+  end
 end
