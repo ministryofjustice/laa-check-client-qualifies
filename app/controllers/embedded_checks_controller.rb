@@ -14,6 +14,6 @@ class EmbeddedChecksController < EmbeddedBaseController
 private
 
   def clear_early_result
-    session_data["early_result"]&.clear
+    session_data.delete("early_result")
   end
 end

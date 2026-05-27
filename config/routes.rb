@@ -97,8 +97,8 @@ Rails.application.routes.draw do
   end
 
   if ModeConfig.authenticated_flow_enabled?
-    scope "embedded/:resource_id" do
-      # Landing route — entry point from the host service
+    # Landing route — entry point from the host service
+    scope "/applications/:resource_id/eligibility" do
       get "/", to: "embedded_landings#show", as: :landing
 
       get "check-answers", to: "embedded_checks#check_answers", as: :check_answers

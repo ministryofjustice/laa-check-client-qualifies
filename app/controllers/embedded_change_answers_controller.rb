@@ -35,6 +35,6 @@ class EmbeddedChangeAnswersController < EmbeddedBaseController
     # Promote the pending copy: replace the cached data with the pending version.
     # The after_action will persist this to Redis.
     @session_data_cache = session_data
-    redirect_to embedded_check_answers_path(resource_id: params[:resource_id], anchor:)
+    redirect_to check_answers_path(resource_id: params[:resource_id], anchor:)
   end
 end
