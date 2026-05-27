@@ -5,13 +5,14 @@ RSpec.describe EmbeddedChangeAnswersController, ccq_mode: :embedded, type: :cont
   let(:session_data) { { "key" => "value", pending: nil } }
   let(:controller) { described_class.new.tap { |c| c.params = { resource_id: resource_id } } }
   let(:journey_store) { instance_double(JourneyDataStore::RedisStore) }
+  let(:form) { instance_double(ClientAgeForm) }
 
   before do
     allow(JourneyDataStore::RedisStore).to receive(:new).with(resource_id).and_return(journey_store)
     allow(journey_store).to receive(:read) { session_data.dup }
     allow(journey_store).to receive(:write)
     allow(controller).to receive(:track_page_view)
-    allow(Flow::Handler).to receive(:form_from_session).and_return(instance_double(Flow::Form, class: Flow::Form))
+    allow(Flow::Handler).to receive(:form_from_session).and_return(form)
   end
 
   describe "GET #show", :embedded_only do
