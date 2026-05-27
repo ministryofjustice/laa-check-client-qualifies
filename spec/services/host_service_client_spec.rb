@@ -57,12 +57,12 @@ RSpec.describe HostServiceClient do
     before { stub }
 
     it "sends a POST to /api/private/save with the resource_id, result, and cookies" do
-      client.save(resource_id:, result:, cookies:)
+      client.save!(resource_id:, result:, cookies:)
       expect(stub).to have_been_requested
     end
 
     it "returns the parsed response body" do
-      response = client.save(resource_id:, result:, cookies:)
+      response = client.save!(resource_id:, result:, cookies:)
       expect(response.body).to eq({ "saved" => true })
     end
   end
