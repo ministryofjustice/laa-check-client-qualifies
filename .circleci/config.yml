@@ -175,7 +175,6 @@ jobs:
           name: Run tests
           environment:
             CCQ_MODE: standalone
-            COLLATE_COVERAGE: true
           command: |
             bundle exec parallel_rspec
       - run:
@@ -207,7 +206,6 @@ jobs:
           name: Run tests
           environment:
             CCQ_MODE: embedded
-            COLLATE_COVERAGE: true
             DISABLE_BOOTSNAP: 1
             PARALLEL_TEST_PROCESSORS: 3
           command: |

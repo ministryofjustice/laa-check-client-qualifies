@@ -27,10 +27,9 @@ unless ENV.fetch("COVERAGE", "true") == "false"
     primary_coverage :branch
     command_name "#{ENV.fetch('CCQ_MODE', 'standalone')}_rspec#{ENV.fetch('TEST_ENV_NUMBER', '')}"
 
-    # When collating, skip per-run enforcement — the collation script checks the combined total.
-    unless ENV["COLLATE_COVERAGE"] == "true"
-      minimum_coverage branch: 100, line: 100
-    end
+    # Coverage threshold is enforced only by bin/collate_coverage, which runs after
+    # both standalone and embedded suites have completed. Per-run enforcement is
+    # intentionally omitted here because individual modes cover different branches.
 
     SimpleCov.at_exit do
       SimpleCov.result.format!
