@@ -11,7 +11,7 @@ RSpec.describe EmbeddedChangeAnswersController, ccq_mode: :embedded, type: :cont
     allow(journey_store).to receive(:read) { session_data.dup }
     allow(journey_store).to receive(:write)
     allow(controller).to receive(:track_page_view)
-    allow(Flow::Handler).to receive(:form_from_session).and_return(double("form"))
+    allow(Flow::Handler).to receive(:form_from_session).and_return(instance_double(Flow::Form, class: Flow::Form))
   end
 
   describe "GET #show", :embedded_only do
