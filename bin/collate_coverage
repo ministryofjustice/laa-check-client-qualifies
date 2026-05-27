@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+# Merges SimpleCov results from standalone_rspec and embedded_rspec runs
+# and enforces the combined minimum coverage threshold.
+# Run after both test suites have completed (e.g. via `make test-all`).
+
+require "simplecov"
+
+SimpleCov.collate(["coverage/.resultset.json"]) do
+  enable_coverage :branch
+  primary_coverage :branch
+  minimum_coverage branch: 100, line: 100
+end

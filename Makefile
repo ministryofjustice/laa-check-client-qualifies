@@ -7,7 +7,9 @@ test-prepare:
 	RAILS_ENV=test bundle exec rake parallel:prepare
 
 test-all:
-	bundle exec parallel_rspec spec -n 10
+	COLLATE_COVERAGE=true CCQ_MODE=standalone bundle exec parallel_rspec && \
+	COLLATE_COVERAGE=true CCQ_MODE=embedded bundle exec parallel_rspec && \
+	bundle exec ruby bin/collate_coverage
 
 test:
 	bundle exec rspec
