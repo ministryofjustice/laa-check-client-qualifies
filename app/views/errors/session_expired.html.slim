@@ -1,0 +1,10 @@
+.govuk-grid-column-two-thirds
+  h1.govuk-heading-xl = t("session_expired.answers_deleted")
+
+  p.govuk-body = t("session_expired.paragraph_1")
+  p.govuk-body = t("session_expired.paragraph_2")
+  = link_to t("session_expired.start_again"),
+    new_check_path,
+    class: "govuk-button govuk-button--start",
+    role: "button",
+    id: "start"
