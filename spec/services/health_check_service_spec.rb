@@ -62,7 +62,8 @@ RSpec.describe HealthCheckService, ccq_mode: :embedded do
 
       context "with real integration" do
         it "actually checks cache health" do
-          allow(Rails.cache).to receive(:read).and_return("ok")
+          allow(Rails.cache).to receive(:write).and_return(true)
+          allow(Rails.cache).to receive_messages(write: true, read: "ok")
           result = described_class.call
           expect(result).to be(true)
         end
