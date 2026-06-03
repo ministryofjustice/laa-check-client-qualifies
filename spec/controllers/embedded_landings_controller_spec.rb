@@ -53,5 +53,12 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
       expect(response).to have_http_status(:service_unavailable)
       expect(response).to render_template("errors/service_unavailable")
     end
+
+    it "renders the service unavailable page if there is a connection error" do
+      allow(host_service_client).to receive(:load).and_raise(HostServiceClient::ConnectionError)
+      get :show, params: { resource_id: }
+      expect(response).to have_http_status(:service_unavailable)
+      expect(response).to render_template("errors/service_unavailable")
+    end
   end
 end
