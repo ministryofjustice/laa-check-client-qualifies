@@ -62,7 +62,6 @@ RSpec.describe HealthCheckService, ccq_mode: :embedded do
 
       context "with real integration" do
         it "actually checks cache health" do
-          allow(Rails.cache).to receive(:read).and_return("ok")
           result = described_class.call
           expect(result).to be(true)
         end
@@ -138,7 +137,6 @@ RSpec.describe HealthCheckService, ccq_mode: :embedded do
 
     context "with real cache integration" do
       it "actually writes to and reads from the cache" do
-        allow(Rails.cache).to receive(:write).with("_health_check_", "ok", expires_in: 5.seconds).and_return(true)
         allow(Rails.cache).to receive(:read).with("_health_check_").and_return("ok")
 
         result = described_class.short_term_persistence_healthy?
