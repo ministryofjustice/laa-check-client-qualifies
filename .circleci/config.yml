@@ -348,7 +348,7 @@ jobs:
           template: basic_fail_1
 
   #########################################
-  notify_production_deployment_approved:
+  production_deploy_approved:
     executor: basic-executor
     steps:
       - slack/notify:
@@ -429,7 +429,7 @@ workflows:
                 - main
 
       #########################################
-      - notify_production_deployment_approved:
+      - production_deploy_approved:
           requires:
             - production_deploy_approval
           filters:
@@ -449,7 +449,7 @@ workflows:
             - build_and_push
             - Deploy to Staging
             - production_deploy_approval
-            - notify_production_approved
+            - production_deploy_approved
           filters:
             branches:
               only:
