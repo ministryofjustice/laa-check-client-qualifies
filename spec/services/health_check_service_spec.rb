@@ -62,7 +62,6 @@ RSpec.describe HealthCheckService, ccq_mode: :embedded do
 
       context "with real integration" do
         it "actually checks cache health" do
-          # This test exercises the real code paths
           result = described_class.call
           expect(result).to be(true)
         end
@@ -145,7 +144,6 @@ RSpec.describe HealthCheckService, ccq_mode: :embedded do
           nil
         end
 
-        # Test the actual implementation
         result = described_class.short_term_persistence_healthy?
         expect(result).to be(true)
 

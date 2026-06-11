@@ -12,7 +12,7 @@
 # the additional setup, and require it from the spec files that actually need
 # it.
 
-unless ENV.fetch("COVERAGE", "true") == "false" || ENV.fetch("CCQ_MODE", "standalone") == "embedded"
+unless ENV.fetch("COVERAGE", "true") == "false"
   require "simplecov"
   SimpleCov.start "rails" do
     add_filter "app/mailers/exception_alert_mailer.rb"
@@ -25,7 +25,11 @@ unless ENV.fetch("COVERAGE", "true") == "false" || ENV.fetch("CCQ_MODE", "standa
     enable_coverage :branch
 
     primary_coverage :branch
-    minimum_coverage  branch: 100, line: 100
+    command_name "#{ENV.fetch('CCQ_MODE', 'standalone')}_rspec#{ENV.fetch('TEST_ENV_NUMBER', '')}"
+
+    # Coverage threshold is enforced only by bin/collate_coverage, which runs after
+    # both standalone and embedded suites have completed. Per-run enforcement is
+    # intentionally omitted here because individual modes cover different branches.
 
     SimpleCov.at_exit do
       SimpleCov.result.format!
@@ -141,11 +145,17 @@ VCR.configure do |config|
     r1_headers == r2_headers
   end
 
+  # Match only the URI path (not the host), so cassettes recorded against staging
+  # replay correctly regardless of the CFE_HOST configured locally.
+  config.register_request_matcher :uri_path do |r1, r2|
+    URI.parse(r1.uri).path == URI.parse(r2.uri).path
+  end
+
   config.default_cassette_options = {
     record: record_mode,
     match_requests_on: %i[
       method
-      uri
+      uri_path
       body
       accept_headers_with_version
     ],
