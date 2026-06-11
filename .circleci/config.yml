@@ -347,6 +347,18 @@ jobs:
           event: fail
           template: basic_fail_1
 
+  #########################################
+  notify_production_approved:
+    executor: basic-executor
+    steps:
+      - slack/notify:
+          channel: rcw-engineering
+          event: always
+          custom: |
+            {
+              "text": ":white_check_mark: Production hold approved by *${CIRCLE_USERNAME:-unknown}* for *${CIRCLE_PROJECT_REPONAME:-this project}* on branch *${CIRCLE_BRANCH:-unknown}*.\nWorkflow: ${CIRCLE_BUILD_URL}"
+            }
+
 #   WORKFLOWS   ################################################################################
 workflows:
   run_ci:
@@ -417,6 +429,15 @@ workflows:
                 - main
 
       #########################################
+      - notify_production_approved:
+          requires:
+            - production_deploy_approval
+          filters:
+            branches:
+              only:
+                - main
+
+      #########################################
       - deploy:
           name: Deploy to Production
           environment: ccq-production
@@ -428,6 +449,7 @@ workflows:
             - build_and_push
             - Deploy to Staging
             - production_deploy_approval
+            - notify_production_approved
           filters:
             branches:
               only:
