@@ -6,7 +6,7 @@ require "fileutils"
 require_relative "../config/environment"
 
 class SessionDataSchemaGenerator
-  OUTPUT_PATH = Rails.root.join("docs", "session_data.schema.json")
+  OUTPUT_PATH = Rails.root.join("docs/session_data.schema.json")
 
   TYPE_LOOKUP = {
     "ActiveModel::Type::Boolean" => "boolean",
@@ -48,7 +48,7 @@ class SessionDataSchemaGenerator
     OUTPUT_PATH
   end
 
-  private
+private
 
   def add_form_properties(step_name, form_class, properties, provenance)
     attrs = form_attributes(form_class)
@@ -109,13 +109,13 @@ class SessionDataSchemaGenerator
       deduped_sources = sources.uniq.sort
       next if deduped_sources.empty?
 
-      source_text = "Sources: #{deduped_sources.join(", ")}."
+      source_text = "Sources: #{deduped_sources.join(', ')}."
       existing = properties.fetch(key)
-      if existing["description"]
-        existing["description"] = "#{existing['description']} #{source_text}"
-      else
-        existing["description"] = source_text
-      end
+      existing["description"] = if existing["description"]
+                                  "#{existing['description']} #{source_text}"
+                                else
+                                  source_text
+                                end
     end
   end
 
