@@ -2,6 +2,13 @@
 
 ## Embedded mode
 
+### Session data schema
+
+For integrations that need to hydrate CCQ journey data from another model,
+use the schema in `docs/session_data.schema.json`.
+
+Further details and regeneration instructions are in `docs/session_data_schema.md`.
+
 ### Dependencies
 
 - Additional system dependencies
