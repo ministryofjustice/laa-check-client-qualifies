@@ -2590,6 +2590,19 @@ en:
       override: Override
     edit:
       value: Override value
+  service_unavailable:
+    answers_deleted: Your answers have been deleted
+    paragraph_1: We have deleted your answers. This is because the service became unavailable while you were using it and the answers you gave cannot be saved.
+    paragraph_2: Please try again later.
+  access_denied:
+    title: You cannot access this page
+    paragraph_1: We have deleted your answers. This is because the service became unavailable while you were using it and the answers you gave cannot be saved.
+    paragraph_2: Please try again later.
+  session_expired:
+    title: Your answers have been deleted
+    paragraph_1: We have deleted your answers. This is because your session expired due to inactivity and the answers you gave cannot be saved.
+    paragraph_2: You will need to start again.
+    start_again: Start again
   missing_session:
     title: You cannot access this page
     intro: "You cannot access this eligibility check for one of the following reasons:"
