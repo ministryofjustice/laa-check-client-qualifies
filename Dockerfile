@@ -84,21 +84,25 @@ RUN apt-get update && \
 
 # do this here so COPY --chown can be used,
 # avoids recursive chown on big copied directories
-RUN addgroup --gid 1000 --system group && \
-    adduser --uid 1000 --system user --gid 1000 && \
+RUN adduser --uid 10001 --system user && \
     mkdir -p /home/user/.cache /home/user/.config/chromium && \
-    chown -R 1000:1000 /home/user && \
-    chown 1000:1000 /app
+    chown -R 10001 /home/user && \
+    chown 10001 /app
 
-COPY --from=builder --chown=1000:1000 /usr/local/bundle /usr/local/bundle
-COPY --from=builder --chown=1000:1000 /app /app
+COPY --from=builder --chown=10001 /usr/local/bundle /usr/local/bundle
+COPY --from=builder --chown=10001 /app /app
 
 # Install Puppeteer's managed Chrome and required Linux dependencies.
 RUN apt-get update && \
     ./node_modules/.bin/puppeteer browsers install chrome --install-deps && \
     rm -rf /var/lib/apt/lists/* /root/.cache /tmp/* /var/tmp/*
 
+# Ensure tmp directories exist with correct ownership so Puma can write its
+# pidfile on Linux/EKS (these are git-ignored and absent from the build context).
+RUN mkdir -p /app/tmp/pids /app/tmp/cache /app/tmp/sockets && \
+    chown -R 10001 /app/tmp
+
 # Run as non-root user
-USER 1000
+USER 10001
 
 CMD ["docker/run"]

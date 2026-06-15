@@ -300,7 +300,7 @@ jobs:
       - run:
           name: Set ECR_TAG environment variable for use in next step
           command: |
-            [[ "$CIRCLE_BRANCH" == "main" ]] && ECR_TAG="main-$CIRCLE_SHA1" || ECR_TAG="branch-$CIRCLE_SHA1"
+            [[ "$CIRCLE_BRANCH" == "main" ]] && ECR_TAG="main-$CIRCLE_SHA1,latest" || ECR_TAG="branch-$CIRCLE_SHA1"
             echo "export ECR_TAG=$ECR_TAG" >> "$BASH_ENV"
             source "$BASH_ENV"
       - aws-ecr/build_image:
@@ -346,6 +346,18 @@ jobs:
           channel: eligibility-alerts-uat
           event: fail
           template: basic_fail_1
+
+  #########################################
+  production_deploy_approved:
+    executor: basic-executor
+    steps:
+      - slack/notify:
+          channel: rcw-engineering
+          event: always
+          custom: |
+            {
+              "text": ":white_check_mark: Production hold approved by *${CIRCLE_USERNAME:-unknown}* for *${CIRCLE_PROJECT_REPONAME:-this project}* on branch *${CIRCLE_BRANCH:-unknown}*.\nWorkflow: ${CIRCLE_BUILD_URL}"
+            }
 
 #   WORKFLOWS   ################################################################################
 workflows:
@@ -417,6 +429,15 @@ workflows:
                 - main
 
       #########################################
+      - production_deploy_approved:
+          requires:
+            - production_deploy_approval
+          filters:
+            branches:
+              only:
+                - main
+
+      #########################################
       - deploy:
           name: Deploy to Production
           environment: ccq-production
@@ -428,6 +449,7 @@ workflows:
             - build_and_push
             - Deploy to Staging
             - production_deploy_approval
+            - production_deploy_approved
           filters:
             branches:
               only:

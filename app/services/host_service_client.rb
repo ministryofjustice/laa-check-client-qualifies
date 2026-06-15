@@ -5,11 +5,11 @@ class HostServiceClient
   READ_TIMEOUT = 5
 
   def load(resource_id:, cookies:)
-    post("/api/private/load", { resource_id: }, cookies:)
+    post(ENV.fetch("HOST_SERVICE_LOAD_ENDPOINT", "/api/private/load").to_s, { resource_id: }, cookies:)
   end
 
   def save(resource_id:, result:, cookies:)
-    post("/api/private/save", { resource_id:, result: }, cookies:)
+    post(ENV.fetch("HOST_SERVICE_SAVE_ENDPOINT", "/api/private/save").to_s, { resource_id:, result: }, cookies:)
   end
 
 private
