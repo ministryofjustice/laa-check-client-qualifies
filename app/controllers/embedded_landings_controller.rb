@@ -7,7 +7,7 @@ class EmbeddedLandingsController < EmbeddedBaseController
 
     case response.status
     when 200
-      body = JSON.parse(response.body)
+      body = response.body.is_a?(String) ? JSON.parse(response.body) : response.body
       journey_store.init({
         "feature_flags" => FeatureFlags.session_flags,
         "return_url" => body.fetch("return_url"),
