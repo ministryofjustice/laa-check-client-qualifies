@@ -24,6 +24,8 @@ services:
     depends_on:
       redis:
         condition: service_healthy
+      host-service-stub:
+        condition: service_started
     environment:
       RAILS_ENV: production
       RAILS_SERVE_STATIC_FILES: true # won't serve assets without this
@@ -33,6 +35,17 @@ services:
 
       CCQ_MODE: embedded
       REDIS_URL: redis://redis:6379
+      HOST_SERVICE_URL: http://host-service-stub:8080
+      HOST_SERVICE_LOAD_ENDPOINT: /api/private/load
+      HOST_SERVICE_SAVE_ENDPOINT: /api/private/save
+
+  host-service-stub:
+    container_name: ccq-host-service-stub
+    image: wiremock/wiremock:3.13.1
+    volumes:
+      - ./docker/compose/host-service-stub/mappings:/home/wiremock/mappings:ro
+    command:
+      - --global-response-templating
 
   redis:
     container_name: ccq-embedded-redis
