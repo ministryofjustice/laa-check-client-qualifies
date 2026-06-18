@@ -33,6 +33,13 @@ Rails.application.routes.draw do
   resources :status, only: [:index]
   get "/health", to: "status#health"
   get "robots.txt", to: "robots#index"
+  resource :cookies, only: %i[show update]
+  resource :help, only: :show
+  resource :privacy, as: :privacy, only: :show
+  resource :accessibility, only: :show
+  resources :updates, only: :index
+  resources :documents, only: :show
+  resources :feedbacks, only: %i[create update]
 
   if ModeConfig.embedded?
     root to: "status#index"
@@ -41,17 +48,8 @@ Rails.application.routes.draw do
   if ModeConfig.standalone?
     root to: "start#index"
     resources :start, only: [:index]
-
-    resource :cookies, only: %i[show update]
-    resource :privacy, as: :privacy, only: :show
-    resource :accessibility, only: :show
-    resource :help, only: :show
     resources :feature_flags, only: %i[index], path: "feature-flags"
-    resources :updates, only: :index
     resources :basic_authentication_sessions, only: %i[new create]
-    resources :documents, only: :show
-    resources :feedbacks, only: %i[create update]
-
     get "/no-analytics", to: "cookies#no_analytics_mode"
     get "instant-:session_type", to: "instant_sessions#create", as: :instant_session
 
@@ -100,7 +98,6 @@ Rails.application.routes.draw do
     # Landing route — entry point from the host service
     scope "/applications/:resource_id/eligibility" do
       get "/", to: "embedded_landings#show", as: :landing
-
       get "check-answers", to: "embedded_checks#check_answers", as: :check_answers
       get "check-result", to: "embedded_results#show", as: :result
       post "check-result", to: "embedded_results#create"

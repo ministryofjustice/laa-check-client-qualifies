@@ -60,5 +60,19 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
       expect(response).to have_http_status(:service_unavailable)
       expect(response).to render_template("errors/service_unavailable")
     end
+
+    context "when host service response body is already parsed" do
+      let(:response_body) { { "return_url" => "http://example.com/return" } }
+
+      it "initializes journey data and redirects without JSON parsing" do
+        get :show, params: { resource_id: }
+
+        expect(journey_store).to have_received(:init).at_least(:once).with({
+          "feature_flags" => FeatureFlags.session_flags,
+          "return_url" => "http://example.com/return",
+        })
+        expect(response).to redirect_to(step_path(resource_id:, step_url_fragment:))
+      end
+    end
   end
 end
