@@ -2,10 +2,10 @@
 = pdf_friendly_p_element(t("results.show.add_to_a_cw_form_paragraph"), @is_pdf)
 - if download_option
   p.govuk-body = t("results.show.add_to_a_cw_form_paragraph_two")
-
-  = link_to t("results.show.select_a_cw_form"),
-            controlled_work_document_selection_path(assessment_code: params[:assessment_code]),
-            class: "govuk-button", data: { module: "govuk-button" }
+  - if respond_to?(:controlled_work_document_selection_path)
+    = link_to t("results.show.select_a_cw_form"),
+              controlled_work_document_selection_path(params[:resource_id].present? ? { resource_id: params[:resource_id] } : { assessment_code: params[:assessment_code] }),
+              class: "govuk-button", data: { module: "govuk-button" }
 
 ruby:
   level_of_help = if @check.controlled?
