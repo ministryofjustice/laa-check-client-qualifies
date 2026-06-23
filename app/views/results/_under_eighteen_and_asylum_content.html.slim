@@ -3,8 +3,14 @@
 - if download_option
   p.govuk-body = t("results.show.add_to_a_cw_form_paragraph_two")
   - if respond_to?(:controlled_work_document_selection_path)
+    ruby:
+      cw_form_params = if params[:resource_id].present?
+                         { resource_id: params[:resource_id] }
+                       else
+                         { assessment_code: params[:assessment_code] }
+                       end
     = link_to t("results.show.select_a_cw_form"),
-              controlled_work_document_selection_path(params[:resource_id].present? ? { resource_id: params[:resource_id] } : { assessment_code: params[:assessment_code] }),
+              controlled_work_document_selection_path(cw_form_params),
               class: "govuk-button", data: { module: "govuk-button" }
 
 ruby:
