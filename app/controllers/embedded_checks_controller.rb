@@ -1,6 +1,10 @@
 class EmbeddedChecksController < EmbeddedBaseController
   include QuestionFlowMethods
 
+  def self.local_prefixes
+    %w[checks] + super
+  end
+
   before_action :clear_early_result, only: :check_answers
 
   def check_answers

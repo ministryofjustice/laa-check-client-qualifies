@@ -2,6 +2,10 @@ class EmbeddedFormsController < EmbeddedBaseController
   include QuestionFlowMethods   # step, load_check, tag_from, last_tag_in_group?, track_choices
   include FormUpdateMethods     # update action logic (uses mode-aware helpers for redirects)
 
+  def self.local_prefixes
+    %w[question_flow] + super
+  end
+
   before_action :load_check
 
   def show

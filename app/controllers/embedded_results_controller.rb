@@ -56,10 +56,10 @@ class EmbeddedResultsController < EmbeddedBaseController
     render "errors/service_unavailable", status: :service_unavailable
   end
 
-private
-
   # Reuse the standalone results template and relative partials.
-  def local_prefixes
+  def self.local_prefixes
     %w[results] + super
   end
+
+private
 end
