@@ -60,6 +60,4 @@ class EmbeddedResultsController < EmbeddedBaseController
   def self.local_prefixes
     %w[results] + super
   end
-
-private
 end
