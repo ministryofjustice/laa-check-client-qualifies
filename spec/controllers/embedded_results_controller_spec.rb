@@ -170,20 +170,12 @@ RSpec.describe EmbeddedResultsController, ccq_mode: :embedded, type: :controller
   end
 
   describe "private helpers", :embedded_only do
-    around do |example|
-      EmbeddedBaseController.class_eval do
-        define_method(:local_prefixes) { %w[embedded_base] }
-      end
-
-      example.run
-    ensure
-      EmbeddedBaseController.class_eval do
-        remove_method :local_prefixes if method_defined?(:local_prefixes)
-      end
+    before do
+      allow(EmbeddedBaseController).to receive(:local_prefixes).and_return(%w[embedded_base])
     end
 
-    it "prepends results to superclass local prefixes" do
-      expect(controller.send(:local_prefixes)).to eq(%w[results embedded_base])
+    it "described local_prefixes are prepended to superclass prefixes" do
+      expect(described_class.local_prefixes).to eq(%w[results embedded_base])
     end
   end
 end
