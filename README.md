@@ -254,22 +254,22 @@ The iOS screenreader, was also having difficulty announcing the numbers in our t
 
 Call this method (with the relevant arguments, for this method’s parameters) anytime you want to create a table cell with a number in it, for the use in a PDF.
 
-### Manual Puppeteer upgrade for PDF generation
+### Puppeteer upgrade for PDF generation
 The application uses puppeteer as part of its testing pipeline - namely as part of the browser tools dockerfile. This is pinned to a specific puppeteer version, but because Chrome updates quite regularly, we have to manually update this when a new release comes out. 
 
 Here is an example PR of what the update looks like: https://github.com/ministryofjustice/laa-check-client-qualifies/pull/1482/files
 
-Note we use a custom image inside browser tools dockerfile - when you create the branch with the puppeteer upgrade, you'll also need to add the branch name inside the YAML file that pushes the changes to Docker (`browser_tools_docker_image.yml`), and update the CircleCI config accordingly.
+Note we use a custom image inside browser tools dockerfile. The branch pattern for browser tools image publishing is already configured, so you no longer need to edit `browser_tools_docker_image.yml` for each upgrade.
 
 You can see our custom Docker image here - this will update once you've pushed a new image: https://hub.docker.com/r/checkclientqualifiesdocker/circleci-image/tags
 
 Steps to follow are:
 
-1. create an appropriately named branch referencing the puppeteer version upgrade i.e. `puppeteer-24**`
-2. update Dockerfile_browser_tools.dockerfile & package.json with the new puppeteer version
-3. run `yarn install` to update yarn.lock
-4. add your branch name to .github/workflows/browser_tools_docker_image.yml so the new image gets pushed to Dockerhub
-5. update .circleci/config.yml to reference the new image
+1. Go to GitHub Actions and run the `Puppeteer upgrade PR` workflow.
+2. Enter the target `puppeteer_version` (for example `25.2.1`) and keep `base_branch` as `main` unless needed.
+3. The workflow creates or updates a `puppeteer-*` branch, updates `Dockerfile_browser_tools.dockerfile`, `package.json`, `yarn.lock`, and `.circleci/config.yml`, then opens or updates a PR.
+4. The browser tools image workflow automatically pushes `checkclientqualifiesdocker/circleci-image:<branch-name>` when the upgrade branch is pushed.
+5. Review and merge the PR once CI checks pass.
 
 ### Retrieving user-entered data for a given check
 User-entered values are stored in the session. However, rather than retrieve values directly from the session, most places retrieve them from associated

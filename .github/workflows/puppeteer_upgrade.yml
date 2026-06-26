@@ -1,0 +1,131 @@
+name: Puppeteer upgrade PR
+
+on:
+  workflow_dispatch:
+    inputs:
+      puppeteer_version:
+        description: Puppeteer version to upgrade to (example 25.2.1)
+        required: true
+        type: string
+      base_branch:
+        description: Base branch for the PR
+        required: false
+        default: main
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  create-upgrade-pr:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      PUPPETEER_VERSION: ${{ inputs.puppeteer_version }}
+      BASE_BRANCH: ${{ inputs.base_branch }}
+    steps:
+      - name: Checkout base branch
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          ref: ${{ inputs.base_branch }}
+          fetch-depth: 0
+
+      - name: Validate input and derive branch metadata
+        run: |
+          set -euo pipefail
+
+          if ! [[ "$PUPPETEER_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Invalid version '$PUPPETEER_VERSION'. Expected semver like 25.2.1" >&2
+            exit 1
+          fi
+
+          major="${PUPPETEER_VERSION%%.*}"
+          rest="${PUPPETEER_VERSION#*.}"
+          minor="${rest%%.*}"
+          patch="${PUPPETEER_VERSION##*.}"
+
+          tag_suffix="${major}${minor}"
+          if [[ "$patch" != "0" ]]; then
+            tag_suffix="${tag_suffix}${patch}"
+          fi
+
+          branch_name="puppeteer-${tag_suffix}"
+
+          echo "IMAGE_TAG=${branch_name}" >> "$GITHUB_ENV"
+          echo "BRANCH_NAME=${branch_name}" >> "$GITHUB_ENV"
+
+      - name: Configure git user
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Create or reset upgrade branch
+        run: |
+          set -euo pipefail
+          git fetch origin "$BASE_BRANCH"
+          git checkout -B "$BRANCH_NAME" "origin/$BASE_BRANCH"
+
+      - name: Enable Yarn and update pinned versions
+        run: |
+          set -euo pipefail
+
+          corepack enable
+          corepack prepare yarn@1.22.22 --activate
+
+          node <<'NODE'
+          const fs = require('fs');
+          const packageJsonPath = 'package.json';
+          const version = process.env.PUPPETEER_VERSION;
+          const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+          packageJson.dependencies.puppeteer = version;
+          fs.writeFileSync(packageJsonPath, `${JSON.stringify(packageJson, null, 2)}\n`);
+          NODE
+
+            perl -0pi -e "s/RUN yarn add puppeteer@[^\\s]+/RUN yarn add puppeteer@${PUPPETEER_VERSION}/" Dockerfile_browser_tools.dockerfile
+            perl -0pi -e "s#(checkclientqualifiesdocker/circleci-image:)puppeteer-[0-9]+#\\1${IMAGE_TAG}#g" .circleci/config.yml
+
+          yarn install --non-interactive --ignore-scripts
+
+      - name: Commit and push changes
+        id: commit_changes
+        run: |
+          set -euo pipefail
+          echo "skip_pr=false" >> "$GITHUB_OUTPUT"
+
+          if git diff --quiet; then
+            echo "No changes were produced. The requested Puppeteer version may already be current."
+            echo "skip_pr=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          git add package.json Dockerfile_browser_tools.dockerfile yarn.lock .circleci/config.yml
+          git commit -m "chore: bump puppeteer to ${PUPPETEER_VERSION}"
+          git push --force-with-lease origin "$BRANCH_NAME"
+
+      - name: Create or update pull request
+        if: steps.commit_changes.outputs.skip_pr != 'true'
+        run: |
+          set -euo pipefail
+
+          pr_title="chore: bump puppeteer to ${PUPPETEER_VERSION}"
+          pr_body=$(cat <<EOF
+          Automated Puppeteer upgrade via GitHub Actions.
+
+          Changes made:
+          - package.json Puppeteer dependency set to ${PUPPETEER_VERSION}
+          - Dockerfile_browser_tools.dockerfile Puppeteer pin updated
+          - yarn.lock refreshed with yarn install
+          - .circleci/config.yml test image updated to ${IMAGE_TAG}
+
+          The browser tools image workflow will push:
+          - checkclientqualifiesdocker/circleci-image:${IMAGE_TAG}
+          EOF
+          )
+
+          existing_pr=$(gh pr list --state open --head "$BRANCH_NAME" --base "$BASE_BRANCH" --json number --jq '.[0].number')
+          if [[ -n "$existing_pr" && "$existing_pr" != "null" ]]; then
+            gh pr edit "$existing_pr" --title "$pr_title" --body "$pr_body"
+          else
+            gh pr create --base "$BASE_BRANCH" --head "$BRANCH_NAME" --title "$pr_title" --body "$pr_body"
+          fi
