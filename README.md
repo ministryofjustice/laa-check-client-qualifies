@@ -19,7 +19,7 @@ CCQ also has an `embedded` mode, which allows it to be deployed as a journey fra
 ### Dependencies
 
 - Ruby & Rails version
-  - Ruby 3.3.7
+  - Ruby 4.0.5
   - Rails 8.1.2
 
 - System dependencies

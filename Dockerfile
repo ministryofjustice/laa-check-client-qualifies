@@ -1,7 +1,7 @@
 ARG YARN_VERSION=1.22.22
 
 ############################################################
-FROM ruby:3.3.7-slim-bookworm AS base
+FROM ruby:4.0.5-slim-bookworm AS base
 
 ARG TARGETARCH
 RUN if [ "$TARGETARCH" != "amd64" ]; then \
