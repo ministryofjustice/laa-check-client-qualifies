@@ -1,8 +1,8 @@
 ############################################################
-FROM node:22-bookworm-slim AS node_runtime
+FROM node:22-bookworm-slim@sha256:813a7480f28fdadac1f7f5c824bcdad435b5bc1322a5968bbbdef8d058f9dff4 AS node_runtime
 
 ############################################################
-FROM ruby:4.0.5-slim-bookworm AS base
+FROM ruby:4.0.5-slim-bookworm@sha256:3c75b01d27398bbf3010b35612b957d268980e6bc3ec9419da043b22f90e5c88 AS base
 
 ARG TARGETARCH
 RUN if [ "$TARGETARCH" != "amd64" ]; then \
@@ -12,7 +12,6 @@ RUN if [ "$TARGETARCH" != "amd64" ]; then \
     fi
 
 ENV RAILS_ENV=production \
-    RACK_ENV=production \
     NODE_ENV=production \
     BUNDLE_WITHOUT="development test" \
     BUNDLE_DEPLOYMENT=true \
@@ -70,7 +69,8 @@ FROM base AS runner
 # Install runtime packages and PostgreSQL client 17.
 # curl/gnupg are only needed to add the PGDG repo.
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends ca-certificates curl gnupg && \
+    apt-get install -y --no-install-recommends \
+      ca-certificates curl gnupg && \
     \
     curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc \
       | gpg --dearmor -o /usr/share/keyrings/postgresql-archive-keyring.gpg && \
@@ -80,7 +80,8 @@ RUN apt-get update && \
     apt-get update && \
     apt-get install -y --no-install-recommends \
       libpq5 pdftk postgresql-client-17 tar unzip xz-utils && \
-    apt-get remove -y curl gnupg && \
+    apt-get remove -y \
+      curl gnupg && \
     rm -rf /var/lib/apt/lists/* /root/.cache /tmp/* /var/tmp/*
 
 # do this here so COPY --chown can be used,
