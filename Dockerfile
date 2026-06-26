@@ -1,7 +1,8 @@
-ARG YARN_VERSION=1.22.22
+############################################################
+FROM node:22-bookworm-slim@sha256:813a7480f28fdadac1f7f5c824bcdad435b5bc1322a5968bbbdef8d058f9dff4 AS node_runtime
 
 ############################################################
-FROM ruby:4.0.5-slim-bookworm AS base
+FROM ruby:4.0.5-slim-bookworm@sha256:3c75b01d27398bbf3010b35612b957d268980e6bc3ec9419da043b22f90e5c88 AS base
 
 ARG TARGETARCH
 RUN if [ "$TARGETARCH" != "amd64" ]; then \
@@ -10,20 +11,20 @@ RUN if [ "$TARGETARCH" != "amd64" ]; then \
       exit 1; \
     fi
 
-ARG YARN_VERSION
-
 ENV RAILS_ENV=production \
-    RACK_ENV=production \
     NODE_ENV=production \
     BUNDLE_WITHOUT="development test" \
     BUNDLE_DEPLOYMENT=true \
     BUNDLE_PATH=/usr/local/bundle \
     PUPPETEER_CACHE_DIR=/usr/local/share/puppeteer \
     HOME=/home/user \
-    XDG_CONFIG_HOME=/home/user/.config \
-    YARN_VERSION=${YARN_VERSION}
+    XDG_CONFIG_HOME=/home/user/.config
 
 WORKDIR /app
+
+# Copy Node.js runtime/tooling from official Node image.
+COPY --from=node_runtime /usr/local/ /usr/local/
+COPY --from=node_runtime /opt/ /opt/
 
 ############################################################
 FROM base AS builder
@@ -32,9 +33,7 @@ FROM base AS builder
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
       build-essential ca-certificates curl git \
-      libpq-dev libyaml-dev nodejs npm pkg-config && \
-    npm install -g yarn@${YARN_VERSION} && \
-    npm cache clean --force && \
+      libpq-dev libyaml-dev pkg-config && \
     rm -rf /var/lib/apt/lists/*
 
 # Install ruby gems, remove cache
@@ -70,16 +69,19 @@ FROM base AS runner
 # Install runtime packages and PostgreSQL client 17.
 # curl/gnupg are only needed to add the PGDG repo.
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends ca-certificates curl gnupg && \
+    apt-get install -y --no-install-recommends \
+      ca-certificates curl gnupg && \
     \
-    curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
-      gpg --dearmor -o /usr/share/keyrings/postgresql-archive-keyring.gpg && \
-    echo "deb [signed-by=/usr/share/keyrings/postgresql-archive-keyring.gpg] https://apt.postgresql.org/pub/repos/apt bookworm-pgdg main" > \
-      /etc/apt/sources.list.d/postgresql.list && \
+    curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc \
+      | gpg --dearmor -o /usr/share/keyrings/postgresql-archive-keyring.gpg && \
+    echo "deb [signed-by=/usr/share/keyrings/postgresql-archive-keyring.gpg] https://apt.postgresql.org/pub/repos/apt bookworm-pgdg main" \
+      > /etc/apt/sources.list.d/postgresql.list && \
     \
     apt-get update && \
-    apt-get install -y --no-install-recommends libpq5 nodejs pdftk postgresql-client-17 && \
-    apt-get remove -y curl gnupg && \
+    apt-get install -y --no-install-recommends \
+      libpq5 pdftk postgresql-client-17 tar unzip xz-utils && \
+    apt-get remove -y \
+      curl gnupg && \
     rm -rf /var/lib/apt/lists/* /root/.cache /tmp/* /var/tmp/*
 
 # do this here so COPY --chown can be used,
@@ -94,7 +96,7 @@ COPY --from=builder --chown=10001 /app /app
 
 # Install Puppeteer's managed Chrome and required Linux dependencies.
 RUN apt-get update && \
-    ./node_modules/.bin/puppeteer browsers install chrome --install-deps && \
+    ./node_modules/.bin/puppeteer browsers install chrome --platform linux --install-deps && \
     rm -rf /var/lib/apt/lists/* /root/.cache /tmp/* /var/tmp/*
 
 # Ensure tmp directories exist with correct ownership so Puma can write its
