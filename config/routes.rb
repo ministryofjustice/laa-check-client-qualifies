@@ -102,7 +102,7 @@ Rails.application.routes.draw do
       get "check-result", to: "embedded_results#show", as: :result
       post "check-result", to: "embedded_results#create"
       post "check-result/:step", to: "embedded_results#early_result_redirect", as: :early_result_redirect
-      ### post "complete", to: "embedded_results#complete", as: :embedded_complete ### ????
+      post "complete", to: "embedded_results#complete", as: :embedded_complete
       get "cannot-use-service/:step", to: "embedded_cannot_use_service#show", as: :cannot_use_service
       get ":step_url_fragment", to: "embedded_forms#show", as: :step
       put ":step_url_fragment", to: "embedded_forms#update"
