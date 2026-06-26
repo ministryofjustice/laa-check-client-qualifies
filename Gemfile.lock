@@ -318,6 +318,7 @@ GEM
       actionpack (>= 4.2)
       omniauth (~> 2.0)
     orm_adapter (0.5.0)
+    ostruct (0.6.3)
     pagy (9.4.0)
     parallel (1.28.0)
     parallel_tests (5.7.0)
@@ -622,6 +623,7 @@ DEPENDENCIES
   kredis
   omniauth-google-oauth2
   omniauth-rails_csrf_protection (>= 1.0.2)
+  ostruct
   parallel_tests
   pdf-forms
   pg (~> 1.6)
