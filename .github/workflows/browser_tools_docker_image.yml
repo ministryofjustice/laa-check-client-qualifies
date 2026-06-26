@@ -4,6 +4,7 @@ on:
     branches:
       - main
       - puppeteer-2441
+      - ruby-4-0-5-upgrade
 
 jobs:
   build-push:

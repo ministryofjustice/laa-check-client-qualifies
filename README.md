@@ -19,7 +19,7 @@ CCQ also has an `embedded` mode, which allows it to be deployed as a journey fra
 ### Dependencies
 
 - Ruby & Rails version
-  - Ruby 3.3.7
+  - Ruby 4.0.5
   - Rails 8.1.2
 
 - System dependencies
@@ -106,6 +106,12 @@ You can run tests with the command:
 
 ```bash
 bundle exec rspec
+```
+
+To reproduce CircleCI coverage collation exactly from a clean slate, run:
+
+```bash
+make test-ci-coverage
 ```
 
 # Running Tests with Parallel Tests in Ruby
