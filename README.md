@@ -108,6 +108,12 @@ You can run tests with the command:
 bundle exec rspec
 ```
 
+To reproduce CircleCI coverage collation exactly from a clean slate, run:
+
+```bash
+make test-ci-coverage
+```
+
 # Running Tests with Parallel Tests in Ruby
 
 This service uses the `parallel_tests` gem to run tests faster by parallelizing them across multiple workers. If you encounter database errors when running tests locally, follow these steps to ensure everything is set up correctly.
