@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.3.7"
+ruby "4.0.5"
 
 # TODO: gem profile for :standalone and new Embedded.dockerfile which excludes standalone gems
 
