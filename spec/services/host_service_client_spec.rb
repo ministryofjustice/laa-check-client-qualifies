@@ -6,9 +6,11 @@ RSpec.describe HostServiceClient do
   let(:host_url) { "http://rcw-service:3000" }
   let(:resource_id) { "abc-123" }
   let(:cookies) { "session=xyz" }
+  let(:logger) { instance_double(Logger, info: nil) }
 
   before do
     stub_const("ENV", ENV.to_h.merge("HOST_SERVICE_URL" => host_url))
+    allow(Rails).to receive(:logger).and_return(logger)
   end
 
   describe "#load" do
@@ -31,6 +33,14 @@ RSpec.describe HostServiceClient do
     it "returns the parsed response body" do
       response = client.load(resource_id:, cookies:)
       expect(response.body).to eq({ "allowed" => true })
+    end
+
+    it "logs status and response preview" do
+      client.load(resource_id:, cookies:)
+
+      expect(logger).to have_received(:info).with(
+        include("[HostServiceClient] POST /api/private/load status=200 body_preview={\"allowed\":true}"),
+      )
     end
 
     it "does not send a Cookie header when cookies are blank" do
@@ -64,6 +74,14 @@ RSpec.describe HostServiceClient do
     it "returns the parsed response body" do
       response = client.save(resource_id:, result:, cookies:)
       expect(response.body).to eq({ "saved" => true })
+    end
+
+    it "logs status and response preview" do
+      client.save(resource_id:, result:, cookies:)
+
+      expect(logger).to have_received(:info).with(
+        include("[HostServiceClient] POST /api/private/save status=200 body_preview={\"saved\":true}"),
+      )
     end
   end
 

@@ -10,6 +10,7 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
     let(:host_service_response) { double(status: 200, body: response_body) }
     let(:first_step) { Steps::Helper.first_step(session_data) }
     let(:step_url_fragment) { Flow::Handler.url_fragment(first_step) }
+    let(:logger) { instance_double(Logger, warn: nil) }
 
     before do
       allow(JourneyDataStore::RedisStore).to receive(:new).with(resource_id).and_return(journey_store)
@@ -19,6 +20,7 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
       allow(journey_store).to receive(:write)
       allow(FeatureFlags).to receive(:session_flags).and_return({})
       allow(host_service_client).to receive(:load).and_return(host_service_response)
+      allow(Rails).to receive(:logger).and_return(logger)
       get :show, params: { resource_id: }
     end
 
@@ -34,15 +36,23 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
     end
 
     it "renders the session expired page if the host service returns 401" do
-      allow(host_service_client).to receive(:load).and_return(double(status: 401))
+      allow(host_service_client).to receive(:load).and_return(double(status: 401, body: { error: "expired" }))
       get :show, params: { resource_id: }
+
+      expect(logger).to have_received(:warn).with(
+        include("EmbeddedLandingsController received 401 from HostServiceClient: status=401 body_preview={\"error\":\"expired\"}"),
+      )
       expect(response).to have_http_status(:unauthorized)
       expect(response).to render_template("errors/session_expired")
     end
 
     it "renders the access denied page if the host service returns 403" do
-      allow(host_service_client).to receive(:load).and_return(double(status: 403))
+      allow(host_service_client).to receive(:load).and_return(double(status: 403, body: nil))
       get :show, params: { resource_id: }
+
+      expect(logger).to have_received(:warn).with(
+        include("EmbeddedLandingsController received 403 from HostServiceClient: status=403 body_preview=<nil>"),
+      )
       expect(response).to have_http_status(:forbidden)
       expect(response).to render_template("errors/access_denied")
     end
