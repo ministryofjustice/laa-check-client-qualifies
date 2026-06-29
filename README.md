@@ -2,6 +2,10 @@
 
 CCQ is a Rails application used by legal aid providers to check client eligibility.
 
+CCQ acts as a front end for [CFE Civil](https://github.com/ministryofjustice/cfe-civil), which contains the core civil legal aid eligibility logic.
+
+Standalone mode serves https://check-your-client-qualifies-for-legal-aid.service.gov.uk/
+
 ## Running modes
 
 CCQ supports two modes:
@@ -64,6 +68,8 @@ bundle exec rails s
 ```bash
 bin/dev
 ```
+
+`bin/dev` rebuilds JS and CSS on change, but the output is more verbose and can make debugging with breakpoints harder.
 
 #### Run in embedded mode
 ```bash

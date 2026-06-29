@@ -4,6 +4,8 @@
 
 The project uses RSpec and enforces line and branch coverage via SimpleCov.
 
+There are roughly 1000 standalone tests, so running in parallel or targeting specific specs is faster for local iteration.
+
 ## Main commands
 
 Standalone/default mode:
@@ -17,6 +19,8 @@ Embedded mode:
 ```bash
 CCQ_MODE=embedded bundle exec rspec
 ```
+
+When using `CCQ_MODE=embedded`, RSpec runs specs in `spec/_embedded` and any specs in `spec` tagged with `ccq_mode: :embedded`.
 
 End-to-end tagged tests:
 
@@ -58,6 +62,7 @@ Adjust `-n` to your machine.
 - Location: `spec/forms`
 - Type: feature specs
 - Purpose: validation and session persistence for each form screen
+- Note: these specs use `rack_session_access` to inspect and assert session behavior in feature tests
 
 ### CfeService tests
 

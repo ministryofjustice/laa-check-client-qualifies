@@ -31,6 +31,7 @@ Time-based flags are defined in `app/lib/feature_flags.rb` with an activation da
 ## Overrides endpoint
 
 If `FEATURE_FLAG_OVERRIDES=enabled`, the `/feature-flags` endpoint can set database-backed overrides for static and time-based flags.
+The username is `flags` and the password is stored with the service secrets in Kubernetes.
 
 ## Testing guidance
 

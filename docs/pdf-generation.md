@@ -16,7 +16,8 @@ MULTI_THREAD=1 bundle exec rails s
 
 PDF rendering has specific accessibility accommodations:
 
-- Some `<h2>` and `<p>` output is represented with list structures for better iOS screenreader focus.
+- Some `<h2>` and `<p>` output is represented with list structures for better iOS screenreader focus on mobile and tablet.
+- Helper methods in `results_helper.rb` construct PDF-friendly markup and remove styles that reduce screenreader clarity.
 - Numeric table cells for PDFs should use the helper method `pdf_friendly_numeric_table_cell`.
 
 ## Manual Puppeteer upgrade process
