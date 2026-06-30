@@ -15,17 +15,17 @@ RSpec.describe HostServiceClient do
 
   describe "#load" do
     let(:stub) do
-      stub_request(:post, "#{host_url}/api/private/load")
+      stub_request(:get, "#{host_url}/api/private/load")
         .with(
-          body: { resource_id: }.to_json,
-          headers: { "Content-Type" => "application/json", "Cookie" => cookies },
+          query: { resource_id: },
+          headers: { "Cookie" => cookies },
         )
         .to_return(status: 200, body: '{"allowed":true}', headers: { "Content-Type" => "application/json" })
     end
 
     before { stub }
 
-    it "sends a POST to /api/private/load with the resource_id and cookies" do
+    it "sends a GET to /api/private/load with the resource_id and cookies" do
       client.load(resource_id:, cookies:)
       expect(stub).to have_been_requested
     end
@@ -39,13 +39,14 @@ RSpec.describe HostServiceClient do
       client.load(resource_id:, cookies:)
 
       expect(logger).to have_received(:info).with(
-        include("[HostServiceClient] POST /api/private/load status=200 body_preview={\"allowed\":true}"),
+        include("[HostServiceClient] GET /api/private/load status=200 body_preview={\"allowed\":true}"),
       )
     end
 
     it "does not send a Cookie header when cookies are blank" do
-      no_cookie_stub = stub_request(:post, "#{host_url}/api/private/load")
-        .with { |request| request.body == { resource_id: }.to_json && !request.headers.key?("Cookie") }
+      no_cookie_stub = stub_request(:get, "#{host_url}/api/private/load")
+        .with(query: { resource_id: })
+        .with { |request| !request.headers.key?("Cookie") }
         .to_return(status: 200, body: '{"allowed":true}', headers: { "Content-Type" => "application/json" })
 
       client.load(resource_id:, cookies: nil)
@@ -87,7 +88,9 @@ RSpec.describe HostServiceClient do
 
   describe "error handling" do
     before do
-      stub_request(:post, "#{host_url}/api/private/load").to_timeout
+      stub_request(:get, "#{host_url}/api/private/load")
+        .with(query: { resource_id: })
+        .to_timeout
     end
 
     it "raises ConnectionError on timeout" do
@@ -98,7 +101,8 @@ RSpec.describe HostServiceClient do
 
   describe "connection refused" do
     before do
-      stub_request(:post, "#{host_url}/api/private/load")
+      stub_request(:get, "#{host_url}/api/private/load")
+        .with(query: { resource_id: })
         .to_raise(Faraday::ConnectionFailed)
     end
 
