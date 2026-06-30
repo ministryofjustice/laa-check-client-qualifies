@@ -5,7 +5,7 @@ class HostServiceClient
   READ_TIMEOUT = 5
 
   def load(resource_id:, cookies:)
-    post(ENV.fetch("HOST_SERVICE_LOAD_ENDPOINT", "/api/private/load").to_s, { resource_id: }, cookies:)
+    get(ENV.fetch("HOST_SERVICE_LOAD_ENDPOINT", "/api/private/load").to_s, { resource_id: }, cookies:)
   end
 
   def save(resource_id:, result:, cookies:)
@@ -13,6 +13,14 @@ class HostServiceClient
   end
 
 private
+
+  def get(path, params, cookies:)
+    response = connection(cookies:).get(path, params)
+    Rails.logger.info("[HostServiceClient] GET #{path} status=#{response.status} body_preview=#{body_preview(response.body)}")
+    response
+  rescue Faraday::ConnectionFailed, Faraday::TimeoutError => e
+    raise ConnectionError, e.message
+  end
 
   def post(path, body, cookies:)
     response = connection(cookies:).post(path, body)
