@@ -78,7 +78,7 @@ RSpec.describe HostServiceClient do
     end
 
     it "logs status and response preview" do
-      client.save(resource_id:, result:, cookies:)
+      client.save(resource_id:, result:, cookies:) # rubocop:disable Rails/SaveBang
 
       expect(logger).to have_received(:info).with(
         include("[HostServiceClient] POST /api/private/save status=200 body_preview={\"saved\":true}"),
