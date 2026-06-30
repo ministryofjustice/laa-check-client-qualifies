@@ -5,7 +5,7 @@ class HostServiceClient
   READ_TIMEOUT = 5
 
   def load(resource_id:, cookies:)
-    post(ENV.fetch("HOST_SERVICE_LOAD_ENDPOINT", "/api/private/load").to_s, { resource_id: }, cookies:)
+    get(ENV.fetch("HOST_SERVICE_LOAD_ENDPOINT", "/api/private/load").to_s, { resource_id: }, cookies:)
   end
 
   def save(resource_id:, result:, cookies:)
@@ -14,8 +14,18 @@ class HostServiceClient
 
 private
 
+  def get(path, params, cookies:)
+    response = connection(cookies:).get(path, params)
+    Rails.logger.info("[HostServiceClient] GET #{path} status=#{response.status} body_preview=#{body_preview(response.body)}")
+    response
+  rescue Faraday::ConnectionFailed, Faraday::TimeoutError => e
+    raise ConnectionError, e.message
+  end
+
   def post(path, body, cookies:)
-    connection(cookies:).post(path, body)
+    response = connection(cookies:).post(path, body)
+    Rails.logger.info("[HostServiceClient] POST #{path} status=#{response.status} body_preview=#{body_preview(response.body)}")
+    response
   rescue Faraday::ConnectionFailed, Faraday::TimeoutError => e
     raise ConnectionError, e.message
   end
@@ -29,5 +39,14 @@ private
       faraday.response :json
       faraday.adapter :net_http_persistent
     end
+  end
+
+  def body_preview(body)
+    return "<nil>" if body.nil?
+
+    preview = body.is_a?(String) ? body : body.to_json
+    preview[0, 300]
+  rescue StandardError
+    "<unserializable #{body.class}>"
   end
 end
