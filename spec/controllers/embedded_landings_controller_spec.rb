@@ -85,5 +85,25 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
         expect(response).to redirect_to(step_path(resource_id:, step_url_fragment:))
       end
     end
+
+    describe "private helpers" do
+      it "returns no-body marker when response has no body method" do
+        expect(controller.send(:host_response_body_preview, Object.new)).to eq("<no-body-method>")
+      end
+
+      it "returns a string body unchanged" do
+        response = double(body: "plain error response")
+
+        expect(controller.send(:host_response_body_preview, response)).to eq("plain error response")
+      end
+
+      it "returns unserializable marker when body cannot be serialized" do
+        bad_body = Object.new
+        allow(bad_body).to receive(:to_json).and_raise(StandardError)
+        response = double(body: bad_body)
+
+        expect(controller.send(:host_response_body_preview, response)).to eq("<unserializable RSpec::Mocks::Double>")
+      end
+    end
   end
 end

@@ -111,4 +111,43 @@ RSpec.describe HostServiceClient do
         .to raise_error(HostServiceClient::ConnectionError)
     end
   end
+
+  describe "save error handling" do
+    let(:result) { { "eligible" => true } }
+
+    it "raises ConnectionError on timeout" do
+      stub_request(:post, "#{host_url}/api/private/save")
+        .with(body: { resource_id:, result: }.to_json)
+        .to_timeout
+
+      expect { client.save(resource_id:, result:, cookies:) }
+        .to raise_error(HostServiceClient::ConnectionError)
+    end
+
+    it "raises ConnectionError when the host is unreachable" do
+      stub_request(:post, "#{host_url}/api/private/save")
+        .with(body: { resource_id:, result: }.to_json)
+        .to_raise(Faraday::ConnectionFailed)
+
+      expect { client.save(resource_id:, result:, cookies:) }
+        .to raise_error(HostServiceClient::ConnectionError)
+    end
+  end
+
+  describe "#body_preview" do
+    it "returns nil marker for nil" do
+      expect(client.send(:body_preview, nil)).to eq("<nil>")
+    end
+
+    it "returns a string body unchanged" do
+      expect(client.send(:body_preview, "plain body")).to eq("plain body")
+    end
+
+    it "returns unserializable marker when to_json raises" do
+      bad_body = Object.new
+      allow(bad_body).to receive(:to_json).and_raise(StandardError)
+
+      expect(client.send(:body_preview, bad_body)).to eq("<unserializable Object>")
+    end
+  end
 end
