@@ -10,7 +10,7 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
     let(:host_service_response) { double(status: 200, body: response_body) }
     let(:first_step) { Steps::Helper.first_step(session_data) }
     let(:step_url_fragment) { Flow::Handler.url_fragment(first_step) }
-    let(:logger) { instance_double(Logger, warn: nil) }
+    let(:logger) { object_double(Rails.logger, warn: nil, info: nil) }
 
     before do
       allow(JourneyDataStore::RedisStore).to receive(:new).with(resource_id).and_return(journey_store)
@@ -21,6 +21,7 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
       allow(FeatureFlags).to receive(:session_flags).and_return({})
       allow(host_service_client).to receive(:load).and_return(host_service_response)
       allow(Rails).to receive(:logger).and_return(logger)
+      allow(logger).to receive(:tagged).and_yield
       get :show, params: { resource_id: }
     end
 
