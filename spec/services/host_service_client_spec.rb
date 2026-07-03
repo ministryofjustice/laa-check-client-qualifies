@@ -6,24 +6,26 @@ RSpec.describe HostServiceClient do
   let(:host_url) { "http://rcw-service:3000" }
   let(:resource_id) { "abc-123" }
   let(:cookies) { "session=xyz" }
+  let(:logger) { instance_double(Logger, info: nil) }
 
   before do
     stub_const("ENV", ENV.to_h.merge("HOST_SERVICE_URL" => host_url))
+    allow(Rails).to receive(:logger).and_return(logger)
   end
 
   describe "#load" do
     let(:stub) do
-      stub_request(:post, "#{host_url}/api/private/load")
+      stub_request(:get, "#{host_url}/api/private/load")
         .with(
-          body: { resource_id: }.to_json,
-          headers: { "Content-Type" => "application/json", "Cookie" => cookies },
+          query: { resource_id: },
+          headers: { "Cookie" => cookies },
         )
         .to_return(status: 200, body: '{"allowed":true}', headers: { "Content-Type" => "application/json" })
     end
 
     before { stub }
 
-    it "sends a POST to /api/private/load with the resource_id and cookies" do
+    it "sends a GET to /api/private/load with the resource_id and cookies" do
       client.load(resource_id:, cookies:)
       expect(stub).to have_been_requested
     end
@@ -33,9 +35,18 @@ RSpec.describe HostServiceClient do
       expect(response.body).to eq({ "allowed" => true })
     end
 
+    it "logs status and response preview" do
+      client.load(resource_id:, cookies:)
+
+      expect(logger).to have_received(:info).with(
+        include("[HostServiceClient] GET /api/private/load status=200 body_preview={\"allowed\":true}"),
+      )
+    end
+
     it "does not send a Cookie header when cookies are blank" do
-      no_cookie_stub = stub_request(:post, "#{host_url}/api/private/load")
-        .with { |request| request.body == { resource_id: }.to_json && !request.headers.key?("Cookie") }
+      no_cookie_stub = stub_request(:get, "#{host_url}/api/private/load")
+        .with(query: { resource_id: })
+        .with { |request| !request.headers.key?("Cookie") }
         .to_return(status: 200, body: '{"allowed":true}', headers: { "Content-Type" => "application/json" })
 
       client.load(resource_id:, cookies: nil)
@@ -65,11 +76,21 @@ RSpec.describe HostServiceClient do
       response = client.save(resource_id:, result:, cookies:)
       expect(response.body).to eq({ "saved" => true })
     end
+
+    it "logs status and response preview" do
+      client.save(resource_id:, result:, cookies:) # rubocop:disable Rails/SaveBang
+
+      expect(logger).to have_received(:info).with(
+        include("[HostServiceClient] POST /api/private/save status=200 body_preview={\"saved\":true}"),
+      )
+    end
   end
 
   describe "error handling" do
     before do
-      stub_request(:post, "#{host_url}/api/private/load").to_timeout
+      stub_request(:get, "#{host_url}/api/private/load")
+        .with(query: { resource_id: })
+        .to_timeout
     end
 
     it "raises ConnectionError on timeout" do
@@ -80,13 +101,53 @@ RSpec.describe HostServiceClient do
 
   describe "connection refused" do
     before do
-      stub_request(:post, "#{host_url}/api/private/load")
+      stub_request(:get, "#{host_url}/api/private/load")
+        .with(query: { resource_id: })
         .to_raise(Faraday::ConnectionFailed)
     end
 
     it "raises ConnectionError when the host is unreachable" do
       expect { client.load(resource_id:, cookies:) }
         .to raise_error(HostServiceClient::ConnectionError)
+    end
+  end
+
+  describe "save error handling" do
+    let(:result) { { "eligible" => true } }
+
+    it "raises ConnectionError on timeout" do
+      stub_request(:post, "#{host_url}/api/private/save")
+        .with(body: { resource_id:, result: }.to_json)
+        .to_timeout
+
+      expect { client.save(resource_id:, result:, cookies:) }
+        .to raise_error(HostServiceClient::ConnectionError)
+    end
+
+    it "raises ConnectionError when the host is unreachable" do
+      stub_request(:post, "#{host_url}/api/private/save")
+        .with(body: { resource_id:, result: }.to_json)
+        .to_raise(Faraday::ConnectionFailed)
+
+      expect { client.save(resource_id:, result:, cookies:) }
+        .to raise_error(HostServiceClient::ConnectionError)
+    end
+  end
+
+  describe "#body_preview" do
+    it "returns nil marker for nil" do
+      expect(client.send(:body_preview, nil)).to eq("<nil>")
+    end
+
+    it "returns a string body unchanged" do
+      expect(client.send(:body_preview, "plain body")).to eq("plain body")
+    end
+
+    it "returns unserializable marker when to_json raises" do
+      bad_body = Object.new
+      allow(bad_body).to receive(:to_json).and_raise(StandardError)
+
+      expect(client.send(:body_preview, bad_body)).to eq("<unserializable Object>")
     end
   end
 end
