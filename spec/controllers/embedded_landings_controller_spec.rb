@@ -47,6 +47,47 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
       expect(response).to render_template("errors/session_expired")
     end
 
+    it "redirects to host reauthentication when the host service returns 302" do
+      allow(host_service_client).to receive(:load).and_return(
+        double(status: 302, body: nil, headers: { "location" => "https://test.host/auth/sign-in?prompt=login" }),
+      )
+
+      get :show, params: { resource_id: }
+
+      redirect_uri = URI.parse(response.location)
+      query_params = Rack::Utils.parse_nested_query(redirect_uri.query)
+
+      expect(redirect_uri.to_s).to start_with("https://test.host/auth/sign-in")
+      expect(query_params["prompt"]).to eq("login")
+      expect(query_params["returnTo"]).to eq("/applications/#{resource_id}/eligibility")
+    end
+
+    it "renders service unavailable when host reauthentication redirect location is missing" do
+      allow(host_service_client).to receive(:load).and_return(double(status: 302, body: nil, headers: {}))
+
+      get :show, params: { resource_id: }
+
+      expect(logger).to have_received(:warn).with(
+        "EmbeddedLandingsController received 302 from HostServiceClient without a Location header",
+      )
+      expect(response).to have_http_status(:service_unavailable)
+      expect(response).to render_template("errors/service_unavailable")
+    end
+
+    it "renders service unavailable when host reauthentication redirect location is invalid" do
+      allow(host_service_client).to receive(:load).and_return(
+        double(status: 302, body: nil, headers: { "location" => "invalid://[]" }),
+      )
+
+      get :show, params: { resource_id: }
+
+      expect(logger).to have_received(:warn).with(
+        include("EmbeddedLandingsController received invalid reauthentication Location from HostServiceClient"),
+      )
+      expect(response).to have_http_status(:service_unavailable)
+      expect(response).to render_template("errors/service_unavailable")
+    end
+
     it "renders the access denied page if the host service returns 403" do
       allow(host_service_client).to receive(:load).and_return(double(status: 403, body: nil))
       get :show, params: { resource_id: }
