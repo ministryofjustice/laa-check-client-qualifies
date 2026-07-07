@@ -62,6 +62,21 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
       expect(query_params["returnTo"]).to eq("/applications/#{resource_id}/eligibility")
     end
 
+    it "redirects to host reauthentication when Location header is capitalized" do
+      allow(host_service_client).to receive(:load).and_return(
+        double(status: 302, body: nil, headers: { "Location" => "https://test.host/auth/sign-in?prompt=login" }),
+      )
+
+      get :show, params: { resource_id: }
+
+      redirect_uri = URI.parse(response.location)
+      query_params = Rack::Utils.parse_nested_query(redirect_uri.query)
+
+      expect(redirect_uri.to_s).to start_with("https://test.host/auth/sign-in")
+      expect(query_params["prompt"]).to eq("login")
+      expect(query_params["returnTo"]).to eq("/applications/#{resource_id}/eligibility")
+    end
+
     it "renders service unavailable when host reauthentication redirect location is missing" do
       allow(host_service_client).to receive(:load).and_return(double(status: 302, body: nil, headers: {}))
 
@@ -113,6 +128,12 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
       expect(response).to render_template("errors/service_unavailable")
     end
 
+    it "re-raises unexpected errors from host service" do
+      allow(host_service_client).to receive(:load).and_raise(StandardError, "boom")
+
+      expect { get :show, params: { resource_id: } }.to raise_error(StandardError, "boom")
+    end
+
     context "when host service response body is already parsed" do
       let(:response_body) { { "return_url" => "http://example.com/return" } }
 
@@ -144,6 +165,14 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
         response = double(body: bad_body)
 
         expect(controller.send(:host_response_body_preview, response)).to eq("<unserializable RSpec::Mocks::Double>")
+      end
+
+      it "returns unserializable marker when body accessor raises" do
+        response_class = Struct.new(:body)
+        response = instance_double(response_class)
+        allow(response).to receive(:body).and_raise(StandardError)
+
+        expect(controller.send(:host_response_body_preview, response)).to eq("<unserializable RSpec::Mocks::InstanceVerifyingDouble>")
       end
     end
   end

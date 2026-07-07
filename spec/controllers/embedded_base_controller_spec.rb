@@ -97,6 +97,17 @@ RSpec.describe EmbeddedBaseController, ccq_mode: :embedded, type: :controller do
       )
     end
 
+    it "allows relative reauthentication locations" do
+      expect(controller).to receive(:redirect_to).with(
+        "/auth/sign-in?prompt=login&returnTo=%2Fapplications%2F#{resource_id}%2Feligibility",
+      )
+
+      controller.send(
+        :redirect_to_host_reauthentication,
+        location: "/auth/sign-in?prompt=login",
+      )
+    end
+
     it "uses original_fullpath path when request.path is rewritten" do
       allow(controller).to receive(:request).and_return(
         instance_double(
@@ -123,6 +134,26 @@ RSpec.describe EmbeddedBaseController, ccq_mode: :embedded, type: :controller do
           ActionDispatch::Request,
           path: "/applications/#{resource_id}/eligibility",
           original_fullpath: "http://%",
+          host: request_host,
+        ),
+      )
+
+      expect(controller).to receive(:redirect_to).with(
+        "https://test.host/auth/sign-in?returnTo=%2Fapplications%2F#{resource_id}%2Feligibility",
+      )
+
+      controller.send(
+        :redirect_to_host_reauthentication,
+        location: "https://test.host/auth/sign-in",
+      )
+    end
+
+    it "falls back to request.path when original_fullpath is blank" do
+      allow(controller).to receive(:request).and_return(
+        instance_double(
+          ActionDispatch::Request,
+          path: "/applications/#{resource_id}/eligibility",
+          original_fullpath: nil,
           host: request_host,
         ),
       )
