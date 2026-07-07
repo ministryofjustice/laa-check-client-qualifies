@@ -14,6 +14,49 @@ class EmbeddedBaseController < ApplicationController
 
 private
 
+  def redirect_to_host_reauthentication(location:)
+    if location.blank?
+      Rails.logger.warn("#{self.class.name} received 302 from HostServiceClient without a Location header")
+      render "errors/service_unavailable", status: :service_unavailable
+      return
+    end
+
+    uri = URI.parse(location)
+    query_params = Rack::Utils.parse_nested_query(uri.query)
+    query_params["returnTo"] = host_reauthentication_return_path
+    uri.query = query_params.to_query
+
+    unless host_reauthentication_location_allowed?(uri)
+      Rails.logger.warn(
+        "#{self.class.name} received reauthentication Location with unexpected host from HostServiceClient: #{location.inspect}",
+      )
+      render "errors/service_unavailable", status: :service_unavailable
+      return
+    end
+
+    redirect_to uri.to_s
+  rescue URI::InvalidURIError, ActionController::Redirecting::UnsafeRedirectError
+    Rails.logger.warn(
+      "#{self.class.name} received invalid reauthentication Location from HostServiceClient: #{location.inspect}",
+    )
+    render "errors/service_unavailable", status: :service_unavailable
+  end
+
+  def host_reauthentication_location_allowed?(uri)
+    return true if uri.host.blank?
+
+    uri.host.casecmp?(request.host)
+  end
+
+  def host_reauthentication_return_path
+    original_fullpath = request.original_fullpath
+    return URI.parse(original_fullpath).path if original_fullpath.present?
+
+    request.path
+  rescue URI::InvalidURIError
+    request.path
+  end
+
   def journey_store
     @journey_store ||= JourneyDataStore::RedisStore.new(params[:resource_id])
   end

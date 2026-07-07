@@ -14,6 +14,10 @@ class EmbeddedLandingsController < EmbeddedBaseController
       })
       redirect_to step_path(resource_id: params[:resource_id],
                             step_url_fragment: helpers.step_url_fragment_from_step(Steps::Helper.first_step(session_data)))
+    when 302
+      redirect_to_host_reauthentication(
+        location: response.headers["location"] || response.headers["Location"],
+      )
     when 401
       Rails.logger.warn(
         "EmbeddedLandingsController received 401 from HostServiceClient: " \

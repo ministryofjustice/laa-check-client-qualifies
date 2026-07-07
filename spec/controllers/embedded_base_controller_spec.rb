@@ -67,6 +67,144 @@ RSpec.describe EmbeddedBaseController, ccq_mode: :embedded, type: :controller do
     end
   end
 
+  describe "#redirect_to_host_reauthentication", :embedded_only do
+    let(:logger) { object_double(Rails.logger, warn: nil) }
+    let(:request_path) { "/applications/#{resource_id}/eligibility" }
+    let(:request_original_fullpath) { request_path }
+    let(:request_host) { "test.host" }
+
+    before do
+      allow(Rails).to receive(:logger).and_return(logger)
+      allow(logger).to receive(:tagged).and_yield
+      allow(controller).to receive(:request).and_return(
+        instance_double(
+          ActionDispatch::Request,
+          path: request_path,
+          original_fullpath: request_original_fullpath,
+          host: request_host,
+        ),
+      )
+    end
+
+    it "redirects to the host location and appends returnTo" do
+      expect(controller).to receive(:redirect_to).with(
+        "https://test.host/auth/sign-in?prompt=login&returnTo=%2Fapplications%2F#{resource_id}%2Feligibility",
+      )
+
+      controller.send(
+        :redirect_to_host_reauthentication,
+        location: "https://test.host/auth/sign-in?prompt=login",
+      )
+    end
+
+    it "allows relative reauthentication locations" do
+      expect(controller).to receive(:redirect_to).with(
+        "/auth/sign-in?prompt=login&returnTo=%2Fapplications%2F#{resource_id}%2Feligibility",
+      )
+
+      controller.send(
+        :redirect_to_host_reauthentication,
+        location: "/auth/sign-in?prompt=login",
+      )
+    end
+
+    it "uses original_fullpath path when request.path is rewritten" do
+      allow(controller).to receive(:request).and_return(
+        instance_double(
+          ActionDispatch::Request,
+          path: "/applications/#{resource_id}",
+          original_fullpath: "/applications/#{resource_id}/eligibility?from=host",
+          host: request_host,
+        ),
+      )
+
+      expect(controller).to receive(:redirect_to).with(
+        "https://test.host/auth/sign-in?returnTo=%2Fapplications%2F#{resource_id}%2Feligibility",
+      )
+
+      controller.send(
+        :redirect_to_host_reauthentication,
+        location: "https://test.host/auth/sign-in",
+      )
+    end
+
+    it "falls back to request.path when original_fullpath is invalid" do
+      allow(controller).to receive(:request).and_return(
+        instance_double(
+          ActionDispatch::Request,
+          path: "/applications/#{resource_id}/eligibility",
+          original_fullpath: "http://%",
+          host: request_host,
+        ),
+      )
+
+      expect(controller).to receive(:redirect_to).with(
+        "https://test.host/auth/sign-in?returnTo=%2Fapplications%2F#{resource_id}%2Feligibility",
+      )
+
+      controller.send(
+        :redirect_to_host_reauthentication,
+        location: "https://test.host/auth/sign-in",
+      )
+    end
+
+    it "falls back to request.path when original_fullpath is blank" do
+      allow(controller).to receive(:request).and_return(
+        instance_double(
+          ActionDispatch::Request,
+          path: "/applications/#{resource_id}/eligibility",
+          original_fullpath: nil,
+          host: request_host,
+        ),
+      )
+
+      expect(controller).to receive(:redirect_to).with(
+        "https://test.host/auth/sign-in?returnTo=%2Fapplications%2F#{resource_id}%2Feligibility",
+      )
+
+      controller.send(
+        :redirect_to_host_reauthentication,
+        location: "https://test.host/auth/sign-in",
+      )
+    end
+
+    it "renders service unavailable and logs when location host is unexpected" do
+      expect(logger).to receive(:warn).with(
+        include("EmbeddedBaseController received reauthentication Location with unexpected host from HostServiceClient"),
+      )
+      expect(controller).to receive(:render).with("errors/service_unavailable", status: :service_unavailable)
+
+      controller.send(
+        :redirect_to_host_reauthentication,
+        location: "https://login.example.com/auth/sign-in",
+      )
+    end
+
+    it "renders service unavailable and logs when location is missing" do
+      expect(logger).to receive(:warn).with(
+        "EmbeddedBaseController received 302 from HostServiceClient without a Location header",
+      )
+      expect(controller).to receive(:render).with("errors/service_unavailable", status: :service_unavailable)
+
+      controller.send(
+        :redirect_to_host_reauthentication,
+        location: nil,
+      )
+    end
+
+    it "renders service unavailable and logs when location is invalid" do
+      expect(logger).to receive(:warn).with(
+        include("EmbeddedBaseController received invalid reauthentication Location from HostServiceClient"),
+      )
+      expect(controller).to receive(:render).with("errors/service_unavailable", status: :service_unavailable)
+
+      controller.send(
+        :redirect_to_host_reauthentication,
+        location: "invalid://[]",
+      )
+    end
+  end
+
   describe "rescue_from Cfe::InvalidSessionError", :embedded_only do
     it "redirects to the embedded landing page" do
       expect(controller).to receive(:redirect_to).with(:landing)
