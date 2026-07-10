@@ -1,6 +1,6 @@
 {
   "request": {
-    "method": "GET",
+    "method": "POST",
     "urlPath": "/api/private/load"
   },
   "response": {
