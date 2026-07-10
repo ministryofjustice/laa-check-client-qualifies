@@ -25,6 +25,15 @@ RSpec.describe EmbeddedResultsController, ccq_mode: :embedded, type: :controller
       expect(assigns(:model)).to be_a(CalculationResult)
       expect(assigns(:model).level_of_help).to eq("certificated")
     end
+
+    it "renders without standalone route helpers" do
+      allow(controller).to receive(:respond_to?).and_call_original
+      allow(controller).to receive(:respond_to?).with(:download_result_path, any_args).and_return(false)
+      allow(controller).to receive(:respond_to?).with(:new_check_path, any_args).and_return(false)
+
+      expect { get :show, params: { resource_id: } }.not_to raise_error
+      expect(response).to render_template("results/show")
+    end
   end
 
   describe "POST #create", :embedded_only do
