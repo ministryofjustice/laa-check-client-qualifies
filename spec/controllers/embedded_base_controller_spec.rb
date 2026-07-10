@@ -69,7 +69,7 @@ RSpec.describe EmbeddedBaseController, ccq_mode: :embedded, type: :controller do
 
   describe "#redirect_to_host_reauthentication", :embedded_only do
     let(:logger) { object_double(Rails.logger, warn: nil) }
-    let(:request_path) { "/applications/#{resource_id}/eligibility" }
+    let(:request_path) { "/cases/#{resource_id}/eligibility" }
     let(:request_original_fullpath) { request_path }
     let(:request_host) { "test.host" }
 
@@ -88,7 +88,7 @@ RSpec.describe EmbeddedBaseController, ccq_mode: :embedded, type: :controller do
 
     it "redirects to the host location and appends returnTo" do
       expect(controller).to receive(:redirect_to).with(
-        "https://test.host/auth/sign-in?prompt=login&returnTo=%2Fapplications%2F#{resource_id}%2Feligibility",
+        "https://test.host/auth/sign-in?prompt=login&returnTo=%2Fcases%2F#{resource_id}%2Feligibility",
       )
 
       controller.send(
@@ -99,7 +99,7 @@ RSpec.describe EmbeddedBaseController, ccq_mode: :embedded, type: :controller do
 
     it "allows relative reauthentication locations" do
       expect(controller).to receive(:redirect_to).with(
-        "/auth/sign-in?prompt=login&returnTo=%2Fapplications%2F#{resource_id}%2Feligibility",
+        "/auth/sign-in?prompt=login&returnTo=%2Fcases%2F#{resource_id}%2Feligibility",
       )
 
       controller.send(
@@ -112,14 +112,14 @@ RSpec.describe EmbeddedBaseController, ccq_mode: :embedded, type: :controller do
       allow(controller).to receive(:request).and_return(
         instance_double(
           ActionDispatch::Request,
-          path: "/applications/#{resource_id}",
-          original_fullpath: "/applications/#{resource_id}/eligibility?from=host",
+          path: "/cases/#{resource_id}",
+          original_fullpath: "/cases/#{resource_id}/eligibility?from=host",
           host: request_host,
         ),
       )
 
       expect(controller).to receive(:redirect_to).with(
-        "https://test.host/auth/sign-in?returnTo=%2Fapplications%2F#{resource_id}%2Feligibility",
+        "https://test.host/auth/sign-in?returnTo=%2Fcases%2F#{resource_id}%2Feligibility",
       )
 
       controller.send(
@@ -132,14 +132,14 @@ RSpec.describe EmbeddedBaseController, ccq_mode: :embedded, type: :controller do
       allow(controller).to receive(:request).and_return(
         instance_double(
           ActionDispatch::Request,
-          path: "/applications/#{resource_id}/eligibility",
+          path: "/cases/#{resource_id}/eligibility",
           original_fullpath: "http://%",
           host: request_host,
         ),
       )
 
       expect(controller).to receive(:redirect_to).with(
-        "https://test.host/auth/sign-in?returnTo=%2Fapplications%2F#{resource_id}%2Feligibility",
+        "https://test.host/auth/sign-in?returnTo=%2Fcases%2F#{resource_id}%2Feligibility",
       )
 
       controller.send(
@@ -152,14 +152,14 @@ RSpec.describe EmbeddedBaseController, ccq_mode: :embedded, type: :controller do
       allow(controller).to receive(:request).and_return(
         instance_double(
           ActionDispatch::Request,
-          path: "/applications/#{resource_id}/eligibility",
+          path: "/cases/#{resource_id}/eligibility",
           original_fullpath: nil,
           host: request_host,
         ),
       )
 
       expect(controller).to receive(:redirect_to).with(
-        "https://test.host/auth/sign-in?returnTo=%2Fapplications%2F#{resource_id}%2Feligibility",
+        "https://test.host/auth/sign-in?returnTo=%2Fcases%2F#{resource_id}%2Feligibility",
       )
 
       controller.send(

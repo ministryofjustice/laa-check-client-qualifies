@@ -94,7 +94,7 @@ http://localhost:3001
 ```bash
 docker compose up nginx
 ```
-http://localhost:8080/applications/1234/eligibility
+http://localhost:8080/cases/1234/eligibility
 
 ## Test commands
 The test setup for CCQ is complex. For more detail, see [Testing](docs/testing.md).
