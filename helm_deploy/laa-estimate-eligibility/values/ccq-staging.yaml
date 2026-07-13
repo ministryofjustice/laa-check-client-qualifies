@@ -10,6 +10,7 @@ image:
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
+environment: staging
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -42,10 +43,10 @@ service:
 
 ingress:
   hosts:
-   - host: check-your-client-qualifies-for-legal-aid-staging.cloud-platform.service.justice.gov.uk
-     secret: false
-   - host: staging.check-your-client-qualifies-for-legal-aid.service.gov.uk
-     secret: ccq-staging-cert-secret
+    - host: check-your-client-qualifies-for-legal-aid-staging.cloud-platform.service.justice.gov.uk
+      secret: false
+    - host: staging.check-your-client-qualifies-for-legal-aid.service.gov.uk
+      secret: ccq-staging-cert-secret
   annotations:
     external-dns.alpha.kubernetes.io/set-identifier: "check-client-qualifies-laa-estimate-eligibility-laa-check-client-qualifies-staging-green"
     external-dns.alpha.kubernetes.io/aws-weight: "100"
@@ -87,3 +88,11 @@ google:
 
 metabase:
   enabled: true
+  ingress:
+    allowed_ip_ranges: [
+        # Gateway IPs for Global Protect alpha VPN firewall
+        "35.176.93.186/32",
+        "18.169.147.172/32",
+        "18.130.148.126/32",
+        "35.176.148.126/32",
+      ]
