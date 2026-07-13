@@ -22,10 +22,6 @@ spec:
       secretName: '{{- .secret }}'
     {{- end }}
   {{- end }}
-  {{- if .Values.metabase.enabled }}
-    - hosts:
-      - "ccq-dashboard-{{ .Values.cfe.environment_name }}.cloud-platform.service.justice.gov.uk"
-  {{- end }}
   rules:
   {{- range .Values.ingress.hosts }}
     - host: '{{- .host }}'
@@ -39,16 +35,4 @@ spec:
                 port:
                   name: http
   {{- end }}
-    {{- if .Values.metabase.enabled }}
-    - host: "ccq-dashboard-{{ .Values.cfe.environment_name }}.cloud-platform.service.justice.gov.uk"
-      http:
-        paths:
-          - path: "/"
-            pathType: ImplementationSpecific
-            backend:
-              service:
-                name: {{ $fullName }}-metabase
-                port:
-                  number: 80
-    {{- end }}
 
