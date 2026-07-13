@@ -59,7 +59,7 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
 
       expect(redirect_uri.to_s).to start_with("https://test.host/auth/sign-in")
       expect(query_params["prompt"]).to eq("login")
-      expect(query_params["returnTo"]).to eq("/applications/#{resource_id}/eligibility")
+      expect(query_params["returnTo"]).to eq("/cases/#{resource_id}/eligibility")
     end
 
     it "redirects to host reauthentication when Location header is capitalized" do
@@ -74,7 +74,7 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
 
       expect(redirect_uri.to_s).to start_with("https://test.host/auth/sign-in")
       expect(query_params["prompt"]).to eq("login")
-      expect(query_params["returnTo"]).to eq("/applications/#{resource_id}/eligibility")
+      expect(query_params["returnTo"]).to eq("/cases/#{resource_id}/eligibility")
     end
 
     it "renders service unavailable when host reauthentication redirect location is missing" do
