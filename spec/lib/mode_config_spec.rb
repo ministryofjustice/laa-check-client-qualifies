@@ -48,6 +48,12 @@ RSpec.describe "mode_config" do
         expect(ModeConfig.embedded_layout).to eq("host_service")
       end
 
+      it "allows underscore layout names" do
+        allow(ENV).to receive(:fetch).with("CCQ_EMBEDDED_LAYOUT", "application").and_return("application_rcw")
+
+        expect(ModeConfig.embedded_layout).to eq("application_rcw")
+      end
+
       it "falls back to default when configured value is blank" do
         allow(ENV).to receive(:fetch).with("CCQ_EMBEDDED_LAYOUT", "application").and_return("   ")
 
@@ -58,6 +64,12 @@ RSpec.describe "mode_config" do
         allow(ENV).to receive(:fetch).with("CCQ_EMBEDDED_LAYOUT", "application").and_return("../host")
 
         expect { ModeConfig.embedded_layout }.to raise_error(ArgumentError, "Invalid CCQ_EMBEDDED_LAYOUT: ../host")
+      end
+
+      it "raises an error when configured value contains dots" do
+        allow(ENV).to receive(:fetch).with("CCQ_EMBEDDED_LAYOUT", "application").and_return("application.rcw")
+
+        expect { ModeConfig.embedded_layout }.to raise_error(ArgumentError, "Invalid CCQ_EMBEDDED_LAYOUT: application.rcw")
       end
     end
   end

@@ -120,3 +120,5 @@ gem "faraday-retry"
 gem "slim-rails"
 
 gem "solid_cache", "~> 1.0"
+
+gem "moj_components", "~> 0.1.0"

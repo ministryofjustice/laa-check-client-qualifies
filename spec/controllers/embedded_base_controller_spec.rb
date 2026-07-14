@@ -81,6 +81,13 @@ RSpec.describe EmbeddedBaseController, ccq_mode: :embedded, type: :controller do
       expect(controller.send(:embedded_layout_name)).to eq("application")
     end
 
+    it "returns an underscore layout name when it exists" do
+      allow(ModeConfig).to receive(:embedded_layout).and_return("application_rcw")
+      allow(lookup_context).to receive(:exists?).with("application_rcw", "layouts", false).and_return(true)
+
+      expect(controller.send(:embedded_layout_name)).to eq("application_rcw")
+    end
+
     it "raises an error when the configured layout does not exist" do
       allow(ModeConfig).to receive(:embedded_layout).and_return("host_service")
       allow(lookup_context).to receive(:exists?).with("host_service", "layouts", false).and_return(false)

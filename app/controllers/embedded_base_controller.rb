@@ -18,9 +18,13 @@ private
 
   def embedded_layout_name
     layout_name = ModeConfig.embedded_layout
-    return layout_name if lookup_context.exists?(layout_name, "layouts", false)
+    return layout_name if embedded_layout_exists?(layout_name)
 
     raise ArgumentError, "Unknown embedded layout '#{layout_name}'. Expected app/views/layouts/#{layout_name}.html.*"
+  end
+
+  def embedded_layout_exists?(layout_name)
+    lookup_context.exists?(layout_name, "layouts", false)
   end
 
   def redirect_to_host_reauthentication(location:)
