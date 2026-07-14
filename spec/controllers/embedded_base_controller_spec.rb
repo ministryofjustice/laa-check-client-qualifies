@@ -67,6 +67,30 @@ RSpec.describe EmbeddedBaseController, ccq_mode: :embedded, type: :controller do
     end
   end
 
+  describe "#embedded_layout_name", :embedded_only do
+    let(:lookup_context) { instance_double(ActionView::LookupContext) }
+
+    before do
+      allow(controller).to receive(:lookup_context).and_return(lookup_context)
+    end
+
+    it "returns the configured layout when it exists" do
+      allow(ModeConfig).to receive(:embedded_layout).and_return("application")
+      allow(lookup_context).to receive(:exists?).with("application", "layouts", false).and_return(true)
+
+      expect(controller.send(:embedded_layout_name)).to eq("application")
+    end
+
+    it "raises an error when the configured layout does not exist" do
+      allow(ModeConfig).to receive(:embedded_layout).and_return("host_service")
+      allow(lookup_context).to receive(:exists?).with("host_service", "layouts", false).and_return(false)
+
+      expect {
+        controller.send(:embedded_layout_name)
+      }.to raise_error(ArgumentError, "Unknown embedded layout 'host_service'. Expected app/views/layouts/host_service.html.*")
+    end
+  end
+
   describe "#redirect_to_host_reauthentication", :embedded_only do
     let(:logger) { object_double(Rails.logger, warn: nil) }
     let(:request_path) { "/cases/#{resource_id}/eligibility" }

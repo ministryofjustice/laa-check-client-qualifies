@@ -34,6 +34,7 @@ services:
       DISABLE_SECURE_COOKIES: true
 
       CCQ_MODE: embedded
+      CCQ_EMBEDDED_LAYOUT: rcw
       REDIS_URL: redis://redis:6379
       HOST_SERVICE_URL: http://host-service-stub:8080
       HOST_SERVICE_LOAD_ENDPOINT: /api/private/load

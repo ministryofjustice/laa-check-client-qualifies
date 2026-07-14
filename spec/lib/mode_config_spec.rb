@@ -34,5 +34,31 @@ RSpec.describe "mode_config" do
       allow(ENV).to receive(:fetch).with("CCQ_MODE", anything).and_return("unknown")
       expect { ModeConfig.mode }.to raise_error(ArgumentError, "Unknown CCQ_MODE: unknown")
     end
+
+    describe ".embedded_layout" do
+      it "uses the default embedded layout when not set" do
+        allow(ENV).to receive(:fetch).with("CCQ_EMBEDDED_LAYOUT", "application").and_return("application")
+
+        expect(ModeConfig.embedded_layout).to eq("application")
+      end
+
+      it "returns the configured embedded layout name" do
+        allow(ENV).to receive(:fetch).with("CCQ_EMBEDDED_LAYOUT", "application").and_return("host_service")
+
+        expect(ModeConfig.embedded_layout).to eq("host_service")
+      end
+
+      it "falls back to default when configured value is blank" do
+        allow(ENV).to receive(:fetch).with("CCQ_EMBEDDED_LAYOUT", "application").and_return("   ")
+
+        expect(ModeConfig.embedded_layout).to eq("application")
+      end
+
+      it "raises an error when configured value has invalid characters" do
+        allow(ENV).to receive(:fetch).with("CCQ_EMBEDDED_LAYOUT", "application").and_return("../host")
+
+        expect { ModeConfig.embedded_layout }.to raise_error(ArgumentError, "Invalid CCQ_EMBEDDED_LAYOUT: ../host")
+      end
+    end
   end
 end

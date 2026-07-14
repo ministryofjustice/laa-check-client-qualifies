@@ -2729,3 +2729,8 @@ en:
     satisfaction:
       comment_heading: Your response has been sent, please tell us more
       question: Were you satisfied with this service?
+  layouts:
+    rcw:
+      service:
+        name: Record Controlled Work
+        beta_service_html: This is a new service. Help us improve it by <a href="#" target="_blank" id="smart_survey_link_banner">giving your feedback by email</a>.

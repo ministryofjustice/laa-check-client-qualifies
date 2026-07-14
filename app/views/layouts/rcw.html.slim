@@ -1,0 +1,34 @@
+doctype html
+html dir="ltr" lang="en-GB" class="govuk-template govuk-template--rebranded"
+  head
+    = render "layouts/shared/header"
+  body.govuk-template__body[
+    data-sentry-dsn=(Rails.configuration.sentry_dsn if FeatureFlags.enabled?(:sentry, without_session_data: true))
+  ]
+    = render "layouts/analytics_body"
+    javascript [nonce=content_security_policy_nonce]:
+      document.body.className += ' js-enabled' + ('noModule' in HTMLScriptElement.prototype ? ' govuk-frontend-supported' : '');
+
+    = govuk_skip_link
+
+    = render "layouts/cookie_banner"
+
+    = govuk_header(homepage_url: t("layouts.rcw.service.homepage_url"))
+    = govuk_service_navigation(service_name: t("layouts.rcw.service.name"), service_url: root_path)
+
+    .govuk-width-container
+      = govuk_phase_banner tag: { text: t("service.beta") },
+                           text: t("layouts.rcw.service.beta_message_html", survey_link:),
+                           html_attributes: { role: "complementary", "aria-label": "Beta notification" }
+
+      - if content_for?(:back)
+        div role="navigation"
+          = yield :back
+
+      main#main-content.govuk-main-wrapper role="main"
+        div class="govuk-grid-row"
+          = yield
+
+    = render partial: "layouts/feedback"
+
+    = render partial: "layouts/footer"
