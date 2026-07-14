@@ -1,17 +1,33 @@
 {{- if .Values.metabase.enabled }}
 {{- $fullName := include "app.fullname" . -}}
-{{- $metabase := .Values.metabase | default dict -}}
-{{- $metabaseIngress := get $metabase "ingress" | default dict -}}
-{{- $metabaseHost := get $metabaseIngress "host" | default (printf "ccq-dashboard-%s.cloud-platform.service.justice.gov.uk" .Values.environment) -}}
-{{- $metabaseAnnotations := merge (dict) (.Values.ingress.annotations | default dict) (get $metabaseIngress "annotations" | default dict) -}}
-{{- $metabaseIngressAllowedIpRanges := get $metabaseIngress "allowed_ip_ranges" | default (list) -}}
-{{- if gt (len $metabaseIngressAllowedIpRanges) 0 -}}
-{{- $metabaseAnnotations = merge $metabaseAnnotations (dict "nginx.ingress.kubernetes.io/whitelist-source-range" (join "," $metabaseIngressAllowedIpRanges)) -}}
+{{- $ingressName := printf "%s-metabase" $fullName -}}
+{{- $metabaseValues := .Values.metabase | default dict -}}
+{{- $metabaseIngressValues := get $metabaseValues "ingress" | default dict -}}
+{{- $metabaseHost := get $metabaseIngressValues "host" | default (printf "ccq-dashboard-%s.cloud-platform.service.justice.gov.uk" .Values.environment) -}}
+
+{{- /* Start with shared ingress annotations, then layer any metabase-specific overrides. */ -}}
+{{- $metabaseAnnotations := merge (dict) (.Values.ingress.annotations | default dict) (get $metabaseIngressValues "annotations" | default dict) -}}
+
+{{- /* Gatekeeper expects: <ingress-name>-<namespace>-<clusterColor>. */ -}}
+{{- $setIdentifierAnnotationKey := "external-dns.alpha.kubernetes.io/set-identifier" -}}
+{{- $clusterColor := "green" -}}
+{{- $sharedSetIdentifier := index $metabaseAnnotations $setIdentifierAnnotationKey | default "" -}}
+
+{{- if ne $sharedSetIdentifier "" -}}
+{{- $clusterColor = last (splitList "-" $sharedSetIdentifier) -}}
+{{- end -}}
+
+{{- $metabaseSetIdentifier := printf "%s-%s-%s" $ingressName .Release.Namespace $clusterColor -}}
+{{- $_ := set $metabaseAnnotations $setIdentifierAnnotationKey $metabaseSetIdentifier -}}
+
+{{- $allowedIpRanges := get $metabaseIngressValues "allowed_ip_ranges" | default (list) -}}
+{{- if gt (len $allowedIpRanges) 0 -}}
+{{- $_ := set $metabaseAnnotations "nginx.ingress.kubernetes.io/whitelist-source-range" (join "," $allowedIpRanges) -}}
 {{- end -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ $fullName }}-metabase
+  name: {{ $ingressName }}
   labels:
     app: {{ template "app.name" . }}
     chart: {{ template "app.chart" . }}
@@ -34,7 +50,7 @@ spec:
             pathType: ImplementationSpecific
             backend:
               service:
-                name: {{ $fullName }}-metabase
+                name: {{ $ingressName }}
                 port:
                   number: 80
 {{- end }}
