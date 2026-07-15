@@ -1,0 +1,9 @@
+# Docker DNS server used for dynamic service discovery in compose
+resolver              127.0.0.11 valid=10s ipv6=off;
+resolver_timeout      5s;
+
+# Re-resolve ccq app container address when it is recreated
+upstream ccq_upstream {
+  zone ccq_upstream 64k;
+  server ${NGINX_UPSTREAM_CCQ_SERVER} resolve;
+}

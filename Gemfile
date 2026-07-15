@@ -114,6 +114,8 @@ end
 
 gem "govuk-components"
 gem "govuk_design_system_formbuilder"
+gem "moj_components", "~> 0.1.0"
+
 gem "faraday"
 gem "faraday-net_http_persistent"
 gem "faraday-retry"

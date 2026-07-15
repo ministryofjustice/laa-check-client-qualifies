@@ -1,5 +1,7 @@
 class ModeConfig
   MODES = %w[standalone embedded].freeze
+  DEFAULT_EMBEDDED_LAYOUT = "application".freeze
+  LAYOUT_PATH_FORMAT = /\A[a-z0-9_\/-]+\z/
 
   DEFAULTS = {
     "standalone" => {
@@ -39,6 +41,20 @@ class ModeConfig
       :redis_cache_store,
       Rails.application.config_for(:redis).symbolize_keys,
     ]
+  end
+
+  def self.embedded_layout
+    raw = ENV.fetch("CCQ_EMBEDDED_LAYOUT", DEFAULT_EMBEDDED_LAYOUT).to_s.strip
+    return DEFAULT_EMBEDDED_LAYOUT if raw.empty?
+
+    segments = raw.split("/")
+    invalid_layout_path = !raw.match?(LAYOUT_PATH_FORMAT) ||
+      raw.start_with?("/") ||
+      segments.any? { |segment| segment.empty? || %w[. ..].include?(segment) }
+
+    raise ArgumentError, "Invalid CCQ_EMBEDDED_LAYOUT: #{raw}" if invalid_layout_path
+
+    raw
   end
 
   DEFAULTS["standalone"].each_key do |capability|

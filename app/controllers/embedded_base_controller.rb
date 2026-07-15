@@ -1,4 +1,6 @@
 class EmbeddedBaseController < ApplicationController
+  layout :embedded_layout_path
+
   skip_before_action :authenticate, :check_maintenance_mode, :specify_feedback_widget, :specify_freetext_feedback_page_name
   after_action :persist_journey_data, if: -> { @session_data_cache.present? }
 
@@ -13,6 +15,18 @@ class EmbeddedBaseController < ApplicationController
   around_action :tag_logs_with_resource_id
 
 private
+
+  def embedded_layout_path
+    layout_path = ModeConfig.embedded_layout
+    return layout_path if embedded_layout_exists?(layout_path)
+
+    raise ArgumentError,
+          "Unknown embedded layout '#{layout_path}'. Expected app/views/layouts/<layout_path>.html.*"
+  end
+
+  def embedded_layout_exists?(layout_path)
+    lookup_context.exists?(layout_path, %w[layouts], false)
+  end
 
   def redirect_to_host_reauthentication(location:)
     if location.blank?

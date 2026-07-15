@@ -7,12 +7,14 @@ services:
       - 8080:8080
     volumes:
       - ./docker/compose/nginx/default.conf.template:/etc/nginx/templates/default.conf.template:ro
+      - ./docker/compose/nginx/docker-upstream.conf.template:/etc/nginx/templates/zz-docker-upstream.conf.template:ro
       - ./docker/compose/nginx/proxy.conf:/etc/nginx/proxy.conf:ro
       - ./docker/compose/nginx/maps.conf:/etc/nginx/maps.conf:ro
     depends_on:
       - ccq-embedded
     environment:
-      NGINX_UPSTREAM_CCQ: ccq-embedded:3000
+      NGINX_UPSTREAM_CCQ: ccq_upstream
+      NGINX_UPSTREAM_CCQ_SERVER: ccq-embedded:3000
 
   ccq-embedded:
     container_name: ccq-embedded
@@ -34,6 +36,7 @@ services:
       DISABLE_SECURE_COOKIES: true
 
       CCQ_MODE: embedded
+      CCQ_EMBEDDED_LAYOUT: rcw/application
       REDIS_URL: redis://redis:6379
       HOST_SERVICE_URL: http://host-service-stub:8080
       HOST_SERVICE_LOAD_ENDPOINT: /api/private/load

@@ -12,6 +12,10 @@ CCQ supports two modes:
 - `CCQ_MODE=standalone` - full service journey (**default**)
 - `CCQ_MODE=embedded` - journey fragment for host services
 
+When running in embedded mode, you can override the layout used by embedded controllers:
+- `CCQ_EMBEDDED_LAYOUT=application` - default embedded layout
+- `CCQ_EMBEDDED_LAYOUT=<layout_path>` - use `app/views/layouts/<layout_path>.html.*` (for namespaced layouts, use `/`, for example `rcw/application`)
+
 ## Dependencies
 ### Runtime versions
 - Ruby `4.0.5` (see `.ruby-version`)
@@ -74,6 +78,11 @@ bin/dev
 #### Run in embedded mode
 ```bash
 CCQ_MODE=embedded bin/dev
+```
+
+#### Run in embedded mode with a host-specific layout
+```bash
+CCQ_MODE=embedded CCQ_EMBEDDED_LAYOUT=rcw/application bin/dev
 ```
 
 ## Run with Docker Compose
