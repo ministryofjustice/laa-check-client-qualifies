@@ -33,11 +33,11 @@ footer.govuk-footer.no-print role="contentinfo"
         path(
           d=small_crown_path
         )
-        
+
     - if cookies[CookiesController::NO_ANALYTICS_MODE]
       p
         strong.govuk-tag = t("layouts.application.footer.no_analytics")
-    
+
     .govuk-footer__meta
       .govuk-footer__meta-item.govuk-footer__meta-item--grow
         svg.govuk-footer__licence-logo[aria-hidden="true"
