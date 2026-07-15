@@ -15,7 +15,11 @@ html dir="ltr" lang="en-GB" class="govuk-template govuk-template--rebranded"
 
     - sign_out_path = "#{root_path}auth/signout"
     = moj_header(organisation_name: t("layouts.application.header.organisation"), url: t("layouts.rcw.service.homepage_url")) do |header|
-      - header.with_navigation_item(text: t("layouts.rcw.header.sign_out"), href: sign_out_path, options: { class: "moj-header__navigation-link govuk-!-font-weight-bold" })
+      - header.with_navigation_item(
+        text: t("layouts.rcw.header.sign_out"),
+        href: sign_out_path,
+        options: { class: "moj-header__navigation-link govuk-!-font-weight-bold" }
+      )
     = govuk_service_navigation(service_name: t("layouts.rcw.service.name"), service_url: root_path) do |service_navigation|
       - service_navigation.with_navigation_item(text: "Your cases", href: "#{root_url}your-cases")
 
