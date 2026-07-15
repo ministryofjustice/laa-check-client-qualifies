@@ -22,5 +22,5 @@ en:
     rcw:
       service:
         name: Record Controlled Work
-        beta_service_html: This is a new service. Help us improve it by <a href="#" target="_blank" id="smart_survey_link_banner">giving your feedback by email</a>.
+        beta_html: This is a new service. Help us improve it by <a href="#" id="feedback_email">giving your feedback by email</a>.
         name_for_page_title: Record Controlled Work | Legal Aid Agency
