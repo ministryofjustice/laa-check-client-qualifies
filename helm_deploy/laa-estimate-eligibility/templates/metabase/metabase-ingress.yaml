@@ -1,28 +1,17 @@
 {{- if .Values.metabase.enabled }}
-{{- $fullName := include "app.fullname" . -}}
-{{- $ingressName := printf "%s-metabase" $fullName -}}
+{{- $ingressName := printf "%s-metabase" (include "app.fullname" .) -}}
 {{- $metabaseValues := .Values.metabase | default dict -}}
-{{- $metabaseIngressValues := get $metabaseValues "ingress" | default dict -}}
-{{- $metabaseHost := get $metabaseIngressValues "host" | default (printf "ccq-dashboard-%s.cloud-platform.service.justice.gov.uk" .Values.environment) -}}
+{{- $metabaseIngress := get $metabaseValues "ingress" | default dict -}}
+{{- $metabaseHost := default (printf "ccq-dashboard-%s.cloud-platform.service.justice.gov.uk" .Values.environment) (get $metabaseIngress "host") -}}
 
-{{- /* Start with shared ingress annotations, then layer any metabase-specific overrides. */ -}}
-{{- $metabaseAnnotations := merge (dict) (.Values.ingress.annotations | default dict) (get $metabaseIngressValues "annotations" | default dict) -}}
+{{- $annotations := merge (dict) (.Values.ingress.annotations | default dict) (get $metabaseIngress "annotations" | default dict) -}}
+{{- $sharedSetIdentifier := get $annotations "external-dns.alpha.kubernetes.io/set-identifier" | default "" -}}
+{{- $clusterColor := ternary (last (splitList "-" $sharedSetIdentifier)) "green" (ne $sharedSetIdentifier "") -}}
 
-{{- /* Gatekeeper expects: <ingress-name>-<namespace>-<clusterColor>. */ -}}
-{{- $setIdentifierAnnotationKey := "external-dns.alpha.kubernetes.io/set-identifier" -}}
-{{- $clusterColor := "green" -}}
-{{- $sharedSetIdentifier := index $metabaseAnnotations $setIdentifierAnnotationKey | default "" -}}
+{{- $_ := set $annotations "external-dns.alpha.kubernetes.io/set-identifier" (printf "%s-%s-%s" $ingressName .Release.Namespace $clusterColor) -}}
 
-{{- if ne $sharedSetIdentifier "" -}}
-{{- $clusterColor = last (splitList "-" $sharedSetIdentifier) -}}
-{{- end -}}
-
-{{- $metabaseSetIdentifier := printf "%s-%s-%s" $ingressName .Release.Namespace $clusterColor -}}
-{{- $_ := set $metabaseAnnotations $setIdentifierAnnotationKey $metabaseSetIdentifier -}}
-
-{{- $allowedIpRanges := get $metabaseIngressValues "allowed_ip_ranges" | default (list) -}}
-{{- if gt (len $allowedIpRanges) 0 -}}
-{{- $_ := set $metabaseAnnotations "nginx.ingress.kubernetes.io/whitelist-source-range" (join "," $allowedIpRanges) -}}
+{{- with get $metabaseIngress "allowed_ip_ranges" -}}
+{{- $_ := set $annotations "nginx.ingress.kubernetes.io/whitelist-source-range" (join "," .) -}}
 {{- end -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -33,7 +22,7 @@ metadata:
     chart: {{ template "app.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
-{{- with $metabaseAnnotations }}
+{{- with $annotations }}
   annotations:
 {{ toYaml . | indent 4 }}
 {{- end }}
