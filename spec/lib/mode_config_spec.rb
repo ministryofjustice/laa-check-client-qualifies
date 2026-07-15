@@ -48,10 +48,10 @@ RSpec.describe "mode_config" do
         expect(ModeConfig.embedded_layout).to eq("host_service")
       end
 
-      it "allows underscore layout names" do
-        allow(ENV).to receive(:fetch).with("CCQ_EMBEDDED_LAYOUT", "application").and_return("application_rcw")
+      it "allows namespaced layout names" do
+        allow(ENV).to receive(:fetch).with("CCQ_EMBEDDED_LAYOUT", "application").and_return("rcw/application")
 
-        expect(ModeConfig.embedded_layout).to eq("application_rcw")
+        expect(ModeConfig.embedded_layout).to eq("rcw/application")
       end
 
       it "falls back to default when configured value is blank" do

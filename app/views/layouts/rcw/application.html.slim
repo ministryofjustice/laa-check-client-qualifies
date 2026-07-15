@@ -1,7 +1,7 @@
 doctype html
 html dir="ltr" lang="en-GB" class="govuk-template govuk-template--rebranded"
   head
-    = render "layouts/shared/header_rcw"
+    = render "layouts/rcw/header"
     body.govuk-template__body[
       data-sentry-dsn=(Rails.configuration.sentry_dsn if FeatureFlags.enabled?(:sentry, without_session_data: true))
     ]

@@ -14,7 +14,7 @@ CCQ supports two modes:
 
 When running in embedded mode, you can override the layout used by embedded controllers:
 - `CCQ_EMBEDDED_LAYOUT=application` - default embedded layout
-- `CCQ_EMBEDDED_LAYOUT=<layout_name>` - use `app/views/layouts/<layout_name>.html.*`
+- `CCQ_EMBEDDED_LAYOUT=<layout_name>` - use `app/views/layouts/<layout_name>.html.*` (for namespaced layouts, use `/`, for example `rcw/application`)
 
 ## Dependencies
 ### Runtime versions
@@ -82,7 +82,7 @@ CCQ_MODE=embedded bin/dev
 
 #### Run in embedded mode with a host-specific layout
 ```bash
-CCQ_MODE=embedded CCQ_EMBEDDED_LAYOUT=host_service bin/dev
+CCQ_MODE=embedded CCQ_EMBEDDED_LAYOUT=rcw/application bin/dev
 ```
 
 ## Run with Docker Compose

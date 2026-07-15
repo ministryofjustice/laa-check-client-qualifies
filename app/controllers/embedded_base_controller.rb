@@ -24,7 +24,7 @@ private
   end
 
   def embedded_layout_exists?(layout_name)
-    lookup_context.exists?(layout_name, "layouts", false)
+    lookup_context.exists?(layout_name, %w[layouts], false)
   end
 
   def redirect_to_host_reauthentication(location:)
