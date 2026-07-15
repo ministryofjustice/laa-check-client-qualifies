@@ -206,6 +206,7 @@ jobs:
           name: Run tests
           environment:
             CCQ_MODE: embedded
+            CCQ_EMBEDDED_LAYOUT: rcw/application
             DISABLE_BOOTSNAP: 1
             PARALLEL_TEST_PROCESSORS: 3
           command: |
