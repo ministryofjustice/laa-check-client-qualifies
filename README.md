@@ -14,7 +14,7 @@ CCQ supports two modes:
 
 When running in embedded mode, you can override the layout used by embedded controllers:
 - `CCQ_EMBEDDED_LAYOUT=application` - default embedded layout
-- `CCQ_EMBEDDED_LAYOUT=<layout_name>` - use `app/views/layouts/<layout_name>.html.*` (for namespaced layouts, use `/`, for example `rcw/application`)
+- `CCQ_EMBEDDED_LAYOUT=<layout_path>` - use `app/views/layouts/<layout_path>.html.*` (for namespaced layouts, use `/`, for example `rcw/application`)
 
 ## Dependencies
 ### Runtime versions

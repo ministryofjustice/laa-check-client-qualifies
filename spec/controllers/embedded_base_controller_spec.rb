@@ -67,7 +67,7 @@ RSpec.describe EmbeddedBaseController, ccq_mode: :embedded, type: :controller do
     end
   end
 
-  describe "#embedded_layout_name", :embedded_only do
+  describe "#embedded_layout_path", :embedded_only do
     let(:lookup_context) { instance_double(ActionView::LookupContext) }
 
     before do
@@ -78,14 +78,14 @@ RSpec.describe EmbeddedBaseController, ccq_mode: :embedded, type: :controller do
       allow(ModeConfig).to receive(:embedded_layout).and_return("application")
       allow(lookup_context).to receive(:exists?).with("application", %w[layouts], false).and_return(true)
 
-      expect(controller.send(:embedded_layout_name)).to eq("application")
+      expect(controller.send(:embedded_layout_path)).to eq("application")
     end
 
     it "returns a namespaced layout name when it exists" do
       allow(ModeConfig).to receive(:embedded_layout).and_return("rcw/application")
       allow(lookup_context).to receive(:exists?).with("rcw/application", %w[layouts], false).and_return(true)
 
-      expect(controller.send(:embedded_layout_name)).to eq("rcw/application")
+      expect(controller.send(:embedded_layout_path)).to eq("rcw/application")
     end
 
     it "raises an error when the configured layout does not exist" do
@@ -93,8 +93,11 @@ RSpec.describe EmbeddedBaseController, ccq_mode: :embedded, type: :controller do
       allow(lookup_context).to receive(:exists?).with("host_service", %w[layouts], false).and_return(false)
 
       expect {
-        controller.send(:embedded_layout_name)
-      }.to raise_error(ArgumentError, "Unknown embedded layout 'host_service'. Expected app/views/layouts/host_service.html.*")
+        controller.send(:embedded_layout_path)
+      }.to raise_error(
+        ArgumentError,
+        "Unknown embedded layout 'host_service'. Expected app/views/layouts/<layout_path>.html.*",
+      )
     end
   end
 

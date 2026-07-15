@@ -1,7 +1,7 @@
 class ModeConfig
   MODES = %w[standalone embedded].freeze
   DEFAULT_EMBEDDED_LAYOUT = "application".freeze
-  LAYOUT_NAME_FORMAT = /\A[a-z0-9_\/-]+\z/
+  LAYOUT_PATH_FORMAT = /\A[a-z0-9_\/-]+\z/
 
   DEFAULTS = {
     "standalone" => {
@@ -48,11 +48,11 @@ class ModeConfig
     return DEFAULT_EMBEDDED_LAYOUT if raw.empty?
 
     segments = raw.split("/")
-    invalid_layout_name = !raw.match?(LAYOUT_NAME_FORMAT) ||
+    invalid_layout_path = !raw.match?(LAYOUT_PATH_FORMAT) ||
       raw.start_with?("/") ||
       segments.any? { |segment| segment.empty? || %w[. ..].include?(segment) }
 
-    raise ArgumentError, "Invalid CCQ_EMBEDDED_LAYOUT: #{raw}" if invalid_layout_name
+    raise ArgumentError, "Invalid CCQ_EMBEDDED_LAYOUT: #{raw}" if invalid_layout_path
 
     raw
   end
