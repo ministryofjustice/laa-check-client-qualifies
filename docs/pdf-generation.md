@@ -20,17 +20,30 @@ PDF rendering has specific accessibility accommodations:
 - Helper methods in `results_helper.rb` construct PDF-friendly markup and remove styles that reduce screenreader clarity.
 - Numeric table cells for PDFs should use the helper method `pdf_friendly_numeric_table_cell`.
 
-## Manual Puppeteer upgrade process
+## Puppeteer upgrade process
 
-Puppeteer is pinned and occasionally requires manual upgrades as Chrome changes.
+Puppeteer is pinned and occasionally requires upgrades as Chrome changes.
 
-Typical steps:
+Use the workflow-based process as the source of truth:
 
-1. Create a branch named for the Puppeteer upgrade (for example `puppeteer-24xx`).
+1. Open GitHub Actions and run `Puppeteer upgrade PR`.
+2. Set `puppeteer_version` (for example `25.2.1`).
+3. Leave `base_branch` as `main` unless you need a different target.
+4. The workflow updates `package.json`, `Dockerfile_browser_tools.dockerfile`, `yarn.lock`, and `.circleci/config.yml`, then creates or updates a PR.
+5. Review and merge once CI is green.
+
+### Browser tools image publish trigger
+
+The browser-tools image is pushed by `.github/workflows/browser_tools_docker_image.yml` when the upgrade branch is pushed.
+
+If that workflow is still configured with explicit branch names, ensure the generated branch (for example `puppeteer-2521`) is included in the trigger list.
+
+Manual fallback (if the workflow cannot be used):
+
+1. Create a `puppeteer-*` branch.
 2. Update `Dockerfile_browser_tools.dockerfile` and `package.json`.
-3. Run `yarn install` to update `yarn.lock`.
-4. Add the branch name in `.github/workflows/browser_tools_docker_image.yml` to publish the image.
-5. Update `.circleci/config.yml` to reference the new browser-tools image.
+3. Run `yarn install`.
+4. Update `.circleci/config.yml` to use the matching `checkclientqualifiesdocker/circleci-image:<branch-name>` tag.
 
 Reference PR example:
 
