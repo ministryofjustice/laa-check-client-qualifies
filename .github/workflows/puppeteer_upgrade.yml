@@ -73,19 +73,16 @@ jobs:
           corepack enable
           corepack prepare yarn@1.22.22 --activate
 
-          node <<'NODE'
-          const fs = require('fs');
-          const packageJsonPath = 'package.json';
-          const version = process.env.PUPPETEER_VERSION;
-          const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
-          packageJson.dependencies.puppeteer = version;
-          fs.writeFileSync(packageJsonPath, `${JSON.stringify(packageJson, null, 2)}\n`);
-          NODE
+          yarn add --exact "puppeteer@${PUPPETEER_VERSION}" --non-interactive --ignore-scripts
 
-            perl -0pi -e "s/RUN yarn add puppeteer@[^\\s]+/RUN yarn add puppeteer@${PUPPETEER_VERSION}/" Dockerfile_browser_tools.dockerfile
-            perl -0pi -e "s#(checkclientqualifiesdocker/circleci-image:)puppeteer-[0-9]+#\\1${IMAGE_TAG}#g" .circleci/config.yml
+          # Align requested version with browser-tools Dockerfile Puppeteer pinned version.
+          sed -E -i "s|RUN yarn add puppeteer@[^[:space:]]+|RUN yarn add puppeteer@${PUPPETEER_VERSION}|" Dockerfile_browser_tools.dockerfile
 
-          yarn install --non-interactive --ignore-scripts
+          # Align requested version branch with CircleCI's test image tag.
+          sed -E -i "s|(checkclientqualifiesdocker/circleci-image:)puppeteer-[0-9]+|\\1${IMAGE_TAG}|g" .circleci/config.yml
+
+          # Align requested version branch with browser-tools image workflow branch trigger.
+          sed -E -i "s|^([[:space:]]*-[[:space:]]*)['\"]?puppeteer-[0-9]+['\"]?$|\\1${IMAGE_TAG}|" .github/workflows/browser_tools_docker_image.yml
 
       - name: Commit and push changes
         id: commit_changes
@@ -99,7 +96,7 @@ jobs:
             exit 0
           fi
 
-          git add package.json Dockerfile_browser_tools.dockerfile yarn.lock .circleci/config.yml
+          git add package.json Dockerfile_browser_tools.dockerfile yarn.lock .circleci/config.yml .github/workflows/browser_tools_docker_image.yml
           git commit -m "chore: bump puppeteer to ${PUPPETEER_VERSION}"
           git push --force-with-lease origin "$BRANCH_NAME"
 
@@ -115,8 +112,9 @@ jobs:
           Changes made:
           - package.json Puppeteer dependency set to ${PUPPETEER_VERSION}
           - Dockerfile_browser_tools.dockerfile Puppeteer pin updated
-          - yarn.lock refreshed with yarn install
+          - yarn.lock refreshed with yarn add --exact puppeteer@${PUPPETEER_VERSION}
           - .circleci/config.yml test image updated to ${IMAGE_TAG}
+          - .github/workflows/browser_tools_docker_image.yml branch trigger updated to ${IMAGE_TAG}
 
           The browser tools image workflow will push:
           - checkclientqualifiesdocker/circleci-image:${IMAGE_TAG}
