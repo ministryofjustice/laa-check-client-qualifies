@@ -1,4 +1,5 @@
 # CCQ (Check if your client qualifies for legal aid)
+[![Ministry of Justice Repository Compliance Badge](https://github-community.service.justice.gov.uk/repository-standards/api/laa-check-client-qualifies/badge)](https://github-community.service.justice.gov.uk/repository-standards/laa-check-client-qualifies)
 
 CCQ is a Rails application used by legal aid providers to check client eligibility.
 
