@@ -45,6 +45,10 @@ class EmbeddedResultsController < EmbeddedBaseController
       journey_store.delete # clean up Redis
       @session_data_cache = nil
       redirect_to return_url, allow_other_host: true
+    when 302
+      redirect_to_host_reauthentication(
+        location: response.headers["location"] || response.headers["Location"],
+      )
     when 401
       render "errors/session_expired", status: :unauthorized
     when 403

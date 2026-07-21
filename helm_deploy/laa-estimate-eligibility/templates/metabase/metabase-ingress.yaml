@@ -1,0 +1,45 @@
+{{- if .Values.metabase.enabled }}
+{{- $ingressName := printf "%s-metabase" (include "app.fullname" .) -}}
+{{- $metabaseValues := .Values.metabase | default dict -}}
+{{- $metabaseIngress := get $metabaseValues "ingress" | default dict -}}
+{{- $metabaseHost := default (printf "ccq-dashboard-%s.cloud-platform.service.justice.gov.uk" .Values.environment) (get $metabaseIngress "host") -}}
+
+{{- $annotations := merge (dict) (.Values.ingress.annotations | default dict) (get $metabaseIngress "annotations" | default dict) -}}
+{{- $sharedSetIdentifier := get $annotations "external-dns.alpha.kubernetes.io/set-identifier" | default "" -}}
+{{- $clusterColor := ternary (last (splitList "-" $sharedSetIdentifier)) "green" (ne $sharedSetIdentifier "") -}}
+
+{{- $_ := set $annotations "external-dns.alpha.kubernetes.io/set-identifier" (printf "%s-%s-%s" $ingressName .Release.Namespace $clusterColor) -}}
+
+{{- with get $metabaseIngress "allowed_ip_ranges" -}}
+{{- $_ := set $annotations "nginx.ingress.kubernetes.io/whitelist-source-range" (join "," .) -}}
+{{- end -}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ $ingressName }}
+  labels:
+    app: {{ template "app.name" . }}
+    chart: {{ template "app.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+{{- with $annotations }}
+  annotations:
+{{ toYaml . | indent 4 }}
+{{- end }}
+spec:
+  ingressClassName: default
+  tls:
+    - hosts:
+        - '{{ $metabaseHost }}'
+  rules:
+    - host: '{{ $metabaseHost }}'
+      http:
+        paths:
+          - path: "/"
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: {{ $ingressName }}
+                port:
+                  number: 80
+{{- end }}

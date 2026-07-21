@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.3.7"
+ruby "4.0.5"
 
 # TODO: gem profile for :standalone and new Embedded.dockerfile which excludes standalone gems
 
@@ -54,6 +54,7 @@ gem "govuk_notify_rails", "~> 3.0.0"
 
 gem "pdf-forms"
 gem "rexml", ">= 3.3.4"
+gem "ostruct"
 gem "factory_bot_rails"
 
 gem "devise"
@@ -113,6 +114,8 @@ end
 
 gem "govuk-components"
 gem "govuk_design_system_formbuilder"
+gem "moj_components", "~> 0.1.0"
+
 gem "faraday"
 gem "faraday-net_http_persistent"
 gem "faraday-retry"

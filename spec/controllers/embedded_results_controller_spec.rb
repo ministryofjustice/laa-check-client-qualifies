@@ -25,6 +25,15 @@ RSpec.describe EmbeddedResultsController, ccq_mode: :embedded, type: :controller
       expect(assigns(:model)).to be_a(CalculationResult)
       expect(assigns(:model).level_of_help).to eq("certificated")
     end
+
+    it "renders without standalone route helpers" do
+      allow(controller).to receive(:respond_to?).and_call_original
+      allow(controller).to receive(:respond_to?).with(:download_result_path, any_args).and_return(false)
+      allow(controller).to receive(:respond_to?).with(:new_check_path, any_args).and_return(false)
+
+      expect { get :show, params: { resource_id: } }.not_to raise_error
+      expect(response).to render_template("results/show")
+    end
   end
 
   describe "POST #create", :embedded_only do
@@ -145,6 +154,56 @@ RSpec.describe EmbeddedResultsController, ccq_mode: :embedded, type: :controller
       post :complete, params: { resource_id: }
       expect(response).to have_http_status(:unauthorized)
       expect(response).to render_template("errors/session_expired")
+    end
+
+    it "redirects to host reauthentication when the host service returns 302" do
+      allow(host_service_client).to receive(:save).and_return(
+        double(status: 302, headers: { "location" => "https://test.host/auth/sign-in?foo=bar" }),
+      )
+      request.env["HTTP_REFERER"] = "http://test.host/cases/#{resource_id}/eligibility/check-result"
+
+      post :complete, params: { resource_id: }
+
+      redirect_uri = URI.parse(response.location)
+      query_params = Rack::Utils.parse_nested_query(redirect_uri.query)
+
+      expect(redirect_uri.to_s).to start_with("https://test.host/auth/sign-in")
+      expect(query_params["foo"]).to eq("bar")
+      expect(query_params["returnTo"]).to eq("/cases/#{resource_id}/eligibility/complete")
+    end
+
+    it "uses the current request path even when referer is missing" do
+      allow(host_service_client).to receive(:save).and_return(
+        double(status: 302, headers: { "location" => "https://test.host/auth/sign-in" }),
+      )
+      request.env.delete("HTTP_REFERER")
+
+      post :complete, params: { resource_id: }
+
+      redirect_uri = URI.parse(response.location)
+      query_params = Rack::Utils.parse_nested_query(redirect_uri.query)
+
+      expect(query_params["returnTo"]).to eq("/cases/#{resource_id}/eligibility/complete")
+    end
+
+    it "renders service unavailable when host reauthentication redirect location host is unexpected" do
+      allow(host_service_client).to receive(:save).and_return(
+        double(status: 302, headers: { "location" => "https://login.example.com/auth/sign-in" }),
+      )
+
+      post :complete, params: { resource_id: }
+
+      expect(response).to have_http_status(:service_unavailable)
+      expect(response).to render_template("errors/service_unavailable")
+    end
+
+    it "renders service unavailable when host reauthentication redirect location is missing" do
+      allow(host_service_client).to receive(:save).and_return(double(status: 302, headers: {}))
+
+      post :complete, params: { resource_id: }
+
+      expect(response).to have_http_status(:service_unavailable)
+      expect(response).to render_template("errors/service_unavailable")
     end
 
     it "renders the access denied page if the host service returns 403" do
