@@ -3,12 +3,38 @@ on:
   push:
     branches:
       - main
-      - puppeteer-2521
+      - puppeteer-*
+    paths:
+      - Dockerfile_browser_tools.dockerfile
+
+permissions:
+  contents: read
 
 jobs:
   build-push:
     runs-on: ubuntu-latest
     steps:
+      - name: Validate branch and actor policy
+        run: |
+          set -eu
+
+          ref_name="${GITHUB_REF_NAME}"
+          actor="${GITHUB_ACTOR}"
+
+          if [ "${ref_name}" = "main" ]; then
+            exit 0
+          fi
+
+          if ! echo "${ref_name}" | grep -Eq '^puppeteer-[0-9]+\.[0-9]+\.[0-9]+$'; then
+            echo "Ref '${ref_name}' is not an allowed Puppeteer branch format." >&2
+            exit 1
+          fi
+
+          if [ "${actor}" != "github-actions[bot]" ]; then
+            echo "Puppeteer branch publishes must be pushed by github-actions[bot], got '${actor}'." >&2
+            exit 1
+          fi
+
       - name: Login to Docker Hub
         uses: docker/login-action@af1e73f918a031802d376d3c8bbc3fe56130a9b0 # v4.4.0
         with:
