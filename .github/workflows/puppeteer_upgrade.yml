@@ -40,17 +40,8 @@ jobs:
             exit 1
           fi
 
-          major="${PUPPETEER_VERSION%%.*}"
-          rest="${PUPPETEER_VERSION#*.}"
-          minor="${rest%%.*}"
-          patch="${PUPPETEER_VERSION##*.}"
-
-          tag_suffix="${major}${minor}"
-          if [[ "$patch" != "0" ]]; then
-            tag_suffix="${tag_suffix}${patch}"
-          fi
-
-          branch_name="puppeteer-${tag_suffix}"
+          # Use semver directly for clarity (for example puppeteer-25.2.0).
+          branch_name="puppeteer-${PUPPETEER_VERSION}"
 
           echo "IMAGE_TAG=${branch_name}" >> "$GITHUB_ENV"
           echo "BRANCH_NAME=${branch_name}" >> "$GITHUB_ENV"
