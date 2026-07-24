@@ -7,13 +7,9 @@ on:
         description: Puppeteer version to upgrade to (example 25.2.1)
         required: true
         type: string
-      base_branch:
-        description: Base branch for the PR
-        required: false
-        default: main
-        type: string
 
 permissions:
+  actions: write
   contents: write
   pull-requests: write
 
@@ -23,17 +19,22 @@ jobs:
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       PUPPETEER_VERSION: ${{ inputs.puppeteer_version }}
-      BASE_BRANCH: ${{ inputs.base_branch }}
+      BASE_BRANCH: main
     steps:
       - name: Checkout base branch
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
-          ref: ${{ inputs.base_branch }}
+          ref: main
           fetch-depth: 0
 
       - name: Validate input and derive branch metadata
         run: |
           set -euo pipefail
+
+          if [ "${GITHUB_REF_NAME}" != "main" ]; then
+            echo "This workflow must be dispatched from main (got '${GITHUB_REF_NAME}')." >&2
+            exit 1
+          fi
 
           if ! [[ "$PUPPETEER_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
             echo "Invalid version '$PUPPETEER_VERSION'. Expected semver like 25.2.1" >&2
@@ -87,6 +88,48 @@ jobs:
           git add package.json Dockerfile_browser_tools.dockerfile yarn.lock .circleci/config.yml
           git commit -m "chore: bump puppeteer to ${PUPPETEER_VERSION}"
           git push --force-with-lease origin "$BRANCH_NAME"
+
+      - name: Trigger browser tools image build workflow
+        id: dispatch_browser_tools
+        if: steps.commit_changes.outputs.skip_pr != 'true'
+        run: |
+          set -euo pipefail
+
+          dispatch_marker="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          echo "dispatch_marker=${dispatch_marker}" >> "$GITHUB_OUTPUT"
+
+          gh workflow run browser_tools_docker_image.yml --ref "$BRANCH_NAME"
+
+      - name: Wait for browser tools image build workflow
+        if: steps.commit_changes.outputs.skip_pr != 'true'
+        env:
+          DISPATCH_MARKER: ${{ steps.dispatch_browser_tools.outputs.dispatch_marker }}
+        run: |
+          set -euo pipefail
+
+          run_id=""
+          for _ in $(seq 1 30); do
+            run_id="$(gh run list \
+              --workflow browser_tools_docker_image.yml \
+              --branch "$BRANCH_NAME" \
+              --event workflow_dispatch \
+              --limit 20 \
+              --json databaseId,createdAt \
+              --jq ".[] | select(.createdAt >= \"${DISPATCH_MARKER}\") | .databaseId" | head -n1)"
+
+            if [ -n "${run_id}" ]; then
+              break
+            fi
+
+            sleep 10
+          done
+
+          if [ -z "${run_id}" ]; then
+            echo "Unable to find dispatched browser_tools_docker_image workflow run for ${BRANCH_NAME}." >&2
+            exit 1
+          fi
+
+          gh run watch "${run_id}" --exit-status
 
       - name: Create or update pull request
         if: steps.commit_changes.outputs.skip_pr != 'true'

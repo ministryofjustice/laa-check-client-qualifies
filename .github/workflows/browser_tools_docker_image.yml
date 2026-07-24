@@ -6,6 +6,7 @@ on:
       - puppeteer-*
     paths:
       - Dockerfile_browser_tools.dockerfile
+  workflow_dispatch:
 
 permissions:
   contents: read
