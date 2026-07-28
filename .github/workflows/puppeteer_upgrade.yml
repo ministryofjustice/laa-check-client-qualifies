@@ -7,33 +7,38 @@ on:
         description: Puppeteer version to upgrade to (example 25.2.1)
         required: true
         type: string
-      base_branch:
-        description: Base branch for the PR
-        required: false
-        default: main
-        type: string
 
 permissions:
   contents: write
   pull-requests: write
 
 jobs:
-  create-upgrade-pr:
+  prepare-upgrade:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash --noprofile --norc -euo pipefail {0}
+    outputs:
+      skip_pr: ${{ steps.commit_changes.outputs.skip_pr }}
+      branch_name: ${{ steps.meta.outputs.branch_name }}
+      image_tag: ${{ steps.meta.outputs.image_tag }}
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       PUPPETEER_VERSION: ${{ inputs.puppeteer_version }}
-      BASE_BRANCH: ${{ inputs.base_branch }}
     steps:
       - name: Checkout base branch
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
-          ref: ${{ inputs.base_branch }}
+          ref: main
           fetch-depth: 0
 
       - name: Validate input and derive branch metadata
+        id: meta
         run: |
-          set -euo pipefail
+          if [ "${GITHUB_REF_NAME}" != "main" ]; then
+            echo "This workflow must be dispatched from main (got '${GITHUB_REF_NAME}')." >&2
+            exit 1
+          fi
 
           if ! [[ "$PUPPETEER_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
             echo "Invalid version '$PUPPETEER_VERSION'. Expected semver like 25.2.1" >&2
@@ -43,6 +48,8 @@ jobs:
           # Use semver directly for clarity (for example puppeteer-25.2.0).
           branch_name="puppeteer-${PUPPETEER_VERSION}"
 
+          echo "branch_name=${branch_name}" >> "$GITHUB_OUTPUT"
+          echo "image_tag=${branch_name}" >> "$GITHUB_OUTPUT"
           echo "IMAGE_TAG=${branch_name}" >> "$GITHUB_ENV"
           echo "BRANCH_NAME=${branch_name}" >> "$GITHUB_ENV"
 
@@ -53,14 +60,11 @@ jobs:
 
       - name: Create or reset upgrade branch
         run: |
-          set -euo pipefail
-          git fetch origin "$BASE_BRANCH"
-          git checkout -B "$BRANCH_NAME" "origin/$BASE_BRANCH"
+          git fetch origin main
+          git checkout -B "$BRANCH_NAME" "origin/main"
 
       - name: Enable Yarn and update pinned versions
         run: |
-          set -euo pipefail
-
           corepack enable
           corepack prepare yarn@1.22.22 --activate
 
@@ -75,7 +79,6 @@ jobs:
       - name: Commit and push changes
         id: commit_changes
         run: |
-          set -euo pipefail
           echo "skip_pr=false" >> "$GITHUB_OUTPUT"
 
           if git diff --quiet; then
@@ -88,11 +91,36 @@ jobs:
           git commit -m "chore: bump puppeteer to ${PUPPETEER_VERSION}"
           git push --force-with-lease origin "$BRANCH_NAME"
 
-      - name: Create or update pull request
-        if: steps.commit_changes.outputs.skip_pr != 'true'
-        run: |
-          set -euo pipefail
+  build-browser-tools-image:
+    needs: prepare-upgrade
+    if: needs.prepare-upgrade.outputs.skip_pr != 'true'
+    permissions:
+      contents: read
+    uses: ./.github/workflows/browser-tools-docker-image-reusable.yml
+    with:
+      source_ref: ${{ needs.prepare-upgrade.outputs.branch_name }}
+      image_tag: ${{ needs.prepare-upgrade.outputs.image_tag }}
+      source_actor: ${{ github.actor }}
+      enforce_actor_policy: false
+    secrets: inherit
 
+  create-upgrade-pr:
+    needs:
+      - prepare-upgrade
+      - build-browser-tools-image
+    if: needs.prepare-upgrade.outputs.skip_pr != 'true' && needs.build-browser-tools-image.result == 'success'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash --noprofile --norc -euo pipefail {0}
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      PUPPETEER_VERSION: ${{ inputs.puppeteer_version }}
+      BRANCH_NAME: ${{ needs.prepare-upgrade.outputs.branch_name }}
+      IMAGE_TAG: ${{ needs.prepare-upgrade.outputs.image_tag }}
+    steps:
+      - name: Create or update pull request
+        run: |
           pr_title="chore: bump puppeteer to ${PUPPETEER_VERSION}"
           pr_body=$(cat <<EOF
           Automated Puppeteer upgrade via GitHub Actions.
@@ -108,9 +136,9 @@ jobs:
           EOF
           )
 
-          existing_pr=$(gh pr list --state open --head "$BRANCH_NAME" --base "$BASE_BRANCH" --json number --jq '.[0].number')
+          existing_pr=$(gh pr list --state open --head "$BRANCH_NAME" --base main --json number --jq '.[0].number')
           if [[ -n "$existing_pr" && "$existing_pr" != "null" ]]; then
             gh pr edit "$existing_pr" --title "$pr_title" --body "$pr_body"
           else
-            gh pr create --base "$BASE_BRANCH" --head "$BRANCH_NAME" --title "$pr_title" --body "$pr_body"
+            gh pr create --base main --head "$BRANCH_NAME" --title "$pr_title" --body "$pr_body"
           fi
