@@ -13,38 +13,10 @@ permissions:
 
 jobs:
   build-push:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Validate branch and actor policy
-        run: |
-          set -eu
-
-          ref_name="${GITHUB_REF_NAME}"
-          actor="${GITHUB_ACTOR}"
-
-          if [ "${ref_name}" = "main" ]; then
-            exit 0
-          fi
-
-          if ! echo "${ref_name}" | grep -Eq '^puppeteer-[0-9]+\.[0-9]+\.[0-9]+$'; then
-            echo "Ref '${ref_name}' is not an allowed Puppeteer branch format." >&2
-            exit 1
-          fi
-
-          if [ "${actor}" != "github-actions[bot]" ]; then
-            echo "Puppeteer branch publishes must be pushed by github-actions[bot], got '${actor}'." >&2
-            exit 1
-          fi
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@af1e73f918a031802d376d3c8bbc3fe56130a9b0 # v4.4.0
-        with:
-          username: ${{ secrets.DOCKERHUB_USER_CCQ }}
-          password: ${{ secrets.DOCKERHUB_PAT_CCQ }}
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
-      - name: Build the Docker image
-        run: |
-          docker build -f ./Dockerfile_browser_tools.dockerfile . -t checkclientqualifiesdocker/circleci-image:${{ github.ref_name }}
-      - name: Push the Docker image
-        run: |
-          docker push checkclientqualifiesdocker/circleci-image:${{ github.ref_name }}
+    uses: ./.github/workflows/browser-tools-docker-image-reusable.yml
+    with:
+      source_ref: ${{ github.ref_name }}
+      image_tag: ${{ github.ref_name }}
+      source_actor: ${{ github.actor }}
+      enforce_actor_policy: true
+    secrets: inherit

@@ -1,0 +1,72 @@
+name: "Browsertools docker image reusable"
+
+on:
+  workflow_call:
+    inputs:
+      source_ref:
+        description: Branch or ref to checkout for building the browser tools image.
+        required: true
+        type: string
+      image_tag:
+        description: Docker image tag to publish.
+        required: true
+        type: string
+      source_actor:
+        description: Actor from caller workflow for policy checks.
+        required: false
+        default: ""
+        type: string
+      enforce_actor_policy:
+        description: Enforce github-actions[bot] actor policy for Puppeteer branches.
+        required: false
+        default: true
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  build-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate branch and actor policy
+        run: |
+          set -eu
+
+          ref_name='${{ inputs.source_ref }}'
+          actor='${{ inputs.source_actor }}'
+          if [ -z "${actor}" ]; then
+            actor="${GITHUB_ACTOR}"
+          fi
+
+          if [ "${ref_name}" = "main" ]; then
+            exit 0
+          fi
+
+          if ! echo "${ref_name}" | grep -Eq '^puppeteer-[0-9]+\.[0-9]+\.[0-9]+$'; then
+            echo "Ref '${ref_name}' is not an allowed Puppeteer branch format." >&2
+            exit 1
+          fi
+
+          if [ '${{ inputs.enforce_actor_policy }}' = 'true' ] && [ "${actor}" != "github-actions[bot]" ]; then
+            echo "Puppeteer branch publishes must be pushed by github-actions[bot], got '${actor}'." >&2
+            exit 1
+          fi
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@af1e73f918a031802d376d3c8bbc3fe56130a9b0 # v4.4.0
+        with:
+          username: ${{ secrets.DOCKERHUB_USER_CCQ }}
+          password: ${{ secrets.DOCKERHUB_PAT_CCQ }}
+
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          ref: ${{ inputs.source_ref }}
+
+      - name: Build the Docker image
+        run: |
+          docker build -f ./Dockerfile_browser_tools.dockerfile . -t checkclientqualifiesdocker/circleci-image:${{ inputs.image_tag }}
+
+      - name: Push the Docker image
+        run: |
+          docker push checkclientqualifiesdocker/circleci-image:${{ inputs.image_tag }}

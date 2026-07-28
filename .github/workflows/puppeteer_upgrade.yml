@@ -9,16 +9,19 @@ on:
         type: string
 
 permissions:
-  actions: write
   contents: write
   pull-requests: write
 
 jobs:
-  create-upgrade-pr:
+  prepare-upgrade:
     runs-on: ubuntu-latest
     defaults:
       run:
         shell: bash --noprofile --norc -euo pipefail {0}
+    outputs:
+      skip_pr: ${{ steps.commit_changes.outputs.skip_pr }}
+      branch_name: ${{ steps.meta.outputs.branch_name }}
+      image_tag: ${{ steps.meta.outputs.image_tag }}
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       PUPPETEER_VERSION: ${{ inputs.puppeteer_version }}
@@ -30,7 +33,13 @@ jobs:
           fetch-depth: 0
 
       - name: Validate input and derive branch metadata
+        id: meta
         run: |
+          if [ "${GITHUB_REF_NAME}" != "main" ]; then
+            echo "This workflow must be dispatched from main (got '${GITHUB_REF_NAME}')." >&2
+            exit 1
+          fi
+
           if ! [[ "$PUPPETEER_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
             echo "Invalid version '$PUPPETEER_VERSION'. Expected semver like 25.2.1" >&2
             exit 1
@@ -39,6 +48,8 @@ jobs:
           # Use semver directly for clarity (for example puppeteer-25.2.0).
           branch_name="puppeteer-${PUPPETEER_VERSION}"
 
+          echo "branch_name=${branch_name}" >> "$GITHUB_OUTPUT"
+          echo "image_tag=${branch_name}" >> "$GITHUB_OUTPUT"
           echo "IMAGE_TAG=${branch_name}" >> "$GITHUB_ENV"
           echo "BRANCH_NAME=${branch_name}" >> "$GITHUB_ENV"
 
@@ -80,50 +91,35 @@ jobs:
           git commit -m "chore: bump puppeteer to ${PUPPETEER_VERSION}"
           git push --force-with-lease origin "$BRANCH_NAME"
 
-      - name: Trigger browser tools image build workflow
-        id: dispatch_browser_tools
-        if: steps.commit_changes.outputs.skip_pr != 'true'
-        run: |
-          set -euo pipefail
+  build-browser-tools-image:
+    needs: prepare-upgrade
+    if: needs.prepare-upgrade.outputs.skip_pr != 'true'
+    permissions:
+      contents: read
+    uses: ./.github/workflows/browser-tools-docker-image-reusable.yml
+    with:
+      source_ref: ${{ needs.prepare-upgrade.outputs.branch_name }}
+      image_tag: ${{ needs.prepare-upgrade.outputs.image_tag }}
+      source_actor: ${{ github.actor }}
+      enforce_actor_policy: false
+    secrets: inherit
 
-          dispatch_marker="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-          echo "dispatch_marker=${dispatch_marker}" >> "$GITHUB_OUTPUT"
-
-          gh workflow run browser_tools_docker_image.yml --ref "$BRANCH_NAME"
-
-      - name: Wait for browser tools image build workflow
-        if: steps.commit_changes.outputs.skip_pr != 'true'
-        env:
-          DISPATCH_MARKER: ${{ steps.dispatch_browser_tools.outputs.dispatch_marker }}
-        run: |
-          set -euo pipefail
-
-          run_id=""
-          for _ in $(seq 1 30); do
-            run_id="$(gh run list \
-              --workflow browser_tools_docker_image.yml \
-              --branch "$BRANCH_NAME" \
-              --event workflow_dispatch \
-              --limit 20 \
-              --json databaseId,createdAt \
-              --jq ".[] | select(.createdAt >= \"${DISPATCH_MARKER}\") | .databaseId" | head -n1)"
-
-            if [ -n "${run_id}" ]; then
-              break
-            fi
-
-            sleep 10
-          done
-
-          if [ -z "${run_id}" ]; then
-            echo "Unable to find dispatched browser_tools_docker_image workflow run for ${BRANCH_NAME}." >&2
-            exit 1
-          fi
-
-          gh run watch "${run_id}" --exit-status
-
+  create-upgrade-pr:
+    needs:
+      - prepare-upgrade
+      - build-browser-tools-image
+    if: needs.prepare-upgrade.outputs.skip_pr != 'true' && needs.build-browser-tools-image.result == 'success'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash --noprofile --norc -euo pipefail {0}
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      PUPPETEER_VERSION: ${{ inputs.puppeteer_version }}
+      BRANCH_NAME: ${{ needs.prepare-upgrade.outputs.branch_name }}
+      IMAGE_TAG: ${{ needs.prepare-upgrade.outputs.image_tag }}
+    steps:
       - name: Create or update pull request
-        if: steps.commit_changes.outputs.skip_pr != 'true'
         run: |
           pr_title="chore: bump puppeteer to ${PUPPETEER_VERSION}"
           pr_body=$(cat <<EOF
