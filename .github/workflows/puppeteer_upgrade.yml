@@ -16,10 +16,12 @@ permissions:
 jobs:
   create-upgrade-pr:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash --noprofile --norc -euo pipefail {0}
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       PUPPETEER_VERSION: ${{ inputs.puppeteer_version }}
-      BASE_BRANCH: main
     steps:
       - name: Checkout base branch
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
@@ -29,13 +31,6 @@ jobs:
 
       - name: Validate input and derive branch metadata
         run: |
-          set -euo pipefail
-
-          if [ "${GITHUB_REF_NAME}" != "main" ]; then
-            echo "This workflow must be dispatched from main (got '${GITHUB_REF_NAME}')." >&2
-            exit 1
-          fi
-
           if ! [[ "$PUPPETEER_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
             echo "Invalid version '$PUPPETEER_VERSION'. Expected semver like 25.2.1" >&2
             exit 1
@@ -54,14 +49,11 @@ jobs:
 
       - name: Create or reset upgrade branch
         run: |
-          set -euo pipefail
-          git fetch origin "$BASE_BRANCH"
-          git checkout -B "$BRANCH_NAME" "origin/$BASE_BRANCH"
+          git fetch origin main
+          git checkout -B "$BRANCH_NAME" "origin/main"
 
       - name: Enable Yarn and update pinned versions
         run: |
-          set -euo pipefail
-
           corepack enable
           corepack prepare yarn@1.22.22 --activate
 
@@ -76,7 +68,6 @@ jobs:
       - name: Commit and push changes
         id: commit_changes
         run: |
-          set -euo pipefail
           echo "skip_pr=false" >> "$GITHUB_OUTPUT"
 
           if git diff --quiet; then
@@ -134,8 +125,6 @@ jobs:
       - name: Create or update pull request
         if: steps.commit_changes.outputs.skip_pr != 'true'
         run: |
-          set -euo pipefail
-
           pr_title="chore: bump puppeteer to ${PUPPETEER_VERSION}"
           pr_body=$(cat <<EOF
           Automated Puppeteer upgrade via GitHub Actions.
@@ -151,9 +140,9 @@ jobs:
           EOF
           )
 
-          existing_pr=$(gh pr list --state open --head "$BRANCH_NAME" --base "$BASE_BRANCH" --json number --jq '.[0].number')
+          existing_pr=$(gh pr list --state open --head "$BRANCH_NAME" --base main --json number --jq '.[0].number')
           if [[ -n "$existing_pr" && "$existing_pr" != "null" ]]; then
             gh pr edit "$existing_pr" --title "$pr_title" --body "$pr_body"
           else
-            gh pr create --base "$BASE_BRANCH" --head "$BRANCH_NAME" --title "$pr_title" --body "$pr_body"
+            gh pr create --base main --head "$BRANCH_NAME" --title "$pr_title" --body "$pr_body"
           fi
