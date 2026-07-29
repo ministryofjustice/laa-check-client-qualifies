@@ -9,6 +9,7 @@ queries:
 paths-ignore:
   - "spec/**"
   - "docs/**"
+  - "helm_deploy/laa-estimate-eligibility/values/*.yaml"
 
 # Paths to include (overrides ignore)
 paths:
