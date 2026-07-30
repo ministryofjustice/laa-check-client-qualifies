@@ -1,0 +1,49 @@
+name: SCA ⚡️
+run-name: Software Composition Analysis ⚡️
+
+on:
+  schedule:
+    - cron: "0 6 * * *"
+
+  pull_request:
+    branches: ["main"]
+
+  merge_group:
+    branches: ["main"]
+
+
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  sca:
+    name: Software Composition Analysis
+    if: github.event_name != 'merge_group'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+      security-events: write
+      actions: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: ⚡️ SCA
+        uses: ministryofjustice/devsecops-actions/sca@7dc13c20e2bf541b8a77fa1320a04983b18846f6 # v1.6.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+          # Container Scanning
+          docker-images-file: ${{ github.workspace }}/docker-images.json
+
+          # Dependency Management
+          renovate: "false"
+
+          # Custom Configurations
+          codeql-config-file: ".github/config/codeql.yml"
+          codeql-upload-findings: "always"
+
+          disable-yarn-audit: "true"
