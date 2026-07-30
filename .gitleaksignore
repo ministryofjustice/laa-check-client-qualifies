@@ -1,0 +1,9 @@
+# The Sentry DSN and CSP report endpoint keys are intentionally public —
+# they appear in HTTP response headers and page source respectively.
+# See comments in the values files for context.
+helm_deploy/laa-estimate-eligibility/values/ccq-uat.yaml:generic-api-key:99
+helm_deploy/laa-estimate-eligibility/values/ccq-uat.yaml:generic-api-key:101
+helm_deploy/laa-estimate-eligibility/values/ccq-staging.yaml:generic-api-key:76
+helm_deploy/laa-estimate-eligibility/values/ccq-staging.yaml:generic-api-key:78
+helm_deploy/laa-estimate-eligibility/values/ccq-production.yaml:generic-api-key:76
+helm_deploy/laa-estimate-eligibility/values/ccq-production.yaml:generic-api-key:78
