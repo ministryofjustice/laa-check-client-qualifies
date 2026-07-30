@@ -26,6 +26,10 @@ RSpec.describe EmbeddedResultsController, ccq_mode: :embedded, type: :controller
       expect(assigns(:model).level_of_help).to eq("certificated")
     end
 
+    it "assigns a back-to-case path for embedded navigation" do
+      expect(assigns(:embedded_case_path)).to eq("/cases/#{resource_id}")
+    end
+
     it "renders without standalone route helpers" do
       allow(controller).to receive(:respond_to?).and_call_original
       allow(controller).to receive(:respond_to?).with(:download_result_path, any_args).and_return(false)
