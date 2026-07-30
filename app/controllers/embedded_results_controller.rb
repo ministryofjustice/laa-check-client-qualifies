@@ -16,6 +16,7 @@ class EmbeddedResultsController < EmbeddedBaseController
   def show
     @early_result_type = session_data.dig("early_result", "type")
     @model = CalculationResult.new(session_data)
+    @embedded_case_path = "/cases/#{params[:resource_id]}"
     track_page_view(page: :view_results)
     @journey_continues_on_another_page = false # embedded journey always ends here
     render "results/show"
