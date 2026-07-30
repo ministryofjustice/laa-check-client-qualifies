@@ -2159,6 +2159,7 @@ en:
       client_assessed_capital: Disposable capital
       start_another_check: Start another eligibility check
       continue_to_cw: Continue to CW forms
+      back_to_case: Save and continue
       select_a_cw_form: Select a controlled work form
       save_as_pdf: Save results and answers as a printable PDF
       client_main_home: Home client lives in
