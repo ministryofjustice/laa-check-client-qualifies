@@ -1,0 +1,7 @@
+# TruffleHog secret scanning configuration
+# Exclude Helm values files - the Sentry keys in these files are intentionally
+# public (they appear in HTTP response headers / page source) and are not secrets.
+exclude_paths:
+  - "helm_deploy/laa-estimate-eligibility/values/ccq-uat.yaml"
+  - "helm_deploy/laa-estimate-eligibility/values/ccq-staging.yaml"
+  - "helm_deploy/laa-estimate-eligibility/values/ccq-production.yaml"

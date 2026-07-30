@@ -45,5 +45,6 @@ jobs:
           # Custom Configurations
           codeql-config-file: ".github/config/codeql.yml"
           codeql-upload-findings: "always"
+          trufflehog-config-file: ".github/config/trufflehog.yml"
 
           disable-yarn-audit: "true"
