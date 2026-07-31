@@ -36,14 +36,14 @@ Use the workflow-based process as the source of truth:
 
 The browser-tools image is pushed by `.github/workflows/browser_tools_docker_image.yml` when the upgrade branch is pushed.
 
-If that workflow is still configured with explicit branch names, ensure the generated branch (for example `puppeteer-2521`) is included in the trigger list.
+If that workflow is still configured with explicit branch names, ensure the generated branch (for example `chore/upgrade-puppeteer/v25.2.1`) is included in the trigger list.
 
 Manual fallback (if the workflow cannot be used):
 
-1. Create a `puppeteer-*` branch.
+1. Create a `chore/upgrade-puppeteer/*` branch.
 2. Update `Dockerfile_browser_tools.dockerfile` and `package.json`.
 3. Run `yarn install`.
-4. Update `.circleci/config.yml` to use the matching `checkclientqualifiesdocker/circleci-image:<branch-name>` tag.
+4. Update `.circleci/config.yml` to use the matching `checkclientqualifiesdocker/circleci-image:puppeteer-v<version>` tag.
 
 Reference PR example:
 
