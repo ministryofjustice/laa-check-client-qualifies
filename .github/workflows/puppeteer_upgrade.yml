@@ -22,6 +22,7 @@ jobs:
       skip_pr: ${{ steps.commit_changes.outputs.skip_pr }}
       branch_name: ${{ steps.meta.outputs.branch_name }}
       image_tag: ${{ steps.meta.outputs.image_tag }}
+      version_tag: ${{ steps.meta.outputs.version_tag }}
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       PUPPETEER_VERSION: ${{ inputs.puppeteer_version }}
@@ -45,13 +46,18 @@ jobs:
             exit 1
           fi
 
-          # Use semver directly for clarity (for example puppeteer-25.2.0).
-          branch_name="puppeteer-${PUPPETEER_VERSION}"
+          version_tag="v${PUPPETEER_VERSION}"
+          # Branch must satisfy the repo-wide branch-name-validator (chore/.+).
+          branch_name="chore/upgrade-puppeteer/${version_tag}"
+          # Docker tags can't contain slashes, so keep the image tag separate from the branch name.
+          image_tag="puppeteer-${version_tag}"
 
           echo "branch_name=${branch_name}" >> "$GITHUB_OUTPUT"
-          echo "image_tag=${branch_name}" >> "$GITHUB_OUTPUT"
-          echo "IMAGE_TAG=${branch_name}" >> "$GITHUB_ENV"
+          echo "image_tag=${image_tag}" >> "$GITHUB_OUTPUT"
+          echo "version_tag=${version_tag}" >> "$GITHUB_OUTPUT"
+          echo "IMAGE_TAG=${image_tag}" >> "$GITHUB_ENV"
           echo "BRANCH_NAME=${branch_name}" >> "$GITHUB_ENV"
+          echo "VERSION_TAG=${version_tag}" >> "$GITHUB_ENV"
 
       - name: Configure git user
         run: |
@@ -74,7 +80,7 @@ jobs:
           sed -E -i "s|RUN yarn add puppeteer@[^[:space:]]+|RUN yarn add puppeteer@${PUPPETEER_VERSION}|" Dockerfile_browser_tools.dockerfile
 
           # Align requested version branch with CircleCI's test image tag.
-          sed -E -i "s|(checkclientqualifiesdocker/circleci-image:)puppeteer-[0-9]+(\.[0-9]+\.[0-9]+)?|\\1${IMAGE_TAG}|g" .circleci/config.yml
+          sed -E -i "s|(checkclientqualifiesdocker/circleci-image:)puppeteer-v?[0-9]+(\.[0-9]+\.[0-9]+)?|\\1${IMAGE_TAG}|g" .circleci/config.yml
 
       - name: Commit and push changes
         id: commit_changes
@@ -88,7 +94,7 @@ jobs:
           fi
 
           git add package.json Dockerfile_browser_tools.dockerfile yarn.lock .circleci/config.yml
-          git commit -m "chore: bump puppeteer to ${PUPPETEER_VERSION}"
+          git commit -m "chore: bump puppeteer to ${VERSION_TAG}"
           git push --force-with-lease origin "$BRANCH_NAME"
 
   build-browser-tools-image:
@@ -119,10 +125,11 @@ jobs:
       PUPPETEER_VERSION: ${{ inputs.puppeteer_version }}
       BRANCH_NAME: ${{ needs.prepare-upgrade.outputs.branch_name }}
       IMAGE_TAG: ${{ needs.prepare-upgrade.outputs.image_tag }}
+      VERSION_TAG: ${{ needs.prepare-upgrade.outputs.version_tag }}
     steps:
       - name: Create or update pull request
         run: |
-          pr_title="chore: bump puppeteer to ${PUPPETEER_VERSION}"
+          pr_title="chore: bump puppeteer to ${VERSION_TAG}"
           pr_body=$(cat <<EOF
           Automated Puppeteer upgrade via GitHub Actions.
 

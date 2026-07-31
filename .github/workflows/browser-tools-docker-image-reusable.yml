@@ -43,7 +43,7 @@ jobs:
             exit 0
           fi
 
-          if ! echo "${ref_name}" | grep -Eq '^puppeteer-[0-9]+\.[0-9]+\.[0-9]+$'; then
+          if ! echo "${ref_name}" | grep -Eq '^chore/upgrade-puppeteer/v[0-9]+\.[0-9]+\.[0-9]+$'; then
             echo "Ref '${ref_name}' is not an allowed Puppeteer branch format." >&2
             exit 1
           fi
