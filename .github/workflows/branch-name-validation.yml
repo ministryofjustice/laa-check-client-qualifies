@@ -1,6 +1,6 @@
 name: branch-name-validator
 
-on: [ pull_request ]
+on: [pull_request]
 
 jobs:
   check-branch-prefix:
@@ -18,8 +18,8 @@ jobs:
 
           echo "Branch name: $BRANCH_NAME"
 
-          # Define allowed pattern: feature/*, bugfix/*, hotfix/*, release/*, renovate/*, chore/*
-          PATTERN="^(chore/.+|renovate/.+|hotfix/.+|bugfix/.+|feature/.+|release/.+)$"
+          # Define allowed pattern: feature/*, bugfix/*, hotfix/*, release/*, renovate/*, chore/*, dependabot/*
+          PATTERN="^(chore/.+|renovate/.+|hotfix/.+|bugfix/.+|feature/.+|release/.+|dependabot/.+)$"
 
           if [[ ! "$BRANCH_NAME" =~ $PATTERN ]]; then
             echo "❌ Branch name '$BRANCH_NAME' is invalid."
@@ -29,6 +29,7 @@ jobs:
                 - hotfix/name
                 - chore/name
                 - renovate/name
+                - dependabot/name
                 - release/name"
             exit 1
           fi
