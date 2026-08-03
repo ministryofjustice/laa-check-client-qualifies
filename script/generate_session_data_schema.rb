@@ -43,7 +43,7 @@ class SessionDataSchemaGenerator
     }
 
     FileUtils.mkdir_p(OUTPUT_PATH.dirname)
-    OUTPUT_PATH.write(JSON.pretty_generate(schema) + "\n")
+    OUTPUT_PATH.write("#{JSON.pretty_generate(schema)}\n")
 
     OUTPUT_PATH
   end
@@ -181,8 +181,8 @@ private
   end
 
   def sort_hash(hash)
-    hash.keys.sort.each_with_object({}) do |key, out|
-      out[key] = hash[key]
+    hash.keys.sort.index_with do |key|
+      hash[key]
     end
   end
 end
