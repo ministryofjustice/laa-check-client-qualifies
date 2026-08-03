@@ -2,6 +2,10 @@ class EmbeddedChangeAnswersController < EmbeddedBaseController
   include QuestionFlowMethods
   include ChangeAnswersMethods # extracted from ChangeAnswersController
 
+  def self.local_prefixes
+    %w[question_flow] + super
+  end
+
   before_action :load_check
   before_action :set_back_behaviour
 

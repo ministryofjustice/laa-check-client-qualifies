@@ -5,9 +5,10 @@
     - t("results.show.save_results_bullets_no_means_test").each
       li = _1
   .govuk-button-group
-    = link_to t("results.show.save_as_pdf"),
-          download_result_path(params[:assessment_code]),
-          target: "_blank", rel: "noopener", class: "govuk-button govuk-button--secondary", id: "save_as_pdf_certificated"
+    - if respond_to?(:download_result_path)
+      = link_to t("results.show.save_as_pdf"),
+            download_result_path(params[:assessment_code]),
+            target: "_blank", rel: "noopener", class: "govuk-button govuk-button--secondary", id: "save_as_pdf_certificated"
 
 - unless @check.controlled?
   = pdf_friendly_h2(t("results.show.what_happens_next"), "m", @is_pdf)

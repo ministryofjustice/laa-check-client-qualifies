@@ -1,0 +1,37 @@
+name: branch-name-validator
+
+on: [pull_request]
+
+jobs:
+  check-branch-prefix:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+
+      - name: Validate branch name
+        run: |
+          # Extract branch name from GITHUB_HEAD_REF (for PRs)
+          BRANCH_NAME="${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
+
+          echo "Branch name: $BRANCH_NAME"
+
+          # Define allowed pattern: feature/*, bugfix/*, hotfix/*, release/*, renovate/*, chore/*, dependabot/*
+          PATTERN="^(chore/.+|renovate/.+|hotfix/.+|bugfix/.+|feature/.+|release/.+|dependabot/.+)$"
+
+          if [[ ! "$BRANCH_NAME" =~ $PATTERN ]]; then
+            echo "❌ Branch name '$BRANCH_NAME' is invalid."
+            echo "Allowed formats:
+                - feature/name
+                - bugfix/name
+                - hotfix/name
+                - chore/name
+                - renovate/name
+                - dependabot/name
+                - release/name"
+            exit 1
+          fi
+
+          echo "✅ Branch name is valid."

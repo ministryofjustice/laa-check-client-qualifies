@@ -10,6 +10,7 @@ image:
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
+environment: production
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -87,5 +88,11 @@ google:
 
 metabase:
   enabled: true
-
-
+  ingress:
+    allowed_ip_ranges: [
+        # Gateway IP for Global Protect alpha VPN firewall
+        "35.176.93.186/32",
+        "18.169.147.172/32",
+        "18.130.148.126/32",
+        "35.176.148.126/32",
+      ]

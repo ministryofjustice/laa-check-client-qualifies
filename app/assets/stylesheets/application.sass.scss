@@ -10,6 +10,7 @@
 // Also, components list doesn't seem to include badge anyway?
 @forward "@ministryofjustice/frontend/moj/components/badge/badge";
 @forward "@ministryofjustice/frontend/moj/components/banner/banner";
+@forward "@ministryofjustice/frontend/moj/components/header/header";
 
 // Load our custom stylesheets
 @forward "panel-grey.scss";
