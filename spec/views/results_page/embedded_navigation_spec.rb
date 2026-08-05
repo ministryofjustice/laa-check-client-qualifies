@@ -26,10 +26,8 @@ RSpec.describe "results/show.html.slim" do
       end
     end
   end
-end
 
-RSpec.describe "results/show.html.slim", :embedded_only, ccq_mode: :embedded do
-  describe "Embedded navigation" do
+  describe "Embedded navigation", :embedded_only, ccq_mode: :embedded do
     let(:session_data) do
       {
         api_response: FactoryBot.build(:api_result, eligible: "eligible"),
