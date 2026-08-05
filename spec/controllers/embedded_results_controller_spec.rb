@@ -97,9 +97,8 @@ RSpec.describe EmbeddedResultsController, ccq_mode: :embedded, type: :controller
 
   describe "POST #complete", :embedded_only do
     let(:resource_id) { "test_resource_id" }
-    let(:session_data) { { "key" => "value", "api_response" => { "result" => "some_result" }, "return_url" => return_url } }
+    let(:session_data) { { "key" => "value", "api_response" => { "result" => "some_result" } } }
     let(:journey_store) { instance_double(JourneyDataStore::RedisStore) }
-    let(:return_url) { "http://example.com/return" }
     let(:host_service_client) { instance_double(HostServiceClient) }
     let(:host_service_response) { double(status: 200) }
 
@@ -125,32 +124,8 @@ RSpec.describe EmbeddedResultsController, ccq_mode: :embedded, type: :controller
       expect(journey_store).to have_received(:delete)
     end
 
-    it "redirects to the return URL" do
-      expect(response).to redirect_to(return_url)
-    end
-
-    it "raises when return_url is missing from journey data" do
-      allow(journey_store).to receive(:read).and_return(session_data.merge("return_url" => nil))
-
-      expect { post :complete, params: { resource_id: } }.to raise_error("Missing return_url in journey data")
-    end
-
-    it "redirects when the return URL host is allowed" do
-      allow(ENV).to receive(:fetch).and_call_original
-      allow(ENV).to receive(:fetch).with("ALLOWED_RETURN_HOSTS", "").and_return("example.com")
-
-      post :complete, params: { resource_id: }
-
-      expect(response).to redirect_to(return_url)
-      expect(journey_store).to have_received(:delete).at_least(:once)
-    end
-
-    it "renders the access denied page if the return URL host is not allowed" do
-      allow(ENV).to receive(:fetch).and_call_original
-      allow(ENV).to receive(:fetch).with("ALLOWED_RETURN_HOSTS", "").and_return("notallowed.com")
-      post :complete, params: { resource_id: }
-      expect(response).to have_http_status(:forbidden)
-      expect(response).to render_template("errors/access_denied")
+    it "redirects to the case page" do
+      expect(response).to redirect_to("/cases/#{resource_id}")
     end
 
     it "renders the session expired page if the host service returns 401" do
