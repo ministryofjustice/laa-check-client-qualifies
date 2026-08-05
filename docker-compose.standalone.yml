@@ -1,0 +1,55 @@
+# Reusable building block: CCQ running in standalone mode, plus its own Postgres.
+services:
+  ccq-standalone:
+    container_name: ccq-standalone
+    image: laa-check-client-qualifies:latest
+    platform: linux/amd64
+    pull_policy: never # `make build`
+    environment:
+      RAILS_ENV: production
+      RAILS_SERVE_STATIC_FILES: true
+      RAILS_LOG_TO_STDOUT: true
+      SECRET_KEY_BASE: dev-secret
+
+      DISABLE_SECURE_COOKIES: true
+      PDF_DISPLAY_URL: http://localhost:3000
+
+      POSTGRES_HOST: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DATABASE: ccq
+    ports:
+      - "3001:3000"
+    depends_on:
+      migrator:
+        condition: service_completed_successfully
+
+  migrator:
+    container_name: ccq-standalone-postgres-migrator
+    image: laa-check-client-qualifies:latest
+    platform: linux/amd64
+    pull_policy: never # `make build`
+    command: bundle exec rails db:prepare
+    environment:
+      RAILS_ENV: production
+      SECRET_KEY_BASE: dev-secret
+      POSTGRES_HOST: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DATABASE: ccq
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  postgres:
+    container_name: ccq-standalone-postgres
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: ccq
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 2s
+      timeout: 2s
+      retries: 5

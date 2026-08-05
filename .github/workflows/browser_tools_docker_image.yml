@@ -3,21 +3,38 @@ on:
   push:
     branches:
       - main
-      - puppeteer-2521
+      - chore/upgrade-puppeteer/*
+    paths:
+      - Dockerfile_browser_tools.dockerfile
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
-  build-push:
+  compute-tag:
     runs-on: ubuntu-latest
+    outputs:
+      image_tag: ${{ steps.tag.outputs.image_tag }}
     steps:
-      - name: Login to Docker Hub
-        uses: docker/login-action@650006c6eb7dba73a995cc03b0b2d7f5ca915bee # v4.2.0
-        with:
-          username: ${{ secrets.DOCKERHUB_USER_CCQ }}
-          password: ${{ secrets.DOCKERHUB_PAT_CCQ }}
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
-      - name: Build the Docker image
+      - name: Derive Docker-safe image tag from ref
+        id: tag
         run: |
-          docker build -f ./Dockerfile_browser_tools.dockerfile . -t checkclientqualifiesdocker/circleci-image:${{ github.ref_name }}
-      - name: Push the Docker image
-        run: |
-          docker push checkclientqualifiesdocker/circleci-image:${{ github.ref_name }}
+          set -eu
+          # Docker tags can't contain slashes, so branch chore/upgrade-puppeteer/<version> maps to puppeteer-<version>.
+          if [ "${GITHUB_REF_NAME}" = "main" ]; then
+            echo "image_tag=main" >> "$GITHUB_OUTPUT"
+          else
+            version="${GITHUB_REF_NAME##*/}"
+            echo "image_tag=puppeteer-${version}" >> "$GITHUB_OUTPUT"
+          fi
+
+  build-push:
+    needs: compute-tag
+    uses: ./.github/workflows/browser-tools-docker-image-reusable.yml
+    with:
+      source_ref: ${{ github.ref_name }}
+      image_tag: ${{ needs.compute-tag.outputs.image_tag }}
+      source_actor: ${{ github.actor }}
+      enforce_actor_policy: true
+    secrets: inherit

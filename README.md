@@ -1,4 +1,5 @@
 # CCQ (Check if your client qualifies for legal aid)
+[![Ministry of Justice Repository Compliance Badge](https://github-community.service.justice.gov.uk/repository-standards/api/laa-check-client-qualifies/badge)](https://github-community.service.justice.gov.uk/repository-standards/laa-check-client-qualifies)
 
 CCQ is a Rails application used by legal aid providers to check client eligibility.
 
@@ -11,6 +12,10 @@ Standalone mode serves https://check-your-client-qualifies-for-legal-aid.service
 CCQ supports two modes:
 - `CCQ_MODE=standalone` - full service journey (**default**)
 - `CCQ_MODE=embedded` - journey fragment for host services
+
+When running in embedded mode, you can override the layout used by embedded controllers:
+- `CCQ_EMBEDDED_LAYOUT=application` - default embedded layout
+- `CCQ_EMBEDDED_LAYOUT=<layout_path>` - use `app/views/layouts/<layout_path>.html.*` (for namespaced layouts, use `/`, for example `rcw/application`)
 
 ## Dependencies
 ### Runtime versions
@@ -76,8 +81,15 @@ bin/dev
 CCQ_MODE=embedded bin/dev
 ```
 
+#### Run in embedded mode with a host-specific layout
+```bash
+CCQ_MODE=embedded CCQ_EMBEDDED_LAYOUT=rcw/application bin/dev
+```
+
 ## Run with Docker Compose
 The docker compose configuration is designed to enable you to run both standalone and embedded mode versions of CCQ side by side using the same underlying image.
+
+`docker-compose.yml` composes `docker-compose.embedded.yml` and `docker-compose.standalone.yml` together with a local nginx and host-service stub for testing embedded mode in isolation. Other repos (e.g. RCW) include `docker-compose.embedded.yml` directly, supplying their own host service instead of the stub.
 
 #### Build the app image used by `docker-compose.yml`
 ```bash

@@ -1,0 +1,1178 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://check-client-qualifies.internal/schemas/session_data.schema.json",
+  "title": "CCQ Session Data",
+  "description": "Schema for the per-assessment session_data hash used by CCQ. Keys are derived from flow form classes and runtime session management keys.",
+  "type": "object",
+  "properties": {
+    "additional_properties": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "object",
+        "properties": {
+          "house_in_dispute": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "house_value": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "inline_owned_with_mortgage": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "mortgage": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "percentage_owned": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": true
+      },
+      "description": "Sources: additional_property_details (AdditionalPropertyDetailsForm)."
+    },
+    "additional_property_owned": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Sources: additional_property (AdditionalPropertyForm)."
+    },
+    "adult_dependants": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Sources: dependant_details (DependantDetailsForm)."
+    },
+    "adult_dependants_count": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "description": "Sources: dependant_details (DependantDetailsForm)."
+    },
+    "aggregated_means": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Sources: aggregated_means (AggregatedMeansForm)."
+    },
+    "api_response": {
+      "type": [
+        "object",
+        "array",
+        "null"
+      ],
+      "description": "Last CFE API response payload cached for result rendering/logging. Sources: journey completion tracking."
+    },
+    "asylum_support": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Sources: asylum_support (AsylumSupportForm)."
+    },
+    "bank_accounts": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "object",
+        "properties": {
+          "account_in_dispute": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "amount": {
+            "type": [
+              "number",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": true
+      },
+      "description": "Sources: assets (ClientAssetsForm)."
+    },
+    "benefits": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "object",
+        "properties": {
+          "benefit_amount": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "benefit_frequency": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "benefit_type": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": true
+      },
+      "description": "Sources: benefit_details (BenefitDetailsForm)."
+    },
+    "child_dependants": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Sources: dependant_details (DependantDetailsForm)."
+    },
+    "child_dependants_count": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "description": "Sources: dependant_details (DependantDetailsForm)."
+    },
+    "childcare_payments_conditional_value": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Sources: outgoings (OutgoingsForm)."
+    },
+    "childcare_payments_frequency": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Sources: outgoings (OutgoingsForm)."
+    },
+    "childcare_payments_relevant": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Sources: outgoings (OutgoingsForm)."
+    },
+    "childcare_payments_value": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Sources: outgoings (OutgoingsForm)."
+    },
+    "client_age": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Sources: client_age (ClientAgeForm)."
+    },
+    "combined_frequency": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Sources: shared_ownership_housing_costs (SharedOwnershipHousingCostsForm)."
+    },
+    "controlled_legal_representation": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Sources: under_18_clr (ControlledLegalRepresentationForm)."
+    },
+    "dependant_incomes": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "frequency": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": true
+      },
+      "description": "Sources: dependant_income_details (DependantIncomeDetailsForm)."
+    },
+    "dependants_get_income": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Sources: dependant_income (DependantIncomeForm)."
+    },
+    "domestic_abuse_applicant": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Sources: domestic_abuse_applicant (DomesticAbuseApplicantForm)."
+    },
+    "early_result": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "result": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "gross_income_excess": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true,
+      "description": "Early gross-income check outcome cached before full result calculation. Sources: early result calculation."
+    },
+    "employment_status": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Sources: employment_status (EmploymentStatusForm)."
+    },
+    "feature_flags": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": {
+        "type": "boolean"
+      },
+      "description": "Feature-flag values snapshotted at journey start. Sources: session bootstrap."
+    },
+    "friends_or_family_conditional_value": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Sources: other_income (OtherIncomeForm)."
+    },
+    "friends_or_family_frequency": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Sources: other_income (OtherIncomeForm)."
+    },
+    "friends_or_family_relevant": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Sources: other_income (OtherIncomeForm)."
+    },
+    "house_in_dispute": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Sources: property_entry (PropertyEntryForm)."
+    },
+    "house_value": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Sources: property_entry (PropertyEntryForm)."
+    },
+    "housing_benefit_frequency": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Sources: housing_costs (HousingCostsForm), shared_ownership_housing_costs (SharedOwnershipHousingCostsForm)."
+    },
+    "housing_benefit_relevant": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Sources: housing_costs (HousingCostsForm), shared_ownership_housing_costs (SharedOwnershipHousingCostsForm)."
+    },
+    "housing_benefit_value": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Sources: housing_costs (HousingCostsForm), shared_ownership_housing_costs (SharedOwnershipHousingCostsForm)."
+    },
+    "housing_loan_payments": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Sources: mortgage_or_loan_payment (MortgageOrLoanPaymentForm)."
+    },
+    "housing_payments": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Sources: housing_costs (HousingCostsForm)."
+    },
+    "housing_payments_frequency": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Sources: housing_costs (HousingCostsForm)."
+    },
+    "housing_payments_loan_frequency": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Sources: mortgage_or_loan_payment (MortgageOrLoanPaymentForm)."
+    },
+    "immigration_or_asylum": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Sources: immigration_or_asylum (ImmigrationOrAsylumForm)."
+    },
+    "immigration_or_asylum_type": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Sources: immigration_or_asylum_type (ImmigrationOrAsylumTypeForm)."
+    },
+    "immigration_or_asylum_type_upper_tribunal": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Sources: immigration_or_asylum_type_upper_tribunal (ImmigrationOrAsylumTypeUpperTribunalForm)."
+    },
+    "incomes": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "object",
+        "properties": {
+          "gross_income": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "income_frequency": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "income_tax": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "income_type": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "national_insurance": {
+            "type": [
+              "number",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": true
+      },
+      "description": "Sources: income (IncomeForm)."
+    },
+    "investments": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Sources: assets (ClientAssetsForm)."
+    },
+    "investments_in_dispute": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Sources: assets (ClientAssetsForm)."
+    },
+    "investments_relevant": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Sources: assets (ClientAssetsForm)."
+    },
+    "legal_aid_payments_conditional_value": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Sources: outgoings (OutgoingsForm)."
+    },
+    "legal_aid_payments_frequency": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Sources: outgoings (OutgoingsForm)."
+    },
+    "legal_aid_payments_relevant": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Sources: outgoings (OutgoingsForm)."
+    },
+    "legal_aid_payments_value": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Sources: outgoings (OutgoingsForm)."
+    },
+    "level_of_help": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Sources: level_of_help (LevelOfHelpForm)."
+    },
+    "maintenance_conditional_value": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Sources: other_income (OtherIncomeForm)."
+    },
+    "maintenance_frequency": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Sources: other_income (OtherIncomeForm)."
+    },
+    "maintenance_payments_conditional_value": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Sources: outgoings (OutgoingsForm)."
+    },
+    "maintenance_payments_frequency": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Sources: outgoings (OutgoingsForm)."
+    },
+    "maintenance_payments_relevant": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Sources: outgoings (OutgoingsForm)."
+    },
+    "maintenance_payments_value": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Sources: outgoings (OutgoingsForm)."
+    },
+    "maintenance_relevant": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Sources: other_income (OtherIncomeForm)."
+    },
+    "mortgage": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Sources: property_entry (PropertyEntryForm)."
+    },
+    "other_conditional_value": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Sources: other_income (OtherIncomeForm)."
+    },
+    "other_relevant": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Sources: other_income (OtherIncomeForm)."
+    },
+    "partner": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Sources: applicant (ApplicantForm)."
+    },
+    "partner_additional_properties": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "object",
+        "properties": {
+          "house_in_dispute": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "house_value": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "inline_owned_with_mortgage": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "mortgage": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "percentage_owned": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": true
+      },
+      "description": "Sources: partner_additional_property_details (PartnerAdditionalPropertyDetailsForm)."
+    },
+    "partner_additional_property_owned": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Sources: partner_additional_property (PartnerAdditionalPropertyForm)."
+    },
+    "partner_bank_accounts": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "object",
+        "properties": {
+          "account_in_dispute": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "amount": {
+            "type": [
+              "number",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": true
+      },
+      "description": "Sources: partner_assets (PartnerAssetsForm)."
+    },
+    "partner_benefits": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "object",
+        "properties": {
+          "benefit_amount": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "benefit_frequency": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "benefit_type": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": true
+      },
+      "description": "Sources: partner_benefit_details (PartnerBenefitDetailsForm)."
+    },
+    "partner_childcare_payments_conditional_value": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Sources: partner_outgoings (PartnerOutgoingsForm)."
+    },
+    "partner_childcare_payments_frequency": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Sources: partner_outgoings (PartnerOutgoingsForm)."
+    },
+    "partner_childcare_payments_relevant": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Sources: partner_outgoings (PartnerOutgoingsForm)."
+    },
+    "partner_childcare_payments_value": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Sources: partner_outgoings (PartnerOutgoingsForm)."
+    },
+    "partner_employment_status": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Sources: partner_employment_status (PartnerEmploymentStatusForm)."
+    },
+    "partner_friends_or_family_conditional_value": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Sources: partner_other_income (PartnerOtherIncomeForm)."
+    },
+    "partner_friends_or_family_frequency": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Sources: partner_other_income (PartnerOtherIncomeForm)."
+    },
+    "partner_friends_or_family_relevant": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Sources: partner_other_income (PartnerOtherIncomeForm)."
+    },
+    "partner_incomes": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "object",
+        "properties": {
+          "gross_income": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "income_frequency": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "income_tax": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "income_type": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "national_insurance": {
+            "type": [
+              "number",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": true
+      },
+      "description": "Sources: partner_income (PartnerIncomeForm)."
+    },
+    "partner_investments": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Sources: partner_assets (PartnerAssetsForm)."
+    },
+    "partner_investments_relevant": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Sources: partner_assets (PartnerAssetsForm)."
+    },
+    "partner_legal_aid_payments_conditional_value": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Sources: partner_outgoings (PartnerOutgoingsForm)."
+    },
+    "partner_legal_aid_payments_frequency": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Sources: partner_outgoings (PartnerOutgoingsForm)."
+    },
+    "partner_legal_aid_payments_relevant": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Sources: partner_outgoings (PartnerOutgoingsForm)."
+    },
+    "partner_legal_aid_payments_value": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Sources: partner_outgoings (PartnerOutgoingsForm)."
+    },
+    "partner_maintenance_conditional_value": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Sources: partner_other_income (PartnerOtherIncomeForm)."
+    },
+    "partner_maintenance_frequency": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Sources: partner_other_income (PartnerOtherIncomeForm)."
+    },
+    "partner_maintenance_payments_conditional_value": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Sources: partner_outgoings (PartnerOutgoingsForm)."
+    },
+    "partner_maintenance_payments_frequency": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Sources: partner_outgoings (PartnerOutgoingsForm)."
+    },
+    "partner_maintenance_payments_relevant": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Sources: partner_outgoings (PartnerOutgoingsForm)."
+    },
+    "partner_maintenance_payments_value": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Sources: partner_outgoings (PartnerOutgoingsForm)."
+    },
+    "partner_maintenance_relevant": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Sources: partner_other_income (PartnerOtherIncomeForm)."
+    },
+    "partner_other_conditional_value": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Sources: partner_other_income (PartnerOtherIncomeForm)."
+    },
+    "partner_other_relevant": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Sources: partner_other_income (PartnerOtherIncomeForm)."
+    },
+    "partner_over_60": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Sources: partner_details (PartnerDetailsForm)."
+    },
+    "partner_pension_conditional_value": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Sources: partner_other_income (PartnerOtherIncomeForm)."
+    },
+    "partner_pension_frequency": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Sources: partner_other_income (PartnerOtherIncomeForm)."
+    },
+    "partner_pension_relevant": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Sources: partner_other_income (PartnerOtherIncomeForm)."
+    },
+    "partner_property_or_lodger_conditional_value": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Sources: partner_other_income (PartnerOtherIncomeForm)."
+    },
+    "partner_property_or_lodger_frequency": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Sources: partner_other_income (PartnerOtherIncomeForm)."
+    },
+    "partner_property_or_lodger_relevant": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Sources: partner_other_income (PartnerOtherIncomeForm)."
+    },
+    "partner_receives_benefits": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Sources: partner_benefits (PartnerBenefitsForm)."
+    },
+    "partner_student_finance_conditional_value": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Sources: partner_other_income (PartnerOtherIncomeForm)."
+    },
+    "partner_student_finance_relevant": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Sources: partner_other_income (PartnerOtherIncomeForm)."
+    },
+    "partner_valuables": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Sources: partner_assets (PartnerAssetsForm)."
+    },
+    "partner_valuables_relevant": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Sources: partner_assets (PartnerAssetsForm)."
+    },
+    "passporting": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Sources: applicant (ApplicantForm)."
+    },
+    "pending": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": true,
+      "description": "Temporary working copy used during check-answers edit loops. Sources: change answers loop."
+    },
+    "pension_conditional_value": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Sources: other_income (OtherIncomeForm)."
+    },
+    "pension_frequency": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Sources: other_income (OtherIncomeForm)."
+    },
+    "pension_relevant": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Sources: other_income (OtherIncomeForm)."
+    },
+    "percentage_owned": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "description": "Sources: property_entry (PropertyEntryForm)."
+    },
+    "property_landlord": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Sources: property_landlord (PropertyLandlordForm)."
+    },
+    "property_or_lodger_conditional_value": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Sources: other_income (OtherIncomeForm)."
+    },
+    "property_or_lodger_frequency": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Sources: other_income (OtherIncomeForm)."
+    },
+    "property_or_lodger_relevant": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Sources: other_income (OtherIncomeForm)."
+    },
+    "property_owned": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Sources: property (PropertyForm)."
+    },
+    "receives_benefits": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Sources: benefits (BenefitsForm)."
+    },
+    "regular_income": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Sources: regular_income (RegularIncomeForm)."
+    },
+    "rent": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Sources: shared_ownership_housing_costs (SharedOwnershipHousingCostsForm)."
+    },
+    "shared_ownership_mortgage": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Sources: shared_ownership_housing_costs (SharedOwnershipHousingCostsForm)."
+    },
+    "student_finance_conditional_value": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Sources: other_income (OtherIncomeForm)."
+    },
+    "student_finance_relevant": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Sources: other_income (OtherIncomeForm)."
+    },
+    "under_eighteen_assets": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Sources: under_eighteen_assets (UnderEighteenAssetsForm)."
+    },
+    "valuables": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "Sources: assets (ClientAssetsForm)."
+    },
+    "valuables_in_dispute": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Sources: assets (ClientAssetsForm)."
+    },
+    "valuables_relevant": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Sources: assets (ClientAssetsForm)."
+    },
+    "vehicle_owned": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "Sources: vehicle (VehicleForm)."
+    },
+    "vehicles": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "object",
+        "properties": {
+          "vehicle_finance": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "vehicle_in_dispute": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "vehicle_in_regular_use": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "vehicle_over_3_years_ago": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "vehicle_pcp": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "vehicle_value": {
+            "type": [
+              "number",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": true
+      },
+      "description": "Sources: vehicles_details (VehiclesDetailsForm)."
+    }
+  },
+  "additionalProperties": true
+}
