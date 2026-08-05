@@ -7,6 +7,8 @@
 - content_for :back do
   - if @early_result_type
     = back_link(@previous_step, true)
+  - elsif @embedded_case_path.present?
+    = link_to t("generic.back"), check_answers_path(resource_id: params[:resource_id]), class: "govuk-back-link"
   - else
     = link_to t("generic.back"), check_answers_path(assessment_code: params[:assessment_code]), class: "govuk-back-link"
 
@@ -103,3 +105,8 @@
                                       target: "_blank", rel: "noopener", class: "govuk-button", id: "save_as_pdf_certificated"
       - if respond_to?(:new_check_path)
         = link_to t(".start_another_check"), new_check_path, class: "govuk-button govuk-button--secondary", data: { module: "govuk-button" }
+
+  - if @embedded_case_path.present?
+    .govuk-button-group
+      = button_to t(".save_and_continue"), embedded_complete_path(resource_id: params[:resource_id]),
+                  class: "govuk-button govuk-button--secondary", data: { module: "govuk-button" }, id: "save_and_continue"

@@ -16,6 +16,7 @@ class EmbeddedResultsController < EmbeddedBaseController
   def show
     @early_result_type = session_data.dig("early_result", "type")
     @model = CalculationResult.new(session_data)
+    @embedded_case_path = case_path
     track_page_view(page: :view_results)
     @journey_continues_on_another_page = false # embedded journey always ends here
     render "results/show"
@@ -30,21 +31,9 @@ class EmbeddedResultsController < EmbeddedBaseController
 
     case response.status
     when 200
-      return_url = session_data["return_url"]
-      raise "Missing return_url in journey data" if return_url.blank?
-
-      allowed_hosts = ENV.fetch("ALLOWED_RETURN_HOSTS", "").split(",").map(&:strip)
-      unless allowed_hosts.empty?
-        uri = URI.parse(return_url)
-        unless allowed_hosts.include?(uri.host)
-          render "errors/access_denied", status: :forbidden
-          return
-        end
-      end
-
       journey_store.delete # clean up Redis
       @session_data_cache = nil
-      redirect_to return_url, allow_other_host: true
+      redirect_to case_path
     when 302
       redirect_to_host_reauthentication(
         location: response.headers["location"] || response.headers["Location"],
@@ -63,5 +52,12 @@ class EmbeddedResultsController < EmbeddedBaseController
   # Reuse the standalone results template and relative partials.
   def self.local_prefixes
     %w[results] + super
+  end
+
+private
+
+  # TODO: return to RCW specific case URL for now (should be configurable or dynamic)
+  def case_path
+    "/cases/#{params[:resource_id]}/task-list"
   end
 end
