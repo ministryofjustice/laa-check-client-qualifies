@@ -1,0 +1,17 @@
+# Docker Compose automatically merges this on top of docker-compose.yml
+#
+# Separated from services included via `include:` in docker-compose.yml,
+# since a service can't be both included and overridden in the same file.
+services:
+  # Point at the stub instead of docker-compose.embedded.yml's default of a real host service.
+  ccq-embedded:
+    environment:
+      HOST_SERVICE_URL: http://host-service-stub:8080
+    depends_on:
+      host-service-stub:
+        condition: service_started
+
+  # Republish redis on the host port for local debugging.
+  redis:
+    ports:
+      - 6379:6379

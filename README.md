@@ -89,6 +89,8 @@ CCQ_MODE=embedded CCQ_EMBEDDED_LAYOUT=rcw/application bin/dev
 ## Run with Docker Compose
 The docker compose configuration is designed to enable you to run both standalone and embedded mode versions of CCQ side by side using the same underlying image.
 
+`docker-compose.yml` composes `docker-compose.embedded.yml` and `docker-compose.standalone.yml` together with a local nginx and host-service stub for testing embedded mode in isolation. Other repos (e.g. RCW) include `docker-compose.embedded.yml` directly, supplying their own host service instead of the stub.
+
 #### Build the app image used by `docker-compose.yml`
 ```bash
 make build

@@ -1,0 +1,40 @@
+# Reusable building block: CCQ running in embedded mode, plus its own Redis.
+# Defaults to a real host service (e.g. RCW) at HOST_SERVICE_URL - other repos include this
+# file directly to compose CCQ into their own stack. For standalone testing of embedded mode
+# in isolation, see docker-compose.yml, which overrides HOST_SERVICE_URL to use a stub.
+services:
+  ccq-embedded:
+    container_name: ccq-embedded
+    image: laa-check-client-qualifies:latest
+    platform: linux/amd64
+    pull_policy: never # `make build`
+    expose:
+      - 3000
+    depends_on:
+      redis:
+        condition: service_healthy
+    environment:
+      RAILS_ENV: production
+      RAILS_SERVE_STATIC_FILES: true # won't serve assets without this
+      RAILS_LOG_TO_STDOUT: true # logs to a file without this
+      SECRET_KEY_BASE: dev-secret # doesn't work without it
+      DISABLE_SECURE_COOKIES: true
+
+      CCQ_MODE: embedded
+      CCQ_EMBEDDED_LAYOUT: rcw/application
+      REDIS_URL: redis://redis:6379
+      HOST_SERVICE_URL: ${CCQ_HOST_SERVICE_URL:-http://rcw:3000}
+      HOST_SERVICE_LOAD_ENDPOINT: /api/private/load
+      HOST_SERVICE_SAVE_ENDPOINT: /api/private/save
+
+  redis:
+    container_name: ccq-embedded-redis
+    image: "redis:7.2-alpine"
+    command: >
+      redis-server --maxmemory 256mb  --maxmemory-policy allkeys-lru --save ""
+      --appendonly no
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
