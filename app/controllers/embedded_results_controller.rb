@@ -56,8 +56,8 @@ class EmbeddedResultsController < EmbeddedBaseController
 
 private
 
-  # RCW's case page; not read from journey data since it isn't stored there.
+  # TODO: return to RCW specific case URL for now (should be configurable or dynamic)
   def case_path
-    "/cases/#{params[:resource_id]}"
+    "/cases/#{params[:resource_id]}/task-list"
   end
 end

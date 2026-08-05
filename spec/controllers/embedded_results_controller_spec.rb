@@ -27,7 +27,7 @@ RSpec.describe EmbeddedResultsController, ccq_mode: :embedded, type: :controller
     end
 
     it "assigns a back-to-case path for embedded navigation" do
-      expect(assigns(:embedded_case_path)).to eq("/cases/#{resource_id}")
+      expect(assigns(:embedded_case_path)).to eq("/cases/#{resource_id}/task-list")
     end
 
     it "renders without standalone route helpers" do
@@ -125,7 +125,7 @@ RSpec.describe EmbeddedResultsController, ccq_mode: :embedded, type: :controller
     end
 
     it "redirects to the case page" do
-      expect(response).to redirect_to("/cases/#{resource_id}")
+      expect(response).to redirect_to("/cases/#{resource_id}/task-list")
     end
 
     it "renders the session expired page if the host service returns 401" do

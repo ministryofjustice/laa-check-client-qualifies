@@ -45,7 +45,7 @@ RSpec.describe "results/show.html.slim" do
         assign(:check, check)
         params[:assessment_code] = :code
         params[:resource_id] = resource_id
-        assign(:embedded_case_path, "/cases/#{resource_id}")
+        assign(:embedded_case_path, "/cases/#{resource_id}/task-list")
         render template: "results/show"
       end
 
