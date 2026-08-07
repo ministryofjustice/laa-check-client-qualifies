@@ -13,6 +13,10 @@
 {{- with get $metabaseIngress "allowed_ip_ranges" -}}
 {{- $_ := set $annotations "nginx.ingress.kubernetes.io/whitelist-source-range" (join "," .) -}}
 {{- end -}}
+
+{{/* Block the password reset API route - Metabase has no rate limiting on this and it can be used to enumerate/spam user accounts */}}
+{{/* TODO: remove this once metabase has been upgraded or removed */}}
+{{- $_ := set $annotations "nginx.ingress.kubernetes.io/configuration-snippet" "if ($uri = \"/api/session/reset_password\") { return 403; }" -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
