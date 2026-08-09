@@ -4,15 +4,19 @@ class HostServiceClient
   CONNECT_TIMEOUT = 2
   READ_TIMEOUT = 5
 
-  def load(resource_id:, cookies:)
-    get(ENV.fetch("HOST_SERVICE_LOAD_ENDPOINT", "/api/private/load").to_s, { resource_id: }, cookies:)
+  def load(application_id:, cookies:)
+    get(eligibility_path(application_id), {}, cookies:)
   end
 
-  def save(resource_id:, result:, cookies:)
-    post(ENV.fetch("HOST_SERVICE_SAVE_ENDPOINT", "/api/private/save").to_s, { resource_id:, result: }, cookies:)
+  def save(application_id:, eligibility_assessment:, cookies:)
+    put(eligibility_path(application_id), { eligibility_assessment: }, cookies:)
   end
 
 private
+
+  def eligibility_path(application_id)
+    sprintf(ENV.fetch("HOST_SERVICE_ELIGIBILITY_ENDPOINT", "/api/applications/%<application_id>s/eligibility").to_s, application_id:)
+  end
 
   def get(path, params, cookies:)
     response = connection(cookies:).get(path, params)
@@ -22,9 +26,9 @@ private
     raise ConnectionError, e.message
   end
 
-  def post(path, body, cookies:)
-    response = connection(cookies:).post(path, body)
-    Rails.logger.info("[HostServiceClient] POST #{path} status=#{response.status} body_preview=#{body_preview(response.body)}")
+  def put(path, body, cookies:)
+    response = connection(cookies:).put(path, body)
+    Rails.logger.info("[HostServiceClient] PUT #{path} status=#{response.status} body_preview=#{body_preview(response.body)}")
     response
   rescue Faraday::ConnectionFailed, Faraday::TimeoutError => e
     raise ConnectionError, e.message

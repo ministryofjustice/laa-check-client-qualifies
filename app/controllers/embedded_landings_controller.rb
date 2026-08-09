@@ -1,7 +1,7 @@
 class EmbeddedLandingsController < EmbeddedBaseController
   def show
     response = HostServiceClient.new.load(
-      resource_id: params[:resource_id],
+      application_id: params[:resource_id],
       cookies: request.headers["Cookie"],
     )
 

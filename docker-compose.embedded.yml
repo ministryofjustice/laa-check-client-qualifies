@@ -24,8 +24,7 @@ services:
       CCQ_EMBEDDED_LAYOUT: rcw/application
       REDIS_URL: redis://redis:6379
       HOST_SERVICE_URL: ${CCQ_HOST_SERVICE_URL:-http://rcw:3000}
-      HOST_SERVICE_LOAD_ENDPOINT: /api/private/load
-      HOST_SERVICE_SAVE_ENDPOINT: /api/private/save
+      HOST_SERVICE_ELIGIBILITY_ENDPOINT: /api/applications/%<application_id>s/eligibility
 
   redis:
     container_name: ccq-embedded-redis

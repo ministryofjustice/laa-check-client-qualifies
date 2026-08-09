@@ -25,6 +25,13 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
       get :show, params: { resource_id: }
     end
 
+    it "calls the HostServiceClient with the application_id and cookies" do
+      expect(host_service_client).to have_received(:load).with(
+        application_id: resource_id,
+        cookies: anything,
+      )
+    end
+
     it "initializes the journey store with feature flags and return URL" do
       expect(journey_store).to have_received(:init).with({
         "feature_flags" => FeatureFlags.session_flags,
