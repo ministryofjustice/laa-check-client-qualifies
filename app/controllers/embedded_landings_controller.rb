@@ -8,12 +8,16 @@ class EmbeddedLandingsController < EmbeddedBaseController
     case response.status
     when 200
       body = response.body.is_a?(String) ? JSON.parse(response.body) : response.body
-      journey_store.init({
-        "feature_flags" => FeatureFlags.session_flags,
-        "return_url" => body.fetch("return_url"),
-      })
-      redirect_to step_path(resource_id: params[:resource_id],
-                            step_url_fragment: helpers.step_url_fragment_from_step(Steps::Helper.first_step(session_data)))
+      if resumable_assessment?(body)
+        journey_store.init(resumed_journey_data(body))
+        redirect_to result_path(resource_id: params[:resource_id])
+      else
+        journey_store.init({
+          "feature_flags" => FeatureFlags.session_flags,
+        })
+        redirect_to step_path(resource_id: params[:resource_id],
+                              step_url_fragment: helpers.step_url_fragment_from_step(Steps::Helper.first_step(session_data)))
+      end
     when 302
       redirect_to_host_reauthentication(
         location: response.headers["location"] || response.headers["Location"],
@@ -38,6 +42,17 @@ class EmbeddedLandingsController < EmbeddedBaseController
   end
 
 private
+
+  def resumable_assessment?(body)
+    body["data"].is_a?(Hash) && body["result"].is_a?(Hash)
+  end
+
+  def resumed_journey_data(body)
+    body["data"].merge(
+      "api_response" => body["result"],
+      "feature_flags" => FeatureFlags.session_flags,
+    )
+  end
 
   def host_response_body_preview(response)
     return "<no-body-method>" unless response.respond_to?(:body)
