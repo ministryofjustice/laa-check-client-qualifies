@@ -112,10 +112,10 @@ RSpec.describe EmbeddedResultsController, ccq_mode: :embedded, type: :controller
       post :complete, params: { resource_id: }
     end
 
-    it "calls the HostServiceClient to save the result" do
+    it "calls the HostServiceClient to save the full session data as the eligibility_assessment" do
       expect(host_service_client).to have_received(:save).with(
-        resource_id:,
-        result: session_data["api_response"],
+        application_id: resource_id,
+        eligibility_assessment: session_data.except("feature_flags", "pending", "early_result"),
         cookies: anything,
       )
     end

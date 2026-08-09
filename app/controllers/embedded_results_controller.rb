@@ -24,8 +24,8 @@ class EmbeddedResultsController < EmbeddedBaseController
 
   def complete
     response = HostServiceClient.new.save(
-      resource_id: params[:resource_id],
-      result: session_data["api_response"],
+      application_id: params[:resource_id],
+      eligibility_assessment: session_data.except("feature_flags", "pending", "early_result"),
       cookies: request.headers["Cookie"],
     )
 

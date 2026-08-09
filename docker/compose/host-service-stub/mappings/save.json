@@ -1,7 +1,7 @@
 {
   "request": {
-    "method": "POST",
-    "urlPath": "/api/private/save"
+    "method": "PUT",
+    "urlPathPattern": "/api/applications/[^/]+/eligibility"
   },
   "response": {
     "status": 200,
