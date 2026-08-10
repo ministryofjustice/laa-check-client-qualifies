@@ -258,7 +258,7 @@ GEM
     minitest (6.0.6)
       drb (~> 2.0)
       prism (~> 1.5)
-    moj_components (0.2.1)
+    moj_components (0.2.3)
       govuk-components
       view_component (>= 4.0)
     msgpack (1.8.3)
@@ -514,10 +514,10 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 4.0)
       websocket (~> 1.0)
-    sentry-rails (6.6.2)
+    sentry-rails (6.7.0)
       railties (>= 5.2.0)
-      sentry-ruby (~> 6.6.2)
-    sentry-ruby (6.6.2)
+      sentry-ruby (~> 6.7.0)
+    sentry-ruby (6.7.0)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
       logger
@@ -621,7 +621,7 @@ DEPENDENCIES
   grover
   jsbundling-rails
   kredis
-  moj_components (~> 0.2.1)
+  moj_components (~> 0.2.3)
   omniauth-google-oauth2
   omniauth-rails_csrf_protection (>= 1.0.2)
   ostruct
