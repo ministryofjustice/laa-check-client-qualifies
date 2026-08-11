@@ -1,0 +1,12 @@
+# Reusable building block: prebuild local CCQ image once for shared service use.
+#
+# CCQ image build is a bit big, and we would otherwise need to run the build
+# for three containers, or run it before compose entirely. This keeps things neat. 
+services:
+  ccq-image-prebuild:
+    image: laa-check-client-qualifies:latest
+    pull_policy: never
+    build:
+      context: ../..
+    platform: linux/amd64
+    command: ["sh", "-c", "true"]
