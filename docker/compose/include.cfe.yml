@@ -32,7 +32,7 @@ services:
     volumes:
       - cfe-postgres-data:/var/lib/postgresql/18/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${CFE_DB_USERNAME:-cfe_user}"]
+      test: ["CMD-SHELL", "pg_isready -U ${CFE_DB_USERNAME:-cfe_user} -d cfe_civil"]
       interval: 10s
       timeout: 5s
       retries: 5
