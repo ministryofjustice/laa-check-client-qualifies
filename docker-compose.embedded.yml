@@ -21,6 +21,12 @@ services:
         condition: service_healthy
       cfe:
         condition: service_started
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:3000/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 60s
     environment:
       RAILS_ENV: production
       RAILS_SERVE_STATIC_FILES: true # won't serve assets without this
