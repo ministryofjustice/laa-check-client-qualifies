@@ -1,0 +1,42 @@
+# Reusable building block: CFE Civil service + its own Postgres.
+# Controlled-work mode only (LEGAL_FRAMEWORK_API_HOST intentionally omitted).
+services:
+  cfe:
+    container_name: cfe-civil
+    build:
+      context: ../../../cfe-civil
+      dockerfile: Dockerfile
+    depends_on:
+      cfe-postgres:
+        condition: service_healthy
+    environment:
+      RAILS_ENV: production
+      RAILS_LOG_TO_STDOUT: true
+      SECRET_KEY_BASE: default
+      PORT: 3000
+      POSTGRES_HOST: cfe-postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: ${CFE_DB_USERNAME:-cfe_user}
+      POSTGRES_PASSWORD: ${CFE_DB_PASSWORD:-cfe_password}
+      POSTGRES_DATABASE: cfe_civil
+      # LEGAL_FRAMEWORK_API_HOST:  # needed for certificated flow
+
+  cfe-postgres:
+    image: postgres:18@sha256:3a82e1f56c8f0f5616a11103ac3d47e632c3938698946a7ad26da0df1334744a
+    container_name: cfe-civil-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: cfe_civil
+      POSTGRES_USER: ${CFE_DB_USERNAME:-cfe_user}
+      POSTGRES_PASSWORD: ${CFE_DB_PASSWORD:-cfe_password}
+    volumes:
+      - cfe-postgres-data:/var/lib/postgresql/18/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${CFE_DB_USERNAME:-cfe_user} -d cfe_civil"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  cfe-postgres-data:
+    driver: local

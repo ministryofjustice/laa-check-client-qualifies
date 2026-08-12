@@ -2,17 +2,31 @@
 # Defaults to a real host service (e.g. RCW) at HOST_SERVICE_URL - other repos include this
 # file directly to compose CCQ into their own stack. For standalone testing of embedded mode
 # in isolation, see docker-compose.yml, which overrides HOST_SERVICE_URL to use a stub.
+include:
+  - path: docker/compose/include.cfe.yml
+  - path: docker/compose/include.prebuild.yml
+
 services:
   ccq-embedded:
     container_name: ccq-embedded
     image: laa-check-client-qualifies:latest
+    pull_policy: never
     platform: linux/amd64
-    pull_policy: never # `make build`
     expose:
       - 3000
     depends_on:
+      ccq-image-prebuild:
+        condition: service_completed_successfully
       redis:
         condition: service_healthy
+      cfe:
+        condition: service_started
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:3000/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 60s
     environment:
       RAILS_ENV: production
       RAILS_SERVE_STATIC_FILES: true # won't serve assets without this
@@ -23,6 +37,7 @@ services:
       CCQ_MODE: embedded
       CCQ_EMBEDDED_LAYOUT: rcw/application
       REDIS_URL: redis://redis:6379
+      CFE_HOST: http://cfe:3000
       HOST_SERVICE_URL: ${CCQ_HOST_SERVICE_URL:-http://rcw:3000}
       HOST_SERVICE_ELIGIBILITY_ENDPOINT: /api/applications/%<application_id>s/eligibility
 

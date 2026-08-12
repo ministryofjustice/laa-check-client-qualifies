@@ -3,11 +3,31 @@
 # Separated from services included via `include:` in docker-compose.yml,
 # since a service can't be both included and overridden in the same file.
 services:
+  ccq-standalone:
+    depends_on:
+      ccq-image-prebuild:
+        condition: service_completed_successfully
+      migrator:
+        condition: service_completed_successfully
+
+  migrator:
+    depends_on:
+      ccq-image-prebuild:
+        condition: service_completed_successfully
+      postgres:
+        condition: service_healthy
+
   # Point at the stub instead of docker-compose.embedded.yml's default of a real host service.
   ccq-embedded:
     environment:
       HOST_SERVICE_URL: http://host-service-stub:8080
     depends_on:
+      ccq-image-prebuild:
+        condition: service_completed_successfully
+      redis:
+        condition: service_healthy
+      cfe:
+        condition: service_started
       host-service-stub:
         condition: service_started
 
