@@ -8,8 +8,6 @@
     "headers": {
       "Content-Type": "application/json"
     },
-    "jsonBody": {
-      "return_url": "http://localhost:8080/"
-    }
+    "jsonBody": {}
   }
 }

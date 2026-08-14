@@ -6,7 +6,7 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
     let(:resource_id) { "test_resource_id" }
     let(:session_data) { { "key" => "value" } }
     let(:journey_store) { instance_double(JourneyDataStore::RedisStore) }
-    let(:response_body) { { "return_url" => "http://example.com/return" }.to_json }
+    let(:response_body) { {}.to_json }
     let(:host_service_response) { double(status: 200, body: response_body) }
     let(:first_step) { Steps::Helper.first_step(session_data) }
     let(:step_url_fragment) { Flow::Handler.url_fragment(first_step) }
@@ -32,10 +32,9 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
       )
     end
 
-    it "initializes the journey store with feature flags and return URL" do
+    it "initializes the journey store with feature flags" do
       expect(journey_store).to have_received(:init).with({
         "feature_flags" => FeatureFlags.session_flags,
-        "return_url" => "http://example.com/return",
       })
     end
 
@@ -142,14 +141,83 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
     end
 
     context "when host service response body is already parsed" do
-      let(:response_body) { { "return_url" => "http://example.com/return" } }
+      let(:response_body) { {} }
 
       it "initializes journey data and redirects without JSON parsing" do
         get :show, params: { resource_id: }
 
         expect(journey_store).to have_received(:init).at_least(:once).with({
           "feature_flags" => FeatureFlags.session_flags,
-          "return_url" => "http://example.com/return",
+        })
+        expect(response).to redirect_to(step_path(resource_id:, step_url_fragment:))
+      end
+    end
+
+    context "when the host service response includes a previously completed eligibility assessment" do
+      let(:response_body) do
+        {
+          "data" => { "level_of_help" => "controlled_legal_representation" },
+          "result" => { "indication" => true },
+        }.to_json
+      end
+
+      it "seeds the journey store with the resumed assessment data" do
+        expect(journey_store).to have_received(:init).with({
+          "level_of_help" => "controlled_legal_representation",
+          "api_response" => { "indication" => true },
+          "feature_flags" => FeatureFlags.session_flags,
+        })
+      end
+
+      it "redirects to the results page" do
+        expect(response).to redirect_to(result_path(resource_id:))
+      end
+    end
+
+    context "when the eligibility assessment is malformed or partial" do
+      it "falls back to a fresh journey when result is missing" do
+        allow(host_service_client).to receive(:load).and_return(
+          double(status: 200, body: {
+            "data" => { "level_of_help" => "controlled_legal_representation" },
+          }.to_json),
+        )
+
+        get :show, params: { resource_id: }
+
+        expect(journey_store).to have_received(:init).at_least(:once).with({
+          "feature_flags" => FeatureFlags.session_flags,
+        })
+        expect(response).to redirect_to(step_path(resource_id:, step_url_fragment:))
+      end
+
+      it "falls back to a fresh journey when data is not an object" do
+        allow(host_service_client).to receive(:load).and_return(
+          double(status: 200, body: {
+            "data" => "not-an-object",
+            "result" => { "indication" => true },
+          }.to_json),
+        )
+
+        get :show, params: { resource_id: }
+
+        expect(journey_store).to have_received(:init).at_least(:once).with({
+          "feature_flags" => FeatureFlags.session_flags,
+        })
+        expect(response).to redirect_to(step_path(resource_id:, step_url_fragment:))
+      end
+
+      it "falls back to a fresh journey when result is not an object" do
+        allow(host_service_client).to receive(:load).and_return(
+          double(status: 200, body: {
+            "data" => { "level_of_help" => "controlled_legal_representation" },
+            "result" => "not-an-object",
+          }.to_json),
+        )
+
+        get :show, params: { resource_id: }
+
+        expect(journey_store).to have_received(:init).at_least(:once).with({
+          "feature_flags" => FeatureFlags.session_flags,
         })
         expect(response).to redirect_to(step_path(resource_id:, step_url_fragment:))
       end
