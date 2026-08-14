@@ -1,10 +1,13 @@
+include:
+  - path: docker/compose/include.prebuild.yml
+
 # Reusable building block: CCQ running in standalone mode, plus its own Postgres.
 services:
   ccq-standalone:
     container_name: ccq-standalone
     image: laa-check-client-qualifies:latest
+    pull_policy: never
     platform: linux/amd64
-    pull_policy: never # `make build`
     environment:
       RAILS_ENV: production
       RAILS_SERVE_STATIC_FILES: true
@@ -26,8 +29,8 @@ services:
   migrator:
     container_name: ccq-standalone-postgres-migrator
     image: laa-check-client-qualifies:latest
+    pull_policy: never
     platform: linux/amd64
-    pull_policy: never # `make build`
     command: bundle exec rails db:prepare
     environment:
       RAILS_ENV: production
