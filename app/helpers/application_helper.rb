@@ -45,6 +45,8 @@ module ApplicationHelper
   def back_link(previous_step, mimic_browser_back)
     link = if previous_step
              step_path_from_step(previous_step, params[:assessment_code])
+           elsif ModeConfig.embedded?
+             "/cases/#{params[:resource_id]}/task-list"
            else
              root_path
            end
