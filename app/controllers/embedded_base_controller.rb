@@ -64,9 +64,13 @@ private
 
   def host_reauthentication_return_path
     original_fullpath = request.original_fullpath
-    return URI.parse(original_fullpath).path if original_fullpath.present?
+    return request.path if original_fullpath.blank?
 
-    request.path
+    uri = URI.parse(original_fullpath)
+    destination = Rack::Utils.parse_nested_query(uri.query)["destination"]
+    return uri.path if destination.blank?
+
+    "#{uri.path}?#{{ 'destination' => destination }.to_query}"
   rescue URI::InvalidURIError
     request.path
   end

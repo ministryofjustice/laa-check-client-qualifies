@@ -162,6 +162,26 @@ RSpec.describe EmbeddedBaseController, ccq_mode: :embedded, type: :controller do
       )
     end
 
+    it "preserves the destination query param while stripping other query params" do
+      allow(controller).to receive(:request).and_return(
+        instance_double(
+          ActionDispatch::Request,
+          path: "/cases/#{resource_id}/eligibility",
+          original_fullpath: "/cases/#{resource_id}/eligibility?from=host&destination=check-answers",
+          host: request_host,
+        ),
+      )
+
+      expect(controller).to receive(:redirect_to).with(
+        "https://test.host/auth/sign-in?returnTo=%2Fcases%2F#{resource_id}%2Feligibility%3Fdestination%3Dcheck-answers",
+      )
+
+      controller.send(
+        :redirect_to_host_reauthentication,
+        location: "https://test.host/auth/sign-in",
+      )
+    end
+
     it "falls back to request.path when original_fullpath is invalid" do
       allow(controller).to receive(:request).and_return(
         instance_double(
