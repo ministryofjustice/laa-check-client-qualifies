@@ -172,6 +172,30 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
       it "redirects to the results page" do
         expect(response).to redirect_to(result_path(resource_id:))
       end
+
+      context "when destination param requests check-answers" do
+        it "redirects to the check-answers page" do
+          get :show, params: { resource_id:, destination: "check-answers" }
+
+          expect(response).to redirect_to(check_answers_path(resource_id:))
+        end
+      end
+
+      context "when destination param requests check-result" do
+        it "redirects to the results page" do
+          get :show, params: { resource_id:, destination: "check-result" }
+
+          expect(response).to redirect_to(result_path(resource_id:))
+        end
+      end
+
+      context "when destination param is unrecognised" do
+        it "falls back to the results page" do
+          get :show, params: { resource_id:, destination: "not-a-real-destination" }
+
+          expect(response).to redirect_to(result_path(resource_id:))
+        end
+      end
     end
 
     context "when the eligibility assessment is malformed or partial" do

@@ -1,4 +1,9 @@
 class EmbeddedLandingsController < EmbeddedBaseController
+  RESUMABLE_DESTINATIONS = {
+    "check-answers" => :check_answers_path,
+    "check-result" => :result_path,
+  }.freeze
+
   def show
     response = HostServiceClient.new.load(
       application_id: params[:resource_id],
@@ -10,7 +15,7 @@ class EmbeddedLandingsController < EmbeddedBaseController
       body = response.body.is_a?(String) ? JSON.parse(response.body) : response.body
       if resumable_assessment?(body)
         journey_store.init(resumed_journey_data(body))
-        redirect_to result_path(resource_id: params[:resource_id])
+        redirect_to send(resumable_destination_path_helper, resource_id: params[:resource_id])
       else
         journey_store.init({
           "feature_flags" => FeatureFlags.session_flags,
@@ -42,6 +47,10 @@ class EmbeddedLandingsController < EmbeddedBaseController
   end
 
 private
+
+  def resumable_destination_path_helper
+    RESUMABLE_DESTINATIONS.fetch(params[:destination], :result_path)
+  end
 
   def resumable_assessment?(body)
     body["data"].is_a?(Hash) && body["result"].is_a?(Hash)
