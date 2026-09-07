@@ -10,10 +10,18 @@ class EmbeddedChangeAnswersController < EmbeddedBaseController
   before_action :set_back_behaviour
 
   def show
+    return redirect_to check_answers_path(resource_id: params[:resource_id]) if Steps::Helper.skip_step_in_embedded?(step)
+
     track_page_view
     @previous_step = Steps::Helper.last_step(session_data)
     @form = Flow::Handler.form_from_session(step, session_data)
     render "/question_flow/#{step}"
+  end
+
+  def update
+    return redirect_to check_answers_path(resource_id: params[:resource_id]) if Steps::Helper.skip_step_in_embedded?(step)
+
+    super
   end
 
   # Override session_data for the pending copy pattern.

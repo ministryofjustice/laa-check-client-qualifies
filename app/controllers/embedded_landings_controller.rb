@@ -19,6 +19,10 @@ class EmbeddedLandingsController < EmbeddedBaseController
       else
         journey_store.init({
           "feature_flags" => FeatureFlags.session_flags,
+          # Embedded clients are always controlled work and never immigration/asylum matters,
+          # so these questions are skipped and pre-filled - see Steps::Helper::EMBEDDED_SKIPPED_STEPS
+          "level_of_help" => LevelOfHelpForm::LEVELS_OF_HELP[:controlled],
+          "immigration_or_asylum" => false,
         })
         redirect_to step_path(resource_id: params[:resource_id],
                               step_url_fragment: helpers.step_url_fragment_from_step(Steps::Helper.first_step(session_data)))

@@ -32,9 +32,11 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
       )
     end
 
-    it "initializes the journey store with feature flags" do
+    it "initializes the journey store with feature flags and pre-filled embedded values" do
       expect(journey_store).to have_received(:init).with({
         "feature_flags" => FeatureFlags.session_flags,
+        "level_of_help" => "controlled",
+        "immigration_or_asylum" => false,
       })
     end
 
@@ -148,6 +150,8 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
 
         expect(journey_store).to have_received(:init).at_least(:once).with({
           "feature_flags" => FeatureFlags.session_flags,
+          "level_of_help" => "controlled",
+          "immigration_or_asylum" => false,
         })
         expect(response).to redirect_to(step_path(resource_id:, step_url_fragment:))
       end
@@ -210,6 +214,8 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
 
         expect(journey_store).to have_received(:init).at_least(:once).with({
           "feature_flags" => FeatureFlags.session_flags,
+          "level_of_help" => "controlled",
+          "immigration_or_asylum" => false,
         })
         expect(response).to redirect_to(step_path(resource_id:, step_url_fragment:))
       end
@@ -226,6 +232,8 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
 
         expect(journey_store).to have_received(:init).at_least(:once).with({
           "feature_flags" => FeatureFlags.session_flags,
+          "level_of_help" => "controlled",
+          "immigration_or_asylum" => false,
         })
         expect(response).to redirect_to(step_path(resource_id:, step_url_fragment:))
       end
@@ -242,6 +250,8 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
 
         expect(journey_store).to have_received(:init).at_least(:once).with({
           "feature_flags" => FeatureFlags.session_flags,
+          "level_of_help" => "controlled",
+          "immigration_or_asylum" => false,
         })
         expect(response).to redirect_to(step_path(resource_id:, step_url_fragment:))
       end

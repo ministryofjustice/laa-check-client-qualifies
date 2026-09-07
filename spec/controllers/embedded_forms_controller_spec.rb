@@ -79,4 +79,31 @@ RSpec.describe EmbeddedFormsController, ccq_mode: :embedded, type: :controller d
       end
     end
   end
+
+  describe "GET #show for a step that is skipped in embedded mode", :embedded_only do
+    it "redirects to the next step without rendering the form" do
+      get :show, params: { resource_id: resource_id, step_url_fragment: "what-level-help" }
+
+      expect(response).to have_http_status(:redirect)
+      expect(response.location).to end_with("/is-client-domestic-abuse-case-applicant")
+    end
+
+    it "redirects to the check answers page when there is no next step" do
+      allow(Steps::Helper).to receive(:next_step_for).and_return(nil)
+
+      get :show, params: { resource_id: resource_id, step_url_fragment: "what-level-help" }
+
+      expect(response).to have_http_status(:redirect)
+      expect(response.location).to end_with("/check-answers")
+    end
+  end
+
+  describe "POST #update for a step that is skipped in embedded mode", :embedded_only do
+    it "redirects without processing the submitted form" do
+      post :update, params: { resource_id: resource_id, step_url_fragment: "is-this-immigration-asylum-matter" }
+
+      expect(session_data).not_to include("immigration_or_asylum")
+      expect(response).to have_http_status(:redirect)
+    end
+  end
 end

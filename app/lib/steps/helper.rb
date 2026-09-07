@@ -1,9 +1,16 @@
 module Steps
   class Helper
+    # These steps are pre-answered on the client's behalf in Embedded mode and must never be shown
+    EMBEDDED_SKIPPED_STEPS = %i[level_of_help immigration_or_asylum].freeze
+
     class << self
       # This is only used in a test
       def all_possible_steps
         all_sections.map(&:all_steps).reduce(:+).uniq
+      end
+
+      def skip_step_in_embedded?(step)
+        ModeConfig.embedded? && EMBEDDED_SKIPPED_STEPS.include?(step)
       end
 
       def next_step_for(session_data, step)

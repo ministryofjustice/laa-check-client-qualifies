@@ -9,6 +9,8 @@ class EmbeddedFormsController < EmbeddedBaseController
   before_action :load_check
 
   def show
+    return redirect_to_step_after_skip if Steps::Helper.skip_step_in_embedded?(step)
+
     track_page_view
     @previous_step = Steps::Helper.previous_step_for(session_data, step)
     @form = Flow::Handler.form_from_session(step, session_data)
@@ -16,6 +18,8 @@ class EmbeddedFormsController < EmbeddedBaseController
   end
 
   def update
+    return redirect_to_step_after_skip if Steps::Helper.skip_step_in_embedded?(step)
+
     @previous_step = Steps::Helper.previous_step_for(session_data, step)
     @form = Flow::Handler.model_from_params(step, params, session_data)
 
@@ -34,6 +38,17 @@ class EmbeddedFormsController < EmbeddedBaseController
     else
       track_validation_error
       render "question_flow/#{step}"
+    end
+  end
+
+private
+
+  def redirect_to_step_after_skip
+    next_step = Steps::Helper.next_step_for(session_data, step)
+    if next_step
+      redirect_to step_path(step_url_fragment: helpers.step_url_fragment_from_step(next_step), resource_id: params[:resource_id])
+    else
+      redirect_to check_answers_path(resource_id: params[:resource_id])
     end
   end
 end

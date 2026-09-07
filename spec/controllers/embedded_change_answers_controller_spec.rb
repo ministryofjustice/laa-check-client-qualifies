@@ -30,6 +30,43 @@ RSpec.describe EmbeddedChangeAnswersController, ccq_mode: :embedded, type: :cont
     end
   end
 
+  describe "GET #show for a step that is skipped in embedded mode", :embedded_only do
+    it "redirects to check answers without rendering the form" do
+      get :show, params: { resource_id: resource_id, step_url_fragment: "what-level-help" }
+
+      expect(response).to have_http_status(:redirect)
+      expect(response.location).to end_with("/check-answers")
+    end
+  end
+
+  describe "POST #update", :embedded_only do
+    let(:step_url_fragment) { "client-age-group" }
+    let(:model) { instance_double(ClientAgeForm, valid?: false) }
+
+    before do
+      allow(Flow::Handler).to receive(:model_from_params).and_return(model)
+      allow(controller).to receive(:track_validation_error)
+    end
+
+    context "when the step is not skipped in embedded mode" do
+      it "delegates to the shared update behaviour" do
+        post :update, params: { resource_id: resource_id, step_url_fragment: step_url_fragment }
+        expect(response).to render_template("question_flow/client_age")
+      end
+    end
+
+    context "when the step is skipped in embedded mode" do
+      let(:step_url_fragment) { "what-level-help" }
+
+      it "redirects to check answers without processing the submitted form" do
+        post :update, params: { resource_id: resource_id, step_url_fragment: step_url_fragment }
+
+        expect(Flow::Handler).not_to have_received(:model_from_params)
+        expect(response.location).to end_with("/check-answers")
+      end
+    end
+  end
+
   describe "#session_data", :embedded_only do
     it "returns the session data from the journey store" do
       expect(controller.send(:session_data)).to eq(session_data)
