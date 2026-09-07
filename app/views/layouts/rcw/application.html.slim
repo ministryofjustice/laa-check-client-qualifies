@@ -19,7 +19,7 @@ html dir="ltr" lang="en-GB" class="govuk-template govuk-template--rebranded"
       - header.with_navigation_item(text: t("layouts.rcw.header.sign_out"), href: sign_out_path, options: sign_out_options)
 
     = govuk_service_navigation(service_name: t("layouts.rcw.service.name"), service_url: root_path) do |service_navigation|
-      - service_navigation.with_navigation_item(text: "Your cases", href: "#{root_url}your-cases")
+      - service_navigation.with_navigation_item(text: "Your cases", href: "#{root_url}cases")
 
     .govuk-width-container
       = govuk_phase_banner tag: { text: t("service.beta") },
