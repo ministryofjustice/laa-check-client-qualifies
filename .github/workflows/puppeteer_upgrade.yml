@@ -25,6 +25,7 @@ jobs:
       version_tag: ${{ steps.meta.outputs.version_tag }}
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_REPO: ${{ github.repository }}
       PUPPETEER_VERSION: ${{ inputs.puppeteer_version }}
     steps:
       - name: Checkout base branch
