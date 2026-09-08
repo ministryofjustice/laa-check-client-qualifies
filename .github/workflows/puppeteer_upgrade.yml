@@ -59,11 +59,6 @@ jobs:
           echo "BRANCH_NAME=${branch_name}" >> "$GITHUB_ENV"
           echo "VERSION_TAG=${version_tag}" >> "$GITHUB_ENV"
 
-      - name: Configure git user
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
       - name: Create or reset upgrade branch
         run: |
           git fetch origin main
@@ -87,15 +82,48 @@ jobs:
         run: |
           echo "skip_pr=false" >> "$GITHUB_OUTPUT"
 
-          if git diff --quiet; then
+          files=(package.json Dockerfile_browser_tools.dockerfile yarn.lock .circleci/config.yml)
+
+          if git diff --quiet -- "${files[@]}"; then
             echo "No changes were produced. The requested Puppeteer version may already be current."
             echo "skip_pr=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
-          git add package.json Dockerfile_browser_tools.dockerfile yarn.lock .circleci/config.yml
-          git commit -m "chore: bump puppeteer to ${VERSION_TAG}"
-          git push --force-with-lease origin "$BRANCH_NAME"
+          BASE_SHA=$(git rev-parse HEAD)
+
+          # Create the branch and commit via the GraphQL API rather than `git push`, so the
+          # commit is authored and signed by GitHub itself and shows as "Verified" - this repo
+          # requires verified signatures, which a plain git-authored commit can't satisfy.
+          gh api "repos/${GH_REPO}/git/refs" \
+            -f ref="refs/heads/${BRANCH_NAME}" \
+            -f sha="${BASE_SHA}"
+
+          additions=$(for f in "${files[@]}"; do
+            jq -n --arg path "$f" --arg contents "$(base64 -w0 "$f")" '{path: $path, contents: $contents}'
+          done | jq -s .)
+
+          jq -n \
+            --arg repo "$GH_REPO" \
+            --arg branch "$BRANCH_NAME" \
+            --arg headline "chore: bump puppeteer to ${VERSION_TAG}" \
+            --arg oid "$BASE_SHA" \
+            --argjson additions "$additions" \
+            '{
+              query: "mutation($input: CreateCommitOnBranchInput!) { createCommitOnBranch(input: $input) { commit { oid } } }",
+              variables: {
+                input: {
+                  branch: { repositoryNameWithOwner: $repo, branchName: $branch },
+                  message: { headline: $headline },
+                  expectedHeadOid: $oid,
+                  fileChanges: { additions: $additions }
+                }
+              }
+            }' > /tmp/commit-input.json
+
+          # Pass the pre-built request body via --input rather than -F, since -F sends a
+          # file's contents as a string value rather than parsing it into the variables object.
+          gh api graphql --input /tmp/commit-input.json
 
   build-browser-tools-image:
     needs: prepare-upgrade
