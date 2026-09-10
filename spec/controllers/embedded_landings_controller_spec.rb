@@ -160,14 +160,18 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
     context "when the host service response includes a previously completed eligibility assessment" do
       let(:response_body) do
         {
-          "data" => { "level_of_help" => "controlled_legal_representation" },
+          "data" => {
+            "level_of_help" => "controlled_legal_representation",
+            "client_age" => ClientAgeForm::STANDARD,
+          },
           "result" => { "indication" => true },
         }.to_json
       end
 
       it "seeds the journey store with the resumed assessment data" do
-        expect(journey_store).to have_received(:init).with({
+        expect(journey_store).to have_received(:init).at_least(:once).with({
           "level_of_help" => "controlled_legal_representation",
+          "client_age" => ClientAgeForm::STANDARD,
           "api_response" => { "indication" => true },
           "feature_flags" => FeatureFlags.session_flags,
         })
@@ -199,6 +203,27 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
 
           expect(response).to redirect_to(result_path(resource_id:))
         end
+      end
+    end
+
+    context "when the host service response includes a fresh client age" do
+      let(:response_body) do
+        {
+          "data" => { "client_age" => ClientAgeForm::STANDARD },
+        }.to_json
+      end
+
+      it "hydrates the age alongside the embedded defaults" do
+        expect(journey_store).to have_received(:init).at_least(:once).with({
+          "feature_flags" => FeatureFlags.session_flags,
+          "level_of_help" => "controlled",
+          "immigration_or_asylum" => false,
+          "client_age" => ClientAgeForm::STANDARD,
+        })
+      end
+
+      it "continues as a fresh journey" do
+        expect(response).to redirect_to(step_path(resource_id:, step_url_fragment:))
       end
     end
 
@@ -254,6 +279,48 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
           "immigration_or_asylum" => false,
         })
         expect(response).to redirect_to(step_path(resource_id:, step_url_fragment:))
+      end
+
+      it "does not hydrate a missing client age" do
+        allow(host_service_client).to receive(:load).and_return(
+          double(status: 200, body: { "data" => {} }.to_json),
+        )
+
+        get :show, params: { resource_id: }
+
+        expect(journey_store).to have_received(:init).at_least(:once).with({
+          "feature_flags" => FeatureFlags.session_flags,
+          "level_of_help" => "controlled",
+          "immigration_or_asylum" => false,
+        })
+      end
+
+      it "does not hydrate an invalid client age" do
+        allow(host_service_client).to receive(:load).and_return(
+          double(status: 200, body: { "data" => { "client_age" => "invalid" } }.to_json),
+        )
+
+        get :show, params: { resource_id: }
+
+        expect(journey_store).to have_received(:init).at_least(:once).with({
+          "feature_flags" => FeatureFlags.session_flags,
+          "level_of_help" => "controlled",
+          "immigration_or_asylum" => false,
+        })
+      end
+
+      it "does not hydrate client age when data is not an object" do
+        allow(host_service_client).to receive(:load).and_return(
+          double(status: 200, body: { "data" => "not-an-object" }.to_json),
+        )
+
+        get :show, params: { resource_id: }
+
+        expect(journey_store).to have_received(:init).at_least(:once).with({
+          "feature_flags" => FeatureFlags.session_flags,
+          "level_of_help" => "controlled",
+          "immigration_or_asylum" => false,
+        })
       end
     end
 

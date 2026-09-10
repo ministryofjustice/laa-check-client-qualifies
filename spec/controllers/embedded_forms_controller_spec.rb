@@ -25,6 +25,27 @@ RSpec.describe EmbeddedFormsController, ccq_mode: :embedded, type: :controller d
     it "assigns @previous_step from session data" do
       expect(assigns(:previous_step)).to eq(Steps::Helper.previous_step_for(session_data, :client_age))
     end
+
+    context "when client age has been hydrated" do
+      let(:session_data) { { "client_age" => ClientAgeForm::STANDARD } }
+
+      it "redirects to the next step without rendering the form" do
+        get :show, params: { resource_id: resource_id, step_url_fragment: "client-age-group" }
+
+        expect(response).to have_http_status(:redirect)
+        expect(response.location).to end_with("/what-level-help")
+      end
+    end
+
+    context "when client age is invalid" do
+      let(:session_data) { { "client_age" => "invalid" } }
+
+      it "renders the age form as a fallback" do
+        get :show, params: { resource_id: resource_id, step_url_fragment: "client-age-group" }
+
+        expect(response).to render_template("question_flow/client_age")
+      end
+    end
   end
 
   describe "POST #update", :embedded_only do
@@ -76,6 +97,19 @@ RSpec.describe EmbeddedFormsController, ccq_mode: :embedded, type: :controller d
         post :update, params: invalid_params
         expect(session_data).not_to include("client_age")
         expect(response).to render_template("question_flow/client_age")
+      end
+    end
+
+    context "when client age has been hydrated" do
+      let(:session_data) { { "client_age" => ClientAgeForm::STANDARD } }
+
+      it "redirects without overwriting the hydrated value" do
+        post :update, params: valid_params.merge(
+          client_age_form: { client_age: ClientAgeForm::UNDER_18 },
+        )
+
+        expect(session_data).to eq("client_age" => ClientAgeForm::STANDARD)
+        expect(response).to have_http_status(:redirect)
       end
     end
   end
