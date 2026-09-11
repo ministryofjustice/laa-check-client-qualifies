@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "checks/check_answers.html.slim", ccq_mode: :embedded do
+RSpec.describe "checks/check_answers.html.slim", :embedded_only, ccq_mode: :embedded do
   let(:resource_id) { "test_resource_id" }
   let(:session_data) { build(:minimal_complete_session, passporting: true) }
   let(:sections) { CheckAnswers::SectionListerService.call(session_data) }

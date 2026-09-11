@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Steps::Helper, ccq_mode: :embedded do
+RSpec.describe Steps::Helper, :embedded_only, ccq_mode: :embedded do
   describe ".skip_step_in_embedded?" do
     it "does not skip steps outside embedded mode" do
       allow(ModeConfig).to receive(:embedded?).and_return(false)
