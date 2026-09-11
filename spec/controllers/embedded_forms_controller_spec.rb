@@ -25,6 +25,27 @@ RSpec.describe EmbeddedFormsController, ccq_mode: :embedded, type: :controller d
     it "assigns @previous_step from session data" do
       expect(assigns(:previous_step)).to eq(Steps::Helper.previous_step_for(session_data, :client_age))
     end
+
+    context "when client age has been hydrated" do
+      let(:session_data) { { "client_age" => ClientAgeForm::STANDARD } }
+
+      it "redirects to the next step without rendering the form" do
+        get :show, params: { resource_id: resource_id, step_url_fragment: "client-age-group" }
+
+        expect(response).to have_http_status(:redirect)
+        expect(response.location).to end_with("/what-level-help")
+      end
+    end
+
+    context "when client age is invalid" do
+      let(:session_data) { { "client_age" => "invalid" } }
+
+      it "renders the age form as a fallback" do
+        get :show, params: { resource_id: resource_id, step_url_fragment: "client-age-group" }
+
+        expect(response).to render_template("question_flow/client_age")
+      end
+    end
   end
 
   describe "POST #update", :embedded_only do
@@ -78,6 +99,19 @@ RSpec.describe EmbeddedFormsController, ccq_mode: :embedded, type: :controller d
         expect(response).to render_template("question_flow/client_age")
       end
     end
+
+    context "when client age has been hydrated" do
+      let(:session_data) { { "client_age" => ClientAgeForm::STANDARD } }
+
+      it "redirects without overwriting the hydrated value" do
+        post :update, params: valid_params.merge(
+          client_age_form: { client_age: ClientAgeForm::UNDER_18 },
+        )
+
+        expect(session_data).to eq("client_age" => ClientAgeForm::STANDARD)
+        expect(response).to have_http_status(:redirect)
+      end
+    end
   end
 
   describe "GET #show for a step that is skipped in embedded mode", :embedded_only do
@@ -95,6 +129,57 @@ RSpec.describe EmbeddedFormsController, ccq_mode: :embedded, type: :controller d
 
       expect(response).to have_http_status(:redirect)
       expect(response.location).to end_with("/check-answers")
+    end
+  end
+
+  describe "GET #show routing for hydrated client age", :embedded_only do
+    shared_examples "routes hydrated age" do
+      let(:session_data) do
+        {
+          "client_age" => hydrated_client_age,
+          "level_of_help" => LevelOfHelpForm::LEVELS_OF_HELP[:controlled],
+          "immigration_or_asylum" => false,
+        }
+      end
+
+      it "redirects through prefilled steps to the next visible question" do
+        expect(Steps::Helper.next_step_for(session_data, :level_of_help)).to eq(expected_steps[1])
+
+        current_step = :client_age
+
+        expected_steps.each do |expected_step|
+          get :show, params: {
+            resource_id: resource_id,
+            step_url_fragment: Flow::Handler.url_fragment(current_step),
+          }
+
+          expect(response.location).to end_with(
+            "/#{Flow::Handler.url_fragment(expected_step)}",
+          )
+          current_step = expected_step
+        end
+      end
+    end
+
+    context "when the client is under 18" do
+      let(:hydrated_client_age) { ClientAgeForm::UNDER_18 }
+      let(:expected_steps) { %i[level_of_help under_18_clr] }
+
+      include_examples "routes hydrated age"
+    end
+
+    context "when the client is aged 18 to 59" do
+      let(:hydrated_client_age) { ClientAgeForm::STANDARD }
+      let(:expected_steps) { %i[level_of_help immigration_or_asylum applicant] }
+
+      include_examples "routes hydrated age"
+    end
+
+    context "when the client is aged 60 or over" do
+      let(:hydrated_client_age) { ClientAgeForm::OVER_60 }
+      let(:expected_steps) { %i[level_of_help immigration_or_asylum applicant] }
+
+      include_examples "routes hydrated age"
     end
   end
 
