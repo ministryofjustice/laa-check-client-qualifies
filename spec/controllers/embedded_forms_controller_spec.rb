@@ -132,6 +132,57 @@ RSpec.describe EmbeddedFormsController, ccq_mode: :embedded, type: :controller d
     end
   end
 
+  describe "GET #show routing for hydrated client age", :embedded_only do
+    shared_examples "routes hydrated age" do
+      let(:session_data) do
+        {
+          "client_age" => hydrated_client_age,
+          "level_of_help" => LevelOfHelpForm::LEVELS_OF_HELP[:controlled],
+          "immigration_or_asylum" => false,
+        }
+      end
+
+      it "redirects through prefilled steps to the next visible question" do
+        expect(Steps::Helper.next_step_for(session_data, :level_of_help)).to eq(expected_steps[1])
+
+        current_step = :client_age
+
+        expected_steps.each do |expected_step|
+          get :show, params: {
+            resource_id: resource_id,
+            step_url_fragment: Flow::Handler.url_fragment(current_step),
+          }
+
+          expect(response.location).to end_with(
+            "/#{Flow::Handler.url_fragment(expected_step)}",
+          )
+          current_step = expected_step
+        end
+      end
+    end
+
+    context "when the client is under 18" do
+      let(:hydrated_client_age) { ClientAgeForm::UNDER_18 }
+      let(:expected_steps) { %i[level_of_help under_18_clr] }
+
+      include_examples "routes hydrated age"
+    end
+
+    context "when the client is aged 18 to 59" do
+      let(:hydrated_client_age) { ClientAgeForm::STANDARD }
+      let(:expected_steps) { %i[level_of_help immigration_or_asylum applicant] }
+
+      include_examples "routes hydrated age"
+    end
+
+    context "when the client is aged 60 or over" do
+      let(:hydrated_client_age) { ClientAgeForm::OVER_60 }
+      let(:expected_steps) { %i[level_of_help immigration_or_asylum applicant] }
+
+      include_examples "routes hydrated age"
+    end
+  end
+
   describe "POST #update for a step that is skipped in embedded mode", :embedded_only do
     it "redirects without processing the submitted form" do
       post :update, params: { resource_id: resource_id, step_url_fragment: "is-this-immigration-asylum-matter" }
