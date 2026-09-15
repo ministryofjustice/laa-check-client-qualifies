@@ -9,7 +9,7 @@ class EmbeddedFormsController < EmbeddedBaseController
   before_action :load_check
 
   def show
-    return redirect_to_step_after_skip if Steps::Helper.skip_step_in_embedded?(step)
+    return redirect_to_step_after_skip if Steps::Helper.skip_step_in_embedded?(step, session_data)
 
     track_page_view
     @previous_step = Steps::Helper.previous_step_for(session_data, step)
@@ -18,7 +18,7 @@ class EmbeddedFormsController < EmbeddedBaseController
   end
 
   def update
-    return redirect_to_step_after_skip if Steps::Helper.skip_step_in_embedded?(step)
+    return redirect_to_step_after_skip if Steps::Helper.skip_step_in_embedded?(step, session_data)
 
     @previous_step = Steps::Helper.previous_step_for(session_data, step)
     @form = Flow::Handler.model_from_params(step, params, session_data)

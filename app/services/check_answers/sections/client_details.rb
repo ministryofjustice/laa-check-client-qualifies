@@ -9,7 +9,7 @@ module CheckAnswers
 
       def subsections
         tables = [
-          Table.new(screen: :client_age, index: nil, skip_change_link: false, disputed?: false,
+          Table.new(screen: :client_age, index: nil, skip_change_link: ModeConfig.embedded?, disputed?: false,
                     fields: [
                       FieldPresenter.new(table_label: :client_age, attribute: :client_age, type: :select, model: @check),
                     ]),

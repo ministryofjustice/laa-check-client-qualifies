@@ -9,8 +9,11 @@ module Steps
         all_sections.map(&:all_steps).reduce(:+).uniq
       end
 
-      def skip_step_in_embedded?(step)
-        ModeConfig.embedded? && EMBEDDED_SKIPPED_STEPS.include?(step)
+      def skip_step_in_embedded?(step, session_data)
+        return false unless ModeConfig.embedded?
+        return true if EMBEDDED_SKIPPED_STEPS.include?(step)
+
+        step == :client_age && ClientAgeForm::OPTIONS.include?(session_data["client_age"])
       end
 
       def next_step_for(session_data, step)

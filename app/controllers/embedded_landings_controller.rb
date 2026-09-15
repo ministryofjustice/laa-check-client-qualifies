@@ -17,13 +17,7 @@ class EmbeddedLandingsController < EmbeddedBaseController
         journey_store.init(resumed_journey_data(body))
         redirect_to send(resumable_destination_path_helper, resource_id: params[:resource_id])
       else
-        journey_store.init({
-          "feature_flags" => FeatureFlags.session_flags,
-          # Embedded clients are always controlled work and never immigration/asylum matters,
-          # so these questions are skipped and pre-filled - see Steps::Helper::EMBEDDED_SKIPPED_STEPS
-          "level_of_help" => LevelOfHelpForm::LEVELS_OF_HELP[:controlled],
-          "immigration_or_asylum" => false,
-        })
+        journey_store.init(fresh_journey_data(body))
         redirect_to step_path(resource_id: params[:resource_id],
                               step_url_fragment: helpers.step_url_fragment_from_step(Steps::Helper.first_step(session_data)))
       end
@@ -65,6 +59,21 @@ private
       "api_response" => body["result"],
       "feature_flags" => FeatureFlags.session_flags,
     )
+  end
+
+  def fresh_journey_data(body)
+    data = {
+      "feature_flags" => FeatureFlags.session_flags,
+      # Embedded clients are always controlled work and never immigration/asylum matters,
+      # so these questions are skipped and pre-filled - see Steps::Helper::EMBEDDED_SKIPPED_STEPS
+      "level_of_help" => LevelOfHelpForm::LEVELS_OF_HELP[:controlled],
+      "immigration_or_asylum" => false,
+    }
+
+    host_data = body["data"]
+    client_age = host_data["client_age"] if host_data.is_a?(Hash)
+    data["client_age"] = client_age if ClientAgeForm::OPTIONS.include?(client_age)
+    data
   end
 
   def host_response_body_preview(response)

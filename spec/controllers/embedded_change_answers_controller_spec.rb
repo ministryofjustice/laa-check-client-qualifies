@@ -37,6 +37,15 @@ RSpec.describe EmbeddedChangeAnswersController, ccq_mode: :embedded, type: :cont
       expect(response).to have_http_status(:redirect)
       expect(response.location).to end_with("/check-answers")
     end
+
+    it "redirects hydrated client age back to check answers" do
+      session_data["client_age"] = ClientAgeForm::STANDARD
+
+      get :show, params: { resource_id: resource_id, step_url_fragment: "client-age-group" }
+
+      expect(response).to have_http_status(:redirect)
+      expect(response.location).to end_with("/check-answers")
+    end
   end
 
   describe "POST #update", :embedded_only do
@@ -62,6 +71,26 @@ RSpec.describe EmbeddedChangeAnswersController, ccq_mode: :embedded, type: :cont
         post :update, params: { resource_id: resource_id, step_url_fragment: step_url_fragment }
 
         expect(Flow::Handler).not_to have_received(:model_from_params)
+        expect(response.location).to end_with("/check-answers")
+      end
+    end
+
+    context "when hydrated client age is submitted" do
+      let(:step_url_fragment) { "client-age-group" }
+
+      before do
+        session_data["client_age"] = ClientAgeForm::STANDARD
+      end
+
+      it "redirects without processing or overwriting the form" do
+        post :update, params: {
+          resource_id: resource_id,
+          step_url_fragment:,
+          client_age_form: { client_age: ClientAgeForm::UNDER_18 },
+        }
+
+        expect(Flow::Handler).not_to have_received(:model_from_params)
+        expect(session_data["client_age"]).to eq(ClientAgeForm::STANDARD)
         expect(response.location).to end_with("/check-answers")
       end
     end

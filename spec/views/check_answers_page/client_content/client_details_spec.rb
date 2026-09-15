@@ -23,5 +23,10 @@ RSpec.describe "checks/check_answers.html.slim" do
         expect(text).to include("Does your client receive a passporting benefit?")
       end
     end
+
+    it "includes a change link for client age in standalone mode" do
+      fragment = Nokogiri::HTML.fragment(rendered)
+      expect(fragment).to have_css('a.change-link[aria-label="Change Client age"]')
+    end
   end
 end
