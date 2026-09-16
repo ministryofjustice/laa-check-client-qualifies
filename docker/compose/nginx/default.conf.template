@@ -36,6 +36,12 @@ server {
     include     /etc/nginx/proxy.conf;
     proxy_pass  http://${NGINX_UPSTREAM_CCQ};
   }
+
+  # match anything with `/documents` and forward to CCQ
+  location ~ ^/documents(/|$) {
+    include     /etc/nginx/proxy.conf;
+    proxy_pass  http://${NGINX_UPSTREAM_CCQ};
+  }
 }
 
 # Health endpoint on a separate port so it is never reachable via the ingress
