@@ -105,6 +105,7 @@ RSpec.describe EmbeddedResultsController, ccq_mode: :embedded, type: :controller
     let(:host_service_response) { double(status: 200) }
 
     before do
+      allow(ENV).to receive(:fetch).and_call_original
       allow(ENV).to receive(:fetch).with("HOST_SERVICE_SESSION_COOKIES", "").and_return("service.sid")
       allow(controller).to receive(:cookies).and_return(
         { "service.sid" => session_id },
