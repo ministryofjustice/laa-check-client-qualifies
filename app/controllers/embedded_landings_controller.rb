@@ -14,10 +14,10 @@ class EmbeddedLandingsController < EmbeddedBaseController
     when 200
       body = response.body.is_a?(String) ? JSON.parse(response.body) : response.body
       if resumable_assessment?(body)
-        journey_store.init(resumed_journey_data(body))
+        journey_store.write(resumed_journey_data(body))
         redirect_to send(resumable_destination_path_helper, resource_id: params[:resource_id])
       else
-        journey_store.init(fresh_journey_data(body))
+        journey_store.write(fresh_journey_data(body))
         redirect_to step_path(resource_id: params[:resource_id],
                               step_url_fragment: helpers.step_url_fragment_from_step(Steps::Helper.first_step(session_data)))
       end
@@ -42,6 +42,8 @@ class EmbeddedLandingsController < EmbeddedBaseController
     end
   rescue HostServiceClient::ConnectionError
     render "errors/service_unavailable", status: :service_unavailable
+  rescue JourneyDataStore::KeyNotFound
+    render "errors/session_expired", status: :unauthorized
   end
 
 private

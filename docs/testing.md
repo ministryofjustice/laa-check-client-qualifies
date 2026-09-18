@@ -20,6 +20,8 @@ Embedded mode:
 CCQ_MODE=embedded bundle exec rspec
 ```
 
+Embedded cache isolation uses the comma-separated `HOST_SERVICE_SESSION_COOKIES` setting.
+
 When using `CCQ_MODE=embedded`, RSpec runs specs in `spec/_embedded` and any specs in `spec` tagged with `ccq_mode: :embedded`.
 
 End-to-end tagged tests:

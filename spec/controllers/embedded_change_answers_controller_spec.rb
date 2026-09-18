@@ -8,7 +8,7 @@ RSpec.describe EmbeddedChangeAnswersController, ccq_mode: :embedded, type: :cont
   let(:form) { instance_double(ClientAgeForm) }
 
   before do
-    allow(JourneyDataStore::RedisStore).to receive(:new).with(resource_id).and_return(journey_store)
+    allow(JourneyDataStore::RedisStore).to receive(:new).with(resource_id, anything).and_return(journey_store)
     allow(journey_store).to receive(:read) { session_data.dup }
     allow(journey_store).to receive(:write)
     allow(controller).to receive(:track_page_view)

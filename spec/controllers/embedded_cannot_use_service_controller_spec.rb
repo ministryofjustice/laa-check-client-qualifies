@@ -8,7 +8,7 @@ RSpec.describe EmbeddedCannotUseServiceController, ccq_mode: :embedded, type: :c
     let(:journey_store) { instance_double(JourneyDataStore::RedisStore) }
 
     before do
-      allow(JourneyDataStore::RedisStore).to receive(:new).with(resource_id).and_return(journey_store)
+      allow(JourneyDataStore::RedisStore).to receive(:new).with(resource_id, anything).and_return(journey_store)
       allow(journey_store).to receive(:read).and_return(session_data)
       allow(journey_store).to receive(:write)
       get :show, params: { resource_id: resource_id, step: "test_step" }

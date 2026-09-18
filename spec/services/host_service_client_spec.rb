@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe HostServiceClient do
   subject(:client) { described_class.new }
 
-  let(:host_url) { "http://rcw-service:3000" }
+  let(:host_url) { "http://host-service:3000" }
   let(:application_id) { "abc-123" }
   let(:eligibility_path) { "/api/applications/#{application_id}/eligibility" }
   let(:cookies) { "session=xyz" }

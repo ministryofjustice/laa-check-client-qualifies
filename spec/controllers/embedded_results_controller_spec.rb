@@ -1,13 +1,15 @@
 require "rails_helper"
 
 RSpec.describe EmbeddedResultsController, ccq_mode: :embedded, type: :controller do
+  let(:session_id) { "test_session_id" }
+
   describe "GET #show", :embedded_only do
     let(:resource_id) { "test_resource_id" }
     let(:session_data) { { "key" => "value", "api_response" => {} } }
     let(:journey_store) { instance_double(JourneyDataStore::RedisStore) }
 
     before do
-      allow(JourneyDataStore::RedisStore).to receive(:new).with(resource_id).and_return(journey_store)
+      allow(JourneyDataStore::RedisStore).to receive(:new).with(resource_id, anything).and_return(journey_store)
       allow(journey_store).to receive(:read).and_return(session_data)
       allow(journey_store).to receive(:write)
       get :show, params: { resource_id: }
@@ -47,7 +49,7 @@ RSpec.describe EmbeddedResultsController, ccq_mode: :embedded, type: :controller
     let(:api_response) { { "result" => "some_result" } }
 
     before do
-      allow(JourneyDataStore::RedisStore).to receive(:new).with(resource_id).and_return(journey_store)
+      allow(JourneyDataStore::RedisStore).to receive(:new).with(resource_id, anything).and_return(journey_store)
       allow(journey_store).to receive(:read).and_return(session_data)
       allow(journey_store).to receive(:write)
       allow(CfeService).to receive(:call).and_return(api_response)
@@ -75,7 +77,7 @@ RSpec.describe EmbeddedResultsController, ccq_mode: :embedded, type: :controller
     let(:previous_step) { :some_step }
 
     before do
-      allow(JourneyDataStore::RedisStore).to receive(:new).with(resource_id).and_return(journey_store)
+      allow(JourneyDataStore::RedisStore).to receive(:new).with(resource_id, anything).and_return(journey_store)
       allow(journey_store).to receive(:read).and_return(session_data)
       allow(journey_store).to receive(:write)
       allow(CfeService).to receive(:call).and_return(api_response)
@@ -103,16 +105,22 @@ RSpec.describe EmbeddedResultsController, ccq_mode: :embedded, type: :controller
     let(:host_service_response) { double(status: 200) }
 
     before do
-      allow(JourneyDataStore::RedisStore).to receive(:new).with(resource_id).and_return(journey_store)
+      allow(ENV).to receive(:fetch).and_call_original
+      allow(ENV).to receive(:fetch).with("HOST_SERVICE_SESSION_COOKIES", "").and_return("service.sid")
+      allow(controller).to receive(:cookies).and_return(
+        { "service.sid" => session_id },
+      )
+      allow(JourneyDataStore::RedisStore).to receive(:new).with(resource_id, session_id).and_return(journey_store)
       allow(journey_store).to receive(:read).and_return(session_data)
       allow(journey_store).to receive(:write)
       allow(journey_store).to receive(:delete)
       allow(HostServiceClient).to receive(:new).and_return(host_service_client)
       allow(host_service_client).to receive(:save).and_return(host_service_response)
-      post :complete, params: { resource_id: }
     end
 
     it "calls the HostServiceClient to save the full session data as the eligibility_assessment" do
+      post :complete, params: { resource_id: }
+
       expect(host_service_client).to have_received(:save).with(
         application_id: resource_id,
         eligibility_assessment: session_data.except("feature_flags", "pending", "early_result"),
@@ -121,16 +129,21 @@ RSpec.describe EmbeddedResultsController, ccq_mode: :embedded, type: :controller
     end
 
     it "deletes the journey store after saving the result" do
+      post :complete, params: { resource_id: }
+
       expect(journey_store).to have_received(:delete)
     end
 
     it "redirects to the case page" do
+      post :complete, params: { resource_id: }
+
       expect(response).to redirect_to("/cases/#{resource_id}/task-list")
     end
 
     it "renders the session expired page if the host service returns 401" do
       allow(host_service_client).to receive(:save).and_return(double(status: 401))
       post :complete, params: { resource_id: }
+      expect(journey_store).not_to have_received(:delete)
       expect(response).to have_http_status(:unauthorized)
       expect(response).to render_template("errors/session_expired")
     end
@@ -142,6 +155,7 @@ RSpec.describe EmbeddedResultsController, ccq_mode: :embedded, type: :controller
       request.env["HTTP_REFERER"] = "http://test.host/cases/#{resource_id}/eligibility/check-result"
 
       post :complete, params: { resource_id: }
+      expect(journey_store).not_to have_received(:delete)
 
       redirect_uri = URI.parse(response.location)
       query_params = Rack::Utils.parse_nested_query(redirect_uri.query)
@@ -158,6 +172,7 @@ RSpec.describe EmbeddedResultsController, ccq_mode: :embedded, type: :controller
       request.env.delete("HTTP_REFERER")
 
       post :complete, params: { resource_id: }
+      expect(journey_store).not_to have_received(:delete)
 
       redirect_uri = URI.parse(response.location)
       query_params = Rack::Utils.parse_nested_query(redirect_uri.query)
@@ -172,6 +187,7 @@ RSpec.describe EmbeddedResultsController, ccq_mode: :embedded, type: :controller
 
       post :complete, params: { resource_id: }
 
+      expect(journey_store).not_to have_received(:delete)
       expect(response).to have_http_status(:service_unavailable)
       expect(response).to render_template("errors/service_unavailable")
     end
@@ -181,6 +197,7 @@ RSpec.describe EmbeddedResultsController, ccq_mode: :embedded, type: :controller
 
       post :complete, params: { resource_id: }
 
+      expect(journey_store).not_to have_received(:delete)
       expect(response).to have_http_status(:service_unavailable)
       expect(response).to render_template("errors/service_unavailable")
     end
@@ -188,6 +205,7 @@ RSpec.describe EmbeddedResultsController, ccq_mode: :embedded, type: :controller
     it "renders the access denied page if the host service returns 403" do
       allow(host_service_client).to receive(:save).and_return(double(status: 403))
       post :complete, params: { resource_id: }
+      expect(journey_store).not_to have_received(:delete)
       expect(response).to have_http_status(:forbidden)
       expect(response).to render_template("errors/access_denied")
     end
@@ -195,6 +213,7 @@ RSpec.describe EmbeddedResultsController, ccq_mode: :embedded, type: :controller
     it "renders the service unavailable page if the host service returns any other error" do
       allow(host_service_client).to receive(:save).and_return(double(status: 500))
       post :complete, params: { resource_id: }
+      expect(journey_store).not_to have_received(:delete)
       expect(response).to have_http_status(:service_unavailable)
       expect(response).to render_template("errors/service_unavailable")
     end
@@ -202,6 +221,7 @@ RSpec.describe EmbeddedResultsController, ccq_mode: :embedded, type: :controller
     it "renders the service unavailable page if there is a connection error" do
       allow(host_service_client).to receive(:save).and_raise(HostServiceClient::ConnectionError)
       post :complete, params: { resource_id: }
+      expect(journey_store).not_to have_received(:delete)
       expect(response).to have_http_status(:service_unavailable)
       expect(response).to render_template("errors/service_unavailable")
     end
