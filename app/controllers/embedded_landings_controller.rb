@@ -42,6 +42,8 @@ class EmbeddedLandingsController < EmbeddedBaseController
     end
   rescue HostServiceClient::ConnectionError
     render "errors/service_unavailable", status: :service_unavailable
+  rescue JourneyDataStore::KeyNotFound
+    render "errors/session_expired", status: :unauthorized
   end
 
 private

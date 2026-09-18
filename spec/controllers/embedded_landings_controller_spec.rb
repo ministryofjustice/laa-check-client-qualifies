@@ -55,6 +55,15 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
       expect(response).to render_template("errors/session_expired")
     end
 
+    it "renders the session expired page when cache hydration has no session cookie" do
+      allow(journey_store).to receive(:write).and_raise(JourneyDataStore::KeyNotFound)
+
+      get :show, params: { resource_id: }
+
+      expect(response).to have_http_status(:unauthorized)
+      expect(response).to render_template("errors/session_expired")
+    end
+
     it "redirects to host reauthentication when the host service returns 302" do
       allow(host_service_client).to receive(:load).and_return(
         double(status: 302, body: nil, headers: { "location" => "https://test.host/auth/sign-in?prompt=login" }),
