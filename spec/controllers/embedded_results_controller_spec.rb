@@ -1,13 +1,15 @@
 require "rails_helper"
 
 RSpec.describe EmbeddedResultsController, ccq_mode: :embedded, type: :controller do
+  let(:session_id) { "test_session_id" }
+
   describe "GET #show", :embedded_only do
     let(:resource_id) { "test_resource_id" }
     let(:session_data) { { "key" => "value", "api_response" => {} } }
     let(:journey_store) { instance_double(JourneyDataStore::RedisStore) }
 
     before do
-      allow(JourneyDataStore::RedisStore).to receive(:new).with(resource_id).and_return(journey_store)
+      allow(JourneyDataStore::RedisStore).to receive(:new).with(resource_id, anything).and_return(journey_store)
       allow(journey_store).to receive(:read).and_return(session_data)
       allow(journey_store).to receive(:write)
       get :show, params: { resource_id: }
@@ -47,7 +49,7 @@ RSpec.describe EmbeddedResultsController, ccq_mode: :embedded, type: :controller
     let(:api_response) { { "result" => "some_result" } }
 
     before do
-      allow(JourneyDataStore::RedisStore).to receive(:new).with(resource_id).and_return(journey_store)
+      allow(JourneyDataStore::RedisStore).to receive(:new).with(resource_id, anything).and_return(journey_store)
       allow(journey_store).to receive(:read).and_return(session_data)
       allow(journey_store).to receive(:write)
       allow(CfeService).to receive(:call).and_return(api_response)
@@ -75,7 +77,7 @@ RSpec.describe EmbeddedResultsController, ccq_mode: :embedded, type: :controller
     let(:previous_step) { :some_step }
 
     before do
-      allow(JourneyDataStore::RedisStore).to receive(:new).with(resource_id).and_return(journey_store)
+      allow(JourneyDataStore::RedisStore).to receive(:new).with(resource_id, anything).and_return(journey_store)
       allow(journey_store).to receive(:read).and_return(session_data)
       allow(journey_store).to receive(:write)
       allow(CfeService).to receive(:call).and_return(api_response)
@@ -103,7 +105,11 @@ RSpec.describe EmbeddedResultsController, ccq_mode: :embedded, type: :controller
     let(:host_service_response) { double(status: 200) }
 
     before do
-      allow(JourneyDataStore::RedisStore).to receive(:new).with(resource_id).and_return(journey_store)
+      allow(ENV).to receive(:fetch).with("HOST_SERVICE_SESSION_COOKIES", "").and_return("service.sid")
+      allow(controller).to receive(:cookies).and_return(
+        { "service.sid" => session_id },
+      )
+      allow(JourneyDataStore::RedisStore).to receive(:new).with(resource_id, session_id).and_return(journey_store)
       allow(journey_store).to receive(:read).and_return(session_data)
       allow(journey_store).to receive(:write)
       allow(journey_store).to receive(:delete)
