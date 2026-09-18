@@ -76,7 +76,18 @@ private
   end
 
   def journey_store
-    @journey_store ||= JourneyDataStore::RedisStore.new(params[:resource_id])
+    @journey_store ||= JourneyDataStore::RedisStore.new(
+      params[:resource_id],
+      session_id,
+    )
+  end
+
+  def session_id
+    host_service_session_cookies.filter_map { |cookie_name| cookies[cookie_name] }.first
+  end
+
+  def host_service_session_cookies
+    ENV.fetch("HOST_SERVICE_SESSION_COOKIES", "").split(",").filter_map(&:strip).reject(&:blank?)
   end
 
   def assessment_code
