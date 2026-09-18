@@ -1,0 +1,8 @@
+# The local WireMock stack has no host service to issue a session cookie.
+# Seed one for CCQ requests unless the browser already supplied a host cookie.
+map $http_cookie $cookie_header {
+  ""                                      "${NGINX_LOCAL_SESSION_COOKIE}";
+  default                                 $http_cookie;
+}
+
+proxy_set_header Cookie $cookie_header;

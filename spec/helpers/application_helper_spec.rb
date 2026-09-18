@@ -30,7 +30,7 @@ RSpec.describe ApplicationHelper, type: :helper do
         expect(link).to include("href=\"#{helper.root_path}\"")
       end
 
-      it "links to the RCW task list in embedded mode" do
+      it "links to the host service task list in embedded mode" do
         allow(ModeConfig).to receive(:embedded?).and_return(true)
         allow(helper).to receive(:params).and_return(resource_id: "case-123")
 
