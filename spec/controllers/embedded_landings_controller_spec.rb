@@ -13,10 +13,9 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
     let(:logger) { object_double(Rails.logger, warn: nil, info: nil) }
 
     before do
-      allow(JourneyDataStore::RedisStore).to receive(:new).with(resource_id).and_return(journey_store)
+      allow(JourneyDataStore::RedisStore).to receive(:new).with(resource_id, anything).and_return(journey_store)
       allow(HostServiceClient).to receive(:new).and_return(host_service_client)
       allow(journey_store).to receive(:read).and_return(session_data)
-      allow(journey_store).to receive(:init)
       allow(journey_store).to receive(:write)
       allow(FeatureFlags).to receive(:session_flags).and_return({})
       allow(host_service_client).to receive(:load).and_return(host_service_response)
@@ -32,8 +31,8 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
       )
     end
 
-    it "initializes the journey store with feature flags and pre-filled embedded values" do
-      expect(journey_store).to have_received(:init).with({
+    it "writes the journey store with feature flags and pre-filled embedded values" do
+      expect(journey_store).to have_received(:write).with({
         "feature_flags" => FeatureFlags.session_flags,
         "level_of_help" => "controlled",
         "immigration_or_asylum" => false,
@@ -48,6 +47,7 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
       allow(host_service_client).to receive(:load).and_return(double(status: 401, body: { error: "expired" }))
       get :show, params: { resource_id: }
 
+      expect(journey_store).to have_received(:write).exactly(2).times
       expect(logger).to have_received(:warn).with(
         include("EmbeddedLandingsController received 401 from HostServiceClient: status=401 body_preview={\"error\":\"expired\"}"),
       )
@@ -148,7 +148,7 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
       it "initializes journey data and redirects without JSON parsing" do
         get :show, params: { resource_id: }
 
-        expect(journey_store).to have_received(:init).at_least(:once).with({
+        expect(journey_store).to have_received(:write).at_least(:once).with({
           "feature_flags" => FeatureFlags.session_flags,
           "level_of_help" => "controlled",
           "immigration_or_asylum" => false,
@@ -169,7 +169,7 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
       end
 
       it "seeds the journey store with the resumed assessment data" do
-        expect(journey_store).to have_received(:init).at_least(:once).with({
+        expect(journey_store).to have_received(:write).at_least(:once).with({
           "level_of_help" => "controlled_legal_representation",
           "client_age" => ClientAgeForm::STANDARD,
           "api_response" => { "indication" => true },
@@ -214,7 +214,7 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
       end
 
       it "hydrates the age alongside the embedded defaults" do
-        expect(journey_store).to have_received(:init).at_least(:once).with({
+        expect(journey_store).to have_received(:write).at_least(:once).with({
           "feature_flags" => FeatureFlags.session_flags,
           "level_of_help" => "controlled",
           "immigration_or_asylum" => false,
@@ -237,7 +237,7 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
 
         get :show, params: { resource_id: }
 
-        expect(journey_store).to have_received(:init).at_least(:once).with({
+        expect(journey_store).to have_received(:write).at_least(:once).with({
           "feature_flags" => FeatureFlags.session_flags,
           "level_of_help" => "controlled",
           "immigration_or_asylum" => false,
@@ -255,7 +255,7 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
 
         get :show, params: { resource_id: }
 
-        expect(journey_store).to have_received(:init).at_least(:once).with({
+        expect(journey_store).to have_received(:write).at_least(:once).with({
           "feature_flags" => FeatureFlags.session_flags,
           "level_of_help" => "controlled",
           "immigration_or_asylum" => false,
@@ -273,7 +273,7 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
 
         get :show, params: { resource_id: }
 
-        expect(journey_store).to have_received(:init).at_least(:once).with({
+        expect(journey_store).to have_received(:write).at_least(:once).with({
           "feature_flags" => FeatureFlags.session_flags,
           "level_of_help" => "controlled",
           "immigration_or_asylum" => false,
@@ -288,7 +288,7 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
 
         get :show, params: { resource_id: }
 
-        expect(journey_store).to have_received(:init).at_least(:once).with({
+        expect(journey_store).to have_received(:write).at_least(:once).with({
           "feature_flags" => FeatureFlags.session_flags,
           "level_of_help" => "controlled",
           "immigration_or_asylum" => false,
@@ -302,7 +302,7 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
 
         get :show, params: { resource_id: }
 
-        expect(journey_store).to have_received(:init).at_least(:once).with({
+        expect(journey_store).to have_received(:write).at_least(:once).with({
           "feature_flags" => FeatureFlags.session_flags,
           "level_of_help" => "controlled",
           "immigration_or_asylum" => false,
@@ -316,7 +316,7 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
 
         get :show, params: { resource_id: }
 
-        expect(journey_store).to have_received(:init).at_least(:once).with({
+        expect(journey_store).to have_received(:write).at_least(:once).with({
           "feature_flags" => FeatureFlags.session_flags,
           "level_of_help" => "controlled",
           "immigration_or_asylum" => false,
