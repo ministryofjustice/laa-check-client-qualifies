@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   prepare-upgrade:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     defaults:
       run:
         shell: bash --noprofile --norc -euo pipefail {0}
@@ -144,7 +144,7 @@ jobs:
       - prepare-upgrade
       - build-browser-tools-image
     if: needs.prepare-upgrade.outputs.skip_pr != 'true' && needs.build-browser-tools-image.result == 'success'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     defaults:
       run:
         shell: bash --noprofile --norc -euo pipefail {0}

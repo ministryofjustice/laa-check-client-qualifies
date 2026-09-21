@@ -27,7 +27,7 @@ permissions:
 
 jobs:
   build-push:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Validate branch and actor policy
         run: |
