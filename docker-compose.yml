@@ -15,6 +15,7 @@ services:
     volumes:
       - ./docker/compose/nginx/default.conf.template:/etc/nginx/templates/default.conf.template:ro
       - ./docker/compose/nginx/docker-upstream.conf.template:/etc/nginx/templates/zz-docker-upstream.conf.template:ro
+      - ./docker/compose/nginx/local-session-cookie.conf.template:/etc/nginx/templates/00-local-session-cookie.conf.template:ro
       - ./docker/compose/nginx/proxy.conf:/etc/nginx/proxy.conf:ro
       - ./docker/compose/nginx/maps.conf:/etc/nginx/maps.conf:ro
     depends_on:
@@ -22,6 +23,7 @@ services:
     environment:
       NGINX_UPSTREAM_CCQ: ccq_upstream
       NGINX_UPSTREAM_CCQ_SERVER: ccq-embedded:3000
+      NGINX_LOCAL_SESSION_COOKIE: service.sid=local
 
   host-service-stub:
     container_name: ccq-host-service-stub

@@ -16,6 +16,7 @@ CCQ supports two modes:
 When running in embedded mode, you can override the layout used by embedded controllers:
 - `CCQ_EMBEDDED_LAYOUT=application` - default embedded layout
 - `CCQ_EMBEDDED_LAYOUT=<layout_path>` - use `app/views/layouts/<layout_path>.html.*` (for namespaced layouts, use `/`, for example `rcw/application`)
+- `HOST_SERVICE_SESSION_COOKIES=<cookie_names>` - comma-separated host session cookie names used to isolate embedded journeys
 
 ## Dependencies
 ### Runtime versions
@@ -90,6 +91,8 @@ CCQ_MODE=embedded CCQ_EMBEDDED_LAYOUT=rcw/application bin/dev
 The docker compose configuration is designed to enable you to run both standalone and embedded mode versions of CCQ side by side using the same underlying image.
 
 `docker-compose.yml` composes `docker-compose.embedded.yml` and `docker-compose.standalone.yml` together with a local nginx and host-service stub for testing embedded mode in isolation. Other repos (e.g. RCW) include `docker-compose.embedded.yml` directly, supplying their own host service instead of the stub.
+
+The local WireMock stack uses `service.sid`; nginx supplies a local value when the browser has no host session cookie. Set `HOST_SERVICE_SESSION_COOKIES` when composing CCQ with a real host service.
 
 #### Build the app image used by `docker-compose.yml`
 ```bash

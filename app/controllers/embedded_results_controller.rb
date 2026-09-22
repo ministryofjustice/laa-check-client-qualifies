@@ -56,7 +56,7 @@ class EmbeddedResultsController < EmbeddedBaseController
 
 private
 
-  # TODO: return to RCW specific case URL for now (should be configurable or dynamic)
+  # TODO: return to the host service case URL once configurable
   def case_path
     "/cases/#{params[:resource_id]}/task-list"
   end

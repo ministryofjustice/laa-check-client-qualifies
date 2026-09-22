@@ -21,6 +21,7 @@ services:
   ccq-embedded:
     environment:
       HOST_SERVICE_URL: http://host-service-stub:8080
+      HOST_SERVICE_SESSION_COOKIES: service.sid
     depends_on:
       ccq-image-prebuild:
         condition: service_completed_successfully

@@ -1,5 +1,5 @@
 # Reusable building block: CCQ running in embedded mode, plus its own Redis.
-# Defaults to a real host service (e.g. RCW) at HOST_SERVICE_URL - other repos include this
+# Defaults to a real host service at HOST_SERVICE_URL - other repos include this
 # file directly to compose CCQ into their own stack. For standalone testing of embedded mode
 # in isolation, see docker-compose.yml, which overrides HOST_SERVICE_URL to use a stub.
 include:
@@ -35,11 +35,12 @@ services:
       DISABLE_SECURE_COOKIES: true
 
       CCQ_MODE: embedded
-      CCQ_EMBEDDED_LAYOUT: rcw/application
+      CCQ_EMBEDDED_LAYOUT: ${CCQ_EMBEDDED_LAYOUT:-application}
       REDIS_URL: redis://redis:6379
       CFE_HOST: http://cfe:3000
-      HOST_SERVICE_URL: ${CCQ_HOST_SERVICE_URL:-http://rcw:3000}
+      HOST_SERVICE_URL: ${CCQ_HOST_SERVICE_URL:-http://host-service:3000}
       HOST_SERVICE_ELIGIBILITY_ENDPOINT: /api/applications/%<application_id>s/eligibility
+      HOST_SERVICE_SESSION_COOKIES: ${HOST_SERVICE_SESSION_COOKIES:-service.sid}
 
   redis:
     container_name: ccq-embedded-redis

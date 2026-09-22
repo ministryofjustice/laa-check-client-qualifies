@@ -2,11 +2,16 @@ require "rails_helper"
 
 RSpec.describe EmbeddedBaseController, ccq_mode: :embedded, type: :controller do
   let(:resource_id) { "test_resource_id" }
+  let(:session_id) { "test_session_id" }
   let(:controller) { described_class.new.tap { |c| c.params = { resource_id: resource_id } } }
   let(:journey_store) { instance_double(JourneyDataStore::RedisStore) }
 
   before do
-    allow(JourneyDataStore::RedisStore).to receive(:new).with(resource_id).and_return(journey_store)
+    allow(ENV).to receive(:fetch).with("HOST_SERVICE_SESSION_COOKIES", "").and_return("service.sid")
+    allow(controller).to receive(:cookies).and_return(
+      { "service.sid" => session_id },
+    )
+    allow(JourneyDataStore::RedisStore).to receive(:new).with(resource_id, session_id).and_return(journey_store)
   end
 
   describe "#session_data", :embedded_only do
@@ -55,8 +60,25 @@ RSpec.describe EmbeddedBaseController, ccq_mode: :embedded, type: :controller do
   end
 
   describe "#journey_store", :embedded_only do
-    it "initializes a JourneyDataStore::RedisStore with the resource_id" do
-      expect(JourneyDataStore::RedisStore).to receive(:new).with(resource_id)
+    it "initializes a JourneyDataStore::RedisStore with the resource_id and host service session id" do
+      expect(JourneyDataStore::RedisStore).to receive(:new).with(resource_id, session_id)
+      controller.send(:journey_store)
+    end
+
+    it "uses the first matching configured host service cookie" do
+      allow(ENV).to receive(:fetch).with("HOST_SERVICE_SESSION_COOKIES", "").and_return("other.sid, service.sid")
+      allow(controller).to receive(:cookies).and_return(
+        { "other.sid" => "configured_session_id", "service.sid" => session_id },
+      )
+
+      expect(JourneyDataStore::RedisStore).to receive(:new).with(resource_id, "configured_session_id")
+      controller.send(:journey_store)
+    end
+
+    it "does not use an unconfigured cookie" do
+      allow(ENV).to receive(:fetch).with("HOST_SERVICE_SESSION_COOKIES", "").and_return("other.sid")
+
+      expect(JourneyDataStore::RedisStore).to receive(:new).with(resource_id, nil)
       controller.send(:journey_store)
     end
   end
