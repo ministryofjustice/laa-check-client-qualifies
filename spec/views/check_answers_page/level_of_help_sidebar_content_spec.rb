@@ -18,6 +18,12 @@ RSpec.describe "checks/check_answers.html.slim" do
       it "renders correct help text" do
         expect(page_text).to include("Civil controlled work or family mediation")
       end
+
+      it "includes an inline change link in standalone mode" do
+        fragment = Nokogiri::HTML.fragment(rendered)
+
+        expect(fragment).to have_css('a.inline-change-link[aria-label="Change Level of help your client needs"]')
+      end
     end
 
     context "when the work is certificated" do
