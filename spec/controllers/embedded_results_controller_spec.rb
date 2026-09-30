@@ -128,6 +128,23 @@ RSpec.describe EmbeddedResultsController, ccq_mode: :embedded, type: :controller
       )
     end
 
+    it "omits additional-property answers when ownership is none" do
+      session_data.merge!(
+        "additional_property_owned" => "none",
+        "additional_properties" => [{ "house_value" => 2345 }],
+      )
+      saved_assessment = nil
+      allow(host_service_client).to receive(:save) do |**arguments|
+        saved_assessment = arguments.fetch(:eligibility_assessment)
+        host_service_response
+      end
+
+      post :complete, params: { resource_id: }
+
+      expect(saved_assessment["additional_property_owned"]).to eq("none")
+      expect(saved_assessment).not_to have_key("additional_properties")
+    end
+
     it "deletes the journey store after saving the result" do
       post :complete, params: { resource_id: }
 

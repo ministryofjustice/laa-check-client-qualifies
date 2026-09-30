@@ -172,6 +172,15 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
           "data" => {
             "level_of_help" => "controlled_legal_representation",
             "client_age" => ClientAgeForm::STANDARD,
+            "passporting" => false,
+            "adult_dependants_count" => 0,
+            "incomes" => [],
+            "pending" => {
+              "sibling" => "kept",
+              "deep_collection" => [{ "value" => 17 }],
+              "empty_object" => {},
+            },
+            "benefits" => [{ "benefit_type" => "housing" }],
           },
           "result" => { "indication" => true },
         }.to_json
@@ -181,6 +190,15 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
         expect(journey_store).to have_received(:write).at_least(:once).with({
           "level_of_help" => "controlled_legal_representation",
           "client_age" => ClientAgeForm::STANDARD,
+          "passporting" => false,
+          "adult_dependants_count" => 0,
+          "incomes" => [],
+          "pending" => {
+            "sibling" => "kept",
+            "deep_collection" => [{ "value" => 17 }],
+            "empty_object" => {},
+          },
+          "benefits" => [{ "benefit_type" => "housing" }],
           "api_response" => { "indication" => true },
           "feature_flags" => FeatureFlags.session_flags,
         })

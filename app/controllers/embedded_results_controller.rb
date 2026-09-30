@@ -25,7 +25,7 @@ class EmbeddedResultsController < EmbeddedBaseController
   def complete
     response = HostServiceClient.new.save(
       application_id: params[:resource_id],
-      eligibility_assessment: session_data.except("feature_flags", "pending", "early_result"),
+      eligibility_assessment: sanitised_eligibility_assessment,
       cookies: request.headers["Cookie"],
     )
 
@@ -55,6 +55,13 @@ class EmbeddedResultsController < EmbeddedBaseController
   end
 
 private
+
+  def sanitised_eligibility_assessment
+    assessment = session_data.except("feature_flags", "pending", "early_result")
+    assessment.delete("additional_properties") if assessment["additional_property_owned"] == "none"
+    assessment.delete("partner_additional_properties") if assessment["partner_additional_property_owned"] == "none"
+    assessment
+  end
 
   # TODO: return to the host service case URL once configurable
   def case_path
