@@ -107,6 +107,21 @@ RSpec.describe "checks/check_answers.html.slim" do
           end
         end
       end
+
+      context "when provider chooses no immigration or asylum matter" do
+        let(:session_data) do
+          build(:minimal_complete_session,
+                level_of_help: "controlled",
+                immigration_or_asylum: false)
+        end
+
+        it "includes a card change link in standalone mode" do
+          fragment = Nokogiri::HTML.fragment(rendered)
+
+          expect(page_text).to include("Is this an immigration or asylum matter?No")
+          expect(fragment).to have_css('a.change-link[aria-label="Change Matter type"]')
+        end
+      end
     end
   end
 end

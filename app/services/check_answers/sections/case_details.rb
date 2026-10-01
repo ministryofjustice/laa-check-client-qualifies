@@ -41,7 +41,7 @@ module CheckAnswers
       def level_of_help_table
         Table.new(screen: :level_of_help, skip_change_link: true, index: nil, disputed?: false,
                   fields: [
-                    FieldWithScreenPresenter.new(table_label: :level_of_help, screen: :level_of_help, attribute: :level_of_help, type: :select, model: @check),
+                    FieldWithScreenPresenter.new(table_label: :level_of_help, screen: (:level_of_help unless ModeConfig.embedded?), attribute: :level_of_help, type: :select, model: @check),
                     if @check.controlled? && @check.under_eighteen?
                       FieldWithScreenPresenter.new(table_label: :level_of_help, screen: :under_18_clr, attribute: :controlled_legal_representation, type: :boolean, model: @check)
                     end,
@@ -69,7 +69,7 @@ module CheckAnswers
       end
 
       def immigration_or_asylum_table
-        Table.new(screen: :immigration_or_asylum, skip_change_link: false, index: nil, disputed?: false,
+        Table.new(screen: :immigration_or_asylum, skip_change_link: ModeConfig.embedded?, index: nil, disputed?: false,
                   fields: [
                     FieldPresenter.new(table_label: :immigration_or_asylum, attribute: :immigration_or_asylum, type: :boolean, model: @check),
                   ])
