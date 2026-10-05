@@ -279,61 +279,61 @@
   resolved "https://registry.yarnpkg.com/@rails/ujs/-/ujs-7.1.600.tgz#781d2737f3a81da81e78d93ec779099871288965"
   integrity sha512-ntMYJ8++n1zcIJ1g75or7Va9IU3ueCHgp9IJk7Ny7eFEbu0Kx40EHZ2FNhoxoUEjlF5NifCFCbvoK5rDK5HpIQ==
 
-"@sentry/browser-utils@11.0.0":
-  version "11.0.0"
-  resolved "https://registry.yarnpkg.com/@sentry/browser-utils/-/browser-utils-11.0.0.tgz#11b0940c848a5d1a5028b8a89cef73d604a44a68"
-  integrity sha512-ZvGyfDoVeSuaAF78vSeYOFcibUCpQfYlUVpqE+B0RANzoSCBg3JimRa+cDYB/rq36PjRwINk4u2viK2JdO320w==
+"@sentry/browser-utils@11.2.0":
+  version "11.2.0"
+  resolved "https://registry.yarnpkg.com/@sentry/browser-utils/-/browser-utils-11.2.0.tgz#825f8d34167fbb85633aeb3791a3f0641526ccf9"
+  integrity sha512-v+IbRIYIFY7HPPIOz70NH8ehlZMgX7++akn/F624Ly/hy64y63RNfxjVlIoqt6pkEoJ8Fpk7QkVTxjslyhfqVg==
   dependencies:
-    "@sentry/conventions" "^0.23.0"
-    "@sentry/core" "11.0.0"
+    "@sentry/conventions" "^0.24.0"
+    "@sentry/core" "11.2.0"
     web-vitals "^6.1.1"
 
-"@sentry/browser@11.0.0":
-  version "11.0.0"
-  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-11.0.0.tgz#e98db998f8c1bd62279fdc1a17637a499a2c9bce"
-  integrity sha512-a09jUpx4OBebmY0XLYXLhfvkCIken8xoncjmOmbPIa3ibUHI6ZJVyh3jAzMu56LY9xfJRV5bOfp92yf41Yr6dQ==
+"@sentry/browser@11.2.0":
+  version "11.2.0"
+  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-11.2.0.tgz#6193d8e628d84563b37f8a31b80128c5b6e80c11"
+  integrity sha512-AqsndoXex8uYSzAzWH1TEFD078fnayIIQ709EBtA6itF5BGuq/AZxNjdnznRusq0WkHW4eWLadvlEaam5QXUGw==
   dependencies:
-    "@sentry/browser-utils" "11.0.0"
-    "@sentry/conventions" "^0.23.0"
-    "@sentry/core" "11.0.0"
-    "@sentry/feedback" "11.0.0"
-    "@sentry/replay" "11.0.0"
-    "@sentry/replay-canvas" "11.0.0"
+    "@sentry/browser-utils" "11.2.0"
+    "@sentry/conventions" "^0.24.0"
+    "@sentry/core" "11.2.0"
+    "@sentry/feedback" "11.2.0"
+    "@sentry/replay" "11.2.0"
+    "@sentry/replay-canvas" "11.2.0"
 
-"@sentry/conventions@^0.23.0":
-  version "0.23.0"
-  resolved "https://registry.yarnpkg.com/@sentry/conventions/-/conventions-0.23.0.tgz#26ecad45f91bcf70940325ab9af2b9544fa18242"
-  integrity sha512-+Euyo7CNVecoOusgUnq27oV97oshifgceKfnGnuKfXrPUVWA/cisvii3E1rlvy2yBrKvl9K1gCEo1Jqog5zjEQ==
+"@sentry/conventions@^0.24.0":
+  version "0.24.0"
+  resolved "https://registry.yarnpkg.com/@sentry/conventions/-/conventions-0.24.0.tgz#b65931682a7150ffe7914e34af908b7afb2b87ab"
+  integrity sha512-pmmF2mLy7A23z8gnLRG87lYu4SSPIBColtfqu9cfkh1omn/0CI3w0/AqZ/uf/VGAtM/wJMN61J58Ks/IWBCHpQ==
 
-"@sentry/core@11.0.0":
-  version "11.0.0"
-  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-11.0.0.tgz#feb8245e74be6a54b19c483b2404d3967ea1b457"
-  integrity sha512-Sdmg21POKmNwZDz8pH/2FtilWeryh3yxhRxbfA1ph8SnX2DkXoqX6G+uXyjCSYagW2pefVklmSNeWHmUlSqioA==
+"@sentry/core@11.2.0":
+  version "11.2.0"
+  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-11.2.0.tgz#4587db3b015952c444514e85b38e903409969bbd"
+  integrity sha512-vkJDLDVk0WmMN7cixXULEkW2sopJwcTP3ODFkdrRFUJILARHS855TzJ3WG7WarNXtlzKY6ALzmsGPzHMZQfMrA==
   dependencies:
-    "@sentry/conventions" "^0.23.0"
+    "@sentry/conventions" "^0.24.0"
 
-"@sentry/feedback@11.0.0":
-  version "11.0.0"
-  resolved "https://registry.yarnpkg.com/@sentry/feedback/-/feedback-11.0.0.tgz#77db6877070471c560e38cbb11a250ad35c46aad"
-  integrity sha512-ZdUE6qSfMH4zturLHxg8idfI8cA+JdfrisqUQ6hE6MKaIAAZysNIPvvFysE2WQDjFbj3puS1iZm0jg0ym7kA5g==
+"@sentry/feedback@11.2.0":
+  version "11.2.0"
+  resolved "https://registry.yarnpkg.com/@sentry/feedback/-/feedback-11.2.0.tgz#b1a837731065014b0529641b6cc7ccda25fb54b6"
+  integrity sha512-DwDBk475M+9jAk5Z4k+kSwwvVfbPLusJ0hiMnlt0B/yPj04uPUkMccnaXPESJqCwcAfanRN/nbe4/3CqDUd9tA==
   dependencies:
-    "@sentry/core" "11.0.0"
+    "@sentry/core" "11.2.0"
 
-"@sentry/replay-canvas@11.0.0":
-  version "11.0.0"
-  resolved "https://registry.yarnpkg.com/@sentry/replay-canvas/-/replay-canvas-11.0.0.tgz#7502a39e393157719198fbd651f48aa49d20ffcc"
-  integrity sha512-cWAx4Fc+T36w4SwN0Ee35xVLrx+nt2kk2An3gKPqgRU0HwxA1w14fKAxcXfKlJcy/K7nnNMgerznvWKgBObenw==
+"@sentry/replay-canvas@11.2.0":
+  version "11.2.0"
+  resolved "https://registry.yarnpkg.com/@sentry/replay-canvas/-/replay-canvas-11.2.0.tgz#e79606ca9af69aba2e0827194f5b8a238efde82e"
+  integrity sha512-NKpgjeRm5xLtX4rV4EM9TY1I4CywZFMqOKw1pOondcEKn51MaK0M295uq0X7lzMcBZ3BlLupBio+NOej22tuJQ==
   dependencies:
-    "@sentry/core" "11.0.0"
-    "@sentry/replay" "11.0.0"
+    "@sentry/core" "11.2.0"
+    "@sentry/replay" "11.2.0"
 
-"@sentry/replay@11.0.0":
-  version "11.0.0"
-  resolved "https://registry.yarnpkg.com/@sentry/replay/-/replay-11.0.0.tgz#a4dff43d76997ac4e8a3c0dd91a83bb62b5b64f2"
-  integrity sha512-4/36Iw288SaWEwLjhpLRjCjL2UmSNEyU0TvLrAlzRAoYdksneEe7iQTSe7WD257buSgop0m+lauGRHQf7fD9qg==
+"@sentry/replay@11.2.0":
+  version "11.2.0"
+  resolved "https://registry.yarnpkg.com/@sentry/replay/-/replay-11.2.0.tgz#48ed94af10696f283a0bdb350327ed1c60d2535d"
+  integrity sha512-bkSgMPT2x7z83uFerRBpgrAhgNpUQrloCUKZodrCEBoZrBaeU1QNQe1se+viRVIUR46E56wh1NgRJd1CusUqGQ==
   dependencies:
-    "@sentry/browser-utils" "11.0.0"
-    "@sentry/core" "11.0.0"
+    "@sentry/browser-utils" "11.2.0"
+    "@sentry/core" "11.2.0"
 
 ansi-regex@^6.2.2:
   version "6.2.2"
@@ -581,10 +581,10 @@ regenerator-runtime@^0.14.0:
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.14.0.tgz#5e19d68eb12d486f797e15a3c6a918f7cec5eb45"
   integrity sha512-srw17NI0TUWHuGa5CFGGmhfNIeja30WMBfbslPNhf6JrqQlLN5gcrvig1oqPxiVaXb0oW0XRKtH6Nngs5lKCIA==
 
-sass@^1.105.0:
-  version "1.105.0"
-  resolved "https://registry.yarnpkg.com/sass/-/sass-1.105.0.tgz#deee89b5e6d2f4c712d3e1ef891a840b778fd68a"
-  integrity sha512-4EjSuRTyG8M4yRXXY1PT9OUV5zz23xBxJkbIAprohKHqf6HOU4MCpE3U3vAC+iO1gxobBjESNbcj8rYAQZWnyA==
+sass@^1.105.1:
+  version "1.105.1"
+  resolved "https://registry.yarnpkg.com/sass/-/sass-1.105.1.tgz#9ef19b947f65007ccfe0ed385cc570b858ae42e0"
+  integrity sha512-1CnAWPyrrnVQzXGB/DUep1vYCKCm1CIBr+YxjjiW6wk9qtzemnGP4qicH56T2F9S4Hjtv/Ne3jDz8JqfdDU4oA==
   dependencies:
     chokidar "^5.0.0"
     immutable "^5.1.5"
