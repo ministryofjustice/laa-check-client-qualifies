@@ -43,14 +43,19 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
       expect(response).to redirect_to(step_path(resource_id:, step_url_fragment:))
     end
 
-    it "renders the session expired page if the host service returns 401" do
-      allow(host_service_client).to receive(:load).and_return(double(status: 401, body: { error: "expired" }))
+    it "renders the session expired page without logging the host response body" do
+      sentinel = "SYNTHETIC-RESPONSE-DO-NOT-LOG"
+      allow(host_service_client).to receive(:load).and_return(
+        double(status: 401, body: { error: sentinel }),
+      )
+
       get :show, params: { resource_id: }
 
       expect(journey_store).to have_received(:write).exactly(2).times
-      expect(logger).to have_received(:warn).with(
-        include("EmbeddedLandingsController received 401 from HostServiceClient: status=401 body_preview={\"error\":\"expired\"}"),
+      expect(logger).to have_received(:warn).once.with(
+        "EmbeddedLandingsController received 401 from HostServiceClient: status=401",
       )
+      expect(logger).not_to have_received(:warn).with(include(sentinel))
       expect(response).to have_http_status(:unauthorized)
       expect(response).to render_template("errors/session_expired")
     end
@@ -120,13 +125,15 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
       expect(response).to render_template("errors/service_unavailable")
     end
 
-    it "renders the access denied page if the host service returns 403" do
-      allow(host_service_client).to receive(:load).and_return(double(status: 403, body: nil))
+    it "renders the access denied page without logging the host response body" do
+      sentinel = "SYNTHETIC-FORBIDDEN-DO-NOT-LOG"
+      allow(host_service_client).to receive(:load).and_return(double(status: 403, body: sentinel))
       get :show, params: { resource_id: }
 
-      expect(logger).to have_received(:warn).with(
-        include("EmbeddedLandingsController received 403 from HostServiceClient: status=403 body_preview=<nil>"),
+      expect(logger).to have_received(:warn).once.with(
+        "EmbeddedLandingsController received 403 from HostServiceClient: status=403",
       )
+      expect(logger).not_to have_received(:warn).with(include(sentinel))
       expect(response).to have_http_status(:forbidden)
       expect(response).to render_template("errors/access_denied")
     end
@@ -330,34 +337,6 @@ RSpec.describe EmbeddedLandingsController, ccq_mode: :embedded, type: :controlle
           "level_of_help" => "controlled",
           "immigration_or_asylum" => false,
         })
-      end
-    end
-
-    describe "private helpers" do
-      it "returns no-body marker when response has no body method" do
-        expect(controller.send(:host_response_body_preview, Object.new)).to eq("<no-body-method>")
-      end
-
-      it "returns a string body unchanged" do
-        response = double(body: "plain error response")
-
-        expect(controller.send(:host_response_body_preview, response)).to eq("plain error response")
-      end
-
-      it "returns unserializable marker when body cannot be serialized" do
-        bad_body = Object.new
-        allow(bad_body).to receive(:to_json).and_raise(StandardError)
-        response = double(body: bad_body)
-
-        expect(controller.send(:host_response_body_preview, response)).to eq("<unserializable RSpec::Mocks::Double>")
-      end
-
-      it "returns unserializable marker when body accessor raises" do
-        response_class = Struct.new(:body)
-        response = instance_double(response_class)
-        allow(response).to receive(:body).and_raise(StandardError)
-
-        expect(controller.send(:host_response_body_preview, response)).to eq("<unserializable RSpec::Mocks::InstanceVerifyingDouble>")
       end
     end
   end

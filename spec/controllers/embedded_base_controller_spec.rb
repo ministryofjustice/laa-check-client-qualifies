@@ -244,16 +244,19 @@ RSpec.describe EmbeddedBaseController, ccq_mode: :embedded, type: :controller do
       )
     end
 
-    it "renders service unavailable and logs when location host is unexpected" do
-      expect(logger).to receive(:warn).with(
-        include("EmbeddedBaseController received reauthentication Location with unexpected host from HostServiceClient"),
-      )
+    it "renders service unavailable without logging the unexpected location" do
+      sentinel = "SYNTHETIC-REDIRECT-HOST-DO-NOT-LOG"
       expect(controller).to receive(:render).with("errors/service_unavailable", status: :service_unavailable)
 
       controller.send(
         :redirect_to_host_reauthentication,
-        location: "https://login.example.com/auth/sign-in",
+        location: "https://login.example.com/auth/sign-in?token=#{sentinel}",
       )
+
+      expect(logger).to have_received(:warn).once.with(
+        "EmbeddedBaseController received reauthentication Location with unexpected host from HostServiceClient",
+      )
+      expect(logger).not_to have_received(:warn).with(include(sentinel))
     end
 
     it "renders service unavailable and logs when location is missing" do
@@ -268,16 +271,19 @@ RSpec.describe EmbeddedBaseController, ccq_mode: :embedded, type: :controller do
       )
     end
 
-    it "renders service unavailable and logs when location is invalid" do
-      expect(logger).to receive(:warn).with(
-        include("EmbeddedBaseController received invalid reauthentication Location from HostServiceClient"),
-      )
+    it "renders service unavailable without logging the invalid location" do
+      sentinel = "SYNTHETIC-REDIRECT-INVALID-DO-NOT-LOG"
       expect(controller).to receive(:render).with("errors/service_unavailable", status: :service_unavailable)
 
       controller.send(
         :redirect_to_host_reauthentication,
-        location: "invalid://[]",
+        location: "invalid://[]?token=#{sentinel}",
       )
+
+      expect(logger).to have_received(:warn).once.with(
+        "EmbeddedBaseController received invalid reauthentication Location from HostServiceClient",
+      )
+      expect(logger).not_to have_received(:warn).with(include(sentinel))
     end
   end
 

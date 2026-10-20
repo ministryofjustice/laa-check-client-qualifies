@@ -19,17 +19,13 @@ private
   end
 
   def get(path, params, cookies:)
-    response = connection(cookies:).get(path, params)
-    Rails.logger.info("[HostServiceClient] GET #{path} status=#{response.status} body_preview=#{body_preview(response.body)}")
-    response
+    connection(cookies:).get(path, params)
   rescue Faraday::ConnectionFailed, Faraday::TimeoutError => e
     raise ConnectionError, e.message
   end
 
   def put(path, body, cookies:)
-    response = connection(cookies:).put(path, body)
-    Rails.logger.info("[HostServiceClient] PUT #{path} status=#{response.status} body_preview=#{body_preview(response.body)}")
-    response
+    connection(cookies:).put(path, body)
   rescue Faraday::ConnectionFailed, Faraday::TimeoutError => e
     raise ConnectionError, e.message
   end
@@ -43,14 +39,5 @@ private
       faraday.response :json
       faraday.adapter :net_http_persistent
     end
-  end
-
-  def body_preview(body)
-    return "<nil>" if body.nil?
-
-    preview = body.is_a?(String) ? body : body.to_json
-    preview[0, 300]
-  rescue StandardError
-    "<unserializable #{body.class}>"
   end
 end

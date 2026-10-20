@@ -15,10 +15,12 @@ RSpec.describe HostServiceClient do
   end
 
   describe "#load" do
+    let(:response_body) { '{"allowed":true}' }
+
     let(:stub) do
       stub_request(:get, "#{host_url}#{eligibility_path}")
         .with(headers: { "Cookie" => cookies })
-        .to_return(status: 200, body: '{"allowed":true}', headers: { "Content-Type" => "application/json" })
+        .to_return(status: 200, body: response_body, headers: { "Content-Type" => "application/json" })
     end
 
     before { stub }
@@ -33,12 +35,16 @@ RSpec.describe HostServiceClient do
       expect(response.body).to eq({ "allowed" => true })
     end
 
-    it "logs status and response preview" do
-      client.load(application_id:, cookies:)
+    context "when the response contains sensitive data" do
+      let(:response_body) { { error: "SYNTHETIC-LOAD-DO-NOT-LOG" }.to_json }
 
-      expect(logger).to have_received(:info).with(
-        include("[HostServiceClient] GET #{eligibility_path} status=200 body_preview={\"allowed\":true}"),
-      )
+      it "returns the response without logging it" do
+        response = client.load(application_id:, cookies:)
+
+        expect(response.status).to eq(200)
+        expect(response.body).to eq(JSON.parse(response_body))
+        expect(logger).not_to have_received(:info)
+      end
     end
 
     it "does not send a Cookie header when cookies are blank" do
@@ -53,13 +59,14 @@ RSpec.describe HostServiceClient do
 
   describe "#save" do
     let(:eligibility_assessment) { { "eligible" => true, "amount" => 1000 } }
+    let(:response_body) { '{"saved":true}' }
     let(:stub) do
       stub_request(:put, "#{host_url}#{eligibility_path}")
         .with(
           body: { eligibility_assessment: }.to_json,
           headers: { "Content-Type" => "application/json", "Cookie" => cookies },
         )
-        .to_return(status: 200, body: '{"saved":true}', headers: { "Content-Type" => "application/json" })
+        .to_return(status: 200, body: response_body, headers: { "Content-Type" => "application/json" })
     end
 
     before { stub }
@@ -74,12 +81,16 @@ RSpec.describe HostServiceClient do
       expect(response.body).to eq({ "saved" => true })
     end
 
-    it "logs status and response preview" do
-      client.save(application_id:, eligibility_assessment:, cookies:) # rubocop:disable Rails/SaveBang
+    context "when the response contains sensitive data" do
+      let(:response_body) { { error: "SYNTHETIC-SAVE-DO-NOT-LOG" }.to_json }
 
-      expect(logger).to have_received(:info).with(
-        include("[HostServiceClient] PUT #{eligibility_path} status=200 body_preview={\"saved\":true}"),
-      )
+      it "returns the response without logging it" do
+        response = client.save(application_id:, eligibility_assessment:, cookies:)
+
+        expect(response.status).to eq(200)
+        expect(response.body).to eq(JSON.parse(response_body))
+        expect(logger).not_to have_received(:info)
+      end
     end
   end
 
@@ -126,23 +137,6 @@ RSpec.describe HostServiceClient do
 
       expect { client.save(application_id:, eligibility_assessment:, cookies:) }
         .to raise_error(HostServiceClient::ConnectionError)
-    end
-  end
-
-  describe "#body_preview" do
-    it "returns nil marker for nil" do
-      expect(client.send(:body_preview, nil)).to eq("<nil>")
-    end
-
-    it "returns a string body unchanged" do
-      expect(client.send(:body_preview, "plain body")).to eq("plain body")
-    end
-
-    it "returns unserializable marker when to_json raises" do
-      bad_body = Object.new
-      allow(bad_body).to receive(:to_json).and_raise(StandardError)
-
-      expect(client.send(:body_preview, bad_body)).to eq("<unserializable Object>")
     end
   end
 end

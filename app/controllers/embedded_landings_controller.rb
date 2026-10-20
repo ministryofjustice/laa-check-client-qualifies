@@ -28,13 +28,13 @@ class EmbeddedLandingsController < EmbeddedBaseController
     when 401
       Rails.logger.warn(
         "EmbeddedLandingsController received 401 from HostServiceClient: " \
-        "status=#{response.status} body_preview=#{host_response_body_preview(response)}",
+        "status=#{response.status}",
       )
       render "errors/session_expired", status: :unauthorized
     when 403
       Rails.logger.warn(
         "EmbeddedLandingsController received 403 from HostServiceClient: " \
-        "status=#{response.status} body_preview=#{host_response_body_preview(response)}",
+        "status=#{response.status}",
       )
       render "errors/access_denied", status: :forbidden
     else
@@ -76,17 +76,5 @@ private
     client_age = host_data["client_age"] if host_data.is_a?(Hash)
     data["client_age"] = client_age if ClientAgeForm::OPTIONS.include?(client_age)
     data
-  end
-
-  def host_response_body_preview(response)
-    return "<no-body-method>" unless response.respond_to?(:body)
-
-    body = response.body
-    return "<nil>" if body.nil?
-
-    preview = body.is_a?(String) ? body : body.to_json
-    preview[0, 300]
-  rescue StandardError
-    "<unserializable #{response.class}>"
   end
 end

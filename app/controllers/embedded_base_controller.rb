@@ -42,7 +42,7 @@ private
 
     unless host_reauthentication_location_allowed?(uri)
       Rails.logger.warn(
-        "#{self.class.name} received reauthentication Location with unexpected host from HostServiceClient: #{location.inspect}",
+        "#{self.class.name} received reauthentication Location with unexpected host from HostServiceClient",
       )
       render "errors/service_unavailable", status: :service_unavailable
       return
@@ -51,7 +51,7 @@ private
     redirect_to uri.to_s
   rescue URI::InvalidURIError, ActionController::Redirecting::UnsafeRedirectError
     Rails.logger.warn(
-      "#{self.class.name} received invalid reauthentication Location from HostServiceClient: #{location.inspect}",
+      "#{self.class.name} received invalid reauthentication Location from HostServiceClient",
     )
     render "errors/service_unavailable", status: :service_unavailable
   end
