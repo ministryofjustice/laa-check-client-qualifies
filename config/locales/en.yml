@@ -224,11 +224,11 @@ en:
               greater_than: Amount of financial help from friends and family must be more than 0
             maintenance_conditional_value:
               blank: Enter amount of maintenance from a former partner
-              not_a_number: Amount of maintenance from a former parter must be a number
+              not_a_number: Amount of maintenance from a former partner must be a number
               greater_than: Amount of maintenance from a former partner must be more than 0
             property_or_lodger_conditional_value:
               blank: Enter amount of income from a property or lodger
-              not_a_number: Amount of income from a property of lodger must be a number
+              not_a_number: Amount of income from a property or lodger must be a number
               greater_than: Amount of income from a property or lodger must be more than 0
             pension_conditional_value:
               blank: Enter amount of income your client gets from pensions
@@ -297,11 +297,11 @@ en:
               greater_than: Amount of financial help from friends and family must be more than 0
             maintenance_conditional_value:
               blank: Enter amount of maintenance from a former partner
-              not_a_number: Amount of maintenance from a former parter must be a number
+              not_a_number: Amount of maintenance from a former partner must be a number
               greater_than: Amount of maintenance from a former partner must be more than 0
             property_or_lodger_conditional_value:
               blank: Enter amount of income from a property or lodger
-              not_a_number: Amount of income from a property of lodger must be a number
+              not_a_number: Amount of income from a property or lodger must be a number
               greater_than: Amount of income from a property or lodger must be more than 0
             pension_conditional_value:
               blank: Enter amount of income the partner gets from pensions
@@ -393,8 +393,8 @@ en:
               greater_than: Amount paid for childcare must be more than 0
             maintenance_payments_conditional_value:
               blank: Enter amount of maintenance paid to a former partner
-              not_a_number: Amount of maintenance paid to a former parter must be a number
-              greater_than: Amount of maintenance paid to a former parter must be more than 0
+              not_a_number: Amount of maintenance paid to a former partner must be a number
+              greater_than: Amount of maintenance paid to a former partner must be more than 0
             legal_aid_payments_conditional_value:
               blank: Enter amount paid toward legal aid in a criminal case
               not_a_number: Amount paid toward legal aid in a criminal case must be a number
