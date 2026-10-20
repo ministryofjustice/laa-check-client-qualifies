@@ -63,8 +63,12 @@ Rails.application.configure do
   # Don't log any deprecations.
   config.active_support.report_deprecations = false
 
-  # Use default logging formatter so that PID and timestamp are not suppressed.
-  config.log_formatter = ::Logger::Formatter.new
+  if ModeConfig.embedded? && Rails.env.production?
+    require_relative "../../app/lib/json_log_formatter"
+    config.log_formatter = JsonLogFormatter.new
+  else
+    config.log_formatter = ::Logger::Formatter.new
+  end
 
   # Use a different logger for distributed setups.
   # require "syslog/logger"
