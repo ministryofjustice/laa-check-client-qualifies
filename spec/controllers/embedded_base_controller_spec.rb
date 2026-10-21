@@ -13,7 +13,7 @@ RSpec.describe EmbeddedBaseController, ccq_mode: :embedded, type: :controller do
     allow(ENV).to receive(:fetch).and_call_original
     allow(ENV).to receive(:fetch).with("HOST_SERVICE_SESSION_COOKIES", "").and_return("service.sid")
     allow(controller).to receive_messages(
-      request: instance_double(ActionDispatch::Request, request_id: "test-request-id"),
+      request: instance_double(ActionDispatch::Request, request_id: "test-request-id", headers: {}),
       cookies: { "service.sid" => session_id },
     )
     allow(JourneyDataStore::RedisStore).to receive(:new).with(resource_id, session_id).and_return(journey_store)
@@ -24,7 +24,7 @@ RSpec.describe EmbeddedBaseController, ccq_mode: :embedded, type: :controller do
 
     before do
       allow(Rails).to receive(:logger).and_return(logger)
-      allow(controller).to receive(:request).and_return(instance_double(ActionDispatch::Request, request_id: "test-request-id"))
+      allow(controller).to receive(:request).and_return(instance_double(ActionDispatch::Request, request_id: "test-request-id", headers: {}))
     end
 
     it "adds request and case context without serializing the event" do
@@ -179,6 +179,7 @@ RSpec.describe EmbeddedBaseController, ccq_mode: :embedded, type: :controller do
           original_fullpath: request_original_fullpath,
           host: request_host,
           request_id: "test-request-id",
+          headers: {},
         ),
       )
     end
@@ -213,6 +214,7 @@ RSpec.describe EmbeddedBaseController, ccq_mode: :embedded, type: :controller do
           original_fullpath: "/cases/#{resource_id}/eligibility?from=host",
           host: request_host,
           request_id: "test-request-id",
+          headers: {},
         ),
       )
 
@@ -234,6 +236,7 @@ RSpec.describe EmbeddedBaseController, ccq_mode: :embedded, type: :controller do
           original_fullpath: "/cases/#{resource_id}/eligibility?from=host&destination=check-answers",
           host: request_host,
           request_id: "test-request-id",
+          headers: {},
         ),
       )
 
@@ -255,6 +258,7 @@ RSpec.describe EmbeddedBaseController, ccq_mode: :embedded, type: :controller do
           original_fullpath: "http://%",
           host: request_host,
           request_id: "test-request-id",
+          headers: {},
         ),
       )
 
@@ -276,6 +280,7 @@ RSpec.describe EmbeddedBaseController, ccq_mode: :embedded, type: :controller do
           original_fullpath: nil,
           host: request_host,
           request_id: "test-request-id",
+          headers: {},
         ),
       )
 

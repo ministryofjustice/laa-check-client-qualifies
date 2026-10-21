@@ -23,7 +23,7 @@ private
   def log_embedded_event(level, event:, message:, operation:, **context)
     Rails.logger.public_send(level, {
       message:,
-      correlationId: request.request_id,
+      correlationId: request.headers["X-Correlation-ID"].presence || request.request_id,
       context: { event:, operation:, caseId: params[:resource_id] }.merge(context).compact,
     })
   end
