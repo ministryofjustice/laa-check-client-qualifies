@@ -80,26 +80,25 @@ RSpec.describe "embedded outcome logging", :embedded_only, ccq_mode: :embedded, 
     expect(events.first["correlationId"]).to eq(response.headers["X-Request-Id"])
   end
 
-  
   it "prefers the correlation ID over the request ID" do
-  perform_request(
-    request_headers: headers.merge(
-      "X-Correlation-ID" => "host-correlation-id",
-    ),
-  )
-
-  expect(events.first["correlationId"]).to eq("host-correlation-id")
-end
-
-["", "   "].each do |blank_id|
-  it "falls back to the request ID for #{blank_id.inspect}" do
     perform_request(
-      request_headers: headers.merge("X-Correlation-ID" => blank_id),
+      request_headers: headers.merge(
+        "X-Correlation-ID" => "host-correlation-id",
+      ),
     )
 
-    expect(events.first["correlationId"]).to eq("synthetic-request")
+    expect(events.first["correlationId"]).to eq("host-correlation-id")
   end
-end
+
+  ["", "   "].each do |blank_id|
+    it "falls back to the request ID for #{blank_id.inspect}" do
+      perform_request(
+        request_headers: headers.merge("X-Correlation-ID" => blank_id),
+      )
+
+      expect(events.first["correlationId"]).to eq("synthetic-request")
+    end
+  end
 
   it "keeps sequential cases and request IDs separate" do
     perform_request
