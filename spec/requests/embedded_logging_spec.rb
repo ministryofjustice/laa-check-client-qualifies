@@ -19,7 +19,7 @@ RSpec.describe "embedded outcome logging", :embedded_only, ccq_mode: :embedded, 
   around do |example|
     original_view_paths = [EmbeddedLandingsController, EmbeddedResultsController, EmbeddedFormsController].index_with(&:view_paths)
     resolver = ActionView::FixtureResolver.new(
-      "layouts/application.html.erb" => "<%= yield %>",
+      "layouts/#{ModeConfig.embedded_layout}.html.erb" => "<%= yield %>",
       "errors/session_expired.html.erb" => "Session expired",
       "errors/access_denied.html.erb" => "Access denied",
       "errors/service_unavailable.html.erb" => "Service unavailable",
