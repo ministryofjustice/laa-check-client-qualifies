@@ -105,6 +105,55 @@ The spec checks serialization and starts separate Rails processes to verify
 embedded production stdout/file output and unchanged standalone/local formatting.
 It does not require `rails_helper` or boot the main test process in production.
 
+### Embedded controller outcomes
+
+Embedded controllers emit the following events. The private `log_embedded_event`
+helper in `EmbeddedBaseController` supplies the current request ID and
+`context.caseId`; the owning controller supplies the outcome. The formatter above
+serializes the entry. Controllers do not encode JSON themselves.
+
+| Level | Event | Meaning |
+| --- | --- | --- |
+| INFO | `embedded.journey.started` | Fresh journey hydrated and cache writes finished successfully. |
+| INFO | `embedded.journey.resumed` | Previous assessment hydrated successfully. |
+| INFO | `embedded.journey.completed` | Host save and cache cleanup finished successfully. |
+| INFO | `security.authentication.required` | CCQ redirected to an allowed host sign-in location. |
+| WARN | `security.authentication.failed` | Host returned 401. |
+| WARN | `security.authorisation.denied` | Host returned 403. |
+| WARN | `embedded.session.missing` / `embedded.session.invalid` | An existing session-recovery handler was used. |
+| ERROR | `embedded.host.request.failed` | Host transport failed or returned an unexpected status. |
+| ERROR | `embedded.host.redirect_rejected` | Host sign-in redirect was missing, invalid, or disallowed. |
+
+`context.operation` distinguishes `embedded.journey.load`,
+`embedded.journey.save`, and `embedded.session.recover`. Host outcomes include
+`dependency: host-service` and an available `statusCode`. Transport failures omit
+the status code. Redirect rejection reasons are `missing_location`,
+`invalid_location`, and `disallowed_location`; raw URLs are not included.
+
+Successful hydration is logged after controller callbacks, including the final
+cache write. Completion is logged only after both host saving and cache deletion.
+A failed cache operation does not produce a success event; existing response and
+cache behavior remains unchanged. Ordinary form pages do not add outcome events.
+Unhandled exceptions, including CFE errors, remain Rails' responsibility so the
+application does not catch, log, and rethrow them or duplicate their stack traces.
+
+Run the controller, serialized-request, cache-isolation, and formatter checks:
+
+```bash
+CCQ_MODE=embedded mise exec -- bundle exec rspec spec/controllers/embedded_*_spec.rb spec/requests/embedded_logging_spec.rb spec/requests/embedded_journey_cache_partition_spec.rb spec/lib/json_log_formatter_spec.rb
+CFE_HOST=http://cfe.test mise exec -- bundle exec rspec spec/services/host_service_client_spec.rb spec/services/cfe_connection_spec.rb
+```
+
+The fake CFE URL is only for the stubbed service tests. Request logging tests use
+minimal test-only templates, leaving controllers and middleware real while
+avoiding frontend assets and unrelated page translations. They also enable
+production-like exception rendering for their unhandled-exception checks.
+
+After deployment, use synthetic cases to check start, resume, completion, and safe
+failure paths. Search by `context.event`, `context.caseId`, and `correlationId`.
+Confirm the request ID forwarded by ingress is retained and each handled outcome
+appears once. No migration applies; deployment rollback restores previous logging.
+
 ## Observability (Sentry)
 
 Sentry is used for application monitoring and error tracking across environments.
