@@ -90,9 +90,11 @@ metabase:
   enabled: true
   ingress:
     allowed_ip_ranges: [
-        # Gateway IPs for Global Protect alpha VPN firewall
+        # Global Protect alpha VPN firewall
         "35.176.93.186/32",
         "18.169.147.172/32",
         "18.130.148.126/32",
         "35.176.148.126/32",
+        # Prisma VPN egress
+        "128.77.75.64/26",
       ]
