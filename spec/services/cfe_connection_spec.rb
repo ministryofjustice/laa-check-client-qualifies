@@ -8,17 +8,19 @@ RSpec.describe CfeConnection do
   let(:connection) { described_class }
 
   describe "#assess" do
-    it "reformats raised errors" do
+    it "retains the status without exposing the response body in the error" do
+      sentinel = "SYNTHETIC-CFE-DO-NOT-LOG"
       faraday_client = instance_double(MockableFaradayClient)
       allow(connection).to receive(:cfe_connection).and_return faraday_client
       allow(faraday_client).to receive(:post).and_return(OpenStruct.new(
                                                            status: 422,
-                                                           body: "API error message",
+                                                           body: sentinel,
                                                          ))
 
-      expect { connection.assess({}) }.to raise_error(
-        "Call to CFE returned status 422 and message:\nAPI error message",
-      )
+      expect { connection.assess({}) }.to raise_error(RuntimeError) { |error|
+        expect(error.message).to eq("Call to CFE returned status 422")
+        expect(error.message).not_to include(sentinel)
+      }
     end
 
     it "adds a user agent string" do

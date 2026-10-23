@@ -19,7 +19,7 @@ class CfeConnection
     def validate_api_response(response)
       return if response.success?
 
-      raise "Call to CFE returned status #{response.status} and message:\n#{response.body}"
+      raise "Call to CFE returned status #{response.status}"
     end
 
     def cfe_connection

@@ -103,8 +103,11 @@ RSpec.describe EmbeddedResultsController, ccq_mode: :embedded, type: :controller
     let(:journey_store) { instance_double(JourneyDataStore::RedisStore) }
     let(:host_service_client) { instance_double(HostServiceClient) }
     let(:host_service_response) { double(status: 200) }
+    let(:logger) { object_double(Rails.logger, info: nil, warn: nil, error: nil) }
 
     before do
+      allow(Rails).to receive(:logger).and_return(logger)
+      allow(logger).to receive(:tagged).and_yield
       allow(ENV).to receive(:fetch).and_call_original
       allow(ENV).to receive(:fetch).with("HOST_SERVICE_SESSION_COOKIES", "").and_return("service.sid")
       allow(controller).to receive(:cookies).and_return(
@@ -140,12 +143,36 @@ RSpec.describe EmbeddedResultsController, ccq_mode: :embedded, type: :controller
       expect(response).to redirect_to("/cases/#{resource_id}/task-list")
     end
 
+    it "logs completion after deleting the saved journey" do
+      allow(journey_store).to receive(:delete) do
+        expect(logger).not_to have_received(:info)
+        expect(host_service_client).to have_received(:save).once
+        true
+      end
+
+      post :complete, params: { resource_id: }
+
+      expect(logger).to have_received(:info).once.with(hash_including(
+                                                         message: "Embedded journey completed", context: hash_including(event: "embedded.journey.completed", caseId: resource_id),
+                                                       ))
+    end
+
+    it "does not log completion when cache deletion raises" do
+      allow(journey_store).to receive(:delete).and_raise("Synthetic cache failure")
+
+      expect { post :complete, params: { resource_id: } }.to raise_error(RuntimeError, "Synthetic cache failure")
+      expect(logger).not_to have_received(:info)
+    end
+
     it "renders the session expired page if the host service returns 401" do
       allow(host_service_client).to receive(:save).and_return(double(status: 401))
       post :complete, params: { resource_id: }
       expect(journey_store).not_to have_received(:delete)
       expect(response).to have_http_status(:unauthorized)
       expect(response).to render_template("errors/session_expired")
+      expect(logger).to have_received(:warn).once.with(hash_including(
+                                                         context: hash_including(event: "security.authentication.failed", statusCode: 401),
+                                                       ))
     end
 
     it "redirects to host reauthentication when the host service returns 302" do
@@ -208,6 +235,9 @@ RSpec.describe EmbeddedResultsController, ccq_mode: :embedded, type: :controller
       expect(journey_store).not_to have_received(:delete)
       expect(response).to have_http_status(:forbidden)
       expect(response).to render_template("errors/access_denied")
+      expect(logger).to have_received(:warn).once.with(hash_including(
+                                                         context: hash_including(event: "security.authorisation.denied", statusCode: 403),
+                                                       ))
     end
 
     it "renders the service unavailable page if the host service returns any other error" do
@@ -216,6 +246,9 @@ RSpec.describe EmbeddedResultsController, ccq_mode: :embedded, type: :controller
       expect(journey_store).not_to have_received(:delete)
       expect(response).to have_http_status(:service_unavailable)
       expect(response).to render_template("errors/service_unavailable")
+      expect(logger).to have_received(:error).once.with(hash_including(
+                                                          context: hash_including(event: "embedded.host.request.failed", statusCode: 500),
+                                                        ))
     end
 
     it "renders the service unavailable page if there is a connection error" do
@@ -224,6 +257,9 @@ RSpec.describe EmbeddedResultsController, ccq_mode: :embedded, type: :controller
       expect(journey_store).not_to have_received(:delete)
       expect(response).to have_http_status(:service_unavailable)
       expect(response).to render_template("errors/service_unavailable")
+      expect(logger).to have_received(:error).once.with(hash_including(
+                                                          context: hash_including(event: "embedded.host.request.failed", reason: "transport_error"),
+                                                        ))
     end
   end
 

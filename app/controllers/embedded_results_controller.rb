@@ -31,21 +31,34 @@ class EmbeddedResultsController < EmbeddedBaseController
 
     case response.status
     when 200
-      journey_store.delete # clean up Redis
+      deleted = journey_store.delete
       @session_data_cache = nil
       redirect_to case_path
+      if deleted != false
+        log_embedded_event(:info, event: "embedded.journey.completed", message: "Embedded journey completed",
+                                  operation: "embedded.journey.save")
+      end
     when 302
       redirect_to_host_reauthentication(
         location: response.headers["location"] || response.headers["Location"],
+        operation: "embedded.journey.save",
       )
     when 401
+      log_embedded_event(:warn, event: "security.authentication.failed", message: "Host authentication failed",
+                                operation: "embedded.journey.save", dependency: "host-service", statusCode: response.status)
       render "errors/session_expired", status: :unauthorized
     when 403
+      log_embedded_event(:warn, event: "security.authorisation.denied", message: "Host authorisation denied",
+                                operation: "embedded.journey.save", dependency: "host-service", statusCode: response.status)
       render "errors/access_denied", status: :forbidden
     else
+      log_embedded_event(:error, event: "embedded.host.request.failed", message: "Host request failed",
+                                 operation: "embedded.journey.save", dependency: "host-service", statusCode: response.status, reason: "unexpected_status")
       render "errors/service_unavailable", status: :service_unavailable
     end
   rescue HostServiceClient::ConnectionError
+    log_embedded_event(:error, event: "embedded.host.request.failed", message: "Host request failed",
+                               operation: "embedded.journey.save", dependency: "host-service", reason: "transport_error")
     render "errors/service_unavailable", status: :service_unavailable
   end
 

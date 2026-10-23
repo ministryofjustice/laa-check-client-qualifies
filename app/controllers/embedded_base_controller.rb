@@ -5,16 +5,28 @@ class EmbeddedBaseController < ApplicationController
   after_action :persist_journey_data, if: -> { @session_data_cache.present? }
 
   rescue_from Cfe::InvalidSessionError do
+    log_embedded_event(:warn, event: "embedded.session.invalid", message: "Embedded session invalid",
+                              operation: "embedded.session.recover")
     redirect_to :landing
   end
 
   rescue_from ApplicationController::MissingSessionError do
+    log_embedded_event(:warn, event: "embedded.session.missing", message: "Embedded session missing",
+                              operation: "embedded.session.recover")
     redirect_to :landing
   end
 
   around_action :tag_logs_with_resource_id
 
 private
+
+  def log_embedded_event(level, event:, message:, operation:, **context)
+    Rails.logger.public_send(level, {
+      message:,
+      correlationId: request.headers["X-Correlation-ID"].presence || request.request_id,
+      context: { event:, operation:, caseId: params[:resource_id] }.merge(context).compact,
+    })
+  end
 
   def embedded_layout_path
     layout_path = ModeConfig.embedded_layout
@@ -28,9 +40,10 @@ private
     lookup_context.exists?(layout_path, %w[layouts], false)
   end
 
-  def redirect_to_host_reauthentication(location:)
+  def redirect_to_host_reauthentication(location:, operation: "embedded.journey.reauthenticate")
     if location.blank?
-      Rails.logger.warn("#{self.class.name} received 302 from HostServiceClient without a Location header")
+      log_embedded_event(:error, event: "embedded.host.redirect_rejected", message: "Host reauthentication redirect rejected",
+                                 operation:, dependency: "host-service", statusCode: 302, reason: "missing_location")
       render "errors/service_unavailable", status: :service_unavailable
       return
     end
@@ -41,18 +54,18 @@ private
     uri.query = query_params.to_query
 
     unless host_reauthentication_location_allowed?(uri)
-      Rails.logger.warn(
-        "#{self.class.name} received reauthentication Location with unexpected host from HostServiceClient: #{location.inspect}",
-      )
+      log_embedded_event(:error, event: "embedded.host.redirect_rejected", message: "Host reauthentication redirect rejected",
+                                 operation:, dependency: "host-service", statusCode: 302, reason: "disallowed_location")
       render "errors/service_unavailable", status: :service_unavailable
       return
     end
 
     redirect_to uri.to_s
+    log_embedded_event(:info, event: "security.authentication.required", message: "Host reauthentication required",
+                              operation:, dependency: "host-service", statusCode: 302)
   rescue URI::InvalidURIError, ActionController::Redirecting::UnsafeRedirectError
-    Rails.logger.warn(
-      "#{self.class.name} received invalid reauthentication Location from HostServiceClient: #{location.inspect}",
-    )
+    log_embedded_event(:error, event: "embedded.host.redirect_rejected", message: "Host reauthentication redirect rejected",
+                               operation:, dependency: "host-service", statusCode: 302, reason: "invalid_location")
     render "errors/service_unavailable", status: :service_unavailable
   end
 
@@ -101,7 +114,7 @@ private
   end
 
   def persist_journey_data
-    journey_store.write(@session_data_cache)
+    @journey_data_persisted = journey_store.write(@session_data_cache)
   end
 
   def tag_logs_with_resource_id(&block)

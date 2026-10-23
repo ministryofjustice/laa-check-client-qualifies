@@ -5,13 +5,54 @@ RSpec.describe EmbeddedBaseController, ccq_mode: :embedded, type: :controller do
   let(:session_id) { "test_session_id" }
   let(:controller) { described_class.new.tap { |c| c.params = { resource_id: resource_id } } }
   let(:journey_store) { instance_double(JourneyDataStore::RedisStore) }
+  let(:logger) { object_double(Rails.logger, info: nil, warn: nil, error: nil) }
 
   before do
+    allow(Rails).to receive(:logger).and_return(logger)
+    allow(logger).to receive(:tagged).and_yield
+    allow(ENV).to receive(:fetch).and_call_original
     allow(ENV).to receive(:fetch).with("HOST_SERVICE_SESSION_COOKIES", "").and_return("service.sid")
-    allow(controller).to receive(:cookies).and_return(
-      { "service.sid" => session_id },
+    allow(controller).to receive_messages(
+      request: instance_double(ActionDispatch::Request, request_id: "test-request-id", headers: {}),
+      cookies: { "service.sid" => session_id },
     )
     allow(JourneyDataStore::RedisStore).to receive(:new).with(resource_id, session_id).and_return(journey_store)
+  end
+
+  describe "#log_embedded_event", :embedded_only do
+    let(:logger) { object_double(Rails.logger, warn: nil) }
+
+    before do
+      allow(Rails).to receive(:logger).and_return(logger)
+      allow(controller).to receive(:request).and_return(instance_double(ActionDispatch::Request, request_id: "test-request-id", headers: {}))
+    end
+
+    it "adds request and case context without serializing the event" do
+      controller.send(:log_embedded_event, :warn, event: "security.authentication.failed",
+                                                  message: "Host authentication failed", operation: "embedded.journey.load",
+                                                  dependency: "host-service", statusCode: 401)
+
+      expect(logger).to have_received(:warn).once.with(
+        message: "Host authentication failed",
+        correlationId: "test-request-id",
+        context: {
+          event: "security.authentication.failed",
+          operation: "embedded.journey.load",
+          caseId: resource_id,
+          dependency: "host-service",
+          statusCode: 401,
+        },
+      )
+    end
+
+    it "omits unavailable status codes" do
+      controller.send(:log_embedded_event, :warn, event: "embedded.session.missing",
+                                                  message: "Embedded session missing", operation: "embedded.session.recover", statusCode: nil)
+
+      expect(logger).to have_received(:warn).once.with(hash_including(
+                                                         context: { event: "embedded.session.missing", operation: "embedded.session.recover", caseId: resource_id },
+                                                       ))
+    end
   end
 
   describe "#session_data", :embedded_only do
@@ -124,7 +165,6 @@ RSpec.describe EmbeddedBaseController, ccq_mode: :embedded, type: :controller do
   end
 
   describe "#redirect_to_host_reauthentication", :embedded_only do
-    let(:logger) { object_double(Rails.logger, warn: nil) }
     let(:request_path) { "/cases/#{resource_id}/eligibility" }
     let(:request_original_fullpath) { request_path }
     let(:request_host) { "test.host" }
@@ -138,6 +178,8 @@ RSpec.describe EmbeddedBaseController, ccq_mode: :embedded, type: :controller do
           path: request_path,
           original_fullpath: request_original_fullpath,
           host: request_host,
+          request_id: "test-request-id",
+          headers: {},
         ),
       )
     end
@@ -171,6 +213,8 @@ RSpec.describe EmbeddedBaseController, ccq_mode: :embedded, type: :controller do
           path: "/cases/#{resource_id}",
           original_fullpath: "/cases/#{resource_id}/eligibility?from=host",
           host: request_host,
+          request_id: "test-request-id",
+          headers: {},
         ),
       )
 
@@ -191,6 +235,8 @@ RSpec.describe EmbeddedBaseController, ccq_mode: :embedded, type: :controller do
           path: "/cases/#{resource_id}/eligibility",
           original_fullpath: "/cases/#{resource_id}/eligibility?from=host&destination=check-answers",
           host: request_host,
+          request_id: "test-request-id",
+          headers: {},
         ),
       )
 
@@ -211,6 +257,8 @@ RSpec.describe EmbeddedBaseController, ccq_mode: :embedded, type: :controller do
           path: "/cases/#{resource_id}/eligibility",
           original_fullpath: "http://%",
           host: request_host,
+          request_id: "test-request-id",
+          headers: {},
         ),
       )
 
@@ -231,6 +279,8 @@ RSpec.describe EmbeddedBaseController, ccq_mode: :embedded, type: :controller do
           path: "/cases/#{resource_id}/eligibility",
           original_fullpath: nil,
           host: request_host,
+          request_id: "test-request-id",
+          headers: {},
         ),
       )
 
@@ -244,22 +294,25 @@ RSpec.describe EmbeddedBaseController, ccq_mode: :embedded, type: :controller do
       )
     end
 
-    it "renders service unavailable and logs when location host is unexpected" do
-      expect(logger).to receive(:warn).with(
-        include("EmbeddedBaseController received reauthentication Location with unexpected host from HostServiceClient"),
-      )
+    it "renders service unavailable without logging the unexpected location" do
+      sentinel = "SYNTHETIC-REDIRECT-HOST-DO-NOT-LOG"
       expect(controller).to receive(:render).with("errors/service_unavailable", status: :service_unavailable)
 
       controller.send(
         :redirect_to_host_reauthentication,
-        location: "https://login.example.com/auth/sign-in",
+        location: "https://login.example.com/auth/sign-in?token=#{sentinel}",
       )
+
+      expect(logger).to have_received(:error).once.with(hash_including(
+                                                          context: hash_including(event: "embedded.host.redirect_rejected", reason: "disallowed_location", statusCode: 302),
+                                                        ))
+      expect(logger).not_to have_received(:warn)
     end
 
     it "renders service unavailable and logs when location is missing" do
-      expect(logger).to receive(:warn).with(
-        "EmbeddedBaseController received 302 from HostServiceClient without a Location header",
-      )
+      expect(logger).to receive(:error).once.with(hash_including(
+                                                    context: hash_including(event: "embedded.host.redirect_rejected", reason: "missing_location", statusCode: 302),
+                                                  ))
       expect(controller).to receive(:render).with("errors/service_unavailable", status: :service_unavailable)
 
       controller.send(
@@ -268,16 +321,31 @@ RSpec.describe EmbeddedBaseController, ccq_mode: :embedded, type: :controller do
       )
     end
 
-    it "renders service unavailable and logs when location is invalid" do
-      expect(logger).to receive(:warn).with(
-        include("EmbeddedBaseController received invalid reauthentication Location from HostServiceClient"),
-      )
+    it "renders service unavailable without logging the invalid location" do
+      sentinel = "SYNTHETIC-REDIRECT-INVALID-DO-NOT-LOG"
       expect(controller).to receive(:render).with("errors/service_unavailable", status: :service_unavailable)
 
       controller.send(
         :redirect_to_host_reauthentication,
-        location: "invalid://[]",
+        location: "invalid://[]?token=#{sentinel}",
       )
+
+      expect(logger).to have_received(:error).once.with(hash_including(
+                                                          context: hash_including(event: "embedded.host.redirect_rejected", reason: "invalid_location", statusCode: 302),
+                                                        ))
+      expect(logger).not_to have_received(:warn)
+    end
+
+    it "does not log authentication required if Rails rejects the redirect" do
+      allow(controller).to receive(:redirect_to).and_raise(ActionController::Redirecting::UnsafeRedirectError)
+      expect(controller).to receive(:render).with("errors/service_unavailable", status: :service_unavailable)
+
+      controller.send(:redirect_to_host_reauthentication, location: "/auth/sign-in")
+
+      expect(logger).to have_received(:error).once.with(hash_including(
+                                                          context: hash_including(event: "embedded.host.redirect_rejected", reason: "invalid_location"),
+                                                        ))
+      expect(logger).not_to have_received(:info)
     end
   end
 
@@ -285,6 +353,8 @@ RSpec.describe EmbeddedBaseController, ccq_mode: :embedded, type: :controller do
     it "redirects to the embedded landing page" do
       expect(controller).to receive(:redirect_to).with(:landing)
       controller.send(:rescue_with_handler, Cfe::InvalidSessionError.new(ApplicantForm.new))
+
+      expect(logger).to have_received(:warn).once.with(hash_including(context: hash_including(event: "embedded.session.invalid")))
     end
   end
 
@@ -292,6 +362,8 @@ RSpec.describe EmbeddedBaseController, ccq_mode: :embedded, type: :controller do
     it "redirects to the embedded landing page" do
       expect(controller).to receive(:redirect_to).with(:landing)
       controller.send(:rescue_with_handler, ApplicationController::MissingSessionError.new(ApplicantForm.new))
+
+      expect(logger).to have_received(:warn).once.with(hash_including(context: hash_including(event: "embedded.session.missing")))
     end
   end
 end
