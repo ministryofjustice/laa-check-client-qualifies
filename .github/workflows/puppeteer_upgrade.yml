@@ -19,14 +19,14 @@ jobs:
       run:
         shell: bash --noprofile --norc -euo pipefail {0}
     outputs:
-      skip_pr: ${{ steps.prepare.outputs.skip_pr }}
-      branch_name: ${{ steps.prepare.outputs.branch_name }}
-      image_tag: ${{ steps.prepare.outputs.image_tag }}
-      version_tag: ${{ steps.prepare.outputs.version_tag }}
-      ruby_version: ${{ steps.prepare.outputs.ruby_version }}
-      puppeteer_version: ${{ steps.prepare.outputs.puppeteer_version }}
-      base_sha: ${{ steps.prepare.outputs.base_sha }}
-      candidate_files_b64: ${{ steps.prepare.outputs.candidate_files_b64 }}
+      skip_pr: ${{ steps.metadata.outputs.skip_pr }}
+      branch_name: ${{ steps.metadata.outputs.branch_name }}
+      image_tag: ${{ steps.metadata.outputs.image_tag }}
+      version_tag: ${{ steps.metadata.outputs.version_tag }}
+      ruby_version: ${{ steps.metadata.outputs.ruby_version }}
+      puppeteer_version: ${{ steps.metadata.outputs.puppeteer_version }}
+      base_sha: ${{ steps.metadata.outputs.base_sha }}
+      candidate_files_b64: ${{ steps.prepare_candidate.outputs.candidate_files_b64 }}
     env:
       PUPPETEER_VERSION: ${{ inputs.puppeteer_version }}
     steps:
@@ -36,8 +36,8 @@ jobs:
           ref: main
           fetch-depth: 0
 
-      - name: Prepare candidate tooling definition
-        id: prepare
+      - name: Validate request and set candidate metadata
+        id: metadata
         run: |
           if [ "${GITHUB_REF_NAME}" != "main" ]; then
             echo "This workflow must be dispatched from main (got '${GITHUB_REF_NAME}')." >&2
@@ -57,7 +57,11 @@ jobs:
 
           base_sha="$(git rev-parse HEAD)"
           main_sha="$(git ls-remote origin refs/heads/main | awk '{print $1}')"
-          if [ -z "$main_sha" ] || [ "$main_sha" != "$base_sha" ]; then
+          if [ -z "$main_sha" ]; then
+            echo "Could not read the current main commit." >&2
+            exit 1
+          fi
+          if [ "$main_sha" != "$base_sha" ]; then
             echo "main advanced during preparation. Dispatch again from current main." >&2
             exit 1
           fi
@@ -84,14 +88,30 @@ jobs:
 
           image_tag="ruby-${ruby_version}-puppeteer-${PUPPETEER_VERSION}-run-${GITHUB_RUN_ID}-attempt-${GITHUB_RUN_ATTEMPT}"
 
+          {
+            echo "skip_pr=false"
+            echo "branch_name=${branch_name}"
+            echo "image_tag=${image_tag}"
+            echo "version_tag=${version_tag}"
+            echo "ruby_version=${ruby_version}"
+            echo "puppeteer_version=${PUPPETEER_VERSION}"
+            echo "base_sha=${base_sha}"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Prepare candidate dependency files
+        id: prepare_candidate
+        if: steps.metadata.outputs.skip_pr != 'true'
+        env:
+          RUBY_VERSION: ${{ steps.metadata.outputs.ruby_version }}
+          BASE_SHA: ${{ steps.metadata.outputs.base_sha }}
+        run: |
           corepack enable
           corepack prepare yarn@1.22.22 --activate
           yarn add --exact "puppeteer@${PUPPETEER_VERSION}" --non-interactive --ignore-scripts
 
           sed -E -i "s|RUN yarn add puppeteer@[^[:space:]]+|RUN yarn add puppeteer@${PUPPETEER_VERSION}|" Dockerfile_browser_tools.dockerfile
 
-          updated_version="$(node -p "require('./package.json').dependencies.puppeteer")"
-          if [ "$updated_version" != "$PUPPETEER_VERSION" ]; then
+          if [ "$(node -p "require('./package.json').dependencies.puppeteer")" != "$PUPPETEER_VERSION" ]; then
             echo "Prepared package.json does not match the requested Puppeteer version." >&2
             exit 1
           fi
@@ -101,8 +121,7 @@ jobs:
             exit 1
           fi
 
-          dockerfile_version="$(sed -nE 's|^RUN yarn add puppeteer@([^[:space:]]+)$|\1|p' Dockerfile_browser_tools.dockerfile)"
-          if [ "$dockerfile_version" != "$PUPPETEER_VERSION" ]; then
+          if ! grep -Fqx "RUN yarn add puppeteer@${PUPPETEER_VERSION}" Dockerfile_browser_tools.dockerfile; then
             echo "Prepared runner definition does not match the requested Puppeteer version." >&2
             exit 1
           fi
@@ -111,18 +130,8 @@ jobs:
           trap 'rm -f "$candidate_archive"' EXIT
           tar -czf "$candidate_archive" -- package.json yarn.lock Dockerfile_browser_tools.dockerfile
           candidate_files_b64="$(base64 -w0 "$candidate_archive")"
-
-          {
-            echo "skip_pr=false"
-            echo "branch_name=${branch_name}"
-            echo "image_tag=${image_tag}"
-            echo "version_tag=${version_tag}"
-            echo "ruby_version=${ruby_version}"
-            echo "puppeteer_version=${PUPPETEER_VERSION}"
-            echo "base_sha=${base_sha}"
-            echo "candidate_files_b64=${candidate_files_b64}"
-          } >> "$GITHUB_OUTPUT"
-          echo "Prepared Puppeteer ${PUPPETEER_VERSION} on main ${base_sha}; Ruby remains ${ruby_version}."
+          echo "candidate_files_b64=${candidate_files_b64}" >> "$GITHUB_OUTPUT"
+          echo "Prepared Puppeteer ${PUPPETEER_VERSION} from main ${BASE_SHA} (Ruby ${RUBY_VERSION})."
 
   build-browser-tools-image:
     needs: prepare-upgrade
@@ -142,7 +151,7 @@ jobs:
     needs:
       - prepare-upgrade
       - build-browser-tools-image
-    if: needs.prepare-upgrade.outputs.skip_pr != 'true' && needs.build-browser-tools-image.result == 'success'
+    if: needs.prepare-upgrade.outputs.skip_pr != 'true'
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -159,13 +168,13 @@ jobs:
       BASE_SHA: ${{ needs.prepare-upgrade.outputs.base_sha }}
       CANDIDATE_FILES_B64: ${{ needs.prepare-upgrade.outputs.candidate_files_b64 }}
     steps:
-      - name: Checkout captured base commit
+      - name: Checkout base commit
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ needs.prepare-upgrade.outputs.base_sha }}
           fetch-depth: 0
 
-      - name: Add published digest and publish branch
+      - name: Add image digest to candidate
         run: |
           if ! [[ "$IMAGE_DIGEST" =~ ^sha256:[0-9a-f]{64}$ ]]; then
             echo "The runner builder did not return a valid image digest." >&2
@@ -192,6 +201,9 @@ jobs:
 
           git diff --check
 
+      - name: Publish candidate branch and verified commit
+        id: commit
+        run: |
           existing_branch="$(git ls-remote --heads origin "refs/heads/${BRANCH_NAME}" | awk '{print $1}')"
           if [ -n "$existing_branch" ]; then
             echo "Refusing to replace existing branch '${BRANCH_NAME}'." >&2
@@ -199,7 +211,7 @@ jobs:
           fi
 
           current_main_sha="$(git ls-remote origin refs/heads/main | awk '{print $1}')"
-          if [ -z "$current_main_sha" ] || [ "$current_main_sha" != "$BASE_SHA" ]; then
+          if [ "$current_main_sha" != "$BASE_SHA" ]; then
             echo "main advanced after image construction. No branch or PR was published." >&2
             exit 1
           fi
@@ -245,26 +257,44 @@ jobs:
 
           commit_response="$RUNNER_TEMP/commit-response.json"
           if ! gh api graphql --input "$RUNNER_TEMP/commit-input.json" > "$commit_response"; then
-            if ! cleanup_created_branch "$BASE_SHA"; then
-              echo "Could not safely clean up the new branch after commit creation failed." >&2
-            fi
+            cleanup_created_branch "$BASE_SHA" || echo "Could not safely clean up the new branch after commit creation failed." >&2
             exit 1
           fi
 
-          if ! new_commit_sha="$(jq -er '.data.createCommitOnBranch.commit.oid | select(test("^[0-9a-f]{40}$"))' "$commit_response")"; then
-            if ! cleanup_created_branch "$BASE_SHA"; then
-              echo "Could not safely clean up the new branch after its commit could not be verified." >&2
-            fi
+          if ! new_commit_sha="$(jq -r '.data.createCommitOnBranch.commit.oid // empty' "$commit_response")"; then
+            cleanup_created_branch "$BASE_SHA" || echo "Could not safely clean up the new branch after its commit could not be verified." >&2
+            echo "Could not read the created commit from GitHub." >&2
+            exit 1
+          fi
+
+          if ! [[ "$new_commit_sha" =~ ^[0-9a-f]{40}$ ]]; then
+            cleanup_created_branch "$BASE_SHA" || echo "Could not safely clean up the new branch after its commit could not be verified." >&2
             echo "GitHub did not return the expected verified commit." >&2
             exit 1
           fi
 
+          echo "commit_sha=${new_commit_sha}" >> "$GITHUB_OUTPUT"
+
+      - name: Open upgrade pull request
+        env:
+          NEW_COMMIT_SHA: ${{ steps.commit.outputs.commit_sha }}
+        run: |
+          cleanup_created_branch() {
+            expected_sha="$1"
+            current_sha="$(git ls-remote --heads origin "refs/heads/${BRANCH_NAME}" | awk '{print $1}')"
+            if [ "$current_sha" != "$expected_sha" ]; then
+              echo "Branch '${BRANCH_NAME}' changed remotely. Leaving it untouched." >&2
+              return 1
+            fi
+            gh api --method DELETE "repos/${GH_REPO}/git/refs/heads/${BRANCH_NAME}"
+          }
+
           pr_title="chore: bump Puppeteer to ${VERSION_TAG}"
+          image_ref='checkclientqualifiesdocker/circleci-image'
           pr_body=$(cat <<EOF
           Automated Puppeteer upgrade.
 
           - Puppeteer: ${PUPPETEER_VERSION}
-          - Ruby preserved: ${RUBY_VERSION}
           - Base commit: ${BASE_SHA}
           - Runner image: ${image_ref}@${IMAGE_DIGEST}
           - Diagnostic image tag: ${IMAGE_TAG}
@@ -273,17 +303,21 @@ jobs:
           A maintainer may need to approve this PR's GitHub Actions checks.
           EOF
           )
-          if ! gh pr create --repo "$GH_REPO" --base main --head "$BRANCH_NAME" --title "$pr_title" --body "$pr_body"; then
-            if existing_pr="$(gh pr list --repo "$GH_REPO" --state open --head "$BRANCH_NAME" --base main --json number --jq '.[0].number')"; then
-              if [ -z "$existing_pr" ] || [ "$existing_pr" = "null" ]; then
-                if ! cleanup_created_branch "$new_commit_sha"; then
-                  echo "Could not safely clean up the new branch after PR creation failed." >&2
-                fi
-              else
-                echo "A PR exists for '${BRANCH_NAME}'. Leaving its branch unchanged." >&2
-              fi
-            else
-              echo "Could not confirm PR creation. Leaving '${BRANCH_NAME}' unchanged." >&2
-            fi
+
+          if gh pr create --repo "$GH_REPO" --base main --head "$BRANCH_NAME" --title "$pr_title" --body "$pr_body"; then
+            echo "Created PR for ${BRANCH_NAME}."
+            exit
+          fi
+
+          existing_pr="$(gh pr list --repo "$GH_REPO" --state open --head "$BRANCH_NAME" --base main --json number --jq '.[0].number')" || {
+            echo "Could not confirm PR creation. Leaving '${BRANCH_NAME}' unchanged." >&2
+            exit 1
+          }
+
+          if [ -n "$existing_pr" ] && [ "$existing_pr" != "null" ]; then
+            echo "A PR exists for '${BRANCH_NAME}'. Leaving its branch unchanged." >&2
             exit 1
           fi
+
+          cleanup_created_branch "$NEW_COMMIT_SHA" || echo "Could not safely clean up the new branch after PR creation failed." >&2
+          exit 1

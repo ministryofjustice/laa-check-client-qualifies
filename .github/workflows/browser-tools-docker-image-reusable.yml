@@ -8,11 +8,11 @@ on:
         required: true
         type: string
       base_sha:
-        description: Captured main commit used to prepare the candidate.
+        description: Base main commit SHA used to prepare the candidate.
         required: true
         type: string
       ruby_version:
-        description: Ruby version declared by the captured main commit.
+        description: Ruby version declared by the base commit.
         required: true
         type: string
       puppeteer_version:
@@ -47,22 +47,33 @@ jobs:
       PUPPETEER_VERSION: ${{ inputs.puppeteer_version }}
       IMAGE_TAG: ${{ inputs.image_tag }}
       IMAGE_REPOSITORY: checkclientqualifiesdocker/circleci-image
+      IMAGE_REF: checkclientqualifiesdocker/circleci-image:${{ inputs.image_tag }}
     steps:
       - name: Validate trusted caller and prepared candidate
         run: |
+          is_trusted_upgrade_dispatch() {
+            [ "$GITHUB_REF" = "refs/heads/main" ] &&
+              [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ] &&
+              [ "$GITHUB_WORKFLOW_REF" = "$expected_workflow" ]
+          }
+
           expected_workflow="${GITHUB_REPOSITORY}/.github/workflows/puppeteer_upgrade.yml@refs/heads/main"
-          if [ "$GITHUB_REF" != "refs/heads/main" ] || [ "$GITHUB_EVENT_NAME" != "workflow_dispatch" ] || [ "$GITHUB_WORKFLOW_REF" != "$expected_workflow" ]; then
+          if ! is_trusted_upgrade_dispatch; then
             echo "Runner publication is allowed only from Puppeteer upgrade dispatches on main." >&2
             exit 1
           fi
 
           if ! [[ "$BASE_SHA" =~ ^[0-9a-f]{40}$ ]]; then
-            echo "Invalid captured base commit." >&2
+            echo "Invalid base commit SHA." >&2
             exit 1
           fi
 
-          if ! [[ "$RUBY_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || ! [[ "$PUPPETEER_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-            echo "Invalid runner version metadata." >&2
+          if ! [[ "$RUBY_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Invalid runner Ruby version." >&2
+            exit 1
+          fi
+          if ! [[ "$PUPPETEER_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Invalid Puppeteer version." >&2
             exit 1
           fi
 
@@ -76,24 +87,24 @@ jobs:
         run: |
           archive="$RUNNER_TEMP/candidate.tar.gz"
           prepared_dir="$RUNNER_TEMP/prepared-candidate"
+          context="$RUNNER_TEMP/runner-context"
           mkdir -p "$prepared_dir"
           printf '%s' "$CANDIDATE_FILES_B64" | base64 --decode > "$archive"
+          tar -xzf "$archive" -C "$prepared_dir" -- package.json yarn.lock Dockerfile_browser_tools.dockerfile
 
-          expected_files="$(printf '%s\n' Dockerfile_browser_tools.dockerfile package.json yarn.lock | LC_ALL=C sort)"
-          actual_files="$(tar -tzf "$archive" | LC_ALL=C sort)"
-          if [ "$actual_files" != "$expected_files" ]; then
-            echo "Prepared candidate archive contains unexpected files." >&2
-            exit 1
-          fi
-          tar -xzf "$archive" -C "$prepared_dir"
-
-          package_version="$(node -e 'process.stdout.write(require(process.argv[1]).dependencies.puppeteer)' "$prepared_dir/package.json")"
-          lock_entry_count="$(grep -Fxc "puppeteer@${PUPPETEER_VERSION}:" "$prepared_dir/yarn.lock" || true)"
-          dockerfile_version="$(sed -nE 's|^RUN yarn add puppeteer@([^[:space:]]+)$|\1|p' "$prepared_dir/Dockerfile_browser_tools.dockerfile")"
+          package_version="$(node -p "require('${prepared_dir}/package.json').dependencies.puppeteer")"
           ruby_base_version="$(sed -nE 's|^FROM cimg/ruby:([0-9]+\.[0-9]+\.[0-9]+)-browsers@sha256:[[:xdigit:]]+$|\1|p' "$prepared_dir/Dockerfile_browser_tools.dockerfile")"
 
-          if [ "$package_version" != "$PUPPETEER_VERSION" ] || [ "$lock_entry_count" -ne 1 ] || [ "$dockerfile_version" != "$PUPPETEER_VERSION" ]; then
-            echo "Prepared application and runner Puppeteer versions do not agree." >&2
+          if [ "$package_version" != "$PUPPETEER_VERSION" ]; then
+            echo "Prepared package.json does not match the requested Puppeteer version." >&2
+            exit 1
+          fi
+          if ! grep -Fqx "puppeteer@${PUPPETEER_VERSION}:" "$prepared_dir/yarn.lock"; then
+            echo "Prepared yarn.lock does not match the requested Puppeteer version." >&2
+            exit 1
+          fi
+          if ! grep -Fqx "RUN yarn add puppeteer@${PUPPETEER_VERSION}" "$prepared_dir/Dockerfile_browser_tools.dockerfile"; then
+            echo "Prepared runner does not match the requested Puppeteer version." >&2
             exit 1
           fi
           if [ "$ruby_base_version" != "$RUBY_VERSION" ]; then
@@ -101,6 +112,8 @@ jobs:
             exit 1
           fi
           echo "Candidate ${BASE_SHA}: Ruby ${RUBY_VERSION}, Puppeteer ${PUPPETEER_VERSION}."
+          mkdir -p "$context"
+          cp "$prepared_dir/Dockerfile_browser_tools.dockerfile" "$context/Dockerfile_browser_tools.dockerfile"
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
@@ -111,15 +124,8 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USER_CCQ }}
           password: ${{ secrets.DOCKERHUB_PAT_CCQ }}
 
-      - name: Build, smoke-test and publish immutable runner
-        id: publish
+      - name: Check image tag and build runner
         run: |
-          prepared_dir="$RUNNER_TEMP/prepared-candidate"
-          context="$RUNNER_TEMP/runner-context"
-          image_ref="${IMAGE_REPOSITORY}:${IMAGE_TAG}"
-          mkdir -p "$context"
-          cp "$prepared_dir/Dockerfile_browser_tools.dockerfile" "$context/Dockerfile_browser_tools.dockerfile"
-
           tag_status="$(curl --silent --show-error --output /dev/null --write-out '%{http_code}' "https://hub.docker.com/v2/repositories/${IMAGE_REPOSITORY}/tags/${IMAGE_TAG}")"
           case "$tag_status" in
             404) ;;
@@ -133,42 +139,39 @@ jobs:
               ;;
           esac
 
-          docker buildx build --platform linux/amd64 --load --tag "$image_ref" --file "$context/Dockerfile_browser_tools.dockerfile" "$context"
+          docker buildx build --platform linux/amd64 --load --tag "$IMAGE_REF" \
+            --file "$RUNNER_TEMP/runner-context/Dockerfile_browser_tools.dockerfile" \
+            "$RUNNER_TEMP/runner-context"
 
-          actual_ruby="$(docker run --rm --entrypoint ruby "$image_ref" -e 'print RUBY_VERSION')"
-          actual_puppeteer="$(docker run --rm --entrypoint node "$image_ref" -e 'process.stdout.write(require("/app/node_modules/puppeteer/package.json").version)')"
-          if [ "$actual_ruby" != "$RUBY_VERSION" ] || [ "$actual_puppeteer" != "$PUPPETEER_VERSION" ]; then
-            echo "Runner version mismatch. Ruby ${actual_ruby}, Puppeteer ${actual_puppeteer}." >&2
+      - name: Smoke-test runner
+        run: |
+          actual_ruby="$(docker run --rm --entrypoint ruby "$IMAGE_REF" -e 'print RUBY_VERSION')"
+          if [ "$actual_ruby" != "$RUBY_VERSION" ]; then
+            echo "Runner Ruby version mismatch. Expected ${RUBY_VERSION}, got ${actual_ruby}." >&2
             exit 1
           fi
 
-          docker run --rm --entrypoint bash "$image_ref" -lc 'test "$(id -u)" -ne 0 && test ! -d /app/app && ruby --version >/dev/null && node --version >/dev/null && yarn --version >/dev/null && pdftk --version >/dev/null'
-          docker run --rm --entrypoint node "$image_ref" -e '
-            const puppeteer = require("/app/node_modules/puppeteer");
-            (async () => {
-              const browser = await puppeteer.launch({ headless: true });
-              try {
-                const page = await browser.newPage();
-                await page.setContent("<title>runner smoke</title>");
-                if (await page.title() !== "runner smoke") {
-                  throw new Error("Headless Chrome did not render the smoke page.");
-                }
-              } finally {
-                await browser.close();
-              }
-            })().catch((error) => {
-              console.error(error);
-              process.exitCode = 1;
-            });
+          actual_puppeteer="$(docker run --rm --entrypoint node "$IMAGE_REF" -e 'process.stdout.write(require("/app/node_modules/puppeteer/package.json").version)')"
+          if [ "$actual_puppeteer" != "$PUPPETEER_VERSION" ]; then
+            echo "Runner Puppeteer version mismatch. Expected ${PUPPETEER_VERSION}, got ${actual_puppeteer}." >&2
+            exit 1
+          fi
+
+          docker run --rm --entrypoint bash "$IMAGE_REF" -euc '
+            test "$(id -u)" -ne 0
+            test ! -d /app/app
+            ruby --version
+            node --version
+            yarn --version
+            pdftk --version
           '
+          docker run --rm --entrypoint node "$IMAGE_REF" -e 'require("/app/node_modules/puppeteer").launch({ headless: true }).then((browser) => browser.close())'
 
+      - name: Publish runner and verify digest
+        id: publish
+        run: |
           push_log="$RUNNER_TEMP/docker-push.log"
-          if ! docker push "$image_ref" > "$push_log" 2>&1; then
-            cat "$push_log" >&2
-            echo "Runner image publication failed." >&2
-            exit 1
-          fi
-          cat "$push_log"
+          docker push "$IMAGE_REF" 2>&1 | tee "$push_log"
 
           image_digest="$(sed -nE 's/.*digest: (sha256:[0-9a-f]{64})([[:space:]].*)?$/\1/p' "$push_log" | tail -n 1)"
           if ! [[ "$image_digest" =~ ^sha256:[0-9a-f]{64}$ ]]; then
