@@ -204,6 +204,16 @@ jobs:
             exit 1
           fi
 
+          cleanup_created_branch() {
+            expected_sha="$1"
+            current_sha="$(git ls-remote --heads origin "refs/heads/${BRANCH_NAME}" | awk '{print $1}')"
+            if [ "$current_sha" != "$expected_sha" ]; then
+              echo "Branch '${BRANCH_NAME}' changed remotely. Leaving it untouched." >&2
+              return 1
+            fi
+            gh api --method DELETE "repos/${GH_REPO}/git/refs/heads/${BRANCH_NAME}"
+          }
+
           gh api "repos/${GH_REPO}/git/refs" \
             -f ref="refs/heads/${BRANCH_NAME}" \
             -f sha="${BASE_SHA}"
@@ -233,7 +243,21 @@ jobs:
               }
             }' > "$RUNNER_TEMP/commit-input.json"
 
-          gh api graphql --input "$RUNNER_TEMP/commit-input.json"
+          commit_response="$RUNNER_TEMP/commit-response.json"
+          if ! gh api graphql --input "$RUNNER_TEMP/commit-input.json" > "$commit_response"; then
+            if ! cleanup_created_branch "$BASE_SHA"; then
+              echo "Could not safely clean up the new branch after commit creation failed." >&2
+            fi
+            exit 1
+          fi
+
+          if ! new_commit_sha="$(jq -er '.data.createCommitOnBranch.commit.oid | select(test("^[0-9a-f]{40}$"))' "$commit_response")"; then
+            if ! cleanup_created_branch "$BASE_SHA"; then
+              echo "Could not safely clean up the new branch after its commit could not be verified." >&2
+            fi
+            echo "GitHub did not return the expected verified commit." >&2
+            exit 1
+          fi
 
           pr_title="chore: bump Puppeteer to ${VERSION_TAG}"
           pr_body=$(cat <<EOF
@@ -249,4 +273,17 @@ jobs:
           A maintainer may need to approve this PR's GitHub Actions checks.
           EOF
           )
-          gh pr create --repo "$GH_REPO" --base main --head "$BRANCH_NAME" --title "$pr_title" --body "$pr_body"
+          if ! gh pr create --repo "$GH_REPO" --base main --head "$BRANCH_NAME" --title "$pr_title" --body "$pr_body"; then
+            if existing_pr="$(gh pr list --repo "$GH_REPO" --state open --head "$BRANCH_NAME" --base main --json number --jq '.[0].number')"; then
+              if [ -z "$existing_pr" ] || [ "$existing_pr" = "null" ]; then
+                if ! cleanup_created_branch "$new_commit_sha"; then
+                  echo "Could not safely clean up the new branch after PR creation failed." >&2
+                fi
+              else
+                echo "A PR exists for '${BRANCH_NAME}'. Leaving its branch unchanged." >&2
+              fi
+            else
+              echo "Could not confirm PR creation. Leaving '${BRANCH_NAME}' unchanged." >&2
+            fi
+            exit 1
+          fi
