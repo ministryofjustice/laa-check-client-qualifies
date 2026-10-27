@@ -31,7 +31,7 @@ Use the workflow-based process from trusted `main`:
 3. The workflow updates `package.json`, `yarn.lock`, and the runner's Puppeteer installation together.
 4. An already-current target is a no-op. No image, branch, or PR is created.
 5. For a changed target, the workflow builds and smoke-tests the tooling-only runner before publishing the branch. It checks Ruby, Puppeteer, required tools, and a headless Chrome launch as the non-root CI user.
-6. The published image gets a unique Ruby/Puppeteer/run/attempt tag. The workflow verifies its digest is retrievable and pins that digest in `.circleci/config.yml` before publishing one PR.
+6. The published image tag includes Ruby and Puppeteer versions, the workflow run ID, and its attempt number. The workflow verifies its digest is retrievable and pins that digest in `.circleci/config.yml` before publishing one PR.
 7. Review and merge once CI is green. A maintainer may need to approve the PR's GitHub Actions checks.
 
 The workflow starts from one `main` commit and checks that `main` has not changed before publishing the branch. If it has changed, start a fresh run from `main`. Existing upgrade branches are refused rather than replaced. Failed builds, smoke checks, or publication do not publish an upgrade branch.

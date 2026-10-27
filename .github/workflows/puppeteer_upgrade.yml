@@ -86,7 +86,7 @@ jobs:
             exit 1
           fi
 
-          image_tag="ruby-${ruby_version}-puppeteer-${PUPPETEER_VERSION}-run-${GITHUB_RUN_ID}-attempt-${GITHUB_RUN_ATTEMPT}"
+          image_tag="ruby-${ruby_version}-puppeteer-${PUPPETEER_VERSION}-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
 
           {
             echo "skip_pr=false"

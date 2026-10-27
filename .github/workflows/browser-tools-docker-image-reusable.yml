@@ -77,7 +77,7 @@ jobs:
             exit 1
           fi
 
-          expected_tag="ruby-${RUBY_VERSION}-puppeteer-${PUPPETEER_VERSION}-run-${GITHUB_RUN_ID}-attempt-${GITHUB_RUN_ATTEMPT}"
+          expected_tag="ruby-${RUBY_VERSION}-puppeteer-${PUPPETEER_VERSION}-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
           if [ "$IMAGE_TAG" != "$expected_tag" ]; then
             echo "Image tag does not match this run and candidate." >&2
             exit 1
