@@ -19,5 +19,3 @@ RUN sudo apt install pdftk --allow-unauthenticated
 # used by the application (in yarn.lock, not package.json)
 RUN yarn add puppeteer@25.14.0
 RUN npx puppeteer browsers install chrome --platform linux
-
-COPY . .
