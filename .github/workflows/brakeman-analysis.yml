@@ -10,4 +10,23 @@ on:
 
 jobs:
   brakeman:
-    uses: ministryofjustice/laa-reusable-github-actions/.github/workflows/brakeman.yml@a0bd8225ca8cc96e57a19223ce21f2ce7230833c
+    name: scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@7f797815d8adceb1c412e7abefdd1ab4abc47a5f # v1.335.0
+
+      - name: Setup Brakeman
+        run: gem install brakeman
+
+      - name: Scan
+        continue-on-error: true
+        run: brakeman -f sarif -o output.sarif.json .
+
+      - name: Upload SARIF
+        uses: github/codeql-action/upload-sarif@ff2f1c621b7f889edc0d3c761ac2e6a3f8cdb0dd # v4.37.7
+        with:
+          sarif_file: output.sarif.json
