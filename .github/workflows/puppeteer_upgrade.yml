@@ -150,13 +150,12 @@ jobs:
           sed -E -i "s|checkclientqualifiesdocker/circleci-image([@:][^[:space:]]+)|${image_ref}@${IMAGE_DIGEST}|" .circleci/config.yml
           git diff --check
 
-      - name: Create verified branch commit
-        id: commit
+      - name: Create upgrade branch
+        id: create_branch
         if: steps.metadata.outputs.skip_upgrade != 'true'
         env:
           MAIN_COMMIT_SHA: ${{ steps.metadata.outputs.main_commit_sha }}
           BRANCH_NAME: ${{ steps.metadata.outputs.branch_name }}
-          VERSION_TAG: ${{ steps.metadata.outputs.version_tag }}
         run: |
           existing_branch="$(git ls-remote --heads origin "refs/heads/${BRANCH_NAME}" | awk '{print $1}')"
           if [ -n "$existing_branch" ]; then
@@ -170,19 +169,6 @@ jobs:
             exit 1
           fi
 
-          delete_upgrade_branch_if_unchanged() {
-            expected_upgrade_branch_sha="$1"
-
-            current_upgrade_branch_sha="$(git ls-remote --heads origin "refs/heads/${BRANCH_NAME}" | awk '{print $1}')"
-            if [ "$current_upgrade_branch_sha" != "$expected_upgrade_branch_sha" ]; then
-              printf 'Upgrade branch %q changed remotely: expected %q, found %q. Leaving it untouched.\n' \
-                "$BRANCH_NAME" "$expected_upgrade_branch_sha" "$current_upgrade_branch_sha" >&2
-              return 1
-            fi
-
-            gh api --method DELETE "repos/${GH_REPO}/git/refs/heads/${BRANCH_NAME}"
-          }
-
           upgrade_branch_creation_succeeded() {
             gh api "repos/${GH_REPO}/git/refs" \
               -f ref="refs/heads/${BRANCH_NAME}" \
@@ -194,7 +180,16 @@ jobs:
               "$BRANCH_NAME" "$MAIN_COMMIT_SHA" >&2
             exit 1
           fi
+          echo "created=true" >> "$GITHUB_OUTPUT"
 
+      - name: Create verified branch commit
+        id: commit
+        if: steps.metadata.outputs.skip_upgrade != 'true'
+        env:
+          MAIN_COMMIT_SHA: ${{ steps.metadata.outputs.main_commit_sha }}
+          BRANCH_NAME: ${{ steps.metadata.outputs.branch_name }}
+          VERSION_TAG: ${{ steps.metadata.outputs.version_tag }}
+        run: |
           files=(package.json Dockerfile_browser_tools.dockerfile yarn.lock .circleci/config.yml)
           additions="$(
             for file in "${files[@]}"; do
@@ -226,7 +221,6 @@ jobs:
           }
 
           if ! verified_commit_creation_succeeded; then
-            delete_upgrade_branch_if_unchanged "$MAIN_COMMIT_SHA" || echo "Could not safely delete the upgrade branch after commit creation failed." >&2
             printf 'Could not create verified commit for upgrade branch %q from main commit %q.\n' \
               "$BRANCH_NAME" "$MAIN_COMMIT_SHA" >&2
             exit 1
@@ -234,7 +228,6 @@ jobs:
 
           new_commit_sha="$(jq -er '.data.createCommitOnBranch.commit.oid // empty' "$commit_response" || true)"
           if ! [[ "$new_commit_sha" =~ ^[0-9a-f]{40}$ ]]; then
-            delete_upgrade_branch_if_unchanged "$MAIN_COMMIT_SHA" || echo "Could not safely delete the upgrade branch after its commit could not be verified." >&2
             printf 'GitHub returned invalid verified commit SHA %q; expected 40 lowercase hexadecimal characters.\n' \
               "${new_commit_sha-<unavailable>}" >&2
             exit 1
@@ -251,17 +244,6 @@ jobs:
           IMAGE_DIGEST: ${{ steps.build_image.outputs.image_digest }}
           VERSION_TAG: ${{ steps.metadata.outputs.version_tag }}
         run: |
-          delete_upgrade_branch_if_unchanged() {
-            expected_upgrade_branch_sha="$1"
-            current_upgrade_branch_sha="$(git ls-remote --heads origin "refs/heads/${BRANCH_NAME}" | awk '{print $1}')"
-            if [ "$current_upgrade_branch_sha" != "$expected_upgrade_branch_sha" ]; then
-              printf 'Upgrade branch %q changed remotely: expected %q, found %q. Leaving it untouched.\n' \
-                "$BRANCH_NAME" "$expected_upgrade_branch_sha" "$current_upgrade_branch_sha" >&2
-              return 1
-            fi
-            gh api --method DELETE "repos/${GH_REPO}/git/refs/heads/${BRANCH_NAME}"
-          }
-
           image_ref='checkclientqualifiesdocker/circleci-image'
           pr_title="chore: bump Puppeteer to ${VERSION_TAG}"
           pr_body=$(cat <<EOF
@@ -282,15 +264,39 @@ jobs:
             exit
           fi
 
+          printf 'Could not create a PR for branch %q.\n' "$BRANCH_NAME" >&2
+          exit 1
+
+      - name: Clean up failed upgrade branch
+        if: failure() && steps.create_branch.outputs.created == 'true'
+        env:
+          MAIN_COMMIT_SHA: ${{ steps.metadata.outputs.main_commit_sha }}
+          BRANCH_NAME: ${{ steps.metadata.outputs.branch_name }}
+          NEW_COMMIT_SHA: ${{ steps.commit.outputs.commit_sha }}
+        run: |
+          expected_upgrade_branch_sha="$MAIN_COMMIT_SHA"
+          if [ -n "$NEW_COMMIT_SHA" ]; then
+            expected_upgrade_branch_sha="$NEW_COMMIT_SHA"
+          fi
+
           existing_pr="$(gh pr list --repo "$GH_REPO" --state open --head "$BRANCH_NAME" --base main --json number --jq '.[0].number')" || {
-            printf 'Could not confirm PR creation for branch %q. Leaving it unchanged.\n' "$BRANCH_NAME" >&2
+            printf 'Could not check for an open PR for branch %q. Leaving it untouched.\n' "$BRANCH_NAME" >&2
             exit 1
           }
           if [ -n "$existing_pr" ] && [ "$existing_pr" != "null" ]; then
-            printf 'PR #%s already exists for branch %q. Leaving its branch unchanged.\n' "$existing_pr" "$BRANCH_NAME" >&2
-            exit 1
+            printf 'PR #%s exists for branch %q. Leaving its branch untouched.\n' "$existing_pr" "$BRANCH_NAME" >&2
+            exit 0
           fi
 
-          printf 'Could not create a PR for branch %q.\n' "$BRANCH_NAME" >&2
-          delete_upgrade_branch_if_unchanged "$NEW_COMMIT_SHA" || echo "Could not safely delete the upgrade branch after PR creation failed." >&2
-          exit 1
+          current_upgrade_branch_sha="$(git ls-remote --heads origin "refs/heads/${BRANCH_NAME}" | awk '{print $1}')"
+          if [ "$current_upgrade_branch_sha" != "$expected_upgrade_branch_sha" ]; then
+            printf 'Upgrade branch %q changed remotely: expected %q, found %q. Leaving it untouched.\n' \
+              "$BRANCH_NAME" "$expected_upgrade_branch_sha" "$current_upgrade_branch_sha" >&2
+            exit 0
+          fi
+
+          if ! gh api --method DELETE "repos/${GH_REPO}/git/refs/heads/${BRANCH_NAME}"; then
+            printf 'Could not delete upgrade branch %q at commit %q.\n' \
+              "$BRANCH_NAME" "$expected_upgrade_branch_sha" >&2
+            exit 1
+          fi
