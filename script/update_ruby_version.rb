@@ -34,17 +34,24 @@ def docker_hub_digest(repository, tag)
     raise "Could not verify upstream image #{repository}:#{tag} (HTTP #{response.code})."
   end
 
-  digest = JSON.parse(response.body).fetch("digest")
-  raise "Docker Hub returned an invalid digest for #{repository}:#{tag}." unless digest.match?(/\Asha256:[0-9a-f]{64}\z/)
+  image_metadata = JSON.parse(response.body)
+  platforms = image_metadata.fetch("images")
+  unless platforms.is_a?(Array) && platforms.any? { |image| image["os"] == "linux" && image["architecture"] == "amd64" }
+    raise "Upstream image #{repository}:#{tag} has no linux/amd64 image."
+  end
+
+  digest = image_metadata.fetch("digest")
+  unless digest.is_a?(String) && digest.match?(/\Asha256:[0-9a-f]{64}\z/)
+    raise "Docker Hub returned an invalid digest for #{repository}:#{tag}."
+  end
 
   digest
 rescue JSON::ParserError, KeyError
   raise "Docker Hub returned invalid metadata for #{repository}:#{tag}."
 end
 
-version = ARGV.fetch(0) do
-  abort "Usage: ruby script/update_ruby_version.rb <ruby-version>"
-end
+abort "Usage: ruby script/update_ruby_version.rb <ruby-version>" unless ARGV.length == 1
+version = ARGV.fetch(0)
 abort "Ruby version must be a complete version such as 4.0.5." unless version.match?(/\A\d+\.\d+\.\d+\z/)
 abort "Preparation must run with Ruby #{version}, not #{RUBY_VERSION}." unless version == RUBY_VERSION
 
