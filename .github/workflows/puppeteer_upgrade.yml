@@ -7,6 +7,11 @@ on:
         description: Puppeteer version to upgrade to (example 25.2.1)
         required: true
         type: string
+      rebuild_runner:
+        description: Rebuild the runner when Puppeteer is already current
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: read
@@ -58,7 +63,7 @@ jobs:
           main_commit_sha="$(git rev-parse HEAD)"
 
           current_version="$(node -p "require('./package.json').dependencies.puppeteer")"
-          if [ "$current_version" = "$PUPPETEER_VERSION" ]; then
+          if [ "$current_version" = "$PUPPETEER_VERSION" ] && [ "${{ inputs.rebuild_runner }}" != "true" ]; then
             echo "Puppeteer ${PUPPETEER_VERSION} is already current. No image or PR will be created."
             echo "skip_upgrade=true" >> "$GITHUB_OUTPUT"
             exit 0
@@ -94,10 +99,13 @@ jobs:
         env:
           RUBY_VERSION: ${{ steps.metadata.outputs.ruby_version }}
         run: |
-          corepack enable
-          corepack prepare yarn@1.22.22 --activate
-          yarn add --exact "puppeteer@${PUPPETEER_VERSION}" --non-interactive --ignore-scripts
-          sed -E -i "s|RUN yarn add puppeteer@[^[:space:]]+|RUN yarn add puppeteer@${PUPPETEER_VERSION}|" Dockerfile_browser_tools.dockerfile
+          current_puppeteer_version="$(node -p "require('./package.json').dependencies.puppeteer")"
+          if [ "$current_puppeteer_version" != "$PUPPETEER_VERSION" ]; then
+            corepack enable
+            corepack prepare yarn@1.22.22 --activate
+            yarn add --exact "puppeteer@${PUPPETEER_VERSION}" --non-interactive --ignore-scripts
+            sed -E -i "s|RUN yarn add puppeteer@[^[:space:]]+|RUN yarn add puppeteer@${PUPPETEER_VERSION}|" Dockerfile_browser_tools.dockerfile
+          fi
 
           updated_puppeteer_version="$(node -p "require('./package.json').dependencies.puppeteer")"
           if [ "$updated_puppeteer_version" != "$PUPPETEER_VERSION" ]; then
