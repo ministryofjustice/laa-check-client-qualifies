@@ -13,21 +13,14 @@ permissions:
   pull-requests: write
 
 jobs:
-  prepare-upgrade:
+  upgrade:
     runs-on: ubuntu-latest
     defaults:
       run:
         shell: bash --noprofile --norc -euo pipefail {0}
-    outputs:
-      skip_pr: ${{ steps.metadata.outputs.skip_pr }}
-      branch_name: ${{ steps.metadata.outputs.branch_name }}
-      image_tag: ${{ steps.metadata.outputs.image_tag }}
-      version_tag: ${{ steps.metadata.outputs.version_tag }}
-      ruby_version: ${{ steps.metadata.outputs.ruby_version }}
-      puppeteer_version: ${{ steps.metadata.outputs.puppeteer_version }}
-      base_sha: ${{ steps.metadata.outputs.base_sha }}
-      candidate_files_b64: ${{ steps.prepare_candidate.outputs.candidate_files_b64 }}
     env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_REPO: ${{ github.repository }}
       PUPPETEER_VERSION: ${{ inputs.puppeteer_version }}
     steps:
       - name: Checkout trusted main
@@ -36,11 +29,11 @@ jobs:
           ref: main
           fetch-depth: 0
 
-      - name: Validate request and set candidate metadata
+      - name: Validate request and set upgrade metadata
         id: metadata
         run: |
-          if [ "${GITHUB_REF_NAME}" != "main" ]; then
-            echo "This workflow must be dispatched from main (got '${GITHUB_REF_NAME}')." >&2
+          if [ "$GITHUB_REF_NAME" != "main" ]; then
+            echo "This workflow must be dispatched from main." >&2
             exit 1
           fi
 
@@ -69,41 +62,39 @@ jobs:
           current_version="$(node -p "require('./package.json').dependencies.puppeteer")"
           if [ "$current_version" = "$PUPPETEER_VERSION" ]; then
             echo "Puppeteer ${PUPPETEER_VERSION} is already current. No image or PR will be created."
-            {
-              echo "skip_pr=true"
-              echo "ruby_version=${ruby_version}"
-              echo "puppeteer_version=${PUPPETEER_VERSION}"
-              echo "base_sha=${base_sha}"
-            } >> "$GITHUB_OUTPUT"
+            echo "skip_upgrade=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
-          version_tag="v${PUPPETEER_VERSION}"
-          branch_name="chore/upgrade-puppeteer/${version_tag}"
-          existing_branch="$(git ls-remote --heads origin "refs/heads/${branch_name}" | awk '{print $1}')"
+          VERSION_TAG="v${PUPPETEER_VERSION}"
+          BRANCH_NAME="chore/upgrade-puppeteer/${VERSION_TAG}"
+          existing_branch="$(git ls-remote --heads origin "refs/heads/${BRANCH_NAME}" | awk '{print $1}')"
           if [ -n "$existing_branch" ]; then
-            echo "Refusing to replace existing branch '${branch_name}'." >&2
+            echo "Refusing to replace existing branch '${BRANCH_NAME}'." >&2
             exit 1
           fi
 
-          image_tag="ruby-${ruby_version}-puppeteer-${PUPPETEER_VERSION}-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
-
+          IMAGE_TAG="ruby-${ruby_version}-puppeteer-${PUPPETEER_VERSION}-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
           {
-            echo "skip_pr=false"
-            echo "branch_name=${branch_name}"
-            echo "image_tag=${image_tag}"
-            echo "version_tag=${version_tag}"
-            echo "ruby_version=${ruby_version}"
-            echo "puppeteer_version=${PUPPETEER_VERSION}"
             echo "base_sha=${base_sha}"
+            echo "branch_name=${BRANCH_NAME}"
+            echo "image_tag=${IMAGE_TAG}"
+            echo "ruby_version=${ruby_version}"
+            echo "skip_upgrade=false"
+            echo "version_tag=${VERSION_TAG}"
           } >> "$GITHUB_OUTPUT"
+          echo "Preparing Puppeteer ${PUPPETEER_VERSION} from main ${base_sha}."
 
-      - name: Prepare candidate dependency files
-        id: prepare_candidate
-        if: steps.metadata.outputs.skip_pr != 'true'
+      - name: Create local upgrade branch
+        if: steps.metadata.outputs.skip_upgrade != 'true'
+        env:
+          BRANCH_NAME: ${{ steps.metadata.outputs.branch_name }}
+        run: git switch --create "$BRANCH_NAME"
+
+      - name: Update Puppeteer dependencies
+        if: steps.metadata.outputs.skip_upgrade != 'true'
         env:
           RUBY_VERSION: ${{ steps.metadata.outputs.ruby_version }}
-          BASE_SHA: ${{ steps.metadata.outputs.base_sha }}
         run: |
           corepack enable
           corepack prepare yarn@1.22.22 --activate
@@ -112,84 +103,45 @@ jobs:
           sed -E -i "s|RUN yarn add puppeteer@[^[:space:]]+|RUN yarn add puppeteer@${PUPPETEER_VERSION}|" Dockerfile_browser_tools.dockerfile
 
           if [ "$(node -p "require('./package.json').dependencies.puppeteer")" != "$PUPPETEER_VERSION" ]; then
-            echo "Prepared package.json does not match the requested Puppeteer version." >&2
+            echo "package.json does not match the requested Puppeteer version." >&2
             exit 1
           fi
-
           if ! grep -Fqx "puppeteer@${PUPPETEER_VERSION}:" yarn.lock; then
-            echo "Prepared yarn.lock does not contain the requested Puppeteer version." >&2
+            echo "yarn.lock does not match the requested Puppeteer version." >&2
             exit 1
           fi
-
           if ! grep -Fqx "RUN yarn add puppeteer@${PUPPETEER_VERSION}" Dockerfile_browser_tools.dockerfile; then
-            echo "Prepared runner definition does not match the requested Puppeteer version." >&2
+            echo "Runner Dockerfile does not match the requested Puppeteer version." >&2
             exit 1
           fi
 
-          candidate_archive="$(mktemp)"
-          trap 'rm -f "$candidate_archive"' EXIT
-          tar -czf "$candidate_archive" -- package.json yarn.lock Dockerfile_browser_tools.dockerfile
-          candidate_files_b64="$(base64 -w0 "$candidate_archive")"
-          echo "candidate_files_b64=${candidate_files_b64}" >> "$GITHUB_OUTPUT"
-          echo "Prepared Puppeteer ${PUPPETEER_VERSION} from main ${BASE_SHA} (Ruby ${RUBY_VERSION})."
+          ruby_base_version="$(sed -nE 's|^FROM cimg/ruby:([0-9]+\.[0-9]+\.[0-9]+)-browsers@sha256:[[:xdigit:]]+$|\1|p' Dockerfile_browser_tools.dockerfile)"
+          if [ "$ruby_base_version" != "$RUBY_VERSION" ]; then
+            echo "Runner Dockerfile Ruby base does not match .ruby-version." >&2
+            exit 1
+          fi
+          echo "Updated Puppeteer dependency and runner Dockerfile."
 
-  build-browser-tools-image:
-    needs: prepare-upgrade
-    if: needs.prepare-upgrade.outputs.skip_pr != 'true'
-    permissions:
-      contents: read
-    uses: ./.github/workflows/browser-tools-docker-image-reusable.yml
-    with:
-      candidate_files_b64: ${{ needs.prepare-upgrade.outputs.candidate_files_b64 }}
-      base_sha: ${{ needs.prepare-upgrade.outputs.base_sha }}
-      ruby_version: ${{ needs.prepare-upgrade.outputs.ruby_version }}
-      puppeteer_version: ${{ needs.prepare-upgrade.outputs.puppeteer_version }}
-      image_tag: ${{ needs.prepare-upgrade.outputs.image_tag }}
-    secrets: inherit
-
-  create-upgrade-pr:
-    needs:
-      - prepare-upgrade
-      - build-browser-tools-image
-    if: needs.prepare-upgrade.outputs.skip_pr != 'true'
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash --noprofile --norc -euo pipefail {0}
-    env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      GH_REPO: ${{ github.repository }}
-      BRANCH_NAME: ${{ needs.prepare-upgrade.outputs.branch_name }}
-      IMAGE_TAG: ${{ needs.prepare-upgrade.outputs.image_tag }}
-      IMAGE_DIGEST: ${{ needs.build-browser-tools-image.outputs.image_digest }}
-      VERSION_TAG: ${{ needs.prepare-upgrade.outputs.version_tag }}
-      PUPPETEER_VERSION: ${{ needs.prepare-upgrade.outputs.puppeteer_version }}
-      RUBY_VERSION: ${{ needs.prepare-upgrade.outputs.ruby_version }}
-      BASE_SHA: ${{ needs.prepare-upgrade.outputs.base_sha }}
-      CANDIDATE_FILES_B64: ${{ needs.prepare-upgrade.outputs.candidate_files_b64 }}
-    steps:
-      - name: Checkout base commit
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Build and publish browser tools image
+        id: build_image
+        if: steps.metadata.outputs.skip_upgrade != 'true'
+        uses: ./.github/actions/build-browser-tools-image
         with:
-          ref: ${{ needs.prepare-upgrade.outputs.base_sha }}
-          fetch-depth: 0
+          puppeteer_version: ${{ inputs.puppeteer_version }}
+          ruby_version: ${{ steps.metadata.outputs.ruby_version }}
+          image_tag: ${{ steps.metadata.outputs.image_tag }}
+          dockerhub_username: ${{ secrets.DOCKERHUB_USER_CCQ }}
+          dockerhub_password: ${{ secrets.DOCKERHUB_PAT_CCQ }}
 
-      - name: Add image digest to candidate
+      - name: Pin runner digest in CircleCI
+        if: steps.metadata.outputs.skip_upgrade != 'true'
+        env:
+          IMAGE_DIGEST: ${{ steps.build_image.outputs.image_digest }}
         run: |
           if ! [[ "$IMAGE_DIGEST" =~ ^sha256:[0-9a-f]{64}$ ]]; then
             echo "The runner builder did not return a valid image digest." >&2
             exit 1
           fi
-
-          candidate_dir="$(mktemp -d)"
-          archive="$(mktemp)"
-          trap 'rm -rf "$candidate_dir" "$archive"' EXIT
-          printf '%s' "$CANDIDATE_FILES_B64" | base64 --decode > "$archive"
-          tar -xzf "$archive" -C "$candidate_dir"
-
-          cp "$candidate_dir/package.json" package.json
-          cp "$candidate_dir/yarn.lock" yarn.lock
-          cp "$candidate_dir/Dockerfile_browser_tools.dockerfile" Dockerfile_browser_tools.dockerfile
 
           image_ref='checkclientqualifiesdocker/circleci-image'
           image_ref_count="$(grep -Ec 'checkclientqualifiesdocker/circleci-image([@:][^[:space:]]+)' .circleci/config.yml || true)"
@@ -198,11 +150,15 @@ jobs:
             exit 1
           fi
           sed -E -i "s|checkclientqualifiesdocker/circleci-image([@:][^[:space:]]+)|${image_ref}@${IMAGE_DIGEST}|" .circleci/config.yml
-
           git diff --check
 
-      - name: Publish candidate branch and verified commit
+      - name: Create verified branch commit
         id: commit
+        if: steps.metadata.outputs.skip_upgrade != 'true'
+        env:
+          BASE_SHA: ${{ steps.metadata.outputs.base_sha }}
+          BRANCH_NAME: ${{ steps.metadata.outputs.branch_name }}
+          VERSION_TAG: ${{ steps.metadata.outputs.version_tag }}
         run: |
           existing_branch="$(git ls-remote --heads origin "refs/heads/${BRANCH_NAME}" | awk '{print $1}')"
           if [ -n "$existing_branch" ]; then
@@ -226,9 +182,12 @@ jobs:
             gh api --method DELETE "repos/${GH_REPO}/git/refs/heads/${BRANCH_NAME}"
           }
 
-          gh api "repos/${GH_REPO}/git/refs" \
+          if ! gh api "repos/${GH_REPO}/git/refs" \
             -f ref="refs/heads/${BRANCH_NAME}" \
-            -f sha="${BASE_SHA}"
+            -f sha="${BASE_SHA}"; then
+            cleanup_created_branch "$BASE_SHA" || echo "Could not safely clean up the new branch after branch creation failed." >&2
+            exit 1
+          fi
 
           files=(package.json Dockerfile_browser_tools.dockerfile yarn.lock .circleci/config.yml)
           additions="$(
@@ -266,18 +225,22 @@ jobs:
             echo "Could not read the created commit from GitHub." >&2
             exit 1
           fi
-
           if ! [[ "$new_commit_sha" =~ ^[0-9a-f]{40}$ ]]; then
             cleanup_created_branch "$BASE_SHA" || echo "Could not safely clean up the new branch after its commit could not be verified." >&2
             echo "GitHub did not return the expected verified commit." >&2
             exit 1
           fi
-
           echo "commit_sha=${new_commit_sha}" >> "$GITHUB_OUTPUT"
 
       - name: Open upgrade pull request
+        if: steps.metadata.outputs.skip_upgrade != 'true'
         env:
+          BASE_SHA: ${{ steps.metadata.outputs.base_sha }}
+          BRANCH_NAME: ${{ steps.metadata.outputs.branch_name }}
+          IMAGE_TAG: ${{ steps.metadata.outputs.image_tag }}
           NEW_COMMIT_SHA: ${{ steps.commit.outputs.commit_sha }}
+          IMAGE_DIGEST: ${{ steps.build_image.outputs.image_digest }}
+          VERSION_TAG: ${{ steps.metadata.outputs.version_tag }}
         run: |
           cleanup_created_branch() {
             expected_sha="$1"
@@ -289,8 +252,8 @@ jobs:
             gh api --method DELETE "repos/${GH_REPO}/git/refs/heads/${BRANCH_NAME}"
           }
 
-          pr_title="chore: bump Puppeteer to ${VERSION_TAG}"
           image_ref='checkclientqualifiesdocker/circleci-image'
+          pr_title="chore: bump Puppeteer to ${VERSION_TAG}"
           pr_body=$(cat <<EOF
           Automated Puppeteer upgrade.
 
@@ -313,7 +276,6 @@ jobs:
             echo "Could not confirm PR creation. Leaving '${BRANCH_NAME}' unchanged." >&2
             exit 1
           }
-
           if [ -n "$existing_pr" ] && [ "$existing_pr" != "null" ]; then
             echo "A PR exists for '${BRANCH_NAME}'. Leaving its branch unchanged." >&2
             exit 1
