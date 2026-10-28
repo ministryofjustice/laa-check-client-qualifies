@@ -118,7 +118,7 @@ changes["Dockerfile_browser_tools.dockerfile"] = replace_one(
 
 circleci = read_file(".circleci/config.yml")
 circleci_pins = circleci.scan(/^(\s*-\s*image:\s*cimg\/ruby:)(\d+\.\d+\.\d+)(-browsers\s*)$/)
-unless !circleci_pins.empty? && circleci_pins.all? { |(_, pinned_version, _)| pinned_version == current_version }
+if circleci_pins.empty? || circleci_pins.any? { |(_, pinned_version, _)| pinned_version != current_version }
   abort "CircleCI Ruby executor pins must all match .ruby-version #{current_version}."
 end
 changes[".circleci/config.yml"] = circleci.gsub(
