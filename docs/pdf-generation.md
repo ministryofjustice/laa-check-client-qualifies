@@ -24,26 +24,19 @@ PDF rendering has specific accessibility accommodations:
 
 Puppeteer is pinned and occasionally requires upgrades as Chrome changes.
 
-Use the workflow-based process as the source of truth:
+Use the workflow-based process from trusted `main`:
 
 1. Open GitHub Actions and run `Puppeteer upgrade PR`.
 2. Set `puppeteer_version` (for example `25.2.1`).
-3. Leave `base_branch` as `main` unless you need a different target.
-4. The workflow updates `package.json`, `Dockerfile_browser_tools.dockerfile`, `yarn.lock`, and `.circleci/config.yml`, then creates or updates a PR.
-5. Review and merge once CI is green.
+3. The workflow updates `package.json`, `yarn.lock`, and the runner's Puppeteer installation together.
+4. An already-current target is a no-op. No image, branch, or PR is created.
+5. For a changed target, the workflow creates a local branch and updates the dependency files. It builds and smoke-tests the tooling-only runner before publishing that branch. It checks Ruby, Puppeteer, required tools, and a headless Chrome launch as the non-root CI user.
+6. The published image tag includes Ruby and Puppeteer versions, the workflow run ID, and its attempt number. The workflow verifies its digest is retrievable and pins that digest in `.circleci/config.yml` before publishing one PR.
+7. Review and merge once CI is green. A maintainer may need to approve the PR's GitHub Actions checks.
 
-### Browser tools image publish trigger
+The workflow starts from one `main` commit and checks that `main` has not changed before publishing the branch. If it has changed, start a fresh run from `main`. Existing upgrade branches are refused rather than replaced. Failed builds, smoke checks, or publication do not publish an upgrade branch.
 
-The browser-tools image is pushed by `.github/workflows/browser_tools_docker_image.yml` when the upgrade branch is pushed.
-
-If that workflow is still configured with explicit branch names, ensure the generated branch (for example `chore/upgrade-puppeteer/v25.2.1`) is included in the trigger list.
-
-Manual fallback (if the workflow cannot be used):
-
-1. Create a `chore/upgrade-puppeteer/*` branch.
-2. Update `Dockerfile_browser_tools.dockerfile` and `package.json`.
-3. Run `yarn install`.
-4. Update `.circleci/config.yml` to use the matching `checkclientqualifiesdocker/circleci-image:puppeteer-v<version>` tag.
+There is no push-triggered runner publisher or mutable `main` image tag. Manually authored PRs must keep the application Puppeteer version, runner Puppeteer version, Ruby version, and CircleCI image digest consistent. Pushing a branch does not build or repair its runner.
 
 Reference PR example:
 

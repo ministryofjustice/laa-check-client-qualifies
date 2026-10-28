@@ -1,0 +1,162 @@
+name: Build browser tools image
+description: Build, smoke-test, and publish the CircleCI browser tools image.
+
+inputs:
+  puppeteer_version:
+    description: Puppeteer version installed in the runner.
+    required: true
+  ruby_version:
+    description: Ruby version required by the runner.
+    required: true
+  image_tag:
+    description: Unique image tag for this workflow attempt.
+    required: true
+  dockerhub_username:
+    description: Docker Hub username.
+    required: true
+  dockerhub_password:
+    description: Docker Hub password or token.
+    required: true
+
+outputs:
+  image_digest:
+    description: Digest of the verified published runner image.
+    value: ${{ steps.publish.outputs.image_digest }}
+
+runs:
+  using: composite
+  steps:
+    - name: Validate trusted upgrade run
+      shell: bash
+      env:
+        PUPPETEER_VERSION: ${{ inputs.puppeteer_version }}
+        RUBY_VERSION: ${{ inputs.ruby_version }}
+        IMAGE_TAG: ${{ inputs.image_tag }}
+      run: |
+        set -euo pipefail
+
+        expected_workflow="${GITHUB_REPOSITORY}/.github/workflows/puppeteer_upgrade.yml@refs/heads/main"
+        if [ "$GITHUB_REF" != "refs/heads/main" ] || [ "$GITHUB_EVENT_NAME" != "workflow_dispatch" ] || [ "$GITHUB_WORKFLOW_REF" != "$expected_workflow" ]; then
+          echo "Runner publication is allowed only from Puppeteer upgrade dispatches on main." >&2
+          exit 1
+        fi
+
+        if ! [[ "$PUPPETEER_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+          echo "Invalid Puppeteer version." >&2
+          exit 1
+        fi
+        if ! [[ "$RUBY_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+          echo "Invalid runner Ruby version." >&2
+          exit 1
+        fi
+
+        expected_tag="ruby-${RUBY_VERSION}-puppeteer-${PUPPETEER_VERSION}-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+        if [ "$IMAGE_TAG" != "$expected_tag" ]; then
+          echo "Image tag does not match this run and requested versions." >&2
+          exit 1
+        fi
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v4
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
+      with:
+        username: ${{ inputs.dockerhub_username }}
+        password: ${{ inputs.dockerhub_password }}
+
+    - name: Build runner image
+      shell: bash
+      env:
+        PUPPETEER_VERSION: ${{ inputs.puppeteer_version }}
+        RUBY_VERSION: ${{ inputs.ruby_version }}
+        IMAGE_TAG: ${{ inputs.image_tag }}
+      run: |
+        set -euo pipefail
+
+        image_repository=checkclientqualifiesdocker/circleci-image
+        image_ref="${image_repository}:${IMAGE_TAG}"
+        dockerfile="$GITHUB_WORKSPACE/Dockerfile_browser_tools.dockerfile"
+        context="$RUNNER_TEMP/runner-context"
+        mkdir -p "$context"
+        cp "$dockerfile" "$context/Dockerfile_browser_tools.dockerfile"
+
+        if ! grep -Fqx "RUN yarn add puppeteer@${PUPPETEER_VERSION}" "$dockerfile"; then
+          echo "Runner Dockerfile does not match the requested Puppeteer version." >&2
+          exit 1
+        fi
+        if ! grep -Eq "^FROM cimg/ruby:${RUBY_VERSION}-browsers@sha256:[[:xdigit:]]+$" "$dockerfile"; then
+          echo "Runner Dockerfile base does not match the requested Ruby version." >&2
+          exit 1
+        fi
+
+        tag_status="$(curl --silent --show-error --output /dev/null --write-out '%{http_code}' "https://hub.docker.com/v2/repositories/${image_repository}/tags/${IMAGE_TAG}")"
+        case "$tag_status" in
+          404) ;;
+          200)
+            echo "Refusing to overwrite existing runner image tag '${IMAGE_TAG}'." >&2
+            exit 1
+            ;;
+          *)
+            echo "Docker Hub tag check failed with HTTP ${tag_status}. Refusing to publish." >&2
+            exit 1
+            ;;
+        esac
+
+        docker buildx build --platform linux/amd64 --load --tag "$image_ref" \
+          --file "$context/Dockerfile_browser_tools.dockerfile" \
+          "$context"
+
+    - name: Smoke-test runner
+      shell: bash
+      env:
+        PUPPETEER_VERSION: ${{ inputs.puppeteer_version }}
+        RUBY_VERSION: ${{ inputs.ruby_version }}
+        IMAGE_TAG: ${{ inputs.image_tag }}
+      run: |
+        set -euo pipefail
+
+        image_ref="checkclientqualifiesdocker/circleci-image:${IMAGE_TAG}"
+        actual_ruby="$(docker run --rm --entrypoint ruby "$image_ref" -e 'print RUBY_VERSION')"
+        if [ "$actual_ruby" != "$RUBY_VERSION" ]; then
+          echo "Runner Ruby version mismatch. Expected ${RUBY_VERSION}, got ${actual_ruby}." >&2
+          exit 1
+        fi
+
+        actual_puppeteer="$(docker run --rm --entrypoint node "$image_ref" -e 'process.stdout.write(require("/app/node_modules/puppeteer/package.json").version)')"
+        if [ "$actual_puppeteer" != "$PUPPETEER_VERSION" ]; then
+          echo "Runner Puppeteer version mismatch. Expected ${PUPPETEER_VERSION}, got ${actual_puppeteer}." >&2
+          exit 1
+        fi
+
+        docker run --rm --entrypoint bash "$image_ref" -euc '
+          test "$(id -u)" -ne 0
+          test ! -d /app/app
+          ruby --version
+          node --version
+          yarn --version
+          pdftk --version
+        '
+        docker run --rm --entrypoint node "$image_ref" -e 'require("/app/node_modules/puppeteer").launch({ headless: true }).then((browser) => browser.close())'
+
+    - name: Publish runner and verify digest
+      id: publish
+      shell: bash
+      env:
+        IMAGE_TAG: ${{ inputs.image_tag }}
+      run: |
+        set -euo pipefail
+
+        image_repository=checkclientqualifiesdocker/circleci-image
+        image_ref="${image_repository}:${IMAGE_TAG}"
+        push_log="$RUNNER_TEMP/docker-push.log"
+        docker push "$image_ref" 2>&1 | tee "$push_log"
+
+        image_digest="$(sed -nE 's/.*digest: (sha256:[0-9a-f]{64})([[:space:]].*)?$/\1/p' "$push_log" | tail -n 1)"
+        if ! [[ "$image_digest" =~ ^sha256:[0-9a-f]{64}$ ]]; then
+          echo "Docker did not return a valid published image digest." >&2
+          exit 1
+        fi
+        docker pull "${image_repository}@${image_digest}"
+        echo "image_digest=${image_digest}" >> "$GITHUB_OUTPUT"
+        echo "Published and retrieved ${image_repository}@${image_digest} (${IMAGE_TAG})."
