@@ -9,19 +9,26 @@ on:
         type: string
 
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
+
+defaults:
+  run:
+    shell: bash --noprofile --norc -euo pipefail {0}
+
+env:
+  GH_REPO: ${{ github.repository }}
+  PUPPETEER_VERSION: ${{ inputs.puppeteer_version }}
 
 jobs:
-  upgrade:
+  prepare-upgrade:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash --noprofile --norc -euo pipefail {0}
-    env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      GH_REPO: ${{ github.repository }}
-      PUPPETEER_VERSION: ${{ inputs.puppeteer_version }}
+    outputs:
+      skip_upgrade: ${{ steps.metadata.outputs.skip_upgrade }}
+      main_commit_sha: ${{ steps.metadata.outputs.main_commit_sha }}
+      branch_name: ${{ steps.metadata.outputs.branch_name }}
+      ruby_version: ${{ steps.metadata.outputs.ruby_version }}
+      version_tag: ${{ steps.metadata.outputs.version_tag }}
+      candidate_artifact: ${{ steps.metadata.outputs.candidate_artifact }}
     steps:
       - name: Checkout trusted main
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -59,20 +66,20 @@ jobs:
 
           VERSION_TAG="v${PUPPETEER_VERSION}"
           BRANCH_NAME="chore/upgrade-puppeteer/${VERSION_TAG}"
+          ARTIFACT_NAME="puppeteer-candidate-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
           existing_branch="$(git ls-remote --heads origin "refs/heads/${BRANCH_NAME}" | awk '{print $1}')"
           if [ -n "$existing_branch" ]; then
             printf 'Refusing to replace existing branch %q at commit %q.\n' "$BRANCH_NAME" "$existing_branch" >&2
             exit 1
           fi
 
-          IMAGE_TAG="ruby-${ruby_version}-puppeteer-${PUPPETEER_VERSION}-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
           {
             echo "main_commit_sha=${main_commit_sha}"
             echo "branch_name=${BRANCH_NAME}"
-            echo "image_tag=${IMAGE_TAG}"
             echo "ruby_version=${ruby_version}"
             echo "skip_upgrade=false"
             echo "version_tag=${VERSION_TAG}"
+            echo "candidate_artifact=${ARTIFACT_NAME}"
           } >> "$GITHUB_OUTPUT"
           echo "Preparing Puppeteer ${PUPPETEER_VERSION} from main ${main_commit_sha}."
 
@@ -120,21 +127,85 @@ jobs:
           fi
           echo "Updated Puppeteer dependency and runner Dockerfile."
 
+      - name: Upload prepared candidate
+        if: steps.metadata.outputs.skip_upgrade != 'true'
+        uses: actions/upload-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        with:
+          name: ${{ steps.metadata.outputs.candidate_artifact }}
+          path: |
+            package.json
+            yarn.lock
+            Dockerfile_browser_tools.dockerfile
+          if-no-files-found: error
+          retention-days: 1
+
+  build-browser-tools-image:
+    needs: prepare-upgrade
+    if: needs.prepare-upgrade.outputs.skip_upgrade != 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      image_tag: ${{ steps.image_metadata.outputs.image_tag }}
+      image_digest: ${{ steps.build_image.outputs.image_digest }}
+    steps:
+      - name: Checkout trusted main
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ needs.prepare-upgrade.outputs.main_commit_sha }}
+          fetch-depth: 0
+
+      - name: Download prepared candidate
+        uses: actions/download-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: ${{ needs.prepare-upgrade.outputs.candidate_artifact }}
+          path: ${{ github.workspace }}
+
+      - name: Set unique runner image tag
+        id: image_metadata
+        env:
+          RUBY_VERSION: ${{ needs.prepare-upgrade.outputs.ruby_version }}
+        run: |
+          image_tag="ruby-${RUBY_VERSION}-puppeteer-${PUPPETEER_VERSION}-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          echo "image_tag=${image_tag}" >> "$GITHUB_OUTPUT"
+
       - name: Build and publish browser tools image
         id: build_image
-        if: steps.metadata.outputs.skip_upgrade != 'true'
         uses: ./.github/actions/build-browser-tools-image
         with:
           puppeteer_version: ${{ inputs.puppeteer_version }}
-          ruby_version: ${{ steps.metadata.outputs.ruby_version }}
-          image_tag: ${{ steps.metadata.outputs.image_tag }}
+          ruby_version: ${{ needs.prepare-upgrade.outputs.ruby_version }}
+          image_tag: ${{ steps.image_metadata.outputs.image_tag }}
           dockerhub_username: ${{ secrets.DOCKERHUB_USER_CCQ }}
           dockerhub_password: ${{ secrets.DOCKERHUB_PAT_CCQ }}
 
+  create-upgrade-pr:
+    needs:
+      - prepare-upgrade
+      - build-browser-tools-image
+    if: needs.prepare-upgrade.outputs.skip_upgrade != 'true' && needs.build-browser-tools-image.result == 'success'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout trusted main
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ needs.prepare-upgrade.outputs.main_commit_sha }}
+          fetch-depth: 0
+
+      - name: Download prepared candidate
+        uses: actions/download-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: ${{ needs.prepare-upgrade.outputs.candidate_artifact }}
+          path: ${{ github.workspace }}
+
       - name: Pin runner digest in CircleCI
-        if: steps.metadata.outputs.skip_upgrade != 'true'
         env:
-          IMAGE_DIGEST: ${{ steps.build_image.outputs.image_digest }}
+          IMAGE_DIGEST: ${{ needs.build-browser-tools-image.outputs.image_digest }}
         run: |
           if ! [[ "$IMAGE_DIGEST" =~ ^sha256:[0-9a-f]{64}$ ]]; then
             printf 'Runner builder returned image digest %q; expected sha256:<64 lowercase hex characters>.\n' "$IMAGE_DIGEST" >&2
@@ -152,10 +223,9 @@ jobs:
 
       - name: Create upgrade branch
         id: create_branch
-        if: steps.metadata.outputs.skip_upgrade != 'true'
         env:
-          MAIN_COMMIT_SHA: ${{ steps.metadata.outputs.main_commit_sha }}
-          BRANCH_NAME: ${{ steps.metadata.outputs.branch_name }}
+          MAIN_COMMIT_SHA: ${{ needs.prepare-upgrade.outputs.main_commit_sha }}
+          BRANCH_NAME: ${{ needs.prepare-upgrade.outputs.branch_name }}
         run: |
           existing_branch="$(git ls-remote --heads origin "refs/heads/${BRANCH_NAME}" | awk '{print $1}')"
           if [ -n "$existing_branch" ]; then
@@ -184,11 +254,11 @@ jobs:
 
       - name: Create verified branch commit
         id: commit
-        if: steps.metadata.outputs.skip_upgrade != 'true'
+        if: needs.prepare-upgrade.outputs.skip_upgrade != 'true'
         env:
-          MAIN_COMMIT_SHA: ${{ steps.metadata.outputs.main_commit_sha }}
-          BRANCH_NAME: ${{ steps.metadata.outputs.branch_name }}
-          VERSION_TAG: ${{ steps.metadata.outputs.version_tag }}
+          MAIN_COMMIT_SHA: ${{ needs.prepare-upgrade.outputs.main_commit_sha }}
+          BRANCH_NAME: ${{ needs.prepare-upgrade.outputs.branch_name }}
+          VERSION_TAG: ${{ needs.prepare-upgrade.outputs.version_tag }}
         run: |
           files=(package.json Dockerfile_browser_tools.dockerfile yarn.lock .circleci/config.yml)
           additions="$(
@@ -235,14 +305,14 @@ jobs:
           echo "commit_sha=${new_commit_sha}" >> "$GITHUB_OUTPUT"
 
       - name: Open upgrade pull request
-        if: steps.metadata.outputs.skip_upgrade != 'true'
+        if: needs.prepare-upgrade.outputs.skip_upgrade != 'true'
         env:
-          MAIN_COMMIT_SHA: ${{ steps.metadata.outputs.main_commit_sha }}
-          BRANCH_NAME: ${{ steps.metadata.outputs.branch_name }}
-          IMAGE_TAG: ${{ steps.metadata.outputs.image_tag }}
+          MAIN_COMMIT_SHA: ${{ needs.prepare-upgrade.outputs.main_commit_sha }}
+          BRANCH_NAME: ${{ needs.prepare-upgrade.outputs.branch_name }}
+          IMAGE_TAG: ${{ needs.build-browser-tools-image.outputs.image_tag }}
           NEW_COMMIT_SHA: ${{ steps.commit.outputs.commit_sha }}
-          IMAGE_DIGEST: ${{ steps.build_image.outputs.image_digest }}
-          VERSION_TAG: ${{ steps.metadata.outputs.version_tag }}
+          IMAGE_DIGEST: ${{ needs.build-browser-tools-image.outputs.image_digest }}
+          VERSION_TAG: ${{ needs.prepare-upgrade.outputs.version_tag }}
         run: |
           image_ref='checkclientqualifiesdocker/circleci-image'
           pr_title="chore: bump Puppeteer to ${VERSION_TAG}"
@@ -270,8 +340,8 @@ jobs:
       - name: Clean up failed upgrade branch
         if: failure() && steps.create_branch.outputs.created == 'true'
         env:
-          MAIN_COMMIT_SHA: ${{ steps.metadata.outputs.main_commit_sha }}
-          BRANCH_NAME: ${{ steps.metadata.outputs.branch_name }}
+          MAIN_COMMIT_SHA: ${{ needs.prepare-upgrade.outputs.main_commit_sha }}
+          BRANCH_NAME: ${{ needs.prepare-upgrade.outputs.branch_name }}
           NEW_COMMIT_SHA: ${{ steps.commit.outputs.commit_sha }}
         run: |
           expected_upgrade_branch_sha="$MAIN_COMMIT_SHA"
