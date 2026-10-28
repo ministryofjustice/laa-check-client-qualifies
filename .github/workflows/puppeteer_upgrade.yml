@@ -99,19 +99,15 @@ jobs:
           fi
 
           expected_yarn_selector="puppeteer@${PUPPETEER_VERSION}:"
-          yarn_lock_has_expected_puppeteer_selector() {
-            grep -Fqx "$expected_yarn_selector" yarn.lock
-          }
-          if ! yarn_lock_has_expected_puppeteer_selector; then
+          yarn_selector_match="$(grep -Fx "$expected_yarn_selector" yarn.lock || true)"
+          if [ -z "$yarn_selector_match" ]; then
             printf 'yarn.lock is missing expected selector %q.\n' "$expected_yarn_selector" >&2
             exit 1
           fi
 
           expected_runner_install="RUN yarn add puppeteer@${PUPPETEER_VERSION}"
-          runner_dockerfile_has_expected_puppeteer_install() {
-            grep -Fqx "$expected_runner_install" Dockerfile_browser_tools.dockerfile
-          }
-          if ! runner_dockerfile_has_expected_puppeteer_install; then
+          runner_install_match="$(grep -Fx "$expected_runner_install" Dockerfile_browser_tools.dockerfile || true)"
+          if [ -z "$runner_install_match" ]; then
             actual_runner_install="$(grep -E '^RUN yarn add puppeteer@' Dockerfile_browser_tools.dockerfile || true)"
             printf 'Runner Dockerfile install is %q; expected %q.\n' "$actual_runner_install" "$expected_runner_install" >&2
             exit 1
@@ -176,12 +172,14 @@ jobs:
 
           delete_upgrade_branch_if_unchanged() {
             expected_upgrade_branch_sha="$1"
+
             current_upgrade_branch_sha="$(git ls-remote --heads origin "refs/heads/${BRANCH_NAME}" | awk '{print $1}')"
             if [ "$current_upgrade_branch_sha" != "$expected_upgrade_branch_sha" ]; then
               printf 'Upgrade branch %q changed remotely: expected %q, found %q. Leaving it untouched.\n' \
                 "$BRANCH_NAME" "$expected_upgrade_branch_sha" "$current_upgrade_branch_sha" >&2
               return 1
             fi
+
             gh api --method DELETE "repos/${GH_REPO}/git/refs/heads/${BRANCH_NAME}"
           }
 
@@ -234,12 +232,8 @@ jobs:
             exit 1
           fi
 
-          created_commit_sha_is_valid() {
-            new_commit_sha="$(jq -er '.data.createCommitOnBranch.commit.oid // empty' "$commit_response")" &&
-              [[ "$new_commit_sha" =~ ^[0-9a-f]{40}$ ]]
-          }
-
-          if ! created_commit_sha_is_valid; then
+          new_commit_sha="$(jq -er '.data.createCommitOnBranch.commit.oid // empty' "$commit_response" || true)"
+          if ! [[ "$new_commit_sha" =~ ^[0-9a-f]{40}$ ]]; then
             delete_upgrade_branch_if_unchanged "$MAIN_COMMIT_SHA" || echo "Could not safely delete the upgrade branch after its commit could not be verified." >&2
             printf 'GitHub returned invalid verified commit SHA %q; expected 40 lowercase hexadecimal characters.\n' \
               "${new_commit_sha-<unavailable>}" >&2
