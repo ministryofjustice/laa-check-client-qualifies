@@ -254,43 +254,26 @@ jobs:
           sed -E -i "s|checkclientqualifiesdocker/circleci-image([@:][^[:space:]]+)|${image_ref}@${IMAGE_DIGEST}|" .circleci/config.yml
           git diff --check
 
-      - name: Create upgrade branch
-        id: create_branch
+      - name: Create temporary candidate branch
+        id: candidate_branch
         env:
           MAIN_COMMIT_SHA: ${{ needs.prepare-upgrade.outputs.main_commit_sha }}
-          BRANCH_NAME: ${{ needs.prepare-upgrade.outputs.branch_name }}
+          CANDIDATE_BRANCH: automation/puppeteer-candidate-${{ github.run_id }}-${{ github.run_attempt }}
         run: |
-          existing_branch="$(git ls-remote --heads origin "refs/heads/${BRANCH_NAME}" | awk '{print $1}')"
-          if [ -n "$existing_branch" ]; then
-            printf 'Refusing to replace existing branch %q at commit %q.\n' "$BRANCH_NAME" "$existing_branch" >&2
-            exit 1
-          fi
-
-          current_main_sha="$(git ls-remote origin refs/heads/main | awk '{print $1}')"
-          if [ "$current_main_sha" != "$MAIN_COMMIT_SHA" ]; then
-            printf 'main advanced after image construction: expected %q, found %q. No branch or PR was published.\n' "$MAIN_COMMIT_SHA" "$current_main_sha" >&2
-            exit 1
-          fi
-
-          upgrade_branch_creation_succeeded() {
-            gh api "repos/${GH_REPO}/git/refs" \
-              -f ref="refs/heads/${BRANCH_NAME}" \
-              -f sha="${MAIN_COMMIT_SHA}"
-          }
-
-          if ! upgrade_branch_creation_succeeded; then
-            printf 'Could not confirm creation of upgrade branch %q at main commit %q. Leaving any existing branch untouched.\n' \
-              "$BRANCH_NAME" "$MAIN_COMMIT_SHA" >&2
+          if ! gh api "repos/${GH_REPO}/git/refs" \
+            -f ref="refs/heads/${CANDIDATE_BRANCH}" \
+            -f sha="${MAIN_COMMIT_SHA}"; then
+            printf 'Could not create temporary candidate branch %q at main commit %q.\n' \
+              "$CANDIDATE_BRANCH" "$MAIN_COMMIT_SHA" >&2
             exit 1
           fi
           echo "created=true" >> "$GITHUB_OUTPUT"
 
-      - name: Create verified branch commit
+      - name: Create verified candidate commit
         id: commit
-        if: needs.prepare-upgrade.outputs.skip_upgrade != 'true'
         env:
           MAIN_COMMIT_SHA: ${{ needs.prepare-upgrade.outputs.main_commit_sha }}
-          BRANCH_NAME: ${{ needs.prepare-upgrade.outputs.branch_name }}
+          CANDIDATE_BRANCH: automation/puppeteer-candidate-${{ github.run_id }}-${{ github.run_attempt }}
           VERSION_TAG: ${{ needs.prepare-upgrade.outputs.version_tag }}
         run: |
           files=(package.json Dockerfile_browser_tools.dockerfile yarn.lock .circleci/config.yml)
@@ -302,7 +285,7 @@ jobs:
 
           jq -n \
             --arg repo "$GH_REPO" \
-            --arg branch "$BRANCH_NAME" \
+            --arg branch "$CANDIDATE_BRANCH" \
             --arg headline "chore: bump Puppeteer to ${VERSION_TAG}" \
             --arg oid "$MAIN_COMMIT_SHA" \
             --argjson additions "$additions" \
@@ -322,10 +305,8 @@ jobs:
           verified_commit_creation_succeeded() {
             gh api graphql --input "$RUNNER_TEMP/commit-input.json" > "$commit_response"
           }
-
           if ! verified_commit_creation_succeeded; then
-            printf 'Could not create verified commit for upgrade branch %q from main commit %q.\n' \
-              "$BRANCH_NAME" "$MAIN_COMMIT_SHA" >&2
+            printf 'Could not create verified candidate commit from main commit %q.\n' "$MAIN_COMMIT_SHA" >&2
             exit 1
           fi
 
@@ -336,6 +317,38 @@ jobs:
             exit 1
           fi
           echo "commit_sha=${new_commit_sha}" >> "$GITHUB_OUTPUT"
+
+      - name: Create upgrade branch
+        id: create_branch
+        env:
+          MAIN_COMMIT_SHA: ${{ needs.prepare-upgrade.outputs.main_commit_sha }}
+          BRANCH_NAME: ${{ needs.prepare-upgrade.outputs.branch_name }}
+          NEW_COMMIT_SHA: ${{ steps.commit.outputs.commit_sha }}
+        run: |
+          existing_branch="$(git ls-remote --heads origin "refs/heads/${BRANCH_NAME}" | awk '{print $1}')"
+          if [ -n "$existing_branch" ]; then
+            printf 'Refusing to replace existing branch %q at commit %q.\n' "$BRANCH_NAME" "$existing_branch" >&2
+            exit 1
+          fi
+
+          current_main_sha="$(git ls-remote origin refs/heads/main | awk '{print $1}')"
+          if [ "$current_main_sha" != "$MAIN_COMMIT_SHA" ]; then
+            printf 'main advanced after image construction: expected %q, found %q. No branch or PR was published.\n' "$MAIN_COMMIT_SHA" "$current_main_sha" >&2
+            exit 1
+          fi
+
+          upgrade_branch_creation_succeeded() {
+            gh api "repos/${GH_REPO}/git/refs" \
+              -f ref="refs/heads/${BRANCH_NAME}" \
+              -f sha="${NEW_COMMIT_SHA}"
+          }
+
+          if ! upgrade_branch_creation_succeeded; then
+            printf 'Could not confirm creation of upgrade branch %q at candidate commit %q. Leaving any existing branch untouched.\n' \
+              "$BRANCH_NAME" "$NEW_COMMIT_SHA" >&2
+            exit 1
+          fi
+          echo "created=true" >> "$GITHUB_OUTPUT"
 
       - name: Open upgrade pull request
         if: needs.prepare-upgrade.outputs.skip_upgrade != 'true'
@@ -401,5 +414,15 @@ jobs:
           if ! gh api --method DELETE "repos/${GH_REPO}/git/refs/heads/${BRANCH_NAME}"; then
             printf 'Could not delete upgrade branch %q at commit %q.\n' \
               "$BRANCH_NAME" "$expected_upgrade_branch_sha" >&2
+            exit 1
+          fi
+
+      - name: Clean up temporary candidate branch
+        if: always() && steps.candidate_branch.outputs.created == 'true'
+        env:
+          CANDIDATE_BRANCH: automation/puppeteer-candidate-${{ github.run_id }}-${{ github.run_attempt }}
+        run: |
+          if ! gh api --method DELETE "repos/${GH_REPO}/git/refs/heads/${CANDIDATE_BRANCH}"; then
+            printf 'Could not delete temporary candidate branch %q.\n' "$CANDIDATE_BRANCH" >&2
             exit 1
           fi
