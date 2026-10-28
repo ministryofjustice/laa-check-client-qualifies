@@ -27,6 +27,9 @@ env:
 jobs:
   prepare-upgrade:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
     outputs:
       skip_upgrade: ${{ steps.metadata.outputs.skip_upgrade }}
       main_commit_sha: ${{ steps.metadata.outputs.main_commit_sha }}
@@ -35,6 +38,8 @@ jobs:
       version_tag: ${{ steps.metadata.outputs.version_tag }}
       candidate_artifact: ${{ steps.metadata.outputs.candidate_artifact }}
       existing_branch_sha: ${{ steps.metadata.outputs.existing_branch_sha }}
+      existing_pr_number: ${{ steps.metadata.outputs.existing_pr_number }}
+      existing_pr_head_sha: ${{ steps.metadata.outputs.existing_pr_head_sha }}
     steps:
       - name: Checkout trusted main
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -77,6 +82,16 @@ jobs:
           ARTIFACT_NAME="puppeteer-candidate-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
           existing_branch="$(git ls-remote --heads origin "refs/heads/${BRANCH_NAME}" | awk '{print $1}')"
 
+          existing_pr="$(gh pr list --repo "$GH_REPO" --state open --head "$BRANCH_NAME" --base main \
+            --json number,headRefOid --jq '.[0]')"
+          existing_pr_number="$(jq -r '.number // empty' <<< "$existing_pr")"
+          existing_pr_head_sha="$(jq -r '.headRefOid // empty' <<< "$existing_pr")"
+          if [ -z "$existing_branch" ] && [ -n "$existing_pr_number" ]; then
+            printf 'Found open PR #%s for %q without its remote branch. Refusing to recreate it.\n' \
+              "$existing_pr_number" "$BRANCH_NAME" >&2
+            exit 1
+          fi
+
           if [ -n "$existing_branch" ]; then
             latest_commit_author="$(gh api "repos/${GH_REPO}/commits/${existing_branch}" --jq '.author.login // empty')"
             if [ "$latest_commit_author" != "github-actions[bot]" ]; then
@@ -93,6 +108,8 @@ jobs:
             echo "version_tag=${VERSION_TAG}"
             echo "candidate_artifact=${ARTIFACT_NAME}"
             echo "existing_branch_sha=${existing_branch}"
+            echo "existing_pr_number=${existing_pr_number}"
+            echo "existing_pr_head_sha=${existing_pr_head_sha}"
           } >> "$GITHUB_OUTPUT"
           echo "Preparing Puppeteer ${PUPPETEER_VERSION} from main ${main_commit_sha}."
 
