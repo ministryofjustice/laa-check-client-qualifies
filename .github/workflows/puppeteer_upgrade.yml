@@ -34,6 +34,7 @@ jobs:
       ruby_version: ${{ steps.metadata.outputs.ruby_version }}
       version_tag: ${{ steps.metadata.outputs.version_tag }}
       candidate_artifact: ${{ steps.metadata.outputs.candidate_artifact }}
+      existing_branch_sha: ${{ steps.metadata.outputs.existing_branch_sha }}
     steps:
       - name: Checkout trusted main
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -73,10 +74,6 @@ jobs:
           BRANCH_NAME="chore/upgrade-puppeteer/${VERSION_TAG}"
           ARTIFACT_NAME="puppeteer-candidate-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
           existing_branch="$(git ls-remote --heads origin "refs/heads/${BRANCH_NAME}" | awk '{print $1}')"
-          if [ -n "$existing_branch" ]; then
-            printf 'Refusing to replace existing branch %q at commit %q.\n' "$BRANCH_NAME" "$existing_branch" >&2
-            exit 1
-          fi
 
           {
             echo "main_commit_sha=${main_commit_sha}"
@@ -85,6 +82,7 @@ jobs:
             echo "skip_upgrade=false"
             echo "version_tag=${VERSION_TAG}"
             echo "candidate_artifact=${ARTIFACT_NAME}"
+            echo "existing_branch_sha=${existing_branch}"
           } >> "$GITHUB_OUTPUT"
           echo "Preparing Puppeteer ${PUPPETEER_VERSION} from main ${main_commit_sha}."
 
