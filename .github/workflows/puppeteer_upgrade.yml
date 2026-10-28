@@ -324,26 +324,70 @@ jobs:
           MAIN_COMMIT_SHA: ${{ needs.prepare-upgrade.outputs.main_commit_sha }}
           BRANCH_NAME: ${{ needs.prepare-upgrade.outputs.branch_name }}
           NEW_COMMIT_SHA: ${{ steps.commit.outputs.commit_sha }}
+          EXISTING_BRANCH_SHA: ${{ needs.prepare-upgrade.outputs.existing_branch_sha }}
+          EXISTING_PR_NUMBER: ${{ needs.prepare-upgrade.outputs.existing_pr_number }}
+          EXISTING_PR_HEAD_SHA: ${{ needs.prepare-upgrade.outputs.existing_pr_head_sha }}
         run: |
-          existing_branch="$(git ls-remote --heads origin "refs/heads/${BRANCH_NAME}" | awk '{print $1}')"
-          if [ -n "$existing_branch" ]; then
-            printf 'Refusing to replace existing branch %q at commit %q.\n' "$BRANCH_NAME" "$existing_branch" >&2
-            exit 1
-          fi
+          current_upgrade_branch_sha=''
 
-          current_main_sha="$(git ls-remote origin refs/heads/main | awk '{print $1}')"
-          if [ "$current_main_sha" != "$MAIN_COMMIT_SHA" ]; then
-            printf 'main advanced after image construction: expected %q, found %q. No branch or PR was published.\n' "$MAIN_COMMIT_SHA" "$current_main_sha" >&2
-            exit 1
-          fi
+          require_main_unchanged() {
+            local current_main_sha
+            current_main_sha="$(git ls-remote origin refs/heads/main | awk '{print $1}')"
 
-          upgrade_branch_creation_succeeded() {
+            if [ "$current_main_sha" != "$MAIN_COMMIT_SHA" ]; then
+              printf 'main advanced after image construction: expected %q, found %q. No branch or PR was published.\n' \
+                "$MAIN_COMMIT_SHA" "$current_main_sha" >&2
+              exit 1
+            fi
+          }
+
+          require_upgrade_branch_unchanged() {
+            current_upgrade_branch_sha="$(git ls-remote --heads origin "refs/heads/${BRANCH_NAME}" | awk '{print $1}')"
+
+            if [ "$current_upgrade_branch_sha" != "$EXISTING_BRANCH_SHA" ]; then
+              printf 'Upgrade branch %q changed after preparation: expected %q, found %q.\n' \
+                "$BRANCH_NAME" "$EXISTING_BRANCH_SHA" "$current_upgrade_branch_sha" >&2
+              exit 1
+            fi
+          }
+
+          require_open_pr_unchanged() {
+            local current_pr current_pr_number current_pr_head_sha
+            current_pr="$(gh pr list --repo "$GH_REPO" --state open --head "$BRANCH_NAME" --base main \
+              --json number,headRefOid --jq '.[0]')"
+            current_pr_number="$(jq -r '.number // empty' <<< "$current_pr")"
+            current_pr_head_sha="$(jq -r '.headRefOid // empty' <<< "$current_pr")"
+
+            if [ "$current_pr_number" != "$EXISTING_PR_NUMBER" ] || [ "$current_pr_head_sha" != "$EXISTING_PR_HEAD_SHA" ]; then
+              printf 'Open PR state for branch %q changed after preparation: expected %q/%q, found %q/%q.\n' \
+                "$BRANCH_NAME" "$EXISTING_PR_NUMBER" "$EXISTING_PR_HEAD_SHA" \
+                "$current_pr_number" "$current_pr_head_sha" >&2
+              exit 1
+            fi
+          }
+
+          require_no_existing_upgrade_branch() {
+            if [ -n "$current_upgrade_branch_sha" ]; then
+              printf 'Refusing to replace existing branch %q at commit %q.\n' \
+                "$BRANCH_NAME" "$current_upgrade_branch_sha" >&2
+              exit 1
+            fi
+          }
+
+          #######################################################
+
+          create_upgrade_branch() {
             gh api "repos/${GH_REPO}/git/refs" \
               -f ref="refs/heads/${BRANCH_NAME}" \
               -f sha="${NEW_COMMIT_SHA}"
           }
 
-          if ! upgrade_branch_creation_succeeded; then
+          require_main_unchanged
+          require_upgrade_branch_unchanged
+          require_open_pr_unchanged
+          require_no_existing_upgrade_branch
+
+          if ! create_upgrade_branch; then
             printf 'Could not confirm creation of upgrade branch %q at candidate commit %q. Leaving any existing branch untouched.\n' \
               "$BRANCH_NAME" "$NEW_COMMIT_SHA" >&2
             exit 1
