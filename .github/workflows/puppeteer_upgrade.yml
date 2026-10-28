@@ -49,15 +49,6 @@ jobs:
           fi
 
           base_sha="$(git rev-parse HEAD)"
-          main_sha="$(git ls-remote origin refs/heads/main | awk '{print $1}')"
-          if [ -z "$main_sha" ]; then
-            echo "Could not read the current main commit." >&2
-            exit 1
-          fi
-          if [ "$main_sha" != "$base_sha" ]; then
-            echo "main advanced during preparation. Dispatch again from current main." >&2
-            exit 1
-          fi
 
           current_version="$(node -p "require('./package.json').dependencies.puppeteer")"
           if [ "$current_version" = "$PUPPETEER_VERSION" ]; then
