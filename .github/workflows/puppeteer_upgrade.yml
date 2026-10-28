@@ -86,11 +86,6 @@ jobs:
             --json number,headRefOid --jq '.[0]')"
           existing_pr_number="$(jq -r '.number // empty' <<< "$existing_pr")"
           existing_pr_head_sha="$(jq -r '.headRefOid // empty' <<< "$existing_pr")"
-          if [ -z "$existing_branch" ] && [ -n "$existing_pr_number" ]; then
-            printf 'Open PR #%s references head branch %q, but that branch is missing from origin. Refusing to recreate it.\n' \
-              "$existing_pr_number" "$BRANCH_NAME" >&2
-            exit 1
-          fi
 
           if [ -n "$existing_branch" ]; then
             latest_commit_author="$(gh api "repos/${GH_REPO}/commits/${existing_branch}" --jq '.author.login // empty')"
