@@ -48,7 +48,7 @@ jobs:
             exit 1
           fi
 
-          base_sha="$(git rev-parse HEAD)"
+          main_commit_sha="$(git rev-parse HEAD)"
 
           current_version="$(node -p "require('./package.json').dependencies.puppeteer")"
           if [ "$current_version" = "$PUPPETEER_VERSION" ]; then
@@ -67,14 +67,14 @@ jobs:
 
           IMAGE_TAG="ruby-${ruby_version}-puppeteer-${PUPPETEER_VERSION}-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
           {
-            echo "base_sha=${base_sha}"
+            echo "main_commit_sha=${main_commit_sha}"
             echo "branch_name=${BRANCH_NAME}"
             echo "image_tag=${IMAGE_TAG}"
             echo "ruby_version=${ruby_version}"
             echo "skip_upgrade=false"
             echo "version_tag=${VERSION_TAG}"
           } >> "$GITHUB_OUTPUT"
-          echo "Preparing Puppeteer ${PUPPETEER_VERSION} from main ${base_sha}."
+          echo "Preparing Puppeteer ${PUPPETEER_VERSION} from main ${main_commit_sha}."
 
       - name: Create local upgrade branch
         if: steps.metadata.outputs.skip_upgrade != 'true'
@@ -147,7 +147,7 @@ jobs:
         id: commit
         if: steps.metadata.outputs.skip_upgrade != 'true'
         env:
-          BASE_SHA: ${{ steps.metadata.outputs.base_sha }}
+          MAIN_COMMIT_SHA: ${{ steps.metadata.outputs.main_commit_sha }}
           BRANCH_NAME: ${{ steps.metadata.outputs.branch_name }}
           VERSION_TAG: ${{ steps.metadata.outputs.version_tag }}
         run: |
@@ -158,25 +158,29 @@ jobs:
           fi
 
           current_main_sha="$(git ls-remote origin refs/heads/main | awk '{print $1}')"
-          if [ "$current_main_sha" != "$BASE_SHA" ]; then
+          if [ "$current_main_sha" != "$MAIN_COMMIT_SHA" ]; then
             echo "main advanced after image construction. No branch or PR was published." >&2
             exit 1
           fi
 
-          cleanup_created_branch() {
-            expected_sha="$1"
-            current_sha="$(git ls-remote --heads origin "refs/heads/${BRANCH_NAME}" | awk '{print $1}')"
-            if [ "$current_sha" != "$expected_sha" ]; then
+          delete_upgrade_branch_if_unchanged() {
+            expected_upgrade_branch_sha="$1"
+            current_upgrade_branch_sha="$(git ls-remote --heads origin "refs/heads/${BRANCH_NAME}" | awk '{print $1}')"
+            if [ "$current_upgrade_branch_sha" != "$expected_upgrade_branch_sha" ]; then
               echo "Branch '${BRANCH_NAME}' changed remotely. Leaving it untouched." >&2
               return 1
             fi
             gh api --method DELETE "repos/${GH_REPO}/git/refs/heads/${BRANCH_NAME}"
           }
 
-          if ! gh api "repos/${GH_REPO}/git/refs" \
-            -f ref="refs/heads/${BRANCH_NAME}" \
-            -f sha="${BASE_SHA}"; then
-            cleanup_created_branch "$BASE_SHA" || echo "Could not safely clean up the new branch after branch creation failed." >&2
+          upgrade_branch_creation_succeeded() {
+            gh api "repos/${GH_REPO}/git/refs" \
+              -f ref="refs/heads/${BRANCH_NAME}" \
+              -f sha="${MAIN_COMMIT_SHA}"
+          }
+
+          if ! upgrade_branch_creation_succeeded; then
+            echo "Could not confirm creation of upgrade branch '${BRANCH_NAME}'. Leaving any existing branch untouched." >&2
             exit 1
           fi
 
@@ -191,7 +195,7 @@ jobs:
             --arg repo "$GH_REPO" \
             --arg branch "$BRANCH_NAME" \
             --arg headline "chore: bump Puppeteer to ${VERSION_TAG}" \
-            --arg oid "$BASE_SHA" \
+            --arg oid "$MAIN_COMMIT_SHA" \
             --argjson additions "$additions" \
             '{
               query: "mutation($input: CreateCommitOnBranchInput!) { createCommitOnBranch(input: $input) { commit { oid } } }",
@@ -206,19 +210,23 @@ jobs:
             }' > "$RUNNER_TEMP/commit-input.json"
 
           commit_response="$RUNNER_TEMP/commit-response.json"
-          if ! gh api graphql --input "$RUNNER_TEMP/commit-input.json" > "$commit_response"; then
-            cleanup_created_branch "$BASE_SHA" || echo "Could not safely clean up the new branch after commit creation failed." >&2
+          verified_commit_creation_succeeded() {
+            gh api graphql --input "$RUNNER_TEMP/commit-input.json" > "$commit_response"
+          }
+
+          if ! verified_commit_creation_succeeded; then
+            delete_upgrade_branch_if_unchanged "$MAIN_COMMIT_SHA" || echo "Could not safely delete the upgrade branch after commit creation failed." >&2
             exit 1
           fi
 
-          if ! new_commit_sha="$(jq -r '.data.createCommitOnBranch.commit.oid // empty' "$commit_response")"; then
-            cleanup_created_branch "$BASE_SHA" || echo "Could not safely clean up the new branch after its commit could not be verified." >&2
-            echo "Could not read the created commit from GitHub." >&2
-            exit 1
-          fi
-          if ! [[ "$new_commit_sha" =~ ^[0-9a-f]{40}$ ]]; then
-            cleanup_created_branch "$BASE_SHA" || echo "Could not safely clean up the new branch after its commit could not be verified." >&2
-            echo "GitHub did not return the expected verified commit." >&2
+          created_commit_sha_is_valid() {
+            new_commit_sha="$(jq -er '.data.createCommitOnBranch.commit.oid // empty' "$commit_response")" &&
+              [[ "$new_commit_sha" =~ ^[0-9a-f]{40}$ ]]
+          }
+
+          if ! created_commit_sha_is_valid; then
+            delete_upgrade_branch_if_unchanged "$MAIN_COMMIT_SHA" || echo "Could not safely delete the upgrade branch after its commit could not be verified." >&2
+            echo "GitHub did not return a valid verified commit SHA." >&2
             exit 1
           fi
           echo "commit_sha=${new_commit_sha}" >> "$GITHUB_OUTPUT"
@@ -226,17 +234,17 @@ jobs:
       - name: Open upgrade pull request
         if: steps.metadata.outputs.skip_upgrade != 'true'
         env:
-          BASE_SHA: ${{ steps.metadata.outputs.base_sha }}
+          MAIN_COMMIT_SHA: ${{ steps.metadata.outputs.main_commit_sha }}
           BRANCH_NAME: ${{ steps.metadata.outputs.branch_name }}
           IMAGE_TAG: ${{ steps.metadata.outputs.image_tag }}
           NEW_COMMIT_SHA: ${{ steps.commit.outputs.commit_sha }}
           IMAGE_DIGEST: ${{ steps.build_image.outputs.image_digest }}
           VERSION_TAG: ${{ steps.metadata.outputs.version_tag }}
         run: |
-          cleanup_created_branch() {
-            expected_sha="$1"
-            current_sha="$(git ls-remote --heads origin "refs/heads/${BRANCH_NAME}" | awk '{print $1}')"
-            if [ "$current_sha" != "$expected_sha" ]; then
+          delete_upgrade_branch_if_unchanged() {
+            expected_upgrade_branch_sha="$1"
+            current_upgrade_branch_sha="$(git ls-remote --heads origin "refs/heads/${BRANCH_NAME}" | awk '{print $1}')"
+            if [ "$current_upgrade_branch_sha" != "$expected_upgrade_branch_sha" ]; then
               echo "Branch '${BRANCH_NAME}' changed remotely. Leaving it untouched." >&2
               return 1
             fi
@@ -249,7 +257,7 @@ jobs:
           Automated Puppeteer upgrade.
 
           - Puppeteer: ${PUPPETEER_VERSION}
-          - Base commit: ${BASE_SHA}
+          - Main commit: ${MAIN_COMMIT_SHA}
           - Runner image: ${image_ref}@${IMAGE_DIGEST}
           - Diagnostic image tag: ${IMAGE_TAG}
 
@@ -272,5 +280,5 @@ jobs:
             exit 1
           fi
 
-          cleanup_created_branch "$NEW_COMMIT_SHA" || echo "Could not safely clean up the new branch after PR creation failed." >&2
+          delete_upgrade_branch_if_unchanged "$NEW_COMMIT_SHA" || echo "Could not safely delete the upgrade branch after PR creation failed." >&2
           exit 1
