@@ -44,6 +44,8 @@ jobs:
 
       - name: Validate request and set upgrade metadata
         id: metadata
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           if [ "$GITHUB_REF_NAME" != "main" ]; then
             printf 'This workflow must be dispatched from main; current ref is %q.\n' "$GITHUB_REF_NAME" >&2
@@ -74,6 +76,14 @@ jobs:
           BRANCH_NAME="chore/upgrade-puppeteer/${VERSION_TAG}"
           ARTIFACT_NAME="puppeteer-candidate-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
           existing_branch="$(git ls-remote --heads origin "refs/heads/${BRANCH_NAME}" | awk '{print $1}')"
+
+          if [ -n "$existing_branch" ]; then
+            latest_commit_author="$(gh api "repos/${GH_REPO}/commits/${existing_branch}" --jq '.author.login // empty')"
+            if [ "$latest_commit_author" != "github-actions[bot]" ]; then
+              printf 'Latest commit on upgrade branch %q is not from github-actions[bot].\n' "$BRANCH_NAME" >&2
+              exit 1
+            fi
+          fi
 
           {
             echo "main_commit_sha=${main_commit_sha}"
