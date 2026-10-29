@@ -70,23 +70,21 @@ jobs:
             exit 1
           fi
 
-          ruby_version="$(tr -d '[:space:]' < .ruby-version)"
+          main_ruby_version="$(tr -d '[:space:]' < .ruby-version)"
+          ruby_version="$main_ruby_version"
+          ruby_version_source="trusted main .ruby-version"
+          if [ -n "$RUBY_VERSION_OVERRIDE" ]; then
+            ruby_version="$RUBY_VERSION_OVERRIDE"
+            ruby_version_source="Ruby version override"
+          fi
           if ! [[ "$ruby_version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-            printf 'The trusted main branch has invalid .ruby-version %q.\n' "$ruby_version" >&2
+            printf 'Invalid %s %q. Expected semver like 4.0.5.\n' "$ruby_version_source" "$ruby_version" >&2
             exit 1
           fi
 
           ruby_version_changed=false
-          if [ -n "$RUBY_VERSION_OVERRIDE" ]; then
-            ruby_version="$RUBY_VERSION_OVERRIDE"
-            if ! [[ "$ruby_version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-              printf 'Invalid Ruby version %q. Expected semver like 4.0.5.\n' "$ruby_version" >&2
-              exit 1
-            fi
-
-            if [ "$ruby_version" != "$(tr -d '[:space:]' < .ruby-version)" ]; then
-              ruby_version_changed=true
-            fi
+          if [ "$ruby_version" != "$main_ruby_version" ]; then
+            ruby_version_changed=true
           fi
 
           main_commit_sha="$(git rev-parse HEAD)"
