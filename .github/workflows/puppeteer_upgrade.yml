@@ -7,6 +7,10 @@ on:
         description: Puppeteer version to upgrade to (example 25.2.1)
         required: true
         type: string
+      ruby_version:
+        description: Optional application and runner Ruby version override
+        required: false
+        type: string
       rebuild_runner:
         description: Rebuild the runner when Puppeteer is already current
         required: false
@@ -23,6 +27,7 @@ defaults:
 env:
   GH_REPO: ${{ github.repository }}
   PUPPETEER_VERSION: ${{ inputs.puppeteer_version }}
+  RUBY_VERSION_OVERRIDE: ${{ inputs.ruby_version }}
 
 jobs:
   prepare-upgrade:
@@ -35,8 +40,11 @@ jobs:
       main_commit_sha: ${{ steps.metadata.outputs.main_commit_sha }}
       branch_name: ${{ steps.metadata.outputs.branch_name }}
       ruby_version: ${{ steps.metadata.outputs.ruby_version }}
-      version_tag: ${{ steps.metadata.outputs.version_tag }}
+      ruby_version_changed: ${{ steps.metadata.outputs.ruby_version_changed }}
+      puppeteer_version: ${{ steps.metadata.outputs.puppeteer_version }}
+      pr_title: ${{ steps.metadata.outputs.pr_title }}
       candidate_artifact: ${{ steps.metadata.outputs.candidate_artifact }}
+      artifact_paths: ${{ steps.update_candidate.outputs.artifact_paths }}
       existing_branch_sha: ${{ steps.metadata.outputs.existing_branch_sha }}
       existing_pr_number: ${{ steps.metadata.outputs.existing_pr_number }}
       existing_pr_head_sha: ${{ steps.metadata.outputs.existing_pr_head_sha }}
@@ -62,24 +70,41 @@ jobs:
             exit 1
           fi
 
-          ruby_version="$(tr -d '[:space:]' < .ruby-version)"
+          main_ruby_version="$(tr -d '[:space:]' < .ruby-version)"
+          ruby_version="$main_ruby_version"
+          ruby_version_source="trusted main .ruby-version"
+          if [ -n "$RUBY_VERSION_OVERRIDE" ]; then
+            ruby_version="$RUBY_VERSION_OVERRIDE"
+            ruby_version_source="Ruby version override"
+          fi
+
           if ! [[ "$ruby_version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-            printf 'The trusted main branch has invalid .ruby-version %q.\n' "$ruby_version" >&2
+            printf 'Invalid %s %q. Expected semver like 4.0.5.\n' "$ruby_version_source" "$ruby_version" >&2
             exit 1
+          fi
+
+          ruby_version_changed=false
+          if [ "$ruby_version" != "$main_ruby_version" ]; then
+            ruby_version_changed=true
           fi
 
           main_commit_sha="$(git rev-parse HEAD)"
 
           current_version="$(node -p "require('./package.json').dependencies.puppeteer")"
-          if [ "$current_version" = "$PUPPETEER_VERSION" ] && [ "${{ inputs.rebuild_runner }}" != "true" ]; then
-            echo "Puppeteer ${PUPPETEER_VERSION} is already current. No image or PR will be created."
+          if [ "$current_version" = "$PUPPETEER_VERSION" ] && [ "$ruby_version_changed" = false ] && [ "${{ inputs.rebuild_runner }}" != "true" ]; then
+            echo "Puppeteer ${PUPPETEER_VERSION} and Ruby ${ruby_version} are already current. No image or PR will be created."
             echo "skip_upgrade=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
-          VERSION_TAG="v${PUPPETEER_VERSION}"
-          BRANCH_NAME="chore/upgrade-puppeteer/${VERSION_TAG}"
-          ARTIFACT_NAME="puppeteer-candidate-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          if [ "$ruby_version_changed" = true ]; then
+            BRANCH_NAME="chore/upgrade-runner/ruby-v${ruby_version}-puppeteer-v${PUPPETEER_VERSION}"
+            PR_TITLE="chore: update runner to Ruby v${ruby_version} and Puppeteer v${PUPPETEER_VERSION}"
+          else
+            BRANCH_NAME="chore/upgrade-puppeteer/v${PUPPETEER_VERSION}"
+            PR_TITLE="chore: bump Puppeteer to v${PUPPETEER_VERSION}"
+          fi
+          ARTIFACT_NAME="runner-candidate-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
           existing_branch="$(git ls-remote --heads origin "refs/heads/${BRANCH_NAME}" | awk '{print $1}')"
 
           existing_pr="$(gh pr list --repo "$GH_REPO" --state open --head "$BRANCH_NAME" --base main \
@@ -99,14 +124,16 @@ jobs:
             echo "main_commit_sha=${main_commit_sha}"
             echo "branch_name=${BRANCH_NAME}"
             echo "ruby_version=${ruby_version}"
+            echo "ruby_version_changed=${ruby_version_changed}"
+            echo "puppeteer_version=${PUPPETEER_VERSION}"
             echo "skip_upgrade=false"
-            echo "version_tag=${VERSION_TAG}"
+            echo "pr_title=${PR_TITLE}"
             echo "candidate_artifact=${ARTIFACT_NAME}"
             echo "existing_branch_sha=${existing_branch}"
             echo "existing_pr_number=${existing_pr_number}"
             echo "existing_pr_head_sha=${existing_pr_head_sha}"
           } >> "$GITHUB_OUTPUT"
-          echo "Preparing Puppeteer ${PUPPETEER_VERSION} from main ${main_commit_sha}."
+          echo "Preparing Puppeteer ${PUPPETEER_VERSION} and Ruby ${ruby_version} from main ${main_commit_sha}."
 
       - name: Create local upgrade branch
         if: steps.metadata.outputs.skip_upgrade != 'true'
@@ -114,11 +141,31 @@ jobs:
           BRANCH_NAME: ${{ steps.metadata.outputs.branch_name }}
         run: git switch --create "$BRANCH_NAME"
 
-      - name: Update Puppeteer dependencies
+      - name: Set up requested Ruby for lockfile preparation
+        if: steps.metadata.outputs.skip_upgrade != 'true' && steps.metadata.outputs.ruby_version_changed == 'true'
+        uses: ruby/setup-ruby@824c0e29fdfc7d689c191c27acc969d2d04b7dd8 # v1.331.0
+        with:
+          ruby-version: ${{ steps.metadata.outputs.ruby_version }}
+
+      - name: Update requested dependency pins
+        id: update_candidate
         if: steps.metadata.outputs.skip_upgrade != 'true'
         env:
           RUBY_VERSION: ${{ steps.metadata.outputs.ruby_version }}
+          RUBY_VERSION_CHANGED: ${{ steps.metadata.outputs.ruby_version_changed }}
+          PUPPETEER_VERSION: ${{ steps.metadata.outputs.puppeteer_version }}
         run: |
+          if [ "$RUBY_VERSION_CHANGED" = true ]; then
+            ruby script/update_ruby_version.rb "$RUBY_VERSION"
+            bundle lock
+
+            lockfile_ruby_version="$(sed -nE 's/^  ruby ([0-9]+\.[0-9]+\.[0-9]+)(p[0-9]+)?$/\1/p' Gemfile.lock)"
+            if [ "$lockfile_ruby_version" != "$RUBY_VERSION" ]; then
+              printf 'Gemfile.lock Ruby metadata is %q; expected %q.\n' "$lockfile_ruby_version" "$RUBY_VERSION" >&2
+              exit 1
+            fi
+          fi
+
           current_puppeteer_version="$(node -p "require('./package.json').dependencies.puppeteer")"
           if [ "$current_puppeteer_version" != "$PUPPETEER_VERSION" ]; then
             corepack enable
@@ -153,17 +200,26 @@ jobs:
             printf 'Runner Dockerfile Ruby base is %q; .ruby-version requires %q.\n' "$ruby_base_version" "$RUBY_VERSION" >&2
             exit 1
           fi
-          echo "Updated Puppeteer dependency and runner Dockerfile."
+          {
+            git diff --name-only
+            echo ".circleci/config.yml"
+          } | sort -u > runner-upgrade-files.txt
+
+          {
+            echo "artifact_paths<<EOF"
+            echo "runner-upgrade-files.txt"
+            cat runner-upgrade-files.txt
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+          echo "Updated requested runtime pins and runner definition."
 
       - name: Upload prepared candidate
         if: steps.metadata.outputs.skip_upgrade != 'true'
         uses: actions/upload-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
         with:
           name: ${{ steps.metadata.outputs.candidate_artifact }}
-          path: |
-            package.json
-            yarn.lock
-            Dockerfile_browser_tools.dockerfile
+          path: ${{ steps.update_candidate.outputs.artifact_paths }}
+          include-hidden-files: true
           if-no-files-found: error
           retention-days: 1
 
@@ -193,6 +249,7 @@ jobs:
         id: image_metadata
         env:
           RUBY_VERSION: ${{ needs.prepare-upgrade.outputs.ruby_version }}
+          PUPPETEER_VERSION: ${{ needs.prepare-upgrade.outputs.puppeteer_version }}
         run: |
           image_tag="ruby-${RUBY_VERSION}-puppeteer-${PUPPETEER_VERSION}-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
           echo "image_tag=${image_tag}" >> "$GITHUB_OUTPUT"
@@ -201,7 +258,7 @@ jobs:
         id: build_image
         uses: ./.github/actions/build-browser-tools-image
         with:
-          puppeteer_version: ${{ inputs.puppeteer_version }}
+          puppeteer_version: ${{ needs.prepare-upgrade.outputs.puppeteer_version }}
           ruby_version: ${{ needs.prepare-upgrade.outputs.ruby_version }}
           image_tag: ${{ steps.image_metadata.outputs.image_tag }}
           dockerhub_username: ${{ secrets.DOCKERHUB_USER_CCQ }}
@@ -269,9 +326,22 @@ jobs:
         env:
           MAIN_COMMIT_SHA: ${{ needs.prepare-upgrade.outputs.main_commit_sha }}
           CANDIDATE_BRANCH: automation/puppeteer-candidate-${{ github.run_id }}-${{ github.run_attempt }}
-          VERSION_TAG: ${{ needs.prepare-upgrade.outputs.version_tag }}
+          PR_TITLE: ${{ needs.prepare-upgrade.outputs.pr_title }}
         run: |
-          files=(package.json Dockerfile_browser_tools.dockerfile yarn.lock .circleci/config.yml)
+          mapfile -t files < runner-upgrade-files.txt
+          if [ "${#files[@]}" -eq 0 ]; then
+            echo "Candidate file manifest is empty." >&2
+            exit 1
+          fi
+          for file in "${files[@]}"; do
+            case "$file" in
+              .ruby-version|Gemfile|Gemfile.lock|Dockerfile|Dockerfile_browser_tools.dockerfile|docker-images.json|.circleci/config.yml|.github/workflows/rubocop.yml|README.md|package.json|yarn.lock) ;;
+              *)
+                printf 'Candidate file manifest contains unexpected path %q.\n' "$file" >&2
+                exit 1
+                ;;
+            esac
+          done
           additions="$(
             for file in "${files[@]}"; do
               jq -n --arg path "$file" --rawfile contents "$file" '{path: $path, contents: $contents}'
@@ -281,7 +351,7 @@ jobs:
           jq -n \
             --arg repo "$GH_REPO" \
             --arg branch "$CANDIDATE_BRANCH" \
-            --arg headline "chore: bump Puppeteer to ${VERSION_TAG}" \
+            --arg headline "$PR_TITLE" \
             --arg oid "$MAIN_COMMIT_SHA" \
             --argjson additions "$additions" \
             '{
@@ -416,14 +486,16 @@ jobs:
           IMAGE_TAG: ${{ needs.build-browser-tools-image.outputs.image_tag }}
           NEW_COMMIT_SHA: ${{ steps.commit.outputs.commit_sha }}
           IMAGE_DIGEST: ${{ needs.build-browser-tools-image.outputs.image_digest }}
-          VERSION_TAG: ${{ needs.prepare-upgrade.outputs.version_tag }}
+          UPGRADE_VERSION: ${{ needs.prepare-upgrade.outputs.ruby_version }}
+          PUPPETEER_VERSION: ${{ needs.prepare-upgrade.outputs.puppeteer_version }}
+          PR_TITLE: ${{ needs.prepare-upgrade.outputs.pr_title }}
         run: |
           image_ref='checkclientqualifiesdocker/circleci-image'
-          pr_title="chore: bump Puppeteer to ${VERSION_TAG}"
           pr_body=$(cat <<EOF
-          Automated Puppeteer upgrade.
+          Automated runner upgrade.
 
           - Puppeteer: ${PUPPETEER_VERSION}
+          - Ruby: ${UPGRADE_VERSION}
           - Main commit: ${MAIN_COMMIT_SHA}
           - Runner image: ${image_ref}@${IMAGE_DIGEST}
           - Diagnostic image tag: ${IMAGE_TAG}
@@ -434,7 +506,7 @@ jobs:
           )
 
           if [ -n "$EXISTING_PR_NUMBER" ]; then
-            if gh pr edit "$EXISTING_PR_NUMBER" --repo "$GH_REPO" --title "$pr_title" --body "$pr_body"; then
+            if gh pr edit "$EXISTING_PR_NUMBER" --repo "$GH_REPO" --title "$PR_TITLE" --body "$pr_body"; then
               echo "Updated PR #${EXISTING_PR_NUMBER} for ${BRANCH_NAME}."
               exit
             fi
@@ -443,7 +515,7 @@ jobs:
             exit 1
           fi
 
-          if gh pr create --repo "$GH_REPO" --base main --head "$BRANCH_NAME" --title "$pr_title" --body "$pr_body"; then
+          if gh pr create --repo "$GH_REPO" --base main --head "$BRANCH_NAME" --title "$PR_TITLE" --body "$pr_body"; then
             echo "Created PR for ${BRANCH_NAME}."
             exit
           fi

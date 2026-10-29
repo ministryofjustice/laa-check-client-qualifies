@@ -20,7 +20,7 @@ When running in embedded mode, you can override the layout used by embedded cont
 
 ## Dependencies
 ### Runtime versions
-- Ruby `4.0.5` (see `.ruby-version`)
+- Ruby version is declared in `.ruby-version`
 - Rails `8.1.2`
 
 ### System packages

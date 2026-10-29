@@ -1,5 +1,5 @@
 # Build custom docker image for test-executor
-# Use the cimg/ruby:4.0.5-browsers image as the base image to extend out
+# Use the CircleCI Ruby browsers image as the base image to extend out
 FROM node:22-bookworm-slim@sha256:813a7480f28fdadac1f7f5c824bcdad435b5bc1322a5968bbbdef8d058f9dff4 AS node_runtime
 
 FROM cimg/ruby:4.0.5-browsers@sha256:f43ba0010f468ef461112e310c60663653fe2261e31ac364be575f042130308b
