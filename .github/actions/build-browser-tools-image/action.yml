@@ -137,7 +137,7 @@ runs:
           yarn --version
           pdftk --version
         '
-        docker run --rm --entrypoint node "$image_ref" -e 'require("/app/node_modules/puppeteer").launch({ headless: true }).then((browser) => browser.close())'
+        docker run --rm --entrypoint node "$image_ref" -e 'require("/app/node_modules/puppeteer").launch({ headless: true, args: ["--no-sandbox", "--disable-dev-shm-usage"] }).then((browser) => browser.close())'
 
     - name: Publish runner and verify digest
       id: publish
