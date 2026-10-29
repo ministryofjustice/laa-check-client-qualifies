@@ -36,8 +36,8 @@ Use the workflow-based process from trusted `main`:
 8. Review and merge once CI is green. A maintainer may need to approve the PR's GitHub Actions checks.
 
 When Ruby changes, the workflow installs the requested runtime before updating
-lockfile metadata and updates application, runner, CI, and documentation pins
-together. Both `ruby:<version>-slim-bookworm` and
+lockfile metadata and updates application, runner, and CI pins together. Both
+`ruby:<version>-slim-bookworm` and
 `cimg/ruby:<version>-browsers` must be available upstream. Missing images fail
 preparation rather than selecting an older runtime.
 

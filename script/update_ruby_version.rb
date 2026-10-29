@@ -109,12 +109,6 @@ changes["Dockerfile_browser_tools.dockerfile"] = replace_one(
   "FROM #{runner_image}",
   "runner Ruby base image",
 )
-changes["Dockerfile_browser_tools.dockerfile"] = replace_one(
-  changes["Dockerfile_browser_tools.dockerfile"],
-  /^# Use the cimg\/ruby:#{Regexp.escape(current_version)}-browsers image as the base image to extend out$/,
-  "# Use the cimg/ruby:#{version}-browsers image as the base image to extend out",
-  "runner Ruby base image documentation",
-)
 
 circleci = read_file(".circleci/config.yml")
 circleci_pins = circleci.scan(/^(\s*-\s*image:\s*cimg\/ruby:)(\d+\.\d+\.\d+)(-browsers\s*)$/)
@@ -125,33 +119,6 @@ changes[".circleci/config.yml"] = circleci.gsub(
   /^(\s*-\s*image:\s*cimg\/ruby:)#{Regexp.escape(current_version)}(-browsers\s*)$/,
   "\\1#{version}\\2",
 )
-
-readme = read_file("README.md")
-static_runtime = /^- Ruby `#{Regexp.escape(current_version)}` \(see `.ruby-version`\)$/
-dynamic_runtime = /^- Ruby version is declared in `.ruby-version`$/
-if readme.match?(static_runtime)
-  changes["README.md"] = replace_one(readme, static_runtime, "- Ruby version is declared in `.ruby-version`", "README Ruby version")
-elsif readme.scan(dynamic_runtime).length == 1
-  changes["README.md"] = readme
-else
-  abort "README.md must identify .ruby-version as the Ruby runtime source."
-end
-
-rubocop_workflow = read_file(".github/workflows/rubocop.yml")
-current_rubocop_selector = /^(\s*)ruby-version: #{Regexp.escape(current_version)}$/
-version_file_selector = /^\s*ruby-version-file: \.ruby-version$/
-if rubocop_workflow.match?(current_rubocop_selector)
-  changes[".github/workflows/rubocop.yml"] = replace_one(
-    rubocop_workflow,
-    current_rubocop_selector,
-    "\\1ruby-version-file: .ruby-version",
-    "RuboCop Ruby selector",
-  )
-elsif rubocop_workflow.scan(version_file_selector).length == 1
-  changes[".github/workflows/rubocop.yml"] = rubocop_workflow
-else
-  abort "RuboCop must select Ruby using .ruby-version."
-end
 
 changes.each do |path, contents|
   File.write(repository_file(path), contents)
