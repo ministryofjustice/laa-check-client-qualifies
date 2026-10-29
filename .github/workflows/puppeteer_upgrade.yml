@@ -143,7 +143,7 @@ jobs:
 
       - name: Set up requested Ruby for lockfile preparation
         if: steps.metadata.outputs.skip_upgrade != 'true' && steps.metadata.outputs.ruby_version_changed == 'true'
-        uses: ruby/setup-ruby@824c0e29fdfc7d689c191c27acc969d2d04b7dd8 # v1.331.0
+        uses: ruby/setup-ruby@7f797815d8adceb1c412e7abefdd1ab4abc47a5f # v1.335.0
         with:
           ruby-version: ${{ steps.metadata.outputs.ruby_version }}
 
@@ -240,7 +240,7 @@ jobs:
           fetch-depth: 0
 
       - name: Download prepared candidate
-        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: ${{ needs.prepare-upgrade.outputs.candidate_artifact }}
           path: ${{ github.workspace }}
@@ -283,7 +283,7 @@ jobs:
           fetch-depth: 0
 
       - name: Download prepared candidate
-        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: ${{ needs.prepare-upgrade.outputs.candidate_artifact }}
           path: ${{ github.workspace }}
