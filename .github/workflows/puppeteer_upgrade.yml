@@ -215,7 +215,7 @@ jobs:
 
       - name: Upload prepared candidate
         if: steps.metadata.outputs.skip_upgrade != 'true'
-        uses: actions/upload-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: ${{ steps.metadata.outputs.candidate_artifact }}
           path: ${{ steps.update_candidate.outputs.artifact_paths }}
@@ -240,7 +240,7 @@ jobs:
           fetch-depth: 0
 
       - name: Download prepared candidate
-        uses: actions/download-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
         with:
           name: ${{ needs.prepare-upgrade.outputs.candidate_artifact }}
           path: ${{ github.workspace }}
@@ -283,7 +283,7 @@ jobs:
           fetch-depth: 0
 
       - name: Download prepared candidate
-        uses: actions/download-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
         with:
           name: ${{ needs.prepare-upgrade.outputs.candidate_artifact }}
           path: ${{ github.workspace }}
