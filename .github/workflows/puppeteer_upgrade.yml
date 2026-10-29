@@ -344,7 +344,7 @@ jobs:
           done
           additions="$(
             for file in "${files[@]}"; do
-              jq -n --arg path "$file" --rawfile contents "$file" '{path: $path, contents: $contents}'
+              jq -n --arg path "$file" --rawfile contents "$file" '{path: $path, contents: ($contents | @base64)}'
             done | jq -s .
           )"
 
