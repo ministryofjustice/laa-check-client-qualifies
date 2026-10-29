@@ -3,6 +3,6 @@
         "nginxinc/nginx-unprivileged:alpine",
         "postgres:15-alpine",
         "redis:7.2-alpine",
-        "ruby:4.0.5-slim-bookworm@sha256:3c75b01d27398bbf3010b35612b957d268980e6bc3ec9419da043b22f90e5c88"
+        "ruby:4.0.9-slim-bookworm@sha256:f999b3be00ed747bf7b2e450155ab1482d77300eb71ec7d3ada49ccc921c6ed4"
     ]
 }

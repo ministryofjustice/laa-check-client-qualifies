@@ -10,11 +10,11 @@ executors:
   basic-executor:
     resource_class: small
     docker:
-      - image: cimg/ruby:4.0.5-browsers
+      - image: cimg/ruby:4.0.9-browsers
   test-executor:
     resource_class: medium
     docker:
-      - image: checkclientqualifiesdocker/circleci-image:puppeteer-v25.14.0
+      - image: checkclientqualifiesdocker/circleci-image@sha256:b41180d77ec073180286057871ecc2238efbdc7620a9f5e68362af594510c7e0
         auth:
           username: $DOCKERHUB_USER_CCQ
           password: $DOCKERHUB_PAT_CCQ
@@ -34,7 +34,7 @@ executors:
   embedded-test-executor:
     resource_class: small
     docker:
-      - image: cimg/ruby:4.0.5-browsers
+      - image: cimg/ruby:4.0.9-browsers
         environment:
           VCR_RECORD_MODE: none
           RAILS_ENV: test
@@ -44,7 +44,7 @@ executors:
   e2e-executor:
     resource_class: small
     docker:
-      - image: cimg/ruby:4.0.5-browsers
+      - image: cimg/ruby:4.0.9-browsers
         environment:
           VCR_RECORD_MODE: none
           COVERAGE: true
