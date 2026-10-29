@@ -42,7 +42,6 @@ jobs:
       ruby_version: ${{ steps.metadata.outputs.ruby_version }}
       ruby_version_changed: ${{ steps.metadata.outputs.ruby_version_changed }}
       puppeteer_version: ${{ steps.metadata.outputs.puppeteer_version }}
-      version_tag: ${{ steps.metadata.outputs.version_tag }}
       pr_title: ${{ steps.metadata.outputs.pr_title }}
       candidate_artifact: ${{ steps.metadata.outputs.candidate_artifact }}
       artifact_paths: ${{ steps.update_candidate.outputs.artifact_paths }}
@@ -76,6 +75,7 @@ jobs:
             printf 'The trusted main branch has invalid .ruby-version %q.\n' "$ruby_version" >&2
             exit 1
           fi
+
           ruby_version_changed=false
           if [ -n "$RUBY_VERSION_OVERRIDE" ]; then
             ruby_version="$RUBY_VERSION_OVERRIDE"
@@ -83,6 +83,7 @@ jobs:
               printf 'Invalid Ruby version %q. Expected semver like 4.0.5.\n' "$ruby_version" >&2
               exit 1
             fi
+
             if [ "$ruby_version" != "$(tr -d '[:space:]' < .ruby-version)" ]; then
               ruby_version_changed=true
             fi
@@ -97,18 +98,12 @@ jobs:
             exit 0
           fi
 
-          if [ "$ruby_version_changed" = true ] && [ "$current_version" = "$PUPPETEER_VERSION" ]; then
-            VERSION_TAG="v${ruby_version}"
-            BRANCH_NAME="chore/upgrade-ruby/${VERSION_TAG}"
-            PR_TITLE="chore: bump Ruby to ${VERSION_TAG}"
-          elif [ "$ruby_version_changed" = true ]; then
-            VERSION_TAG="puppeteer-v${PUPPETEER_VERSION}-ruby-v${ruby_version}"
-            BRANCH_NAME="chore/upgrade-runner/${VERSION_TAG}"
-            PR_TITLE="chore: bump Puppeteer to v${PUPPETEER_VERSION} and Ruby to v${ruby_version}"
+          if [ "$ruby_version_changed" = true ]; then
+            BRANCH_NAME="chore/upgrade-runner/ruby-v${ruby_version}-puppeteer-v${PUPPETEER_VERSION}"
+            PR_TITLE="chore: update runner to Ruby v${ruby_version} and Puppeteer v${PUPPETEER_VERSION}"
           else
-            VERSION_TAG="v${PUPPETEER_VERSION}"
-            BRANCH_NAME="chore/upgrade-puppeteer/${VERSION_TAG}"
-            PR_TITLE="chore: bump Puppeteer to ${VERSION_TAG}"
+            BRANCH_NAME="chore/upgrade-puppeteer/v${PUPPETEER_VERSION}"
+            PR_TITLE="chore: bump Puppeteer to v${PUPPETEER_VERSION}"
           fi
           ARTIFACT_NAME="runner-candidate-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
           existing_branch="$(git ls-remote --heads origin "refs/heads/${BRANCH_NAME}" | awk '{print $1}')"
@@ -133,7 +128,6 @@ jobs:
             echo "ruby_version_changed=${ruby_version_changed}"
             echo "puppeteer_version=${PUPPETEER_VERSION}"
             echo "skip_upgrade=false"
-            echo "version_tag=${VERSION_TAG}"
             echo "pr_title=${PR_TITLE}"
             echo "candidate_artifact=${ARTIFACT_NAME}"
             echo "existing_branch_sha=${existing_branch}"
@@ -493,7 +487,6 @@ jobs:
           IMAGE_TAG: ${{ needs.build-browser-tools-image.outputs.image_tag }}
           NEW_COMMIT_SHA: ${{ steps.commit.outputs.commit_sha }}
           IMAGE_DIGEST: ${{ needs.build-browser-tools-image.outputs.image_digest }}
-          VERSION_TAG: ${{ needs.prepare-upgrade.outputs.version_tag }}
           UPGRADE_VERSION: ${{ needs.prepare-upgrade.outputs.ruby_version }}
           PUPPETEER_VERSION: ${{ needs.prepare-upgrade.outputs.puppeteer_version }}
           PR_TITLE: ${{ needs.prepare-upgrade.outputs.pr_title }}
