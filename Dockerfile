@@ -1,5 +1,5 @@
 ############################################################
-FROM node:22-bookworm-slim@sha256:813a7480f28fdadac1f7f5c824bcdad435b5bc1322a5968bbbdef8d058f9dff4 AS node_runtime
+FROM node:22.23.4-bookworm-slim@sha256:4b150b48b4116e2a22f2c39cc27025fbf4f153e2078fd3b14d159fdb5c7279da AS node_runtime
 
 ############################################################
 FROM ruby:4.0.9-slim-bookworm@sha256:f999b3be00ed747bf7b2e450155ab1482d77300eb71ec7d3ada49ccc921c6ed4 AS base
@@ -103,6 +103,8 @@ RUN apt-get update && \
 # pidfile on Linux/EKS (these are git-ignored and absent from the build context).
 RUN mkdir -p /app/tmp/pids /app/tmp/cache /app/tmp/sockets && \
     chown -R 10001 /app/tmp
+
+RUN rm -rf /usr/local/lib/node_modules/npm /usr/local/bin/npm /usr/local/bin/npx
 
 # Run as non-root user
 USER 10001

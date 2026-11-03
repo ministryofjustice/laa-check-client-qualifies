@@ -1,6 +1,6 @@
 # Build custom docker image for test-executor
 # Use the CircleCI Ruby browsers image as the base image to extend out
-FROM node:22-bookworm-slim@sha256:813a7480f28fdadac1f7f5c824bcdad435b5bc1322a5968bbbdef8d058f9dff4 AS node_runtime
+FROM node:22.23.4-bookworm-slim@sha256:4b150b48b4116e2a22f2c39cc27025fbf4f153e2078fd3b14d159fdb5c7279da AS node_runtime
 
 FROM cimg/ruby:4.0.9-browsers@sha256:722d5d50508f0c790815b30be6a2f600890b9ad54be438947f27dab77090a4b3
 
@@ -19,3 +19,4 @@ RUN sudo apt install pdftk --allow-unauthenticated
 # used by the application (in yarn.lock, not package.json)
 RUN yarn add puppeteer@25.16.0
 RUN npx puppeteer browsers install chrome --platform linux
+RUN sudo rm -rf /usr/local/lib/node_modules/npm /usr/local/bin/npm /usr/local/bin/npx
