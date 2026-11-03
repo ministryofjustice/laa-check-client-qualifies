@@ -7,6 +7,17 @@ const initResults = () => {
       }
     });
   });
+
+  document.querySelectorAll(".govuk-accordion").forEach((accordion) => {
+    const removeRedundantAccessibleNames = () => {
+      accordion.querySelectorAll(".govuk-accordion__section-button[aria-label]").forEach((button) => {
+        button.removeAttribute("aria-label");
+      });
+    };
+
+    removeRedundantAccessibleNames();
+    accordion.addEventListener("click", removeRedundantAccessibleNames);
+  });
 }
 
 export default initResults;
