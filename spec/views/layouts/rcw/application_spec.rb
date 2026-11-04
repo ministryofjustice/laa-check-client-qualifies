@@ -3,9 +3,9 @@ require "rails_helper"
 RSpec.describe "layouts/rcw/application", :embedded_only, ccq_mode: :embedded, type: :view do
   before do
     allow(ENV).to receive(:[]).and_call_original
-    allow(ENV).to receive(:[]).with("GTM_CONTAINER_ID").and_return("GTM-TEST")
-    allow(ENV).to receive(:[]).with("GA4_MEASUREMENT_ID").and_return("G-TEST")
-    allow(ENV).to receive(:[]).with("ANALYTICS_ENVIRONMENT").and_return("staging")
+    allow(ENV).to receive(:[]).with("HOST_SERVICE_GTM_CONTAINER_ID").and_return("GTM-TEST")
+    allow(ENV).to receive(:[]).with("HOST_SERVICE_GA4_MEASUREMENT_ID").and_return("G-TEST")
+    allow(ENV).to receive(:[]).with("HOST_SERVICE_ANALYTICS_ENVIRONMENT").and_return("staging")
     allow(view).to receive(:content_security_policy_nonce).and_return("ccq-nonce")
     allow(view).to receive(:t).and_call_original
     allow(view).to receive(:t).with("layouts.rcw.service.homepage_url").and_return("/")
@@ -40,7 +40,7 @@ RSpec.describe "layouts/rcw/application", :embedded_only, ccq_mode: :embedded, t
 
   %w[uat production].each do |environment|
     it "includes the shared script in #{environment}" do
-      allow(ENV).to receive(:[]).with("ANALYTICS_ENVIRONMENT").and_return(environment)
+      allow(ENV).to receive(:[]).with("HOST_SERVICE_ANALYTICS_ENVIRONMENT").and_return(environment)
 
       render inline: "<h1>Assessment</h1>", layout: "layouts/rcw/application"
 
@@ -48,7 +48,7 @@ RSpec.describe "layouts/rcw/application", :embedded_only, ccq_mode: :embedded, t
     end
   end
 
-  %w[GTM_CONTAINER_ID GA4_MEASUREMENT_ID ANALYTICS_ENVIRONMENT].each do |setting|
+  %w[HOST_SERVICE_GTM_CONTAINER_ID HOST_SERVICE_GA4_MEASUREMENT_ID HOST_SERVICE_ANALYTICS_ENVIRONMENT].each do |setting|
     [nil, "", "   "].each do |value|
       it "omits the shared script when #{setting} is #{value.inspect}" do
         allow(ENV).to receive(:[]).with(setting).and_return(value)
@@ -61,7 +61,7 @@ RSpec.describe "layouts/rcw/application", :embedded_only, ccq_mode: :embedded, t
   end
 
   it "omits the shared script for an unsupported analytics environment" do
-    allow(ENV).to receive(:[]).with("ANALYTICS_ENVIRONMENT").and_return("development")
+    allow(ENV).to receive(:[]).with("HOST_SERVICE_ANALYTICS_ENVIRONMENT").and_return("development")
 
     render inline: "<h1>Assessment</h1>", layout: "layouts/rcw/application"
 
@@ -81,7 +81,7 @@ RSpec.describe "layouts/rcw/application", :embedded_only, ccq_mode: :embedded, t
   end
 
   it "links the footer to the host cookies page even without analytics configuration" do
-    allow(ENV).to receive(:[]).with("GTM_CONTAINER_ID").and_return(nil)
+    allow(ENV).to receive(:[]).with("HOST_SERVICE_GTM_CONTAINER_ID").and_return(nil)
 
     render inline: "<h1>Assessment</h1>", layout: "layouts/rcw/application"
 

@@ -1,8 +1,8 @@
 head
   ruby:
-    container_id = ENV["GTM_CONTAINER_ID"]&.strip
-    measurement_id = ENV["GA4_MEASUREMENT_ID"]&.strip
-    analytics_environment = ENV["ANALYTICS_ENVIRONMENT"]&.strip
+    container_id = ENV["HOST_SERVICE_GTM_CONTAINER_ID"]&.strip
+    measurement_id = ENV["HOST_SERVICE_GA4_MEASUREMENT_ID"]&.strip
+    analytics_environment = ENV["HOST_SERVICE_ANALYTICS_ENVIRONMENT"]&.strip
     consent = cookies[CookiesController::COOKIE_CHOICE_NAME]
   - if container_id.present? && measurement_id.present? && %w[uat staging production].include?(analytics_environment)
     = tag.script src: "#{root_path}js/analytics.js", defer: true, nonce: content_security_policy_nonce,
