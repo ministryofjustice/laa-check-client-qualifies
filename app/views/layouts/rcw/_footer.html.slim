@@ -40,6 +40,9 @@ footer.govuk-footer.no-print role="contentinfo"
 
     .govuk-footer__meta
       .govuk-footer__meta-item.govuk-footer__meta-item--grow
+        ul.govuk-footer__inline-list
+          li.govuk-footer__inline-list-item
+            = link_to t("layouts.application.footer.cookies"), "#{root_path}cookies", class: "govuk-footer__link"
         svg.govuk-footer__licence-logo[aria-hidden="true"
                                        focusable="false"
                                        xmlns="http://www.w3.org/2000/svg"

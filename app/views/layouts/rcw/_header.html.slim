@@ -1,5 +1,15 @@
 head
-  / = render "layouts/analytics_head"
+  ruby:
+    container_id = ENV["GTM_CONTAINER_ID"]&.strip
+    measurement_id = ENV["GA4_MEASUREMENT_ID"]&.strip
+    analytics_environment = ENV["ANALYTICS_ENVIRONMENT"]&.strip
+    consent = cookies[CookiesController::COOKIE_CHOICE_NAME]
+  - if container_id.present? && measurement_id.present? && %w[uat staging production].include?(analytics_environment)
+    = tag.script src: "#{root_path}js/analytics.js", defer: true, nonce: content_security_policy_nonce,
+                 data: { container_id:,
+                         measurement_id:,
+                         environment: analytics_environment,
+                         consent: (%w[accepted rejected].include?(consent) ? consent : "none") }
   title
     = yield(:page_title)
     = " | " if content_for?(:page_title)

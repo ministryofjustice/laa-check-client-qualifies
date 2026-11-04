@@ -18,6 +18,15 @@ When running in embedded mode, you can override the layout used by embedded cont
 - `CCQ_EMBEDDED_LAYOUT=<layout_path>` - use `app/views/layouts/<layout_path>.html.*` (for namespaced layouts, use `/`, for example `rcw/application`)
 - `HOST_SERVICE_SESSION_COOKIES=<cookie_names>` - comma-separated host session cookie names used to isolate embedded journeys
 
+The `rcw/application` layout uses RCW's same-origin `/js/analytics.js` script
+when `GTM_CONTAINER_ID`, `GA4_MEASUREMENT_ID` and `ANALYTICS_ENVIRONMENT` are
+all set. The environment must be `uat`, `staging` or `production`. RCW must
+supply the same settings to both applications. Local defaults leave them unset.
+The script reads the consent state supplied from `optional_cookie_choice`.
+RCW owns consent, the cookies page and browser analytics behaviour. Embedded
+CCQ only includes the script and a footer link to RCW's `/cookies` page.
+Standalone CCQ continues to use `GOOGLE_TAG_MANAGER_ID` unchanged.
+
 ## Dependencies
 ### Runtime versions
 - Ruby version is declared in `.ruby-version`
