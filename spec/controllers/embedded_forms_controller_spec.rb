@@ -46,6 +46,22 @@ RSpec.describe EmbeddedFormsController, ccq_mode: :embedded, type: :controller d
         expect(response).to render_template("question_flow/client_age")
       end
     end
+
+    context "when on the applicant step and all preceding steps are skipped" do
+      let(:session_data) do
+        {
+          "client_age" => ClientAgeForm::STANDARD,
+          "level_of_help" => LevelOfHelpForm::LEVELS_OF_HELP[:controlled],
+          "immigration_or_asylum" => false,
+        }
+      end
+
+      it "leaves @previous_step nil so the back link targets the task list" do
+        get :show, params: { resource_id: resource_id, step_url_fragment: Flow::Handler.url_fragment(:applicant) }
+
+        expect(assigns(:previous_step)).to be_nil
+      end
+    end
   end
 
   describe "POST #update", :embedded_only do
