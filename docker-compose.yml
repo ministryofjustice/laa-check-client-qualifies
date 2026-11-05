@@ -9,7 +9,7 @@ services:
   # docker-compose.embedded.yml without nginx/host stub
   nginx:
     container_name: ccq-embedded-nginx
-    image: nginxinc/nginx-unprivileged:alpine
+    image: nginx/nginx-unprivileged:alpine
     ports:
       - 8080:8080
     volumes:
