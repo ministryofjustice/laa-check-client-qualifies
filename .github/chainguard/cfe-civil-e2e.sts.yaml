@@ -1,0 +1,9 @@
+issuer: https://token.actions.githubusercontent.com
+subject_pattern: 'repo:ministryofjustice/cfe-civil:.*'
+claim_pattern:
+  workflow_ref: 'ministryofjustice/cfe-civil/\.github/workflows/test-build-deploy\.yml@.*'
+  job_workflow_ref: 'ministryofjustice/cfe-civil/\.github/workflows/end2end-reusable\.yml@refs/heads/main'
+  event_name: '^(pull_request|push|workflow_dispatch)$'
+
+permissions:
+  contents: read
