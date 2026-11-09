@@ -26,7 +26,10 @@ module Steps
       end
 
       def previous_step_for(session_data, step)
-        next_step(steps_list_for(session_data).reverse, step)
+        reversed_steps = steps_list_for(session_data).reverse
+        previous = next_step(reversed_steps, step)
+        previous = next_step(reversed_steps, previous) while previous && skip_step_in_embedded?(previous, session_data)
+        previous
       end
 
       # all previous steps and this one
