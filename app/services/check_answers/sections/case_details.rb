@@ -43,7 +43,7 @@ module CheckAnswers
                   fields: [
                     FieldWithScreenPresenter.new(table_label: :level_of_help, screen: (:level_of_help unless ModeConfig.embedded?), attribute: :level_of_help, type: :select, model: @check),
                     if @check.controlled? && @check.under_eighteen?
-                      FieldWithScreenPresenter.new(table_label: :level_of_help, screen: :under_18_clr, attribute: :controlled_legal_representation, type: :boolean, model: @check)
+                      FieldWithScreenPresenter.new(table_label: :level_of_help, screen: (:under_18_clr unless ModeConfig.embedded?), attribute: :controlled_legal_representation, type: :boolean, model: @check)
                     end,
                   ].compact)
       end

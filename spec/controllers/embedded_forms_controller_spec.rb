@@ -138,6 +138,34 @@ RSpec.describe EmbeddedFormsController, ccq_mode: :embedded, type: :controller d
       expect(response.location).to end_with("/is-client-domestic-abuse-case-applicant")
     end
 
+    context "when the under-18 CLR step is skipped" do
+      let(:session_data) { {} }
+
+      it "sets controlled legal representation to false" do
+        get :show, params: {
+          resource_id: resource_id,
+          step_url_fragment: Flow::Handler.url_fragment(:under_18_clr),
+        }
+
+        expect(session_data).to include("controlled_legal_representation" => false)
+        expect(response).to have_http_status(:redirect)
+      end
+
+      context "when an answer already exists" do
+        let(:session_data) { { "controlled_legal_representation" => true } }
+
+        it "preserves the existing answer" do
+          get :show, params: {
+            resource_id: resource_id,
+            step_url_fragment: Flow::Handler.url_fragment(:under_18_clr),
+          }
+
+          expect(session_data).to include("controlled_legal_representation" => true)
+          expect(response).to have_http_status(:redirect)
+        end
+      end
+    end
+
     it "redirects to the check answers page when there is no next step" do
       allow(Steps::Helper).to receive(:next_step_for).and_return(nil)
 

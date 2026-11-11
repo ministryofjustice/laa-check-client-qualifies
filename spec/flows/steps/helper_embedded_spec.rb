@@ -8,11 +8,13 @@ RSpec.describe Steps::Helper, :embedded_only, ccq_mode: :embedded do
       expect(described_class.skip_step_in_embedded?(:client_age, {
         "client_age" => ClientAgeForm::STANDARD,
       })).to be(false)
+      expect(described_class.skip_step_in_embedded?(:under_18_clr, {})).to be(false)
     end
 
     it "skips unconditional embedded steps" do
       expect(described_class.skip_step_in_embedded?(:level_of_help, {})).to be(true)
       expect(described_class.skip_step_in_embedded?(:immigration_or_asylum, {})).to be(true)
+      expect(described_class.skip_step_in_embedded?(:under_18_clr, {})).to be(true)
     end
 
     it "skips client age when it has a valid hydrated value" do

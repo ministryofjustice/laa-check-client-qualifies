@@ -1,7 +1,7 @@
 module Steps
   class Helper
-    # These steps are pre-answered on the client's behalf in Embedded mode and must never be shown
-    EMBEDDED_SKIPPED_STEPS = %i[level_of_help immigration_or_asylum].freeze
+    # These steps are handled without rendering their questions in Embedded mode.
+    EMBEDDED_SKIPPED_STEPS = %i[level_of_help immigration_or_asylum under_18_clr].freeze
 
     class << self
       # This is only used in a test
