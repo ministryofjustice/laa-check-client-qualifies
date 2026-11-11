@@ -204,7 +204,7 @@ GEM
     govuk_notify_rails (3.0.0)
       notifications-ruby-client (~> 6.2)
       rails (>= 4.1.0)
-    grover (1.2.10)
+    grover (2.0.1)
       nokogiri (~> 1)
     hashdiff (1.2.1)
     hashie (5.2.0)
