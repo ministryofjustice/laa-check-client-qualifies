@@ -44,6 +44,10 @@ class EmbeddedFormsController < EmbeddedBaseController
 private
 
   def redirect_to_step_after_skip
+    if step == :under_18_clr && !session_data.key?("controlled_legal_representation")
+      session_data["controlled_legal_representation"] = false
+    end
+
     next_step = Steps::Helper.next_step_for(session_data, step)
     if next_step
       redirect_to step_path(step_url_fragment: helpers.step_url_fragment_from_step(next_step), resource_id: params[:resource_id])

@@ -44,23 +44,35 @@ RSpec.describe "checks/check_answers.html.slim", :embedded_only, ccq_mode: :embe
   end
 
   context "when the client is under 18" do
+    let(:controlled_legal_representation) { false }
     let(:session_data) do
       build(:minimal_complete_session,
             passporting: true,
             level_of_help: "controlled",
             immigration_or_asylum: false,
             client_age: "under_18",
-            controlled_legal_representation: false,
+            controlled_legal_representation: controlled_legal_representation,
             aggregated_means: false,
             regular_income: false,
             under_eighteen_assets: false)
     end
 
-    it "keeps the under-18 CLR answer editable" do
+    it "shows the under-18 CLR answer without a change link" do
       fragment = Nokogiri::HTML.fragment(rendered)
 
       expect(page_text).to include("Is the work controlled legal representation (CLR)?No")
-      expect(fragment).to have_css('a.inline-change-link[aria-label="Change controlled legal representation"]')
+      expect(fragment).not_to have_css('a.inline-change-link[aria-label="Change controlled legal representation"]')
+    end
+
+    context "when a previous answer is yes" do
+      let(:controlled_legal_representation) { true }
+
+      it "shows the saved answer without a change link" do
+        fragment = Nokogiri::HTML.fragment(rendered)
+
+        expect(page_text).to include("Is the work controlled legal representation (CLR)?Yes")
+        expect(fragment).not_to have_css('a.inline-change-link[aria-label="Change controlled legal representation"]')
+      end
     end
   end
 end
