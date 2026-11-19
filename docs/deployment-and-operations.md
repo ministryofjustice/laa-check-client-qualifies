@@ -158,6 +158,12 @@ appears once. No migration applies; deployment rollback restores previous loggin
 
 Sentry is used for application monitoring and error tracking across environments.
 
+Set `SENTRY_FEATURE_FLAG=enabled` to enable reporting. Standalone mode uses
+`SENTRY_DSN`, while `CCQ_MODE=embedded` uses `SENTRY_EMBEDDED_DSN`. Supply the
+appropriate project's DSN in the runtime environment and restart the application
+after changing it. If the selected DSN is missing or blank, Sentry is disabled;
+Embedded mode does not fall back to the standalone DSN.
+
 Common reporting methods:
 
 ```ruby
