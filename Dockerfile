@@ -66,6 +66,9 @@ RUN SECRET_KEY_BASE=anything \
 ############################################################
 FROM base AS runner
 
+# Temporarily mitigate CVE-2026-114938 in pdftk's Java runtime.
+ENV JAVA_TOOL_OPTIONS="-XX:-UseBASE64Intrinsics"
+
 # Install runtime packages and PostgreSQL client 17.
 # curl/gnupg are only needed to add the PGDG repo.
 RUN apt-get update && \
