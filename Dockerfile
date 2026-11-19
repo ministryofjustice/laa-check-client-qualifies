@@ -33,7 +33,7 @@ FROM base AS builder
 # Install native build dependencies, remove cache
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-      build-essential ca-certificates curl git \
+      build-essential ca-certificates curl git libatomic1 \
       libpq-dev libyaml-dev pkg-config && \
     rm -rf /var/lib/apt/lists/*
 
@@ -80,7 +80,7 @@ RUN apt-get update && \
     \
     apt-get update && \
     apt-get install -y --no-install-recommends \
-      libpq5 pdftk postgresql-client-17 tar unzip xz-utils && \
+      libatomic1 libpq5 pdftk postgresql-client-17 tar unzip xz-utils && \
     apt-get remove -y \
       curl gnupg && \
     rm -rf /var/lib/apt/lists/* /root/.cache /tmp/* /var/tmp/*
