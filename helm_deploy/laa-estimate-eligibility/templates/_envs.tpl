@@ -42,8 +42,6 @@ env:
         key: SECRET_KEY_BASE
   - name: RAILS_ENV
     value: production
-  - name: JAVA_TOOL_OPTIONS
-    value: "-XX:-UseBASE64Intrinsics"
   - name: RAILS_SERVE_STATIC_FILES
     value: 'true'
   - name: RAILS_LOG_TO_STDOUT
