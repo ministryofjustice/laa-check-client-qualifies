@@ -1,5 +1,6 @@
 ############################################################
-FROM node:22.23.4-bookworm-slim@sha256:4b150b48b4116e2a22f2c39cc27025fbf4f153e2078fd3b14d159fdb5c7279da AS node_runtime
+FROM node:26.13.0-bookworm-slim@sha256:add5c17c14752c54d2f3d519ec46a3815684d41c33f198bcb09fb998f7dcbf68 AS node_runtime
+RUN npm install --global yarn@1.22.22
 
 ############################################################
 FROM ruby:4.0.9-slim-bookworm@sha256:f999b3be00ed747bf7b2e450155ab1482d77300eb71ec7d3ada49ccc921c6ed4 AS base
@@ -32,7 +33,7 @@ FROM base AS builder
 # Install native build dependencies, remove cache
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-      build-essential ca-certificates curl git \
+      build-essential ca-certificates curl git libatomic1 \
       libpq-dev libyaml-dev pkg-config && \
     rm -rf /var/lib/apt/lists/*
 
@@ -82,7 +83,7 @@ RUN apt-get update && \
     \
     apt-get update && \
     apt-get install -y --no-install-recommends \
-      libpq5 pdftk postgresql-client-17 tar unzip xz-utils && \
+      libatomic1 libpq5 pdftk postgresql-client-17 tar unzip xz-utils && \
     apt-get remove -y \
       curl gnupg && \
     rm -rf /var/lib/apt/lists/* /root/.cache /tmp/* /var/tmp/*
