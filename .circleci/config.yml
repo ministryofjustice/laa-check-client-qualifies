@@ -175,6 +175,12 @@ jobs:
             sudo apt-get update
             sudo apt-get install -y --no-install-recommends libatomic1 pdftk
             ./node_modules/.bin/puppeteer browsers install chrome --platform linux
+            chrome_path="$(node -e 'require("puppeteer").executablePath().then(path => process.stdout.write(path))')"
+            if [ ! -x "$chrome_path" ]; then
+              printf 'Puppeteer Chrome executable was not found at %q.\n' "$chrome_path" >&2
+              exit 1
+            fi
+            printf 'export CHROME_BIN=%q\n' "$chrome_path" >> "$BASH_ENV"
       - *setup_parallel_database
       - run:
           name: Run tests
