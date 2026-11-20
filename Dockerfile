@@ -3,7 +3,7 @@ FROM node:26.13.0-bookworm-slim@sha256:add5c17c14752c54d2f3d519ec46a3815684d41c3
 RUN npm install --global yarn@1.22.22
 
 ############################################################
-FROM ruby:4.0.9-slim-bookworm@sha256:f999b3be00ed747bf7b2e450155ab1482d77300eb71ec7d3ada49ccc921c6ed4 AS base
+FROM ruby:4.0.10-slim-bookworm@sha256:2ae2957252f1d59985f012f876f4f70d8fc643537766499ba5efa2c991319823 AS base
 
 ARG TARGETARCH
 RUN if [ "$TARGETARCH" != "amd64" ]; then \
