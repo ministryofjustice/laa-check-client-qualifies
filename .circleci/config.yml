@@ -53,7 +53,7 @@ executors:
           PGUSER: user
           TZ: "Europe/London"
           CFE_HOST: http://localhost:3000
-      - image: cimg/postgres:10.18
+      - image: cimg/postgres:17.11
         environment:
           POSTGRES_USER: user
           POSTGRES_DB: ccq_test
@@ -68,7 +68,7 @@ executors:
           POSTGRES_DATABASE: cfe
           RAILS_ENV: production
           LEGAL_FRAMEWORK_API_HOST: https://legal-framework-api-staging.cloud-platform.service.justice.gov.uk
-      - image: cimg/postgres:14.8
+      - image: cimg/postgres:17.11
         name: cfe_db
         environment:
           POSTGRES_USER: postgres
