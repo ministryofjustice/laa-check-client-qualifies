@@ -14,14 +14,12 @@ executors:
   test-executor:
     resource_class: medium
     docker:
-      - image: checkclientqualifiesdocker/circleci-image@sha256:b41180d77ec073180286057871ecc2238efbdc7620a9f5e68362af594510c7e0
-        auth:
-          username: $DOCKERHUB_USER_CCQ
-          password: $DOCKERHUB_PAT_CCQ
+      - image: cimg/ruby:4.0.10-browsers
         environment:
           VCR_RECORD_MODE: none
           COVERAGE: true
           RAILS_ENV: test
+          SECRET_KEY_BASE: can_be_anything
           PGHOST: localhost
           PGUSER: user
           TZ: "Europe/London"
@@ -40,6 +38,7 @@ executors:
           RAILS_ENV: test
           TZ: "Europe/London"
           REDIS_URL: redis://localhost:6379/0
+          SECRET_KEY_BASE: can_be_anything
       - image: cimg/redis:7.0
   e2e-executor:
     resource_class: small
@@ -170,6 +169,12 @@ jobs:
       - checkout
       - attach_workspace:
           at: ./
+      - run:
+          name: Install browser and PDF test dependencies
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y --no-install-recommends libatomic1 pdftk
+            ./node_modules/.bin/puppeteer browsers install chrome --platform linux
       - *setup_parallel_database
       - run:
           name: Run tests
