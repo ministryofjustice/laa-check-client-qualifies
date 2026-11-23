@@ -1,5 +1,5 @@
 ############################################################
-FROM node:26.13.0-bookworm-slim@sha256:add5c17c14752c54d2f3d519ec46a3815684d41c33f198bcb09fb998f7dcbf68 AS node_runtime
+FROM node:26.13.1-bookworm-slim@sha256:5df79989ed685e09f0a98019db4cebfb22fb9df1a53c0161664a011f7ff6b0f1 AS node_runtime
 RUN npm install --global yarn@1.22.22
 
 ############################################################
@@ -67,16 +67,13 @@ RUN SECRET_KEY_BASE=anything \
 ############################################################
 FROM base AS runner
 
-# Temporarily mitigate CVE-2026-114938 in pdftk's Java runtime.
-ENV JAVA_TOOL_OPTIONS="-XX:-UseBASE64Intrinsics"
-
 # Install runtime packages and PostgreSQL client 17.
 # curl/gnupg are only needed to add the PGDG repo.
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
       ca-certificates curl gnupg && \
     \
-    curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc \
+    curl -fsSL https://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc \
       | gpg --dearmor -o /usr/share/keyrings/postgresql-archive-keyring.gpg && \
     echo "deb [signed-by=/usr/share/keyrings/postgresql-archive-keyring.gpg] https://apt.postgresql.org/pub/repos/apt bookworm-pgdg main" \
       > /etc/apt/sources.list.d/postgresql.list && \
