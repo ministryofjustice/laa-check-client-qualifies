@@ -54,8 +54,6 @@ updates:
       combined-dependencies:
         patterns:
           - "*"
-        exclude-patterns:
-          - "puppeteer"
         update-types:
           - "minor"
           - "patch"
