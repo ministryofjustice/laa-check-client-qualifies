@@ -1,10 +1,6 @@
 module QuestionFlowMethods
 protected
 
-  def assessment_code
-    params[:assessment_code].presence
-  end
-
   def load_check
     @check = Check.new(session_data)
   end

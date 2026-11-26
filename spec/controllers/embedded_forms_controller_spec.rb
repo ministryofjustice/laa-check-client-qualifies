@@ -249,11 +249,19 @@ RSpec.describe EmbeddedFormsController, ccq_mode: :embedded, type: :controller d
     it "stores the early result and CFE response without writing journey analytics" do
       expect(session_data).to include("early_result" => hash_including("result" => "ineligible"),
                                       "api_response" => cfe_api_response)
+      expect(journey_store).to have_received(:write).with(
+        hash_including(
+          "early_result" => hash_including("result" => "ineligible"),
+          "api_response" => cfe_api_response,
+        ),
+      )
       expect(JourneyLoggerService).not_to have_received(:call)
     end
 
     it "redirects to the next step instead of raising" do
-      expect(response).to have_http_status(:redirect)
+      expect(response.location).to end_with(
+        "/cases/#{resource_id}/eligibility/#{Flow::Handler.url_fragment(:outgoings)}",
+      )
     end
   end
 
@@ -263,6 +271,14 @@ RSpec.describe EmbeddedFormsController, ccq_mode: :embedded, type: :controller d
 
       expect(session_data).not_to include("immigration_or_asylum")
       expect(response).to have_http_status(:redirect)
+    end
+  end
+
+  describe "#assessment_code", :embedded_only do
+    it "is taken from the resource_id param rather than assessment_code" do
+      controller.params = { resource_id: resource_id, assessment_code: "ignored" }
+
+      expect(controller.send(:assessment_code)).to eq resource_id
     end
   end
 end

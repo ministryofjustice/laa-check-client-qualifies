@@ -9,4 +9,10 @@ class QuestionFlowController < ApplicationController
     @form = Flow::Handler.form_from_session(step, session_data)
     render "/question_flow/#{step}"
   end
+
+protected
+
+  def assessment_code
+    params[:assessment_code].presence
+  end
 end
