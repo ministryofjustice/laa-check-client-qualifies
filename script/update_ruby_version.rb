@@ -68,9 +68,9 @@ unless lock_versions == [current_version]
 end
 
 app_digest = docker_hub_digest("library/ruby", "#{version}-slim-bookworm")
-runner_digest = docker_hub_digest("cimg/ruby", "#{version}-browsers")
+# Fails before any write if the stock CircleCI browser image is missing.
+docker_hub_digest("cimg/ruby", "#{version}-browsers")
 app_image = "ruby:#{version}-slim-bookworm@#{app_digest}"
-runner_image = "cimg/ruby:#{version}-browsers@#{runner_digest}"
 
 changes = {}
 changes[".ruby-version"] = "#{version}\n"
@@ -102,14 +102,6 @@ changes["docker-images.json"] = replace_one(
   "application Ruby image in docker-images.json",
 )
 
-runner_dockerfile = read_file("Dockerfile_browser_tools.dockerfile")
-changes["Dockerfile_browser_tools.dockerfile"] = replace_one(
-  runner_dockerfile,
-  /^FROM cimg\/ruby:#{Regexp.escape(current_version)}-browsers@sha256:[0-9a-f]{64}$/,
-  "FROM #{runner_image}",
-  "runner Ruby base image",
-)
-
 circleci = read_file(".circleci/config.yml")
 circleci_pins = circleci.scan(/^(\s*-\s*image:\s*cimg\/ruby:)(\d+\.\d+\.\d+)(-browsers\s*)$/)
 if circleci_pins.empty? || circleci_pins.any? { |(_, pinned_version, _)| pinned_version != current_version }
@@ -126,5 +118,4 @@ end
 
 puts "Updated Ruby pins from #{current_version} to #{version}."
 puts "Resolved application image #{app_image}."
-puts "Resolved runner image #{runner_image}."
 puts "Run `bundle lock` with Ruby #{version} to update Gemfile.lock metadata."

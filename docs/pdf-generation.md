@@ -22,31 +22,21 @@ PDF rendering has specific accessibility accommodations:
 
 ## Puppeteer upgrade process
 
-Puppeteer is pinned and occasionally requires upgrades as Chrome changes.
+Puppeteer is pinned in `package.json`. Dependabot proposes updates under the npm policy in `.github/dependabot.yml`.
 
-Use the workflow-based process from trusted `main`:
+- Minor and patch updates join the `combined-dependencies` group.
+- Major updates open their own PR for separate review.
+- Review and merge once CircleCI is green.
 
-1. Open GitHub Actions and run `Puppeteer upgrade PR`.
-2. Set `puppeteer_version` (for example `25.2.1`).
-3. Optionally set `ruby_version` to upgrade the application and runner Ruby pins together. For a Ruby-only upgrade, set `puppeteer_version` to the current `package.json` version. Without an override, Ruby comes from `.ruby-version` on trusted `main`.
-4. If both requested versions are already current, the workflow is a no-op by default. To rebuild its runner, enable `rebuild_runner`.
-5. The workflow prepares from one captured `main` commit. It builds and smoke-tests the tooling-only runner before publishing the upgrade branch. It checks Ruby, Puppeteer, required tools, and a headless Chrome launch as the non-root CI user.
-6. Each run publishes a unique image tag containing Ruby and Puppeteer versions, the workflow run ID, and its attempt number. The workflow verifies the digest is retrievable and pins it in `.circleci/config.yml`.
-7. A retry reuses an existing automation-owned upgrade branch and open PR. If the branch was deleted, the workflow recreates it and updates the same PR. Before updating, the workflow checks that `main`, the branch SHA, and the PR number and head are unchanged. It updates the branch with `--force-with-lease` and edits the same PR. If updating the PR fails, the workflow attempts to restore the previous branch SHA. If `main` advances during the build, start a fresh run.
-8. Review and merge once CI is green. A maintainer may need to approve the PR's GitHub Actions checks.
+No custom browser image is needed. CircleCI runs on the stock `cimg/ruby:<version>-browsers` image. The standalone specs install Chrome with the application's Puppeteer CLI before they run, so Chrome matches the Puppeteer version in `package.json`.
 
-When Ruby changes, the workflow installs the requested runtime before updating
-lockfile metadata and updates application, runner, and CI pins together. Both
-`ruby:<version>-slim-bookworm` and
-`cimg/ruby:<version>-browsers` must be available upstream. Missing images fail
-preparation rather than selecting an older runtime.
+## Ruby upgrade process
 
-There is no push-triggered runner publisher or mutable `main` image tag. Manually authored PRs must keep the application Puppeteer version, runner Puppeteer version, Ruby version, and CircleCI image digest consistent. Pushing a branch does not build or repair its runner.
+Dependabot does not update Ruby. Use the standalone helper with the target Ruby version installed:
 
-Reference PR example:
+```bash
+ruby script/update_ruby_version.rb <version>
+bundle lock
+```
 
-- https://github.com/ministryofjustice/laa-check-client-qualifies/pull/1482/files
-
-Image tags:
-
-- https://hub.docker.com/r/checkclientqualifiesdocker/circleci-image/tags
+Use a complete version such as `4.0.9`. The helper must run under that Ruby version. It updates `.ruby-version`, `Gemfile`, `Dockerfile`, `docker-images.json`, and `.circleci/config.yml`. It checks that both `ruby:<version>-slim-bookworm` and `cimg/ruby:<version>-browsers` exist upstream. Missing images stop it before any file changes. `bundle lock` refreshes the Ruby metadata in `Gemfile.lock`.
