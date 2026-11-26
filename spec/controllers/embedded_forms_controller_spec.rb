@@ -227,6 +227,36 @@ RSpec.describe EmbeddedFormsController, ccq_mode: :embedded, type: :controller d
     end
   end
 
+  describe "POST #update when the early gross income result is ineligible", :embedded_only do
+    let(:cfe_api_response) { build(:api_result, eligible: "ineligible") }
+    let(:other_income_params) do
+      OtherIncomeForm::BOOLEAN_ATTRIBUTES.index_with { "false" }
+    end
+
+    before do
+      allow(Steps::Helper).to receive(:remaining_steps_for).and_return([:outgoings])
+      allow(CfeService).to receive_messages(
+        result: instance_double(CfeResult, gross_income_result: "ineligible", gross_income_excess: 100),
+        call: cfe_api_response,
+      )
+      allow(JourneyLoggerService).to receive(:call)
+
+      post :update, params: { resource_id: resource_id,
+                              step_url_fragment: Flow::Handler.url_fragment(:other_income),
+                              other_income_form: other_income_params }
+    end
+
+    it "stores the early result and CFE response without writing journey analytics" do
+      expect(session_data).to include("early_result" => hash_including("result" => "ineligible"),
+                                      "api_response" => cfe_api_response)
+      expect(JourneyLoggerService).not_to have_received(:call)
+    end
+
+    it "redirects to the next step instead of raising" do
+      expect(response).to have_http_status(:redirect)
+    end
+  end
+
   describe "POST #update for a step that is skipped in embedded mode", :embedded_only do
     it "redirects without processing the submitted form" do
       post :update, params: { resource_id: resource_id, step_url_fragment: "is-this-immigration-asylum-matter" }
