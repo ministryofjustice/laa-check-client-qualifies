@@ -15,6 +15,11 @@ private
 
   def track_completed_journey_for_early_result
     session_data["api_response"] = CfeService.call(session_data, Steps::Helper.completed_steps_for(session_data, step))
+
+    # Modes with analytics disabled (e.g. embedded) must not compute an assessment_id
+    # or build a CalculationResult just for JourneyLoggerService.
+    return unless ModeConfig.analytics_enabled?
+
     calculation_result = CalculationResult.new(session_data)
     JourneyLoggerService.call(assessment_id, calculation_result, @check, cookies)
   end
