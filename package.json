@@ -4,11 +4,11 @@
   "dependencies": {
     "@ministryofjustice/frontend": "8.0.1",
     "@rails/ujs": "^7.1.600",
-    "@sentry/browser": "11.16.0",
+    "@sentry/browser": "11.17.0",
     "esbuild": "^0.28.2",
     "govuk-frontend": "^5.14.0",
     "jquery": "^4.1.0",
-    "puppeteer": "25.16.0",
+    "puppeteer": "25.18.1",
     "rails_admin": "3.3.1",
     "sass": "^1.108.2"
   },
