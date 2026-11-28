@@ -80,13 +80,16 @@ RSpec.describe "layouts/rcw/application", :embedded_only, ccq_mode: :embedded, t
     expect(rendered).not_to include("GTM-STANDALONE")
   end
 
-  it "links the footer to the host cookies page even without analytics configuration" do
+  it "links the footer to the host policy pages even without analytics configuration" do
     allow(ENV).to receive(:[]).with("HOST_SERVICE_GTM_CONTAINER_ID").and_return(nil)
 
     render inline: "<h1>Assessment</h1>", layout: "layouts/rcw/application"
 
-    link = Nokogiri::HTML(rendered).at_css('footer a[href="/cookies"]')
-    expect(link).not_to be_nil
-    expect(link.text).to eq("Cookies")
+    links = Nokogiri::HTML(rendered).css("footer .govuk-footer__inline-list a")
+    expect(links.map { |link| [link.text, link["href"]] }).to eq([
+      ["Cookies", "/cookies"],
+      ["Accessibility statement", "/accessibility"],
+      ["Privacy policy", "/privacy-policy"],
+    ])
   end
 end
