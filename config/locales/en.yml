@@ -1114,6 +1114,7 @@ en:
           text: Housing costs (PDF, 599KB)
           link: "{%page_url}"
     shared_ownership_housing_costs:
+      page_title: Shared ownership housing costs
       heading: Housing costs
       heading_hint:
         - "Enter the housing costs for the shared ownership scheme home your client lives in."
@@ -1197,6 +1198,7 @@ en:
     partner_benefits:
       legend: Does the partner get any benefits?
     partner_benefit_details:
+      page_title: Add partner benefit details
       heading: Add benefit details
       select_frequency: When does the partner normally get this benefit?
       paragraph1_controlled_html: "Add details of any benefits the partner gets. <a href='%{page_url}' target='_blank' rel='noreferrer noopener'>Check the guidance (PDF, 599KB)</a> to find out which benefits you do not need to tell us about for this question, for example:"

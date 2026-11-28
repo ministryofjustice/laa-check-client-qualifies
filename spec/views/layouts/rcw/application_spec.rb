@@ -92,4 +92,42 @@ RSpec.describe "layouts/rcw/application", :embedded_only, ccq_mode: :embedded, t
       ["Privacy policy", "/privacy-policy"],
     ])
   end
+
+  describe "document title" do
+    def rendered_title
+      Nokogiri::HTML(rendered).at_css("title").text
+    end
+
+    it "uses the embedded format with the page name first" do
+      render inline: "<% content_for :page_title, 'Client age' %><h1>Client age</h1>", layout: "layouts/rcw/application"
+
+      expect(rendered_title).to eq("Client age - Record controlled work - GOV.UK")
+    end
+
+    it "uses the service name alone when the page has no title" do
+      render inline: "<h1>Assessment</h1>", layout: "layouts/rcw/application"
+
+      expect(rendered_title).to eq("Record controlled work - GOV.UK")
+    end
+
+    it "prefixes the title with Error when the form has validation errors" do
+      form = ClientAgeForm.new(client_age: "invalid")
+      form.valid?
+      assign(:form, form)
+
+      render inline: "<% content_for :page_title, 'Client age' %><h1>Client age</h1>", layout: "layouts/rcw/application"
+
+      expect(rendered_title).to eq("Error: Client age - Record controlled work - GOV.UK")
+    end
+
+    it "does not prefix the title when the form has no errors" do
+      form = ClientAgeForm.new(client_age: ClientAgeForm::STANDARD)
+      form.valid?
+      assign(:form, form)
+
+      render inline: "<% content_for :page_title, 'Client age' %><h1>Client age</h1>", layout: "layouts/rcw/application"
+
+      expect(rendered_title).to eq("Client age - Record controlled work - GOV.UK")
+    end
+  end
 end

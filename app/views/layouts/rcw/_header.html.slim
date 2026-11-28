@@ -11,8 +11,9 @@ head
                          environment: analytics_environment,
                          consent: (%w[accepted rejected].include?(consent) ? consent : "none") }
   title
+    = "#{t('generic.error_prefix')} " if @form&.errors&.any?
     = yield(:page_title)
-    = " | " if content_for?(:page_title)
+    = " - " if content_for?(:page_title)
     = t("layouts.rcw.service.name_for_page_title")
 
   = csrf_meta_tags
